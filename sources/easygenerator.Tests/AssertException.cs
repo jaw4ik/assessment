@@ -45,12 +45,15 @@ namespace easygenerator.Tests
             {
                 action();
             }
-            catch (T)
+            catch (T e)
             {
-                if (rethrow)
-                    throw;
+                if (typeof(T) == e.GetType())
+                {
+                    if (rethrow)
+                        throw;
 
-                return;
+                    return;
+                }
             }
             catch { }
 
