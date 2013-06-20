@@ -37,7 +37,7 @@ namespace easygenerator.Web.Configuration
             routes.MapRoute(
                 name: "Default",
                 url: "",
-                defaults: new { controller = "Objective", action = "Index" }
+                defaults: new { controller = "Home", action = "Index" }
             );
         }
     }

@@ -11,6 +11,7 @@ namespace easygenerator.Web
         {
             AreaRegistration.RegisterAllAreas();
 
+            BundleConfiguration.Configure();
             RouteConfiguration.Configure();
             FilterConfiguration.Configure();
             ContainerConfiguration.Configure();

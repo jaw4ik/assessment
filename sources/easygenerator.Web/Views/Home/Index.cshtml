@@ -1,7 +1,8 @@
-﻿@model dynamic
+﻿@using System.Web.Optimization
+<div id="applicationHost">
+    <div style="position: absolute; left: 50%; top: 50%"><i class="icon-spinner icon-2x icon-spin"></i></div>
+</div>
 
-@{
-    ViewBag.Title = "Hello, world!";
-}
 
-<h2>Hello, world!</h2>
+@Scripts.Render("~/scripts/vendor")
+<script src="/App/durandal/amd/require.js" data-main="App/main"></script>
