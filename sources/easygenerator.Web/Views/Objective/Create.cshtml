@@ -1,0 +1,23 @@
+﻿@model easygenerator.Web.ViewModels.Objective.CreateObjectiveViewModel
+
+<h2>New Objective</h2>
+
+<br />
+<br />
+
+
+@using (Html.BeginRouteForm("CreateObjective", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="control-group">
+        @Html.LabelFor(m => m.Title, new { @class = "control-label" })
+        <div class="controls">
+            @Html.TextBoxFor(m => m.Title, new { @placeholder = "Title" })
+            @Html.ValidationMessageFor(m => m.Title, null, new { @class = "help-inline" })
+        </div>
+    </div>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+}
+

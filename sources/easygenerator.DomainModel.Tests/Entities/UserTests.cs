@@ -5,7 +5,7 @@ using easygenerator.Tests;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
-    [TestClass]
+    //[TestClass]
     public class UserTests
     {
         [TestMethod]

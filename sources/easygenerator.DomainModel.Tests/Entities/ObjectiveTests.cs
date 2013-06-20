@@ -15,9 +15,15 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void Objective_ShouldThrowArgumentException_WhenTitleIsInvalid()
+        public void Objective_ShouldThrowArgumentException_WhenTitleIsEmpty()
         {
             AssertException.ExpectArgumentException(() => ObjectiveObjectMother.CreateWithTitle(String.Empty), "title");
+        }
+
+        [TestMethod]
+        public void Objective_ShouldThrowArgumentOutOfRangeException_WhenTitleIsLongerThan255()
+        {
+            AssertException.ExpectArgumentOutOfRangeException(() => ObjectiveObjectMother.CreateWithTitle(new string('*', 256)), "title");
         }
 
         [TestMethod]

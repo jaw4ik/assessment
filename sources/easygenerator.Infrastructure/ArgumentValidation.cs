@@ -69,13 +69,23 @@ namespace easygenerator.Infrastructure
             }
         }
 
-        public static void ThrowIfNegative(int toValidate, string argumentName)
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException"/> if the specified string is longer than 255 symbols
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="toValidate"/> is longer than 255 symbols.</exception>
+        public static void ThrowIfLongerThan255(string toValidate, string argumentName)
         {
-            if (toValidate < 0)
+            ThrowIfLongerThan(toValidate, 255, argumentName);
+        }
+
+        private static void ThrowIfLongerThan(string toValidate, int length, string argumentName)
+        {
+            if (toValidate.Length > length)
             {
-                throw new ArgumentOutOfRangeException(String.Format("The value of {0} cannot be negative.", argumentName), argumentName);
+                throw new ArgumentOutOfRangeException(argumentName, String.Format("The value of {0} cannot be longer than {1}.", argumentName, length));
             }
         }
+
         #endregion
     }
 }

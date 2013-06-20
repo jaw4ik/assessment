@@ -13,6 +13,7 @@ namespace easygenerator.Web
 
             RouteConfiguration.Configure();
             FilterConfiguration.Configure();
+            ContainerConfiguration.Configure();
         }
     }
 }

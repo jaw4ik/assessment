@@ -16,14 +16,14 @@ namespace easygenerator.DomainModel.Entities
             ModifiedOn = DateTimeWrapper.Now();
         }
 
-        //protected internal Entity(string createdBy)
-        //    : this()
-        //{
-        //    ArgumentValidation.ThrowIfNullOrEmpty(createdBy, "createdBy");
+        protected internal Entity(string createdBy)
+            : this()
+        {
+            ArgumentValidation.ThrowIfNullOrEmpty(createdBy, "createdBy");
 
-        //    CreatedBy = createdBy;
-        //    ModifiedBy = createdBy;
-        //}
+            CreatedBy = createdBy;
+            ModifiedBy = createdBy;
+        }
 
         public Guid Id { get; protected set; }
         public DateTime CreatedOn { get; protected set; }
@@ -31,16 +31,11 @@ namespace easygenerator.DomainModel.Entities
         public string CreatedBy { get; protected set; }
         public string ModifiedBy { get; protected set; }
 
-        //public virtual bool HasPermission(string username, AccessType accessType)
-        //{
-        //    return username == CreatedBy;
-        //}
-
-        //protected virtual void MarkAsModified(string modifiedBy)
-        //{
-        //    ModifiedBy = modifiedBy;
-        //    ModifiedOn = DateTimeWrapper.Now();
-        //}
+        protected virtual void MarkAsModified(string modifiedBy)
+        {
+            ModifiedBy = modifiedBy;
+            ModifiedOn = DateTimeWrapper.Now();
+        }
 
         public override string ToString()
         {

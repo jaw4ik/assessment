@@ -39,6 +39,18 @@ namespace easygenerator.Tests
             }
         }
 
+        public static void ExpectArgumentOutOfRangeException(Action action, string paramName)
+        {
+            try
+            {
+                ExpectException<ArgumentOutOfRangeException>(action, true);
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Assert.AreEqual(paramName, e.ParamName);
+            }
+        }
+
         private static void ExpectException<T>(Action action, bool rethrow = false) where T : Exception
         {
             try
