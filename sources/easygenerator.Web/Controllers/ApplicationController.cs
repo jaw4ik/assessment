@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers
 {
-    public class HomeController : Controller
+    public class ApplicationController : Controller
     {
         //
         // GET: /Home/

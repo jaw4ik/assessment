@@ -12,9 +12,6 @@ namespace easygenerator.Web.Configuration
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 
-
-
-
             routes.MapRoute(
                 name: "CreateObjective",
                 url: "objective/create",
@@ -37,7 +34,7 @@ namespace easygenerator.Web.Configuration
             routes.MapRoute(
                 name: "Default",
                 url: "",
-                defaults: new { controller = "Home", action = "Index" }
+                defaults: new { controller = "Application", action = "Index" }
             );
         }
     }
