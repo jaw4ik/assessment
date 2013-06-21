@@ -11,7 +11,7 @@
                 router.navigateBack();
             },
             activate = function () {
-
+                title(null);
             };
 
         return {
