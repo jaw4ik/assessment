@@ -151,6 +151,7 @@
     <Content Include="apple-touch-icon-precomposed.png" />
     <Content Include="apple-touch-icon.png" />
     <Content Include="App\configuration\routes.js" />
+    <Content Include="App\dataContext.js" />
     <Content Include="App\durandal\amd\almond-custom.js" />
     <Content Include="App\durandal\amd\optimizer.exe" />
     <Content Include="App\durandal\amd\r.js" />
@@ -173,6 +174,7 @@
     <Content Include="App\durandal\widget.js" />
     <Content Include="App\logger.js" />
     <Content Include="App\main.js" />
+    <Content Include="App\models\objective.js" />
     <Content Include="App\viewModels\objectives\objectives.js" />
     <Content Include="App\viewModels\_layout.js" />
     <Content Include="App\viewModels\objectives\createObjective.js" />

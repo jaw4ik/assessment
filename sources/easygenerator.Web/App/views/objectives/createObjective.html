@@ -1,10 +1,11 @@
 ﻿<fieldset>
     <legend>New Objective</legend>
     <form class="form-horizontal">
-        <div class="control-group">
+        <div class="control-group" data-bind="css : { error: !title.isValid() && title.isModified() }">
             <label class="control-label" for="objectiveTitle">Title</label>
             <div class="controls">
-                <input type="text" id="objectiveTitle" placeholder="Objective title..." data-bind="value: title">
+                <input type="text" id="objectiveTitle" placeholder="Objective title..." data-bind="value: title, valueUpdate: 'afterkeydown'">
+                <span class="help-inline" data-bind="text: title.errorMessage, visible: !title.isValid() && title.isModified()"></span>
             </div>
         </div>
         <div class="form-actions">
