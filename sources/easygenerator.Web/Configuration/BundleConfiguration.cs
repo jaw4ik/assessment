@@ -19,6 +19,7 @@ namespace easygenerator.Web.Configuration
                             .Include("~/scripts/jquery-{version}.js")
                             .Include("~/scripts/bootstrap.js")
                             .Include("~/scripts/knockout-{version}.js")
+                            .Include("~/scripts/knockout.validation.js")
                             .Include("~/scripts/sammy-{version}.js")
                             .Include("~/scripts/q.js"));
 

@@ -3,13 +3,17 @@
 });
 
 
+ko.validation.configure({
+    errorMessageClass: 'help-inline'
+});
+
 define(function (require) {
     var system = require('durandal/system'),
         app = require('durandal/app'),
         router = require('durandal/plugins/router'),
         viewLocator = require('durandal/viewLocator');
 
-    //system.debug(true);
+    system.debug(true);
 
     app.start().then(function () {
         // route will use conventions for modules
