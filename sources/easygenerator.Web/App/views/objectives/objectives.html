@@ -1,25 +1,17 @@
 ﻿<div>
     <br />
-    <a href="/#/objective/create"><i class="icon-plus icon-2x">&nbsp;New Objective</i></a>
+    <a href="/#/objective/create" class="btn btn-success"><i class="icon-book">&nbsp;</i>New Objective</a>
     <div class="pull-right">
-        <input type="text" class="input-xxlarge" data-bind="value: filter, valueUpdate: 'afterkeydown'"/>
+        <input type="text" class="input-xxlarge" data-bind="value: filter, valueUpdate: 'afterkeydown'" />
     </div>
     <div class="clearfix">
     </div>
     <br />
-    <ul class="unstyled">
-        <!--<li style="width: 25%; float: left;">
-                <div style="border: 1px dotted #EEEEEE; margin: 5px; padding: 20px">
-                    <a href="#/objective/create">
-                        <i class="icon-plus"></i>
-                        <span>Create new Objective</span>
-                    </a>
-                </div>
-            </li>-->
+    <ul class="unstyled" style="margin: 5px;">
         <!-- ko foreach: objectives -->
-        <li style="width: 25%; float: left;">
-            <div style="border: 1px dotted #EEEEEE; margin: 5px; padding: 20px">
-                <span data-bind="text: title"></span>
+        <li style="width: 280px; height: 170px; position: relative; float: left;">
+            <div style="border: 1px dotted #EEEEEE; margin: 5px; padding: 20px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-size: 100% 100%;" data-bind="style: { backgroundImage: 'url(' + image + ')' }">
+                <span data-bind="text: title" class="alert alert-info" style="display: inline-block"></span>
             </div>
         </li>
         <!-- /ko -->

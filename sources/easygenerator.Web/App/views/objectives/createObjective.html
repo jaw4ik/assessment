@@ -8,6 +8,14 @@
                 <span class="help-inline" data-bind="text: title.errorMessage, visible: !title.isValid() && title.isModified()"></span>
             </div>
         </div>
+        <div class="control-group">
+            <label class="control-label" for="objectiveTitle">Thumbnail</label>
+            <div class="controls">
+                <a href="#" data-bind="click: image.previousOption"><i class="icon-arrow-left"></i></a>
+                <img data-bind="attr: { src: image }" />
+                <a href="#" data-bind="click: image.nextOption"><i class="icon-arrow-right"></i></a>
+            </div>
+        </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-primary" data-bind="click: save">Save changes</button>
             <button type="button" class="btn" data-bind="click: cancel">Cancel</button>
