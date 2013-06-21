@@ -1,0 +1,21 @@
+﻿<div>
+    <ul class="unstyled">
+        <li style="width: 25%; float: left;">
+            <div style="border: 1px dotted #EEEEEE; margin: 5px; padding: 20px">
+                <a href="#/objective/create">
+                    <i class="icon-plus"></i>
+                    <span>Create new Objective</span>
+                </a>
+            </div>
+        </li>
+        <!-- ko foreach: objectives -->
+        <li style="width: 25%; float: left;">
+            <div style="border: 1px dotted #EEEEEE; margin: 5px; padding: 20px">
+                <span data-bind="text: title"></span>
+            </div>
+        </li>
+        <!-- /ko -->
+    </ul>
+    <div class="clearfix"></div>
+
+</div>
