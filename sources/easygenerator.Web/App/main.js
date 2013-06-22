@@ -1,5 +1,6 @@
 ﻿require.config({
-    paths: { "text": "durandal/amd/text" }
+    paths: { "text": "durandal/amd/text" },
+    urlArgs: 'v=' + Math.random()
 });
 
 
@@ -13,7 +14,7 @@ define(function (require) {
         router = require('durandal/plugins/router'),
         viewLocator = require('durandal/viewLocator');
 
-    system.debug(true);
+    //system.debug(true);
 
     app.start().then(function () {
         // route will use conventions for modules

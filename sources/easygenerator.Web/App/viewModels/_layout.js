@@ -1,7 +1,7 @@
 ﻿define(['durandal/plugins/router', 'configuration/routes', 'dataContext'],
     function (router, routes, datacontext) {
         var
-            startModule = 'objectives',
+            startModule = 'home',
             activate = function () {
                 return datacontext.initialize()
                     .then(function () {

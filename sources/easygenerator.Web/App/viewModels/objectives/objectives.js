@@ -4,6 +4,7 @@
             objectives = ko.observableArray([]),
             filter = ko.observable(),
             filteredObjectives = ko.computed(function () {
+                console.log(objectives())
                 var filterValue = filter();
                 if (!filterValue) {
                     return objectives();

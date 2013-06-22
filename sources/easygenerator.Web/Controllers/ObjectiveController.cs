@@ -21,7 +21,7 @@ namespace easygenerator.Web.Controllers
         public ActionResult Index()
         {
             var objectives = _repository.GetCollection();
-
+            
             return View(objectives.ToList().ConvertAll(input => input.Title));
         }
 

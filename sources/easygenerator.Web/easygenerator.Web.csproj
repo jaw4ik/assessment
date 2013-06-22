@@ -175,9 +175,11 @@
     <Content Include="App\logger.js" />
     <Content Include="App\main.js" />
     <Content Include="App\models\objective.js" />
+    <Content Include="App\viewModels\home.js" />
     <Content Include="App\viewModels\objectives\objectives.js" />
     <Content Include="App\viewModels\_layout.js" />
     <Content Include="App\viewModels\objectives\createObjective.js" />
+    <Content Include="App\views\home.html" />
     <Content Include="App\views\objectives\objectives.html" />
     <Content Include="App\views\_layout.html" />
     <Content Include="App\views\objectives\createObjective.html" />
