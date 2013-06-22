@@ -1,14 +1,14 @@
-﻿define([],
-    function () {
+﻿define(['models/entity'],
+    function (EntityModel) {
 
         var Publication = function (spec) {
 
-            if (typeof spec == typeof undefined) throw 'You should provide a specification to create Publication';
-            return {
-                id: spec.id,
-                title: spec.title,
-                objectives: spec.objectives
-            };
+            var obj = new EntityModel(spec);
+
+            obj.title = spec.title;
+            obj.objectives = spec.objectives;
+
+            return obj;
         };
 
         return Publication;

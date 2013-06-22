@@ -9,17 +9,17 @@
 
         self.image = ko.observable();
 
-        self.image.options = images.slice(7, 11);
+        self.image.options = images.slice(0, images.length - 1);
 
         self.image.currentOption = ko.observable(-1);
 
-        self.image.nextOption = function() {
+        self.image.nextOption = function () {
             var index = self.image.options.length > self.image.currentOption() + 1 ? self.image.currentOption() + 1 : 0;
             self.image.currentOption(index);
             self.image(self.image.options[index]);
         };
 
-        self.image.previousOption = function() {
+        self.image.previousOption = function () {
             var index = self.image.currentOption() - 1 < 0 ? self.image.options.length - 1 : self.image.currentOption() - 1;
             self.image.currentOption(index);
             self.image(self.image.options[index]);
@@ -30,7 +30,7 @@
                 self.title.isModified(true);
                 return;
             }
-            var objective = new ObjectiveModel({ title: self.title(), image: self.image() });
+            var objective = new ObjectiveModel({ id: dataContext.objectives.length, title: self.title(), image: self.image() });
             dataContext.objectives.push(objective);
             router.navigateTo('#/');
         };

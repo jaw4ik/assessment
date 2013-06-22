@@ -5,7 +5,7 @@
 
         self.title = ko.observable();
         self.image = ko.observable();
-
+        self.questions = ko.observableArray([]);
 
         self.activate = function (routeData) {
 
@@ -19,6 +19,7 @@
 
             self.title(objective.title);
             self.image(objective.image);
+            self.questions(objective.questions);
         };
 
         self.goBack = function () {
@@ -29,6 +30,7 @@
             activate: self.activate,
             title: self.title,
             image: self.image,
+            questions: self.questions,
 
             goBack: self.goBack
         };

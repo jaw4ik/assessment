@@ -1,2 +1,9 @@
 ﻿<h2 data-bind="text: title"></h2>
+<ul>
+    <!-- ko foreach: questions -->
+    <li data-bind="text: title"></li>
+    <!-- /ko -->
+</ul>
+
+
 <a href="#" data-bind="click: goBack">< Back</a>

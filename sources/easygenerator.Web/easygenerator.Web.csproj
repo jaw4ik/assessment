@@ -175,8 +175,10 @@
     <Content Include="App\durandal\widget.js" />
     <Content Include="App\logger.js" />
     <Content Include="App\main.js" />
+    <Content Include="App\models\entity.js" />
     <Content Include="App\models\objective.js" />
     <Content Include="App\models\publication.js" />
+    <Content Include="App\models\question.js" />
     <Content Include="App\viewmodels\home.js" />
     <Content Include="App\viewmodels\objectives\createObjective.js" />
     <Content Include="App\viewmodels\objectives\objective.js" />
