@@ -38,11 +38,11 @@
             }
             var objective = new ObjectiveModel({ title: self.title(), image: self.image() });
             dataContext.objectives.push(objective);
-            router.navigateBack();
+            router.navigateTo('#/');
         };
 
         self.cancel = function () {
-            router.navigateBack();
+            router.navigateTo('#/');
         };
 
         self.activate = function () {

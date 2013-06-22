@@ -14,7 +14,9 @@ define(function (require) {
         router = require('durandal/plugins/router'),
         viewLocator = require('durandal/viewLocator');
 
-    //system.debug(true);
+    //>>excludeStart("build", true);
+    system.debug(true);
+    //>>excludeEnd("build");
 
     app.start().then(function () {
         // route will use conventions for modules

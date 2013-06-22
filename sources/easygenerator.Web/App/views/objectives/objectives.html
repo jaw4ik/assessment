@@ -17,5 +17,12 @@
         <!-- /ko -->
     </ul>
     <div class="clearfix"></div>
-
+    <!-- ko if: totalCount() > displayCount() -->
+    <div style="text-align: center">
+        <br/>
+        <strong data-bind="text: displayCount"></strong>&nbsp;of&nbsp;<strong data-bind="text:totalCount"></strong>
+        <br />
+        <a href="#" class="btn" data-bind="click: showMore">Show more</a>
+    </div>
+    <!-- /ko -->
 </div>
