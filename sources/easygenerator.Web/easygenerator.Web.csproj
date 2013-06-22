@@ -208,7 +208,7 @@
     <Content Include="Content\images\publication.jpg" />
     <Content Include="Content\styles.css" />
     <Content Include="favicon.ico" />
-    <Compile Include="Global.asax" />
+    <Content Include="Global.asax" />
     <Content Include="humans.txt" />
     <Content Include="robots.txt" />
     <Content Include="Content\font\fontawesome-webfont.woff" />
