@@ -15,6 +15,12 @@
                 caption: 'Create New Objective'
             },
             {
+                url: 'objective/:id',
+                moduleId: 'viewmodels/objectives/objective',
+                name: 'Objective Properties',
+                caption: 'Objective Properties'
+            },
+            {
                 url: 'publication/create',
                 moduleId: 'viewmodels/publications/createPublication',
                 name: 'Create New Publication',

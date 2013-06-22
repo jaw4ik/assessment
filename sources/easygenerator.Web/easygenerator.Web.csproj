@@ -150,6 +150,7 @@
     <Content Include="apple-touch-icon-72x72-precomposed.png" />
     <Content Include="apple-touch-icon-precomposed.png" />
     <Content Include="apple-touch-icon.png" />
+    <Content Include="App\configuration\images.js" />
     <Content Include="App\configuration\routes.js" />
     <Content Include="App\dataContext.js" />
     <Content Include="App\durandal\amd\almond-custom.js" />
@@ -184,6 +185,7 @@
     <Content Include="App\viewmodels\publications\publications.js" />
     <Content Include="App\viewmodels\_layout.js" />
     <Content Include="App\views\home.html" />
+    <Content Include="App\views\objectives\objective.html" />
     <Content Include="App\views\objectives\objectives.html" />
     <Content Include="App\views\publications\createPublication.html" />
     <Content Include="App\views\publications\publications.html" />
@@ -229,6 +231,8 @@
     <Content Include="Scripts\q.min.js" />
     <Content Include="Scripts\sammy-0.7.4.js" />
     <Content Include="Scripts\sammy-0.7.4.min.js" />
+    <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\underscore.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

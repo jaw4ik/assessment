@@ -1,5 +1,5 @@
-﻿define(['dataContext'],
-    function (dataContext) {
+﻿define(['dataContext', 'durandal/plugins/router'],
+    function (dataContext, router) {
         var
             objectives = ko.observableArray([]),
 
@@ -25,7 +25,12 @@
             showMore = function () {
                 displayCount(displayCount() + pageLength);
             },
-            
+
+            goToDetails = function (item) {
+                var url = '#/objective/' + item.id;
+                router.navigateTo(url);
+            },
+
             activate = function () {
                 objectives(ko.utils.arrayMap(dataContext.objectives, function (item) {
                     return { id: item.id, title: item.title, image: item.image };
@@ -38,7 +43,8 @@
             objectives: pagedObjectives,
             displayCount: displayCount,
             totalCount: totalCount,
-            showMore: showMore
+            showMore: showMore,
+            goToDetails: goToDetails
         };
     }
 );

@@ -21,7 +21,8 @@ namespace easygenerator.Web.Configuration
                             .Include("~/scripts/knockout-{version}.js")
                             .Include("~/scripts/knockout.validation.js")
                             .Include("~/scripts/sammy-{version}.js")
-                            .Include("~/scripts/q.js"));
+                            .Include("~/scripts/q.js")
+                            .Include("~/scripts/underscore.js"));
 
             bundles.Add(new StyleBundle("~/Content/css")
                             .Include("~/Content/bootstrap.css")
