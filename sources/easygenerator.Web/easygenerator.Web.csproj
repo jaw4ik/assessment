@@ -187,6 +187,7 @@
     <Content Include="App\viewmodels\publications\publications.js" />
     <Content Include="App\viewmodels\_layout.js" />
     <Content Include="App\views\home.html" />
+    <Content Include="App\views\objectives\objective.html" />
     <Content Include="App\views\objectives\objectives.html" />
     <Content Include="App\views\publications\createPublication.html" />
     <Content Include="App\views\publications\publications.html" />
@@ -207,7 +208,7 @@
     <Content Include="Content\images\publication.jpg" />
     <Content Include="Content\styles.css" />
     <Content Include="favicon.ico" />
-    <Content Include="Global.asax" />
+    <Compile Include="Global.asax" />
     <Content Include="humans.txt" />
     <Content Include="robots.txt" />
     <Content Include="Content\font\fontawesome-webfont.woff" />
@@ -233,6 +234,8 @@
     <Content Include="Scripts\q.min.js" />
     <Content Include="Scripts\sammy-0.7.4.js" />
     <Content Include="Scripts\sammy-0.7.4.min.js" />
+    <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\underscore.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
