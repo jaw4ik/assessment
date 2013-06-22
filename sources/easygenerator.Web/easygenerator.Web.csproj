@@ -175,12 +175,15 @@
     <Content Include="App\logger.js" />
     <Content Include="App\main.js" />
     <Content Include="App\models\objective.js" />
-    <Content Include="App\viewModels\home.js" />
-    <Content Include="App\viewModels\objectives\objectives.js" />
-    <Content Include="App\viewModels\_layout.js" />
-    <Content Include="App\viewModels\objectives\createObjective.js" />
+    <Content Include="App\viewmodels\home.js" />
+    <Content Include="App\viewmodels\objectives\createObjective.js" />
+    <Content Include="App\viewmodels\objectives\objective.js" />
+    <Content Include="App\viewmodels\objectives\objectives.js" />
+    <Content Include="App\viewmodels\publications\publications.js" />
+    <Content Include="App\viewmodels\_layout.js" />
     <Content Include="App\views\home.html" />
     <Content Include="App\views\objectives\objectives.html" />
+    <Content Include="App\views\publications\publications.html" />
     <Content Include="App\views\_layout.html" />
     <Content Include="App\views\objectives\createObjective.html" />
     <Content Include="Content\bootstrap-responsive.css" />
@@ -284,6 +287,11 @@
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.7\tools\Microsoft.Bcl.Build.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>set PATH=C:\Program Files\nodejs
+cd $(ProjectDir)App\durandal\amd
+optimizer.exe --verbose</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

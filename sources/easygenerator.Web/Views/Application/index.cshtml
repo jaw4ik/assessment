@@ -6,6 +6,13 @@
     <div style="position: absolute; left: 50%; top: 50%; margin-left: -12px; margin-top: -15px;"><i class="icon-spinner icon-2x icon-spin"></i></div>
 </div>
 
-
 @Scripts.Render("~/scripts/vendor")
-<script src="/App/durandal/amd/require.js" data-main="App/main"></script>
+
+@if (HttpContext.Current.IsDebuggingEnabled)
+{
+    <script src="/App/durandal/amd/require.js" data-main="App/main"></script>
+}
+else
+{
+    <script type="text/javascript" src="~/App/main-built.js"></script>
+}
