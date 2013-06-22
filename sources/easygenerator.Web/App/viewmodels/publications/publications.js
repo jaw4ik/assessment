@@ -2,17 +2,29 @@
     function (dataContext) {
         var
             publications = ko.observableArray([]),
+            filter = ko.observable(),
+
             activate = function () {
-                publications([
-                    { title: '1' },
-                    { title: '2' },
-                    { title: '3' }
-                ]);
-            };
+                publications(ko.utils.arrayMap(dataContext.publications, function (item) {
+                    return { id: item.id, title: item.title, objectives: item.objectives };
+                }));
+            },
+
+            filteredPublications = ko.computed(function () {
+                var filterValue = filter();
+                if (!filterValue) {
+                    return publications();
+                }
+
+                return ko.utils.arrayFilter(publications(), function (item) {
+                    return item.title.toLowerCase().indexOf(filterValue.toLowerCase()) !== -1;
+                });
+            });
 
         return {
             activate: activate,
-            publications: publications
+            filter: filter,
+            publications: filteredPublications
         };
     }
 );

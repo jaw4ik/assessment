@@ -1,8 +1,20 @@
 ﻿<div>
-    <br />
+    <a href="/#/publication/create" class="btn btn-success"><i class="icon-book">&nbsp;</i>Create Publication</a>
+    <div class="pull-right">
+        <input type="text" class="input-xxlarge" data-bind="value: filter, valueUpdate: 'afterkeydown'" placeholder="Publications filter" />
+    </div>
+    <div class="clearfix">
+    </div>
     <ul class="unstyled" style="margin: 5px;">
         <!-- ko foreach: publications -->
-        <li data-bind="text: title"></li>
+        <li style="width: 280px; height: 170px; position: relative; float: left;">
+            <div style="border: 1px dotted #EEEEEE; margin: 5px; padding: 20px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-size: 100% 100%; background-image: url('Content/images/publication.jpg');">
+                <br/>
+                <br/>
+                <br/>
+                <span class="alert alert-info" style="display: inline-block" data-bind="text: title + ' [' + objectives.length + ']'"></span>
+            </div>
+        </li>
         <!-- /ko -->
     </ul>
     <div class="clearfix"></div>
