@@ -185,12 +185,15 @@
     <Content Include="App\viewmodels\objectives\objectives.js" />
     <Content Include="App\viewmodels\publications\createPublication.js" />
     <Content Include="App\viewmodels\publications\publications.js" />
+    <Content Include="App\views\questions\createQuestion.html" />
     <Content Include="App\viewmodels\_layout.js" />
     <Content Include="App\views\home.html" />
     <Content Include="App\views\objectives\objective.html" />
     <Content Include="App\views\objectives\objectives.html" />
     <Content Include="App\views\publications\createPublication.html" />
     <Content Include="App\views\publications\publications.html" />
+    <Content Include="App\viewmodels\questions\createQuestion.js" />
+    <Content Include="App\viewmodels\questions\question.js" />
     <Content Include="App\views\_layout.html" />
     <Content Include="App\views\objectives\createObjective.html" />
     <Content Include="Content\bootstrap-responsive.css" />

@@ -1,8 +1,13 @@
 ﻿require.config({
-    paths: { "text": "durandal/amd/text" },
-    urlArgs: 'v=' + Math.random()
+    paths: { "text": "durandal/amd/text" }
 });
 
+
+//>>excludeStart("build", true);
+require.config({
+    urlArgs: 'v=' + Math.random()
+});
+//>>excludeEnd("build");
 
 ko.validation.configure({
     errorMessageClass: 'help-inline'
@@ -22,7 +27,7 @@ define(function (require) {
         // route will use conventions for modules
         // assuming viewmodels/views folder structure
         router.useConvention();
-        
+
         // When finding a module, replace the viewmodel string 
         // with view to find it partner view.
         // [viewmodel]s/sessions --> [view]s/sessions.html

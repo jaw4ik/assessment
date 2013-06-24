@@ -3,6 +3,7 @@
 
         var self = {};
 
+        self.id = ko.observable();
         self.title = ko.observable();
         self.image = ko.observable();
         self.questions = ko.observableArray([]);
@@ -17,6 +18,7 @@
                 router.navigateTo('404');
             }
 
+            self.id(routeData.id);
             self.title(objective.title);
             self.image(objective.image);
             self.questions(objective.questions);
@@ -28,6 +30,7 @@
 
         return {
             activate: self.activate,
+            id: self.id,
             title: self.title,
             image: self.image,
             questions: self.questions,

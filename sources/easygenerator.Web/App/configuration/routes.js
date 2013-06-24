@@ -25,6 +25,18 @@
                 moduleId: 'viewmodels/publications/createPublication',
                 name: 'Create New Publication',
                 caption: 'Create New Publication'
+            },
+            {
+                url: 'objective/:objectiveId/question/create',
+                moduleId: 'viewmodels/questions/createQuestion',
+                name: 'Create New Question',
+                caption: 'Create New Question'
+            },
+            {
+                url: 'objective/:objectiveId/question/:id',
+                moduleId: 'viewmodels/questions/question',
+                name: 'Question Properties',
+                caption: 'Question Properties'
             }
         ];
     }
