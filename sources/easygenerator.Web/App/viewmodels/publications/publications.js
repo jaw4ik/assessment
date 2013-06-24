@@ -19,12 +19,31 @@
                 return ko.utils.arrayFilter(publications(), function (item) {
                     return item.title.toLowerCase().indexOf(filterValue.toLowerCase()) !== -1;
                 });
-            });
+            }),
+
+            pageLength = 12,
+
+            displayCount = ko.observable(pageLength),
+
+            totalCount = ko.computed(function () {
+                return filteredPublications().length;
+            }),
+
+            pagedPublications = ko.computed(function () {
+                return filteredPublications().slice(0, displayCount());
+            }),
+
+            showMore = function () {
+                displayCount(displayCount() + pageLength);
+            };
 
         return {
             activate: activate,
             filter: filter,
-            publications: filteredPublications
+            publications: pagedPublications,
+            displayCount: displayCount,
+            totalCount: totalCount,
+            showMore: showMore
         };
     }
 );

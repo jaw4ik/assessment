@@ -21,7 +21,7 @@
                         }));
                     }
 
-                    for (var j = 0; j < 5; j++)
+                    for (var j = 0; j < images.length; j++)
                         publications.push(new PublicationModel({
                             id: j,
                             title: 'Publication #' + (j + 1),
