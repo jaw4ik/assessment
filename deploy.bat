@@ -8,7 +8,7 @@ RMDIR  /S /Q "%DeploymentDirectory%"
 ECHO "Building ..."
 %SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild "./sources/easygenerator.Web/easygenerator.Web.csproj" /p:outdir="%DeploymentDirectory%\bin";webprojectoutputdir="%DeploymentDirectory%";debugsymbols=false;debugtype=none
 
-xcopy "./sources/easygenerator.Web/App/main-built.js" "%DeploymentDirectory%/App" /Y /F /I
+xcopy "./sources/easygenerator.Web/App/main-built.js" "%DeploymentDirectory%\App\" /Y /F /I
 
 DEL /S /Q /F "%DeploymentDirectory%\*.debug.config"
 DEL /S /Q /F "%DeploymentDirectory%\*.release.config"
