@@ -30,7 +30,7 @@
                 self.title.isModified(true);
                 return;
             }
-            var objective = new ObjectiveModel({ id: dataContext.objectives.length, title: self.title(), image: self.image() });
+            var objective = new ObjectiveModel({ id: dataContext.objectives.length, title: self.title(), image: self.image(), questions: [] });
             dataContext.objectives.push(objective);
             router.navigateTo('#/');
         };

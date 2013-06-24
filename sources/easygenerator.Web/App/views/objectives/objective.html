@@ -3,14 +3,16 @@
 <p>
     <a class="btn btn-success" data-bind="attr: { href: '#/objective/' + id() + '/question/create'}"><i class="icon-question-sign"></i>&nbsp;New Question</a>
 </p>
-<ul>
-    <!-- ko foreach: questions -->
-    <li>
-        <a data-bind="attr: { href: '#/objective/' + $parent.id() + '/question/' + id }, text: title"></a>
-    </li>
-    <!-- /ko -->
-</ul>
-
+<div>
+    <h5>List of questions:</h5>
+    <ul>
+        <!-- ko foreach: questions -->
+        <li>
+            <a data-bind="attr: { href: '#/objective/' + $parent.id() + '/question/' + id }, text: title"></a>
+        </li>
+        <!-- /ko -->
+    </ul>
+</div>
 <p>
     <a href="#/">< Back</a>
 </p>
