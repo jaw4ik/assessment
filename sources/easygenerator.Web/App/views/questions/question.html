@@ -1,6 +1,27 @@
 ﻿<h2 data-bind="text: title"></h2>
 
-
+<p>
+    <span data-bind="text: text"></span>
+</p>
+<div style="margin-bottom: 20px;">
+    <!-- ko if: answers().length -->
+    <h5>Answers</h5>
+    <ul class="unstyled" data-bind="foreach: answers">
+        <li>
+            <!-- ko if: isCorrect -->
+            <i class="icon-ok"></i>
+            <!-- /ko -->
+            <!-- ko ifnot: isCorrect -->
+            <i class="icon-remove"></i>
+            <!-- /ko -->
+            <span data-bind="text: text"></span>
+        </li>
+    </ul>
+    <!-- /ko -->
+    <!-- ko ifnot: answers().length -->
+    The question is empty
+    <!-- /ko -->
+</div>
 <p>
     <a href="#/" data-bind="attr: {  href: '#/objective/' + objectiveId() }">< Back</a>
 </p>

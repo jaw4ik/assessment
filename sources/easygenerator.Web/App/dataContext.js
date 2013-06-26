@@ -12,11 +12,11 @@
                             title: 'Objective #' + i,
                             image: images[i],
                             questions: [
-                                new QuestionModel({ id: 1, title: 'Ļồяệო Ĭρśụм ĭŝ śîмρļỹ ďủოмỷ ť℮χť' }),
-                                new QuestionModel({ id: 2, title: 'ǒƒ ťһё ряіŉťìאָġ ầňđ ţỵрềš℮ťťíņğ іאַđủšťŗỷ.' }),
-                                new QuestionModel({ id: 3, title: 'Ľōřệм Ĩρŝựм ĥẫş βêệŋ ťҺệ ǐŋďứśţřỳ\'ş ŝŧäŉďâяđ ďűოოγ ťęхť' }),
-                                new QuestionModel({ id: 4, title: 'εϋĕŕ şïńċẹ ťĥẹ 1500ŝ,' }),
-                                new QuestionModel({ id: 5, title: 'шħëņ ǻאּ ựאַκńợẅŋ ρříאָŧёя ţồọҝ â ġâļł℮ÿ ợƒ ţýρē äńđ śçŗắмьłėď įţ ťō ოẩķē ẩ ťỹрẹ šрểćîмėň ьọόҝ.' })
+                                new QuestionModel({ id: 0, title: 'Ļồяệო Ĭρśụм ĭŝ śîмρļỹ ďủოмỷ ť℮χť' }),
+                                new QuestionModel({ id: 1, title: 'ǒƒ ťһё ряіŉťìאָġ ầňđ ţỵрềš℮ťťíņğ іאַđủšťŗỷ.' }),
+                                new QuestionModel({ id: 2, title: 'Ľōřệм Ĩρŝựм ĥẫş βêệŋ ťҺệ ǐŋďứśţřỳ\'ş ŝŧäŉďâяđ ďűოოγ ťęхť' }),
+                                new QuestionModel({ id: 3, title: 'εϋĕŕ şïńċẹ ťĥẹ 1500ŝ,' }),
+                                new QuestionModel({ id: 4, title: 'шħëņ ǻאּ ựאַκńợẅŋ ρříאָŧёя ţồọҝ â ġâļł℮ÿ ợƒ ţýρē äńđ śçŗắмьłėď įţ ťō ოẩķē ẩ ťỹрẹ šрểćîмėň ьọόҝ.' })
                             ]
                         }));
                     }

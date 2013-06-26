@@ -12,14 +12,31 @@
         self.title.isModified = ko.observable(false);
 
 
+        self.text = ko.observable();
+        self.answers = ko.observableArray([]);
+        self.addAnswer = function () {
+            self.answers.push({
+                text: ko.observable(),
+                isCorrect: ko.observable(true)
+            });
+        };
+
         self.save = function () {
             if (!self.title.isValid()) {
                 self.title.isModified(true);
                 return;
             }
 
+            var question = new QuestionModel(({
+                id: self.objective().questions.length,
+                title: self.title(),
+                answers: ko.utils.arrayMap(self.answers(), function(item) {
+                    return { text: ko.utils.unwrapObservable(item.text), isCorrect: ko.utils.unwrapObservable(item.isCorrect) };
+                })
+            }));
 
-            self.objective().questions.push(new QuestionModel(({ id: self.objective().questions.length, title: self.title() })));
+            self.objective().questions.push(question);
+            
             router.navigateTo('#/objective/' + self.objective().id);
         };
 
@@ -46,11 +63,16 @@
             self.title(null);
             self.title.isModified(false);
             self.objective(objective);
+            self.text(null);
+            self.answers([]);
         };
 
         return {
             activate: self.activate,
             title: self.title,
+            text: self.text,
+            answers: self.answers,
+            addAnswer: self.addAnswer,
             save: self.save,
             cancel: self.cancel
         };

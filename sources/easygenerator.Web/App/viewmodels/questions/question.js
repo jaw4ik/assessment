@@ -6,7 +6,8 @@
         self.id = ko.observable();
         self.objectiveId = ko.observable();
         self.title = ko.observable();
-
+        self.text = ko.observable();
+        self.answers = ko.observableArray();
 
         self.activate = function (routeData) {
             if (_.isEmpty(routeData) || _.isEmpty(routeData.objectiveId) || _.isEmpty(routeData.id)) {
@@ -35,13 +36,17 @@
             self.objectiveId(routeData.objectiveId);
 
             self.title(question.title);
-
+            self.text(question.text);
+            self.answers(question.answers || []);
         };
 
         return {
             id: self.id,
             objectiveId: self.objectiveId,
+            
             title: self.title,
+            text: self.text,
+            answers: self.answers,
 
             activate: self.activate
         };

@@ -10,3 +10,25 @@
 section#content {
     background-color: #fff;
 }
+
+
+section#createQuestionSection ul li {
+    margin-top: 3px;
+}
+section#createQuestionSection ul input[type='checkbox'] {
+    margin: 0;
+}
+section#createQuestionSection ul input[type='text'] {
+    border: 0;
+    background-color: transparent;
+    padding: 0;
+    outline: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+    section#createQuestionSection ul input[type='text']:focus {
+        outline: none;
+        box-shadow: none;
+        background-color: #FFF8DC;
+    }
