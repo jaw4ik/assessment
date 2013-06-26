@@ -16,6 +16,7 @@
 
             if (!_.isObject(objective)) {
                 router.navigateTo('404');
+                return;
             }
 
             self.id(routeData.id);
