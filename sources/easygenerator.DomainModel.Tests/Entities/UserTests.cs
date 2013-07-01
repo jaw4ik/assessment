@@ -8,25 +8,25 @@ namespace easygenerator.DomainModel.Tests.Entities
     //[TestClass]
     public class UserTests
     {
-        [TestMethod]
+        //[TestMethod]
         public void User_ShouldThrowArgumentNullException_WhenEmailIsNull()
         {
             AssertException.ExpectArgumentNullException(() => UserObjectMother.CreateWithEmail(null), "email");
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void User_ShouldThrowArgumentException_WhenEmailIsInvalid()
         {
             AssertException.ExpectArgumentException(() => UserObjectMother.CreateWithEmail(String.Empty), "email");
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void User_ShouldThrowArgumentNullException_WhenPasswordIsNull()
         {
             AssertException.ExpectArgumentNullException(() => UserObjectMother.CreateWithPassword(null), "password");
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void User_ShouldThrowArgumentException_WhenPasswordIsInvalid()
         {
             AssertException.ExpectArgumentException(() => UserObjectMother.CreateWithPassword(String.Empty), "password");
