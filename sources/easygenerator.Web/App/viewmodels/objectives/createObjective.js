@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'models/objective', 'durandal/plugins/router', 'configuration/images'],
-    function (dataContext, ObjectiveModel, router, images) {
+﻿define(['dataContext', 'models/objective', 'durandal/plugins/router', 'configuration/images', 'eventTracker', 'constants'],
+    function (dataContext, ObjectiveModel, router, images, eventTracker, constants) {
         var self = {};
 
         self.title = ko.observable().extend({
@@ -32,6 +32,7 @@
             }
             var objective = new ObjectiveModel({ id: dataContext.objectives.length, title: self.title(), image: self.image(), questions: [] });
             dataContext.objectives.push(objective);
+            eventTracker.publish(constants.events.objectiveCreated);
             router.navigateTo('#/');
         };
 
