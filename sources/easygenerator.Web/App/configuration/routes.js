@@ -37,6 +37,12 @@
                 moduleId: 'viewmodels/questions/question',
                 name: 'Question Properties',
                 caption: 'Question Properties'
+            },
+            {
+                url: 'publications',
+                moduleId: 'viewmodels/publications/publications',
+                name: 'Publications',
+                caption: 'Publications'
             }
         ];
     }
