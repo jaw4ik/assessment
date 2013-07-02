@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.AcceptanceTests", "easygenerator.AcceptanceTests\easygenerator.AcceptanceTests.csproj", "{B6E2E7FF-DC5A-4DED-94A5-488A2011FFC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.Web", "D:\Development\_EGOnlineTrunk\sources\easygenerator.Web\easygenerator.Web.csproj", "{3157004F-564B-4C11-95B5-799C6B2106C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.Web", "..\..\sources\easygenerator.Web\easygenerator.Web.csproj", "{3157004F-564B-4C11-95B5-799C6B2106C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.DomainModel", "D:\Development\_EGOnlineTrunk\sources\easygenerator.DomainModel\easygenerator.DomainModel.csproj", "{B1A55D50-7948-471A-9FA8-403512C179A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.DomainModel", "..\..\sources\easygenerator.DomainModel\easygenerator.DomainModel.csproj", "{B1A55D50-7948-471A-9FA8-403512C179A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.Infrastructure", "D:\Development\_EGOnlineTrunk\sources\easygenerator.Infrastructure\easygenerator.Infrastructure.csproj", "{E186A113-426B-4AB1-A4B1-5ECC54FA4E80}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.Infrastructure", "..\..\sources\easygenerator.Infrastructure\easygenerator.Infrastructure.csproj", "{E186A113-426B-4AB1-A4B1-5ECC54FA4E80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
