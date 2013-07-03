@@ -157,7 +157,7 @@ Given objectives are present in database
 | Objective1 | 1  |
 When mouse hover element of objectives list with title 'Objective1'
 And click on objective list item with title 'Objective1'
-Then browser navigates to url "http://localhost:666/objective/1"
+Then browser navigates to url "http://localhost:5656/#/objective/1"
 
 
 

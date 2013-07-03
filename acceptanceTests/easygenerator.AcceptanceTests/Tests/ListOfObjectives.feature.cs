@@ -472,7 +472,7 @@ testRunner.When("mouse hover element of objectives list with title \'Objective1\
 #line 159
 testRunner.And("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 160
-testRunner.Then("browser navigates to url \"http://localhost:666/objective/1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("browser navigates to url \"http://localhost:5656/#/objective/1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
