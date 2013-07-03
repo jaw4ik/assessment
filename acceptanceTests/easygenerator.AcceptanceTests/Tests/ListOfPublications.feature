@@ -1,8 +1,9 @@
 ﻿Feature: ListOfPublications
-	As an author I want to see list of previously created Publications, so I could correct needed settings and perform publication once more without defining all the settings each time. 
+	As an author I want to see list of previously created Publications,
+	so I could correct needed settings and perform publication once more without defining all the settings each time. 
 
 Background: 
-When open page by url 'http://localhost:666/home'
+When open page by url 'http://localhost:5656'
 
 Scenario: All publications should be present in list
 Given publications are present in database
@@ -10,7 +11,6 @@ Given publications are present in database
 | Publication1 |
 | Publication2 |
 | Publication3 |
-When open page by url 'http://localhost:666/Publications/'
 Then publications tiles list contains items with data 
 | Title        |
 | Publication1 |
@@ -26,7 +26,6 @@ Given publications are present in database
 | Publication_z |
 | 1_Publication |
 | _Publication  |
-When open page by url 'http://localhost:666/Publications/'
 Then publications tiles list consists of ordered items
 | Title         |
 | _Publication  |
@@ -45,8 +44,7 @@ Given publications are present in database
 | Publication_z |
 | 1_Publication |
 | _Publication  |
-When open page by url 'http://localhost:666/Publications/'
-And I switch publications list order to 'ascending'
+When I switch publications list order to 'ascending'
 And I switch publications list order to 'descending'
 Then publications tiles list consists of ordered items
 | Title         |
@@ -65,8 +63,7 @@ Given publications are present in database
 | Publication_z |
 | 1_Publication |
 | _Publication  |
-When open page by url 'http://localhost:666/Publications/'
-And I switch publications list order to 'descending'
+When I switch publications list order to 'descending'
 And I switch publications list order to 'ascending'
 Then publications tiles list consists of ordered items
 | Title         |
@@ -83,8 +80,7 @@ Given publications are present in database
 | Publication1 |
 | Publication2 |
 | Publication3 |
-When open page by url 'http://localhost:666/Publications/'
-And click on publication list item with title 'Publication2'
+When click on publication list item with title 'Publication2'
 Then publication list item with title 'Publication2' is selected
 But publication list item with title 'Publication1' is not selected
 And publication list item with title 'Publication3' is not selected
@@ -95,8 +91,7 @@ Given publications are present in database
 | Publication1 |
 | Publication2 |
 | Publication3 |
-When open page by url 'http://localhost:666/Publications/'
-And click on publication list item with title 'Publication1'
+When click on publication list item with title 'Publication1'
 And click on publication list item with title 'Publication2'
 Then publication list item with title 'Publication2' is selected
 But publication list item with title 'Publication1' is not selected
@@ -162,7 +157,7 @@ Given publications are present in database
 | Publication1 | 1  |
 When mouse hover element of publications list with title 'Publication1'
 And click on publication list item with title 'Publication1'
-Then browser navigates to url "http://localhost:666/publication/1"
+Then browser navigates to url "http://localhost:5656/#/publication/1"
 
 
 

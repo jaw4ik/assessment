@@ -32,9 +32,9 @@ namespace easygenerator.AcceptanceTests.Tests
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ListOfPublications", "As an author I want to see list of previously created Publications, so I could co" +
-                    "rrect needed settings and perform publication once more without defining all the" +
-                    " settings each time.", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ListOfPublications", "As an author I want to see list of previously created Publications,\r\nso I could c" +
+                    "orrect needed settings and perform publication once more without defining all th" +
+                    "e settings each time.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -68,9 +68,9 @@ namespace easygenerator.AcceptanceTests.Tests
         
         public virtual void FeatureBackground()
         {
-#line 4
 #line 5
-testRunner.When("open page by url \'http://localhost:666/home\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 6
+testRunner.When("open page by url \'http://localhost:5656\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
         }
         
@@ -79,9 +79,9 @@ testRunner.When("open page by url \'http://localhost:666/home\'", ((string)(null
         public virtual void AllPublicationsShouldBePresentInList()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All publications should be present in list", ((string[])(null)));
-#line 7
+#line 8
 this.ScenarioSetup(scenarioInfo);
-#line 4
+#line 5
 this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -92,10 +92,8 @@ this.FeatureBackground();
                         "Publication2"});
             table1.AddRow(new string[] {
                         "Publication3"});
-#line 8
+#line 9
 testRunner.Given("publications are present in database", ((string)(null)), table1, "Given ");
-#line 13
-testRunner.When("open page by url \'http://localhost:666/Publications/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -118,7 +116,7 @@ testRunner.Then("publications tiles list contains items with data", ((string)(nu
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publications are sorted by title ascending by default", ((string[])(null)));
 #line 21
 this.ScenarioSetup(scenarioInfo);
-#line 4
+#line 5
 this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -135,8 +133,6 @@ this.FeatureBackground();
                         "_Publication"});
 #line 22
 testRunner.Given("publications are present in database", ((string)(null)), table3, "Given ");
-#line 29
-testRunner.When("open page by url \'http://localhost:666/Publications/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -150,9 +146,9 @@ testRunner.When("open page by url \'http://localhost:666/Publications/\'", ((str
                         "Publication_a"});
             table4.AddRow(new string[] {
                         "Publication_z"});
-#line 30
+#line 29
 testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table4, "Then ");
-#line 37
+#line 36
 testRunner.And("publications list order switch is set to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -163,9 +159,9 @@ testRunner.And("publications list order switch is set to \'ascending\'", ((strin
         public virtual void PublicationsAreSortedByTitleDescendingIfSetDescendingOrder()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publications are sorted by title descending if set descending order", ((string[])(null)));
-#line 40
+#line 39
 this.ScenarioSetup(scenarioInfo);
-#line 4
+#line 5
 this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
@@ -180,13 +176,11 @@ this.FeatureBackground();
                         "1_Publication"});
             table5.AddRow(new string[] {
                         "_Publication"});
-#line 41
+#line 40
 testRunner.Given("publications are present in database", ((string)(null)), table5, "Given ");
+#line 47
+testRunner.When("I switch publications list order to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 48
-testRunner.When("open page by url \'http://localhost:666/Publications/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 49
-testRunner.And("I switch publications list order to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 50
 testRunner.And("I switch publications list order to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
@@ -201,9 +195,9 @@ testRunner.And("I switch publications list order to \'descending\'", ((string)(n
                         "1_Publication"});
             table6.AddRow(new string[] {
                         "_Publication"});
-#line 51
+#line 49
 testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table6, "Then ");
-#line 58
+#line 56
 testRunner.And("publications list order switch is set to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -214,9 +208,9 @@ testRunner.And("publications list order switch is set to \'descending\'", ((stri
         public virtual void PublicationsAreSortedByTitleAscendingIfSetAscendingOrder()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publications are sorted by title ascending if set ascending order", ((string[])(null)));
-#line 60
+#line 58
 this.ScenarioSetup(scenarioInfo);
-#line 4
+#line 5
 this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
@@ -231,13 +225,11 @@ this.FeatureBackground();
                         "1_Publication"});
             table7.AddRow(new string[] {
                         "_Publication"});
-#line 61
+#line 59
 testRunner.Given("publications are present in database", ((string)(null)), table7, "Given ");
-#line 68
-testRunner.When("open page by url \'http://localhost:666/Publications/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 69
-testRunner.And("I switch publications list order to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 70
+#line 66
+testRunner.When("I switch publications list order to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 67
 testRunner.And("I switch publications list order to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
@@ -252,9 +244,9 @@ testRunner.And("I switch publications list order to \'ascending\'", ((string)(nu
                         "Publication_a"});
             table8.AddRow(new string[] {
                         "Publication_z"});
-#line 71
+#line 68
 testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table8, "Then ");
-#line 78
+#line 75
 testRunner.And("publications list order switch is set to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -265,9 +257,9 @@ testRunner.And("publications list order switch is set to \'ascending\'", ((strin
         public virtual void SelectedPublicationShouldBeHighlitedAfterSelecting()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Selected publication should be highlited after selecting", ((string[])(null)));
-#line 80
+#line 77
 this.ScenarioSetup(scenarioInfo);
-#line 4
+#line 5
 this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
@@ -278,17 +270,15 @@ this.FeatureBackground();
                         "Publication2"});
             table9.AddRow(new string[] {
                         "Publication3"});
-#line 81
+#line 78
 testRunner.Given("publications are present in database", ((string)(null)), table9, "Given ");
-#line 86
-testRunner.When("open page by url \'http://localhost:666/Publications/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 87
-testRunner.And("click on publication list item with title \'Publication2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 88
+#line 83
+testRunner.When("click on publication list item with title \'Publication2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 84
 testRunner.Then("publication list item with title \'Publication2\' is selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 89
+#line 85
 testRunner.But("publication list item with title \'Publication1\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
-#line 90
+#line 86
 testRunner.And("publication list item with title \'Publication3\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -299,9 +289,9 @@ testRunner.And("publication list item with title \'Publication3\' is not selecte
         public virtual void SelectedPublicationChangedIfClickOtherPublication()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Selected publication changed if click other publication", ((string[])(null)));
-#line 92
+#line 88
 this.ScenarioSetup(scenarioInfo);
-#line 4
+#line 5
 this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
@@ -312,19 +302,17 @@ this.FeatureBackground();
                         "Publication2"});
             table10.AddRow(new string[] {
                         "Publication3"});
-#line 93
+#line 89
 testRunner.Given("publications are present in database", ((string)(null)), table10, "Given ");
-#line 98
-testRunner.When("open page by url \'http://localhost:666/Publications/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 99
-testRunner.And("click on publication list item with title \'Publication1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 100
+#line 94
+testRunner.When("click on publication list item with title \'Publication1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 95
 testRunner.And("click on publication list item with title \'Publication2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 101
+#line 96
 testRunner.Then("publication list item with title \'Publication2\' is selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 102
+#line 97
 testRunner.But("publication list item with title \'Publication1\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
-#line 103
+#line 98
 testRunner.And("publication list item with title \'Publication3\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -335,9 +323,9 @@ testRunner.And("publication list item with title \'Publication3\' is not selecte
         public virtual void NoPublicationsAreSelectedByDefaultInPublicationsList()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No publications are selected by default in publications list", ((string[])(null)));
-#line 106
+#line 101
 this.ScenarioSetup(scenarioInfo);
-#line 4
+#line 5
 this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
@@ -348,13 +336,13 @@ this.FeatureBackground();
                         "Publication2"});
             table11.AddRow(new string[] {
                         "Publication3"});
-#line 107
+#line 102
 testRunner.Given("publications are present in database", ((string)(null)), table11, "Given ");
-#line 112
+#line 107
 testRunner.Then("publication list item with title \'Publication2\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 113
+#line 108
 testRunner.And("publication list item with title \'Publication1\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 114
+#line 109
 testRunner.And("publication list item with title \'Publication3\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -369,9 +357,9 @@ testRunner.And("publication list item with title \'Publication3\' is not selecte
         public virtual void ColumnsCountShouldDependOnScreenWidth(string windowWidth, string columnsCount, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Columns count should depend on screen width", exampleTags);
-#line 117
+#line 112
 this.ScenarioSetup(scenarioInfo);
-#line 4
+#line 5
 this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
@@ -386,11 +374,11 @@ this.FeatureBackground();
                         "Publication4"});
             table12.AddRow(new string[] {
                         "Publication5"});
-#line 118
+#line 113
 testRunner.Given("publications are present in database", ((string)(null)), table12, "Given ");
-#line 125
+#line 120
 testRunner.When(string.Format("browser window width and height is set to {0} and 600", windowWidth), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 126
+#line 121
 testRunner.Then(string.Format("publications list is displayed in {0} columns", columnsCount), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -401,9 +389,9 @@ testRunner.Then(string.Format("publications list is displayed in {0} columns", c
         public virtual void AllElementsOfPublicationsListCanBeMadeVisibleUsingScroll()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All elements of publications list can be made visible using scroll", ((string[])(null)));
-#line 135
+#line 130
 this.ScenarioSetup(scenarioInfo);
-#line 4
+#line 5
 this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
@@ -418,13 +406,13 @@ this.FeatureBackground();
                         "Publication4"});
             table13.AddRow(new string[] {
                         "Publication5"});
-#line 136
+#line 131
 testRunner.Given("publications are present in database", ((string)(null)), table13, "Given ");
-#line 143
+#line 138
 testRunner.When("browser window width and height is set to 400 and 300", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 144
+#line 139
 testRunner.And("scroll browser window to the bottom", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 145
+#line 140
 testRunner.Then("last element of publications list is visible", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -435,9 +423,9 @@ testRunner.Then("last element of publications list is visible", ((string)(null))
         public virtual void ActionsOpenAndSelectAreEnabledIfHoverItemOfPublicationsList()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Actions open and select are enabled if hover item of publications list", ((string[])(null)));
-#line 148
+#line 143
 this.ScenarioSetup(scenarioInfo);
-#line 4
+#line 5
 this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
@@ -448,13 +436,13 @@ this.FeatureBackground();
                         "Publication2"});
             table14.AddRow(new string[] {
                         "Publication3"});
-#line 149
+#line 144
 testRunner.Given("publications are present in database", ((string)(null)), table14, "Given ");
-#line 154
+#line 149
 testRunner.When("mouse hover element of publications list with title \'Publication1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 155
+#line 150
 testRunner.Then("Action open is enabled true for publications list item with title \'Publication1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 156
+#line 151
 testRunner.And("Action select is enabled true for publications list item with title \'Publication1" +
                     "\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -466,9 +454,9 @@ testRunner.And("Action select is enabled true for publications list item with ti
         public virtual void OpenActionOfPublicationsListItemNavigatesToPublicationSEditingPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Open action of publications list item navigates to publication\'s editing page", ((string[])(null)));
-#line 159
+#line 154
 this.ScenarioSetup(scenarioInfo);
-#line 4
+#line 5
 this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
@@ -477,14 +465,14 @@ this.FeatureBackground();
             table15.AddRow(new string[] {
                         "Publication1",
                         "1"});
-#line 160
+#line 155
 testRunner.Given("publications are present in database", ((string)(null)), table15, "Given ");
-#line 163
+#line 158
 testRunner.When("mouse hover element of publications list with title \'Publication1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 164
+#line 159
 testRunner.And("click on publication list item with title \'Publication1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 165
-testRunner.Then("browser navigates to url \"http://localhost:666/publication/1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 160
+testRunner.Then("browser navigates to url \"http://localhost:5656/#/publication/1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
