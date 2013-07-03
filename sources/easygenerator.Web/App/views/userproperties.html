@@ -4,7 +4,7 @@
         <form class="form-horizontal">
 
             <div class="control-group">
-                <label class="control-label" for="selectedLanguage">Language</label>
+                <label class="control-label" for="selectedLanguage" data-bind="localize: { text: 'language' }">Language</label>
                 <div class="controls">
                     <select id="selectedLanguage" data-bind="options: languages, value: selectedLanguage, optionsText:'title', optionsValue: 'id'"></select>
                 </div>

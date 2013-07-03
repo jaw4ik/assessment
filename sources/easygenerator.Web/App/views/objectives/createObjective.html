@@ -11,7 +11,7 @@
             <label class="control-label" for="objectiveTitle" data-bind="localize: { text: 'objectiveThumbnail' }">Thumbnail</label>
             <div class="controls">
                 <a href="#" data-bind="click: image.previousOption"><i class="icon-arrow-left"></i></a>
-                <img data-bind="attr: { src: image }" />
+                <img data-bind="attr: { src: image }, localize: { title: 'objectiveThumbnail' }" title="Thumbnail" />
                 <a href="#" data-bind="click: image.nextOption"><i class="icon-arrow-right"></i></a>
             </div>
         </div>

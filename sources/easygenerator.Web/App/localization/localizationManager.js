@@ -34,6 +34,15 @@
                 if (_.isString(value['text'])) {
                     $(element).text(localize(value['text']));
                 }
+                if (_.isString(value['placeholder'])) {
+                    $(element).prop('placeholder', localize(value['placeholder']));
+                }
+                if (_.isString(value['value'])) {
+                    $(element).prop('value', localize(value['value']));
+                }
+                if (_.isString(value['title'])) {
+                    $(element).prop('title', localize(value['title']));
+                }
             }
         };
 

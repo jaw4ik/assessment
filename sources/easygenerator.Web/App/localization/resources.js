@@ -28,6 +28,11 @@
         'de': 'Please, provide title for objective DE'
     },
     /* common */
+    'language': {
+        'en': 'Language',
+        'nl': 'Language NL',
+        'de': 'Language DE'
+    },
     'save': {
         'en': 'Save',
         'nl': 'Save NL',

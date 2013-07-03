@@ -20,7 +20,8 @@ define(function (require) {
     var system = require('durandal/system'),
         app = require('durandal/app'),
         router = require('durandal/plugins/router'),
-        viewLocator = require('durandal/viewLocator');
+        viewLocator = require('durandal/viewLocator'),
+        localizationManager = require('localizationManager');
 
     //>>excludeStart("build", true);
     system.debug(true);

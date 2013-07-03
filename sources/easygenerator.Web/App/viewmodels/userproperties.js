@@ -8,22 +8,20 @@
                 { id: 'de', title: 'German' }
             ]),
             selectedLanguage = ko.observable(),
-            save = function() {
+            save = function () {
                 localizationManager.currentLanguage(selectedLanguage());
                 router.navigateTo("#/");
             },
 
             activate = function () {
-                return Q.fcall(function () {
-                    selectedLanguage(localizationManager.currentLanguage());
-                });
+                selectedLanguage(localizationManager.currentLanguage());
             };
 
         return {
             languages: languages,
             selectedLanguage: selectedLanguage,
             save: save,
-            
+
             activate: activate
         };
     }
