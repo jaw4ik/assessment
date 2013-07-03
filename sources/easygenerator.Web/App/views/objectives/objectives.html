@@ -7,18 +7,18 @@
     <div class="clearfix">
     </div>
     <br />
-    <ul class="unstyled" style="margin: 5px;">
+    <ul class="unstyled objectives-list">
         <!-- ko foreach: objectives -->
         <li class="objective-brief">
             <div class="objective-brief-content" data-bind="click: $parent.goToDetails, style: { backgroundImage: 'url(' + image + ')' }">
-                <span data-bind="text: title" class="alert alert-info" style="display: inline-block"></span>
+                <span data-bind="text: title" class="alert alert-info inline"></span>
             </div>
         </li>
         <!-- /ko -->
     </ul>
     <div class="clearfix"></div>
     <!-- ko if: totalCount() > displayCount() -->
-    <div style="text-align: center">
+    <div class="show-control">
         <br />
         <strong data-bind="text: displayCount"></strong>&nbsp;of&nbsp;<strong data-bind="text:totalCount"></strong>
         <br />
@@ -26,29 +26,3 @@
     </div>
     <!-- /ko -->
 </div>
-
-<style type="text/css">
-    .objective-brief {
-        width: 280px;
-        height: 170px;
-        position: relative;
-        float: left;
-    }
-
-    .objective-brief-content {
-        border: 1px dotted #EEEEEE;
-        margin: 5px;
-        padding: 20px;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-size: 100% 100%;
-    }
-
-    .objective-brief-content:hover {
-        cursor: pointer;
-        border: 1px solid #000;
-    }
-</style>

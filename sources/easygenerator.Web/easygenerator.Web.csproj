@@ -203,28 +203,28 @@
     <Content Include="App\views\userproperties.html" />
     <Content Include="App\views\_layout.html" />
     <Content Include="App\views\objectives\createObjective.html" />
-    <Content Include="Content\bootstrap-responsive.css" />
-    <Content Include="Content\bootstrap-responsive.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\durandal.css" />
-    <Content Include="Content\font-awesome-ie7.css" />
-    <Content Include="Content\font-awesome-ie7.min.css" />
-    <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\font\fontawesome-webfont.svg" />
-    <Content Include="Content\images\glyphicons-halflings-white.png" />
-    <Content Include="Content\images\glyphicons-halflings.png" />
-    <Content Include="Content\images\publication.jpg" />
-    <Content Include="Content\styles.css" />
+    <Content Include="Styles\bootstrap-responsive.css" />
+    <Content Include="Styles\bootstrap-responsive.min.css" />
+    <Content Include="Styles\bootstrap.css" />
+    <Content Include="Styles\bootstrap.min.css" />
+    <Content Include="Styles\durandal.css" />
+    <Content Include="Styles\font-awesome-ie7.css" />
+    <Content Include="Styles\font-awesome-ie7.min.css" />
+    <Content Include="Styles\font-awesome.css" />
+    <Content Include="Styles\font-awesome.min.css" />
+    <Content Include="Styles\font\fontawesome-webfont.svg" />
+    <Content Include="Styles\images\glyphicons-halflings-white.png" />
+    <Content Include="Styles\images\glyphicons-halflings.png" />
+    <Content Include="Styles\images\publication.jpg" />
+    <Content Include="css\styles.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="humans.txt" />
     <Content Include="robots.txt" />
-    <Content Include="Content\font\fontawesome-webfont.woff" />
-    <Content Include="Content\font\fontawesome-webfont.ttf" />
-    <Content Include="Content\font\fontawesome-webfont.eot" />
-    <Content Include="Content\font\FontAwesome.otf" />
+    <Content Include="Styles\font\fontawesome-webfont.woff" />
+    <Content Include="Styles\font\fontawesome-webfont.ttf" />
+    <Content Include="Styles\font\fontawesome-webfont.eot" />
+    <Content Include="Styles\font\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -259,7 +259,9 @@
     <Content Include="Views\Objective\Create.cshtml" />
     <Content Include="Views\Application\splash.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="css\images\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

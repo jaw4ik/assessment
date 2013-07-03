@@ -1,4 +1,4 @@
-﻿<section id="createQuestionSection">
+﻿<section id="createQuestionSection" class="create-question">
     <fieldset>
         <legend>New Question</legend>
         <form class="form-horizontal">
@@ -25,7 +25,6 @@
                 <div class="controls">
                     <!-- ko if: answers().length > 0 -->
                     <ul class="unstyled">
-
                         <!-- ko foreach: answers -->
                         <li>
                             <input type="checkbox" data-bind="checked: isCorrect">
@@ -36,7 +35,7 @@
                     <button class="btn" data-bind="click: addAnswer">Add answer</button>
                     <!-- /ko -->
                     <!-- ko ifnot: answers().length > 0 -->
-                    <span style="padding-top: 5px; display: inline-block;">There are no answers yet. Click <a href="#" data-bind="click: addAnswer">here</a> to add a first one.
+                    <span class="inline" style="padding-top: 5px;">There are no answers yet. Click <a href="#" data-bind="click: addAnswer">here</a> to add a first one.
                     </span>
                     <!-- /ko -->
                 </div>
@@ -46,6 +45,5 @@
                 <button type="button" class="btn" data-bind="click: cancel">Cancel</button>
             </div>
         </form>
-
     </fieldset>
 </section>

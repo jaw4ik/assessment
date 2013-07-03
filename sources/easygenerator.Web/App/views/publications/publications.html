@@ -5,23 +5,23 @@
     </div>
     <div class="clearfix">
     </div>
-    <ul class="unstyled" style="margin: 5px;">
+    <ul class="unstyled publications-list">
         <!-- ko foreach: publications -->
-        <li style="width: 280px; height: 170px; position: relative; float: left;">
-            <div style="border: 1px dotted #EEEEEE; margin: 5px; padding: 20px; position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-size: 100% 100%; background-image: url('Content/images/publication.jpg');">
+        <li class="publication-brief">
+            <div class="publication-brief-content" style="background-image: url('Styles/images/publication.jpg');">
                 <br/>
                 <br/>
                 <br/>
-                <span class="alert alert-info" style="display: inline-block" data-bind="text: title + ' [' + objectives.length + ']'"></span>
+                <span class="alert alert-info inline" data-bind="text: title + ' [' + objectives.length + ']'"></span>
             </div>
         </li>
         <!-- /ko -->
     </ul>
     <div class="clearfix"></div>
     <!-- ko if: totalCount() > displayCount() -->
-    <div style="text-align: center">
+    <div class="show-control">
         <br />
-        <strong data-bind="text: displayCount"></strong>&nbsp;of&nbsp;<strong data-bind="    text: totalCount"></strong>
+        <strong data-bind="text: displayCount"></strong>&nbsp;of&nbsp;<strong data-bind="text: totalCount"></strong>
         <br />
         <a href="#" class="btn" data-bind="click: showMore">Show more</a>
     </div>
