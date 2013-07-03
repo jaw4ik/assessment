@@ -24,14 +24,12 @@ namespace easygenerator.Web.Configuration
                             .Include("~/scripts/q.js")
                             .Include("~/scripts/underscore.js"));
 
-            bundles.Add(new StyleBundle("~/styles/css")
-                            .Include("~/styles/bootstrap.css")
-                            .Include("~/styles/bootstrap-responsive.css")
-                            .Include("~/styles/font-awesome.css")
-                            .Include("~/styles/durandal.css"));
-
-            bundles.Add(new StyleBundle("~/css/css")
-                            .Include("~/css/styles.css"));
+            bundles.Add(new StyleBundle("~/Content/css")
+                            .Include("~/Content/bootstrap.css")
+                            .Include("~/Content/bootstrap-responsive.css")
+                            .Include("~/Content/font-awesome.css")
+                            .Include("~/Content/durandal.css")
+                            .Include("~/Content/styles.css"));
 
         }
     }
