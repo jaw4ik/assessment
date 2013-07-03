@@ -22,14 +22,16 @@ EG CSS-STYLES
 
 .clearfix:before,
 .clearfix:after {
-   content: "";
-   display: table;
+    content: "";
+    display: table;
 }
+
 .clearfix:after {
-   clear: both;
+    clear: both;
 }
+
 .clearfix {
-   zoom: 1;
+    zoom: 1;
 }
 
 .icon-spinner-wrapper {
@@ -53,16 +55,18 @@ body {
 .navbar .brand {
     padding: 20px;
 }
+
 .navbar .user-properties,
 .navbar .user-properties {
     color: #999999;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
-.navbar .user-properties:hover,
-.navbar .user-properties:focus {
-    color: #fff;
-    text-decoration: none;
-}
+
+    .navbar .user-properties:hover,
+    .navbar .user-properties:focus {
+        color: #fff;
+        text-decoration: none;
+    }
 
 .eg-logo {
     width: 16px;
@@ -72,6 +76,7 @@ body {
 section.main {
     background-color: #fff;
 }
+
 .show-control {
     text-align: center;
 }
@@ -82,6 +87,7 @@ OBJECTIVE CSS-STYLES
 .publications-list {
     margin: 5px;
 }
+
 .objective-brief,
 .publication-brief {
     width: 280px;
@@ -89,6 +95,7 @@ OBJECTIVE CSS-STYLES
     position: relative;
     float: left;
 }
+
 .objective-brief-content,
 .publication-brief-content {
     position: absolute;
@@ -101,14 +108,25 @@ OBJECTIVE CSS-STYLES
     border: 1px dotted #EEEEEE;
     background-size: 100% 100%;
 }
-.objective-brief-content:hover {
-    border: 1px solid #000;
-    cursor: pointer;
-}
+
+    .objective-brief-content:hover {
+        border: 1px solid #000;
+        cursor: pointer;
+    }
 
 /*===================================
 ANSWERS CSS-STYLES
 ===================================*/
 .answers-container {
     margin-bottom: 20px;
+}
+
+
+
+
+
+@media (max-width: 979px) {
+    body {
+        padding-top: 0;
+    }
 }
