@@ -175,6 +175,7 @@
     <Content Include="App\durandal\viewModelBinder.js" />
     <Content Include="App\durandal\widget.js" />
     <Content Include="App\eventTracker.js" />
+    <Content Include="App\localization\resources.js" />
     <Content Include="App\logger.js" />
     <Content Include="App\main.js" />
     <Content Include="App\models\entity.js" />
@@ -187,6 +188,8 @@
     <Content Include="App\viewmodels\objectives\objectives.js" />
     <Content Include="App\viewmodels\publications\createPublication.js" />
     <Content Include="App\viewmodels\publications\publications.js" />
+    <Content Include="App\localization\localizationManager.js" />
+    <Content Include="App\viewmodels\userproperties.js" />
     <Content Include="App\views\questions\createQuestion.html" />
     <Content Include="App\viewmodels\_layout.js" />
     <Content Include="App\views\home.html" />
@@ -197,6 +200,7 @@
     <Content Include="App\viewmodels\questions\createQuestion.js" />
     <Content Include="App\viewmodels\questions\question.js" />
     <Content Include="App\views\questions\question.html" />
+    <Content Include="App\views\userproperties.html" />
     <Content Include="App\views\_layout.html" />
     <Content Include="App\views\objectives\createObjective.html" />
     <Content Include="Content\bootstrap-responsive.css" />

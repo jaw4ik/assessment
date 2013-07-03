@@ -1,14 +1,14 @@
 ﻿<fieldset>
-    <legend>New Objective</legend>
+    <legend data-bind="localize: { text: 'newObjective' }">New Objective</legend>
     <form class="form-horizontal">
         <div class="control-group" data-bind="css : { error: !title.isValid() && title.isModified() }">
-            <label class="control-label" for="objectiveTitle">Title</label>
+            <label class="control-label" for="objectiveTitle" data-bind="localize: { text: 'objectiveTitle' }">Title</label>
             <div class="controls">
-                <input type="text" id="objectiveTitle" placeholder="Objective title..." data-bind="value: title, valueUpdate: 'afterkeydown'">
+                <input type="text" id="objectiveTitle" placeholder="Objective title..." data-bind="value: title, valueUpdate: 'afterkeydown', localize: { placeholder: 'objectiveTitlePlaceholder' }">
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="objectiveTitle">Thumbnail</label>
+            <label class="control-label" for="objectiveTitle" data-bind="localize: { text: 'objectiveThumbnail' }">Thumbnail</label>
             <div class="controls">
                 <a href="#" data-bind="click: image.previousOption"><i class="icon-arrow-left"></i></a>
                 <img data-bind="attr: { src: image }" />
@@ -16,8 +16,8 @@
             </div>
         </div>
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary" data-bind="click: save">Save changes</button>
-            <button type="button" class="btn" data-bind="click: cancel">Cancel</button>
+            <button type="submit" class="btn btn-primary" data-bind="click: save, localize: { text: 'save' }">Save</button>
+            <button type="button" class="btn" data-bind="click: cancel, localize: { text: 'cancel' }">Cancel</button>
         </div>
     </form>
 

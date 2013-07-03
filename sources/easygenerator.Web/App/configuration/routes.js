@@ -9,6 +9,12 @@
                 caption: 'Home'
             },
             {
+                url: '#/user',
+                moduleId: 'viewmodels/userproperties',
+                name: 'User Properties',
+                caption: 'User Properties'
+            },
+            {
                 url: 'objective/create',
                 moduleId: 'viewmodels/objectives/createObjective',
                 name: 'Create New Objective',

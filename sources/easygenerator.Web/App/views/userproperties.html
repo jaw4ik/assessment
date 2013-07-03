@@ -1,0 +1,20 @@
+﻿<section id="userLocalizationSettingsSection">
+    <fieldset>
+        <legend>User properties</legend>
+        <form class="form-horizontal">
+
+            <div class="control-group">
+                <label class="control-label" for="selectedLanguage">Language</label>
+                <div class="controls">
+                    <select id="selectedLanguage" data-bind="options: languages, value: selectedLanguage, optionsText:'title', optionsValue: 'id'"></select>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" data-bind="click: save">Save</button>
+            </div>
+        </form>
+
+    </fieldset>
+
+</section>

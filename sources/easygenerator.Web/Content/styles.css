@@ -7,17 +7,28 @@
     padding: 20px;
 }
 
+.navbar .user-properties, .navbar .user-properties {
+    color: #999999;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.navbar .user-properties:hover, .navbar .user-properties:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
 section#content {
     background-color: #fff;
 }
 
-
 section#createQuestionSection ul li {
     margin-top: 3px;
 }
+
 section#createQuestionSection ul input[type='checkbox'] {
     margin: 0;
 }
+
 section#createQuestionSection ul input[type='text'] {
     border: 0;
     background-color: transparent;

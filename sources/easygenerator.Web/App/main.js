@@ -1,5 +1,8 @@
 ﻿require.config({
-    paths: { "text": "durandal/amd/text" }
+    paths: {
+        "text": "durandal/amd/text",
+        "localizationManager": "localization/localizationManager"
+    }
 });
 
 
@@ -24,6 +27,7 @@ define(function (require) {
     //>>excludeEnd("build");
 
     app.start().then(function () {
+
         // route will use conventions for modules
         // assuming viewmodels/views folder structure
         router.useConvention();
