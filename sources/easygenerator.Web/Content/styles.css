@@ -124,13 +124,13 @@ ANSWERS CSS-STYLES
 
 .container {
     width: auto;
-    min-width: 620px;
-    padding: 0 10px;
+    min-width: 640px;
+    padding: 0;
 }
 
 
 .navbar .container {
     width: auto;
-    min-width: 620px;
-    padding: 0 10px;
+    min-width: 640px;
+    padding: 0;
 }
