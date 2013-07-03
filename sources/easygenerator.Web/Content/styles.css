@@ -120,14 +120,15 @@ ANSWERS CSS-STYLES
     margin-bottom: 20px;
 }
 
-
-
 .container {
     width: auto;
     min-width: 640px;
     padding: 0;
 }
 
+.navbar .navbar-inner {
+    padding: 0;   
+}
 
 .navbar .container {
     width: auto;
