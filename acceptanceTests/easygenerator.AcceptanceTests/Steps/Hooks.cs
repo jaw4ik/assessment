@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using TechTalk.SpecFlow;
 using System.Diagnostics;
+using easygenerator.AcceptanceTests.Helpers;
 
 namespace easygenerator.AcceptanceTests.Steps
 {
@@ -16,11 +17,12 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             Process.Start("StartServer.bat");
         }
-
         [AfterTestRun]
         public static void CleanTestRun()
         {
-            DriverProveider.StopAll();
+            DriverProveider.StopCurrent();
+
+            Process.Start("taskkill", "/IM iisexpress.exe");
         }
 
         [AfterScenario]

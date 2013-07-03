@@ -74,6 +74,8 @@
   <ItemGroup>
     <Compile Include="ElementObjects\ObjectivesListItem.cs" />
     <Compile Include="ElementObjects\ObjectivesListPage.cs" />
+    <Compile Include="Helpers\DataSetter.cs" />
+    <Compile Include="Helpers\DriverProveider.cs" />
     <Compile Include="LinkingModels\BaseLinkinkModel.cs" />
     <Compile Include="ElementObjects\BasePageElement.cs" />
     <Compile Include="LinkingModels\ObjectiveListItemLinkingModel.cs" />
@@ -114,6 +116,11 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ListOfPublications.feature.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="JS\SetObjectivesScripts.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

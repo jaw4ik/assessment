@@ -1,4 +1,7 @@
-﻿using System;
+﻿using easygenerator.AcceptanceTests.Helpers;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Remote;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +11,30 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 {
     public class BasePageElement<T> where T : BaseLinkinkModel, new()
     {
-        public BasePageElement() { }
         protected T model = new T();
-        public BasePageElement(T model)
+        public BasePageElement() { }
+        public BasePageElement(RemoteWebElement container)
         {
-            this.model = model;
+            Container = container;
+        }
+        protected RemoteWebElement Container { get; private set; }
+
+        protected RemoteWebElement GetByXPath(string path)
+        {
+            return (RemoteWebElement)DriverProveider.Current().FindElementByXPath(path);
+        }
+        protected RemoteWebElement[] GetAllByXPath(string path)
+        {
+            return DriverProveider.Current().FindElementsByXPath(path).Cast<RemoteWebElement>().ToArray();
+        }
+
+        protected RemoteWebElement GetByXPathInside(string path)
+        {
+            return (RemoteWebElement)DriverProveider.Current().FindElementByXPath(path);
+        }
+        protected RemoteWebElement[] GetAllByXPathInside(string path)
+        {
+            return DriverProveider.Current().FindElementsByXPath(path).Cast<RemoteWebElement>().ToArray();
         }
     }
 }

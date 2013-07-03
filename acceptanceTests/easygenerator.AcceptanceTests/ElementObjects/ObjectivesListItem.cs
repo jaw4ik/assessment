@@ -1,35 +1,51 @@
 ﻿using easygenerator.AcceptanceTests.LinkingModels;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using easygenerator.AcceptanceTests.Helpers;
+using OpenQA.Selenium.Remote;
 
 namespace easygenerator.AcceptanceTests.ElementObjects
 {
     public class ObjectivesListItem : BasePageElement<ObjectiveListItemLinkingModel>
     {
-        public string Title { get; set; }
+
+        public ObjectivesListItem(RemoteWebElement container)
+            : base(container)
+        {
+        }
+        public string Title
+        {
+            get
+            {
+                var el = Container.FindElementByXPath(model.Title);
+                return el.Text;
+            }
+        }
 
         internal void Click()
         {
-            throw new NotImplementedException();
+            Container.Click();
         }
 
         internal bool IsVisisble()
         {
             throw new NotImplementedException();
+            //return Container.Displayed;
         }
 
         internal void Hover()
         {
-            throw new NotImplementedException();
+            Container.HoverElement();
         }
 
         public bool IsSelected { get; set; }
 
-        public object IsOpenEnabled { get; set; }
+        public bool IsOpenEnabled { get; set; }
 
-        public object IsSelectEnabled { get; set; }
+        public bool IsSelectEnabled { get; set; }
     }
 }

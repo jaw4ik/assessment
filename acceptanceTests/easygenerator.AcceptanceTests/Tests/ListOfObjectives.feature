@@ -1,8 +1,9 @@
-﻿Feature: ListOfObjectives
+﻿@ObjectivesList
+Feature: ListOfObjectives
 	As an author I want to see list of previously created Learning Objectives, so I could select certain Learning Objective to start working with related content.
 
 Background: 
-When open page by url 'http://localhost:666/home'
+When open page by url 'http://localhost:5656'
 
 Scenario: All objectives should be present in list
 Given objectives are present in database
@@ -10,7 +11,6 @@ Given objectives are present in database
 | Objective1 |
 | Objective2 |
 | Objective3 |
-When open page by url 'http://localhost:666/Objectives/'
 Then objectives tiles list contains items with data 
 | Title      |
 | Objective1 |
@@ -26,7 +26,6 @@ Given objectives are present in database
 | Objective_z |
 | 1_Objective |
 | _Objective  |
-When open page by url 'http://localhost:666/Objectives/'
 Then objectives tiles list consists of ordered items
 | Title       |
 | _Objective  |
@@ -45,8 +44,7 @@ Given objectives are present in database
 | Objective_z |
 | 1_Objective |
 | _Objective  |
-When open page by url 'http://localhost:666/Objectives/'
-And I switch objectives list order to 'ascending'
+When I switch objectives list order to 'ascending'
 And I switch objectives list order to 'descending'
 Then objectives tiles list consists of ordered items
 | Title       |
@@ -65,8 +63,7 @@ Given objectives are present in database
 | Objective_z |
 | 1_Objective |
 | _Objective  |
-When open page by url 'http://localhost:666/Objectives/'
-And I switch objectives list order to 'descending'
+When I switch objectives list order to 'descending'
 And I switch objectives list order to 'ascending'
 Then objectives tiles list consists of ordered items
 | Title       |
@@ -83,8 +80,7 @@ Given objectives are present in database
 | Objective1 |
 | Objective2 |
 | Objective3 |
-When open page by url 'http://localhost:666/Objectives/'
-And click on objective list item with title 'Objective2'
+When click on objective list item with title 'Objective2'
 Then objective list item with title 'Objective2' is selected
 But objective list item with title 'Objective1' is not selected
 And objective list item with title 'Objective3' is not selected
@@ -95,8 +91,7 @@ Given objectives are present in database
 | Objective1 |
 | Objective2 |
 | Objective3 |
-When open page by url 'http://localhost:666/Objectives/'
-And click on objective list item with title 'Objective1'
+When click on objective list item with title 'Objective1'
 And click on objective list item with title 'Objective2'
 Then objective list item with title 'Objective2' is selected
 But objective list item with title 'Objective1' is not selected

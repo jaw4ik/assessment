@@ -8,6 +8,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 {
     public class ObjectiveListLinkingModel : BaseLinkinkModel
     {
-
+        public string HomePageIcon = "//a[@class='brand']";
+        public string Item = "//div[@class='objective-brief-content']";
     }
 }

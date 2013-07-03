@@ -1,4 +1,5 @@
 ﻿using easygenerator.AcceptanceTests.ElementObjects;
+using easygenerator.AcceptanceTests.Helpers;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,18 @@ namespace easygenerator.AcceptanceTests.Steps
         public void GivenObjectivesArePresentInDatabase(Table table)
         {
             var objectives = table.CreateSet<ObjectiveData>().ToArray();
-            (new DataSetter()).CreateObjectives(objectives);
+            var dataSetter = new ObjectivesDataSetter();
+            dataSetter.EmptyObjectivesList();
+            foreach (var obj in objectives)
+            {
+                var idString = obj.Id != null ? obj.Id : "0";
+                dataSetter.AddObjectiveToDatabase(idString, obj.Title);
+            }
+        }
+        [When(@"click home page icon")]
+        public void WhenClickHomePageIcon()
+        {
+            objectivesPage.ClickHomePageIcon();
         }
 
         [Then(@"objectives tiles list contains items with data")]
