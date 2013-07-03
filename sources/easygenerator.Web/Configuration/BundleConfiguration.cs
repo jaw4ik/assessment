@@ -26,7 +26,6 @@ namespace easygenerator.Web.Configuration
 
             bundles.Add(new StyleBundle("~/Content/css")
                             .Include("~/Content/bootstrap.css")
-                            .Include("~/Content/bootstrap-responsive.css")
                             .Include("~/Content/font-awesome.css")
                             .Include("~/Content/durandal.css")
                             .Include("~/Content/styles.css"));
