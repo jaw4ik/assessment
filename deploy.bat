@@ -7,7 +7,7 @@ ECHO "Cleaning ..."
 RMDIR  /S /Q "%DeploymentDirectory%"
 
 ECHO "Building ..."
-%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild sources\easygenerator.Web\easygenerator.Web.csproj /p:outdir="%DeploymentDirectory%\bin";webprojectoutputdir="%DeploymentDirectory%";debugsymbols=false;debugtype=none;TreatWarningsAsErrors=true
+%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild sources\easygenerator.Web\easygenerator.Web.csproj /p:outdir="%DeploymentDirectory%\bin";webprojectoutputdir="%DeploymentDirectory%";debugsymbols=false;debugtype=none;TreatWarningsAsErrors=true /t:Clean,Build,TransformWebConfig /p:Configuration=Release
 
 ECHO "Building .Net unit tests"
 %SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild sources\easygenerator.DomainModel.Tests\easygenerator.DomainModel.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true
@@ -29,6 +29,7 @@ IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
 ECHO "Deploying to %DeploymentDirectory% ..."
 xcopy "./sources/easygenerator.Web/App/main-built.js" "%DeploymentDirectory%\App\" /Y /F /I
+xcopy "sources/easygenerator.Web/obj/Release/TransformWebConfig/transformed/Web.config" "%DeploymentDirectory%\" /Y /F /I
 
 DEL /S /Q /F "%DeploymentDirectory%\*.debug.config"
 DEL /S /Q /F "%DeploymentDirectory%\*.release.config"
