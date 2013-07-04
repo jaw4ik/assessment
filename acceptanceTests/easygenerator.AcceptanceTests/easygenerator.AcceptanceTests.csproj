@@ -80,6 +80,8 @@
     <Compile Include="ElementObjects\ObjectivesListPage.cs" />
     <Compile Include="ElementObjects\QuestionsList.cs" />
     <Compile Include="ElementObjects\QuestionsListItem.cs" />
+    <Compile Include="ElementObjects\PublicationsListItem.cs" />
+    <Compile Include="ElementObjects\PublicationsListPage.cs" />
     <Compile Include="Helpers\DataSetter.cs" />
     <Compile Include="Helpers\DriverExtensions.cs" />
     <Compile Include="Helpers\DriverProvider.cs" />
@@ -90,6 +92,8 @@
     <Compile Include="LinkingModels\ObjectiveListLinkingModel.cs" />
     <Compile Include="LinkingModels\QuestionListItemLinkingModel.cs" />
     <Compile Include="LinkingModels\QuestionsListLinkingModel.cs" />
+    <Compile Include="LinkingModels\PublicationListItemLinkingModel.cs" />
+    <Compile Include="LinkingModels\PublicationListLinkingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\ListOfPublicationsSteps.cs" />
     <Compile Include="Steps\ComonSteps.cs" />

@@ -1,9 +1,13 @@
-﻿using System;
+﻿using easygenerator.AcceptanceTests.ElementObjects;
+using easygenerator.AcceptanceTests.Helpers;
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 
 namespace easygenerator.AcceptanceTests.Steps
 {
@@ -15,16 +19,32 @@ namespace easygenerator.AcceptanceTests.Steps
     [Binding]
     public class ListOfPublicationsSteps
     {
+        PublicationsListPage publicationsPage;
+        Dictionary<string, Order> orderWay = new Dictionary<string, Order>()
+        {
+            {"ascending", Order.Ascending},
+            {"descending", Order.Descending}
+        };
+        public ListOfPublicationsSteps(PublicationsListPage publicationsPage)
+        {
+            this.publicationsPage = publicationsPage;
+        }
+
         [Given(@"publications are present in database")]
         public void GivenPublicationsArePresentInDatabase(Table table)
         {
-            ScenarioContext.Current.Pending();
+            var publications = table.CreateSet<PublicationData>().ToArray();
+            var dataSetter = new DataSetter();
+            dataSetter.EmptyPublicationsList();
+            dataSetter.AddPublicationsToDatabase(publications);
         }
 
         [Then(@"publications tiles list contains items with data")]
         public void ThenPublicationsTilesListContainsItemsWithData(Table table)
         {
-            ScenarioContext.Current.Pending();
+            var expectedPublications = table.CreateSet<PublicationData>().ToArray();
+            var realPublications = publicationsPage.Items;
+            Assert.IsTrue(expectedPublications.All(obj => realPublications.Any(item => item.Title == obj.Title)));
         }
 
         [Then(@"publications tiles list consists of ordered items")]
