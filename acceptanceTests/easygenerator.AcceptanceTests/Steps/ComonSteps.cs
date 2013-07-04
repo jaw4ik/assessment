@@ -18,25 +18,25 @@ namespace easygenerator.AcceptanceTests.Steps
         [When(@"open page by url '(.*)'")]
         public void WhenOpenPageByUrl(string url)
         {
-            DriverProvaider.Current().Navigate().GoToUrl(url);
+            DriverProvider.Current().Navigate().GoToUrl(url);
         }
 
         [When(@"browser window width and height is set to (.*) and (.*)")]
         public void WhenBrowserWindowWidthIsSetTo(int width, int height)
         {
-            DriverProvaider.Current().Manage().Window.Size = new Size(width, height);
+            DriverProvider.Current().Manage().Window.Size = new Size(width, height);
         }
 
         [When(@"scroll browser window to the bottom")]
         public void WhenScrollBrowserWindowToTheBottom()
         {
-            DriverProvaider.Current().ExecuteScript("window.scrollTo(0,document.body.scrollHeight)", "");
+            DriverProvider.Current().ExecuteScript("window.scrollTo(0,document.body.scrollHeight)", "");
         }
 
         [Then(@"browser navigates to url ""(.*)""")]
         public void ThenBrowserNavigatesToUrl(string expectedUrl)
         {
-            Assert.AreEqual(expectedUrl, DriverProvaider.Current().Url);
+            Assert.AreEqual(expectedUrl, DriverProvider.Current().Url);
         }
 
     }

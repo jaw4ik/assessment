@@ -20,11 +20,6 @@ namespace easygenerator.AcceptanceTests.Steps
     public class ListOfObjectivesSteps
     {
         ObjectivesListPage objectivesPage;
-        Dictionary<string, Order> orderWay = new Dictionary<string, Order>()
-        {
-            {"ascending", Order.Ascending},
-            {"descending", Order.Descending}
-        };
         public ListOfObjectivesSteps(ObjectivesListPage objectivesPage)
         {
             this.objectivesPage = objectivesPage;
@@ -58,13 +53,13 @@ namespace easygenerator.AcceptanceTests.Steps
         [Then(@"objectives list order switch is set to '(.*)'")]
         public void ThenObjectivesListOrderSwitchIsSetTo(string orderString)
         {
-            Assert.AreEqual(orderWay[orderString], objectivesPage.Order);
+            Assert.AreEqual(GherkinConstants.OrderWay[orderString], objectivesPage.Order);
         }
 
         [When(@"I switch objectives list order to '(.*)'")]
         public void WhenISwitchObjectivesListOrderTo(string orderString)
         {
-            var expectedOrder = orderWay[orderString];
+            var expectedOrder = GherkinConstants.OrderWay[orderString];
             if (objectivesPage.Order != expectedOrder)
                 objectivesPage.Order = expectedOrder;
         }

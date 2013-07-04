@@ -20,7 +20,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [AfterTestRun]
         public static void CleanTestRun()
         {
-            DriverProvaider.StopCurrent();
+            DriverProvider.StopCurrent();
 
             Process.Start("taskkill", "/IM iisexpress.exe");
         }
@@ -28,7 +28,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [AfterScenario]
         public void AfterScenario()
         {
-            DriverProvaider.Current().Navigate().GoToUrl("about:blank");
+            DriverProvider.Current().Navigate().GoToUrl("about:blank");
         }
 
     }

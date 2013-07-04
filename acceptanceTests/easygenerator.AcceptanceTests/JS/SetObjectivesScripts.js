@@ -3,7 +3,16 @@
         dataContext = require('dataContext'),
         images = require('configuration/images'),
         ObjectiveModel = require('models/objective'),
-        PubModel = require('models/publication');
+        PubModel = require('models/publication'),
+        QuestionModel = require('models/question');
+
+    var findObjectiveByTitle = function (title) {
+        for (var i = 0; i < dataContext.objectives.length; i++) {
+            var item = dataContext.objectives[i];
+            if (item.title === title)
+                return item;
+        }
+    };
     this.AddNewObjective = function (newId, newTitle) {
         dataContext.objectives.push(
             new ObjectiveModel({
@@ -14,6 +23,10 @@
             })
         );
     };
+    this.AddQuestionsToObjective = function (objTitle, questId, questTitle) {
+        var obj = findObjectiveByTitle(objTitle);
+        obj.questions.push(new QuestionModel({ id: questId, title: questTitle }));
+    };
     this.AddNewPublication = function (newId, newTitle) {
         dataContext.publications.push(
             new PubModel({
@@ -23,6 +36,10 @@
             })
         );
     };
+    this.EmptyQuestionsOfObjective = function (objTitle) {
+        var obj = findObjectiveByTitle(objTitle);
+        obj.questions = [];
+    };
     this.EmptyObjectivesList = function () {
         dataContext.objectives = [];
     };
@@ -30,3 +47,4 @@
         dataContext.publications = [];
     };
 };
+var test = new Test();

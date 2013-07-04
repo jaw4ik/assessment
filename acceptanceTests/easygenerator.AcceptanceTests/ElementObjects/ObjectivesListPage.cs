@@ -10,8 +10,6 @@ using OpenQA.Selenium.Remote;
 
 namespace easygenerator.AcceptanceTests.ElementObjects
 {
-    public enum Order { Ascending, Descending }
-
     public class ObjectivesListPage : BasePageElement<ObjectiveListLinkingModel>
     {
         public ObjectivesListPage() { }

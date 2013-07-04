@@ -1,44 +1,66 @@
-﻿using System;
+﻿using easygenerator.AcceptanceTests.ElementObjects;
+using easygenerator.AcceptanceTests.Helpers;
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 
 namespace easygenerator.AcceptanceTests.Steps
 {
+    public class QuestionData
+    {
+        public string Title { get; set; }
+        public string Id { get; set; }
+    }
     [Binding]
-
     public class ListOfQuestionsSteps
     {
-        [Given(@"questions related to '(.*)' are present in database")]
-        public void GivenQuestionsRelatedToArePresentInDatabase(string p0, Table table)
+        QuestionsList questionListPage;
+        public ListOfQuestionsSteps(QuestionsList questionListPage)
         {
-            ScenarioContext.Current.Pending();
+            this.questionListPage = questionListPage;
+        }
+        [Given(@"questions related to '(.*)' are present in database")]
+        public void GivenQuestionsRelatedToArePresentInDatabase(string objTitle, Table table)
+        {
+            var questions = table.CreateSet<QuestionData>().ToArray();
+            var dataSetter = new DataSetter();
+            dataSetter.EmptyQuestionsListOfObjective(objTitle);
+            dataSetter.AddQuestionsToDatabase(objTitle, questions);
         }
 
         [Then(@"questions list contains items with data")]
         public void ThenQuestionsListContainsItemsWithData(Table table)
         {
-            ScenarioContext.Current.Pending();
+            var expectedQuestions = table.CreateSet<QuestionData>().ToArray();
+            var realQuestions = questionListPage.Items;
+            Assert.IsTrue(expectedQuestions.All(obj => realQuestions.Any(item => item.Title == obj.Title)));
         }
 
         [Then(@"questions list consists of ordered items")]
         public void ThenQuestionsListConsistsOfOrderedItems(Table table)
         {
-            ScenarioContext.Current.Pending();
+            var expectedQuestions = table.CreateSet<QuestionData>().Select(obj => obj.Title).ToArray();
+            var realQuestions = questionListPage.Items.Select(obj => obj.Title).ToArray();
+            CollectionAssert.AreEqual(expectedQuestions, realQuestions);
         }
 
         [Then(@"questions list order switch is set to '(.*)'")]
-        public void ThenQuestionsListOrderSwitchIsSetTo(string p0)
+        public void ThenQuestionsListOrderSwitchIsSetTo(string orderString)
         {
-            ScenarioContext.Current.Pending();
+            Assert.AreEqual(GherkinConstants.OrderWay[orderString], questionListPage.Order);
         }
 
         [When(@"I switch questions list order to '(.*)'")]
-        public void WhenISwitchQuestionsListOrderTo(string p0)
+        public void WhenISwitchQuestionsListOrderTo(string orderString)
         {
-            ScenarioContext.Current.Pending();
+            var expectedOrder = GherkinConstants.OrderWay[orderString];
+            if (questionListPage.Order != expectedOrder)
+                questionListPage.Order = expectedOrder;
         }
 
         [When(@"mouse hover on questions list item with title '(.*)'")]

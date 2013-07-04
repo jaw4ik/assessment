@@ -15,30 +15,43 @@ namespace easygenerator.AcceptanceTests.Helpers
             foreach (var obj in objectives)
             {
                 if (obj.Id != null) obj.Id = "0";
-                ExcecuteTestScript(String.Format("(new Test()).AddNewObjective('{0}','{1}')", obj.Id, obj.Title));
+                ExcecuteTestScript(String.Format("test.AddNewObjective('{0}','{1}')", obj.Id, obj.Title));
             }
             RebuildView();
         }
-        public void AddPublicationsToDatabase(PublicationData[] objectives)
+        public void AddPublicationsToDatabase(PublicationData[] publications)
         {
-            foreach (var obj in objectives)
+            foreach (var pub in publications)
             {
-                if (obj.Id != null) obj.Id = "0";
-                ExcecuteTestScript(String.Format("(new Test()).AddNewPublication('{0}','{1}')", obj.Id, obj.Title));
+                if (pub.Id != null) pub.Id = "0";
+                ExcecuteTestScript(String.Format("test.AddNewPublication('{0}','{1}')", pub.Id, pub.Title));
             }
+        }
+        public void AddQuestionsToDatabase(string objTitle, QuestionData[] questions)
+        {
+            foreach (var quest in questions)
+            {
+                if (quest.Id != null) quest.Id = "0";
+                ExcecuteTestScript(String.Format("test.AddQuestionsToObjective('{0}','{1}','2')", objTitle, quest.Id, quest.Title));
+            }
+        }
+        public void EmptyQuestionsListOfObjective(string objTitle)
+        {
+            ExcecuteTestScript(String.Format("test.EmptyQuestionsOfObjective('{0}')", objTitle));
+            RebuildView();
         }
         public void EmptyObjectivesList()
         {
-            ExcecuteTestScript("(new Test()).EmptyObjectivesList()");
+            ExcecuteTestScript("test.EmptyObjectivesList()");
             RebuildView();
         }
         public void EmptyPublicationsList()
         {
-            ExcecuteTestScript("(new Test()).EmptyPublicationsList()");
+            ExcecuteTestScript("test.EmptyPublicationsList()");
         }
         private void RebuildView()
         {
-            DriverProvaider.Current().ExecuteScript("require('viewmodels/objectives/objectives').activate()");
+            DriverProvider.Current().ExecuteScript("require('viewmodels/objectives/objectives').activate()");
         }
         private void InitObjectivesEnvironment()
         {
@@ -47,13 +60,13 @@ namespace easygenerator.AcceptanceTests.Helpers
         }
         private string ExcecuteTestScript(string script)
         {
-            bool areScriptsPresent = (bool)DriverProvaider.Current().ExecuteScript("return typeof Test !== 'undefined'");
+            bool areScriptsPresent = (bool)DriverProvider.Current().ExecuteScript("return typeof Test !== 'undefined'");
 
             WaitForDataContextLoaded();
             if (!areScriptsPresent)
                 InitObjectivesEnvironment();
 
-            return (string)DriverProvaider.Current().ExecuteScript(script);
+            return (string)DriverProvider.Current().ExecuteScript(script);
         }
 
         private static void WaitForDataContextLoaded()
@@ -64,7 +77,7 @@ namespace easygenerator.AcceptanceTests.Helpers
             {
                 i++;
                 System.Threading.Thread.Sleep(100);
-                isDataContextLoaded = (bool)DriverProvaider.Current().ExecuteScript("return document.getElementById('content')!==null");
+                isDataContextLoaded = (bool)DriverProvider.Current().ExecuteScript("return document.getElementById('content')!==null");
                 if (i > 50)
                     throw new TimeoutException("Content data is not reachable");
 
@@ -73,7 +86,7 @@ namespace easygenerator.AcceptanceTests.Helpers
         private static void AddTestScriptsToHtml(string scripts)
         {
             var text = String.Format("var head = document.getElementsByTagName('head')[0];var s = document.createElement('script');var t=document.createTextNode(\"{0}\");s.setAttribute('type','text/javascript');s.appendChild(t);head.appendChild(s);", scripts);
-            DriverProvaider.Current().ExecuteScript(text);
+            DriverProvider.Current().ExecuteScript(text);
         }
     }
     public class DataReader

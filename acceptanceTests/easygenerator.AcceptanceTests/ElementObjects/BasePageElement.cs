@@ -21,20 +21,20 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 
         protected RemoteWebElement GetByXPath(string path)
         {
-            return (RemoteWebElement)DriverProvaider.Current().FindElementByXPath(path);
+            return (RemoteWebElement)DriverProvider.Current().FindElementByXPath(path);
         }
         protected RemoteWebElement[] GetAllByXPath(string path)
         {
-            return DriverProvaider.Current().FindElementsByXPath(path).Cast<RemoteWebElement>().ToArray();
+            return DriverProvider.Current().FindElementsByXPath(path).Cast<RemoteWebElement>().ToArray();
         }
 
         protected RemoteWebElement GetByXPathInside(string path)
         {
-            return (RemoteWebElement)DriverProvaider.Current().FindElementByXPath(path);
+            return (RemoteWebElement)DriverProvider.Current().FindElementByXPath(path);
         }
         protected RemoteWebElement[] GetAllByXPathInside(string path)
         {
-            return DriverProvaider.Current().FindElementsByXPath(path).Cast<RemoteWebElement>().ToArray();
+            return DriverProvider.Current().FindElementsByXPath(path).Cast<RemoteWebElement>().ToArray();
         }
     }
 }
