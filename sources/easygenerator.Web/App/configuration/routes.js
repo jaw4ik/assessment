@@ -3,16 +3,16 @@
 
         return [
             {
-                url: 'home',
-                moduleId: 'viewmodels/home',
-                name: 'Home',
-                caption: 'Home'
-            },
-            {
                 url: '#/user',
                 moduleId: 'viewmodels/userproperties',
                 name: 'User Properties',
                 caption: 'User Properties'
+            },
+            {
+                url: 'objectives',
+                moduleId: 'viewmodels/objectives/objectives',
+                name: 'Objectives',
+                caption: 'Objectives'
             },
             {
                 url: 'objective/create',

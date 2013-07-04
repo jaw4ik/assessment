@@ -1,28 +1,44 @@
-﻿<div>
-    <br />
-    <a href="/#/objective/create" class="btn btn-success"><i class="icon-book">&nbsp;</i>New Objective</a>
-    <div class="pull-right">
-        <input type="text" class="input-xxlarge" data-bind="value: filter, valueUpdate: 'afterkeydown'" placeholder="SEARCH"/>
+﻿<div class="objectives-wrapper">
+    <div class="objectives-navigation">
+        <span>Learning objectives</span>
+        <a href="#/publications">Publications</a>
     </div>
-    <div class="clearfix">
+
+    <div class="objectives-header">
+        <div class="objectives-header-title">
+            <span class="icon-wrapper"><a href="/#/objective/create"><i class="icon-plus-sign icon-2x"></i></a></span>
+            <span>Learning objectives</span>
+        </div>
+        <div class="objectives-header-divider">
+            <hr />
+        </div>
+        <div class="clearfix"></div>
+        <div class="pull-right">
+            <input type="text" class="input-xxlarge" data-bind="value: filter, valueUpdate: 'afterkeydown'" placeholder="SEARCH" />
+        </div>
+        <div class="clearfix">
+        </div>
+
     </div>
-    <br />
-    <ul class="unstyled objectives-list">
-        <!-- ko foreach: objectives -->
-        <li class="objective-brief">
-            <div class="objective-brief-content" data-bind="click: $parent.goToDetails, style: { backgroundImage: 'url(' + image + ')' }">
-                <span data-bind="text: title" class="alert alert-info inline"></span>
-            </div>
-        </li>
+    <div class="objectives-content">
+        <ul class="unstyled objectives-list">
+            <!-- ko foreach: objectives -->
+            <li class="objective-brief">
+                <div class="objective-brief-content" data-bind="click: $parent.goToDetails, style: { backgroundImage: 'url(' + image + ')' }">
+                    <span data-bind="text: title" class="alert alert-info inline"></span>
+                </div>
+            </li>
+            <!-- /ko -->
+        </ul>
+        <div class="clearfix"></div>
+        <!-- ko if: totalCount() > displayCount() -->
+        <div class="show-control">
+            <br />
+            <strong data-bind="text: displayCount"></strong>&nbsp;of&nbsp;<strong data-bind="text:totalCount"></strong>
+            <br />
+            <a href="#" class="btn" data-bind="click: showMore">Show more</a>
+        </div>
         <!-- /ko -->
-    </ul>
-    <div class="clearfix"></div>
-    <!-- ko if: totalCount() > displayCount() -->
-    <div class="show-control">
-        <br />
-        <strong data-bind="text: displayCount"></strong>&nbsp;of&nbsp;<strong data-bind="text:totalCount"></strong>
-        <br />
-        <a href="#" class="btn" data-bind="click: showMore">Show more</a>
     </div>
-    <!-- /ko -->
+
 </div>

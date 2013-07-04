@@ -182,7 +182,6 @@
     <Content Include="App\models\objective.js" />
     <Content Include="App\models\publication.js" />
     <Content Include="App\models\question.js" />
-    <Content Include="App\viewmodels\home.js" />
     <Content Include="App\viewmodels\objectives\createObjective.js" />
     <Content Include="App\viewmodels\objectives\objective.js" />
     <Content Include="App\viewmodels\objectives\objectives.js" />
@@ -192,7 +191,6 @@
     <Content Include="App\viewmodels\userproperties.js" />
     <Content Include="App\views\questions\createQuestion.html" />
     <Content Include="App\viewmodels\_layout.js" />
-    <Content Include="App\views\home.html" />
     <Content Include="App\views\objectives\objective.html" />
     <Content Include="App\views\objectives\objectives.html" />
     <Content Include="App\views\publications\createPublication.html" />
@@ -213,8 +211,11 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\font\fontawesome-webfont.svg" />
+    <Content Include="Content\font\Montserrat-Regular.svg" />
+    <Content Include="Content\images\bg.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\publication.jpg" />
     <Content Include="Content\styles.css" />
     <Content Include="favicon.ico" />
@@ -225,6 +226,9 @@
     <Content Include="Content\font\fontawesome-webfont.ttf" />
     <Content Include="Content\font\fontawesome-webfont.eot" />
     <Content Include="Content\font\FontAwesome.otf" />
+    <Content Include="Content\font\Montserrat-Regular.eot" />
+    <Content Include="Content\font\Montserrat-Regular.ttf" />
+    <Content Include="Content\font\Montserrat-Regular.woff" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -265,12 +269,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Application\index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\_ViewStart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\easygenerator.DomainModel\easygenerator.DomainModel.csproj">

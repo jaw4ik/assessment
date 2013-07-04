@@ -2,19 +2,64 @@
 @{
     ViewBag.Title = "easygenerator | Home";
 }
-<div id="applicationHost">
-    <div class="icon-spinner-wrapper">
-        <i class="icon-spinner icon-2x icon-spin"></i>
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=640,minimum-scale=0.5,maximum-scale=1.0,target-densitydpi=device-dpi">
+    <meta name="description" content="">
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/scripts/modernizr")
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="header">
+            <a class="brand" href="#/">
+                <img class="logo" width="48" height="42" src="~/Content/images/logo.png" alt="" />
+                <ul class="unstyled navigation-menu" style="display: inline;">
+                    <li class="navigation-menu-item" style="display: inline;">Home&nbsp;/</li>
+                </ul>
+            </a>
+        </div>
+        <div class="content-container">
+            <div id="applicationHost">
+                <div class="icon-spinner-wrapper">
+                    <i class="icon-spinner icon-2x icon-spin"></i>
+                </div>
+            </div>
+        </div>
+
     </div>
-</div>
+    @*    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <div class="container">
+                <div class="pull-right" style="padding: 15px 0;">
+                    <a href="#/user" class="user-properties"><i class="icon-user"></i></a>
+                </div>
+                <a class="brand" href="#/">
+                    <img src="~/favicon.ico" class="eg-logo" alt="" />
+                    easygenerator</a>
+            </div>
+        </div>
+    </div>*@
 
-@Scripts.Render("~/scripts/vendor")
+    @Scripts.Render("~/scripts/vendor")
 
-@if (HttpContext.Current.IsDebuggingEnabled)
-{
-    <script src="/App/durandal/amd/require.js" data-main="App/main"></script>
-}
-else
-{
-    <script type="text/javascript" src="~/App/main-built.js"></script>
-}
+    @if (HttpContext.Current.IsDebuggingEnabled)
+    {
+        <script src="/App/durandal/amd/require.js" data-main="App/main"></script>
+    }
+    else
+    {
+        <script type="text/javascript" src="~/App/main-built.js"></script>
+    }
+
+
+
+
+</body>
+</html>
