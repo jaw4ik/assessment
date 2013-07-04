@@ -3,7 +3,7 @@
 	so I could correct needed settings and perform publication once more without defining all the settings each time. 
 
 Background: 
-When open page by url 'http://localhost:5656'
+When open page by url 'http://localhost:5656/#/publications'
 
 Scenario: All publications should be present in list
 Given publications are present in database
