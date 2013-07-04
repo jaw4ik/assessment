@@ -15,7 +15,7 @@ namespace easygenerator.AcceptanceTests.Helpers
             foreach (var obj in objectives)
             {
                 if (obj.Id != null) obj.Id = "0";
-                ExcecuteTestScript(String.Format("Test.AddNewObjective('{0}','{1}')", obj.Id, obj.Title));
+                ExcecuteTestScript(String.Format("(new Test()).AddNewObjective('{0}','{1}')", obj.Id, obj.Title));
             }
             RebuildView();
         }
@@ -24,17 +24,17 @@ namespace easygenerator.AcceptanceTests.Helpers
             foreach (var obj in objectives)
             {
                 if (obj.Id != null) obj.Id = "0";
-                ExcecuteTestScript(String.Format("Test.AddNewPublication('{0}','{1}')", obj.Id, obj.Title));
+                ExcecuteTestScript(String.Format("(new Test()).AddNewPublication('{0}','{1}')", obj.Id, obj.Title));
             }
         }
         public void EmptyObjectivesList()
         {
-            ExcecuteTestScript("Test.EmptyObjectivesList()");
+            ExcecuteTestScript("(new Test()).EmptyObjectivesList()");
             RebuildView();
         }
         public void EmptyPublicationsList()
         {
-            ExcecuteTestScript("Test.EmptyPublicationsList()");
+            ExcecuteTestScript("(new Test()).EmptyPublicationsList()");
         }
         private void RebuildView()
         {
