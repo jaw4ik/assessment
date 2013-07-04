@@ -42,11 +42,6 @@ namespace easygenerator.AcceptanceTests.Steps
                 dataSetter.AddObjectiveToDatabase(idString, obj.Title);
             }
         }
-        [When(@"click home page icon")]
-        public void WhenClickHomePageIcon()
-        {
-            objectivesPage.ClickHomePageIcon();
-        }
 
         [Then(@"objectives tiles list contains items with data")]
         public void ThenObjectivesTilesListContainsItemsWithData(Table table)
@@ -130,13 +125,6 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             var item = objectivesPage.Items.First(it => it.Title == title);
             Assert.AreEqual(isEnabled, item.IsOpenEnabled);
-        }
-
-        [Then(@"Action select is enabled (.*) for objectives list item with title '(.*)'")]
-        public void ThenActionSelectIsEnabledTrueForObjectivesListItemWithTitle(bool isEnabled, string title)
-        {
-            var item = objectivesPage.Items.First(it => it.Title == title);
-            Assert.AreEqual(isEnabled, item.IsSelectEnabled);
         }
     }
 }

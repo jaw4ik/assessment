@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace easygenerator.AcceptanceTests.Helpers
 {
 
-    public class DriverProveider
+    public class DriverProvaider
     {
         static RemoteWebDriver driver;
         public static RemoteWebDriver Current()
@@ -28,6 +28,10 @@ namespace easygenerator.AcceptanceTests.Helpers
             var builder = new OpenQA.Selenium.Interactions.Actions(element.WrappedDriver);
             var hoverOverRegistrar = builder.MoveToElement(element);
             hoverOverRegistrar.Perform();
+        }
+        public static T ExecuteScript<T>(this IWebDriver driver,string script)
+        {
+            return (T)((RemoteWebDriver)driver).ExecuteScript(script);
         }
     }
 }

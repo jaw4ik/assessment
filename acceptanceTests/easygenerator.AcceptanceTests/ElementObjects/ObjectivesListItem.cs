@@ -14,9 +14,8 @@ namespace easygenerator.AcceptanceTests.ElementObjects
     {
 
         public ObjectivesListItem(RemoteWebElement container)
-            : base(container)
-        {
-        }
+            : base(container) { }
+
         public string Title
         {
             get
@@ -33,8 +32,19 @@ namespace easygenerator.AcceptanceTests.ElementObjects
 
         internal bool IsVisisble()
         {
-            throw new NotImplementedException();
-            //return Container.Displayed;
+            var pageWidth = Container.WrappedDriver.ExecuteScript<Int64>("return document.documentElement.clientWidth");
+            var pageHeight = Container.WrappedDriver.ExecuteScript<Int64>("return document.documentElement.clientHeight");
+            var x1 = Container.Size.Width + Container.Coordinates.LocationInDom.X;
+            var y1 = Container.Size.Height + Container.Coordinates.LocationInDom.Y;
+            var scrollX = Container.WrappedDriver.ExecuteScript<Int64>("return window.scrollX");
+            var scrollY = Container.WrappedDriver.ExecuteScript<Int64>("return window.scrollY");
+
+            var isP1OnScreen = Container.Coordinates.LocationInDom.X > scrollX &&
+                Container.Coordinates.LocationInDom.Y > scrollY;
+            var isP2OnScreen = x1 > scrollX + pageWidth &&
+                y1 > scrollY + pageHeight;
+
+            return Container.Displayed && isP1OnScreen && isP2OnScreen;
         }
 
         internal void Hover()
@@ -42,10 +52,21 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             Container.HoverElement();
         }
 
-        public bool IsSelected { get; set; }
+        public bool IsSelected
+        {
+            get
+            {
+                return model.IsSelected(Container);
+            }
+        }
 
-        public bool IsOpenEnabled { get; set; }
-
-        public bool IsSelectEnabled { get; set; }
+        public bool IsOpenEnabled
+        {
+            get
+            {
+                var openEl = Container.FindElementByXPath(model.OpenElement);
+                return openEl.Displayed;
+            }
+        }
     }
 }

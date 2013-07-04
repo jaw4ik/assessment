@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.core">
       <HintPath>..\packages\NUnitTestAdapter.0.96.0\lib\nunit.core.dll</HintPath>
@@ -75,7 +78,7 @@
     <Compile Include="ElementObjects\ObjectivesListItem.cs" />
     <Compile Include="ElementObjects\ObjectivesListPage.cs" />
     <Compile Include="Helpers\DataSetter.cs" />
-    <Compile Include="Helpers\DriverProveider.cs" />
+    <Compile Include="Helpers\DriverProvaider.cs" />
     <Compile Include="LinkingModels\BaseLinkinkModel.cs" />
     <Compile Include="ElementObjects\BasePageElement.cs" />
     <Compile Include="LinkingModels\ObjectiveListItemLinkingModel.cs" />
@@ -153,11 +156,15 @@
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>IF NOT EXIST ChromeDriver.exe (xcopy ..\..\..\packages\WebDriver.ChromeDriver.26.0.1383.1\tools\ChromeDriver.exe)
-IF NOT EXIST IEDriverServer.exe (xcopy ..\..\..\packages\WebDriver.IEDriver.2.29.1.1\tools\IEDriverServer.exe)
-IF NOT EXIST StartServer.bat (xcopy ..\..\..\StartServer.bat)
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>IF NOT EXIST ChromeDriver.exe (xcopy $(SolutionDir)packages\WebDriver.ChromeDriver.26.0.1383.1\tools\ChromeDriver.exe)
+IF NOT EXIST IEDriverServer.exe (xcopy $(SolutionDir)packages\WebDriver.IEDriver.2.29.1.1\tools\IEDriverServer.exe)
+IF NOT EXIST StartServer.bat (xcopy $(SolutionDir)StartServer.bat)
 IF EXIST "easygenerator.Web\" (rd /Q /S "easygenerator.Web")
-xcopy  /s "..\..\..\..\sources\easygenerator.Web" ".\easygenerator.Web\"</PreBuildEvent>
+xcopy  /S /F /Y /I "$(SolutionDir)..\sources\easygenerator.Web" ".\easygenerator.Web\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

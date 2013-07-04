@@ -22,7 +22,7 @@ namespace easygenerator.AcceptanceTests.Helpers
         }
         private void RebuildView()
         {
-            DriverProveider.Current().ExecuteScript("require('viewmodels/objectives/objectives').activate()");
+            DriverProvaider.Current().ExecuteScript("require('viewmodels/objectives/objectives').activate()");
         }
         private void InitObjectivesEnvironment()
         {
@@ -31,13 +31,13 @@ namespace easygenerator.AcceptanceTests.Helpers
         }
         private string ExcecuteTestScript(string script)
         {
-            bool areScriptsPresent = (bool)DriverProveider.Current().ExecuteScript("return typeof Test !== 'undefined'");
+            bool areScriptsPresent = (bool)DriverProvaider.Current().ExecuteScript("return typeof Test !== 'undefined'");
 
             WaitForDataContextLoaded();
             if (!areScriptsPresent)
                 InitObjectivesEnvironment();
 
-            return (string)DriverProveider.Current().ExecuteScript(script);
+            return (string)DriverProvaider.Current().ExecuteScript(script);
         }
 
         private static void WaitForDataContextLoaded()
@@ -48,7 +48,7 @@ namespace easygenerator.AcceptanceTests.Helpers
             {
                 i++;
                 System.Threading.Thread.Sleep(100);
-                isDataContextLoaded = (bool)DriverProveider.Current().ExecuteScript("return document.getElementById('content')!==null");
+                isDataContextLoaded = (bool)DriverProvaider.Current().ExecuteScript("return document.getElementById('content')!==null");
                 if (i > 50)
                     throw new TimeoutException("Content data is not reachable");
 
@@ -57,7 +57,7 @@ namespace easygenerator.AcceptanceTests.Helpers
         private static void AddTestScriptsToHtml(string scripts)
         {
             var text = String.Format("var head = document.getElementsByTagName('head')[0];var s = document.createElement('script');var t=document.createTextNode(\"{0}\");s.setAttribute('type','text/javascript');s.appendChild(t);head.appendChild(s);", scripts);
-            DriverProveider.Current().ExecuteScript(text);
+            DriverProvaider.Current().ExecuteScript(text);
         }
     }
     public class DataReader

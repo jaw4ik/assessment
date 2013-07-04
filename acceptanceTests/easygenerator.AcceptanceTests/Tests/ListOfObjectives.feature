@@ -109,7 +109,7 @@ And objective list item with title 'Objective1' is not selected
 And objective list item with title 'Objective3' is not selected
 
 
-Scenario Outline: Columns count should depend on screen width
+Scenario Outline: Columns count should depend on screen width on objectives list
 Given objectives are present in database
 | Title      |
 | Objective1 |
@@ -148,7 +148,6 @@ Given objectives are present in database
 | Objective3 |
 When mouse hover element of objectives list with title 'Objective1'
 Then Action open is enabled true for objectives list item with title 'Objective1'
-And Action select is enabled true for objectives list item with title 'Objective1'
 
 
 Scenario: Open action of objectives list item navigates to objective's editing page 

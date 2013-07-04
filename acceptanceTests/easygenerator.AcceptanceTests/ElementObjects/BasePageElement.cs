@@ -15,26 +15,26 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public BasePageElement() { }
         public BasePageElement(RemoteWebElement container)
         {
-            Container = container;
+            this.Container = container;
         }
-        protected RemoteWebElement Container { get; private set; }
+        public RemoteWebElement Container { get; private set; }
 
         protected RemoteWebElement GetByXPath(string path)
         {
-            return (RemoteWebElement)DriverProveider.Current().FindElementByXPath(path);
+            return (RemoteWebElement)DriverProvaider.Current().FindElementByXPath(path);
         }
         protected RemoteWebElement[] GetAllByXPath(string path)
         {
-            return DriverProveider.Current().FindElementsByXPath(path).Cast<RemoteWebElement>().ToArray();
+            return DriverProvaider.Current().FindElementsByXPath(path).Cast<RemoteWebElement>().ToArray();
         }
 
         protected RemoteWebElement GetByXPathInside(string path)
         {
-            return (RemoteWebElement)DriverProveider.Current().FindElementByXPath(path);
+            return (RemoteWebElement)DriverProvaider.Current().FindElementByXPath(path);
         }
         protected RemoteWebElement[] GetAllByXPathInside(string path)
         {
-            return DriverProveider.Current().FindElementsByXPath(path).Cast<RemoteWebElement>().ToArray();
+            return DriverProvaider.Current().FindElementsByXPath(path).Cast<RemoteWebElement>().ToArray();
         }
     }
 }

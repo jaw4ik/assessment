@@ -10,12 +10,12 @@ using OpenQA.Selenium.Remote;
 
 namespace easygenerator.AcceptanceTests.ElementObjects
 {
-
-
     public enum Order { Ascending, Descending }
+
     public class ObjectivesListPage : BasePageElement<ObjectiveListLinkingModel>
     {
         public ObjectivesListPage() { }
+
         public ObjectivesListItem[] Items
         {
             get
@@ -25,16 +25,39 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
-        public Order Order { get; set; }
-
-        internal object GetColumnsCount()
+        public Order Order
         {
-            throw new NotImplementedException();
+            get
+            {
+                var isAscEnabled = model.IsTitelSortingActive(Container.FindElementByXPath(model.SortingByTitleAsc));
+                var isDescEnabled = model.IsTitelSortingActive(Container.FindElementByXPath(model.SortingByTitleDesc));
+                if (isAscEnabled == isDescEnabled)
+                    throw new InvalidOperationException("Both order buttons are in same state");
+                return isAscEnabled ? Order.Ascending : Order.Descending;
+            }
+            set
+            {
+                var expectedOrder = value == Order.Ascending ? model.SortingByTitleAsc : model.SortingByTitleDesc;
+                Container.FindElementByXPath(expectedOrder).Click();
+            }
         }
 
-        internal void ClickHomePageIcon()
+        internal int GetColumnsCount()
         {
-            DriverProveider.Current().FindElementByXPath(model.HomePageIcon).Click();
+            var items = Items;
+            var columnsCount = 0;
+            List<int> xOfColums = new List<int>();
+            foreach (var item in items)
+            {
+                var x = item.Container.Location.X;
+                if (!xOfColums.Contains(x))
+                {
+                    columnsCount++;
+                    xOfColums.Add(x);
+                }
+            }
+            return columnsCount;
         }
+
     }
 }
