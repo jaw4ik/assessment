@@ -35,7 +35,6 @@ Then objectives tiles list consists of ordered items
 | Objective_z |
 And objectives list order switch is set to 'ascending'
 
-
 Scenario: Objectives are sorted by title descending if set descending order
 Given objectives are present in database
 | Title       |

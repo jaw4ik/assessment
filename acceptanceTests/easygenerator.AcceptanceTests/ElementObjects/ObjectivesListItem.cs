@@ -32,19 +32,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
 
         internal bool IsVisisble()
         {
-            var pageWidth = Container.WrappedDriver.ExecuteScript<Int64>("return document.documentElement.clientWidth");
-            var pageHeight = Container.WrappedDriver.ExecuteScript<Int64>("return document.documentElement.clientHeight");
-            var x1 = Container.Size.Width + Container.Coordinates.LocationInDom.X;
-            var y1 = Container.Size.Height + Container.Coordinates.LocationInDom.Y;
-            var scrollX = Container.WrappedDriver.ExecuteScript<Int64>("return window.scrollX");
-            var scrollY = Container.WrappedDriver.ExecuteScript<Int64>("return window.scrollY");
-
-            var isP1OnScreen = Container.Coordinates.LocationInDom.X > scrollX &&
-                Container.Coordinates.LocationInDom.Y > scrollY;
-            var isP2OnScreen = x1 > scrollX + pageWidth &&
-                y1 > scrollY + pageHeight;
-
-            return Container.Displayed && isP1OnScreen && isP2OnScreen;
+            return Container.IsVisible();
         }
 
         internal void Hover()

@@ -78,6 +78,7 @@
     <Compile Include="ElementObjects\ObjectivesListItem.cs" />
     <Compile Include="ElementObjects\ObjectivesListPage.cs" />
     <Compile Include="Helpers\DataSetter.cs" />
+    <Compile Include="Helpers\DriverExtensions.cs" />
     <Compile Include="Helpers\DriverProvaider.cs" />
     <Compile Include="LinkingModels\BaseLinkinkModel.cs" />
     <Compile Include="ElementObjects\BasePageElement.cs" />

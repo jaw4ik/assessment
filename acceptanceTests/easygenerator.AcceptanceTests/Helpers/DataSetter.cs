@@ -8,17 +8,33 @@ using System.Threading.Tasks;
 
 namespace easygenerator.AcceptanceTests.Helpers
 {
-    public class ObjectivesDataSetter
+    public class DataSetter
     {
-        public void AddObjectiveToDatabase(string id, string title)
+        public void AddObjectivesToDatabase(ObjectiveData[] objectives)
         {
-            ExcecuteTestScript(String.Format("Test.AddNewObjective('{0}','{1}')", id, title));
+            foreach (var obj in objectives)
+            {
+                if (obj.Id != null) obj.Id = "0";
+                ExcecuteTestScript(String.Format("Test.AddNewObjective('{0}','{1}')", obj.Id, obj.Title));
+            }
             RebuildView();
+        }
+        public void AddPublicationsToDatabase(PublicationData[] objectives)
+        {
+            foreach (var obj in objectives)
+            {
+                if (obj.Id != null) obj.Id = "0";
+                ExcecuteTestScript(String.Format("Test.AddNewPublication('{0}','{1}')", obj.Id, obj.Title));
+            }
         }
         public void EmptyObjectivesList()
         {
             ExcecuteTestScript("Test.EmptyObjectivesList()");
             RebuildView();
+        }
+        public void EmptyPublicationsList()
+        {
+            ExcecuteTestScript("Test.EmptyPublicationsList()");
         }
         private void RebuildView()
         {

@@ -7,8 +7,12 @@ using TechTalk.SpecFlow;
 
 namespace easygenerator.AcceptanceTests.Steps
 {
+    public class PublicationData
+    {
+        public string Title { get; set; }
+        public string Id { get; set; }
+    }
     [Binding]
-
     public class ListOfPublicationsSteps
     {
         [Given(@"publications are present in database")]

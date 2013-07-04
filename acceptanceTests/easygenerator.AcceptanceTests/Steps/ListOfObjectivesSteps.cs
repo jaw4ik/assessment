@@ -34,13 +34,9 @@ namespace easygenerator.AcceptanceTests.Steps
         public void GivenObjectivesArePresentInDatabase(Table table)
         {
             var objectives = table.CreateSet<ObjectiveData>().ToArray();
-            var dataSetter = new ObjectivesDataSetter();
+            var dataSetter = new DataSetter();
             dataSetter.EmptyObjectivesList();
-            foreach (var obj in objectives)
-            {
-                var idString = obj.Id != null ? obj.Id : "0";
-                dataSetter.AddObjectiveToDatabase(idString, obj.Title);
-            }
+            dataSetter.AddObjectivesToDatabase(objectives);
         }
 
         [Then(@"objectives tiles list contains items with data")]

@@ -21,17 +21,4 @@ namespace easygenerator.AcceptanceTests.Helpers
         }
         public static void StopCurrent() { driver.Quit(); }
     }
-    public static class DriverExtensions
-    {
-        public static void HoverElement(this RemoteWebElement element)
-        {
-            var builder = new OpenQA.Selenium.Interactions.Actions(element.WrappedDriver);
-            var hoverOverRegistrar = builder.MoveToElement(element);
-            hoverOverRegistrar.Perform();
-        }
-        public static T ExecuteScript<T>(this IWebDriver driver,string script)
-        {
-            return (T)((RemoteWebDriver)driver).ExecuteScript(script);
-        }
-    }
 }
