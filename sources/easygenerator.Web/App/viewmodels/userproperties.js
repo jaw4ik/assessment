@@ -1,4 +1,4 @@
-﻿define(['localizationManager', 'durandal/plugins/router'],
+﻿define(['localization/localizationManager', 'durandal/plugins/router'],
     function (localizationManager, router) {
 
         var

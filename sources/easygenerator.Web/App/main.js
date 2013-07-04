@@ -1,7 +1,6 @@
 ﻿require.config({
     paths: {
-        "text": "durandal/amd/text",
-        "localizationManager": "localization/localizationManager"
+        "text": "durandal/amd/text"
     }
 });
 
@@ -21,7 +20,7 @@ define(function (require) {
         app = require('durandal/app'),
         router = require('durandal/plugins/router'),
         viewLocator = require('durandal/viewLocator'),
-        localizationManager = require('localizationManager');
+        localizationManager = require('localization/localizationManager');
 
     //>>excludeStart("build", true);
     system.debug(true);
