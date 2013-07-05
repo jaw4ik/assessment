@@ -33,7 +33,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                throw new NotImplementedException();
+                return model.IsHoverEnabled(Container);
             }
         }
 
@@ -42,6 +42,27 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             Container.Click();
         }
 
-        public bool IsSelected { get; set; }
+        public bool IsSelected
+        {
+            get
+            {
+                return model.IsSelectedEnabled(Container);
+            }
+        }
+
+        internal bool IsVisible()
+        {
+            return Container.IsVisible();
+        }
+
+        public bool AddEnabled { get { return GetByXPathInside(model.AddButton).IsVisible(); } }
+        public bool OpenEnabled { get { return GetByXPathInside(model.OpenButton).IsVisible(); } }
+
+        public bool EditEnabled { get { return GetByXPathInside(model.EditButton).IsVisible(); } }
+
+        internal void ClickEdit()
+        {
+            GetByXPathInside(model.EditButton).Click();
+        }
     }
 }

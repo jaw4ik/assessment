@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using easygenerator.AcceptanceTests.Helpers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
-using easygenerator.AcceptanceTests.Helpers;
 
 namespace easygenerator.AcceptanceTests.ElementObjects
 {

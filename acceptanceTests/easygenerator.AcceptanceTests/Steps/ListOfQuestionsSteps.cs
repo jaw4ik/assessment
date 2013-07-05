@@ -37,7 +37,10 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             var expectedQuestions = table.CreateSet<QuestionData>().ToArray();
             var realQuestions = questionListPage.Items;
-            Assert.IsTrue(expectedQuestions.All(obj => realQuestions.Any(item => item.Title == obj.Title)));
+
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                expectedQuestions.All(obj => realQuestions.Any(item => item.Title == obj.Title)),
+                "All questions should be present on page");
         }
 
         [Then(@"questions list consists of ordered items")]
@@ -45,13 +48,18 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             var expectedQuestions = table.CreateSet<QuestionData>().Select(obj => obj.Title).ToArray();
             var realQuestions = questionListPage.Items.Select(obj => obj.Title).ToArray();
-            CollectionAssert.AreEqual(expectedQuestions, realQuestions);
+
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                TestUtils.AreCollectionsEqual(expectedQuestions, realQuestions),
+                "Order of questions should be as expected");
         }
 
         [Then(@"questions list order switch is set to '(.*)'")]
         public void ThenQuestionsListOrderSwitchIsSetTo(string orderString)
         {
-            Assert.AreEqual(GherkinConstants.OrderWay[orderString], questionListPage.Order);
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                GherkinConstants.OrderWay[orderString] == questionListPage.Order,
+                "Question list switch is in incorrect state");
         }
 
         [When(@"I switch questions list order to '(.*)'")]
@@ -62,22 +70,21 @@ namespace easygenerator.AcceptanceTests.Steps
                 questionListPage.Order = expectedOrder;
         }
 
-        [When(@"mouse hover on questions list item with title '(.*)'")]
-        public void WhenMouseHoverOnQuestionsListItemWithTitle(string title)
-        {
-            questionListPage.Items.First(it => it.Title == title).Hover();
-        }
 
         [Then(@"questions list item with title ''(.*)' is highlited")]
         public void ThenQuestionsListItemWithTitleIsHighlited(string title)
         {
-            Assert.IsTrue(questionListPage.Items.First(it => it.Title == title).IsHighLited);
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                questionListPage.Items.First(it => it.Title == title).IsHighLited,
+                "Question should be highlited");
         }
 
         [Then(@"questions list item with title ''(.*)' is not highlited")]
         public void ThenQuestionsListItemWithTitleIsNotHighlited(string title)
         {
-            Assert.IsFalse(questionListPage.Items.First(it => it.Title == title).IsHighLited);
+            TestUtils.Assert_IsFalse_WithWait(() =>
+                questionListPage.Items.First(it => it.Title == title).IsHighLited,
+                "Question should not be highlited");
         }
 
         [When(@"click on questions list item with title '(.*)'")]
@@ -107,49 +114,59 @@ namespace easygenerator.AcceptanceTests.Steps
         [Then(@"questions list item with title '(.*)' is selected")]
         public void ThenQuestionsListItemWithTitleIsSelected(string title)
         {
-            Assert.IsTrue(questionListPage.Items.First(it => it.Title == title).IsSelected);
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                questionListPage.Items.First(it => it.Title == title).IsSelected,
+                "Question should be selected");
         }
 
         [Then(@"questions list item with title '(.*)' is not selected")]
-        public void ThenQuestionsListItemWithTitleIsNotSelected(string p0)
+        public void ThenQuestionsListItemWithTitleIsNotSelected(string title)
         {
-            ScenarioContext.Current.Pending();
+            TestUtils.Assert_IsFalse_WithWait(() =>
+                questionListPage.Items.First(it => it.Title == title).IsSelected,
+                "Question should not be selected");
         }
 
         [Then(@"last element of questions list is visible")]
         public void ThenLastElementOfQuestionsListIsVisible()
         {
-            ScenarioContext.Current.Pending();
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                questionListPage.Items.Last().IsVisible(),
+                "Last question should be visible");
         }
 
         [Then(@"Action add content is enabled (.*) for questions list item with title '(.*)'")]
-        public void ThenActionAddContentIsEnabledTrueForQuestionsListItemWithTitle(bool isEnabled, string p0)
+        public void ThenActionAddContentIsEnabledTrueForQuestionsListItemWithTitle(bool isEnabled, string title)
         {
-            ScenarioContext.Current.Pending();
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                questionListPage.Items.First(it => it.Title == title).AddEnabled,
+                "Action add should be enabled");
         }
 
         [Then(@"Action edit is enabled (.*) for questions list item with title '(.*)'")]
-        public void ThenActionEditIsEnabledTrueForQuestionsListItemWithTitle(bool isEnabled, string p0)
+        public void ThenActionEditIsEnabledTrueForQuestionsListItemWithTitle(bool isEnabled, string title)
         {
-            ScenarioContext.Current.Pending();
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                questionListPage.Items.First(it => it.Title == title).EditEnabled,
+                "Action edit should be enabled");
         }
 
         [When(@"mouse hover element of questions list with title '(.*)'")]
-        public void WhenMouseHoverElementOfQuestionsListWithTitle(string p0)
+        public void WhenMouseHoverElementOfQuestionsListWithTitle(string title)
         {
-            ScenarioContext.Current.Pending();
+            questionListPage.Items.First(it => it.Title == title).Hover();
         }
 
         [When(@"click on edit question with title '(.*)'")]
-        public void WhenClickOnEditQuestionWithTitle(string p0)
+        public void WhenClickOnEditQuestionWithTitle(string title)
         {
-            ScenarioContext.Current.Pending();
+            questionListPage.Items.First(it => it.Title == title).ClickEdit();
         }
 
         [When(@"click on back from questions list")]
         public void WhenClickOnBackFromQuestionsList()
         {
-            ScenarioContext.Current.Pending();
+            questionListPage.ClickBackToObjectives();
         }
 
     }

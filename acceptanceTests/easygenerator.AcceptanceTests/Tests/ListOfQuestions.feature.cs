@@ -291,7 +291,7 @@ testRunner.Given("questions related to \'Objective1\' are present in database", 
 #line 88
 testRunner.When("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 89
-testRunner.And("mouse hover on questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("mouse hover element of questions list with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 90
 testRunner.Then("questions list item with title \'\'Question2\' is highlited", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 91
@@ -533,7 +533,7 @@ testRunner.Given("questions related to \'Objective1\' are present in database", 
 #line 178
 testRunner.When("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 179
-testRunner.And("mouse hover on questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("mouse hover element of questions list with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 180
 testRunner.Then("Action add content is enabled true for questions list item with title \'Question2\'" +
                     "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -570,7 +570,7 @@ testRunner.When("click on objective list item with title \'Objective1\'", ((stri
 #line 190
 testRunner.And("click on questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 191
-testRunner.And("mouse hover on questions list item with title \'Question3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("mouse hover element of questions list with title \'Question3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 192
 testRunner.Then("Action add content is enabled true for questions list item with title \'Question2\'" +
                     "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

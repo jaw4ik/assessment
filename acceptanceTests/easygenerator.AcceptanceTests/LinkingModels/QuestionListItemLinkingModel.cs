@@ -10,6 +10,9 @@ namespace easygenerator.AcceptanceTests.LinkingModels
     public class QuestionListItemLinkingModel : BaseLinkinkModel
     {
         public string QuestionTitle = "";
+        public string EditButton = "";
+        public string AddButton = "";
+        public string OpenButton = "";
         public bool IsHoverEnabled(IWebElement el)
         {
             return el.GetAttribute("class").Contains("active");

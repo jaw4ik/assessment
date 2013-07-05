@@ -57,7 +57,9 @@ namespace easygenerator.AcceptanceTests.Steps
         [Then(@"objectives list order switch is set to '(.*)'")]
         public void ThenObjectivesListOrderSwitchIsSetTo(string orderString)
         {
-            Assert.AreEqual(GherkinConstants.OrderWay[orderString], objectivesPage.Order);
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                GherkinConstants.OrderWay[orderString] == objectivesPage.Order,
+                "Incorrect objectives order switch state");
         }
 
         [When(@"I switch objectives list order to '(.*)'")]
@@ -66,6 +68,12 @@ namespace easygenerator.AcceptanceTests.Steps
             var expectedOrder = GherkinConstants.OrderWay[orderString];
             if (objectivesPage.Order != expectedOrder)
                 objectivesPage.Order = expectedOrder;
+        }
+
+        [When(@"click on tab publications link on objectives list page")]
+        public void WhenClickOnTabPublicationsLinkOnObjectivesListPage()
+        {
+            objectivesPage.NavigateToPublicationsUsingTabs();
         }
 
         [When(@"click on objective list item with title '(.*)'")]
@@ -82,32 +90,6 @@ namespace easygenerator.AcceptanceTests.Steps
             throw new InvalidOperationException("Cannot find objective with given title");
         }
 
-        [Then(@"objective list item with title '(.*)' is selected")]
-        public void ThenObjectiveListItemWithTitleIsSelected(string title)
-        {
-            var item = objectivesPage.Items.First(it => it.Title == title);
-            Assert.IsTrue(item.IsSelected);
-        }
-
-        [Then(@"objective list item with title '(.*)' is not selected")]
-        public void ThenObjectiveListItemWithTitleIsNotSelected(string title)
-        {
-            var item = objectivesPage.Items.First(it => it.Title == title);
-            Assert.IsFalse(item.IsSelected);
-        }
-
-        [Then(@"objectives list is displayed in (.*) columns")]
-        public void ThenObjectivesListIsDisplayedInColumns(int columnsCount)
-        {
-            Assert.AreEqual(columnsCount, objectivesPage.GetColumnsCount());
-        }
-
-        [Then(@"last element of objectives list is visible")]
-        public void ThenLastElementOfObjectivesListIsVisible()
-        {
-            Assert.IsTrue(objectivesPage.Items.Last().IsVisisble());
-        }
-
         [When(@"mouse hover element of objectives list with title '(.*)'")]
         public void WhenMouseHoverElementOfObjectivesListWithTitle(string title)
         {
@@ -115,17 +97,47 @@ namespace easygenerator.AcceptanceTests.Steps
             item.Hover();
         }
 
+        [Then(@"objective list item with title '(.*)' is selected")]
+        public void ThenObjectiveListItemWithTitleIsSelected(string title)
+        {
+            var item = objectivesPage.Items.First(it => it.Title == title);
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                item.IsSelected,
+                "Objective should be selected");
+        }
+
+        [Then(@"objective list item with title '(.*)' is not selected")]
+        public void ThenObjectiveListItemWithTitleIsNotSelected(string title)
+        {
+            var item = objectivesPage.Items.First(it => it.Title == title);
+            TestUtils.Assert_IsFalse_WithWait(() =>
+                item.IsSelected,
+                "Objective should not be selected");
+        }
+
+        [Then(@"objectives list is displayed in (.*) columns")]
+        public void ThenObjectivesListIsDisplayedInColumns(int columnsCount)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                columnsCount == objectivesPage.GetColumnsCount(),
+                "Incorrect columns count");
+        }
+
+        [Then(@"last element of objectives list is visible")]
+        public void ThenLastElementOfObjectivesListIsVisible()
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                objectivesPage.Items.Last().IsVisisble(),
+                "Element should be visible");
+        }
+
         [Then(@"Action open is enabled (.*) for objectives list item with title '(.*)'")]
         public void ThenActionOpenIsEnabledTrueForObjectivesListItemWithTitle(bool isEnabled, string title)
         {
             var item = objectivesPage.Items.First(it => it.Title == title);
-            Assert.AreEqual(isEnabled, item.IsOpenEnabled);
-        }
-
-        [When(@"click on tab publications link on objectives list page")]
-        public void WhenClickOnTabPublicationsLinkOnObjectivesListPage()
-        {
-            objectivesPage.NavigateToPublicationsUsingTabs();
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                isEnabled = item.IsOpenEnabled,
+                "Open should be enabled");
         }
 
     }

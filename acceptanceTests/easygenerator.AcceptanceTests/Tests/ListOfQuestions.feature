@@ -86,7 +86,7 @@ Given questions related to 'Objective1' are present in database
 | Question2 |
 | Question3 |
 When click on objective list item with title 'Objective1'
-And mouse hover on questions list item with title 'Question2'
+And mouse hover element of questions list with title 'Question2'
 Then questions list item with title ''Question2' is highlited
 But questions list item with title ''Question1' is not highlited
 And questions list item with title ''Question3' is not highlited
@@ -176,7 +176,7 @@ Given questions related to 'Objective1' are present in database
 | Question2 |
 | Question3 |
 When click on objective list item with title 'Objective1'
-And mouse hover on questions list item with title 'Question2'
+And mouse hover element of questions list with title 'Question2'
 Then Action add content is enabled true for questions list item with title 'Question2'
 And Action edit is enabled true for questions list item with title 'Question2'
 
@@ -188,7 +188,7 @@ Given questions related to 'Objective1' are present in database
 | Question3 |
 When click on objective list item with title 'Objective1'
 And click on questions list item with title 'Question2'
-And mouse hover on questions list item with title 'Question3'
+And mouse hover element of questions list with title 'Question3'
 Then Action add content is enabled true for questions list item with title 'Question2'
 And Action edit is enabled true for questions list item with title 'Question2'
 And Action add content is enabled true for questions list item with title 'Question3'

@@ -30,11 +30,11 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 
         protected RemoteWebElement GetByXPathInside(string path)
         {
-            return (RemoteWebElement)DriverProvider.Current().FindElementByXPath(path);
+            return (RemoteWebElement)Container.FindElementByXPath(path);
         }
         protected RemoteWebElement[] GetAllByXPathInside(string path)
         {
-            return DriverProvider.Current().FindElementsByXPath(path).Cast<RemoteWebElement>().ToArray();
+            return Container.FindElementsByXPath(path).Cast<RemoteWebElement>().ToArray();
         }
     }
 }
