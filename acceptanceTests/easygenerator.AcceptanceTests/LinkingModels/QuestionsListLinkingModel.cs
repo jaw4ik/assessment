@@ -7,15 +7,12 @@ using System.Threading.Tasks;
 
 namespace easygenerator.AcceptanceTests.LinkingModels
 {
-    public class QuestionsListLinkingModel : BaseLinkinkModel
+    public class QuestionsListLinkingModel : ILinkinkModel
     {
         public string Item = "";
         public string OrderAsc = "";
         public string OrderDesc = "";
         public string BackToObjectives = "";
-        public bool IsTitelSortingActive(IWebElement el)
-        {
-            return el.GetAttribute("class").Contains("active");
-        }
+        public string IsTitelSortingActiveClass = "active";
     }
 }

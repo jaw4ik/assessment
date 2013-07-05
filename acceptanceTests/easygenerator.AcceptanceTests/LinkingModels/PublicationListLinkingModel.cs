@@ -8,15 +8,12 @@ using System.Threading.Tasks;
 
 namespace easygenerator.AcceptanceTests.LinkingModels
 {
-    public class PublicationListLinkingModel : BaseLinkinkModel
+    public class PublicationListLinkingModel : ILinkinkModel
     {
         public string Item = ".//li[@class='publication-brief']";
         public string Container = "//section[@id='content']";
         public string SortingByTitleAsc = "//button[contains(@class,'sortByTitleAsc')]";
         public string SortingByTitleDesc = "//button[contains(@class,'sortByTitleDesc')]";
-        public bool IsTitelSortingActive(IWebElement el)
-        {
-            return el.GetAttribute("class").Contains("active");
-        }
+        public string IsTitelSortingActiveClass = "active";
     }
 }

@@ -354,7 +354,7 @@ testRunner.And("objective list item with title \'Objective3\' is not selected", 
         [NUnit.Framework.TestCaseAttribute("400", "1", null)]
         [NUnit.Framework.TestCaseAttribute("800", "2", null)]
         [NUnit.Framework.TestCaseAttribute("1024", "3", null)]
-        [NUnit.Framework.TestCaseAttribute("1920", "6", null)]
+        [NUnit.Framework.TestCaseAttribute("1920", "4", null)]
         public virtual void ObjectivesListColumnsCountShouldDependOnScreenWidth(string windowWidth, string columnsCount, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Objectives list columns count should depend on screen width", exampleTags);

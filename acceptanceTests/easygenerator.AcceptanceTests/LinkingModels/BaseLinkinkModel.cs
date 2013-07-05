@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace easygenerator.AcceptanceTests.LinkingModels
 {
-    public class BaseLinkinkModel
+    public interface ILinkinkModel
     {
     }
 }

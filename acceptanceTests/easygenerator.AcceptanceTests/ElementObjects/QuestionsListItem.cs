@@ -33,7 +33,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                return model.IsHoverEnabled(Container);
+                return Container.CssContains(model.HoverPartClass);
             }
         }
 
@@ -46,7 +46,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                return model.IsSelectedEnabled(Container);
+                return Container.CssContains(model.SelectedPartClass);
             }
         }
 

@@ -37,5 +37,14 @@ namespace easygenerator.AcceptanceTests.Helpers
 
             return el.Displayed && isP1OnScreen && isP2OnScreen;
         }
+        public static string[] CssAttributes(this RemoteWebElement el)
+        {
+            var attributesString = el.GetAttribute("class");
+            return attributesString.Split(' ').ToArray();
+        }
+        public static bool CssContains(this RemoteWebElement el, string partOfCssClass)
+        {
+            return el.GetAttribute("class").Contains(partOfCssClass);
+        }
     }
 }

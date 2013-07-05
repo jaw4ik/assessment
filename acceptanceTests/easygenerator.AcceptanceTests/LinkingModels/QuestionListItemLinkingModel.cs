@@ -7,19 +7,14 @@ using System.Threading.Tasks;
 
 namespace easygenerator.AcceptanceTests.LinkingModels
 {
-    public class QuestionListItemLinkingModel : BaseLinkinkModel
+    public class QuestionListItemLinkingModel : ILinkinkModel
     {
         public string QuestionTitle = "";
         public string EditButton = "";
         public string AddButton = "";
         public string OpenButton = "";
-        public bool IsHoverEnabled(IWebElement el)
-        {
-            return el.GetAttribute("class").Contains("active");
-        }
-        public bool IsSelectedEnabled(IWebElement el)
-        {
-            return el.GetAttribute("class").Contains("selected");
-        }
+        public string HoverPartClass = "active";
+        public string SelectedPartClass = "selected";
+        
     }
 }

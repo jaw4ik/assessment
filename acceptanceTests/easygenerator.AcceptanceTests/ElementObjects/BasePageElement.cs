@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace easygenerator.AcceptanceTests.LinkingModels
 {
-    public class BasePageElement<T> where T : BaseLinkinkModel, new()
+    public class BasePageElement<T> where T : ILinkinkModel, new()
     {
         protected T model = new T();
         public BasePageElement() { }

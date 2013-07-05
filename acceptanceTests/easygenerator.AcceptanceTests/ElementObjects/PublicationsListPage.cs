@@ -27,8 +27,8 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                var isAscEnabled = model.IsTitelSortingActive(Container.FindElementByXPath(model.SortingByTitleAsc));
-                var isDescEnabled = model.IsTitelSortingActive(Container.FindElementByXPath(model.SortingByTitleDesc));
+                var isAscEnabled = GetByXPathInside(model.SortingByTitleAsc).CssContains(model.IsTitelSortingActiveClass);
+                var isDescEnabled = GetByXPathInside(model.SortingByTitleDesc).CssContains(model.IsTitelSortingActiveClass);
                 if (isAscEnabled == isDescEnabled)
                     throw new InvalidOperationException("Both order buttons are in same state");
                 return isAscEnabled ? Order.Ascending : Order.Descending;

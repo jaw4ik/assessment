@@ -44,7 +44,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                return model.IsSelected(Container);
+                return Container.CssContains(model.IsSelectedClass);
             }
         }
 

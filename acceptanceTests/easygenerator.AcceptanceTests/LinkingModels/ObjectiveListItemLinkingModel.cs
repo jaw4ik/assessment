@@ -7,14 +7,11 @@ using System.Threading.Tasks;
 
 namespace easygenerator.AcceptanceTests.LinkingModels
 {
-    public class ObjectiveListItemLinkingModel : BaseLinkinkModel
+    public class ObjectiveListItemLinkingModel : ILinkinkModel
     {
         public string Title = ".//span[contains(@class,'alert')]";
 
         public string OpenElement = "//Button";
-        public bool IsSelected(IWebElement el)
-        {
-            return el.GetAttribute("class").Contains("selected");
-        }
+        public string IsSelectedClass = "selected";
     }
 }

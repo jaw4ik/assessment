@@ -123,7 +123,7 @@ Examples:
 | 400          | 1             |
 | 800          | 2             |
 | 1024         | 3             |
-| 1920         | 6             |
+| 1920         | 4             |
 
 
 Scenario: All elements of objectives list can be made visible using scroll
