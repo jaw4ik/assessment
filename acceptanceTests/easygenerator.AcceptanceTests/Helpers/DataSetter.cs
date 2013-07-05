@@ -14,7 +14,7 @@ namespace easygenerator.AcceptanceTests.Helpers
         {
             foreach (var obj in objectives)
             {
-                if (obj.Id != null) obj.Id = "0";
+                if (obj.Id == null) obj.Id = "0";
                 ExcecuteTestScript(String.Format("test.AddNewObjective('{0}','{1}')", obj.Id, obj.Title));
             }
             RebuildView();
@@ -23,7 +23,7 @@ namespace easygenerator.AcceptanceTests.Helpers
         {
             foreach (var pub in publications)
             {
-                if (pub.Id != null) pub.Id = "0";
+                if (pub.Id == null) pub.Id = "0";
                 ExcecuteTestScript(String.Format("test.AddNewPublication('{0}','{1}')", pub.Id, pub.Title));
             }
             

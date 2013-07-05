@@ -82,13 +82,7 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             ScenarioContext.Current.Pending();
         }
-
-        [Given(@"publications are present in database")]
-        public void GivenPublicationsArePresentInDatabase()
-        {
-            ScenarioContext.Current.Pending();
-        }
-
+                
         [Then(@"publications list is displayed in (.*) columns")]
         public void ThenPublicationsListIsDisplayedInColumns(int p0)
         {
