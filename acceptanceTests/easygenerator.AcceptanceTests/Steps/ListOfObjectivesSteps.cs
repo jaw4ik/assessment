@@ -117,5 +117,12 @@ namespace easygenerator.AcceptanceTests.Steps
             var item = objectivesPage.Items.First(it => it.Title == title);
             Assert.AreEqual(isEnabled, item.IsOpenEnabled);
         }
+        
+        [When(@"click on tab publications link on objectives list page")]
+        public void WhenClickOnTabPublicationsLinkOnObjectivesListPage()
+        {
+            objectivesPage.NavigateToPublicationsUsingTabs();
+        }
+
     }
 }

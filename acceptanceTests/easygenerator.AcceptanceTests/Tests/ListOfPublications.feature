@@ -3,7 +3,7 @@
 	so I could correct needed settings and perform publication once more without defining all the settings each time. 
 
 Background: 
-When open page by url 'http://localhost:5656/#/publications'
+When open page by url 'http://localhost:5656'
 
 Scenario: All publications should be present in list
 Given publications are present in database
@@ -11,6 +11,7 @@ Given publications are present in database
 | Publication1 |
 | Publication2 |
 | Publication3 |
+When click on tab publications link on objectives list page
 Then publications tiles list contains items with data 
 | Title        |
 | Publication1 |
@@ -26,6 +27,7 @@ Given publications are present in database
 | Publication_z |
 | 1_Publication |
 | _Publication  |
+When click on tab publications link on objectives list page
 Then publications tiles list consists of ordered items
 | Title         |
 | _Publication  |
@@ -44,7 +46,8 @@ Given publications are present in database
 | Publication_z |
 | 1_Publication |
 | _Publication  |
-When I switch publications list order to 'ascending'
+When click on tab publications link on objectives list page
+And I switch publications list order to 'ascending'
 And I switch publications list order to 'descending'
 Then publications tiles list consists of ordered items
 | Title         |
@@ -63,7 +66,8 @@ Given publications are present in database
 | Publication_z |
 | 1_Publication |
 | _Publication  |
-When I switch publications list order to 'descending'
+When click on tab publications link on objectives list page
+And I switch publications list order to 'descending'
 And I switch publications list order to 'ascending'
 Then publications tiles list consists of ordered items
 | Title         |
@@ -80,7 +84,8 @@ Given publications are present in database
 | Publication1 |
 | Publication2 |
 | Publication3 |
-When click on publication list item with title 'Publication2'
+When click on tab publications link on objectives list page
+And click on publication list item with title 'Publication2'
 Then publication list item with title 'Publication2' is selected
 But publication list item with title 'Publication1' is not selected
 And publication list item with title 'Publication3' is not selected
@@ -91,7 +96,8 @@ Given publications are present in database
 | Publication1 |
 | Publication2 |
 | Publication3 |
-When click on publication list item with title 'Publication1'
+When click on tab publications link on objectives list page
+And click on publication list item with title 'Publication1'
 And click on publication list item with title 'Publication2'
 Then publication list item with title 'Publication2' is selected
 But publication list item with title 'Publication1' is not selected
@@ -104,6 +110,7 @@ Given publications are present in database
 | Publication1 |
 | Publication2 |
 | Publication3 |
+When click on tab publications link on objectives list page
 Then publication list item with title 'Publication2' is not selected
 And publication list item with title 'Publication1' is not selected
 And publication list item with title 'Publication3' is not selected
@@ -117,7 +124,8 @@ Given publications are present in database
 | Publication3 |
 | Publication4 |
 | Publication5 |
-When browser window width and height is set to <window width> and 600 
+When click on tab publications link on objectives list page
+And browser window width and height is set to <window width> and 600 
 Then publications list is displayed in <columns count> columns
 Examples: 
 | window width | columns count |
@@ -135,7 +143,8 @@ Given publications are present in database
 | Publication3 |
 | Publication4 |
 | Publication5 |
-When browser window width and height is set to 400 and 300
+When click on tab publications link on objectives list page
+And browser window width and height is set to 400 and 300
 And scroll browser window to the bottom
 Then last element of publications list is visible
 
@@ -146,7 +155,8 @@ Given publications are present in database
 | Publication1 |
 | Publication2 |
 | Publication3 |
-When mouse hover element of publications list with title 'Publication1'
+When click on tab publications link on objectives list page
+And mouse hover element of publications list with title 'Publication1'
 Then Action open is enabled true for publications list item with title 'Publication1'
 And Action select is enabled true for publications list item with title 'Publication1'
 
@@ -155,7 +165,8 @@ Scenario: Open action of publications list item navigates to publication's editi
 Given publications are present in database
 | Title        | Id |
 | Publication1 | 1  |
-When mouse hover element of publications list with title 'Publication1'
+When click on tab publications link on objectives list page
+And mouse hover element of publications list with title 'Publication1'
 And click on publication list item with title 'Publication1'
 Then browser navigates to url "http://localhost:5656/#/publication/1"
 

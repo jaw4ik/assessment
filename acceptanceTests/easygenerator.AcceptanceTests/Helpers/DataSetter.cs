@@ -28,7 +28,7 @@ namespace easygenerator.AcceptanceTests.Helpers
             }
             
             //remove later
-            DriverProvider.Current().ExecuteScript("require('viewmodels/publications/publications').activate()");
+            //DriverProvider.Current().ExecuteScript("require('viewmodels/publications/publications').activate()");
             //remove later
 
         }
@@ -83,7 +83,7 @@ namespace easygenerator.AcceptanceTests.Helpers
                 i++;
                 System.Threading.Thread.Sleep(100);
                 isDataContextLoaded = (bool)DriverProvider.Current().ExecuteScript("return document.getElementById('content')!==null");
-                if (i > 50)
+                if (i > 100)
                     throw new TimeoutException("Content data is not reachable");
 
             } while (!isDataContextLoaded);

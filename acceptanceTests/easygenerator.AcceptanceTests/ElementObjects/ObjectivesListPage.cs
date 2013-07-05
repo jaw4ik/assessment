@@ -57,5 +57,11 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             return columnsCount;
         }
 
+        public void NavigateToPublicationsUsingTabs()
+        {
+            var link = GetByXPath(model.TabPublicationsLink);
+            link.Click();
+        }
+
     }
 }
