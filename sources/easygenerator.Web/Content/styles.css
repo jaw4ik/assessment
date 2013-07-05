@@ -214,6 +214,10 @@ body {
     height: 100%;
 }
 
+#content {
+    padding: 0 20px;
+}
+
 
 .objectives-wrapper {
     height: 100%;
@@ -252,7 +256,7 @@ body {
 .objectives-header {
     position: absolute;
     top: 70px;
-    height: 200px;
+    height: 100px;
     width: 100%;
 }
 
@@ -335,7 +339,7 @@ body {
 
 .objectives-content {
     position: absolute;
-    top: 200px;
+    top: 170px;
     bottom: 0;
     overflow-y: auto;
 }
