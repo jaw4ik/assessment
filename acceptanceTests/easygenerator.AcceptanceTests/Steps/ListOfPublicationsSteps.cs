@@ -41,7 +41,7 @@ namespace easygenerator.AcceptanceTests.Steps
             var realPublications = publicationsPage.Items;
             TestUtils.Assert_IsTrue_WithWait(() =>
                 expectedPublications.All(obj => realPublications.Any(item => item.Title == obj.Title)),
-                "Not all expected objectives on page");
+                "Not all expected publications on page");
         }
 
         [Then(@"publications tiles list consists of ordered items")]
@@ -51,7 +51,7 @@ namespace easygenerator.AcceptanceTests.Steps
             var realPublications = publicationsPage.Items.Select(obj => obj.Title).ToArray();
             TestUtils.Assert_IsTrue_WithWait(() =>
                 TestUtils.AreCollectionsEqual(expectedPublications, realPublications),
-                "Order of objectives should be the same");
+                "Order of publications should be the same");
         }
 
         [Then(@"publications list order switch is set to '(.*)'")]
