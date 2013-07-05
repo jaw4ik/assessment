@@ -33,7 +33,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-
+                throw new NotImplementedException();
             }
         }
 
