@@ -9,6 +9,8 @@ RMDIR  /S /Q "%DeploymentDirectory%"
 ECHO "Building ..."
 %SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild sources\easygenerator.Web\easygenerator.Web.csproj /p:outdir="%DeploymentDirectory%\bin";webprojectoutputdir="%DeploymentDirectory%";debugsymbols=false;debugtype=none;TreatWarningsAsErrors=true /t:Clean,Build,TransformWebConfig /p:Configuration=Release
 
+IF NOT EXIST sources/easygenerator.Web/obj/Release/TransformWebConfig/transformed/Web.config GOTO ERROR
+
 ECHO "Building .Net unit tests"
 %SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild sources\easygenerator.DomainModel.Tests\easygenerator.DomainModel.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR

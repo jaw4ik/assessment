@@ -312,7 +312,11 @@
   <PropertyGroup>
     <PostBuildEvent>set PATH=C:\Program Files\nodejs
 cd $(ProjectDir)App\durandal\amd
-optimizer.exe --verbose</PostBuildEvent>
+optimizer.exe --verbose
+IF NOT EXIST $(ProjectDir)App\main-built.js EXIT /B 1</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>del  $(ProjectDir)App\main-built.js</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
