@@ -108,7 +108,7 @@ And objective list item with title 'Objective1' is not selected
 And objective list item with title 'Objective3' is not selected
 
 
-Scenario Outline: Columns count should depend on screen width on objectives list
+Scenario Outline: Objectives list columns count should depend on screen width
 Given objectives are present in database
 | Title      |
 | Objective1 |

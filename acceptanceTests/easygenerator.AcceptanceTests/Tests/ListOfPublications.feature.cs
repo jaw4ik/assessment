@@ -363,14 +363,14 @@ testRunner.And("publication list item with title \'Publication3\' is not selecte
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Columns count should depend on screen width")]
+        [NUnit.Framework.DescriptionAttribute("Publications list columns count should depend on screen width")]
         [NUnit.Framework.TestCaseAttribute("400", "1", null)]
         [NUnit.Framework.TestCaseAttribute("800", "2", null)]
         [NUnit.Framework.TestCaseAttribute("1024", "3", null)]
         [NUnit.Framework.TestCaseAttribute("1920", "6", null)]
-        public virtual void ColumnsCountShouldDependOnScreenWidth(string windowWidth, string columnsCount, string[] exampleTags)
+        public virtual void PublicationsListColumnsCountShouldDependOnScreenWidth(string windowWidth, string columnsCount, string[] exampleTags)
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Columns count should depend on screen width", exampleTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publications list columns count should depend on screen width", exampleTags);
 #line 119
 this.ScenarioSetup(scenarioInfo);
 #line 5

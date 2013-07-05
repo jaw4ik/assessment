@@ -116,7 +116,7 @@ And publication list item with title 'Publication1' is not selected
 And publication list item with title 'Publication3' is not selected
 
 
-Scenario Outline: Columns count should depend on screen width
+Scenario Outline: Publications list columns count should depend on screen width
 Given publications are present in database
 | Title        |
 | Publication1 |
