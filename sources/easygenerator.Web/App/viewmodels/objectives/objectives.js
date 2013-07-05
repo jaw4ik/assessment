@@ -1,29 +1,19 @@
-﻿define(['dataContext', 'durandal/plugins/router'],
-    function (dataContext, router) {
+﻿define(['dataContext', 'constants', 'durandal/plugins/router'],
+    function (dataContext, constants, router) {
+        "use strict";
+
         var
             objectives = ko.observableArray([]),
 
-            filter = ko.observable(),
-            filteredObjectives = ko.computed(function () {
-                var filterValue = filter();
-                if (!filterValue) {
-                    return objectives();
-                }
-                return ko.utils.arrayFilter(objectives(), function (item) {
-                    return item.title.toLowerCase().indexOf(filterValue.toLowerCase()) !== -1;
-                });
-            }),
+            currentSortingOption = ko.observable(),
 
-            pageLength = 12,
-            displayCount = ko.observable(pageLength),
-            totalCount = ko.computed(function () {
-                return filteredObjectives().length;
-            }),
-            pagedObjectives = ko.computed(function () {
-                return filteredObjectives().slice(0, displayCount());
-            }),
-            showMore = function () {
-                displayCount(displayCount() + pageLength);
+            sortByTitleAsc = function () {
+                currentSortingOption(constants.sortingOptions.byTitleAsc);
+                objectives(_.sortBy(objectives(), function (objective) { return objective.title.toLowerCase(); }));
+            },
+            sortByTitleDesc = function () {
+                currentSortingOption(constants.sortingOptions.byTitleDesc);
+                objectives(_.sortBy(objectives(), function (objective) { return objective.title.toLowerCase(); }).reverse());
             },
 
             goToDetails = function (item) {
@@ -32,18 +22,21 @@
             },
 
             activate = function () {
-                objectives(ko.utils.arrayMap(dataContext.objectives, function (item) {
-                    return { id: item.id, title: item.title, image: item.image };
-                }));
+                return Q.fcall(function () {
+                    objectives(ko.utils.arrayMap(dataContext.objectives, function (item) {
+                        return { id: item.id, title: item.title, image: item.image };
+                    }));
+                    sortByTitleAsc();
+                });
             };
 
         return {
             activate: activate,
-            filter: filter,
-            objectives: pagedObjectives,
-            displayCount: displayCount,
-            totalCount: totalCount,
-            showMore: showMore,
+            sortByTitleAsc: sortByTitleAsc,
+            sortByTitleDesc: sortByTitleDesc,
+            currentSortingOption: currentSortingOption,
+            sortingOptions: constants.sortingOptions,
+            objectives: objectives,
             goToDetails: goToDetails
         };
     }
