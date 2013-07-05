@@ -4,6 +4,15 @@
     src: url('font/Montserrat-Regular.eot?#iefix') format('embedded-opentype'), url('font/Montserrat-Regular.woff') format('woff'), url('font/Montserrat-Regular.ttf') format('truetype'), url('font/Montserrat-Regular.svg#Montserrat-Regular') format('svg');
 }
 
+@media all and (-webkit-min-device-pixel-ratio:0) {
+    @font-face {
+        font-family: 'FontAwesome';
+        src: url('font/fontawesome-webfont.svg#fontawesomeregular') format('svg'), url('font/fontawesome-webfont.eot?#iefix&v=3.2.1') format('embedded-opentype'), url('font/fontawesome-webfont.woff?v=3.2.1') format('woff'), url('font/fontawesome-webfont.ttf?v=3.2.1') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+}
+
 /*===================================
 RESET CSS-STYLES
 ===================================*/
