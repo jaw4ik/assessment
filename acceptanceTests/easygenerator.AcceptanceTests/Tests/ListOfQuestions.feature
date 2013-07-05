@@ -109,15 +109,15 @@ Given questions related to 'Objective1' are present in database
 | Question1 |
 | Question2 |
 | Question3 |
-Given answers related to 'Question1' are present in database
+Given answers related to 'Question1' of 'Objective1' are present in database
 | Title   |
 | Answer1 |
 | Answer2 |
 | Answer3 |
 When click on objective list item with title 'Objective1'
 And click on questions list item with title 'Question1'
-Then answers list is visible
-And answers list contains items with data
+Then answers list is visible of question with title 'Question1'
+And answers list of question 'Question1' contains items with data
 | Title   |
 | Answer1 |
 | Answer2 |
@@ -200,7 +200,7 @@ Given questions related to 'Objective1' are present in database
 | Question1  | 1  |
 When click on objective list item with title 'Objective1'
 And mouse hover element of questions list with title 'Question1'
-And click on edit question
+And click on edit question with title 'Question1'
 Then browser navigates to url "http://localhost:5656/#/objective/1/question/1"
 
 

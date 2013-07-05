@@ -32,7 +32,6 @@ namespace easygenerator.AcceptanceTests.Steps
             dataSetter.EmptyQuestionsListOfObjective(objTitle);
             dataSetter.AddQuestionsToDatabase(objTitle, questions);
         }
-
         [Then(@"questions list contains items with data")]
         public void ThenQuestionsListContainsItemsWithData(Table table)
         {
@@ -64,51 +63,51 @@ namespace easygenerator.AcceptanceTests.Steps
         }
 
         [When(@"mouse hover on questions list item with title '(.*)'")]
-        public void WhenMouseHoverOnQuestionsListItemWithTitle(string p0)
+        public void WhenMouseHoverOnQuestionsListItemWithTitle(string title)
         {
-            ScenarioContext.Current.Pending();
+            questionListPage.Items.First(it => it.Title == title).Hover();
         }
 
         [Then(@"questions list item with title ''(.*)' is highlited")]
-        public void ThenQuestionsListItemWithTitleIsHighlited(string p0)
+        public void ThenQuestionsListItemWithTitleIsHighlited(string title)
         {
-            ScenarioContext.Current.Pending();
+            Assert.IsTrue(questionListPage.Items.First(it => it.Title == title).IsHighLited);
         }
 
         [Then(@"questions list item with title ''(.*)' is not highlited")]
-        public void ThenQuestionsListItemWithTitleIsNotHighlited(string p0)
+        public void ThenQuestionsListItemWithTitleIsNotHighlited(string title)
         {
-            ScenarioContext.Current.Pending();
+            Assert.IsFalse(questionListPage.Items.First(it => it.Title == title).IsHighLited);
         }
 
         [When(@"click on questions list item with title '(.*)'")]
-        public void WhenClickOnQuestionsListItemWithTitle(string p0)
+        public void WhenClickOnQuestionsListItemWithTitle(string title)
+        {
+            questionListPage.Items.First(it => it.Title == title).Click();
+        }
+
+        [Given(@"answers related to '(.*)' of '(.*)' are present in database")]
+        public void GivenAnswersRelatedToOfArePresentInDatabase(string questionTitle, string objectiveTitle, Table table)
         {
             ScenarioContext.Current.Pending();
         }
 
-        [Given(@"answers related to '(.*)' are present in database")]
-        public void GivenAnswersRelatedToArePresentInDatabase(string p0, Table table)
+        [Then(@"answers list is visible of question with title '(.*)'")]
+        public void ThenAnswersListIsVisibleOfQuestionWithTitle(string p0)
         {
             ScenarioContext.Current.Pending();
         }
 
-        [Then(@"answers list is visible")]
-        public void ThenAnswersListIsVisible()
-        {
-            ScenarioContext.Current.Pending();
-        }
-
-        [Then(@"answers list contains items with data")]
-        public void ThenAnswersListContainsItemsWithData(Table table)
+        [Then(@"answers list of question '(.*)' contains items with data")]
+        public void ThenAnswersListOfQuestionContainsItemsWithData(string p0, Table table)
         {
             ScenarioContext.Current.Pending();
         }
 
         [Then(@"questions list item with title '(.*)' is selected")]
-        public void ThenQuestionsListItemWithTitleIsSelected(string p0)
+        public void ThenQuestionsListItemWithTitleIsSelected(string title)
         {
-            ScenarioContext.Current.Pending();
+            Assert.IsTrue(questionListPage.Items.First(it => it.Title == title).IsSelected);
         }
 
         [Then(@"questions list item with title '(.*)' is not selected")]
@@ -123,14 +122,14 @@ namespace easygenerator.AcceptanceTests.Steps
             ScenarioContext.Current.Pending();
         }
 
-        [Then(@"Action add content is enabled true for questions list item with title '(.*)'")]
-        public void ThenActionAddContentIsEnabledTrueForQuestionsListItemWithTitle(string p0)
+        [Then(@"Action add content is enabled (.*) for questions list item with title '(.*)'")]
+        public void ThenActionAddContentIsEnabledTrueForQuestionsListItemWithTitle(bool isEnabled, string p0)
         {
             ScenarioContext.Current.Pending();
         }
 
-        [Then(@"Action edit is enabled true for questions list item with title '(.*)'")]
-        public void ThenActionEditIsEnabledTrueForQuestionsListItemWithTitle(string p0)
+        [Then(@"Action edit is enabled (.*) for questions list item with title '(.*)'")]
+        public void ThenActionEditIsEnabledTrueForQuestionsListItemWithTitle(bool isEnabled, string p0)
         {
             ScenarioContext.Current.Pending();
         }
@@ -141,8 +140,8 @@ namespace easygenerator.AcceptanceTests.Steps
             ScenarioContext.Current.Pending();
         }
 
-        [When(@"click on edit question")]
-        public void WhenClickOnEditQuestion()
+        [When(@"click on edit question with title '(.*)'")]
+        public void WhenClickOnEditQuestionWithTitle(string p0)
         {
             ScenarioContext.Current.Pending();
         }

@@ -86,6 +86,7 @@
     <Compile Include="Helpers\DriverExtensions.cs" />
     <Compile Include="Helpers\DriverProvider.cs" />
     <Compile Include="Helpers\GherkinConstants.cs" />
+    <Compile Include="Helpers\TestUtils.cs" />
     <Compile Include="LinkingModels\BaseLinkinkModel.cs" />
     <Compile Include="ElementObjects\BasePageElement.cs" />
     <Compile Include="LinkingModels\ObjectiveListItemLinkingModel.cs" />

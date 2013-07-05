@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using easygenerator.AcceptanceTests.Helpers;
 
 namespace easygenerator.AcceptanceTests.ElementObjects
 {
@@ -14,6 +15,33 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             : base(container) { }
 
 
-        public string Title { get; set; }
+        public string Title
+        {
+            get
+            {
+                var title = Container.FindElementByXPath(model.QuestionTitle);
+                return title.Text;
+            }
+        }
+
+        public void Hover()
+        {
+            Container.HoverElement();
+        }
+
+        public bool IsHighLited
+        {
+            get
+            {
+
+            }
+        }
+
+        internal void Click()
+        {
+            Container.Click();
+        }
+
+        public bool IsSelected { get; set; }
     }
 }

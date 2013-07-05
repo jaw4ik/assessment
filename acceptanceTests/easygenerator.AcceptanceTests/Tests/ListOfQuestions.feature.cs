@@ -366,13 +366,13 @@ testRunner.Given("questions related to \'Objective1\' are present in database", 
             table13.AddRow(new string[] {
                         "Answer3"});
 #line 112
-testRunner.Given("answers related to \'Question1\' are present in database", ((string)(null)), table13, "Given ");
+testRunner.Given("answers related to \'Question1\' of \'Objective1\' are present in database", ((string)(null)), table13, "Given ");
 #line 117
 testRunner.When("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 118
 testRunner.And("click on questions list item with title \'Question1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 119
-testRunner.Then("answers list is visible", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("answers list is visible of question with title \'Question1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -383,7 +383,7 @@ testRunner.Then("answers list is visible", ((string)(null)), ((TechTalk.SpecFlow
             table14.AddRow(new string[] {
                         "Answer3"});
 #line 120
-testRunner.And("answers list contains items with data", ((string)(null)), table14, "And ");
+testRunner.And("answers list of question \'Question1\' contains items with data", ((string)(null)), table14, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -608,7 +608,7 @@ testRunner.When("click on objective list item with title \'Objective1\'", ((stri
 #line 202
 testRunner.And("mouse hover element of questions list with title \'Question1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 203
-testRunner.And("click on edit question", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click on edit question with title \'Question1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 204
 testRunner.Then("browser navigates to url \"http://localhost:5656/#/objective/1/question/1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden

@@ -39,7 +39,9 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             var expectedObjectives = table.CreateSet<ObjectiveData>().ToArray();
             var realObjectives = objectivesPage.Items;
-            Assert.IsTrue(expectedObjectives.All(obj => realObjectives.Any(item => item.Title == obj.Title)));
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                expectedObjectives.All(obj => realObjectives.Any(item => item.Title == obj.Title)),
+                "Not all expected objectives on page");
         }
 
         [Then(@"objectives tiles list consists of ordered items")]
@@ -47,7 +49,9 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             var expectedObjectives = table.CreateSet<ObjectiveData>().Select(obj => obj.Title).ToArray();
             var realObjectives = objectivesPage.Items.Select(obj => obj.Title).ToArray();
-            CollectionAssert.AreEqual(expectedObjectives, realObjectives);
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                TestUtils.AreCollectionsEqual(expectedObjectives, realObjectives),
+                "Order of objectives should be the same");
         }
 
         [Then(@"objectives list order switch is set to '(.*)'")]
@@ -117,7 +121,7 @@ namespace easygenerator.AcceptanceTests.Steps
             var item = objectivesPage.Items.First(it => it.Title == title);
             Assert.AreEqual(isEnabled, item.IsOpenEnabled);
         }
-        
+
         [When(@"click on tab publications link on objectives list page")]
         public void WhenClickOnTabPublicationsLinkOnObjectivesListPage()
         {
