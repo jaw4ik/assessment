@@ -13,7 +13,7 @@ Given questions related to 'Objective1' are present in database
 | Question1 |
 | Question2 |
 | Question3 |
-When click on objective list item with title 'Objective1'
+When select objective list item with title 'Objective1'
 Then questions list contains items with data 
 | Title     |
 | Question1 |
@@ -28,7 +28,7 @@ Given questions related to 'Objective1' are present in database
 | Question_z |
 | 1_Question |
 | _Question  |
-When click on objective list item with title 'Objective1'
+When select objective list item with title 'Objective1'
 Then questions list consists of ordered items
 | Title      |
 | _Question  |
@@ -47,7 +47,7 @@ Given questions related to 'Objective1' are present in database
 | Question_z |
 | 1_Question |
 | _Question  |
-When click on objective list item with title 'Objective1'
+When select objective list item with title 'Objective1'
 And I switch questions list order to 'ascending'
 And I switch questions list order to 'descending'
 Then questions list consists of ordered items
@@ -67,7 +67,7 @@ Given questions related to 'Objective1' are present in database
 | Question_z |
 | 1_Question |
 | _Question  |
-When click on objective list item with title 'Objective1'
+When select objective list item with title 'Objective1'
 And I switch questions list order to 'descending'
 And I switch questions list order to 'ascending'
 Then questions list consists of ordered items
@@ -85,7 +85,7 @@ Given questions related to 'Objective1' are present in database
 | Question1 |
 | Question2 |
 | Question3 |
-When click on objective list item with title 'Objective1'
+When select objective list item with title 'Objective1'
 And mouse hover element of questions list with title 'Question2'
 Then questions list item with title ''Question2' is highlited
 But questions list item with title ''Question1' is not highlited
@@ -97,7 +97,7 @@ Given questions related to 'Objective1' are present in database
 | Question1 |
 | Question2 |
 | Question3 |
-When click on objective list item with title 'Objective1'
+When select objective list item with title 'Objective1'
 And click on questions list item with title 'Question2'
 Then questions list item with title ''Question2' is highlited
 But questions list item with title ''Question1' is not highlited
@@ -114,7 +114,7 @@ Given answers related to 'Question1' of 'Objective1' are present in database
 | Answer1 |
 | Answer2 |
 | Answer3 |
-When click on objective list item with title 'Objective1'
+When select objective list item with title 'Objective1'
 And click on questions list item with title 'Question1'
 Then answers list is visible of question with title 'Question1'
 And answers list of question 'Question1' contains items with data
@@ -129,7 +129,7 @@ Given questions related to 'Objective1' are present in database
 | Question1 |
 | Question2 |
 | Question3 |
-When click on objective list item with title 'Objective1'
+When select objective list item with title 'Objective1'
 And click on questions list item with title 'Question1'
 And click on questions list item with title 'Question2'
 Then questions list item with title 'Question2' is selected
@@ -142,7 +142,7 @@ Given questions related to 'Objective1' are present in database
 | Question1  |
 | Question2  |
 | Question3  |
-When click on objective list item with title 'Objective1'
+When select objective list item with title 'Objective1'
 Then questions list item with title 'Question2' is not selected
 And questions list item with title 'Question1' is not selected
 And questions list item with title 'Question3' is not selected
@@ -164,7 +164,7 @@ Given questions related to 'Objective1' are present in database
 | Question12 |
 | Question13 |
 | Question14 |
-When click on objective list item with title 'Objective1'
+When select objective list item with title 'Objective1'
 And browser window width and height is set to 400 and 300
 And scroll browser window to the bottom
 Then last element of questions list is visible
@@ -175,7 +175,7 @@ Given questions related to 'Objective1' are present in database
 | Question1 |
 | Question2 |
 | Question3 |
-When click on objective list item with title 'Objective1'
+When select objective list item with title 'Objective1'
 And mouse hover element of questions list with title 'Question2'
 Then Action add content is enabled true for questions list item with title 'Question2'
 And Action edit is enabled true for questions list item with title 'Question2'
@@ -186,7 +186,7 @@ Given questions related to 'Objective1' are present in database
 | Question1 |
 | Question2 |
 | Question3 |
-When click on objective list item with title 'Objective1'
+When select objective list item with title 'Objective1'
 And click on questions list item with title 'Question2'
 And mouse hover element of questions list with title 'Question3'
 Then Action add content is enabled true for questions list item with title 'Question2'
@@ -198,16 +198,16 @@ Scenario: Edit question action of questions list navigates to question's editing
 Given questions related to 'Objective1' are present in database
 | Title      | Id |
 | Question1  | 1  |
-When click on objective list item with title 'Objective1'
+When select objective list item with title 'Objective1'
 And mouse hover element of questions list with title 'Question1'
 And click on edit question with title 'Question1'
-Then browser navigates to url "http://localhost:5656/#/objective/1/question/1"
+Then browser navigates to url 'http://localhost:5656/#/objective/1/question/1'
 
 
 Scenario: Back action of questions list navigates to objectives list page 
 Given questions related to 'Objective1' are present in database
 | Title     |
 | Question1 |
-When click on objective list item with title 'Objective1'
+When select objective list item with title 'Objective1'
 And click on back from questions list
-Then browser navigates to url "http://localhost:5656/#/"
+Then browser navigates to url 'http://localhost:5656/#/'

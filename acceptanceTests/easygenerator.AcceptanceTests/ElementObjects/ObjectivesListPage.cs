@@ -22,7 +22,10 @@ namespace easygenerator.AcceptanceTests.ElementObjects
                 return items.Select(it => new ObjectivesListItem(it)).ToArray();
             }
         }
-
+        public ObjectivesListItem ItemByTitle(string title)
+        {
+            return Items.First(it => it.Title == title);
+        }
         public Order Order
         {
             get

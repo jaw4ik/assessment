@@ -10,7 +10,7 @@ namespace easygenerator.AcceptanceTests.Helpers
 {
     public static class TestUtils
     {
-        static int waitLoops = 40;
+        static int waitLoops = 20;
         static int timeout = 250;
         public static bool WaitForCondition(Func<bool> condition)
         {
@@ -33,6 +33,19 @@ namespace easygenerator.AcceptanceTests.Helpers
             Assert.IsFalse(WaitForCondition(condition), message);
         }
 
+        public static void Assert_IsTrue_WithWait(Func<bool> condition, string message, string[] messages)
+        {
+            Assert_IsTrue_WithWait(condition, GetFullMessageText(message, messages));
+        }
+        public static void Assert_IsFalse_WithWait(Func<bool> condition, string message, string[] messages)
+        {
+            Assert_IsFalse_WithWait(condition, GetFullMessageText(message, messages));
+        }
+
+        private static string GetFullMessageText(string message, string[] messages)
+        {
+            return String.Join("\r\n", message + "\r\n" + messages);
+        }
         public static bool AreCollectionsEqual(string[] firstCol, string[] secondCol)
         {
             if (firstCol.Length != secondCol.Length)

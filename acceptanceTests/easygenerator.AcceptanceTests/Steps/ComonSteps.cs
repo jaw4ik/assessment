@@ -33,10 +33,15 @@ namespace easygenerator.AcceptanceTests.Steps
             DriverProvider.Current().ExecuteScript("window.scrollTo(0,document.body.scrollHeight)", "");
         }
 
-        [Then(@"browser navigates to url ""(.*)""")]
+        [Then(@"browser navigates to url '(.*)'")]
         public void ThenBrowserNavigatesToUrl(string expectedUrl)
         {
             Assert.AreEqual(expectedUrl, DriverProvider.Current().Url);
+        }
+        [Then(@"page contains element with text '(.*)'")]
+        public void ThenPageContainsElementWithText(string text)
+        {
+            Assert.IsTrue(DriverProvider.Current().FindElementsByXPath("//*[contains(text(),'" + text + "')]").Count > 0);
         }
 
     }

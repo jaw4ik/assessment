@@ -26,11 +26,6 @@ namespace easygenerator.AcceptanceTests.Helpers
                 if (pub.Id == null) pub.Id = "0";
                 ExcecuteTestScript(String.Format("test.AddNewPublication('{0}','{1}')", pub.Id, pub.Title));
             }
-            
-            //remove later
-            //DriverProvider.Current().ExecuteScript("require('viewmodels/publications/publications').activate()");
-            //remove later
-
         }
         public void AddQuestionsToDatabase(string objTitle, QuestionData[] questions)
         {
@@ -56,7 +51,7 @@ namespace easygenerator.AcceptanceTests.Helpers
         }
         private void RebuildView()
         {
-            DriverProvider.Current().ExecuteScript("require('viewmodels/objectives/objectives').activate()");
+            DriverProvider.Current().ExecuteScript("test.RebuildObjectivesListView()");
         }
         private void InitObjectivesEnvironment()
         {

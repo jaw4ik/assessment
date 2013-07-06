@@ -79,7 +79,7 @@ Given objectives are present in database
 | Objective1 |
 | Objective2 |
 | Objective3 |
-When click on objective list item with title 'Objective2'
+When select objective list item with title 'Objective2'
 Then objective list item with title 'Objective2' is selected
 But objective list item with title 'Objective1' is not selected
 And objective list item with title 'Objective3' is not selected
@@ -90,8 +90,8 @@ Given objectives are present in database
 | Objective1 |
 | Objective2 |
 | Objective3 |
-When click on objective list item with title 'Objective1'
-And click on objective list item with title 'Objective2'
+When select objective list item with title 'Objective1'
+And select objective list item with title 'Objective2'
 Then objective list item with title 'Objective2' is selected
 But objective list item with title 'Objective1' is not selected
 And objective list item with title 'Objective3' is not selected
@@ -120,10 +120,10 @@ When browser window width and height is set to <window width> and 600
 Then objectives list is displayed in <columns count> columns
 Examples: 
 | window width | columns count |
-| 400          | 1             |
+| 640          | 1             |
 | 800          | 2             |
-| 1024         | 3             |
-| 1920         | 4             |
+| 1200         | 3             |
+| 1600         | 3             |
 
 
 Scenario: All elements of objectives list can be made visible using scroll
@@ -147,6 +147,7 @@ Given objectives are present in database
 | Objective3 |
 When mouse hover element of objectives list with title 'Objective1'
 Then Action open is enabled true for objectives list item with title 'Objective1'
+And Action select is enabled true for objectives list item with title 'Objective1'
 
 
 Scenario: Open action of objectives list item navigates to objective's editing page 
@@ -154,8 +155,8 @@ Given objectives are present in database
 | Title      | Id |
 | Objective1 | 1  |
 When mouse hover element of objectives list with title 'Objective1'
-And click on objective list item with title 'Objective1'
-Then browser navigates to url "http://localhost:5656/#/objective/1"
+And click open objective list item with title 'Objective1'
+Then browser navigates to url 'http://localhost:5656/#/objective/1'
 
 
 

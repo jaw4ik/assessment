@@ -274,7 +274,7 @@ this.FeatureBackground();
 #line 77
 testRunner.Given("objectives are present in database", ((string)(null)), table9, "Given ");
 #line 82
-testRunner.When("click on objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("select objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 83
 testRunner.Then("objective list item with title \'Objective2\' is selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 84
@@ -306,9 +306,9 @@ this.FeatureBackground();
 #line 88
 testRunner.Given("objectives are present in database", ((string)(null)), table10, "Given ");
 #line 93
-testRunner.When("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 94
-testRunner.And("click on objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("select objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 95
 testRunner.Then("objective list item with title \'Objective2\' is selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 96
@@ -351,10 +351,10 @@ testRunner.And("objective list item with title \'Objective3\' is not selected", 
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Objectives list columns count should depend on screen width")]
-        [NUnit.Framework.TestCaseAttribute("400", "1", null)]
+        [NUnit.Framework.TestCaseAttribute("640", "1", null)]
         [NUnit.Framework.TestCaseAttribute("800", "2", null)]
-        [NUnit.Framework.TestCaseAttribute("1024", "3", null)]
-        [NUnit.Framework.TestCaseAttribute("1920", "4", null)]
+        [NUnit.Framework.TestCaseAttribute("1200", "3", null)]
+        [NUnit.Framework.TestCaseAttribute("1600", "3", null)]
         public virtual void ObjectivesListColumnsCountShouldDependOnScreenWidth(string windowWidth, string columnsCount, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Objectives list columns count should depend on screen width", exampleTags);
@@ -443,6 +443,8 @@ testRunner.Given("objectives are present in database", ((string)(null)), table14
 testRunner.When("mouse hover element of objectives list with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 149
 testRunner.Then("Action open is enabled true for objectives list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 150
+testRunner.And("Action select is enabled true for objectives list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -452,7 +454,7 @@ testRunner.Then("Action open is enabled true for objectives list item with title
         public virtual void OpenActionOfObjectivesListItemNavigatesToObjectiveSEditingPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Open action of objectives list item navigates to objective\'s editing page", ((string[])(null)));
-#line 152
+#line 153
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -463,14 +465,14 @@ this.FeatureBackground();
             table15.AddRow(new string[] {
                         "Objective1",
                         "1"});
-#line 153
+#line 154
 testRunner.Given("objectives are present in database", ((string)(null)), table15, "Given ");
-#line 156
-testRunner.When("mouse hover element of objectives list with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 157
-testRunner.And("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("mouse hover element of objectives list with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 158
-testRunner.Then("browser navigates to url \"http://localhost:5656/#/objective/1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("click open objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 159
+testRunner.Then("browser navigates to url \'http://localhost:5656/#/objective/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -38,10 +38,10 @@ namespace easygenerator.AcceptanceTests.Steps
         public void ThenObjectivesTilesListContainsItemsWithData(Table table)
         {
             var expectedObjectives = table.CreateSet<ObjectiveData>().ToArray();
-            var realObjectives = objectivesPage.Items;
+            var realObjectives = objectivesPage.Items.Select(obj => obj.Title).ToArray();
             TestUtils.Assert_IsTrue_WithWait(() =>
-                expectedObjectives.All(obj => realObjectives.Any(item => item.Title == obj.Title)),
-                "Not all expected objectives on page");
+                expectedObjectives.All(obj => realObjectives.Any(item => item == obj.Title)),
+                "Not all expected objectives on page", realObjectives);
         }
 
         [Then(@"objectives tiles list consists of ordered items")]
@@ -51,7 +51,7 @@ namespace easygenerator.AcceptanceTests.Steps
             var realObjectives = objectivesPage.Items.Select(obj => obj.Title).ToArray();
             TestUtils.Assert_IsTrue_WithWait(() =>
                 TestUtils.AreCollectionsEqual(expectedObjectives, realObjectives),
-                "Order of objectives should be the same");
+                "Order of objectives should be the same",realObjectives);
         }
 
         [Then(@"objectives list order switch is set to '(.*)'")]
@@ -76,14 +76,14 @@ namespace easygenerator.AcceptanceTests.Steps
             objectivesPage.NavigateToPublicationsUsingTabs();
         }
 
-        [When(@"click on objective list item with title '(.*)'")]
+        [When(@"select objective list item with title '(.*)'")]
         public void WhenClickOnObjectiveListItemWithTitle(string title)
         {
             foreach (var item in objectivesPage.Items)
             {
                 if (item.Title == title)
                 {
-                    item.Click();
+                    item.Select();
                     return;
                 }
             }
@@ -93,14 +93,14 @@ namespace easygenerator.AcceptanceTests.Steps
         [When(@"mouse hover element of objectives list with title '(.*)'")]
         public void WhenMouseHoverElementOfObjectivesListWithTitle(string title)
         {
-            var item = objectivesPage.Items.First(it => it.Title == title);
+            var item = objectivesPage.ItemByTitle(title);
             item.Hover();
         }
 
         [Then(@"objective list item with title '(.*)' is selected")]
         public void ThenObjectiveListItemWithTitleIsSelected(string title)
         {
-            var item = objectivesPage.Items.First(it => it.Title == title);
+            var item = objectivesPage.ItemByTitle(title);
             TestUtils.Assert_IsTrue_WithWait(() =>
                 item.IsSelected,
                 "Objective should be selected");
@@ -109,7 +109,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [Then(@"objective list item with title '(.*)' is not selected")]
         public void ThenObjectiveListItemWithTitleIsNotSelected(string title)
         {
-            var item = objectivesPage.Items.First(it => it.Title == title);
+            var item = objectivesPage.ItemByTitle(title);
             TestUtils.Assert_IsFalse_WithWait(() =>
                 item.IsSelected,
                 "Objective should not be selected");
@@ -120,7 +120,7 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             TestUtils.Assert_IsTrue_WithWait(() =>
                 columnsCount == objectivesPage.GetColumnsCount(),
-                "Incorrect columns count");
+                "Incorrect columns count, real is " + objectivesPage.GetColumnsCount().ToString());
         }
 
         [Then(@"last element of objectives list is visible")]
@@ -134,11 +134,26 @@ namespace easygenerator.AcceptanceTests.Steps
         [Then(@"Action open is enabled (.*) for objectives list item with title '(.*)'")]
         public void ThenActionOpenIsEnabledTrueForObjectivesListItemWithTitle(bool isEnabled, string title)
         {
-            var item = objectivesPage.Items.First(it => it.Title == title);
+            var item = objectivesPage.ItemByTitle(title);
             TestUtils.Assert_IsTrue_WithWait(() =>
                 isEnabled = item.IsOpenEnabled,
                 "Open should be enabled");
         }
+        [Then(@"Action select is enabled (.*) for objectives list item with title '(.*)'")]
+        public void ThenActionSelectIsEnabledTrueForObjectivesListItemWithTitle(bool isEnabled, string title)
+        {
+            var item = objectivesPage.ItemByTitle(title);
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                isEnabled = item.IsSelectedEnabled,
+                "Select should be enabled");
+        }
+
+        [When(@"click open objective list item with title '(.*)'")]
+        public void WhenClickOpenObjectiveListItemWithTitle(string title)
+        {
+            objectivesPage.ItemByTitle(title).Open();
+        }
+
 
     }
 }

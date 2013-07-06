@@ -66,6 +66,9 @@
     <Reference Include="WebDriver">
       <HintPath>..\packages\Selenium.WebDriver.2.33.0\lib\net40\WebDriver.dll</HintPath>
     </Reference>
+    <Reference Include="WebDriver.Support">
+      <HintPath>..\packages\Selenium.Support.2.33.0\lib\net40\WebDriver.Support.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -101,10 +104,10 @@
     <Compile Include="Steps\Hooks.cs" />
     <Compile Include="Steps\ListOfObjectivesSteps.cs" />
     <Compile Include="Steps\ListOfQuestionsSteps.cs" />
-    <Compile Include="Tests\ErrorPages.feature.cs">
+    <Compile Include="Tests\Errors.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ErrorPages.feature</DependentUpon>
+      <DependentUpon>Errors.feature</DependentUpon>
     </Compile>
     <Compile Include="Tests\ListOfObjectives.feature.cs">
       <AutoGen>True</AutoGen>
@@ -125,9 +128,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Tests\ErrorPages.feature">
+    <None Include="Tests\Errors.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ErrorPages.feature.cs</LastGenOutput>
+      <LastGenOutput>Errors.feature.cs</LastGenOutput>
     </None>
     <None Include="Tests\ListOfObjectives.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

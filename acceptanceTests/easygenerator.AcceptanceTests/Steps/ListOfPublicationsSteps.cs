@@ -38,10 +38,10 @@ namespace easygenerator.AcceptanceTests.Steps
         public void ThenPublicationsTilesListContainsItemsWithData(Table table)
         {
             var expectedPublications = table.CreateSet<PublicationData>().ToArray();
-            var realPublications = publicationsPage.Items;
+            var realPublications = publicationsPage.Items.Select(obj => obj.Title).ToArray();
             TestUtils.Assert_IsTrue_WithWait(() =>
-                expectedPublications.All(obj => realPublications.Any(item => item.Title == obj.Title)),
-                "Not all expected publications on page");
+                expectedPublications.All(obj => realPublications.Any(item => item == obj.Title)),
+                "Not all expected publications on page", realPublications);
         }
 
         [Then(@"publications tiles list consists of ordered items")]
@@ -51,7 +51,7 @@ namespace easygenerator.AcceptanceTests.Steps
             var realPublications = publicationsPage.Items.Select(obj => obj.Title).ToArray();
             TestUtils.Assert_IsTrue_WithWait(() =>
                 TestUtils.AreCollectionsEqual(expectedPublications, realPublications),
-                "Order of publications should be the same");
+                "Order of publications should be the same", realPublications);
         }
 
         [Then(@"publications list order switch is set to '(.*)'")]
@@ -101,13 +101,13 @@ namespace easygenerator.AcceptanceTests.Steps
                 item.IsSelected,
                 "Publication should not be selected");
         }
-                
+
         [Then(@"publications list is displayed in (.*) columns")]
         public void ThenPublicationsListIsDisplayedInColumns(int columnsCount)
         {
             TestUtils.Assert_IsTrue_WithWait(() =>
                 columnsCount == publicationsPage.GetColumnsCount(),
-                "Incorrect columns count");
+                "Incorrect columns count, real is" + publicationsPage.GetColumnsCount().ToString());
         }
 
         [Then(@"last element of publications list is visible")]
@@ -134,10 +134,13 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Open should be enabled");
         }
 
-        [Then(@"Action select is enabled true for publications list item with title '(.*)'")]
-        public void ThenActionSelectIsEnabledTrueForPublicationsListItemWithTitle(string p0)
+        [Then(@"Action select is enabled (.*) for publications list item with title '(.*)'")]
+        public void ThenActionSelectIsEnabledTrueForPublicationsListItemWithTitle(bool isEnabled, string title)
         {
-            ScenarioContext.Current.Pending();
+            var item = publicationsPage.Items.First(it => it.Title == title);
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                isEnabled = item.IsSelectEnabled,
+                "Select should be enabled");
         }
 
     }

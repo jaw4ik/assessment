@@ -36,11 +36,11 @@ namespace easygenerator.AcceptanceTests.Steps
         public void ThenQuestionsListContainsItemsWithData(Table table)
         {
             var expectedQuestions = table.CreateSet<QuestionData>().ToArray();
-            var realQuestions = questionListPage.Items;
+            var realQuestions = questionListPage.Items.Select(obj => obj.Title).ToArray();
 
             TestUtils.Assert_IsTrue_WithWait(() =>
-                expectedQuestions.All(obj => realQuestions.Any(item => item.Title == obj.Title)),
-                "All questions should be present on page");
+                expectedQuestions.All(obj => realQuestions.Any(item => item == obj.Title)),
+                "All questions should be present on page", realQuestions);
         }
 
         [Then(@"questions list consists of ordered items")]
@@ -51,7 +51,7 @@ namespace easygenerator.AcceptanceTests.Steps
 
             TestUtils.Assert_IsTrue_WithWait(() =>
                 TestUtils.AreCollectionsEqual(expectedQuestions, realQuestions),
-                "Order of questions should be as expected");
+                "Order of questions should be as expected", realQuestions);
         }
 
         [Then(@"questions list order switch is set to '(.*)'")]

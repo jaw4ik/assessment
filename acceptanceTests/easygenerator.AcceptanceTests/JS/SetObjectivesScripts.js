@@ -46,5 +46,8 @@
     this.EmptyPublicationsList = function () {
         dataContext.publications = [];
     };
+    this.RebuildObjectivesListView = function () {
+        require('viewmodels/objectives/objectives').activate();
+    };
 };
 var test = new Test();

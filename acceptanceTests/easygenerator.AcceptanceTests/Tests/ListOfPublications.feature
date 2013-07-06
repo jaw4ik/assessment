@@ -129,10 +129,10 @@ And browser window width and height is set to <window width> and 600
 Then publications list is displayed in <columns count> columns
 Examples: 
 | window width | columns count |
-| 400          | 1             |
+| 640          | 1             |
 | 800          | 2             |
-| 1024         | 3             |
-| 1920         | 6             |
+| 1200         | 3             |
+| 1600         | 3             |
 
 
 Scenario: All elements of publications list can be made visible using scroll
@@ -168,7 +168,7 @@ Given publications are present in database
 When click on tab publications link on objectives list page
 And mouse hover element of publications list with title 'Publication1'
 And click on publication list item with title 'Publication1'
-Then browser navigates to url "http://localhost:5656/#/publication/1"
+Then browser navigates to url 'http://localhost:5656/#/publication/1'
 
 
 

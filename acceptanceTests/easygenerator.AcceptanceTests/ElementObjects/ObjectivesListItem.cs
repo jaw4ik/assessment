@@ -25,9 +25,9 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
-        internal void Click()
+        internal void Select()
         {
-            Container.Click();
+            GetByXPathInside(model.SelectElement).Click();
         }
 
         internal bool IsVisisble()
@@ -44,7 +44,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                return Container.CssContains(model.IsSelectedClass);
+                return GetByXPathInside(model.SelectElement).CssContains(model.IsSelectedClass);
             }
         }
 
@@ -52,9 +52,23 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                var openEl = Container.FindElementByXPath(model.OpenElement);
+                var openEl = GetByXPathInside(model.OpenElement);
                 return openEl.Displayed;
             }
+        }
+        public bool IsSelectedEnabled
+        {
+            get
+            {
+                var openEl = GetByXPathInside(model.SelectElement);
+                return openEl.Displayed;
+            }
+        }
+
+
+        internal void Open()
+        {
+            GetByXPathInside(model.OpenElement).Click();
         }
     }
 }

@@ -11,7 +11,8 @@ namespace easygenerator.AcceptanceTests.LinkingModels
     {
         public string Title = ".//span[contains(@class,'alert')]";
 
-        public string OpenElement = "//Button";
+        public string OpenElement = "";
         public string IsSelectedClass = "selected";
+        public string SelectElement = "";
     }
 }

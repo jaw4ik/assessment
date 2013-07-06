@@ -103,7 +103,7 @@ this.FeatureBackground();
 #line 11
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table2, "Given ");
 #line 16
-testRunner.When("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -144,7 +144,7 @@ this.FeatureBackground();
 #line 24
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table4, "Given ");
 #line 31
-testRunner.When("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -191,7 +191,7 @@ this.FeatureBackground();
 #line 43
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table6, "Given ");
 #line 50
-testRunner.When("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 51
 testRunner.And("I switch questions list order to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 52
@@ -242,7 +242,7 @@ this.FeatureBackground();
 #line 63
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table8, "Given ");
 #line 70
-testRunner.When("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 71
 testRunner.And("I switch questions list order to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 72
@@ -289,7 +289,7 @@ this.FeatureBackground();
 #line 83
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table10, "Given ");
 #line 88
-testRunner.When("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 89
 testRunner.And("mouse hover element of questions list with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 90
@@ -323,7 +323,7 @@ this.FeatureBackground();
 #line 95
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table11, "Given ");
 #line 100
-testRunner.When("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 101
 testRunner.And("click on questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 102
@@ -368,7 +368,7 @@ testRunner.Given("questions related to \'Objective1\' are present in database", 
 #line 112
 testRunner.Given("answers related to \'Question1\' of \'Objective1\' are present in database", ((string)(null)), table13, "Given ");
 #line 117
-testRunner.When("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 118
 testRunner.And("click on questions list item with title \'Question1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 119
@@ -409,7 +409,7 @@ this.FeatureBackground();
 #line 127
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table15, "Given ");
 #line 132
-testRunner.When("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 133
 testRunner.And("click on questions list item with title \'Question1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 134
@@ -445,7 +445,7 @@ this.FeatureBackground();
 #line 140
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table16, "Given ");
 #line 145
-testRunner.When("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 146
 testRunner.Then("questions list item with title \'Question2\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 147
@@ -499,7 +499,7 @@ this.FeatureBackground();
 #line 151
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table17, "Given ");
 #line 167
-testRunner.When("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 168
 testRunner.And("browser window width and height is set to 400 and 300", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 169
@@ -531,7 +531,7 @@ this.FeatureBackground();
 #line 173
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table18, "Given ");
 #line 178
-testRunner.When("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 179
 testRunner.And("mouse hover element of questions list with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 180
@@ -566,7 +566,7 @@ this.FeatureBackground();
 #line 184
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table19, "Given ");
 #line 189
-testRunner.When("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 190
 testRunner.And("click on questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 191
@@ -604,13 +604,13 @@ this.FeatureBackground();
 #line 198
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table20, "Given ");
 #line 201
-testRunner.When("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 202
 testRunner.And("mouse hover element of questions list with title \'Question1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 203
 testRunner.And("click on edit question with title \'Question1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 204
-testRunner.Then("browser navigates to url \"http://localhost:5656/#/objective/1/question/1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("browser navigates to url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -632,11 +632,11 @@ this.FeatureBackground();
 #line 208
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table21, "Given ");
 #line 211
-testRunner.When("click on objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 212
 testRunner.And("click on back from questions list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 213
-testRunner.Then("browser navigates to url \"http://localhost:5656/#/\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("browser navigates to url \'http://localhost:5656/#/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -56,5 +56,14 @@ namespace easygenerator.AcceptanceTests.ElementObjects
                 return openEl.Displayed;
             }
         }
+
+        public bool IsSelectEnabled
+        {
+            get
+            {
+                var selectEl = Container.FindElementByXPath(model.SelectElement);
+                return selectEl.Displayed;
+            }
+        }
     }
 }

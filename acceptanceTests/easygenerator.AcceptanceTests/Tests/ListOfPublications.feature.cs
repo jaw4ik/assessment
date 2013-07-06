@@ -364,10 +364,10 @@ testRunner.And("publication list item with title \'Publication3\' is not selecte
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Publications list columns count should depend on screen width")]
-        [NUnit.Framework.TestCaseAttribute("400", "1", null)]
+        [NUnit.Framework.TestCaseAttribute("640", "1", null)]
         [NUnit.Framework.TestCaseAttribute("800", "2", null)]
-        [NUnit.Framework.TestCaseAttribute("1024", "3", null)]
-        [NUnit.Framework.TestCaseAttribute("1920", "6", null)]
+        [NUnit.Framework.TestCaseAttribute("1200", "3", null)]
+        [NUnit.Framework.TestCaseAttribute("1600", "3", null)]
         public virtual void PublicationsListColumnsCountShouldDependOnScreenWidth(string windowWidth, string columnsCount, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publications list columns count should depend on screen width", exampleTags);
@@ -494,7 +494,7 @@ testRunner.And("mouse hover element of publications list with title \'Publicatio
 #line 170
 testRunner.And("click on publication list item with title \'Publication1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 171
-testRunner.Then("browser navigates to url \"http://localhost:5656/#/publication/1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("browser navigates to url \'http://localhost:5656/#/publication/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
