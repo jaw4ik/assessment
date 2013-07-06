@@ -40,7 +40,6 @@ namespace easygenerator.AcceptanceTests.Helpers
                 default:
                     throw new NotImplementedException("Browser in app.config is not supported");
             }
-            driver.Manage().Window.Maximize();
         }
         public static void StopCurrent() { driver.Quit(); }
     }

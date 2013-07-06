@@ -141,9 +141,9 @@ testRunner.When("click on tab publications link on objectives list page", ((stri
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table4.AddRow(new string[] {
-                        "_Publication"});
-            table4.AddRow(new string[] {
                         "1_Publication"});
+            table4.AddRow(new string[] {
+                        "_Publication"});
             table4.AddRow(new string[] {
                         "a_Publication"});
             table4.AddRow(new string[] {
@@ -177,9 +177,9 @@ this.FeatureBackground();
             table5.AddRow(new string[] {
                         "Publication_z"});
             table5.AddRow(new string[] {
-                        "1_Publication"});
-            table5.AddRow(new string[] {
                         "_Publication"});
+            table5.AddRow(new string[] {
+                        "1_Publication"});
 #line 42
 testRunner.Given("publications are present in database", ((string)(null)), table5, "Given ");
 #line 49
@@ -243,9 +243,9 @@ testRunner.And("I switch publications list order to \'ascending\'", ((string)(nu
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table8.AddRow(new string[] {
-                        "_Publication"});
-            table8.AddRow(new string[] {
                         "1_Publication"});
+            table8.AddRow(new string[] {
+                        "_Publication"});
             table8.AddRow(new string[] {
                         "a_Publication"});
             table8.AddRow(new string[] {
@@ -495,6 +495,55 @@ testRunner.And("mouse hover element of publications list with title \'Publicatio
 testRunner.And("click on publication list item with title \'Publication1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 171
 testRunner.Then("browser navigates to url \'http://localhost:5656/#/publication/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Sorting order should be saved when navigate to other page")]
+        public virtual void SortingOrderShouldBeSavedWhenNavigateToOtherPage()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Sorting order should be saved when navigate to other page", ((string[])(null)));
+#line 174
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table16.AddRow(new string[] {
+                        "Publication_a"});
+            table16.AddRow(new string[] {
+                        "a_Publication"});
+            table16.AddRow(new string[] {
+                        "Publication_z"});
+            table16.AddRow(new string[] {
+                        "1_Publication"});
+            table16.AddRow(new string[] {
+                        "_Publication"});
+#line 175
+testRunner.Given("publications are present in database", ((string)(null)), table16, "Given ");
+#line 182
+testRunner.When("I switch objectives list order to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 183
+testRunner.And("click on tab objectives link on publications list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 184
+testRunner.But("click on tab publications link on objectives list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
+#line hidden
+            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table17.AddRow(new string[] {
+                        "Publication_z"});
+            table17.AddRow(new string[] {
+                        "Publication_a"});
+            table17.AddRow(new string[] {
+                        "a_Publication"});
+            table17.AddRow(new string[] {
+                        "_Publication"});
+            table17.AddRow(new string[] {
+                        "1_Publication"});
+#line 185
+testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table17, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

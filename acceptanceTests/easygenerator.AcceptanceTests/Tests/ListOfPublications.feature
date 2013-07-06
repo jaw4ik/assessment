@@ -30,8 +30,8 @@ Given publications are present in database
 When click on tab publications link on objectives list page
 Then publications tiles list consists of ordered items
 | Title         |
-| _Publication  |
 | 1_Publication |
+| _Publication  |
 | a_Publication |
 | Publication_a |
 | Publication_z |
@@ -44,8 +44,8 @@ Given publications are present in database
 | Publication_a |
 | a_Publication |
 | Publication_z |
-| 1_Publication |
 | _Publication  |
+| 1_Publication |
 When click on tab publications link on objectives list page
 And I switch publications list order to 'ascending'
 And I switch publications list order to 'descending'
@@ -71,8 +71,8 @@ And I switch publications list order to 'descending'
 And I switch publications list order to 'ascending'
 Then publications tiles list consists of ordered items
 | Title         |
-| _Publication  |
 | 1_Publication |
+| _Publication  |
 | a_Publication |
 | Publication_a |
 | Publication_z |
@@ -169,6 +169,26 @@ When click on tab publications link on objectives list page
 And mouse hover element of publications list with title 'Publication1'
 And click on publication list item with title 'Publication1'
 Then browser navigates to url 'http://localhost:5656/#/publication/1'
+
+
+Scenario: Sorting order should be saved when navigate to other page
+Given publications are present in database
+| Title         |
+| Publication_a |
+| a_Publication |
+| Publication_z |
+| 1_Publication |
+| _Publication  |
+When I switch objectives list order to 'descending'
+And click on tab objectives link on publications list page
+But click on tab publications link on objectives list page
+Then publications tiles list consists of ordered items
+| Title         |
+| Publication_z |
+| Publication_a |
+| a_Publication |
+| _Publication  |
+| 1_Publication |
 
 
 

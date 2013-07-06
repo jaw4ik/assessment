@@ -138,9 +138,9 @@ testRunner.Given("objectives are present in database", ((string)(null)), table3,
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table4.AddRow(new string[] {
-                        "_Objective"});
-            table4.AddRow(new string[] {
                         "1_Objective"});
+            table4.AddRow(new string[] {
+                        "_Objective"});
             table4.AddRow(new string[] {
                         "a_Objective"});
             table4.AddRow(new string[] {
@@ -193,9 +193,9 @@ testRunner.And("I switch objectives list order to \'descending\'", ((string)(nul
             table6.AddRow(new string[] {
                         "a_Objective"});
             table6.AddRow(new string[] {
-                        "1_Objective"});
-            table6.AddRow(new string[] {
                         "_Objective"});
+            table6.AddRow(new string[] {
+                        "1_Objective"});
 #line 48
 testRunner.Then("objectives tiles list consists of ordered items", ((string)(null)), table6, "Then ");
 #line 55
@@ -236,9 +236,9 @@ testRunner.And("I switch objectives list order to \'ascending\'", ((string)(null
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table8.AddRow(new string[] {
-                        "_Objective"});
-            table8.AddRow(new string[] {
                         "1_Objective"});
+            table8.AddRow(new string[] {
+                        "_Objective"});
             table8.AddRow(new string[] {
                         "a_Objective"});
             table8.AddRow(new string[] {
@@ -517,9 +517,9 @@ testRunner.But("click on tab objectives link on publications list page", ((strin
             table17.AddRow(new string[] {
                         "a_Objective"});
             table17.AddRow(new string[] {
-                        "1_Objective"});
-            table17.AddRow(new string[] {
                         "_Objective"});
+            table17.AddRow(new string[] {
+                        "1_Objective"});
 #line 172
 testRunner.Then("objectives tiles list consists of ordered items", ((string)(null)), table17, "Then ");
 #line hidden

@@ -28,8 +28,8 @@ Given objectives are present in database
 | _Objective  |
 Then objectives tiles list consists of ordered items
 | Title       |
-| _Objective  |
 | 1_Objective |
+| _Objective  |
 | a_Objective |
 | Objective_a |
 | Objective_z |
@@ -50,8 +50,8 @@ Then objectives tiles list consists of ordered items
 | Objective_z |
 | Objective_a |
 | a_Objective |
-| 1_Objective |
 | _Objective  |
+| 1_Objective |
 And objectives list order switch is set to 'descending'
 
 Scenario: Objectives are sorted by title ascending if set ascending order
@@ -66,8 +66,8 @@ When I switch objectives list order to 'descending'
 And I switch objectives list order to 'ascending'
 Then objectives tiles list consists of ordered items
 | Title       |
-| _Objective  |
 | 1_Objective |
+| _Objective  |
 | a_Objective |
 | Objective_a |
 | Objective_z |
@@ -174,8 +174,8 @@ Then objectives tiles list consists of ordered items
 | Objective_z |
 | Objective_a |
 | a_Objective |
-| 1_Objective |
 | _Objective  |
+| 1_Objective |
 
 
 

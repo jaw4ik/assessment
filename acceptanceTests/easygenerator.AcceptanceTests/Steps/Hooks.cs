@@ -21,10 +21,13 @@ namespace easygenerator.AcceptanceTests.Steps
         public static void CleanTestRun()
         {
             DriverProvider.StopCurrent();
-
             Process.Start("taskkill", "/IM iisexpress.exe");
         }
-
+        [BeforeScenario]
+        public void BeforeScenario()
+        {
+            DriverProvider.Current().Manage().Window.Maximize();
+        }
         [AfterScenario]
         public void AfterScenario()
         {

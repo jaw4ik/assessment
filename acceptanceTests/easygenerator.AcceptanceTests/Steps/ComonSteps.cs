@@ -36,12 +36,14 @@ namespace easygenerator.AcceptanceTests.Steps
         [Then(@"browser navigates to url '(.*)'")]
         public void ThenBrowserNavigatesToUrl(string expectedUrl)
         {
-            Assert.AreEqual(expectedUrl, DriverProvider.Current().Url);
+            TestUtils.Assert_IsTrue_WithWait(() => expectedUrl == DriverProvider.Current().Url,
+                "Incorrect url, real is " + DriverProvider.Current().Url);
         }
         [Then(@"page contains element with text '(.*)'")]
         public void ThenPageContainsElementWithText(string text)
         {
-            Assert.IsTrue(DriverProvider.Current().FindElementsByXPath("//*[contains(text(),'" + text + "')]").Count > 0);
+            TestUtils.Assert_IsTrue_WithWait(() => DriverProvider.Current().FindElementsByXPath("//*[contains(text(),'" + text + "')]").Count > 0,
+                "Element not found with text " + text);
         }
 
     }
