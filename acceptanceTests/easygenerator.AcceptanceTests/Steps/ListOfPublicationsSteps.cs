@@ -142,6 +142,11 @@ namespace easygenerator.AcceptanceTests.Steps
                 isEnabled = item.IsSelectEnabled,
                 "Select should be enabled");
         }
+        [When(@"click on tab objectives link on publications list page")]
+        public void WhenClickOnTabObjectivesLinkOnPublicationsListPage()
+        {
+            publicationsPage.NavigateToObjectivesUsingTabs();
+        }
 
     }
 }

@@ -476,6 +476,55 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#/objective/1\
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Sorting order should be saved when navigate to other page")]
+        public virtual void SortingOrderShouldBeSavedWhenNavigateToOtherPage()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Sorting order should be saved when navigate to other page", ((string[])(null)));
+#line 161
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table16.AddRow(new string[] {
+                        "Objective_a"});
+            table16.AddRow(new string[] {
+                        "a_Objective"});
+            table16.AddRow(new string[] {
+                        "Objective_z"});
+            table16.AddRow(new string[] {
+                        "1_Objective"});
+            table16.AddRow(new string[] {
+                        "_Objective"});
+#line 162
+testRunner.Given("objectives are present in database", ((string)(null)), table16, "Given ");
+#line 169
+testRunner.When("I switch objectives list order to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 170
+testRunner.And("click on tab publications link on objectives list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 171
+testRunner.But("click on tab objectives link on publications list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
+#line hidden
+            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table17.AddRow(new string[] {
+                        "Objective_z"});
+            table17.AddRow(new string[] {
+                        "Objective_a"});
+            table17.AddRow(new string[] {
+                        "a_Objective"});
+            table17.AddRow(new string[] {
+                        "1_Objective"});
+            table17.AddRow(new string[] {
+                        "_Objective"});
+#line 172
+testRunner.Then("objectives tiles list consists of ordered items", ((string)(null)), table17, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

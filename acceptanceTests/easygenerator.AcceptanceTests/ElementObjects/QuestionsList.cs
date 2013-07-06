@@ -26,8 +26,8 @@ namespace easygenerator.AcceptanceTests.ElementObjects
 
             get
             {
-                var isAscEnabled = GetByXPathInside(model.OrderAsc).CssContains(model.IsTitelSortingActiveClass);
-                var isDescEnabled = GetByXPathInside(model.OrderDesc).CssContains(model.IsTitelSortingActiveClass);
+                var isAscEnabled = GetByXPath(model.OrderAsc).CssContains(model.IsTitelSortingActiveClass);
+                var isDescEnabled = GetByXPath(model.OrderDesc).CssContains(model.IsTitelSortingActiveClass);
                 if (isAscEnabled == isDescEnabled)
                     throw new InvalidOperationException("Both order buttons are in same state");
                 return isAscEnabled ? Order.Ascending : Order.Descending;
@@ -35,13 +35,13 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             set
             {
                 var expectedOrder = value == Order.Ascending ? model.OrderAsc : model.OrderDesc;
-                GetByXPathInside(expectedOrder).Click();
+                GetByXPath(expectedOrder).Click();
             }
         }
 
         internal void ClickBackToObjectives()
         {
-            GetByXPath(model.BackToObjectives).Click();
+            GetByXPath(model.ObjectivesTabLink).Click();
         }
     }
 }

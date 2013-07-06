@@ -10,9 +10,9 @@ namespace easygenerator.AcceptanceTests.LinkingModels
     public class QuestionsListLinkingModel : ILinkinkModel
     {
         public string Item = "";
-        public string OrderAsc = "";
-        public string OrderDesc = "";
-        public string BackToObjectives = "";
+        public string OrderAsc = "//div[contains(@class,'questions-sort-by-title-asc')]";
+        public string OrderDesc = "//div[contains(@class,'questions-sort-by-title-desc')]";
+        public string ObjectivesTabLink = "//a[@href='#/publications']";
         public string IsTitelSortingActiveClass = "active";
     }
 }

@@ -79,6 +79,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ElementObjects\ContinerElement.cs" />
     <Compile Include="ElementObjects\ObjectivesListItem.cs" />
     <Compile Include="ElementObjects\ObjectivesListPage.cs" />
     <Compile Include="ElementObjects\QuestionsList.cs" />
@@ -90,7 +91,7 @@
     <Compile Include="Helpers\DriverProvider.cs" />
     <Compile Include="Helpers\GherkinConstants.cs" />
     <Compile Include="Helpers\TestUtils.cs" />
-    <Compile Include="LinkingModels\BaseLinkinkModel.cs" />
+    <Compile Include="LinkingModels\ILinkinkModel.cs" />
     <Compile Include="ElementObjects\BasePageElement.cs" />
     <Compile Include="LinkingModels\ObjectiveListItemLinkingModel.cs" />
     <Compile Include="LinkingModels\ObjectiveListLinkingModel.cs" />

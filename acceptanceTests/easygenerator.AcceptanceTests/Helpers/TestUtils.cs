@@ -44,7 +44,11 @@ namespace easygenerator.AcceptanceTests.Helpers
 
         private static string GetFullMessageText(string message, string[] messages)
         {
-            return String.Join("\r\n", message + "\r\n" + messages);
+            var builder = new StringBuilder();
+            builder.AppendLine(message);
+            foreach (var text in messages)
+                builder.AppendLine(text);
+            return builder.ToString();
         }
         public static bool AreCollectionsEqual(string[] firstCol, string[] secondCol)
         {

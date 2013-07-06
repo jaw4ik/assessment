@@ -15,6 +15,5 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string OpenButton = "";
         public string HoverPartClass = "active";
         public string SelectedPartClass = "selected";
-        
     }
 }

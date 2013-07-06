@@ -20,10 +20,10 @@ namespace easygenerator.AcceptanceTests.Helpers
         public static RemoteWebDriver Current()
         {
             if (driver == default(RemoteWebDriver))
-                GetDriver();
+                InitDriver();
             return driver;
         }
-        private static void GetDriver()
+        private static void InitDriver()
         {
             string browserName = ConfigurationManager.AppSettings["Browser"];
             switch (browserName)
@@ -40,6 +40,7 @@ namespace easygenerator.AcceptanceTests.Helpers
                 default:
                     throw new NotImplementedException("Browser in app.config is not supported");
             }
+            driver.Manage().Window.Maximize();
         }
         public static void StopCurrent() { driver.Quit(); }
     }

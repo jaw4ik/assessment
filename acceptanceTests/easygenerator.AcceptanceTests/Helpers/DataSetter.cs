@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace easygenerator.AcceptanceTests.Helpers
@@ -76,12 +77,13 @@ namespace easygenerator.AcceptanceTests.Helpers
             do
             {
                 i++;
-                System.Threading.Thread.Sleep(100);
+                Thread.Sleep(100);
                 isDataContextLoaded = (bool)DriverProvider.Current().ExecuteScript("return document.getElementById('content')!==null");
                 if (i > 100)
                     throw new TimeoutException("Content data is not reachable");
 
             } while (!isDataContextLoaded);
+            Thread.Sleep(500);
         }
         private static void AddTestScriptsToHtml(string scripts)
         {

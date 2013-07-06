@@ -27,8 +27,8 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                var isAscEnabled = GetByXPathInside(model.SortingByTitleAsc).CssContains(model.IsTitelSortingActiveClass);
-                var isDescEnabled = GetByXPathInside(model.SortingByTitleDesc).CssContains(model.IsTitelSortingActiveClass);
+                var isAscEnabled = GetByXPath(model.SortingByTitleAsc).CssContains(model.IsTitelSortingActiveClass);
+                var isDescEnabled = GetByXPath(model.SortingByTitleDesc).CssContains(model.IsTitelSortingActiveClass);
                 if (isAscEnabled == isDescEnabled)
                     throw new InvalidOperationException("Both order buttons are in same state");
                 return isAscEnabled ? Order.Ascending : Order.Descending;
@@ -36,7 +36,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             set
             {
                 var expectedOrder = value == Order.Ascending ? model.SortingByTitleAsc : model.SortingByTitleDesc;
-                Container.FindElementByXPath(expectedOrder).Click();
+                GetByXPath(expectedOrder).Click();
             }
         }
 
@@ -55,6 +55,11 @@ namespace easygenerator.AcceptanceTests.ElementObjects
                 }
             }
             return columnsCount;
+        }
+
+        internal void NavigateToObjectivesUsingTabs()
+        {
+            GetByXPath(model.PublicationsTabLink).Click();
         }
     }
 }
