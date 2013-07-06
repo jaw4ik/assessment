@@ -9,7 +9,7 @@ using easygenerator.AcceptanceTests.Helpers;
 
 namespace easygenerator.AcceptanceTests.ElementObjects
 {
-    public class QuestionsListItem : ConteinerElement<QuestionListItemLinkingModel>
+    public class QuestionsListItem : ContainerElement<QuestionListItemLinkingModel>
     {
         public QuestionsListItem(RemoteWebElement container)
             : base(container) { }

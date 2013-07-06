@@ -10,7 +10,7 @@ using OpenQA.Selenium.Remote;
 
 namespace easygenerator.AcceptanceTests.ElementObjects
 {
-    public class ObjectivesListItem : ConteinerElement<ObjectiveListItemLinkingModel>
+    public class ObjectivesListItem : ContainerElement<ObjectiveListItemLinkingModel>
     {
 
         public ObjectivesListItem(RemoteWebElement container)

@@ -79,7 +79,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="ElementObjects\ConteinerElement.cs" />
+    <Compile Include="ElementObjects\ContainerElement.cs" />
     <Compile Include="ElementObjects\ObjectivesListItem.cs" />
     <Compile Include="ElementObjects\ObjectivesListPage.cs" />
     <Compile Include="ElementObjects\QuestionsList.cs" />

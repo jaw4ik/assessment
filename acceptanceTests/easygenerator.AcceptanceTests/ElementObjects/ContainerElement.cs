@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace easygenerator.AcceptanceTests.ElementObjects
 {
-    public class ConteinerElement<T> : BasePageElement<T> where T : ILinkinkModel, new()
+    public class ContainerElement<T> : BasePageElement<T> where T : ILinkinkModel, new()
     {
-        public ConteinerElement(RemoteWebElement container)
+        public ContainerElement(RemoteWebElement container)
         {
             this.Container = container;
         }
