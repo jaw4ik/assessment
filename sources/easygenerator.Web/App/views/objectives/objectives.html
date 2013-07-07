@@ -43,19 +43,19 @@
                         <div class="objective-brief-toolbar-question-count">23</div>
                     </div>
                     <div class="objective-brief-options">
-                        <div class="objective-brief-select" data-bind="click: toggleSelection, css: { selected: isSelected() }">
+                        <a href="#" class="objective-brief-select" data-bind="click: toggleSelection, css: { selected: isSelected() }">
                             <!-- ko if: isSelected -->
                             Unselect
                             <!-- /ko-->
                             <!-- ko ifnot: isSelected -->
                             Select
                             <!-- /ko-->
-                        </div>
+                        </a>
                         <div class="objective-brief-options-separator-wrapper">
                             <div class="objective-brief-options-separator">
                             </div>
                         </div>
-                        <div class="objective-brief-open" data-bind="click: $parent.navigateToDetails">Open</div>
+                        <a href="#" class="objective-brief-open" data-bind="click: $parent.navigateToDetails">Open</a>
                     </div>
                     <div></div>
                 </li>

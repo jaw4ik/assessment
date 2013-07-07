@@ -426,7 +426,6 @@ body {
     text-align: center;
     font: 18px Montserrat-Regular;
     line-height: 130px;
-    color: #cecece;
 }
 
 
@@ -437,6 +436,7 @@ body {
     width: 163px;
     height: 180px;
     float: left;
+    color: #cecece;
 }
 
     .objective-brief-select.selected {
@@ -449,10 +449,13 @@ body {
     width: 163px;
     height: 180px;
     float: left;
+    color: #cecece;
 }
 
 
-    .objective-brief-open:hover, .objective-brief-select:hover {
+    .objective-brief-open:hover, .objective-brief-select:hover, .objective-brief-open:focus, .objective-brief-select:focus {
+        color: #cecece;
+        text-decoration: none;
         background-color: #000000;
         background-color: rgba(0, 0, 0, 0.8);
         cursor: pointer;

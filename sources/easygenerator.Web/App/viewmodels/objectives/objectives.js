@@ -8,7 +8,7 @@
                 navigateToDetails: "Navigate to objective details",
                 navigateToExperiences: "Navigate to experiences",
                 sortByTitleAsc: "Sort by title ascending",
-                sortByTitleDesc: "Sort by title descending"
+                sortByTitleDesc: "Sort by title descending",
             },
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName, events.category);
