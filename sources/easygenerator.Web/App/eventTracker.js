@@ -1,5 +1,5 @@
-﻿define([],
-    function () {
+﻿define(['durandal/system'],
+    function (system) {
 
         var providers = [];
 
@@ -23,7 +23,7 @@
                     if (!window.console) {
                         return;
                     }
-                    window.console.log('Tracking event: [' + eventName + ']');
+                    system.log('Tracking event: [' + eventName + ']');
                 };
 
             return {
