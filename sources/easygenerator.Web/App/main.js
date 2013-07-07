@@ -40,7 +40,7 @@ define(function (require) {
         viewLocator.useConvention();
 
         app.setRoot('viewmodels/_layout', 'entrance');
-
+        app.adaptToDevice();
         // override bad route behavior to write to 
         // console log and show error toast
         router.handleInvalidRoute = function (route, params) {
