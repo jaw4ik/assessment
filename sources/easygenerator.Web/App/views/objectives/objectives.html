@@ -29,16 +29,18 @@
 
     </div>
     <div class="objectives-content">
-        <ul class="unstyled objectives-list">
-            <!-- ko foreach: objectives -->
-            <li class="objective-brief">
-                <div class="objective-brief-content" data-bind="click: $parent.goToDetails, style: { backgroundImage: 'url(' + image + ')' }">
-                    <span data-bind="text: title" class="alert alert-info inline"></span>
-                </div>
-            </li>
-            <!-- /ko -->
-        </ul>
-        <div class="clearfix"></div>
+        <div class="objectives-list-wrapper">
+            <ul class="unstyled objectives-list">
+                <!-- ko foreach: objectives -->
+                <li class="objective-brief">
+                    <div class="objective-brief-content" data-bind="click: $parent.goToDetails, style: { backgroundImage: 'url(' + image + ')' }">
+                        <span data-bind="text: title" class="alert alert-info inline"></span>
+                    </div>
+                </li>
+                <!-- /ko -->
+            </ul>
+            <div class="clearfix"></div>
+        </div>        
     </div>
 
 </div>
