@@ -8,18 +8,20 @@
             </div>
         </div>
         <div class="control-group">
-            <ul class="unstyled objectives-list">
-                <!-- ko foreach: objectives -->
-                <li class="objective-brief" data-bind="click: select">
-                    <div class="objective-brief-content" data-bind="style: { backgroundImage: 'url(' + image + ')' }">
-                        <span data-bind="text: title" class="alert alert-info inline"></span>
-                        <!-- ko if: isSelected -->
-                        <span class="alert alert-info pull-right">Mark</span>
-                        <!-- /ko -->
-                    </div>
-                </li>
-                <!-- /ko -->
-            </ul>
+            <label class="control-label" for="objectives-list">Objectives in publication</label>
+            <div class="controls">
+                <ul class="unstyled" id="objectives-list">
+                    <!-- ko foreach: objectives -->
+                    <li>
+                        <label class="checkbox">
+                            <input type="checkbox" data-bind="checked: isSelected">
+                            <!-- ko text: title -->
+                            <!-- /ko -->
+                        </label>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+            </div>
         </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-primary" data-bind="click: create">Create</button>

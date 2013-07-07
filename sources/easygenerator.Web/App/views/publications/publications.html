@@ -1,29 +1,47 @@
-﻿<div>
-    <a href="/#/publication/create" class="btn btn-success"><i class="icon-book">&nbsp;</i>Create Publication</a>
-    <div class="pull-right">
-        <input type="text" class="input-xxlarge" data-bind="value: filter, valueUpdate: 'afterkeydown'" placeholder="SEARCH" />
+﻿<div class="objectives-wrapper">
+    <div class="objectives-navigation">
+        <a href="#/objectives">Learning objectives</a>
+        <span>Publications</span>
     </div>
-    <div class="clearfix">
-    </div>
-    <ul class="unstyled publications-list">
-        <!-- ko foreach: publications -->
-        <li class="publication-brief">
-            <div class="publication-brief-content" style="background-image: url('Content/images/publication.jpg');">
-                <br/>
-                <br/>
-                <br/>
-                <span class="alert alert-info inline" data-bind="text: title + ' [' + objectives.length + ']'"></span>
+    <div class="objectives-header">
+        <div class="objectives-header-title">
+            <div class="icon-wrapper">
+                <span class="icon-stack">
+                    <i class="icon-circle icon-stack-base"></i>
+                    <a href="/#/publication/create" class="icon-plus icon-light"></a>
+                </span>
             </div>
-        </li>
-        <!-- /ko -->
-    </ul>
-    <div class="clearfix"></div>
-    <!-- ko if: totalCount() > displayCount() -->
-    <div class="show-control">
-        <br />
-        <strong data-bind="text: displayCount"></strong>&nbsp;of&nbsp;<strong data-bind="text: totalCount"></strong>
-        <br />
-        <a href="#" class="btn" data-bind="click: showMore">Show more</a>
+            <span>Publications</span>
+        </div>
+        <div class="objectives-header-divider">
+            <hr />
+        </div>
+        <div class="objectives-header-sort-label">
+            Sort by <i class="icon-caret-down"></i>
+        </div>
+        <div class="objectives-header-sort-container">
+            <div class="objectives-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }">z&nbsp;<i class="icon-long-arrow-right"></i>&nbspa</div>
+            <div class="objectives-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }">a&nbsp<i class="icon-long-arrow-right"></i>&nbspz</div>
+        </div>
+        <div class="clearfix">
+        </div>
     </div>
-    <!-- /ko -->
+    <div class="objectives-content">
+        <div class="objectives-list-wrapper">
+            <ul class="unstyled publications-list">
+                <!-- ko foreach: publications -->
+                <li class="publication-brief">
+                    <div class="publication-brief-content" style="background-image: url('Content/images/publication.jpg');">
+                        <br />
+                        <br />
+                        <br />
+                        <span class="alert alert-info inline" data-bind="text: title + ' [' + objectives.length + ']'"></span>
+                    </div>
+                </li>
+                <!-- /ko -->
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
 </div>

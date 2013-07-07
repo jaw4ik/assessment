@@ -14,26 +14,23 @@
                 self.title.isModified(true);
                 return;
             }
-            var publication = new PublicationModel({ title: self.title(), objectives: self.selectedObjectives() });
-            dataContext.publications.push(publication);
-            router.navigateBack();
+            
+            dataContext.publications.push(new PublicationModel({
+                title: self.title(),
+                objectives: self.selectedObjectives()
+            }));
+            
+            router.navigateTo('#/publications');
         };
 
-        self.selectedObjectives = ko.computed(function() {
-            var selectedObjectives = [];
-            var objectives = self.objectives();
-
-            for (var i = 0; i < objectives.length; i++) {
-                if (objectives[i].isSelected()) {
-                    selectedObjectives.push(objectives[i].Id);
-                }
-            }
-
-            return selectedObjectives;
+        self.selectedObjectives = ko.computed(function () {
+            return _.reject(self.objectives(), function(objective) {
+                return objective.isSelected === true;
+            });
         });
 
         self.cancel = function () {
-            router.navigateBack();
+            router.navigateTo('#/publications');
         };
 
         self.activate = function () {
@@ -44,11 +41,7 @@
                 return {
                     id: item.id,
                     title: item.title,
-                    image: item.image,
-                    isSelected: ko.observable(false),
-                    select: function() {
-                        this.isSelected(!this.isSelected());
-                    }
+                    isSelected: ko.observable(false)
                 };
             }));
         };
@@ -56,9 +49,9 @@
         return {
             activate: self.activate,
             title: self.title,
+            objectives: self.objectives,
             create: self.create,
-            cancel: self.cancel,
-            objectives: self.objectives
+            cancel: self.cancel
         };
     }
 );
