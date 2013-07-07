@@ -8,12 +8,18 @@
             currentSortingOption = ko.observable(),
 
             sortByTitleAsc = function () {
+                if (currentSortingOption() == constants.sortingOptions.byTitleAsc)
+                    return;
+                
                 currentSortingOption(constants.sortingOptions.byTitleAsc);
                 publications(_.sortBy(publications(), function (publication) { return publication.title.toLowerCase(); }));
                 eventTracker.publish(constants.events.publicationsSortedByTitleAsc);
             },
             
             sortByTitleDesc = function () {
+                if (currentSortingOption() == constants.sortingOptions.byTitleDesc)
+                    return;
+
                 currentSortingOption(constants.sortingOptions.byTitleDesc);
                 publications(_.sortBy(publications(), function (publication) { return publication.title.toLowerCase(); }).reverse());
                 eventTracker.publish(constants.events.publicationsSortedByTitleDesc);
