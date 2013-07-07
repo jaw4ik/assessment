@@ -1,9 +1,9 @@
-﻿define(['models/objective', 'configuration/images', 'models/objective', 'models/question', 'models/publication'],
-    function (objectiveModel, images, ObjectiveModel, QuestionModel, PublicationModel) {
+﻿define(['models/objective', 'configuration/images', 'models/objective', 'models/question', 'models/experience'],
+    function (objectiveModel, images, ObjectiveModel, QuestionModel, ExperienceModel) {
 
         var
             objectives = [],
-            publications = [],
+            experiences = [],
             initialize = function () {
                 return Q.fcall(function () {
                     for (var i = 0; i < images.length; i++) {
@@ -22,9 +22,9 @@
                     }
 
                     for (var j = 0; j < images.length; j++)
-                        publications.push(new PublicationModel({
+                        experiences.push(new ExperienceModel({
                             id: j,
-                            title: 'Publication #' + (j + 1),
+                            title: 'Experience #' + (j + 1),
                             objectives: []
                         }));
                 });
@@ -33,6 +33,6 @@
         return {
             initialize: initialize,
             objectives: objectives,
-            publications: publications
+            experiences: experiences
         };
     });

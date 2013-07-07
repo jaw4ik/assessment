@@ -1,10 +1,10 @@
-﻿define(['dataContext', 'models/publication', 'durandal/plugins/router', 'constants', 'eventTracker'],
-    function (dataContext, PublicationModel, router, constants, eventTracker) {
+﻿define(['dataContext', 'models/experience', 'durandal/plugins/router', 'constants', 'eventTracker'],
+    function (dataContext, ExperienceModel, router, constants, eventTracker) {
         var self = {};
 
         self.title = ko.observable().extend({
-            required: { message: 'Please, provide title for publication' },
-            maxLength: { message: 'Publication title can not be lnger than 255 symbols', params: 255 }
+            required: { message: 'Please, provide title for experience' },
+            maxLength: { message: 'Experience title can not be longer than 255 symbols', params: 255 }
         });
 
         self.objectives = ko.observableArray([]);
@@ -15,14 +15,14 @@
                 return;
             }
             
-            dataContext.publications.push(new PublicationModel({
+            dataContext.experiences.push(new ExperienceModel({
                 title: self.title(),
                 objectives: self.selectedObjectives()
             }));
             
             eventTracker.publish(constants.events.publicationCreated);
             
-            router.navigateTo('#/publications');
+            router.navigateTo('#/experiences');
         };
 
         self.selectedObjectives = ko.computed(function () {
@@ -32,7 +32,7 @@
         });
 
         self.cancel = function () {
-            router.navigateTo('#/publications');
+            router.navigateTo('#/experiences');
         };
 
         self.activate = function () {

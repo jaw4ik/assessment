@@ -1,14 +1,14 @@
 ﻿<fieldset>
-    <legend>New Publication</legend>
+    <legend>New Experience</legend>
     <form class="form-horizontal">
         <div class="control-group" data-bind="css: { error: !title.isValid() && title.isModified() }">
-            <label class="control-label" for="publicationTitle">Title</label>
+            <label class="control-label" for="experienceTitle">Title</label>
             <div class="controls">
-                <input type="text" id="publicationTitle" placeholder="Publication title..." data-bind="value: title, valueUpdate: 'afterkeydown'">
+                <input type="text" id="experienceTitle" placeholder="Experience title..." data-bind="value: title, valueUpdate: 'afterkeydown'">
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="objectives-list">Objectives in publication</label>
+            <label class="control-label" for="objectives-list">Objectives in experience</label>
             <div class="controls">
                 <ul class="unstyled" id="objectives-list">
                     <!-- ko foreach: objectives -->

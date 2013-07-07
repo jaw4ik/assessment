@@ -1,7 +1,7 @@
 ﻿define(['models/entity'],
     function (EntityModel) {
 
-        var Publication = function (spec) {
+        var Experience = function (spec) {
 
             var obj = new EntityModel(spec);
 
@@ -11,6 +11,6 @@
             return obj;
         };
 
-        return Publication;
+        return Experience;
     }
 );

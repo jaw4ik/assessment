@@ -3,7 +3,7 @@
         "use strict";
         
         var
-            publications = ko.observableArray([]),
+            experiences = ko.observableArray([]),
             
             currentSortingOption = ko.observable(),
 
@@ -12,7 +12,7 @@
                     return;
                 
                 currentSortingOption(constants.sortingOptions.byTitleAsc);
-                publications(_.sortBy(publications(), function (publication) { return publication.title.toLowerCase(); }));
+                experiences(_.sortBy(experiences(), function (experience) { return experience.title.toLowerCase(); }));
                 eventTracker.publish(constants.events.publicationsSortedByTitleAsc);
             },
             
@@ -21,13 +21,13 @@
                     return;
 
                 currentSortingOption(constants.sortingOptions.byTitleDesc);
-                publications(_.sortBy(publications(), function (publication) { return publication.title.toLowerCase(); }).reverse());
+                experiences(_.sortBy(experiences(), function (experience) { return experience.title.toLowerCase(); }).reverse());
                 eventTracker.publish(constants.events.publicationsSortedByTitleDesc);
             },
             
             activate = function () {
                 return Q.fcall(function () {                  
-                    publications(ko.utils.arrayMap(dataContext.publications, function(item) {
+                    experiences(ko.utils.arrayMap(dataContext.experiences, function (item) {
                         return { id: item.id, title: item.title, objectives: item.objectives };
                     }));
                     sortByTitleAsc();
@@ -41,7 +41,7 @@
 
         return {
             activate: activate,
-            publications: publications,
+            experiences: experiences,
             sortByTitleAsc: sortByTitleAsc,
             sortByTitleDesc: sortByTitleDesc,
             currentSortingOption: currentSortingOption,

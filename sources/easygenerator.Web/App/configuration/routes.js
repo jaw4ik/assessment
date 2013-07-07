@@ -27,10 +27,10 @@
                 caption: 'Objective Properties'
             },
             {
-                url: 'publication/create',
-                moduleId: 'viewmodels/publications/createPublication',
-                name: 'Create New Publication',
-                caption: 'Create New Publication'
+                url: 'experience/create',
+                moduleId: 'viewmodels/experiences/createExperience',
+                name: 'Create New Experiences',
+                caption: 'Create New Experiences'
             },
             {
                 url: 'objective/:objectiveId/question/create',
@@ -45,10 +45,10 @@
                 caption: 'Question Properties'
             },
             {
-                url: 'publications',
-                moduleId: 'viewmodels/publications/publications',
-                name: 'Publications',
-                caption: 'Publications'
+                url: 'experiences',
+                moduleId: 'viewmodels/experiences/experiences',
+                name: 'Experiences',
+                caption: 'Experiences'
             }
         ];
     }
