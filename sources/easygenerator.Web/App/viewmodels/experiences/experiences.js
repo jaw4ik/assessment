@@ -5,9 +5,10 @@
         var
             events = {
                 category: 'Experiences',
-                navigateToObjectives: "Navigate to objectives",
-                sortByTitleAsc: "Sort by title ascending",
-                sortByTitleDesc: "Sort by title descending"
+                navigateToObjectives: 'Navigate to objectives',
+                sortByTitleAsc: 'Sort by title ascending',
+                sortByTitleDesc: 'Sort by title descending',
+                navigateToCreateExperience: 'Navigate to create experience'
             },
 
             sendEvent = function (eventName) {
@@ -46,8 +47,14 @@
             },
 
             goToObjectives = function () {
-                router.navigateTo('#/objectives');
                 sendEvent(events.navigateToObjectives);
+                router.navigateTo('#/objectives');
+            },
+            
+            goToCreateExperience = function() {
+                sendEvent(events.navigateToCreateExperience);
+                router.navigateTo('#/experience/create');
+
             };
 
         return {
@@ -57,7 +64,8 @@
             activate: activate,
             sortByTitleAsc: sortByTitleAsc,
             sortByTitleDesc: sortByTitleDesc,
-            goToObjectives: goToObjectives
+            goToObjectives: goToObjectives,
+            goToCreateExperience: goToCreateExperience
         };
     }
 );
