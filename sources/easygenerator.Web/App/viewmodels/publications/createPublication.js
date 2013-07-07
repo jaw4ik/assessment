@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'models/publication', 'durandal/plugins/router'],
-    function (dataContext, PublicationModel, router) {
+﻿define(['dataContext', 'models/publication', 'durandal/plugins/router', 'constants', 'eventTracker'],
+    function (dataContext, PublicationModel, router, constants, eventTracker) {
         var self = {};
 
         self.title = ko.observable().extend({
@@ -20,6 +20,8 @@
                 objectives: self.selectedObjectives()
             }));
             
+            eventTracker.publish(constants.events.publicationCreated);
+            
             router.navigateTo('#/publications');
         };
 
@@ -34,16 +36,18 @@
         };
 
         self.activate = function () {
-            self.title(null);
-            self.title.isModified(false);
-            
-            self.objectives(ko.utils.arrayMap(dataContext.objectives, function (item) {
-                return {
-                    id: item.id,
-                    title: item.title,
-                    isSelected: ko.observable(false)
-                };
-            }));
+            return Q.fcall(function() {
+                self.title(null);
+                self.title.isModified(false);
+
+                self.objectives(ko.utils.arrayMap(dataContext.objectives, function(item) {
+                    return {
+                        id: item.id,
+                        title: item.title,
+                        isSelected: ko.observable(false)
+                    };
+                }));
+            });
         };
 
         return {
