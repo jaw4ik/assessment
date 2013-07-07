@@ -24,7 +24,7 @@
             activate = function () {
                 return Q.fcall(function () {
                     objectives(ko.utils.arrayMap(dataContext.objectives, function (item) {
-                        return { id: item.id, title: item.title, image: item.image };
+                        return { id: item.id, title: item.title, image: item.image, isSelected: ko.observable(false), toggleSelection: function () { this.isSelected(!this.isSelected()); } };
                     }));
                     sortByTitleAsc();
                 });

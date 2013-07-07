@@ -46,6 +46,7 @@ EG CSS-STYLES
 }
 
 .clearfix {
+    -ms-zoom: 1;
     zoom: 1;
 }
 
@@ -68,6 +69,7 @@ GENERAL CSS-STYLES
 .navbar .user-properties,
 .navbar .user-properties {
     color: #999999;
+    -webkit-text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     font-size: 28px;
 }
@@ -105,20 +107,17 @@ OBJECTIVE CSS-STYLES
 .objective-brief-content,
 .publication-brief-content {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: 5px;
+    bottom: 15px;
+    left: 15px;
+    right: 45px;
+    top: 15px;
     padding: 20px;
-    border: 1px dotted #EEEEEE;
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
     background-size: 100% 100%;
 }
 
-    .objective-brief-content:hover {
-        border: 1px solid #000;
-        cursor: pointer;
-    }
 
 /*===================================
 ANSWERS CSS-STYLES
@@ -358,6 +357,121 @@ body {
     width: 360px;
     height: 210px;
     margin: 0 20px;
+    background-image: url('images/objbg.png');
+    -moz-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+
+.objective-brief-selected {
+    background-image: url('images/objbg-selected.png');
+}
+
+.objective-brief-title {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    width: 180px;
+    background-color: #fff;
+    border: 1px solid #bfbfbf;
+    max-height: 170px;
+    overflow: hidden;
+}
+
+.objective-brief-toolbar {
+    position: absolute;
+    bottom: 15px;
+    left: 315px;
+    top: 15px;
+    width: 30px;
+    text-align: center;
+}
+
+.objective-brief-toolbar-icon-question {
+    border: 1px solid;
+    border-radius: 10px 10px 10px 10px;
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+}
+
+.objective-brief-toolbar-question-count {
+    font-size: 11px;
+    font-family: Montserrat-Regular;
+}
+
+.objective-brief-title-text {
+    color: #333333;
+    display: inline-block;
+    border-right: 10px solid #e3e3e3;
+    padding: 10px;
+    width: 150px;
+    font-size: 13px;
+    font-family: Montserrat-Regular;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.objective-brief:hover .objective-brief-options{
+    display: block;
+}
+
+.objective-brief-options {
+    display: none;
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    top: 15px;
+    bottom: 15px;
+    text-align: center;
+    font: 18px Montserrat-Regular;
+    line-height: 130px;
+    color: #cecece;
+}
+
+
+
+.objective-brief-select {
+    background: #000000 url('images/check.png');
+    background: rgba(0,0,0,0.5) url('images/check.png') center 80px no-repeat;
+    width: 163px;
+    height: 180px;
+    float: left;
+}
+
+.objective-brief-select.selected {
+    background-image: url('images/uncheck.png');
+}
+
+.objective-brief-open {
+    background: #000000 url('images/open.png');
+    background: rgba(0,0,0,0.5) url('images/open.png') center 85px no-repeat;
+    width: 163px;
+    height: 180px;
+    float: left;
+}
+
+
+    .objective-brief-open:hover, .objective-brief-select:hover {
+        background-color: #000000;
+        background-color: rgba(0, 0, 0, 0.8);
+        cursor: pointer;
+    }
+
+.objective-brief-options-separator-wrapper {
+    height: 100%;
+    width: 4px;
+    float: left;
+    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.objective-brief-options-separator {
+    background-color: #7E7D7B;
+    height: 140px;
+    width: 4px;
+    margin: 20px 0;
 }
 
 @media (max-width: 1219px) {

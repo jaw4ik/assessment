@@ -216,10 +216,15 @@
     <Content Include="Content\font\fontawesome-webfont.svg" />
     <Content Include="Content\font\Montserrat-Regular.svg" />
     <Content Include="Content\images\bg.png" />
+    <Content Include="Content\images\check.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\objbg-selected.png" />
+    <Content Include="Content\images\objbg.png" />
+    <Content Include="Content\images\open.png" />
     <Content Include="Content\images\publication.jpg" />
+    <Content Include="Content\images\uncheck.png" />
     <Content Include="Content\styles.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
