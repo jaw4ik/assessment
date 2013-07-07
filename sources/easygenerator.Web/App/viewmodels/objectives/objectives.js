@@ -47,6 +47,7 @@
                                         id: item.id,
                                         title: item.title,
                                         image: item.image,
+                                        questionsCount:item.questions.length,
                                         isSelected: ko.observable(false),
                                         toggleSelection: function () {
                                             this.isSelected(!this.isSelected());
