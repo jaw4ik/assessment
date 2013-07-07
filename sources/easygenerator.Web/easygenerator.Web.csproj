@@ -266,6 +266,7 @@
     <Content Include="Views\Objective\Index.cshtml" />
     <Content Include="Views\Objective\Create.cshtml" />
     <Content Include="Views\Application\splash.cshtml" />
+    <Content Include="Views\Application\GoogleAnalytics.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

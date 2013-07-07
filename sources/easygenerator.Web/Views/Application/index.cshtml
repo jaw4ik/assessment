@@ -48,6 +48,7 @@
     </div>*@
 
     @Scripts.Render("~/scripts/vendor")
+    @{ Html.RenderPartial("GoogleAnalytics"); }
 
     @if (HttpContext.Current.IsDebuggingEnabled)
     {
@@ -57,9 +58,6 @@
     {
         <script type="text/javascript" src="~/App/main-built.js"></script>
     }
-
-
-
 
 </body>
 </html>
