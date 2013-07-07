@@ -5,10 +5,12 @@
         var
             events = {
                 category: 'Objectives',
-                navigateToDetails: "Navigate to objective details",
-                navigateToExperiences: "Navigate to experiences",
+                navigateToCreation: "Navigate to Objective creation",
+                navigateToDetails: "Navigate to Objective details",
+                navigateToExperiences: "Navigate to Experiences",                
                 sortByTitleAsc: "Sort by title ascending",
                 sortByTitleDesc: "Sort by title descending",
+                selectObjective: "Select Objective",
             },
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName, events.category);
@@ -30,6 +32,10 @@
                 objectives(_.sortBy(objectives(), function (objective) { return objective.title; }).reverse());
             },
 
+            navigateToCreation = function() {
+                sendEvent(events.navigateToCreation);
+                router.navigateTo('/#/objective/create');
+            },
             navigateToDetails = function (item) {
                 sendEvent(events.navigateToDetails);
                 router.navigateTo('#/objective/' + item.id);
@@ -47,9 +53,10 @@
                                         id: item.id,
                                         title: item.title,
                                         image: item.image,
-                                        questionsCount:item.questions.length,
+                                        questionsCount: item.questions.length,
                                         isSelected: ko.observable(false),
                                         toggleSelection: function () {
+                                            sendEvent(events.selectObjective);
                                             this.isSelected(!this.isSelected());
                                         }
                                     };
@@ -68,6 +75,7 @@
             currentSortingOption: currentSortingOption,
             sortingOptions: constants.sortingOptions,
 
+            navigateToCreation: navigateToCreation,
             navigateToDetails: navigateToDetails,
             navigateToExperiences: navigateToExperiences,
 
