@@ -413,8 +413,12 @@ body {
     word-wrap: break-word;
 }
 
-.objective-brief:hover .objective-brief-options{
+.objective-brief:hover .objective-brief-options {
     display: block;
+}
+
+.objective-brief:hover .objective-brief-title {
+    display: none;
 }
 
 .objective-brief-options {
@@ -434,15 +438,15 @@ body {
 
 .objective-brief-select {
     background: #000000 url('images/check.png');
-    background: rgba(0,0,0,0.5) url('images/check.png') center 80px no-repeat;
+    background: rgba(0,0,0,0.5) url('images/uncheck.png') center 80px no-repeat;
     width: 163px;
     height: 180px;
     float: left;
 }
 
-.objective-brief-select.selected {
-    background-image: url('images/uncheck.png');
-}
+    .objective-brief-select.selected {
+        background-image: url('images/check.png');
+    }
 
 .objective-brief-open {
     background: #000000 url('images/open.png');
