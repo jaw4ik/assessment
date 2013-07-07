@@ -5,11 +5,12 @@
 
         function googleAnalyticsProvider() {
             var
-                trackEvent = function (eventName) {
+                trackEvent = function (eventName, eventCategory) {
                     if (!window._gaq) {
                         return;
                     }
-                    window._gaq.push(['_trackEvent', 'Default category', eventName]);
+                    
+                    window._gaq.push(['_trackEvent', eventCategory, eventName]);
                 };
 
             return {
@@ -19,11 +20,11 @@
 
         function consoleProvider() {
             var
-                trackEvent = function (eventName) {
+                trackEvent = function (eventName, eventCategory) {
                     if (!window.console) {
                         return;
                     }
-                    system.log('Tracking event: [' + eventName + ']');
+                    system.log('Tracking event: [' + eventCategory + '].[' + eventName + ']');
                 };
 
             return {
@@ -34,9 +35,10 @@
         providers.push(new googleAnalyticsProvider());
         providers.push(new consoleProvider());
 
-        function publish(eventName) {
-            _.each(providers, function(provider) {
-                provider.trackEvent(eventName);
+        function publish(eventName, eventCategory) {
+            eventCategory = eventCategory || 'Default category';
+            _.each(providers, function (provider) {
+                provider.trackEvent(eventName, eventCategory);
             });
         }
 
