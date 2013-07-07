@@ -1,7 +1,7 @@
 ﻿<div class="objectives-wrapper">
     <div class="objectives-navigation">
         <span>Learning objectives</span>
-        <a href="#/experiences">Experiences</a>
+        <a href="#/experiences" data-bind="click: navigateToExperiences">Experiences</a>
     </div>
 
     <div class="objectives-header">
@@ -55,7 +55,7 @@
                             <div class="objective-brief-options-separator">
                             </div>
                         </div>
-                        <div class="objective-brief-open" data-bind="click: $parent.goToDetails">Open</div>
+                        <div class="objective-brief-open" data-bind="click: $parent.navigateToDetails">Open</div>
                     </div>
                     <div></div>
                 </li>

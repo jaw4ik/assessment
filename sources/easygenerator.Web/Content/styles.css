@@ -96,13 +96,6 @@ OBJECTIVE CSS-STYLES
     margin: 5px;
 }
 
-.objective-brief,
-.publication-brief {
-    width: 280px;
-    height: 170px;
-    position: relative;
-    float: left;
-}
 
 .objective-brief-content,
 .publication-brief-content {
@@ -354,6 +347,8 @@ body {
 }
 
 .objective-brief {
+    position: relative;
+    float: left;
     width: 360px;
     height: 210px;
     margin: 0 20px;
