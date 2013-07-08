@@ -1,7 +1,7 @@
 ﻿<div class="objectives-wrapper">
     <div class="objectives-navigation">
-        <span>Learning objectives</span>
-        <a href="#/experiences" data-bind="click: navigateToExperiences">Experiences</a>
+        <span data-bind="localize: { text: 'learningObjectives' }">Learning objectives</span>
+        <a href="#/experiences" data-bind="click: navigateToExperiences, localize: { text: 'experiences' }">Experiences</a>
     </div>
 
     <div class="objectives-header">
@@ -12,21 +12,24 @@
                     <a href="/#/objective/create" class="icon-plus icon-light" data-bind="click: navigateToCreation"></a>
                 </span>
             </div>
-            <span>Learning objectives</span>
+            <span data-bind="localize: { text: 'learningObjectives' }">Learning objectives</span>
         </div>
         <div class="objectives-header-divider">
             <hr />
         </div>
         <div class="objectives-header-sort-label">
-            Sort by <i class="icon-caret-down"></i>
+            <span data-bind="localize: { text: 'sortBy' }">Sort by</span>&nbsp;<i class="icon-caret-down"></i>
         </div>
         <div class="objectives-header-sort-container">
-            <div class="objectives-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }">z&nbsp;<i class="icon-long-arrow-right"></i>&nbspa</div>
-            <div class="objectives-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }">a&nbsp<i class="icon-long-arrow-right"></i>&nbspz</div>
+            <div class="objectives-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }">
+                <span data-bind="localize: { text: 'lastLetter' }">z</span>&nbsp;<i class="icon-long-arrow-right"></i>&nbsp;<span data-bind="localize: { text: 'firstLetter' }">a</span>
+            </div>
+            <div class="objectives-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }">
+                <span data-bind="localize: { text: 'firstLetter' }">a</span>&nbsp;<i class="icon-long-arrow-right"></i>&nbsp;<span data-bind="localize: { text: 'lastLetter' }">z</span>
+            </div>
         </div>
         <div class="clearfix">
         </div>
-
     </div>
     <div class="objectives-content">
         <div class="objectives-list-wrapper">
@@ -40,22 +43,22 @@
                     </div>
                     <div class="objective-brief-toolbar">
                         <i class="icon-question objective-brief-toolbar-icon-question"></i>
-                        <div class="objective-brief-toolbar-question-count" data-bind="text: questionsCount">23</div>
+                        <div class="objective-brief-toolbar-question-count" data-bind="text: questionsCount"></div>
                     </div>
                     <div class="objective-brief-options">
                         <a href="#" class="objective-brief-select" data-bind="click: toggleSelection, css: { selected: isSelected() }">
                             <!-- ko if: isSelected -->
-                            Unselect
+                            <span data-bind="localize: { text: 'unselect' }">Unselect</span>
                             <!-- /ko-->
                             <!-- ko ifnot: isSelected -->
-                            Select
+                            <span data-bind="localize: { text: 'unselect' }">Select</span>
                             <!-- /ko-->
                         </a>
                         <div class="objective-brief-options-separator-wrapper">
                             <div class="objective-brief-options-separator">
                             </div>
                         </div>
-                        <a href="#" class="objective-brief-open" data-bind="click: $parent.navigateToDetails">Open</a>
+                        <a href="#" class="objective-brief-open" data-bind="click: $parent.navigateToDetails, localize: { text: 'open' }">Open</a>
                     </div>
                     <div></div>
                 </li>

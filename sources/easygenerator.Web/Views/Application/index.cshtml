@@ -18,12 +18,19 @@
 
     <div class="wrapper">
         <div class="header">
-            <a class="brand" href="#/">
+            <div class="brand">
                 <img class="logo" width="48" height="42" src="~/Content/images/logo.png" alt="" />
-                <ul class="unstyled navigation-menu" style="display: inline;">
-                    <li class="navigation-menu-item" style="display: inline;">Home&nbsp;/</li>
-                </ul>
-            </a>
+            </div>
+            <ul class="unstyled navigation-menu">
+                <li class="navigation-menu-item">
+                    <a href="#/">Home</a>
+                </li>
+                <li class="navigation-menu-item">&nbsp;/&nbsp;</li>
+                <li class="navigation-menu-item">
+                    <a href="#/user">User settings</a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
         </div>
         <div class="content-container">
             <div id="applicationHost">
@@ -34,18 +41,6 @@
         </div>
 
     </div>
-    @*    <div class="navbar navbar-inverse">
-        <div class="navbar-inner">
-            <div class="container">
-                <div class="pull-right" style="padding: 15px 0;">
-                    <a href="#/user" class="user-properties"><i class="icon-user"></i></a>
-                </div>
-                <a class="brand" href="#/">
-                    <img src="~/favicon.ico" class="eg-logo" alt="" />
-                    easygenerator</a>
-            </div>
-        </div>
-    </div>*@
 
     @Scripts.Render("~/scripts/vendor")
     @{ Html.RenderPartial("GoogleAnalytics"); }

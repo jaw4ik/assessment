@@ -150,31 +150,33 @@ body {
     border-bottom: 3px solid #000000;
 }
 
-.brand {
-    color: #fff;
-    outline: none;
-    font-size: 13px;
-    font-family: Montserrat-Regular;
-    text-transform: uppercase;
+.brand, .navigation-menu {
+    display: inline-block;
+    float: left;
 }
 
-    .brand:hover, .brand:focus {
-        color: #fff;
-        text-decoration: none;
-    }
-
-    .brand:focus {
-        outline: none;
-    }
-
-.navigation-menu, .navigation-menu-item {
-    display: inline;
+.navigation-menu {
+    padding-top: 25px;
 }
 
 .navigation-menu-item {
-    line-height: 55px;
-    vertical-align: bottom;
+    display: inline;
+    color: #fff;
 }
+
+    .navigation-menu-item a {
+        color: #fff;
+        outline: none;
+        font-size: 13px;
+        font-family: Montserrat-Regular;
+        text-transform: uppercase;
+    }
+
+        .navigation-menu-item a:hover, .navigation-menu-item a:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
 .logo {
     padding: 10px 40px;
