@@ -45,21 +45,21 @@
                         <i class="icon-question objective-brief-toolbar-icon-question"></i>
                         <div class="objective-brief-toolbar-question-count" data-bind="text: questionsCount"></div>
                     </div>
-                    <div class="objective-brief-options">
-                        <a href="#" class="objective-brief-select" data-bind="click: toggleSelection, css: { selected: isSelected() }">
+                    <a href="#" class="objective-brief-options">
+                        <div class="objective-brief-select" data-bind="click: toggleSelection, css: { selected: isSelected() }">
                             <!-- ko if: isSelected -->
                             <span data-bind="localize: { text: 'unselect' }">Unselect</span>
                             <!-- /ko-->
                             <!-- ko ifnot: isSelected -->
                             <span data-bind="localize: { text: 'unselect' }">Select</span>
                             <!-- /ko-->
-                        </a>
+                        </div>
                         <div class="objective-brief-options-separator-wrapper">
                             <div class="objective-brief-options-separator">
                             </div>
                         </div>
-                        <a href="#" class="objective-brief-open" data-bind="click: $parent.navigateToDetails, localize: { text: 'open' }">Open</a>
-                    </div>
+                        <div class="objective-brief-open" data-bind="click: $parent.navigateToDetails, localize: { text: 'open' }">Open</div>
+                    </a>
                     <div></div>
                 </li>
                 <!-- /ko -->
