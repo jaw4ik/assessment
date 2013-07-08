@@ -410,16 +410,13 @@ body {
     word-wrap: break-word;
 }
 
-.objective-brief:hover .objective-brief-options {
-    display: block;
-}
 
 .objective-brief:hover .objective-brief-title {
     display: none;
 }
 
 .objective-brief-options {
-    display: none;
+    display: block;
     position: absolute;
     left: 15px;
     right: 15px;
@@ -454,6 +451,14 @@ body {
     color: #cecece;
 }
 
+.objective-brief-open,  .objective-brief-select, .objective-brief-options-separator-wrapper{
+    display: none;    
+}
+
+
+.objective-brief-options:hover .objective-brief-open, .objective-brief-options:hover .objective-brief-select,  .objective-brief-options:hover .objective-brief-options-separator-wrapper{
+    display: block;    
+}
 
     .objective-brief-open:hover, .objective-brief-select:hover, .objective-brief-open:focus, .objective-brief-select:focus {
         color: #cecece;
