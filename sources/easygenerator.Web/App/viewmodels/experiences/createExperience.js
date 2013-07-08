@@ -40,7 +40,7 @@
 
         self.selectedObjectives = ko.computed(function () {
             return _.reject(self.objectives(), function (objective) {
-                return objective.isSelected === true;
+                return objective.isSelected() !== true;
             });
         });
 
