@@ -28,6 +28,7 @@ namespace easygenerator.Web.Configuration
                             .Include("~/Content/bootstrap.css")
                             .Include("~/Content/font-awesome.css")
                             .Include("~/Content/durandal.css")
+                            .Include("~/Content/common.css")
                             .Include("~/Content/styles.css"));
 
         }

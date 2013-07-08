@@ -1,0 +1,69 @@
+﻿@font-face {
+    font-family: 'Montserrat-Regular';
+    src: url('font/Montserrat-Regular.eot');
+    src: url('font/Montserrat-Regular.eot?#iefix') format('embedded-opentype'),
+         url('font/Montserrat-Regular.svg') format('svg'),
+         url('font/Montserrat-Regular.woff') format('woff'),
+         url('font/Montserrat-Regular.ttf') format('truetype');
+
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*===================================
+RESET CSS-STYLES
+===================================*/
+
+* {
+    padding: 0;
+    margin: 0;
+}
+/**, *:before, *:after {
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	    -ms-box-sizing: border-box;
+	   		box-sizing: border-box;
+}*/
+
+/*===================================
+EG COMMON CSS-STYLES
+===================================*/
+html, body {
+    width: 100%;
+}
+body {
+    font-family: Montserrat-Regular;
+}
+/*for smoothing of font in Chrome.*/
+body {
+    font-size: 125%;
+    letter-spacing: 0.03em;
+    line-height: 1;
+    -webkit-font-smoothing: subpixel-antialiased !important;
+
+    -webkit-backface-visibility: hidden;
+       -moz-backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+            backface-visibility: hidden;
+}
+body>* {
+    font-size: 85%;
+    line-height: 1.3em;
+}
+
+.inline {
+    display: inline-block;
+}
+/*use as wrapper for floated elements*/
+.clearfix {
+    -ms-zoom: 1;
+    zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
