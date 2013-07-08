@@ -3,7 +3,7 @@
         dataContext = require('dataContext'),
         images = require('configuration/images'),
         ObjectiveModel = require('models/objective'),
-        PubModel = require('models/publication'),
+        PubModel = require('models/experience'),
         QuestionModel = require('models/question');
 
     var findObjectiveByTitle = function (title) {
