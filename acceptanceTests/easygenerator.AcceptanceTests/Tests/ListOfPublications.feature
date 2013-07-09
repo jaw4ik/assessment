@@ -85,20 +85,8 @@ Given publications are present in database
 | Publication2 |
 | Publication3 |
 When click on tab publications link on objectives list page
-And click on publication list item with title 'Publication2'
-Then publication list item with title 'Publication2' is selected
-But publication list item with title 'Publication1' is not selected
-And publication list item with title 'Publication3' is not selected
-
-Scenario: Selected publication changed if click other publication
-Given publications are present in database
-| Title        |
-| Publication1 |
-| Publication2 |
-| Publication3 |
-When click on tab publications link on objectives list page
-And click on publication list item with title 'Publication1'
-And click on publication list item with title 'Publication2'
+And mouse hover element of publications list with title 'Publication2'
+And select publication list item with title 'Publication2'
 Then publication list item with title 'Publication2' is selected
 But publication list item with title 'Publication1' is not selected
 And publication list item with title 'Publication3' is not selected

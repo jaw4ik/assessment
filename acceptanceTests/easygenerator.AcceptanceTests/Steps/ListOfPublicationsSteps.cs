@@ -70,14 +70,14 @@ namespace easygenerator.AcceptanceTests.Steps
                 publicationsPage.Order = expectedOrder;
         }
 
-        [When(@"click on publication list item with title '(.*)'")]
+        [When(@"select publication list item with title '(.*)'")]
         public void WhenClickOnPublicationListItemWithTitle(string title)
         {
             foreach (var item in publicationsPage.Items)
             {
                 if (item.Title == title)
                 {
-                    item.Click();
+                    item.Select();
                     return;
                 }
             }
@@ -121,7 +121,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [When(@"mouse hover element of publications list with title '(.*)'")]
         public void WhenMouseHoverElementOfPublicationsListWithTitle(string title)
         {
-            var item = publicationsPage.Items.First(it => it.Title == title);
+            var item = publicationsPage.ItemByTitle(title);
             item.Hover();
         }
 

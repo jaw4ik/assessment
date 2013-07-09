@@ -9,10 +9,9 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 {
     public class PublicationListItemLinkingModel : ILinkinkModel
     {
-        public string Title = ".//span[contains(@class,'alert')]";
-
-        public string OpenElement = "";
-        public string IsSelectedClass = "selected";
-        public string SelectElement = "";
+        public string Title = ".//span[contains(@class,'publication-brief-title-text')]";
+        public string SelectElement = ".//div[contains(@class,'publication-brief-select')]";
+        public string OpenElement = ".//div[contains(@class,'publication-brief-open')]";
+        public string IsSelectedClass = "selected";        
     }
 }
