@@ -10,7 +10,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 {
     public class PublicationListLinkingModel : ILinkinkModel
     {
-        public string Item = ".//li[@class='publication-brief']";
+        public string Item = ".//li[contains(@class,'publication-brief'])";
         public string SortingByTitleAsc = "//div[contains(@class,'publications-sort-by-title-asc')]";
         public string SortingByTitleDesc = "//div[contains(@class,'publications-sort-by-title-desc')]";
         public string IsTitelSortingActiveClass = "active";

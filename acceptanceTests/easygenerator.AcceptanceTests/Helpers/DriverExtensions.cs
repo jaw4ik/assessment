@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
@@ -12,13 +13,18 @@ namespace easygenerator.AcceptanceTests.Helpers
     {
         public static void HoverElement(this RemoteWebElement element)
         {
-            var builder = new OpenQA.Selenium.Interactions.Actions(element.WrappedDriver);
+            var builder = new Actions(element.WrappedDriver);
             var hoverOverRegistrar = builder.MoveToElement(element);
             hoverOverRegistrar.Perform();
         }
         public static T ExecuteScript<T>(this IWebDriver driver, string script)
         {
             return (T)((RemoteWebDriver)driver).ExecuteScript(script);
+        }
+        public static string GetTextContent(this RemoteWebElement el)
+        {
+            var text = ((OpenQA.Selenium.IJavaScriptExecutor)el.WrappedDriver).ExecuteScript("return arguments[0].textContent", el);
+            return (string)text;
         }
 
         public static bool IsVisible(this RemoteWebElement el)

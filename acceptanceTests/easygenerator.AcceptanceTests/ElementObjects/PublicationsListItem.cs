@@ -20,8 +20,8 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                var el = Container.FindElementByXPath(model.Title);
-                return el.Text;
+                var el = GetByXPathInside(model.Title);
+                return el.GetTextContent();
             }
         }
 

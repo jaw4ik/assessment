@@ -10,9 +10,8 @@ namespace easygenerator.AcceptanceTests.LinkingModels
     public class ObjectiveListItemLinkingModel : ILinkinkModel
     {
         public string Title = ".//span[contains(@class,'objective-brief-title-text')]";
-
-        public string SelectElement = "//Button";
-        public string OpenElement = "//Button";
+        public string SelectElement = ".//div[contains(@class,'objective-brief-select')]";
+        public string OpenElement = ".//div[contains(@class,'objective-brief-open')]";
         public string IsSelectedClass = "selected";
     }
 }

@@ -79,18 +79,7 @@ Given objectives are present in database
 | Objective1 |
 | Objective2 |
 | Objective3 |
-When select objective list item with title 'Objective2'
-Then objective list item with title 'Objective2' is selected
-But objective list item with title 'Objective1' is not selected
-And objective list item with title 'Objective3' is not selected
-
-Scenario: Selected objective changed if click other objective
-Given objectives are present in database
-| Title      |
-| Objective1 |
-| Objective2 |
-| Objective3 |
-When select objective list item with title 'Objective1'
+When mouse hover element of objectives list with title 'Objective2'
 And select objective list item with title 'Objective2'
 Then objective list item with title 'Objective2' is selected
 But objective list item with title 'Objective1' is not selected

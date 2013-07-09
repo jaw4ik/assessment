@@ -19,8 +19,8 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                var title = Container.FindElementByXPath(model.QuestionTitle);
-                return title.Text;
+                var title = GetByXPathInside(model.QuestionTitle);
+                return title.GetTextContent();
             }
         }
 
