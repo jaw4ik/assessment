@@ -458,7 +458,7 @@ testRunner.When("click on tab publications link on objectives list page", ((stri
 #line 157
 testRunner.And("mouse hover element of publications list with title \'Publication1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 158
-testRunner.And("click on publication list item with title \'Publication1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click open publication list item with title \'Publication1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 159
 testRunner.Then("browser navigates to url \'http://localhost:5656/#/publication/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden

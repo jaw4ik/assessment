@@ -155,7 +155,7 @@ Given publications are present in database
 | Publication1 | 1  |
 When click on tab publications link on objectives list page
 And mouse hover element of publications list with title 'Publication1'
-And click on publication list item with title 'Publication1'
+And click open publication list item with title 'Publication1'
 Then browser navigates to url 'http://localhost:5656/#/publication/1'
 
 
