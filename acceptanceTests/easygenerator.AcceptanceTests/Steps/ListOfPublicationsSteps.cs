@@ -112,7 +112,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [When(@"scroll publication with title '(.*)' into the view")]
         public void WhenScrollPublicationWithTitleIntoTheView(string title)
         {
-            publicationsPage.Items.First(it => it.Title == title).ScrollIntoView();
+            publicationsPage.ItemByTitle(title).ScrollIntoView();
         }
 
         [Then(@"element with title '(.*)' of publications list is visible")]
