@@ -1,71 +1,105 @@
 ﻿@font-face {
     font-family: 'Montserrat-Regular';
     src: url('font/Montserrat-Regular.eot');
-    src: url('font/Montserrat-Regular.eot?#iefix') format('embedded-opentype'),
-         url('font/Montserrat-Regular.svg') format('svg'),
-         url('font/Montserrat-Regular.woff') format('woff'),
-         url('font/Montserrat-Regular.ttf') format('truetype');
-
+    src: url('font/Montserrat-Regular.eot?#iefix') format('embedded-opentype'), url('font/Montserrat-Regular.svg') format('svg'), url('font/Montserrat-Regular.woff') format('woff'), url('font/Montserrat-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 /*===================================
-RESET CSS-STYLES
+RESET CSS-STYLES IN FOREIGN BROWSERS 
 ===================================*/
 
-* {
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
     padding: 0;
     margin: 0;
+    border: 0;
+    outline: 0;
 }
+
+/**
+ * Disable the impact of paddings and borders on the dimensions of the elements.
+ */
+
 *, *:before, *:after {
-	-webkit-box-sizing: border-box;
-	   -moz-box-sizing: border-box;
-	    -ms-box-sizing: border-box;
-	   		box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 /*===================================
-EG COMMON CSS-STYLES
+EG COMMON TAGS CSS-STYLES
 ===================================*/
 html, body {
     width: 100%;
 }
+
+/**
+ * Default font styles. Font smoothing in Chrome.
+ */
+
 body {
+    line-height: 1;
     font-family: Montserrat-Regular;
     font-size: 125%;
     letter-spacing: 0.03em;
-    line-height: 1;
     -webkit-font-smoothing: subpixel-antialiased !important;
-
     -webkit-backface-visibility: hidden;
-       -moz-backface-visibility: hidden;
-        -ms-backface-visibility: hidden;
-            backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
-body>* {
-    font-size: 85%;
-    line-height: 1.3em;
-}
+
+    body > * {
+        font-size: 85%;
+        line-height: 1.3em;
+    }
+
+/**
+ * Remove most spacing between table cells.
+ */
 
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
 
-.inline {
-    display: inline-block;
-}
-/*use as wrapper for floated elements*/
+/*===================================
+EG COMMON CLASSES CSS-STYLES
+===================================*/
+
+/**
+ * Use for every container of floated elements.
+ */
+
 .clearfix {
     -ms-zoom: 1;
     zoom: 1;
 }
-.clearfix:before,
-.clearfix:after {
-    content: "";
-    display: table;
-}
-.clearfix:after {
-    clear: both;
+
+    .clearfix:before,
+    .clearfix:after {
+        content: "";
+        display: table;
+    }
+
+    .clearfix:after {
+        clear: both;
+    }
+
+.inline {
+    display: inline-block;
 }
