@@ -96,6 +96,7 @@ table {
 
 a {
     outline: 0;
+    text-decoration: none;
 }
 
     a:hover,
@@ -142,4 +143,15 @@ COMMON CLASSES CSS-STYLES
 
 .inline {
     display: inline-block;
+}
+
+/**
+ * Titles
+ */
+
+h2.page-header-title {
+    color: #666666;
+    font-size: 18px;
+    text-decoration: none;
+    text-transform: uppercase;
 }
