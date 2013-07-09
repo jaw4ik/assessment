@@ -121,7 +121,6 @@ body {
     display: inline;
     color: #fff;
 }
-
     .navigation-menu-item a {
         color: #fff;
         outline: none;
@@ -137,8 +136,8 @@ body {
 
 .logo {
     padding: 10px 40px;
-    width: 48px;
-    height: 42px;
+    width: 128px;
+    height: 62px;
 }
 
 .wrapper {

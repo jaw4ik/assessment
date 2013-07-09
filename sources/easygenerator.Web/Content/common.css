@@ -18,12 +18,12 @@ RESET CSS-STYLES
     padding: 0;
     margin: 0;
 }
-/**, *:before, *:after {
+*, *:before, *:after {
 	-webkit-box-sizing: border-box;
 	   -moz-box-sizing: border-box;
 	    -ms-box-sizing: border-box;
 	   		box-sizing: border-box;
-}*/
+}
 
 /*===================================
 EG COMMON CSS-STYLES
@@ -33,9 +33,6 @@ html, body {
 }
 body {
     font-family: Montserrat-Regular;
-}
-/*for smoothing of font in Chrome.*/
-body {
     font-size: 125%;
     letter-spacing: 0.03em;
     line-height: 1;
@@ -49,6 +46,11 @@ body {
 body>* {
     font-size: 85%;
     line-height: 1.3em;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 .inline {
