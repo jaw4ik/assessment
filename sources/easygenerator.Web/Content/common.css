@@ -30,6 +30,15 @@ time, mark, audio, video {
 }
 
 /**
+ * Correct `block` display not defined in IE 8/9.
+ */
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+/**
  * Disable the impact of paddings and borders on the dimensions of the elements.
  */
 
@@ -41,7 +50,7 @@ time, mark, audio, video {
 }
 
 /*===================================
-EG COMMON TAGS CSS-STYLES
+COMMON TAGS CSS-STYLES
 ===================================*/
 html, body {
     width: 100%;
@@ -78,7 +87,7 @@ table {
 }
 
 /*===================================
-EG COMMON CLASSES CSS-STYLES
+COMMON CLASSES CSS-STYLES
 ===================================*/
 
 /**
@@ -102,4 +111,14 @@ EG COMMON CLASSES CSS-STYLES
 
 .inline {
     display: inline-block;
+}
+
+/**
+ * Lists.
+ */
+
+ul.unstyled,
+ol.unstyled  {
+    margin-left: 0;
+    list-style: none;
 }
