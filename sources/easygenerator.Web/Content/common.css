@@ -1,4 +1,9 @@
-﻿@font-face {
+﻿/*
+ * easygenerator | Copyright 2013
+ */
+
+
+@font-face {
     font-family: 'Montserrat-Regular';
     src: url('font/Montserrat-Regular.eot');
     src: url('font/Montserrat-Regular.eot?#iefix') format('embedded-opentype'), url('font/Montserrat-Regular.svg') format('svg'), url('font/Montserrat-Regular.woff') format('woff'), url('font/Montserrat-Regular.ttf') format('truetype');
@@ -59,7 +64,6 @@ html, body {
 /**
  * Default font styles. Font smoothing in Chrome.
  */
-
 body {
     line-height: 1;
     font-family: Montserrat-Regular;
@@ -78,12 +82,39 @@ body {
     }
 
 /**
- * Remove most spacing between table cells.
+ * Table
  */
 
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+/**
+ * Links.
+ */
+
+a {
+    outline: 0;
+}
+
+    a:hover,
+    a:active {
+        outline: 0;
+    }
+
+    a:focus {
+        text-decoration: none;
+    }
+
+/**
+ * Lists.
+ */
+
+ul.unstyled,
+ol.unstyled  {
+    margin-left: 0;
+    list-style: none;
 }
 
 /*===================================
@@ -111,14 +142,4 @@ COMMON CLASSES CSS-STYLES
 
 .inline {
     display: inline-block;
-}
-
-/**
- * Lists.
- */
-
-ul.unstyled,
-ol.unstyled  {
-    margin-left: 0;
-    list-style: none;
 }
