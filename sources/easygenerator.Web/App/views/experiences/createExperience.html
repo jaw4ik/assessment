@@ -1,14 +1,15 @@
 ﻿<fieldset>
-    <legend>New Experience</legend>
+    <legend data-bind="localize: { text: 'newExperience' }">New Experience</legend>
     <form class="form-horizontal">
         <div class="control-group" data-bind="css: { error: !title.isValid() && title.isModified() }">
-            <label class="control-label" for="experienceTitle">Title</label>
+            <label class="control-label" for="experienceTitle" data-bind="localize: { text: 'experienceTitle' }">Title</label>
             <div class="controls">
-                <input type="text" id="experienceTitle" placeholder="Experience title..." data-bind="value: title, valueUpdate: 'afterkeydown'">
+                <input type="text" id="experienceTitle" placeholder="Experience title..."
+                    data-bind="value: title, valueUpdate: 'afterkeydown', localize: { placeholder: 'experienceTitlePlaceholder' }">
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="objectives-list">Objectives in experience</label>
+            <label class="control-label" for="objectives-list" data-bind="localize: { text: 'objectivesInExperience' }">Objectives in experience</label>
             <div class="controls">
                 <ul class="unstyled" id="objectives-list">
                     <!-- ko foreach: objectives -->
@@ -24,8 +25,8 @@
             </div>
         </div>
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary" data-bind="click: create">Create</button>
-            <button type="button" class="btn" data-bind="click: cancel">Cancel</button>
+            <button type="submit" class="btn btn-primary" data-bind="click: save, localize: {text: 'save'}">Save</button>
+            <button type="button" class="btn" data-bind="click: cancel, localize: { text: 'cancel' }">Cancel</button>
         </div>
     </form>
 </fieldset>

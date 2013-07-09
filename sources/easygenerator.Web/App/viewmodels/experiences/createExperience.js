@@ -21,7 +21,7 @@
 
         self.objectives = ko.observableArray([]);
 
-        self.create = function () {
+        self.save = function () {
             sendEvent(events.createExperience);
 
             if (!self.title.isValid()) {
@@ -30,6 +30,7 @@
             }
 
             dataContext.experiences.push(new ExperienceModel({
+                id: dataContext.experiences.length,
                 title: self.title(),
                 objectives: self.selectedObjectives()
             }));
@@ -69,7 +70,7 @@
             activate: self.activate,
             title: self.title,
             objectives: self.objectives,
-            create: self.create,
+            save: self.save,
             cancel: self.cancel
         };
     }

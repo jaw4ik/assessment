@@ -34,11 +34,12 @@
         <div class="objectives-list-wrapper">
             <ul class="unstyled publications-list">
                 <!-- ko foreach: experiences -->
-                <li class="objective-brief">
-                    <div class="publication-brief-content" style="background-image: url('Content/images/experience.png');">
+                <li class="objective-brief" data-bind="css: { 'objective-brief-selected': isSelected() }">
+                    <div class="publication-brief-content" style="background-image: url('Content/images/experience.png');" data-bind="click: $parent.toggleSelection">
                         <br />
                         <br />
                         <br />
+                        <button type="button" class="btn btn-info" data-bind="click: $parent.open, localize: { text: 'open' }">Open</button>
                         <span class="alert alert-info inline" data-bind="text: title + ' [' + objectives.length + ']'"></span>
                     </div>
                 </li>

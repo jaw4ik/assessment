@@ -34,6 +34,29 @@
     },
     /* endof createObjective.html */
 
+    /* createExperience.html */
+    newExperience: {
+        en: 'New Experience',
+        nl: 'New Experience NL',
+        de: 'New Experience DE'
+    },
+    experienceTitle: {
+        en: 'Experience title',
+        nl: 'Experience title NL',
+        de: 'Experience title DE'
+    },
+    experienceTitlePlaceholder: {
+        en: 'Experience title...',
+        nl: 'Experience title... NL',
+        de: 'Experience title... DE'
+    },
+    objectivesInExperience: {
+        en: 'Objectives in experience',
+        nl: 'Objectives in experience NL',
+        de: 'Objectives in experience DE'
+    },
+    /* endof createExperience.html */
+
     objectiveTitleEmptyErrorMessage: {
         en: 'Please, provide title for objective',
         nl: 'Please, provide title for objective NL',

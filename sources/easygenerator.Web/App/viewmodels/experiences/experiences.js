@@ -8,7 +8,10 @@
                 navigateToObjectives: 'Navigate to objectives',
                 sortByTitleAsc: 'Sort by title ascending',
                 sortByTitleDesc: 'Sort by title descending',
-                navigateToCreateExperience: 'Navigate to create experience'
+                navigateToCreateExperience: 'Navigate to create experience',
+                experienceSelected: 'Experience selected',
+                experienceUnselected: 'Experience unselected',
+                navigateToDetails: 'Navigate to details'
             },
 
             sendEvent = function (eventName) {
@@ -22,7 +25,12 @@
             activate = function () {
                 return Q.fcall(function () {
                     experiences(ko.utils.arrayMap(dataContext.experiences, function (item) {
-                        return { id: item.id, title: item.title, objectives: item.objectives };
+                        return {
+                            id: item.id,
+                            title: item.title,
+                            objectives: item.objectives,
+                            isSelected: ko.observable(false)
+                        };
                     }));
                     sortByTitleAsc();
                 });
@@ -50,11 +58,25 @@
                 sendEvent(events.navigateToObjectives);
                 router.navigateTo('#/objectives');
             },
-            
-            goToCreateExperience = function() {
+
+            goToCreateExperience = function () {
                 sendEvent(events.navigateToCreateExperience);
                 router.navigateTo('#/experience/create');
 
+            },
+
+            toggleSelection = function (experience) {
+                if (!experience.isSelected())
+                    sendEvent(events.experienceSelected);
+                else
+                    sendEvent(events.experienceUnselected);
+
+                experience.isSelected(!experience.isSelected());
+            },
+
+            open = function (experience) {
+                sendEvent(events.navigateToDetails);
+                router.navigateTo('#/experience/' + experience.id);
             };
 
         return {
@@ -65,7 +87,9 @@
             sortByTitleAsc: sortByTitleAsc,
             sortByTitleDesc: sortByTitleDesc,
             goToObjectives: goToObjectives,
-            goToCreateExperience: goToCreateExperience
+            goToCreateExperience: goToCreateExperience,
+            toggleSelection: toggleSelection,
+            open: open
         };
     }
 );

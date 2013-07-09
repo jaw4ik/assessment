@@ -1,0 +1,9 @@
+﻿<section>
+    <div data-bind="text: title"></div>
+    <span data-bind="localize: { text: 'learningObjectives' }">Learning objectives</span>
+    <!-- ko foreach: objectives -->
+    <p data-bind="text: title"></p>
+    <!-- /ko -->
+    <br/>
+    <button type="button" class="btn" data-bind="click: navigateBack, localize: { text: 'back' }">Back</button>
+</section>

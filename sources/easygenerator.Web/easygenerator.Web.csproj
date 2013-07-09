@@ -185,6 +185,7 @@
     <Content Include="App\models\objective.js" />
     <Content Include="App\models\experience.js" />
     <Content Include="App\models\question.js" />
+    <Content Include="App\viewmodels\experiences\experience.js" />
     <Content Include="App\viewmodels\objectives\createObjective.js" />
     <Content Include="App\viewmodels\objectives\objective.js" />
     <Content Include="App\viewmodels\objectives\objectives.js" />
@@ -192,6 +193,7 @@
     <Content Include="App\viewmodels\experiences\experiences.js" />
     <Content Include="App\localization\localizationManager.js" />
     <Content Include="App\viewmodels\userproperties.js" />
+    <Content Include="App\views\experiences\experience.html" />
     <Content Include="App\views\questions\createQuestion.html" />
     <Content Include="App\viewmodels\_layout.js" />
     <Content Include="App\views\objectives\objective.html" />
