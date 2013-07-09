@@ -14,6 +14,6 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string SortingByTitleAsc = "//div[contains(@class,'publications-sort-by-title-asc')]";
         public string SortingByTitleDesc = "//div[contains(@class,'publications-sort-by-title-desc')]";
         public string IsTitelSortingActiveClass = "active";
-        public string PublicationsTabLink = "//a[@href='#/objectives']";
+        public string ObjectivesTabLink = "//a[@href='#/objectives']";
     }
 }

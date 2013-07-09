@@ -23,6 +23,11 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
+        public PublicationsListItem ItemByTitle(string title)
+        {
+            return Items.First(it => it.Title == title);
+        }
+
         public Order Order
         {
             get
@@ -59,7 +64,8 @@ namespace easygenerator.AcceptanceTests.ElementObjects
 
         internal void NavigateToObjectivesUsingTabs()
         {
-            GetByXPath(model.PublicationsTabLink).Click();
+            var link = GetByXPath(model.ObjectivesTabLink);
+            link.Click();
         }
     }
 }
