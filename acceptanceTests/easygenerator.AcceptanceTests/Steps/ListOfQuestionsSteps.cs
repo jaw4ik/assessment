@@ -127,14 +127,6 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Question should not be selected");
         }
 
-        [Then(@"last element of questions list is visible")]
-        public void ThenLastElementOfQuestionsListIsVisible()
-        {
-            TestUtils.Assert_IsTrue_WithWait(() =>
-                questionListPage.Items.Last().IsVisible(),
-                "Last question should be visible");
-        }
-
         [Then(@"Action add content is enabled (.*) for questions list item with title '(.*)'")]
         public void ThenActionAddContentIsEnabledTrueForQuestionsListItemWithTitle(bool isEnabled, string title)
         {
@@ -168,6 +160,20 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             questionListPage.ClickBackToObjectives();
         }
+        [When(@"scroll publications list item with title '(.*)' into the view")]
+        public void WhenScrollPublicationsListItemWithTitleIntoTheView(string title)
+        {
+            questionListPage.Items.First(it => it.Title == title).ScrollIntoView();
+        }
+
+        [Then(@"element with title '(.*)' of questions list is visible")]
+        public void ThenElementWithTitleOfQuestionsListIsVisible(string title)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                questionListPage.Items.First(it => it.Title == title).IsVisisble(),
+                "Element should be visible");
+        }
+
 
     }
 }

@@ -103,38 +103,6 @@ Then questions list item with title ''Question2' is highlited
 But questions list item with title ''Question1' is not highlited
 And questions list item with title ''Question3' is not highlited
 
-Scenario: Related content is shown for selected question
-Given questions related to 'Objective1' are present in database
-| Title     |
-| Question1 |
-| Question2 |
-| Question3 |
-Given answers related to 'Question1' of 'Objective1' are present in database
-| Title   |
-| Answer1 |
-| Answer2 |
-| Answer3 |
-When select objective list item with title 'Objective1'
-And click on questions list item with title 'Question1'
-Then answers list is visible of question with title 'Question1'
-And answers list of question 'Question1' contains items with data
-| Title   |
-| Answer1 |
-| Answer2 |
-| Answer3 |
-
-Scenario: Selected question changed if click other question
-Given questions related to 'Objective1' are present in database
-| Title     |
-| Question1 |
-| Question2 |
-| Question3 |
-When select objective list item with title 'Objective1'
-And click on questions list item with title 'Question1'
-And click on questions list item with title 'Question2'
-Then questions list item with title 'Question2' is selected
-But questions list item with title 'Question1' is not selected
-And questions list item with title 'Question3' is not selected
 
 Scenario: No questions are selected by default in questions list
 Given questions related to 'Objective1' are present in database
@@ -166,8 +134,8 @@ Given questions related to 'Objective1' are present in database
 | Question14 |
 When select objective list item with title 'Objective1'
 And browser window width and height is set to 400 and 300
-And scroll browser window to the bottom
-Then last element of questions list is visible
+And scroll publications list item with title 'Question14' into the view
+Then element with title 'Question14' of questions list is visible
 
 Scenario: Actions add content and edit are enabled if hover item of questions list
 Given questions related to 'Objective1' are present in database

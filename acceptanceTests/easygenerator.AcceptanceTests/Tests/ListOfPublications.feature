@@ -133,8 +133,8 @@ Given publications are present in database
 | Publication5 |
 When click on tab publications link on objectives list page
 And browser window width and height is set to 400 and 300
-And scroll browser window to the bottom
-Then last element of publications list is visible
+And scroll publication with title 'Publication5' into the view
+Then element with title 'Publication5' of publications list is visible
 
 
 Scenario: Actions open and select are enabled if hover item of publications list

@@ -21,7 +21,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             get
             {
                 var el = GetByXPathInside(model.Title);
-                return el.GetTextContent(); 
+                return el.GetTextContent();
             }
         }
 
@@ -31,15 +31,6 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             GetByXPathInside(model.SelectElement).Click();
         }
 
-        internal bool IsVisisble()
-        {
-            return Container.IsVisible();
-        }
-
-        internal void Hover()
-        {
-            Container.HoverElement();
-        }
 
         public bool IsSelected
         {
@@ -71,5 +62,6 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             GetByXPathInside(model.OpenElement).Click();
         }
+
     }
 }

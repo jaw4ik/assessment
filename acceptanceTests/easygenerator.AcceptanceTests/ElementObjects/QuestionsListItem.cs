@@ -24,11 +24,6 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
-        public void Hover()
-        {
-            Container.HoverElement();
-        }
-
         public bool IsHighLited
         {
             get
@@ -50,10 +45,6 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
-        internal bool IsVisible()
-        {
-            return Container.IsVisible();
-        }
 
         public bool AddEnabled { get { return GetByXPathInside(model.AddButton).IsVisible(); } }
         public bool OpenEnabled { get { return GetByXPathInside(model.OpenButton).IsVisible(); } }

@@ -17,9 +17,13 @@ namespace easygenerator.AcceptanceTests.Helpers
             var hoverOverRegistrar = builder.MoveToElement(element);
             hoverOverRegistrar.Perform();
         }
-        public static T ExecuteScript<T>(this IWebDriver driver, string script)
+        public static T ExecuteScript<T>(this IWebDriver driver, string script,params object[] args)
         {
-            return (T)((RemoteWebDriver)driver).ExecuteScript(script);
+            return (T)((RemoteWebDriver)driver).ExecuteScript(script,args);
+        }
+        public static void ExecuteScript(this IWebDriver driver, string script, params object[] args)
+        {
+            ((RemoteWebDriver)driver).ExecuteScript(script, args);
         }
         public static string GetTextContent(this RemoteWebElement el)
         {
@@ -36,12 +40,12 @@ namespace easygenerator.AcceptanceTests.Helpers
             var scrollX = el.WrappedDriver.ExecuteScript<Int64>("return window.scrollX");
             var scrollY = el.WrappedDriver.ExecuteScript<Int64>("return window.scrollY");
 
-            var isP1OnScreen = el.Coordinates.LocationInDom.X > scrollX &&
+            var isP1BiggerThenTopLeft = el.Coordinates.LocationInDom.X > scrollX &&
                 el.Coordinates.LocationInDom.Y > scrollY;
-            var isP2OnScreen = x1 > scrollX + pageWidth &&
-                y1 > scrollY + pageHeight;
+            var isP2BiggerThenBottomRight = x1 < scrollX + pageWidth &&
+                y1 < scrollY + pageHeight;
 
-            return el.Displayed && isP1OnScreen && isP2OnScreen;
+            return el.Displayed && isP1BiggerThenTopLeft && isP2BiggerThenBottomRight;
         }
         public static string[] CssAttributes(this RemoteWebElement el)
         {

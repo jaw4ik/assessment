@@ -27,12 +27,6 @@ namespace easygenerator.AcceptanceTests.Steps
             DriverProvider.Current().Manage().Window.Size = new Size(width, height);
         }
 
-        [When(@"scroll browser window to the bottom")]
-        public void WhenScrollBrowserWindowToTheBottom()
-        {
-            DriverProvider.Current().ExecuteScript("window.scrollTo(0,document.body.scrollHeight)", "");
-        }
-
         [Then(@"browser navigates to url '(.*)'")]
         public void ThenBrowserNavigatesToUrl(string expectedUrl)
         {

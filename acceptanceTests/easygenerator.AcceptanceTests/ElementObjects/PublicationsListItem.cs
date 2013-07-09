@@ -31,16 +31,6 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             GetByXPathInside(model.SelectElement).Click();
         }
 
-        internal bool IsVisisble()
-        {
-            return Container.IsVisible();
-        }
-
-        internal void Hover()
-        {
-            Container.HoverElement();
-        }
-
         public bool IsSelected
         {
             get

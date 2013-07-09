@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using easygenerator.AcceptanceTests.Helpers;
 
 namespace easygenerator.AcceptanceTests.ElementObjects
 {
@@ -16,6 +17,18 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         }
         public RemoteWebElement Container { get; private set; }
 
+        public void Hover()
+        {
+            Container.HoverElement();
+        }
+        public void ScrollIntoView()
+        {
+            Container.WrappedDriver.ExecuteScript("arguments[0].scrollIntoView()", Container);
+        }
+        public bool IsVisisble()
+        {
+            return Container.IsVisible();
+        }
         protected RemoteWebElement GetByXPathInside(string path)
         {
             return (RemoteWebElement)Container.FindElementByXPath(path);

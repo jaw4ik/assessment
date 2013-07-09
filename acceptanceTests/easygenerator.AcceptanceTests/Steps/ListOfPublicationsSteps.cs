@@ -109,12 +109,17 @@ namespace easygenerator.AcceptanceTests.Steps
                 columnsCount == publicationsPage.GetColumnsCount(),
                 "Incorrect columns count, real is" + publicationsPage.GetColumnsCount().ToString());
         }
+        [When(@"scroll publication with title '(.*)' into the view")]
+        public void WhenScrollPublicationWithTitleIntoTheView(string title)
+        {
+            publicationsPage.Items.First(it => it.Title == title).ScrollIntoView();
+        }
 
-        [Then(@"last element of publications list is visible")]
-        public void ThenLastElementOfPublicationsListIsVisible()
+        [Then(@"element with title '(.*)' of publications list is visible")]
+        public void ThenLastElementOfPublicationsListIsVisible(string title)
         {
             TestUtils.Assert_IsTrue_WithWait(() =>
-                publicationsPage.Items.Last().IsVisisble(),
+                publicationsPage.Items.First(it => it.Title == title).IsVisisble(),
                 "Element should be visible");
         }
 

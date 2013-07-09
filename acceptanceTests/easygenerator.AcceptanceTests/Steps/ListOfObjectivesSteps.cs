@@ -122,12 +122,17 @@ namespace easygenerator.AcceptanceTests.Steps
                 columnsCount == objectivesPage.GetColumnsCount(),
                 "Incorrect columns count, real is " + objectivesPage.GetColumnsCount().ToString());
         }
+        [When(@"scroll objective with title '(.*)' into the view")]
+        public void WhenScrollObjectiveWithTitleIntoTheView(string title)
+        {
+            objectivesPage.ItemByTitle(title).ScrollIntoView();
+        }
 
-        [Then(@"last element of objectives list is visible")]
-        public void ThenLastElementOfObjectivesListIsVisible()
+        [Then(@"element of objectives list with title '(.*)' is visible")]
+        public void ThenElementOfObjectivesListWithTitleIsVisible(string title)
         {
             TestUtils.Assert_IsTrue_WithWait(() =>
-                objectivesPage.Items.Last().IsVisisble(),
+                objectivesPage.ItemByTitle(title).IsVisisble(),
                 "Element should be visible");
         }
 

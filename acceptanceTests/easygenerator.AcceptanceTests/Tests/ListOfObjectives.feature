@@ -22,6 +22,7 @@ Scenario: Objectives are sorted by title ascending by default
 Given objectives are present in database
 | Title       |
 | Objective_a |
+| objective_b |
 | a_Objective |
 | Objective_z |
 | 1_Objective |
@@ -32,6 +33,7 @@ Then objectives tiles list consists of ordered items
 | _Objective  |
 | a_Objective |
 | Objective_a |
+| objective_b |
 | Objective_z |
 And objectives list order switch is set to 'ascending'
 
@@ -109,7 +111,7 @@ When browser window width and height is set to <window width> and 600
 Then objectives list is displayed in <columns count> columns
 Examples: 
 | window width | columns count |
-| 640          | 1             |
+| 650          | 1             |
 | 800          | 2             |
 | 1200         | 3             |
 | 1600         | 3             |
@@ -123,9 +125,9 @@ Given objectives are present in database
 | Objective3 |
 | Objective4 |
 | Objective5 |
-When browser window width and height is set to 400 and 300
-And scroll browser window to the bottom
-Then last element of objectives list is visible
+When browser window width and height is set to 400 and 600
+And scroll objective with title 'Objective5' into the view
+Then element of objectives list with title 'Objective5' is visible
 
 
 Scenario: Actions open and select are enabled if hover item of objectives list
