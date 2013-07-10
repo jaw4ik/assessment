@@ -17,11 +17,17 @@ namespace easygenerator.AcceptanceTests.ElementObjects
 
         protected RemoteWebElement GetByXPath(string path)
         {
+            WaitForReady();
             return (RemoteWebElement)DriverProvider.Current().FindElementByXPath(path);
         }
         protected RemoteWebElement[] GetAllByXPath(string path)
         {
+            WaitForReady();
             return DriverProvider.Current().FindElementsByXPath(path).Cast<RemoteWebElement>().ToArray();
+        }
+        protected void WaitForReady()
+        {
+            DataSetter.WaitForDataContextLoaded();
         }
     }
 }

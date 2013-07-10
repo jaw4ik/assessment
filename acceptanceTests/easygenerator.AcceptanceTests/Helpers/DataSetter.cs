@@ -56,7 +56,7 @@ namespace easygenerator.AcceptanceTests.Helpers
         }
         private void InitObjectivesEnvironment()
         {
-            string scripts = DataReader.Read(@"JS\SetObjectivesScripts.js");
+            string scripts = DataReader.Read(@"JS\TestScripts.js");
             AddTestScriptsToHtml(scripts);
         }
         private string ExcecuteTestScript(string script)
@@ -70,20 +70,19 @@ namespace easygenerator.AcceptanceTests.Helpers
             return (string)DriverProvider.Current().ExecuteScript(script);
         }
 
-        private static void WaitForDataContextLoaded()
+        public static void WaitForDataContextLoaded()
         {
             bool isDataContextLoaded = false;
             int i = 0;
             do
             {
                 i++;
-                Thread.Sleep(100);
+                Thread.Sleep(200);
                 isDataContextLoaded = (bool)DriverProvider.Current().ExecuteScript("return document.getElementById('content')!==null");
-                if (i > 100)
+                if (i > 50)
                     throw new TimeoutException("Content data is not reachable");
 
             } while (!isDataContextLoaded);
-            Thread.Sleep(500);
         }
         private static void AddTestScriptsToHtml(string scripts)
         {
