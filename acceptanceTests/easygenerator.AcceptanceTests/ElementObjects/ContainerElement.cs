@@ -31,12 +31,10 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         }
         protected RemoteWebElement GetByXPathInside(string path)
         {
-            WaitForReady();
             return (RemoteWebElement)Container.FindElementByXPath(path);
         }
         protected RemoteWebElement[] GetAllByXPathInside(string path)
         {
-            WaitForReady();
             return Container.FindElementsByXPath(path).Cast<RemoteWebElement>().ToArray();
         }
     }

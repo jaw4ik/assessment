@@ -31,7 +31,6 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             GetByXPathInside(model.SelectElement).Click();
         }
 
-
         public bool IsSelected
         {
             get

@@ -30,7 +30,8 @@ namespace easygenerator.AcceptanceTests.Helpers
         }
         public static void Assert_IsFalse_WithWait(Func<bool> condition, string message)
         {
-            Assert.IsFalse(WaitForCondition(condition), message);
+            Assert.IsTrue(WaitForCondition(() =>
+                !condition()), message);
         }
 
         public static void Assert_IsTrue_WithWait(Func<bool> condition, string message, string[] messages)

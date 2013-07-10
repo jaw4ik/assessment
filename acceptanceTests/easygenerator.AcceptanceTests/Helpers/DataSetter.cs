@@ -74,15 +74,15 @@ namespace easygenerator.AcceptanceTests.Helpers
         {
             bool isDataContextLoaded = false;
             int i = 0;
-            do
+            while (!isDataContextLoaded)
             {
-                i++;
-                Thread.Sleep(200);
-                isDataContextLoaded = (bool)DriverProvider.Current().ExecuteScript("return document.getElementById('content')!==null");
                 if (i > 50)
                     throw new TimeoutException("Content data is not reachable");
+                Thread.Sleep(200);
+                i++;
+                isDataContextLoaded = (bool)DriverProvider.Current().ExecuteScript("return document.getElementById('content')!==null");
 
-            } while (!isDataContextLoaded);
+            };
         }
         private static void AddTestScriptsToHtml(string scripts)
         {
