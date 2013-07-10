@@ -228,8 +228,12 @@
     <Content Include="Content\images\objbg.png" />
     <Content Include="Content\images\open.png" />
     <Content Include="Content\images\question.jpg" />
+    <Content Include="Content\images\open.png" />
+    <Content Include="Content\images\plus_default.png" />
+    <Content Include="Content\images\plus_hover.png" />
     <Content Include="Content\images\uncheck.png" />
     <Content Include="Content\styles.css" />
+    <Content Include="Content\objectives.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="humans.txt" />

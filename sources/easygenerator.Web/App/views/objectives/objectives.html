@@ -1,4 +1,4 @@
-﻿<div class="objectives-wrapper">
+﻿<section class="objectives">
     <div class="objectives-navigation">
         <span data-bind="localize: { text: 'learningObjectives' }">Learning objectives</span>
         <a href="#/experiences" data-bind="click: navigateToExperiences, localize: { text: 'experiences' }">Experiences</a>
@@ -6,15 +6,8 @@
 
     <div class="objectives-header">
         <div class="objectives-header-title">
-            <div class="icon-wrapper">
-                <span class="icon-stack">
-                    <i class="icon-circle icon-stack-base"></i>
-                    <a href="/#/objective/create" class="icon-plus icon-light" data-bind="click: navigateToCreation"></a>
-                </span>
-            </div>
+            <a class="objectives-header-create-link" href="/#/objective/create" data-bind="click: navigateToCreation"></a>
             <span data-bind="localize: { text: 'learningObjectives' }">Learning objectives</span>
-        </div>
-        <div class="objectives-header-divider">
             <hr />
         </div>
         <div class="objectives-header-sort-label">
@@ -22,10 +15,14 @@
         </div>
         <div class="objectives-header-sort-container">
             <div class="objectives-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }">
-                <span data-bind="localize: { text: 'lastLetter' }">z</span>&nbsp;<i class="icon-long-arrow-right"></i>&nbsp;<span data-bind="localize: { text: 'firstLetter' }">a</span>
+                <span data-bind="localize: { text: 'lastLetter' }">z</span>
+                &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
+                <span data-bind="localize: { text: 'firstLetter' }">a</span>
             </div>
             <div class="objectives-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }">
-                <span data-bind="localize: { text: 'firstLetter' }">a</span>&nbsp;<i class="icon-long-arrow-right"></i>&nbsp;<span data-bind="localize: { text: 'lastLetter' }">z</span>
+                <span data-bind="localize: { text: 'firstLetter' }">a</span>
+                &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
+                <span data-bind="localize: { text: 'lastLetter' }">z</span>
             </div>
         </div>
         <div class="clearfix">
@@ -33,34 +30,37 @@
     </div>
     <div class="objectives-content">
         <div class="objectives-list-wrapper">
-            <ul class="unstyled objectives-list clearfix">
+            <ul class="unstyled objectives-list">
                 <!-- ko foreach: objectives -->
                 <li class="objective-brief" data-bind="css: { 'objective-brief-selected': isSelected() }">
-                    <div class="objective-brief-content" data-bind="style: { backgroundImage: 'url(' + image + ')' }">
+                    <div class="objective-brief-image-wrapper">
+                        <img class="objective-brief-image" data-bind="attr: { src: image }" src="" alt="" width="300" height="180" />
                     </div>
+                    <div class="objective-brief-toolbar">
+                        <div class="objective-brief-toolbar-icon-question"></div>
+                        <div class="objective-brief-toolbar-question-count" data-bind="text: questionsCount"></div>
+                    </div>
+                    <a class="objective-brief-options">
+                        <div class="objective-brief-options-select" data-bind="click: toggleSelection">
+                            <!-- ko if: isSelected -->
+                            <div data-bind="localize: { text: 'unselect' }">Unselect</div>
+                            <!-- /ko-->
+                            <!-- ko ifnot: isSelected -->
+                            <div data-bind="localize: { text: 'select' }">Select</div>
+                            <!-- /ko-->
+                            <div class="objective-brief-options-select-image" data-bind="css: { selected: isSelected() }"></div>
+                        </div>
+                        <div class="objective-brief-options-separator-wrapper">
+                            <div class="objective-brief-options-separator"></div>
+                        </div>
+                        <div class="objective-brief-options-open" data-bind="click: $parent.navigateToDetails">
+                            <div data-bind="localize: { text: 'open' }">Open</div>
+                            <div class="objective-brief-options-open-image"></div>
+                        </div>
+                    </a>
                     <div class="objective-brief-title">
                         <span class="objective-brief-title-text" data-bind="text: title"></span>
                     </div>
-                    <div class="objective-brief-toolbar">
-                        <i class="icon-question objective-brief-toolbar-icon-question"></i>
-                        <div class="objective-brief-toolbar-question-count" data-bind="text: questionsCount"></div>
-                    </div>
-                    <a href="#" class="objective-brief-options">
-                        <div class="objective-brief-select" data-bind="click: toggleSelection, css: { selected: isSelected() }">
-                            <!-- ko if: isSelected -->
-                            <span data-bind="localize: { text: 'unselect' }">Unselect</span>
-                            <!-- /ko-->
-                            <!-- ko ifnot: isSelected -->
-                            <span data-bind="localize: { text: 'unselect' }">Select</span>
-                            <!-- /ko-->
-                        </div>
-                        <div class="objective-brief-options-separator-wrapper">
-                            <div class="objective-brief-options-separator">
-                            </div>
-                        </div>
-                        <div class="objective-brief-open" data-bind="click: $parent.navigateToDetails, localize: { text: 'open' }">Open</div>
-                    </a>
-                    <div></div>
                 </li>
                 <!-- /ko -->
             </ul>
@@ -68,4 +68,4 @@
         </div>
     </div>
 
-</div>
+</section>
