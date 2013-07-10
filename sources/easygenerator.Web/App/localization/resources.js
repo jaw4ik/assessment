@@ -1,5 +1,4 @@
 ﻿define({
-    
     learningObjectives: {
         en: 'Learning objectives',
         nl: 'Learning objectives NL',
@@ -112,7 +111,24 @@
         en: 'Unselect',
         nl: 'Unselect NL',
         de: 'Unselect DE'
-    }
+    },
     /* endof common */
     
+    /*list of questions*/
+    edit: {
+        en: 'Edit',
+        nl: 'Edit NL',
+        de: 'Edit DE'
+    },
+    backTo: {
+        en: 'Back to',
+        nl: 'NL Back to',
+        de: 'DE Back to'
+    },
+    relatedQuestions: {
+        en: 'Related questions',
+        nl: 'Related questions NL',
+        de: 'Related questions NL'
+    }
+    /*end of questions*/
 });

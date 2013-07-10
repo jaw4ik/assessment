@@ -1,18 +1,30 @@
-﻿<h2 class="page-header-title" data-bind="text: title"></h2>
-
-<p>
-    <a class="btn btn-success" data-bind="attr: { href: '#/objective/' + id() + '/question/create'}"><i class="icon-question-sign"></i>&nbsp;New Question</a>
-</p>
-<div>
-    <h5>List of questions:</h5>
-    <ul>
-        <!-- ko foreach: questions -->
-        <li>
-            <a data-bind="attr: { href: '#/objective/' + $parent.id() + '/question/' + id }, text: title"></a>
-        </li>
-        <!-- /ko -->
-    </ul>
+﻿<div class="eg-container list-of-questions">
+    <div class="navbar">
+        <a href="#/">
+            <span data-bind="localize: { text: 'backTo' }"></span>&nbsp;<span data-bind="localize: { text: 'learningObjectives' }"></span>
+        </a>
+    </div>
+    <section class="header clearfix" style="height: auto">
+        <img data-bind="attr: { src: image }" alt="" style="float: left"/>
+        <h2 class="page-header-title" data-bind="text: title"></h2>
+    </section>
+    <section class="control-bar">
+        <a class="btn btn-success" data-bind="attr: { href: '#/objective/' + id() + '/question/create' }"><i class="icon-plus"></i></a>     
+        <span data-bind="localize: { text: 'relatedQuestions' }"></span>
+    </section>
+    <div>
+        <ul class="unstyled">
+            <!-- ko foreach: questions -->
+            <li>
+                <a data-bind="attr: { href: '#/objective/' + $parent.id() + '/question/' + id }, text: title"></a>
+            </li>
+            <!-- /ko -->
+        </ul>
+    </div>
 </div>
-<p>
-    <a href="#/" data-bind="localize: { text: 'back' }">< Back</a>
-</p>
+<style type="text/css">
+    .eg-container {
+        margin: 0 auto;
+        max-width: 1220px;
+    }
+</style>
