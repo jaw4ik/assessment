@@ -30,7 +30,7 @@
             var question = new QuestionModel(({
                 id: self.objective().questions.length,
                 title: self.title(),
-                answers: ko.utils.arrayMap(self.answers(), function(item) {
+                answerOptions: ko.utils.arrayMap(self.answers(), function(item) {
                     return { text: ko.utils.unwrapObservable(item.text), isCorrect: ko.utils.unwrapObservable(item.isCorrect) };
                 })
             }));

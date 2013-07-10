@@ -227,6 +227,7 @@
     <Content Include="Content\images\objbg-selected.png" />
     <Content Include="Content\images\objbg.png" />
     <Content Include="Content\images\open.png" />
+    <Content Include="Content\images\question.jpg" />
     <Content Include="Content\images\uncheck.png" />
     <Content Include="Content\styles.css" />
     <Content Include="favicon.ico" />

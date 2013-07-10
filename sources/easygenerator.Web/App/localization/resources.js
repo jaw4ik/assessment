@@ -55,6 +55,24 @@
         de: 'Objectives in experience DE'
     },
     /* endof createExperience.html */
+    
+    /* question.html */
+    navigateBackToRelatedObjective: {
+        en: 'Navigate to objective',
+        nl: 'Navigate to objective NL',
+        de: 'Navigate to objective DE'
+    },
+    previousQuestion: {
+        en: 'Previous question',
+        nl: 'Previous question NL',
+        de: 'Previous question DE'
+    },
+    nextQuestion: {
+        en: 'Next question',
+        nl: 'Next question NL',
+        de: 'Next question DE'
+    },
+    /* endof question.html */
 
     objectiveTitleEmptyErrorMessage: {
         en: 'Please, provide title for objective',

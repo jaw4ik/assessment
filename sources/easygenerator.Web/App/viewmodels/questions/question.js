@@ -1,54 +1,93 @@
-﻿define(['dataContext', 'durandal/plugins/router'],
-    function (dataContext, router) {
+﻿define(['dataContext', 'durandal/plugins/router', 'eventTracker'],
+    function (dataContext, router, eventTracker) {
+        "use strict";
 
-        var self = {};
+        var
+            events = {
+                category: 'Question',
+                navigateToRelatedObjective: 'Navigate to related objective',
+                navigateToNextQuestion: 'Navigate to next question',
+                navigateToPreviousQuestion: 'Navigate to previous question'
+            },
 
-        self.id = ko.observable();
-        self.objectiveId = ko.observable();
-        self.title = ko.observable();
-        self.text = ko.observable();
-        self.answers = ko.observableArray();
+            sendEvent = function (eventName) {
+                eventTracker.publish(eventName, events.category);
+            };
 
-        self.activate = function (routeData) {
+        var
+            objective = null,
+            objectiveTitle = '',
+            title = '',
+            answerOptions = [],
+            explanations = [],
+            hasPrevious = false,
+            hasNext = false,
+            previousId = '',
+            nextId = '',
+
+        activate = function (routeData) {
             if (_.isEmpty(routeData) || _.isEmpty(routeData.objectiveId) || _.isEmpty(routeData.id)) {
                 router.navigateTo('400');
                 return;
             }
-
-            var objective = _.find(dataContext.objectives, function (item) {
+            
+            objective = _.find(dataContext.objectives, function (item) {
                 return item.id == routeData.objectiveId;
             });
 
             if (!_.isObject(objective)) {
                 router.navigateTo('404');
+                return;
             }
 
             var question = _.find(objective.questions, function (item) {
                 return item.id == routeData.id;
             });
 
-
             if (!_.isObject(question)) {
                 router.navigateTo('404');
+                return;
             }
 
-            self.id(routeData.id);
-            self.objectiveId(routeData.objectiveId);
+            this.title = question.title;
+            this.objectiveTitle = objective.title;
+            this.answerOptions = question.answerOptions || [];
+            this.explanations = question.explanations || [];
 
-            self.title(question.title);
-            self.text(question.text);
-            self.answers(question.answers || []);
+            var indexOfQuestion = objective.questions.indexOf(question);
+            this.nextId = (objective.questions.length > indexOfQuestion + 1) ? objective.questions[indexOfQuestion + 1].id : null;
+            this.previousId = (indexOfQuestion != 0) ? objective.questions[indexOfQuestion - 1].id : null;
+
+            this.hasNext = this.nextId != null;
+            this.hasPrevious = this.previousId != null;
+        },
+
+        goToRelatedObjective = function () {
+            sendEvent(events.navigateToRelatedObjective);
+            router.navigateTo('#/objective/' + objective.id);
+        },
+
+        goToPreviousQuestion = function () {
+            sendEvent(events.navigateToPreviousQuestion);
+            router.navigateTo('#/objective/' + objective.id + '/question/' + this.previousId);
+        },
+
+        goToNextQuestion = function () {
+            sendEvent(events.navigateToNextQuestion);
+            router.navigateTo('#/objective/' + objective.id + '/question/' + this.nextId);
         };
 
         return {
-            id: self.id,
-            objectiveId: self.objectiveId,
-            
-            title: self.title,
-            text: self.text,
-            answers: self.answers,
-
-            activate: self.activate
+            objectiveTitle: objectiveTitle,
+            title: title,
+            answerOptions: answerOptions,
+            explanations: explanations,
+            hasPrevious: hasPrevious,
+            hasNext: hasNext,
+            activate: activate,
+            goToRelatedObjective: goToRelatedObjective,
+            goToPreviousQuestion: goToPreviousQuestion,
+            goToNextQuestion: goToNextQuestion
         };
     }
 );

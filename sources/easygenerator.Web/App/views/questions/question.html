@@ -1,12 +1,36 @@
-﻿<h2 data-bind="text: title"></h2>
+﻿<nav>
+    <a href="#" data-bind="click: goToRelatedObjective">
+        <i class="icon-backward icon-2x"></i>
+        <span data-bind="localize: { text: 'navigateBackToRelatedObjective' }">Navigate to objective </span>
+        <span data-bind="text: ' ' + objectiveTitle"></span>
+    </a>
+</nav>
 
-<p>
-    <span data-bind="text: text"></span>
-</p>
-<div class="answers-container">
-    <!-- ko if: answers().length -->
-    <h5>Answers</h5>
-    <ul class="unstyled" data-bind="foreach: answers">
+<section class="question-header" style="border: 1px solid black; padding: 5px;">
+    <img src="Content/images/question.jpg" style="width: 150px; height: 150px;" />
+    <div>
+        <span data-bind="text: title"></span>
+        <nav>
+            <!-- ko if : hasPrevious -->
+            <a class="btn btn-primary" data-bind="click: goToPreviousQuestion, localize: { text: 'previousQuestion' }">Previous question</a>
+            <!-- /ko -->
+            <!-- ko ifnot : hasPrevious -->
+            <a class="btn disabled" data-bind="localize: { text: 'previousQuestion' }">Previous question</a>
+            <!-- /ko -->
+            <!-- ko if : hasNext -->
+            <a class="btn btn-primary" data-bind="click: goToNextQuestion, localize: { text: 'nextQuestion' }">Next question</a>
+            <!-- /ko -->
+            <!-- ko ifnot : hasNext -->
+            <a class="btn disabled" data-bind="localize: { text: 'nextQuestion' }">Next question</a>
+            <!-- /ko -->
+        </nav>
+    </div>
+</section>
+
+<section class="answer-options" style="border: 1px solid black; padding: 5px;">
+    <h3>Answer options <i class="icon-key pull-right"></i></h3>
+    <!-- ko if: answerOptions.length -->
+    <ul class="unstyled" data-bind="foreach: answerOptions">
         <li>
             <!-- ko if: isCorrect -->
             <i class="icon-ok"></i>
@@ -18,10 +42,19 @@
         </li>
     </ul>
     <!-- /ko -->
-    <!-- ko ifnot: answers().length -->
-    The question is empty
+    <!-- ko ifnot: answerOptions.length -->
+    The answer options list is empty
     <!-- /ko -->
-</div>
-<p>
-    <a href="#/" data-bind="attr: {  href: '#/objective/' + objectiveId() }">< Back</a>
-</p>
+</section>
+
+<section class="answer-explanations" style="border: 1px solid black; padding: 5px;">
+    <h3>Explanations<i class="icon-info-sign pull-right"></i></h3>
+    <!-- ko if: explanations.length -->
+    <ul class="unstyled" data-bind="foreach: explanations">
+        <li data-bind="html: $data"></li>
+    </ul>
+    <!-- /ko -->
+    <!-- ko ifnot: explanations.length -->
+    The explanations list is empty
+    <!-- /ko -->
+</section>
