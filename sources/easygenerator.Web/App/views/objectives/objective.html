@@ -1,7 +1,12 @@
 ﻿<div class="eg-container list-of-questions">
     <div class="navbar">
-        <a href="#/">
-            <span data-bind="localize: { text: 'backTo' }"></span>&nbsp;<span data-bind="localize: { text: 'learningObjectives' }"></span>
+        <a href="#/" class="inline nav-control">
+            <span class="nav-btn inline">
+                <i class="icon-chevron-left icon-2x"></i>
+            </span>
+            <span class="nav-title inline">
+                <span data-bind="localize: { text: 'backTo' }"></span>&nbsp;<span data-bind="    localize: { text: 'learningObjectives' }"></span>    
+            </span>
         </a>
     </div>
     <section class="header clearfix" style="height: auto">
@@ -25,6 +30,39 @@
 <style type="text/css">
     .eg-container {
         margin: 0 auto;
-        max-width: 1220px;
+        max-width: 1200px;
+        min-width: 600px;
+    }
+    .nav-control {
+        margin-top: 8px;
+        line-height: 58px;
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+    }
+    a.nav-control:hover {
+        text-decoration: none;
+        opacity: 0.75;
+        filter: alpha(opacity=75);
+    }
+    .nav-btn {
+        height: 58px;
+        line-height: 58px;
+        width: 58px;
+        margin-right: 13px;
+        background-color: #e0e0e0;
+        -webkit-border-radius: 29px;
+        -moz-border-radius: 29px;
+        border-radius: 29px;
+        text-align: center;
+    }
+    .nav-btn i {
+        margin-left: -2px;
+        vertical-align: middle;
+        color: #666666;
+    }
+    .nav-title {
+        font-size: 14px;
+        text-transform: uppercase;
+        color: #666666;
     }
 </style>
