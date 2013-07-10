@@ -28,7 +28,8 @@
 </section>
 
 <section class="answer-options" style="border: 1px solid black; padding: 5px;">
-    <h3>Answer options <i class="icon-key pull-right"></i></h3>
+    <h3 data-bind="localize: { text: 'answerOptions' }">Answer options</h3>
+    <i class="icon-key pull-right"></i>
     <!-- ko if: answerOptions.length -->
     <ul class="unstyled" data-bind="foreach: answerOptions">
         <li>
@@ -43,18 +44,18 @@
     </ul>
     <!-- /ko -->
     <!-- ko ifnot: answerOptions.length -->
-    The answer options list is empty
+    <span data-bind="localize: { text: 'emptyAnswerOptions' }">The answer options list is empty</span>
     <!-- /ko -->
 </section>
 
 <section class="answer-explanations" style="border: 1px solid black; padding: 5px;">
-    <h3>Explanations<i class="icon-info-sign pull-right"></i></h3>
+    <h3 data-bind="localize: { text: 'explanations' }">Explanations</h3><i class="icon-info-sign pull-right"></i>
     <!-- ko if: explanations.length -->
     <ul class="unstyled" data-bind="foreach: explanations">
         <li data-bind="html: $data"></li>
     </ul>
     <!-- /ko -->
     <!-- ko ifnot: explanations.length -->
-    The explanations list is empty
+    <span data-bind="localize: {text: 'emptyExplanations'}">The explanations list is empty</span>
     <!-- /ko -->
 </section>

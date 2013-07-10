@@ -9,7 +9,7 @@
         nl: 'Experiences NL',
         de: 'Experiences DE'
     },
-    
+
     /* createObjective.html */
     newObjective: {
         en: 'New Objective',
@@ -55,7 +55,7 @@
         de: 'Objectives in experience DE'
     },
     /* endof createExperience.html */
-    
+
     /* question.html */
     navigateBackToRelatedObjective: {
         en: 'Navigate to objective',
@@ -71,6 +71,26 @@
         en: 'Next question',
         nl: 'Next question NL',
         de: 'Next question DE'
+    },
+    emptyAnswerOptions: {
+        en: 'The answer options list is empty',
+        nl: 'The answer options list is empty NL',
+        de: 'The answer options list is empty DE'
+    },
+    answerOptions: {
+        en: 'Answer options',
+        nl: 'Answer options NL',
+        de: 'Answer options DE'
+    },
+    emptyExplanations: {
+        en: 'The explanations list is empty',
+        nl: 'The explanations list is empty NL',
+        de: 'The explanations list is empty DE'
+    },
+    explanations: {
+        en: 'Explanations',
+        nl: 'Explanations NL',
+        de: 'Explanations DE'
     },
     /* endof question.html */
 
@@ -131,7 +151,7 @@
         de: 'Unselect DE'
     },
     /* endof common */
-    
+
     /*list of questions*/
     edit: {
         en: 'Edit',
