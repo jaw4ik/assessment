@@ -20,50 +20,6 @@
 
         var
             experiences = ko.observableArray([]),
-            currentSortingOption = ko.observable(),
-
-            activate = function () {
-                return Q.fcall(function () {
-                    experiences(ko.utils.arrayMap(dataContext.experiences, function (item) {
-                        return {
-                            id: item.id,
-                            title: item.title,
-                            objectives: item.objectives,
-                            isSelected: ko.observable(false)
-                        };
-                    }));
-                    sortByTitleAsc();
-                });
-            },
-
-            sortByTitleAsc = function () {
-                if (currentSortingOption() == constants.sortingOptions.byTitleAsc)
-                    return;
-
-                currentSortingOption(constants.sortingOptions.byTitleAsc);
-                experiences(_.sortBy(experiences(), function (experience) { return experience.title.toLowerCase(); }));
-                sendEvent(events.sortByTitleAsc);
-            },
-
-            sortByTitleDesc = function () {
-                if (currentSortingOption() == constants.sortingOptions.byTitleDesc)
-                    return;
-
-                currentSortingOption(constants.sortingOptions.byTitleDesc);
-                experiences(_.sortBy(experiences(), function (experience) { return experience.title.toLowerCase(); }).reverse());
-                sendEvent(events.sortByTitleDesc);
-            },
-
-            goToObjectives = function () {
-                sendEvent(events.navigateToObjectives);
-                router.navigateTo('#/objectives');
-            },
-
-            goToCreateExperience = function () {
-                sendEvent(events.navigateToCreateExperience);
-                router.navigateTo('#/experience/create');
-
-            },
 
             toggleSelection = function (experience) {
                 if (!experience.isSelected())
@@ -73,23 +29,69 @@
 
                 experience.isSelected(!experience.isSelected());
             },
+            
+            currentSortingOption = ko.observable(),
+            sortByTitleAsc = function() {
+                if (currentSortingOption() == constants.sortingOptions.byTitleAsc)
+                    return;
 
-            open = function (experience) {
+                currentSortingOption(constants.sortingOptions.byTitleAsc);
+                experiences(_.sortBy(experiences(), function(experience) { return experience.title.toLowerCase(); }));
+                sendEvent(events.sortByTitleAsc);
+            },
+            sortByTitleDesc = function() {
+                if (currentSortingOption() == constants.sortingOptions.byTitleDesc)
+                    return;
+
+                currentSortingOption(constants.sortingOptions.byTitleDesc);
+                experiences(_.sortBy(experiences(), function(experience) { return experience.title.toLowerCase(); }).reverse());
+                sendEvent(events.sortByTitleDesc);
+            },
+           
+            navigateToCreation = function() {
+                sendEvent(events.navigateToCreateExperience);
+                router.navigateTo('#/experience/create');
+
+            },
+            navigateToDetails = function(experience) {
                 sendEvent(events.navigateToDetails);
                 router.navigateTo('#/experience/' + experience.id);
+            },
+             navigateToObjectives = function () {
+                 sendEvent(events.navigateToObjectives);
+                 router.navigateTo('#/objectives');
+             },
+            
+            activate = function() {
+                return Q.fcall(function() {
+                    experiences(ko.utils.arrayMap(dataContext.experiences, function(item) {
+                        return {
+                            id: item.id,
+                            title: item.title,
+                            objectives: item.objectives,
+                            isSelected: ko.observable(false)
+                        };
+                    }));
+                    sortByTitleAsc();
+                });
             };
 
         return {
             experiences: experiences,
-            currentSortingOption: currentSortingOption,
-            sortingOptions: constants.sortingOptions,
-            activate: activate,
+
+            toggleSelection: toggleSelection,
+
             sortByTitleAsc: sortByTitleAsc,
             sortByTitleDesc: sortByTitleDesc,
-            goToObjectives: goToObjectives,
-            goToCreateExperience: goToCreateExperience,
-            toggleSelection: toggleSelection,
-            open: open
+            currentSortingOption: currentSortingOption,
+            sortingOptions: constants.sortingOptions,
+
+
+            navigateToCreation: navigateToCreation,
+            navigateToDetails: navigateToDetails,
+            navigateToObjectives: navigateToObjectives,
+
+            activate: activate
         };
     }
 );

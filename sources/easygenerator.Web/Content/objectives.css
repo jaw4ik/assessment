@@ -1,4 +1,5 @@
-﻿.objectives, .experiences {
+﻿.objectives,
+.experiences {
     position: relative;
     margin: auto;
     max-width: 1220px;
@@ -7,16 +8,14 @@
     font-size: 13px;
 }
 
-    .objectives a:hover, .objectives a:focus, .objectives a:visited {
+    .objectives a:hover, .objectives a:focus, .objectives a:active, .objectives a:visited, .objectives a:link,
+    .experiences a:hover, .experiences a:focus, .experiences a:active, .experiences a:visited, .experiences a:link {
         color: #999999;
         text-decoration: none;
     }
 
-    .objectives a:hover {
-        cursor: pointer;
-    }
-
-.objectives-navigation, .experiences-navigation {
+.objectives-navigation,
+.experiences-navigation {
     position: absolute;
     top: 0;
     width: 100%;
@@ -24,7 +23,8 @@
     text-align: center;
 }
 
-    .objectives-navigation > a, .objectives-navigation > span {
+    .objectives-navigation > a, .objectives-navigation > span,
+    .experiences-navigation > a, .experiences-navigation > span {
         display: inline-block;
         margin: 20px;
         padding-top: 5px;
@@ -32,15 +32,18 @@
         vertical-align: middle;
     }
 
-    .objectives-navigation > a {
+    .objectives-navigation > a,
+    .experiences-navigation > a {
         opacity: 0.6;
     }
 
-        .objectives-navigation > a:hover {
+        .objectives-navigation > a:hover,
+        .experiences-navigation > a:hover {
             opacity: 0.8;
         }
 
-.objectives-header, .experiences-header {
+.objectives-header,
+.experiences-header {
     position: absolute;
     top: 70px;
     right: 20px;
@@ -48,55 +51,65 @@
     height: 100px;
 }
 
-.objectives-header-title, .objectives-header-sort-label {
+.objectives-header-title, .objectives-header-sort-label,
+.experiences-header-title, .experiences-header-sort-label {
     display: table-cell;
     white-space: nowrap;
 }
 
 
-.objectives-header-title {
+.objectives-header-title,
+.experiences-header-title {
     overflow: hidden;
     width: 100%;
     color: #666666;
     font-size: 18px;
 }
 
-    .objectives-header-title > * {
+    .objectives-header-title > *,
+    .experiences-header-title > * {
         display: inline-block;
         vertical-align: middle;
     }
 
-    .objectives-header-title hr {
+    .objectives-header-title hr,
+    .experiences-header-title hr {
         width: 100%;
     }
 
-.objectives-header-create-link {
+.objectives-header-create-link,
+.experiences-header-create-link {
     width: 64px;
     height: 64px;
-    background-image: url('images/plus_default.png');
+    background: url('images/objexp-sprite.png') 0px 0px;
 }
 
-    .objectives-header-create-link:hover {
-        background-image: url('images/plus_hover.png');
+    .objectives-header-create-link:hover,
+    .experiences-header-create-link:hover {
+        background-position: 0px -74px;
     }
 
 
-.objectives-header-sort-label {
+.objectives-header-sort-label,
+.experiences-header-sort-label {
     padding-left: 10px;
 }
 
-.objectives-header-sort-label, .objectives-sort-by-title-asc, .objectives-sort-by-title-desc {
+.objectives-header-sort-label, .objectives-sort-by-title-asc, .objectives-sort-by-title-desc,
+.experiences-header-sort-label, .experiences-sort-by-title-asc, .experiences-sort-by-title-desc {
     color: #acacac;
     font-size: 12px;
     font-family: Arial, sans-serif;
 }
 
-.objectives-header-sort-container {
+.objectives-header-sort-container,
+.experiences-header-sort-container {
     float: right;
     margin-top: -10px;
 }
 
-.objectives-sort-by-title-asc, .objectives-sort-by-title-desc {
+.objectives-sort-by-title-asc, .objectives-sort-by-title-desc,
+.experiences-sort-by-title-asc, .experiences-sort-by-title-desc {
     display: inline-block;
     margin-left: 5px;
     padding: 1px 5px;
@@ -104,12 +117,14 @@
     opacity: 0.7;
 }
 
-    .objectives-sort-by-title-asc:hover, .objectives-sort-by-title-desc:hover {
+    .objectives-sort-by-title-asc:hover, .objectives-sort-by-title-desc:hover,
+    .experiences-sort-by-title-asc:hover, .experiences-sort-by-title-desc:hover {
         opacity: 1;
         cursor: pointer;
     }
 
-    .objectives-sort-by-title-asc.active, .objectives-sort-by-title-desc.active {
+    .objectives-sort-by-title-asc.active, .objectives-sort-by-title-desc.active,
+    .experiences-sort-by-title-asc.active, .experiences-sort-by-title-desc.active {
         border-color: #777777;
         color: #777777;
         opacity: 1;
@@ -122,7 +137,8 @@
 }
 
 
-.objectives-content {
+.objectives-content,
+.experiences-content {
     position: absolute;
     top: 170px;
     bottom: 0;
@@ -131,36 +147,36 @@
     width: 100%;
 }
 
-.objectives-list-wrapper {
+.objectives-list-wrapper,
+.experiences-list-wrapper {
     margin: auto;
     max-width: 1200px;
 }
 
 
-.objectives-list {
+.objectives-list,
+.experiences-list {
     margin: 0;
 }
 
-.objective-brief {
+.objective-brief,
+.experience-brief {
     position: relative;
     float: left;
     margin: 0 20px;
     width: 360px;
     height: 210px;
-    background-image: url('images/objbg.png');
-    -moz-background-size: 100% 100%;
-    -o-background-size: 100% 100%;
-    -webkit-background-size: 100% 100%;
-    background-size: 100% 100%;
+    background: url('images/objexp-sprite.png') 0px -374px;
 }
 
-.objective-brief-selected {
-    background-image: url('images/objbg-selected.png');
+.objective-brief-selected,
+.experience-brief-selected {
+    background-position: 0px -594px;
 }
 
 
 .objective-brief-image-wrapper,
-.publication-brief-image-wrapper {
+.experience-brief-image-wrapper {
     position: absolute;
     top: 15px;
     right: 45px;
@@ -168,12 +184,14 @@
     left: 15px;
 }
 
-.objective-brief-image {
+.objective-brief-image,
+.experience-brief-image {
     width: 300px;
     height: 180px;
 }
 
-.objective-brief-options {
+.objective-brief-options,
+.experience-brief-options {
     position: absolute;
     top: 15px;
     right: 15px;
@@ -182,7 +200,8 @@
     display: block;
 }
 
-.objective-brief-options-select, .objective-brief-options-open {
+.objective-brief-options-select, .objective-brief-options-open,
+.experience-brief-options-select, .experience-brief-options-open {
     float: left;
     padding-top: 50px;
     width: 163px;
@@ -194,7 +213,8 @@
     font-size: 18px;
 }
 
-.objective-brief-options-separator-wrapper {
+.objective-brief-options-separator-wrapper,
+.experience-brief-options-separator-wrapper {
     float: left;
     width: 4px;
     height: 100%;
@@ -202,46 +222,50 @@
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-.objective-brief-options-separator {
+.objective-brief-options-separator,
+.experience-brief-options-separator {
     margin: 20px 0;
     width: 4px;
     height: 140px;
     background-color: #7E7D7B;
 }
 
-.objective-brief-options-select-image {
+.objective-brief-options-select-image,
+.experience-brief-options-select-image {
     display: inline-block;
     margin-top: 5px;
     width: 51px;
     height: 52px;
-    background-image: url('images/uncheck.png');
+    background: url('images/objexp-sprite.png') 0px -148px;
 }
 
-    .objective-brief-options-select-image.selected {
-        background-image: url('images/check.png');
+    .objective-brief-options-select-image.selected,
+    .experience-brief-options-select-image.selected {
+        background-position: 0px -210px;
     }
 
-.objective-brief-options-open-image {
+.objective-brief-options-open-image,
+.experience-brief-options-open-image {
     display: inline-block;
     margin-top: 10px;
     width: 51px;
     height: 39px;
-    background-image: url('images/open.png');
+    background: url('images/objexp-sprite.png') 0px -272px;
 }
 
-.objective-brief-options-select,
-.objective-brief-options-separator-wrapper,
-.objective-brief-options-open {
+.objective-brief-options-select, .objective-brief-options-separator-wrapper, .objective-brief-options-open,
+.experience-brief-options-select, .experience-brief-options-separator-wrapper, .experience-brief-options-open {
     display: none;
 }
 
-.objective-brief-options:hover .objective-brief-options-select,
-.objective-brief-options:hover .objective-brief-options-separator-wrapper,
-.objective-brief-options:hover .objective-brief-options-open {
+.objective-brief-options:hover .objective-brief-options-select, .objective-brief-options:hover .objective-brief-options-separator-wrapper, .objective-brief-options:hover .objective-brief-options-open,
+.experience-brief-options:hover .experience-brief-options-select, .experience-brief-options:hover .experience-brief-options-separator-wrapper, .experience-brief-options:hover .experience-brief-options-open {
     display: block;
+    cursor: pointer;
 }
 
-.objective-brief-title {
+.objective-brief-title,
+.experience-brief-title {
     position: absolute;
     top: 20px;
     left: 20px;
@@ -252,7 +276,8 @@
     background-color: #fff;
 }
 
-.objective-brief-title-text {
+.objective-brief-title-text,
+.experience-brief-title-text {
     display: inline-block;
     padding: 10px;
     width: 178px;
@@ -262,11 +287,13 @@
     word-wrap: break-word;
 }
 
-.objective-brief-options:hover ~ .objective-brief-title {
+.objective-brief-options:hover ~ .objective-brief-title,
+.experience-brief-options:hover ~ .experience-brief-title {
     display: none;
 }
 
-.objective-brief-toolbar {
+.objective-brief-toolbar,
+.experience-brief-toolbar {
     position: absolute;
     top: 15px;
     bottom: 15px;
@@ -280,21 +307,32 @@
     display: inline-block;
     width: 16px;
     height: 15px;
-    background-image: url('images/question_count.png');
+    background: url('images/objexp-sprite.png') 0px -321px;
 }
 
-.objective-brief-toolbar-question-count {
+.experience-brief-toolbar-icon-objective {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: url('images/objexp-sprite.png')0px -346px;
+}
+
+.objective-brief-toolbar-question-count,
+.experience-brief-toolbar-objective-count {
     display: block;
     color: #484848;
     font-size: 12px;
+    line-height: 12px;
     font-family: Arial, sans-serif;
 }
 
 @media (max-width: 1219px) {
-    .objectives {
+    .objectives,
+    .experiences {
         max-width: 820px;
     }
 
+    .objectives-list-wrapper,
     .objectives-list-wrapper {
         max-width: 800px;
     }
@@ -302,10 +340,12 @@
 
 
 @media (max-width: 819px) {
-    .objectives {
+    .objectives,
+    .experiences {
         max-width: 420px;
     }
 
+    .objectives-list-wrapper,
     .objectives-list-wrapper {
         max-width: 400px;
     }
