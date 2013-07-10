@@ -35,7 +35,8 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                return GetByXPathInside(model.SelectElement).CssContains(model.IsSelectedClass);
+                return Container.CssContains(model.IsSelectedClass);
+                //return GetByXPathInside(model.SelectElement).CssContains(model.IsSelectedClass);
             }
         }
 
