@@ -1,42 +1,103 @@
-﻿define(['dataContext', 'durandal/plugins/router'],
-    function (dataContext, router) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'durandal/plugins/router'],
+    function (dataContext, constants, eventTracker, router) {
+        "use strict";
 
-        var self = {};
+        var
+            events = {
+                category: 'LearningObjective',
+                navigateToCreation: "Navigate to question creation",
+                navigateToDetails: "Navigate to question details",
+                navigateToObjectives: "Navigate to Learning Objectives",
+                sortByTitleAsc: "Sort questions by title ascending",
+                sortByTitleDesc: "Sort questions by title descending",
+                selectQuestion: "Select question",
+            },
+            sendEvent = function (eventName) {
+                eventTracker.publish(eventName, events.category);
+            };
 
-        self.id = ko.observable();
-        self.title = ko.observable();
-        self.image = ko.observable();
-        self.questions = ko.observableArray([]);
+        var objectiveId = '',
+            title = ko.observable(),
+            image = ko.observable(),
+            questions = ko.observableArray([]),
+            currentSortingOption = ko.observable(),
+            
+            sortByTitleAsc = function() {
+                sendEvent(events.sortByTitleAsc);
+                currentSortingOption(constants.sortingOptions.byTitleAsc);
+                questions(_.sortBy(questions(), function (question) { return question.title; }));
+            },
+            sortByTitleDesc = function () {
+                sendEvent(events.sortByTitleDesc);
+                currentSortingOption(constants.sortingOptions.byTitleDesc);
+                questions(_.sortBy(questions(), function (question) { return question.title; }).reverse());
+            },
+            navigateToObjectives = function () {
+                sendEvent(events.navigateToObjectives);
+                router.navigateTo('#/objectives');
+            },
+            navigateToCreation = function () {
+                sendEvent(events.navigateToCreation);
+                router.navigateTo('#/objective/' + objectiveId + '/question/create');
+            },
+            navigateToDetails = function (item) {
+                sendEvent(events.navigateToDetails);
+                router.navigateTo('#/objective/' + objectiveId + '/question/' + item.id);
+            },
 
-        self.activate = function (routeData) {
+            activate = function (routeData) {
+                
+                if (_.isEmpty(routeData) || _.isEmpty(routeData.id)) {
+                    router.navigateTo('400');
+                    return;
+                }
+                
+                var objective = _.find(dataContext.objectives, function (item) {
+                    return item.id == routeData.id;
+                });
 
-            var objective = _.find(dataContext.objectives, function (item) {
-                return item.id == routeData.id;
-            });
+                if (!_.isObject(objective)) {
+                    router.navigateTo('404');
+                    return;
+                }
 
-            if (!_.isObject(objective)) {
-                router.navigateTo('404');
-                return;
-            }
+                objectiveId = routeData.id;
+                title(objective.title);
+                image(objective.image);
 
-            self.id(routeData.id);
-            self.title(objective.title);
-            self.image(objective.image);
-            self.questions(objective.questions);
-        };
-
-        self.goBack = function () {
-            router.navigateTo('#/');
-        };
-
+                var array = _.chain(objective.questions)
+                                .map(function (item) {
+                                    return {
+                                        id: item.id,
+                                        title: item.title,
+                                        isSelected: ko.observable(false),
+                                        toggleSelection: function () {
+                                            sendEvent(events.selectQuestion);
+                                            this.isSelected(!this.isSelected());
+                                        }
+                                    };
+                                })
+                                .sortBy(function (question) { return question.title; })
+                                .value();
+                currentSortingOption(constants.sortingOptions.byTitleAsc);
+                questions(array);
+            };
+        
         return {
-            activate: self.activate,
-            id: self.id,
-            title: self.title,
-            image: self.image,
-            questions: self.questions,
+            title: title,
+            image: image,
+            questions: questions,
 
-            goBack: self.goBack
+            sortByTitleAsc: sortByTitleAsc,
+            sortByTitleDesc: sortByTitleDesc,
+            currentSortingOption: currentSortingOption,
+            sortingOptions: constants.sortingOptions,
+
+            navigateToCreation: navigateToCreation,
+            navigateToDetails: navigateToDetails,
+            navigateToObjectives: navigateToObjectives,
+
+            activate: activate
         };
     }
 );

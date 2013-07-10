@@ -7,17 +7,15 @@
             initialize = function () {
                 return Q.fcall(function () {
                     for (var i = 0; i < images.length; i++) {
+                        var questions = [];
+                        for (var q = 0; q < 100; q++) {
+                            questions.push(new QuestionModel({ id: q, title: 'Ļồяệო Ĭρśụм ĭŝ śîмρļỹ ďủოмỷ ť℮χť ǒƒ ťһё ряіŉťìאָġ ầňđ ţỵрềš℮ťťíņğ іאַđủšťŗỷ. Ľōřệм Ĩρŝựм ĥẫş βêệŋ ťҺệ ǐŋďứśţřỳ\'ş ŝŧäŉďâяđ ďűოოγ ťęхť εϋĕŕ şïńċẹ ťĥẹ 1500ŝ,шħëņ ǻאּ ựאַκńợẅŋ ρříאָŧёя ţồọҝ â ġâļł℮ÿ ợƒ ţýρē äńđ śçŗắмьłėď įţ ťō ოẩķē ẩ ťỹрẹ šрểćîмėň ьọόҝ.' + q }));
+                        }
                         objectives.push(new ObjectiveModel({
                             id: i,
                             title: 'Objective #' + i,
                             image: images[i],
-                            questions: [
-                                new QuestionModel({ id: 0, title: 'Ļồяệო Ĭρśụм ĭŝ śîмρļỹ ďủოмỷ ť℮χť' }),
-                                new QuestionModel({ id: 1, title: 'ǒƒ ťһё ряіŉťìאָġ ầňđ ţỵрềš℮ťťíņğ іאַđủšťŗỷ.' }),
-                                new QuestionModel({ id: 2, title: 'Ľōřệм Ĩρŝựм ĥẫş βêệŋ ťҺệ ǐŋďứśţřỳ\'ş ŝŧäŉďâяđ ďűოოγ ťęхť' }),
-                                new QuestionModel({ id: 3, title: 'εϋĕŕ şïńċẹ ťĥẹ 1500ŝ,' }),
-                                new QuestionModel({ id: 4, title: 'шħëņ ǻאּ ựאַκńợẅŋ ρříאָŧёя ţồọҝ â ġâļł℮ÿ ợƒ ţýρē äńđ śçŗắмьłėď įţ ťō ოẩķē ẩ ťỹрẹ šрểćîмėň ьọόҝ.' })
-                            ]
+                            questions: questions
                         }));
                     }
 
@@ -29,7 +27,6 @@
                         }));
                 });
             };
-
         return {
             initialize: initialize,
             objectives: objectives,

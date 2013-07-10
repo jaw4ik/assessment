@@ -1,6 +1,6 @@
 ﻿<div class="eg-container list-of-questions">
     <div class="navbar">
-        <a href="#/" class="inline nav-control">
+        <a href="#" data-bind="click: navigateToObjectives" class="inline nav-control">
             <span class="nav-btn inline">
                 <i class="icon-chevron-left icon-2x"></i>
             </span>
@@ -9,19 +9,30 @@
             </span>
         </a>
     </div>
+    <div class="objectives-header-sort-label">
+            <span data-bind="localize: { text: 'sortBy' }">Sort by</span>&nbsp;<i class="icon-caret-down"></i>
+        </div>
+        <div class="objectives-header-sort-container">
+            <div class="objectives-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }">
+                <span data-bind="localize: { text: 'lastLetter' }">z</span>&nbsp;<i class="icon-long-arrow-right"></i>&nbsp;<span data-bind="localize: { text: 'firstLetter' }">a</span>
+            </div>
+            <div class="objectives-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }">
+                <span data-bind="localize: { text: 'firstLetter' }">a</span>&nbsp;<i class="icon-long-arrow-right"></i>&nbsp;<span data-bind="localize: { text: 'lastLetter' }">z</span>
+            </div>
+        </div>
     <section class="header clearfix" style="height: auto">
         <img data-bind="attr: { src: image }" alt="" style="float: left"/>
         <h2 class="page-header-title" data-bind="text: title"></h2>
     </section>
     <section class="control-bar">
-        <a class="btn btn-success" data-bind="attr: { href: '#/objective/' + id() + '/question/create' }"><i class="icon-plus"></i></a>     
+        <a href="#" class="btn btn-success" data-bind="click: navigateToCreation"><i class="icon-plus"></i></a>     
         <span data-bind="localize: { text: 'relatedQuestions' }"></span>
     </section>
     <div>
         <ul class="unstyled">
             <!-- ko foreach: questions -->
             <li>
-                <a data-bind="attr: { href: '#/objective/' + $parent.id() + '/question/' + id }, text: title"></a>
+                <a href="#" data-bind="click: $parent.navigateToDetails, text: title"></a>
             </li>
             <!-- /ko -->
         </ul>
