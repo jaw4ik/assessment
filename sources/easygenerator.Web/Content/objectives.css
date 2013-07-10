@@ -213,6 +213,12 @@
     font-size: 18px;
 }
 
+    .objective-brief-options-select:hover, .objective-brief-options-open:hover, .experience-brief-options-select:hover, .experience-brief-options-open:hover {
+        background-color: #000000;
+        background-color: rgba(0, 0, 0, 0.8);
+        cursor: pointer;
+    }
+
 .objective-brief-options-separator-wrapper,
 .experience-brief-options-separator-wrapper {
     float: left;
@@ -255,14 +261,15 @@
 
 .objective-brief-options-select, .objective-brief-options-separator-wrapper, .objective-brief-options-open,
 .experience-brief-options-select, .experience-brief-options-separator-wrapper, .experience-brief-options-open {
-    display: none;
+    opacity: 0;
 }
 
-.objective-brief-options:hover .objective-brief-options-select, .objective-brief-options:hover .objective-brief-options-separator-wrapper, .objective-brief-options:hover .objective-brief-options-open,
-.experience-brief-options:hover .experience-brief-options-select, .experience-brief-options:hover .experience-brief-options-separator-wrapper, .experience-brief-options:hover .experience-brief-options-open {
-    display: block;
-    cursor: pointer;
+.objective-brief:hover .objective-brief-options-select, .objective-brief:hover .objective-brief-options-separator-wrapper, .objective-brief:hover .objective-brief-options-open,
+.experience-brief:hover .experience-brief-options-select, .experience-brief:hover .experience-brief-options-separator-wrapper, .experience-brief:hover .experience-brief-options-open {
+    opacity: 1;
 }
+
+
 
 .objective-brief-title,
 .experience-brief-title {
@@ -274,6 +281,7 @@
     width: 180px;
     border: 1px solid #bfbfbf;
     background-color: #fff;
+    opacity: 1;
 }
 
 .objective-brief-title-text,
@@ -287,9 +295,9 @@
     word-wrap: break-word;
 }
 
-.objective-brief-options:hover ~ .objective-brief-title,
-.experience-brief-options:hover ~ .experience-brief-title {
-    display: none;
+.objective-brief:hover .objective-brief-title,
+.experience-brief:hover .experience-brief-title {
+    opacity: 0;
 }
 
 .objective-brief-toolbar,
@@ -322,8 +330,8 @@
     display: block;
     color: #484848;
     font-size: 12px;
-    line-height: 12px;
     font-family: Arial, sans-serif;
+    line-height: 12px;
 }
 
 @media (max-width: 1219px) {

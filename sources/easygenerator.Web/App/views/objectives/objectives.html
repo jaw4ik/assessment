@@ -31,8 +31,11 @@
             <ul class="unstyled objectives-list">
                 <!-- ko foreach: objectives -->
                 <li class="objective-brief" data-bind="css: { 'objective-brief-selected': isSelected() }">
-                    <div class="objective-brief-image-wrapper">
+                    <div class="objective-brief-image-wrapper ">
                         <img class="objective-brief-image" data-bind="attr: { src: image }" src="" alt="" width="300" height="180" />
+                    </div>
+                    <div class="objective-brief-title">
+                        <span class="objective-brief-title-text" data-bind="text: title"></span>
                     </div>
                     <div class="objective-brief-toolbar">
                         <div class="objective-brief-toolbar-icon-question"></div>
@@ -56,9 +59,6 @@
                             <div class="objective-brief-options-open-image"></div>
                         </div>
                     </a>
-                    <div class="objective-brief-title">
-                        <span class="objective-brief-title-text" data-bind="text: title"></span>
-                    </div>
                 </li>
                 <!-- /ko -->
             </ul>
