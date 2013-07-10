@@ -33,6 +33,14 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             DriverProvider.Current().Navigate().GoToUrl("about:blank");
         }
+        //
+        // https://github.com/techtalk/SpecFlow/wiki/Hooks
+        //
+        //[BeforeFeature("ObjectivesList", "SomeOneMoreFeatureTag")]   The same could be done for [BeforeScenario] for example
+        //public void BeforeFeature()
+        //{
+        //    blablabla();
+        //}
 
     }
 }
