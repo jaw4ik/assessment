@@ -1,32 +1,33 @@
-﻿<div class="eg-container list-of-questions">
+﻿<div class="container list-of-questions">
     <div class="navbar">
         <a href="#" data-bind="click: navigateToObjectives" class="inline nav-control">
             <span class="nav-btn inline">
                 <i class="icon-chevron-left icon-2x"></i>
             </span>
             <span class="nav-title inline">
-                <span data-bind="localize: { text: 'backTo' }"></span>&nbsp;<span data-bind="    localize: { text: 'learningObjectives' }"></span>    
+                <span data-bind="localize: { text: 'backTo' }"></span>
+                <span data-bind="localize: { text: 'learningObjectives' }"></span>
             </span>
         </a>
     </div>
-    <div class="objectives-header-sort-label">
-            <span data-bind="localize: { text: 'sortBy' }">Sort by</span>&nbsp;<i class="icon-caret-down"></i>
-        </div>
-        <div class="objectives-header-sort-container">
-            <div class="objectives-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }">
-                <span data-bind="localize: { text: 'lastLetter' }">z</span>&nbsp;<i class="icon-long-arrow-right"></i>&nbsp;<span data-bind="localize: { text: 'firstLetter' }">a</span>
-            </div>
-            <div class="objectives-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }">
-                <span data-bind="localize: { text: 'firstLetter' }">a</span>&nbsp;<i class="icon-long-arrow-right"></i>&nbsp;<span data-bind="localize: { text: 'lastLetter' }">z</span>
-            </div>
-        </div>
-    <section class="header clearfix" style="height: auto">
-        <img data-bind="attr: { src: image }" alt="" style="float: left"/>
+    <section class="head clearfix" style="height: auto">
+        <img data-bind="attr: { src: image }" alt="" style="float: left" />
         <h2 class="page-header-title" data-bind="text: title"></h2>
     </section>
     <section class="control-bar">
-        <a href="#" class="btn btn-success" data-bind="click: navigateToCreation"><i class="icon-plus"></i></a>     
+        <a href="#" class="btn btn-success" data-bind="click: navigateToCreation"><i class="icon-plus"></i></a>
         <span data-bind="localize: { text: 'relatedQuestions' }"></span>
+        <span class="objectives-header-sort-label">
+            <span data-bind="localize: { text: 'sortBy' }">Sort by</span>&nbsp;<i class="icon-caret-down"></i>
+        </span>
+        <div class="objectives-header-sort-container">
+            <div class="objectives-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }">
+                <span data-bind="localize: { text: 'lastLetter' }">z</span>&nbsp;<i class="icon-long-arrow-right"></i>&nbsp;<span data-bind="    localize: { text: 'firstLetter' }">a</span>
+            </div>
+            <div class="objectives-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }">
+                <span data-bind="localize: { text: 'firstLetter' }">a</span>&nbsp;<i class="icon-long-arrow-right"></i>&nbsp;<span data-bind="    localize: { text: 'lastLetter' }">z</span>
+            </div>
+        </div>
     </section>
     <div>
         <ul class="unstyled">
@@ -39,39 +40,47 @@
     </div>
 </div>
 <style type="text/css">
-    .eg-container {
+    .container {
         margin: 0 auto;
         max-width: 1200px;
         min-width: 600px;
     }
+
+    .navbar {
+        margin: 10px 0;
+    }
     .nav-control {
-        margin-top: 8px;
-        line-height: 58px;
+        line-height: 57px;
         opacity: 0.6;
         filter: alpha(opacity=60);
     }
+
     a.nav-control:hover {
         text-decoration: none;
         opacity: 0.75;
         filter: alpha(opacity=75);
     }
+
     .nav-btn {
-        height: 58px;
-        line-height: 58px;
-        width: 58px;
+        height: 57px;
+        line-height: 57px;
+        width: 57px;
         margin-right: 13px;
-        background-color: #e0e0e0;
-        -webkit-border-radius: 29px;
-        -moz-border-radius: 29px;
-        border-radius: 29px;
+        background-color: transparent !important;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADkAAAA5CAYAAACMGIOFAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjA2OTY2OENFOTYzMTFFMkE1NjI4RThBOTUwQ0IzMjYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjA2OTY2OERFOTYzMTFFMkE1NjI4RThBOTUwQ0IzMjYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGMDY5NjY4QUU5NjMxMUUyQTU2MjhFOEE5NTBDQjMyNiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGMDY5NjY4QkU5NjMxMUUyQTU2MjhFOEE5NTBDQjMyNiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PihI17IAAAMFSURBVHja5JvPSxRhGMefnTJESr14sFMdMtvQDKpzdQtbayuCCOnmZdtDBBX9A0mXRK2DtwKJCiFLCTpk9+0QG9mmUHvKgxezkOgXfR/mmZqWdWdnZ2Z33scvfEBw3ff5sOO78877vIlisUgRpBMcAb2gC+wGHaAdNIEfYAUsg/dgAeTBHFgKu5jNIb5XN7gAToA9Hq9tEmkmWfK7d2Aa3AWFMApLBPwkLXASXAMHI7gicmAYPAa/gxRZawbAGzAVkSDJ+07JOAP1lNwJnsgllaT6JCnjPZXxI5UcBK9BihqT4zL+YBSSm8A4uAdaqbFplTrGpa5QJJvBI5CheCUjdTUHlWwBz0Ca4pm01NdSqyRfCvfBYYp3uL6HlS7dSpK3gkzbdU6/1OtL8izIklnJSt1VSe4AE2RmJqR+T8lR0GaoZJvUX1Ey1cAv+rCSKp1LrJKfb5CO3HSvsNySvJrYq0SS169nykleJV25XCrZBw4pkzwgXn8lz5POnHNL9iuVTDmS28n7mYypYa9Oy4Ab8MA38CzZq1xynyXfKZrTzZJdyiV3sWSHcsl2y+AVR7XZxpJbNoLkd+WSX1jy80aQXFYuucKSi8olF1myoFyywJJ55ZJ5lnypXHKOJT+RvYWtMey15CyaZ5VKzrqfDEwqlZx0S/LubU6Z4Cvx+u+R5LAyyRHnB7ckt5G8VSLIDVAPyklyn8x1JZJXwM9ykhxuXZkxXHBGPGg9SU7W4JXJKpXZPC4nWQRDhkoOSf2ekhxuNBgzTHDMPdlUI8m5RHb7iAl5LvWSX8lfZO/xxf0GnutLS72+JTlr4FjpbBWjTEt9a5VeVE3b2TdwCtyOmeAdcFrqo6CSzqV7kew+mdUYfE1wHZlKl2gtkk64Ya+vgTcMPO5+qaPq1NLU+5HszU3uNZ+vk9y8jMfjfvD7x0Has3ky6pH/i6iWaTl5/54gk18ixCMTfk4TeD2yiNVpgvXC50KOyifA+5+8PchnQraS3XnMk8dXss+GLNC/cyEvKIJzIX8EGACoO49Kk5dkjAAAAABJRU5ErkJggg==);
+        background-position: center center;
+        background-repeat: no-repeat;
         text-align: center;
     }
-    .nav-btn i {
-        margin-left: -2px;
-        vertical-align: middle;
-        color: #666666;
-    }
+
+        .nav-btn i {
+            margin-left: -2px;
+            vertical-align: middle;
+            color: #666666;
+        }
+
     .nav-title {
+        vertical-align: top;
         font-size: 14px;
         text-transform: uppercase;
         color: #666666;
