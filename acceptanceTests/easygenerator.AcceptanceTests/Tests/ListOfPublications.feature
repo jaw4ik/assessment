@@ -55,8 +55,8 @@ Then publications tiles list consists of ordered items
 | Publication_z |
 | Publication_a |
 | a_Publication |
-| 1_Publication |
 | _Publication  |
+| 1_Publication |
 And publications list order switch is set to 'descending'
 
 Scenario: Publications are sorted by title ascending if set ascending order

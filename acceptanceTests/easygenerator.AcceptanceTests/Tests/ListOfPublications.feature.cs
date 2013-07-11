@@ -200,9 +200,9 @@ testRunner.And("I switch publications list order to \'descending\'", ((string)(n
             table6.AddRow(new string[] {
                         "a_Publication"});
             table6.AddRow(new string[] {
-                        "1_Publication"});
-            table6.AddRow(new string[] {
                         "_Publication"});
+            table6.AddRow(new string[] {
+                        "1_Publication"});
 #line 53
 testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table6, "Then ");
 #line 60
