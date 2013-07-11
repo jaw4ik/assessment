@@ -31,6 +31,7 @@
             },
             
             currentSortingOption = ko.observable(),
+            
             sortByTitleAsc = function() {
                 if (currentSortingOption() == constants.sortingOptions.byTitleAsc)
                     return;
@@ -39,6 +40,7 @@
                 experiences(_.sortBy(experiences(), function(experience) { return experience.title.toLowerCase(); }));
                 sendEvent(events.sortByTitleAsc);
             },
+            
             sortByTitleDesc = function() {
                 if (currentSortingOption() == constants.sortingOptions.byTitleDesc)
                     return;
@@ -53,10 +55,12 @@
                 router.navigateTo('#/experience/create');
 
             },
+            
             navigateToDetails = function(experience) {
                 sendEvent(events.navigateToDetails);
                 router.navigateTo('#/experience/' + experience.id);
             },
+            
              navigateToObjectives = function () {
                  sendEvent(events.navigateToObjectives);
                  router.navigateTo('#/objectives');
@@ -64,7 +68,10 @@
             
             activate = function() {
                 return Q.fcall(function() {
-                    experiences(ko.utils.arrayMap(dataContext.experiences, function(item) {
+                    var sortedExperiences = _.sortBy(dataContext.experiences, function (experience) { return experience.title.toLowerCase(); });
+                    currentSortingOption(constants.sortingOptions.byTitleAsc);
+                    
+                    experiences(ko.utils.arrayMap(sortedExperiences, function (item) {
                         return {
                             id: item.id,
                             title: item.title,
@@ -72,20 +79,17 @@
                             isSelected: ko.observable(false)
                         };
                     }));
-                    sortByTitleAsc();
                 });
             };
 
         return {
             experiences: experiences,
-
             toggleSelection: toggleSelection,
 
             sortByTitleAsc: sortByTitleAsc,
             sortByTitleDesc: sortByTitleDesc,
             currentSortingOption: currentSortingOption,
             sortingOptions: constants.sortingOptions,
-
 
             navigateToCreation: navigateToCreation,
             navigateToDetails: navigateToDetails,
