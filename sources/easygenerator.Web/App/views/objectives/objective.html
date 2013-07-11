@@ -51,15 +51,29 @@
                         </div>
                         <div class="question-options">
                             <div class="question-select" data-bind="click: toggleSelection">
-                                <!-- ko if: !isSelected() -->
-                                 x
-                                <!-- /ko -->
                                 <!-- ko if: isSelected() -->
-                                 v
+                                <div data-bind="localize: { text: 'select' }">
+                                </div>
+                                <div class="action-img inline">
+                                    <img src="../../../Content/images/check.png"/>
+                                </div>
+                                <!-- /ko -->
+                                <!-- ko if: !isSelected() -->
+                                <div data-bind="localize: { text: 'unselect' }">
+                                </div>
+                                <div class="action-img inline">
+                                    <img src="../../../Content/images/uncheck.png"/>
+                                </div>
                                 <!-- /ko -->
                             </div>
                             <div class="separator"></div>
-                            <div class="question-edit"></div>
+                            <div class="question-edit">
+                                <div data-bind="localize: { text: 'edit' }">
+                                </div>
+                                <div class="action-img inline">
+                                    <img src="../../../Content/images/edit.png"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <a href="#" data-bind="click: $parent.navigateToDetails">
