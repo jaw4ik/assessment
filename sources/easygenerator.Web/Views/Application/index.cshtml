@@ -51,7 +51,8 @@
     }
     else
     {
-        <script type="text/javascript" src="~/App/main-built.js"></script>
+        var bundlePath = "/App/main-built.js?v=" + DateTime.Now.Ticks;
+        <script type="text/javascript" src="@bundlePath"></script>
     }
 
 </body>
