@@ -7,7 +7,7 @@
                 category: 'Objectives',
                 navigateToCreation: "Navigate to Objective creation",
                 navigateToDetails: "Navigate to Objective details",
-                navigateToExperiences: "Navigate to Experiences",                
+                navigateToExperiences: "Navigate to Experiences",
                 sortByTitleAsc: "Sort by title ascending",
                 sortByTitleDesc: "Sort by title descending",
                 selectObjective: "Select Objective",
@@ -24,15 +24,15 @@
             sortByTitleAsc = function () {
                 sendEvent(events.sortByTitleAsc);
                 currentSortingOption(constants.sortingOptions.byTitleAsc);
-                objectives(_.sortBy(objectives(), function (objective) { return objective.title; }));
+                objectives(_.sortBy(objectives(), function (objective) { return objective.title.toLowerCase(); }));
             },
             sortByTitleDesc = function () {
                 sendEvent(events.sortByTitleDesc);
                 currentSortingOption(constants.sortingOptions.byTitleDesc);
-                objectives(_.sortBy(objectives(), function (objective) { return objective.title; }).reverse());
+                objectives(_.sortBy(objectives(), function (objective) { return objective.title.toLowerCase(); }).reverse());
             },
 
-            navigateToCreation = function() {
+            navigateToCreation = function () {
                 sendEvent(events.navigateToCreation);
                 router.navigateTo('/#/objective/create');
             },
@@ -47,24 +47,23 @@
 
 
             activate = function () {
-                var array = _.chain(dataContext.objectives)
-                                .map(function (item) {
-                                    return {
-                                        id: item.id,
-                                        title: item.title,
-                                        image: item.image,
-                                        questionsCount: item.questions.length,
-                                        isSelected: ko.observable(false),
-                                        toggleSelection: function () {
-                                            sendEvent(events.selectObjective);
-                                            this.isSelected(!this.isSelected());
-                                        }
-                                    };
-                                })
-                                .sortBy(function (objective) { return objective.title; })
-                                .value();
                 currentSortingOption(constants.sortingOptions.byTitleAsc);
-                objectives(array);
+                objectives(_.chain(dataContext.objectives)
+                            .map(function (item) {
+                                return {
+                                    id: item.id,
+                                    title: item.title,
+                                    image: item.image,
+                                    questionsCount: item.questions.length,
+                                    isSelected: ko.observable(false),
+                                    toggleSelection: function () {
+                                        sendEvent(events.selectObjective);
+                                        this.isSelected(!this.isSelected());
+                                    }
+                                };
+                            })
+                            .sortBy(function (objective) { return objective.title.toLowerCase(); })
+                            .value());
             };
 
         return {
