@@ -20,18 +20,25 @@
             <h2 class="page-header-title" data-bind="text: title"></h2>    
         </div>
     </div>
-    <section class="control-bar">
-        <a href="#" class="btn btn-success" data-bind="click: navigateToCreation"><i class="icon-plus"></i></a>
-        <span data-bind="localize: { text: 'relatedQuestions' }"></span>
-        <span class="objectives-header-sort-label">
+    <section class="questions-header">
+        <div class="objectives-header-title">
+            <a class="objectives-header-create-link" href="#" data-bind="click: navigateToCreation"></a>
+            <span data-bind="localize: { text: 'relatedQuestions' }"></span>
+            <hr />
+        </div>
+        <div class="objectives-header-sort-label">
             <span data-bind="localize: { text: 'sortBy' }">Sort by</span>&nbsp;<i class="icon-caret-down"></i>
-        </span>
+        </div>
         <div class="objectives-header-sort-container">
-            <div class="objectives-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }">
-                <span data-bind="localize: { text: 'lastLetter' }">z</span>&nbsp;<i class="icon-long-arrow-right"></i>&nbsp;<span data-bind="    localize: { text: 'firstLetter' }">a</span>
+             <div class="objectives-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }">
+                <span data-bind="localize: { text: 'firstLetter' }">a</span>
+                &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
+                <span data-bind="localize: { text: 'lastLetter' }">z</span>
             </div>
-            <div class="objectives-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }">
-                <span data-bind="localize: { text: 'firstLetter' }">a</span>&nbsp;<i class="icon-long-arrow-right"></i>&nbsp;<span data-bind="    localize: { text: 'lastLetter' }">z</span>
+            <div class="objectives-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }">
+                <span data-bind="localize: { text: 'lastLetter' }">z</span>
+                &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
+                <span data-bind="localize: { text: 'firstLetter' }">a</span>
             </div>
         </div>
     </section>
