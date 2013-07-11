@@ -1,7 +1,5 @@
 @echo off
-for /f %%t  in ('date/t') do set dateStamp=%%t
-for /f "tokens=1-2 delims=:" %%d in ('time/t')do set timeStamp=%%d.%%e
-set outFile="%~dp0TestsResults\MyResult_%dateStamp%_%timeStamp%.html"
+set outFile="%~dp0TestsResults\MyResult.html"
 %SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild "%~dp0easygenerator.AcceptanceTests.sln" /verbosity:q /nologo /property:TreatWarningsAsErrors=true
 if not %errorlevel% ==0 (
 echo Cannot execute or build tests
