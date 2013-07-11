@@ -28,7 +28,7 @@
         obj.questions.push(new QuestionModel({ id: questId, title: questTitle }));
     };
     this.AddNewPublication = function (newId, newTitle) {
-        dataContext.publications.push(
+        dataContext.experiences.push(
             new PubModel({
                 id: newId,
                 title: newTitle,
@@ -44,7 +44,7 @@
         dataContext.objectives = [];
     };
     this.EmptyPublicationsList = function () {
-        dataContext.publications = [];
+        dataContext.experiences = [];
     };
     this.RebuildObjectivesListView = function () {
         require('viewmodels/objectives/objectives').activate();
