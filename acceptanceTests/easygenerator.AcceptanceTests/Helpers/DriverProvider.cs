@@ -16,7 +16,8 @@ namespace easygenerator.AcceptanceTests.Helpers
     public class DriverProvider
     {
         static RemoteWebDriver driver;
-
+        const string appCacheCapability = "applicationCacheEnabled";
+        const bool isCashEnabled = false;
         public static RemoteWebDriver Current()
         {
             if (driver == default(RemoteWebDriver))
@@ -29,13 +30,19 @@ namespace easygenerator.AcceptanceTests.Helpers
             switch (browserName)
             {
                 case "Chrome":
-                    driver = new ChromeDriver();
+                    var opt = new ChromeOptions();
+                    opt.AddAdditionalCapability(appCacheCapability, isCashEnabled);
+                    driver = new ChromeDriver(opt);
                     break;
                 case "IE":
-                    driver = new InternetExplorerDriver();
+                    var pref = new InternetExplorerOptions();
+                    pref.AddAdditionalCapability(appCacheCapability, isCashEnabled);
+                    driver = new InternetExplorerDriver(pref);
                     break;
                 case "FF":
-                    driver = new FirefoxDriver();
+                    var opts = new DesiredCapabilities();
+                    opts.SetCapability(appCacheCapability, isCashEnabled);
+                    driver = new FirefoxDriver(opts);
                     break;
                 default:
                     throw new NotImplementedException("Browser in app.config is not supported");
