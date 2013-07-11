@@ -382,7 +382,7 @@ this.FeatureBackground();
 #line 121
 testRunner.Given("objectives are present in database", ((string)(null)), table12, "Given ");
 #line 128
-testRunner.When("browser window width and height is set to 400 and 600", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("browser window width and height is set to 600 and 600", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 129
 testRunner.And("scroll objective with title \'Objective5\' into the view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 130
@@ -445,55 +445,6 @@ testRunner.When("mouse hover element of objectives list with title \'Objective1\
 testRunner.And("click open objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 150
 testRunner.Then("browser navigates to url \'http://localhost:5656/#/objective/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Sorting order should be saved when navigate to other page")]
-        public virtual void SortingOrderShouldBeSavedWhenNavigateToOtherPage()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Sorting order should be saved when navigate to other page", ((string[])(null)));
-#line 152
-this.ScenarioSetup(scenarioInfo);
-#line 5
-this.FeatureBackground();
-#line hidden
-            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table15.AddRow(new string[] {
-                        "Objective_a"});
-            table15.AddRow(new string[] {
-                        "a_Objective"});
-            table15.AddRow(new string[] {
-                        "Objective_z"});
-            table15.AddRow(new string[] {
-                        "1_Objective"});
-            table15.AddRow(new string[] {
-                        "_Objective"});
-#line 153
-testRunner.Given("objectives are present in database", ((string)(null)), table15, "Given ");
-#line 160
-testRunner.When("I switch objectives list order to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 161
-testRunner.And("click on tab publications link on objectives list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 162
-testRunner.But("click on tab objectives link on publications list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
-#line hidden
-            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table16.AddRow(new string[] {
-                        "Objective_z"});
-            table16.AddRow(new string[] {
-                        "Objective_a"});
-            table16.AddRow(new string[] {
-                        "a_Objective"});
-            table16.AddRow(new string[] {
-                        "_Objective"});
-            table16.AddRow(new string[] {
-                        "1_Objective"});
-#line 163
-testRunner.Then("objectives tiles list consists of ordered items", ((string)(null)), table16, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -125,7 +125,7 @@ Given objectives are present in database
 | Objective3 |
 | Objective4 |
 | Objective5 |
-When browser window width and height is set to 400 and 600
+When browser window width and height is set to 600 and 600
 And scroll objective with title 'Objective5' into the view
 Then element of objectives list with title 'Objective5' is visible
 
@@ -149,24 +149,6 @@ When mouse hover element of objectives list with title 'Objective1'
 And click open objective list item with title 'Objective1'
 Then browser navigates to url 'http://localhost:5656/#/objective/1'
 
-Scenario: Sorting order should be saved when navigate to other page
-Given objectives are present in database
-| Title       |
-| Objective_a |
-| a_Objective |
-| Objective_z |
-| 1_Objective |
-| _Objective  |
-When I switch objectives list order to 'descending'
-And click on tab publications link on objectives list page
-But click on tab objectives link on publications list page
-Then objectives tiles list consists of ordered items
-| Title       |
-| Objective_z |
-| Objective_a |
-| a_Objective |
-| _Objective  |
-| 1_Objective |
 
 
 

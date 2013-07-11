@@ -133,7 +133,7 @@ Given publications are present in database
 | Publication4 |
 | Publication5 |
 When click on tab publications link on objectives list page
-And browser window width and height is set to 400 and 300
+And browser window width and height is set to 600 and 600
 And scroll publication with title 'Publication5' into the view
 Then element with title 'Publication5' of publications list is visible
 
@@ -160,24 +160,7 @@ And click open publication list item with title 'Publication1'
 Then browser navigates to url 'http://localhost:5656/#/experience/1'
 
 
-Scenario: Sorting order should be saved when navigate to other page
-Given publications are present in database
-| Title         |
-| Publication_a |
-| a_Publication |
-| Publication_z |
-| 1_Publication |
-| _Publication  |
-When I switch objectives list order to 'descending'
-And click on tab objectives link on publications list page
-But click on tab publications link on objectives list page
-Then publications tiles list consists of ordered items
-| Title         |
-| Publication_z |
-| Publication_a |
-| a_Publication |
-| _Publication  |
-| 1_Publication |
+
 
 
 

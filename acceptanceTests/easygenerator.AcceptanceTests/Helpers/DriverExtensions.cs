@@ -42,8 +42,8 @@ namespace easygenerator.AcceptanceTests.Helpers
 
             var isP1BiggerThenTopLeft = el.Coordinates.LocationInDom.X > scrollX &&
                 el.Coordinates.LocationInDom.Y > scrollY;
-            var isP2BiggerThenBottomRight = x1 < scrollX + pageWidth &&
-                y1 < scrollY + pageHeight;
+            var isP2BiggerThenBottomRight = x1 <= scrollX + pageWidth &&
+                y1 <= scrollY + pageHeight;
 
             return el.Displayed && isP1BiggerThenTopLeft && isP2BiggerThenBottomRight;
         }

@@ -395,7 +395,7 @@ testRunner.Given("publications are present in database", ((string)(null)), table
 #line 135
 testRunner.When("click on tab publications link on objectives list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 136
-testRunner.And("browser window width and height is set to 400 and 300", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("browser window width and height is set to 600 and 600", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 137
 testRunner.And("scroll publication with title \'Publication5\' into the view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 138
@@ -463,55 +463,6 @@ testRunner.And("mouse hover element of publications list with title \'Publicatio
 testRunner.And("click open publication list item with title \'Publication1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 160
 testRunner.Then("browser navigates to url \'http://localhost:5656/#/experience/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Sorting order should be saved when navigate to other page")]
-        public virtual void SortingOrderShouldBeSavedWhenNavigateToOtherPage()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Sorting order should be saved when navigate to other page", ((string[])(null)));
-#line 163
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
-#line hidden
-            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table15.AddRow(new string[] {
-                        "Publication_a"});
-            table15.AddRow(new string[] {
-                        "a_Publication"});
-            table15.AddRow(new string[] {
-                        "Publication_z"});
-            table15.AddRow(new string[] {
-                        "1_Publication"});
-            table15.AddRow(new string[] {
-                        "_Publication"});
-#line 164
-testRunner.Given("publications are present in database", ((string)(null)), table15, "Given ");
-#line 171
-testRunner.When("I switch objectives list order to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 172
-testRunner.And("click on tab objectives link on publications list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 173
-testRunner.But("click on tab publications link on objectives list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
-#line hidden
-            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table16.AddRow(new string[] {
-                        "Publication_z"});
-            table16.AddRow(new string[] {
-                        "Publication_a"});
-            table16.AddRow(new string[] {
-                        "a_Publication"});
-            table16.AddRow(new string[] {
-                        "_Publication"});
-            table16.AddRow(new string[] {
-                        "1_Publication"});
-#line 174
-testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table16, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
