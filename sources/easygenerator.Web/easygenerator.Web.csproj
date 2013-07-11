@@ -218,6 +218,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\font\fontawesome-webfont.svg" />
     <Content Include="Content\font\Montserrat-Regular.svg" />
+    <Content Include="Content\images\answer-correct.png" />
     <Content Include="Content\images\answer-option-icon.png" />
     <Content Include="Content\images\collapse.png" />
     <Content Include="Content\images\expand.png" />
