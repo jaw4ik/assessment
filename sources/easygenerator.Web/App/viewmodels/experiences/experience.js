@@ -22,6 +22,11 @@
             },
 
             activate = function (routeData) {
+                if (_.isEmpty(routeData) || _.isEmpty(routeData.id)) {
+                    router.navigateTo('400');
+                    return;
+                }
+
                 var experience = _.find(dataContext.experiences, function (item) {
                     return item.id == routeData.id;
                 });
