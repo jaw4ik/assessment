@@ -11,7 +11,7 @@
     </div>
     <div class="objective-header clearfix" style="height: auto">
         <div class="left white-lining">
-            <div class="objective-image-wrapper">
+            <div>
                 <img class="objective-image" data-bind="attr: { src: image }" alt="" />    
             </div>
         </div>
@@ -41,21 +41,21 @@
             </div>
         </div>
     </div>
-    <div id="questions-list" class="questions-list">
-        <ul id="content" class="unstyled">
-            <!-- ko foreach: questions -->
-            <li class="questions-list-item">
-                <a href="#" data-bind="click: $parent.navigateToDetails">
-                    <span class="question-logo inline">
-                    </span>
-                    <span class="question-title inline" data-bind="text: title">
-                    </span>
-                </a>
-            </li>
-            <!-- /ko -->
-        </ul>
+    <div class="questions-list-wrapper">
+        <div class="questions-list">
+            <ul class="unstyled">
+                <!-- ko foreach: questions -->
+                <li class="questions-list-item">
+                    <a href="#" data-bind="click: $parent.navigateToDetails">
+                        <div class="question-logo-wrapper">
+                            <img class="question-logo" alt="" src=""/>    
+                        </div>
+                        <div class="question-title" data-bind="text: title">
+                        </div>
+                    </a>
+                </li>
+                <!-- /ko -->
+            </ul>
+        </div>
     </div>
 </div>
-<script type="text/javascript">
-    alert('done');
-</script>
