@@ -34,14 +34,14 @@
                     <div class="objective-brief-image-wrapper ">
                         <img class="objective-brief-image" data-bind="attr: { src: image }" src="" alt="" width="300" height="180" />
                     </div>
-                    <div class="objective-brief-title">
-                        <span class="objective-brief-title-text" data-bind="text: title"></span>
-                    </div>
                     <div class="objective-brief-toolbar">
                         <div class="objective-brief-toolbar-icon-question"></div>
                         <div class="objective-brief-toolbar-question-count" data-bind="text: questionsCount"></div>
                     </div>
                     <a class="objective-brief-options">
+                        <div class="objective-brief-title">
+                            <span class="objective-brief-title-text" data-bind="text: title"></span>
+                        </div>
                         <div class="objective-brief-options-select" data-bind="click: toggleSelection">
                             <!-- ko if: isSelected -->
                             <div data-bind="localize: { text: 'unselect' }">Unselect</div>

@@ -264,18 +264,14 @@
     display: none;
 }
 
-.objective-brief:hover .objective-brief-options-select, .objective-brief:hover .objective-brief-options-separator-wrapper, .objective-brief:hover .objective-brief-options-open,
-.experience-brief:hover .experience-brief-options-select, .experience-brief:hover .experience-brief-options-separator-wrapper, .experience-brief:hover .experience-brief-options-open {
+.objective-brief-options:hover .objective-brief-options-select, .objective-brief-options:hover .objective-brief-options-separator-wrapper, .objective-brief-options:hover .objective-brief-options-open,
+.experience-brief-options:hover .experience-brief-options-select, .experience-brief-options:hover .experience-brief-options-separator-wrapper, .experience-brief-options:hover .experience-brief-options-open {
     display: block;
 }
 
-
-
 .objective-brief-title,
 .experience-brief-title {
-    position: absolute;
-    top: 20px;
-    left: 20px;
+    margin: 5px;
     overflow: hidden;
     max-height: 170px;
     width: 180px;
@@ -294,8 +290,8 @@
     word-wrap: break-word;
 }
 
-.objective-brief:hover .objective-brief-title,
-.experience-brief:hover .experience-brief-title {
+.objective-brief-options:hover .objective-brief-title,
+.experience-brief-options:hover .experience-brief-title {
     display: none;
 }
 

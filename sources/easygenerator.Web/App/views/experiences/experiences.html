@@ -33,14 +33,14 @@
                     <div class="experience-brief-image-wrapper">
                         <img class="experience-brief-image" src="Content/images/experience.png" alt="" width="300" height="180" />
                     </div>
-                    <div class="experience-brief-title">
-                        <span class="experience-brief-title-text" data-bind="text: title"></span>
-                    </div>
                     <div class="experience-brief-toolbar">
                         <div class="experience-brief-toolbar-icon-objective"></div>
                         <div class="experience-brief-toolbar-objective-count" data-bind="text: objectives.length"></div>
                     </div>
                     <a class="experience-brief-options">
+                        <div class="experience-brief-title">
+                            <span class="experience-brief-title-text" data-bind="text: title"></span>
+                        </div>
                         <div class="experience-brief-options-select" data-bind="click: $parent.toggleSelection">
                             <!-- ko if: isSelected -->
                             <div data-bind="localize: { text: 'unselect' }">Unselect</div>
