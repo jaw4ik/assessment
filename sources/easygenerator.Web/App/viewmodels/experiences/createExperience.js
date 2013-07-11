@@ -22,13 +22,13 @@
         self.objectives = ko.observableArray([]);
 
         self.save = function () {
-            sendEvent(events.createExperience);
-
             if (!self.title.isValid()) {
                 self.title.isModified(true);
                 return;
             }
-
+            
+            sendEvent(events.createExperience);
+            
             dataContext.experiences.push(new ExperienceModel({
                 id: dataContext.experiences.length,
                 title: self.title(),
@@ -52,18 +52,16 @@
         };
 
         self.activate = function () {
-            return Q.fcall(function () {
-                self.title(null);
-                self.title.isModified(false);
+            self.title(null);
+            self.title.isModified(false);
 
-                self.objectives(ko.utils.arrayMap(dataContext.objectives, function (item) {
-                    return {
-                        id: item.id,
-                        title: item.title,
-                        isSelected: ko.observable(false)
-                    };
-                }));
-            });
+            self.objectives(ko.utils.arrayMap(dataContext.objectives, function (item) {
+                return {
+                    id: item.id,
+                    title: item.title,
+                    isSelected: ko.observable(false)
+                };
+            }));
         };
 
         return {

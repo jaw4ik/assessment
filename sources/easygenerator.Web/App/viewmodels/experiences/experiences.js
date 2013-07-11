@@ -29,57 +29,55 @@
 
                 experience.isSelected(!experience.isSelected());
             },
-            
+
             currentSortingOption = ko.observable(),
-            
-            sortByTitleAsc = function() {
+
+            sortByTitleAsc = function () {
                 if (currentSortingOption() == constants.sortingOptions.byTitleAsc)
                     return;
 
                 currentSortingOption(constants.sortingOptions.byTitleAsc);
-                experiences(_.sortBy(experiences(), function(experience) { return experience.title.toLowerCase(); }));
+                experiences(_.sortBy(experiences(), function (experience) { return experience.title.toLowerCase(); }));
                 sendEvent(events.sortByTitleAsc);
             },
-            
-            sortByTitleDesc = function() {
+
+            sortByTitleDesc = function () {
                 if (currentSortingOption() == constants.sortingOptions.byTitleDesc)
                     return;
 
                 currentSortingOption(constants.sortingOptions.byTitleDesc);
-                experiences(_.sortBy(experiences(), function(experience) { return experience.title.toLowerCase(); }).reverse());
+                experiences(_.sortBy(experiences(), function (experience) { return experience.title.toLowerCase(); }).reverse());
                 sendEvent(events.sortByTitleDesc);
             },
-           
-            navigateToCreation = function() {
+
+            navigateToCreation = function () {
                 sendEvent(events.navigateToCreateExperience);
                 router.navigateTo('#/experience/create');
 
             },
-            
-            navigateToDetails = function(experience) {
+
+            navigateToDetails = function (experience) {
                 sendEvent(events.navigateToDetails);
                 router.navigateTo('#/experience/' + experience.id);
             },
-            
+
              navigateToObjectives = function () {
                  sendEvent(events.navigateToObjectives);
                  router.navigateTo('#/objectives');
              },
-            
-            activate = function() {
-                return Q.fcall(function() {
-                    var sortedExperiences = _.sortBy(dataContext.experiences, function (experience) { return experience.title.toLowerCase(); });
-                    currentSortingOption(constants.sortingOptions.byTitleAsc);
-                    
-                    experiences(ko.utils.arrayMap(sortedExperiences, function (item) {
-                        return {
-                            id: item.id,
-                            title: item.title,
-                            objectives: item.objectives,
-                            isSelected: ko.observable(false)
-                        };
-                    }));
-                });
+
+            activate = function () {
+                var sortedExperiences = _.sortBy(dataContext.experiences, function (experience) { return experience.title.toLowerCase(); });
+                currentSortingOption(constants.sortingOptions.byTitleAsc);
+
+                experiences(ko.utils.arrayMap(sortedExperiences, function (item) {
+                    return {
+                        id: item.id,
+                        title: item.title,
+                        objectives: item.objectives,
+                        isSelected: ko.observable(false)
+                    };
+                }));
             };
 
         return {
