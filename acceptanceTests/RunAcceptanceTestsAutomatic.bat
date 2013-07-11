@@ -11,3 +11,5 @@ if %errorlevel% ==0 (
 goto :exit)
 echo Cannot execute or build tests
 :exit
+
+exit /B %errorlevel%
