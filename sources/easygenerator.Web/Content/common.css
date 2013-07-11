@@ -145,6 +145,14 @@ COMMON CLASSES CSS-STYLES
     display: inline-block;
 }
 
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
 /**
  * Titles
  */
