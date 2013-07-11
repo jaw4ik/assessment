@@ -24,7 +24,7 @@ namespace easygenerator.Web.Configuration
                             .Include("~/scripts/q.js")
                             .Include("~/scripts/underscore.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css")                            
+            bundles.Add(new StyleBundle("~/Content/css")
                             .Include("~/Content/font-awesome.css")
                             .Include("~/Content/durandal.css")
                             .Include("~/Content/common.css")

@@ -14,8 +14,8 @@ namespace easygenerator.Web.Configuration
 
             routes.MapRoute(
                 name: "ApiObjectives",
-                url: "api/objectives",
-                defaults: new { controller = "Application", action = "ObjectivesJson" }
+                url: "api/data",
+                defaults: new { controller = "Application", action = "ApplicationData" }
             );
 
             routes.MapRoute(
