@@ -6,7 +6,7 @@ set outFile="%~dp0TestsResults\MyResult_%dateStamp%_%timeStamp%.html"
 if not %errorlevel% ==0 (
 echo Cannot execute or build tests
 exit /B 1)
-"%~dp0packages\NUnit.Runners.2.6.2\tools\nunit-console.exe" /include=ObjectivesList /out="%~dp0TestsResults\TestResult.txt" /xml="%~dp0TestsResults\TestResult.xml" "%~dp0easygenerator.AcceptanceTests\bin\Debug\easygenerator.AcceptanceTests.dll"
+"%~dp0packages\NUnit.Runners.2.6.2\tools\nunit-console.exe" /include=ObjectivesList,ExperiencesList /out="%~dp0TestsResults\TestResult.txt" /xml="%~dp0TestsResults\TestResult.xml" "%~dp0easygenerator.AcceptanceTests\bin\Debug\easygenerator.AcceptanceTests.dll"
 set errorCode=%errorLevel%
 "%~dp0packages\SpecFlow.1.9.0\tools\specflow.exe" nunitexecutionreport "%~dp0easygenerator.AcceptanceTests\easygenerator.AcceptanceTests.csproj" /out:%outFile% /testOutput:"%~dp0TestsResults\TestResult.txt" /xmlTestResult:"%~dp0TestsResults\TestResult.xml"  
 exit /B %errorCode%
