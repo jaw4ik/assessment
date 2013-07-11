@@ -226,6 +226,7 @@
     <Content Include="Content\images\objexp-sprite.png" />
     <Content Include="Content\images\question.jpg" />
     <Content Include="Content\objective.css" />
+<Content Include="Content\question.css" />
     <Content Include="Content\styles.css" />
     <Content Include="Content\objectives.css" />
     <Content Include="favicon.ico" />

@@ -1,0 +1,129 @@
+﻿.question {
+    color: #656565;
+    font-size: 14px;
+}
+
+    .question a {
+        color: #999999;
+    }
+
+        .question a:hover, .question a:focus {
+            color: #666666;
+            text-decoration: none;
+        }
+
+        .question a:hover {
+            cursor: pointer;
+        }
+
+.question-objective-navigation {
+    margin: 0px 0px 10px 0px;
+}
+
+.question-header > * {
+    display: inline-block;
+}
+
+.question-header-icon {
+    width: 150px;
+    height: 100px;
+    display: inline-block;
+}
+
+    .question-header-icon img {
+        width: 150px;
+        height: 100px;
+    }
+
+.question-header-title {
+    display: inline;
+    color: #000000;
+    font-size: 16px;
+    margin-left: 20px;
+}
+
+.question-objective-navigation-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.question-content {
+    border: 1px solid #E1E1E1;
+    background-color: #ffffff;
+    overflow-y: auto;
+    overflow-x: hidden;
+    top: 170px;
+    bottom: 0;
+    position: absolute;
+}
+
+.question-content-block {
+    margin: 5px 5px 5px 20px;
+}
+
+.question-content-block-header-wrapper {
+    border-left: 20px solid #F26C4F;
+}
+
+.question-content-block-header {
+    height: 57px;
+    background-color: #F5F5F5;
+    border: 1px solid #E1E1E1;
+    padding-left: 40px;
+}
+
+.question-content-block-header-title {
+    line-height: 57px;
+    float: left;
+    font-size: 16px;
+    color: #666666;
+}
+
+.question-content-block-size-element-wrapper {
+    float: right;
+    line-height: 57px;
+    display: inline-block;
+    width: 45px;
+    border-left: 1px solid #E1E1E1;
+}
+
+.question-content-block-header-icon {
+    line-height: 57px;
+    float: left;
+    margin-right: 10px;
+    padding-top: 3px; /*remove!!!*/
+}
+
+.question-objective-navigation-title, .question-header-title,
+.question-content-block-header-title {
+    text-transform: uppercase;
+}
+
+.question-content-items-list {
+    margin: 20px 20px 20px 20px;
+}
+
+.question-content-list-item {
+    margin-bottom: 10px;
+}
+
+.question-answer-value {
+    border: dashed 1px #E1E1E1;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    float: left;
+}
+
+.question-answer-text {
+    border: dashed 1px #E1E1E1;
+    margin-left: 60px;
+    min-height: 40px;
+    padding: 7px 10px 7px 10px;
+}
+
+.question-explanations-item {
+    border: dashed 1px #E1E1E1;
+    min-height: 40px;
+    padding: 7px 10px 7px 10px;
+}

@@ -57,20 +57,15 @@
     /* endof createExperience.html */
 
     /* question.html */
-    navigateBackToRelatedObjective: {
-        en: 'Navigate to objective',
-        nl: 'Navigate to objective NL',
-        de: 'Navigate to objective DE'
+    previous: {
+        en: 'Previous',
+        nl: 'Previous NL',
+        de: 'Previous DE'
     },
-    previousQuestion: {
-        en: 'Previous question',
-        nl: 'Previous question NL',
-        de: 'Previous question DE'
-    },
-    nextQuestion: {
-        en: 'Next question',
-        nl: 'Next question NL',
-        de: 'Next question DE'
+    next: {
+        en: 'Next',
+        nl: 'Next NL',
+        de: 'Next DE'
     },
     emptyAnswerOptions: {
         en: 'The answer options list is empty',
@@ -150,6 +145,11 @@
         nl: 'Unselect NL',
         de: 'Unselect DE'
     },
+    backTo: {
+        en: 'Back to',
+        nl: 'NL Back to',
+        de: 'DE Back to'
+    },
     /* endof common */
 
     /*list of questions*/
@@ -157,11 +157,6 @@
         en: 'Edit',
         nl: 'Edit NL',
         de: 'Edit DE'
-    },
-    backTo: {
-        en: 'Back to',
-        nl: 'NL Back to',
-        de: 'DE Back to'
     },
     relatedQuestions: {
         en: 'Related questions',

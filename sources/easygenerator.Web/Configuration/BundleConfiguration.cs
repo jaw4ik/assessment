@@ -29,8 +29,9 @@ namespace easygenerator.Web.Configuration
                             .Include("~/Content/durandal.css")
                             .Include("~/Content/common.css")
                             .Include("~/Content/styles.css")
-                            .Include("~/Content/objectives.css")
-                            .Include("~/Content/objective.css"));
+                            .Include("~/Content/question.css")
+                            .Include("~/Content/objective.css")
+                            .Include("~/Content/objectives.css"));
 
         }
     }
