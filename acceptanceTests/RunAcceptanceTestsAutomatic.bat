@@ -11,5 +11,8 @@ if %errorlevel% ==0 (
 goto :exit)
 echo Cannot execute or build tests
 :exit
-
-exit /B %errorlevel%
+set exitCode=0
+if NOT %errorlevel% ==0 %exitCode%=1
+echo %errorlevel%
+echo %exitCode%
+exit /B %exitCode%
