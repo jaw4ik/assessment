@@ -3,7 +3,7 @@
         "use strict";
 
         var
-            defaultCulture = 'en',
+            defaultCulture = window.navigator.userLanguage || window.navigator.language,
 
             currentLanguage = ko.observable(defaultCulture),
 
@@ -18,7 +18,7 @@
                     throw 'A resource with key ' + key + ' was not found';
                 }
 
-                return item[currentLanguage()] || item[defaultCulture];
+                return item[currentLanguage()] || item[defaultCulture] || item['en'];
             };
 
 
