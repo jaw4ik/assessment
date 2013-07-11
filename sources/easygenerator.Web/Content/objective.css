@@ -126,6 +126,10 @@ a.nav-control:hover {
     position: relative;
 }
 
+.questions-list-wrapper:hover {
+    cursor: pointer;
+}
+
 .image-background,
 .question-options {
     height: 84px;
@@ -156,9 +160,9 @@ a.nav-control:hover {
     height: 100%;
     width: 2%;
     float: left;
+    background-color: #e0e0e0;
     background-color: rgba(224, 224, 224, 0.5);
 }
-
 
 .question-edit {
     height: 100%;
@@ -166,22 +170,19 @@ a.nav-control:hover {
     float: left;
 }
 
-
 .question-logo-wrapper:hover .question-options {
     display: block;
+    background-color: #000000;
     background-color: rgba(0,0,0,.5);
 }
 
-
-.question-logo-wrapper:hover .separator {
-    
-}
-
 .question-logo-wrapper:hover .question-select:hover {
+    background-color: #000000;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
 .question-logo-wrapper:hover .question-edit:hover {
+    background-color: #000000;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -194,5 +195,6 @@ a.nav-control:hover {
     color: #333333;
     font-size: 13px;
     font-family: Arial, sans-serif;
+    -ms-word-break: break-all;
     word-break: break-all;
 }

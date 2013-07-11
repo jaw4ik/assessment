@@ -29,14 +29,14 @@
         </div>
         <div class="objectives-header-sort-container">
             <div class="objectives-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }">
-                <span data-bind="localize: { text: 'firstLetter' }">a</span>
+                <span data-bind="localize: { text: 'firstLetter' }"></span>
                 &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
-                <span data-bind="localize: { text: 'lastLetter' }">z</span>
+                <span data-bind="localize: { text: 'lastLetter' }"></span>
             </div>
             <div class="objectives-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }">
-                <span data-bind="localize: { text: 'lastLetter' }">z</span>
+                <span data-bind="localize: { text: 'lastLetter' }"></span>
                 &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
-                <span data-bind="localize: { text: 'firstLetter' }">a</span>
+                <span data-bind="localize: { text: 'firstLetter' }"></span>
             </div>
         </div>
     </div>
@@ -50,7 +50,14 @@
                             <img class="question-logo" alt="" src="../../../Content/images/multichoice-question.png" />
                         </div>
                         <div class="question-options">
-                            <div class="question-select"></div>
+                            <div class="question-select" data-bind="click: toggleSelection">
+                                <!-- ko if: !isSelected() -->
+                                 x
+                                <!-- /ko -->
+                                <!-- ko if: isSelected() -->
+                                 v
+                                <!-- /ko -->
+                            </div>
                             <div class="separator"></div>
                             <div class="question-edit"></div>
                         </div>
