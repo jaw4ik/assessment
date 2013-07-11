@@ -1,8 +1,7 @@
 ﻿<div class="container list-of-questions">
     <div class="navbar">
         <a href="#" data-bind="click: navigateToObjectives" class="inline nav-control">
-            <span class="nav-btn back-btn inline">
-            </span>
+            <span class="nav-btn back-btn inline"></span>
             <span class="nav-title inline">
                 <span data-bind="localize: { text: 'backTo' }"></span>
                 <span data-bind="localize: { text: 'learningObjectives' }"></span>
@@ -12,11 +11,11 @@
     <div class="objective-header clearfix" style="height: auto">
         <div class="left white-lining">
             <div>
-                <img class="objective-image" data-bind="attr: { src: image }" alt="" />    
+                <img class="objective-image" data-bind="attr: { src: image }" alt="" />
             </div>
         </div>
         <div class="objective-info">
-            <h2 class="page-header-title" data-bind="text: title"></h2>    
+            <h2 class="page-header-title" data-bind="text: title"></h2>
         </div>
     </div>
     <div class="questions-header">
@@ -46,10 +45,17 @@
             <ul class="unstyled">
                 <!-- ko foreach: questions -->
                 <li class="questions-list-item">
-                    <a href="#" data-bind="click: $parent.navigateToDetails">
-                        <div class="question-logo-wrapper">
-                            <img class="question-logo" alt="" src=""/>    
+                    <div class="question-logo-wrapper">
+                        <div>
+                            <img class="question-logo" alt="" src="../../../Content/images/multichoice-question.png" />
                         </div>
+                        <div class="question-options">
+                            <div class="question-select"></div>
+                            <div class="separator"></div>
+                            <div class="question-edit"></div>
+                        </div>
+                    </div>
+                    <a href="#" data-bind="click: $parent.navigateToDetails">
                         <div class="question-title" data-bind="text: title">
                         </div>
                     </a>
