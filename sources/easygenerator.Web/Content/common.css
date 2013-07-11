@@ -162,4 +162,6 @@ h2.page-header-title {
     font-size: 18px;
     text-decoration: none;
     text-transform: uppercase;
+    word-break: break-all;
+    -ms-word-break: break-all;
 }
