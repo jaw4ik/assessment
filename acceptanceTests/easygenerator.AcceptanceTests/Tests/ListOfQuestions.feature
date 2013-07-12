@@ -9,7 +9,6 @@ Given objectives are present in database
 | Objective1 | 1  |
 | Objective2 | 2  |
 
-
 Scenario: All questions should be present in list
 Given questions related to 'Objective1' are present in database
 | Title     |
@@ -25,18 +24,18 @@ Then questions list contains items with data
 
 Scenario: Only questions related to selected objective should be present in list
 Given questions related to 'Objective1' are present in database
-| Title       |
+| Title      |
 | Question11 |
 | Question12 |
 | Question13 |
 Given questions related to 'Objective2' are present in database
-| Title       |
+| Title      |
 | Question21 |
 | Question22 |
 | Question23 |
 When select objective list item with title 'Objective2'
 Then questions list contains items with data
-| Title       |
+| Title      |
 | Question21 |
 | Question22 |
 | Question23 |

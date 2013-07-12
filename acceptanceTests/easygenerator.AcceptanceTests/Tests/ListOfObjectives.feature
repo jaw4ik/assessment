@@ -17,6 +17,13 @@ Then objectives tiles list contains items with data
 | Objective2 |
 | Objective3 |
 
+Scenario: Special symbols in objective name
+Given objectives are present in database
+| Title      |
+| ~`!@#$%^&*()_+-={[]}:;"\\'\|\\\<,.>/?№ё |
+Then objectives tiles list contains items with data 
+| Title      |
+| ~`!@#$%^&*()_+-={[]}:;\"'\|\\<,.>/?№ё |
 
 Scenario: Objectives are sorted by title ascending by default
 Given objectives are present in database
