@@ -9,16 +9,16 @@
         </a>
     </div>
     <div class="question-header clearfix">
-        <a href="#" class="nav-element left" data-bind="visible: hasPrevious, click: goToPreviousQuestion, localize: { title: 'previous' }">
+        <a href="#" class="nav-element left" data-bind="css: { hidden: !hasPrevious}, click: goToPreviousQuestion, localize: { title: 'previous' }">
             <div class="question-nav-btn prev-btn inline"></div>
         </a>
         <div class="white-lining left">
-            <img class="question-image" src="/Content/images/multichoice-question.png" alt="" />
+            <img class="question-image" src="/Content/images/question.jpg" alt="" />
         </div>
         <div class="left question-header-title">
             <h2 class="left page-header-title" data-bind="text: title"></h2>
         </div>
-        <a href="#" class="nav-element right" data-bind="visible: hasNext, click: goToNextQuestion, localize: { title: 'next' }">
+        <a href="#" class="nav-element right" data-bind="css: { hidden: !hasNext}, click: goToNextQuestion, localize: { title: 'next' }">
             <div class="question-nav-btn forw-btn inline"></div>
         </a>
     </div>
@@ -26,9 +26,9 @@
         <div class="question-content-block">
             <div class="question-content-block-header-wrapper">
                 <div class="question-content-block-header">
-                    <span class="question-content-block-header-icon answer-option-icon"></span>
-                    <span class="question-content-block-header-title" data-bind="localize: { text: 'answerOptions' }">Answer options</span>
-                    <span class="question-content-block-size-element-wrapper right">
+                    <div class="question-content-block-header-icon answer-option-icon"></div>
+                    <div class="question-content-block-header-title" data-bind="localize: { text: 'answerOptions' }">Answer options</div>
+                    <div class="question-content-block-size-element-wrapper right">
                         <a href="#" class="nav-element" data-bind="click: toggleAnswersBlockSize">
                             <!-- ko if: isAnswersBlockExpanded -->
                             <span class="collapse-btn inline question-content-block-size-btn"></span>
@@ -37,7 +37,7 @@
                             <span class="expand-btn inline question-content-block-size-btn"></span>
                             <!-- /ko -->
                         </a>
-                    </span>
+                    </div>
                 </div>
             </div>
             <div class="question-content-items-list " data-bind="visible: isAnswersBlockExpanded">
@@ -63,36 +63,38 @@
                 <!-- /ko -->
             </div>
         </div>
-        <div class="question-content-block">
-            <div class="question-content-block-header-wrapper">
-                <div class="question-content-block-header">
-                    <span class="question-content-block-header-icon explanation-icon"></span>
-                    <span class="question-content-block-header-title" data-bind="localize: { text: 'explanations' }">Explanations</span>
-                    <span class="question-content-block-size-element-wrapper right">
-                        <a href="#" class="nav-element" data-bind="click: toggleExplanationsBlockSize">
-                            <!-- ko if: isExplanationsBlockExpanded -->
-                            <span class="collapse-btn inline question-content-block-size-btn"></span>
-                            <!-- /ko -->
-                            <!-- ko ifnot: isExplanationsBlockExpanded -->
-                            <span class="expand-btn inline question-content-block-size-btn"></span>
-                            <!-- /ko -->
-                        </a>
-                    </span>
-                </div>
-            </div>
-            <div class="question-content-items-list " data-bind="visible: isExplanationsBlockExpanded">
-                <!-- ko if: explanations.length -->
-                <ul class="unstyled" data-bind="foreach: explanations">
-                    <li>
-                        <div class="question-content-list-item">
-                            <div class="question-explanations-item" data-bind="html: $data"></div>
+        <div>
+            <div class="question-content-block">
+                <div class="question-content-block-header-wrapper">
+                    <div class="question-content-block-header">
+                        <div class="question-content-block-header-icon explanation-icon"></div>
+                        <div class="question-content-block-header-title" data-bind="localize: { text: 'explanations' }">Explanations</div>
+                        <div class="question-content-block-size-element-wrapper right">
+                            <a href="#" class="nav-element" data-bind="click: toggleExplanationsBlockSize">
+                                <!-- ko if: isExplanationsBlockExpanded -->
+                                <span class="collapse-btn inline question-content-block-size-btn"></span>
+                                <!-- /ko -->
+                                <!-- ko ifnot: isExplanationsBlockExpanded -->
+                                <span class="expand-btn inline question-content-block-size-btn"></span>
+                                <!-- /ko -->
+                            </a>
                         </div>
-                    </li>
-                </ul>
-                <!-- /ko -->
-                <!-- ko ifnot: explanations.length -->
-                <span data-bind="localize: {text: 'emptyExplanations'}">The explanations list is empty</span>
-                <!-- /ko -->
+                    </div>
+                </div>
+                <div class="question-content-items-list " data-bind="visible: isExplanationsBlockExpanded">
+                    <!-- ko if: explanations.length -->
+                    <ul class="unstyled" data-bind="foreach: explanations">
+                        <li>
+                            <div class="question-content-list-item">
+                                <div class="question-explanations-item" data-bind="html: $data"></div>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- /ko -->
+                    <!-- ko ifnot: explanations.length -->
+                    <span data-bind="localize: {text: 'emptyExplanations'}">The explanations list is empty</span>
+                    <!-- /ko -->
+                </div>
             </div>
         </div>
     </div>
