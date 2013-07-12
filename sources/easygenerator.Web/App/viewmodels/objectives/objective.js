@@ -4,7 +4,7 @@
 
         var
             events = {
-                category: 'LearningObjective',
+                category: 'Learning Objective',
                 navigateToCreation: "Navigate to question creation",
                 navigateToDetails: "Navigate to question details",
                 navigateToObjectives: "Navigate to Learning Objectives",
