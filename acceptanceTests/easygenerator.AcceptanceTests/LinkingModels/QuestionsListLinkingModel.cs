@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace easygenerator.AcceptanceTests.LinkingModels
 {
-    public class QuestionsListLinkingModel : ILinkinkModel
+    public class QuestionsListLinkingModel : ILinkingModel
     {
         public string Item = "";
         public string OrderAsc = "//div[contains(@class,'questions-sort-by-title-asc')]";

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace easygenerator.AcceptanceTests.LinkingModels
 {
-    public class PublicationListItemLinkingModel : ILinkinkModel
+    public class PublicationListItemLinkingModel : ILinkingModel
     {
         public string Title = ".//span[contains(@class,'experience-brief-title-text')]";
         public string SelectElement = ".//div[contains(@class,'experience-brief-options-select')]";

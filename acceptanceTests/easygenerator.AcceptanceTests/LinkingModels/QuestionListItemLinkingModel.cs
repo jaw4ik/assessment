@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace easygenerator.AcceptanceTests.LinkingModels
 {
-    public class QuestionListItemLinkingModel : ILinkinkModel
+    public class QuestionListItemLinkingModel : ILinkingModel
     {
         public string QuestionTitle = "";
         public string EditButton = "";

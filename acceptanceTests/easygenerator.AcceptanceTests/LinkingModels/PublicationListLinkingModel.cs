@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace easygenerator.AcceptanceTests.LinkingModels
 {
-    public class PublicationListLinkingModel : ILinkinkModel
+    public class PublicationListLinkingModel : ILinkingModel
     {
         public string Item = ".//li[contains(@class,'experience-brief')]";
         public string SortingByTitleAsc = "//div[contains(@class,'experiences-sort-by-title-asc')]";

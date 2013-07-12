@@ -79,9 +79,12 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ElementObjects\AnswerOption.cs" />
     <Compile Include="ElementObjects\ContainerElement.cs" />
+    <Compile Include="ElementObjects\Explanation.cs" />
     <Compile Include="ElementObjects\ObjectivesListItem.cs" />
     <Compile Include="ElementObjects\ObjectivesListPage.cs" />
+    <Compile Include="ElementObjects\QuestionPage.cs" />
     <Compile Include="ElementObjects\QuestionsList.cs" />
     <Compile Include="ElementObjects\QuestionsListItem.cs" />
     <Compile Include="ElementObjects\PublicationsListItem.cs" />
@@ -91,11 +94,12 @@
     <Compile Include="Helpers\DriverProvider.cs" />
     <Compile Include="Helpers\GherkinConstants.cs" />
     <Compile Include="Helpers\TestUtils.cs" />
-    <Compile Include="LinkingModels\ILinkinkModel.cs" />
+    <Compile Include="LinkingModels\ILinkingModel.cs" />
     <Compile Include="ElementObjects\BasePageElement.cs" />
     <Compile Include="LinkingModels\ObjectiveListItemLinkingModel.cs" />
     <Compile Include="LinkingModels\ObjectiveListLinkingModel.cs" />
     <Compile Include="LinkingModels\QuestionListItemLinkingModel.cs" />
+    <Compile Include="LinkingModels\QuestionPageLinkingModel.cs" />
     <Compile Include="LinkingModels\QuestionsListLinkingModel.cs" />
     <Compile Include="LinkingModels\PublicationListItemLinkingModel.cs" />
     <Compile Include="LinkingModels\PublicationListLinkingModel.cs" />
@@ -105,6 +109,7 @@
     <Compile Include="Steps\Hooks.cs" />
     <Compile Include="Steps\ListOfObjectivesSteps.cs" />
     <Compile Include="Steps\ListOfQuestionsSteps.cs" />
+    <Compile Include="Steps\QuestionSteps.cs" />
     <Compile Include="Tests\Errors.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
