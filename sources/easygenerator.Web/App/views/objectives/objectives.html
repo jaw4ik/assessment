@@ -14,15 +14,15 @@
             <span data-bind="localize: { text: 'sortBy' }">Sort by</span>&nbsp;<i class="icon-caret-down"></i>
         </div>
         <div class="objectives-header-sort-container">
-            <div class="objectives-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }">
-                <span data-bind="localize: { text: 'lastLetter' }">z</span>
-                &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
-                <span data-bind="localize: { text: 'firstLetter' }">a</span>
-            </div>
             <div class="objectives-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }">
                 <span data-bind="localize: { text: 'firstLetter' }">a</span>
                 &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
                 <span data-bind="localize: { text: 'lastLetter' }">z</span>
+            </div>
+            <div class="objectives-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }">
+                <span data-bind="localize: { text: 'lastLetter' }">z</span>
+                &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
+                <span data-bind="localize: { text: 'firstLetter' }">a</span>
             </div>
         </div>
     </div>

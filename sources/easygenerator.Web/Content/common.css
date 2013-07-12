@@ -153,6 +153,10 @@ COMMON CLASSES CSS-STYLES
     float: right;
 }
 
+.nowrap {
+    white-space: nowrap;
+}
+
 /**
  * Titles
  */

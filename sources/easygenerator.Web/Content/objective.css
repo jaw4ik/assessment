@@ -119,7 +119,6 @@ a.nav-control:hover {
 
         .questions-list-item:hover .question-options {
             display: block;
-            background-color: #000000;
             background-color: rgba(0,0,0,.5);
         }
 

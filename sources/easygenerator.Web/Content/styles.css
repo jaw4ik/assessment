@@ -28,10 +28,15 @@ body {
 }
 
 .header {
-    height: 62px;
+    height: 40px;
     background-color: #353c3e;
     border-bottom: 3px solid #000000;
 }
+
+    .header .brand {
+        height: 100%;
+        padding: 10px 25px;
+    }
 
 .brand, .navigation-menu {
     display: inline-block;
@@ -39,8 +44,8 @@ body {
 }
 
 .navigation-menu {
-    height: 62px;
-    line-height: 62px;
+    height: 40px;
+    line-height: 40px;
 }
 
 .navigation-menu-item {
@@ -62,9 +67,8 @@ body {
         }
 
 .logo {
-    padding: 10px 40px;
-    width: 128px;
-    height: 62px;
+    width: 23px;
+    height: 20px;
 }
 
 .wrapper {
