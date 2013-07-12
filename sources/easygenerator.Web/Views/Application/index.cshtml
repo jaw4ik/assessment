@@ -45,6 +45,13 @@
     @Scripts.Render("~/scripts/vendor")
     @{ Html.RenderPartial("GoogleAnalytics"); }
 
+    @if (Request.UserLanguages.Length > 0)
+    {
+        <script type="text/ecmascript">
+            navigator.userLanguage = "@Request.UserLanguages[0]";
+        </script>
+    }
+    
     @if (HttpContext.Current.IsDebuggingEnabled)
     {
         <script src="/App/durandal/amd/require.js" data-main="App/main"></script>
