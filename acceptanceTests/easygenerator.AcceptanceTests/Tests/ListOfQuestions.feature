@@ -7,6 +7,8 @@ When open page by url 'http://localhost:5656'
 Given objectives are present in database
 | Title      | Id |
 | Objective1 | 1  |
+| Objective2 | 2  |
+
 
 Scenario: All questions should be present in list
 Given questions related to 'Objective1' are present in database
@@ -20,6 +22,24 @@ Then questions list contains items with data
 | Question1 |
 | Question2 |
 | Question3 |
+
+Scenario: Only questions related to selected objective should be present in list
+Given questions related to 'Objective1' are present in database
+| Title       |
+| Question11 |
+| Question12 |
+| Question13 |
+Given questions related to 'Objective2' are present in database
+| Title       |
+| Question21 |
+| Question22 |
+| Question23 |
+When select objective list item with title 'Objective2'
+Then questions list contains items with data
+| Title       |
+| Question21 |
+| Question22 |
+| Question23 |
 
 Scenario: Questions are sorted by title ascending by default
 Given questions related to 'Objective1' are present in database
