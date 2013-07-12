@@ -1,4 +1,5 @@
-﻿Feature: Errors
+﻿@Errors
+Feature: Errors
 	Erorrs 400 and 404 should be processed
 
 Scenario Outline: Correct error pages should be opened for 

@@ -125,6 +125,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ListOfQuestions.feature</DependentUpon>
     </Compile>
+    <Compile Include="Tests\Question.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Question.feature</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -144,6 +149,10 @@
     <None Include="Tests\ListOfQuestions.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ListOfQuestions.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Tests\Question.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Question.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

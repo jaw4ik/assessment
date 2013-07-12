@@ -20,6 +20,7 @@ namespace easygenerator.AcceptanceTests.Tests
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("Errors")]
+    [NUnit.Framework.CategoryAttribute("Errors")]
     public partial class ErrorsFeature
     {
         
@@ -32,7 +33,8 @@ namespace easygenerator.AcceptanceTests.Tests
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Errors", "Erorrs 400 and 404 should be processed", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Errors", "Erorrs 400 and 404 should be processed", ProgrammingLanguage.CSharp, new string[] {
+                        "Errors"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -78,13 +80,13 @@ namespace easygenerator.AcceptanceTests.Tests
         public virtual void CorrectErrorPagesShouldBeOpenedFor(string testName, string url, string expectedUrl, string pageText, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Correct error pages should be opened for", exampleTags);
-#line 4
-this.ScenarioSetup(scenarioInfo);
 #line 5
-testRunner.When(string.Format("open page by url \'{0}\'", url), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
 #line 6
-testRunner.Then(string.Format("browser navigates to url \'{0}\'", expectedUrl), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.When(string.Format("open page by url \'{0}\'", url), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 7
+testRunner.Then(string.Format("browser navigates to url \'{0}\'", expectedUrl), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 8
 testRunner.And(string.Format("page contains element with text \'{0}\'", pageText), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
