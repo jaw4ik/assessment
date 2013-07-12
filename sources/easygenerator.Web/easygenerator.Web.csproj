@@ -223,6 +223,7 @@
     <Content Include="Content\images\collapse.png" />
     <Content Include="Content\images\expand.png" />
     <Content Include="Content\images\forw-btn.png" />
+    <Content Include="Content\images\multichoice-question.png" />
     <Content Include="Content\images\prev-btn.png" />
     <Content Include="Content\images\back-btn.png" />
     <Content Include="Content\images\experience.png" />
