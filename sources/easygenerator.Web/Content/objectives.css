@@ -35,18 +35,20 @@
     .objectives-navigation > a,
     .experiences-navigation > a {
         opacity: 0.6;
+        filter: alpha(opacity=60);
     }
 
         .objectives-navigation > a:hover,
         .experiences-navigation > a:hover {
             opacity: 0.8;
+            filter: alpha(opacity=80);
         }
 
 .objectives-header,
 .experiences-header {
     position: absolute;
     top: 70px;
-    right: 20px;
+    right: 40px;
     left: 20px;
     height: 100px;
 }
@@ -115,11 +117,13 @@
     padding: 1px 5px;
     border: 1px solid #acacac;
     opacity: 0.7;
+    filter: alpha(opacity=70);
 }
 
     .objectives-sort-by-title-asc:hover, .objectives-sort-by-title-desc:hover,
     .experiences-sort-by-title-asc:hover, .experiences-sort-by-title-desc:hover {
         opacity: 1;
+        filter: alpha(opacity=100);
         cursor: pointer;
     }
 
@@ -128,6 +132,7 @@
         border-color: #777777;
         color: #777777;
         opacity: 1;
+        filter: alpha(opacity=100);
     }
 
 
@@ -142,9 +147,14 @@
     position: absolute;
     top: 170px;
     bottom: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
     width: 100%;
+}
+
+.objectives-content-wrapper,
+.experiences-content-wrapper {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .objectives-list-wrapper,
