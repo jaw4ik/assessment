@@ -122,47 +122,70 @@ testRunner.Given("answer options related to \'Question2\' are present in databas
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table5.AddRow(new string[] {
-                        "AnswerOption31"});
+                        "Explanation11"});
             table5.AddRow(new string[] {
-                        "AnswerOption32"});
+                        "Explanation12"});
             table5.AddRow(new string[] {
-                        "AnswerOption33"});
+                        "Explanation13"});
 #line 25
-testRunner.Given("answer options related to \'Question3\' are present in database", ((string)(null)), table5, "Given ");
+testRunner.Given("explanations related to \'Question1\' are present in database", ((string)(null)), table5, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table6.AddRow(new string[] {
-                        "Explanation11"});
+                        "Explanation21"});
             table6.AddRow(new string[] {
-                        "Explanation12"});
+                        "Explanation22"});
             table6.AddRow(new string[] {
-                        "Explanation13"});
+                        "Explanation23"});
 #line 30
-testRunner.Given("explanations related to \'Question1\' are present in database", ((string)(null)), table6, "Given ");
+testRunner.Given("explanations related to \'Question2\' are present in database", ((string)(null)), table6, "Given ");
+#line hidden
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("All answer options and explanations related to question are present on question p" +
+            "age")]
+        public virtual void AllAnswerOptionsAndExplanationsRelatedToQuestionArePresentOnQuestionPage()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All answer options and explanations related to question are present on question p" +
+                    "age", ((string[])(null)));
+#line 36
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 37
+testRunner.When("mouse hover element of objectives list with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 38
+testRunner.And("click open objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 39
+testRunner.And("mouse hover element of questions list with title \'Question1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 40
+testRunner.And("click on edit question with title \'Question1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table7.AddRow(new string[] {
-                        "Explanation21"});
+                        "AnswerOption11"});
             table7.AddRow(new string[] {
-                        "Explanation22"});
+                        "AnswerOption12"});
             table7.AddRow(new string[] {
-                        "Explanation23"});
-#line 35
-testRunner.Given("explanations related to \'Question2\' are present in database", ((string)(null)), table7, "Given ");
+                        "AnswerOption13"});
+#line 41
+testRunner.Then("answer options list contains items with data", ((string)(null)), table7, "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table8.AddRow(new string[] {
-                        "Explanation31"});
+                        "Explanation11"});
             table8.AddRow(new string[] {
-                        "Explanation32"});
+                        "Explanation12"});
             table8.AddRow(new string[] {
-                        "Explanation33"});
-#line 40
-testRunner.Given("explanations related to \'Question3\' are present in database", ((string)(null)), table8, "Given ");
+                        "Explanation13"});
+#line 46
+testRunner.And("explanations list contains items with data", ((string)(null)), table8, "And ");
 #line hidden
+            this.ScenarioCleanup();
         }
     }
 }

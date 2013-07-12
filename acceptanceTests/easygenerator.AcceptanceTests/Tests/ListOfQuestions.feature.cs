@@ -167,7 +167,7 @@ testRunner.When("select objective list item with title \'Objective2\'", ((string
             table6.AddRow(new string[] {
                         "Question23"});
 #line 37
-testRunner.Then("questions list contains items with data", ((string)(null)), table6, "Then ");
+testRunner.Then("questions list consists of ordered items", ((string)(null)), table6, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

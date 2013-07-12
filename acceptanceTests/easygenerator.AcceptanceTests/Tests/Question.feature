@@ -22,11 +22,6 @@ Given answer options related to 'Question2' are present in database
 | AnswerOption21 |
 | AnswerOption22 |
 | AnswerOption23 |
-Given answer options related to 'Question3' are present in database
-| Title          |
-| AnswerOption31 |
-| AnswerOption32 |
-| AnswerOption33 |
 Given explanations related to 'Question1' are present in database
 | Title         |
 | Explanation11 |
@@ -37,10 +32,22 @@ Given explanations related to 'Question2' are present in database
 | Explanation21 |
 | Explanation22 |
 | Explanation23 |
-Given explanations related to 'Question3' are present in database
+
+Scenario: All answer options and explanations related to question are present on question page
+When mouse hover element of objectives list with title 'Objective1'
+And click open objective list item with title 'Objective1'
+And mouse hover element of questions list with title 'Question1'
+And click on edit question with title 'Question1'
+Then answer options list contains items with data
+| Title          |
+| AnswerOption11 |
+| AnswerOption12 |
+| AnswerOption13 |
+And explanations list contains items with data
 | Title         |
-| Explanation31 |
-| Explanation32 |
-| Explanation33 |
+| Explanation11 |
+| Explanation12 |
+| Explanation13 |
+
 
 

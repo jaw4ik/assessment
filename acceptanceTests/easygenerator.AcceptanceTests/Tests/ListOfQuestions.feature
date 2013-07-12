@@ -34,7 +34,7 @@ Given questions related to 'Objective2' are present in database
 | Question22 |
 | Question23 |
 When select objective list item with title 'Objective2'
-Then questions list contains items with data
+Then questions list consists of ordered items
 | Title      |
 | Question21 |
 | Question22 |
