@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    <div class="questions-list-wrapper">
+    <div class="questions-list-wrapper scrollbar-wrapper">
         <div class="questions-list">
             <ul class="unstyled">
                 <!-- ko foreach: questions -->
@@ -76,7 +76,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#" data-bind="click: $parent.navigateToDetails">
+                    <a href="#" class="question-title-wrapper" data-bind="click: $parent.navigateToDetails">
                         <div class="question-title" data-bind="text: title">
                         </div>
                     </a>

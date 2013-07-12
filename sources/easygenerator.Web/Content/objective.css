@@ -88,6 +88,7 @@ a.nav-control:hover {
 
 .questions-list-wrapper {
     width: 100%;
+    min-height: 120px;
     position: absolute;
     top: 400px;
     bottom: 10px;
@@ -195,6 +196,12 @@ a.nav-control:hover {
 .question-logo-wrapper:hover .question-edit:hover {
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+.question-title-wrapper {
+    display: block;
+    height: 100px;
+    margin-left: 172px;
 }
 
 .question-title {
