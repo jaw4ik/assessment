@@ -31,17 +31,17 @@
             <ul class="unstyled objectives-list">
                 <!-- ko foreach: objectives -->
                 <li class="objective-brief" data-bind="css: { 'objective-brief-selected': isSelected() }">
-                    <div class="objective-brief-image-wrapper ">
-                        <img class="objective-brief-image" data-bind="attr: { src: image }" src="" alt="" width="300" height="180" />
-                    </div>
+                    <img class="objective-brief-image" data-bind="attr: { src: image }" src="" alt="" />
                     <div class="objective-brief-toolbar">
-                        <div class="objective-brief-toolbar-icon-question"></div>
-                        <div class="objective-brief-toolbar-question-count" data-bind="text: questionsCount"></div>
-                    </div>
-                    <a class="objective-brief-options">
                         <div class="objective-brief-title">
-                            <span class="objective-brief-title-text" data-bind="text: title"></span>
+                            <span data-bind="text: title"></span>
                         </div>
+                        <div class="objective-brief-toolbar-question-count">
+                            <div class="objective-brief-toolbar-icon-question"></div>
+                            <div data-bind="text: questionsCount"></div>
+                        </div>
+                    </div>
+                    <div class="objective-brief-options">
                         <div class="objective-brief-options-select" data-bind="click: toggleSelection">
                             <!-- ko if: isSelected -->
                             <div data-bind="localize: { text: 'unselect' }">Unselect</div>
@@ -51,14 +51,12 @@
                             <!-- /ko-->
                             <div class="objective-brief-options-select-image" data-bind="css: { selected: isSelected() }"></div>
                         </div>
-                        <div class="objective-brief-options-separator-wrapper">
-                            <div class="objective-brief-options-separator"></div>
-                        </div>
+                        <div class="objective-brief-options-separator"></div>
                         <div class="objective-brief-options-open" data-bind="click: $parent.navigateToDetails">
                             <div data-bind="localize: { text: 'open' }">Open</div>
                             <div class="objective-brief-options-open-image"></div>
                         </div>
-                    </a>
+                    </div>
                 </li>
                 <!-- /ko -->
             </ul>

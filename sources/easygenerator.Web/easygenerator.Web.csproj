@@ -224,10 +224,12 @@
     <Content Include="Content\images\expand.png" />
     <Content Include="Content\images\forw-btn.png" />
     <Content Include="Content\images\multichoice-question.png" />
+    <Content Include="Content\images\obj_ex_bg_sprite.png" />
     <Content Include="Content\images\prev-btn.png" />
     <Content Include="Content\images\back-btn.png" />
     <Content Include="Content\images\experience.png" />
     <Content Include="Content\images\explanation-icon.png" />
+    <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\images\logo.png" />

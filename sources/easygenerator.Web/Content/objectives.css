@@ -163,77 +163,115 @@
 .experience-brief {
     position: relative;
     float: left;
-    margin: 0 20px;
+    margin: 0 20px 40px;
     width: 360px;
     height: 210px;
-    background: url('images/objexp-sprite.png') 0px -374px;
+    background: url('images/obj_ex_bg_sprite.png') no-repeat top left;
 }
 
-.objective-brief-selected,
+.objective-brief {
+    background-position: 0 -440px;
+}
+
+
+.objective-brief-selected {
+    background-position: 0 -660px;
+}
+
+
+.experience-brief {
+    background-position: 0 0;
+}
+
+
 .experience-brief-selected {
-    background-position: 0px -594px;
+    background-position: 0 -220px;
 }
 
-
-.objective-brief-image-wrapper,
-.experience-brief-image-wrapper {
-    position: absolute;
-    top: 15px;
-    right: 45px;
-    bottom: 15px;
-    left: 15px;
-}
 
 .objective-brief-image,
 .experience-brief-image {
-    width: 300px;
-    height: 180px;
+    position: absolute;
+    top: 4px;
+}
+
+.objective-brief-image {
+    bottom: 8px;
+    left: 6px;
+    width: 348px;
+    height: 198px;
+}
+
+.experience-brief-image {
+    right: 5px;
+    left: 5px;
+    width: 350px;
+    height: 187px;
 }
 
 .objective-brief-options,
 .experience-brief-options {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    bottom: 15px;
-    left: 15px;
+    top: 4px;
     display: block;
+}
+
+.objective-brief-options {
+    right: 6px;
+    bottom: 48px;
+    left: 6px;
+}
+
+.experience-brief-options {
+    right: 5px;
+    bottom: 59px;
+    left: 5px;
+}
+
+.objective-brief:hover .objective-brief-options,
+.experience-brief:hover .experience-brief-options {
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .objective-brief-options-select, .objective-brief-options-open,
 .experience-brief-options-select, .experience-brief-options-open {
     float: left;
-    padding-top: 50px;
-    width: 163px;
-    height: 180px;
-    background: #000000;
-    background: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    width: 172px;
     color: #cecece;
     text-align: center;
     font-size: 18px;
 }
 
-    .objective-brief-options-select:hover, .objective-brief-options-open:hover, .experience-brief-options-select:hover, .experience-brief-options-open:hover {
+.objective-brief-options-select, .objective-brief-options-open {
+    height: 158px;
+}
+
+.experience-brief-options-select, .experience-brief-options-open {
+    height: 147px;
+}
+
+    .objective-brief-options-select:hover, .objective-brief-options-open:hover,
+    .experience-brief-options-select:hover, .experience-brief-options-open:hover {
         background-color: #000000;
-        background-color: rgba(0, 0, 0, 0.8);
+        background-color: rgba(0, 0, 0, 0.4);
         cursor: pointer;
     }
 
-.objective-brief-options-separator-wrapper,
-.experience-brief-options-separator-wrapper {
-    float: left;
-    width: 4px;
-    height: 100%;
-    background-color: #000000;
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
 .objective-brief-options-separator,
 .experience-brief-options-separator {
+    float: left;
     margin: 20px 0;
     width: 4px;
-    height: 140px;
     background-color: #7E7D7B;
+}
+
+.objective-brief-options-separator {
+    height: 120px;
+}
+
+.experience-brief-options-separator {
+    height: 107px;
 }
 
 .objective-brief-options-select-image,
@@ -259,52 +297,52 @@
     background: url('images/objexp-sprite.png') 0 -272px;
 }
 
-.objective-brief-options-select, .objective-brief-options-separator-wrapper, .objective-brief-options-open,
-.experience-brief-options-select, .experience-brief-options-separator-wrapper, .experience-brief-options-open {
+.objective-brief-options-select, .objective-brief-options-separator, .objective-brief-options-open,
+.experience-brief-options-select, .experience-brief-options-separator, .experience-brief-options-open {
     display: none;
 }
 
-.objective-brief-options:hover .objective-brief-options-select, .objective-brief-options:hover .objective-brief-options-separator-wrapper, .objective-brief-options:hover .objective-brief-options-open,
-.experience-brief-options:hover .experience-brief-options-select, .experience-brief-options:hover .experience-brief-options-separator-wrapper, .experience-brief-options:hover .experience-brief-options-open {
+.objective-brief:hover .objective-brief-options-select, .objective-brief:hover .objective-brief-options-separator, .objective-brief:hover .objective-brief-options-open,
+.experience-brief:hover .experience-brief-options-select, .experience-brief:hover .experience-brief-options-separator, .experience-brief:hover .experience-brief-options-open {
     display: block;
 }
 
 .objective-brief-title,
 .experience-brief-title {
-    margin: 5px;
+    float: left;
     overflow: hidden;
-    max-height: 170px;
-    width: 180px;
-    border: 1px solid #bfbfbf;
-    background-color: #fff;
-}
-
-.objective-brief-title-text,
-.experience-brief-title-text {
-    display: inline-block;
-    padding: 10px;
-    width: 178px;
-    border-right: 10px solid #e3e3e3;
+    padding: 0 10px;
+    width: 321px;
+    height: 38px;
+    border-right: 1px solid #E3E3E3;
     color: #333333;
-    -ms-word-wrap: break-word;
-    word-wrap: break-word;
+    font-size: 12px;
+    line-height: 20px;
 }
 
-.objective-brief-options:hover .objective-brief-title,
-.experience-brief-options:hover .experience-brief-title {
-    display: none;
+.experience-brief-title {
+    width: 323px;
 }
 
 .objective-brief-toolbar,
 .experience-brief-toolbar {
     position: absolute;
-    top: 15px;
-    bottom: 15px;
-    left: 315px;
-    padding-top: 5px;
-    width: 30px;
-    border: 1px solid #e3e3e3;
-    text-align: center;
+    border: 1px solid #E3E3E3;
+    background: #fff;
+}
+
+.objective-brief-toolbar {
+    top: 162px;
+    right: 6px;
+    bottom: 8px;
+    left: 6px;
+}
+
+.experience-brief-toolbar {
+    top: 151px;
+    right: 5px;
+    bottom: 19px;
+    left: 5px;
 }
 
 .objective-brief-toolbar-icon-question {
@@ -318,15 +356,19 @@
     display: inline-block;
     width: 18px;
     height: 18px;
-    background: url('images/objexp-sprite.png')0 -346px;
+    background: url('images/objexp-sprite.png') 1px -346px;
 }
 
 .objective-brief-toolbar-question-count,
 .experience-brief-toolbar-objective-count {
     display: block;
+    float: left;
+    padding: 5px 0;
+    width: 25px;
     color: #484848;
+    text-align: center;
     font-size: 12px;
-    font-family: Arial, sans-serif;
+    font-family: Arial,sans-serif;
     line-height: 12px;
 }
 
