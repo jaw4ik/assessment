@@ -44,7 +44,7 @@
         <div class="questions-list">
             <ul class="unstyled">
                 <!-- ko foreach: questions -->
-                <li class="questions-list-item">
+                <li class="questions-list-item" data-bind="css: { 'selected': isSelected }">
                     <div class="question-logo-wrapper white-framing">
                         <div>
                             <img class="question-logo" alt="" src="../../../Content/images/multichoice-question.png" />
@@ -54,15 +54,13 @@
                                 <!-- ko if: isSelected() -->
                                 <div class="nowrap" data-bind="localize: { text: 'unselect' }">
                                 </div>
-                                <div class="action-img inline">
-                                    <img src="Content/images/check.png"/>
+                                <div class="action-img checked inline">
                                 </div>
                                 <!-- /ko -->
                                 <!-- ko if: !isSelected() -->
                                 <div class="nowrap" data-bind="localize: { text: 'select' }">
                                 </div>
-                                <div class="action-img inline">
-                                    <img src="Content/images/uncheck.png"/>
+                                <div class="action-img unchecked inline">
                                 </div>
                                 <!-- /ko -->
                             </div>

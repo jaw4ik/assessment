@@ -217,13 +217,11 @@
     <Content Include="Content\font\Montserrat-Regular.svg" />
     <Content Include="Content\images\answer-correct.png" />
     <Content Include="Content\images\answer-option-icon.png" />
-    <Content Include="Content\images\check.png" />
     <Content Include="Content\images\collapse.png" />
-    <Content Include="Content\images\edit.png" />
     <Content Include="Content\images\expand.png" />
     <Content Include="Content\images\forw-btn.png" />
     <Content Include="Content\images\multichoice-question.png" />
-    <Content Include="Content\images\obj_ex_bg_sprite.png" />
+    <Content Include="Content\images\options-icons.png" />
     <Content Include="Content\images\prev-btn.png" />
     <Content Include="Content\images\back-btn.png" />
     <Content Include="Content\images\experience.png" />
@@ -234,7 +232,6 @@
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\objexp-sprite.png" />
     <Content Include="Content\images\question.jpg" />
-    <Content Include="Content\images\uncheck.png" />
     <Content Include="Content\objective.css" />
     <Content Include="Content\question.css" />
     <Content Include="Content\styles.css" />

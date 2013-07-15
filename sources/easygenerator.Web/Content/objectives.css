@@ -192,7 +192,15 @@
 .experience-brief-image {
     width: 352px;
     height: 182px;
-    vertical-align: top;
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    background-size: 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.experience-brief-image {
+    background-image: url(images/experience.png);
 }
 
 .objective-brief-options,

@@ -104,6 +104,7 @@ a.nav-control:hover {
     background-color: #ffffff;
 }
 
+    .questions-list-item.selected,
     .questions-list-item:hover {
         background-color: #f5f5f5;
     }
@@ -147,7 +148,7 @@ a.nav-control:hover {
     display: none;
     z-index: 10;
     color: #cecece;
-    font-size: 16px;
+    font-size: 14px;
     text-align: center;
 }
 
@@ -159,15 +160,28 @@ a.nav-control:hover {
     padding: 13px 0;
 }
 
-    .question-select .action-img img,
-    .question-edit .action-img img {
+    .question-select .action-img,
+    .question-edit .action-img {
         height: 34px;
         width: 34px;
         margin-top: 2px;
+        background-image: url(images/options-icons.png);
+        background-repeat: no-repeat;
+        -webkit-background-size: 100%;
+        -moz-background-size: 100%;
+        background-size: 100%;
     }
 
-    .question-edit .action-img img {
-        margin-top: 1px;
+    .question-select .unchecked {
+        background-position: 0 0;
+    }
+
+    .question-select .checked {
+        background-position: 0 -34px;
+    }
+
+    .question-edit .action-img {
+        background-position: 0 -68px;
     }
 
 .separator {
