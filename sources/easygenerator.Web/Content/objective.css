@@ -164,7 +164,6 @@ a.nav-control:hover {
     .question-edit .action-img {
         height: 34px;
         width: 34px;
-        margin-top: 2px;
         background-image: url(images/options-icons.png);
         background-repeat: no-repeat;
         -webkit-background-size: 100%;
@@ -181,6 +180,7 @@ a.nav-control:hover {
     }
 
     .question-edit .action-img {
+        margin-top: -1px;
         background-position: 0 -68px;
     }
 
