@@ -9,7 +9,7 @@
         </a>
     </div>
     <div class="question-header clearfix">
-        <a href="#" class="nav-element left" data-bind="css: { hidden: !hasPrevious}, click: goToPreviousQuestion, localize: { title: 'previous' }">
+        <a href="#" class="nav-element left" title="Previous" data-bind="css: { hidden: !hasPrevious }, click: goToPreviousQuestion, localize: { title: 'previous' }">
             <div class="question-nav-btn prev-btn inline"></div>
         </a>
         <div class="white-framing left">
@@ -18,18 +18,18 @@
         <div class="left question-header-title">
             <h2 class="left page-header-title" data-bind="text: title"></h2>
         </div>
-        <a href="#" class="nav-element right" data-bind="css: { hidden: !hasNext}, click: goToNextQuestion, localize: { title: 'next' }">
+        <a href="#" class="nav-element right" title="Next" data-bind="css: { hidden: !hasNext }, click: goToNextQuestion, localize: { title: 'next' }">
             <div class="question-nav-btn forw-btn inline"></div>
         </a>
     </div>
     <div class="question-content clearfix">
         <div class="question-content-block">
             <div class="question-content-block-header-wrapper">
-                <div class="question-content-block-header" data-bind="css: {'shadow-bottom-curve': isAnswersBlockExpanded}">
+                <div class="question-content-block-header" data-bind="css: {'shadow-bottom-curve': isAnswersBlockExpanded()}">
                     <div class="question-content-block-header-icon answer-option-icon"></div>
                     <div class="question-content-block-header-title" data-bind="localize: { text: 'answerOptions' }">Answer options</div>
                     <div class="question-content-block-size-element-wrapper right">
-                        <a href="#" class="nav-element" data-bind="click: toggleAnswersBlockSize">
+                        <a href="#" class="nav-element" data-bind="click: toggleAnswers">
                             <!-- ko if: isAnswersBlockExpanded -->
                             <span class="collapse-btn inline question-content-block-size-btn"></span>
                             <!-- /ko -->
@@ -40,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div class="question-content-items-list " data-bind="visible: isAnswersBlockExpanded">
+            <div class="question-content-items-list " data-bind="if: isAnswersBlockExpanded">
                 <!-- ko if: answerOptions.length -->
                 <ul class="unstyled" data-bind="foreach: answerOptions">
                     <li class="clearfix">
@@ -65,11 +65,11 @@
         <div>
             <div class="question-content-block">
                 <div class="question-content-block-header-wrapper">
-                    <div class="question-content-block-header" data-bind="css: {'shadow-bottom-curve': isExplanationsBlockExpanded}">
+                    <div class="question-content-block-header" data-bind="css: {'shadow-bottom-curve': isExplanationsBlockExpanded()}">
                         <div class="question-content-block-header-icon explanation-icon"></div>
                         <div class="question-content-block-header-title" data-bind="localize: { text: 'explanations' }">Explanations</div>
                         <div class="question-content-block-size-element-wrapper right">
-                            <a href="#" class="nav-element" data-bind="click: toggleExplanationsBlockSize">
+                            <a href="#" class="nav-element" data-bind="click: toggleExplanations">
                                 <!-- ko if: isExplanationsBlockExpanded -->
                                 <span class="collapse-btn inline question-content-block-size-btn"></span>
                                 <!-- /ko -->
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="question-content-items-list " data-bind="visible: isExplanationsBlockExpanded">
+                <div class="question-content-items-list " data-bind="if: isExplanationsBlockExpanded()">
                     <!-- ko if: explanations.length -->
                     <ul class="unstyled" data-bind="foreach: explanations">
                         <li>
