@@ -33,9 +33,33 @@ namespace easygenerator.AcceptanceTests.Helpers
             foreach (var quest in questions)
             {
                 if (quest.Id != null) quest.Id = "0";
-                ExcecuteTestScript("test.AddQuestionsToObjective('{0}','{1}','2')", objTitle, quest.Id, quest.Title);
+                ExcecuteTestScript("test.AddQuestionsToObjective('{0}','{1}','{2}')", objTitle, quest.Id, quest.Title);
             }
         }
+        public void AddAnswerOptionsToDatabase(string objTitle, string questionTitle, AnswerData[] answers)
+        {
+            foreach (var answer in answers)
+            {
+                if (String.IsNullOrEmpty(answer.Text)) answer.Text = "NoTitle";
+                ExcecuteTestScript("test.AddAnswerOptionsToQuestion('{0}','{1}','{2}',{3})", objTitle, questionTitle, answer.Text, answer.IsCorrect.ToString());
+            }
+        }
+
+        //public void AddExplanationsToDatabase(string objTitle, string questionTitle, AnswerData[] answers)
+        //{
+        //    foreach (var answer in answers)
+        //    {
+        //        if (String.IsNullOrEmpty(answer.Text)) answer.Text = "NoTitle";
+        //        ExcecuteTestScript("test.AddAnswerOptionsToQuestion('{0}','{1}','{2}',{3})", objTitle, questionTitle, answer.Text, answer.IsCorrect.ToString());
+        //    }
+        //}
+
+        public void EmptyAnswerOptionsOfQuestion(string objTitle, string questionTitle)
+        {
+            ExcecuteTestScript("test.EmptyAnswerOptionsOfQuestion('{0}','{1}')", objTitle, questionTitle);
+            RebuildView();
+        }
+
         public void EmptyQuestionsListOfObjective(string objTitle)
         {
             ExcecuteTestScript("test.EmptyQuestionsOfObjective('{0}')", objTitle);

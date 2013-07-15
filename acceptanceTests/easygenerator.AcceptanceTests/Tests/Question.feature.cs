@@ -125,7 +125,7 @@ testRunner.Given("questions related to \'Objective2\' are present in database", 
                         "AnswerOption13",
                         "1"});
 #line 20
-testRunner.Given("answer options related to \'Question11\' are present in database", ((string)(null)), table4, "Given ");
+testRunner.Given("answer options related to \'Question11\' of \'Objective1\' are present in database", ((string)(null)), table4, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -136,7 +136,7 @@ testRunner.Given("answer options related to \'Question11\' are present in databa
             table5.AddRow(new string[] {
                         "AnswerOption23"});
 #line 25
-testRunner.Given("answer options related to \'Question12\' are present in database", ((string)(null)), table5, "Given ");
+testRunner.Given("answer options related to \'Question12\' of \'Objective1\' are present in database", ((string)(null)), table5, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -147,7 +147,7 @@ testRunner.Given("answer options related to \'Question12\' are present in databa
             table6.AddRow(new string[] {
                         "Explanation13"});
 #line 30
-testRunner.Given("explanations related to \'Question11\' are present in database", ((string)(null)), table6, "Given ");
+testRunner.Given("explanations related to \'Question11\' of \'Objective1\' are present in database", ((string)(null)), table6, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -158,7 +158,7 @@ testRunner.Given("explanations related to \'Question11\' are present in database
             table7.AddRow(new string[] {
                         "Explanation23"});
 #line 35
-testRunner.Given("explanations related to \'Question12\' are present in database", ((string)(null)), table7, "Given ");
+testRunner.Given("explanations related to \'Question12\' of \'Objective1\' are present in database", ((string)(null)), table7, "Given ");
 #line hidden
         }
         
