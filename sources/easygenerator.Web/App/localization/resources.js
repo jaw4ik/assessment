@@ -164,8 +164,8 @@
     /* Resource section for model Questions */
     edit: {
         en: 'Edit',
-        nl: 'Edit[nl]',
-        de: 'Edit[de]'
+        nl: 'Bewerken',
+        de: 'Bearbeiten'
     },
     relatedQuestions: {
         en: 'Related questions',
