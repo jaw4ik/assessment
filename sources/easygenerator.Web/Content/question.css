@@ -159,6 +159,7 @@
         bottom: 0;
         left: 10px;
         right: 10px;
+        -webkit-border-radius: 250px / 10px;
         -moz-border-radius: 250px / 10px;
         border-radius: 250px / 10px;
     }
