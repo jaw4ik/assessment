@@ -97,8 +97,8 @@ a.nav-control:hover {
 
 .questions-list-item {
     display: block;
-    height: 100px;
-    padding-top: 2px;
+    height: 109px;
+    padding-top: 3px;
     margin-top: -1px;
     border-top: 1px solid #e1e1e1;
     background-color: #ffffff;
@@ -119,8 +119,8 @@ a.nav-control:hover {
     }
 
 .question-logo-wrapper {
-    height: 92px;
-    width: 172px;
+    height: 101px;
+    width: 190px;
     float: left;
     position: relative;
 }
@@ -131,16 +131,16 @@ a.nav-control:hover {
 
 .image-background,
 .question-options {
-    height: 84px;
-    width: 164px;
+    height: 100%;
+    width: 100%;
     position: absolute;
     top: 0;
     left: 0;
 }
 
 .question-logo {
-    height: 84px;
-    width: 164px;
+    height: 93px;
+    width: 182px;
     vertical-align: top;
 }
 
@@ -148,7 +148,7 @@ a.nav-control:hover {
     display: none;
     z-index: 10;
     color: #cecece;
-    font-size: 14px;
+    font-size: 12px;
     text-align: center;
 }
 

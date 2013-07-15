@@ -35,12 +35,16 @@ body {
 
     .header .brand {
         height: 100%;
-        padding: 10px 25px;
+        padding: 0 30px;
     }
 
 .brand, .navigation-menu {
     display: inline-block;
     float: left;
+}
+
+.brand a.inline {
+    line-height: 37px;
 }
 
 .navigation-menu {
@@ -66,9 +70,17 @@ body {
             cursor: pointer;
         }
 
+.user-settings {
+    line-height: 37px;
+    margin-right: 20px;
+}
+
+
+
 .logo {
-    width: 23px;
-    height: 20px;
+    width: 165px;
+    height: 28px;
+    vertical-align: middle;
 }
 
 .wrapper {
