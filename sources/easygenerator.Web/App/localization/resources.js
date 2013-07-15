@@ -53,8 +53,8 @@
     },
     language: {
         en: 'Language',
-        nl: 'Language NL',
-        de: 'Language DE'
+        nl: 'Language[nl]',
+        de: 'Language[de]'
     },
     /* End resource section for model General */
     
@@ -69,8 +69,8 @@
     /* Resource section for model Objective */
     objectiveTitleEmptyErrorMessage: {
         en: 'Please, provide title for objective',
-        nl: 'Please, provide title for objective NL',
-        de: 'Please, provide title for objective DE'
+        nl: 'Please, provide title for objective[nl]',
+        de: 'Please, provide title for objective[de]'
     },
     /* End resource section for model Objective */
     
@@ -85,87 +85,87 @@
     /* Resource section for model CreateObjective */
     newObjective: {
         en: 'New Objective',
-        nl: 'New Objective NL',
-        de: 'New Objective DE'
+        nl: 'New Objective[nl]',
+        de: 'New Objective[de]'
     },
     objectiveTitle: {
         en: 'Objective title',
-        nl: 'Objective title NL',
-        de: 'Objective title DE'
+        nl: 'Objective title[nl]',
+        de: 'Objective title[de]'
     },
     objectiveTitlePlaceholder: {
         en: 'Objective title...',
-        nl: 'Objective title… NL',
-        de: 'Objective title… DE'
+        nl: 'Objective title...[nl]',
+        de: 'Objective title...[de]'
     },
     objectiveThumbnail: {
         en: 'Thumbnail',
-        nl: 'Thumbnail NL',
-        de: 'Thumbnail DE'
+        nl: 'Thumbnail[nl]',
+        de: 'Thumbnail[de]'
     },
     /* End resource section for model CreateObjective */
     
     /* Resource section for model CreateExperience */
     newExperience: {
         en: 'New Experience',
-        nl: 'New Experience NL',
-        de: 'New Experience DE'
+        nl: 'New Experience[nl]',
+        de: 'New Experience[de]'
     },
     experienceTitle: {
         en: 'Experience title',
-        nl: 'Experience title NL',
-        de: 'Experience title DE'
+        nl: 'Experience title[nl]',
+        de: 'Experience title[de]'
     },
     experienceTitlePlaceholder: {
         en: 'Experience title...',
-        nl: 'Experience title… NL',
-        de: 'Experience title… DE'
+        nl: 'Experience title...[nl]',
+        de: 'Experience title...[de]'
     },
     objectivesInExperience: {
         en: 'Objectives in experience',
-        nl: 'Objectives in experience NL',
-        de: 'Objectives in experience DE'
+        nl: 'Objectives in experience[nl]',
+        de: 'Objectives in experience[de]'
     },
     /* End resource section for model CreateExperience */
     
     /* Resource section for model Question */
     previous: {
         en: 'Previous',
-        nl: 'Previous NL',
-        de: 'Previous DE'
+        nl: 'Previous[nl]',
+        de: 'Previous[de]'
     },
     next: {
         en: 'Next',
-        nl: 'Next NL',
-        de: 'Next DE'
+        nl: 'Next[nl]',
+        de: 'Next[de]'
     },
     emptyAnswerOptions: {
         en: 'The answer options list is empty',
-        nl: 'The answer options list is empty NL',
-        de: 'The answer options list is empty DE'
+        nl: 'The answer options list is empty[nl]',
+        de: 'The answer options list is empty[de]'
     },
     answerOptions: {
         en: 'Answer options',
-        nl: 'Answer options NL',
-        de: 'Answer options DE'
+        nl: 'Answer options[nl]',
+        de: 'Answer options[de]'
     },
     emptyExplanations: {
         en: 'The explanations list is empty',
-        nl: 'The explanations list is empty NL',
-        de: 'The explanations list is empty DE'
+        nl: 'The explanations list is empty[nl]',
+        de: 'The explanations list is empty[de]'
     },
     explanations: {
         en: 'Explanations',
-        nl: 'Explanations NL',
-        de: 'Explanations DE'
+        nl: 'Explanations[nl]',
+        de: 'Explanations[de]'
     },
     /* End resource section for model Question */
     
     /* Resource section for model Questions */
     edit: {
         en: 'Edit',
-        nl: 'Edit NL',
-        de: 'Edit DE'
+        nl: 'Edit[nl]',
+        de: 'Edit[de]'
     },
     relatedQuestions: {
         en: 'Related questions',
