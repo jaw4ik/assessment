@@ -53,8 +53,8 @@
     },
     language: {
         en: 'Language',
-        nl: 'Language[nl]',
-        de: 'Language[de]'
+        nl: 'Taal',
+        de: 'Sprache'
     },
     /* End resource section for model General */
     
@@ -66,8 +66,8 @@
     },
     learningObjective: {
         en: 'Learning objective',
-        nl: 'Learning objective[nl]',
-        de: 'Learning objective[de]'
+        nl: 'Leerdoel',
+        de: 'Lernziel'
     },
     /* End resource section for model Objectives */
     
@@ -87,8 +87,8 @@
     },
     experience: {
         en: 'Experience',
-        nl: 'Experience[nl]',
-        de: 'Experience[de]'
+        nl: 'Ervaring',
+        de: 'Erfahrung'
     },
     /* End resource section for model Experiences */
     
