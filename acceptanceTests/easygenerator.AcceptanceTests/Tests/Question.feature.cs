@@ -98,15 +98,19 @@ testRunner.Given("objectives are present in database", ((string)(null)), table1,
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table2, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
+                        "Title",
+                        "isCorrect"});
             table3.AddRow(new string[] {
-                        "AnswerOption11"});
+                        "AnswerOption11",
+                        "1"});
             table3.AddRow(new string[] {
-                        "AnswerOption12"});
+                        "AnswerOption12",
+                        "0"});
             table3.AddRow(new string[] {
-                        "AnswerOption13"});
+                        "AnswerOption13",
+                        "1"});
 #line 15
-testRunner.Given("answer options related to \'Question1\' are present in database", ((string)(null)), table3, "Given ");
+testRunner.Given("answer options related to \'Question11\' are present in database", ((string)(null)), table3, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -117,7 +121,7 @@ testRunner.Given("answer options related to \'Question1\' are present in databas
             table4.AddRow(new string[] {
                         "AnswerOption23"});
 #line 20
-testRunner.Given("answer options related to \'Question2\' are present in database", ((string)(null)), table4, "Given ");
+testRunner.Given("answer options related to \'Question12\' are present in database", ((string)(null)), table4, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -128,7 +132,7 @@ testRunner.Given("answer options related to \'Question2\' are present in databas
             table5.AddRow(new string[] {
                         "Explanation13"});
 #line 25
-testRunner.Given("explanations related to \'Question1\' are present in database", ((string)(null)), table5, "Given ");
+testRunner.Given("explanations related to \'Question11\' are present in database", ((string)(null)), table5, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -139,7 +143,7 @@ testRunner.Given("explanations related to \'Question1\' are present in database"
             table6.AddRow(new string[] {
                         "Explanation23"});
 #line 30
-testRunner.Given("explanations related to \'Question2\' are present in database", ((string)(null)), table6, "Given ");
+testRunner.Given("explanations related to \'Question12\' are present in database", ((string)(null)), table6, "Given ");
 #line hidden
         }
         
@@ -159,31 +163,241 @@ testRunner.When("mouse hover element of objectives list with title \'Objective1\
 #line 38
 testRunner.And("click open objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 39
-testRunner.And("mouse hover element of questions list with title \'Question1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("mouse hover element of questions list with title \'Question12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 40
-testRunner.And("click on edit question with title \'Question1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click on edit question with title \'Question12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table7.AddRow(new string[] {
-                        "AnswerOption11"});
+                        "AnswerOption21"});
             table7.AddRow(new string[] {
-                        "AnswerOption12"});
+                        "AnswerOption22"});
             table7.AddRow(new string[] {
-                        "AnswerOption13"});
+                        "AnswerOption23"});
 #line 41
-testRunner.Then("answer options list contains items with data", ((string)(null)), table7, "Then ");
+testRunner.Then("answer options list contains only items with data", ((string)(null)), table7, "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table8.AddRow(new string[] {
-                        "Explanation11"});
+                        "Explanation21"});
             table8.AddRow(new string[] {
-                        "Explanation12"});
+                        "Explanation22"});
             table8.AddRow(new string[] {
-                        "Explanation13"});
+                        "Explanation23"});
 #line 46
-testRunner.And("explanations list contains items with data", ((string)(null)), table8, "And ");
+testRunner.And("explanations list contains only items with data", ((string)(null)), table8, "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Related objective title is shown in back to objective link")]
+        public virtual void RelatedObjectiveTitleIsShownInBackToObjectiveLink()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Related objective title is shown in back to objective link", ((string[])(null)));
+#line 52
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 53
+testRunner.When("navigate to \'Question12\' of \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 54
+testRunner.Then("\'Objective1\' title is shown in back to objective link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Related question title is shown in question page header")]
+        public virtual void RelatedQuestionTitleIsShownInQuestionPageHeader()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Related question title is shown in question page header", ((string[])(null)));
+#line 56
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 57
+testRunner.When("navigate to \'Question12\' of \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 58
+testRunner.Then("\'Question12\' title is shown in question page header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("IsCorrect indicators are shown for answer options on question page")]
+        public virtual void IsCorrectIndicatorsAreShownForAnswerOptionsOnQuestionPage()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("IsCorrect indicators are shown for answer options on question page", ((string[])(null)));
+#line 60
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 61
+testRunner.When("navigate to \'Question11\' of \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 62
+testRunner.Then("correct is set to true for \'AnswerOption11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 63
+testRunner.And("correct is set to false for \'AnswerOption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Next and previous actions of question page navigate through questions of current " +
+            "objective")]
+        public virtual void NextAndPreviousActionsOfQuestionPageNavigateThroughQuestionsOfCurrentObjective()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Next and previous actions of question page navigate through questions of current " +
+                    "objective", ((string[])(null)));
+#line 65
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table9.AddRow(new string[] {
+                        "Objective2",
+                        "2"});
+#line 66
+testRunner.Given("objectives are present in database", ((string)(null)), table9, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table10.AddRow(new string[] {
+                        "Question112",
+                        "1"});
+            table10.AddRow(new string[] {
+                        "Question113",
+                        "2"});
+#line 69
+testRunner.Given("questions related to \'Objective2\' are present in database", ((string)(null)), table10, "Given ");
+#line 73
+testRunner.When("navigate to \'Question11\' of \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 74
+testRunner.And("click on next question", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 75
+testRunner.And("click on next question", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 76
+testRunner.And("click on previous question", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 77
+testRunner.Then("browser navigates to url \'http://localhost:5656/#/objective/1/question/2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Collapse answer options action on question page collapses answer options block")]
+        public virtual void CollapseAnswerOptionsActionOnQuestionPageCollapsesAnswerOptionsBlock()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Collapse answer options action on question page collapses answer options block", ((string[])(null)));
+#line 79
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 80
+testRunner.When("navigate to \'Question11\' of \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 81
+testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 82
+testRunner.Then("answer options block is collapsed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 83
+testRunner.And("explanations block is expanded", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Collapse explanations action on question page collapses explanations block")]
+        public virtual void CollapseExplanationsActionOnQuestionPageCollapsesExplanationsBlock()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Collapse explanations action on question page collapses explanations block", ((string[])(null)));
+#line 85
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 86
+testRunner.When("navigate to \'Question11\' of \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 87
+testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 88
+testRunner.Then("explanations block is collapsed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 89
+testRunner.And("answer options block is expanded", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Expand answer options action on question page expands answer option block")]
+        public virtual void ExpandAnswerOptionsActionOnQuestionPageExpandsAnswerOptionBlock()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Expand answer options action on question page expands answer option block", ((string[])(null)));
+#line 91
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 92
+testRunner.When("navigate to \'Question11\' of \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 93
+testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 94
+testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 95
+testRunner.And("click on expand answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 96
+testRunner.Then("answer options block is expanded", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 97
+testRunner.And("explanations block is collapsed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Expand explanations action on question page expands explanations block")]
+        public virtual void ExpandExplanationsActionOnQuestionPageExpandsExplanationsBlock()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Expand explanations action on question page expands explanations block", ((string[])(null)));
+#line 99
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 100
+testRunner.When("navigate to \'Question11\' of \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 101
+testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 102
+testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 103
+testRunner.And("click on expand explanations options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 104
+testRunner.Then("explanations block is expanded", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 105
+testRunner.And("answer options block is collapsed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Back action of question page navigates to relative objective page")]
+        public virtual void BackActionOfQuestionPageNavigatesToRelativeObjectivePage()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Back action of question page navigates to relative objective page", ((string[])(null)));
+#line 107
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 108
+testRunner.When("navigate to \'Question11\' of \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 109
+testRunner.And("click on back to objective", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 110
+testRunner.Then("browser navigates to url \'http://localhost:5656/#/objective/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

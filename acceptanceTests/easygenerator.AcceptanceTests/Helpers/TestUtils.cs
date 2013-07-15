@@ -62,5 +62,11 @@ namespace easygenerator.AcceptanceTests.Helpers
             }
             return true;
         }
+
+        public static bool AreCollectionsTheSame(string[] firstCol, string[] secondCol)
+        {
+            return firstCol.Length == secondCol.Length &&
+                    firstCol.All(el => secondCol.Contains(el));
+        }
     }
 }
