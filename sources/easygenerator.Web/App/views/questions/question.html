@@ -40,7 +40,8 @@
                     </div>
                 </div>
             </div>
-            <div class="question-content-items-list " data-bind="if: isAnswersBlockExpanded">
+            <!-- ko if:isAnswersBlockExpanded -->
+            <div class="question-content-items-list">
                 <!-- ko if: answerOptions.length -->
                 <ul class="unstyled" data-bind="foreach: answerOptions">
                     <li class="clearfix">
@@ -61,6 +62,7 @@
                 <span data-bind="localize: { text: 'emptyAnswerOptions' }">The answer options list is empty</span>
                 <!-- /ko -->
             </div>
+            <!-- /ko -->
         </div>
         <div>
             <div class="question-content-block">
@@ -80,7 +82,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="question-content-items-list " data-bind="if: isExplanationsBlockExpanded()">
+                <!-- ko if: isExplanationsBlockExpanded -->
+                <div class="question-content-items-list">
                     <!-- ko if: explanations.length -->
                     <ul class="unstyled" data-bind="foreach: explanations">
                         <li>
@@ -94,6 +97,7 @@
                     <span data-bind="localize: {text: 'emptyExplanations'}">The explanations list is empty</span>
                     <!-- /ko -->
                 </div>
+                <!-- /ko -->
             </div>
         </div>
     </div>
