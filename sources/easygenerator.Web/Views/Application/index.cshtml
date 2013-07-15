@@ -44,7 +44,7 @@
     @Scripts.Render("~/scripts/vendor")
     @{ Html.RenderPartial("GoogleAnalytics"); }
 
-    @if (Request.UserLanguages.Length > 0)
+    @if (Request.UserLanguages != null && Request.UserLanguages.Length > 0)
     {
         <script type="text/ecmascript">
             navigator.userLanguage = "@Request.UserLanguages[0]";
