@@ -125,10 +125,10 @@ testRunner.Then("questions list contains items with data", ((string)(null)), tab
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Only questions related to selected objective should be present in list")]
-        public virtual void OnlyQuestionsRelatedToSelectedObjectiveShouldBePresentInList()
+        [NUnit.Framework.DescriptionAttribute("Questions list item name could contain special symbols")]
+        public virtual void QuestionsListItemNameCouldContainSpecialSymbols()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Only questions related to selected objective should be present in list", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Questions list item name could contain special symbols", ((string[])(null)));
 #line 25
 this.ScenarioSetup(scenarioInfo);
 #line 5
@@ -137,37 +137,66 @@ this.FeatureBackground();
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table4.AddRow(new string[] {
-                        "Question11"});
-            table4.AddRow(new string[] {
-                        "Question12"});
-            table4.AddRow(new string[] {
-                        "Question13"});
+                        "~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё"});
 #line 26
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table4, "Given ");
+#line 29
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table5.AddRow(new string[] {
-                        "Question21"});
-            table5.AddRow(new string[] {
-                        "Question22"});
-            table5.AddRow(new string[] {
-                        "Question23"});
-#line 31
-testRunner.Given("questions related to \'Objective2\' are present in database", ((string)(null)), table5, "Given ");
-#line 36
-testRunner.When("select objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+                        "~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё"});
+#line 30
+testRunner.Then("questions list contains items with data", ((string)(null)), table5, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Only questions related to selected objective should be present in list")]
+        public virtual void OnlyQuestionsRelatedToSelectedObjectiveShouldBePresentInList()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Only questions related to selected objective should be present in list", ((string[])(null)));
+#line 34
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table6.AddRow(new string[] {
+                        "Question11"});
+            table6.AddRow(new string[] {
+                        "Question12"});
+            table6.AddRow(new string[] {
+                        "Question13"});
+#line 35
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table6, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table7.AddRow(new string[] {
                         "Question21"});
-            table6.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "Question22"});
-            table6.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "Question23"});
-#line 37
-testRunner.Then("questions list consists of ordered items", ((string)(null)), table6, "Then ");
+#line 40
+testRunner.Given("questions related to \'Objective2\' are present in database", ((string)(null)), table7, "Given ");
+#line 45
+testRunner.When("select objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table8.AddRow(new string[] {
+                        "Question21"});
+            table8.AddRow(new string[] {
+                        "Question22"});
+            table8.AddRow(new string[] {
+                        "Question23"});
+#line 46
+testRunner.Then("questions list consists of ordered items", ((string)(null)), table8, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -177,54 +206,7 @@ testRunner.Then("questions list consists of ordered items", ((string)(null)), ta
         public virtual void QuestionsAreSortedByTitleAscendingByDefault()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Questions are sorted by title ascending by default", ((string[])(null)));
-#line 43
-this.ScenarioSetup(scenarioInfo);
-#line 5
-this.FeatureBackground();
-#line hidden
-            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table7.AddRow(new string[] {
-                        "Question_a"});
-            table7.AddRow(new string[] {
-                        "a_Question"});
-            table7.AddRow(new string[] {
-                        "Question_z"});
-            table7.AddRow(new string[] {
-                        "1_Question"});
-            table7.AddRow(new string[] {
-                        "_Question"});
-#line 44
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table7, "Given ");
-#line 51
-testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table8.AddRow(new string[] {
-                        "_Question"});
-            table8.AddRow(new string[] {
-                        "1_Question"});
-            table8.AddRow(new string[] {
-                        "a_Question"});
-            table8.AddRow(new string[] {
-                        "Question_a"});
-            table8.AddRow(new string[] {
-                        "Question_z"});
 #line 52
-testRunner.Then("questions list consists of ordered items", ((string)(null)), table8, "Then ");
-#line 59
-testRunner.And("questions list order switch is set to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Questions are sorted by title descending if set descending order")]
-        public virtual void QuestionsAreSortedByTitleDescendingIfSetDescendingOrder()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Questions are sorted by title descending if set descending order", ((string[])(null)));
-#line 62
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -241,41 +223,37 @@ this.FeatureBackground();
                         "1_Question"});
             table9.AddRow(new string[] {
                         "_Question"});
-#line 63
+#line 53
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table9, "Given ");
-#line 70
+#line 60
 testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 71
-testRunner.And("I switch questions list order to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 72
-testRunner.And("I switch questions list order to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table10.AddRow(new string[] {
-                        "Question_z"});
-            table10.AddRow(new string[] {
-                        "Question_a"});
-            table10.AddRow(new string[] {
-                        "a_Question"});
+                        "_Question"});
             table10.AddRow(new string[] {
                         "1_Question"});
             table10.AddRow(new string[] {
-                        "_Question"});
-#line 73
+                        "a_Question"});
+            table10.AddRow(new string[] {
+                        "Question_a"});
+            table10.AddRow(new string[] {
+                        "Question_z"});
+#line 61
 testRunner.Then("questions list consists of ordered items", ((string)(null)), table10, "Then ");
-#line 80
-testRunner.And("questions list order switch is set to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 68
+testRunner.And("questions list order switch is set to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Questions are sorted by title ascending if set ascending order")]
-        public virtual void QuestionsAreSortedByTitleAscendingIfSetAscendingOrder()
+        [NUnit.Framework.DescriptionAttribute("Questions are sorted by title descending if set descending order")]
+        public virtual void QuestionsAreSortedByTitleDescendingIfSetDescendingOrder()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Questions are sorted by title ascending if set ascending order", ((string[])(null)));
-#line 82
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Questions are sorted by title descending if set descending order", ((string[])(null)));
+#line 71
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -292,30 +270,81 @@ this.FeatureBackground();
                         "1_Question"});
             table11.AddRow(new string[] {
                         "_Question"});
-#line 83
+#line 72
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table11, "Given ");
-#line 90
+#line 79
 testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 91
-testRunner.And("I switch questions list order to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 92
+#line 80
 testRunner.And("I switch questions list order to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 81
+testRunner.And("I switch questions list order to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table12.AddRow(new string[] {
-                        "_Question"});
-            table12.AddRow(new string[] {
-                        "1_Question"});
-            table12.AddRow(new string[] {
-                        "a_Question"});
+                        "Question_z"});
             table12.AddRow(new string[] {
                         "Question_a"});
             table12.AddRow(new string[] {
-                        "Question_z"});
-#line 93
+                        "a_Question"});
+            table12.AddRow(new string[] {
+                        "1_Question"});
+            table12.AddRow(new string[] {
+                        "_Question"});
+#line 82
 testRunner.Then("questions list consists of ordered items", ((string)(null)), table12, "Then ");
+#line 89
+testRunner.And("questions list order switch is set to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Questions are sorted by title ascending if set ascending order")]
+        public virtual void QuestionsAreSortedByTitleAscendingIfSetAscendingOrder()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Questions are sorted by title ascending if set ascending order", ((string[])(null)));
+#line 91
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table13.AddRow(new string[] {
+                        "Question_a"});
+            table13.AddRow(new string[] {
+                        "a_Question"});
+            table13.AddRow(new string[] {
+                        "Question_z"});
+            table13.AddRow(new string[] {
+                        "1_Question"});
+            table13.AddRow(new string[] {
+                        "_Question"});
+#line 92
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table13, "Given ");
+#line 99
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 100
+testRunner.And("I switch questions list order to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 101
+testRunner.And("I switch questions list order to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table14.AddRow(new string[] {
+                        "_Question"});
+            table14.AddRow(new string[] {
+                        "1_Question"});
+            table14.AddRow(new string[] {
+                        "a_Question"});
+            table14.AddRow(new string[] {
+                        "Question_a"});
+            table14.AddRow(new string[] {
+                        "Question_z"});
+#line 102
+testRunner.Then("questions list consists of ordered items", ((string)(null)), table14, "Then ");
+#line 109
 testRunner.And("questions list order switch is set to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -326,75 +355,7 @@ testRunner.And("questions list order switch is set to \'ascending\'", ((string)(
         public virtual void QuestionShouldBeHighlitedOnMouseHover()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Question should be highlited on mouse hover", ((string[])(null)));
-#line 102
-this.ScenarioSetup(scenarioInfo);
-#line 5
-this.FeatureBackground();
-#line hidden
-            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table13.AddRow(new string[] {
-                        "Question1"});
-            table13.AddRow(new string[] {
-                        "Question2"});
-            table13.AddRow(new string[] {
-                        "Question3"});
-#line 103
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table13, "Given ");
-#line 108
-testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 109
-testRunner.And("mouse hover element of questions list with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 110
-testRunner.Then("questions list item with title \'\'Question2\' is highlited", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 111
-testRunner.But("questions list item with title \'\'Question1\' is not highlited", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
-#line 112
-testRunner.And("questions list item with title \'\'Question3\' is not highlited", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Selected question should be highlited after selecting")]
-        public virtual void SelectedQuestionShouldBeHighlitedAfterSelecting()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Selected question should be highlited after selecting", ((string[])(null)));
-#line 114
-this.ScenarioSetup(scenarioInfo);
-#line 5
-this.FeatureBackground();
-#line hidden
-            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table14.AddRow(new string[] {
-                        "Question1"});
-            table14.AddRow(new string[] {
-                        "Question2"});
-            table14.AddRow(new string[] {
-                        "Question3"});
-#line 115
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table14, "Given ");
-#line 120
-testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 121
-testRunner.And("click on questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 122
-testRunner.Then("questions list item with title \'\'Question2\' is highlited", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 123
-testRunner.But("questions list item with title \'\'Question1\' is not highlited", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
-#line 124
-testRunner.And("questions list item with title \'\'Question3\' is not highlited", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("No questions are selected by default in questions list")]
-        public virtual void NoQuestionsAreSelectedByDefaultInQuestionsList()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No questions are selected by default in questions list", ((string[])(null)));
-#line 127
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -407,26 +368,28 @@ this.FeatureBackground();
                         "Question2"});
             table15.AddRow(new string[] {
                         "Question3"});
-#line 128
+#line 112
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table15, "Given ");
-#line 133
+#line 117
 testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 134
-testRunner.Then("questions list item with title \'Question2\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 135
-testRunner.And("questions list item with title \'Question1\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 136
-testRunner.And("questions list item with title \'Question3\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 118
+testRunner.And("mouse hover element of questions list with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 119
+testRunner.Then("questions list item with title \'\'Question2\' is highlited", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 120
+testRunner.But("questions list item with title \'\'Question1\' is not highlited", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
+#line 121
+testRunner.And("questions list item with title \'\'Question3\' is not highlited", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("All elements of questions list can be made visible using scroll")]
-        public virtual void AllElementsOfQuestionsListCanBeMadeVisibleUsingScroll()
+        [NUnit.Framework.DescriptionAttribute("Selected question should be highlited after selecting")]
+        public virtual void SelectedQuestionShouldBeHighlitedAfterSelecting()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All elements of questions list can be made visible using scroll", ((string[])(null)));
-#line 138
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Selected question should be highlited after selecting", ((string[])(null)));
+#line 123
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -439,48 +402,28 @@ this.FeatureBackground();
                         "Question2"});
             table16.AddRow(new string[] {
                         "Question3"});
-            table16.AddRow(new string[] {
-                        "Question4"});
-            table16.AddRow(new string[] {
-                        "Question5"});
-            table16.AddRow(new string[] {
-                        "Question6"});
-            table16.AddRow(new string[] {
-                        "Question7"});
-            table16.AddRow(new string[] {
-                        "Question8"});
-            table16.AddRow(new string[] {
-                        "Question9"});
-            table16.AddRow(new string[] {
-                        "Question10"});
-            table16.AddRow(new string[] {
-                        "Question11"});
-            table16.AddRow(new string[] {
-                        "Question12"});
-            table16.AddRow(new string[] {
-                        "Question13"});
-            table16.AddRow(new string[] {
-                        "Question14"});
-#line 139
+#line 124
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table16, "Given ");
-#line 155
+#line 129
 testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 156
-testRunner.And("browser window width and height is set to 400 and 300", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 157
-testRunner.And("scroll publications list item with title \'Question14\' into the view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 158
-testRunner.Then("element with title \'Question14\' of questions list is visible", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 130
+testRunner.And("click on questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 131
+testRunner.Then("questions list item with title \'\'Question2\' is highlited", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 132
+testRunner.But("questions list item with title \'\'Question1\' is not highlited", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
+#line 133
+testRunner.And("questions list item with title \'\'Question3\' is not highlited", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Actions add content and edit are enabled if hover item of questions list")]
-        public virtual void ActionsAddContentAndEditAreEnabledIfHoverItemOfQuestionsList()
+        [NUnit.Framework.DescriptionAttribute("No questions are selected by default in questions list")]
+        public virtual void NoQuestionsAreSelectedByDefaultInQuestionsList()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Actions add content and edit are enabled if hover item of questions list", ((string[])(null)));
-#line 160
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No questions are selected by default in questions list", ((string[])(null)));
+#line 136
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -493,29 +436,26 @@ this.FeatureBackground();
                         "Question2"});
             table17.AddRow(new string[] {
                         "Question3"});
-#line 161
+#line 137
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table17, "Given ");
-#line 166
+#line 142
 testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 167
-testRunner.And("mouse hover element of questions list with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 168
-testRunner.Then("Action add content is enabled true for questions list item with title \'Question2\'" +
-                    "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 169
-testRunner.And("Action edit is enabled true for questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 143
+testRunner.Then("questions list item with title \'Question2\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 144
+testRunner.And("questions list item with title \'Question1\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 145
+testRunner.And("questions list item with title \'Question3\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Actions add content and edit should remain enabled after selecting item of questi" +
-            "ons list")]
-        public virtual void ActionsAddContentAndEditShouldRemainEnabledAfterSelectingItemOfQuestionsList()
+        [NUnit.Framework.DescriptionAttribute("All elements of questions list can be made visible using scroll")]
+        public virtual void AllElementsOfQuestionsListCanBeMadeVisibleUsingScroll()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Actions add content and edit should remain enabled after selecting item of questi" +
-                    "ons list", ((string[])(null)));
-#line 171
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All elements of questions list can be made visible using scroll", ((string[])(null)));
+#line 147
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -528,23 +468,112 @@ this.FeatureBackground();
                         "Question2"});
             table18.AddRow(new string[] {
                         "Question3"});
-#line 172
+            table18.AddRow(new string[] {
+                        "Question4"});
+            table18.AddRow(new string[] {
+                        "Question5"});
+            table18.AddRow(new string[] {
+                        "Question6"});
+            table18.AddRow(new string[] {
+                        "Question7"});
+            table18.AddRow(new string[] {
+                        "Question8"});
+            table18.AddRow(new string[] {
+                        "Question9"});
+            table18.AddRow(new string[] {
+                        "Question10"});
+            table18.AddRow(new string[] {
+                        "Question11"});
+            table18.AddRow(new string[] {
+                        "Question12"});
+            table18.AddRow(new string[] {
+                        "Question13"});
+            table18.AddRow(new string[] {
+                        "Question14"});
+#line 148
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table18, "Given ");
-#line 177
+#line 164
 testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 178
-testRunner.And("click on questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 179
-testRunner.And("mouse hover element of questions list with title \'Question3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 180
+#line 165
+testRunner.And("browser window width and height is set to 400 and 300", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 166
+testRunner.And("scroll publications list item with title \'Question14\' into the view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 167
+testRunner.Then("element with title \'Question14\' of questions list is visible", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Actions add content and edit are enabled if hover item of questions list")]
+        public virtual void ActionsAddContentAndEditAreEnabledIfHoverItemOfQuestionsList()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Actions add content and edit are enabled if hover item of questions list", ((string[])(null)));
+#line 169
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table19.AddRow(new string[] {
+                        "Question1"});
+            table19.AddRow(new string[] {
+                        "Question2"});
+            table19.AddRow(new string[] {
+                        "Question3"});
+#line 170
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table19, "Given ");
+#line 175
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 176
+testRunner.And("mouse hover element of questions list with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 177
 testRunner.Then("Action add content is enabled true for questions list item with title \'Question2\'" +
                     "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 181
+#line 178
 testRunner.And("Action edit is enabled true for questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 182
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Actions add content and edit should remain enabled after selecting item of questi" +
+            "ons list")]
+        public virtual void ActionsAddContentAndEditShouldRemainEnabledAfterSelectingItemOfQuestionsList()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Actions add content and edit should remain enabled after selecting item of questi" +
+                    "ons list", ((string[])(null)));
+#line 180
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table20.AddRow(new string[] {
+                        "Question1"});
+            table20.AddRow(new string[] {
+                        "Question2"});
+            table20.AddRow(new string[] {
+                        "Question3"});
+#line 181
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table20, "Given ");
+#line 186
+testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 187
+testRunner.And("click on questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 188
+testRunner.And("mouse hover element of questions list with title \'Question3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 189
+testRunner.Then("Action add content is enabled true for questions list item with title \'Question2\'" +
+                    "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 190
+testRunner.And("Action edit is enabled true for questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 191
 testRunner.And("Action add content is enabled true for questions list item with title \'Question3\'" +
                     "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 183
+#line 192
 testRunner.And("Action edit is enabled true for questions list item with title \'Question3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -555,26 +584,26 @@ testRunner.And("Action edit is enabled true for questions list item with title \
         public virtual void EditQuestionActionOfQuestionsListNavigatesToQuestionSEditingPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit question action of questions list navigates to question\'s editing page", ((string[])(null)));
-#line 185
+#line 194
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table19.AddRow(new string[] {
+            table21.AddRow(new string[] {
                         "Question1",
                         "1"});
-#line 186
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table19, "Given ");
-#line 189
+#line 195
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table21, "Given ");
+#line 198
 testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 190
+#line 199
 testRunner.And("mouse hover element of questions list with title \'Question1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 191
+#line 200
 testRunner.And("click on edit question with title \'Question1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 192
+#line 201
 testRunner.Then("browser navigates to url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -585,22 +614,22 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#/objective/1/
         public virtual void BackActionOfQuestionsListNavigatesToObjectivesListPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Back action of questions list navigates to objectives list page", ((string[])(null)));
-#line 195
+#line 204
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table20.AddRow(new string[] {
+            table22.AddRow(new string[] {
                         "Question1"});
-#line 196
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table20, "Given ");
-#line 199
+#line 205
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table22, "Given ");
+#line 208
 testRunner.When("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 200
+#line 209
 testRunner.And("click on back from questions list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 201
+#line 210
 testRunner.Then("browser navigates to url \'http://localhost:5656/#/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

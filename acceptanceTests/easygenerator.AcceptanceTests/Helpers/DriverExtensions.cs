@@ -17,9 +17,9 @@ namespace easygenerator.AcceptanceTests.Helpers
             var hoverOverRegistrar = builder.MoveToElement(element);
             hoverOverRegistrar.Perform();
         }
-        public static T ExecuteScript<T>(this IWebDriver driver, string script,params object[] args)
+        public static T ExecuteScript<T>(this IWebDriver driver, string script, params object[] args)
         {
-            return (T)((RemoteWebDriver)driver).ExecuteScript(script,args);
+            return (T)((RemoteWebDriver)driver).ExecuteScript(script, args);
         }
         public static void ExecuteScript(this IWebDriver driver, string script, params object[] args)
         {
@@ -27,8 +27,8 @@ namespace easygenerator.AcceptanceTests.Helpers
         }
         public static string GetTextContent(this RemoteWebElement el)
         {
-            var text = ((OpenQA.Selenium.IJavaScriptExecutor)el.WrappedDriver).ExecuteScript("return arguments[0].textContent", el);
-            return (string)text;
+            var text = el.WrappedDriver.ExecuteScript<string>("return arguments[0].textContent", el);
+            return text.Trim();
         }
 
         public static bool IsVisible(this RemoteWebElement el)

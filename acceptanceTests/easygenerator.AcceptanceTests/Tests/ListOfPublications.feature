@@ -20,6 +20,15 @@ Then publications tiles list contains items with data
 | Publication3 |
 
 
+Scenario: Publications list item name could contain special symbols
+Given publications are present in database
+| Title      |
+| ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
+When click on tab publications link on objectives list page
+Then publications tiles list contains items with data 
+| Title                                |
+| ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
+
 Scenario: Publications are sorted by title ascending by default
 Given publications are present in database
 | Title         |

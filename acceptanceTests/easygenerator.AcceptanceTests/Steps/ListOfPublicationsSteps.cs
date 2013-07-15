@@ -58,14 +58,14 @@ namespace easygenerator.AcceptanceTests.Steps
         public void ThenPublicationsListOrderSwitchIsSetTo(string orderString)
         {
             TestUtils.Assert_IsTrue_WithWait(() =>
-                GherkinConstants.OrderWay[orderString] == publicationsPage.Order,
+                Constants.OrderWay[orderString] == publicationsPage.Order,
                 "Incorrect publications order switch state");
         }
 
         [When(@"I switch publications list order to '(.*)'")]
         public void WhenISwitchPublicationsListOrderTo(string orderString)
         {
-            var expectedOrder = GherkinConstants.OrderWay[orderString];
+            var expectedOrder = Constants.OrderWay[orderString];
             if (publicationsPage.Order != expectedOrder)
                 publicationsPage.Order = expectedOrder;
         }

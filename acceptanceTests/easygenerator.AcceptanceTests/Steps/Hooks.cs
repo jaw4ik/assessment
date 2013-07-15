@@ -8,7 +8,6 @@ using easygenerator.AcceptanceTests.Helpers;
 
 namespace easygenerator.AcceptanceTests.Steps
 {
-
     [Binding]
     public class Hooks
     {
@@ -20,18 +19,26 @@ namespace easygenerator.AcceptanceTests.Steps
         [AfterTestRun]
         public static void CleanTestRun()
         {
-            DriverProvider.StopCurrent();
+            DriverProvider.Current().Stop();
             Process.Start("taskkill", "/IM iisexpress.exe");
         }
         [BeforeScenario]
         public void BeforeScenario()
         {
-            DriverProvider.Current().Manage().Window.Maximize();
+            PrepareLocalization();
+            DriverProvider.Current().Driver.Manage().Window.Maximize();
+        }
+
+        private void PrepareLocalization()
+        {
+            if (!ScenarioContext.Current.ScenarioInfo.Tags.Contains("Localization_Test") &&
+                !FeatureContext.Current.FeatureInfo.Tags.Contains("Localization_Test"))
+                DriverProvider.Current().Localization = Localization.En;
         }
         [AfterScenario]
         public void AfterScenario()
         {
-            DriverProvider.Current().Navigate().GoToUrl("about:blank");
+            DriverProvider.Current().Driver.Navigate().GoToUrl("about:blank");
         }
         //
         // https://github.com/techtalk/SpecFlow/wiki/Hooks

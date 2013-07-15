@@ -34,6 +34,15 @@ namespace easygenerator.AcceptanceTests.Steps
             dataSetter.AddObjectivesToDatabase(objectives);
         }
 
+        [Then(@"objectives list page header text is '(.*)'")]
+        public void ThenObjectivesListPageHeaderTextIs(string expectedText)
+        {
+            var real = objectivesPage.Header;
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                real.ToLower() == expectedText.ToLower(),
+                "Text should be set acording to localization, real is " + real);
+        }
+
         [Then(@"objectives tiles list contains items with data")]
         public void ThenObjectivesTilesListContainsItemsWithData(Table table)
         {
@@ -51,21 +60,21 @@ namespace easygenerator.AcceptanceTests.Steps
             var realObjectives = objectivesPage.Items.Select(obj => obj.Title).ToArray();
             TestUtils.Assert_IsTrue_WithWait(() =>
                 TestUtils.AreCollectionsEqual(expectedObjectives, realObjectives),
-                "Order of objectives should be the same",realObjectives);
+                "Order of objectives should be the same", realObjectives);
         }
 
         [Then(@"objectives list order switch is set to '(.*)'")]
         public void ThenObjectivesListOrderSwitchIsSetTo(string orderString)
         {
             TestUtils.Assert_IsTrue_WithWait(() =>
-                GherkinConstants.OrderWay[orderString] == objectivesPage.Order,
+                Constants.OrderWay[orderString] == objectivesPage.Order,
                 "Incorrect objectives order switch state");
         }
 
         [When(@"I switch objectives list order to '(.*)'")]
         public void WhenISwitchObjectivesListOrderTo(string orderString)
         {
-            var expectedOrder = GherkinConstants.OrderWay[orderString];
+            var expectedOrder = Constants.OrderWay[orderString];
             if (objectivesPage.Order != expectedOrder)
                 objectivesPage.Order = expectedOrder;
         }

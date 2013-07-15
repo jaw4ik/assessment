@@ -92,7 +92,7 @@
     <Compile Include="Helpers\DataSetter.cs" />
     <Compile Include="Helpers\DriverExtensions.cs" />
     <Compile Include="Helpers\DriverProvider.cs" />
-    <Compile Include="Helpers\GherkinConstants.cs" />
+    <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\TestUtils.cs" />
     <Compile Include="LinkingModels\ILinkingModel.cs" />
     <Compile Include="ElementObjects\BasePageElement.cs" />
@@ -130,6 +130,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ListOfQuestions.feature</DependentUpon>
     </Compile>
+    <Compile Include="Tests\Localization.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Localization.feature</DependentUpon>
+    </Compile>
     <Compile Include="Tests\Question.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -137,7 +142,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Tests\Errors.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -154,6 +161,10 @@
     <None Include="Tests\ListOfQuestions.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ListOfQuestions.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Tests\Localization.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Localization.feature.cs</LastGenOutput>
     </None>
     <None Include="Tests\Question.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

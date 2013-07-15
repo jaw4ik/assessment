@@ -111,10 +111,10 @@ testRunner.Then("objectives tiles list contains items with data", ((string)(null
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Special symbols in objective name")]
-        public virtual void SpecialSymbolsInObjectiveName()
+        [NUnit.Framework.DescriptionAttribute("Objectives list item name could contain special symbols")]
+        public virtual void ObjectivesListItemNameCouldContainSpecialSymbols()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Special symbols in objective name", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Objectives list item name could contain special symbols", ((string[])(null)));
 #line 20
 this.ScenarioSetup(scenarioInfo);
 #line 5
@@ -123,14 +123,14 @@ this.FeatureBackground();
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table3.AddRow(new string[] {
-                        "~`!@#$%^&*()_+-={[]}:;\"\\\'|\\\\<,.>/?№ё"});
+                        "~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё"});
 #line 21
 testRunner.Given("objectives are present in database", ((string)(null)), table3, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table4.AddRow(new string[] {
-                        "~`!@#$%^&*()_+-={[]}:;\\\"\'|\\<,.>/?№ё"});
+                        "~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё"});
 #line 24
 testRunner.Then("objectives tiles list contains items with data", ((string)(null)), table4, "Then ");
 #line hidden

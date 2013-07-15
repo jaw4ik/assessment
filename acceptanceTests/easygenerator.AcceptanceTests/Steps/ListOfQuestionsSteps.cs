@@ -58,14 +58,14 @@ namespace easygenerator.AcceptanceTests.Steps
         public void ThenQuestionsListOrderSwitchIsSetTo(string orderString)
         {
             TestUtils.Assert_IsTrue_WithWait(() =>
-                GherkinConstants.OrderWay[orderString] == questionListPage.Order,
+                Constants.OrderWay[orderString] == questionListPage.Order,
                 "Question list switch is in incorrect state");
         }
 
         [When(@"I switch questions list order to '(.*)'")]
         public void WhenISwitchQuestionsListOrderTo(string orderString)
         {
-            var expectedOrder = GherkinConstants.OrderWay[orderString];
+            var expectedOrder = Constants.OrderWay[orderString];
             if (questionListPage.Order != expectedOrder)
                 questionListPage.Order = expectedOrder;
         }

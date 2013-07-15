@@ -22,6 +22,15 @@ Then questions list contains items with data
 | Question2 |
 | Question3 |
 
+Scenario: Questions list item name could contain special symbols
+Given questions related to 'Objective1' are present in database
+| Title      |
+| ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
+When select objective list item with title 'Objective1'
+Then questions list contains items with data  
+| Title                                |
+| ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
+
 Scenario: Only questions related to selected objective should be present in list
 Given questions related to 'Objective1' are present in database
 | Title      |

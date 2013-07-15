@@ -31,7 +31,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             get
             {
                 var isAscEnabled = GetByXPath(model.SortingByTitleAsc).CssContains(model.IsTitelSortingActiveClass);
-                var isDescEnabled = GetByXPath(model.SortingByTitleDesc).CssContains( model.IsTitelSortingActiveClass);
+                var isDescEnabled = GetByXPath(model.SortingByTitleDesc).CssContains(model.IsTitelSortingActiveClass);
                 if (isAscEnabled == isDescEnabled)
                     throw new InvalidOperationException("Both order buttons are in same state");
                 return isAscEnabled ? Order.Ascending : Order.Descending;
@@ -66,5 +66,13 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             link.Click();
         }
 
+
+        public string Header
+        {
+            get
+            {
+                return GetByXPath(model.Header).Text;
+            }
+        }
     }
 }
