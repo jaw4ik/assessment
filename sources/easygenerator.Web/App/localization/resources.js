@@ -64,6 +64,11 @@
         nl: 'Leerdoelen',
         de: 'Lernziele'
     },
+    learningObjective: {
+        en: 'Learning objective',
+        nl: 'Learning objective[nl]',
+        de: 'Learning objective[de]'
+    },
     /* End resource section for model Objectives */
     
     /* Resource section for model Objective */
@@ -79,6 +84,11 @@
         en: 'Experiences',
         nl: 'Ervaringen',
         de: 'Erfahrungen'
+    },
+    experience: {
+        en: 'Experience',
+        nl: 'Experience[nl]',
+        de: 'Experience[de]'
     },
     /* End resource section for model Experiences */
     
@@ -164,8 +174,8 @@
     /* Resource section for model Questions */
     edit: {
         en: 'Edit',
-        nl: 'Bewerken',
-        de: 'Bearbeiten'
+        nl: 'Edit[nl]',
+        de: 'Edit[de]'
     },
     relatedQuestions: {
         en: 'Related questions',
