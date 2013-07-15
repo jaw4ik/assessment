@@ -69,16 +69,6 @@ a.nav-control:hover {
     padding: 15px;
 }
 
-.white-lining {
-    height: 100%;
-    border: 4px solid #FFFFFF;
-    border-radius: 4px;
-    -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
-    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
-    filter: progid:DXImageTransform.Microsoft.shadow(direction=120, color=#9d9d9d, strength=3);
-}
-
 .questions-header {
     height: 100px;
     width: 100%;

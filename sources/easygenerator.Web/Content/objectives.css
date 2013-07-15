@@ -106,7 +106,7 @@
 .objectives-header-sort-container,
 .experiences-header-sort-container {
     float: right;
-    margin-top: -10px;
+    margin-top: -20px;
 }
 
 .objectives-sort-by-title-asc, .objectives-sort-by-title-desc,
@@ -138,7 +138,7 @@
 }
 
 
-.objectives-content,
+.objectives-content-wrapper,
 .experiences-content {
     position: absolute;
     top: 170px;
@@ -146,9 +146,10 @@
     width: 100%;
 }
 
-.objectives-content-wrapper,
+.objectives-content,
 .experiences-content-wrapper {
     height: 100%;
+    padding-top: 8px;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -159,7 +160,6 @@
     max-width: 1200px;
 }
 
-
 .objectives-list,
 .experiences-list {
     margin: 0;
@@ -167,71 +167,41 @@
 
 .objective-brief,
 .experience-brief {
+    width: 360px;
     position: relative;
     float: left;
     margin: 0 20px 40px;
-    width: 360px;
-    height: 210px;
-    background: url('images/obj_ex_bg_sprite.png') no-repeat top left;
 }
 
 .objective-brief {
-    background-position: 0 -440px;
+    height: 230px;
 }
-
-
-.objective-brief-selected {
-    background-position: 0 -660px;
-}
-
 
 .experience-brief {
-    background-position: 0 0;
+    height: 243px;
 }
 
-
+.objective-brief-selected,
 .experience-brief-selected {
-    background-position: 0 -220px;
+    -webkit-box-shadow: 0 0 7px 2px #6bb4d8;
+    -moz-box-shadow: 0 0 7px 2px #6bb4d8;
+    box-shadow: 0 0 7px 2px #6bb4d8;
 }
-
 
 .objective-brief-image,
 .experience-brief-image {
-    position: absolute;
-    top: 4px;
-}
-
-.objective-brief-image {
-    bottom: 8px;
-    left: 6px;
-    width: 348px;
-    height: 198px;
-}
-
-.experience-brief-image {
-    right: 5px;
-    left: 5px;
-    width: 350px;
-    height: 187px;
+    width: 352px;
+    height: 182px;
+    vertical-align: top;
 }
 
 .objective-brief-options,
 .experience-brief-options {
+    height: 182px;
+    width: 352px;
     position: absolute;
-    top: 4px;
-    display: block;
-}
-
-.objective-brief-options {
-    right: 6px;
-    bottom: 48px;
-    left: 6px;
-}
-
-.experience-brief-options {
-    right: 5px;
-    bottom: 59px;
-    left: 5px;
+    top: 0;
+    left: 0;
 }
 
 .objective-brief:hover .objective-brief-options,
@@ -241,20 +211,13 @@
 
 .objective-brief-options-select, .objective-brief-options-open,
 .experience-brief-options-select, .experience-brief-options-open {
+    height: 182px;
+    width: 50%;
     float: left;
-    padding-top: 40px;
-    width: 172px;
+    padding-top: 51px;
     color: #cecece;
     text-align: center;
     font-size: 18px;
-}
-
-.objective-brief-options-select, .objective-brief-options-open {
-    height: 158px;
-}
-
-.experience-brief-options-select, .experience-brief-options-open {
-    height: 147px;
 }
 
     .objective-brief-options-select:hover, .objective-brief-options-open:hover,
@@ -266,18 +229,13 @@
 
 .objective-brief-options-separator,
 .experience-brief-options-separator {
-    float: left;
+    height: 140px;
+    position: absolute;
+    left: 50%;
     margin: 20px 0;
+    margin-left: -2px;
     width: 4px;
     background-color: #7E7D7B;
-}
-
-.objective-brief-options-separator {
-    height: 120px;
-}
-
-.experience-brief-options-separator {
-    height: 107px;
 }
 
 .objective-brief-options-select-image,
@@ -323,8 +281,16 @@
     border-right: 1px solid #E3E3E3;
     color: #333333;
     font-size: 12px;
-    line-height: 20px;
+    line-height: 40px;
 }
+
+    .objective-brief-title > span,
+    .experience-brief-title > span {
+        display: inline-block;
+        line-height: 1;
+        vertical-align: middle;
+        word-break: break-all;
+    }
 
 .experience-brief-title {
     width: 323px;
@@ -332,23 +298,9 @@
 
 .objective-brief-toolbar,
 .experience-brief-toolbar {
-    position: absolute;
+    height: 40px;
     border: 1px solid #E3E3E3;
     background: #fff;
-}
-
-.objective-brief-toolbar {
-    top: 162px;
-    right: 6px;
-    bottom: 8px;
-    left: 6px;
-}
-
-.experience-brief-toolbar {
-    top: 151px;
-    right: 5px;
-    bottom: 19px;
-    left: 5px;
 }
 
 .objective-brief-toolbar-icon-question {
@@ -376,6 +328,26 @@
     font-size: 12px;
     font-family: Arial,sans-serif;
     line-height: 12px;
+}
+
+.substrate-block,
+.substrate-inner {
+    display: block;
+    height: 13px;
+    width: 360px;
+    background-color: #ffffff;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 1px 0 3px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 1px 0 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 1px 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.substrate-inner {
+    position: relative;
+    bottom: 3px;
+    overflow-x: hidden;
 }
 
 @media (max-width: 1219px) {

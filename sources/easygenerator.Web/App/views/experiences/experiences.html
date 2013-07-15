@@ -28,39 +28,49 @@
     <div class="experiences-content">
         <div class="experiences-content-wrapper">
             <div class="experiences-list-wrapper">
-                <ul class="unstyled experiences-list">
+                <ul class="unstyled experiences-list clearfix">
                     <!-- ko foreach: experiences -->
                     <li class="experience-brief" data-bind="css: { 'experience-brief-selected': isSelected() }">
-                        <img class="experience-brief-image" src="Content/images/experience.png" alt="" />
-                        <div class="experience-brief-toolbar">
-                            <div class="experience-brief-title">
-                                <span data-bind="text: title"></span>
+                        <div class="white-framing">
+                            <div>
+                                <img class="experience-brief-image" src="Content/images/experience.png" alt="" />
                             </div>
-                            <div class="experience-brief-toolbar-objective-count">
-                                <span class="experience-brief-toolbar-icon-objective"></span>
-                                <div data-bind="text: objectives.length"></div>
+                            <div class="experience-brief-toolbar">
+                                <div class="experience-brief-title">
+                                    <span data-bind="text: title"></span>
+                                </div>
+                                <div class="experience-brief-toolbar-objective-count">
+                                    <span class="experience-brief-toolbar-icon-objective"></span>
+                                    <div data-bind="text: objectives.length"></div>
+                                </div>
+                            </div>
+                            <div class="experience-brief-options">
+                                <div class="experience-brief-options-select" data-bind="click: $parent.toggleSelection">
+                                    <!-- ko if: isSelected -->
+                                    <div data-bind="localize: { text: 'unselect' }">Unselect</div>
+                                    <!-- /ko-->
+                                    <!-- ko ifnot: isSelected -->
+                                    <div data-bind="localize: { text: 'select' }">Select</div>
+                                    <!-- /ko-->
+                                    <div class="experience-brief-options-select-image" data-bind="css: { selected: isSelected() }"></div>
+                                </div>
+                                <div class="experience-brief-options-separator"></div>
+                                <div class="experience-brief-options-open" data-bind="click: $parent.navigateToDetails">
+                                    <div data-bind="localize: { text: 'open' }">Open</div>
+                                    <div class="experience-brief-options-open-image"></div>
+                                </div>
                             </div>
                         </div>
-                        <div class="experience-brief-options">
-                            <div class="experience-brief-options-select" data-bind="click: $parent.toggleSelection">
-                                <!-- ko if: isSelected -->
-                                <div data-bind="localize: { text: 'unselect' }">Unselect</div>
-                                <!-- /ko-->
-                                <!-- ko ifnot: isSelected -->
-                                <div data-bind="localize: { text: 'select' }">Select</div>
-                                <!-- /ko-->
-                                <div class="experience-brief-options-select-image" data-bind="css: { selected: isSelected() }"></div>
-                            </div>
-                            <div class="experience-brief-options-separator"></div>
-                            <div class="experience-brief-options-open" data-bind="click: $parent.navigateToDetails">
-                                <div data-bind="localize: { text: 'open' }">Open</div>
-                                <div class="experience-brief-options-open-image"></div>
-                            </div>
-                        </div>
+                        <span class="substrate-block">
+                            <span class="substrate-inner">
+                                <span class="substrate-inner">
+                                    <span class="substrate-inner"></span>        
+                                </span>
+                            </span>
+                        </span>
                     </li>
                     <!-- /ko -->
                 </ul>
-                <div class="clearfix"></div>
             </div>
         </div>
     </div>
