@@ -141,13 +141,13 @@
     /* Resource section for model Question */
     previous: {
         en: 'Previous',
-        nl: 'Previous[nl]',
-        de: 'Previous[de]'
+        nl: 'Vorige',
+        de: 'Zurück'
     },
     next: {
         en: 'Next',
-        nl: 'Next[nl]',
-        de: 'Next[de]'
+        nl: 'Volgende',
+        de: 'Nächstes'
     },
     emptyAnswerOptions: {
         en: 'The answer options list is empty',
@@ -174,8 +174,8 @@
     /* Resource section for model Questions */
     edit: {
         en: 'Edit',
-        nl: 'Edit[nl]',
-        de: 'Edit[de]'
+        nl: 'Bewerken',
+        de: 'Bearbeiten'
     },
     relatedQuestions: {
         en: 'Related questions',
