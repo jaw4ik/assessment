@@ -98,7 +98,7 @@
 
 .objectives-header-sort-label, .objectives-sort-by-title-asc, .objectives-sort-by-title-desc,
 .experiences-header-sort-label, .experiences-sort-by-title-asc, .experiences-sort-by-title-desc {
-    color: #acacac;
+    color: #666;
     font-size: 12px;
     font-family: Arial, sans-serif;
 }
@@ -115,19 +115,27 @@
     margin-left: 5px;
     padding: 1px 5px;
     border: 1px solid #acacac;
-    opacity: 0.7;
 }
 
     .objectives-sort-by-title-asc:hover, .objectives-sort-by-title-desc:hover,
     .experiences-sort-by-title-asc:hover, .experiences-sort-by-title-desc:hover {
-        opacity: 1;
         cursor: pointer;
+        -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.3) inset;
+        -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.3) inset;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.3) inset;
+    }
+
+    .active.objectives-sort-by-title-asc:hover, .active.objectives-sort-by-title-desc:hover,
+    .active.experiences-sort-by-title-asc:hover, .active.experiences-sort-by-title-desc:hover {
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
     }
 
     .objectives-sort-by-title-asc.active, .objectives-sort-by-title-desc.active,
     .experiences-sort-by-title-asc.active, .experiences-sort-by-title-desc.active {
-        border-color: #777777;
-        color: #777777;
+        border-color: black;
+        color: #666;
         opacity: 1;
     }
 
