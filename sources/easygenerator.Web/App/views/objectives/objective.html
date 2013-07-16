@@ -19,21 +19,21 @@
         </div>
     </div>
     <div class="questions-header">
-        <div class="objectives-header-title">
-            <a class="objectives-header-create-link" href="#" data-bind="click: navigateToCreation"></a>
+        <div class="questions-header-title">
+            <a class="questions-header-create-link" href="#" data-bind="click: navigateToCreation"></a>
             <span data-bind="localize: { text: 'relatedQuestions' }"></span>
             <hr />
         </div>
-        <div class="objectives-header-sort-label">
+        <div class="questions-header-sort-label">
             <span data-bind="localize: { text: 'sortBy' }">Sort by</span>
         </div>
-        <div class="objectives-header-sort-container">
-            <div class="objectives-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }">
+        <div class="questions-header-sort-container">
+            <div class="questions-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }">
                 <span data-bind="localize: { text: 'firstLetter' }"></span>
                 &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
                 <span data-bind="localize: { text: 'lastLetter' }"></span>
             </div>
-            <div class="objectives-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }">
+            <div class="questions-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }">
                 <span data-bind="localize: { text: 'lastLetter' }"></span>
                 &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
                 <span data-bind="localize: { text: 'firstLetter' }"></span>
