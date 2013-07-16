@@ -44,8 +44,8 @@ Given questions related to 'Objective2' are present in database
 | Question21 |
 | Question22 |
 | Question23 |
-When mouse hover element of objectives list with title 'Objective1'
-And click open objective list item with title 'Objective1'
+When mouse hover element of objectives list with title 'Objective2'
+And click open objective list item with title 'Objective2'
 Then questions list consists of ordered items
 | Title      |
 | Question21 |
@@ -172,7 +172,7 @@ Given questions related to 'Objective1' are present in database
 | Question14 |
 When mouse hover element of objectives list with title 'Objective1'
 And click open objective list item with title 'Objective1'
-And browser window width and height is set to 400 and 300
+And browser window width and height is set to 640 and 300
 And scroll questions list item with title 'Question14' into the view
 Then element with title 'Question14' of questions list is visible
 
