@@ -46,7 +46,8 @@
             },
 
             activate = function (routeData) {
-                
+                currentSortingOption(constants.sortingOptions.byTitleAsc);
+
                 if (_.isEmpty(routeData) || _.isEmpty(routeData.id)) {
                     router.navigateTo('400');
                     return;
