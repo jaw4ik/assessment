@@ -3,7 +3,7 @@
         "use strict";
 
         var
-            defaultCulture = window.navigator.userLanguage || window.navigator.language,
+            defaultCulture = window.top.egLanguage || window.navigator.userLanguage || window.navigator.language,
 
             currentLanguage = ko.observable(defaultCulture),
 
