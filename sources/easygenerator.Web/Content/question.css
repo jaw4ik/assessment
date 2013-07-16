@@ -164,15 +164,20 @@
         border-radius: 250px / 10px;
     }
 
-a.nav-element {
+.nav-element {
+    text-decoration: none;
     opacity: 0.6;
     filter: alpha(opacity=60);
 }
 
-    a.nav-element:hover {
-        text-decoration: none;
+    .nav-element:hover {
         opacity: 1;
         filter: alpha(opacity=100);
+    }
+
+    .nav-element.disabled {
+        opacity: 0.2;
+        filter: alpha(opacity=20);
     }
 
 .prev-btn {
