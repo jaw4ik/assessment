@@ -64,8 +64,8 @@ When mouse hover element of objectives list with title 'Objective1'
 And click open objective list item with title 'Objective1'
 Then questions list consists of ordered items
 | Title      |
-| _Question  |
-| 1_Question |
+| 1_Question  |
+| _Question |
 | a_Question |
 | Question_a |
 | Question_z |
@@ -89,8 +89,8 @@ Then questions list consists of ordered items
 | Question_z |
 | Question_a |
 | a_Question |
-| 1_Question |
-| _Question  |
+| _Question |
+| 1_Question  |
 And questions list order switch is set to 'descending'
 
 Scenario: Questions are sorted by title ascending if set ascending order
@@ -107,8 +107,8 @@ And I switch questions list order to 'descending'
 And I switch questions list order to 'ascending'
 Then questions list consists of ordered items
 | Title      |
-| _Question  |
-| 1_Question |
+| 1_Question  |
+| _Question |
 | a_Question |
 | Question_a |
 | Question_z |
@@ -221,4 +221,4 @@ Given questions related to 'Objective1' are present in database
 When mouse hover element of objectives list with title 'Objective1'
 And click open objective list item with title 'Objective1'
 And click on back from questions list
-Then browser navigates to url 'http://localhost:5656/#/'
+Then browser navigates to url 'http://localhost:5656/#/objectives'

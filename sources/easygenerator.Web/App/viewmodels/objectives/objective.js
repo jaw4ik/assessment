@@ -25,12 +25,12 @@
             sortByTitleAsc = function() {
                 sendEvent(events.sortByTitleAsc);
                 currentSortingOption(constants.sortingOptions.byTitleAsc);
-                questions(_.sortBy(questions(), function (question) { return question.title; }));
+                questions(_.sortBy(questions(), function (question) { return question.title.toLowerCase(); }));
             },
             sortByTitleDesc = function () {
                 sendEvent(events.sortByTitleDesc);
                 currentSortingOption(constants.sortingOptions.byTitleDesc);
-                questions(_.sortBy(questions(), function (question) { return question.title; }).reverse());
+                questions(_.sortBy(questions(), function (question) { return question.title.toLowerCase(); }).reverse());
             },
             navigateToObjectives = function () {
                 sendEvent(events.navigateToObjectives);

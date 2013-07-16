@@ -239,9 +239,9 @@ testRunner.And("click open objective list item with title \'Objective1\'", ((str
             TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table10.AddRow(new string[] {
-                        "_Question"});
-            table10.AddRow(new string[] {
                         "1_Question"});
+            table10.AddRow(new string[] {
+                        "_Question"});
             table10.AddRow(new string[] {
                         "a_Question"});
             table10.AddRow(new string[] {
@@ -298,9 +298,9 @@ testRunner.And("I switch questions list order to \'descending\'", ((string)(null
             table12.AddRow(new string[] {
                         "a_Question"});
             table12.AddRow(new string[] {
-                        "1_Question"});
-            table12.AddRow(new string[] {
                         "_Question"});
+            table12.AddRow(new string[] {
+                        "1_Question"});
 #line 87
 testRunner.Then("questions list consists of ordered items", ((string)(null)), table12, "Then ");
 #line 94
@@ -345,9 +345,9 @@ testRunner.And("I switch questions list order to \'ascending\'", ((string)(null)
             TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table14.AddRow(new string[] {
-                        "_Question"});
-            table14.AddRow(new string[] {
                         "1_Question"});
+            table14.AddRow(new string[] {
+                        "_Question"});
             table14.AddRow(new string[] {
                         "a_Question"});
             table14.AddRow(new string[] {
@@ -658,7 +658,7 @@ testRunner.And("click open objective list item with title \'Objective1\'", ((str
 #line 223
 testRunner.And("click on back from questions list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 224
-testRunner.Then("browser navigates to url \'http://localhost:5656/#/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("browser navigates to url \'http://localhost:5656/#/objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
