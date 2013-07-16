@@ -1,7 +1,4 @@
 ﻿@using System.Web.Optimization
-@{
-    ViewBag.Title = "easygenerator | Home";
-}
 <!DOCTYPE html>
 <html class="no-js">
 <head>
@@ -9,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=640,minimum-scale=0.5,maximum-scale=1.0">
     <meta name="description" content="">
-    <title>@ViewBag.Title</title>
+    <title>easygenerator</title>
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/scripts/modernizr")
@@ -46,7 +43,7 @@
 
     @if (Request.UserLanguages != null && Request.UserLanguages.Length > 0)
     {
-        <script type="text/ecmascript">
+        <script type="text/javascript">
             window.top.egLanguage = "@Request.UserLanguages[0]";
         </script>
     }

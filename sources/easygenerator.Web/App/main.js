@@ -25,7 +25,9 @@ define(function (require) {
     //>>excludeStart("build", true);
     system.debug(true);
     //>>excludeEnd("build");
-
+    
+    app.title = "easygenerator";
+    
     app.start().then(function () {
 
         // route will use conventions for modules

@@ -1,5 +1,5 @@
-﻿define([],
-    function () {
+﻿define(['localization/localizationManager'],
+    function (localizationManager) {
 
         return [
             {
@@ -12,7 +12,7 @@
                 url: 'objectives',
                 moduleId: 'viewmodels/objectives/objectives',
                 name: 'Objectives',
-                caption: 'Objectives'
+                caption: localizationManager.localize('learningObjectives')
             },
             {
                 url: 'objective/create',
@@ -48,7 +48,7 @@
                 url: 'experiences',
                 moduleId: 'viewmodels/experiences/experiences',
                 name: 'Experiences',
-                caption: 'Experiences'
+                caption: localizationManager.localize('experiences')
             },
             {
                 url: 'experience/:id',
