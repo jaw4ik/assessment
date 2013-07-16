@@ -46,7 +46,6 @@
             },
 
             activate = function (routeData) {
-                currentSortingOption(constants.sortingOptions.byTitleAsc);
 
                 if (_.isEmpty(routeData) || _.isEmpty(routeData.id)) {
                     router.navigateTo('400');
@@ -65,7 +64,8 @@
                 objectiveId = routeData.id;
                 title(objective.title);
                 image(objective.image);
-
+                
+                currentSortingOption(constants.sortingOptions.byTitleAsc);
                 var array = _.chain(objective.questions)
                                 .map(function (item) {
                                     return {
@@ -78,9 +78,8 @@
                                         }
                                     };
                                 })
-                                .sortBy(function (question) { return question.title; })
+                                .sortBy(function (question) { return question.title.toLowerCase(); })
                                 .value();
-                currentSortingOption(constants.sortingOptions.byTitleAsc);
                 questions(array);
             };
         
