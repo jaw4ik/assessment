@@ -59,13 +59,13 @@ a.nav-control:hover {
 }
 
 .objective-image {
-    height: 202px;
-    width: 353px;
+    height: 158px;
+    width: 270px;
     vertical-align: top;
 }
 
 .objective-info {
-    margin-left: 365px;
+    margin-left: 275px;
     padding: 15px;
 }
 
@@ -73,7 +73,7 @@ a.nav-control:hover {
     height: 100px;
     width: 100%;
     position: absolute;
-    top: 300px;
+    top: 255px;
     text-transform: uppercase;
 }
 
@@ -81,7 +81,7 @@ a.nav-control:hover {
     width: 100%;
     min-height: 218px;
     position: absolute;
-    top: 400px;
+    top: 335px;
     bottom: 10px;
     padding: 9px 16px;
     border: 1px solid #e1e1e1;
