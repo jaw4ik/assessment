@@ -102,6 +102,7 @@ a.nav-control:hover {
     margin-top: -1px;
     border-top: 1px solid #e1e1e1;
     background-color: #ffffff;
+    cursor: default;
 }
 
     .questions-list-item.selected {
