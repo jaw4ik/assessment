@@ -12,25 +12,14 @@ namespace easygenerator.AcceptanceTests.Helpers.DriverInitializators
 {
     public class ChromeInitializer : DriverInitializer
     {
+        string preferencesPath;
         ChromeOptions opt = new ChromeOptions();
         public ChromeInitializer()
         {
-            opt.AddArgument(@"user-data-dir=" + Environment.CurrentDirectory + "\\ChromeData");
             var chromeDirectory = Path.Combine(Environment.CurrentDirectory, "ChromeData");
-            var defDirectory = Path.Combine(chromeDirectory, "Default");
-            var filePath = Path.Combine(defDirectory, "Preferences");
-            if (!Directory.Exists(chromeDirectory))
-                Directory.CreateDirectory(chromeDirectory);
-            if (!Directory.Exists(defDirectory))
-                Directory.CreateDirectory(defDirectory);
-            if (!File.Exists(filePath))
-            {
-                using (var stream = File.CreateText(filePath))
-                {
-                    stream.Write("{\"intl\": {\"accept_languages\": \"en\"}}");
-                    stream.Close();
-                }
-            }
+            preferencesPath = Path.Combine(chromeDirectory, "Default\\Preferences");
+            opt.AddArgument(@"user-data-dir=" + chromeDirectory);
+            opt.AddArgument("--lang=en");
         }
         public override void SetNoCashe()
         {
@@ -40,11 +29,14 @@ namespace easygenerator.AcceptanceTests.Helpers.DriverInitializators
 
         public override void SetCulture(EgLocalization[] culture)
         {
-            var cultureString = String.Join(",", culture.Select(c => localizationStringsIE[c]));
-            var path = Path.Combine(Environment.CurrentDirectory, "ChromeData\\Default\\Preferences");
-            var doc = JObject.Parse(File.ReadAllText(path));
-            doc["intl"]["accept_languages"] = cultureString;
-            File.WriteAllText(path, doc.ToString());
+            if (File.Exists(preferencesPath))
+            {
+                var cultureString = String.Join(",", culture.Select(c => localizationStringsIE[c]));
+                var doc = JObject.Parse(File.ReadAllText(preferencesPath));
+                if (doc["intl"] == null) doc.Add("intl", JToken.Parse("{\"accept_languages\":\"\"}"));
+                doc["intl"]["accept_languages"] = cultureString;
+                File.WriteAllText(preferencesPath, doc.ToString());
+            }
         }
 
         public override RemoteWebDriver InitDriver()
