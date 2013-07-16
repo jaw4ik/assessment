@@ -170,6 +170,7 @@ a.nav-control:hover {
     width: 49%;
     float: left;
     padding: 13px 0;
+    cursor: pointer;
 }
 
     .question-select .action-img,
