@@ -20,7 +20,7 @@ namespace easygenerator.AcceptanceTests.Tests
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("Localization")]
-    [NUnit.Framework.CategoryAttribute("Localization_Test")]
+    [NUnit.Framework.CategoryAttribute("Localization")]
     public partial class LocalizationFeature
     {
         
@@ -34,7 +34,7 @@ namespace easygenerator.AcceptanceTests.Tests
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Localization", "", ProgrammingLanguage.CSharp, new string[] {
-                        "Localization_Test"});
+                        "Localization"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -68,19 +68,54 @@ namespace easygenerator.AcceptanceTests.Tests
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Localization of browser should be applied to course by default")]
-        [NUnit.Framework.TestCaseAttribute("Nl", "Leerdoelen", null)]
-        [NUnit.Framework.TestCaseAttribute("En", "Learning objectives", null)]
-        [NUnit.Framework.TestCaseAttribute("De", "Lernziele", null)]
+        [NUnit.Framework.CategoryAttribute("Localization_Test")]
+        [NUnit.Framework.TestCaseAttribute("Nl", "Leerdoel", null)]
+        [NUnit.Framework.TestCaseAttribute("nlNl", "Leerdoel", null)]
+        [NUnit.Framework.TestCaseAttribute("nlBe", "Learning objective", null)]
+        [NUnit.Framework.TestCaseAttribute("En", "Learning objective", null)]
+        [NUnit.Framework.TestCaseAttribute("De", "Lernziel", null)]
+        [NUnit.Framework.TestCaseAttribute("deDe", "Lernziel", null)]
+        [NUnit.Framework.TestCaseAttribute("sl,deDe", "Lernziel", null)]
         public virtual void LocalizationOfBrowserShouldBeAppliedToCourseByDefault(string localization, string text, string[] exampleTags)
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Localization of browser should be applied to course by default", exampleTags);
-#line 4
-this.ScenarioSetup(scenarioInfo);
+            string[] @__tags = new string[] {
+                    "Localization_Test"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Localization of browser should be applied to course by default", @__tags);
 #line 5
- testRunner.Given(string.Format("browser localizatiom is set to \'{0}\'", localization), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 6
- testRunner.When("open page by url \'http://localhost:5656\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given(string.Format("browser localizatiom is set to \'{0}\'", localization), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 7
+ testRunner.When("open page by url \'http://localhost:5656\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 8
+ testRunner.Then(string.Format("objectives list page header text is \'{0}\'", text), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Localization is changed if change user settings")]
+        [NUnit.Framework.TestCaseAttribute("Netherlands", "Leerdoel", null)]
+        [NUnit.Framework.TestCaseAttribute("English", "Learning objective", null)]
+        [NUnit.Framework.TestCaseAttribute("German", "Lernziel", null)]
+        public virtual void LocalizationIsChangedIfChangeUserSettings(string language, string text, string[] exampleTags)
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Localization is changed if change user settings", exampleTags);
+#line 19
+this.ScenarioSetup(scenarioInfo);
+#line 20
+ testRunner.When("open page by url \'http://localhost:5656\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 21
+ testRunner.And("open user settings", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 22
+ testRunner.And(string.Format("select language \'{0}\' in user settings", language), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 23
+ testRunner.And("click save user settings", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 24
  testRunner.Then(string.Format("objectives list page header text is \'{0}\'", text), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

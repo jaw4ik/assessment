@@ -18,7 +18,8 @@ namespace easygenerator.AcceptanceTests.Steps
         [Given(@"browser localizatiom is set to '(.*)'")]
         public void GivenBrowserLocalizatiomIsSetTo(string localizationString)
         {
-            DriverProvider.Current().Localization =Constants.localizations[ localizationString];
+            var localizations = localizationString.Split(',').Select(str => Constants.localizations[str]).ToArray();
+            DriverProvider.Current().Localization = localizations;
         }
 
         [When(@"open page by url '(.*)'")]

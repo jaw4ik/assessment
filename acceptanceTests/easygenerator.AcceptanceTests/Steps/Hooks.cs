@@ -33,7 +33,7 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             if (!ScenarioContext.Current.ScenarioInfo.Tags.Contains("Localization_Test") &&
                 !FeatureContext.Current.FeatureInfo.Tags.Contains("Localization_Test"))
-                DriverProvider.Current().Localization = Localization.En;
+                DriverProvider.Current().Localization = new EgLocalization[] { EgLocalization.En };
         }
         [AfterScenario]
         public void AfterScenario()
