@@ -160,8 +160,8 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             questionListPage.ClickBackToObjectives();
         }
-        [When(@"scroll publications list item with title '(.*)' into the view")]
-        public void WhenScrollPublicationsListItemWithTitleIntoTheView(string title)
+        [When(@"scroll questions list item with title '(.*)' into the view")]
+        public void WhenScrollQuestionsListItemWithTitleIntoTheView(string title)
         {
             questionListPage.Items.First(it => it.Title == title).ScrollIntoView();
         }

@@ -9,7 +9,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 {
     public class QuestionsListLinkingModel : ILinkingModel
     {
-        public string Item = "";
+        public string Item = ".//li[contains(@class,'questions-list-item')]";
         public string OrderAsc = "//div[contains(@class,'questions-sort-by-title-asc')]";
         public string OrderDesc = "//div[contains(@class,'questions-sort-by-title-desc')]";
         public string ObjectivesTabLink = "//a[@href='#/publications']";

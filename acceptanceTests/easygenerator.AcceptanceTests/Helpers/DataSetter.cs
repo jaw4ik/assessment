@@ -32,7 +32,7 @@ namespace easygenerator.AcceptanceTests.Helpers
         {
             foreach (var quest in questions)
             {
-                if (quest.Id != null) quest.Id = "0";
+                if (quest.Id == null) quest.Id = "0";
                 ExcecuteTestScript("test.AddQuestionsToObjective('{0}','{1}','{2}')", objTitle, quest.Id, quest.Title);
             }
         }

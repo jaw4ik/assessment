@@ -9,7 +9,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 {
     public class QuestionListItemLinkingModel : ILinkingModel
     {
-        public string QuestionTitle = "";
+        public string QuestionTitle = ".//div[contains(@class,'question-title')]";
         public string EditButton = "";
         public string AddButton = "";
         public string OpenButton = "";
