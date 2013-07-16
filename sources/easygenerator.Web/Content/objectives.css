@@ -125,19 +125,20 @@
         box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.3) inset;
     }
 
-    .active.objectives-sort-by-title-asc:hover, .active.objectives-sort-by-title-desc:hover,
-    .active.experiences-sort-by-title-asc:hover, .active.experiences-sort-by-title-desc:hover {
-        -webkit-box-shadow: none;
-        -moz-box-shadow: none;
-        box-shadow: none;
-    }
+.active.objectives-sort-by-title-asc:hover, .active.objectives-sort-by-title-desc:hover,
+.active.experiences-sort-by-title-asc:hover, .active.experiences-sort-by-title-desc:hover {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    cursor: default;
+}
 
-    .objectives-sort-by-title-asc.active, .objectives-sort-by-title-desc.active,
-    .experiences-sort-by-title-asc.active, .experiences-sort-by-title-desc.active {
-        border-color: black;
-        color: #666;
-        opacity: 1;
-    }
+.objectives-sort-by-title-asc.active, .objectives-sort-by-title-desc.active,
+.experiences-sort-by-title-asc.active, .experiences-sort-by-title-desc.active {
+    border-color: black;
+    color: #666;
+    opacity: 1;
+}
 
 
 .objectives-navigation, .experiences-navigation,
@@ -179,6 +180,9 @@
     position: relative;
     float: left;
     margin: 0 20px 40px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
 }
 
 .objective-brief {
