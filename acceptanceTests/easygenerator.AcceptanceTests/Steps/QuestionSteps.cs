@@ -18,7 +18,7 @@ namespace easygenerator.AcceptanceTests.Steps
     }
     public class ExplanationData
     {
-        public string explanation { get; set; }
+        public string Explanation { get; set; }
     }
 
     [Binding]
@@ -41,21 +41,32 @@ namespace easygenerator.AcceptanceTests.Steps
         }
 
         [Given(@"explanations related to '(.*)' of '(.*)' are present in database")]
-        public void GivenExplanationsRelatedToOfArePresentInDatabase(string p0, string p1, Table table)
+        public void GivenExplanationsRelatedToOfArePresentInDatabase(string questionTitle, string objTitle, Table table)
         {
-            ScenarioContext.Current.Pending();
+            var explanations = table.CreateSet<ExplanationData>().ToArray();
+            var dataSetter = new DataSetter();
+            dataSetter.EmptyExplanationsOfQuestion(objTitle, questionTitle);
+            dataSetter.AddExplanationsToDatabase(objTitle, questionTitle, explanations);
         }
 
         [Then(@"answer options list contains only items with data")]
         public void ThenAnswerOptionsListContainsOnlyItemsWithData(Table table)
         {
-            ScenarioContext.Current.Pending();
+            var expectedAnswers = table.CreateSet<AnswerData>().Select(obj => obj.Text).ToArray();
+            var realAnswers = Question.AnswerItems.Select(obj => obj.Text).ToArray();
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                TestUtils.AreCollectionsTheSame(expectedAnswers, realAnswers),
+                "Not all expected answers on page", realAnswers);
         }
 
         [Then(@"explanations list contains only items with data")]
         public void ThenExplanationsListContainsOnlyItemsWithData(Table table)
         {
-            ScenarioContext.Current.Pending();
+            var expectedExplanations = table.CreateSet<ExplanationData>().Select(obj => obj.Explanation).ToArray();
+            var realExplanations = Question.ExplanationItems.Select(obj => obj.Explanation).ToArray();
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                TestUtils.AreCollectionsTheSame(expectedExplanations, realExplanations),
+                "Not all expected answers on page", realExplanations);
         }
 
         [When(@"navigate to '(.*)' of '(.*)'")]

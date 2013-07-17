@@ -45,18 +45,24 @@ namespace easygenerator.AcceptanceTests.Helpers
             }
         }
 
-        //public void AddExplanationsToDatabase(string objTitle, string questionTitle, AnswerData[] answers)
-        //{
-        //    foreach (var answer in answers)
-        //    {
-        //        if (String.IsNullOrEmpty(answer.Text)) answer.Text = "NoTitle";
-        //        ExcecuteTestScript("test.AddAnswerOptionsToQuestion('{0}','{1}','{2}',{3})", objTitle, questionTitle, answer.Text, answer.IsCorrect.ToString());
-        //    }
-        //}
+        public void AddExplanationsToDatabase(string objTitle, string questionTitle, ExplanationData[] explanations)
+        {
+            foreach (var expl in explanations)
+            {
+                if (String.IsNullOrEmpty(expl.ToString())) expl.Explanation = "NoTitle";
+                ExcecuteTestScript("test.AddExplanationsToQuestion('{0}','{1}','{2}')", objTitle, questionTitle, expl.Explanation);
+            }
+        }
 
         public void EmptyAnswerOptionsOfQuestion(string objTitle, string questionTitle)
         {
             ExcecuteTestScript("test.EmptyAnswerOptionsOfQuestion('{0}','{1}')", objTitle, questionTitle);
+            RebuildView();
+        }
+
+        public void EmptyExplanationsOfQuestion(string objTitle, string questionTitle)
+        {
+            ExcecuteTestScript("test.EmptyExplanationsOfQuestion('{0}','{1}')", objTitle, questionTitle);
             RebuildView();
         }
 

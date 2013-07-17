@@ -13,5 +13,68 @@ namespace easygenerator.AcceptanceTests.ElementObjects
     public class QuestionPage : BasePageElement<QuestionPageLinkingModel>
     {
         public QuestionPage() { }
+
+        public AnswerItem[] AnswerItems
+        {
+            get
+            {
+                var items = GetAllByXPath(model.AnswerItem);
+                return items.Select(it => new AnswerItem(it)).ToArray();
+            }
+        }
+
+        public ExplanationItem[] ExplanationItems
+        {
+            get
+            {
+                var items = GetAllByXPath(model.ExplanationItem);
+                return items.Select(it => new ExplanationItem(it)).ToArray();
+            }
+        }
+
     }
+
+    public class AnswerItem : ContainerElement<QuestionPageLinkingModel>
+    {
+
+        public AnswerItem(RemoteWebElement container)
+            : base(container) { }
+
+        public string Text
+        {
+            get
+            {
+                var el = GetByXPathInside(model.AnswerItemText);
+                return el.GetTextContent();
+            }
+        }
+
+        public bool IsCorrect
+        {
+            get
+            {
+                var el = GetByXPathInside(model.IsCorrect);
+                return el.FindElementsByXPath(model.CorrectItemClass).Count == 1;
+            }
+        }
+    }
+
+    public class ExplanationItem : ContainerElement<QuestionPageLinkingModel>
+    {
+
+        public ExplanationItem(RemoteWebElement container)
+            : base(container) { }
+
+        public string Explanation
+        {
+            get
+            {
+                var el = GetByXPathInside(model.ExplanationText);
+                return el.GetTextContent();
+            }
+        }
+
+    }
+
+
 }
