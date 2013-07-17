@@ -94,6 +94,25 @@ Then objective list item with title 'Objective2' is selected
 But objective list item with title 'Objective1' is not selected
 And objective list item with title 'Objective3' is not selected
 
+Scenario: Objective could be deselected
+Given objectives are present in database
+| Title      |
+| Objective1 |
+| Objective2 |
+| Objective3 |
+When mouse hover element of objectives list with title 'Objective1'
+And select objective list item with title 'Objective1'
+And mouse hover element of objectives list with title 'Objective2'
+And select objective list item with title 'Objective2'
+And mouse hover element of objectives list with title 'Objective3'
+And select objective list item with title 'Objective3'
+And mouse hover element of objectives list with title 'Objective1'
+And select objective list item with title 'Objective1'
+And mouse hover element of objectives list with title 'Objective2'
+And select objective list item with title 'Objective2'
+Then objective list item with title 'Objective1' is not selected
+But objective list item with title 'Objective2' is not selected
+And objective list item with title 'Objective3' is selected
 
 Scenario: No objectives are selected by default in objectives list
 Given objectives are present in database

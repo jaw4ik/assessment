@@ -101,6 +101,26 @@ Then publication list item with title 'Publication2' is selected
 But publication list item with title 'Publication1' is not selected
 And publication list item with title 'Publication3' is not selected
 
+Scenario: Publication could be deselected
+Given publications are present in database
+| Title        |
+| Publication1 |
+| Publication2 |
+| Publication3 |
+When click on tab publications link on objectives list page
+And mouse hover element of publications list with title 'Publication1'
+And select publication list item with title 'Publication1'
+And mouse hover element of publications list with title 'Publication2'
+And select publication list item with title 'Publication2'
+And mouse hover element of publications list with title 'Publication3'
+And select publication list item with title 'Publication3'
+And mouse hover element of publications list with title 'Publication1'
+And select publication list item with title 'Publication1'
+And mouse hover element of publications list with title 'Publication2'
+And select publication list item with title 'Publication2'
+Then publication list item with title 'Publication1' is not selected
+But publication list item with title 'Publication2' is not selected
+And publication list item with title 'Publication3' is selected
 
 Scenario: No publications are selected by default in publications list
 Given publications are present in database
