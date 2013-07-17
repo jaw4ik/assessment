@@ -38,7 +38,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         }
 
 
-        public bool AddEnabled { get { return GetByXPathInside(model.AddButton).IsVisible(); } }
+        public bool SelectEnabled { get { return GetByXPathInside(model.SelectElement).IsVisible(); } }
         public bool OpenEnabled { get { return GetByXPathInside(model.OpenButton).IsVisible(); } }
 
         public bool EditEnabled { get { return GetByXPathInside(model.EditButton).IsVisible(); } }
@@ -46,6 +46,10 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         internal void ClickEdit()
         {
             GetByXPathInside(model.EditButton).Click();
+        }
+        internal void ClickSelect()
+        {
+            GetByXPathInside(model.SelectElement).Click();
         }
     }
 }

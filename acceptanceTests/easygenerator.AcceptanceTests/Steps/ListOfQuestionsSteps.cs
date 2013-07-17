@@ -110,11 +110,11 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Question should not be selected");
         }
 
-        [Then(@"Action add content is enabled (.*) for questions list item with title '(.*)'")]
-        public void ThenActionAddContentIsEnabledTrueForQuestionsListItemWithTitle(bool isEnabled, string title)
+        [Then(@"Action select is enabled (.*) for questions list item with title '(.*)'")]
+        public void ThenActionSelectIsEnabledTrueForQuestionsListItemWithTitle(bool isEnabled, string title)
         {
             TestUtils.Assert_IsTrue_WithWait(() =>
-                questionListPage.Items.First(it => it.Title == title).AddEnabled,
+                questionListPage.Items.First(it => it.Title == title).SelectEnabled,
                 "Action add should be enabled");
         }
 
@@ -155,6 +155,11 @@ namespace easygenerator.AcceptanceTests.Steps
             TestUtils.Assert_IsTrue_WithWait(() =>
                 questionListPage.Items.First(it => it.Title == title).IsVisisble(),
                 "Element should be visible");
+        }
+        [When(@"click on select questions list item with title '(.*)'")]
+        public void WhenClickOnSelectQuestionsListItemWithTitle(string title)
+        {
+            questionListPage.Items.First(it => it.Title == title).ClickSelect();
         }
 
 

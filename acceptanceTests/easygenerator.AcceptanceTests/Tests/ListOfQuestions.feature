@@ -25,7 +25,7 @@ Then questions list contains items with data
 
 Scenario: Questions list item name could contain special symbols
 Given questions related to 'Objective1' are present in database
-| Title      |
+| Title                                |
 | ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
 When mouse hover element of objectives list with title 'Objective1'
 And click open objective list item with title 'Objective1'
@@ -64,8 +64,8 @@ When mouse hover element of objectives list with title 'Objective1'
 And click open objective list item with title 'Objective1'
 Then questions list consists of ordered items
 | Title      |
-| 1_Question  |
-| _Question |
+| 1_Question |
+| _Question  |
 | a_Question |
 | Question_a |
 | Question_z |
@@ -89,8 +89,8 @@ Then questions list consists of ordered items
 | Question_z |
 | Question_a |
 | a_Question |
-| _Question |
-| 1_Question  |
+| _Question  |
+| 1_Question |
 And questions list order switch is set to 'descending'
 
 Scenario: Questions are sorted by title ascending if set ascending order
@@ -107,8 +107,8 @@ And I switch questions list order to 'descending'
 And I switch questions list order to 'ascending'
 Then questions list consists of ordered items
 | Title      |
-| 1_Question  |
-| _Question |
+| 1_Question |
+| _Question  |
 | a_Question |
 | Question_a |
 | Question_z |
@@ -149,18 +149,33 @@ And browser window width and height is set to 640 and 300
 And scroll questions list item with title 'Question14' into the view
 Then element with title 'Question14' of questions list is visible
 
-Scenario: Actions add content and edit are enabled if hover item of questions list
+Scenario: Actions select and edit are enabled if hover item of questions list
 Given questions related to 'Objective1' are present in database
-| Title      |
+| Title     |
 | Question1 |
 | Question2 |
 | Question3 |
 When mouse hover element of objectives list with title 'Objective1'
 And click open objective list item with title 'Objective1'
 And mouse hover element of questions list with title 'Question2'
-Then Action add content is enabled true for questions list item with title 'Question2'
+Then Action select is enabled true for questions list item with title 'Question2'
 And Action edit is enabled true for questions list item with title 'Question2'
 
+Scenario: Selected question should remain selected
+Given questions related to 'Objective1' are present in database
+| Title     |
+| Question1 |
+| Question2 |
+| Question3 |
+When mouse hover element of objectives list with title 'Objective1'
+And click open objective list item with title 'Objective1'
+And mouse hover element of questions list with title 'Question1'
+And click on select questions list item with title 'Question1'
+And mouse hover element of questions list with title 'Question3'
+And click on select questions list item with title 'Question3'
+Then questions list item with title 'Question1' is selected
+And questions list item with title 'Question3' is selected
+But questions list item with title 'Question2' is not selected
 
 Scenario: Edit question action of questions list navigates to question's editing page 
 Given questions related to 'Objective1' are present in database
