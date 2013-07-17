@@ -11,6 +11,7 @@ namespace easygenerator.Web.Configuration
         public static void Configure()
         {
             var bundles = BundleTable.Bundles;
+            bundles.IgnoreList.Clear();
 
             bundles.Add(new ScriptBundle("~/scripts/modernizr")
                             .Include("~/scripts/modernizr-{version}.js"));
@@ -18,7 +19,7 @@ namespace easygenerator.Web.Configuration
             bundles.Add(new ScriptBundle("~/scripts/vendor")
                             .Include("~/scripts/jquery-{version}.js")
                             .Include("~/scripts/knockout-{version}.js")
-                            .Include("~/scripts/knockout.validation.js")
+                            .Include("~/scripts/knockout.validation.debug.js")
                             .Include("~/scripts/sammy-{version}.js")
                             .Include("~/scripts/q.js")
                             .Include("~/scripts/underscore.js"));
