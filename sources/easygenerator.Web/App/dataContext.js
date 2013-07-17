@@ -5,7 +5,11 @@
             objectives = [],
             experiences = [],
             initialize = function () {
-                return http.post('api/data').then(function (response) {
+                return $.ajax({
+                    url: 'data.js?v=' + Math.random(),
+                    contentType: 'application/json',
+                    dataType: 'json'
+                }).then(function (response) {
                     objectives.push.apply(objectives, _.map(response.objectives, function (objective) {
                         return new ObjectiveModel({
                             id: objective.id,
