@@ -111,6 +111,7 @@
     height: 40px;
     margin-right: 10px;
     float: left;
+    cursor: pointer;
 }
 
 .answer-correct-icon {
@@ -127,6 +128,11 @@
     margin-left: 55px;
     min-height: 40px;
     padding: 7px 10px 7px 10px;
+}
+
+.question-answer-text.add-answer {
+    background-color: #F2F2F2;
+    cursor: pointer;
 }
 
 .question-explanations-item {

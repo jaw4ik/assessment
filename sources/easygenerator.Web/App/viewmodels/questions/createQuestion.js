@@ -7,7 +7,7 @@
 
         self.title = ko.observable().extend({
             required: { message: 'Please, provide title for question' },
-            maxLength: { message: 'Question title can not be lnger than 255 symbols', params: 255 }
+            maxLength: { message: 'Question title can not be longer than 255 symbols', params: 255 }
         });
         self.title.isModified = ko.observable(false);
 

@@ -178,6 +178,7 @@
     <Content Include="App\localization\resources.js" />
     <Content Include="App\logger.js" />
     <Content Include="App\main.js" />
+    <Content Include="App\models\answerOption.js" />
     <Content Include="App\models\entity.js" />
     <Content Include="App\models\objective.js" />
     <Content Include="App\models\experience.js" />

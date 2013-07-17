@@ -56,25 +56,29 @@
             </div>
             <!-- ko if:isAnswersBlockExpanded -->
             <div class="question-content-items-list">
-                <!-- ko if: answerOptions.length -->
+                <!-- ko if: answerOptions().length -->
                 <ul class="unstyled" data-bind="foreach: answerOptions">
                     <li class="clearfix">
                         <div class="question-content-list-item">
-                            <div class="question-answer-value">
+                            <div class="question-answer-value" data-bind="click: $parent.toggleAnswerCorrectness">
                                 <!-- ko if: isCorrect -->
                                 <div class="answer-correct-icon"></div>
                                 <!-- /ko -->
                             </div>
                             <div class="question-answer-text">
-                                <span data-bind="text: text"></span>
+                                <div contentEditable="true" data-bind="html: text, event: { blur: $parent.saveAnswerOption }, hasFocus: true"></div>
                             </div>
+                            <a data-bind="click: $parent.deleteAnswerOption">X</a>
                         </div>
                     </li>
                 </ul>
                 <!-- /ko -->
-                <!-- ko ifnot: answerOptions.length -->
+                <!-- ko ifnot: answerOptions().length -->
                 <span data-bind="localize: { text: 'emptyAnswerOptions' }">The answer options list is empty</span>
                 <!-- /ko -->
+                <div class="question-answer-text add-answer" data-bind="click: addAnswerOption">
+                    <span data-bind="localize: { text: 'addAnswerOption' }"></span>
+                </div>
             </div>
             <!-- /ko -->
         </div>

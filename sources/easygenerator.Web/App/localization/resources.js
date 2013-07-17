@@ -169,6 +169,11 @@
         nl: 'Explanations[nl]',
         de: 'Explanations[de]'
     },
+    addAnswerOption: {
+        en: 'Click to add answer option',
+        nl: 'Click to add answer option[nl]',
+        de: 'Click to add answer option[de]'
+    },
     /* End resource section for model Question */
     
     /* Resource section for model Questions */
