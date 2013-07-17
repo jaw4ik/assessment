@@ -177,6 +177,28 @@ Then questions list item with title 'Question1' is selected
 And questions list item with title 'Question3' is selected
 But questions list item with title 'Question2' is not selected
 
+Scenario: Question could be deselected
+Given questions related to 'Objective1' are present in database
+| Title     |
+| Question1 |
+| Question2 |
+| Question3 |
+When mouse hover element of objectives list with title 'Objective1'
+And click open objective list item with title 'Objective1'
+And mouse hover element of questions list with title 'Question1'
+And click on select questions list item with title 'Question1'
+And mouse hover element of questions list with title 'Question2'
+And click on select questions list item with title 'Question2'
+And mouse hover element of questions list with title 'Question3'
+And click on select questions list item with title 'Question3'
+And mouse hover element of questions list with title 'Question1'
+And click on select questions list item with title 'Question1'
+And mouse hover element of questions list with title 'Question2'
+And click on select questions list item with title 'Question2'
+Then questions list item with title 'Question1' is not selected
+And questions list item with title 'Question2' is not selected
+But questions list item with title 'Question3' is selected
+
 Scenario: Edit question action of questions list navigates to question's editing page 
 Given questions related to 'Objective1' are present in database
 | Title      | Id |
