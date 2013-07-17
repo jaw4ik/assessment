@@ -368,8 +368,11 @@
   </ProjectExtensions>
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.7\tools\Microsoft.Bcl.Build.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>set PATH=C:\Program Files\nodejs
+cd $(ProjectDir)App\durandal\amd
+preoptimizer.exe
+optimizer.exe --verbose --config app.config.js
+IF NOT EXIST $(ProjectDir)App\main-built.js EXIT /B 1</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>del  $(ProjectDir)App\main-built.js</PreBuildEvent>
