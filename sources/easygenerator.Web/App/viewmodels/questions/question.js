@@ -7,8 +7,6 @@
                 navigateToRelatedObjective: 'Navigate to related objective',
                 navigateToNextQuestion: 'Navigate to next question',
                 navigateToPreviousQuestion: 'Navigate to previous question',
-                toggleAnswers: 'Expand/collapse answer options',
-                toggleExplanations: 'Expand/collapse explanations',
                 addAnswerOption: 'Add answer option',
                 toggleAnswerCorrectness: 'Correct/incorrect answer option',
                 saveAnswerOption: 'Save the answer option text',
@@ -19,7 +17,7 @@
                 eventTracker.publish(eventName, events.category);
             };
 
-        var objective = ko.observable({}),
+        var objectiveId = '',
             question = ko.observable({}),
             objectiveTitle = '',
             title = '',
@@ -34,26 +32,30 @@
 
             goToRelatedObjective = function () {
                 sendEvent(events.navigateToRelatedObjective);
-                router.navigateTo('#/objective/' + this.objective().id);
+                router.navigateTo('#/objective/' + this.objectiveId);
             },
 
             goToPreviousQuestion = function () {
+                if (!hasPrevious)
+                    router.navigateTo('#/404');
+
                 sendEvent(events.navigateToPreviousQuestion);
-                router.navigateTo('#/objective/' + this.objective().id + '/question/' + this.previousId);
+                router.navigateTo('#/objective/' + this.objectiveId + '/question/' + this.previousId);
             },
 
             goToNextQuestion = function () {
+                if (!hasNext)
+                    router.navigateTo('#/404');
+
                 sendEvent(events.navigateToNextQuestion);
-                router.navigateTo('#/objective/' + this.objective().id + '/question/' + this.nextId);
+                router.navigateTo('#/objective/' + this.objectiveId + '/question/' + this.nextId);
             },
 
             toggleAnswers = function () {
-                sendEvent(events.toggleAnswers);
                 this.isAnswersBlockExpanded(!isAnswersBlockExpanded());
             },
 
             toggleExplanations = function () {
-                sendEvent(events.toggleExplanations);
                 this.isExplanationsBlockExpanded(!isExplanationsBlockExpanded());
             },
 
@@ -73,7 +75,7 @@
                     function getUniqueId(answersArray) {
                         var ids = _.map(answersArray, function (answer) {
                             return answer.id;
-                        })
+                        });
                         return _.max(ids) + 1;
                     }
 
@@ -154,30 +156,31 @@
 
             activate = function (routeData) {
                 if (_.isEmpty(routeData) || _.isEmpty(routeData.objectiveId) || _.isEmpty(routeData.id)) {
-                    router.navigateTo('400');
+                    router.navigateTo('#/400');
                     return;
                 }
 
-                this.objective(_.find(dataContext.objectives, function (item) {
+                var objective = _.find(dataContext.objectives, function (item) {
                     return item.id == routeData.objectiveId;
-                }));
+                });
 
-                if (!_.isObject(this.objective())) {
-                    router.navigateTo('404');
+                if (!_.isObject(objective)) {
+                    router.navigateTo('#/404');
                     return;
                 }
 
-                this.question(_.find(this.objective().questions, function (item) {
+                this.question(_.find(objective.questions, function (item) {
                     return item.id == routeData.id;
                 }));
 
                 if (!_.isObject(this.question())) {
-                    router.navigateTo('404');
+                    router.navigateTo('#/404');
                     return;
                 }
 
                 this.title = this.question().title;
-                this.objectiveTitle = this.objective().title;
+                this.objectiveTitle = objective.title;
+                this.objectiveId = objective.id;
 
                 this.answerOptions(_.map(this.question().answerOptions, function (answer) {
                     return {
@@ -189,9 +192,9 @@
 
                 this.explanations = this.question().explanations || [];
 
-                var questionIndex = this.objective().questions.indexOf(this.question());
-                this.nextId = (this.objective().questions.length > questionIndex + 1) ? this.objective().questions[questionIndex + 1].id : null;
-                this.previousId = (questionIndex != 0) ? this.objective().questions[questionIndex - 1].id : null;
+                var questionIndex = objective.questions.indexOf(question());
+                this.nextId = (objective.questions.length > questionIndex + 1) ? objective.questions[questionIndex + 1].id : null;
+                this.previousId = (questionIndex != 0) ? objective.questions[questionIndex - 1].id : null;
 
                 this.hasNext = this.nextId != null;
                 this.hasPrevious = this.previousId != null;
@@ -199,7 +202,7 @@
 
 
         return {
-            objective: objective,
+            objectiveId: objectiveId,
             question: question,
 
             objectiveTitle: objectiveTitle,
