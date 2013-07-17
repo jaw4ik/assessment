@@ -241,6 +241,7 @@
     <Content Include="Content\question.css" />
     <Content Include="Content\styles.css" />
     <Content Include="Content\objectives.css" />
+    <Content Include="data.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="humans.txt" />
