@@ -70,23 +70,6 @@ namespace easygenerator.AcceptanceTests.Steps
                 questionListPage.Order = expectedOrder;
         }
 
-
-        [Then(@"questions list item with title ''(.*)' is highlited")]
-        public void ThenQuestionsListItemWithTitleIsHighlited(string title)
-        {
-            TestUtils.Assert_IsTrue_WithWait(() =>
-                questionListPage.Items.First(it => it.Title == title).IsHighLited,
-                "Question should be highlited");
-        }
-
-        [Then(@"questions list item with title ''(.*)' is not highlited")]
-        public void ThenQuestionsListItemWithTitleIsNotHighlited(string title)
-        {
-            TestUtils.Assert_IsFalse_WithWait(() =>
-                questionListPage.Items.First(it => it.Title == title).IsHighLited,
-                "Question should not be highlited");
-        }
-
         [When(@"click on questions list item with title '(.*)'")]
         public void WhenClickOnQuestionsListItemWithTitle(string title)
         {

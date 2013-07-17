@@ -114,33 +114,6 @@ Then questions list consists of ordered items
 | Question_z |
 And questions list order switch is set to 'ascending'
 
-Scenario: Question should be highlited on mouse hover
-Given questions related to 'Objective1' are present in database
-| Title     |
-| Question1 |
-| Question2 |
-| Question3 |
-When mouse hover element of objectives list with title 'Objective1'
-And click open objective list item with title 'Objective1'
-And mouse hover element of questions list with title 'Question2'
-Then questions list item with title ''Question2' is highlited
-But questions list item with title ''Question1' is not highlited
-And questions list item with title ''Question3' is not highlited
-
-Scenario: Selected question should be highlited after selecting
-Given questions related to 'Objective1' are present in database
-| Title     |
-| Question1 |
-| Question2 |
-| Question3 |
-When mouse hover element of objectives list with title 'Objective1'
-And click open objective list item with title 'Objective1'
-And click on questions list item with title 'Question2'
-Then questions list item with title ''Question2' is highlited
-But questions list item with title ''Question1' is not highlited
-And questions list item with title ''Question3' is not highlited
-
-
 Scenario: No questions are selected by default in questions list
 Given questions related to 'Objective1' are present in database
 | Title      |
@@ -188,20 +161,6 @@ And mouse hover element of questions list with title 'Question2'
 Then Action add content is enabled true for questions list item with title 'Question2'
 And Action edit is enabled true for questions list item with title 'Question2'
 
-Scenario: Actions add content and edit should remain enabled after selecting item of questions list
-Given questions related to 'Objective1' are present in database
-| Title      |
-| Question1 |
-| Question2 |
-| Question3 |
-When mouse hover element of objectives list with title 'Objective1'
-And click open objective list item with title 'Objective1'
-And click on questions list item with title 'Question2'
-And mouse hover element of questions list with title 'Question3'
-Then Action add content is enabled true for questions list item with title 'Question2'
-And Action edit is enabled true for questions list item with title 'Question2'
-And Action add content is enabled true for questions list item with title 'Question3'
-And Action edit is enabled true for questions list item with title 'Question3'
 
 Scenario: Edit question action of questions list navigates to question's editing page 
 Given questions related to 'Objective1' are present in database

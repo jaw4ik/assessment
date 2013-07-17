@@ -24,14 +24,6 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
-        public bool IsHighLited
-        {
-            get
-            {
-                return Container.CssContains(model.HoverPartClass);
-            }
-        }
-
         internal void Click()
         {
             Container.Click();
