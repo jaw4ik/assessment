@@ -1,5 +1,7 @@
 @ECHO off
 
+color
+
 SET DeploymentDirectory=%1
 IF "%1"=="" SET DeploymentDirectory="D:\Applications\easygenerator"
 
@@ -28,6 +30,9 @@ IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 "%VS110COMNTOOLS%..\IDE\mstest.exe" /testcontainer:sources\easygenerator.Web.Tests\bin\Debug\easygenerator.Web.Tests.dll 
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
+echo Running Jasmine tests...
+runJasmineTests.bat
+IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
 ECHO "Deploying to %DeploymentDirectory% ..."
 xcopy "./sources/easygenerator.Web/App/main-built.js" "%DeploymentDirectory%\App\" /Y /F /I
