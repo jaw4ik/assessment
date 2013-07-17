@@ -12,7 +12,10 @@
                 url: 'objectives',
                 moduleId: 'viewmodels/objectives/objectives',
                 name: 'Objectives',
-                caption: localizationManager.localize('learningObjectives')
+                caption: 'Objectives',
+                settings: {
+                    localizationKey: 'learningObjectives'
+                }
             },
             {
                 url: 'objective/create',
@@ -48,7 +51,10 @@
                 url: 'experiences',
                 moduleId: 'viewmodels/experiences/experiences',
                 name: 'Experiences',
-                caption: localizationManager.localize('experiences')
+                caption: 'Experiences',
+                settings: {
+                    localizationKey: 'experiences'
+                }
             },
             {
                 url: 'experience/:id',

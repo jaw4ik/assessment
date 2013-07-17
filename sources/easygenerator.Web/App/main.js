@@ -47,6 +47,16 @@ define(function (require) {
         router.handleInvalidRoute = function (route, params) {
             system.log(route ? '[' + route + '] ' : '', 'No route found');
         };
+        
+        // Apply localization to route caption
+        var onNavigationCompleteBase = router.onNavigationComplete;
+        router.onNavigationComplete = function (routeInfo, params, module) {
+            if (!_.isEmpty(routeInfo.settings.localizationKey)) {
+                routeInfo.caption = localizationManager.localize(routeInfo.settings.localizationKey);
+            }
+
+            onNavigationCompleteBase(routeInfo, params, module);
+        };
     });
 
 });
