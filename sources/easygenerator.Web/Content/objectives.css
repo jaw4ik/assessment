@@ -2,7 +2,7 @@
 .experiences {
     position: relative;
     margin: auto;
-    max-width: 1220px;
+    max-width: 1200px;
     height: 100%;
     color: #999999;
     font-size: 13px;
@@ -54,7 +54,7 @@
 
 .objectives-header-title, .objectives-header-sort-label,
 .experiences-header-title, .experiences-header-sort-label,
-.questions-header-title, .questions-header-sort-label  {
+.questions-header-title, .questions-header-sort-label {
     display: table-cell;
     white-space: nowrap;
 }
@@ -62,7 +62,7 @@
 
 .objectives-header-title,
 .experiences-header-title,
-.questions-header-title  {
+.questions-header-title {
     overflow: hidden;
     width: 100%;
     color: #666666;
@@ -71,14 +71,14 @@
 
     .objectives-header-title > *,
     .experiences-header-title > *,
-    .questions-header-title > *{
+    .questions-header-title > * {
         display: inline-block;
         vertical-align: middle;
     }
 
     .objectives-header-title hr,
     .experiences-header-title hr,
-    .questions-header-title hr  {
+    .questions-header-title hr {
         width: 100%;
     }
 
@@ -192,7 +192,7 @@
     width: 360px;
     position: relative;
     float: left;
-    margin: 0 20px 40px;
+    margin: 0 17px 40px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
@@ -383,20 +383,41 @@
     overflow-x: hidden;
 }
 
-@media (max-width: 1219px) {
+@media (min-width: 1220px) {
+
     .objectives,
     .experiences {
-        max-width: 820px;
+        max-width: 1220px;
+    }
+
+    .objectives-list-wrapper,
+    .objectives-list-wrapper {
+        max-width: 1220px;
+    }
+
+    .objective-brief, .experience-brief {
+        margin: 0 20px 40px;
+    }
+}
+
+
+@media (min-width: 800px) and (max-width: 1199px) {
+    .objectives,
+    .experiences {
+        max-width: 800px;
     }
 
     .objectives-list-wrapper,
     .objectives-list-wrapper {
         max-width: 800px;
     }
+
+    .objective-brief, .experience-brief {
+        margin: 0 15px 40px;
+    }
 }
 
-
-@media (max-width: 819px) {
+@media (max-width: 799px) {
     .objectives,
     .experiences {
         max-width: 420px;
@@ -405,5 +426,9 @@
     .objectives-list-wrapper,
     .objectives-list-wrapper {
         max-width: 400px;
+    }
+
+    .objective-brief, .experience-brief {
+        margin: 0 20px 40px;
     }
 }
