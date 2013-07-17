@@ -27,19 +27,23 @@
                 currentSortingOption(constants.sortingOptions.byTitleAsc);
                 questions(_.sortBy(questions(), function (question) { return question.title.toLowerCase(); }));
             },
+            
             sortByTitleDesc = function () {
                 sendEvent(events.sortByTitleDesc);
                 currentSortingOption(constants.sortingOptions.byTitleDesc);
                 questions(_.sortBy(questions(), function (question) { return question.title.toLowerCase(); }).reverse());
             },
+            
             navigateToObjectives = function () {
                 sendEvent(events.navigateToObjectives);
                 router.navigateTo('#/objectives');
             },
+            
             navigateToCreation = function () {
                 sendEvent(events.navigateToCreation);
                 router.navigateTo('#/objective/' + objectiveId + '/question/create');
             },
+            
             navigateToDetails = function (item) {
                 sendEvent(events.navigateToDetails);
                 router.navigateTo('#/objective/' + objectiveId + '/question/' + item.id);
@@ -48,7 +52,7 @@
             activate = function (routeData) {
 
                 if (_.isEmpty(routeData) || _.isEmpty(routeData.id)) {
-                    router.navigateTo('400');
+                    router.navigateTo('#/400');
                     return;
                 }
                 
@@ -57,7 +61,7 @@
                 });
 
                 if (!_.isObject(objective)) {
-                    router.navigateTo('404');
+                    router.navigateTo('#/404');
                     return;
                 }
 
@@ -84,6 +88,8 @@
             };
         
         return {
+            objectiveId: objectiveId,
+
             title: title,
             image: image,
             questions: questions,
