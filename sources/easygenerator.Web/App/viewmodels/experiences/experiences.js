@@ -53,7 +53,6 @@
             navigateToCreation = function () {
                 sendEvent(events.navigateToCreateExperience);
                 router.navigateTo('#/experience/create');
-
             },
 
             navigateToDetails = function (experience) {

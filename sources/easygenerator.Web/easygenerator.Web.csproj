@@ -185,6 +185,7 @@
     <Content Include="App\models\question.js" />
     <Content Include="App\specs.html" />
     <Content Include="App\viewmodels\experiences\experience.js" />
+    <Content Include="App\viewmodels\experiences\experiences.spec.js" />
     <Content Include="App\viewmodels\objectives\objective.spec.js" />
     <Content Include="App\viewmodels\objectives\objectives.spec.js" />
     <Content Include="App\viewmodels\objectives\createObjective.js" />
