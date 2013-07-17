@@ -180,7 +180,7 @@ define(function (require) {
                 expect(viewModel.objectiveTitle).toBe(objective.title);
                 expect(viewModel.objectiveId).toBe(objective.id);
                 expect(viewModel.title).toBe(question.title);
-                
+
                 expect(viewModel.answerOptions.lenght).toBe(question.answerOptions.lenght);
                 expect(viewModel.explanations.lenght).toBe(question.explanations.lenght);
                 expect(viewModel.hasPrevious).toBe(true);
@@ -359,5 +359,119 @@ define(function (require) {
                 });
             });
         });
+
+        describe('explanations', function () {
+
+            beforeEach(function () {
+                dataContext.objectives = [
+                            new objectiveModel(
+                                {
+                                    id: 'obj3',
+                                    title: 'Test Objective',
+                                    image: images[0],
+                                    questions:
+                                        [
+                                            new questionModel({
+                                                id: '0',
+                                                title: 'Question 1',
+                                                answerOptions: [],
+                                                explanations: ['explanation 1', 'explanation 2', 'explanation 3']
+                                            })
+                                        ]
+                                })];
+                viewModel.activate({id: '0', objectiveId: 'obj3'});
+            });
+
+            it('should have isEdititng observable', function () {
+                expect(ko.isObservable(viewModel.explanations[0].isEditing)).toBeTruthy();
+            });
+            
+            it('should have text observable', function () {
+                expect(ko.isObservable(viewModel.explanations[0].text)).toBeTruthy();
+            });
+
+            it('should have isValid & isModified observable', function() {
+                expect(ko.isObservable(viewModel.explanations[0].text.isValid)).toBeTruthy();
+                expect(ko.isObservable(viewModel.explanations[0].text.isModified)).toBeTruthy();
+            });
+
+        });
+
+        describe('editExplanation', function () {
+            
+            beforeEach(function () {
+                dataContext.objectives = [
+                            new objectiveModel(
+                                {
+                                    id: 'obj3',
+                                    title: 'Test Objective',
+                                    image: images[0],
+                                    questions:
+                                        [
+                                            new questionModel({
+                                                id: '0',
+                                                title: 'Question 1',
+                                                answerOptions: [],
+                                                explanations: ['explanation 1', 'explanation 2', 'explanation 3']
+                                            })
+                                        ]
+                                })];
+                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+            });
+
+            it('should be a function', function () {
+                expect(viewModel.editExplanation).toEqual(jasmine.any(Function));
+            });
+            
+            it('should change isEditing flag to true', function () {
+                viewModel.explanations[0].isEditing(false);
+                viewModel.editExplanation(viewModel.explanations[0]);
+                expect(viewModel.explanations[0].isEditing()).toBe(true);
+            });
+
+        });
+        
+
+        describe('saveExplanation', function () {
+
+            beforeEach(function () {
+                dataContext.objectives = [
+                            new objectiveModel(
+                                {
+                                    id: 'obj3',
+                                    title: 'Test Objective',
+                                    image: images[0],
+                                    questions:
+                                        [
+                                            new questionModel({
+                                                id: '0',
+                                                title: 'Question 1',
+                                                answerOptions: [],
+                                                explanations: ['explanation 1', 'explanation 2', 'explanation 3']
+                                            })
+                                        ]
+                                })];
+                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+            });
+
+            it('should be a function', function () {
+                expect(viewModel.saveExplanation).toEqual(jasmine.any(Function));
+            });
+            
+            it('should set isEditing to false', function () {
+                viewModel.explanations[0].isEditing(true);
+                viewModel.saveExplanation(viewModel.explanations[0]);
+                expect(viewModel.explanations[0].isEditing()).toBe(false);
+            });
+            
+            it('should not set isEditing to false when text is invalid', function () {
+                viewModel.explanations[0].isEditing(true);
+                viewModel.explanations[0].text('');
+                viewModel.saveExplanation(viewModel.explanations[0]);
+                expect(viewModel.explanations[0].isEditing()).toBe(true);
+            });
+
+        });
+
     });
 });

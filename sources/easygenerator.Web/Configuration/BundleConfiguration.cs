@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace easygenerator.Web.Configuration
 {
@@ -22,7 +18,9 @@ namespace easygenerator.Web.Configuration
                             .Include("~/scripts/knockout.validation.debug.js")
                             .Include("~/scripts/sammy-{version}.js")
                             .Include("~/scripts/q.js")
-                            .Include("~/scripts/underscore.js"));
+                            .Include("~/scripts/underscore.js")
+                            .Include("~/scripts/ckeditor/ckeditor.js")
+                            .Include("~/Scripts/ckeditorBinding.js"));
 
             bundles.Add(new StyleBundle("~/Content/css")
                             .Include("~/Content/font-awesome.css")
@@ -31,7 +29,8 @@ namespace easygenerator.Web.Configuration
                             .Include("~/Content/styles.css")
                             .Include("~/Content/question.css")
                             .Include("~/Content/objective.css")
-                            .Include("~/Content/objectives.css"));
+                            .Include("~/Content/objectives.css")
+                            .Include("~/Content/ckeditor/contents.css"));
 
         }
     }

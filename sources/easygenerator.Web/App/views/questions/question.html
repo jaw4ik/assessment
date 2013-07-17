@@ -101,7 +101,12 @@
                     <ul class="unstyled" data-bind="foreach: explanations">
                         <li>
                             <div class="question-content-list-item">
-                                <div class="question-explanations-item" data-bind="html: $data"></div>
+                                <!-- ko if: isEditing() -->
+                                <div class="question-explanations-item" data-bind="ckeditor: { data: $data.text, blur: $parent.saveExplanation }"></div>
+                                <!-- /ko -->
+                                <!-- ko ifnot: isEditing() -->
+                                <div class="question-explanations-item" data-bind="html: $data.text, click: $parent.editExplanation"></div>
+                                <!-- /ko -->
                             </div>
                         </li>
                     </ul>

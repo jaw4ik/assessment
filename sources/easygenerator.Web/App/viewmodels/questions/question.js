@@ -154,6 +154,15 @@
                 }
             },
 
+            editExplanation = function (explanation) {
+                explanation.isEditing(true);
+            },
+            
+            saveExplanation = function (explanation) {
+                if (explanation.text.isValid())
+                    explanation.isEditing(false);
+            },
+
             activate = function (routeData) {
                 if (_.isEmpty(routeData) || _.isEmpty(routeData.objectiveId) || _.isEmpty(routeData.id)) {
                     router.navigateTo('#/400');
@@ -190,7 +199,14 @@
                     };
                 }));
 
-                this.explanations = this.question().explanations || [];
+                this.explanations = _.map(this.question().explanations, function (explanation) {
+                    return {
+                        text: ko.observable(explanation).extend({
+                            required: { message: 'Please, provide text for expanation' }
+                        }),
+                        isEditing: ko.observable(false)
+                    };
+                });
 
                 var questionIndex = objective.questions.indexOf(question());
                 this.nextId = (objective.questions.length > questionIndex + 1) ? objective.questions[questionIndex + 1].id : null;
@@ -219,6 +235,8 @@
             isExplanationsBlockExpanded: isExplanationsBlockExpanded,
             toggleAnswers: toggleAnswers,
             toggleExplanations: toggleExplanations,
+            editExplanation: editExplanation,
+            saveExplanation: saveExplanation,
 
             addAnswerOption: addAnswerOption,
             toggleAnswerCorrectness: toggleAnswerCorrectness,

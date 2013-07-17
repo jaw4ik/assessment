@@ -150,6 +150,7 @@
     <Content Include="apple-touch-icon-72x72-precomposed.png" />
     <Content Include="apple-touch-icon-precomposed.png" />
     <Content Include="apple-touch-icon.png" />
+    <Content Include="Scripts\ckeditorBinding.js" />
     <Content Include="App\configuration\images.js" />
     <Content Include="App\configuration\routes.js" />
     <Content Include="App\constants.js" />
@@ -249,12 +250,49 @@
     <Content Include="Content\font\fontawesome-webfont.ttf" />
     <Content Include="Content\font\fontawesome-webfont.eot" />
     <Content Include="Content\font\FontAwesome.otf" />
+    <Content Include="Scripts\ckeditor\CHANGES.md" />
+    <Content Include="Scripts\ckeditor\LICENSE.md" />
+    <Content Include="Scripts\ckeditor\README.md" />
+    <Content Include="Scripts\ckeditor\skins\moonocolor\readme.md" />
     <None Include="Scripts\jasmine-1.3.1-html.js" />
     <None Include="Scripts\jasmine-1.3.1.js" />
     <None Include="Scripts\jasmine-1.3.1-console.js" />
     <None Include="Scripts\jquery-2.0.2.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-2.0.2.intellisense.js" />
+    <Content Include="Scripts\ckeditor\build-config.js" />
+    <Content Include="Scripts\ckeditor\ckeditor.js" />
+    <Content Include="Scripts\ckeditor\config.js" />
+    <Content Include="Scripts\ckeditor\contents.css" />
+    <Content Include="Scripts\ckeditor\lang\de.js" />
+    <Content Include="Scripts\ckeditor\lang\en.js" />
+    <Content Include="Scripts\ckeditor\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\plugins\about\dialogs\about.js" />
+    <Content Include="Scripts\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="Scripts\ckeditor\plugins\clipboard\dialogs\paste.js" />
+    <Content Include="Scripts\ckeditor\plugins\dialog\dialogDefinition.js" />
+    <Content Include="Scripts\ckeditor\plugins\fakeobjects\images\spacer.gif" />
+    <Content Include="Scripts\ckeditor\plugins\icons.png" />
+    <Content Include="Scripts\ckeditor\plugins\link\dialogs\anchor.js" />
+    <Content Include="Scripts\ckeditor\plugins\link\dialogs\link.js" />
+    <Content Include="Scripts\ckeditor\plugins\link\images\anchor.png" />
+    <Content Include="Scripts\ckeditor\skins\moonocolor\dialog.css" />
+    <Content Include="Scripts\ckeditor\skins\moonocolor\dialog_ie.css" />
+    <Content Include="Scripts\ckeditor\skins\moonocolor\dialog_ie7.css" />
+    <Content Include="Scripts\ckeditor\skins\moonocolor\dialog_ie8.css" />
+    <Content Include="Scripts\ckeditor\skins\moonocolor\dialog_iequirks.css" />
+    <Content Include="Scripts\ckeditor\skins\moonocolor\dialog_opera.css" />
+    <Content Include="Scripts\ckeditor\skins\moonocolor\editor.css" />
+    <Content Include="Scripts\ckeditor\skins\moonocolor\editor_gecko.css" />
+    <Content Include="Scripts\ckeditor\skins\moonocolor\editor_ie.css" />
+    <Content Include="Scripts\ckeditor\skins\moonocolor\editor_ie7.css" />
+    <Content Include="Scripts\ckeditor\skins\moonocolor\editor_ie8.css" />
+    <Content Include="Scripts\ckeditor\skins\moonocolor\editor_iequirks.css" />
+    <Content Include="Scripts\ckeditor\skins\moonocolor\icons.png" />
+    <Content Include="Scripts\ckeditor\skins\moonocolor\images\arrow.png" />
+    <Content Include="Scripts\ckeditor\skins\moonocolor\images\close.png" />
+    <Content Include="Scripts\ckeditor\skins\moonocolor\images\mini.png" />
+    <Content Include="Scripts\ckeditor\styles.js" />
     <Content Include="Scripts\jquery-2.0.2.js" />
     <None Include="Scripts\jquery-2.0.2.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -330,11 +368,8 @@
   </ProjectExtensions>
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.7\tools\Microsoft.Bcl.Build.targets" />
   <PropertyGroup>
-    <PostBuildEvent>set PATH=C:\Program Files\nodejs
-cd $(ProjectDir)App\durandal\amd
-preoptimizer.exe
-optimizer.exe --verbose --config app.config.js
-IF NOT EXIST $(ProjectDir)App\main-built.js EXIT /B 1</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>del  $(ProjectDir)App\main-built.js</PreBuildEvent>
