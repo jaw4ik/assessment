@@ -34,7 +34,7 @@
 
             navigateToCreation = function () {
                 sendEvent(events.navigateToCreation);
-                router.navigateTo('/#/objective/create');
+                router.navigateTo('#/objective/create');
             },
             navigateToDetails = function (item) {
                 sendEvent(events.navigateToDetails);
