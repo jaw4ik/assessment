@@ -39,7 +39,7 @@
     <div class="question-content clearfix">
         <div class="question-content-block">
             <div class="question-content-block-header-wrapper">
-                <div class="question-content-block-header" data-bind="css: {'shadow-bottom-curve': isAnswersBlockExpanded()}">
+                <div class="question-content-block-header" data-bind="css: { 'shadow-bottom-curve': isAnswersBlockExpanded() }">
                     <div class="question-content-block-header-icon answer-option-icon"></div>
                     <div class="question-content-block-header-title" data-bind="localize: { text: 'answerOptions' }">Answer options</div>
                     <div class="question-content-block-size-element-wrapper right">
@@ -61,20 +61,15 @@
                     <li class="clearfix">
                         <div class="question-content-list-item">
                             <div class="question-answer-value" data-bind="click: $parent.toggleAnswerCorrectness">
-                                <!-- ko if: isCorrect -->
-                                <div class="answer-correct-icon"></div>
-                                <!-- /ko -->
+                                <div data-bind="visible: isCorrect" class="answer-correct-icon"></div>
                             </div>
                             <div class="question-answer-text">
-                                <div contentEditable="true" data-bind="html: text, event: { blur: $parent.saveAnswerOption }, hasFocus: true"></div>
+                                <div contenteditable="true" data-bind="html: text, event: { blur: $parent.saveAnswerOption }, hasFocus: true"></div>
                             </div>
                             <a data-bind="click: $parent.deleteAnswerOption">X</a>
                         </div>
                     </li>
                 </ul>
-                <!-- /ko -->
-                <!-- ko ifnot: answerOptions().length -->
-                <span data-bind="localize: { text: 'emptyAnswerOptions' }">The answer options list is empty</span>
                 <!-- /ko -->
                 <div class="question-answer-text add-answer" data-bind="click: addAnswerOption">
                     <span data-bind="localize: { text: 'addAnswerOption' }"></span>
@@ -85,7 +80,7 @@
         <div>
             <div class="question-content-block">
                 <div class="question-content-block-header-wrapper">
-                    <div class="question-content-block-header" data-bind="css: {'shadow-bottom-curve': isExplanationsBlockExpanded()}">
+                    <div class="question-content-block-header" data-bind="css: { 'shadow-bottom-curve': isExplanationsBlockExpanded() }">
                         <div class="question-content-block-header-icon explanation-icon"></div>
                         <div class="question-content-block-header-title" data-bind="localize: { text: 'explanations' }">Explanations</div>
                         <div class="question-content-block-size-element-wrapper right">
@@ -112,7 +107,7 @@
                     </ul>
                     <!-- /ko -->
                     <!-- ko ifnot: explanations.length -->
-                    <span data-bind="localize: {text: 'emptyExplanations'}">The explanations list is empty</span>
+                    <span data-bind="localize: { text: 'emptyExplanations' }">The explanations list is empty</span>
                     <!-- /ko -->
                 </div>
                 <!-- /ko -->
