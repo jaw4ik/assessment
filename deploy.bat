@@ -31,7 +31,7 @@ IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
 echo Running Jasmine tests...
-runJasmineTests.bat
+"tools/phantomjs/phantomjs.exe" tools/phantomjs/run-jasmine.js sources/easygenerator.Web/App/specs.html
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
 ECHO "Deploying to %DeploymentDirectory% ..."
