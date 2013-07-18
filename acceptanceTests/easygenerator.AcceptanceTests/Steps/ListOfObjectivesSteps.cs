@@ -173,7 +173,7 @@ namespace easygenerator.AcceptanceTests.Steps
             {
                 Id = obj.Id,
                 Title = obj.Title,
-                ImageSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh4piEoOidTuAx5hiRTVtQrw2dV6sJg3J_vo2tKH4SYjg5rP9-",
+                ImageSource = @"Content/images/logo.png",
                 Questions = new List<Question>()
             };
         }

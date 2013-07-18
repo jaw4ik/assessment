@@ -28,7 +28,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         protected void WaitForReady()
         {
             if (!TestUtils.WaitForCondition(() =>
-                (bool)DriverProvider.Current().Driver.ExecuteScript("return document.getElementById('content')!==null")))
+                (bool)DriverProvider.Current().Driver.ExecuteScript("return document.getElementById('content')!==null"),20000))
                 throw new TimeoutException("Content data is not reachable");
         }
     }

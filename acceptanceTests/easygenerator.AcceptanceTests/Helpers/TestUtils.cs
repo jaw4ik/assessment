@@ -12,10 +12,15 @@ namespace easygenerator.AcceptanceTests.Helpers
     {
         static int waitLoops = 20;
         static int timeout = 250;
+
         public static bool WaitForCondition(Func<bool> condition)
         {
+            return WaitForCondition(condition, waitLoops * timeout);
+        }
+        public static bool WaitForCondition(Func<bool> condition,int timeToWait)
+        {
             int loop = 0;
-            while (loop < waitLoops)
+            while (loop * timeout < timeToWait)
             {
                 if (condition())
                     return true;
