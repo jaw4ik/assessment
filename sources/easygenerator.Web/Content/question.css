@@ -31,6 +31,14 @@
     width: 100%;
 }
 
+.question-answers {
+    
+}
+
+.question-explanations {
+    
+}
+
 .question-content-block {
     margin: 5px 15px 5px 15px;
 }
@@ -146,6 +154,15 @@
     line-height: 90px;
     width: 50px;
     text-align: center;
+    position: absolute;
+}
+
+.question-nav-btn.prev-btn {
+    left: 0;
+}
+
+.question-nav-btn.next-btn {
+    right: 0;
 }
 
 /* common - can be reused? */
