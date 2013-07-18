@@ -12,11 +12,13 @@
             editor = CKEDITOR.replace(element);
             editor.setData(bindingArguments.data());
             
-            editor.on('blur', function () {
-                bindingArguments.data(editor.getData());
-                clearInterval(intervalId);
-                editor.destroy();
-                bindingArguments.blur(viewModel);
+            editor.on(bindingArguments.endEditingEvent, function () {
+                endEditing();
+            });
+
+            editor.on('key', function(event) {
+                if (event.data.keyCode == 27)
+                    endEditing();
             });
 
             intervalId = setInterval(function () {
@@ -28,6 +30,13 @@
                 clearInterval(intervalId);
                 editor.destroy();
             });
+            
+            function endEditing() {
+                bindingArguments.data(editor.getData());
+                clearInterval(intervalId);
+                editor.destroy();
+                bindingArguments.onEndEditing(bindingContext.$data);
+            }
         }
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
