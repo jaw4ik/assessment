@@ -209,12 +209,12 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>IF NOT EXIST ChromeDriver.exe (xcopy $(SolutionDir)packages\WebDriver.ChromeDriver.26.0.1383.1\tools\ChromeDriver.exe)
-IF NOT EXIST IEDriverServer.exe (xcopy $(SolutionDir)packages\WebDriver.IEDriver.2.29.1.1\tools\IEDriverServer.exe)
-IF NOT EXIST StartServer.bat (xcopy $(SolutionDir)StartServer.bat)
+    <PostBuildEvent>IF NOT EXIST ChromeDriver.exe (xcopy $(ProjectDir)..\packages\WebDriver.ChromeDriver.26.0.1383.1\tools\ChromeDriver.exe)
+IF NOT EXIST IEDriverServer.exe (xcopy $(ProjectDir)..\packages\WebDriver.IEDriver.2.29.1.1\tools\IEDriverServer.exe)
+IF NOT EXIST StartServer.bat (xcopy $(ProjectDir)..\StartServer.bat)
 IF EXIST "easygenerator.Web\" (rd /Q /S "easygenerator.Web")
 IF EXIST "ChromeData\" (rd /Q /S "ChromeData")
-xcopy  /S /F /Y /I "$(SolutionDir)..\sources\easygenerator.Web" ".\easygenerator.Web\"</PostBuildEvent>
+xcopy  /S /F /Y /I "$(ProjectDir)..\..\sources\easygenerator.Web" ".\easygenerator.Web\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
