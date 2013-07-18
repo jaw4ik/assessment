@@ -1,10 +1,8 @@
 ﻿ko.bindingHandlers.ckeditor = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        // This will be called when the binding is first applied to an element
-        // Set up any initial state, event handlers, etc. here
+
         var bindingArguments = valueAccessor();
         var editor = undefined;
-        var intervalId = '';
         var language = bindingArguments.language() || 'en';
 
         CKEDITOR.domReady(initEditor);
@@ -19,7 +17,8 @@
             });
             
             editor.on(bindingArguments.endEditingEvent, function () {
-                endEditing();
+                bindingArguments.data(editor.getData());
+                bindingArguments.onEndEditing(bindingContext.$data);
             });
             
             editor.on('key', function (event) {
@@ -27,22 +26,9 @@
                     editor.focusManager.blur();
             });
 
-            intervalId = setInterval(function () {
-                if (bindingArguments.data() !== editor.getData())
-                    bindingArguments.data(editor.getData());
-            }, 100);
-            
             ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                clearInterval(intervalId);
                 editor.destroy();
             });
-            
-            function endEditing() {
-                bindingArguments.data(editor.getData());
-                clearInterval(intervalId);
-                editor.destroy();
-                bindingArguments.onEndEditing(bindingContext.$data);
-            }
         }
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
