@@ -177,8 +177,7 @@
                 explanation.isEditing(true);
             },
             saveExplanation = function (explanation) {
-                if (explanation.text.isValid())
-                    explanation.isEditing(false);
+                explanation.isEditing(false);
             },
             deleteExplanation = function (explanation) {
                 sendEvent(events.deleteExplanation);

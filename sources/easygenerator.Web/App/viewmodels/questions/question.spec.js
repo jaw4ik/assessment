@@ -466,12 +466,6 @@ define(function (require) {
                 expect(viewModel.explanations()[0].isEditing()).toBe(false);
             });
 
-            it('should not set isEditing to false when text is invalid', function () {
-                viewModel.explanations()[0].isEditing(true);
-                viewModel.explanations()[0].text('');
-                viewModel.saveExplanation(viewModel.explanations()[0]);
-                expect(viewModel.explanations()[0].isEditing()).toBe(true);
-            });
         });
 
         describe('addExplanation', function () {
