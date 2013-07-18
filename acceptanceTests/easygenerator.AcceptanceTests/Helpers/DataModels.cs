@@ -35,15 +35,23 @@ namespace easygenerator.AcceptanceTests.Helpers
         [JsonProperty("answerOptions")]
         public List<AnswerOption> AnswerOptions { get; set; }
         [JsonProperty("explanations")]
-        public List<string> Explanations { get; set; }
+        public List<Explanation> Explanations { get; set; }
     }
     public class AnswerOption
     {
+        [JsonProperty("id")]
+        public int Id { get; set; }
         [JsonProperty("isCorrect")]
         public bool IsCorrect { get; set; }
         [JsonProperty("text")]
         public string Text { get; set; }
-
+    }
+    public class Explanation
+    {
+        [JsonProperty("id")]
+        public int Id { get; set; }
+        [JsonProperty("text")]
+        public string Text { get; set; }
     }
     public class Expirience
     {

@@ -62,7 +62,7 @@ namespace easygenerator.AcceptanceTests.Helpers
             });
         }
 
-        public void AddExplanationsToDatabase(string objTitle, string questionTitle, string[] explanations)
+        public void AddExplanationsToDatabase(string objTitle, string questionTitle, Explanation[] explanations)
         {
             UpdateDataContext((dataContext) =>
             {

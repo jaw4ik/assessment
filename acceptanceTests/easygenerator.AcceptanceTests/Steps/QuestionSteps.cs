@@ -11,12 +11,12 @@ using TechTalk.SpecFlow.Assist;
 
 namespace easygenerator.AcceptanceTests.Steps
 {
-    public class AnswerData
+    public class AnswerData : UniqueData
     {
         public string Text { get; set; }
         public bool IsCorrect { get; set; }
     }
-    public class ExplanationData
+    public class ExplanationData : UniqueData
     {
         public string Explanation { get; set; }
     }
@@ -37,22 +37,13 @@ namespace easygenerator.AcceptanceTests.Steps
             var dataSetter = new DataSetter();
             dataSetter.AddAnswerOptionsToDatabase(objTitle, questionTitle, answers.Select(ans => BuildAnswerOption(ans)).ToArray());
         }
-        private easygenerator.AcceptanceTests.Helpers.AnswerOption BuildAnswerOption(AnswerData data)
-        {
-            return new Helpers.AnswerOption()
-            {
-                IsCorrect = data.IsCorrect,
-                Text = data.Text
-            };
-        }
         [Given(@"explanations related to '(.*)' of '(.*)' are present in database")]
         public void GivenExplanationsRelatedToOfArePresentInDatabase(string questionTitle, string objTitle, Table table)
         {
             var explanations = table.CreateSet<ExplanationData>().ToArray();
             var dataSetter = new DataSetter();
-            dataSetter.AddExplanationsToDatabase(objTitle, questionTitle, explanations.Select(exp => exp.Explanation).ToArray());
+            dataSetter.AddExplanationsToDatabase(objTitle, questionTitle, explanations.Select(exp => BuildExplanation(exp)).ToArray());
         }
-
         [Then(@"answer options list contains only items with data")]
         public void ThenAnswerOptionsListContainsOnlyItemsWithData(Table table)
         {
@@ -179,6 +170,23 @@ namespace easygenerator.AcceptanceTests.Steps
         public void WhenClickOnBackToObjective()
         {
             ScenarioContext.Current.Pending();
+        }
+        private easygenerator.AcceptanceTests.Helpers.AnswerOption BuildAnswerOption(AnswerData data)
+        {
+            return new Helpers.AnswerOption()
+            {
+                IsCorrect = data.IsCorrect,
+                Text = data.Text,
+                Id = data.Id
+            };
+        }
+        Helpers.Explanation BuildExplanation(ExplanationData data)
+        {
+            return new Helpers.Explanation()
+            {
+                Id = data.Id,
+                Text = data.Explanation
+            };
         }
 
     }
