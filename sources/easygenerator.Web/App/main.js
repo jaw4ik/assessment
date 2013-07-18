@@ -16,11 +16,13 @@ ko.validation.configure({
 });
 
 define(function (require) {
-    var system = require('durandal/system'),
+    var
+        system = require('durandal/system'),
         app = require('durandal/app'),
         router = require('durandal/plugins/router'),
         viewLocator = require('durandal/viewLocator'),
-        localizationManager = require('localization/localizationManager');
+        localizationManager = require('localization/localizationManager')
+    ;
 
     //>>excludeStart("build", true);
     system.debug(true);
@@ -40,6 +42,8 @@ define(function (require) {
         // Otherwise you can pass paths for modules, views, partials
         // Defaults to viewmodels/views/views. 
         viewLocator.useConvention();
+
+        localizationManager.initialize(window.top.userCultures);
 
         app.setRoot('viewmodels/_layout', 'entrance');
         // override bad route behavior to write to 
