@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'durandal/http', 'models/objective', 'configuration/images', 'models/objective', 'models/question', 'models/experience', 'models/answerOption'],
-    function (app, http, objectiveModel, images, ObjectiveModel, QuestionModel, ExperienceModel, AnswerOptionModel) {
+﻿define(['durandal/app', 'durandal/http', 'models/objective', 'configuration/images', 'models/objective', 'models/question', 'models/experience', 'models/answerOption', 'models/explanation'],
+    function (app, http, objectiveModel, images, ObjectiveModel, QuestionModel, ExperienceModel, AnswerOptionModel, ExplanationModel) {
 
         var
             objectives = [],
@@ -22,7 +22,9 @@
                                     answerOptions: _.map(question.answerOptions, function (answerOption) {
                                         return new AnswerOptionModel(answerOption);
                                     }),
-                                    explanations: question.explanations
+                                    explanations: _.map(question.explanations, function (explanation) {
+                                        return new ExplanationModel(explanation);
+                                    })
                                 });
                             })
                         });

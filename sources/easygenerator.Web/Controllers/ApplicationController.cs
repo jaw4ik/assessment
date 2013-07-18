@@ -46,8 +46,18 @@ namespace easygenerator.Web.Controllers
                     {
                         id = i,
                         title = "Question " + i,
-                        answerOptions = new[] { new { id = 0, isCorrect = true, text = "lalala" }, new { id = 1, isCorrect = false, text = "tololo" }, new { id = 2, isCorrect = true, text = "One of the major benefits to using CSS for layout is that you can design your Web page and then put the HTML together so that the most important content comes first. This is important for SEO because most search engines weight the content towards the top of the page more than content towards the bottom. Search engines do this because they are not human. They cant just look at a Web page design and pick out the most important part. They are programmed to read HTML, while we look at the results of the HTML." } },
-                        explanations = new[] { "<h1>Some h1 tag</h1>", "<iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/sI0osns8iUI?list=UUzLrv9dut1RjUk7eeSAfJrQ\" frameborder=\"0\" allowfullscreen></iframe>", "One of the major benefits to using CSS for layout is that you can design your Web page and then put the HTML together so that the most important content comes first. This is important for SEO because most search engines weight the content towards the top of the page more than content towards the bottom. Search engines do this because they are not human. They cant just look at a Web page design and pick out the most important part. They are programmed to read HTML, while we look at the results of the HTML." }
+                        answerOptions = new[]
+                            {
+                                new { id = 0, isCorrect = true, text = "lalala" }, 
+                                new { id = 1, isCorrect = false, text = "tololo" }, 
+                                new { id = 2, isCorrect = true, text = "One of the major benefits to using CSS for layout is that you can design your Web page and then put the HTML together so that the most important content comes first. This is important for SEO because most search engines weight the content towards the top of the page more than content towards the bottom. Search engines do this because they are not human. They cant just look at a Web page design and pick out the most important part. They are programmed to read HTML, while we look at the results of the HTML." }
+                            },
+                        explanations = new[]
+                            {
+                                new {id=0, text="<h1>Some h1 tag</h1>"},
+                                new {id=1, text="<iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/sI0osns8iUI?list=UUzLrv9dut1RjUk7eeSAfJrQ\" frameborder=\"0\" allowfullscreen></iframe>"},
+                                new {id=2, text="One of the major benefits to using CSS for layout is that you can design your Web page and then put the HTML together so that the most important content comes first. This is important for SEO because most search engines weight the content towards the top of the page more than content towards the bottom. Search engines do this because they are not human. They cant just look at a Web page design and pick out the most important part. They are programmed to read HTML, while we look at the results of the HTML."}
+                            }
                     });
             }
 

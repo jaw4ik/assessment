@@ -56,6 +56,11 @@
         nl: 'Taal',
         de: 'Sprache'
     },
+    remove: {
+        en: 'Remove',
+        nl: 'Wissen',
+        de: 'Entfernen'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -186,6 +191,11 @@
         en: 'Related questions',
         nl: 'Gerelateerde vragen',
         de: 'Ähnliche Fragen'
+    },
+    clickToAddNewExplanation: {
+        en: 'Click here to add explanation…',
+        nl: 'Click here to add explanation…[nl]',
+        de: 'Click here to add explanation…[de]'
     }
     /* End resource section for model Questions */
            

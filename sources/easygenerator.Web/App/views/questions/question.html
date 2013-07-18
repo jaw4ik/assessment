@@ -95,23 +95,28 @@
                 </div>
                 <!-- ko if: isExplanationsBlockExpanded -->
                 <div class="question-content-items-list">
-                    <!-- ko if: explanations.length -->
-                    <ul class="unstyled" data-bind="foreach: explanations">
+                    <ul class="unstyled">
+                        <!-- ko foreach: explanations -->
                         <li>
-                            <div class="question-content-list-item">
+                            <div class="question-content-list-item clearfix">
                                 <!-- ko if: isEditing() -->
-                                <div class="question-explanations-item" data-bind="ckeditor: { data: $data.text, endEditingEvent: 'blur', onEndEditing: $parent.saveExplanation }"></div>
+                                <div class="question-explanations-item" data-bind="ckeditor: { data: text, endEditingEvent: 'blur', onEndEditing: $parent.saveExplanation }"></div>
                                 <!-- /ko -->
                                 <!-- ko ifnot: isEditing() -->
-                                <div class="question-explanations-item" data-bind="html: $data.text, click: $parent.editExplanation"></div>
+                                <div class="question-explanations-item" data-bind="html: text, click: $parent.editExplanation"></div>
                                 <!-- /ko -->
+                                <a class="question-remove-button right" data-bind="click: $parent.deleteExplanation.bind($parent), localize: {title: 'remove'}">X</a>
+                            </div>
+                        </li>
+                        <!-- /ko -->
+                        <li>
+                            <div class="question-content-list-item">
+                                <div class="question-explanations-item question-add-explanation" data-bind="click: addExplanation, localize: { text: 'clickToAddNewExplanation'}">
+                                    Click to add new explanation...
+                                </div>
                             </div>
                         </li>
                     </ul>
-                    <!-- /ko -->
-                    <!-- ko ifnot: explanations.length -->
-                    <span data-bind="localize: { text: 'emptyExplanations' }">The explanations list is empty</span>
-                    <!-- /ko -->
                 </div>
                 <!-- /ko -->
             </div>
