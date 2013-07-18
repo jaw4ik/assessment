@@ -192,7 +192,7 @@
     width: 360px;
     position: relative;
     float: left;
-    margin: 0 17px 40px;
+    margin: 0 13px 40px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
@@ -401,23 +401,23 @@
 }
 
 
-@media (min-width: 800px) and (max-width: 1199px) {
+@media (min-width: 780px) and (max-width: 1179px) {
     .objectives,
     .experiences {
-        max-width: 800px;
+        max-width: 780px;
     }
 
     .objectives-list-wrapper,
     .objectives-list-wrapper {
-        max-width: 800px;
+        max-width: 780px;
     }
 
     .objective-brief, .experience-brief {
-        margin: 0 15px 40px;
+        margin: 0 10px 40px;
     }
 }
 
-@media (max-width: 799px) {
+@media (max-width: 779px) {
     .objectives,
     .experiences {
         max-width: 420px;
