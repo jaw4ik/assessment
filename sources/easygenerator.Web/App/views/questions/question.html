@@ -9,32 +9,38 @@
         </a>
     </div>
     <div class="question-header clearfix">
-        <!-- ko if: hasPrevious -->
-        <a href="#" class="nav-element left" title="Previous" data-bind="click: goToPreviousQuestion, localize: { title: 'previous' }">
-            <div class="question-nav-btn prev-btn inline"></div>
-        </a>
-        <!-- /ko -->
-        <!-- ko ifnot: hasPrevious -->
-        <div class="nav-element disabled left" title="Previous" data-bind="localize: { title: 'previous' }">
-            <div class="question-nav-btn prev-btn inline"></div>
+        <div class="absolute-left">
+            <!-- ko if: hasPrevious -->
+            <a href="#" class="nav-element" title="Previous" data-bind="click: goToPreviousQuestion, localize: { title: 'previous' }">
+                <div class="question-nav-btn prev-btn inline"></div>
+            </a>
+            <!-- /ko -->
+            <!-- ko ifnot: hasPrevious -->
+            <div class="nav-element disabled" title="Previous" data-bind="localize: { title: 'previous' }">
+                <div class="question-nav-btn prev-btn inline"></div>
+            </div>
+            <!-- /ko -->
         </div>
-        <!-- /ko -->
-        <div class="white-framing left">
-            <img class="question-image" src="/Content/images/question.jpg" alt="" />
+        <div class="absolute-right">
+            <!-- ko if: hasNext -->
+            <a href="#" class="nav-element" title="Next" data-bind="click: goToNextQuestion, localize: { title: 'next' }">
+                <div class="question-nav-btn next-btn inline"></div>
+            </a>
+            <!-- /ko -->
+            <!-- ko ifnot: hasNext -->
+            <div class="nav-element disabled" title="Next" data-bind="localize: { title: 'next' }">
+                <div class="question-nav-btn next-btn inline"></div>
+            </div>
+            <!-- /ko -->
         </div>
-        <div class="left question-header-title">
-            <h2 class="left page-header-title" data-bind="text: title"></h2>
+        <div class="question-info-container clearfix">
+            <div class="white-framing left">
+                <img class="question-image" src="/Content/images/multichoice-question.png" alt="" />
+            </div>
+            <div class="question-header-title">
+                <h2 class="page-header-title" data-bind="text: title"></h2>
+            </div>
         </div>
-        <!-- ko if: hasNext -->
-        <a href="#" class="nav-element right" title="Next" data-bind="click: goToNextQuestion, localize: { title: 'next' }">
-            <div class="question-nav-btn forw-btn inline"></div>
-        </a>
-        <!-- /ko -->
-        <!-- ko ifnot: hasNext -->
-        <div class="nav-element disabled right" title="Next" data-bind="localize: { title: 'next' }">
-            <div class="question-nav-btn forw-btn inline"></div>
-        </div>
-        <!-- /ko -->
     </div>
     <div class="question-content clearfix">
         <div class="question-content-block question-answers">
@@ -44,12 +50,8 @@
                     <div class="question-content-block-header-title" data-bind="localize: { text: 'answerOptions' }">Answer options</div>
                     <div class="question-content-block-size-element-wrapper right">
                         <a href="#" class="nav-element" data-bind="click: toggleAnswers">
-                            <!-- ko if: isAnswersBlockExpanded -->
-                            <span class="collapse-btn inline question-content-block-size-btn"></span>
-                            <!-- /ko -->
-                            <!-- ko ifnot: isAnswersBlockExpanded -->
-                            <span class="expand-btn inline question-content-block-size-btn"></span>
-                            <!-- /ko -->
+                            <span class="inline question-content-block-size-btn"
+                                data-bind="css: { 'collapse-btn': isAnswersBlockExpanded(), 'expand-btn': !isAnswersBlockExpanded() }"></span>
                         </a>
                     </div>
                 </div>
@@ -85,12 +87,8 @@
                         <div class="question-content-block-header-title" data-bind="localize: { text: 'explanations' }">Explanations</div>
                         <div class="question-content-block-size-element-wrapper right">
                             <a href="#" class="nav-element" data-bind="click: toggleExplanations">
-                                <!-- ko if: isExplanationsBlockExpanded -->
-                                <span class="collapse-btn inline question-content-block-size-btn"></span>
-                                <!-- /ko -->
-                                <!-- ko ifnot: isExplanationsBlockExpanded -->
-                                <span class="expand-btn inline question-content-block-size-btn"></span>
-                                <!-- /ko -->
+                                <span class="inline question-content-block-size-btn"
+                                    data-bind="css: { 'collapse-btn': isExplanationsBlockExpanded(), 'expand-btn': !isExplanationsBlockExpanded() }"></span>
                             </a>
                         </div>
                     </div>

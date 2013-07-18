@@ -153,6 +153,20 @@ COMMON CLASSES CSS-STYLES
     float: right;
 }
 
+.absolute-left {
+    position: absolute;
+    left: 0;
+}
+
+.absolute-right {
+    position: absolute;
+    right: 0;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
 .nowrap {
     white-space: nowrap;
 }
@@ -187,3 +201,27 @@ h2.page-header-title {
     box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
     filter: progid:DXImageTransform.Microsoft.shadow(direction=120, color=#9d9d9d, strength=3);
 }
+
+/**
+ * curved shadow
+ */
+
+.shadow-bottom-curve {
+    position: relative;
+}
+
+    .shadow-bottom-curve:before, .shadow-bottom-curve:after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        -webkit-box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        -moz-box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        top: 50%;
+        bottom: 0;
+        left: 10px;
+        right: 10px;
+        -webkit-border-radius: 250px / 10px;
+        -moz-border-radius: 250px / 10px;
+        border-radius: 250px / 10px;
+    }
