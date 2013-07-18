@@ -8,7 +8,7 @@
                 navigateToNextQuestion: 'Navigate to next question',
                 navigateToPreviousQuestion: 'Navigate to previous question',
                 addAnswerOption: 'Add answer option',
-                toggleAnswerCorrectness: 'Correct/incorrect answer option',
+                toggleAnswerCorrectness: 'Change answer option correctness',
                 saveAnswerOption: 'Save the answer option text',
                 deleteAnswerOption: 'Delete answer option',
 
@@ -65,32 +65,25 @@
 
                 function addAnswer(callback) {
                     var newAnswer = new AnswerOptionModel({
-                        id: getUniqueId(answerOptions()),
+                        id: question().answerOptions.length,
                         text: '',
                         isCorrect: false
                     });
 
-                    function getUniqueId(answersArray) {
-                        var ids = _.map(answersArray, function (answer) {
-                            return answer.id;
-                        });
-                        return _.max(ids) + 1;
-                    }
-
                     question().answerOptions.push(newAnswer);
 
-                    var observableAnswer = {
-                        id: newAnswer.id,
-                        text: ko.observable(newAnswer.text),
-                        isCorrect: ko.observable(newAnswer.isCorrect),
-                        isInEdit: ko.observable(false)
-                    };
-
-                    callback(observableAnswer);
+                    if (_.isFunction(success))
+                        callback(newAnswer);
                 }
 
                 function success(answer) {
-                    answerOptions.push(answer);
+                    var observableAnswer = {
+                        id: answer.id,
+                        text: answer.text,
+                        isCorrect: ko.observable(answer.isCorrect)
+                    };
+
+                    answerOptions.push(observableAnswer);
                 }
             },
             toggleAnswerCorrectness = function (instance) {
@@ -108,7 +101,8 @@
                         var newValue = !currentAnswer.isCorrect;
                         currentAnswer.isCorrect = newValue;
 
-                        callback(newValue);
+                        if (_.isFunction(success))
+                            callback(newValue);
                     }
                 }
 
@@ -117,19 +111,32 @@
                 }
             },
             saveAnswerOption = function (instance, context) {
-                sendEvent(events.saveAnswer);
+                sendEvent(events.saveAnswerOption);
 
-                save(instance, context.target.innerHTML);
-
+                if (checkData(context.target.innerText))
+                    save(instance, context.target.innerHTML, success);
+                else
+                    deleteAnswerOption(instance);
+                
                 //TODO: temporary method. Would be changed, when dataContext will be reconstructed
-
-                function save(answer, value) {
+                function save(answer, value, callback) {
                     var currentAnswer = _.find(question().answerOptions, function (obj) {
                         return obj.id == answer.id;
                     });
                     if (_.isObject(currentAnswer)) {
                         currentAnswer.text = value;
+
+                        if (_.isFunction(callback))
+                            callback(value);
                     }
+                }
+
+                function success(value) {
+                    instance.text = value;
+                }
+
+                function checkData(value) {
+                    return value.trim() !== '';
                 }
             },
             deleteAnswerOption = function (instance) {
@@ -144,7 +151,8 @@
                         return obj.id != answer.id;
                     });
 
-                    callback(answer);
+                    if (_.isFunction(success))
+                        callback(answer);
                 }
 
                 function success(answer) {
@@ -206,7 +214,7 @@
                 this.answerOptions(_.map(this.question().answerOptions, function (answer) {
                     return {
                         id: answer.id,
-                        text: ko.observable(answer.text || ''),
+                        text: answer.text || '',
                         isCorrect: ko.observable(answer.isCorrect || false)
                     };
                 }));

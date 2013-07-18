@@ -8,6 +8,7 @@ define(function (require) {
         objectiveModel = require('models/objective'),
         questionModel = require('models/question'),
         explanationModel = require('models/explanation'),
+        answerOptionModel = require('models/answerOption'),
         images = require('configuration/images'),
         eventTracker = require('eventTracker');
 
@@ -554,5 +555,166 @@ define(function (require) {
             });
         });
 
+
+        describe('answer options', function() {
+
+            var answer = new answerOptionModel({
+                id: 0,
+                text: 'option 1',
+                isCorrect: false
+            });
+
+            var question = new questionModel({
+                answerOptions: [
+                    answer,
+                    new answerOptionModel({
+                        id: 1,
+                        text: 'option 2',
+                        isCorrect: true
+                    }),
+                    new answerOptionModel({
+                        id: 2,
+                        text: 'option 3',
+                        isCorrect: false
+                    })
+                ]
+            });
+
+            beforeEach(function () {
+                spyOn(eventTracker, 'publish');
+            });
+
+            describe('add', function() {
+
+                it('[addAnswerOption] should be a function', function() {
+                    expect(viewModel.addAnswerOption).toEqual(jasmine.any(Function));
+                });
+
+                it('[answerOptions] should be observable', function () {
+                    expect(ko.isObservable(viewModel.answerOptions)).toBeTruthy();
+                });
+
+                it('should track event \"Add answer option\"', function () {
+                    viewModel.question({ answerOptions: [] });
+                    
+                    viewModel.addAnswerOption();
+                    
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Add answer option', eventsCategory);
+                });
+
+                it('function [addAnswerOption] should create option', function () {
+                    viewModel.question({ answerOptions: [] });
+                    viewModel.answerOptions([]);
+
+                    viewModel.addAnswerOption();
+                    
+                    expect(viewModel.answerOptions().length).toBe(1);
+                });
+            });
+
+            describe('edit', function() {
+
+                beforeEach(function() {
+                    viewModel.question({ answerOptions: [answer] });
+                    viewModel.answerOptions([{
+                        id: answer.id,
+                        text: ko.observable(answer.text),
+                        isCorrect: ko.observable(answer.isCorrect)
+                    }]);
+                });
+
+                it('the field [isCorrect] should be observable', function() {
+                    expect(ko.isObservable(viewModel.answerOptions()[0].isCorrect)).toBeTruthy();
+                });
+
+                it('should track event \"Change answer option correctness\"', function () {
+                    viewModel.toggleAnswerCorrectness(viewModel.answerOptions()[0]);
+
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Change answer option correctness', eventsCategory);
+                });
+
+                it('should change option correctness', function () {
+                    viewModel.answerOptions()[0].isCorrect(false);
+                    viewModel.question().answerOptions[0].isCorrect = false;
+                    
+                    viewModel.toggleAnswerCorrectness(viewModel.answerOptions()[0]);
+
+                    expect(viewModel.answerOptions()[0].isCorrect()).toBeTruthy();
+                });
+
+                it('should track event \"Save the answer option text\"', function () {
+                    var context = {
+                        target: { innerText: '', innerHTML: '' }
+                    };
+                    viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
+
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Save the answer option text', eventsCategory);
+                });
+
+                it('should edit answer text', function () {
+                    viewModel.answerOptions()[0].text = answer.text;
+
+                    var newText = 'new text';
+                    var context = {
+                        target: { innerText: newText, innerHTML: newText }
+                    };
+
+                    viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
+                    
+                    expect(viewModel.answerOptions()[0].text).toBe(newText);
+                });
+
+                it('should delete answer option when text is empty', function() {
+                    var answersCount = viewModel.answerOptions().length;
+
+                    var context = {
+                        target: { innerText: '', innerHTML: '' }
+                    };
+                    viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
+
+                    expect(viewModel.answerOptions().length).toBe(answersCount - 1);
+                });
+                
+                it('should delete answer option when text contains only white-spaces and new lines codes', function () {
+                    var answersCount = viewModel.answerOptions().length;
+
+                    var context = {
+                        target: { innerText: '   \n\r  \n\r', innerHTML: '<p>&nbsp</p><p>&nbsp</p>' }
+                    };
+                    viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
+
+                    expect(viewModel.answerOptions().length).toBe(answersCount - 1);
+                });
+            });
+
+            describe('delete', function() {
+
+                beforeEach(function() {
+                    viewModel.question({ answerOptions: [answer] });
+                    viewModel.answerOptions([{
+                        id: answer.id,
+                        text: ko.observable(answer.text),
+                        isCorrect: ko.observable(answer.isCorrect)
+                    }]);
+                });
+
+                it('should track event \"Delete answer option\"', function () {
+                    viewModel.deleteAnswerOption(viewModel.answerOptions()[0]);
+
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete answer option', eventsCategory);
+                });
+
+                it('[deleteAnswerOption] should be function', function() {
+                    expect(viewModel.deleteAnswerOption).toEqual(jasmine.any(Function));
+                });
+
+                it('should delete item', function() {
+                    var currentCount = viewModel.question().answerOptions.length;
+                    viewModel.deleteAnswerOption(viewModel.answerOptions()[0]);
+
+                    expect(viewModel.answerOptions().length).toBe(currentCount - 1);
+                });
+            });
+        });
     });
 });
