@@ -5,9 +5,11 @@
         var bindingArguments = valueAccessor();
         var editor = undefined;
         var intervalId = '';
+        var language = require('localization/localizationManager').currentLanguage || 'en';
 
         CKEDITOR.domReady(initEditor);
-        
+        CKEDITOR.config.language = language;
+
         function initEditor() {
             editor = CKEDITOR.inline(element);
             editor.setData(bindingArguments.data());
