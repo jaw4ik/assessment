@@ -3,6 +3,7 @@ set outFile="%~dp0TestsResults\MyResult.html"
 set webSiteDir=%~dp0easygenerator.AcceptanceTests\bin\Release\
 set testsProject=%~dp0easygenerator.AcceptanceTests\easygenerator.AcceptanceTests.csproj
 
+del %outFile%
 %SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild %~dp0..\sources\easygenerator.Web\easygenerator.Web.csproj /p:TreatWarningsAsErrors=true /t:Clean,Build,TransformWebConfig /p:Configuration=Release
 %SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild "%testsProject%" /t:Clean,Build /verbosity:q /nologo /property:TreatWarningsAsErrors=true /p:Configuration=Release
 
