@@ -23,6 +23,8 @@ namespace easygenerator.AcceptanceTests.Helpers.DriverInitializators
         {
             var cultureString = String.Join(",", culture.Select(c => localizationStringsIE[c]));
             RegistryKey myKey = Registry.CurrentUser.OpenSubKey(@".Default\Software\Microsoft", true).CreateSubKey("Internet Explorer").CreateSubKey("International");
+            if (myKey == null)
+                myKey = Registry.Users.OpenSubKey(@".Default\Software\Microsoft", true).CreateSubKey("Internet Explorer").CreateSubKey("International");
             myKey.SetValue("AcceptLanguage", cultureString, RegistryValueKind.String);
         }
 
