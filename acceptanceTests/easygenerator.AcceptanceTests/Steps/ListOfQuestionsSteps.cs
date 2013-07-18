@@ -37,7 +37,7 @@ namespace easygenerator.AcceptanceTests.Steps
                 Id = data.Id,
                 Title = data.Title,
                 AnswerOptions = new List<Helpers.AnswerOption>(),
-                Explanations = { }
+                Explanations = new List<string>()
             };
         }
         [Then(@"questions list contains items with data")]

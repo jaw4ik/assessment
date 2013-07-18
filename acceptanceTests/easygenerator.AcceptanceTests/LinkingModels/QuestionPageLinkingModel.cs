@@ -10,11 +10,11 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 {
     public class QuestionPageLinkingModel : ILinkingModel
     {
-        public string AnswerItem = ".//li[contains(@class,'questions-list-item')]";
-        public string ExplanationItem = "";
+
+        public string AnswerItem = "//div[contains(@class,'question-answers')]//div[@class='question-content-list-item']";
+        public string ExplanationItem = "//div[contains(@class,'question-explanations')]//div[@class='question-content-list-item']";
         public string CorrectItemClass = "answer-correct-icon";
-        public string IsCorrect = "";
-        public string AnswerItemText = "";
-        public string ExplanationText = "";
+        public string AnswerItemText = ".//div[@class='question-answer-text']";
+        public string ExplanationText = ".//div[@class='question-explanations-item']";
     }
 }

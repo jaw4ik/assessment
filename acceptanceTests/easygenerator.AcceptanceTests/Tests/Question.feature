@@ -17,22 +17,22 @@ Given questions related to 'Objective2' are present in database
 | Question112 | 1  |
 | Question113 | 2  |
 Given answer options related to 'Question11' of 'Objective1' are present in database
-| Title          | isCorrect |
+| Text           | isCorrect |
 | AnswerOption11 | 1         |
 | AnswerOption12 | 0         |
 | AnswerOption13 | 1         |
 Given answer options related to 'Question12' of 'Objective1' are present in database
-| Title          |
+| Text           |
 | AnswerOption21 |
 | AnswerOption22 |
 | AnswerOption23 |
 Given explanations related to 'Question11' of 'Objective1' are present in database
-| Title         |
+| Explanation   |
 | Explanation11 |
 | Explanation12 |
 | Explanation13 |
 Given explanations related to 'Question12' of 'Objective1' are present in database
-| Title         |
+| Explanation   |
 | Explanation21 |
 | Explanation22 |
 | Explanation23 |
@@ -40,12 +40,12 @@ Given explanations related to 'Question12' of 'Objective1' are present in databa
 Scenario: All answer options and explanations related to question are present on question page
 When open page by url 'http://localhost:5656/#/objective/1/question/2'
 Then answer options list contains only items with data
-| Title          |
+| Text           |
 | AnswerOption21 |
 | AnswerOption22 |
 | AnswerOption23 |
 And explanations list contains only items with data
-| Title         |
+| Explanation   |
 | Explanation21 |
 | Explanation22 |
 | Explanation23 |

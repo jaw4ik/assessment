@@ -53,8 +53,8 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                var el = GetByXPathInside(model.IsCorrect);
-                return el.FindElementsByXPath(model.CorrectItemClass).Count == 1;
+                var el = GetByXPathInside(model.CorrectItemClass);
+                return el.Displayed;
             }
         }
     }

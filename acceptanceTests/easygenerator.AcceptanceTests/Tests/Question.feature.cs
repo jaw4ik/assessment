@@ -111,7 +111,7 @@ testRunner.Given("questions related to \'Objective1\' are present in database", 
 testRunner.Given("questions related to \'Objective2\' are present in database", ((string)(null)), table3, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title",
+                        "Text",
                         "isCorrect"});
             table4.AddRow(new string[] {
                         "AnswerOption11",
@@ -126,7 +126,7 @@ testRunner.Given("questions related to \'Objective2\' are present in database", 
 testRunner.Given("answer options related to \'Question11\' of \'Objective1\' are present in database", ((string)(null)), table4, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
+                        "Text"});
             table5.AddRow(new string[] {
                         "AnswerOption21"});
             table5.AddRow(new string[] {
@@ -137,7 +137,7 @@ testRunner.Given("answer options related to \'Question11\' of \'Objective1\' are
 testRunner.Given("answer options related to \'Question12\' of \'Objective1\' are present in database", ((string)(null)), table5, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
+                        "Explanation"});
             table6.AddRow(new string[] {
                         "Explanation11"});
             table6.AddRow(new string[] {
@@ -148,7 +148,7 @@ testRunner.Given("answer options related to \'Question12\' of \'Objective1\' are
 testRunner.Given("explanations related to \'Question11\' of \'Objective1\' are present in database", ((string)(null)), table6, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
+                        "Explanation"});
             table7.AddRow(new string[] {
                         "Explanation21"});
             table7.AddRow(new string[] {
@@ -175,7 +175,7 @@ this.FeatureBackground();
 testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
+                        "Text"});
             table8.AddRow(new string[] {
                         "AnswerOption21"});
             table8.AddRow(new string[] {
@@ -186,7 +186,7 @@ testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question
 testRunner.Then("answer options list contains only items with data", ((string)(null)), table8, "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
+                        "Explanation"});
             table9.AddRow(new string[] {
                         "Explanation21"});
             table9.AddRow(new string[] {
