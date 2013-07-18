@@ -555,6 +555,13 @@ define(function (require) {
             });
         });
 
+        describe('language', function () {
+
+            it('should be observable', function () {
+                expect(ko.isObservable(viewModel.language)).toBe(true);
+            });
+
+        });
 
         describe('answer options', function() {
 

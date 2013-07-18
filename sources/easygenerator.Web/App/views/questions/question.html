@@ -100,7 +100,7 @@
                         <li>
                             <div class="question-content-list-item clearfix">
                                 <!-- ko if: isEditing() -->
-                                <div class="question-explanations-item" contenteditable="true" data-bind="ckeditor: { data: text, endEditingEvent: 'blur', onEndEditing: $parent.saveExplanation }"></div>
+                                <div class="question-explanations-item" contenteditable="true" data-bind="ckeditor: { data: text, endEditingEvent: 'blur', onEndEditing: $parent.saveExplanation, language: $parent.language }"></div>
                                 <!-- /ko -->
                                 <!-- ko ifnot: isEditing() -->
                                 <div class="question-explanations-item" data-bind="html: text, click: $parent.editExplanation"></div>

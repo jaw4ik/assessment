@@ -5,7 +5,7 @@
         var bindingArguments = valueAccessor();
         var editor = undefined;
         var intervalId = '';
-        var language = require('localization/localizationManager').currentLanguage || 'en';
+        var language = bindingArguments.language() || 'en';
 
         CKEDITOR.domReady(initEditor);
         CKEDITOR.config.language = language;

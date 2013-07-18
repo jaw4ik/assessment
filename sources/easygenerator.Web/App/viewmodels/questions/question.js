@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'durandal/plugins/router', 'eventTracker', 'models/answerOption', 'models/explanation'],
-    function (dataContext, router, eventTracker, AnswerOptionModel, expalantionModel) {
+﻿define(['dataContext', 'durandal/plugins/router', 'eventTracker', 'models/answerOption', 'models/explanation', 'localization/localizationManager'],
+    function (dataContext, router, eventTracker, AnswerOptionModel, expalantionModel, localizationManager) {
         "use strict";
         var
             events = {
@@ -30,6 +30,7 @@
             hasNext = false,
             previousId = '',
             nextId = '',
+            currentLanguage = ko.observable(''),
             isAnswersBlockExpanded = ko.observable(true),
             isExplanationsBlockExpanded = ko.observable(true),
             goToRelatedObjective = function () {
@@ -226,6 +227,8 @@
 
                 this.hasNext = this.nextId != null;
                 this.hasPrevious = this.previousId != null;
+
+                currentLanguage(localizationManager.currentLanguage);
             },
 
          mapExplanation = function (explanation) {
@@ -265,7 +268,9 @@
             addAnswerOption: addAnswerOption,
             toggleAnswerCorrectness: toggleAnswerCorrectness,
             saveAnswerOption: saveAnswerOption,
-            deleteAnswerOption: deleteAnswerOption
+            deleteAnswerOption: deleteAnswerOption,
+            
+            language: currentLanguage
         };
     }
 );
