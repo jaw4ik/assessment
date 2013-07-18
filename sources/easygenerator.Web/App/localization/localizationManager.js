@@ -3,50 +3,65 @@
         "use strict";
 
         var
-            defaultCulture = window.top.egLanguage || window.navigator.userLanguage || window.navigator.language,
-
-            currentLanguage = ko.observable(defaultCulture),
+            defaultCulture = "en",
+            supportedCultures = [
+                "en", "en-us", "en-US",
+                "nl", "nl-nl", "nl-NL",
+                "de", "de-de", "de-DE"
+            ],
+            currentLanguage = '',
+            currentCulture = '',
 
             localize = function (key) {
-
-                if (_.isEmpty(resources)) {
-                    throw 'Resource collection was not loaded properly';
-                }
-
                 var item = resources[key];
                 if (_.isEmpty(item)) {
                     throw 'A resource with key ' + key + ' was not found';
                 }
 
-                return item[currentLanguage()] || item[defaultCulture] || item['en'];
+                return item[this.currentLanguage] || item[defaultCulture];
+            },
+
+            initialize = function (userCultures) {                
+                var matches = _.intersection(userCultures, supportedCultures);
+                if (matches.length > 0) {
+                    this.currentCulture = matches[0];
+                } else {
+                    this.currentCulture = defaultCulture;
+                }
+                this.currentLanguage = this.currentCulture.substring(0, 2);
             };
 
 
+        (function () {
+            ko.bindingHandlers.localize = {
+                init: function (element, valueAccessor) {
+                    var value = valueAccessor();
 
+                    if (_.isEmpty(value)) {
+                        return;
+                    }
 
-        ko.bindingHandlers.localize = {
-            init: function (element, valueAccessor) {
-                var value = valueAccessor();
+                    var localizationManager = require("localization/localizationManager");
 
-                if (_.isEmpty(value)) {
-                    return;
+                    if (_.isString(value['text'])) {
+                        $(element).text(localizationManager.localize(value['text']));
+                    }
+                    if (_.isString(value['placeholder'])) {
+                        $(element).prop('placeholder', localizationManager.localize(value['placeholder']));
+                    }
+                    if (_.isString(value['value'])) {
+                        $(element).prop('value', localizationManager.localize(value['value']));
+                    }
+                    if (_.isString(value['title'])) {
+                        $(element).prop('title', localizationManager.localize(value['title']));
+                    }
                 }
-                if (_.isString(value['text'])) {
-                    $(element).text(localize(value['text']));
-                }
-                if (_.isString(value['placeholder'])) {
-                    $(element).prop('placeholder', localize(value['placeholder']));
-                }
-                if (_.isString(value['value'])) {
-                    $(element).prop('value', localize(value['value']));
-                }
-                if (_.isString(value['title'])) {
-                    $(element).prop('title', localize(value['title']));
-                }
-            }
-        };
+            };
+        })();
 
         return {
+            initialize: initialize,
+            currentCulture: currentCulture,
             currentLanguage: currentLanguage,
             localize: localize
         };
