@@ -58,7 +58,7 @@
     height: 57px;
     background-color: #F5F5F5;
     border: 1px solid #E1E1E1;
-    padding-left: 40px;
+    padding-left: 16px;
     line-height: 47px;
 }
 
@@ -88,10 +88,10 @@
 }
 
 .question-content-block-header-icon {
-    line-height: 57px;
-    float: left;
-    width: 40px;
     height: 57px;
+    width: 40px;
+    float: left;
+    margin-top: -2px;
 }
 
     .question-content-block-header-icon.answer-option-icon {
@@ -111,7 +111,7 @@
 }
 
 .question-content-items-list {
-    margin: 20px 20px 20px 20px;
+    margin: 20px 0 20px 20px;
 }
 
 .question-content-list-item {
