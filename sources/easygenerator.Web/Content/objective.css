@@ -17,9 +17,12 @@
 
 .nav-control {
     height: 57px;
+    width: 100%;
     line-height: 57px;
     opacity: 0.6;
     filter: alpha(opacity=60);
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 a.nav-control:hover {
@@ -48,6 +51,7 @@ a.nav-control:hover {
     font-size: 14px;
     text-transform: uppercase;
     color: #666666;
+    white-space: nowrap;
 }
 
 .objective-header {

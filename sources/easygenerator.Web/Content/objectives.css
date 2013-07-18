@@ -161,7 +161,7 @@
 
 
 .objectives-content-wrapper,
-.experiences-content {
+.experiences-content-wrapper {
     position: absolute;
     top: 170px;
     bottom: 0;
@@ -169,11 +169,11 @@
 }
 
 .objectives-content,
-.experiences-content-wrapper {
+.experiences-content {
     height: 100%;
     padding-top: 8px;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .objectives-list-wrapper,
