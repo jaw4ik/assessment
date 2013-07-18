@@ -19,7 +19,6 @@ namespace easygenerator.Web.Configuration
                             .Include("~/scripts/sammy-{version}.js")
                             .Include("~/scripts/q.js")
                             .Include("~/scripts/underscore.js")
-                            .Include("~/scripts/ckeditor/ckeditor.js")
                             .Include("~/Scripts/ckeditorBinding.js"));
 
             bundles.Add(new StyleBundle("~/Content/css")
@@ -29,8 +28,7 @@ namespace easygenerator.Web.Configuration
                             .Include("~/Content/styles.css")
                             .Include("~/Content/question.css")
                             .Include("~/Content/objective.css")
-                            .Include("~/Content/objectives.css")
-                            .Include("~/Content/ckeditor/contents.css"));
+                            .Include("~/Content/objectives.css"));
 
         }
     }
