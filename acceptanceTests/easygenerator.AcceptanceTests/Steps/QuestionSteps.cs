@@ -64,22 +64,18 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Not all expected answers on page", realExplanations);
         }
 
-        [When(@"navigate to '(.*)' of '(.*)'")]
-        public void WhenNavigateToOf(string p0, string p1)
-        {
-            ScenarioContext.Current.Pending();
-        }
 
         [Then(@"'(.*)' title is shown in back to objective link")]
-        public void ThenTitleIsShownInBackToObjectiveLink(string p0)
+        public void ThenTitleIsShownInBackToObjectiveLink(string Title)
         {
-            ScenarioContext.Current.Pending();
+            var backText = Question.BackToObjectiveLinkText;
+            TestUtils.Assert_IsTrue_WithWait(()=> backText.Contains(Title), "Incorrect objective title in back link, link text is " + backText);
         }
 
         [Then(@"'(.*)' title is shown in question page header")]
-        public void ThenTitleIsShownInQuestionPageHeader(string p0)
+        public void ThenTitleIsShownInQuestionPageHeader(string Title)
         {
-            ScenarioContext.Current.Pending();
+            TestUtils.Assert_IsTrue_WithWait(() => Question.QuestionTitle == Title, "Incorrect question title, shown title is " + Question.QuestionTitle);
         }
 
         [Then(@"correct is set to true for '(.*)'")]
@@ -121,13 +117,13 @@ namespace easygenerator.AcceptanceTests.Steps
         [Then(@"answer options block is expanded")]
         public void ThenAnswerOptionsBlockIsExpanded()
         {
-            ScenarioContext.Current.Pending();
+            TestUtils.Assert_IsTrue_WithWait(() => Question.AnswersBlockIsExpanded, "Answer options block is not expanded");
         }
 
         [Then(@"explanations block is expanded")]
         public void ThenExplanationsBlockIsExpanded()
         {
-            ScenarioContext.Current.Pending();
+            TestUtils.Assert_IsTrue_WithWait(() => Question.ExplanationsBlockIsExpanded, "Explanations block is not expanded");
         }
 
         [When(@"click on collapse answer options")]
@@ -169,7 +165,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [When(@"click on back to objective")]
         public void WhenClickOnBackToObjective()
         {
-            ScenarioContext.Current.Pending();
+            Question.NavigateBackToObjective();
         }
         private easygenerator.AcceptanceTests.Helpers.AnswerOption BuildAnswerOption(AnswerData data)
         {

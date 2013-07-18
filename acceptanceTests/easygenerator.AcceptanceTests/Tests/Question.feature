@@ -75,7 +75,7 @@ When open page by url 'http://localhost:5656/#/objective/1/question/1'
 Then previous question action is not available
 
 Scenario: Next question action is not available for last question
-When navigate to 'Question13' of 'Objective1'
+When open page by url 'http://localhost:5656/#/objective/1/question/3'
 Then next question action is not available
 
 Scenario: answer options block and explanations block are expanded by default

@@ -14,6 +14,24 @@ namespace easygenerator.AcceptanceTests.ElementObjects
     {
         public QuestionPage() { }
 
+        public string BackToObjectiveLinkText
+        {
+            get
+            {
+                var el = GetByXPath(model.BackToObjectiveLink);
+                return el.GetTextContent();
+            }
+        }
+
+        public string QuestionTitle
+        {
+            get
+            {
+                var el = GetByXPath(model.QuestionTitle);
+                return el.GetTextContent();
+            }
+        }
+
         public AnswerItem[] AnswerItems
         {
             get
@@ -32,7 +50,37 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
+        public bool AnswersBlockIsExpanded
+        {
+            get
+            {
+                var el = GetByXPath(model.AnswerOptionsBlock);
+                var children = el.FindElementsByXPath(model.BlockList);
+                return children.Count == 1 &&
+                    children[0].Displayed;               
+            }
+        }
+
+        public bool ExplanationsBlockIsExpanded
+        {
+            get
+            {
+                var el = GetByXPath(model.ExplanationsBlock);
+                var children = el.FindElementsByXPath(model.BlockList);
+                return children.Count == 1 &&
+                    children[0].Displayed;
+            }
+        }
+
+        internal void NavigateBackToObjective()
+        {
+            var link = GetByXPath(model.BackToObjectiveLink);
+            link.Click();
+        }
+
     }
+
+
 
     public class AnswerItem : ContainerElement<QuestionPageLinkingModel>
     {

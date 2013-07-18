@@ -16,5 +16,12 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string CorrectItemClass = "answer-correct-icon";
         public string AnswerItemText = ".//div[@class='question-answer-text']";
         public string ExplanationText = ".//div[@class='question-explanations-item']";
+
+        public string BackToObjectiveLink = ".//a[contains(@class,'inline nav-control')]";
+        public string QuestionTitle = ".//div[@class='question-header-title']";
+
+        public string AnswerOptionsBlock = "//div[contains(@class,'question-answers')]";
+        public string ExplanationsBlock = "//div[contains(@class,'question-explanations')]";
+        public string BlockList = "//div[@class='question-content-items-list']";
     }
 }

@@ -304,7 +304,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
 #line 78
-testRunner.When("navigate to \'Question13\' of \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 79
 testRunner.Then("next question action is not available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
