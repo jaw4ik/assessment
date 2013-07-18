@@ -9,16 +9,20 @@
         CKEDITOR.domReady(initEditor);
         
         function initEditor() {
-            editor = CKEDITOR.replace(element);
+            editor = CKEDITOR.inline(element);
             editor.setData(bindingArguments.data());
+            
+            editor.on('instanceReady', function () {
+                editor.focus();
+            });
             
             editor.on(bindingArguments.endEditingEvent, function () {
                 endEditing();
             });
-
-            editor.on('key', function(event) {
+            
+            editor.on('key', function (event) {
                 if (event.data.keyCode == 27)
-                    endEditing();
+                    editor.focusManager.blur();
             });
 
             intervalId = setInterval(function () {
