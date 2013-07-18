@@ -27,4 +27,15 @@ namespace easygenerator.AcceptanceTests.Helpers
             {"nlBe",EgLocalization.nlBe}
         };
     }
+
+    public abstract class UniqueData
+    {
+        static int currentId = 0;
+        public UniqueData()
+        {
+            Id = currentId;
+            currentId++;
+        }
+        public int Id { get; set; }
+    }
 }

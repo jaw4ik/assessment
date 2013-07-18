@@ -11,10 +11,9 @@ using TechTalk.SpecFlow.Assist;
 
 namespace easygenerator.AcceptanceTests.Steps
 {
-    public class PublicationData
+    public class ExpirienceData : UniqueData
     {
         public string Title { get; set; }
-        public string Id { get; set; }
     }
     [Binding]
     public class ListOfPublicationsSteps
@@ -28,16 +27,14 @@ namespace easygenerator.AcceptanceTests.Steps
         [Given(@"publications are present in database")]
         public void GivenPublicationsArePresentInDatabase(Table table)
         {
-            var publications = table.CreateSet<PublicationData>().ToArray();
+            var publications = table.CreateSet<ExpirienceData>().ToArray();
             var dataSetter = new DataSetter();
-            dataSetter.EmptyPublicationsList();
-            dataSetter.AddPublicationsToDatabase(publications);
+            dataSetter.AddPublicationsToDatabase(publications.Select(data => BuildExpirience(data)).ToArray());
         }
-
         [Then(@"publications tiles list contains items with data")]
         public void ThenPublicationsTilesListContainsItemsWithData(Table table)
         {
-            var expectedPublications = table.CreateSet<PublicationData>().ToArray();
+            var expectedPublications = table.CreateSet<ExpirienceData>().ToArray();
             var realPublications = publicationsPage.Items.Select(obj => obj.Title).ToArray();
             TestUtils.Assert_IsTrue_WithWait(() =>
                 expectedPublications.All(obj => realPublications.Any(item => item == obj.Title)),
@@ -47,7 +44,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [Then(@"publications tiles list consists of ordered items")]
         public void ThenPublicationsTilesListConsistsOfOrderedItems(Table table)
         {
-            var expectedPublications = table.CreateSet<PublicationData>().Select(obj => obj.Title).ToArray();
+            var expectedPublications = table.CreateSet<ExpirienceData>().Select(obj => obj.Title).ToArray();
             var realPublications = publicationsPage.Items.Select(obj => obj.Title).ToArray();
             TestUtils.Assert_IsTrue_WithWait(() =>
                 TestUtils.AreCollectionsEqual(expectedPublications, realPublications),
@@ -148,16 +145,24 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Select should be enabled");
         }
 
-        [When(@"click on tab objectives link on publications list page")]
-        public void WhenClickOnTabObjectivesLinkOnPublicationsListPage()
-        {
-            publicationsPage.NavigateToObjectivesUsingTabs();
-        }
-
         [When(@"click open publication list item with title '(.*)'")]
         public void WhenClickOpenPublicationListItemWithTitle(string title)
         {
             publicationsPage.ItemByTitle(title).Open();
+        }
+        [When(@"click on tab objectives link on expiriences list page")]
+        public void WhenClickOnTabObjectivesLinkOnExpiriencesListPage()
+        {
+            publicationsPage.NavigateToObjectivesUsingTabs();
+        }
+
+        Expirience BuildExpirience(ExpirienceData data)
+        {
+            return new Expirience()
+            {
+                Id = data.Id,
+                Title = data.Title
+            };
         }
 
     }

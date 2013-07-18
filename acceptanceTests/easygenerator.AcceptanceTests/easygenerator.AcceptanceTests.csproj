@@ -94,6 +94,7 @@
     <Compile Include="ElementObjects\PublicationsListItem.cs" />
     <Compile Include="ElementObjects\PublicationsListPage.cs" />
     <Compile Include="ElementObjects\UserSettingsPage.cs" />
+    <Compile Include="Helpers\DataModels.cs" />
     <Compile Include="Helpers\DataSetter.cs" />
     <Compile Include="Helpers\DriverExtensions.cs" />
     <Compile Include="Helpers\DriverInitializators\ChromeInitializer.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Helpers\DriverInitializators\IEInitializer.cs" />
     <Compile Include="Helpers\DriverProvider.cs" />
     <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Helpers\FsHelper.cs" />
     <Compile Include="Helpers\TestUtils.cs" />
     <Compile Include="LinkingModels\ILinkingModel.cs" />
     <Compile Include="ElementObjects\BasePageElement.cs" />
@@ -181,11 +183,6 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Question.feature.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="JS\TestScripts.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -35,18 +35,22 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             var answers = table.CreateSet<AnswerData>().ToArray();
             var dataSetter = new DataSetter();
-            dataSetter.EmptyAnswerOptionsOfQuestion(objTitle, questionTitle);
-            dataSetter.AddAnswerOptionsToDatabase(objTitle, questionTitle, answers);
-
+            dataSetter.AddAnswerOptionsToDatabase(objTitle, questionTitle, answers.Select(ans => BuildAnswerOption(ans)).ToArray());
         }
-
+        private easygenerator.AcceptanceTests.Helpers.AnswerOption BuildAnswerOption(AnswerData data)
+        {
+            return new Helpers.AnswerOption()
+            {
+                IsCorrect = data.IsCorrect,
+                Text = data.Text
+            };
+        }
         [Given(@"explanations related to '(.*)' of '(.*)' are present in database")]
         public void GivenExplanationsRelatedToOfArePresentInDatabase(string questionTitle, string objTitle, Table table)
         {
             var explanations = table.CreateSet<ExplanationData>().ToArray();
             var dataSetter = new DataSetter();
-            dataSetter.EmptyExplanationsOfQuestion(objTitle, questionTitle);
-            dataSetter.AddExplanationsToDatabase(objTitle, questionTitle, explanations);
+            dataSetter.AddExplanationsToDatabase(objTitle, questionTitle, explanations.Select(exp => exp.Explanation).ToArray());
         }
 
         [Then(@"answer options list contains only items with data")]

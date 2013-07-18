@@ -11,10 +11,9 @@ using TechTalk.SpecFlow.Assist;
 
 namespace easygenerator.AcceptanceTests.Steps
 {
-    public class ObjectiveData
+    public class ObjectiveData : UniqueData
     {
         public string Title { get; set; }
-        public string Id { get; set; }
     }
     [Binding]
     public class ListOfObjectivesSteps
@@ -30,8 +29,7 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             var objectives = table.CreateSet<ObjectiveData>().ToArray();
             var dataSetter = new DataSetter();
-            dataSetter.EmptyObjectivesList();
-            dataSetter.AddObjectivesToDatabase(objectives);
+            dataSetter.AddObjectivesToDatabase(objectives.Select(data => BuildObjective(data)).ToArray());
         }
 
         [Then(@"objectives list page header text is '(.*)'")]
@@ -79,7 +77,7 @@ namespace easygenerator.AcceptanceTests.Steps
                 objectivesPage.Order = expectedOrder;
         }
 
-        [When(@"click on tab publications link on objectives list page")]
+        [When(@"click on tab expiriences link on objectives")]
         public void WhenClickOnTabPublicationsLinkOnObjectivesListPage()
         {
             objectivesPage.NavigateToPublicationsUsingTabs();
@@ -169,5 +167,15 @@ namespace easygenerator.AcceptanceTests.Steps
         }
 
 
+        private Objective BuildObjective(ObjectiveData obj)
+        {
+            return new Objective()
+            {
+                Id = obj.Id,
+                Title = obj.Title,
+                ImageSource = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh4piEoOidTuAx5hiRTVtQrw2dV6sJg3J_vo2tKH4SYjg5rP9-",
+                Questions = new List<Question>()
+            };
+        }
     }
 }

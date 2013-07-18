@@ -3,8 +3,6 @@ Feature: ListOfPublications
 	As an author I want to see list of previously created Publications,
 	so I could correct needed settings and perform publication once more without defining all the settings each time. 
 
-Background: 
-When open page by url 'http://localhost:5656'
 
 Scenario: All publications should be present in list
 Given publications are present in database
@@ -12,7 +10,7 @@ Given publications are present in database
 | Publication1 |
 | Publication2 |
 | Publication3 |
-When click on tab publications link on objectives list page
+When open page by url 'http://localhost:5656/#/experiences'
 Then publications tiles list contains items with data 
 | Title        |
 | Publication1 |
@@ -24,7 +22,7 @@ Scenario: Publications list item name could contain special symbols
 Given publications are present in database
 | Title      |
 | ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
-When click on tab publications link on objectives list page
+When open page by url 'http://localhost:5656/#/experiences'
 Then publications tiles list contains items with data 
 | Title                                |
 | ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
@@ -37,7 +35,7 @@ Given publications are present in database
 | Publication_z |
 | 1_Publication |
 | _Publication  |
-When click on tab publications link on objectives list page
+When open page by url 'http://localhost:5656/#/experiences'
 Then publications tiles list consists of ordered items
 | Title         |
 | 1_Publication |
@@ -56,7 +54,7 @@ Given publications are present in database
 | Publication_z |
 | _Publication  |
 | 1_Publication |
-When click on tab publications link on objectives list page
+When open page by url 'http://localhost:5656/#/experiences'
 And I switch publications list order to 'ascending'
 And I switch publications list order to 'descending'
 Then publications tiles list consists of ordered items
@@ -76,7 +74,7 @@ Given publications are present in database
 | Publication_z |
 | 1_Publication |
 | _Publication  |
-When click on tab publications link on objectives list page
+When open page by url 'http://localhost:5656/#/experiences'
 And I switch publications list order to 'descending'
 And I switch publications list order to 'ascending'
 Then publications tiles list consists of ordered items
@@ -94,7 +92,7 @@ Given publications are present in database
 | Publication1 |
 | Publication2 |
 | Publication3 |
-When click on tab publications link on objectives list page
+When open page by url 'http://localhost:5656/#/experiences'
 And mouse hover element of publications list with title 'Publication2'
 And select publication list item with title 'Publication2'
 Then publication list item with title 'Publication2' is selected
@@ -107,7 +105,7 @@ Given publications are present in database
 | Publication1 |
 | Publication2 |
 | Publication3 |
-When click on tab publications link on objectives list page
+When open page by url 'http://localhost:5656/#/experiences'
 And mouse hover element of publications list with title 'Publication1'
 And select publication list item with title 'Publication1'
 And mouse hover element of publications list with title 'Publication2'
@@ -128,7 +126,7 @@ Given publications are present in database
 | Publication1 |
 | Publication2 |
 | Publication3 |
-When click on tab publications link on objectives list page
+When open page by url 'http://localhost:5656/#/experiences'
 Then publication list item with title 'Publication2' is not selected
 And publication list item with title 'Publication1' is not selected
 And publication list item with title 'Publication3' is not selected
@@ -142,7 +140,7 @@ Given publications are present in database
 | Publication3 |
 | Publication4 |
 | Publication5 |
-When click on tab publications link on objectives list page
+When open page by url 'http://localhost:5656/#/experiences'
 And browser window width and height is set to <window width> and 600 
 Then publications list is displayed in <columns count> columns
 Examples: 
@@ -161,7 +159,7 @@ Given publications are present in database
 | Publication3 |
 | Publication4 |
 | Publication5 |
-When click on tab publications link on objectives list page
+When open page by url 'http://localhost:5656/#/experiences'
 And browser window width and height is set to 600 and 600
 And scroll publication with title 'Publication5' into the view
 Then element with title 'Publication5' of publications list is visible
@@ -173,7 +171,7 @@ Given publications are present in database
 | Publication1 |
 | Publication2 |
 | Publication3 |
-When click on tab publications link on objectives list page
+When open page by url 'http://localhost:5656/#/experiences'
 And mouse hover element of publications list with title 'Publication1'
 Then Action open is enabled true for publications list item with title 'Publication1'
 And Action select is enabled true for publications list item with title 'Publication1'
@@ -183,13 +181,15 @@ Scenario: Open action of publications list item navigates to publication's editi
 Given publications are present in database
 | Title        | Id |
 | Publication1 | 1  |
-When click on tab publications link on objectives list page
+When open page by url 'http://localhost:5656/#/experiences'
 And mouse hover element of publications list with title 'Publication1'
 And click open publication list item with title 'Publication1'
 Then browser navigates to url 'http://localhost:5656/#/experience/1'
 
-
-
+Scenario: Navigation works using tab navigation to objectives
+When open page by url 'http://localhost:5656/#/experiences'
+And click on tab objectives link on expiriences list page
+Then browser navigates to url 'http://localhost:5656/#/objectives'
 
 
 

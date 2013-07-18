@@ -27,7 +27,9 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         }
         protected void WaitForReady()
         {
-            DataSetter.WaitForDataContextLoaded();
+            if (!TestUtils.WaitForCondition(() =>
+                (bool)DriverProvider.Current().Driver.ExecuteScript("return document.getElementById('content')!==null")))
+                throw new TimeoutException("Content data is not reachable");
         }
     }
 }

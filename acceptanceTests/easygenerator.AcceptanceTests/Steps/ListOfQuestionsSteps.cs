@@ -11,10 +11,9 @@ using TechTalk.SpecFlow.Assist;
 
 namespace easygenerator.AcceptanceTests.Steps
 {
-    public class QuestionData
+    public class QuestionData : UniqueData
     {
         public string Title { get; set; }
-        public string Id { get; set; }
     }
     [Binding]
     public class ListOfQuestionsSteps
@@ -29,8 +28,17 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             var questions = table.CreateSet<QuestionData>().ToArray();
             var dataSetter = new DataSetter();
-            dataSetter.EmptyQuestionsListOfObjective(objTitle);
-            dataSetter.AddQuestionsToDatabase(objTitle, questions);
+            dataSetter.AddQuestionsToDatabase(objTitle, questions.Select(quest => BuildQuestion(quest)).ToArray());
+        }
+        Question BuildQuestion(QuestionData data)
+        {
+            return new Question()
+            {
+                Id = data.Id,
+                Title = data.Title,
+                AnswerOptions = new List<Helpers.AnswerOption>(),
+                Explanations = { }
+            };
         }
         [Then(@"questions list contains items with data")]
         public void ThenQuestionsListContainsItemsWithData(Table table)

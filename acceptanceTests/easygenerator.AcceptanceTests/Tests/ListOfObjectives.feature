@@ -2,8 +2,6 @@
 Feature: ListOfObjectives
 	As an author I want to see list of previously created Learning Objectives, so I could select certain Learning Objective to start working with related content.
 
-Background: 
-When open page by url 'http://localhost:5656'
 
 Scenario: All objectives should be present in list
 Given objectives are present in database
@@ -11,6 +9,7 @@ Given objectives are present in database
 | Objective1 |
 | Objective2 |
 | Objective3 |
+When open page by url 'http://localhost:5656'
 Then objectives tiles list contains items with data 
 | Title      |
 | Objective1 |
@@ -21,6 +20,7 @@ Scenario: Objectives list item name could contain special symbols
 Given objectives are present in database
 | Title      |
 | ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
+When open page by url 'http://localhost:5656'
 Then objectives tiles list contains items with data 
 | Title                                |
 | ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
@@ -34,6 +34,7 @@ Given objectives are present in database
 | Objective_z |
 | 1_Objective |
 | _Objective  |
+When open page by url 'http://localhost:5656'
 Then objectives tiles list consists of ordered items
 | Title       |
 | 1_Objective |
@@ -52,6 +53,7 @@ Given objectives are present in database
 | Objective_z |
 | 1_Objective |
 | _Objective  |
+When open page by url 'http://localhost:5656'
 When I switch objectives list order to 'ascending'
 And I switch objectives list order to 'descending'
 Then objectives tiles list consists of ordered items
@@ -71,6 +73,7 @@ Given objectives are present in database
 | Objective_z |
 | 1_Objective |
 | _Objective  |
+When open page by url 'http://localhost:5656'
 When I switch objectives list order to 'descending'
 And I switch objectives list order to 'ascending'
 Then objectives tiles list consists of ordered items
@@ -88,6 +91,7 @@ Given objectives are present in database
 | Objective1 |
 | Objective2 |
 | Objective3 |
+When open page by url 'http://localhost:5656'
 When mouse hover element of objectives list with title 'Objective2'
 And select objective list item with title 'Objective2'
 Then objective list item with title 'Objective2' is selected
@@ -100,6 +104,7 @@ Given objectives are present in database
 | Objective1 |
 | Objective2 |
 | Objective3 |
+When open page by url 'http://localhost:5656'
 When mouse hover element of objectives list with title 'Objective1'
 And select objective list item with title 'Objective1'
 And mouse hover element of objectives list with title 'Objective2'
@@ -120,6 +125,7 @@ Given objectives are present in database
 | Objective1 |
 | Objective2 |
 | Objective3 |
+When open page by url 'http://localhost:5656'
 Then objective list item with title 'Objective2' is not selected
 And objective list item with title 'Objective1' is not selected
 And objective list item with title 'Objective3' is not selected
@@ -133,6 +139,7 @@ Given objectives are present in database
 | Objective3 |
 | Objective4 |
 | Objective5 |
+When open page by url 'http://localhost:5656'
 When browser window width and height is set to <window width> and 600 
 Then objectives list is displayed in <columns count> columns
 Examples: 
@@ -151,6 +158,7 @@ Given objectives are present in database
 | Objective3 |
 | Objective4 |
 | Objective5 |
+When open page by url 'http://localhost:5656'
 When browser window width and height is set to 600 and 600
 And scroll objective with title 'Objective5' into the view
 Then element of objectives list with title 'Objective5' is visible
@@ -162,6 +170,7 @@ Given objectives are present in database
 | Objective1 |
 | Objective2 |
 | Objective3 |
+When open page by url 'http://localhost:5656'
 When mouse hover element of objectives list with title 'Objective1'
 Then Action open is enabled true for objectives list item with title 'Objective1'
 And Action select is enabled true for objectives list item with title 'Objective1'
@@ -171,11 +180,16 @@ Scenario: Open action of objectives list item navigates to objective's editing p
 Given objectives are present in database
 | Title      | Id |
 | Objective1 | 1  |
+When open page by url 'http://localhost:5656'
 When mouse hover element of objectives list with title 'Objective1'
 And click open objective list item with title 'Objective1'
 Then browser navigates to url 'http://localhost:5656/#/objective/1'
 
 
+Scenario: Navigation works using tab navigation to expiriences from objectives list
+When open page by url 'http://localhost:5656/#/objectives'
+And click on tab expiriences link on objectives
+Then browser navigates to url 'http://localhost:5656/#/experiences' 
 
 
 

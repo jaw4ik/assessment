@@ -3,7 +3,6 @@ Feature: ListOfQuestions
 	As an author I can see list of previously created Questions related to selected Learning Objective, so I can select one for editing.
 
 Background: 
-When open page by url 'http://localhost:5656'
 Given objectives are present in database
 | Title      | Id |
 | Objective1 | 1  |
@@ -15,8 +14,7 @@ Given questions related to 'Objective1' are present in database
 | Question1 |
 | Question2 |
 | Question3 |
-When mouse hover element of objectives list with title 'Objective1'
-And click open objective list item with title 'Objective1'
+When open page by url 'http://localhost:5656/#/objective/1'
 Then questions list contains items with data 
 | Title     |
 | Question1 |
@@ -27,8 +25,7 @@ Scenario: Questions list item name could contain special symbols
 Given questions related to 'Objective1' are present in database
 | Title                                |
 | ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
-When mouse hover element of objectives list with title 'Objective1'
-And click open objective list item with title 'Objective1'
+When open page by url 'http://localhost:5656/#/objective/1'
 Then questions list contains items with data  
 | Title                                |
 | ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
@@ -44,8 +41,7 @@ Given questions related to 'Objective2' are present in database
 | Question21 |
 | Question22 |
 | Question23 |
-When mouse hover element of objectives list with title 'Objective2'
-And click open objective list item with title 'Objective2'
+When open page by url 'http://localhost:5656/#/objective/2'
 Then questions list consists of ordered items
 | Title      |
 | Question21 |
@@ -60,8 +56,7 @@ Given questions related to 'Objective1' are present in database
 | Question_z |
 | 1_Question |
 | _Question  |
-When mouse hover element of objectives list with title 'Objective1'
-And click open objective list item with title 'Objective1'
+When open page by url 'http://localhost:5656/#/objective/1'
 Then questions list consists of ordered items
 | Title      |
 | 1_Question |
@@ -80,8 +75,7 @@ Given questions related to 'Objective1' are present in database
 | Question_z |
 | 1_Question |
 | _Question  |
-When mouse hover element of objectives list with title 'Objective1'
-And click open objective list item with title 'Objective1'
+When open page by url 'http://localhost:5656/#/objective/1'
 And I switch questions list order to 'ascending'
 And I switch questions list order to 'descending'
 Then questions list consists of ordered items
@@ -101,8 +95,7 @@ Given questions related to 'Objective1' are present in database
 | Question_z |
 | 1_Question |
 | _Question  |
-When mouse hover element of objectives list with title 'Objective1'
-And click open objective list item with title 'Objective1'
+When open page by url 'http://localhost:5656/#/objective/1'
 And I switch questions list order to 'descending'
 And I switch questions list order to 'ascending'
 Then questions list consists of ordered items
@@ -120,8 +113,7 @@ Given questions related to 'Objective1' are present in database
 | Question1  |
 | Question2  |
 | Question3  |
-When mouse hover element of objectives list with title 'Objective1'
-And click open objective list item with title 'Objective1'
+When open page by url 'http://localhost:5656/#/objective/1'
 Then questions list item with title 'Question2' is not selected
 And questions list item with title 'Question1' is not selected
 And questions list item with title 'Question3' is not selected
@@ -143,8 +135,7 @@ Given questions related to 'Objective1' are present in database
 | Question12 |
 | Question13 |
 | Question14 |
-When mouse hover element of objectives list with title 'Objective1'
-And click open objective list item with title 'Objective1'
+When open page by url 'http://localhost:5656/#/objective/1'
 And browser window width and height is set to 640 and 300
 And scroll questions list item with title 'Question14' into the view
 Then element with title 'Question14' of questions list is visible
@@ -155,8 +146,7 @@ Given questions related to 'Objective1' are present in database
 | Question1 |
 | Question2 |
 | Question3 |
-When mouse hover element of objectives list with title 'Objective1'
-And click open objective list item with title 'Objective1'
+When open page by url 'http://localhost:5656/#/objective/1'
 And mouse hover element of questions list with title 'Question2'
 Then Action select is enabled true for questions list item with title 'Question2'
 And Action edit is enabled true for questions list item with title 'Question2'
@@ -167,8 +157,7 @@ Given questions related to 'Objective1' are present in database
 | Question1 |
 | Question2 |
 | Question3 |
-When mouse hover element of objectives list with title 'Objective1'
-And click open objective list item with title 'Objective1'
+When open page by url 'http://localhost:5656/#/objective/1'
 And mouse hover element of questions list with title 'Question1'
 And click on select questions list item with title 'Question1'
 And mouse hover element of questions list with title 'Question3'
@@ -183,8 +172,7 @@ Given questions related to 'Objective1' are present in database
 | Question1 |
 | Question2 |
 | Question3 |
-When mouse hover element of objectives list with title 'Objective1'
-And click open objective list item with title 'Objective1'
+When open page by url 'http://localhost:5656/#/objective/1'
 And mouse hover element of questions list with title 'Question1'
 And click on select questions list item with title 'Question1'
 And mouse hover element of questions list with title 'Question2'
@@ -203,8 +191,7 @@ Scenario: Edit question action of questions list navigates to question's editing
 Given questions related to 'Objective1' are present in database
 | Title      | Id |
 | Question1  | 1  |
-When mouse hover element of objectives list with title 'Objective1'
-And click open objective list item with title 'Objective1'
+When open page by url 'http://localhost:5656/#/objective/1'
 And mouse hover element of questions list with title 'Question1'
 And click on edit question with title 'Question1'
 Then browser navigates to url 'http://localhost:5656/#/objective/1/question/1'
@@ -214,7 +201,6 @@ Scenario: Back action of questions list navigates to objectives list page
 Given questions related to 'Objective1' are present in database
 | Title     |
 | Question1 |
-When mouse hover element of objectives list with title 'Objective1'
-And click open objective list item with title 'Objective1'
+When open page by url 'http://localhost:5656/#/objective/1'
 And click on back from questions list
 Then browser navigates to url 'http://localhost:5656/#/objectives'
