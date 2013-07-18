@@ -135,7 +135,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [Then(@"answer options block is collapsed")]
         public void ThenAnswerOptionsBlockIsCollapsed()
         {
-            ScenarioContext.Current.Pending();
+            TestUtils.Assert_IsTrue_WithWait(() => !Question.AnswersBlockIsExpanded, "Answer options block is not collapsed");
         }
 
         [When(@"click on collapse explanations")]
@@ -147,7 +147,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [Then(@"explanations block is collapsed")]
         public void ThenExplanationsBlockIsCollapsed()
         {
-            ScenarioContext.Current.Pending();
+            TestUtils.Assert_IsTrue_WithWait(() => !Question.ExplanationsBlockIsExpanded, "Explanations block is not collapsed");
         }
 
         [When(@"click on expand answer options")]
