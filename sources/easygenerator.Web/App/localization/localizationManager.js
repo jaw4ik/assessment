@@ -5,12 +5,13 @@
         var
             defaultCulture = "en",
             supportedCultures = [
-                "en", "en-us", "en-US",
-                "nl", "nl-nl", "nl-NL",
-                "de", "de-de", "de-DE"
+                "en", "en-US",
+                "nl", "nl-NL",
+                "de", "de-DE"
             ],
+            currentCulture = defaultCulture,
             currentLanguage = '',
-            currentCulture = '',
+
 
             localize = function (key) {
                 var item = resources[key];
@@ -21,13 +22,29 @@
                 return item[this.currentLanguage] || item[defaultCulture];
             },
 
-            initialize = function (userCultures) {                
-                var matches = _.intersection(userCultures, supportedCultures);
-                if (matches.length > 0) {
-                    this.currentCulture = matches[0];
-                } else {
-                    this.currentCulture = defaultCulture;
+            initialize = function (userCultures) {
+
+                userCultures = userCultures || [];
+
+                var
+                    match = null,
+                    i = 0, j = 0,
+                    uclength = userCultures.length,
+                    sclength = supportedCultures.length;
+
+                for (i = 0; i < uclength; i++) {
+                    if (_.isString(match)) {
+                        break;
+                    }
+                    for (j = 0; j < sclength; j++) {
+                        if (userCultures[i].toLowerCase() == supportedCultures[j].toLowerCase()) {
+                            match = supportedCultures[j];
+                            break;
+                        }
+                    }
                 }
+
+                this.currentCulture = _.isString(match) ? match : defaultCulture;
                 this.currentLanguage = this.currentCulture.substring(0, 2);
             };
 

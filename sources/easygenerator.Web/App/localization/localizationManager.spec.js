@@ -16,10 +16,10 @@
                         localizationManager.initialize();
                         expect(localizationManager.currentLanguage).toEqual("en");
                     });
-                    it('when userCultures are not an array', function () {
+                    it('when userCultures are not an array', function() {
                         localizationManager.initialize('ru-RU');
                         expect(localizationManager.currentLanguage).toEqual("en");
-                    })
+                    });
                     it('when userCultures are not supported', function () {
                         localizationManager.initialize(['ru-RU']);
                         expect(localizationManager.currentLanguage).toEqual("en");
@@ -31,10 +31,10 @@
                         localizationManager.initialize();
                         expect(localizationManager.currentCulture).toEqual("en");
                     });
-                    it('when userCultures are not an array', function () {
+                    it('when userCultures are not an array', function() {
                         localizationManager.initialize('ru-RU');
                         expect(localizationManager.currentCulture).toEqual("en");
-                    })
+                    });
                     it('when userCultures are not supported', function () {
                         localizationManager.initialize(['ru-RU']);
                         expect(localizationManager.currentCulture).toEqual("en");
@@ -50,6 +50,13 @@
                     localizationManager.initialize(['ru-RU', 'nl-NL', 'nl']);
                     expect(localizationManager.currentLanguage).toEqual("nl");
                 });
+                
+                it('should igonore case of userCultures', function () {
+                    localizationManager.initialize(['nL-nL']);
+                    expect(localizationManager.currentCulture).toEqual("nl-NL");
+                    expect(localizationManager.currentLanguage).toEqual("nl");
+                });
+
             });
 
             describe('localize', function () {
@@ -57,7 +64,7 @@
                 var resources = require('localization/resources');
 
                 var key = "resourceKey";
-                var defaultString = 'default string'
+                var defaultString = 'default string';
 
                 beforeEach(function () {
                     resources[key] = {};
