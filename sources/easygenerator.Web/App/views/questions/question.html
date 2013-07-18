@@ -60,16 +60,26 @@
             <div class="question-content-items-list">
                 <!-- ko if: answerOptions().length -->
                 <ul class="unstyled" data-bind="foreach: answerOptions">
-                    <li class="clearfix">
-                        <div class="question-content-list-item">
-                            <div class="question-answer-value" data-bind="click: $parent.toggleAnswerCorrectness">
-                                <div data-bind="visible: isCorrect" class="answer-correct-icon"></div>
-                            </div>
-                            <div class="question-answer-text">
-                                <div contenteditable="true" data-bind="html: text, event: { blur: $parent.saveAnswerOption }, hasFocus: true"></div>
-                            </div>
-                            <a data-bind="click: $parent.deleteAnswerOption">X</a>
-                        </div>
+                    <li>
+                        <table class="question-content-list-item">
+                            <tr>
+                                <td class="question-answer-value-wrapper">
+                                    <div class="question-answer-value" data-bind="click: $parent.toggleAnswerCorrectness, css: { 'correct': isCorrect }">
+                                        <span data-bind="visible: isCorrect" class="answer-correct-icon"></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="question-answer-text">
+                                        <span contenteditable="true" data-bind="text: text, event: { blur: $parent.saveAnswerOption }, hasFocus: true"></span>
+                                    </div>
+                                </td>
+                                <td class="question-answer-delete-wrapper">
+                                    <span class="question-answer-delete">
+                                        <a data-bind="click: $parent.deleteAnswerOption">x</a>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
                     </li>
                 </ul>
                 <!-- /ko -->
@@ -105,13 +115,13 @@
                                 <!-- ko ifnot: isEditing() -->
                                 <div class="question-explanations-item" data-bind="html: text, click: $parent.editExplanation"></div>
                                 <!-- /ko -->
-                                <a class="question-remove-button right" data-bind="click: $parent.deleteExplanation.bind($parent), localize: {title: 'remove'}">X</a>
+                                <a class="question-remove-button right" data-bind="click: $parent.deleteExplanation.bind($parent), localize: { title: 'remove' }">X</a>
                             </div>
                         </li>
                         <!-- /ko -->
                         <li>
                             <div class="question-content-list-item">
-                                <div class="question-explanations-item question-add-explanation" data-bind="click: addExplanation, localize: { text: 'clickToAddNewExplanation'}">
+                                <div class="question-explanations-item question-add-explanation" data-bind="click: addExplanation, localize: { text: 'clickToAddNewExplanation' }">
                                     Click to add new explanation...
                                 </div>
                             </div>

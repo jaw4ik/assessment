@@ -115,38 +115,72 @@
 }
 
 .question-content-list-item {
+    width: 100%;
     margin-bottom: 10px;
 }
 
+/*==================================
+ Answer options
+=================================*/
+
+.question-answer-value-wrapper {
+    width: 54px;
+}
+
 .question-answer-value {
-    border: dashed 1px #E1E1E1;
-    width: 40px;
     height: 40px;
-    margin-right: 10px;
-    float: left;
+    width: 40px;
+    padding: 8px 0 8px 0;
+    border: dashed 1px #E1E1E1;
+    text-align: center;
     cursor: pointer;
 }
 
+    .question-answer-value.correct {
+        border-color: #53a93f;
+    }
+
 .answer-correct-icon {
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
+    display: inline-block;
+    width: 21px;
+    height: 21px;
     background-image: url(images/answer-correct.png);
     background-repeat: no-repeat;
-    background-position: center center;
 }
 
 .question-answer-text {
-    border: dashed 1px #E1E1E1;
-    margin-left: 55px;
     min-height: 40px;
     padding: 7px 10px 7px 10px;
+    border: dashed 1px #E1E1E1;
+    color: #666666;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
 }
 
     .question-answer-text.add-answer {
         background-color: #F2F2F2;
         cursor: pointer;
     }
+
+    .question-answer-text span {
+        -ms-word-break: break-all;
+        word-break: break-all;
+    }
+
+.question-answer-delete-wrapper {
+    width: 45px;
+}
+
+.question-answer-delete {
+    height: 100%;
+    width: 100%;
+    border: 1px solid #cecece;
+    text-align: center;
+}
+
+/*==================================
+ Explanations options
+=================================*/
 
 .question-explanations-item {
     border: dashed 1px #E1E1E1;
