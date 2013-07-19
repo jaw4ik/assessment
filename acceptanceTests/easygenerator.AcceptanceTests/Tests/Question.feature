@@ -18,9 +18,9 @@ Given questions related to 'Objective2' are present in database
 | Question113 | 2  |
 Given answer options related to 'Question11' of 'Objective1' are present in database
 | Text           | isCorrect |
-| AnswerOption11 | 1         |
-| AnswerOption12 | 0         |
-| AnswerOption13 | 1         |
+| AnswerOption11 | true      |
+| AnswerOption12 | false     |
+| AnswerOption13 | true      |
 Given answer options related to 'Question12' of 'Objective1' are present in database
 | Text           |
 | AnswerOption21 |
@@ -59,9 +59,9 @@ When open page by url 'http://localhost:5656/#/objective/1/question/2'
 Then 'Question12' title is shown in question page header
 
 Scenario: Correct indicators are shown for answer options on question page
-When open page by url 'http://localhost:5656/#/objective/1/question/2'
-Then correct is set to true for 'AnswerOption11'
-And correct is set to false for 'AnswerOption12'
+When open page by url 'http://localhost:5656/#/objective/1/question/1'
+Then correct answer option is set to 'true' for 'AnswerOption11'
+And correct answer option is set to 'false' for 'AnswerOption12'
 
 Scenario: Next and previous actions of question page navigate through questions of current objective
 When open page by url 'http://localhost:5656/#/objective/1/question/1'

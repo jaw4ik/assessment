@@ -115,13 +115,13 @@ testRunner.Given("questions related to \'Objective2\' are present in database", 
                         "isCorrect"});
             table4.AddRow(new string[] {
                         "AnswerOption11",
-                        "1"});
+                        "true"});
             table4.AddRow(new string[] {
                         "AnswerOption12",
-                        "0"});
+                        "false"});
             table4.AddRow(new string[] {
                         "AnswerOption13",
-                        "1"});
+                        "true"});
 #line 19
 testRunner.Given("answer options related to \'Question11\' of \'Objective1\' are present in database", ((string)(null)), table4, "Given ");
 #line hidden
@@ -243,11 +243,11 @@ this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
 #line 62
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 63
-testRunner.Then("correct is set to true for \'AnswerOption11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("correct answer option is set to \'true\' for \'AnswerOption11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 64
-testRunner.And("correct is set to false for \'AnswerOption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("correct answer option is set to \'false\' for \'AnswerOption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

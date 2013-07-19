@@ -76,16 +76,10 @@ namespace easygenerator.AcceptanceTests.Steps
             TestUtils.Assert_IsTrue_WithWait(() => Question.QuestionTitle == Title, "Incorrect question title, shown title is " + Question.QuestionTitle);
         }
 
-        [Then(@"correct is set to true for '(.*)'")]
-        public void ThenCorrectIsSetToTrueFor(string p0)
+        [Then(@"correct answer option is set to '(.*)' for '(.*)'")]
+        public void ThenCorrectAnswerOptionIsSetToTrueFor( bool Correct, string Text)
         {
-            ScenarioContext.Current.Pending();
-        }
-
-        [Then(@"correct is set to false for '(.*)'")]
-        public void ThenCorrectIsSetToFalseFor(string p0)
-        {
-            ScenarioContext.Current.Pending();
+            TestUtils.Assert_IsTrue_WithWait(() => Correct == Question.AnswerItems.First(item => item.Text == Text).IsCorrect, "Answer is not marked as correct");
         }
 
         [When(@"click on next question")]

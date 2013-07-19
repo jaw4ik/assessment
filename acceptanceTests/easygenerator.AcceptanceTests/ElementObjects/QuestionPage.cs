@@ -82,14 +82,14 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             var link = GetByXPath(model.NextQuestionButton);
             link.Click();
-            System.Threading.Thread.Sleep(1000);
+            //System.Threading.Thread.Sleep(1000);
         }
 
         internal void NavigateToPreviousQuestion()
         {
             var link = GetByXPath(model.PreviousQuestionButton);
             link.Click();
-            System.Threading.Thread.Sleep(1000);
+            //System.Threading.Thread.Sleep(1000);
             
         }
 
@@ -139,7 +139,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                var el = GetByXPathInside(model.CorrectItemClass);
+                var el = GetByXPathInside(model.CorrectAnswerIndicator);
                 return el.Displayed;
             }
         }
