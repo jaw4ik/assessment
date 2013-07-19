@@ -414,6 +414,8 @@ define(function (require) {
                                         ]
                                 })];
                 viewModel.activate({ id: '0', objectiveId: 'obj3' });
+
+                spyOn(eventTracker, 'publish');
             });
 
             it('should be a function', function () {
@@ -424,6 +426,12 @@ define(function (require) {
                 viewModel.explanations()[0].isEditing(false);
                 viewModel.editExplanation(viewModel.explanations()[0]);
                 expect(viewModel.explanations()[0].isEditing()).toBe(true);
+            });
+
+            it('should send event \"Start editing explanation\"', function() {
+                viewModel.explanations()[0].isEditing(false);
+                viewModel.editExplanation(viewModel.explanations()[0]);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Start editing explanation', eventsCategory);
             });
         });
 
@@ -437,6 +445,8 @@ define(function (require) {
 
             beforeEach(function () {
                 viewModel.explanations = ko.observableArray([explanation]);
+                
+                spyOn(eventTracker, 'publish');
             });
 
             it('should be a function', function () {
@@ -461,6 +471,13 @@ define(function (require) {
                 expect(_.find(viewModel.explanations(), function (item) {
                     return item.id == explanation.id;
                 })).toBeUndefined();
+            });
+            
+            it('should send event \"End editing explanation\"', function () {
+                viewModel.explanations()[0].isEditing(false);
+                viewModel.explanations()[0].text('Some text');
+                viewModel.endEditExplanation(viewModel.explanations()[0]);
+                expect(eventTracker.publish).toHaveBeenCalledWith('End editing explanation', eventsCategory);
             });
         });
 
@@ -734,6 +751,8 @@ define(function (require) {
                     expect(viewModel.answerOptions().length).toBe(currentCount - 1);
                 });
             });
-        });
+
+        });     
+
     });
 });

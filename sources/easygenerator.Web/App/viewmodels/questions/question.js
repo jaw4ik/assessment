@@ -13,7 +13,9 @@
                 deleteAnswerOption: 'Delete answer option',
 
                 addExplanation: 'Add explanation',
-                deleteExplanation: 'Delete explanation'
+                deleteExplanation: 'Delete explanation',
+                startEditingExplanation: 'Start editing explanation',
+                endEditingExplanation: 'End editing explanation'
             },
 
             sendEvent = function (eventName) {
@@ -190,6 +192,7 @@
             },
             editExplanation = function (explanation) {
                 explanation.isEditing(true);
+                sendEvent(events.startEditingExplanation);
             },
             endEditExplanation = function (explanation) {
                 if (_.isEmptyOrWhitespace(explanation.text())) {
@@ -213,6 +216,7 @@
                 }
 
                 explanation.isEditing(false);
+                sendEvent(events.endEditingExplanation);
             },
             deleteExplanation = function (explanation) {
                 sendEvent(events.deleteExplanation);
