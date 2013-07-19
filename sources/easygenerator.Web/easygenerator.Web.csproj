@@ -317,8 +317,6 @@
     <Content Include="Scripts\ckeditor\plugins\flash\images\placeholder.png" />
     <Content Include="Scripts\ckeditor\plugins\icons.png" />
     <Content Include="Scripts\ckeditor\plugins\icons_hidpi.png" />
-    <Content Include="Scripts\ckeditor\plugins\iframe\dialogs\iframe.js" />
-    <Content Include="Scripts\ckeditor\plugins\iframe\images\placeholder.png" />
     <Content Include="Scripts\ckeditor\plugins\image\dialogs\image.js" />
     <Content Include="Scripts\ckeditor\plugins\image\images\noimage.png" />
     <Content Include="Scripts\ckeditor\plugins\link\dialogs\anchor.js" />

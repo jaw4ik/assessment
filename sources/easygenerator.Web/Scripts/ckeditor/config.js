@@ -4,7 +4,7 @@
  */
 
 CKEDITOR.editorConfig = function (config) {
-    config.skin = 'mono';
+    config.skin = 'moono';
 
     config.toolbar = [
         ['Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo'],

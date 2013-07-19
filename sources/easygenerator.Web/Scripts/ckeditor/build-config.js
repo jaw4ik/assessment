@@ -71,7 +71,6 @@ var CKBUILDER_CONFIG = {
 		'indent' : 1,
 		'fakeobjects' : 1,
 		'menubutton' : 1,
-		'iframe' : 1,
 		'flash' : 1
 	},
 	languages : {
