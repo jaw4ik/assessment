@@ -3,11 +3,11 @@ set outFile="%~dp0TestsResults\MyResult.html"
 set webSiteDir=%~dp0easygenerator.AcceptanceTests\bin\Release\
 set testsProject=%~dp0easygenerator.AcceptanceTests\easygenerator.AcceptanceTests.csproj
 
-del %outFile%
-%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild %~dp0..\sources\easygenerator.Web\easygenerator.Web.csproj /verbosity:q /nologo /p:TreatWarningsAsErrors=true /t:Clean,Build,TransformWebConfig /p:Configuration=Release
+if exist %outFile% del %outFile%
+%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild %~dp0..\sources\easygenerator.Web\easygenerator.Web.csproj /verbosity:q /nologo /p:TreatWarningsAsErrors=true /t:Clean,Build,TransformWebConfig /p:Configuration=AutoTests
 %SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild "%testsProject%" /t:Clean,Build /verbosity:q /nologo /property:TreatWarningsAsErrors=true /p:Configuration=Release
 
-xcopy "%~dp0..\sources\easygenerator.Web\obj\Release\TransformWebConfig\transformed\Web.config" "%webSiteDir%\easygenerator.Web\" /Y /F /I
+xcopy "%~dp0..\sources\easygenerator.Web\obj\AutoTests\TransformWebConfig\transformed\Web.config" "%webSiteDir%\easygenerator.Web\" /Y /F /I
 
 if not %errorlevel% ==0 (
 echo Cannot execute or build tests
