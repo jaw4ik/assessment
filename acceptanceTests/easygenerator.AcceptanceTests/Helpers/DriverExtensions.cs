@@ -35,13 +35,15 @@ namespace easygenerator.AcceptanceTests.Helpers
         {
             var pageWidth = el.WrappedDriver.ExecuteScript<Int64>("return document.documentElement.clientWidth");
             var pageHeight = el.WrappedDriver.ExecuteScript<Int64>("return document.documentElement.clientHeight");
-            var x1 = el.Size.Width + el.Coordinates.LocationInDom.X;
-            var y1 = el.Size.Height + el.Coordinates.LocationInDom.Y;
-            var scrollX = el.WrappedDriver.ExecuteScript<Int64>("return window.scrollX");
-            var scrollY = el.WrappedDriver.ExecuteScript<Int64>("return window.scrollY");
+            var x = Convert.ToDecimal(el.WrappedDriver.ExecuteScript<object>("return arguments[0].getBoundingClientRect().left", el));
+            var y = Convert.ToDecimal(el.WrappedDriver.ExecuteScript< object>("return arguments[0].getBoundingClientRect().top", el));
+            var x1 = el.Size.Width + x;
+            var y1 = el.Size.Height + y;
+            var scrollX = el.WrappedDriver.ExecuteScript<Int64>("return (window.scrollX || window.pageXOffset) ");
+            var scrollY = el.WrappedDriver.ExecuteScript<Int64>("return (window.scrollY || window.pageYOffset) ");
 
-            var isP1BiggerThenTopLeft = el.Coordinates.LocationInDom.X > scrollX &&
-                el.Coordinates.LocationInDom.Y > scrollY;
+            var isP1BiggerThenTopLeft = x >= 0 &&
+                y >= 0;
             var isP2BiggerThenBottomRight = x1 <= scrollX + pageWidth &&
                 y1 <= scrollY + pageHeight;
 
