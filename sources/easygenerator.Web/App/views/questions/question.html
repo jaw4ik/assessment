@@ -58,8 +58,8 @@
             </div>
             <!-- ko if:isAnswersBlockExpanded -->
             <div class="question-content-items-list">
-                <!-- ko if: answerOptions().length -->
-                <ul class="unstyled" data-bind="foreach: answerOptions">
+                <ul class="unstyled">
+                    <!-- ko foreach: answerOptions() -->
                     <li class="answer-option-item" data-bind="css: { active: isInEdit }">
                         <div class="answer-options-list-item">
                             <div class="question-answer-value-wrapper">
@@ -77,12 +77,24 @@
                             </div>
                         </div>
                     </li>
-                </ul>
-                <!-- /ko -->
-                <div class="question-answer-text add-answer" data-bind="click: addAnswerOption">
-                    <span data-bind="localize: { text: 'clickToAddNewAnswerOption' }"></span>
-                </div>
+                    <!-- /ko -->
+                    <li class="add-button">
+                        <div class="answer-options-list-item">
+                            <div class="question-answer-value-wrapper">
+                                <div class="question-answer-value">
+                                </div>
+                            </div>
+                            <div class="question-answer-text-wrapper" data-bind="click: addAnswerOption">
+                                <div class="question-answer-text">
+                                    <p>Click here to add answer option</p>
+                                </div>
+                            </div>
+                            <div class="question-answer-delete-wrapper">
+                            </div>
+                        </div>
+                    </li>
             </div>
+            </ul>
             <!-- /ko -->
         </div>
         <div>
@@ -111,13 +123,13 @@
                                 <!-- ko ifnot: isEditing() -->
                                 <div class="question-explanations-item" data-bind="html: text, click: $parent.editExplanation"></div>
                                 <!-- /ko -->
-                                <a class="question-remove-button right" data-bind="click: $parent.deleteExplanation.bind($parent), localize: {title: 'remove'}">X</a>
+                                <a class="question-remove-button right" data-bind="click: $parent.deleteExplanation.bind($parent), localize: { title: 'remove' }">X</a>
                             </div>
                         </li>
                         <!-- /ko -->
                         <li>
                             <div class="question-content-list-item">
-                                <div class="question-explanations-item question-add-explanation" data-bind="click: addExplanation, localize: { text: 'clickToAddNewExplanation'}">
+                                <div class="question-explanations-item question-add-explanation" data-bind="click: addExplanation, localize: { text: 'clickToAddNewExplanation' }">
                                     Click to add new explanation
                                 </div>
                             </div>

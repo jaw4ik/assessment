@@ -148,7 +148,7 @@
 .question-answer-value {
     height: 41px;
     width: 40px;
-    padding: 8px 0 8px 0;
+    padding: 9px 0;
     border: dashed 1px #E1E1E1;
     text-align: center;
     cursor: pointer;
@@ -166,7 +166,6 @@
     -moz-box-shadow: none;
     box-shadow: none;
 }
-
 
 .question-answer-value.correct {
     border-color: #53a93f;
@@ -263,20 +262,19 @@
     background-repeat: no-repeat;
 }
 
-/* shit */
+.add-button .question-answer-text-wrapper {
+    background-color: #fafafa;
+    text-align: center;
+}
 
-
-
-.question-answer-text.add-answer {
-        background-color: #F2F2F2;
-        cursor: pointer;
+    .add-button .question-answer-text-wrapper:hover {
+        border-style: solid;
+        background-color: white;
+        -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+        cursor: text;
     }
-
-    .question-answer-text span {
-        -ms-word-break: break-all;
-        word-break: break-all;
-    }
-
 
 /*==================================
  Explanations options
