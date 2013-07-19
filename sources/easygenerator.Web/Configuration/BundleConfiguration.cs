@@ -1,4 +1,5 @@
-﻿using System.Web.Optimization;
+﻿using System;
+using System.Web.Optimization;
 
 namespace easygenerator.Web.Configuration
 {
@@ -19,6 +20,7 @@ namespace easygenerator.Web.Configuration
                             .Include("~/scripts/sammy-{version}.js")
                             .Include("~/scripts/q.js")
                             .Include("~/scripts/underscore.js")
+                            .Include("~/scripts/underscore.extensions.js")
                             .Include("~/scripts/ckeditor/ckeditor.js")
                             .Include("~/Scripts/ckeditorBinding.js"));
 

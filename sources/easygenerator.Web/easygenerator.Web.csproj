@@ -150,6 +150,7 @@
     <Content Include="apple-touch-icon-72x72-precomposed.png" />
     <Content Include="apple-touch-icon-precomposed.png" />
     <Content Include="apple-touch-icon.png" />
+    <Content Include="App\models\explanation.js" />
     <Content Include="Content\images\nav-buttons.png" />
     <Content Include="Scripts\ckeditorBinding.js" />
     <Content Include="App\configuration\images.js" />
@@ -476,6 +477,7 @@
     <None Include="Scripts\q.min.js" />
     <Content Include="Scripts\sammy-0.7.4.js" />
     <None Include="Scripts\sammy-0.7.4.min.js" />
+    <Content Include="Scripts\underscore.extensions.js" />
     <Content Include="Scripts\underscore.js" />
     <None Include="Scripts\underscore.min.js" />
     <Content Include="Web.config" />

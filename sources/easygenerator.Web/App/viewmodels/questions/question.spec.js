@@ -182,6 +182,7 @@ define(function (require) {
                 expect(viewModel.objectiveTitle).toBe(objective.title);
                 expect(viewModel.objectiveId).toBe(objective.id);
                 expect(viewModel.title).toBe(question.title);
+                expect(viewModel.question).toBeDefined();
 
                 expect(viewModel.answerOptions().lenght).toBe(question.answerOptions.lenght);
                 expect(viewModel.explanations().lenght).toBe(question.explanations.lenght);
@@ -391,12 +392,6 @@ define(function (require) {
             it('should have text observable', function () {
                 expect(ko.isObservable(viewModel.explanations()[0].text)).toBeTruthy();
             });
-
-            it('should have isValid & isModified observable', function () {
-                expect(ko.isObservable(viewModel.explanations()[0].text.isValid)).toBeTruthy();
-                expect(ko.isObservable(viewModel.explanations()[0].text.isModified)).toBeTruthy();
-            });
-
         });
 
         describe('editExplanation', function () {
@@ -430,42 +425,43 @@ define(function (require) {
                 viewModel.editExplanation(viewModel.explanations()[0]);
                 expect(viewModel.explanations()[0].isEditing()).toBe(true);
             });
-
         });
 
+        describe('endEditExplanation', function () {
 
-        describe('saveExplanation', function () {
+            var explanation = {
+                text: ko.observable('Some text'),
+                isEditing: ko.observable(false),
+                id: '0'
+            };
 
             beforeEach(function () {
-                dataContext.objectives = [
-                            new objectiveModel(
-                                {
-                                    id: 'obj3',
-                                    title: 'Test Objective',
-                                    image: images[0],
-                                    questions:
-                                        [
-                                            new questionModel({
-                                                id: '0',
-                                                title: 'Question 1',
-                                                answerOptions: [],
-                                                explanations: [{ id: '0', text: 'explanation 1' }]
-                                            })
-                                        ]
-                                })];
-                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+                viewModel.explanations = ko.observableArray([explanation]);
             });
 
             it('should be a function', function () {
-                expect(viewModel.saveExplanation).toEqual(jasmine.any(Function));
+                expect(viewModel.endEditExplanation).toEqual(jasmine.any(Function));
             });
 
             it('should set isEditing to false', function () {
                 viewModel.explanations()[0].isEditing(true);
-                viewModel.saveExplanation(viewModel.explanations()[0]);
+                viewModel.endEditExplanation(viewModel.explanations()[0]);
                 expect(viewModel.explanations()[0].isEditing()).toBe(false);
             });
 
+            it('shuld remove entry whith empty text', function () {
+                //arrange
+                viewModel.explanations()[0].isEditing(true);
+                viewModel.explanations()[0].text('');
+
+                //act
+                viewModel.endEditExplanation(viewModel.explanations()[0]);
+
+                //aasert
+                expect(_.find(viewModel.explanations(), function (item) {
+                    return item.id == explanation.id;
+                })).toBeUndefined();
+            });
         });
 
         describe('addExplanation', function () {
@@ -493,11 +489,10 @@ define(function (require) {
             it('should add explanation to viewModel', function () {
                 //act
                 viewModel.addExplanation();
-
                 //assert
                 expect(viewModel.explanations().length).toBe(1);
                 expect(viewModel.explanations()[0].text).toBeDefined();
-                expect(_.isEmpty(viewModel.explanations()[0].id)).toBe(false);
+                expect(viewModel.explanations()[0].id).toBeDefined();
                 expect(ko.isObservable(viewModel.explanations()[0].isEditing)).toBe(true);
             });
 
@@ -513,9 +508,7 @@ define(function (require) {
         describe('deleteExplanation', function () {
 
             var explanation = {
-                text: ko.observable('Some text').extend({
-                    required: { message: 'Please, provide text for expanation' }
-                }),
+                text: ko.observable('Some text'),
                 isEditing: ko.observable(false),
                 id: '0'
             };
@@ -557,7 +550,7 @@ define(function (require) {
 
         });
 
-        describe('answer options', function() {
+        describe('answer options', function () {
 
             var answer = new answerOptionModel({
                 id: 0,
@@ -585,9 +578,9 @@ define(function (require) {
                 spyOn(eventTracker, 'publish');
             });
 
-            describe('add', function() {
+            describe('add', function () {
 
-                it('[addAnswerOption] should be a function', function() {
+                it('[addAnswerOption] should be a function', function () {
                     expect(viewModel.addAnswerOption).toEqual(jasmine.any(Function));
                 });
 
@@ -597,9 +590,8 @@ define(function (require) {
 
                 it('should track event \"Add answer option\"', function () {
                     viewModel.question({ answerOptions: [] });
-                    
                     viewModel.addAnswerOption();
-                    
+
                     expect(eventTracker.publish).toHaveBeenCalledWith('Add answer option', eventsCategory);
                 });
 
@@ -608,14 +600,14 @@ define(function (require) {
                     viewModel.answerOptions([]);
 
                     viewModel.addAnswerOption();
-                    
+
                     expect(viewModel.answerOptions().length).toBe(1);
                 });
             });
 
-            describe('edit', function() {
+            describe('edit', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     viewModel.question({ answerOptions: [answer] });
                     viewModel.answerOptions([{
                         id: answer.id,
@@ -624,7 +616,7 @@ define(function (require) {
                     }]);
                 });
 
-                it('the field [isCorrect] should be observable', function() {
+                it('the field [isCorrect] should be observable', function () {
                     expect(ko.isObservable(viewModel.answerOptions()[0].isCorrect)).toBeTruthy();
                 });
 
@@ -637,7 +629,7 @@ define(function (require) {
                 it('should change option correctness', function () {
                     viewModel.answerOptions()[0].isCorrect(false);
                     viewModel.question().answerOptions[0].isCorrect = false;
-                    
+
                     viewModel.toggleAnswerCorrectness(viewModel.answerOptions()[0]);
 
                     expect(viewModel.answerOptions()[0].isCorrect()).toBeTruthy();
@@ -661,11 +653,11 @@ define(function (require) {
                     };
 
                     viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
-                    
+
                     expect(viewModel.answerOptions()[0].text).toBe(newText);
                 });
 
-                it('should delete answer option when text is empty', function() {
+                it('should delete answer option when text is empty', function () {
                     var answersCount = viewModel.answerOptions().length;
 
                     var context = {
@@ -675,7 +667,7 @@ define(function (require) {
 
                     expect(viewModel.answerOptions().length).toBe(answersCount - 1);
                 });
-                
+
                 it('should delete answer option when text contains only white-spaces and new lines codes', function () {
                     var answersCount = viewModel.answerOptions().length;
 
@@ -688,9 +680,9 @@ define(function (require) {
                 });
             });
 
-            describe('delete', function() {
+            describe('delete', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     viewModel.question({ answerOptions: [answer] });
                     viewModel.answerOptions([{
                         id: answer.id,
@@ -705,11 +697,11 @@ define(function (require) {
                     expect(eventTracker.publish).toHaveBeenCalledWith('Delete answer option', eventsCategory);
                 });
 
-                it('[deleteAnswerOption] should be function', function() {
+                it('[deleteAnswerOption] should be function', function () {
                     expect(viewModel.deleteAnswerOption).toEqual(jasmine.any(Function));
                 });
 
-                it('should delete item', function() {
+                it('should delete item', function () {
                     var currentCount = viewModel.question().answerOptions.length;
                     viewModel.deleteAnswerOption(viewModel.answerOptions()[0]);
 

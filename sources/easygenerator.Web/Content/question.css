@@ -187,27 +187,12 @@
     padding: 7px 10px 7px 10px;
     cursor: pointer;
     font-family: Arial;
+    border: dashed 1px #E1E1E1;    
 }
 
 .question-add-explanation {
     background-color: #F5F5F5;
     color: #9B9B9B;
-}
-
-.valid-explanations-item {
-    border: dashed 1px #E1E1E1;    
-}
-
-.invalid-explanation-item {
-    border: 1px solid red;
-}
-
-.invalid-explanation-error-text {
-    float: right;
-    top: -30px;
-    position: relative;
-    color: red;
-    margin-right: 5px;
 }
 
 .question-remove-button {

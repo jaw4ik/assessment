@@ -21,7 +21,7 @@
             };
 
         var objectiveId = '',
-            question = ko.observable({}),
+            question = ko.observable(),
             objectiveTitle = '',
             title = '',
             answerOptions = ko.observableArray([]),
@@ -66,7 +66,7 @@
 
                 function addAnswer(callback) {
                     var newAnswer = new AnswerOptionModel({
-                        id: question().answerOptions.length,
+                        id: generateNewEntryId(question().answerOptions),
                         text: '',
                         isCorrect: false
                     });
@@ -114,12 +114,15 @@
             saveAnswerOption = function (instance, context) {
                 sendEvent(events.saveAnswerOption);
 
-                if (checkData(context.target.innerText))
-                    save(instance, context.target.innerHTML, success);
-                else
+                if (_.isEmptyOrWhitespace(context.target.innerText)) {
                     deleteAnswerOption(instance);
-                
+                    return;
+                }
+
+                save(instance, context.target.innerHTML, success);
+
                 //TODO: temporary method. Would be changed, when dataContext will be reconstructed
+
                 function save(answer, value, callback) {
                     var currentAnswer = _.find(question().answerOptions, function (obj) {
                         return obj.id == answer.id;
@@ -135,10 +138,6 @@
                 function success(value) {
                     instance.text = value;
                 }
-
-                function checkData(value) {
-                    return value.trim() !== '';
-                }
             },
             deleteAnswerOption = function (instance) {
                 sendEvent(events.deleteAnswerOption);
@@ -148,8 +147,8 @@
                 //TODO: temporary method. Would be changed, when dataContext will be reconstructed
 
                 function deleteAnswer(answer, callback) {
-                    question().answerOptions = _.filter(question().answerOptions, function (obj) {
-                        return obj.id != answer.id;
+                    question().answerOptions = _.reject(question().explanations, function (item) {
+                        return item.id == answer.id;
                     });
 
                     if (_.isFunction(success))
@@ -164,24 +163,52 @@
                 sendEvent(events.addExplanation);
 
                 var explanation = mapExplanation(new expalantionModel({
-                    id: _.max(explanations(), function (exp) {
-                        return parseInt(exp.id);
-                    }) + 1,
+                    id: generateNewEntryId(this.explanations()),
                     text: ''
                 }));
+
                 explanation.isEditing(true);
 
                 this.explanations.push(explanation);
             },
+            generateNewEntryId = function (collection) {
+                var id = 0;
+                if (collection.length > 0) {
+                    var maxId = _.max(collection, function (exp) {
+                        return parseInt(exp.id);
+                    });
+
+                    id = maxId + 1;
+                }
+
+                return id;
+            },
             editExplanation = function (explanation) {
                 explanation.isEditing(true);
             },
-            saveExplanation = function (explanation) {
+            endEditExplanation = function (explanation) {
+                if (_.isEmptyOrWhitespace(explanation.text())) {
+                    this.explanations.remove(explanation);
+                    return;
+                }
+
+                var contextExplanation = _.find(question().explanations, function (obj) {
+                    return obj.id == explanation.id;
+                });
+
+                if (_.isObject(contextExplanation)) {
+                    contextExplanation.text = explanation.text();
+                }
+
                 explanation.isEditing(false);
             },
             deleteExplanation = function (explanation) {
                 sendEvent(events.deleteExplanation);
-                this.explanations(_.without(this.explanations(), explanation));
+                this.question().explanations = _.reject(this.question().explanations, function (item) {
+                    return item.id == explanation.id;
+                });
+
+                this.explanations.remove(explanation);
             },
             activate = function (routeData) {
                 if (_.isEmpty(routeData) || _.isEmpty(routeData.objectiveId) || _.isEmpty(routeData.id)) {
@@ -211,16 +238,9 @@
                 this.objectiveTitle = objective.title;
                 this.objectiveId = objective.id;
 
-                this.answerOptions(_.map(this.question().answerOptions, function (answer) {
-                    return {
-                        id: answer.id,
-                        text: answer.text || '',
-                        isCorrect: ko.observable(answer.isCorrect || false)
-                    };
-                }));
-
+                this.answerOptions(_.map(this.question().answerOptions, mapAnswerOption));
                 this.explanations(_.map(this.question().explanations, mapExplanation));
-                var questionIndex = objective.questions.indexOf(question());
+                var questionIndex = objective.questions.indexOf(this.question());
                 this.nextId = (objective.questions.length > questionIndex + 1) ? objective.questions[questionIndex + 1].id : null;
                 this.previousId = (questionIndex != 0) ? objective.questions[questionIndex - 1].id : null;
 
@@ -229,16 +249,20 @@
 
                 currentLanguage(localizationManager.currentLanguage);
             },
-
-         mapExplanation = function (explanation) {
-             return {
-                 text: ko.observable(explanation.text).extend({
-                     required: { message: 'Please, provide text for expanation' }
-                 }),
-                 isEditing: ko.observable(false),
-                 id: explanation.id
-             };
-         };
+            mapAnswerOption = function (answer) {
+                return {
+                    id: answer.id,
+                    text: answer.text || '',
+                    isCorrect: ko.observable(answer.isCorrect || false)
+                };
+            },
+            mapExplanation = function (explanation) {
+                return {
+                    text: ko.observable(explanation.text),
+                    isEditing: ko.observable(false),
+                    id: explanation.id
+                };
+            };
 
         return {
             objectiveId: objectiveId,
@@ -261,14 +285,14 @@
 
             addExplanation: addExplanation,
             editExplanation: editExplanation,
-            saveExplanation: saveExplanation,
+            endEditExplanation: endEditExplanation,
             deleteExplanation: deleteExplanation,
 
             addAnswerOption: addAnswerOption,
             toggleAnswerCorrectness: toggleAnswerCorrectness,
             saveAnswerOption: saveAnswerOption,
             deleteAnswerOption: deleteAnswerOption,
-            
+
             language: currentLanguage
         };
     }

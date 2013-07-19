@@ -109,24 +109,19 @@
                         <!-- ko foreach: explanations -->
                         <li>
                             <div class="question-content-list-item clearfix">
-                                <div data-bind="css: { 'invalid-explanation-item': !text.isValid(), 'valid-explanations-item': text.isValid() }">
-                                    <!-- ko if: isEditing() -->
-                                    <div class="question-explanations-item" contenteditable="true"
-                                        data-bind="ckeditor: { data: text, endEditingEvent: 'blur', onEndEditing: $parent.saveExplanation, language: $parent.language }">
-                                    </div>
-                                    <!-- /ko -->
-                                    <!-- ko ifnot: isEditing() -->
-                                    <div class="question-explanations-item" data-bind="html: text, click: $parent.editExplanation"></div>
-                                    <!-- /ko -->
-                                </div>
-                                <a class="question-remove-button right" data-bind="click: $parent.deleteExplanation.bind($parent), localize: { title: 'remove' }">X</a>
-                                <span class="invalid-explanation-error-text" data-bind="if: !text.isValid(), text: text.error"></span>
+                                <!-- ko if: isEditing() -->
+                                <div class="question-explanations-item" contenteditable="true" data-bind="ckeditor: { data: text, endEditingEvent: 'blur', onEndEditing: $parent.endEditExplanation.bind($parent), language: $parent.language }"></div>
+                                <!-- /ko -->
+                                <!-- ko ifnot: isEditing() -->
+                                <div class="question-explanations-item" data-bind="html: text, click: $parent.editExplanation"></div>
+                                <!-- /ko -->
+                                <a class="question-remove-button right" data-bind="click: $parent.deleteExplanation.bind($parent), localize: {title: 'remove'}">X</a>
                             </div>
                         </li>
                         <!-- /ko -->
                         <li>
                             <div class="question-content-list-item">
-                                <div class="question-explanations-item question-add-explanation" data-bind="click: addExplanation, localize: { text: 'clickToAddNewExplanation' }">
+                                <div class="question-explanations-item question-add-explanation" data-bind="click: addExplanation, localize: { text: 'clickToAddNewExplanation'}">
                                     Click to add new explanation...
                                 </div>
                             </div>
