@@ -66,7 +66,7 @@
 
                 function addAnswer(callback) {
                     var newAnswer = new AnswerOptionModel({
-                        id: generateNewEntryId(question().answerOptions),
+                        id: question().answerOptions.length,
                         text: '',
                         isCorrect: false
                     });
@@ -161,27 +161,14 @@
             },
             addExplanation = function () {
                 sendEvent(events.addExplanation);
-
                 var explanation = mapExplanation(new expalantionModel({
-                    id: generateNewEntryId(this.explanations()),
+                    id: this.explanations().length,
                     text: ''
                 }));
 
                 explanation.isEditing(true);
 
                 this.explanations.push(explanation);
-            },
-            generateNewEntryId = function (collection) {
-                var id = 0;
-                if (collection.length > 0) {
-                    var maxId = _.max(collection, function (exp) {
-                        return parseInt(exp.id);
-                    });
-
-                    id = maxId + 1;
-                }
-
-                return id;
             },
             editExplanation = function (explanation) {
                 explanation.isEditing(true);
