@@ -598,13 +598,19 @@ define(function (require) {
 
             describe('edit', function () {
 
+                var context = {};
+
                 beforeEach(function () {
                     viewModel.question({ answerOptions: [answer] });
                     viewModel.answerOptions([{
                         id: answer.id,
-                        text: ko.observable(answer.text),
-                        isCorrect: ko.observable(answer.isCorrect)
+                        text: answer.text,
+                        isCorrect: ko.observable(answer.isCorrect),
+                        isInEdit: ko.observable(false)
                     }]);
+                    context = {
+                        target: { textContent: '', innerHTML: '' }
+                    };
                 });
 
                 it('the field [isCorrect] should be observable', function () {
@@ -633,18 +639,12 @@ define(function (require) {
                 });
 
                 it('should track event \"Save the answer option text\"', function () {
-                    var context = {
-                        target: { innerText: '', innerHTML: '' }
-                    };
                     viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
 
                     expect(eventTracker.publish).toHaveBeenCalledWith('Save the answer option text', eventsCategory);
                 });
                 
                 it('function [saveAnswerOption] should call nofification update', function () {
-                    var context = {
-                        target: { innerText: '', innerHTML: '' }
-                    };
                     viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
 
                     expect(viewModel.notification.update).toHaveBeenCalled();
@@ -654,9 +654,8 @@ define(function (require) {
                     viewModel.answerOptions()[0].text = answer.text;
 
                     var newText = 'new text';
-                    var context = {
-                        target: { innerText: newText, innerHTML: newText }
-                    };
+                    context.target.textContent = newText;
+                    context.target.innerHTML = newText;
 
                     viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
 
@@ -666,9 +665,6 @@ define(function (require) {
                 it('should delete answer option when text is empty', function () {
                     var answersCount = viewModel.answerOptions().length;
 
-                    var context = {
-                        target: { innerText: '', innerHTML: '' }
-                    };
                     viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
 
                     expect(viewModel.answerOptions().length).toBe(answersCount - 1);
@@ -677,12 +673,30 @@ define(function (require) {
                 it('should delete answer option when text contains only white-spaces and new lines codes', function () {
                     var answersCount = viewModel.answerOptions().length;
 
-                    var context = {
-                        target: { innerText: '   \n\r  \n\r', innerHTML: '<p>&nbsp</p><p>&nbsp</p>' }
-                    };
+                    context.target.textContent = '   \n\r  \n\r';
+                    context.target.innerHTML = '<p>&nbsp</p><p>&nbsp</p>';
+                    
                     viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
 
                     expect(viewModel.answerOptions().length).toBe(answersCount - 1);
+                });
+
+                it('function [editAnswerOption] should set [isInEdit] to value \"true\"', function () {
+                    viewModel.answerOptions()[0].isInEdit(false);
+
+                    viewModel.editAnswerOption(viewModel.answerOptions()[0]);
+
+                    expect(viewModel.answerOptions()[0].isInEdit()).toBe(true);
+                });
+                
+                it('function [saveAnswerOption] should set [isInEdit] to value \"false\"', function () {
+                    viewModel.answerOptions()[0].isInEdit(true);
+
+                    context.target.textContent = 'some text';
+                    context.target.innerHTML = '<p>some text</p>';
+                    viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
+
+                    expect(viewModel.answerOptions()[0].isInEdit()).toBe(false);
                 });
             });
 
