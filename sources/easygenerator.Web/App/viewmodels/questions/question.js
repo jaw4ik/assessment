@@ -1,5 +1,5 @@
 ﻿define(['dataContext', 'durandal/plugins/router', 'eventTracker', 'models/answerOption', 'models/explanation', 'localization/localizationManager'],
-    function (dataContext, router, eventTracker, AnswerOptionModel, expalantionModel, localizationManager) {
+    function (dataContext, router, eventTracker, answerOptionModel, expalantionModel, localizationManager) {
         "use strict";
         var
             events = {
@@ -33,6 +33,19 @@
             currentLanguage = ko.observable(''),
             isAnswersBlockExpanded = ko.observable(true),
             isExplanationsBlockExpanded = ko.observable(true),
+            
+            notification = {
+                text: ko.observable(''),
+                visibility: ko.observable(false),
+                close: function() { notification.visibility(false); },
+                update: function () {
+                    var message = 'Last saving: ' + new Date().toLocaleTimeString();
+                    notification.text(message);
+                
+                    notification.visibility(true);
+                }
+            },
+
             goToRelatedObjective = function () {
                 sendEvent(events.navigateToRelatedObjective);
                 router.navigateTo('#/objective/' + this.objectiveId);
@@ -65,7 +78,7 @@
                 //TODO: temporary method. Would be changed, when dataContext will be reconstructed
 
                 function addAnswer(callback) {
-                    var newAnswer = new AnswerOptionModel({
+                    var newAnswer = new answerOptionModel({
                         id: question().answerOptions.length,
                         text: '',
                         isCorrect: false
@@ -85,6 +98,7 @@
                     };
 
                     answerOptions.push(observableAnswer);
+                    notification.update();
                 }
             },
             toggleAnswerCorrectness = function (instance) {
@@ -109,6 +123,7 @@
 
                 function success(value) {
                     instance.isCorrect(value);
+                    notification.update();
                 }
             },
             saveAnswerOption = function (instance, context) {
@@ -137,6 +152,7 @@
 
                 function success(value) {
                     instance.text = value;
+                    notification.update();
                 }
             },
             deleteAnswerOption = function (instance) {
@@ -147,7 +163,7 @@
                 //TODO: temporary method. Would be changed, when dataContext will be reconstructed
 
                 function deleteAnswer(answer, callback) {
-                    question().answerOptions = _.reject(question().explanations, function (item) {
+                    question().answerOptions = _.reject(question().answerOptions, function (item) {
                         return item.id == answer.id;
                     });
 
@@ -157,6 +173,7 @@
 
                 function success(answer) {
                     answerOptions.remove(answer);
+                    notification.update();
                 }
             },
             addExplanation = function () {
@@ -267,6 +284,9 @@
             goToNextQuestion: goToNextQuestion,
             isAnswersBlockExpanded: isAnswersBlockExpanded,
             isExplanationsBlockExpanded: isExplanationsBlockExpanded,
+            
+            notification: notification,
+
             toggleAnswers: toggleAnswers,
             toggleExplanations: toggleExplanations,
 

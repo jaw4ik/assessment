@@ -70,7 +70,7 @@
                                 </td>
                                 <td class="question-answer-text-wrapper">
                                     <div class="question-answer-text">
-                                        <p contenteditable="true" data-bind="text: text, event: { blur: $parent.saveAnswerOption }, hasFocus: true"></p>
+                                        <p contenteditable="true" data-bind="html: text, event: { blur: $parent.saveAnswerOption }, hasFocus: true"></p>
                                     </div>
                                 </td>
                                 <td class="question-answer-delete-wrapper"data-bind="click: $parent.deleteAnswerOption">
@@ -84,7 +84,7 @@
                 </ul>
                 <!-- /ko -->
                 <div class="question-answer-text add-answer" data-bind="click: addAnswerOption">
-                    <span data-bind="localize: { text: 'addAnswerOption' }"></span>
+                    <span data-bind="localize: { text: 'clickToAddNewAnswerOption' }"></span>
                 </div>
             </div>
             <!-- /ko -->
@@ -133,12 +133,12 @@
         </div>
     </div>
 </div>
-<div class="alert alert-info" style="display: none">
-    <button class="close absolute-right">×</button>
+<div class="alert alert-info" data-bind="visible: notification.visibility">
+    <button class="close absolute-right" data-bind="click: notification.close">×</button>
     <span class="alert-content">
         <span class="info-icon"></span>
         <span class="alert-text">
-            <span>Last saving </span><span></span>
+            <span data-bind="text: notification.text()"></span>
         </span>
     </span>
 </div>

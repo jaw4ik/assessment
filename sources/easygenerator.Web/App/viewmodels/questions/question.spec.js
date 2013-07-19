@@ -558,24 +558,9 @@ define(function (require) {
                 isCorrect: false
             });
 
-            var question = new questionModel({
-                answerOptions: [
-                    answer,
-                    new answerOptionModel({
-                        id: 1,
-                        text: 'option 2',
-                        isCorrect: true
-                    }),
-                    new answerOptionModel({
-                        id: 2,
-                        text: 'option 3',
-                        isCorrect: false
-                    })
-                ]
-            });
-
             beforeEach(function () {
                 spyOn(eventTracker, 'publish');
+                spyOn(viewModel.notification, 'update');
             });
 
             describe('add', function () {
@@ -593,6 +578,12 @@ define(function (require) {
                     viewModel.addAnswerOption();
 
                     expect(eventTracker.publish).toHaveBeenCalledWith('Add answer option', eventsCategory);
+                });
+
+                it('function [addAnswerOption] should call nofification update', function () {
+                    viewModel.addAnswerOption();
+
+                    expect(viewModel.notification.update).toHaveBeenCalled();
                 });
 
                 it('function [addAnswerOption] should create option', function () {
@@ -625,6 +616,12 @@ define(function (require) {
 
                     expect(eventTracker.publish).toHaveBeenCalledWith('Change answer option correctness', eventsCategory);
                 });
+                
+                it('function [toggleAnswerCorrectness] should call nofification update', function () {
+                    viewModel.toggleAnswerCorrectness(viewModel.answerOptions()[0]);
+
+                    expect(viewModel.notification.update).toHaveBeenCalled();
+                });
 
                 it('should change option correctness', function () {
                     viewModel.answerOptions()[0].isCorrect(false);
@@ -642,6 +639,15 @@ define(function (require) {
                     viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
 
                     expect(eventTracker.publish).toHaveBeenCalledWith('Save the answer option text', eventsCategory);
+                });
+                
+                it('function [saveAnswerOption] should call nofification update', function () {
+                    var context = {
+                        target: { innerText: '', innerHTML: '' }
+                    };
+                    viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
+
+                    expect(viewModel.notification.update).toHaveBeenCalled();
                 });
 
                 it('should edit answer text', function () {
@@ -697,7 +703,13 @@ define(function (require) {
                     expect(eventTracker.publish).toHaveBeenCalledWith('Delete answer option', eventsCategory);
                 });
 
-                it('[deleteAnswerOption] should be function', function () {
+                it('function [deleteAnswerOption] should call nofification update', function () {
+                    viewModel.deleteAnswerOption(viewModel.answerOptions()[0]);
+
+                    expect(viewModel.notification.update).toHaveBeenCalled();
+                });
+
+                it('[deleteAnswerOption] should be function', function() {
                     expect(viewModel.deleteAnswerOption).toEqual(jasmine.any(Function));
                 });
 

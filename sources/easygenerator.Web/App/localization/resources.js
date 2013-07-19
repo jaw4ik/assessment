@@ -174,10 +174,10 @@
         nl: 'Explanations[nl]',
         de: 'Explanations[de]'
     },
-    addAnswerOption: {
-        en: 'Click to add answer option',
-        nl: 'Click to add answer option[nl]',
-        de: 'Click to add answer option[de]'
+    clickToAddNewAnswerOption: {
+        en: 'Click here to add answer option',
+        nl: 'Click here to add answer option[nl]',
+        de: 'Click here to add answer option[de]'
     },
     /* End resource section for model Question */
     
