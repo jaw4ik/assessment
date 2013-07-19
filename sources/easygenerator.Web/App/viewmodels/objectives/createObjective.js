@@ -3,7 +3,7 @@
 
         var
             events = {
-                category: 'CreateObjective',
+                category: 'Create Learning Objective',
                 objectiveCreated: "Objective created"
             },
             
@@ -36,7 +36,7 @@
             self.image(self.image.options[index]);
         };
 
-        self.save = function () {
+        self.saveObjective = function () {
             if (!self.title.isValid()) {
                 self.title.isModified(true);
                 return;
@@ -44,11 +44,11 @@
             var objective = new ObjectiveModel({ id: dataContext.objectives.length, title: self.title(), image: self.image(), questions: [] });
             dataContext.objectives.push(objective);
             sendEvent(events.objectiveCreated);
-            router.navigateTo('#/');
+            router.navigateTo('#/objectives');
         };
 
         self.cancel = function () {
-            router.navigateTo('#/');
+            router.navigateTo('#/objectives');
         };
 
         self.activate = function () {
@@ -62,7 +62,7 @@
             activate: self.activate,
             title: self.title,
             image: self.image,
-            save: self.save,
+            saveObjective: self.saveObjective,
             cancel: self.cancel
         };
     }

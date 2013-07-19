@@ -151,6 +151,7 @@
     <Content Include="apple-touch-icon-precomposed.png" />
     <Content Include="apple-touch-icon.png" />
     <Content Include="App\models\explanation.js" />
+    <Content Include="App\viewmodels\objectives\createObjective.spec.js" />
     <Content Include="Content\images\nav-buttons.png" />
     <Content Include="Scripts\ckeditorBinding.js" />
     <Content Include="App\configuration\images.js" />
