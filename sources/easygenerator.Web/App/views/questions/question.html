@@ -61,24 +61,21 @@
                 <!-- ko if: answerOptions().length -->
                 <ul class="unstyled" data-bind="foreach: answerOptions">
                     <li class="answer-option-item" data-bind="css: { active: isInEdit }">
-                        <table class="question-content-list-item">
-                            <tr>
-                                <td class="question-answer-value-wrapper">
-                                    <div class="question-answer-value" data-bind="click: $parent.toggleAnswerCorrectness, css: { 'correct': isCorrect }">
-                                        <span data-bind="visible: isCorrect" class="answer-correct-icon"></span>
-                                    </div>
-                                </td>
-                                <td class="question-answer-text-wrapper">
-                                    <div class="question-answer-text">
-                                        <p contenteditable="true" data-bind="html: text, event: { blur: $parent.saveAnswerOption, focus: $parent.editAnswerOption }, hasFocus: true"></p>
-                                    </div>
-                                </td>
-                                <td class="question-answer-delete-wrapper" data-bind="click: $parent.deleteAnswerOption">
-                                    <span class="question-answer-delete-icon">x
-                                    </span>
-                                </td>
-                            </tr>
-                        </table>
+                        <div class="answer-options-list-item">
+                            <div class="question-answer-value-wrapper">
+                                <div class="question-answer-value" data-bind="click: $parent.toggleAnswerCorrectness, css: { 'correct': isCorrect }">
+                                    <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
+                                </div>
+                            </div>
+                            <div class="question-answer-text-wrapper">
+                                <div class="question-answer-text">
+                                    <p contenteditable="true" data-bind="html: text, event: { blur: $parent.saveAnswerOption, focus: $parent.editAnswerOption }, hasFocus: true"></p>
+                                </div>
+                            </div>
+                            <div class="question-answer-delete-wrapper" data-bind="click: $parent.deleteAnswerOption">
+                                <span class="question-answer-delete-icon"></span>
+                            </div>
+                        </div>
                     </li>
                 </ul>
                 <!-- /ko -->
