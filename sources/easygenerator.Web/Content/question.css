@@ -233,7 +233,8 @@
     display: table-cell;
     vertical-align: middle;
     visibility: hidden;
-    border: 1px dashed #e1e1e1;
+    border: 1px solid transparent;
+    border-left: 1px dashed #e1e1e1;
     text-align: center;
     cursor: pointer;
 }
