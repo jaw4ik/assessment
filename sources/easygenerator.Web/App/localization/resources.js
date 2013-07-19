@@ -196,6 +196,11 @@
         en: 'Related questions',
         nl: 'Gerelateerde vragen',
         de: 'Ähnliche Fragen'
+    },
+    objectiveProperties: {
+        en: 'Learning objective properties',
+        nl: 'Eigenschappen leerdoel',
+        de: 'Lernzieleigenschaften'
     }
     /* End resource section for model Questions */
            
