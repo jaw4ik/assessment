@@ -35,20 +35,18 @@ namespace easygenerator.AcceptanceTests.Steps
         public void ThenPublicationsTilesListContainsItemsWithData(Table table)
         {
             var expectedPublications = table.CreateSet<ExpirienceData>().ToArray();
-            var realPublications = publicationsPage.Items.Select(obj => obj.Title).ToArray();
             TestUtils.Assert_IsTrue_WithWait(() =>
-                expectedPublications.All(obj => realPublications.Any(item => item == obj.Title)),
-                "Not all expected publications on page", realPublications);
+                expectedPublications.All(obj => publicationsPage.Items.Select(pub => pub.Title).ToArray().Any(item => item == obj.Title)),
+                "Not all expected publications on page", publicationsPage.Items.Select(pub => pub.Title).ToArray());
         }
 
         [Then(@"publications tiles list consists of ordered items")]
         public void ThenPublicationsTilesListConsistsOfOrderedItems(Table table)
         {
             var expectedPublications = table.CreateSet<ExpirienceData>().Select(obj => obj.Title).ToArray();
-            var realPublications = publicationsPage.Items.Select(obj => obj.Title).ToArray();
             TestUtils.Assert_IsTrue_WithWait(() =>
-                TestUtils.AreCollectionsEqual(expectedPublications, realPublications),
-                "Order of publications should be the same", realPublications);
+                TestUtils.AreCollectionsEqual(expectedPublications, publicationsPage.Items.Select(pub => pub.Title).ToArray()),
+                "Order of publications should be the same", publicationsPage.Items.Select(pub => pub.Title).ToArray());
         }
 
         [Then(@"publications list order switch is set to '(.*)'")]

@@ -48,28 +48,25 @@ namespace easygenerator.AcceptanceTests.Steps
         public void ThenAnswerOptionsListContainsOnlyItemsWithData(Table table)
         {
             var expectedAnswers = table.CreateSet<AnswerData>().Select(obj => obj.Text).ToArray();
-            var realAnswers = Question.AnswerItems.Select(obj => obj.Text).ToArray();
             TestUtils.Assert_IsTrue_WithWait(() =>
-                TestUtils.AreCollectionsTheSame(expectedAnswers, realAnswers),
-                "Not all expected answers on page", realAnswers);
+                TestUtils.AreCollectionsTheSame(expectedAnswers, Question.AnswerItems.Select(obj => obj.Text).ToArray()),
+                "Not all expected answers on page", Question.AnswerItems.Select(obj => obj.Text).ToArray());
         }
 
         [Then(@"explanations list contains only items with data")]
         public void ThenExplanationsListContainsOnlyItemsWithData(Table table)
         {
             var expectedExplanations = table.CreateSet<ExplanationData>().Select(obj => obj.Explanation).ToArray();
-            var realExplanations = Question.ExplanationItems.Select(obj => obj.Explanation).ToArray();
             TestUtils.Assert_IsTrue_WithWait(() =>
-                TestUtils.AreCollectionsTheSame(expectedExplanations, realExplanations),
-                "Not all expected answers on page", realExplanations);
+                TestUtils.AreCollectionsTheSame(expectedExplanations, Question.ExplanationItems.Select(obj => obj.Explanation).ToArray()),
+                "Not all expected answers on page", Question.ExplanationItems.Select(obj => obj.Explanation).ToArray());
         }
 
 
         [Then(@"'(.*)' title is shown in back to objective link")]
         public void ThenTitleIsShownInBackToObjectiveLink(string Title)
         {
-            var backText = Question.BackToObjectiveLinkText;
-            TestUtils.Assert_IsTrue_WithWait(()=> backText.Contains(Title), "Incorrect objective title in back link, link text is " + backText);
+            TestUtils.Assert_IsTrue_WithWait(() => Question.BackToObjectiveLinkText.Contains(Title), "Incorrect objective title in back link, link text is " + backText);
         }
 
         [Then(@"'(.*)' title is shown in question page header")]

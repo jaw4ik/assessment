@@ -35,9 +35,8 @@ namespace easygenerator.AcceptanceTests.Steps
         [Then(@"objectives list page header text is '(.*)'")]
         public void ThenObjectivesListPageHeaderTextIs(string expectedText)
         {
-            var real = objectivesPage.Header;
             TestUtils.Assert_IsTrue_WithWait(() =>
-                real.ToLower() == expectedText.ToLower(),
+                objectivesPage.Header.ToLower() == expectedText.ToLower(),
                 "Text should be set acording to localization, real is " + real);
         }
 
@@ -45,20 +44,19 @@ namespace easygenerator.AcceptanceTests.Steps
         public void ThenObjectivesTilesListContainsItemsWithData(Table table)
         {
             var expectedObjectives = table.CreateSet<ObjectiveData>().ToArray();
-            var realObjectives = objectivesPage.Items.Select(obj => obj.Title).ToArray();
             TestUtils.Assert_IsTrue_WithWait(() =>
-                expectedObjectives.All(obj => realObjectives.Any(item => item == obj.Title)),
-                "Not all expected objectives on page", realObjectives);
+                expectedObjectives.All(obj => objectivesPage.Items.Select(obj => obj.Title).ToArray().Any(item => item == obj.Title)),
+                "Not all expected objectives on page", objectivesPage.Items.Select(obj => obj.Title).ToArray());
         }
 
         [Then(@"objectives tiles list consists of ordered items")]
         public void ThenObjectivesTilesListConsistsOfOrderedItems(Table table)
         {
             var expectedObjectives = table.CreateSet<ObjectiveData>().Select(obj => obj.Title).ToArray();
-            var realObjectives = objectivesPage.Items.Select(obj => obj.Title).ToArray();
+            
             TestUtils.Assert_IsTrue_WithWait(() =>
-                TestUtils.AreCollectionsEqual(expectedObjectives, realObjectives),
-                "Order of objectives should be the same", realObjectives);
+                TestUtils.AreCollectionsEqual(expectedObjectives, objectivesPage.Items.Select(obj => obj.Title).ToArray()),
+                "Order of objectives should be the same", objectivesPage.Items.Select(obj => obj.Title).ToArray(););
         }
 
         [Then(@"objectives list order switch is set to '(.*)'")]
