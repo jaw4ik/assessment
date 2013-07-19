@@ -19,16 +19,6 @@ namespace easygenerator.AcceptanceTests.Helpers.DriverInitializators
             {EgLocalization.De,"de"},
             {EgLocalization.sl,"sl"}
         };
-        protected Dictionary<EgLocalization, string> localizationStringsChrome = new Dictionary<EgLocalization, string>()
-        {
-            {EgLocalization.En,"en"},
-            {EgLocalization.nlNl,"nl"},
-            {EgLocalization.deDe,"de"},
-            {EgLocalization.nlBe,"nl"},
-            {EgLocalization.Nl,"nl"},
-            {EgLocalization.De,"de"},
-            {EgLocalization.sl,"sl"}
-        };
         public abstract void SetNoCashe();
         public abstract void SetCulture(EgLocalization[] culture);
         public abstract RemoteWebDriver InitDriver();

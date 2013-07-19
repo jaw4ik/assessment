@@ -37,7 +37,7 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             TestUtils.Assert_IsTrue_WithWait(() =>
                 objectivesPage.Header.ToLower() == expectedText.ToLower(),
-                "Text should be set acording to localization, real is " + real);
+                "Text should be set acording to localization, real is " + objectivesPage.Header);
         }
 
         [Then(@"objectives tiles list contains items with data")]
@@ -45,7 +45,7 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             var expectedObjectives = table.CreateSet<ObjectiveData>().ToArray();
             TestUtils.Assert_IsTrue_WithWait(() =>
-                expectedObjectives.All(obj => objectivesPage.Items.Select(obj => obj.Title).ToArray().Any(item => item == obj.Title)),
+                expectedObjectives.All(obj => objectivesPage.Items.Select(real => real.Title).ToArray().Any(item => item == obj.Title)),
                 "Not all expected objectives on page", objectivesPage.Items.Select(obj => obj.Title).ToArray());
         }
 
@@ -56,7 +56,7 @@ namespace easygenerator.AcceptanceTests.Steps
             
             TestUtils.Assert_IsTrue_WithWait(() =>
                 TestUtils.AreCollectionsEqual(expectedObjectives, objectivesPage.Items.Select(obj => obj.Title).ToArray()),
-                "Order of objectives should be the same", objectivesPage.Items.Select(obj => obj.Title).ToArray(););
+                "Order of objectives should be the same", objectivesPage.Items.Select(obj => obj.Title).ToArray());
         }
 
         [Then(@"objectives list order switch is set to '(.*)'")]

@@ -66,7 +66,8 @@ namespace easygenerator.AcceptanceTests.Steps
         [Then(@"'(.*)' title is shown in back to objective link")]
         public void ThenTitleIsShownInBackToObjectiveLink(string Title)
         {
-            TestUtils.Assert_IsTrue_WithWait(() => Question.BackToObjectiveLinkText.Contains(Title), "Incorrect objective title in back link, link text is " + backText);
+            TestUtils.Assert_IsTrue_WithWait(() => Question.BackToObjectiveLinkText.Contains(Title),
+                "Incorrect objective title in back link, link text is " + Question.BackToObjectiveLinkText);
         }
 
         [Then(@"'(.*)' title is shown in question page header")]
