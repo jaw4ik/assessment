@@ -79,7 +79,7 @@
 
                 function addAnswer(callback) {
                     var newAnswer = new answerOptionModel({
-                        id: question().answerOptions.length,
+                        id: generateNewEntryId(question().answerOptions),
                         text: '',
                         isCorrect: false
                     });
@@ -91,12 +91,8 @@
                 }
 
                 function success(answer) {
-                    var observableAnswer = {
-                        id: answer.id,
-                        text: answer.text,
-                        isCorrect: ko.observable(answer.isCorrect)
-                    };
-
+                    var observableAnswer = mapAnswerOption(answer);
+                    
                     answerOptions.push(observableAnswer);
                     notification.update();
                 }
@@ -126,10 +122,15 @@
                     notification.update();
                 }
             },
+            editAnswerOption = function (instance) {
+                instance.isInEdit(true);
+            },
             saveAnswerOption = function (instance, context) {
                 sendEvent(events.saveAnswerOption);
 
-                if (_.isEmptyOrWhitespace(context.target.innerText)) {
+                instance.isInEdit(false);
+
+                if (_.isEmptyOrWhitespace(context.target.textContent)) {
                     deleteAnswerOption(instance);
                     return;
                 }
@@ -257,7 +258,8 @@
                 return {
                     id: answer.id,
                     text: answer.text || '',
-                    isCorrect: ko.observable(answer.isCorrect || false)
+                    isCorrect: ko.observable(answer.isCorrect || false),
+                    isInEdit: ko.observable(false)
                 };
             },
             mapExplanation = function (explanation) {
@@ -266,6 +268,18 @@
                     isEditing: ko.observable(false),
                     id: explanation.id
                 };
+            },
+            generateNewEntryId = function (collection) {
+                var id = 0;
+                if (collection.length > 0) {
+                    var maxId = _.max(_.map(collection, function (exp) {
+                        return parseInt(exp.id);
+                    }));
+
+                    id = maxId + 1;
+                }
+
+                return id;
             };
 
         return {
@@ -297,6 +311,7 @@
 
             addAnswerOption: addAnswerOption,
             toggleAnswerCorrectness: toggleAnswerCorrectness,
+            editAnswerOption: editAnswerOption,
             saveAnswerOption: saveAnswerOption,
             deleteAnswerOption: deleteAnswerOption,
 
