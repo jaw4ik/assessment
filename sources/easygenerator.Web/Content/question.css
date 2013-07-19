@@ -148,9 +148,9 @@
     background-repeat: no-repeat;
 }
 
- .question-answer-text-wrapper {
-     border: 1px dashed #e1e1e1;
- }
+.question-answer-text-wrapper {
+    border: 1px dashed #e1e1e1;
+}
 
 .question-answer-text {
     min-height: 40px;
@@ -175,11 +175,35 @@
     visibility: hidden;
     text-align: center;
     cursor: pointer;
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 }
 
 .answer-option-item:hover .question-answer-text-wrapper {
     border: 1px solid #cecece;
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 }
+
+.answer-option-item:hover .question-answer-text {
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
+}
+
+.answer-option-item:hover .question-answer-value {
+    border-style: solid;
+    border-color: #cecece;
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 0 3px rgba(0, 0, 0, 0.2) inset;
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 0 3px rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 0 3px rgba(0, 0, 0, 0.2) inset;
+}
+
+    .answer-option-item:hover .question-answer-value.correct {
+        border-color: #53a93f;
+    }
 
 .answer-option-item:hover .question-answer-delete-wrapper {
     visibility: visible;
