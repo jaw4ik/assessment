@@ -154,30 +154,35 @@
         nl: 'Volgende',
         de: 'Nächstes'
     },
-    emptyAnswerOptions: {
-        en: 'The answer options list is empty',
-        nl: 'The answer options list is empty[nl]',
-        de: 'The answer options list is empty[de]'
+    answerOption: {
+        en: 'Answer option',
+        nl: 'Antwoordoptie',
+        de: 'Antwortoption'
     },
     answerOptions: {
         en: 'Answer options',
-        nl: 'Answer options[nl]',
-        de: 'Answer options[de]'
-    },
-    emptyExplanations: {
-        en: 'The explanations list is empty',
-        nl: 'The explanations list is empty[nl]',
-        de: 'The explanations list is empty[de]'
+        nl: 'Antwoordopties',
+        de: 'Antwortoptionen'
     },
     explanations: {
         en: 'Explanations',
-        nl: 'Explanations[nl]',
-        de: 'Explanations[de]'
+        nl: 'Uitleg',
+        de: 'Erläuterungen'
+    },
+    questionProperties: {
+        en: 'Question Properties',
+        nl: 'Eigenschappen vraag',
+        de: 'Frageneigenschaften'
+    },
+    clickToAddNewExplanation: {
+        en: 'Click here to add explanation',
+        nl: 'Klik hier als u uitleg wilt toevoegen',
+        de: 'Hier klicken, um Erläuterung hinzuzufügen'
     },
     clickToAddNewAnswerOption: {
         en: 'Click here to add answer option',
-        nl: 'Click here to add answer option[nl]',
-        de: 'Click here to add answer option[de]'
+        nl: 'Klik hier als u een antwoordoptie wilt toevoegen',
+        de: 'Hier klicken, um Anwortoption hinzuzufügen'
     },
     /* End resource section for model Question */
     
@@ -191,11 +196,6 @@
         en: 'Related questions',
         nl: 'Gerelateerde vragen',
         de: 'Ähnliche Fragen'
-    },
-    clickToAddNewExplanation: {
-        en: 'Click here to add explanation…',
-        nl: 'Click here to add explanation…[nl]',
-        de: 'Click here to add explanation…[de]'
     }
     /* End resource section for model Questions */
            

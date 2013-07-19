@@ -45,7 +45,10 @@
                 url: 'objective/:objectiveId/question/:id',
                 moduleId: 'viewmodels/questions/question',
                 name: 'Question Properties',
-                caption: 'Question Properties'
+                caption: 'Question Properties',
+                settings: {
+                    localizationKey: 'questionProperties'
+                }
             },
             {
                 url: 'experiences',
