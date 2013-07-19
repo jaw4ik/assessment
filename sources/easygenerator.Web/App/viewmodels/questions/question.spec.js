@@ -366,7 +366,7 @@ define(function (require) {
         describe('explanations', function () {
 
             beforeEach(function () {
-                dataContext.objectives = [
+               dataContext.objectives = [
                             new objectiveModel(
                                 {
                                     id: 'obj3',
@@ -378,7 +378,12 @@ define(function (require) {
                                                 id: '0',
                                                 title: 'Question 1',
                                                 answerOptions: [],
-                                                explanations: ['explanation 1', 'explanation 2', 'explanation 3']
+                                                explanations: [
+                                                    new explanationModel({
+                                                        id: '0',
+                                                        text: 'Default text'
+                                                    })
+                                                ]
                                             })
                                         ]
                                 })];
@@ -389,8 +394,27 @@ define(function (require) {
                 expect(ko.isObservable(viewModel.explanations()[0].isEditing)).toBeTruthy();
             });
 
-            it('should have text observable', function () {
-                expect(ko.isObservable(viewModel.explanations()[0].text)).toBeTruthy();
+            describe('text', function () {
+                
+                it('should be observable', function () {
+                    expect(ko.isObservable(viewModel.explanations()[0].text)).toBeTruthy();
+                });
+
+                it('should save data on change', function () {
+                    viewModel.explanations()[0].text('Test text');
+                    expect(dataContext.objectives[0].questions[0].explanations[0].text).toBe('Test text');
+                });
+
+                it('should not save data on empty text', function () {
+                    viewModel.explanations()[0].text('');
+                    expect(dataContext.objectives[0].questions[0].explanations[0].text).toBe('Default text');
+                });
+
+                it('should not save data on whitespace', function () {
+                    viewModel.explanations()[0].text('   ');
+                    expect(dataContext.objectives[0].questions[0].explanations[0].text).toBe('Default text');
+                });
+
             });
         });
 
@@ -559,200 +583,202 @@ define(function (require) {
             });
         });
 
-        describe('language', function () {
 
-            it('should be observable', function () {
-                expect(ko.isObservable(viewModel.language)).toBe(true);
-            });
 
+    });
+    
+    describe('language', function () {
+
+        it('should be observable', function () {
+            expect(ko.isObservable(viewModel.language)).toBe(true);
         });
 
-        describe('answer options', function () {
+    });
 
-            var answer = new answerOptionModel({
-                id: 0,
-                text: 'option 1',
-                isCorrect: false
+    describe('answer options', function () {
+
+        var answer = new answerOptionModel({
+            id: 0,
+            text: 'option 1',
+            isCorrect: false
+        });
+
+        beforeEach(function () {
+            spyOn(eventTracker, 'publish');
+            spyOn(viewModel.notification, 'update');
+        });
+
+        describe('add', function () {
+
+            it('[addAnswerOption] should be a function', function () {
+                expect(viewModel.addAnswerOption).toEqual(jasmine.any(Function));
             });
+
+            it('[answerOptions] should be observable', function () {
+                expect(ko.isObservable(viewModel.answerOptions)).toBeTruthy();
+            });
+
+            it('should track event \"Add answer option\"', function () {
+                viewModel.question({ answerOptions: [] });
+                viewModel.addAnswerOption();
+
+                expect(eventTracker.publish).toHaveBeenCalledWith('Add answer option', eventsCategory);
+            });
+
+            it('function [addAnswerOption] should call nofification update', function () {
+                viewModel.addAnswerOption();
+
+                expect(viewModel.notification.update).toHaveBeenCalled();
+            });
+
+            it('function [addAnswerOption] should create option', function () {
+                viewModel.question({ answerOptions: [] });
+                viewModel.answerOptions([]);
+
+                viewModel.addAnswerOption();
+
+                expect(viewModel.answerOptions().length).toBe(1);
+            });
+        });
+
+        describe('edit', function () {
+
+            var context = {};
 
             beforeEach(function () {
-                spyOn(eventTracker, 'publish');
-                spyOn(viewModel.notification, 'update');
+                viewModel.question({ answerOptions: [answer] });
+                viewModel.answerOptions([{
+                    id: answer.id,
+                    text: answer.text,
+                    isCorrect: ko.observable(answer.isCorrect),
+                    isInEdit: ko.observable(false)
+                }]);
+                context = {
+                    target: { textContent: '', innerHTML: '' }
+                };
             });
 
-            describe('add', function () {
-
-                it('[addAnswerOption] should be a function', function () {
-                    expect(viewModel.addAnswerOption).toEqual(jasmine.any(Function));
-                });
-
-                it('[answerOptions] should be observable', function () {
-                    expect(ko.isObservable(viewModel.answerOptions)).toBeTruthy();
-                });
-
-                it('should track event \"Add answer option\"', function () {
-                    viewModel.question({ answerOptions: [] });
-                    viewModel.addAnswerOption();
-
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Add answer option', eventsCategory);
-                });
-
-                it('function [addAnswerOption] should call nofification update', function () {
-                    viewModel.addAnswerOption();
-
-                    expect(viewModel.notification.update).toHaveBeenCalled();
-                });
-
-                it('function [addAnswerOption] should create option', function () {
-                    viewModel.question({ answerOptions: [] });
-                    viewModel.answerOptions([]);
-
-                    viewModel.addAnswerOption();
-
-                    expect(viewModel.answerOptions().length).toBe(1);
-                });
+            it('the field [isCorrect] should be observable', function () {
+                expect(ko.isObservable(viewModel.answerOptions()[0].isCorrect)).toBeTruthy();
             });
 
-            describe('edit', function () {
+            it('should track event \"Change answer option correctness\"', function () {
+                viewModel.toggleAnswerCorrectness(viewModel.answerOptions()[0]);
 
-                var context = {};
-
-                beforeEach(function () {
-                    viewModel.question({ answerOptions: [answer] });
-                    viewModel.answerOptions([{
-                        id: answer.id,
-                        text: answer.text,
-                        isCorrect: ko.observable(answer.isCorrect),
-                        isInEdit: ko.observable(false)
-                    }]);
-                    context = {
-                        target: { textContent: '', innerHTML: '' }
-                    };
-                });
-
-                it('the field [isCorrect] should be observable', function () {
-                    expect(ko.isObservable(viewModel.answerOptions()[0].isCorrect)).toBeTruthy();
-                });
-
-                it('should track event \"Change answer option correctness\"', function () {
-                    viewModel.toggleAnswerCorrectness(viewModel.answerOptions()[0]);
-
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Change answer option correctness', eventsCategory);
-                });
-                
-                it('function [toggleAnswerCorrectness] should call nofification update', function () {
-                    viewModel.toggleAnswerCorrectness(viewModel.answerOptions()[0]);
-
-                    expect(viewModel.notification.update).toHaveBeenCalled();
-                });
-
-                it('should change option correctness', function () {
-                    viewModel.answerOptions()[0].isCorrect(false);
-                    viewModel.question().answerOptions[0].isCorrect = false;
-
-                    viewModel.toggleAnswerCorrectness(viewModel.answerOptions()[0]);
-
-                    expect(viewModel.answerOptions()[0].isCorrect()).toBeTruthy();
-                });
-
-                it('should track event \"Save the answer option text\"', function () {
-                    viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
-
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Save the answer option text', eventsCategory);
-                });
-                
-                it('function [saveAnswerOption] should call nofification update', function () {
-                    viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
-
-                    expect(viewModel.notification.update).toHaveBeenCalled();
-                });
-
-                it('should edit answer text', function () {
-                    viewModel.answerOptions()[0].text = answer.text;
-
-                    var newText = 'new text';
-                    context.target.textContent = newText;
-                    context.target.innerHTML = newText;
-
-                    viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
-
-                    expect(viewModel.answerOptions()[0].text).toBe(newText);
-                });
-
-                it('should delete answer option when text is empty', function () {
-                    var answersCount = viewModel.answerOptions().length;
-
-                    viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
-
-                    expect(viewModel.answerOptions().length).toBe(answersCount - 1);
-                });
-
-                it('should delete answer option when text contains only white-spaces and new lines codes', function () {
-                    var answersCount = viewModel.answerOptions().length;
-
-                    context.target.textContent = '   \n\r  \n\r';
-                    context.target.innerHTML = '<p>&nbsp</p><p>&nbsp</p>';
-                    
-                    viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
-
-                    expect(viewModel.answerOptions().length).toBe(answersCount - 1);
-                });
-
-                it('function [editAnswerOption] should set [isInEdit] to value \"true\"', function () {
-                    viewModel.answerOptions()[0].isInEdit(false);
-
-                    viewModel.editAnswerOption(viewModel.answerOptions()[0]);
-
-                    expect(viewModel.answerOptions()[0].isInEdit()).toBe(true);
-                });
-                
-                it('function [saveAnswerOption] should set [isInEdit] to value \"false\"', function () {
-                    viewModel.answerOptions()[0].isInEdit(true);
-
-                    context.target.textContent = 'some text';
-                    context.target.innerHTML = '<p>some text</p>';
-                    viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
-
-                    expect(viewModel.answerOptions()[0].isInEdit()).toBe(false);
-                });
+                expect(eventTracker.publish).toHaveBeenCalledWith('Change answer option correctness', eventsCategory);
             });
 
-            describe('delete', function () {
+            it('function [toggleAnswerCorrectness] should call nofification update', function () {
+                viewModel.toggleAnswerCorrectness(viewModel.answerOptions()[0]);
 
-                beforeEach(function () {
-                    viewModel.question({ answerOptions: [answer] });
-                    viewModel.answerOptions([{
-                        id: answer.id,
-                        text: ko.observable(answer.text),
-                        isCorrect: ko.observable(answer.isCorrect)
-                    }]);
-                });
-
-                it('should track event \"Delete answer option\"', function () {
-                    viewModel.deleteAnswerOption(viewModel.answerOptions()[0]);
-
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete answer option', eventsCategory);
-                });
-
-                it('function [deleteAnswerOption] should call nofification update', function () {
-                    viewModel.deleteAnswerOption(viewModel.answerOptions()[0]);
-
-                    expect(viewModel.notification.update).toHaveBeenCalled();
-                });
-
-                it('[deleteAnswerOption] should be function', function() {
-                    expect(viewModel.deleteAnswerOption).toEqual(jasmine.any(Function));
-                });
-
-                it('should delete item', function () {
-                    var currentCount = viewModel.question().answerOptions.length;
-                    viewModel.deleteAnswerOption(viewModel.answerOptions()[0]);
-
-                    expect(viewModel.answerOptions().length).toBe(currentCount - 1);
-                });
+                expect(viewModel.notification.update).toHaveBeenCalled();
             });
 
-        });     
+            it('should change option correctness', function () {
+                viewModel.answerOptions()[0].isCorrect(false);
+                viewModel.question().answerOptions[0].isCorrect = false;
+
+                viewModel.toggleAnswerCorrectness(viewModel.answerOptions()[0]);
+
+                expect(viewModel.answerOptions()[0].isCorrect()).toBeTruthy();
+            });
+
+            it('should track event \"Save the answer option text\"', function () {
+                viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
+
+                expect(eventTracker.publish).toHaveBeenCalledWith('Save the answer option text', eventsCategory);
+            });
+
+            it('function [saveAnswerOption] should call nofification update', function () {
+                viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
+
+                expect(viewModel.notification.update).toHaveBeenCalled();
+            });
+
+            it('should edit answer text', function () {
+                viewModel.answerOptions()[0].text = answer.text;
+
+                var newText = 'new text';
+                context.target.textContent = newText;
+                context.target.innerHTML = newText;
+
+                viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
+
+                expect(viewModel.answerOptions()[0].text).toBe(newText);
+            });
+
+            it('should delete answer option when text is empty', function () {
+                var answersCount = viewModel.answerOptions().length;
+
+                viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
+
+                expect(viewModel.answerOptions().length).toBe(answersCount - 1);
+            });
+
+            it('should delete answer option when text contains only white-spaces and new lines codes', function () {
+                var answersCount = viewModel.answerOptions().length;
+
+                context.target.textContent = '   \n\r  \n\r';
+                context.target.innerHTML = '<p>&nbsp</p><p>&nbsp</p>';
+
+                viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
+
+                expect(viewModel.answerOptions().length).toBe(answersCount - 1);
+            });
+
+            it('function [editAnswerOption] should set [isInEdit] to value \"true\"', function () {
+                viewModel.answerOptions()[0].isInEdit(false);
+
+                viewModel.editAnswerOption(viewModel.answerOptions()[0]);
+
+                expect(viewModel.answerOptions()[0].isInEdit()).toBe(true);
+            });
+
+            it('function [saveAnswerOption] should set [isInEdit] to value \"false\"', function () {
+                viewModel.answerOptions()[0].isInEdit(true);
+
+                context.target.textContent = 'some text';
+                context.target.innerHTML = '<p>some text</p>';
+                viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
+
+                expect(viewModel.answerOptions()[0].isInEdit()).toBe(false);
+            });
+        });
+
+        describe('delete', function () {
+
+            beforeEach(function () {
+                viewModel.question({ answerOptions: [answer] });
+                viewModel.answerOptions([{
+                    id: answer.id,
+                    text: ko.observable(answer.text),
+                    isCorrect: ko.observable(answer.isCorrect)
+                }]);
+            });
+
+            it('should track event \"Delete answer option\"', function () {
+                viewModel.deleteAnswerOption(viewModel.answerOptions()[0]);
+
+                expect(eventTracker.publish).toHaveBeenCalledWith('Delete answer option', eventsCategory);
+            });
+
+            it('function [deleteAnswerOption] should call nofification update', function () {
+                viewModel.deleteAnswerOption(viewModel.answerOptions()[0]);
+
+                expect(viewModel.notification.update).toHaveBeenCalled();
+            });
+
+            it('[deleteAnswerOption] should be function', function () {
+                expect(viewModel.deleteAnswerOption).toEqual(jasmine.any(Function));
+            });
+
+            it('should delete item', function () {
+                var currentCount = viewModel.question().answerOptions.length;
+                viewModel.deleteAnswerOption(viewModel.answerOptions()[0]);
+
+                expect(viewModel.answerOptions().length).toBe(currentCount - 1);
+            });
+        });
 
     });
 });

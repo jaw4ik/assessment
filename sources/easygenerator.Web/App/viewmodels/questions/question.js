@@ -200,20 +200,7 @@
                     return;
                 }
 
-                var contextExplanation = _.find(question().explanations, function (obj) {
-                    return obj.id == explanation.id;
-                });
-
-                if (_.isObject(contextExplanation)) {
-                    contextExplanation.text = explanation.text();
-                }
-                else {
-                    question().explanations.push(
-                        {
-                            id: explanation.id,
-                            text: explanation.text()
-                        });
-                }
+                saveExplanation(explanation.id, explanation.text());
 
                 explanation.isEditing(false);
                 sendEvent(events.endEditingExplanation);
@@ -274,11 +261,17 @@
                 };
             },
             mapExplanation = function (explanation) {
-                return {
+                var mappedExplanation = {
                     text: ko.observable(explanation.text),
                     isEditing: ko.observable(false),
                     id: explanation.id
                 };
+                (function (item) {
+                    item.text.subscribe(function(changedText) {
+                        saveExplanation(item.id, changedText);
+                    });
+                })(mappedExplanation);
+                return mappedExplanation;
             },
             generateNewEntryId = function (collection) {
                 var id = 0;
@@ -291,6 +284,27 @@
                 }
 
                 return id;
+            },
+            saveExplanation = function (id, text) {
+                if (_.isEmptyOrWhitespace(text))
+                    return;
+
+                var contextExplanation = _.find(question().explanations, function (obj) {
+                    return obj.id == id;
+                });
+
+                if (_.isObject(contextExplanation)) {
+                    contextExplanation.text = text;
+                }
+                else {
+                    question().explanations.push(
+                        {
+                            id: id,
+                            text: text
+                        });
+                }
+                
+                notification.update();
             };
 
         return {
