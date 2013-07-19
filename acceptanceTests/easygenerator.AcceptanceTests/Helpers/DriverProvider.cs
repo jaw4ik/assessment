@@ -51,7 +51,7 @@ namespace easygenerator.AcceptanceTests.Helpers
             initializer.SetCulture(culture);
             initializer.SetNoCashe();
             driver = initializer.InitDriver();
-            driver.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0,0,3));
+            driver.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 3));
         }
 
         private DriverInitializer GetInitializer(Browser browserName)
@@ -75,7 +75,10 @@ namespace easygenerator.AcceptanceTests.Helpers
         }
         private Browser GetBrowserType()
         {
-            return (Browser)Enum.Parse(typeof(Browser), ConfigurationManager.AppSettings["Browser"]);
+            string browserKey = "Browser";
+            var envVariable = Environment.GetEnvironmentVariable(browserKey);
+            var browserString = envVariable == null ? ConfigurationManager.AppSettings[browserKey] : envVariable;
+            return (Browser)Enum.Parse(typeof(Browser), browserString);
         }
 
     }
