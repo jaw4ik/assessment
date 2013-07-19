@@ -319,10 +319,11 @@
 
     .objective-brief-title > span,
     .experience-brief-title > span {
-        display: inline-block;
-        line-height: 1;
-        vertical-align: middle;
-        word-break: break-all;
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: default;
     }
 
 .experience-brief-title {
