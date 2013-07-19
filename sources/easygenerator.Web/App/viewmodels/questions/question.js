@@ -322,7 +322,8 @@
             saveAnswerOption: saveAnswerOption,
             deleteAnswerOption: deleteAnswerOption,
 
-            language: currentLanguage
+            language: currentLanguage,
+            eventTracker: eventTracker
         };
     }
 );

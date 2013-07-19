@@ -7,11 +7,13 @@ CKEDITOR.editorConfig = function (config) {
     config.skin = 'kama';
 
     config.toolbar = [
-        ['Cut', 'Copy', 'Paste', '-', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
+        ['Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo'],
         ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat'],
         ['NumberedList', 'BulletedList'],
         ['Link', 'Unlink', 'Table', 'Image']
     ];
+
+    config.startupFocus = true;
 
     config.allowedContent = true;
 };
