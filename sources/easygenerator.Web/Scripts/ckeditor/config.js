@@ -12,4 +12,6 @@ CKEDITOR.editorConfig = function (config) {
         ['NumberedList', 'BulletedList'],
         ['Link', 'Unlink', 'Table', 'Image']
     ];
+
+    config.allowedContent = true;
 };
