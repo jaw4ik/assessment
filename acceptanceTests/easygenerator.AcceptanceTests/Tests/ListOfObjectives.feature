@@ -163,7 +163,7 @@ When browser window width and height is set to 600 and 600
 And scroll objective with title 'Objective5' into the view
 Then element of objectives list with title 'Objective5' is visible
 
-
+@NotFirefox
 Scenario: Actions open and select are enabled if hover item of objectives list
 Given objectives are present in database
 | Title      |
@@ -176,6 +176,7 @@ Then Action open is enabled true for objectives list item with title 'Objective1
 And Action select is enabled true for objectives list item with title 'Objective1'
 
 
+@NotFirefox
 Scenario: Open action of objectives list item navigates to objective's editing page 
 Given objectives are present in database
 | Title      | Id |

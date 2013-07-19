@@ -140,6 +140,7 @@ And browser window width and height is set to 640 and 300
 And scroll questions list item with title 'Question14' into the view
 Then element with title 'Question14' of questions list is visible
 
+@NotFirefox
 Scenario: Actions select and edit are enabled if hover item of questions list
 Given questions related to 'Objective1' are present in database
 | Title     |

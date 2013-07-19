@@ -165,6 +165,7 @@ And scroll publication with title 'Publication5' into the view
 Then element with title 'Publication5' of publications list is visible
 
 
+@NotFirefox
 Scenario: Actions open and select are enabled if hover item of publications list
 Given publications are present in database
 | Title        |
