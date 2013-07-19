@@ -127,7 +127,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [When(@"click on collapse answer options")]
         public void WhenClickOnCollapseAnswerOptions()
         {
-            ScenarioContext.Current.Pending();
+            Question.ToggleAnswerOptions();
         }
 
         [Then(@"answer options block is collapsed")]
@@ -139,7 +139,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [When(@"click on collapse explanations")]
         public void WhenClickOnCollapseExplanations()
         {
-            ScenarioContext.Current.Pending();
+            Question.ToggleExplanations();
         }
 
         [Then(@"explanations block is collapsed")]
@@ -151,13 +151,13 @@ namespace easygenerator.AcceptanceTests.Steps
         [When(@"click on expand answer options")]
         public void WhenClickOnExpandAnswerOptions()
         {
-            ScenarioContext.Current.Pending();
+            Question.ToggleAnswerOptions();
         }
 
         [When(@"click on expand explanations options")]
         public void WhenClickOnExpandExplanationsOptions()
         {
-            ScenarioContext.Current.Pending();
+            Question.ToggleExplanations();
         }
 
         [When(@"click on back to objective")]

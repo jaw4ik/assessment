@@ -78,6 +78,18 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             link.Click();
         }
 
+        internal void ToggleAnswerOptions()
+        {
+            var button = GetByXPath(model.ExpandAnswerOptionsButton);
+            button.Click();
+        }
+
+        internal void ToggleExplanations()
+        {
+            var button = GetByXPath(model.ExpandExplanationsButton);
+            button.Click();
+        }
+
     }
 
 
@@ -117,8 +129,8 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                var el = GetByXPathInside(model.ExplanationText);
-                return el.GetTextContent();
+                return Container.GetTextContent();
+                
             }
         }
 
