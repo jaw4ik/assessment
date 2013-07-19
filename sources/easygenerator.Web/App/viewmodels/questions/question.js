@@ -33,15 +33,15 @@
             currentLanguage = ko.observable(''),
             isAnswersBlockExpanded = ko.observable(true),
             isExplanationsBlockExpanded = ko.observable(true),
-            
+
             notification = {
                 text: ko.observable(''),
                 visibility: ko.observable(false),
-                close: function() { notification.visibility(false); },
+                close: function () { notification.visibility(false); },
                 update: function () {
                     var message = 'Last saving: ' + new Date().toLocaleTimeString();
                     notification.text(message);
-                
+
                     notification.visibility(true);
                 }
             },
@@ -92,7 +92,7 @@
 
                 function success(answer) {
                     var observableAnswer = mapAnswerOption(answer);
-                    
+
                     answerOptions.push(observableAnswer);
                     notification.update();
                 }
@@ -180,7 +180,7 @@
             addExplanation = function () {
                 sendEvent(events.addExplanation);
                 var explanation = mapExplanation(new expalantionModel({
-                    id: this.explanations().length,
+                    id: generateNewEntryId(this.explanations()),
                     text: ''
                 }));
 
@@ -203,6 +203,13 @@
 
                 if (_.isObject(contextExplanation)) {
                     contextExplanation.text = explanation.text();
+                }
+                else {
+                    question().explanations.push(
+                        {
+                            id: explanation.id,
+                            text: explanation.text()
+                        });
                 }
 
                 explanation.isEditing(false);
@@ -298,7 +305,7 @@
             goToNextQuestion: goToNextQuestion,
             isAnswersBlockExpanded: isAnswersBlockExpanded,
             isExplanationsBlockExpanded: isExplanationsBlockExpanded,
-            
+
             notification: notification,
 
             toggleAnswers: toggleAnswers,

@@ -44,12 +44,12 @@
     </div>
     <div class="question-content clearfix">
         <div class="question-content-block question-answers">
-            <div class="question-content-block-header-wrapper">
+            <div class="question-content-block-header-wrapper" data-bind="click: toggleAnswers">
                 <div class="question-content-block-header" data-bind="css: { 'shadow-bottom-curve': isAnswersBlockExpanded() }">
                     <div class="question-content-block-header-icon answer-option-icon"></div>
                     <div class="question-content-block-header-title" data-bind="localize: { text: 'answerOptions' }">Answer options</div>
                     <div class="question-content-block-size-element-wrapper right">
-                        <a href="#" class="nav-element" data-bind="click: toggleAnswers">
+                        <a href="#" class="nav-element">
                             <span class="inline question-content-block-size-btn"
                                 data-bind="css: { 'collapse-btn': isAnswersBlockExpanded(), 'expand-btn': !isAnswersBlockExpanded() }"></span>
                         </a>
@@ -73,9 +73,8 @@
                                         <p contenteditable="true" data-bind="html: text, event: { blur: $parent.saveAnswerOption, focus: $parent.editAnswerOption }, hasFocus: true"></p>
                                     </div>
                                 </td>
-                                <td class="question-answer-delete-wrapper"data-bind="click: $parent.deleteAnswerOption">
-                                    <span class="question-answer-delete-icon">
-                                        x
+                                <td class="question-answer-delete-wrapper" data-bind="click: $parent.deleteAnswerOption">
+                                    <span class="question-answer-delete-icon">x
                                     </span>
                                 </td>
                             </tr>
@@ -91,12 +90,12 @@
         </div>
         <div>
             <div class="question-content-block question-explanations">
-                <div class="question-content-block-header-wrapper">
+                <div class="question-content-block-header-wrapper" data-bind="click: toggleExplanations">
                     <div class="question-content-block-header" data-bind="css: { 'shadow-bottom-curve': isExplanationsBlockExpanded() }">
                         <div class="question-content-block-header-icon explanation-icon"></div>
                         <div class="question-content-block-header-title" data-bind="localize: { text: 'explanations' }">Explanations</div>
                         <div class="question-content-block-size-element-wrapper right">
-                            <a href="#" class="nav-element" data-bind="click: toggleExplanations">
+                            <a href="#" class="nav-element">
                                 <span class="inline question-content-block-size-btn"
                                     data-bind="css: { 'collapse-btn': isExplanationsBlockExpanded(), 'expand-btn': !isExplanationsBlockExpanded() }"></span>
                             </a>
