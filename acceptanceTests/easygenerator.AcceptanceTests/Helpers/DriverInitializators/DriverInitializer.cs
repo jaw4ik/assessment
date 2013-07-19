@@ -9,18 +9,8 @@ namespace easygenerator.AcceptanceTests.Helpers.DriverInitializators
 {
     public abstract class DriverInitializer
     {
-        protected Dictionary<EgLocalization, string> localizationStringsIE = new Dictionary<EgLocalization, string>()
-        {
-            {EgLocalization.En,"en-En"},
-            {EgLocalization.nlNl,"nl-Nl"},
-            {EgLocalization.nlBe,"nl-Be"},
-            {EgLocalization.Nl,"nl"},
-            {EgLocalization.deDe,"de-De"},
-            {EgLocalization.De,"de"},
-            {EgLocalization.sl,"sl"}
-        };
         public abstract void SetNoCashe();
-        public abstract void SetCulture(EgLocalization[] culture);
+        public abstract void SetCulture(string culture);
         public abstract RemoteWebDriver InitDriver();
     }
 }

@@ -27,14 +27,13 @@ namespace easygenerator.AcceptanceTests.Helpers.DriverInitializators
             opt.AddArguments("disk-cache-size=0");
         }
 
-        public override void SetCulture(EgLocalization[] culture)
+        public override void SetCulture(string culture)
         {
             if (File.Exists(preferencesPath))
             {
-                var cultureString = String.Join(",", culture.Select(c => localizationStringsIE[c]));
                 var doc = JObject.Parse(File.ReadAllText(preferencesPath));
                 if (doc["intl"] == null) doc.Add("intl", JToken.Parse("{\"accept_languages\":\"\"}"));
-                doc["intl"]["accept_languages"] = cultureString;
+                doc["intl"]["accept_languages"] = culture;
                 File.WriteAllText(preferencesPath, doc.ToString());
             }
         }

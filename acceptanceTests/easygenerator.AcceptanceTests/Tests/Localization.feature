@@ -9,12 +9,12 @@ Scenario Template: Localization of browser should be applied to course by defaul
 	Scenarios: 
 	| localization | text               |
 	| Nl           | Leerdoel           |
-	| nlNl         | Leerdoel           |
-	| nlBe         | Learning objective |
+	| nl-Nl         | Leerdoel           |
+	| nl-Be         | Learning objective |
 	| En           | Learning objective |
 	| De           | Lernziel           |
-	| deDe         | Lernziel           |
-	| sl,deDe      | Lernziel           |
+	| de-De         | Lernziel           |
+	| sl,de-De      | Lernziel           |
 
 Scenario Template: Localization is changed if change user settings
 	When open page by url 'http://localhost:5656'

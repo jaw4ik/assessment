@@ -16,10 +16,9 @@ namespace easygenerator.AcceptanceTests.Helpers.DriverInitializators
             profile.SetPreference("applicationCacheEnabled", false);
         }
 
-        public override void SetCulture(EgLocalization[] culture)
+        public override void SetCulture(string culture)
         {
-            var cultureString=String.Join(",", culture.Select(c=>localizationStringsIE[c]));
-            profile.SetPreference("intl.accept_languages",cultureString );
+            profile.SetPreference("intl.accept_languages", culture);
         }
 
         public override RemoteWebDriver InitDriver()

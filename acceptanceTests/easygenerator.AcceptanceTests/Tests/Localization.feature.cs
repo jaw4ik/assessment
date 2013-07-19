@@ -70,12 +70,12 @@ namespace easygenerator.AcceptanceTests.Tests
         [NUnit.Framework.DescriptionAttribute("Localization of browser should be applied to course by default")]
         [NUnit.Framework.CategoryAttribute("Localization_Test")]
         [NUnit.Framework.TestCaseAttribute("Nl", "Leerdoel", null)]
-        [NUnit.Framework.TestCaseAttribute("nlNl", "Leerdoel", null)]
-        [NUnit.Framework.TestCaseAttribute("nlBe", "Learning objective", null)]
+        [NUnit.Framework.TestCaseAttribute("nl-Nl", "Leerdoel", null)]
+        [NUnit.Framework.TestCaseAttribute("nl-Be", "Learning objective", null)]
         [NUnit.Framework.TestCaseAttribute("En", "Learning objective", null)]
         [NUnit.Framework.TestCaseAttribute("De", "Lernziel", null)]
-        [NUnit.Framework.TestCaseAttribute("deDe", "Lernziel", null)]
-        [NUnit.Framework.TestCaseAttribute("sl,deDe", "Lernziel", null)]
+        [NUnit.Framework.TestCaseAttribute("de-De", "Lernziel", null)]
+        [NUnit.Framework.TestCaseAttribute("sl,de-De", "Lernziel", null)]
         public virtual void LocalizationOfBrowserShouldBeAppliedToCourseByDefault(string localization, string text, string[] exampleTags)
         {
             string[] @__tags = new string[] {

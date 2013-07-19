@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace easygenerator.AcceptanceTests.Helpers
 {
-    public enum EgLocalization { En, nlNl, deDe, Nl,De,sl,nlBe }
     public enum Order { Ascending, Descending }
     public enum Browser { Chrome, IE, FF }
     public static class Constants
@@ -16,18 +15,8 @@ namespace easygenerator.AcceptanceTests.Helpers
             {"ascending", Order.Ascending},
             {"descending", Order.Descending}
         };
-        public static Dictionary<string, EgLocalization> localizations = new Dictionary<string, EgLocalization>()
-        {
-            {"En",EgLocalization.En},
-            {"deDe",EgLocalization.deDe},
-            {"De",EgLocalization.De},
-            {"sl",EgLocalization.sl},
-            {"Nl",EgLocalization.Nl},
-            {"nlNl",EgLocalization.nlNl},
-            {"nlBe",EgLocalization.nlBe}
-        };
+        public static string En = "En";
     }
-
     public abstract class UniqueData
     {
         static int currentId = 0;

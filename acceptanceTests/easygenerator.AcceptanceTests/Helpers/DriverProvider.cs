@@ -22,14 +22,14 @@ namespace easygenerator.AcceptanceTests.Helpers
         }
 
         RemoteWebDriver driver;
-        EgLocalization[] localization;
+        string localization;
         private DriverProvider()
         {
-            localization = new EgLocalization[] { EgLocalization.En };
+            localization = Constants.En;
             InitDriver(localization);
         }
         public RemoteWebDriver Driver { get { return driver; } }
-        public EgLocalization[] Localization
+        public string Localization
         {
             get
             {
@@ -44,7 +44,7 @@ namespace easygenerator.AcceptanceTests.Helpers
         }
 
         public void Stop() { driver.Quit(); }
-        private void InitDriver(EgLocalization[] culture)
+        private void InitDriver(string culture)
         {
             var browserName = GetBrowserType();
             var initializer = GetInitializer(browserName);
