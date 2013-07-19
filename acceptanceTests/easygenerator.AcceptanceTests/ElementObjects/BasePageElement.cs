@@ -25,6 +25,10 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             WaitForReady();
             return DriverProvider.Current().Driver.FindElementsByXPath(path).Cast<RemoteWebElement>().ToArray();
         }
+        protected bool ExistsOnPage(string path)
+        {
+            return DriverProvider.Current().Driver.Exists(path);
+        }
         protected void WaitForReady()
         {
             if (!TestUtils.WaitForCondition(() =>

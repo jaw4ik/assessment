@@ -57,7 +57,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
                 var el = GetByXPath(model.AnswerOptionsBlock);
                 var children = el.FindElementsByXPath(model.BlockList);
                 return children.Count == 1 &&
-                    children[0].Displayed;               
+                    children[0].Displayed;
             }
         }
 
@@ -77,6 +77,32 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             var link = GetByXPath(model.BackToObjectiveLink);
             link.Click();
         }
+
+        internal void NavigateToNextQuestion()
+        {
+            var link = GetByXPath(model.NextQuestionButton);
+            link.Click();
+            System.Threading.Thread.Sleep(1000);
+        }
+
+        internal void NavigateToPreviousQuestion()
+        {
+            var link = GetByXPath(model.PreviousQuestionButton);
+            link.Click();
+            System.Threading.Thread.Sleep(1000);
+            
+        }
+
+        internal bool IsNextButtonEnabled()
+        {
+            return base.ExistsOnPage(model.NextQuestionButton);
+        }
+
+        internal bool IsPreviousButtonEnabled()
+        {
+            return base.ExistsOnPage(model.PreviousQuestionButton);
+        }
+
 
         internal void ToggleAnswerOptions()
         {
@@ -130,7 +156,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             get
             {
                 return Container.GetTextContent();
-                
+
             }
         }
 

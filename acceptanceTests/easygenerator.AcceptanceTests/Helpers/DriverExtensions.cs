@@ -58,5 +58,30 @@ namespace easygenerator.AcceptanceTests.Helpers
         {
             return el.GetAttribute("class").Contains(partOfCssClass);
         }
+        public static bool Exists(this RemoteWebDriver driver, string xPass)
+        {
+            try
+            {
+                driver.FindElementByXPath(xPass);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+
+        public static bool Exists(this RemoteWebElement el, string xPass)
+        {
+            try
+            {
+                el.FindElementByXPath(xPass);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
     }
 }

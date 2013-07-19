@@ -91,25 +91,25 @@ namespace easygenerator.AcceptanceTests.Steps
         [When(@"click on next question")]
         public void WhenClickOnNextQuestion()
         {
-            ScenarioContext.Current.Pending();
+            Question.NavigateToNextQuestion();
         }
 
         [When(@"click on previous question")]
         public void WhenClickOnPreviousQuestion()
         {
-            ScenarioContext.Current.Pending();
+            Question.NavigateToPreviousQuestion();
         }
 
         [Then(@"previous question action is not available")]
         public void ThenPreviousQuestionActionIsNotAvailable()
         {
-            ScenarioContext.Current.Pending();
+            TestUtils.Assert_IsTrue_WithWait(() => !Question.IsPreviousButtonEnabled(), "Previous button is enabled");
         }
 
         [Then(@"next question action is not available")]
         public void ThenNextQuestionActionIsNotAvailable()
         {
-            ScenarioContext.Current.Pending();
+            TestUtils.Assert_IsTrue_WithWait(() => !Question.IsNextButtonEnabled(), "Next button is enabled");
         }
 
         [Then(@"answer options block is expanded")]
