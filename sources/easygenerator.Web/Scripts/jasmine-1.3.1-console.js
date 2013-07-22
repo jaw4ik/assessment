@@ -40,9 +40,9 @@
                 this.log(spec_str + fail_str + (dur / 1000) + "s.");
             }
             this.finished = true;
-			
-			if (this.executed_specs !== this.passed_specs)
-				java.lang.System.exit(3);
+            
+            if (this.executed_specs !== this.passed_specs)
+                java.lang.System.exit(3);
         },
 
         hasGroupedConsole: function () {
@@ -116,6 +116,7 @@
     function specResults(spec) {
         var results = spec.results();
         startGroup(results, spec.description);
+        console.log(spec.getFullName());
         var items = results.getItems();
         for (var k in items) {
             if (items.hasOwnProperty(k)) {
@@ -130,8 +131,6 @@
             console.warn({ actual: item.actual, expected: item.expected });
             item.trace.message = item.matcherName;
             console.error(item.trace);
-        } else {
-            console.info('Passed');
         }
     }
 
