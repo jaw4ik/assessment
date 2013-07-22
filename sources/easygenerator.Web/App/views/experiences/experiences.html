@@ -31,10 +31,10 @@
                 <ul class="unstyled experiences-list clearfix">
                     <!-- ko foreach: experiences -->
                     <li class="experience-brief" data-bind="css: { 'experience-brief-selected': isSelected() }">
-                        <div class="white-framing">
+                        <div class="white-framing experience-brief-inner">
                             <div class="experience-brief-image"></div>
                             <div class="experience-brief-toolbar">
-                                <div class="experience-brief-title" data-bind="attr: {title: title}">
+                                <div class="experience-brief-title" data-bind="attr: { title: title }">
                                     <span data-bind="text: title"></span>
                                 </div>
                                 <div class="experience-brief-toolbar-objective-count">
@@ -62,7 +62,7 @@
                         <span class="substrate-block">
                             <span class="substrate-inner">
                                 <span class="substrate-inner">
-                                    <span class="substrate-inner"></span>        
+                                    <span class="substrate-inner"></span>
                                 </span>
                             </span>
                         </span>
