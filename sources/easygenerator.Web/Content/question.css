@@ -21,9 +21,8 @@
 }
 
 .question-header-title {
-    padding-top: 4px;
     margin-left: 195px;
-    max-height: 90px;
+    max-height: 110px;
     overflow: hidden;
     -ms-word-break: break-all;
     word-break: break-all;
@@ -72,6 +71,7 @@
     float: left;
     color: #666666;
     font-size: 16px;
+    text-transform: uppercase;
 }
 
 .question-content-block-size-element-wrapper {
@@ -109,10 +109,6 @@
         background-repeat: no-repeat;
         background-position: left center;
     }
-
-.question-header-title, .question-content-block-header-title {
-    text-transform: uppercase;
-}
 
 .question-content-items-list {
     margin: 20px 0 20px 20px;
