@@ -10,7 +10,8 @@ CKEDITOR.editorConfig = function (config) {
         ['Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo'],
         ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat'],
         ['NumberedList', 'BulletedList'],
-        ['Link', 'Unlink', 'Table', 'Image']
+        ['Link', 'Unlink', 'Table', 'Image'],
+        ['Format']
     ];
 
     config.startupFocus = true;
