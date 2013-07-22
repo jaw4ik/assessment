@@ -67,13 +67,14 @@
                     <li class="answer-option-item" data-bind="css: { active: isInEdit }">
                         <div class="answer-options-list-item">
                             <div class="question-answer-value-wrapper unselectable">
-                                <div class="question-answer-value" data-bind="click: $parent.toggleAnswerCorrectness, css: { 'correct': isCorrect }">
+                                <div class="question-answer-value" data-bind="click: $parent.toggleAnswerCorrectness, css: { 'correct': isCorrect }, attr: { title: isCorrect() ? 'Correct answer' : null }">
                                     <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
                                 </div>
                             </div>
                             <div class="question-answer-text-wrapper">
                                 <div class="question-answer-text">
-                                    <p contenteditable="true" data-bind="html: text, event: { blur: $parent.saveAnswerOption, focus: $parent.editAnswerOption }, hasFocus: true"></p>
+                                    <p contenteditable="true" data-bind="text: text, event: { blur: $parent.saveAnswerOption, focus: $parent.editAnswerOption }, hasFocus: true">
+                                    </p>
                                 </div>
                             </div>
                             <div class="question-answer-delete-wrapper" data-bind="click: $parent.deleteAnswerOption">
