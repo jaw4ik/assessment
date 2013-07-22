@@ -21,8 +21,10 @@
 }
 
 .question-header-title {
-    padding-top: 7px;
+    padding-top: 4px;
     margin-left: 195px;
+    max-height: 90px;
+    overflow: hidden;
     -ms-word-break: break-all;
     word-break: break-all;
 }
@@ -53,6 +55,7 @@
     position: relative;
     z-index: 0;
     border-left: 10px solid #F26C4F;
+    cursor: pointer;
 }
 
 .question-content-block-header {
@@ -115,16 +118,12 @@
     margin: 20px 0 20px 20px;
 }
 
-.question-content-list-item {
-    width: 100%;
-    margin-bottom: 10px;
-}
-
 /*==================================
- Answer options
+ Answer options & explanations
 =================================*/
 
-.answer-options-list-item {
+.answer-options-list-item,
+.question-explanation-list-item {
     display: table;
     table-layout: fixed;
     width: 100%;
@@ -134,7 +133,8 @@
 
 /* Correct/incorrect icon  */
 
-.answer-option-item {
+.answer-option-item,
+.question-explanation-item {
     margin-bottom: 15px;
 }
 
@@ -154,14 +154,16 @@
     cursor: pointer;
 }
 
-.answer-option-item:hover .question-answer-value {
+.answer-option-item:hover .question-answer-value,
+.question-explanation-item:hover .question-explanation {
     border-style: solid;
     -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 }
 
-.answer-option-item.active:hover .question-answer-value {
+.answer-option-item.active:hover .question-answer-value,
+.question-explanation-item.active:hover .question-explanation{
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
@@ -179,7 +181,7 @@
     background-repeat: no-repeat;
 }
 
-.answer-option-item:hover .answer-correct-icon {
+.answer-option-item:hover .answer-correct-icon{
     display: inline-block !important;
     background-position: 0 100%;
 }
@@ -191,7 +193,8 @@
 
 /* Answer option text */
 
-.question-answer-text-wrapper {
+.question-answer-text-wrapper,
+.question-explanation-wrapper {
     display: table-cell;
     border: 1px dashed #e1e1e1;
     padding: 0;
@@ -200,7 +203,8 @@
     font-family: Arial,sans-serif;
 }
 
-.question-answer-text {
+.question-answer-text,
+.question-explanation {
     min-height: 40px;
     padding: 8px 10px;
     vertical-align: top;
@@ -208,28 +212,31 @@
     word-wrap: break-word;
 }
 
-.answer-option-item:hover .question-answer-text-wrapper {
+.answer-option-item:hover .question-answer-text-wrapper,
+.question-explanation-item:hover .question-explanation-wrapper {
     border-style: solid;
     -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 }
 
-.answer-option-item.active .question-answer-text-wrapper {
+.answer-option-item.active .question-answer-text-wrapper,
+.question-explanation-item.active .question-explanation-wrapper {
     border: 1px solid rgba(68, 192, 252, 0.4);
     -webkit-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
     -moz-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
     box-shadow: 0 0 3px rgba(68, 192, 252, 1);
 }
 
-
-.answer-option-item:hover .question-answer-text {
+.answer-option-item:hover .question-answer-text,
+.question-explanation-item:hover .question-explanation {
     -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2) inset;
     -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2) inset;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2) inset;
 }
 
-.answer-option-item.active .question-answer-text {
+.answer-option-item.active .question-answer-text,
+.question-explanation-item.active .question-explanation {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
@@ -237,7 +244,8 @@
 
 /* Delete button */
 
-.question-answer-delete-wrapper {
+.question-answer-delete-wrapper,
+.question-explanation-delete-wrapper {
     width: 45px;
     display: table-cell;
     vertical-align: middle;
@@ -249,7 +257,9 @@
 }
 
 .answer-option-item.active .question-answer-delete-wrapper,
-.answer-option-item:hover .question-answer-delete-wrapper {
+.answer-option-item:hover .question-answer-delete-wrapper,
+.question-explanation-item.active .question-explanation-delete-wrapper,
+.question-explanation-item:hover .question-explanation-delete-wrapper {
     visibility: visible;
     background-color: #f5f5f5;
     border: 1px solid #e1e1e1;
@@ -258,11 +268,13 @@
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 }
 
-    .answer-option-item:hover .question-answer-delete-wrapper:hover {
+    .answer-option-item:hover .question-answer-delete-wrapper:hover,
+    .question-explanation-item:hover .question-explanation-delete-wrapper:hover {
         background-color: #e3e3e3;
     }
 
-.question-answer-delete-icon {
+.question-answer-delete-icon,
+.question-explanation-delete-icon {
     display: inline-block;
     height: 25px;
     width: 22px;
@@ -272,12 +284,14 @@
     background-repeat: no-repeat;
 }
 
-.add-button .question-answer-text-wrapper {
+.add-button .question-answer-text-wrapper,
+.add-button .question-explanation-wrapper {
     background-color: #fafafa;
     text-align: center;
 }
 
-    .add-button .question-answer-text-wrapper:hover {
+    .add-button .question-answer-text-wrapper:hover,
+    .add-button .question-explanation-wrapper:hover {
         border-style: solid;
         background-color: white;
         -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
@@ -285,30 +299,6 @@
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
         cursor: text;
     }
-
-/*==================================
- Explanations options
-=================================*/
-
-.question-explanations-item {
-    min-height: 40px;
-    padding: 7px 10px 7px 10px;
-    cursor: pointer;
-    font-family: Arial;
-    border: dashed 1px #E1E1E1;
-}
-
-.question-add-explanation {
-    background-color: #F5F5F5;
-    color: #9B9B9B;
-}
-
-.question-remove-button {
-    width: 20px;
-    height: 20px;
-    background-color: #F5F5F5;
-    cursor: pointer;
-}
 
 /**
   *    Navigation elements
