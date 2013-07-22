@@ -34,12 +34,12 @@ namespace easygenerator.Web.Controllers
         }
 
 
-        [HttpPost]
+        [HttpGet]
         public ActionResult ApplicationData()
         {
             var questions = new List<object>();
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 1; i++)
             {
                 questions.Add(
                     new
@@ -62,13 +62,13 @@ namespace easygenerator.Web.Controllers
             }
 
             var objectives = new List<object>();
-            for (int i = 0; i < images.Length; i++)
+            for (int i = 0; i < 1; i++)
             {
                 objectives.Add(new { id = i, title = "Objective " + i, image = images[i], questions = questions });
             }
 
             var experiences = new List<object>();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 1; i++)
             {
                 experiences.Add(new { id = i, title = "Experience " + i });
             }
@@ -78,7 +78,7 @@ namespace easygenerator.Web.Controllers
             {
                 objectives = objectives,
                 experiences = experiences
-            });
+            }, JsonRequestBehavior.AllowGet);
         }
 
     }
