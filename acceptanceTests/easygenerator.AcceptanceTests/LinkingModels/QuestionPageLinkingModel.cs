@@ -12,7 +12,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
     {
 
         public string AnswerItem = ".//div[contains(@class,'question-answers')]//li[@class='answer-option-item']";
-        public string ExplanationItem = ".//div[contains(@class,'question-explanations')]//div[@class='question-explanations-item']";
+        public string ExplanationItem = ".//div[contains(@class,'question-explanations')]//li[@class='question-explanation-item']";
         public string CorrectAnswerIndicator = ".//span[@class='answer-correct-icon']";
         public string AnswerItemText = ".//div[@class='question-answer-text']";
 
