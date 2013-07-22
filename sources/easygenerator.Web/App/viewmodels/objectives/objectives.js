@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'durandal/plugins/router'],
-    function (dataContext, constants, eventTracker, router) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'durandal/plugins/router', 'repositories/objectiveBriefRepository'],
+    function (dataContext, constants, eventTracker, router, repository) {
         "use strict";
 
         var
@@ -47,23 +47,25 @@
 
 
             activate = function () {
-                currentSortingOption(constants.sortingOptions.byTitleAsc);
-                objectives(_.chain(dataContext.objectives)
-                            .map(function (item) {
-                                return {
-                                    id: item.id,
-                                    title: item.title,
-                                    image: item.image,
-                                    questionsCount: item.questions.length,
-                                    isSelected: ko.observable(false),
-                                    toggleSelection: function () {
-                                        sendEvent(events.selectObjective);
-                                        this.isSelected(!this.isSelected());
-                                    }
-                                };
-                            })
-                            .sortBy(function (objective) { return objective.title.toLowerCase(); })
-                            .value());
+                return repository.activate().then(function () {
+                    currentSortingOption(constants.sortingOptions.byTitleAsc);
+                    objectives(_.chain(dataContext.objectives)
+                                .map(function (item) {
+                                    return {
+                                        id: item.id,
+                                        title: item.title,
+                                        image: item.image,
+                                        questionsCount: item.questions.length,
+                                        isSelected: ko.observable(false),
+                                        toggleSelection: function () {
+                                            sendEvent(events.selectObjective);
+                                            this.isSelected(!this.isSelected());
+                                        }
+                                    };
+                                })
+                                .sortBy(function (objective) { return objective.title.toLowerCase(); })
+                                .value());
+                });
             };
 
         return {

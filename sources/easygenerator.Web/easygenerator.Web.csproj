@@ -151,11 +151,13 @@
     <Content Include="apple-touch-icon-precomposed.png" />
     <Content Include="apple-touch-icon.png" />
     <Content Include="App\models\explanation.js" />
+    <Content Include="App\repositories\objectiveBriefRepository.js" />
     <Content Include="App\viewmodels\errors\404.js" />
     <Content Include="App\viewmodels\errors\400.js" />
     <Content Include="App\views\errors\404.html" />
     <Content Include="App\views\errors\400.html" />
     <Content Include="Content\images\icons.png" />
+    <Content Include="Content\images\loader.gif" />
     <Content Include="Content\images\nav-buttons.png" />
     <Content Include="Content\images\recycle.png" />
     <Content Include="Scripts\ckeditorBinding.js" />

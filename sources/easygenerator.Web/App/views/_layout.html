@@ -1,6 +1,9 @@
-﻿<section id="content" class="main">
+﻿<div class="icon-spinner-wrapper" data-bind="visible: router.isNavigating()">
+    <img src="/Content/images/loader.gif" alt=""/>
+</div>
+<section id="content" class="main" data-bind="visible: !router.isNavigating()">
     <!--ko compose: {
-            model: router.activeItem, 
-            afterCompose: router.afterCompose } -->
+        model: router.activeItem, 
+        afterCompose: router.afterCompose } -->
     <!--/ko-->
 </section>
