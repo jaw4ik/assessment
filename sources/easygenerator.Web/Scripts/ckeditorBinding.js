@@ -17,8 +17,9 @@
             editor.setData(bindingArguments.data());
 
             editor.on('instanceReady', function () {
+                addContentFilter();
                 editor.focus();
-                addCommandsTracking(editor, bindingArguments.eventTracker || null);
+                addCommandsTracking(bindingArguments.eventTracker || null);
 
                 saveIntervalId = setInterval(function () {
                     if (editor.getData() != bindingArguments.data())
@@ -30,7 +31,7 @@
                 bindingArguments.data(editor.getData());
                 bindingArguments.onEndEditing(bindingContext.$data);
             });
-            
+
             editor.on('key', function (event) {
                 if (event.data.keyCode == 27)
                     editor.focusManager.blur();
@@ -42,8 +43,8 @@
                 editor.destroy();
                 clearInterval(saveIntervalId);
             });
-            
-            function addCommandsTracking(editor, eventTracker) {
+
+            function addCommandsTracking(eventTracker) {
                 if (!editor || !eventTracker)
                     return;
 
@@ -58,6 +59,29 @@
                         })(command);
                     }
                 });
+            }
+
+            function addContentFilter() {
+                var rules = {
+                    elements: {
+                        $: function (e) {
+                            if (e.attributes.style) {
+                                delete e.attributes.style;
+                            }
+
+                            if (e.attributes.class) {
+                                delete e.attributes.class;
+                            }
+                            
+                            if (e.name == 'style') {
+                                delete e;
+                            }
+                        }
+                    }
+                };
+
+                editor.dataProcessor.htmlFilter.addRules(rules);
+                editor.dataProcessor.dataFilter.addRules(rules);
             }
         }
     },

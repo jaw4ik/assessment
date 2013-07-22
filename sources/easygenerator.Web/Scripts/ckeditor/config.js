@@ -15,7 +15,6 @@ CKEDITOR.editorConfig = function (config) {
     ];
 
     config.startupFocus = true;
-    config.allowedContent = true;
 
     config.extraPlugins = 'customLocalizationPlugin';
 
