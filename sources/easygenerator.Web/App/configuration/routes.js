@@ -3,6 +3,18 @@
 
         return [
             {
+                url: '#/404',
+                moduleId: 'viewmodels/errors/404',
+                name: '404 Not Found',
+                caption: '404 Not Found'
+            },
+            {
+                url: '#/400',
+                moduleId: 'viewmodels/errors/400',
+                name: '404 Bad Request',
+                caption: '404 Bad Request'
+            },
+            {
                 url: '#/user',
                 moduleId: 'viewmodels/userproperties',
                 name: 'User Properties',

@@ -46,26 +46,26 @@
             describe('activate', function () {
 
                 beforeEach(function () {
-                    spyOn(router, 'navigateTo');
+                    spyOn(router, 'replaceLocation');
                 });
 
                 describe('should navigate to #/400', function () {
 
-                    it('when route data is not define', function () {
+                    it('when route data is not defined', function () {
                         viewModel.activate(undefined);
-                        expect(router.navigateTo).toHaveBeenCalledWith('#/400');
+                        expect(router.replaceLocation).toHaveBeenCalledWith('#/400');
                     });
 
-                    it('when objective is not define', function () {
+                    it('when objective is not defined', function () {
                         viewModel.activate({ id: undefined });
-                        expect(router.navigateTo).toHaveBeenCalledWith('#/400');
+                        expect(router.replaceLocation).toHaveBeenCalledWith('#/400');
                     });
 
                 });
 
                 it('should navigate to #/404 when objective not found', function () {
                     viewModel.activate({ id: 'Invalid id' });
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/404');
+                    expect(router.replaceLocation).toHaveBeenCalledWith('#/404');
                 });
 
                 it('should initialize fileds with objective values', function () {

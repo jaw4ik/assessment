@@ -49,10 +49,9 @@
                 router.navigateTo('#/objective/' + objectiveId + '/question/' + item.id);
             },
 
-            activate = function (routeData) {
-
+            activate = function (routeData) {                
                 if (_.isEmpty(routeData) || _.isEmpty(routeData.id)) {
-                    router.navigateTo('#/400');
+                    router.replaceLocation('#/400');
                     return;
                 }
                 
@@ -61,7 +60,7 @@
                 });
 
                 if (!_.isObject(objective)) {
-                    router.navigateTo('#/404');
+                    router.replaceLocation('#/404');
                     return;
                 }
 
