@@ -37,6 +37,7 @@
             });
 
             ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                CKEDITOR.dialog._.currentTop.hide();
                 editor.destroy();
                 clearInterval(saveIntervalId);
             });
