@@ -46,9 +46,9 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Objective creation', eventsCategory);
                 });
 
-                it('should navigate to #/objective/create', function () {
+                it('should navigate to #/404', function () {
                     viewModel.navigateToCreation();
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/objective/create');
+                    expect(router.navigateTo).toHaveBeenCalledWith('#/404');
                 });
 
             });

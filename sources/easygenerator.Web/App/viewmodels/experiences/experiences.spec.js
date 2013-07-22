@@ -85,9 +85,9 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to create experience', eventsCategory);
                 });
 
-                it('should navigate to #/experience/create', function () {
+                it('should navigate to #/404', function () {
                     viewModel.navigateToCreation();
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/experience/create');
+                    expect(router.navigateTo).toHaveBeenCalledWith('#/404');
                 });
 
             });
