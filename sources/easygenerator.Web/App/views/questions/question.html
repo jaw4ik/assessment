@@ -1,5 +1,5 @@
 ﻿<div class="question container">
-    <div class="navbar">
+    <div class="navbar unselectable">
         <a href="#" data-bind="click: goToRelatedObjective" class="inline nav-control">
             <div class="nav-btn back-btn left"></div>
             <div class="nav-title">
@@ -42,9 +42,9 @@
             </div>
         </div>
     </div>
-    <div class="question-content clearfix scroll-wrapper">
+    <div id="scroll-wrapper" class="question-content clearfix">
         <div class="question-content-block question-answers">
-            <div class="question-content-block-header-wrapper" data-bind="click: toggleAnswers">
+            <div class="question-content-block-header-wrapper unselectable" data-bind="click: toggleAnswers">
                 <div class="question-content-block-header" data-bind="css: { 'shadow-bottom-curve': isAnswersBlockExpanded() }">
                     <div class="question-content-block-header-icon answer-option-icon"></div>
                     <div class="question-content-block-header-title" data-bind="localize: { text: 'answerOptions' }">Answer options</div>
@@ -66,14 +66,14 @@
                     <!-- ko foreach: answerOptions() -->
                     <li class="answer-option-item" data-bind="css: { active: isInEdit }">
                         <div class="answer-options-list-item">
-                            <div class="question-answer-value-wrapper">
+                            <div class="question-answer-value-wrapper unselectable">
                                 <div class="question-answer-value" data-bind="click: $parent.toggleAnswerCorrectness, css: { 'correct': isCorrect }">
                                     <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
                                 </div>
                             </div>
                             <div class="question-answer-text-wrapper">
                                 <div class="question-answer-text">
-                                    <p contenteditable="true" data-bind="text: text, event: { blur: $parent.saveAnswerOption, focus: $parent.editAnswerOption }, hasFocus: true"></p>
+                                    <p contenteditable="true" data-bind="html: text, event: { blur: $parent.saveAnswerOption, focus: $parent.editAnswerOption }, hasFocus: true"></p>
                                 </div>
                             </div>
                             <div class="question-answer-delete-wrapper" data-bind="click: $parent.deleteAnswerOption">
@@ -103,7 +103,7 @@
         </div>
         <div>
             <div class="question-content-block question-explanations">
-                <div class="question-content-block-header-wrapper" data-bind="click: toggleExplanations">
+                <div class="question-content-block-header-wrapper unselectable" data-bind="click: toggleExplanations">
                     <div class="question-content-block-header" data-bind="css: { 'shadow-bottom-curve': isExplanationsBlockExpanded() }">
                         <div class="question-content-block-header-icon explanation-icon"></div>
                         <div class="question-content-block-header-title" data-bind="localize: { text: 'explanations' }">Explanations</div>
