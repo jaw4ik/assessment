@@ -179,6 +179,16 @@
     background-repeat: no-repeat;
 }
 
+.answer-option-item:hover .answer-correct-icon {
+    display: inline-block !important;
+    background-position: 0 100%;
+}
+
+.answer-option-item:hover .correct .answer-correct-icon {
+    background-position: 0 0;
+}
+
+
 /* Answer option text */
 
 .question-answer-text-wrapper {
