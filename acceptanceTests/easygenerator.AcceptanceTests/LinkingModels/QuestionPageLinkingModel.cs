@@ -11,11 +11,11 @@ namespace easygenerator.AcceptanceTests.LinkingModels
     public class QuestionPageLinkingModel : ILinkingModel
     {
 
-        public string AnswerItem = ".//div[contains(@class,'question-answers')]//table[@class='question-content-list-item']";
+        public string AnswerItem = ".//div[contains(@class,'question-answers')]//li[@class='answer-option-item']";
         public string ExplanationItem = ".//div[contains(@class,'question-explanations')]//div[@class='question-explanations-item']";
         public string CorrectAnswerIndicator = ".//span[@class='answer-correct-icon']";
         public string AnswerItemText = ".//div[@class='question-answer-text']";
-        
+
         //public string ExplanationText = ".//div[@class='question-explanations-item']";
 
         public string BackToObjectiveLink = ".//a[contains(@class,'inline nav-control')]";
@@ -29,6 +29,6 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 
         public string NextQuestionButton = ".//a[@class='nav-element'and @title='Next']";
         public string PreviousQuestionButton = ".//a[@class='nav-element'and @title='Previous']";
-        
+
     }
 }
