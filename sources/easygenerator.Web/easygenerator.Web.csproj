@@ -306,6 +306,10 @@
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
     <Content Include="Scripts\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
     <Content Include="Scripts\ckeditor\plugins\clipboard\dialogs\paste.js" />
+    <Content Include="Scripts\ckeditor\plugins\customLocalizationPlugin\lang\de.js" />
+    <Content Include="Scripts\ckeditor\plugins\customLocalizationPlugin\lang\en.js" />
+    <Content Include="Scripts\ckeditor\plugins\customLocalizationPlugin\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\plugins\customLocalizationPlugin\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\dialog\dialogDefinition.js" />
     <Content Include="Scripts\ckeditor\plugins\fakeobjects\images\spacer.gif" />
     <Content Include="Scripts\ckeditor\plugins\flash\dialogs\flash.js" />

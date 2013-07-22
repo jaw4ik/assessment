@@ -1,0 +1,37 @@
+﻿CKEDITOR.plugins.setLang('customLocalizationPlugin', 'en', {
+    customSemanticTags: {
+        "format_abbr": 'Abbreviation',
+        "format_acronym": 'Acronym',
+        "format_blockquote": 'Long quotation',
+        "format_q": 'Short inline quotation',
+        "format_cite": 'Citation',
+        "format_dfn": 'Definition',
+        "format_code": 'Code reference',
+        "format_samp": 'Sample output',
+        "format_tt": 'Teletype text',
+        "format_em": 'Emphasis',
+        "format_strong": 'Strong emphasis',
+        "format_sub": 'Subscript',
+        "format_sup": 'Superscript',
+        "format_hr": 'Thematic break',
+        "format_article": 'Article',
+        "format_section": 'Section',
+        "format_aside": 'Aside content',
+        "format_header": 'Header',
+        "format_footer": 'Footer',
+        "format_mark": 'Marked/highlighted text',
+        "format_figcaption": 'Caption of Figure',
+        "format_figure": 'Figure',
+        "format_nav": 'Navigation element',
+        "format_time": 'Date/Time'
+    },
+    semanticTags: {
+        "tag_h1": 'First level headline',
+        "tag_h2": 'Second level headline',
+        "tag_h3": 'Third level headline',
+        "tag_h4": 'Fourth level headline',
+        "tag_h5": 'Fifth level headline',
+        "tag_h6": 'Sixth level headline',
+        "tag_address": "Address",
+    }
+});

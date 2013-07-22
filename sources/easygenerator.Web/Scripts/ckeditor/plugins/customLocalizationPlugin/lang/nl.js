@@ -1,0 +1,37 @@
+﻿CKEDITOR.plugins.setLang('customLocalizationPlugin', 'nl', {
+    customSemanticTags: {
+        "format_abbr": 'Abbreviation NL',
+        "format_acronym": 'Acronym NL',
+        "format_blockquote": 'Long quotation NL',
+        "format_q": 'Short inline quotation NL',
+        "format_cite": 'Citation NL',
+        "format_dfn": 'Definition NL',
+        "format_code": 'Code reference  NL',
+        "format_samp": 'Sample output NL',
+        "format_tt": 'Teletype text NL',
+        "format_em": 'Emphasis NL',
+        "format_strong": 'Strong emphasis NL',
+        "format_sub": 'Subscript NL',
+        "format_sup": 'Superscript NL',
+        "format_hr": 'Thematic break NL',
+        "format_article": 'Article NL',
+        "format_section": 'Section NL',
+        "format_aside": 'Aside content NL',
+        "format_header": 'Header NL',
+        "format_footer": 'Footer NL',
+        "format_mark": 'Marked/highlighted text NL',
+        "format_figcaption": 'Caption of Figure NL',
+        "format_figure": 'Figure NL',
+        "format_nav": 'Navigation element NL',
+        "format_time": 'Date/Time NL'
+    },
+    semanticTags: {
+        "tag_h1": 'First level headline  NL',
+        "tag_h2": 'Second level headline NL',
+        "tag_h3": 'Third level headline NL',
+        "tag_h4": 'Fourth level headline NL',
+        "tag_h5": 'Fifth level headline NL',
+        "tag_h6": 'Sixth level headline NL',
+        "tag_address": "Address NL",
+    }
+});
