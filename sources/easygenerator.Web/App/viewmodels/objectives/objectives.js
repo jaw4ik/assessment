@@ -47,7 +47,7 @@
 
 
             activate = function () {
-                return repository.activate().then(function () {
+                //return repository.activate().then(function () {
                     currentSortingOption(constants.sortingOptions.byTitleAsc);
                     objectives(_.chain(dataContext.objectives)
                                 .map(function (item) {
@@ -65,7 +65,7 @@
                                 })
                                 .sortBy(function (objective) { return objective.title.toLowerCase(); })
                                 .value());
-                });
+                //});
             };
 
         return {
