@@ -223,7 +223,6 @@
     <Content Include="Content\font-awesome.css" />
     <None Include="Content\font-awesome.min.css" />
     <Content Include="Content\font\fontawesome-webfont.svg" />
-    <Content Include="Content\font\Montserrat-Regular.svg" />
     <Content Include="Content\images\answer-correct.png" />
     <Content Include="Content\images\answer-option-icon.png" />
     <Content Include="Content\images\collapse.png" />
@@ -246,9 +245,6 @@
     <Content Include="Global.asax" />
     <Content Include="humans.txt" />
     <Content Include="robots.txt" />
-    <Content Include="Content\font\Montserrat-Regular.eot" />
-    <Content Include="Content\font\Montserrat-Regular.ttf" />
-    <Content Include="Content\font\Montserrat-Regular.woff" />
     <Content Include="Content\font\fontawesome-webfont.woff" />
     <Content Include="Content\font\fontawesome-webfont.ttf" />
     <Content Include="Content\font\fontawesome-webfont.eot" />

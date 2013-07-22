@@ -3,14 +3,6 @@
  */
 
 
-@font-face {
-    font-family: 'Montserrat-Regular';
-    src: url('font/Montserrat-Regular.eot');
-    src: url('font/Montserrat-Regular.eot?#iefix') format('embedded-opentype'), url('font/Montserrat-Regular.svg') format('svg'), url('font/Montserrat-Regular.woff') format('woff'), url('font/Montserrat-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
 /*===================================
 RESET CSS-STYLES IN FOREIGN BROWSERS 
 ===================================*/
@@ -66,9 +58,9 @@ html, body {
  */
 body {
     line-height: 1;
-    font-family: Montserrat-Regular;
+    font-family: Tahoma, sans-serif;
     font-size: 125%;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
     -webkit-font-smoothing: subpixel-antialiased !important;
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;

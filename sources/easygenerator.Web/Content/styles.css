@@ -44,7 +44,7 @@ body {
 }
 
 .brand a.inline {
-    line-height: 37px;
+    padding-top: 5px;
 }
 
 .navigation-menu {
