@@ -61,6 +61,16 @@
         nl: 'Wissen',
         de: 'Entfernen'
     },
+    expand: {
+        en: 'Expand',
+        nl: 'Uitklappen',
+        de: 'Maximieren'
+    },
+    collapse: {
+        en: 'Collapse',
+        nl: 'Inklappen',
+        de: 'Minimieren'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
