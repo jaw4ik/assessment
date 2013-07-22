@@ -41,7 +41,8 @@
             
             navigateToCreation = function () {
                 sendEvent(events.navigateToCreation);
-                router.navigateTo('#/objective/' + objectiveId + '/question/create');
+                //router.navigateTo('#/objective/' + objectiveId + '/question/create');
+                router.navigateTo('#/404');
             },
             
             navigateToDetails = function (item) {

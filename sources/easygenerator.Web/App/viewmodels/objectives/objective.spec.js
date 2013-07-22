@@ -127,10 +127,16 @@
                     spyOn(router, 'navigateTo');
                 });
 
-                it('should navigate to #/objective/id/question/create', function () {
+                //it('should navigate to #/objective/id/question/create', function () {
+                //    viewModel.objectiveId = objectives[0].id;
+                //    viewModel.navigateToCreation();
+                //    expect(router.navigateTo).toHaveBeenCalledWith('#/objective/' + objectives[0].id + '/question/create');
+                //});
+                
+                it('should navigate to #/404', function () {
                     viewModel.objectiveId = objectives[0].id;
                     viewModel.navigateToCreation();
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/objective/' + objectives[0].id + '/question/create');
+                    expect(router.navigateTo).toHaveBeenCalledWith('#/404');
                 });
 
                 it('should send event \"Navigate to question creation\"', function () {
