@@ -27,7 +27,10 @@
                 url: 'objective/:id',
                 moduleId: 'viewmodels/objectives/objective',
                 name: 'Objective Properties',
-                caption: 'Objective Properties'
+                caption: 'Objective Properties',
+                settings: {
+                    localizationKey: 'objectiveProperties'
+                }
             },
             {
                 url: 'experience/create',
