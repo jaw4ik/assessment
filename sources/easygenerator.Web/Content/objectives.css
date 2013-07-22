@@ -235,11 +235,13 @@
     position: absolute;
     top: 0;
     left: 0;
+    display: none;
 }
 
 .objective-brief:hover .objective-brief-options,
 .experience-brief:hover .experience-brief-options {
     background-color: rgba(0, 0, 0, 0.4);
+    display: block;
 }
 
 .objective-brief-options-select, .objective-brief-options-open,
@@ -292,16 +294,6 @@
     width: 51px;
     height: 39px;
     background: url('images/objexp-sprite.png') 0 -272px;
-}
-
-.objective-brief-options-select, .objective-brief-options-separator, .objective-brief-options-open,
-.experience-brief-options-select, .experience-brief-options-separator, .experience-brief-options-open {
-    display: none;
-}
-
-.objective-brief:hover .objective-brief-options-select, .objective-brief:hover .objective-brief-options-separator, .objective-brief:hover .objective-brief-options-open,
-.experience-brief:hover .experience-brief-options-select, .experience-brief:hover .experience-brief-options-separator, .experience-brief:hover .experience-brief-options-open {
-    display: block;
 }
 
 .objective-brief-title,
