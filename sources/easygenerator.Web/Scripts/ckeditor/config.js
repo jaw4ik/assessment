@@ -7,7 +7,7 @@ CKEDITOR.editorConfig = function (config) {
     config.skin = 'moono';
 
     config.toolbar = [
-        ['Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo'],
+        ['Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo'],
         ['Bold', 'Italic', 'Underline', '-', 'RemoveFormat'],
         ['NumberedList', 'BulletedList'],
         ['Link', 'Unlink', 'Table', 'Image', 'Iframe', 'MediaEmbed'],
@@ -21,13 +21,13 @@ CKEDITOR.editorConfig = function (config) {
     config.format_tags = 'abbr;acronym;blockquote;q;cite;dfn;address;code;samp;tt;em;strong;sub;sup;h1;h2;h3;h4;h5;h6;hr;article;section;aside;header;footer;mark;figcaption;figure;nav;time';
     config.format_abbr = { element: 'abbr' };
     config.format_acronym = { element: 'acronym' };
-    config.format_blockquote = {  element: 'blockquote' };
+    config.format_blockquote = { element: 'blockquote' };
     config.format_q = { element: 'q' };
     config.format_cite = { element: 'cite' };
     config.format_dfn = { element: 'dfn' };
     config.format_address = { element: 'address' };
     config.format_code = { element: 'code' };
-    config.format_samp= { element: 'samp' };
+    config.format_samp = { element: 'samp' };
     config.format_tt = { element: 'tt' };
     config.format_em = { element: 'em' };
     config.format_strong = { element: 'strong' };
