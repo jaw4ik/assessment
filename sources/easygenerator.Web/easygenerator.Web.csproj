@@ -316,6 +316,8 @@
     <Content Include="Scripts\ckeditor\plugins\flash\images\placeholder.png" />
     <Content Include="Scripts\ckeditor\plugins\icons.png" />
     <Content Include="Scripts\ckeditor\plugins\icons_hidpi.png" />
+    <Content Include="Scripts\ckeditor\plugins\iframe\dialogs\iframe.js" />
+    <Content Include="Scripts\ckeditor\plugins\iframe\images\placeholder.png" />
     <Content Include="Scripts\ckeditor\plugins\image\dialogs\image.js" />
     <Content Include="Scripts\ckeditor\plugins\image\images\noimage.png" />
     <Content Include="Scripts\ckeditor\plugins\link\dialogs\anchor.js" />
@@ -324,6 +326,7 @@
     <Content Include="Scripts\ckeditor\plugins\link\images\hidpi\anchor.png" />
     <Content Include="Scripts\ckeditor\plugins\magicline\images\hidpi\icon.png" />
     <Content Include="Scripts\ckeditor\plugins\magicline\images\icon.png" />
+    <Content Include="Scripts\ckeditor\plugins\mediaembed\images\icon.png" />
     <Content Include="Scripts\ckeditor\plugins\pastefromword\filter\default.js" />
     <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\options.js" />
     <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\toolbar.css" />
