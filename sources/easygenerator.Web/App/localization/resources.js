@@ -211,7 +211,12 @@
         en: 'Learning objective properties',
         nl: 'Eigenschappen leerdoel',
         de: 'Lernzieleigenschaften'
+    },
+    correctAnswer: {
+        en: 'Correct answer',
+        nl: 'Correct answer nl',
+        de: 'Correct answer de'
     }
     /* End resource section for model Questions */
-           
+
 });

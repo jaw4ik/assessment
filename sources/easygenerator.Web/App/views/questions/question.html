@@ -67,7 +67,7 @@
                     <li class="answer-option-item" data-bind="css: { active: isInEdit }">
                         <div class="answer-options-list-item">
                             <div class="question-answer-value-wrapper unselectable">
-                                <div class="question-answer-value" data-bind="click: $parent.toggleAnswerCorrectness, css: { 'correct': isCorrect }, attr: { title: isCorrect() ? 'Correct answer' : null }">
+                                <div class="question-answer-value" data-bind="click: $parent.toggleAnswerCorrectness, css: { 'correct': isCorrect }, localize: { title: isCorrect() ? 'correctAnswer' : null }">
                                     <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
                                 </div>
                             </div>
