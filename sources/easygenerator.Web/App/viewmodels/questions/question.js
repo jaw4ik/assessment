@@ -35,15 +35,15 @@
             currentLanguage = ko.observable(''),
             isAnswersBlockExpanded = ko.observable(true),
             isExplanationsBlockExpanded = ko.observable(true),
-
+            
             notification = {
                 text: ko.observable(''),
                 visibility: ko.observable(false),
-                close: function () { notification.visibility(false); },
+                close: function() { notification.visibility(false); },
                 update: function () {
                     var message = 'Last saving: ' + new Date().toLocaleTimeString();
                     notification.text(message);
-
+                
                     notification.visibility(true);
                 }
             },
@@ -88,15 +88,15 @@
 
                     question().answerOptions.push(newAnswer);
 
-                    if (_.isFunction(success))
+                    if (_.isFunction(callback))
                         callback(newAnswer);
                 }
 
                 function success(answer) {
                     var observableAnswer = mapAnswerOption(answer);
+                    observableAnswer.isInEdit(true);
 
                     answerOptions.push(observableAnswer);
-                    notification.update();
                 }
             },
             toggleAnswerCorrectness = function (instance) {
@@ -114,7 +114,7 @@
                         var newValue = !currentAnswer.isCorrect;
                         currentAnswer.isCorrect = newValue;
 
-                        if (_.isFunction(success))
+                        if (_.isFunction(callback))
                             callback(newValue);
                     }
                 }
@@ -124,20 +124,15 @@
                     notification.update();
                 }
             },
-            editAnswerOption = function (instance) {
-                instance.isInEdit(true);
-            },
             saveAnswerOption = function (instance, context) {
                 sendEvent(events.saveAnswerOption);
 
-                instance.isInEdit(false);
-
-                if (_.isEmptyOrWhitespace(context.target.textContent)) {
+                if (_.isEmptyOrWhitespace(context.target.value)) {
                     deleteAnswerOption(instance);
                     return;
                 }
 
-                save(instance, context.target.innerHTML, success);
+                save(instance, context.target.value, success);
 
                 //TODO: temporary method. Would be changed, when dataContext will be reconstructed
 
@@ -158,6 +153,9 @@
                     notification.update();
                 }
             },
+            updateAnswerOptionText = function (instance, context) {
+                instance.isEmpty(_.isEmptyOrWhitespace(context.target.value));
+            },
             deleteAnswerOption = function (instance) {
                 sendEvent(events.deleteAnswerOption);
 
@@ -170,19 +168,18 @@
                         return item.id == answer.id;
                     });
 
-                    if (_.isFunction(success))
+                    if (_.isFunction(callback))
                         callback(answer);
                 }
 
                 function success(answer) {
                     answerOptions.remove(answer);
-                    notification.update();
                 }
             },
             addExplanation = function () {
                 sendEvent(events.addExplanation);
                 var explanation = mapExplanation(new expalantionModel({
-                    id: generateNewEntryId(this.explanations()),
+                    id: this.explanations().length,
                     text: ''
                 }));
 
@@ -251,13 +248,15 @@
                 this.hasPrevious = this.previousId != null;
 
                 currentLanguage(localizationManager.currentLanguage);
+                notification.visibility(false);
             },
             mapAnswerOption = function (answer) {
                 return {
                     id: answer.id,
                     text: answer.text || '',
                     isCorrect: ko.observable(answer.isCorrect || false),
-                    isInEdit: ko.observable(false)
+                    isInEdit: ko.observable(false),
+                    isEmpty: ko.observable(answer.text == '')
                 };
             },
             mapExplanation = function (explanation) {
@@ -323,7 +322,7 @@
             goToNextQuestion: goToNextQuestion,
             isAnswersBlockExpanded: isAnswersBlockExpanded,
             isExplanationsBlockExpanded: isExplanationsBlockExpanded,
-
+            
             notification: notification,
 
             toggleAnswers: toggleAnswers,
@@ -336,8 +335,8 @@
 
             addAnswerOption: addAnswerOption,
             toggleAnswerCorrectness: toggleAnswerCorrectness,
-            editAnswerOption: editAnswerOption,
             saveAnswerOption: saveAnswerOption,
+            updateAnswerOptionText: updateAnswerOptionText,
             deleteAnswerOption: deleteAnswerOption,
 
             language: currentLanguage,

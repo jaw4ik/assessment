@@ -66,15 +66,14 @@
                     <!-- ko foreach: answerOptions() -->
                     <li class="answer-option-item" data-bind="css: { active: isInEdit }">
                         <div class="answer-options-list-item">
-                            <div class="question-answer-value-wrapper unselectable">
+                            <div class="question-answer-value-wrapper unselectable" data-bind="css: { hidden: isEmpty() }">
                                 <div class="question-answer-value" data-bind="click: $parent.toggleAnswerCorrectness, css: { 'correct': isCorrect }, localize: { title: isCorrect() ? 'correctAnswer' : null }">
                                     <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
                                 </div>
                             </div>
                             <div class="question-answer-text-wrapper">
                                 <div class="question-answer-text">
-                                    <p contenteditable="true" data-bind="text: text, event: { blur: $parent.saveAnswerOption, focus: $parent.editAnswerOption }, hasFocus: true">
-                                    </p>
+                                    <textarea data-bind="value: text, valueUpdate: 'afterkeydown', event: { keyup: $parent.updateAnswerOptionText, blur: $parent.saveAnswerOption }, hasFocus: isInEdit"></textarea>
                                 </div>
                             </div>
                             <div class="question-answer-delete-wrapper" data-bind="click: $parent.deleteAnswerOption">

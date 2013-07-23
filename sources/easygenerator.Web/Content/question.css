@@ -141,6 +141,10 @@
     vertical-align: middle;
 }
 
+.question-answer-value-wrapper.hidden {
+    visibility: hidden;
+}
+
 .question-answer-value {
     height: 41px;
     width: 40px;
