@@ -625,12 +625,6 @@ define(function (require) {
                 expect(eventTracker.publish).toHaveBeenCalledWith('Add answer option', eventsCategory);
             });
 
-            it('function [addAnswerOption] should call nofification update', function () {
-                viewModel.addAnswerOption();
-
-                expect(viewModel.notification.update).toHaveBeenCalled();
-            });
-
             it('function [addAnswerOption] should create option', function () {
                 viewModel.question({ answerOptions: [] });
                 viewModel.answerOptions([]);
@@ -654,7 +648,7 @@ define(function (require) {
                     isInEdit: ko.observable(false)
                 }]);
                 context = {
-                    target: { textContent: '', innerHTML: '' }
+                    target: { value: '' }
                 };
             });
 
@@ -690,6 +684,7 @@ define(function (require) {
             });
 
             it('function [saveAnswerOption] should call nofification update', function () {
+                context.target.value = 'some text';
                 viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
 
                 expect(viewModel.notification.update).toHaveBeenCalled();
@@ -699,8 +694,7 @@ define(function (require) {
                 viewModel.answerOptions()[0].text = answer.text;
 
                 var newText = 'new text';
-                context.target.textContent = newText;
-                context.target.innerHTML = newText;
+                context.target.value = newText;
 
                 viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
 
@@ -725,24 +719,6 @@ define(function (require) {
 
                 expect(viewModel.answerOptions().length).toBe(answersCount - 1);
             });
-
-            it('function [editAnswerOption] should set [isInEdit] to value \"true\"', function () {
-                viewModel.answerOptions()[0].isInEdit(false);
-
-                viewModel.editAnswerOption(viewModel.answerOptions()[0]);
-
-                expect(viewModel.answerOptions()[0].isInEdit()).toBe(true);
-            });
-
-            it('function [saveAnswerOption] should set [isInEdit] to value \"false\"', function () {
-                viewModel.answerOptions()[0].isInEdit(true);
-
-                context.target.textContent = 'some text';
-                context.target.innerHTML = '<p>some text</p>';
-                viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
-
-                expect(viewModel.answerOptions()[0].isInEdit()).toBe(false);
-            });
         });
 
         describe('delete', function () {
@@ -760,12 +736,6 @@ define(function (require) {
                 viewModel.deleteAnswerOption(viewModel.answerOptions()[0]);
 
                 expect(eventTracker.publish).toHaveBeenCalledWith('Delete answer option', eventsCategory);
-            });
-
-            it('function [deleteAnswerOption] should call nofification update', function () {
-                viewModel.deleteAnswerOption(viewModel.answerOptions()[0]);
-
-                expect(viewModel.notification.update).toHaveBeenCalled();
             });
 
             it('[deleteAnswerOption] should be function', function () {
