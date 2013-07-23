@@ -208,6 +208,11 @@
     word-wrap: break-word;
 }
 
+.question-explanation ul,
+.question-explanation ol {
+    padding-left: 30px;
+}
+
 .answer-option-item:hover .question-answer-text-wrapper,
 .question-explanation-item:hover .question-explanation-wrapper {
     border-style: solid;
