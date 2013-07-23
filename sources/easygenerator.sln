@@ -2,10 +2,17 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.Web", "easygenerator.Web\easygenerator.Web.csproj", "{3157004F-564B-4C11-95B5-799C6B2106C3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E186A113-426B-4AB1-A4B1-5ECC54FA4E80} = {E186A113-426B-4AB1-A4B1-5ECC54FA4E80}
+		{B1A55D50-7948-471A-9FA8-403512C179A6} = {B1A55D50-7948-471A-9FA8-403512C179A6}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.Web.Tests", "easygenerator.Web.Tests\easygenerator.Web.Tests.csproj", "{D4C2BBF9-B3EB-4F16-9C06-2A3F88439556}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.DomainModel", "easygenerator.DomainModel\easygenerator.DomainModel.csproj", "{B1A55D50-7948-471A-9FA8-403512C179A6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E186A113-426B-4AB1-A4B1-5ECC54FA4E80} = {E186A113-426B-4AB1-A4B1-5ECC54FA4E80}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.DomainModel.Tests", "easygenerator.DomainModel.Tests\easygenerator.DomainModel.Tests.csproj", "{796D0AB4-489A-416F-A510-B2A8E6BC011B}"
 EndProject
