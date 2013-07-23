@@ -22,8 +22,7 @@ namespace easygenerator.Web.Configuration
                             .Include("~/scripts/underscore.js")
                             .Include("~/scripts/underscore.extensions.js")
                             .Include("~/scripts/ckeditor/ckeditor.js")
-                            .Include("~/Scripts/ckeditorBinding.js")
-                            .Include("~/Scripts/knockout.handlers.js"));
+                            .Include("~/Scripts/ckeditorBinding.js"));
 
             bundles.Add(new StyleBundle("~/Content/css")
                             .Include("~/Content/font-awesome.css")
