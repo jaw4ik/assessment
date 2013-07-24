@@ -6,19 +6,24 @@
         var language = bindingArguments.language() || 'en';
         var saveIntervalId = '';
 
-        var commandsToTrack = ['cut', 'copy', 'paste', 'undo', 'redo', 'bold', 'italic',
+        var commandsToTrack = ['cut', 'copy', 'paste', 'pastetext', 'undo', 'redo', 'bold', 'italic',
             'underline', 'removeformat', 'numberedlist', 'bulletedlist', 'link', 'unlink', 'table', 'image'];
 
+        CKEDITOR.disableAutoInline = true;
         CKEDITOR.domReady(initEditor);
         CKEDITOR.config.language = language;
 
         function initEditor() {
+            $(element).attr({ 'contenteditable': true });
+
             editor = CKEDITOR.inline(element);
             editor.setData(bindingArguments.data());
 
             editor.on('instanceReady', function () {
                 addContentFilter();
                 editor.focus();
+
+                editor.element.$.title = '';
                 addCommandsTracking(bindingArguments.eventTracker || null);
 
                 saveIntervalId = setInterval(function () {
@@ -72,7 +77,7 @@
                             if (e.attributes.class) {
                                 delete e.attributes.class;
                             }
-                            
+
                             if (e.name == 'style') {
                                 delete e;
                             }
