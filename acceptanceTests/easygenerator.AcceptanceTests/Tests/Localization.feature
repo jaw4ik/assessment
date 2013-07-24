@@ -17,8 +17,9 @@ Scenario Template: Localization of browser should be applied to course by defaul
 	| sl,de-De      | Lernziel           |
 
 Scenario Template: Localization is changed if change user settings
-	When open page by url 'http://localhost:5656'
-	And open user settings
+	#When open page by url 'http://localhost:5656'
+	#And open user settings
+	When open page by url 'http://localhost:5656/#/user'
 	And select language '<language>' in user settings
 	And click save user settings
 	Then objectives list page header text is '<text>'
