@@ -133,6 +133,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Errors.feature</DependentUpon>
     </Compile>
+    <Compile Include="Tests\Explanations.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Explanations.feature</DependentUpon>
+    </Compile>
     <Compile Include="Tests\ListOfObjectives.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -171,6 +176,10 @@
     <None Include="Tests\Errors.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Errors.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Tests\Explanations.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Explanations.feature.cs</LastGenOutput>
     </None>
     <None Include="Tests\ListOfObjectives.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

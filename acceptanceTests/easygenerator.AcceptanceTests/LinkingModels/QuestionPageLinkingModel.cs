@@ -14,6 +14,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string ExplanationItem = ".//div[contains(@class,'question-explanations')]//li[@class='question-explanation-item']";
         public string CorrectAnswerIndicator = ".//span[@class='answer-correct-icon']";
         public string AnswerItemText = ".//div[@class='question-answer-text']";
+        //public string AnswerItemText = ".//div[@class='question-answer-text']//textarea";        
         public string AnswerItemValue = ".//div[contains(@class,'question-answer-value')]";
         public string AnswerItemDeleteButton = ".//div[@class='question-answer-delete-wrapper']";
 
@@ -30,8 +31,15 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string PreviousQuestionButton = ".//a[@class='nav-element'and @title='Previous']";
 
         public string AddNewAnswerOptionButton = ".//div[contains(@class,'question-answers')]//li[@class='add-button']//div[@class='question-answer-text']";
-        public string AnswerOptionActiveText = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[@class='question-answer-text']//p[@contenteditable='true']";
+        public string AnswerOptionActiveText = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[@class='question-answer-text']//p";
+        //public string AnswerOptionActiveText = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[@class='question-answer-text']//textarea";        
         public string AnswerOptionActiveCorrectnessIndicator = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[@class='question-answer-value']";
 
+        public string AddNewExplanationButton = ".//div[contains(@class,'question-explanations')]//li[@class='add-button']//div[@class='question-explanation']";
+        public string ExplanationActiveText = ".//div[contains(@class,'question-explanations')]//li[contains(@class,'active')]//div[@class='question-explanation']//div";
+
+
+        //      <div class="cke_editable cke_editable_inline cke_contents_ltr"
+        public string Ckeditor = ".//div[contains(@class,'cke_contents_ltr')]";
     }
 }

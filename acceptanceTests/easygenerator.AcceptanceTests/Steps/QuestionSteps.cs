@@ -206,6 +206,13 @@ namespace easygenerator.AcceptanceTests.Steps
             item.Hover();
         }
 
+        //Explanations add/edit/delete
+
+        [When(@"input text '(.*)' into new explanation text field")]
+        public void WhenInputTextIntoNewExplanationTextField(string Text)
+        {
+            Question.AddNewExplanationText(Text);
+        }
 
 
 

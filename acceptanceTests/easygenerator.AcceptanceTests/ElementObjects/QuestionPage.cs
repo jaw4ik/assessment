@@ -166,6 +166,15 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             button.Click();
         }
 
+
+        internal void AddNewExplanationText(string Text)
+        {
+            var text = Text;
+            var button = GetByXPath(model.AddNewExplanationButton);
+            button.Click();
+            TestUtils.WaitForCondition((() => ExistsOnPage(model.Ckeditor)), 1000);
+            DriverProvider.Current().Driver.FindElementByXPath(model.ExplanationActiveText).SendKeys(text);
+        }
     }
 
 
@@ -182,6 +191,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             {
                 var el = GetByXPathInside(model.AnswerItemText);
                 return el.GetTextContent();
+                //return el.GetAttribute("value");
             }
         }
 
