@@ -41,6 +41,11 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
+        public AnswerItem AnswerItemByText(string text)
+        {
+            return AnswerItems.First(it => it.Text == text);
+        }
+
         public ExplanationItem[] ExplanationItems
         {
             get
@@ -90,7 +95,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             var link = GetByXPath(model.PreviousQuestionButton);
             link.Click();
             //System.Threading.Thread.Sleep(1000);
-            
+
         }
 
         internal bool IsNextButtonEnabled()
@@ -113,6 +118,51 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         internal void ToggleExplanations()
         {
             var button = GetByXPath(model.ExpandExplanationsButton);
+            button.Click();
+        }
+
+
+        internal void AddNewAnswerOptionButtonClick()
+        {
+            var button = GetByXPath(model.AddNewAnswerOptionButton);
+            button.Click();
+        }
+
+        internal void AddNewAnswerOptionText(string Text)
+        {
+            var text = Text;
+            var button = GetByXPath(model.AddNewAnswerOptionButton);
+            button.Click();
+            DriverProvider.Current().Driver.FindElementByXPath(model.AnswerOptionActiveText).SendKeys(text);
+        }
+
+        internal void AddAnswerOptionTextIntoExisting(string newText, string existingText)
+        {
+            var answerItem = AnswerItemByText(existingText);
+            var itemTextField = answerItem.Container.FindElementByXPath(model.AnswerItemText);
+            itemTextField.Click();
+            var activeItemTextField = DriverProvider.Current().Driver.FindElementByXPath(model.AnswerOptionActiveText);
+            activeItemTextField.Clear();
+            activeItemTextField.SendKeys(newText);
+        }
+
+        internal void ToggleActiveAnswerOptionCorrectness()
+        {            
+            var button = GetByXPath(model.AnswerOptionActiveCorrectnessIndicator);
+            button.Click();
+        }
+                
+        internal void ToggleAnswerOptionCorrectness(string Text)
+        {
+            var answerItem = AnswerItemByText(Text);
+            var button = answerItem.Container.FindElementByXPath(model.AnswerItemValue);
+            button.Click();
+        }
+
+        internal void AnswerOptionDelete(string Text)
+        {
+            var answerItem = AnswerItemByText(Text);
+            var button = answerItem.Container.FindElementByXPath(model.AnswerItemDeleteButton);
             button.Click();
         }
 

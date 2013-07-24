@@ -123,6 +123,11 @@
     <Compile Include="Steps\ListOfQuestionsSteps.cs" />
     <Compile Include="Steps\QuestionSteps.cs" />
     <Compile Include="Steps\UserSettingsSteps.cs" />
+    <Compile Include="Tests\AnswerOptions.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AnswerOptions.feature</DependentUpon>
+    </Compile>
     <Compile Include="Tests\Errors.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -159,6 +164,10 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Tests\AnswerOptions.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AnswerOptions.feature.cs</LastGenOutput>
+    </None>
     <None Include="Tests\Errors.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Errors.feature.cs</LastGenOutput>

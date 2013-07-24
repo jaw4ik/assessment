@@ -79,7 +79,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [Then(@"correct answer option is set to '(.*)' for '(.*)'")]
         public void ThenCorrectAnswerOptionIsSetToTrueFor( bool Correct, string Text)
         {
-            TestUtils.Assert_IsTrue_WithWait(() => Correct == Question.AnswerItems.First(item => item.Text == Text).IsCorrect, "Answer is not marked as correct");
+            TestUtils.Assert_IsTrue_WithWait(() => Correct == Question.AnswerItems.First(item => item.Text == Text).IsCorrect, "Answer is not marked as expected");
         }
 
         [When(@"click on next question")]
@@ -159,6 +159,56 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             Question.NavigateBackToObjective();
         }
+
+        //Answer Options add/edit/delete
+
+        [When(@"click on add answer option button")]
+        public void WhenClickOnAddAnswerOptionButton()
+        {
+            Question.AddNewAnswerOptionButtonClick();
+        }
+
+        [When(@"input text '(.*)' into new answer option text field")]
+        public void WhenInputTextIntoNewAnswerOptionTextField(string Text)
+        {
+            Question.AddNewAnswerOptionText(Text);
+        }
+
+        [When(@"input text '(.*)' into answer option text field '(.*)'")]
+        public void WhenInputTextIntoAnswerOptionTextField(string newText, string oldText)
+        {
+            Question.AddAnswerOptionTextIntoExisting(newText, oldText);
+        }
+
+
+        [When(@"click on correct answer option for '(.*)'")]
+        public void WhenClickOnCorrectAnswerOptionFor(string Text)
+        {            
+            Question.ToggleAnswerOptionCorrectness(Text);
+        }
+
+        [When(@"click on correct answer option for active answer")]
+        public void WhenClickOnCorrectAnswerOptionForActiveAnswer()
+        {
+            Question.ToggleActiveAnswerOptionCorrectness();
+        }
+
+        [When(@"click on delete answer option '(.*)'")]
+        public void WhenClickOnDeleteAnswerOption(string Text)
+        {
+            Question.AnswerOptionDelete(Text);
+        }
+
+        [When(@"mouse hover element of answer options with text '(.*)'")]
+        public void WhenMouseHoverElementOfAnswerOptionsWithText(string Text)
+        {
+            var item = Question.AnswerItemByText(Text);
+            item.Hover();
+        }
+
+
+
+
         private easygenerator.AcceptanceTests.Helpers.AnswerOption BuildAnswerOption(AnswerData data)
         {
             return new Helpers.AnswerOption()
