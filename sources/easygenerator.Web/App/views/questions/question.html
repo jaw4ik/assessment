@@ -67,36 +67,20 @@
                     <li class="answer-option-item" data-bind="css: { active: isInEdit }">
                         <div class="answer-options-list-item">
                             <div class="question-answer-value-wrapper unselectable" data-bind="css: { hidden: isEmpty() }">
-                                <div class="question-answer-value" data-bind="click: $parent.toggleAnswerCorrectness, css: { 'correct': isCorrect }, localize: { title: isCorrect() ? 'correctAnswer' : null }">
+                                <div class="question-answer-value" data-bind="css: { 'correct': isCorrect }, localize: { title: isCorrect() ? 'correctAnswer' : null }">
                                     <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
                                 </div>
                             </div>
                             <div class="question-answer-text-wrapper">
                                 <div class="question-answer-text">
-                                    <textarea data-bind="value: text, valueUpdate: 'afterkeydown', event: { keyup: $parent.updateAnswerOptionText, blur: $parent.saveAnswerOption }, hasFocus: isInEdit"></textarea>
-                                </div>
-                            </div>
-                            <div class="question-answer-delete-wrapper" data-bind="click: $parent.deleteAnswerOption">
-                                <span class="question-answer-delete-icon"></span>
-                            </div>
-                        </div>
-                    </li>
-                    <!-- /ko -->
-                    <li class="add-button">
-                        <div class="answer-options-list-item">
-                            <div class="question-answer-value-wrapper">
-                                <div class="question-answer-value">
-                                </div>
-                            </div>
-                            <div class="question-answer-text-wrapper" data-bind="click: addAnswerOption">
-                                <div class="question-answer-text">
-                                    <p data-bind="localize: { text : 'clickToAddNewAnswerOption' }"></p>
+                                    <p data-bind="text: text"></p>
                                 </div>
                             </div>
                             <div class="question-answer-delete-wrapper">
                             </div>
                         </div>
                     </li>
+                    <!-- /ko -->
                 </ul>
             </div>
             <!-- /ko -->
@@ -128,7 +112,7 @@
                                 <div class="question-explanation-wrapper">
                                     <!-- ko if: isEditing() -->
                                     <div class="question-explanation">
-                                        <div contenteditable="true" data-bind="ckeditor: { data: text, eventTracker: $parent.eventTracker, onEndEditing: $parent.endEditExplanation.bind($parent), language: $parent.language }"></div>
+                                        <div data-bind="ckeditor: { data: text, eventTracker: $parent.eventTracker, onEndEditing: $parent.endEditExplanation.bind($parent), language: $parent.language }"></div>
                                     </div>
                                     <!-- /ko -->
                                     <!-- ko ifnot: isEditing() -->

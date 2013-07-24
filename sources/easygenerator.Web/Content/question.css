@@ -141,9 +141,9 @@
     vertical-align: middle;
 }
 
-    .question-answer-value-wrapper.hidden {
-        visibility: hidden;
-    }
+.question-answer-value-wrapper.hidden {
+    visibility: hidden;
+}
 
 .question-answer-value {
     height: 41px;
@@ -151,19 +151,25 @@
     padding: 9px 0;
     border: dashed 1px #E1E1E1;
     text-align: center;
-    cursor: pointer;
+    /*cursor: pointer;*/
 }
 
-.answer-option-item:hover .question-answer-value,
-.question-explanation-item:hover .question-explanation {
+/*.answer-option-item:hover .question-answer-value {
     border-style: solid;
     -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}*/
+
+/*.answer-option-item:hover .question-answer-text,*/
+.question-explanation-item:hover .question-explanation {
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2) inset;
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2) inset;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2) inset;
 }
 
-.answer-option-item.active:hover .question-answer-value,
-.question-explanation-item.active:hover .question-explanation {
+/*.answer-option-item.active:hover .question-answer-value,*/
+.question-explanation-item.active:hover .question-explanation{
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
@@ -181,10 +187,10 @@
     background-repeat: no-repeat;
 }
 
-.answer-option-item:hover .answer-correct-icon {
+/*.answer-option-item:hover .answer-correct-icon{
     display: inline-block !important;
     background-position: 0 100%;
-}
+}*/
 
 .answer-option-item:hover .correct .answer-correct-icon {
     background-position: 0 0;
@@ -198,6 +204,9 @@
     display: table-cell;
     border: 1px dashed #e1e1e1;
     padding: 0;
+    color: #666;
+    font-size: 13px;
+    font-family: Arial,sans-serif;
 }
 
 .question-answer-text,
@@ -209,27 +218,12 @@
     word-wrap: break-word;
 }
 
-    .question-answer-text textarea {
-        height: 21px;
-        width: 100%;
-        vertical-align: top;
-        resize: vertical;
-        border: none;
-        color: #666;
-        font-size: 13px;
-        font-family: Arial,sans-serif;
-    }
+.question-explanation ul,
+.question-explanation ol {
+    padding-left: 30px;
+}
 
-        .question-answer-text textarea:focus {
-            outline: none;
-        }
-
-    .question-explanation ul,
-    .question-explanation ol {
-        padding-left: 30px;
-    }
-
-.answer-option-item:hover .question-answer-text-wrapper,
+/*.answer-option-item:hover .question-answer-text-wrapper,*/
 .question-explanation-item:hover .question-explanation-wrapper {
     border-style: solid;
     -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
@@ -237,19 +231,12 @@
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 }
 
-.answer-option-item.active .question-answer-text-wrapper,
+/*.answer-option-item.active .question-answer-text-wrapper,*/
 .question-explanation-item.active .question-explanation-wrapper {
     border: 1px solid rgba(68, 192, 252, 0.4);
     -webkit-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
     -moz-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
     box-shadow: 0 0 3px rgba(68, 192, 252, 1);
-}
-
-.answer-option-item:hover .question-answer-text,
-.question-explanation-item:hover .question-explanation {
-    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2) inset;
-    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2) inset;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2) inset;
 }
 
 .answer-option-item.active .question-answer-text,
@@ -273,8 +260,8 @@
     cursor: pointer;
 }
 
-.answer-option-item.active .question-answer-delete-wrapper,
-.answer-option-item:hover .question-answer-delete-wrapper,
+/*.answer-option-item.active .question-answer-delete-wrapper,
+.answer-option-item:hover .question-answer-delete-wrapper,*/
 .question-explanation-item.active .question-explanation-delete-wrapper,
 .question-explanation-item:hover .question-explanation-delete-wrapper {
     visibility: visible;
@@ -285,7 +272,7 @@
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 }
 
-    .answer-option-item:hover .question-answer-delete-wrapper:hover,
+    /*.answer-option-item:hover .question-answer-delete-wrapper:hover,*/
     .question-explanation-item:hover .question-explanation-delete-wrapper:hover {
         background-color: #e3e3e3;
     }
