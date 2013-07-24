@@ -29,12 +29,12 @@
                     localizationKey: 'learningObjectives'
                 }
             },
-            //{
-            //    url: 'objective/create',
-            //    moduleId: 'viewmodels/objectives/createObjective',
-            //    name: 'Create New Objective',
-            //    caption: 'Create New Objective'
-            //},
+            {
+                url: 'objective/create',
+                moduleId: 'viewmodels/objectives/createObjective',
+                name: 'Create New Objective',
+                caption: 'Create New Objective'
+            },
             {
                 url: 'objective/:id',
                 moduleId: 'viewmodels/objectives/objective',
@@ -44,18 +44,18 @@
                     localizationKey: 'objectiveProperties'
                 }
             },
-            //{
-            //    url: 'experience/create',
-            //    moduleId: 'viewmodels/experiences/createExperience',
-            //    name: 'Create New Experiences',
-            //    caption: 'Create New Experiences'
-            //},
-            //{
-            //    url: 'objective/:objectiveId/question/create',
-            //    moduleId: 'viewmodels/questions/createQuestion',
-            //    name: 'Create New Question',
-            //    caption: 'Create New Question'
-            //},
+            {
+                url: 'experience/create',
+                moduleId: 'viewmodels/experiences/createExperience',
+                name: 'Create New Experiences',
+                caption: 'Create New Experiences'
+            },
+            {
+                url: 'objective/:objectiveId/question/create',
+                moduleId: 'viewmodels/questions/createQuestion',
+                name: 'Create New Question',
+                caption: 'Create New Question'
+            },
             {
                 url: 'objective/:objectiveId/question/:id',
                 moduleId: 'viewmodels/questions/question',
