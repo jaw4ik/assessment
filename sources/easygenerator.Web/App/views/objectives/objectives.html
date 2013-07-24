@@ -6,7 +6,7 @@
 
     <div class="objectives-header">
         <div class="objectives-header-title">
-            <a class="objectives-header-create-link" href="/#/404" data-bind="click: navigateToCreation"></a>
+            <a class="objectives-header-create-link" href="/#/404" data-bind="click: navigateToCreation, localize: {title: 'addNewObjective'}"></a>
             <span data-bind="localize: { text: 'learningObjective' }">Learning objective</span>
             <hr />
         </div>
@@ -14,12 +14,12 @@
             <span data-bind="localize: { text: 'sortBy' }">Sort by</span>
         </div>
         <div class="objectives-header-sort-container">
-            <div class="objectives-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }">
+            <div class="objectives-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }, localize: {title: 'ascending'}">
                 <span data-bind="localize: { text: 'firstLetter' }">a</span>
                 &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
                 <span data-bind="localize: { text: 'lastLetter' }">z</span>
             </div>
-            <div class="objectives-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }">
+            <div class="objectives-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }, localize: {title: 'descending'}">
                 <span data-bind="localize: { text: 'lastLetter' }">z</span>
                 &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
                 <span data-bind="localize: { text: 'firstLetter' }">a</span>
@@ -39,9 +39,9 @@
                                 <div class="objective-brief-title" data-bind="attr: { title: title }">
                                     <span class="selectable" data-bind="text: title"></span>
                                 </div>
-                                <div class="objective-brief-toolbar-question-count">
+                                <div class="objective-brief-toolbar-question-count" data-bind="localize: {title: 'numberOfQuestions'}">
                                     <div class="objective-brief-toolbar-icon-question"></div>
-                                    <div class="selectable" data-bind="text: questionsCount"></div>
+                                    <div class="objective-question-count-text" data-bind="text: questionsCount"></div>
                                 </div>
                             </div>
                             <div class="objective-brief-options">

@@ -354,6 +354,10 @@
     line-height: 12px;
 }
 
+.objective-question-count-text {
+    cursor: default;
+}
+
 .substrate-block,
 .substrate-inner {
     display: block;

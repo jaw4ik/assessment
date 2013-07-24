@@ -26,6 +26,16 @@
         nl: 'Sort by title nl',
         de: 'Sort by title de'
     },
+    ascending: {
+        en: 'Ascending',
+        nl: 'Ascending nl',
+        de: 'Ascending de'
+    },
+    descending: {
+        en: 'Descending',
+        nl: 'Descending nl',
+        de: 'Descending de'
+    },
     firstLetter: {
         en: 'A',
         nl: 'A',
@@ -88,6 +98,16 @@
         en: 'Learning objective',
         nl: 'Leerdoel',
         de: 'Lernziel'
+    },
+    numberOfQuestions: {
+        en: 'Number of related questions',
+        nl: 'Number of related questions nl',
+        de: 'Number of related questions de'
+    },
+    addNewObjective: {
+        en: 'Add new learning objective',
+        nl: 'Add new learning objective nl',
+        de: 'Add new learning objective de'
     },
     /* End resource section for model Objectives */
     
@@ -221,6 +241,11 @@
         en: 'Correct answer',
         nl: 'Correct answer nl',
         de: 'Correct answer de'
+    },
+    addNewQuestion: {
+        en: 'Add new question',
+        nl: 'Add new question nl',
+        de: 'Add new question de'
     }
     /* End resource section for model Questions */
 
