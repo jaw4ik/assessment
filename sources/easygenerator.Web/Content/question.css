@@ -20,8 +20,6 @@
 
 .question-header-title {
     margin-left: 195px;
-    max-height: 110px;
-    overflow: hidden;
     -ms-word-break: break-all;
     word-break: break-all;
 }

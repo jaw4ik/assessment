@@ -56,8 +56,6 @@ a.nav-control:hover {
 .objective-header {
     height: 240px;
     width: 100%;
-    position: absolute;
-    top: 57px;
     padding: 15px 0;
 }
 
@@ -75,17 +73,12 @@ a.nav-control:hover {
 .questions-header {
     height: 100px;
     width: 100%;
-    position: absolute;
-    top: 255px;
     text-transform: uppercase;
 }
 
 .questions-list-wrapper {
     width: 100%;
     min-height: 218px;
-    position: absolute;
-    top: 335px;
-    bottom: 10px;
     padding: 9px 16px;
     border: 1px solid #e1e1e1;
     background-color: white;
