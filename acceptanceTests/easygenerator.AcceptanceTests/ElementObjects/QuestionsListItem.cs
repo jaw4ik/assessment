@@ -47,6 +47,12 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             GetByXPathInside(model.EditButton).Click();
         }
+
+        internal void ClickOpen()
+        {
+            GetByXPathInside(model.OpenButton).Click();
+        }
+
         internal void ClickSelect()
         {
             GetByXPathInside(model.SelectElement).Click();

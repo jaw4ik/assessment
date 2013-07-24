@@ -132,6 +132,17 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Action edit should be enabled");
         }
 
+        [Then(@"Action open is enabled (.*) for questions list item with title '(.*)'")]
+        public void ThenActionOpenIsEnabledTrueForQuestionsListItemWithTitle(bool isEnabled, string title)
+        {
+            {
+                TestUtils.Assert_IsTrue_WithWait(() =>
+                    questionListPage.Items.First(it => it.Title == title).OpenEnabled,
+                    "Action open should be enabled");
+            }
+        }
+
+
         [When(@"mouse hover element of questions list with title '(.*)'")]
         public void WhenMouseHoverElementOfQuestionsListWithTitle(string title)
         {
@@ -143,6 +154,13 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             questionListPage.Items.First(it => it.Title == title).ClickEdit();
         }
+
+        [When(@"click on open question with title '(.*)'")]
+        public void WhenClickOnOpenQuestionWithTitle(string title)
+        {
+            questionListPage.Items.First(it => it.Title == title).ClickOpen();
+        }
+
 
         [When(@"click on back from questions list")]
         public void WhenClickOnBackFromQuestionsList()

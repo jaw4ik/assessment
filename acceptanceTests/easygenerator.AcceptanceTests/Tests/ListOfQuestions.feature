@@ -150,7 +150,7 @@ Given questions related to 'Objective1' are present in database
 When open page by url 'http://localhost:5656/#/objective/1'
 And mouse hover element of questions list with title 'Question2'
 Then Action select is enabled true for questions list item with title 'Question2'
-And Action edit is enabled true for questions list item with title 'Question2'
+And Action open is enabled true for questions list item with title 'Question2'
 
 Scenario: Selected question should remain selected
 Given questions related to 'Objective1' are present in database
@@ -194,7 +194,7 @@ Given questions related to 'Objective1' are present in database
 | Question1  | 1  |
 When open page by url 'http://localhost:5656/#/objective/1'
 And mouse hover element of questions list with title 'Question1'
-And click on edit question with title 'Question1'
+And click on open question with title 'Question1'
 Then browser navigates to url 'http://localhost:5656/#/objective/1/question/1'
 
 
