@@ -227,6 +227,11 @@ namespace easygenerator.AcceptanceTests.Steps
             Question.ExplanationDelete(Text);
         }
 
+        [When(@"input text '(.*)' into explanation text field '(.*)'")]
+        public void WhenInputTextIntoExplanationTextField(string newText, string oldText)
+        {
+            Question.AddExplanationTextIntoExisting(newText, oldText);
+        }
 
 
 

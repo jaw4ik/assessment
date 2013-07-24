@@ -14,7 +14,8 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string ExplanationItem = ".//div[contains(@class,'question-explanations')]//li[@class='question-explanation-item']";
         public string CorrectAnswerIndicator = ".//span[@class='answer-correct-icon']";
         public string AnswerItemText = ".//div[contains(@class,'question-answer-text')]";
-        //public string AnswerItemText = ".//div[@class='question-answer-text']//textarea";        
+        //public string AnswerItemText = ".//div[@class='question-answer-text']//textarea";
+        public string ExplanationItemText = ".//div[contains(@class,'question-explanation')]";
         public string AnswerItemValue = ".//div[contains(@class,'question-answer-value')]";
         public string AnswerItemDeleteButton = ".//div[@class='question-answer-delete-wrapper']";
         public string ExplanationDeleteButton = ".//div[@class='question-explanation-delete-wrapper']";

@@ -188,6 +188,16 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             //System.Threading.Thread.Sleep(3000);
             DriverProvider.Current().Driver.FindElementByXPath(model.ExplanationActiveText).SendKeys(text);
         }
+
+        internal void AddExplanationTextIntoExisting(string newText, string existingText)
+        {
+            var explanationItem = ExplanationItemByText(existingText);
+            var itemTextField = explanationItem.Container.FindElementByXPath(model.ExplanationItemText);
+            itemTextField.Click();
+            var activeItemTextField = DriverProvider.Current().Driver.FindElementByXPath(model.ExplanationActiveText);
+            activeItemTextField.Clear();
+            activeItemTextField.SendKeys(newText);
+        }
     }
 
 

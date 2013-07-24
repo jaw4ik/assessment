@@ -164,6 +164,72 @@ testRunner.Then("explanations list contains only items with data", ((string)(nul
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Explanation can\'t be saved with empty text")]
+        public virtual void ExplanationCanTBeSavedWithEmptyText()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Explanation can\'t be saved with empty text", ((string[])(null)));
+#line 40
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 41
+testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 42
+testRunner.And("input text \' \' into new explanation text field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 43
+testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Explanation"});
+            table6.AddRow(new string[] {
+                        "Explanation11"});
+            table6.AddRow(new string[] {
+                        "Explanation12"});
+            table6.AddRow(new string[] {
+                        "Explanation13"});
+#line 44
+testRunner.Then("explanations list contains only items with data", ((string)(null)), table6, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Changes to explanation data are not lost when user go out from current question p" +
+            "age")]
+        public virtual void ChangesToExplanationDataAreNotLostWhenUserGoOutFromCurrentQuestionPage()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Changes to explanation data are not lost when user go out from current question p" +
+                    "age", ((string[])(null)));
+#line 50
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 51
+testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 52
+testRunner.And("input text \'Explanation14\' into explanation text field \'Explanation12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 53
+testRunner.And("click on back to objective", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 54
+testRunner.And("mouse hover element of questions list with title \'Question11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 55
+testRunner.And("click on open question with title \'Question11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Explanation"});
+            table7.AddRow(new string[] {
+                        "Explanation11"});
+            table7.AddRow(new string[] {
+                        "Explanation14"});
+            table7.AddRow(new string[] {
+                        "Explanation13"});
+#line 56
+testRunner.Then("explanations list contains only items with data", ((string)(null)), table7, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
