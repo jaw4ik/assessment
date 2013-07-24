@@ -41,12 +41,12 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         public bool SelectEnabled { get { return GetByXPathInside(model.SelectElement).IsVisible(); } }
         public bool OpenEnabled { get { return GetByXPathInside(model.OpenButton).IsVisible(); } }
 
-        public bool EditEnabled { get { return GetByXPathInside(model.EditButton).IsVisible(); } }
+        //public bool EditEnabled { get { return GetByXPathInside(model.EditButton).IsVisible(); } }
 
-        internal void ClickEdit()
-        {
-            GetByXPathInside(model.EditButton).Click();
-        }
+        //internal void ClickEdit()
+        //{
+        //    GetByXPathInside(model.EditButton).Click();
+        //}
 
         internal void ClickOpen()
         {

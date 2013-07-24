@@ -124,13 +124,13 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Action add should be enabled");
         }
 
-        [Then(@"Action edit is enabled (.*) for questions list item with title '(.*)'")]
-        public void ThenActionEditIsEnabledTrueForQuestionsListItemWithTitle(bool isEnabled, string title)
-        {
-            TestUtils.Assert_IsTrue_WithWait(() =>
-                questionListPage.Items.First(it => it.Title == title).EditEnabled,
-                "Action edit should be enabled");
-        }
+        //[Then(@"Action edit is enabled (.*) for questions list item with title '(.*)'")]
+        //public void ThenActionEditIsEnabledTrueForQuestionsListItemWithTitle(bool isEnabled, string title)
+        //{
+        //    TestUtils.Assert_IsTrue_WithWait(() =>
+        //        questionListPage.Items.First(it => it.Title == title).EditEnabled,
+        //        "Action edit should be enabled");
+        //}
 
         [Then(@"Action open is enabled (.*) for questions list item with title '(.*)'")]
         public void ThenActionOpenIsEnabledTrueForQuestionsListItemWithTitle(bool isEnabled, string title)
@@ -149,11 +149,11 @@ namespace easygenerator.AcceptanceTests.Steps
             questionListPage.Items.First(it => it.Title == title).Hover();
         }
 
-        [When(@"click on edit question with title '(.*)'")]
-        public void WhenClickOnEditQuestionWithTitle(string title)
-        {
-            questionListPage.Items.First(it => it.Title == title).ClickEdit();
-        }
+        //[When(@"click on edit question with title '(.*)'")]
+        //public void WhenClickOnEditQuestionWithTitle(string title)
+        //{
+        //    questionListPage.Items.First(it => it.Title == title).ClickEdit();
+        //}
 
         [When(@"click on open question with title '(.*)'")]
         public void WhenClickOnOpenQuestionWithTitle(string title)
