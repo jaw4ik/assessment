@@ -21,6 +21,11 @@
         nl: 'Sorteren op',
         de: 'Sortieren nach'
     },
+    sortByTitle: {
+        en: 'Sort by title',
+        nl: 'Sort by title nl',
+        de: 'Sort by title de'
+    },
     firstLetter: {
         en: 'A',
         nl: 'A',
