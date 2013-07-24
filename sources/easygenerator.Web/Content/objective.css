@@ -170,7 +170,7 @@ a.nav-control:hover {
 }
 
 .question-select,
-.question-edit {
+.question-open {
     height: 100%;
     width: 49%;
     float: left;
@@ -179,7 +179,7 @@ a.nav-control:hover {
 }
 
     .question-select .action-img,
-    .question-edit .action-img {
+    .question-open .action-img {
         height: 34px;
         width: 34px;
         background-image: url(images/options-icons.png);
@@ -197,9 +197,9 @@ a.nav-control:hover {
         background-position: 0 -34px;
     }
 
-    .question-edit .action-img {
+    .question-open .action-img {
         margin-top: -1px;
-        background-position: 0 -68px;
+        background-position: 0 -102px;
     }
 
 .separator {
@@ -215,7 +215,7 @@ a.nav-control:hover {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.question-logo-wrapper:hover .question-edit:hover {
+.question-logo-wrapper:hover .question-open:hover {
     background-color: #000000;
     background-color: rgba(0, 0, 0, 0.5);
 }
@@ -223,7 +223,7 @@ a.nav-control:hover {
 .question-title-wrapper {
     display: block;
     height: 100px;
-    margin-left: 172px;
+    margin-left: 222px;
 }
 
 .question-title {
