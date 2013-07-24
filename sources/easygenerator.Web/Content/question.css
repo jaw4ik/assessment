@@ -141,9 +141,9 @@
     vertical-align: middle;
 }
 
-.question-answer-value-wrapper.hidden {
-    visibility: hidden;
-}
+    .question-answer-value-wrapper.hidden {
+        visibility: hidden;
+    }
 
 .question-answer-value {
     height: 41px;
@@ -163,7 +163,7 @@
 }
 
 .answer-option-item.active:hover .question-answer-value,
-.question-explanation-item.active:hover .question-explanation{
+.question-explanation-item.active:hover .question-explanation {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
@@ -181,7 +181,7 @@
     background-repeat: no-repeat;
 }
 
-.answer-option-item:hover .answer-correct-icon{
+.answer-option-item:hover .answer-correct-icon {
     display: inline-block !important;
     background-position: 0 100%;
 }
@@ -198,9 +198,6 @@
     display: table-cell;
     border: 1px dashed #e1e1e1;
     padding: 0;
-    color: #666;
-    font-size: 13px;
-    font-family: Arial,sans-serif;
 }
 
 .question-answer-text,
@@ -212,10 +209,25 @@
     word-wrap: break-word;
 }
 
-.question-explanation ul,
-.question-explanation ol {
-    padding-left: 30px;
-}
+    .question-answer-text textarea {
+        height: 21px;
+        width: 100%;
+        vertical-align: top;
+        resize: vertical;
+        border: none;
+        color: #666;
+        font-size: 13px;
+        font-family: Arial,sans-serif;
+    }
+
+        .question-answer-text textarea:focus {
+            outline: none;
+        }
+
+    .question-explanation ul,
+    .question-explanation ol {
+        padding-left: 30px;
+    }
 
 .answer-option-item:hover .question-answer-text-wrapper,
 .question-explanation-item:hover .question-explanation-wrapper {
