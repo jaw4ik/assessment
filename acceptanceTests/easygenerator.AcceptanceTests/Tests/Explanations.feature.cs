@@ -241,10 +241,12 @@ testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question
 #line 62
 testRunner.And("input text \'Explanation14\' into explanation text field \'Explanation12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 63
-testRunner.And("click on back to objective", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 64
-testRunner.And("mouse hover element of questions list with title \'Question11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click on back to objective", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 65
+testRunner.And("mouse hover element of questions list with title \'Question11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 66
 testRunner.And("click on open question with title \'Question11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
@@ -255,7 +257,7 @@ testRunner.And("click on open question with title \'Question11\'", ((string)(nul
                         "Explanation14"});
             table8.AddRow(new string[] {
                         "Explanation13"});
-#line 66
+#line 67
 testRunner.Then("explanations list contains only items with data", ((string)(null)), table8, "Then ");
 #line hidden
             this.ScenarioCleanup();
