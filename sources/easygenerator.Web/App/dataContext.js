@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'durandal/http', 'models/objective', 'configuration/images', 'models/objective', 'models/question', 'models/experience', 'models/answerOption', 'models/explanation'],
-    function (app, http, objectiveModel, images, ObjectiveModel, QuestionModel, ExperienceModel, AnswerOptionModel, ExplanationModel) {
+﻿define(['durandal/app', 'durandal/http', 'models/objective', 'models/objective', 'models/question', 'models/experience', 'models/answerOption', 'models/explanation'],
+    function (app, http, objectiveModel, ObjectiveModel, QuestionModel, ExperienceModel, AnswerOptionModel, ExplanationModel) {
 
         var
             objectives = [],

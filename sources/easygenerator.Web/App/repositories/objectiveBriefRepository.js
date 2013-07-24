@@ -1,21 +1,38 @@
-﻿define(['dataContext'],
-    function (dataContext) {
+﻿define([], function () {
 
-        var self = {};
+    var self = {};
 
-        self.dataSet = [];
+    self.dataSet = [];
+    self.isDataSetReady = false;
 
-        self.activate = function () {
-            var deferred = Q.defer();
-            setTimeout(function () {
-                deferred.resolve('data');
-            }, 100);
+    self.invalidate = function () {
+        self.isDataSetReady = false;
+    };
 
-            return deferred.promise;
-        };
+    self.getCollection = function () {
+        var deferred = Q.defer();
 
-        return {
-            activate: self.activate
-        };
-    }
+        if (self.isDataSetReady) {
+            deferred.resolve(self.dataSet);
+        } else {
+            $.ajax({
+                url: 'data.js?v=' + Math.random(),
+                contentType: 'application/json',
+                dataType: 'json'
+            }).done(function (response) {
+                self.dataSet = _.map(response.objectives, function (objective) {
+                    return { id: objective.id, title: objective.title, image: objective.image, questionsCount: objective.questions.length };
+                });
+                self.isDataSetReady = true;
+                deferred.resolve(self.dataSet);
+            });
+        }
+        return deferred.promise;
+    };
+
+    return {
+        invalidate: self.invalidate,
+        getCollection: self.getCollection
+    };
+}
 );

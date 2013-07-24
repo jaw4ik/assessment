@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'durandal/plugins/router', 'repositories/objectiveBriefRepository'],
-    function (dataContext, constants, eventTracker, router, repository) {
+﻿define(['constants', 'eventTracker', 'durandal/plugins/router', 'repositories/objectiveBriefRepository'],
+    function (constants, eventTracker, router, repository) {
         "use strict";
 
         var
@@ -47,15 +47,15 @@
 
 
             activate = function () {
-                //return repository.activate().then(function () {
+                return repository.getCollection().then(function (objectiveBriefCollection) {
                     currentSortingOption(constants.sortingOptions.byTitleAsc);
-                    objectives(_.chain(dataContext.objectives)
+                    objectives(_.chain(objectiveBriefCollection)
                                 .map(function (item) {
                                     return {
                                         id: item.id,
                                         title: item.title,
                                         image: item.image,
-                                        questionsCount: item.questions.length,
+                                        questionsCount: item.questionsCount,
                                         isSelected: ko.observable(false),
                                         toggleSelection: function () {
                                             sendEvent(events.selectObjective);
@@ -65,7 +65,7 @@
                                 })
                                 .sortBy(function (objective) { return objective.title.toLowerCase(); })
                                 .value());
-                //});
+                });
             };
 
         return {

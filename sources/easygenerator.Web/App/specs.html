@@ -32,9 +32,10 @@
 
             var specs = [
                 'localization/localizationManager.spec',
+                'repositories/objectiveBriefRepository.spec',
                 'viewmodels/objectives/objectives.spec',
                 'viewmodels/objectives/objective.spec',
-                'viewmodels/objectives/createObjective.spec',
+                //'viewmodels/objectives/createObjective.spec',
                 'viewmodels/questions/question.spec',
                 'viewmodels/experiences/experiences.spec'
             ];
@@ -52,6 +53,8 @@
                 jasmineEnv.specFilter = function (spec) {
                     return htmlReporter.specFilter(spec);
                 };
+
+                jasmine.DEFAULT_TIMEOUT_INTERVAL = 100;
 
                 jasmineEnv.execute();
 
