@@ -1,4 +1,4 @@
-﻿<div class="experiences">
+﻿<div class="experiences unselectable">
     <div class="experiences-navigation">
         <a href="#/objectives" data-bind="click: navigateToObjectives, localize: { text: 'learningObjectives' }">Learning objectives</a>
         <span data-bind="localize: { text: 'experiences' }">Experiences</span>
@@ -35,11 +35,11 @@
                             <div class="experience-brief-image"></div>
                             <div class="experience-brief-toolbar">
                                 <div class="experience-brief-title" data-bind="attr: { title: title }">
-                                    <span data-bind="text: title"></span>
+                                    <span class="selectable" data-bind="text: title"></span>
                                 </div>
                                 <div class="experience-brief-toolbar-objective-count">
                                     <span class="experience-brief-toolbar-icon-objective"></span>
-                                    <div data-bind="text: objectives.length"></div>
+                                    <div class="selectable" data-bind="text: objectives.length"></div>
                                 </div>
                             </div>
                             <div class="experience-brief-options">

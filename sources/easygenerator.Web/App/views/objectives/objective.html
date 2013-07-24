@@ -1,5 +1,5 @@
-﻿<section class="container list-of-questions">
-    <div class="navbar unselectable">
+﻿<section class="container list-of-questions unselectable">
+    <div class="navbar">
         <a href="#/objectives" data-bind="click: navigateToObjectives" class="inline nav-control">
             <div class="nav-btn back-btn left"></div>
             <div class="nav-title">
@@ -15,10 +15,10 @@
             </div>
         </div>
         <div class="objective-info">
-            <h2 class="page-header-title" data-bind="text: title"></h2>
+            <h2 class="page-header-title selectable" data-bind="text: title"></h2>
         </div>
     </div>
-    <div class="questions-header unselectable">
+    <div class="questions-header">
         <div class="questions-header-title">
             <a class="questions-header-create-link" href="#" data-bind="click: navigateToCreation"></a>
             <span data-bind="localize: { text: 'relatedQuestions' }"></span>
@@ -50,7 +50,7 @@
                         <div>
                             <img class="question-logo" alt="" src="../../../Content/images/multichoice-question.png" />
                         </div>
-                        <div class="question-options unselectable">
+                        <div class="question-options">
                             <div class="question-select" data-bind="click: toggleSelection">
                                 <!-- ko if: isSelected() -->
                                 <div class="nowrap" data-bind="localize: { text: 'unselect' }">
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     <div class="question-title-wrapper">
-                        <div class="question-title" data-bind="text: title">
+                        <div class="question-title selectable" data-bind="text: title">
                         </div>
                     </div>
                 </li>

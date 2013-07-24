@@ -1,5 +1,5 @@
-﻿<div class="question container">
-    <div class="navbar unselectable">
+﻿<div class="question container unselectable">
+    <div class="navbar">
         <a href="#" data-bind="click: goToRelatedObjective" class="inline nav-control">
             <div class="nav-btn back-btn left"></div>
             <div class="nav-title">
@@ -38,13 +38,13 @@
                 <img class="question-image" src="/Content/images/multichoice-question.png" alt="" />
             </div>
             <div class="question-header-title">
-                <h2 class="page-header-title" data-bind="text: title"></h2>
+                <h2 class="page-header-title selectable" data-bind="text: title"></h2>
             </div>
         </div>
     </div>
     <div id="scroll-wrapper" class="question-content clearfix">
         <div class="question-content-block question-answers">
-            <div class="question-content-block-header-wrapper unselectable" data-bind="click: toggleAnswers">
+            <div class="question-content-block-header-wrapper" data-bind="click: toggleAnswers">
                 <div class="question-content-block-header" data-bind="css: { 'shadow-bottom-curve': isAnswersBlockExpanded() }">
                     <div class="question-content-block-header-icon answer-option-icon"></div>
                     <div class="question-content-block-header-title" data-bind="localize: { text: 'answerOptions' }">Answer options</div>
@@ -66,14 +66,14 @@
                     <!-- ko foreach: answerOptions() -->
                     <li class="answer-option-item" data-bind="css: { active: isInEdit }">
                         <div class="answer-options-list-item">
-                            <div class="question-answer-value-wrapper unselectable" data-bind="css: { hidden: isEmpty() }">
+                            <div class="question-answer-value-wrapper" data-bind="css: { hidden: isEmpty() }">
                                 <div class="question-answer-value" data-bind="css: { 'correct': isCorrect }, localize: { title: isCorrect() ? 'correctAnswer' : null }">
                                     <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
                                 </div>
                             </div>
                             <div class="question-answer-text-wrapper">
-                                <div class="question-answer-text">
-                                    <p data-bind="text: text"></p>
+                                <div class="question-answer-text selectable">
+                                    <p class="selectable" data-bind="text: text"></p>
                                 </div>
                             </div>
                             <div class="question-answer-delete-wrapper">
@@ -87,7 +87,7 @@
         </div>
         <div>
             <div class="question-content-block question-explanations">
-                <div class="question-content-block-header-wrapper unselectable" data-bind="click: toggleExplanations">
+                <div class="question-content-block-header-wrapper" data-bind="click: toggleExplanations">
                     <div class="question-content-block-header" data-bind="css: { 'shadow-bottom-curve': isExplanationsBlockExpanded() }">
                         <div class="question-content-block-header-icon explanation-icon"></div>
                         <div class="question-content-block-header-title" data-bind="localize: { text: 'explanations' }">Explanations</div>
@@ -111,12 +111,12 @@
                             <div class="question-explanation-list-item">
                                 <div class="question-explanation-wrapper">
                                     <!-- ko if: isEditing() -->
-                                    <div class="question-explanation">
+                                    <div class="question-explanation selectable">
                                         <div contenteditable="true" data-bind="ckeditor: { data: text, eventTracker: $parent.eventTracker, onEndEditing: $parent.endEditExplanation.bind($parent), language: $parent.language }"></div>
                                     </div>
                                     <!-- /ko -->
                                     <!-- ko ifnot: isEditing() -->
-                                    <div class="question-explanation" data-bind="html: text, click: $parent.editExplanation"></div>
+                                    <div class="question-explanation selectable" data-bind="html: text, click: $parent.editExplanation"></div>
                                     <!-- /ko -->
                                 </div>
                                 <div class="question-explanation-delete-wrapper" data-bind="click: $parent.deleteExplanation.bind($parent), localize: { title: 'remove' }">

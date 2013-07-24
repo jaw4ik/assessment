@@ -172,12 +172,22 @@ COMMON CLASSES CSS-STYLES
     white-space: nowrap;
 }
 
-.unselectable {
-    -moz-user-select: -moz-none;
+.unselectable,
+.unselectable * {
+    -moz-user-select: none;
     -khtml-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+.selectable,
+.selectable * {
+    -moz-user-select: text;
+    -khtml-user-select: text;
+    -webkit-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 
 /**
