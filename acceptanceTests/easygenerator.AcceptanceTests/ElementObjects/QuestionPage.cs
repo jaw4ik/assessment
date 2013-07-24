@@ -55,6 +55,11 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
+        public ExplanationItem ExplanationItemByText(string text)
+        {
+            return ExplanationItems.First(it => it.Explanation == text);
+        }
+
         public bool AnswersBlockIsExpanded
         {
             get
@@ -166,6 +171,13 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             button.Click();
         }
 
+        internal void ExplanationDelete(string Text)
+        {
+            var explanationItem = ExplanationItemByText(Text);
+            var button = explanationItem.Container.FindElementByXPath(model.ExplanationDeleteButton);
+            button.Click();
+        }
+
 
         internal void AddNewExplanationText(string Text)
         {
@@ -173,6 +185,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             var button = GetByXPath(model.AddNewExplanationButton);
             button.Click();
             TestUtils.WaitForCondition((() => ExistsOnPage(model.Ckeditor)), 1000);
+            //System.Threading.Thread.Sleep(3000);
             DriverProvider.Current().Driver.FindElementByXPath(model.ExplanationActiveText).SendKeys(text);
         }
     }

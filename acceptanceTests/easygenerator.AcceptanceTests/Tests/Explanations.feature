@@ -26,3 +26,15 @@ Then explanations list contains only items with data
 | Explanation12 |
 | Explanation13 |
 | Explanation14 |
+
+Scenario: Explanation could be deleted
+When open page by url 'http://localhost:5656/#/objective/1/question/1'
+And mouse hover element of explanation with text 'Explanation12'
+And click on delete explanation 'Explanation12'
+And mouse hover element of explanation with text 'Explanation11'
+And click on delete explanation 'Explanation11'
+Then explanations list contains only items with data
+| Explanation    |
+| Explanation13  |
+
+

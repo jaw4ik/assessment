@@ -214,6 +214,20 @@ namespace easygenerator.AcceptanceTests.Steps
             Question.AddNewExplanationText(Text);
         }
 
+        [When(@"mouse hover element of explanation with text '(.*)'")]
+        public void WhenMouseHoverElementOfExplanationWithText(string Text)
+        {
+            var item = Question.ExplanationItemByText(Text);
+            item.Hover();
+        }
+
+        [When(@"click on delete explanation '(.*)'")]
+        public void WhenClickOnDeleteExplanation(string Text)
+        {
+            Question.ExplanationDelete(Text);
+        }
+
+
 
 
         private easygenerator.AcceptanceTests.Helpers.AnswerOption BuildAnswerOption(AnswerData data)

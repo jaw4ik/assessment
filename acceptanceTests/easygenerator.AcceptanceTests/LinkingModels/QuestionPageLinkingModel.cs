@@ -17,6 +17,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         //public string AnswerItemText = ".//div[@class='question-answer-text']//textarea";        
         public string AnswerItemValue = ".//div[contains(@class,'question-answer-value')]";
         public string AnswerItemDeleteButton = ".//div[@class='question-answer-delete-wrapper']";
+        public string ExplanationDeleteButton = ".//div[@class='question-explanation-delete-wrapper']";
 
         public string BackToObjectiveLink = ".//a[contains(@class,'inline nav-control')]";
         public string QuestionTitle = ".//div[@class='question-header-title']";
@@ -35,8 +36,8 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         //public string AnswerOptionActiveText = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[@class='question-answer-text']//textarea";        
         public string AnswerOptionActiveCorrectnessIndicator = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[@class='question-answer-value']";
 
-        public string AddNewExplanationButton = ".//div[contains(@class,'question-explanations')]//li[@class='add-button']//div[@class='question-explanation']";
-        public string ExplanationActiveText = ".//div[contains(@class,'question-explanations')]//li[contains(@class,'active')]//div[@class='question-explanation']//div";
+        public string AddNewExplanationButton = ".//div[contains(@class,'question-explanations')]//li[@class='add-button']//div[contains(@class,'question-explanation')]";
+        public string ExplanationActiveText = ".//div[contains(@class,'question-explanations')]//li[contains(@class,'active')]//div[contains(@class,'question-explanation')]//div[contains(@class,'cke_contents_ltr')]";
 
 
         //      <div class="cke_editable cke_editable_inline cke_contents_ltr"
