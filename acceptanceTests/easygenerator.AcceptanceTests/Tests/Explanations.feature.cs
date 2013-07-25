@@ -160,7 +160,7 @@ testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.
             table5.AddRow(new string[] {
                         "Explanation13"});
 #line 34
-testRunner.Then("answer options list contains only items with data", ((string)(null)), table5, "Then ");
+testRunner.Then("explanations list contains only items with data", ((string)(null)), table5, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

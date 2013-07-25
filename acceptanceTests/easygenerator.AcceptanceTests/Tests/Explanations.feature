@@ -31,7 +31,7 @@ Scenario: Explanation text could be edited
 When open page by url 'http://localhost:5656/#/objective/1/question/1'
 And input text 'Explanation14' into explanation text field 'Explanation12'
 And click on collapse answer options
-Then answer options list contains only items with data
+Then explanations list contains only items with data
 | Explanation   |
 | Explanation11 |
 | Explanation14 |
