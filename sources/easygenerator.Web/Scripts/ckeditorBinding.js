@@ -21,7 +21,6 @@
 
             editor.on('instanceReady', function () {
                 addContentFilter();
-                editor.focus();
 
                 editor.element.$.title = '';
                 addCommandsTracking(bindingArguments.eventTracker || null);
