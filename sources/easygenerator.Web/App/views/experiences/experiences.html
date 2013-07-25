@@ -50,7 +50,9 @@
                                     <!-- ko ifnot: isSelected -->
                                     <div data-bind="localize: { text: 'select' }">Select</div>
                                     <!-- /ko-->
-                                    <div class="experience-brief-options-select-image" data-bind="css: { selected: isSelected() }"></div>
+                                    <div class="experience-brief-options-select-image" data-bind="css: { selected: isSelected() }">
+                                        <input class="custom-checkbox" type="checkbox" />
+                                    </div>
                                 </div>
                                 <div class="experience-brief-options-separator"></div>
                                 <div class="experience-brief-options-open" data-bind="click: $parent.navigateToDetails">
