@@ -94,8 +94,8 @@ a.nav-control:hover {
 
 .questions-list-item {
     display: block;
-    height: 109px;
-    padding-top: 2px;
+    height: 119px;
+    padding-top: 7px;
     margin-top: -1px;
     border-top: 1px solid #e1e1e1;
     background-color: #ffffff;
@@ -116,10 +116,10 @@ a.nav-control:hover {
     }
 
 .hover-indicator {
-    height: 107px;
+    height: 117px;
     width: 10px;
     float: left;
-    margin-top: -2px;
+    margin-top: -7px;
     margin-right: 10px;
 }
 
@@ -215,15 +215,15 @@ a.nav-control:hover {
 
 .question-title-wrapper {
     display: block;
-    height: 100px;
-    margin-left: 222px;
+    height: 110px;
+    margin-left: 212px;
 }
 
 .question-title {
     height: 100px;
     line-height: 1.4;
     position: relative;
-    padding: 10px 15px;
+    padding: 10px;
     overflow: hidden;
     color: #333333;
     font-size: 13px;
