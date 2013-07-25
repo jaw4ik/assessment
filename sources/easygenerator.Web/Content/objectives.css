@@ -2,7 +2,7 @@
 .experiences {
     position: relative;
     margin: auto;
-    max-width: 1200px;
+    max-width: 1158px;
     height: 100%;
     color: #999999;
     font-size: 13px;
@@ -51,6 +51,7 @@
 
 .objectives-header,
 .experiences-header {
+    padding: 15px 20px 0;
     height: 100px;
 }
 
@@ -268,6 +269,7 @@
     height: 140px;
     position: absolute;
     left: 50%;
+    z-index: 1;
     margin: 20px 0;
     margin-left: -2px;
     width: 4px;
@@ -346,7 +348,7 @@
     display: block;
     float: left;
     padding: 5px 0;
-    width: 25px;
+    width: 29px;
     color: #484848;
     text-align: center;
     font-size: 12px;
@@ -382,12 +384,12 @@
 
     .objectives,
     .experiences {
-        max-width: 1220px;
+        max-width: 1202px;
     }
 
     .objectives-list-wrapper,
     .objectives-list-wrapper {
-        max-width: 1220px;
+        max-width: 1202px;
     }
 
     .objective-brief, .experience-brief {
@@ -396,15 +398,22 @@
 }
 
 
+@media (max-width: 960px) {
+    .logo {
+        width: 33px;
+    }
+}
+
 @media (min-width: 767px) and (max-width: 1166px) {
+
     .objectives,
     .experiences {
-        max-width: 780px;
+        max-width: 765px;
     }
 
     .objectives-list-wrapper,
     .objectives-list-wrapper {
-        max-width: 780px;
+        max-width: 765px;
     }
 
     .objective-brief, .experience-brief {
@@ -413,6 +422,7 @@
 }
 
 @media (max-width: 766px) {
+
     .objectives,
     .experiences {
         max-width: 420px;
