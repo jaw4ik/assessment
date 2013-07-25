@@ -5,6 +5,7 @@
     width: 90%;
     max-width: 1200px;
     min-width: 500px;
+    padding-bottom: 10px;
 }
 
 .navbar {
@@ -219,7 +220,7 @@ a.nav-control:hover {
 
 .question-title {
     height: 100px;
-    line-height: 1.5;
+    line-height: 1.4;
     position: relative;
     padding: 10px 15px;
     overflow: hidden;
