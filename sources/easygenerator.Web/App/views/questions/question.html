@@ -111,8 +111,7 @@
                             <div class="question-explanation-list-item">
                                 <div class="question-explanation-wrapper">
                                     <!-- ko if: isEditing() -->
-                                    <div class="question-explanation selectable">
-                                        <div data-bind="ckeditor: { data: text, eventTracker: $parent.eventTracker, onEndEditing: $parent.endEditExplanation.bind($parent), language: $parent.language }"></div>
+                                    <div class="question-explanation selectable" data-bind="ckeditor: { data: text, eventTracker: $parent.eventTracker, onEndEditing: $parent.endEditExplanation.bind($parent), language: $parent.language }">
                                     </div>
                                     <!-- /ko -->
                                     <!-- ko ifnot: isEditing() -->
