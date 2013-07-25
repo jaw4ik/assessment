@@ -165,6 +165,7 @@ a.nav-control:hover {
 .question-open {
     height: 100%;
     width: 49%;
+    position: relative;
     float: left;
     padding: 13px 0;
     cursor: pointer;

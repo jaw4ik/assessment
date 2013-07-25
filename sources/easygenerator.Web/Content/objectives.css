@@ -34,11 +34,13 @@
     .objectives-navigation > a,
     .experiences-navigation > a {
         opacity: 0.6;
+        filter: alpha(opacity=60);
     }
 
         .objectives-navigation > a:hover,
         .experiences-navigation > a:hover {
             opacity: 0.8;
+            filter: alpha(opacity=80);
         }
 
 .objectives-header,
@@ -241,6 +243,7 @@
     height: 182px;
     width: 50%;
     float: left;
+    position: relative;
     padding-top: 51px;
     color: #cecece;
     text-align: center;
