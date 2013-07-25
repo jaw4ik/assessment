@@ -89,15 +89,6 @@ body {
     position: relative;
 }
 
-.content-container {
-    position: absolute;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    top: 40px;
-}
-
-
 #applicationHost, #content, .durandal-wrapper {
     height: 100%;
 }

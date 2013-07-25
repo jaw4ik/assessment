@@ -16,8 +16,6 @@
 
 .objectives-navigation,
 .experiences-navigation {
-    position: absolute;
-    top: 0;
     width: 100%;
     height: 70px;
     font-size: 14px;
@@ -45,10 +43,6 @@
 
 .objectives-header,
 .experiences-header {
-    position: absolute;
-    top: 70px;
-    right: 40px;
-    left: 20px;
     height: 100px;
 }
 
@@ -162,9 +156,6 @@
 
 .objectives-content-wrapper,
 .experiences-content-wrapper {
-    position: absolute;
-    top: 170px;
-    bottom: 0;
     width: 100%;
 }
 
