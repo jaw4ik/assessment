@@ -17,31 +17,37 @@
 .objectives-navigation,
 .experiences-navigation {
     width: 100%;
-    height: 70px;
+    height: 37px;
+    position: absolute;
+    top: -40px;
     font-size: 14px;
     text-align: center;
+    letter-spacing: -4px;
 }
 
-    .objectives-navigation > a, .objectives-navigation > span,
-    .experiences-navigation > a, .experiences-navigation > span {
+    .objectives-navigation .learning-objectives-btn, .objectives-navigation a.experiences-btn,
+    .experiences-navigation a.learning-objectives-btn, .experiences-navigation .experiences-btn {
         display: inline-block;
-        margin: 20px;
-        padding-top: 5px;
-        border-top: 5px solid #999999;
-        vertical-align: middle;
+        height: 100%;
+        line-height: 37px;
+        width: 203px;
+        color: #fff;
+        letter-spacing: 1px;
     }
 
-    .objectives-navigation > a,
-    .experiences-navigation > a {
-        opacity: 0.6;
-        filter: alpha(opacity=60);
+    .objectives-navigation .current,
+    .experiences-navigation .current {
+        background-color: rgba(0, 0, 0, 0.4);
     }
 
-        .objectives-navigation > a:hover,
-        .experiences-navigation > a:hover {
-            opacity: 0.8;
-            filter: alpha(opacity=80);
-        }
+    .objectives-navigation .learning-objectives-btn:hover, .objectives-navigation a.experiences-btn:hover,
+    .experiences-navigation > a:hover, .experiences-navigation > span:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .objectives-navigation .experiences-btn,
+    .experiences-navigation > a:hover {
+    }
 
 .objectives-header,
 .experiences-header {
@@ -390,7 +396,7 @@
 }
 
 
-@media (min-width: 780px) and (max-width: 1179px) {
+@media (min-width: 767px) and (max-width: 1166px) {
     .objectives,
     .experiences {
         max-width: 780px;
@@ -406,7 +412,7 @@
     }
 }
 
-@media (max-width: 779px) {
+@media (max-width: 766px) {
     .objectives,
     .experiences {
         max-width: 420px;
