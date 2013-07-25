@@ -26,14 +26,14 @@
                 addCommandsTracking(bindingArguments.eventTracker || null);
 
                 saveIntervalId = setInterval(function () {
-                    if (editor.getData() != bindingArguments.data())
-                        bindingArguments.data(editor.getData());
+                    if (isDirty())
+                        updateData();
                 }, 60000);
             });
 
             editor.on('blur', function () {
-                bindingArguments.data(editor.getData());
-                bindingArguments.onEndEditing(bindingContext.$data);
+                updateData();
+                fireEndEditing();
             });
 
             editor.on('key', function (event) {
@@ -42,11 +42,28 @@
             });
 
             ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                if (isDirty()) {
+                    updateData();
+                    fireEndEditing();
+                }
+
                 if (!!CKEDITOR.dialog._.currentTop)
                     CKEDITOR.dialog._.currentTop.hide();
                 editor.destroy();
                 clearInterval(saveIntervalId);
             });
+            
+            function isDirty() {
+                return editor.getData() != bindingArguments.data();
+            }
+            
+            function updateData() {
+                bindingArguments.data(editor.getData());
+            }
+            
+            function fireEndEditing() {
+                bindingArguments.onEndEditing(bindingContext.$data);
+            }
 
             function addCommandsTracking(eventTracker) {
                 if (!editor || !eventTracker)
