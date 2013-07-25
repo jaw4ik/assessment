@@ -1,0 +1,24 @@
+﻿<div class="home">
+    <ul data-bind="foreach: objectives">
+        <li>
+            <span data-bind="text: title"></span>
+            <ul data-bind="foreach: questions">
+                <li>
+                    <a href="#" data-bind="text: title, attr: { href: '#/objective/' + $parent.id + '/question/' + id }"></a>
+                    <br/>                    
+                    <ul data-bind="foreach: answers">
+                        <li>
+                            <span data-bind="text: text"></span>
+                            <span data-bind="text: isCorrect"></span>
+                        </li>
+                    </ul>
+                    <ul data-bind="foreach: explanations">
+                        <li>
+                            <a href="#" data-bind="text: id, attr: { href: '#/objective/' + $parents[1].id + '/question/' + $parent.id + '/explanation/' + id }"></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

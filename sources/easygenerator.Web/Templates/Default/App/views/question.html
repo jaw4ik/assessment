@@ -1,0 +1,18 @@
+﻿<div class="question">
+    <h2 data-bind="text: title"></h2>
+    <h5>Answers:</h5>
+    <ul data-bind="foreach: answers">
+        <li>
+            <input type="checkbox" data-bind="checked: isCorrect" disabled="disabled" />
+            <span data-bind="text: text"></span>
+        </li>
+    </ul>
+    <h5>Explanations:</h5>
+
+    <ul data-bind="foreach: explanations">
+        <li>
+            <a href="#" data-bind="text: id, attr: { href: '#/objective/' + $parent.objectiveId + '/question/' + $parent.questionId + '/explanation/' + id }"></a>
+        </li>
+    </ul>
+    <a href="#/">Home</a>
+</div>

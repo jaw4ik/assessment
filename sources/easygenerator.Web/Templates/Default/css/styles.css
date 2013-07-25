@@ -1,0 +1,16 @@
+﻿body {
+    overflow-y: scroll;
+}
+
+.loader {
+    left: 50%;
+    margin-left: -16px;
+    margin-top: -16px;
+    position: absolute;
+    top: 50%;
+}
+
+
+.header ul, .header ul li {
+    display: inline-block;
+}
