@@ -172,8 +172,6 @@
 .experiences-content {
     height: 100%;
     padding-top: 8px;
-    overflow-x: hidden;
-    overflow-y: auto;
 }
 
 .objectives-list-wrapper,
@@ -216,12 +214,11 @@
 
 .objective-brief-image,
 .experience-brief-image {
-    width: 352px;
-    height: 182px;
+    width: 100%;
+    height: 100%;
     -webkit-background-size: 100%;
     -moz-background-size: 100%;
     background-size: 100%;
-    background-position: center center;
     background-repeat: no-repeat;
 }
 
@@ -324,6 +321,9 @@
 .objective-brief-toolbar,
 .experience-brief-toolbar {
     height: 40px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
     border: 1px solid #E3E3E3;
     background: #fff;
     vertical-align: top;
