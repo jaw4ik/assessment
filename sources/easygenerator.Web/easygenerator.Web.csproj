@@ -519,6 +519,8 @@
     <Content Include="Templates\Default\img\expand.png" />
     <Content Include="Templates\Default\img\loader.gif" />
     <Content Include="Templates\Default\img\logo.png" />
+    <Content Include="Templates\Default\img\progress_summary.png" />
+    <Content Include="Templates\Default\img\progress_summary_white.png" />
     <Content Include="Templates\Default\index.html" />
     <Content Include="Templates\Default\js\jquery-1.9.1.js" />
     <Content Include="Templates\Default\js\knockout-2.2.1.js" />

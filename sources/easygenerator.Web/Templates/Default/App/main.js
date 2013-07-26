@@ -12,7 +12,7 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system'],
         system.debug(true);
         //>>excludeEnd("build");
 
-        app.title = 'Durandal Starter Kit';
+        app.title = 'easygenerator';
         app.start().then(function () {
             //Replace 'viewmodels' in the moduleId with 'views' to locate the view.
             //Look for partial views in a 'views' folder in the root.

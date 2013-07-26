@@ -74,39 +74,43 @@ ol.unstyled  {
     padding: 0 20px;
     height: 40px;
     border-bottom: 3px solid #000000;
-    background-color: #353C3E;
+    background-color: #404A4C;
     color: #fff;
 }
 
-    .header ul, .header ul li {
-        display: inline-block;
-        margin: 0;
-        padding: 0;
-    }
+.navigation-menu, .navigation-menu-item {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
 
-    .header ul {
-        width: 100%;
-    }
+.navigation-menu {
+    width: 100%;
+}
 
-        .header ul li {
-            line-height: 40px;
-        }
+.navigation-menu-item {
+    line-height: 37px;
+}
 
-    .header a:visited, .header a:focus, .header a:active {
-        color: #fff;
-    }
+.navigation-menu-item-home {
+    line-height: 34px;
+}
 
-
+.navigation-menu a, .navigation-menu a:visited, .navigation-menu a:focus, .navigation-menu a:active {
+    font-size: 14px;
+    font-family: Tahoma, Arial, sans-serif;
+    color: #fff;
+}
 
 .content {
     margin: 10px auto 0;
     padding: 5px 15px;
-    -moz-min-width: 480px;
-    -ms-min-width: 480px;
-    -o-min-width: 480px;
-    -webkit-min-width: 480px;
-    min-width: 480px;
-    max-width: 1200px;
+    -moz-min-width: 640px;
+    -ms-min-width: 640px;
+    -o-min-width: 640px;
+    -webkit-min-width: 640px;
+    min-width: 640px;
+    
     border: 1px solid #E0E0E0;
     background-color: #FFFFFF;
 }
