@@ -21,21 +21,6 @@
         nl: 'Sorteren op',
         de: 'Sortieren nach'
     },
-    sortByTitle: {
-        en: 'Sort by title',
-        nl: 'Sorteren op titel',
-        de: 'Nach Titel sortieren'
-    },
-    ascending: {
-        en: 'Ascending',
-        nl: 'Oplopend',
-        de: 'Aufsteigend'
-    },
-    descending: {
-        en: 'Descending',
-        nl: 'Aflopend',
-        de: 'Absteigend'
-    },
     firstLetter: {
         en: 'A',
         nl: 'A',
@@ -86,6 +71,21 @@
         nl: 'Inklappen',
         de: 'Minimieren'
     },
+    sortByTitle: {
+        en: 'Sort by title',
+        nl: 'Sorteren op titel',
+        de: 'Nach Titel sortieren'
+    },
+    ascending: {
+        en: 'Ascending',
+        nl: 'Oplopend',
+        de: 'Aufsteigend'
+    },
+    descending: {
+        en: 'Descending',
+        nl: 'Aflopend',
+        de: 'Absteigend'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -99,15 +99,15 @@
         nl: 'Leerdoel',
         de: 'Lernziel'
     },
-    numberOfQuestions: {
+    numberOfRelatedQuestions: {
         en: 'Number of related questions',
         nl: 'Aantal gerelateerde vragen',
         de: 'Anzahl der zugehörigen Fragen'
     },
     addNewObjective: {
         en: 'Add new learning objective',
-        nl: 'Add new learning objective nl',
-        de: 'Add new learning objective de'
+        nl: 'Nieuw leerdoel toevoegen',
+        de: 'Neues Lernziel hinzufügen'
     },
     /* End resource section for model Objectives */
     
@@ -242,11 +242,16 @@
         nl: 'Juist antwoord',
         de: 'Korrekte Antwort'
     },
+    lastSaving: {
+        en: 'Last saving',
+        nl: 'Last saving[nl]',
+        de: 'Last saving[de]'
+    },
     addNewQuestion: {
         en: 'Add new question',
         nl: 'Nieuwe vraag toevoegen',
         de: 'Neue Fragen hinzufügen'
     }
     /* End resource section for model Questions */
-
+           
 });
