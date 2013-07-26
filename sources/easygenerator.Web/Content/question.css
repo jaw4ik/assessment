@@ -284,15 +284,20 @@
     text-align: center;
 }
 
-    .add-button .question-answer-text-wrapper:hover,
-    .add-button .question-explanation-wrapper.enabled:hover {
-        border-style: solid;
-        background-color: white;
-        -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-        -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-        cursor: text;
-    }
+.add-button .disabled {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+.add-button .question-answer-text-wrapper:hover,
+.add-button .question-explanation-wrapper.enabled:hover {
+    border-style: solid;
+    background-color: white;
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    cursor: text;
+}
 
 /**
   *    Navigation elements
