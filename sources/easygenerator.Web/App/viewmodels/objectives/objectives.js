@@ -49,22 +49,23 @@
             activate = function () {
                 return repository.getCollection().then(function (objectiveBriefCollection) {
                     currentSortingOption(constants.sortingOptions.byTitleAsc);
-                    objectives(_.chain(objectiveBriefCollection)
-                                .map(function (item) {
-                                    return {
-                                        id: item.id,
-                                        title: item.title,
-                                        image: item.image,
-                                        questionsCount: item.questionsCount,
-                                        isSelected: ko.observable(false),
-                                        toggleSelection: function () {
-                                            sendEvent(events.selectObjective);
-                                            this.isSelected(!this.isSelected());
-                                        }
-                                    };
-                                })
-                                .sortBy(function (objective) { return objective.title.toLowerCase(); })
-                                .value());
+                    var array = _.chain(objectiveBriefCollection)
+                        .map(function(item) {
+                            return {
+                                id: item.id,
+                                title: item.title,
+                                image: item.image,
+                                questionsCount: item.questionsCount,
+                                isSelected: ko.observable(false),
+                                toggleSelection: function() {
+                                    sendEvent(events.selectObjective);
+                                    this.isSelected(!this.isSelected());
+                                }
+                            };
+                        })
+                        .sortBy(function(objective) { return objective.title.toLowerCase(); })
+                        .value();
+                    objectives(array);
                 });
             };
 
