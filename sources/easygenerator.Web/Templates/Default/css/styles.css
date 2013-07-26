@@ -10,10 +10,6 @@ html, body, .application-wrapper {
     height: 100%;
 }
 
-html {
-    overflow-y: scroll;
-}
-
 body {
     -moz-backface-visibility: hidden;
     -ms-backface-visibility: hidden;
