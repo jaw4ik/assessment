@@ -33,17 +33,18 @@
             previousId = '',
             nextId = '',
             currentLanguage = ko.observable(''),
+            canAddExplanation = ko.observable(true),
             isAnswersBlockExpanded = ko.observable(true),
             isExplanationsBlockExpanded = ko.observable(true),
-            
+
             notification = {
                 text: ko.observable(''),
                 visibility: ko.observable(false),
-                close: function() { notification.visibility(false); },
+                close: function () { notification.visibility(false); },
                 update: function () {
                     var message = 'Last saving: ' + new Date().toLocaleTimeString();
                     notification.text(message);
-                
+
                     notification.visibility(true);
                 }
             },
@@ -183,6 +184,7 @@
                     text: ''
                 }));
 
+                canAddExplanation(false);
                 explanation.isEditing(true);
 
                 this.explanations.push(explanation);
@@ -194,6 +196,7 @@
             endEditExplanation = function (explanation) {
                 if (_.isEmptyOrWhitespace(explanation.text())) {
                     this.explanations.remove(explanation);
+                    canAddExplanation(true);
                     return;
                 }
 
@@ -207,6 +210,9 @@
                 this.question().explanations = _.reject(this.question().explanations, function (item) {
                     return item.id == explanation.id;
                 });
+
+                if (explanation.id == _.last(this.explanations()).id && !this.canAddExplanation())
+                    this.canAddExplanation(true);
 
                 this.explanations.remove(explanation);
             },
@@ -266,9 +272,24 @@
                     id: explanation.id
                 };
                 (function (item) {
-                    item.text.subscribe(function(changedText) {
-                        saveExplanation(item.id, changedText);
+                    var saveIntervalId = null;
+                    item.text.subscribe(function (changedText) {
+                        if (explanation.id != _.last(explanations()).id)
+                            return;
+
+                        canAddExplanation(changedText.length != 0);
                     });
+                    item.isEditing.subscribe(function (value) {
+                        if (value) {
+                            saveIntervalId = setInterval(function () {
+                                saveExplanation(item.id, item.text());
+                            }, 60000);
+                        } else {
+                            if (_.isObject(saveIntervalId))
+                                clearInterval(saveIntervalId);
+                        }
+                    });
+
                 })(mappedExplanation);
                 return mappedExplanation;
             },
@@ -302,7 +323,7 @@
                             text: text
                         });
                 }
-                
+
                 notification.update();
             };
 
@@ -322,12 +343,13 @@
             goToNextQuestion: goToNextQuestion,
             isAnswersBlockExpanded: isAnswersBlockExpanded,
             isExplanationsBlockExpanded: isExplanationsBlockExpanded,
-            
+
             notification: notification,
 
             toggleAnswers: toggleAnswers,
             toggleExplanations: toggleExplanations,
 
+            canAddExplanation: canAddExplanation,
             addExplanation: addExplanation,
             editExplanation: editExplanation,
             endEditExplanation: endEditExplanation,

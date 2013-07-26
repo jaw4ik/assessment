@@ -1,6 +1,5 @@
 ﻿ko.bindingHandlers.ckeditor = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-
         var bindingArguments = valueAccessor();
         var editor = null;
         var language = bindingArguments.language() || 'en';
@@ -15,7 +14,6 @@
 
         function initEditor() {
             $(element).attr({ 'contenteditable': true });
-
             editor = CKEDITOR.inline(element);
             editor.setData(bindingArguments.data());
 
@@ -24,15 +22,17 @@
 
                 editor.element.$.title = '';
                 addCommandsTracking(bindingArguments.eventTracker || null);
+            });
 
-                saveIntervalId = setInterval(function () {
-                    if (isDirty())
-                        updateData();
-                }, 60000);
+            editor.on('change', function () {
+                updateData();
+            });
+
+            editor.on('focus', function () {
+                fireStartEditing();
             });
 
             editor.on('blur', function () {
-                updateData();
                 fireEndEditing();
             });
 
@@ -42,27 +42,23 @@
             });
 
             ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                if (isDirty()) {
-                    updateData();
-                    fireEndEditing();
-                }
-
                 if (!!CKEDITOR.dialog._.currentTop)
                     CKEDITOR.dialog._.currentTop.hide();
                 editor.destroy();
-                clearInterval(saveIntervalId);
             });
-            
-            function isDirty() {
-                return editor.getData() != bindingArguments.data();
-            }
             
             function updateData() {
                 bindingArguments.data(editor.getData());
             }
-            
+
+            function fireStartEditing() {
+                if (_.isFunction(bindingArguments.onStartEditing))
+                    bindingArguments.onStartEditing(bindingContext.$data);
+            }
+
             function fireEndEditing() {
-                bindingArguments.onEndEditing(bindingContext.$data);
+                if (_.isFunction(bindingArguments.onEndEditing))
+                    bindingArguments.onEndEditing(bindingContext.$data);
             }
 
             function addCommandsTracking(eventTracker) {

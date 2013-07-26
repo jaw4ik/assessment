@@ -287,7 +287,7 @@
 }
 
     .add-button .question-answer-text-wrapper:hover,
-    .add-button .question-explanation-wrapper:hover {
+    .add-button .question-explanation-wrapper.enabled:hover {
         border-style: solid;
         background-color: white;
         -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
