@@ -3,7 +3,6 @@
         var bindingArguments = valueAccessor();
         var editor = null;
         var language = bindingArguments.language() || 'en';
-        var saveIntervalId = '';
 
         var commandsToTrack = ['cut', 'copy', 'paste', 'pastetext', 'undo', 'redo', 'bold', 'italic',
             'underline', 'removeformat', 'numberedlist', 'bulletedlist', 'link', 'unlink', 'table', 'image'];
