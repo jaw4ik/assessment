@@ -3,8 +3,9 @@
     var
         objectives = [],
         activate = function () {
-            console.log(context.objectives);
-            this.objectives = context.objectives;
+            this.objectives = _.map(context.objectives, function (item) {
+                return { id: item.id, title: item.title, questions: item.questions, isExpanded: ko.observable(true), toggleExpand: function () { this.isExpanded(!this.isExpanded()); } };
+            });
         };
 
     return {
