@@ -242,6 +242,9 @@ h2.page-header-title {
     user-select: none;
 }
 
+    .white-framing img {
+        border: 1px solid #f8f8f8;
+    }
 /**
  * curved shadow
  */

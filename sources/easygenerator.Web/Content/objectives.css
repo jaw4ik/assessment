@@ -51,8 +51,8 @@
 
 .objectives-header,
 .experiences-header {
-    padding: 15px 20px 0;
-    height: 100px;
+    padding: 6px 20px 0;
+    height: 80px;
 }
 
 .objectives-header-title, .objectives-header-sort-label,
@@ -207,9 +207,9 @@
 
 .objective-brief-selected,
 .experience-brief-selected {
-    -webkit-box-shadow: 0 0 7px 2px #6bb4d8;
-    -moz-box-shadow: 0 0 7px 2px #6bb4d8;
-    box-shadow: 0 0 7px 2px #6bb4d8;
+    -webkit-box-shadow: 0 0 9px 2px #6bb4d8;
+    -moz-box-shadow: 0 0 9px 2px #6bb4d8;
+    box-shadow: 0 0 9px 2px #6bb4d8;
 }
 
 .objective-brief-image,
@@ -251,7 +251,7 @@
     padding-top: 51px;
     color: #cecece;
     text-align: center;
-    font-size: 18px;
+    font-size: 22px;
 }
 
     .objective-brief-options-select:hover, .objective-brief-options-open:hover,
