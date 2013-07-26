@@ -40,27 +40,26 @@ namespace easygenerator.Web.Controllers
         {
             var questions = new List<object>();
 
+            var answerOptionsList = new[]
+                {
+                    new {id = 0, isCorrect = true, text = "lalala"},
+                    new {id = 1, isCorrect = false, text = "tololo"},
+                    new{id = 2,isCorrect = true,text ="One of the major benefits to using CSS for layout is that you can design your Web page and then put the HTML together so that the most important content comes first. This is important for SEO because most search engines weight the content towards the top of the page more than content towards the bottom. Search engines do this because they are not human. They cant just look at a Web page design and pick out the most important part. They are programmed to read HTML, while we look at the results of the HTML."}
+                };
+
+            var explanationsList = new[]
+                {
+                    new{id = 0,text ="<h1>Some h1 De ä ö ü ß Es Ñ ¿é ú? ó á ¡Hola! Fr Àà, Ââ, Ææ Çç Éé, Èè, Êê Ëë Îî, Ïï Ôô, Œœ Ùù, Ûû, Üü ŸÿЁ!\"№№;%:?*()_+Ъ,/~_+{}:\"|<>?|`-=[[]]\';/,. tag</h1>"},
+                    new{id = 1,text ="<iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/sI0osns8iUI?list=UUzLrv9dut1RjUk7eeSAfJrQ\" frameborder=\"0\" allowfullscreen></iframe>"},
+                    new{id = 2,text ="One of the major benefits to using CSS for layout is that you can design your Web page and then put the HTML together so that the most important content comes first. This is important for SEO because most search engines weight the content towards the top of the page more than content towards the bottom. Search engines do this because they are not human. They cant just look at a Web page design and pick out the most important part. They are programmed to read HTML, while we look at the results of the HTML."}
+                };
+
             for (int i = 0; i < 10; i++)
             {
-                questions.Add(
-                    new
-                    {
-                        id = i,
-                        title = "Question " + i,
-                        answerOptions = new[]
-                            {
-                                new { id = 0, isCorrect = true, text = "lalala" }, 
-                                new { id = 1, isCorrect = false, text = "tololo" }, 
-                                new { id = 2, isCorrect = true, text = "One of the major benefits to using CSS for layout is that you can design your Web page and then put the HTML together so that the most important content comes first. This is important for SEO because most search engines weight the content towards the top of the page more than content towards the bottom. Search engines do this because they are not human. They cant just look at a Web page design and pick out the most important part. They are programmed to read HTML, while we look at the results of the HTML." }
-                            },
-                        explanations = new[]
-                            {
-                                new {id=0, text="<h1>Some h1 De ä ö ü ß Es Ñ ¿é ú? ó á ¡Hola! Fr Àà, Ââ, Ææ Çç Éé, Èè, Êê Ëë Îî, Ïï Ôô, Œœ Ùù, Ûû, Üü ŸÿЁ!\"№№;%:?*()_+Ъ,/~_+{}:\"|<>?|`-=[[]]\';/,. tag</h1>"},
-                                new {id=1, text="<iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/sI0osns8iUI?list=UUzLrv9dut1RjUk7eeSAfJrQ\" frameborder=\"0\" allowfullscreen></iframe>"},
-                                new {id=2, text="One of the major benefits to using CSS for layout is that you can design your Web page and then put the HTML together so that the most important content comes first. This is important for SEO because most search engines weight the content towards the top of the page more than content towards the bottom. Search engines do this because they are not human. They cant just look at a Web page design and pick out the most important part. They are programmed to read HTML, while we look at the results of the HTML."}
-                            }
-                    });
+                questions.Add(new { id = i, title = "Question " + i, answerOptions = answerOptionsList, explanations = explanationsList });
             }
+
+            questions.Add(new { id = questions.Count(), title = new string('W', 255), answerOptions = answerOptionsList, explanations = explanationsList });
 
             var objectives = new List<object>();
             for (int i = 0; i < 10; i++)
