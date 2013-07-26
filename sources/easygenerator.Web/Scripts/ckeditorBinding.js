@@ -21,6 +21,10 @@
 
                 editor.element.$.title = '';
                 addCommandsTracking(bindingArguments.eventTracker || null);
+
+                if (editor.getData() == '') {
+                    editor.setData('<p></p>');
+                }
             });
 
             editor.on('change', function () {
