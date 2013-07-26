@@ -23,18 +23,18 @@
     },
     sortByTitle: {
         en: 'Sort by title',
-        nl: 'Sort by title nl',
-        de: 'Sort by title de'
+        nl: 'Sorteren op titel',
+        de: 'Nach Titel sortieren'
     },
     ascending: {
         en: 'Ascending',
-        nl: 'Ascending nl',
-        de: 'Ascending de'
+        nl: 'Oplopend',
+        de: 'Aufsteigend'
     },
     descending: {
         en: 'Descending',
-        nl: 'Descending nl',
-        de: 'Descending de'
+        nl: 'Aflopend',
+        de: 'Absteigend'
     },
     firstLetter: {
         en: 'A',
@@ -101,8 +101,8 @@
     },
     numberOfQuestions: {
         en: 'Number of related questions',
-        nl: 'Number of related questions nl',
-        de: 'Number of related questions de'
+        nl: 'Aantal gerelateerde vragen',
+        de: 'Anzahl der zugehörigen Fragen'
     },
     addNewObjective: {
         en: 'Add new learning objective',
@@ -239,13 +239,13 @@
     },
     correctAnswer: {
         en: 'Correct answer',
-        nl: 'Correct answer nl',
-        de: 'Correct answer de'
+        nl: 'Juist antwoord',
+        de: 'Korrekte Antwort'
     },
     addNewQuestion: {
         en: 'Add new question',
-        nl: 'Add new question nl',
-        de: 'Add new question de'
+        nl: 'Nieuwe vraag toevoegen',
+        de: 'Neue Fragen hinzufügen'
     }
     /* End resource section for model Questions */
 
