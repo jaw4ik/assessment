@@ -19,7 +19,7 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system'],
             viewLocator.useConvention();
 
 
-            app.adaptToDevice();
+            //app.adaptToDevice();
 
             //Show the app by setting the root view model for our application with a transition.
             app.setRoot('viewmodels/shell');
