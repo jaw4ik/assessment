@@ -4,7 +4,7 @@
         objectives = [],
         activate = function () {
             this.objectives = _.map(context.objectives, function (item) {
-                return { id: item.id, title: item.title, questions: item.questions, isExpanded: ko.observable(true), toggleExpand: function () { this.isExpanded(!this.isExpanded()); } };
+                return { id: item.id, title: item.title, questions: item.questions, isExpanded: ko.observable(false), toggleExpand: function () { this.isExpanded(!this.isExpanded()); } };
             });
         };
 

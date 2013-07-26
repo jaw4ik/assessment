@@ -136,7 +136,7 @@ ol.unstyled  {
 }
 
     .objective-brief:hover {
-        background-color: #e3e3e3;
+        /*background-color: #e3e3e3;*/
     }
 
 
@@ -242,6 +242,6 @@ ol.unstyled  {
 }
 
     .question-brief-title:hover {
-        background-color: #F4F4F4;
-        text-decoration: underline;
+        /*background-color: #F4F4F4;
+        text-decoration: underline;*/
     }
