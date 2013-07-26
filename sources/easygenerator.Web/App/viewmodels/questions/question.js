@@ -285,8 +285,10 @@
                                 saveExplanation(item.id, item.text());
                             }, 60000);
                         } else {
-                            if (_.isObject(saveIntervalId))
+                            if (!_.isNull(saveIntervalId)) {
                                 clearInterval(saveIntervalId);
+                                saveIntervalId = null;
+                            }
                         }
                     });
 
