@@ -81,7 +81,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
                     children[0].Displayed;
             }
         }
-
+                
         internal void NavigateBackToObjective()
         {
             var link = GetByXPath(model.BackToObjectiveLink);
@@ -198,6 +198,14 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             activeItemTextField.Clear();
             activeItemTextField.SendKeys(newText);
         }
+
+        internal void ExplanationTextClick(string existingText)
+        {
+            var explanationItem = ExplanationItemByText(existingText);
+            var itemTextField = explanationItem.Container.FindElementByXPath(model.ExplanationItemText);
+            itemTextField.Click();
+        }
+
     }
 
 
@@ -242,6 +250,8 @@ namespace easygenerator.AcceptanceTests.ElementObjects
 
             }
         }
+
+        public bool ExplanationDeleteButtonIsEnabled { get { return GetByXPathInside(model.ExplanationDeleteButton).Displayed; } }
 
     }
 

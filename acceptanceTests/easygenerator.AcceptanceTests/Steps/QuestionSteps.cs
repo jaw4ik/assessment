@@ -233,6 +233,21 @@ namespace easygenerator.AcceptanceTests.Steps
             Question.AddExplanationTextIntoExisting(newText, oldText);
         }
 
+        [Then(@"explanation delete button is enabled '(.*)' for explanation with text '(.*)'")]
+        public void ThenExplanationDeleteButtonIsEnabledForExplanationWithText(string isEnabled, string text)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                Question.ExplanationItems.First(it => it.Explanation == text).ExplanationDeleteButtonIsEnabled,
+                "Action add should be enabled");
+        }
+
+        [When(@"click explanation text field '(.*)'")]
+        public void WhenClickExplanationTextField(string text)
+        {
+            Question.ExplanationTextClick(text);
+        }
+
+      
 
 
         private easygenerator.AcceptanceTests.Helpers.AnswerOption BuildAnswerOption(AnswerData data)

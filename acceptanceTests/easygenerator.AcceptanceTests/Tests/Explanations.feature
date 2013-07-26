@@ -37,6 +37,11 @@ Then explanations list contains only items with data
 | Explanation14 |
 | Explanation13 |
 
+Scenario: Delete button should be enabled if hover explanation element
+When open page by url 'http://localhost:5656/#/objective/1/question/1'
+And mouse hover element of explanation with text 'Explanation12'
+Then explanation delete button is enabled '<true>' for explanation with text 'Explanation12'
+
 Scenario: Explanation could be deleted
 When open page by url 'http://localhost:5656/#/objective/1/question/1'
 And mouse hover element of explanation with text 'Explanation12'
@@ -68,5 +73,27 @@ Then explanations list contains only items with data
 | Explanation11 |
 | Explanation14 |
 | Explanation13 |
+
+Scenario: Explanation could contain special symbols
+Given explanations related to 'Question11' of 'Objective1' are present in database
+| Explanation                          |
+| ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
+When open page by url 'http://localhost:5656/#/objective/1/question/1'
+Then explanations list contains only items with data
+| Explanation                          |
+| ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
+
+Scenario: New explanation with special symbols could be added by entering new explanation text
+When open page by url 'http://localhost:5656/#/objective/1/question/1'
+And input text '~`!@#$%^&*()_+-={[]}:;"'|\<,.>/?№ё' into new explanation text field
+And click on back to objective
+And mouse hover element of questions list with title 'Question11'
+And click on open question with title 'Question11'
+Then explanations list contains only items with data
+| Explanation                          |
+| Explanation11                        |
+| Explanation12                        |
+| Explanation13                        |
+| ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
 
 
