@@ -27,8 +27,6 @@
 .question-content {
     border: 1px solid #E1E1E1;
     background-color: #ffffff;
-    overflow-y: auto;
-    overflow-x: hidden;
     width: 100%;
 }
 
