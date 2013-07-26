@@ -445,6 +445,37 @@ define(function (require) {
 
             describe('isEditing', function () {
 
+                beforeEach(function () {
+                    dataContext.objectives = [
+                                new objectiveModel(
+                                    {
+                                        id: 'obj3',
+                                        title: 'Test Objective',
+                                        image: images[0],
+                                        questions:
+                                            [
+                                                new questionModel({
+                                                    id: '0',
+                                                    title: 'Question 1',
+                                                    answerOptions: [],
+                                                    explanations: [
+                                                   new explanationModel({
+                                                       id: '0',
+                                                       text: 'Default text1'
+                                                   }),
+                                                    new explanationModel({
+                                                        id: '1',
+                                                        text: 'Default text2'
+                                                    })
+                                                    ]
+                                                })
+                                            ]
+                                    })];
+                    viewModel.activate({ id: '0', objectiveId: 'obj3' });
+
+                    spyOn(eventTracker, 'publish');
+                });
+
                 it('should have isEdititng observable', function () {
                     expect(ko.isObservable(viewModel.explanations()[0].isEditing)).toBeTruthy();
                 });
@@ -463,110 +494,61 @@ define(function (require) {
                     //assert
                     expect(dataContext.objectives[0].questions[0].explanations[0].text).toBe(newText);
                 });
-            });
-        });
 
-        describe('editExplanation', function () {
+                it('should send event \"Start editing explanation\" if true', function () {
+                    //act
+                    viewModel.explanations()[0].isEditing(true);
 
-            beforeEach(function () {
-                dataContext.objectives = [
-                            new objectiveModel(
-                                {
-                                    id: 'obj3',
-                                    title: 'Test Objective',
-                                    image: images[0],
-                                    questions:
-                                        [
-                                            new questionModel({
-                                                id: '0',
-                                                title: 'Question 1',
-                                                answerOptions: [],
-                                                explanations: ['explanation 1', 'explanation 2', 'explanation 3']
-                                            })
-                                        ]
-                                })];
-                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+                    //assert
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Start editing explanation', eventsCategory);
+                });
 
-                spyOn(eventTracker, 'publish');
-            });
+                it('should send event \"End editing explanation\" if false', function () {
+                    //arrange
+                    viewModel.explanations()[0].isEditing(true);
+                    eventTracker.publish.reset();
 
-            it('should be a function', function () {
-                expect(viewModel.editExplanation).toEqual(jasmine.any(Function));
-            });
+                    //act
+                    viewModel.explanations()[0].isEditing(false);
 
-            it('should change isEditing flag to true', function () {
-                viewModel.explanations()[0].isEditing(false);
-                viewModel.editExplanation(viewModel.explanations()[0]);
-                expect(viewModel.explanations()[0].isEditing()).toBe(true);
-            });
+                    //assert
+                    expect(eventTracker.publish).toHaveBeenCalledWith('End editing explanation', eventsCategory);
+                });
 
-            it('should send event \"Start editing explanation\"', function () {
-                viewModel.explanations()[0].isEditing(false);
-                viewModel.editExplanation(viewModel.explanations()[0]);
-                expect(eventTracker.publish).toHaveBeenCalledWith('Start editing explanation', eventsCategory);
-            });
-        });
+                it('should remove entry whith empty text on false', function () {
+                    //arrange
+                    var explanation = viewModel.explanations()[0];
+                    explanation.isEditing(true);
+                    explanation.text('');
 
-        describe('endEditExplanation', function () {
+                    //act
+                    explanation.isEditing(false);
+                    
+                    //aasert
+                    expect(_.find(viewModel.explanations(), function (item) {
+                        return item.id == explanation.id;
+                    })).toBeUndefined();
 
-            var explanation = {
-                text: ko.observable('Some text'),
-                isEditing: ko.observable(false),
-                id: '0'
-            };
+                    //rollback
+                    explanation.text('lalala');
+                });
 
-            beforeEach(function () {
-                viewModel.explanations = ko.observableArray([explanation]);
+                it('should set canAddExplanation to true if entry text is empty on false', function () {
+                    //assert
+                    viewModel.canAddExplanation(false);
+                    var explanation = viewModel.explanations()[0];
+                    explanation.isEditing(true);
+                    explanation.text('');
 
-                spyOn(eventTracker, 'publish');
-            });
+                    //act
+                    explanation.isEditing(false);
 
-            it('should be a function', function () {
-                expect(viewModel.endEditExplanation).toEqual(jasmine.any(Function));
-            });
-
-            it('should set isEditing to false', function () {
-                viewModel.explanations()[0].isEditing(true);
-                viewModel.endEditExplanation(viewModel.explanations()[0]);
-                expect(viewModel.explanations()[0].isEditing()).toBe(false);
-            });
-
-            it('shuld remove entry whith empty text', function () {
-                //arrange
-                viewModel.explanations()[0].isEditing(true);
-                viewModel.explanations()[0].text('');
-
-                //act
-                viewModel.endEditExplanation(viewModel.explanations()[0]);
-
-                //aasert
-                expect(_.find(viewModel.explanations(), function (item) {
-                    return item.id == explanation.id;
-                })).toBeUndefined();
-            });
-
-            it('should send event \"End editing explanation\"', function () {
-                viewModel.explanations()[0].isEditing(false);
-                viewModel.explanations()[0].text('Some text');
-                viewModel.endEditExplanation(viewModel.explanations()[0]);
-                expect(eventTracker.publish).toHaveBeenCalledWith('End editing explanation', eventsCategory);
-            });
-
-            it('should set canAddExplanation to true if entry text is empty', function () {
-                //assert
-                viewModel.canAddExplanation(false);
-
-                //act
-                var expl = {
-                    text: ko.observable(''),
-                    isEditing: ko.observable(false),
-                    id: '0'
-                };
-
-                viewModel.endEditExplanation(expl);
-
-                //assert
-                expect(viewModel.canAddExplanation()).toBe(true);
+                    //assert
+                    expect(viewModel.canAddExplanation()).toBe(true);
+                    
+                    //rollback
+                    explanation.text('lalala');
+                });
             });
         });
 
@@ -674,7 +656,7 @@ define(function (require) {
 
                 //act
                 viewModel.deleteExplanation(explanation);
-                
+
                 //assert
                 expect(viewModel.canAddExplanation()).toBe(true);
             });

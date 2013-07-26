@@ -3,18 +3,39 @@
         var bindingArguments = valueAccessor();
         var editor = null;
         var language = bindingArguments.language() || 'en';
-
+        var $el = $(element);
         var commandsToTrack = ['cut', 'copy', 'paste', 'pastetext', 'undo', 'redo', 'bold', 'italic',
             'underline', 'removeformat', 'numberedlist', 'bulletedlist', 'link', 'unlink', 'table', 'image'];
 
         CKEDITOR.disableAutoInline = true;
-        CKEDITOR.domReady(initEditor);
         CKEDITOR.config.language = language;
 
-        function initEditor() {
-            $(element).attr({ 'contenteditable': true });
+        $el.html(bindingArguments.data());
+
+        $el.on('click', function () {
+            if (!bindingArguments.isEditing())
+                startEdit();
+        });
+
+        if (bindingArguments.isEditing()) {
+            startEdit();
+        }
+
+        function endEdit() {
+            bindingArguments.isEditing(false);
+            
+            if (!!CKEDITOR.dialog._.currentTop)
+                CKEDITOR.dialog._.currentTop.hide();
+
+            editor.destroy();
+            $el.attr({ 'contenteditable': false });
+        }
+
+        function startEdit() {
+            bindingArguments.isEditing(true);
+            
+            $el.attr({ 'contenteditable': true });
             editor = CKEDITOR.inline(element);
-            editor.setData(bindingArguments.data());
 
             editor.on('instanceReady', function () {
                 addContentFilter();
@@ -30,79 +51,65 @@
             editor.on('change', function () {
                 updateData();
             });
-
-            editor.on('focus', function () {
-                fireStartEditing();
-            });
-
+          
             editor.on('blur', function () {
-                fireEndEditing();
+                endEdit();
             });
 
             editor.on('key', function (event) {
                 if (event.data.keyCode == 27)
                     editor.focusManager.blur();
             });
-
-            ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                if (!!CKEDITOR.dialog._.currentTop)
-                    CKEDITOR.dialog._.currentTop.hide();
-                editor.destroy();
-            });
             
-            function updateData() {
-                bindingArguments.data(editor.getData());
-            }
+            ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                if (bindingArguments.isEditing()) {
+                    endEdit();
+                }
+            });
+        }
 
-            function fireStartEditing() {
-                if (_.isFunction(bindingArguments.onStartEditing))
-                    bindingArguments.onStartEditing(bindingContext.$data);
-            }
+        function updateData() {
+            bindingArguments.data(editor.getData());
+        }
 
-            function fireEndEditing() {
-                if (_.isFunction(bindingArguments.onEndEditing))
-                    bindingArguments.onEndEditing(bindingContext.$data);
-            }
+        function addCommandsTracking(eventTracker) {
+            if (!editor || !eventTracker)
+                return;
 
-            function addCommandsTracking(eventTracker) {
-                if (!editor || !eventTracker)
-                    return;
+            _.each(editor.commands, function (command) {
+                if (commandsToTrack.indexOf(command.name) != -1) {
+                    (function (cmd) {
+                        var baseExec = cmd.exec;
+                        cmd.exec = function (data) {
+                            eventTracker.publish(cmd.name, 'CKEditor');
+                            baseExec.call(cmd, data);
+                        };
+                    })(command);
+                }
+            });
+        }
 
-                _.each(editor.commands, function (command) {
-                    if (commandsToTrack.indexOf(command.name) != -1) {
-                        (function (cmd) {
-                            var baseExec = cmd.exec;
-                            cmd.exec = function (data) {
-                                eventTracker.publish(cmd.name, 'CKEditor');
-                                baseExec.call(cmd, data);
-                            };
-                        })(command);
-                    }
-                });
-            }
+        function addContentFilter() {
+            var rules = {
+                elements: {
+                    $: function (e) {
+                        if (e.attributes.style) {
+                            delete e.attributes.style;
+                        }
 
-            function addContentFilter() {
-                var rules = {
-                    elements: {
-                        $: function (e) {
-                            if (e.attributes.style) {
-                                delete e.attributes.style;
-                            }
+                        if (e.attributes.class) {
+                            delete e.attributes.class;
+                        }
 
-                            if (e.attributes.class) {
-                                delete e.attributes.class;
-                            }
-
-                            if (e.name == 'style') {
-                                delete e;
-                            }
+                        if (e.name == 'style') {
+                            delete e;
                         }
                     }
-                };
+                }
+            };
 
-                editor.dataProcessor.htmlFilter.addRules(rules);
-                editor.dataProcessor.dataFilter.addRules(rules);
-            }
+            editor.dataProcessor.htmlFilter.addRules(rules);
+            editor.dataProcessor.dataFilter.addRules(rules);
         }
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {

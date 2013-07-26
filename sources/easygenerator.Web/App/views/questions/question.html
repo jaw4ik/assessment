@@ -110,13 +110,8 @@
                         <li class="question-explanation-item" data-bind="css: { active: isEditing }">
                             <div class="question-explanation-list-item">
                                 <div class="question-explanation-wrapper">
-                                    <!-- ko if: isEditing() -->
-                                    <div class="question-explanation selectable" data-bind="ckeditor: { data: text, eventTracker: $parent.eventTracker, onStartEditing: $parent.editExplanation.bind($parent), onEndEditing: $parent.endEditExplanation.bind($parent), language: $parent.language}">
+                                    <div class="question-explanation selectable" data-bind="ckeditor: { data: text, isEditing: isEditing, eventTracker: $parent.eventTracker, language: $parent.language}">
                                     </div>
-                                    <!-- /ko -->
-                                    <!-- ko ifnot: isEditing() -->
-                                    <div class="question-explanation selectable" data-bind="html: text, click: $parent.editExplanation"></div>
-                                    <!-- /ko -->
                                 </div>
                                 <div class="question-explanation-delete-wrapper" data-bind="click: $parent.deleteExplanation.bind($parent), localize: { title: 'remove' }">
                                     <span class="question-explanation-delete-icon"></span>

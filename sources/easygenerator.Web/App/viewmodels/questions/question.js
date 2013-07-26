@@ -189,22 +189,6 @@
 
                 this.explanations.push(explanation);
             },
-            editExplanation = function (explanation) {
-                explanation.isEditing(true);
-                sendEvent(events.startEditingExplanation);
-            },
-            endEditExplanation = function (explanation) {
-                if (_.isEmptyOrWhitespace(explanation.text())) {
-                    this.explanations.remove(explanation);
-                    canAddExplanation(true);
-                    return;
-                }
-
-                saveExplanation(explanation.id, explanation.text());
-
-                explanation.isEditing(false);
-                sendEvent(events.endEditingExplanation);
-            },
             deleteExplanation = function (explanation) {
                 sendEvent(events.deleteExplanation);
                 this.question().explanations = _.reject(this.question().explanations, function (item) {
@@ -281,14 +265,26 @@
                     });
                     item.isEditing.subscribe(function (value) {
                         if (value) {
+                            sendEvent(events.startEditingExplanation);
+
                             saveIntervalId = setInterval(function () {
                                 saveExplanation(item.id, item.text());
                             }, 60000);
                         } else {
+                            
                             if (!_.isNull(saveIntervalId)) {
                                 clearInterval(saveIntervalId);
                                 saveIntervalId = null;
                             }
+                            
+                            if (_.isEmptyOrWhitespace(item.text())) {
+                                explanations.remove(item);
+                                canAddExplanation(true);
+                                return;
+                            }
+
+                            saveExplanation(item.id, item.text());
+                            sendEvent(events.endEditingExplanation);
                         }
                     });
 
@@ -353,8 +349,6 @@
 
             canAddExplanation: canAddExplanation,
             addExplanation: addExplanation,
-            editExplanation: editExplanation,
-            endEditExplanation: endEditExplanation,
             deleteExplanation: deleteExplanation,
 
             addAnswerOption: addAnswerOption,
