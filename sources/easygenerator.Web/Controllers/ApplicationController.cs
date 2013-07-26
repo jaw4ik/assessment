@@ -27,6 +27,7 @@ namespace easygenerator.Web.Controllers
                                     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-gf6PUwgC4qmwYSIY0kNlBZkrc8az5ADXrVRiw2v04rWXgJew1Q"
                                 };
 
+        private const string symbols = "De ä ö ü ß Es Ñ ¿é ú? ó á ¡Hola! Fr Àà, Ââ, Ææ Çç Éé, Èè, Êê Ëë Îî, Ïï Ôô, Œœ Ùù, Ûû, Üü ŸÿЁ!\"№№;%:?*()_+Ъ,/~_+{}:\"|<>?|`-=[[]]\';/,.";
 
         public ActionResult Index()
         {
@@ -39,7 +40,7 @@ namespace easygenerator.Web.Controllers
         {
             var questions = new List<object>();
 
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 10; i++)
             {
                 questions.Add(
                     new
@@ -54,7 +55,7 @@ namespace easygenerator.Web.Controllers
                             },
                         explanations = new[]
                             {
-                                new {id=0, text="<h1>Some h1 tag</h1>"},
+                                new {id=0, text="<h1>Some h1 De ä ö ü ß Es Ñ ¿é ú? ó á ¡Hola! Fr Àà, Ââ, Ææ Çç Éé, Èè, Êê Ëë Îî, Ïï Ôô, Œœ Ùù, Ûû, Üü ŸÿЁ!\"№№;%:?*()_+Ъ,/~_+{}:\"|<>?|`-=[[]]\';/,. tag</h1>"},
                                 new {id=1, text="<iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/sI0osns8iUI?list=UUzLrv9dut1RjUk7eeSAfJrQ\" frameborder=\"0\" allowfullscreen></iframe>"},
                                 new {id=2, text="One of the major benefits to using CSS for layout is that you can design your Web page and then put the HTML together so that the most important content comes first. This is important for SEO because most search engines weight the content towards the top of the page more than content towards the bottom. Search engines do this because they are not human. They cant just look at a Web page design and pick out the most important part. They are programmed to read HTML, while we look at the results of the HTML."}
                             }
@@ -62,17 +63,20 @@ namespace easygenerator.Web.Controllers
             }
 
             var objectives = new List<object>();
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 10; i++)
             {
                 objectives.Add(new { id = i, title = "Objective " + i, image = images[i], questions = questions });
             }
+            objectives.Add(new { id = objectives.Count(), title = "Objective with symbols: " + symbols, image = images[0], questions = questions });
+            objectives.Add(new { id = objectives.Count(), title = new string('*', 255), image = images[0], questions = questions });
 
             var experiences = new List<object>();
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < 10; i++)
             {
                 experiences.Add(new { id = i, title = "Experience " + i });
             }
-
+            experiences.Add(new { id = experiences.Count(), title = "Experience with symbols: " + symbols });
+            experiences.Add(new { id = experiences.Count(), title = new string('*', 255) });
 
             return Json(new
             {
