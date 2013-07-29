@@ -31,9 +31,9 @@
 
             $el.attr({ 'contenteditable': true });
             editor = CKEDITOR.inline(element);
+            editor.focusManager.lock();
 
-            editor.on('instanceReady', function (e) {
-               // console.log('editor.instanceReady');
+            editor.on('instanceReady', function () {
                 addContentFilter();
                 editor.element.$.title = '';
                 addCommandsTracking(bindingArguments.eventTracker || null);
@@ -42,6 +42,8 @@
                     editor.setData('<p></p>');
                 }
 
+                editor.focusManager.unlock();
+                setCaretToStartPosition();
                 editor.focus();
             });
 
@@ -49,12 +51,7 @@
                 updateData();
             });
 
-            editor.on('focus', function () {
-                //console.log('editor.focus');
-            });
-
             editor.on('blur', function () {
-                //console.log('editor.blur');
                 endEdit();
             });
 
@@ -67,7 +64,17 @@
                 destroyEditor();
             });
         }
-        
+
+        function setCaretToStartPosition() {
+            var elem = editor.document.getBody();
+
+            var range = editor.createRange();
+            if (range) {
+                range.moveToElementEditablePosition(elem, false);
+                range.select();
+            }
+        }
+
         function destroyEditor() {
             if (!!CKEDITOR.dialog._.currentTop)
                 CKEDITOR.dialog._.currentTop.hide();

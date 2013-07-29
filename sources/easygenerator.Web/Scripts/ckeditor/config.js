@@ -14,8 +14,6 @@ CKEDITOR.editorConfig = function (config) {
         ['semanticTags']
     ];
 
-    config.startupFocus = true;
-
     CKEDITOR.plugins.addExternal('semanticTagsPlugin', CKEDITOR.basePath + 'customPlugins/semanticTagsPlugin/', 'plugin.js');
 
     config.extraPlugins = 'semanticTagsPlugin';
