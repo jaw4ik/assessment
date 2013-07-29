@@ -1,32 +1,38 @@
-﻿<div class="navigation-link-container">
-    <div class="pull-left">
-        <a class="navigation-link navigation-link-objectives" href="/#" data-bind="click: backToObjectives">
-            <img src="../Default/img/back-btn.png" alt="" />Back to objectives</a>
-    </div>
-    <div class="pull-right">
-        <a class="navigation-link navigation-link-explanations" href="/#" data-bind="click: showExplanations ">Show me explanations<img src="../Default/img/explanations-btn.png" alt="" />
-        </a>
-    </div>
-    <div class="clearfix"></div>
-</div>
-<div class="question content">
+﻿<section class="question">
 
-    <div class="caption">
-        <div class="caption-stripe"></div>
-        <div class="caption-icon">
-            <div class="caption-icon-image"></div>
+    <div class="navigation-link-container">
+        <div class="pull-left">
+            <a class="navigation-link navigation-link-left" href="/#" data-bind="click: backToObjectives">
+                <div class="navigation-link-left-image"></div>
+                Back to objectives</a>
         </div>
-        <div class="caption-text" data-bind="text: title"></div>
+        <div class="pull-right">
+            <a class="navigation-link navigation-link-right" href="/#" data-bind="click: showExplanations ">Show me explanations
+                <div class="navigation-link-right-image"></div>
+            </a>
+        </div>
+        <div class="clearfix"></div>
     </div>
-    <ul class="question-answers unstyled" data-bind="foreach: answers">
-        <li class="question-answer">
-            <div>
-                <a class="question-answer-checkbox" data-bind="click: toggleCheck, css: { checked: isChecked() }"></a>
+
+    <div class="content">
+        <div class="caption">
+            <div class="caption-stripe"></div>
+            <div class="caption-icon">
+                <div class="caption-icon-image"></div>
             </div>
-            <div class="question-answer-text" data-bind="text: text"></div>
-        </li>
-    </ul>
-    <div class="btn-submit-wrapper">
-        <button class="btn-submit" data-bind="click: submit">Submit</button>
+            <div class="caption-text" data-bind="text: title"></div>
+        </div>
+        <ul class="question-answers unstyled" data-bind="foreach: answers">
+            <li class="question-answer">
+                <div>
+                    <a class="question-answer-checkbox" data-bind="click: toggleCheck, css: { checked: isChecked() }"></a>
+                </div>
+                <div class="question-answer-text" data-bind="text: text"></div>
+            </li>
+        </ul>
+        <div class="btn-submit-wrapper">
+            <button class="btn-submit" data-bind="click: submit">Submit</button>
+        </div>
     </div>
-</div>
+
+</section>

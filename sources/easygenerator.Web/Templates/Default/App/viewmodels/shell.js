@@ -34,7 +34,7 @@
                 }
             ]);
 
-            return context.initialize().then(function () {
+            return context.initialize().then(function () {                
                 return router.activate('#/');
             });
         }

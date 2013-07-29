@@ -349,12 +349,19 @@ ol.unstyled  {
         filter: alpha(opacity=75);
     }
 
-.navigation-link-objectives img {
-    padding-right: 15px;
+.navigation-link-left-image, .navigation-link-right-image {
+    width: 58px;
+    height: 58px;
+    display: inline-block;
+    vertical-align: top;
 }
 
-.navigation-link-explanations img {
-    padding-left: 15px;
+.navigation-link-left-image {
+    margin-right: 10px;
+}
+
+.navigation-link-right-image {
+    margin-left: 10px;
 }
 
 
@@ -370,15 +377,23 @@ ol.unstyled  {
 
 /* -------------- question view ------------- */
 
-.question {
+.question .content {
     padding: 10px;
 }
 
-    .question .caption-icon-image {
-        width: 26px;
-        height: 26px;
-        background: url("../img/question.png") no-repeat scroll center center transparent;
-    }
+.question .navigation-link-left-image {
+    background: url("../img/back-btn.png") no-repeat scroll center center transparent;
+}
+
+.question .navigation-link-right-image {
+    background: url("../img/explanations-btn.png") no-repeat scroll center center transparent;
+}
+
+.question .caption-icon-image {
+    width: 26px;
+    height: 26px;
+    background: url("../img/question.png") no-repeat scroll center center transparent;
+}
 
 .question-answers {
     padding: 20px;
@@ -439,6 +454,10 @@ ol.unstyled  {
 
 .feedback .content {
     padding: 10px;
+}
+
+.feedback .navigation-link-left-image {
+    background: url("../img/back-btn.png") no-repeat scroll center center transparent;
 }
 
 .feedback .caption-icon-image {
