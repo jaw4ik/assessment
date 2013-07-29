@@ -520,6 +520,7 @@
     <Content Include="Templates\Default\img\collapse.png" />
     <Content Include="Templates\Default\img\explanations-btn.png" />
     <Content Include="Templates\Default\img\expand.png" />
+    <Content Include="Templates\Default\img\feedback.png" />
     <Content Include="Templates\Default\img\loader.gif" />
     <Content Include="Templates\Default\img\logo.png" />
     <Content Include="Templates\Default\img\progress_summary.png" />
