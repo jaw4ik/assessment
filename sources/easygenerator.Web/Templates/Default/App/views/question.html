@@ -1,18 +1,145 @@
-﻿<div class="question">
-    <h2 data-bind="text: title"></h2>
-    <h5>Answers:</h5>
-    <ul data-bind="foreach: answers">
-        <li>
-            <input type="checkbox" data-bind="checked: isCorrect" disabled="disabled" />
-            <span data-bind="text: text"></span>
-        </li>
-    </ul>
-    <h5>Explanations:</h5>
-
-    <ul data-bind="foreach: explanations">
-        <li>
-            <a href="#" data-bind="text: id, attr: { href: '#/objective/' + $parent.objectiveId + '/question/' + $parent.questionId + '/explanation/' + id }"></a>
-        </li>
-    </ul>
-    <a href="#/">Home</a>
+﻿<div class="navigation-link-container">
+    <div class="pull-left">
+        <a class="navigation-link navigation-link-objectives" href="/#" data-bind="click: backToObjectives">
+            <img src="../Default/img/back-btn.png" />Back to objectives</a>
+    </div>
+    <div class="pull-right">
+        <a class="navigation-link navigation-link-explanations" href="/#" data-bind="click: showExplanations ">Show me explanations<img src="../Default/img/explanations-btn.png" /></a>
+    </div>
+    <div class="clearfix"></div>
 </div>
+<div class="question content">
+
+    <div class="caption">
+        <div class="caption-stripe"></div>
+        <div class="caption-icon">
+            <img src="../Default/img/question.png" />
+        </div>
+        <div class="caption-text" data-bind="text: title"></div>
+    </div>
+    <ul class="question-answers unstyled" data-bind="foreach: answers">
+        <li class="question-answer">
+            <div>
+                <a class="question-answer-checkbox" data-bind="click: toggleCheck, css: { checked: isChecked() }"></a>
+            </div>
+            <div class="question-answer-text" data-bind="text: text"></div>
+        </li>
+    </ul>
+    <div class="btn-submit-wrapper">
+        <button class="btn-submit" data-bind="click: submit">Submit</button>
+    </div>
+</div>
+
+<style>
+    .question {
+        padding: 10px;
+    }
+
+    .caption {
+        display: table;
+        background-color: #F5F5F5;
+        border: 1px solid #E1E1E1;
+        width: 100%;
+        color: #666666;
+        font-family: Arial;
+        font-size: 14px;
+    }
+
+    .caption-stripe {
+        width: 10px;
+        min-width: 10px;
+        background-color: #F26C4F;
+        display: table-cell;
+    }
+
+    .caption-icon {
+        width: 60px;
+        min-width: 60px;
+        display: table-cell;
+        text-align: center;
+    }
+
+    .caption-text {
+        padding: 15px 0;
+    }
+
+    .question-answers {
+        padding: 20px;
+    }
+
+    .question-answer {
+        padding: 15px 0;
+    }
+
+    .uestion-answer:hover {
+        cursor: pointer;
+    }
+
+    .question-answer > * {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .question-answer-checkbox {
+        width: 35px;
+        height: 35px;
+        border: 1px dashed #DADADA;
+        display: block;
+        margin-right: 15px;
+    }
+
+        .question-answer-checkbox:hover {
+            cursor: pointer;
+        }
+
+        .question-answer-checkbox.checked {
+            border: 2px solid #666666;
+            background: url("../Default/img/checkbox.png") no-repeat scroll center center transparent
+        }
+
+    .btn-submit-wrapper {
+        margin: 0 20px 20px;
+    }
+
+    .btn-submit {
+        background-color: #5E6168;
+        color: white;
+        border: 1px solid #62676B;
+        outline: none;
+        padding: 10px;
+        font-size: 20px;
+        line-height: 30px;
+        width: 100%;
+    }
+
+    .navigation-link-container {
+        padding: 20px 0;
+    }
+
+    .navigation-link {
+        -ms-opacity: 0.6;
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+        text-transform: uppercase;
+        color: #666666;
+        line-height: 57px;
+    }
+
+        .navigation-link img {
+            vertical-align: top;
+        }
+
+        .navigation-link:hover {
+            -ms-opacity: 0.75;
+            opacity: 0.75;
+            filter: alpha(opacity=75);
+        }
+
+    .navigation-link-objectives img {
+        padding-right: 15px;
+    }
+
+    .navigation-link-explanations img {
+        padding-left: 15px;
+    }
+</style>

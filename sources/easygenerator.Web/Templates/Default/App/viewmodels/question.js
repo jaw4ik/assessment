@@ -1,39 +1,62 @@
-﻿define(['context'], function (context) {
+﻿define(['context', 'durandal/plugins/router'], function (context, router) {
     var
-        objectiveId = '',
-        questionId = '',
+        objective = null,
+        question = null,
 
         title = '',
         answers = [],
-        explanations = [],
+
+        submit = function () {
+            var result = 0;
+            _.each(this.answers, function (answer) {
+                if ((answer.isChecked() && answer.isCorrect) || (!answer.isChecked() && !answer.isCorrect)) {
+                    result++;
+                }
+            });
+            this.question.score = Math.round((result / this.answers.length) * 100);
+
+            this.showExplanations();
+        },
+
+        backToObjectives = function () {
+            router.navigateTo('#/');
+        },
+        showExplanations = function () {
+            router.navigateTo('#/');
+        },
 
         activate = function (routeData) {
-            this.objectiveId = routeData.objectiveId;
-            this.questionId = routeData.questionId;
-
-            var that = this;
-
-            var objective = _.find(context.objectives, function(item) {
-                return item.id == that.objectiveId;
-            });
-            
-            var question = _.find(objective.questions, function (item) {
-                return item.id == that.questionId;
+            this.objective = _.find(context.objectives, function (item) {
+                return item.id == routeData.objectiveId;
             });
 
-            this.title = question.title;
-            this.answers = question.answers;
-            this.explanations = question.explanations;
+            this.question = _.find(this.objective.questions, function (item) {
+                return item.id == routeData.questionId;
+            });
+
+            this.title = this.question.title;
+            this.answers = _.map(this.question.answers, function (answer) {
+                return {
+                    id: answer.id,
+                    text: answer.text,
+                    isCorrect: answer.isCorrect,
+                    isChecked: ko.observable(false),
+                    toggleCheck: function () {
+                        this.isChecked(!this.isChecked());
+                    }
+                };
+            });
         };
 
     return {
         activate: activate,
 
-        objectiveId: objectiveId,
-        questionId: questionId,
-
         title: title,
         answers: answers,
-        explanations: explanations
+
+        submit: submit,
+
+        backToObjectives: backToObjectives,
+        showExplanations: showExplanations
     };
 });

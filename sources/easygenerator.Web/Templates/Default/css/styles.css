@@ -26,6 +26,7 @@ body {
     font-size: 14px;
     font-family: Arial, sans-serif;
     line-height: 24px;
+    color: #666666;
 }
 
 
@@ -107,8 +108,13 @@ ol.unstyled  {
     font-family: Tahoma, Arial, sans-serif;
 }
 
-.content {
+
+
+.content-wrapper {
     margin: 10px;
+}
+
+.content {
     border: 1px solid #E0E0E0;
     background-color: #FFFFFF;
 }
