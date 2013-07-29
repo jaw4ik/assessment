@@ -1,13 +1,25 @@
-﻿<section>
-    <h2 data-bind="html:displayName"></h2>
-    <blockquote data-bind="html:description"></blockquote>
-    <h3>Features</h3>
-    <ul data-bind="foreach: features">
-        <li data-bind="html: $data"></li>
-    </ul>
-    <div class="alert alert-success">
-      <h4>Read Me Please</h4>
-        For information about this template and for general documenation please visit <a href="http://www.durandaljs.com">the official site</a> and if you can't find 
-        answers to your questions there, we hope you will join our <a href="https://groups.google.com/forum/?fromgroups#!forum/durandaljs">google group</a>.
+﻿<section class="feedback">
+
+    <div class="navigation-link-container">
+        <div class="pull-left">
+            <a class="navigation-link navigation-link-objectives" href="/#" data-bind="click: backToObjectives">
+                <img src="../Default/img/back-btn.png"></img>Back to objectives</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="content">
+        <div class="caption">
+            <div class="caption-stripe"></div>
+            <div class="caption-icon">
+                <div class="caption-icon-image"></div>
+            </div>
+            <div class="caption-text">Score</div>
+        </div>
+        <div class="question-score">
+            <span data-bind="text: score"></span>%
+        </div>
+        <div>
+        </div>
     </div>
 </section>

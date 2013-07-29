@@ -13,9 +13,9 @@
                     result++;
                 }
             });
-            this.question.score = Math.round((result / this.answers.length) * 100);
+            question.score = Math.round((result / this.answers.length) * 100);
 
-            this.showExplanations();
+            showFeedback();
         },
 
         backToObjectives = function () {
@@ -24,18 +24,21 @@
         showExplanations = function () {
             router.navigateTo('#/');
         },
+        showFeedback = function() {
+            router.navigateTo('#/objective/' + objective.id + '/question/' + question.id + '/feedback');
+        },
 
         activate = function (routeData) {
-            this.objective = _.find(context.objectives, function (item) {
+            objective = _.find(context.objectives, function (item) {
                 return item.id == routeData.objectiveId;
             });
 
-            this.question = _.find(this.objective.questions, function (item) {
+            question = _.find(objective.questions, function (item) {
                 return item.id == routeData.questionId;
             });
 
-            this.title = this.question.title;
-            this.answers = _.map(this.question.answers, function (answer) {
+            this.title = question.title;
+            this.answers = _.map(question.answers, function (answer) {
                 return {
                     id: answer.id,
                     text: answer.text,

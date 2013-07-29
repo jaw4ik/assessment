@@ -119,6 +119,12 @@ ol.unstyled  {
     background-color: #FFFFFF;
 }
 
+
+
+
+
+
+
 .home {
     padding: 0 10px 10px;
 }
@@ -251,3 +257,207 @@ ol.unstyled  {
         /*background-color: #F4F4F4;
         text-decoration: underline;*/
     }
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------------- caption partial ------------- */
+
+.caption {
+    display: table;
+    background-color: #F5F5F5;
+    border: 1px solid #E1E1E1;
+    width: 100%;
+    color: #666666;
+    font-family: Arial;
+    font-size: 14px;
+}
+
+.caption-stripe {
+    width: 10px;
+    -moz-min-width: 10px;
+    -ms-min-width: 10px;
+    -o-min-width: 10px;
+    -webkit-min-width: 10px;
+    min-width: 10px;
+    background-color: #F26C4F;
+    display: table-cell;
+}
+
+.caption-icon {
+    width: 60px;
+    -moz-min-width: 60px;
+    -ms-min-width: 60px;
+    -o-min-width: 60px;
+    -webkit-min-width: 60px;
+    min-width: 60px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.caption-icon-image {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.caption-text {
+    padding: 15px 0;
+}
+
+/* -------------- end of caption partial ------------- */
+
+
+
+
+
+
+
+
+
+
+/* -------------- sub navigation partial ------------- */
+
+.navigation-link-container {
+    padding: 20px 0;
+}
+
+.navigation-link {
+    -ms-opacity: 0.6;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+    text-transform: uppercase;
+    color: #666666;
+    line-height: 57px;
+}
+
+    .navigation-link img {
+        vertical-align: top;
+    }
+
+    .navigation-link:hover {
+        -ms-opacity: 0.75;
+        opacity: 0.75;
+        filter: alpha(opacity=75);
+    }
+
+.navigation-link-objectives img {
+    padding-right: 15px;
+}
+
+.navigation-link-explanations img {
+    padding-left: 15px;
+}
+
+
+/* -------------- end of sub navigation partial ------------- */
+
+
+
+
+
+
+
+
+
+/* -------------- question view ------------- */
+
+.question {
+    padding: 10px;
+}
+
+    .question .caption-icon-image {
+        width: 26px;
+        height: 26px;
+        background: url("../img/question.png") no-repeat scroll center center transparent;
+    }
+
+.question-answers {
+    padding: 20px;
+}
+
+.question-answer {
+    padding: 15px 0;
+}
+
+    .question-answer > * {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+.question-answer-checkbox {
+    width: 35px;
+    height: 35px;
+    border: 1px dashed #DADADA;
+    display: block;
+    margin-right: 15px;
+}
+
+    .question-answer-checkbox:hover {
+        cursor: pointer;
+    }
+
+    .question-answer-checkbox.checked {
+        border: 2px solid #666666;
+        background: url("../img/checkbox.png") no-repeat scroll center center transparent;
+    }
+
+.btn-submit-wrapper {
+    margin: 0 20px 20px;
+}
+
+.btn-submit {
+    background-color: #5E6168;
+    color: white;
+    border: 1px solid #62676B;
+    outline: none;
+    padding: 10px;
+    font-size: 20px;
+    line-height: 30px;
+    width: 100%;
+}
+
+/* -------------- end of question view ------------- */
+
+
+
+
+
+
+
+
+
+/* -------------- feedback view ------------- */
+
+.feedback .content {
+    padding: 10px;
+}
+
+.feedback .caption-icon-image {
+    width: 26px;
+    height: 24px;
+    background: url("../img/feedback.png") no-repeat scroll center center transparent;
+}
+
+.feedback .caption-text {
+    text-transform: uppercase;
+}
+
+
+.question-score {
+    font-size: 72px;
+    line-height: 72px;
+    text-align: center;
+    margin: 20px 0;
+}
+/* -------------- end of feedback view ------------- */
+
+

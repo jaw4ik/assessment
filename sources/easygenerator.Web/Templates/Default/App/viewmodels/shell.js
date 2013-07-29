@@ -18,7 +18,12 @@
                     name: 'Question'
                 },
                 {
-                    url: '#/objective/:objectiveId/question/:questionId/explanation/:explanationId',
+                    url: '#/objective/:objectiveId/question/:questionId/feedback',
+                    moduleId: 'viewmodels/feedback',
+                    name: 'Feedback'
+                },
+                {
+                    url: '#/objective/:objectiveId/question/:questionId/explanations',
                     moduleId: 'viewmodels/explanation',
                     name: 'Explanation'
                 },
