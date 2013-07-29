@@ -191,6 +191,53 @@ define(function (require) {
             });
         });
 
+        describe('deactivate', function () {
+
+            beforeEach(function () {
+                dataContext.objectives = [
+                             new objectiveModel(
+                                 {
+                                     id: 'obj3',
+                                     title: 'Test Objective',
+                                     image: images[0],
+                                     questions:
+                                         [
+                                             new questionModel({
+                                                 id: '0',
+                                                 title: 'Question 1',
+                                                 answerOptions: [],
+                                                 explanations: [
+                                                     new explanationModel({
+                                                         id: '0',
+                                                         text: 'Default text1'
+                                                     }),
+                                                      new explanationModel({
+                                                          id: '1',
+                                                          text: 'Default text2'
+                                                      })
+                                                 ]
+                                             })
+                                         ]
+                                 })];
+                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+            });
+
+            it('should be a function', function () {
+                expect(viewModel.deactivate).toBeDefined();
+            });
+            
+            it('should set explanation isEditing() to \'false\' if current value is \'true\'', function () {
+                //arrange
+                viewModel.explanations()[0].isEditing(true);
+
+                //act
+                viewModel.deactivate();
+
+                //assert
+                expect(viewModel.explanations()[0].isEditing()).toBe(false);
+            });
+        });
+
         describe('goToRelatedObjective', function () {
 
             beforeEach(function () {
@@ -523,7 +570,7 @@ define(function (require) {
 
                     //act
                     explanation.isEditing(false);
-                    
+
                     //aasert
                     expect(_.find(viewModel.explanations(), function (item) {
                         return item.id == explanation.id;
@@ -545,7 +592,7 @@ define(function (require) {
 
                     //assert
                     expect(viewModel.canAddExplanation()).toBe(true);
-                    
+
                     //rollback
                     explanation.text('lalala');
                 });

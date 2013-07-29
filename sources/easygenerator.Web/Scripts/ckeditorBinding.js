@@ -23,36 +23,38 @@
 
         function endEdit() {
             bindingArguments.isEditing(false);
-            
-            if (!!CKEDITOR.dialog._.currentTop)
-                CKEDITOR.dialog._.currentTop.hide();
-
-            editor.destroy();
-            $el.attr({ 'contenteditable': false });
+            destroyEditor();
         }
 
         function startEdit() {
             bindingArguments.isEditing(true);
-            
+
             $el.attr({ 'contenteditable': true });
             editor = CKEDITOR.inline(element);
 
-            editor.on('instanceReady', function () {
+            editor.on('instanceReady', function (e) {
+               // console.log('editor.instanceReady');
                 addContentFilter();
-
                 editor.element.$.title = '';
                 addCommandsTracking(bindingArguments.eventTracker || null);
 
                 if (editor.getData() == '') {
                     editor.setData('<p></p>');
                 }
+
+                editor.focus();
             });
 
             editor.on('change', function () {
                 updateData();
             });
-          
+
+            editor.on('focus', function () {
+                //console.log('editor.focus');
+            });
+
             editor.on('blur', function () {
+                //console.log('editor.blur');
                 endEdit();
             });
 
@@ -60,12 +62,18 @@
                 if (event.data.keyCode == 27)
                     editor.focusManager.blur();
             });
-            
+
             ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                if (bindingArguments.isEditing()) {
-                    endEdit();
-                }
+                destroyEditor();
             });
+        }
+        
+        function destroyEditor() {
+            if (!!CKEDITOR.dialog._.currentTop)
+                CKEDITOR.dialog._.currentTop.hide();
+
+            editor.destroy();
+            $el.attr({ 'contenteditable': false });
         }
 
         function updateData() {

@@ -240,6 +240,12 @@
                 currentLanguage(localizationManager.currentLanguage);
                 notification.visibility(false);
             },
+            deactivate = function () {
+                _.each(this.explanations(), function(item) {
+                    if (item.isEditing())
+                        item.isEditing(false);
+                });
+            },
             mapAnswerOption = function (answer) {
                 return {
                     id: answer.id,
@@ -271,12 +277,12 @@
                                 saveExplanation(item.id, item.text());
                             }, 60000);
                         } else {
-                            
+
                             if (!_.isNull(saveIntervalId)) {
                                 clearInterval(saveIntervalId);
                                 saveIntervalId = null;
                             }
-                            
+
                             if (_.isEmptyOrWhitespace(item.text())) {
                                 explanations.remove(item);
                                 canAddExplanation(true);
@@ -336,6 +342,7 @@
             hasPrevious: hasPrevious,
             hasNext: hasNext,
             activate: activate,
+            deactivate: deactivate,
             goToRelatedObjective: goToRelatedObjective,
             goToPreviousQuestion: goToPreviousQuestion,
             goToNextQuestion: goToNextQuestion,
