@@ -38,10 +38,8 @@
                 editor.element.$.title = '';
                 addCommandsTracking(bindingArguments.eventTracker || null);
 
-                if (editor.getData() == '') {
+                if (editor.getData() == '')
                     editor.setData('<p></p>');
-                }
-
                 editor.focusManager.unlock();
                 setCaretToStartPosition();
                 editor.focus();

@@ -1,9 +1,11 @@
 ﻿var tagsGroup = {
-    tagsSelectionFormat: ['abbr', 'acronym', 'blockquote', 'q', 'cite', 'dfn', 'code', 'samp', 'tt', 'em', 'strong', 'sub', 'sup', 'mark', 'figcaption', 'time'],
+    tagsSelectionFormat: ['abbr', 'acronym', 'blockquote', 'q', 'cite', 'dfn', 'code', 'samp', 'tt', 'em', 'strong', 'sub', 'sup', 'mark', 'time'],
     tagsParagraphFormat: ['address', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'article', 'section', 'aside', 'header', 'footer', 'figure', 'nav'],
     normalTag: 'p'
 };
-
+/* 
+    'figcaption',
+*/
 CKEDITOR.plugins.semanticTagsPlugin = {
     requires: 'richcombo',
     lang: 'en,nl,de',
@@ -64,6 +66,10 @@ CKEDITOR.plugins.semanticTagsPlugin = {
 
             onClick: function (value) {
                 editor.focus();
+
+                debugger;
+
+
                 editor.fire('saveSnapshot');
                 var element = elements[value];
                 if (value == 'hr')
