@@ -42,6 +42,12 @@ When open page by url 'http://localhost:5656/#/objective/1/question/1'
 And mouse hover element of explanation with text 'Explanation12'
 Then explanation delete button is enabled '<true>' for explanation with text 'Explanation12'
 
+Scenario: Delete button should be enabled if edit explanation element
+When open page by url 'http://localhost:5656/#/objective/1/question/1'
+And click explanation text field 'Explanation12'
+Then explanation delete button is enabled '<true>' for explanation with text 'Explanation12'
+
+
 Scenario: Explanation could be deleted
 When open page by url 'http://localhost:5656/#/objective/1/question/1'
 And mouse hover element of explanation with text 'Explanation12'
@@ -86,6 +92,7 @@ Then explanations list contains only items with data
 Scenario: New explanation with special symbols could be added by entering new explanation text
 When open page by url 'http://localhost:5656/#/objective/1/question/1'
 And input text '~`!@#$%^&*()_+-={[]}:;"'|\<,.>/?№ё' into new explanation text field
+And click on collapse answer options
 And click on back to objective
 And mouse hover element of questions list with title 'Question11'
 And click on open question with title 'Question11'
