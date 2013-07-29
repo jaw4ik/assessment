@@ -11,6 +11,7 @@
                 sortByTitleAsc: "Sort by title ascending",
                 sortByTitleDesc: "Sort by title descending",
                 selectObjective: "Select Objective",
+                unselectObjective: "Unselect Objective"
             },
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName, events.category);
@@ -57,8 +58,12 @@
                                 image: item.image,
                                 questionsCount: item.questionsCount,
                                 isSelected: ko.observable(false),
-                                toggleSelection: function() {
-                                    sendEvent(events.selectObjective);
+                                toggleSelection: function () {
+                                    if (this.isSelected()) {
+                                        sendEvent(events.unselectObjective);
+                                    } else {
+                                        sendEvent(events.selectObjective);
+                                    }
                                     this.isSelected(!this.isSelected());
                                 }
                             };
