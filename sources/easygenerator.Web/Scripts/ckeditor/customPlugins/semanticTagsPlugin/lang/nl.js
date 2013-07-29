@@ -1,5 +1,5 @@
 ﻿CKEDITOR.plugins.setLang('semanticTagsPlugin', 'nl', {
-    p: 'Normal NL',
+    p: 'Normaal',
     abbr: 'Afkorting',
     acronym: 'Acroniem',
     blockquote: 'Lang citaat',

@@ -1,5 +1,5 @@
 ﻿CKEDITOR.plugins.setLang('semanticTagsPlugin', 'de', {
-    p: 'Normal DE',
+    p: 'Normale',
     abbr: 'Abkürzung',
     acronym: 'Akronym',
     blockquote: 'Langes Zitat',

@@ -11,10 +11,10 @@ CKEDITOR.plugins.semanticTagsPlugin = {
     init: function (editor) {
         if (tagsGroup.tagsSelectionFormat.length == 0 && tagsGroup.tagsParagraphFormat.length == 0)
             return;
-        
+
         var config = editor.config,
             lang = editor.lang.semanticTagsPlugin;
-        
+
         var elements = {},
             allowedContent = [];
 
@@ -34,7 +34,7 @@ CKEDITOR.plugins.semanticTagsPlugin = {
             toolbar: 'styles,20',
             allowedContent: allowedContent,
             requiredContent: allowedContent,
-            className : 'semantic-dropdown',
+            className: 'semantic-dropdown',
 
             panel: {
                 css: [CKEDITOR.skin.getPath('editor')].concat(config.contentsCss),
@@ -62,16 +62,19 @@ CKEDITOR.plugins.semanticTagsPlugin = {
 
             },
 
-            onClick: function(value) {
+            onClick: function (value) {
                 editor.focus();
                 editor.fire('saveSnapshot');
                 var element = elements[value];
-                element.checkActive(editor.elementPath()) ? editor.removeStyle(element) : editor.applyStyle(element);
+                if (value == 'hr')
+                    editor.insertElement(editor.document.createElement('hr'));
+                else
+                    element.checkActive(editor.elementPath()) ? editor.removeStyle(element) : editor.applyStyle(element);
                 editor.fire('saveSnapshot');
             },
 
-            onRender: function() {
-                editor.on('selectionChange', function(evt) {
+            onRender: function () {
+                editor.on('selectionChange', function (evt) {
                     var currentTag = this.getValue(),
                         elementPath = evt.data.path;
                     for (var tag in elements) {
@@ -85,7 +88,7 @@ CKEDITOR.plugins.semanticTagsPlugin = {
                 }, this);
             }
         });
-        
+
         function addTagToElements(tag) {
             var element = new CKEDITOR.style({ element: tag });
             if (!editor.filter.customConfig || editor.filter.check(element)) {

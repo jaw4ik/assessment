@@ -56,7 +56,7 @@ html, body {
 /**
  * Default font styles. Font smoothing in Chrome.
  */
-body {
+.wrapper {
     line-height: 1;
     font-family: Tahoma, sans-serif;
     font-size: 125%;
@@ -68,7 +68,7 @@ body {
     backface-visibility: hidden;
 }
 
-    body > * {
+    .wrapper > * {
         font-size: 85%;
         line-height: 1.3em;
     }
