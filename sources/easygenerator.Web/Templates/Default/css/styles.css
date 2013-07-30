@@ -470,13 +470,44 @@ ol.unstyled  {
     text-transform: uppercase;
 }
 
-
 .question-score {
     font-size: 72px;
     line-height: 72px;
     text-align: center;
-    margin: 20px 0;
+    margin: 100px 0;
 }
+
+.navigation-btn-container {
+    text-align: center;
+    margin: 50px 0;
+}
+
+.navigation-btn-left, .navigation-btn-right {
+    padding: 15px;
+    margin: 0 50px;
+    color: #fff;
+    font-size: 20px;
+    line-height: 20px;
+    display: inline-block;
+    opacity: 0.75;
+}
+
+    .navigation-btn-left:hover, .navigation-btn-right:hover {
+        opacity: 1;
+    }
+
+.navigation-btn-left {
+    margin-right: 100px;
+    background-color: #77ADC9;
+    border: 1px solid #77ADC9;
+}
+
+.navigation-btn-right {
+    margin-left: 100px;
+    background-color: #5E6168;
+    border: 1px solid #62676D;
+}
+
 /* -------------- end of feedback view ------------- */
 
 

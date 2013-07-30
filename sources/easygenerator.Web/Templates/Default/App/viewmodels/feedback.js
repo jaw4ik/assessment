@@ -5,6 +5,12 @@
         backToObjectives = function () {
             router.navigateTo('#/');
         },
+        showExplanations = function () {
+            router.navigateTo('#/');
+        },
+        chooseNextQuestion = function () {
+            router.navigateTo('#/');
+        },
         activate = function (routeData) {
             var objective = _.find(context.objectives, function (item) {
                 return item.id == routeData.objectiveId;
@@ -21,6 +27,8 @@
         score: score,
 
         backToObjectives: backToObjectives,
+        showExplanations: showExplanations,
+        chooseNextQuestion: chooseNextQuestion,
         activate: activate
     };
 });
