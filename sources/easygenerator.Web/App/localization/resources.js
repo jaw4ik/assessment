@@ -130,6 +130,31 @@
         nl: 'Ervaring',
         de: 'Erfahrung'
     },
+    experienceBuildAction: {
+        en: 'Build',
+        nl: 'Samenstellen',
+        de: 'Build'
+    },
+    experienceDownloadAction: {
+        en: 'Download',
+        nl: 'Downloaden',
+        de: 'Download'
+    },
+    experienceBuildingStatus: {
+        en: 'building…',
+        nl: 'Samenstellen…',
+        de: 'Aufbau…'
+    },
+    experienceFailedStatus: {
+        en: 'failed',
+        nl: 'mislukt',
+        de: 'fehlgeschlagen'
+    },
+    experienceCompleteStatus: {
+        en: 'complete',
+        nl: 'voltooid',
+        de: 'vollständig'
+    },
     /* End resource section for model Experiences */
     
     /* Resource section for model CreateObjective */
@@ -253,5 +278,5 @@
         de: 'Neue Fragen hinzufügen'
     }
     /* End resource section for model Questions */
-           
+
 });
