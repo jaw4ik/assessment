@@ -247,6 +247,20 @@ namespace easygenerator.AcceptanceTests.Steps
             Question.ExplanationTextClick(text);
         }
 
+        [When(@"scroll new explanation button into the view")]
+        public void WhenScrollNewExplanationButtonIntoTheView()
+        {
+            Question.NewExplanationButton.ScrollIntoView();
+        }
+
+        [Then(@"new explanation button is visible")]
+        public void ThenNewExplanationButtonIsVisible()
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                Question.NewExplanationButton.IsVisisble(),
+                "Element should be visible");
+        }
+
       
 
 

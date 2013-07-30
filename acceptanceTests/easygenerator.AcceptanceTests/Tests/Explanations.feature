@@ -58,6 +58,16 @@ Then explanations list contains only items with data
 | Explanation    |
 | Explanation13  |
 
+Scenario: Explanation should be deleted if all content will be deleted from it
+When open page by url 'http://localhost:5656/#/objective/1/question/1'
+And input text ' ' into explanation text field 'Explanation12'
+And click on collapse answer options
+Then explanations list contains only items with data
+| Explanation   |
+| Explanation11 |
+| Explanation13 |
+
+
 Scenario: Explanation can't be saved with empty text
 When open page by url 'http://localhost:5656/#/objective/1/question/1'
 And input text ' ' into new explanation text field
@@ -102,5 +112,20 @@ Then explanations list contains only items with data
 | Explanation12                        |
 | Explanation13                        |
 | ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
+
+Scenario: All explanations can be made visible using scroll
+Given explanations related to 'Question11' of 'Objective1' are present in database
+| Explanation   |
+| Explanation11 |
+| Explanation12 |
+| Explanation13 |
+| Explanation14 |
+| Explanation15 |
+| Explanation16 |
+When open page by url 'http://localhost:5656/#/objective/1/question/1'
+And browser window width and height is set to 640 and 300
+And scroll new explanation button into the view
+Then new explanation button is visible
+
 
 

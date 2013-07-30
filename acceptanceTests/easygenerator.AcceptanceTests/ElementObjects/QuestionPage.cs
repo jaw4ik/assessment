@@ -32,6 +32,15 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
+        public NewExplanationButton NewExplanationButton
+        {
+            get
+            {
+                var el = GetByXPath(model.AddNewExplanationButton);
+                return new NewExplanationButton(el);
+            }
+        }
+
         public AnswerItem[] AnswerItems
         {
             get
@@ -206,8 +215,20 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             itemTextField.Click();
         }
 
+        internal bool IsNewExplanationButtonVisible()
+        {
+            return NewExplanationButton.IsVisisble();            
+        }
+        
     }
 
+
+    public class NewExplanationButton : ContainerElement<QuestionPageLinkingModel>
+    {
+
+        public NewExplanationButton(RemoteWebElement container)
+            : base(container) { }
+    }
 
 
     public class AnswerItem : ContainerElement<QuestionPageLinkingModel>
