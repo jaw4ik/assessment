@@ -66,10 +66,6 @@ CKEDITOR.plugins.semanticTagsPlugin = {
 
             onClick: function (value) {
                 editor.focus();
-
-                debugger;
-
-
                 editor.fire('saveSnapshot');
                 var element = elements[value];
                 if (value == 'hr')
