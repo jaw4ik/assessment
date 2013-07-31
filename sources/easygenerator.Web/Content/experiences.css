@@ -79,25 +79,26 @@
     display: block;
 }
 
-.experience-brief-options-select {
+.experience-brief-options-select,
+.experience-brief-options-build,
+.experience-brief-options-download {
     height: 100%;
+    padding: 2px 17px;
+    border-top: 1px solid gray;
+    text-align: left;
+}
+
+.experience-brief-options-select {
     width: 50%;
     float: left;
     position: relative;
-    padding-top: 2px;
-    border-top: 1px solid gray;
     border-radius: 3px 0 0 3px;
-    text-align: center;
 }
 
 .experience-brief-options-build,
 .experience-brief-options-download {
-    height: 100%;
     margin-left: 50%;
-    padding-top: 2px;
-    border-top: 1px solid gray;
     border-radius: 0 3px 3px 0;
-    text-align: center;
 }
 
     .experience-brief-options-select:hover,
@@ -111,6 +112,12 @@
         background: -ms-linear-gradient(top, rgba(63,63,63,1) 0%,rgba(63,63,63,1) 100%); /* IE10+ */
         background: linear-gradient(to bottom, rgba(63,63,63,1) 0%,rgba(63,63,63,1) 100%); /* W3C */
     }
+
+.experience-brief-options-select>.inline,
+.experience-brief-options-build>.inline,
+.experience-brief-options-download>.inline {
+    white-space: nowrap;
+}
 
 .experience-brief-options-select-image,
 .experience-brief-options-build-image,
@@ -200,7 +207,7 @@
 
 .experience-brief-options-building,
 .experience-brief-options-complete,
-.experience-brief-options-failed  {
+.experience-brief-options-failed {
     cursor: default;
 }
 
