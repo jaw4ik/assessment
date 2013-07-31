@@ -333,13 +333,221 @@
             "id": 2,
             "title": "3. The learner is able to explain the collaborative features to his boss",
             "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSquMn3u84SWcQvKAbmrlUicfv2bYY3197JsNsilftexOQYce-Z",
-            "questions": []
+            "questions": [
+                {
+                    "id": 0,
+                    "title": "1. How does easygenerator facilitate the collaboration between participants? liuhoiuyouyoiuyoi",
+                    "answerOptions": [
+                        {
+                            "id": 0,
+                            "isCorrect": false,
+                            "text": "With online collaboration and use of workflow and use of rights and roles."
+                        },
+                        {
+                            "id": 1,
+                            "isCorrect": false,
+                            "text": "With use of workflow, different rights and roles and with versioning."
+                        },
+                        {
+                            "id": 2,
+                            "isCorrect": true,
+                            "text": "With online collaboration, workflow, rights and roles and with versioning."
+                        },
+                        {
+                            "id": 3,
+                            "isCorrect": false,
+                            "text": "With use of different rights and roles, with versioning and with online collaboration."
+                        },
+                        {
+                            "id": 4,
+                            "isCorrect": false,
+                            "text": "With versioning, online collaboration and use of workflow."
+                        }
+                    ],
+                    "explanations": [
+                        {
+                            "id": 0,
+                            "text": "<div>e-Learning is changing and the way e-Learning is developed changes alongside with it.<\/div>\r\n<div>&nbsp;<\/div>\r\n<div>In the old&nbsp;times you would give an order to an external company to create a course for you. Then companies started to develop more and more content of their own with internal resources.<\/div>\r\n<div>&nbsp;<\/div>\r\n<div>The latest development is that subject matter experts from companies themselves are getting more and more involved in the process. Easygenerator facilitates the collaboration between these participants.<\/div>"
+                        },
+                        {
+                            "id": 1,
+                            "text": "<img src=\"\/Content\/images\/sample\/12.png\" \/>"
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "title": "2. How does easygenerator facilitate this review functionality?",
+                    "answerOptions": [
+                        {
+                            "id": 0,
+                            "isCorrect": false,
+                            "text": "The designer of the e-Learning can create  a task for a page and assign it to a reviewer."
+                        },
+                        {
+                            "id": 1,
+                            "isCorrect": false,
+                            "text": "The user with a review role will only see the functionality that he needs."
+                        },
+                        {
+                            "id": 2,
+                            "isCorrect": false,
+                            "text": "The user can place comments on each page and view and react to comments of others."
+                        },
+                        {
+                            "id": 3,
+                            "isCorrect": true,
+                            "text": "All of the above."
+                        }
+                    ],
+                    "explanations": [
+                        {
+                            "id": 0,
+                            "text": "<div>When you&nbsp;are&nbsp;developing an e-Learning&nbsp;it is useful that&nbsp;for instance a test group can&nbsp;review the course while you are developing.</div>"
+                        },
+                        {
+                            "id": 1,
+                            "text": "<img src=\"\/Content\/images\/sample\/13.png\" \/>"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "title": "3. Online collaboration & workflow",
+                    "answerOptions": [],
+                    "explanations": [
+                        {
+                            "id": 0,
+                            "text": "<p><br \/>\r\nThe fact that easygenerator is an online platform is the heart of our collaborative platform. Everybody from anywhere can login at any time and contribute to the development. We even have an external review facility for people who don&#39;t have an easygenerator license.<\/p>\r\n<div>&nbsp;<\/div>\r\n<div>Keeping the development process smooth becomes harder when more people are involved, therefore we added workflow facilities. But in the spirit of our platform we kept them very simple. There are three elements in the workflow. You can place comments on each page (plus view and react on comments of others), you can create a task for a page and assign that to yourself or someone else and you have a task list with an overview of all tasks assigned to you. That&#39;s all quite simple but very effective.<\/div>"
+                        },
+                        {
+                            "id": 1,
+                            "text": "<img src=\"\/Content\/images\/sample\/14.png\" \/>"
+                        },
+                        {
+                            "id": 2,
+                            "text": "<img src=\"\/Content\/images\/sample\/15.png\" \/><br\/><img src=\"\/Content\/images\/sample\/15.png\" \/><br\/><img src=\"\/Content\/images\/sample\/15.png\" \/><br\/>"
+                        },
+                        {
+                            "id": 3,
+                            "text": "<img src=\"\/Content\/images\/sample\/16.png\" \/>"
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "title": "4. Rights and roles",
+                    "answerOptions": [],
+                    "explanations": [
+                        {
+                            "id": 0,
+                            "text": "<div><br \/>\r\nPeople with different roles need different facilities. We have implemented a rights and role system that arranges this. If you have a subject matter expert with little to no knowledge of e-Learning you can assign the role of &#39;content editor&#39; to him. He will only be able to edit existing pages (text and images). An extra advantage is that he will only see the functionality that he needs. This way it is possible for him to start his work with no or very little (5 minutes) instruction. In total we support seven different roles, with specific rights.<\/div>"
+                        },
+                        {
+                            "id": 1,
+                            "text": "<img src=\"\/Content\/images\/sample\/14.png\" \/>"
+                        },
+                        {
+                            "id": 2,
+                            "text": "<img src=\"\/Content\/images\/sample\/15.png\" \/>"
+                        }
+                    ]
+                }
+            ]
         },
         {
             "id": 3,
             "title": "4. The learner is able to save 40% on maintenance",
             "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSquMn3u84SWcQvKAbmrlUicfv2bYY3197JsNsilftexOQYce-Z",
-            "questions": []
+            "questions": [
+                {
+                    "id": 0,
+                    "title": "1. Which of the following statements about page and content links is not true?",
+                    "answerOptions": [
+                        {
+                            "id": 0,
+                            "isCorrect": false,
+                            "text": "When you paste a page as a 'Page Link' the page is placed in the new selected location. This might even be another course. "
+                        },
+                        {
+                            "id": 1,
+                            "isCorrect": false,
+                            "text": "When you paste a page as a 'Content Link' the page is placed in the new selected location. This might even be another course. "
+                        },
+                        {
+                            "id": 2,
+                            "isCorrect": false,
+                            "text": "When you paste a page as a 'Content Link' the page is placed in the new selected location. If you change anything in the content this will happen in both places. When you add or remove an object it will only affect the 'content linked' page."
+                        },
+                        {
+                            "id": 3,
+                            "isCorrect": true,
+                            "text": "When you paste a page as a 'Page Link' the page is placed in the new selected location. If you change anything in the content this will happen in both places. When you add or remove an object it will only affect the 'page linked' page."
+                        }
+                    ],
+                    "explanations": [
+                        {
+                            "id": 0,
+                            "text": "<div>You don&#39;t want to duplicate any content if that is not necessary. The more copies you make the more complex your maintenance will be.<\/div>\r\n<div>&nbsp;<\/div>\r\n<div>In order to solve this, easygenerator offers you the &#39;page link&#39; and the &#39;content link&#39;.<\/div>"
+                        },
+                        {
+                            "id": 1,
+                            "text": "<img src=\"\/Content\/images\/sample\/17.png\" \/>"
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "title": "2. Which of the following descriptions fits the 'page link' best?",
+                    "answerOptions": [
+                        {
+                            "id": 0,
+                            "isCorrect": true,
+                            "text": "A page link is a link between pages that makes sure that if you change anything in the content of these pages, this will happen in both courses."
+                        },
+                        {
+                            "id": 1,
+                            "isCorrect": false,
+                            "text": "A page link creates a copy of a certain page. When you make changes in the original page, the copied page will adapt these changes. When you make changes in the copied page, the original page will not be affected."
+                        },
+                        {
+                            "id": 2,
+                            "isCorrect": false,
+                            "text": "A page link creates a copy of a certain page that can be used in another course."
+                        },
+                        {
+                            "id": 3,
+                            "isCorrect": false,
+                            "text": "A page link creates a copy of a certain page that can be used in another course. The copy will automatically take on the look and feel of the course it is played in now."
+                        }
+                    ],
+                    "explanations": [
+                        {
+                            "id": 0,
+                            "text": "<div>With easygenerator it is easy to reuse content without the problem of version management in case of changes. Easygenerator offers you the &#39;page link&#39; and the &#39;content link&#39;.</div>"
+                        },
+                        {
+                            "id": 1,
+                            "text": "<img src=\"\/Content\/images\/sample\/18.png\" \/>"
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "title": "3. Reuse of content",
+                    "answerOptions": [],
+                    "explanations": [
+                        {
+                            "id": 0,
+                            "text": "<div>You don&#39;t want to duplicate any content if that is not necessary. The more copies you make the more complex your maintenance will be. We found that this is especially a concern when you want to reuse questions from an assessment in an e-Learning course (or visa versa), when you just want to publish the questions from a course to memory training software or when you want to publish a course to a mobile device.<\/div>\r\n<div>In order to solve this, easygenerator offers you the &#39;page link&#39; and the &#39;content link&#39;.<\/div>"
+                        },
+                        {
+                            "id": 1,
+                            "text": "<img src=\"\/Content\/images\/sample\/17.png\" \/><img src=\"\/Content\/images\/sample\/17.png\" \/><img src=\"\/Content\/images\/sample\/17.png\" \/><img src=\"\/Content\/images\/sample\/17.png\" \/><img src=\"\/Content\/images\/sample\/17.png\" \/>"
+                        }
+                    ]
+                }
+            ]
         }
     ],
     "experiences": [
