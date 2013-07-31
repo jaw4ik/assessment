@@ -1,4 +1,4 @@
-﻿define(['dataContext', 'durandal/plugins/router', 'eventTracker', 'models/answerOption', 'models/explanation', 'localization/localizationManager'],
+﻿define(['dataContext', 'durandal/plugins/router', 'eventTracker', 'animations/slideToggle', 'models/answerOption', 'models/explanation', 'localization/localizationManager'],
     function (dataContext, router, eventTracker, answerOptionModel, expalantionModel, localizationManager) {
         "use strict";
         var
