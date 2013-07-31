@@ -1,6 +1,6 @@
 ﻿<section class="home content">
     <ul class="unstyled objective-brief-list" data-bind="foreach: objectives">
-        <li>
+        <li class="objective-brief-list-item">
             <a href="#" class="objective-brief" data-bind="click: toggleExpand">
                 <div class="objective-brief-indicator"></div>
                 <div class="objective-brief-image-wrapper">
@@ -25,16 +25,16 @@
                 <li class="question-brief">
                     <a class="question-brief-title" href="#" data-bind="text: title, attr: { href: '#/objective/' + $parent.id + '/question/' + id }"></a>
                     <!--<ul data-bind="foreach: answers">
-                        <li>
-                            <span data-bind="text: text"></span>
-                            <span data-bind="text: isCorrect"></span>
-                        </li>
-                    </ul>
-                    <ul data-bind="foreach: explanations">
-                        <li>
-                            <a href="#" data-bind="text: id, attr: { href: '#/objective/' + $parents[1].id + '/question/' + $parent.id + '/explanation/' + id }"></a>
-                        </li>
-                    </ul>-->
+                            <li>
+                                <span data-bind="text: text"></span>
+                                <span data-bind="text: isCorrect"></span>
+                            </li>
+                        </ul>
+                        <ul data-bind="foreach: explanations">
+                            <li>
+                                <a href="#" data-bind="text: id, attr: { href: '#/objective/' + $parents[1].id + '/question/' + $parent.id + '/explanation/' + id }"></a>
+                            </li>
+                        </ul>-->
                 </li>
             </ul>
             <!-- /ko -->

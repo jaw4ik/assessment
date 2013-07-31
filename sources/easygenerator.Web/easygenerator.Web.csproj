@@ -475,7 +475,6 @@
     <Content Include="Scripts\underscore.extensions.js" />
     <Content Include="Scripts\underscore.js" />
     <None Include="Scripts\underscore.min.js" />
-    <Content Include="Templates\Default\App\animations\slideToggle.js" />
     <Content Include="Templates\Default\App\context.js" />
     <Content Include="Templates\Default\App\durandal\amd\almond-custom.js" />
     <Content Include="Templates\Default\App\durandal\amd\optimizer.exe" />
