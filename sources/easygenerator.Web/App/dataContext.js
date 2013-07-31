@@ -33,7 +33,11 @@
                         return new ExperienceModel({
                             id: experience.id,
                             title: experience.title,
-                            objectives: []
+                            objectives: _.map(experience.objectives, function (objectiveId) {
+                                return _.find(objectives, function(objective) {
+                                    return objective.id == objectiveId;
+                                });
+                            })
                         });
                     }));
                 }).fail(function () {
