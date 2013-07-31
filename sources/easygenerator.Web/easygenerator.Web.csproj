@@ -162,10 +162,16 @@
     <Content Include="App\views\errors\404.html" />
     <Content Include="App\views\errors\400.html" />
     <Content Include="Content\ckeditor.css" />
+    <Content Include="Content\experiences.css" />
     <Content Include="Content\images\icons.png" />
     <Content Include="Content\images\loader.gif" />
     <Content Include="Content\images\nav-buttons.png" />
+    <Content Include="Content\images\options-icons.png" />
+    <Content Include="Content\images\options_icons.png" />
+    <Content Include="Content\images\options_loader.gif" />
     <Content Include="Content\images\recycle.png" />
+    <Content Include="Content\images\small-options-icons.png" />
+    <Content Include="Content\images\small_icons.png" />
     <Content Include="Scripts\ckeditorBinding.js" />
     <Content Include="App\configuration\images.js" />
     <Content Include="App\configuration\routes.js" />
@@ -233,7 +239,6 @@
     <Content Include="Content\images\collapse.png" />
     <Content Include="Content\images\expand.png" />
     <Content Include="Content\images\multichoice-question.png" />
-    <Content Include="Content\images\options-icons.png" />
     <Content Include="Content\images\back-btn.png" />
     <Content Include="Content\images\experience.png" />
     <Content Include="Content\images\explanation-icon.png" />

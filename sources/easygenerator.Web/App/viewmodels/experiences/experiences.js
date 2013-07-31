@@ -11,7 +11,9 @@
                 navigateToCreateExperience: 'Navigate to create experience',
                 experienceSelected: 'Experience selected',
                 experienceUnselected: 'Experience unselected',
-                navigateToDetails: 'Navigate to details'
+                navigateToDetails: 'Navigate to details',
+                buildExperience: 'Build experience',
+                downloadExperience: 'Download experience',
             },
 
             sendEvent = function (eventName) {
@@ -65,19 +67,50 @@
                  router.navigateTo('#/objectives');
              },
 
-            activate = function () {
-                var sortedExperiences = _.sortBy(dataContext.experiences, function (experience) { return experience.title.toLowerCase(); });
-                currentSortingOption(constants.sortingOptions.byTitleAsc);
+//TODO: temporary method for testing markUp. Should be deleted or modifying then backend will be implementesd.
 
-                experiences(ko.utils.arrayMap(sortedExperiences, function (item) {
-                    return {
-                        id: item.id,
-                        title: item.title,
-                        objectives: item.objectives,
-                        isSelected: ko.observable(false)
-                    };
-                }));
-            };
+        buildExperience = function (experience) {
+
+            sendEvent(events.buildExperience);
+            if (experience.isBuilded())
+                experience.isBuilded(false);
+
+            experience.building(true);
+            experience.isSelected(false);
+
+            setTimeout(function () {
+                experience.building(false);
+                experience.isBuilded(true);
+                var trying = Math.floor(Math.random() * 2 + 1);
+                if (trying == 1) {
+                    experience.buildFinished(false);
+                } else {
+                    experience.buildFinished(true);
+                }
+            }, 2000);
+        },
+
+        downloadExperience = function () {
+            sendEvent(events.downloadExperience);
+            alert('download not implemented yet');
+        },
+//TODO:END of temporary code
+        activate = function () {
+            var sortedExperiences = _.sortBy(dataContext.experiences, function (experience) { return experience.title.toLowerCase(); });
+            currentSortingOption(constants.sortingOptions.byTitleAsc);
+
+            experiences(ko.utils.arrayMap(sortedExperiences, function (item) {
+                return {
+                    id: item.id,
+                    title: item.title,
+                    objectives: item.objectives,
+                    isSelected: ko.observable(false),
+                    building: ko.observable(false),
+                    isBuilded: ko.observable(false),
+                    buildFinished: ko.observable(false)
+                };
+            }));
+        };
 
         return {
             experiences: experiences,
@@ -92,7 +125,10 @@
             navigateToDetails: navigateToDetails,
             navigateToObjectives: navigateToObjectives,
 
-            activate: activate
+            activate: activate,
+            //TODO: delete or modify this string!
+            buildExperience: buildExperience,
+            downloadExperience: downloadExperience
         };
     }
 );

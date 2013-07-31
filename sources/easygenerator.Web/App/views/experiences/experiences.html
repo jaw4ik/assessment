@@ -30,7 +30,51 @@
             <div class="experiences-list-wrapper">
                 <ul class="unstyled experiences-list clearfix">
                     <!-- ko foreach: experiences -->
-                    <li class="experience-brief" data-bind="css: { 'experience-brief-selected': isSelected() }">
+                    <li class="experience-brief" data-bind="css: { 'experience-brief-selected': isSelected(), 'experience-building': building, 'experience-success': isBuilded && buildFinished, 'experience-failed': isBuilded() && !buildFinished() }">
+                        <!-- ko ifnot: building() -->
+                        <div class="build-experience-tooltip-wrapper">
+                            <div class="build-experience-tooltip-triangle-wrapper">
+                                <div class="build-experience-tooltip-triangle">
+                                </div>
+                            </div>
+                            <div class="build-experience-tooltip clearfix">
+                                <div class="experience-brief-options-select left" data-bind="click: $parent.toggleSelection">
+                                    <div class="inline">
+                                        <div class="experience-brief-options-select-image inline" data-bind="css: { selected: isSelected() }">
+                                            <input class="custom-checkbox" type="checkbox" />
+                                        </div>
+                                        <!-- ko if: isSelected -->
+                                        <div class="experience-brief-options-select-text inline" data-bind="localize: { text: 'unselect' }">Unselect</div>
+                                        <!-- /ko-->
+                                        <!-- ko ifnot: isSelected -->
+                                        <div class="experience-brief-options-select-text inline" data-bind="localize: { text: 'select' }">Select</div>
+                                        <!-- /ko-->
+                                    </div>
+                                </div>
+                                <div class="separator"></div>
+                                <!-- ko if: (!building() && !isBuilded()) || (isBuilded() && !buildFinished())-->
+                                <div class="experience-brief-options-build clearfix" data-bind="click: $parent.buildExperience">
+                                    <div class="inline">
+                                        <div class="experience-brief-options-build-image inline" data-bind="css: { selected: isSelected() }">
+                                            &nbsp;
+                                        </div>
+                                        <div class="experience-brief-options-build-text inline" data-bind="localize: { text: 'experienceBuildAction' }"></div>
+                                    </div>
+                                </div>
+                                <!-- /ko -->
+                                <!-- ko if: isBuilded && buildFinished -->
+                                <div class="experience-brief-options-download clearfix" data-bind="click: $parent.downloadExperience">
+                                    <div class="inline">
+                                        <div class="experience-brief-options-download-image inline" data-bind="css: { selected: isSelected() }">
+                                            &nbsp;
+                                        </div>
+                                        <div class="experience-brief-options-download-text inline" data-bind="localize: { text: 'experienceDownloadAction' }"></div>
+                                    </div>
+                                </div>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                        <!-- /ko -->
                         <div class="white-framing experience-brief-inner">
                             <div class="experience-brief-image"></div>
                             <div class="experience-brief-toolbar">
@@ -42,23 +86,31 @@
                                     <div class="selectable" data-bind="text: objectives.length"></div>
                                 </div>
                             </div>
-                            <div class="experience-brief-options">
-                                <div class="experience-brief-options-select" data-bind="click: $parent.toggleSelection">
-                                    <!-- ko if: isSelected -->
-                                    <div data-bind="localize: { text: 'unselect' }">Unselect</div>
-                                    <!-- /ko-->
-                                    <!-- ko ifnot: isSelected -->
-                                    <div data-bind="localize: { text: 'select' }">Select</div>
-                                    <!-- /ko-->
-                                    <div class="experience-brief-options-select-image" data-bind="css: { selected: isSelected() }">
-                                        <input class="custom-checkbox" type="checkbox" />
-                                    </div>
-                                </div>
-                                <div class="experience-brief-options-separator"></div>
-                                <div class="experience-brief-options-open" data-bind="click: $parent.navigateToDetails">
+                            <div class="experience-brief-option">
+                                <!-- ko if: !building() && !isBuilded() -->
+                                <div class="experience-brief-option-inner experience-brief-options-open" data-bind="click: $parent.navigateToDetails">
                                     <div data-bind="localize: { text: 'open' }">Open</div>
                                     <div class="experience-brief-options-open-image"></div>
                                 </div>
+                                <!-- /ko -->
+                                <!-- ko if: building() -->
+                                <div class="experience-brief-option-inner experience-brief-options-building">
+                                    <div data-bind="localize: { text: 'experienceBuildingStatus' }"></div>
+                                    <div class="experience-brief-options-building-image"></div>
+                                </div>
+                                <!-- /ko -->
+                                <!-- ko if: isBuilded && buildFinished -->
+                                <div class="experience-brief-option-inner experience-brief-options-complete">
+                                    <div data-bind="localize: { text: 'experienceCompleteStatus' }"></div>
+                                    <div class="experience-brief-options-complete-image"></div>
+                                </div>
+                                <!-- /ko -->
+                                <!-- ko if: isBuilded() && !buildFinished() -->
+                                <div class="experience-brief-option-inner experience-brief-options-failed">
+                                    <div data-bind="localize: { text: 'experienceFailedStatus' }"></div>
+                                    <div class="experience-brief-options-failed-image"></div>
+                                </div>
+                                <!-- /ko -->
                             </div>
                         </div>
                         <span class="substrate-block">

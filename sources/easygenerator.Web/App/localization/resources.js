@@ -141,19 +141,19 @@
         de: 'Download'
     },
     experienceBuildingStatus: {
-        en: 'building…',
+        en: 'Building…',
         nl: 'Samenstellen…',
         de: 'Aufbau…'
     },
     experienceFailedStatus: {
-        en: 'failed',
-        nl: 'mislukt',
-        de: 'fehlgeschlagen'
+        en: 'Failed',
+        nl: 'Mislukt',
+        de: 'Fehlgeschlagen'
     },
     experienceCompleteStatus: {
-        en: 'complete',
-        nl: 'voltooid',
-        de: 'vollständig'
+        en: 'Complete',
+        nl: 'Voltooid',
+        de: 'Vollständig'
     },
     /* End resource section for model Experiences */
     

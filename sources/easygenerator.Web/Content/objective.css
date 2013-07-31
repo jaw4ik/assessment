@@ -174,7 +174,7 @@ a.nav-control:hover {
     .question-open .action-img {
         height: 34px;
         width: 34px;
-        background-image: url(images/options-icons.png);
+        background-image: url(images/small-options-icons.png);
         background-repeat: no-repeat;
         -webkit-background-size: 100%;
         -moz-background-size: 100%;

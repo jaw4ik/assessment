@@ -85,6 +85,10 @@ table {
 /**
  * Forms
  */
+input[type="radio"], 
+input[type="checkbox"] {
+    margin: 0;
+}
 
 .custom-checkbox {
     position: absolute;

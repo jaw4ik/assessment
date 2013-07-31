@@ -38,6 +38,7 @@
     .objectives-navigation .current,
     .experiences-navigation .current {
         background-color: rgba(0, 0, 0, 0.4);
+        cursor: default;
     }
 
     .objectives-navigation .learning-objectives-btn:hover, .objectives-navigation a.experiences-btn:hover,
@@ -51,7 +52,7 @@
 
 .objectives-header,
 .experiences-header {
-    padding: 6px 20px 0;
+    padding: 14px 20px 0;
     height: 80px;
 }
 
@@ -61,7 +62,6 @@
     display: table-cell;
     white-space: nowrap;
 }
-
 
 .objectives-header-title,
 .experiences-header-title,
@@ -156,7 +156,6 @@
     opacity: 1;
 }
 
-
 .objectives-navigation, .experiences-navigation,
 .objectives-header, .experiences-header, .questions-header {
     text-transform: uppercase;
@@ -185,8 +184,8 @@
     margin: 0;
 }
 
-.objective-brief,
-.experience-brief {
+.objective-brief {
+    height: 230px;
     width: 360px;
     position: relative;
     float: left;
@@ -196,24 +195,17 @@
     border-radius: 4px;
 }
 
-.objective-brief, .objective-brief-inner,
-.experience-brief-inner {
-    height: 230px;
+.objective-brief-inner {
+    height: 100%;
 }
 
-.experience-brief {
-    height: 243px;
-}
-
-.objective-brief-selected,
-.experience-brief-selected {
+.objective-brief-selected {
     -webkit-box-shadow: 0 0 9px 2px #6bb4d8;
     -moz-box-shadow: 0 0 9px 2px #6bb4d8;
     box-shadow: 0 0 9px 2px #6bb4d8;
 }
 
-.objective-brief-image,
-.experience-brief-image {
+.objective-brief-image {
     width: 100%;
     height: 100%;
     -webkit-background-size: 100%;
@@ -222,12 +214,7 @@
     background-repeat: no-repeat;
 }
 
-.experience-brief-image {
-    background-image: url(images/experience.png);
-}
-
-.objective-brief-options,
-.experience-brief-options {
+.objective-brief-options {
     height: 182px;
     width: 352px;
     position: absolute;
@@ -236,14 +223,13 @@
     display: none;
 }
 
-.objective-brief:hover .objective-brief-options,
-.experience-brief:hover .experience-brief-options {
+.objective-brief:hover .objective-brief-options {
     background-color: rgba(0, 0, 0, 0.4);
     display: block;
 }
 
-.objective-brief-options-select, .objective-brief-options-open,
-.experience-brief-options-select, .experience-brief-options-open {
+.objective-brief-options-select,
+.objective-brief-options-open {
     height: 182px;
     width: 50%;
     float: left;
@@ -254,15 +240,14 @@
     font-size: 22px;
 }
 
-    .objective-brief-options-select:hover, .objective-brief-options-open:hover,
-    .experience-brief-options-select:hover, .experience-brief-options-open:hover {
+    .objective-brief-options-select:hover,
+    .objective-brief-options-open:hover {
         background-color: #000000;
         background-color: rgba(0, 0, 0, 0.4);
         cursor: pointer;
     }
 
-.objective-brief-options-separator,
-.experience-brief-options-separator {
+.objective-brief-options-separator {
     height: 140px;
     position: absolute;
     left: 50%;
@@ -273,8 +258,7 @@
     background-color: #7E7D7B;
 }
 
-.objective-brief-options-select-image,
-.experience-brief-options-select-image {
+.objective-brief-options-select-image {
     display: inline-block;
     margin-top: 5px;
     width: 51px;
@@ -282,13 +266,11 @@
     background: url('images/objexp-sprite.png') 0 -148px;
 }
 
-    .objective-brief-options-select-image.selected,
-    .experience-brief-options-select-image.selected {
+    .objective-brief-options-select-image.selected {
         background-position: 0 -210px;
     }
 
-.objective-brief-options-open-image,
-.experience-brief-options-open-image {
+.objective-brief-options-open-image {
     display: inline-block;
     margin-top: 10px;
     width: 51px;
@@ -296,8 +278,7 @@
     background: url('images/objexp-sprite.png') 0 -272px;
 }
 
-.objective-brief-title,
-.experience-brief-title {
+.objective-brief-title {
     float: left;
     overflow: hidden;
     padding: 0 10px;
@@ -309,8 +290,7 @@
     line-height: 40px;
 }
 
-    .objective-brief-title > span,
-    .experience-brief-title > span {
+    .objective-brief-title > span {
         display: block;
         white-space: nowrap;
         overflow: hidden;
@@ -318,8 +298,7 @@
         cursor: default;
     }
 
-.objective-brief-toolbar,
-.experience-brief-toolbar {
+.objective-brief-toolbar {
     height: 40px;
     width: 100%;
     position: absolute;
@@ -336,15 +315,7 @@
     background: url('images/objexp-sprite.png') 0 -321px;
 }
 
-.experience-brief-toolbar-icon-objective {
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    background: url('images/objexp-sprite.png') 1px -346px;
-}
-
-.objective-brief-toolbar-question-count,
-.experience-brief-toolbar-objective-count {
+.objective-brief-toolbar-question-count {
     display: block;
     float: left;
     padding: 5px 0;
@@ -360,26 +331,6 @@
     cursor: default;
 }
 
-.substrate-block,
-.substrate-inner {
-    display: block;
-    height: 13px;
-    width: 360px;
-    background-color: #ffffff;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    -webkit-box-shadow: 1px 0 3px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 1px 0 3px rgba(0, 0, 0, 0.3);
-    box-shadow: 1px 0 3px rgba(0, 0, 0, 0.3);
-}
-
-.substrate-inner {
-    position: relative;
-    bottom: 3px;
-    overflow-x: hidden;
-}
-
 @media (min-width: 1220px) {
 
     .objectives,
@@ -388,15 +339,14 @@
     }
 
     .objectives-list-wrapper,
-    .objectives-list-wrapper {
+    .experiences-list-wrapper {
         max-width: 1202px;
     }
 
-    .objective-brief, .experience-brief {
+    .objective-brief {
         margin: 0 20px 40px;
     }
 }
-
 
 @media (max-width: 960px) {
     .logo {
@@ -412,11 +362,11 @@
     }
 
     .objectives-list-wrapper,
-    .objectives-list-wrapper {
+    .experiences-list-wrapper {
         max-width: 765px;
     }
 
-    .objective-brief, .experience-brief {
+    .objective-brief {
         margin: 0 10px 40px;
     }
 }
@@ -429,11 +379,11 @@
     }
 
     .objectives-list-wrapper,
-    .objectives-list-wrapper {
+    .experiences-list-wrapper {
         max-width: 400px;
     }
 
-    .objective-brief, .experience-brief {
+    .objective-brief {
         margin: 0 20px 40px;
     }
 }
