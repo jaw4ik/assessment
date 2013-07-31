@@ -108,13 +108,25 @@
                         },
                         {
                             "id": 1,
+                            "text": "<div><span class=\"inlineTitle\">Ease of use<\/span><\/div>\r\n<div>&nbsp;<\/div>\r\n<div>Ease of use is very important for an authoring tool; this becomes even more important since subject matter experts participate more and more in the development process. For easygenerator this is one of our main focal points. That makes sense when your name is easygenerator.<\/div>\r\n<div>&nbsp;<\/div>\r\n<div>One of the reasons easygenerator is so easy to use, is our intuitive interface. You don&#39;t need a three day course. Probably the most important thing is the What You See Is What You Get Editor. As an author you work in an e-Learning module that shows exactly the same representation as the learner sees, the only difference is that an author can edit. Thanks to this, you always know what you are doing and what the effects of your actions are for the learner.<\/div>"
+                        },
+                        {
+                            "id": 2,
+                            "text": "<div><span class=\"inlineTitle\">Powerful<\/span><\/div>\r\n<div>&nbsp;<\/div>\r\n<div>Because we believe that one has to improve on one&#39;s strong points, we constantly work on improving the usability. We made the toolbars adjustable. You can now hide them or place them in your preferred location. Enabling you to create the interface you want. Another improvement is that you can expand and collapse the table of content, making almost your entire screen available for editing. These are small but important changes. We added a big change too: our rights and role model. The idea is that each user only sees the functions that he needs, making the interface even more easy to use. We have seven different roles, from a reviewer up to an administrator.<\/div>\r\n<div>&nbsp;<\/div>\r\n<div>And yet, at the same time easygenerator is a very powerful tool. You can embed audio, video, animations, YouTube videos and even external media with ease. You can create complex branching scenarios (based on learning outcomes) without programming and develop custom functionality with easygenerator&#39;s open API.<\/div>"
+                        },
+                        {
+                            "id": 3,
                             "text": "<img src=\"\/Content\/images\/sample\/5.png\" \/>"
+                        },
+                        {
+                            "id": 4,
+                            "text": "<img src=\"\/Content\/images\/sample\/7.png\" \/>"
                         }
                     ]
                 },
                 {
                     "id": 2,
-                    "title": "3. Which standard buttons does the &#39;page element&#39; toolbar offer?",
+                    "title": "3. Which standard buttons does the 'page element' toolbar offer?",
                     "answerOptions": [
                         {
                             "id": 0,
@@ -145,36 +157,6 @@
                         {
                             "id": 1,
                             "text": "<img src=\"\/Content\/images\/sample\/6.png\" \/>"
-                        }
-                    ]
-                },
-                {
-                    "id": 3,
-                    "title": "4. Ease of use",
-                    "answerOptions": [],
-                    "explanations": [
-                        {
-                            "id": 0,
-                            "text": "<div><span class=\"inlineTitle\">Ease of use<\/span><\/div>\r\n<div>&nbsp;<\/div>\r\n<div>Ease of use is very important for an authoring tool; this becomes even more important since subject matter experts participate more and more in the development process. For easygenerator this is one of our main focal points. That makes sense when your name is easygenerator.<\/div>\r\n<div>&nbsp;<\/div>\r\n<div>One of the reasons easygenerator is so easy to use, is our intuitive interface. You don&#39;t need a three day course. Probably the most important thing is the What You See Is What You Get Editor. As an author you work in an e-Learning module that shows exactly the same representation as the learner sees, the only difference is that an author can edit. Thanks to this, you always know what you are doing and what the effects of your actions are for the learner.<\/div>"
-                        },
-                        {
-                            "id": 1,
-                            "text": "<img src=\"\/Content\/images\/sample\/5.png\" \/>"
-                        }
-                    ]
-                },
-                {
-                    "id": 4,
-                    "title": "5. Powerful",
-                    "answerOptions": [],
-                    "explanations": [
-                        {
-                            "id": 0,
-                            "text": "<div><span class=\"inlineTitle\">Powerful<\/span><\/div>\r\n<div>&nbsp;<\/div>\r\n<div>Because we believe that one has to improve on one&#39;s strong points, we constantly work on improving the usability. We made the toolbars adjustable. You can now hide them or place them in your preferred location. Enabling you to create the interface you want. Another improvement is that you can expand and collapse the table of content, making almost your entire screen available for editing. These are small but important changes. We added a big change too: our rights and role model. The idea is that each user only sees the functions that he needs, making the interface even more easy to use. We have seven different roles, from a reviewer up to an administrator.<\/div>\r\n<div>&nbsp;<\/div>\r\n<div>And yet, at the same time easygenerator is a very powerful tool. You can embed audio, video, animations, YouTube videos and even external media with ease. You can create complex branching scenarios (based on learning outcomes) without programming and develop custom functionality with easygenerator&#39;s open API.<\/div>"
-                        },
-                        {
-                            "id": 1,
-                            "text": "<img src=\"\/Content\/images\/sample\/7.png\" \/>"
                         }
                     ]
                 }
@@ -217,7 +199,15 @@
                         },
                         {
                             "id": 1,
+                            "text": "<div>Easygenerator tries to improve e-Learning not only by developing an easy-to-use online authoring tool, but also by supporting new ways of conducting e-Learning.<\/div>\r\n<div>&nbsp;<\/div>\r\n<div>The simple idea with adaptive e-Learning is that the course automatically adapts to the learner, while the course is still in progress. Based on the results in specific questions, or question clusters, the learner will be redirected to an appropriate location in order to either improve the knowledge on a weak point or to skip parts that are already at the desired level.<\/div>"
+                        },
+                        {
+                            "id": 2,
                             "text": "<img src=\"\/Content\/images\/sample\/8.png\" \/>"
+                        },
+                        {
+                            "id": 3,
+                            "text": "<img src=\"\/Content\/images\/sample\/10.png\" \/>"
                         }
                     ]
                 },
@@ -289,40 +279,18 @@
                         },
                         {
                             "id": 1,
-                            "text": "<img src=\"\/Content\/images\/sample\/9.png\" \/>"
-                        }
-                    ]
-                },
-                {
-                    "id": 3,
-                    "title": "4. Adaptive e-Learning",
-                    "answerOptions": [],
-                    "explanations": [
-                        {
-                            "id": 0,
-                            "text": "<div>Easygenerator tries to improve e-Learning not only by developing an easy-to-use online authoring tool, but also by supporting new ways of conducting e-Learning.<\/div>\r\n<div>&nbsp;<\/div>\r\n<div>The simple idea with adaptive e-Learning is that the course automatically adapts to the learner, while the course is still in progress. Based on the results in specific questions, or question clusters, the learner will be redirected to an appropriate location in order to either improve the knowledge on a weak point or to skip parts that are already at the desired level.<\/div>"
-                        },
-                        {
-                            "id": 1,
-                            "text": "<img src=\"\/Content\/images\/sample\/10.png\" \/>"
-                        }
-                    ]
-                },
-                {
-                    "id": 4,
-                    "title": "5. Learning objectives & rules",
-                    "answerOptions": [],
-                    "explanations": [
-                        {
-                            "id": 0,
                             "text": "<div>In version 8 of easygenerator we have added some great functionality that will impact the effectiveness of your e-Learning. With easygenerator, quiz questions and assessments can be tied to learning objectives and the course navigation will automatically change, based on the outcome per assessment. A learner can strengthen her understanding of a weak subject accordingly and skip the parts where competence has been achieved. The progress is also measured per objective, giving the learner a clear understanding of the results of her efforts.</div>"
                         },
                         {
-                            "id": 1,
+                            "id": 2,
                             "text": "<div>From the management perspective this is also great. The value of learning will truly improve. &#39;Normally&#39;, progress is measured based on the number of pages viewed, now you know the learner has not only seen the content, she actually understood it. On top of this you will save a lot of the learners&#39; time, they will now only be taught what they need to acquire.</div>"
                         },
                         {
-                            "id": 2,
+                            "id": 3,
+                            "text": "<img src=\"\/Content\/images\/sample\/9.png\" \/>"
+                        },
+                        {
+                            "id": 4,
                             "text": "<img src=\"\/Content\/images\/sample\/11.png\" \/>"
                         }
                     ]
@@ -336,7 +304,7 @@
             "questions": [
                 {
                     "id": 0,
-                    "title": "1. How does easygenerator facilitate the collaboration between participants? liuhoiuyouyoiuyoi",
+                    "title": "1. How does easygenerator facilitate the collaboration between participants?",
                     "answerOptions": [
                         {
                             "id": 0,
@@ -371,7 +339,23 @@
                         },
                         {
                             "id": 1,
+                            "text": "<p><br \/>\r\nThe fact that easygenerator is an online platform is the heart of our collaborative platform. Everybody from anywhere can login at any time and contribute to the development. We even have an external review facility for people who don&#39;t have an easygenerator license.<\/p>\r\n<div>&nbsp;<\/div>\r\n<div>Keeping the development process smooth becomes harder when more people are involved, therefore we added workflow facilities. But in the spirit of our platform we kept them very simple. There are three elements in the workflow. You can place comments on each page (plus view and react on comments of others), you can create a task for a page and assign that to yourself or someone else and you have a task list with an overview of all tasks assigned to you. That&#39;s all quite simple but very effective.<\/div>"
+                        },
+                        {
+                            "id": 2,
                             "text": "<img src=\"\/Content\/images\/sample\/12.png\" \/>"
+                        },
+                        {
+                            "id": 3,
+                            "text": "<img src=\"\/Content\/images\/sample\/14.png\" \/>"
+                        },
+                        {
+                            "id": 4,
+                            "text": "<img src=\"\/Content\/images\/sample\/15.png\" \/><br\/><img src=\"\/Content\/images\/sample\/15.png\" \/><br\/><img src=\"\/Content\/images\/sample\/15.png\" \/><br\/>"
+                        },
+                        {
+                            "id": 5,
+                            "text": "<img src=\"\/Content\/images\/sample\/16.png\" \/>"
                         }
                     ]
                 },
@@ -407,48 +391,18 @@
                         },
                         {
                             "id": 1,
-                            "text": "<img src=\"\/Content\/images\/sample\/13.png\" \/>"
-                        }
-                    ]
-                },
-                {
-                    "id": 2,
-                    "title": "3. Online collaboration & workflow",
-                    "answerOptions": [],
-                    "explanations": [
-                        {
-                            "id": 0,
-                            "text": "<p><br \/>\r\nThe fact that easygenerator is an online platform is the heart of our collaborative platform. Everybody from anywhere can login at any time and contribute to the development. We even have an external review facility for people who don&#39;t have an easygenerator license.<\/p>\r\n<div>&nbsp;<\/div>\r\n<div>Keeping the development process smooth becomes harder when more people are involved, therefore we added workflow facilities. But in the spirit of our platform we kept them very simple. There are three elements in the workflow. You can place comments on each page (plus view and react on comments of others), you can create a task for a page and assign that to yourself or someone else and you have a task list with an overview of all tasks assigned to you. That&#39;s all quite simple but very effective.<\/div>"
-                        },
-                        {
-                            "id": 1,
-                            "text": "<img src=\"\/Content\/images\/sample\/14.png\" \/>"
-                        },
-                        {
-                            "id": 2,
-                            "text": "<img src=\"\/Content\/images\/sample\/15.png\" \/><br\/><img src=\"\/Content\/images\/sample\/15.png\" \/><br\/><img src=\"\/Content\/images\/sample\/15.png\" \/><br\/>"
-                        },
-                        {
-                            "id": 3,
-                            "text": "<img src=\"\/Content\/images\/sample\/16.png\" \/>"
-                        }
-                    ]
-                },
-                {
-                    "id": 3,
-                    "title": "4. Rights and roles",
-                    "answerOptions": [],
-                    "explanations": [
-                        {
-                            "id": 0,
                             "text": "<div><br \/>\r\nPeople with different roles need different facilities. We have implemented a rights and role system that arranges this. If you have a subject matter expert with little to no knowledge of e-Learning you can assign the role of &#39;content editor&#39; to him. He will only be able to edit existing pages (text and images). An extra advantage is that he will only see the functionality that he needs. This way it is possible for him to start his work with no or very little (5 minutes) instruction. In total we support seven different roles, with specific rights.<\/div>"
                         },
                         {
-                            "id": 1,
+                            "id": 2,
+                            "text": "<img src=\"\/Content\/images\/sample\/13.png\" \/>"
+                        },
+                        {
+                            "id": 3,
                             "text": "<img src=\"\/Content\/images\/sample\/14.png\" \/>"
                         },
                         {
-                            "id": 2,
+                            "id": 4,
                             "text": "<img src=\"\/Content\/images\/sample\/15.png\" \/>"
                         }
                     ]
@@ -492,6 +446,10 @@
                         },
                         {
                             "id": 1,
+                            "text": "<div>You don&#39;t want to duplicate any content if that is not necessary. The more copies you make the more complex your maintenance will be. We found that this is especially a concern when you want to reuse questions from an assessment in an e-Learning course (or visa versa), when you just want to publish the questions from a course to memory training software or when you want to publish a course to a mobile device.<\/div>\r\n<div>In order to solve this, easygenerator offers you the &#39;page link&#39; and the &#39;content link&#39;.<\/div>"
+                        },
+                        {
+                            "id": 2,
                             "text": "<img src=\"\/Content\/images\/sample\/17.png\" \/>"
                         }
                     ]
@@ -529,21 +487,6 @@
                         {
                             "id": 1,
                             "text": "<img src=\"\/Content\/images\/sample\/18.png\" \/>"
-                        }
-                    ]
-                },
-                {
-                    "id": 2,
-                    "title": "3. Reuse of content",
-                    "answerOptions": [],
-                    "explanations": [
-                        {
-                            "id": 0,
-                            "text": "<div>You don&#39;t want to duplicate any content if that is not necessary. The more copies you make the more complex your maintenance will be. We found that this is especially a concern when you want to reuse questions from an assessment in an e-Learning course (or visa versa), when you just want to publish the questions from a course to memory training software or when you want to publish a course to a mobile device.<\/div>\r\n<div>In order to solve this, easygenerator offers you the &#39;page link&#39; and the &#39;content link&#39;.<\/div>"
-                        },
-                        {
-                            "id": 1,
-                            "text": "<img src=\"\/Content\/images\/sample\/17.png\" \/><img src=\"\/Content\/images\/sample\/17.png\" \/><img src=\"\/Content\/images\/sample\/17.png\" \/><img src=\"\/Content\/images\/sample\/17.png\" \/><img src=\"\/Content\/images\/sample\/17.png\" \/>"
                         }
                     ]
                 }
