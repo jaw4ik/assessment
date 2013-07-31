@@ -60,7 +60,8 @@
                     </div>
                 </div>
             </div>
-            <div class="question-content-items-list" data-bind="slideToggle: isAnswersBlockExpanded">
+            <!-- ko if:isAnswersBlockExpanded -->
+            <div class="question-content-items-list">
                 <ul class="unstyled">
                     <!-- ko foreach: answerOptions() -->
                     <li class="answer-option-item" data-bind="css: { active: isInEdit }">
@@ -82,6 +83,7 @@
                     <!-- /ko -->
                 </ul>
             </div>
+            <!-- /ko -->
         </div>
         <div>
             <div class="question-content-block question-explanations">
@@ -101,7 +103,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="question-content-items-list" data-bind="slideToggle: isExplanationsBlockExpanded ">
+                <!-- ko if: isExplanationsBlockExpanded -->
+                <div class="question-content-items-list">
                     <ul class="unstyled">
                         <!-- ko foreach: explanations -->
                         <li class="question-explanation-item" data-bind="css: { active: isEditing }">
@@ -136,6 +139,7 @@
                         </li>
                     </ul>
                 </div>
+                <!-- /ko -->
             </div>
         </div>
     </div>

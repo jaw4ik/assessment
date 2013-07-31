@@ -154,7 +154,6 @@
     <Content Include="apple-touch-icon-72x72-precomposed.png" />
     <Content Include="apple-touch-icon-precomposed.png" />
     <Content Include="apple-touch-icon.png" />
-    <Content Include="App\animations\slideToggle.js" />
     <Content Include="App\models\explanation.js" />
     <Content Include="App\repositories\objectiveBriefRepository.js" />
     <Content Include="App\repositories\objectiveBriefRepository.spec.js" />
@@ -476,6 +475,7 @@
     <Content Include="Scripts\underscore.extensions.js" />
     <Content Include="Scripts\underscore.js" />
     <None Include="Scripts\underscore.min.js" />
+    <Content Include="Templates\Default\App\animations\slideToggle.js" />
     <Content Include="Templates\Default\App\context.js" />
     <Content Include="Templates\Default\App\durandal\amd\almond-custom.js" />
     <Content Include="Templates\Default\App\durandal\amd\optimizer.exe" />
