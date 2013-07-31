@@ -67,7 +67,7 @@
                  router.navigateTo('#/objectives');
              },
 
-//TODO: temporary method for testing markUp. Should be deleted or modifying then backend will be implementesd.
+//TODO: temporary method for testing markUp. Should be deleted or modifying then backend will be implemented.
 
         buildExperience = function (experience) {
 
