@@ -238,7 +238,7 @@ ol.unstyled  {
 }
 
 
-.objective-brief-list-item+.objective-brief-list-item {
+.objective-brief-list-item + .objective-brief-list-item {
     margin-top: 5px;
 }
 
@@ -382,6 +382,7 @@ ol.unstyled  {
     background: url("../img/question.png") no-repeat scroll center center transparent;
 }
 
+
 .question-answers {
     padding: 20px;
 }
@@ -499,50 +500,45 @@ ol.unstyled  {
 /* -------------- end of feedback view ------------- */
 
 
-
-
-
-
 /* -------------- explanation view ------------- */
 .explanations {
     padding-bottom: 10px;
 }
 
-.explanations .navigation-link-left-image {
-    background: url("../img/back-btn.png") no-repeat scroll center center transparent;
-}
+    .explanations .navigation-link-left-image {
+        background: url("../img/back-btn.png") no-repeat scroll center center transparent;
+    }
 
-.explanations .navigation-link-right-image {
-    background: url("../img/info-btn.png") no-repeat scroll center center transparent;
-}
+    .explanations .navigation-link-right-image {
+        background: url("../img/info-btn.png") no-repeat scroll center center transparent;
+    }
 
-.explanations .caption-icon {
-    padding: 20px 0;
-}
+    .explanations .caption-icon {
+        padding: 20px 0;
+    }
 
-.explanations .caption-text {
-    padding: 20px 0;
-    text-transform: uppercase;
-}
+    .explanations .caption-text {
+        padding: 22px 0;
+        text-transform: uppercase;
+    }
 
-.explanations .caption-icon-image {
-    width: 26px;
-    height: 26px;
-    background: url("../img/explanation.png") no-repeat scroll center center transparent;
-}
+    .explanations .caption-icon-image {
+        width: 26px;
+        height: 26px;
+        background: url("../img/explanation.png") no-repeat scroll center center transparent;
+    }
 
 .explanation-items {
     padding: 0 10px;
     margin: 0;
 }
 
-.explanation-items .explanation-item {
-    padding: 20px 0;
-    
-}
+    .explanation-items .explanation-item {
+        padding: 20px 0;
+    }
 
-.explanation-items .explanation-item+.explanation-item {
-    border-top: solid 2px #e0e0e0;    
-}
+        .explanation-items .explanation-item + .explanation-item {
+            border-top: solid 2px #e0e0e0;
+        }
 
 /* -------------- end of explanations view ------------- */
