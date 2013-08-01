@@ -136,12 +136,13 @@ ol.unstyled  {
 
 .caption {
     display: table;
+    height: 68px;
     background-color: #F5F5F5;
     border: 1px solid #E1E1E1;
     width: 100%;
     color: #666666;
     font-family: Arial;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .caption-stripe {
