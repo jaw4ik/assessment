@@ -1,0 +1,1 @@
+Extract content.zip to Templates\Default folder on deployment
