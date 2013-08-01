@@ -224,10 +224,10 @@ ol.unstyled  {
 
 
 
-/* -------------- homve view ------------- */
+/* -------------- home view ------------- */
 
 .home {
-    padding: 0 14px 10px;
+    padding: 10px;
 }
 
 .objective-brief-list {
@@ -239,9 +239,13 @@ ol.unstyled  {
     background-color: #e3e3e3;
 }
 
+
+.objective-brief-list-item+.objective-brief-list-item {
+    margin-top: 5px;
+}
+
 .objective-brief {
     display: table;
-    margin-top: 5px;
     padding: 0;
     width: 100%;
     border: 1px solid #E1E1E1;
@@ -358,7 +362,7 @@ ol.unstyled  {
 }
 
     .question-brief-title:hover {
-       text-decoration: underline;
+        text-decoration: underline;
     }
 
 /* -------------- end of home view ------------- */
@@ -430,10 +434,11 @@ ol.unstyled  {
     line-height: 30px;
     width: 100%;
 }
-.btn-submit:hover {
-    opacity: 1;
-    filter: alpha(opacity=100);
-}
+
+    .btn-submit:hover {
+        opacity: 1;
+        filter: alpha(opacity=100);
+    }
 
 /* -------------- end of question view ------------- */
 

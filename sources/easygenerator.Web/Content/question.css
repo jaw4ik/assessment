@@ -121,7 +121,8 @@
 /* Correct/incorrect icon  */
 
 .answer-option-item+.answer-option-item,
-.question-explanation-item+.question-explanation-item {
+.question-explanation-item+.question-explanation-item,
+.add-button {
     margin-top: 15px;
 }
 
