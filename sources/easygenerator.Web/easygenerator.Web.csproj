@@ -498,13 +498,13 @@
     <Content Include="Templates\Default\App\durandal\widget.js" />
     <Content Include="Templates\Default\App\main-built.js" />
     <Content Include="Templates\Default\App\main.js" />
-    <Content Include="Templates\Default\App\viewmodels\explanation.js" />
+    <Content Include="Templates\Default\App\viewmodels\explanations.js" />
     <Content Include="Templates\Default\App\viewmodels\feedback.js" />
     <Content Include="Templates\Default\App\viewmodels\home.js" />
     <Content Include="Templates\Default\App\viewmodels\question.js" />
     <Content Include="Templates\Default\App\viewmodels\shell.js" />
     <Content Include="Templates\Default\App\viewmodels\summary.js" />
-    <Content Include="Templates\Default\App\views\explanation.html" />
+    <Content Include="Templates\Default\App\views\explanations.html" />
     <Content Include="Templates\Default\App\views\feedback.html" />
     <Content Include="Templates\Default\App\views\home.html" />
     <Content Include="Templates\Default\App\views\question.html" />
@@ -541,9 +541,11 @@
     <Content Include="Templates\Default\img\back-btn.png" />
     <Content Include="Templates\Default\img\checkbox.png" />
     <Content Include="Templates\Default\img\collapse.png" />
+    <Content Include="Templates\Default\img\explanation.png" />
     <Content Include="Templates\Default\img\explanations-btn.png" />
     <Content Include="Templates\Default\img\expand.png" />
     <Content Include="Templates\Default\img\feedback.png" />
+    <Content Include="Templates\Default\img\info-btn.png" />
     <Content Include="Templates\Default\img\loader.gif" />
     <Content Include="Templates\Default\img\logo.png" />
     <Content Include="Templates\Default\img\progress_summary.png" />
@@ -552,6 +554,7 @@
     <Content Include="Templates\Default\index.html" />
     <Content Include="Templates\Default\js\jquery-1.9.1.js" />
     <Content Include="Templates\Default\js\knockout-2.2.1.js" />
+    <Content Include="Templates\Default\js\q.js" />
     <Content Include="Templates\Default\js\sammy-0.7.4.js" />
     <Content Include="Templates\Default\js\underscore-1.5.1.js" />
     <Content Include="Web.config" />

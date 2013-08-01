@@ -24,7 +24,7 @@
                 },
                 {
                     url: '#/objective/:objectiveId/question/:questionId/explanations',
-                    moduleId: 'viewmodels/explanation',
+                    moduleId: 'viewmodels/explanations',
                     name: 'Explanation'
                 },
                 {

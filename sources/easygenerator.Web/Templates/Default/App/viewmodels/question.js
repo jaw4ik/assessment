@@ -22,7 +22,7 @@
             router.navigateTo('#/');
         },
         showExplanations = function () {
-            router.navigateTo('#/');
+            router.navigateTo('#/objective/' + objective.id + '/question/' + question.id + '/explanations');
         },
         showFeedback = function() {
             router.navigateTo('#/objective/' + objective.id + '/question/' + question.id + '/feedback');

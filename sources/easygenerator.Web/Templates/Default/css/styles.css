@@ -127,6 +127,7 @@ ol.unstyled  {
 }
 
 .content {
+    padding: 10px;
     border: 1px solid #E0E0E0;
     background-color: #FFFFFF;
 }
@@ -225,10 +226,6 @@ ol.unstyled  {
 
 
 /* -------------- home view ------------- */
-
-.home {
-    padding: 10px;
-}
 
 .objective-brief-list {
     margin: 0;
@@ -370,10 +367,6 @@ ol.unstyled  {
 
 /* -------------- question view ------------- */
 
-.question .content {
-    padding: 10px;
-}
-
 .question .navigation-link-left-image {
     background: url("../img/back-btn.png") no-repeat scroll center center transparent;
 }
@@ -505,3 +498,50 @@ ol.unstyled  {
 /* -------------- end of feedback view ------------- */
 
 
+
+
+
+
+/* -------------- explanation view ------------- */
+.explanations {
+    padding-bottom: 10px;
+}
+
+.explanations .navigation-link-left-image {
+    background: url("../img/back-btn.png") no-repeat scroll center center transparent;
+}
+
+.explanations .navigation-link-right-image {
+    background: url("../img/info-btn.png") no-repeat scroll center center transparent;
+}
+
+.explanations .caption-icon {
+    padding: 20px 0;
+}
+
+.explanations .caption-text {
+    padding: 20px 0;
+    text-transform: uppercase;
+}
+
+.explanations .caption-icon-image {
+    width: 26px;
+    height: 26px;
+    background: url("../img/explanation.png") no-repeat scroll center center transparent;
+}
+
+.explanation-items {
+    padding: 0 10px;
+    margin: 0;
+}
+
+.explanation-items .explanation-item {
+    padding: 20px 0;
+    
+}
+
+.explanation-items .explanation-item+.explanation-item {
+    border-top: solid 2px #e0e0e0;    
+}
+
+/* -------------- end of explanations view ------------- */

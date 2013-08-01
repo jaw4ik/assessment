@@ -2,21 +2,23 @@
 
     var
         score = null,
+        objective = null,
+        question = null,
         backToObjectives = function () {
             router.navigateTo('#/');
         },
         showExplanations = function () {
-            router.navigateTo('#/');
+            router.navigateTo('#/objective/' + objective.id + '/question/' + question.id + '/explanations');
         },
         chooseNextQuestion = function () {
             router.navigateTo('#/');
         },
         activate = function (routeData) {
-            var objective = _.find(context.objectives, function (item) {
+            objective = _.find(context.objectives, function (item) {
                 return item.id == routeData.objectiveId;
             });
 
-            var question = _.find(objective.questions, function (item) {
+            question = _.find(objective.questions, function (item) {
                 return item.id == routeData.questionId;
             });
 

@@ -1,0 +1,30 @@
+﻿<section class="explanations">
+    <div class="navigation-link-container">
+        <div class="pull-left">
+            <a class="navigation-link" href="/#" data-bind="click: backToObjectives">
+                <div class="navigation-link-left-image"></div>
+                Back to objectives</a>
+        </div>
+        <div class="pull-right">
+            <a class="navigation-link" href="/#" data-bind="click: backToQuestion">Back to question
+                <div class="navigation-link-right-image"></div>
+            </a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="content">
+        <div class="caption">
+            <div class="caption-stripe"></div>
+            <div class="caption-icon">
+                <div class="caption-icon-image"></div>
+            </div>
+            <div class="caption-text">Explanations</div>
+        </div>
+        <ul class="explanation-items unstyled">
+            <!-- ko foreach: explanations-->
+            <li class="explanation-item" data-bind="html: explanation"></li>
+            <!-- /ko -->
+        </ul>
+    </div>
+</section>
