@@ -85,7 +85,7 @@ table {
 /**
  * Forms
  */
-input[type="radio"], 
+input[type="radio"],
 input[type="checkbox"] {
     margin: 0;
 }

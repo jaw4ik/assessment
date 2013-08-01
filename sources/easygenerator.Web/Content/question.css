@@ -28,6 +28,8 @@
     border: 1px solid #E1E1E1;
     background-color: #ffffff;
     width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px; 
 }
 
 .question-answers {
@@ -37,7 +39,7 @@
 }
 
 .question-content-block {
-    margin: 5px 15px 5px 15px;
+    margin: 5px 10px;
 }
 
 .question-content-block-header-wrapper {
