@@ -179,8 +179,8 @@ testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question
 #line 42
 testRunner.And("mouse hover element of explanation with text \'Explanation12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 43
-testRunner.Then("explanation delete button is enabled \'<true>\' for explanation with text \'Explanat" +
-                    "ion12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("explanation delete button is enabled true for explanation with text \'Explanation1" +
+                    "2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -225,8 +225,8 @@ testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question
 #line 54
 testRunner.And("click explanation text field \'Explanation12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 55
-testRunner.Then("explanation delete button is enabled \'<true>\' for explanation with text \'Explanat" +
-                    "ion12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("explanation delete button is enabled true for explanation with text \'Explanation1" +
+                    "2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

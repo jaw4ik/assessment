@@ -487,8 +487,8 @@ testRunner.Then("Action open is enabled true for publications list item with tit
 testRunner.And("Action select is enabled true for publications list item with title \'Publication1" +
                     "\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 179
-testRunner.And("Action build is enabled \'true\' for publications list item with title \'Publication" +
-                    "1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("Action build is enabled true for publications list item with title \'Publication1\'" +
+                    "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }

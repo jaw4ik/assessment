@@ -176,7 +176,7 @@ When open page by url 'http://localhost:5656/#/experiences'
 And mouse hover element of publications list with title 'Publication1'
 Then Action open is enabled true for publications list item with title 'Publication1'
 And Action select is enabled true for publications list item with title 'Publication1'
-And Action build is enabled 'true' for publications list item with title 'Publication1'
+And Action build is enabled true for publications list item with title 'Publication1'
 
 
 Scenario: Open action of publications list item navigates to publication's editing page 
