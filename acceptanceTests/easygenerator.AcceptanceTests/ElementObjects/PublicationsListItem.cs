@@ -23,13 +23,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
                 var el = GetByXPathInside(model.Title);
                 return el.GetTextContent();
             }
-        }
-
-
-        internal void Select()
-        {
-            GetByXPathInside(model.SelectElement).Click();
-        }
+        }                    
 
         public bool IsSelected
         {
@@ -57,10 +51,30 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
+        public bool IsBuildEnabled
+        {
+            get
+            {
+                var selectEl = Container.FindElementByXPath(model.BuildElement);
+                return selectEl.Displayed;
+            }
+        }
+
         internal void Open()
         {
             GetByXPathInside(model.OpenElement).Click();
         }
 
+        internal void Select()
+        {
+            GetByXPathInside(model.SelectElement).Click();
+        }
+
+        internal void Build()
+        {
+            GetByXPathInside(model.BuildElement).Click();
+        }
+
+        
     }
 }

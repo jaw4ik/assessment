@@ -176,6 +176,7 @@ When open page by url 'http://localhost:5656/#/experiences'
 And mouse hover element of publications list with title 'Publication1'
 Then Action open is enabled true for publications list item with title 'Publication1'
 And Action select is enabled true for publications list item with title 'Publication1'
+And Action build is enabled 'true' for publications list item with title 'Publication1'
 
 
 Scenario: Open action of publications list item navigates to publication's editing page 
@@ -192,6 +193,7 @@ When open page by url 'http://localhost:5656/#/experiences'
 And click on tab objectives link on expiriences list page
 Then browser navigates to url 'http://localhost:5656/#/objectives'
 
-
-
-
+Scenario: Temp
+When unzip puckage to tmp
+And open page by url 'http://ctest.corp.ism-ukraine.com/tmp/'
+Then browser navigates to url 'http://ctest.corp.ism-ukraine.com/tmp/#/'

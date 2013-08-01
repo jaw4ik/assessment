@@ -186,10 +186,10 @@ testRunner.Then("explanation delete button is enabled \'<true>\' for explanation
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Delete button should be enabled if edit explanation element")]
-        public virtual void DeleteButtonShouldBeEnabledIfEditExplanationElement()
+        [NUnit.Framework.DescriptionAttribute("Delete buttons are not enabled for inactive explanation elements")]
+        public virtual void DeleteButtonsAreNotEnabledForInactiveExplanationElements()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete button should be enabled if edit explanation element", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete buttons are not enabled for inactive explanation elements", ((string[])(null)));
 #line 45
 this.ScenarioSetup(scenarioInfo);
 #line 6
@@ -197,8 +197,34 @@ this.FeatureBackground();
 #line 46
 testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 47
-testRunner.And("click explanation text field \'Explanation12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("mouse hover element of explanation with text \'Explanation12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 48
+testRunner.Then("explanation delete button is enabled true for explanation with text \'Explanation1" +
+                    "2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 49
+testRunner.And("explanation delete button is enabled false for explanation with text \'Explanation" +
+                    "11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 50
+testRunner.And("explanation delete button is enabled false for explanation with text \'Explanation" +
+                    "13\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Delete button should be enabled if edit explanation element")]
+        public virtual void DeleteButtonShouldBeEnabledIfEditExplanationElement()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete button should be enabled if edit explanation element", ((string[])(null)));
+#line 52
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 53
+testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 54
+testRunner.And("click explanation text field \'Explanation12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 55
 testRunner.Then("explanation delete button is enabled \'<true>\' for explanation with text \'Explanat" +
                     "ion12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -210,26 +236,26 @@ testRunner.Then("explanation delete button is enabled \'<true>\' for explanation
         public virtual void ExplanationCouldBeDeleted()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Explanation could be deleted", ((string[])(null)));
-#line 51
+#line 58
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 52
+#line 59
 testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 53
+#line 60
 testRunner.And("mouse hover element of explanation with text \'Explanation12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 54
+#line 61
 testRunner.And("click on delete explanation \'Explanation12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 55
+#line 62
 testRunner.And("mouse hover element of explanation with text \'Explanation11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 56
+#line 63
 testRunner.And("click on delete explanation \'Explanation11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "Explanation"});
             table6.AddRow(new string[] {
                         "Explanation13"});
-#line 57
+#line 64
 testRunner.Then("explanations list contains only items with data", ((string)(null)), table6, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -240,15 +266,15 @@ testRunner.Then("explanations list contains only items with data", ((string)(nul
         public virtual void ExplanationShouldBeDeletedIfAllContentWillBeDeletedFromIt()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Explanation should be deleted if all content will be deleted from it", ((string[])(null)));
-#line 61
+#line 68
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 62
+#line 69
 testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 63
+#line 70
 testRunner.And("input text \' \' into explanation text field \'Explanation12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 64
+#line 71
 testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
@@ -257,7 +283,7 @@ testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.
                         "Explanation11"});
             table7.AddRow(new string[] {
                         "Explanation13"});
-#line 65
+#line 72
 testRunner.Then("explanations list contains only items with data", ((string)(null)), table7, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -268,15 +294,15 @@ testRunner.Then("explanations list contains only items with data", ((string)(nul
         public virtual void ExplanationCanTBeSavedWithEmptyText()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Explanation can\'t be saved with empty text", ((string[])(null)));
-#line 71
+#line 78
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 72
+#line 79
 testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 73
+#line 80
 testRunner.And("input text \' \' into new explanation text field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 74
+#line 81
 testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
@@ -287,7 +313,7 @@ testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.
                         "Explanation12"});
             table8.AddRow(new string[] {
                         "Explanation13"});
-#line 75
+#line 82
 testRunner.Then("explanations list contains only items with data", ((string)(null)), table8, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -300,19 +326,19 @@ testRunner.Then("explanations list contains only items with data", ((string)(nul
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Changes to explanation data are not lost when user go out from current question p" +
                     "age", ((string[])(null)));
-#line 81
+#line 88
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 82
+#line 89
 testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 83
+#line 90
 testRunner.And("input text \'Explanation14\' into explanation text field \'Explanation12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 84
+#line 91
 testRunner.And("click on back to objective", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 85
+#line 92
 testRunner.And("mouse hover element of questions list with title \'Question11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 86
+#line 93
 testRunner.And("click on open question with title \'Question11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
@@ -323,7 +349,7 @@ testRunner.And("click on open question with title \'Question11\'", ((string)(nul
                         "Explanation14"});
             table9.AddRow(new string[] {
                         "Explanation13"});
-#line 87
+#line 94
 testRunner.Then("explanations list contains only items with data", ((string)(null)), table9, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -334,7 +360,7 @@ testRunner.Then("explanations list contains only items with data", ((string)(nul
         public virtual void ExplanationCouldContainSpecialSymbols()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Explanation could contain special symbols", ((string[])(null)));
-#line 93
+#line 100
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
@@ -343,16 +369,16 @@ this.FeatureBackground();
                         "Explanation"});
             table10.AddRow(new string[] {
                         "~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё"});
-#line 94
+#line 101
 testRunner.Given("explanations related to \'Question11\' of \'Objective1\' are present in database", ((string)(null)), table10, "Given ");
-#line 97
+#line 104
 testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
                         "Explanation"});
             table11.AddRow(new string[] {
                         "~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё"});
-#line 98
+#line 105
 testRunner.Then("explanations list contains only items with data", ((string)(null)), table11, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -365,21 +391,21 @@ testRunner.Then("explanations list contains only items with data", ((string)(nul
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("New explanation with special symbols could be added by entering new explanation t" +
                     "ext", ((string[])(null)));
-#line 102
+#line 109
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 103
+#line 110
 testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 104
+#line 111
 testRunner.And("input text \'~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё\' into new explanation text field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 105
+#line 112
 testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 106
+#line 113
 testRunner.And("click on back to objective", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 107
+#line 114
 testRunner.And("mouse hover element of questions list with title \'Question11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 108
+#line 115
 testRunner.And("click on open question with title \'Question11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
@@ -392,7 +418,7 @@ testRunner.And("click on open question with title \'Question11\'", ((string)(nul
                         "Explanation13"});
             table12.AddRow(new string[] {
                         "~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё"});
-#line 109
+#line 116
 testRunner.Then("explanations list contains only items with data", ((string)(null)), table12, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -403,7 +429,7 @@ testRunner.Then("explanations list contains only items with data", ((string)(nul
         public virtual void AllExplanationsCanBeMadeVisibleUsingScroll()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All explanations can be made visible using scroll", ((string[])(null)));
-#line 116
+#line 123
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
@@ -422,15 +448,15 @@ this.FeatureBackground();
                         "Explanation15"});
             table13.AddRow(new string[] {
                         "Explanation16"});
-#line 117
+#line 124
 testRunner.Given("explanations related to \'Question11\' of \'Objective1\' are present in database", ((string)(null)), table13, "Given ");
-#line 125
+#line 132
 testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 126
+#line 133
 testRunner.And("browser window width and height is set to 640 and 300", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 127
+#line 134
 testRunner.And("scroll new explanation button into the view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 128
+#line 135
 testRunner.Then("new explanation button is visible", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

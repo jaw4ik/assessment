@@ -143,6 +143,31 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Select should be enabled");
         }
 
+        [Then(@"Action build is enabled (.*) for publications list item with title '(.*)'")]
+        public void ThenActionBuildIsEnabledForPublicationsListItemWithTitle(bool isEnabled, string title)
+        {
+            var item = publicationsPage.Items.First(it => it.Title == title);
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                isEnabled = item.IsBuildEnabled,
+                "Build should be enabled");
+        }
+
+        [When(@"unzip puckage to tmp")]
+        public void WhenUnzipPuckageToTmp()
+        {
+            string zipPath = @"\\dev-ua-ws118\temp\Default.zip";
+            string extractPath = @"\\eg-d-web02\Shared\TestCourse\tmp";
+
+            if (System.IO.Directory.Exists(extractPath))
+            {
+                System.IO.Directory.Delete(extractPath, true);
+            }
+
+            System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
+        }
+
+
+
         [When(@"click open publication list item with title '(.*)'")]
         public void WhenClickOpenPublicationListItemWithTitle(string title)
         {
