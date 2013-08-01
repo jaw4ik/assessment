@@ -155,7 +155,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [When(@"unzip puckage to tmp")]
         public void WhenUnzipPuckageToTmp()
         {
-            string zipPath = @"\\dev-ua-ws118\temp\Default.zip";
+            string zipPath = @"\\eg-d-web02\Shared\Download\Default.zip";
             string extractPath = @"\\eg-d-web02\Shared\TestCourse\tmp";
 
             if (System.IO.Directory.Exists(extractPath))
