@@ -110,7 +110,7 @@
                         <li class="question-explanation-item" data-bind="css: { active: isEditing }">
                             <div class="question-explanation-list-item">
                                 <div class="question-explanation-wrapper">
-                                    <div class="question-explanation selectable" data-bind="ckeditor: { data: text, isEditing: isEditing, eventTracker: $parent.eventTracker, language: $parent.language}">
+                                    <div class="question-explanation selectable" data-bind="html: text">
                                     </div>
                                 </div>
                                 <div class="question-explanation-delete-wrapper" data-bind="click: $parent.deleteExplanation.bind($parent), localize: { title: 'remove' }">
@@ -119,24 +119,6 @@
                             </div>
                         </li>
                         <!-- /ko -->
-                        <li class="add-button">
-                            <div class="question-explanation-list-item">
-                                <div class="question-explanation-wrapper" data-bind="css: {'enabled': canAddExplanation }">
-                                    <!-- ko if: canAddExplanation -->
-                                    <div class="question-explanation selectable" data-bind="click: addExplanation, localize: { text: 'clickToAddNewExplanation' }">
-                                        Click to add new explanation
-                                    </div>
-                                    <!-- /ko -->
-                                    <!-- ko ifnot: canAddExplanation -->
-                                    <div class="question-explanation selectable disabled" data-bind="localize: { text: 'clickToAddNewExplanation' }">
-                                        Click to add new explanation
-                                    </div>
-                                    <!-- /ko -->
-                                </div>
-                                <div class="question-explanation-delete-wrapper">
-                                </div>
-                            </div>
-                        </li>
                     </ul>
                 </div>
                 <!-- /ko -->
