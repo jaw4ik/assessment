@@ -85,9 +85,7 @@
 }
 
 .summary .caption-icon-image {
-    width: 27px;
-    height: 28px;
-    background: url("../img/progress_summary.png") no-repeat scroll center center transparent;
+    background-position: 0 -84px;
 }
 
 .summary-objectives {

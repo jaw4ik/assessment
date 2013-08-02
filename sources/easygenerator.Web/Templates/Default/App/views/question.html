@@ -16,11 +16,14 @@
 
     <div class="content">
         <div class="caption">
-            <div class="caption-stripe"></div>
-            <div class="caption-icon">
-                <div class="caption-icon-image"></div>
+            <div class="caption-inner">
+                <div class="caption-icon">
+                    <div class="caption-icon-image"></div>
+                </div>
+                <div class="caption-text">
+                    <span data-bind="text: title"></span>
+                </div>
             </div>
-            <div class="caption-text" data-bind="text: title"></div>
         </div>
         <ul class="question-answers unstyled" data-bind="foreach: answers">
             <li class="question-answer">

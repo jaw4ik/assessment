@@ -135,50 +135,50 @@ ol.unstyled  {
 /* -------------- caption partial ------------- */
 
 .caption {
-    display: table;
-    height: 68px;
+    width: 100%;
     background-color: #F5F5F5;
     border: 1px solid #E1E1E1;
-    width: 100%;
     color: #666666;
-    font-family: Arial, sans-serif;
     font-size: 16px;
+    font-family: Tahoma, Arial, sans-serif;
 }
 
-.caption-stripe {
-    width: 10px;
-    -moz-min-width: 10px;
-    -ms-min-width: 10px;
-    -o-min-width: 10px;
-    -webkit-min-width: 10px;
-    min-width: 10px;
-    background-color: #F26C4F;
-    display: table-cell;
+.caption-inner {
+    display: table;
+    min-height: 68px;
+    width: 100%;
+    padding-left: 16px;
+    border-left: 10px solid #F26C4F;
 }
 
 .caption-icon {
-    width: 60px;
-    -moz-min-width: 60px;
-    -ms-min-width: 60px;
-    -o-min-width: 60px;
-    -webkit-min-width: 60px;
-    min-width: 60px;
     display: table-cell;
+    width: 28px;
     text-align: center;
     vertical-align: middle;
 }
 
 .caption-icon-image {
-    vertical-align: middle;
     display: inline-block;
+    width: 28px;
+    height: 28px;
+    vertical-align: middle;
+    background-image: url(../img/icons-images.png);
+    background-repeat: no-repeat;
 }
 
 .caption-text {
-    padding: 22px 0;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 9px 18px;
 }
 
-/* -------------- end of caption partial ------------- */
+    .caption-text > span {
+        -ms-word-break: break-all;
+        word-break: break-all;
+    }
 
+/* -------------- end of caption partial ------------- */
 
 
 /* -------------- sub navigation partial ------------- */
@@ -377,9 +377,7 @@ ol.unstyled  {
 }
 
 .question .caption-icon-image {
-    width: 26px;
-    height: 26px;
-    background: url("../img/question.png") no-repeat scroll center center transparent;
+    background-position: 0 0;
 }
 
 
@@ -450,9 +448,7 @@ ol.unstyled  {
 }
 
 .feedback .caption-icon-image {
-    width: 26px;
-    height: 24px;
-    background: url("../img/feedback.png") no-repeat scroll center center transparent;
+    background-position: 0 -56px;
 }
 
 .feedback .caption-text {
@@ -513,19 +509,12 @@ ol.unstyled  {
         background: url("../img/info-btn.png") no-repeat scroll center center transparent;
     }
 
-    .explanations .caption-icon {
-        padding: 20px 0;
+    .explanations .caption-icon-image {
+        background-position: 0 -28px;
     }
 
     .explanations .caption-text {
-        padding: 22px 0;
         text-transform: uppercase;
-    }
-
-    .explanations .caption-icon-image {
-        width: 26px;
-        height: 26px;
-        background: url("../img/explanation.png") no-repeat scroll center center transparent;
     }
 
 .explanation-items {
