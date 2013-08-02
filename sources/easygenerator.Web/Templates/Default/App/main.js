@@ -23,7 +23,7 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system'],
         //>>excludeEnd("build");
 
         app.title = 'easygenerator';
-        
+
         app.start().then(function () {
 
             viewLocator.useConvention();
@@ -43,7 +43,6 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system'],
                 return v > 4 ? v : undef;
 
             }());
-            
 
             app.setRoot(ie < 9 ? 'viewmodels/notsupportedbrowser' : 'viewmodels/shell');
         });

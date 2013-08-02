@@ -578,3 +578,17 @@ menu, ol, ul {
         }
 
 /* -------------- end of explanations view ------------- */
+
+
+/* -------------- not supported browser view ------------- */
+
+.not-supported-browser {
+    margin-top: 100px;
+    text-align: center;
+}
+
+    .not-supported-browser ul {
+        display: inline-block;
+    }
+
+/* -------------- not supported browser view ------------- */
