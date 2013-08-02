@@ -13,6 +13,16 @@
                     name: 'Objectives and questions'
                 },
                 {
+                    url: '#/404',
+                    moduleId: 'viewmodels/404',
+                    name: 'Not found'
+                },
+                {
+                    url: '#/404/:url',
+                    moduleId: 'viewmodels/404',
+                    name: 'Not found'
+                },
+                {
                     url: '#/objective/:objectiveId/question/:questionId',
                     moduleId: 'viewmodels/question',
                     name: 'Question'
@@ -34,7 +44,11 @@
                 }
             ]);
 
-            return context.initialize().then(function () {                
+            router.handleInvalidRoute = function (route) {
+                router.replaceLocation("#/404/" + encodeURIComponent(route));
+            };
+
+            return context.initialize().then(function () {
                 return router.activate('#/');
             });
         }
