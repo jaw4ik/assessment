@@ -76,12 +76,8 @@
     text-transform: uppercase;
 }
 
-.summary .navigation-link-left-image {
-    background: url("../img/back-btn.png") no-repeat scroll center center transparent;
-}
-
 .summary .navigation-link-right-image {
-    background: url("../img/finish.png") no-repeat scroll center center transparent;
+    background-position: 0 -171px;
 }
 
 .summary .caption-icon-image {

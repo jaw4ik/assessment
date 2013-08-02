@@ -51,11 +51,15 @@ a {
         text-decoration: none;
     }
 
-ul.unstyled,
-ol.unstyled  {
-    margin-left: 0;
-    list-style: none;
+menu, ol, ul {
+    margin: 0;
 }
+
+    ul.unstyled,
+    ol.unstyled  {
+        margin-left: 0;
+        list-style: none;
+    }
 
 .pull-left {
     float: left;
@@ -66,8 +70,19 @@ ol.unstyled  {
 }
 
 .clearfix {
-    clear: both;
+    -ms-zoom: 1;
+    zoom: 1;
 }
+
+    .clearfix:before,
+    .clearfix:after {
+        content: "";
+        display: table;
+    }
+
+    .clearfix:after {
+        clear: both;
+    }
 
 .loader {
     position: absolute;
@@ -85,7 +100,8 @@ ol.unstyled  {
     color: #fff;
 }
 
-.navigation-menu, .navigation-menu-item {
+.navigation-menu,
+.navigation-menu-item {
     display: inline-block;
     margin: 0;
     padding: 0;
@@ -114,7 +130,10 @@ ol.unstyled  {
         cursor: pointer;
     }
 
-.navigation-menu a, .navigation-menu a:visited, .navigation-menu a:focus, .navigation-menu a:active {
+.navigation-menu a,
+.navigation-menu a:visited,
+.navigation-menu a:focus,
+.navigation-menu a:active {
     color: #fff;
     font-size: 14px;
     font-family: Tahoma, Arial, sans-serif;
@@ -135,20 +154,26 @@ ol.unstyled  {
 /* -------------- caption partial ------------- */
 
 .caption {
+    min-height: 68px;
     width: 100%;
-    background-color: #F5F5F5;
-    border: 1px solid #E1E1E1;
+    background-color: #F26C4F;
     color: #666666;
+    padding-left: 10px; 
+    border-left: 1px solid #E1E1E1;
+    border-right: 1px solid #E1E1E1;
     font-size: 16px;
     font-family: Tahoma, Arial, sans-serif;
+    cursor: default;
 }
 
 .caption-inner {
     display: table;
-    min-height: 68px;
+    height: 68px;
     width: 100%;
     padding-left: 16px;
-    border-left: 10px solid #F26C4F;
+    background-color: #F5F5F5;
+    border-top: 1px solid #E1E1E1;
+    border-bottom: 1px solid #E1E1E1;
 }
 
 .caption-icon {
@@ -188,17 +213,15 @@ ol.unstyled  {
 }
 
 .navigation-link {
+    display: inline-block;
+    height: 100%;
+    line-height: 57px;
+    text-transform: uppercase;
+    color: #666666;
     -ms-opacity: 0.6;
     opacity: 0.6;
     filter: alpha(opacity=60);
-    text-transform: uppercase;
-    color: #666666;
-    line-height: 57px;
 }
-
-    .navigation-link img {
-        vertical-align: top;
-    }
 
     .navigation-link:hover {
         -ms-opacity: 0.75;
@@ -206,21 +229,26 @@ ol.unstyled  {
         filter: alpha(opacity=75);
     }
 
-.navigation-link-left-image, .navigation-link-right-image {
-    width: 58px;
-    height: 58px;
-    display: inline-block;
-    vertical-align: top;
-}
+    .navigation-link > span {
+        padding: 0 13px;
+    }
 
-.navigation-link-left-image {
-    margin-right: 10px;
-}
-
+.navigation-link-left-image,
 .navigation-link-right-image {
-    margin-left: 10px;
+    display: inline-block;
+    width: 57px;
+    height: 57px;
+    vertical-align: top;
+    background-image: url(../img/nav-icons.png);
+    background-repeat: no-repeat;
 }
 
+.question .navigation-link-left-image,
+.feedback .navigation-link-left-image,
+.summary .navigation-link-left-image,
+.explanations .navigation-link-left-image {
+    background-position: 0 0;
+}
 
 /* -------------- end of sub navigation partial ------------- */
 
@@ -368,18 +396,13 @@ ol.unstyled  {
 
 /* -------------- question view ------------- */
 
-.question .navigation-link-left-image {
-    background: url("../img/back-btn.png") no-repeat scroll center center transparent;
-}
-
 .question .navigation-link-right-image {
-    background: url("../img/explanations-btn.png") no-repeat scroll center center transparent;
+    background-position: 0 -57px;
 }
 
 .question .caption-icon-image {
     background-position: 0 0;
 }
-
 
 .question-answers {
     padding: 20px;
@@ -443,10 +466,6 @@ ol.unstyled  {
     padding: 10px;
 }
 
-.feedback .navigation-link-left-image {
-    background: url("../img/back-btn.png") no-repeat scroll center center transparent;
-}
-
 .feedback .caption-icon-image {
     background-position: 0 -56px;
 }
@@ -467,7 +486,8 @@ ol.unstyled  {
     margin: 50px 0;
 }
 
-.navigation-btn-left, .navigation-btn-right {
+.navigation-btn-left,
+.navigation-btn-right {
     padding: 15px;
     margin: 0 50px;
     color: #fff;
@@ -477,7 +497,8 @@ ol.unstyled  {
     opacity: 0.75;
 }
 
-    .navigation-btn-left:hover, .navigation-btn-right:hover {
+    .navigation-btn-left:hover,
+    .navigation-btn-right:hover {
         opacity: 1;
     }
 
@@ -501,12 +522,8 @@ ol.unstyled  {
     padding-bottom: 10px;
 }
 
-    .explanations .navigation-link-left-image {
-        background: url("../img/back-btn.png") no-repeat scroll center center transparent;
-    }
-
     .explanations .navigation-link-right-image {
-        background: url("../img/info-btn.png") no-repeat scroll center center transparent;
+        background-position: 0 -114px;
     }
 
     .explanations .caption-icon-image {

@@ -4,10 +4,12 @@
         <div class="pull-left">
             <a class="navigation-link navigation-link-left" href="/#" data-bind="click: backToObjectives">
                 <div class="navigation-link-left-image"></div>
-                Back to objectives</a>
+                <span>Back to objectives</span>
+            </a>
         </div>
         <div class="pull-right">
-            <a class="navigation-link navigation-link-right" href="/#" data-bind="click: finish">Finish
+            <a class="navigation-link navigation-link-right" href="/#" data-bind="click: finish">
+                <span>Finish</span>
                 <div class="navigation-link-right-image"></div>
             </a>
         </div>
@@ -27,7 +29,7 @@
         </div>
         <div class="summary-progress-header">
             <div class="summary-progress-overall">
-                <canvas width="125" height="125" data-bind="context: triggerRedraw, contextCallback:redrawCanvas"></canvas>
+                <canvas width="125" height="125" data-bind="context: triggerRedraw, contextCallback: redrawCanvas"></canvas>
             </div>
             <div class="summary-progress-header-title">
                 Overall progress
@@ -47,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="summary-objective-title" data-bind="text: title, attr: {title: title}"></div>
+                <div class="summary-objective-title" data-bind="text: title, attr: { title: title }"></div>
             </li>
         </ul>
     </div>

@@ -539,14 +539,10 @@
     <Content Include="Templates\Default\css\images\ios-startup-image-portrait.png" />
     <Content Include="Templates\Default\css\normalize.css" />
     <Content Include="Templates\Default\css\styles.css" />
-    <Content Include="Templates\Default\img\back-btn.png" />
     <Content Include="Templates\Default\img\checkbox.png" />
     <Content Include="Templates\Default\img\collapse.png" />
-    <Content Include="Templates\Default\img\explanations-btn.png" />
     <Content Include="Templates\Default\img\expand.png" />
     <Content Include="Templates\Default\img\icons-images.png" />
-    <Content Include="Templates\Default\img\info-btn.png" />
-    <Content Include="Templates\Default\img\finish.png" />
     <Content Include="Templates\Default\img\loader.gif" />
     <Content Include="Templates\Default\img\logo.png" />
     <Content Include="Templates\Default\img\progress_summary_white.png" />
