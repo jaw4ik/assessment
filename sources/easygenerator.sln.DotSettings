@@ -1,0 +1,26 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/Environment/UnitTesting/DisabledProviders/=nUnit/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E411B7E353A96A43B002F0B4D30DF033/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E411B7E353A96A43B002F0B4D30DF033/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E411B7E353A96A43B002F0B4D30DF033/Categories/=Imported_00205_002F7_002F2013/@EntryIndexedValue">Imported 5/7/2013</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E411B7E353A96A43B002F0B4D30DF033/Description/@EntryValue">Arrange/Act/Assert test</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E411B7E353A96A43B002F0B4D30DF033/Field/=MethodName_005FShouldDoSomething_005FWhenSomeConditionMatches/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E411B7E353A96A43B002F0B4D30DF033/Field/=MethodName_005FShouldDoSomething_005FWhenSomeConditionMatches/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E411B7E353A96A43B002F0B4D30DF033/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E411B7E353A96A43B002F0B4D30DF033/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E411B7E353A96A43B002F0B4D30DF033/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E411B7E353A96A43B002F0B4D30DF033/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E411B7E353A96A43B002F0B4D30DF033/Shortcut/@EntryValue">ut</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E411B7E353A96A43B002F0B4D30DF033/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E411B7E353A96A43B002F0B4D30DF033/Text/@EntryValue">[TestMethod]&#xD;
+public void $MethodName_ShouldDoSomething_WhenSomeConditionMatches$()&#xD;
+{&#xD;
+	//Arrange&#xD;
+&#xD;
+&#xD;
+	//Act&#xD;
+&#xD;
+&#xD;
+	//Assert$END$&#xD;
+    
+}</s:String></wpf:ResourceDictionary>
