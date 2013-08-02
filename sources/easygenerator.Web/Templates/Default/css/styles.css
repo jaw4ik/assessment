@@ -84,6 +84,26 @@ menu, ol, ul {
         clear: both;
     }
 
+.shadow-bottom-curve {
+    position: relative;
+}
+
+    .shadow-bottom-curve:before, .shadow-bottom-curve:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        bottom: 0;
+        left: 10px;
+        right: 10px;
+        z-index: -1;
+        -webkit-box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        -moz-box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        -webkit-border-radius: 250px / 10px;
+        -moz-border-radius: 250px / 10px;
+        border-radius: 250px / 10px;
+    }
+
 .loader {
     position: absolute;
     top: 50%;
@@ -156,11 +176,13 @@ menu, ol, ul {
 .caption {
     min-height: 68px;
     width: 100%;
-    background-color: #F26C4F;
-    color: #666666;
-    padding-left: 10px; 
+    position: relative;
+    z-index: 1;
+    padding-left: 10px;
     border-left: 1px solid #E1E1E1;
     border-right: 1px solid #E1E1E1;
+    background-color: #F26C4F;
+    color: #666666;
     font-size: 16px;
     font-family: Tahoma, Arial, sans-serif;
     cursor: default;
@@ -418,16 +440,12 @@ menu, ol, ul {
     }
 
 .question-answer-checkbox {
-    width: 35px;
-    height: 35px;
+    width: 38px;
+    height: 36px;
     border: 1px dashed #DADADA;
     display: block;
     margin-right: 15px;
 }
-
-    .question-answer-checkbox:hover {
-        cursor: pointer;
-    }
 
     .question-answer-checkbox.checked {
         border: 2px solid #666666;
