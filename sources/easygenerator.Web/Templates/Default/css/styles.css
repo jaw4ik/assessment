@@ -155,7 +155,7 @@ menu, ol, ul {
 .navigation-menu a:focus,
 .navigation-menu a:active {
     color: #fff;
-    font-size: 14px;
+    font-size: 18px;
     font-family: Tahoma, Arial, sans-serif;
 }
 
@@ -570,6 +570,7 @@ menu, ol, ul {
 
     .explanation-items .explanation-item {
         padding: 20px 0;
+        text-align: justify;
     }
 
         .explanation-items .explanation-item + .explanation-item {
