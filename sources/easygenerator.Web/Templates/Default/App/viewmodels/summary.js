@@ -13,46 +13,57 @@
         score = 0,
         activate = function() {
 
-            function getRandomInt(min, max) {
-                return Math.floor(Math.random() * (max - min + 1)) + min;
+            function getObjectiveScore(objective) {
+                var result = _.reduce(objective.questions, function (memo, question) { return memo + question.score; }, 0);
+                return Math.round(result / objective.questions.length);
             }
 
             this.objectives = _.map(context.objectives, function(item) {
-                return { title: item.title, score: getRandomInt(0, 100) };
+                return { title: item.title, score: getObjectiveScore(item) };
             });
-            this.score = getRandomInt(0, 100);
+
+            var result = _.reduce(this.objectives, function (memo, objective) { return memo + objective.score; }, 0);
+            this.score = Math.round(result / this.objectives.length);
         },
         triggerRedraw = ko.observable(false),
-        redrawCanvas = function(context) {
+        redrawCanvas = function(cnxt) {
             var progress = this.score / 100;
 
-            var arcEndPoint = (progress * 2 - 0.5) * Math.PI;
+            cnxt.beginPath();
+            cnxt.arc(62, 62, 52, 0, 2 * Math.PI);
+            cnxt.strokeStyle = 'rgb(211,212,216)';
+            cnxt.lineWidth = 10;
+            cnxt.closePath();
+            cnxt.stroke();
 
-            context.beginPath();
-            context.arc(62, 62, 52, 0, 2 * Math.PI);
-            context.strokeStyle = 'rgb(211,212,216)';
-            context.lineWidth = 10;
-            context.closePath();
-            context.stroke();
 
-            context.beginPath();
-            context.arc(62, 62, 52, 1.5 * Math.PI, arcEndPoint);
-            context.strokeStyle = 'rgb(87,157,193)';
-            context.lineWidth = 10;
-            context.stroke();
+            if (progress > 0) {
+                cnxt.beginPath();
+                cnxt.strokeStyle = 'rgb(87,157,193)';
+                cnxt.lineWidth = 10;
+
+                if (progress == 1) {
+                    cnxt.arc(62, 62, 52, 0, 2 * Math.PI);
+                }
+                else {
+                    cnxt.arc(62, 62, 52, 1.5 * Math.PI, (progress * 2 - 0.5) * Math.PI);
+                }
+
+                cnxt.stroke();
+            }
             
-            context.beginPath();
-            context.font = '20pt Arial';
-            context.textAlign = 'center';
-            context.textBaseline = "middle";
-            context.fillStyle = '#666666';
-            context.fillText(this.score + "%", 62, 62);
+            cnxt.beginPath();
+            cnxt.font = '20pt Arial';
+            cnxt.textAlign = 'center';
+            cnxt.textBaseline = "middle";
+            cnxt.fillStyle = '#666666';
+            cnxt.fillText(this.score + "%", 62, 62);
         },
         backToObjectives = function() {
             router.navigateTo('#/');
         },
-        finish = function() {
-            alert("close browser");
+        finish = function () {
+            window.close();
         };
 
     return {
