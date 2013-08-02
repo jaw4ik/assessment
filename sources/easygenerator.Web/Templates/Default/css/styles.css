@@ -499,19 +499,25 @@ menu, ol, ul {
 }
 
 .navigation-btn-container {
-    text-align: center;
-    margin: 50px 0;
+    max-width: 704px;
+    margin: 50px auto;
 }
 
 .navigation-btn-left,
 .navigation-btn-right {
-    padding: 15px;
-    margin: 0 50px;
+    min-width: 240px;
+    max-width: 280px;
+    height: 52px;
+    line-height: 20px;
+    padding: 15px 10px;
     color: #fff;
     font-size: 20px;
-    line-height: 20px;
-    display: inline-block;
-    opacity: 0.75;
+    text-align: center;
+    white-space: nowrap;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    opacity: 0.8;
 }
 
     .navigation-btn-left:hover,
@@ -520,15 +526,11 @@ menu, ol, ul {
     }
 
 .navigation-btn-left {
-    margin-right: 100px;
-    background-color: #77ADC9;
-    border: 1px solid #77ADC9;
+    background-color: #5698bb;
 }
 
 .navigation-btn-right {
-    margin-left: 100px;
-    background-color: #5E6168;
-    border: 1px solid #62676D;
+    background-color: #343a41;
 }
 
 /* -------------- end of feedback view ------------- */
