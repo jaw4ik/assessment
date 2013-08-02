@@ -5,7 +5,7 @@ using easygenerator.Infrastructure;
 namespace easygenerator.Tests
 {
     [TestClass]
-    class PhysicalFileManagerTests
+    public class PhysicalFileManagerTests
     {
         private IPhysicalFileManager _physicalFileManager;
 
