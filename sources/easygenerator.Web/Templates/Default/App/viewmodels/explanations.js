@@ -1,8 +1,9 @@
 ﻿define(['durandal/http', 'context', 'durandal/plugins/router'], function (http, context, router) {
 
-    var objectiveId = '',
+    var
+        objectiveId = '',
         questionId = '',
-        explanations = ko.observableArray([]),
+        explanations = [],
 
         backToObjectives = function () {
             router.navigateTo('#/');
@@ -13,9 +14,10 @@
         },
 
         activate = function (routeData) {
-            explanations([]);
             objectiveId = routeData.objectiveId;
             questionId = routeData.questionId;
+
+            this.explanations = [];
 
             var objective = _.find(context.objectives, function (item) {
                 return item.id == objectiveId;
@@ -25,22 +27,24 @@
                 return item.id == questionId;
             });
 
-            var requests = _.map(question.explanations, function (explanation, key) {
-                return $.get('content/' + objectiveId + '/' + questionId + '/' + explanation.id + '.html')
-                    .then(function (explanationData) {
-                        explanations.push({
-                            index: key,
-                            explanation: explanationData
-                        });
-                    });
-            });
+            var that = this;
 
-            return Q.all(requests).then(function () {
-                explanations(_.sortBy(explanations(), function (item) {
-                    return item.index;
+            var requests = [];
+            _.each(question.explanations, function (item, index) {
+                requests.push(http.get('content/' + objectiveId + '/' + questionId + '/' + item.id + '.html').done(function (response) {
+                    that.explanations.push({ index: index, explanation: response });
                 }));
             });
-        };
+
+            return $.when.apply($, requests).done(function () {
+                that.explanations = _.sortBy(that.explanations, function (item) {
+                    return item.index;
+                });
+            });
+        }
+    ;
+
+
 
     return {
         activate: activate,
