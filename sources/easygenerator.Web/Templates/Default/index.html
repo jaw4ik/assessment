@@ -10,12 +10,13 @@
 
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="width=640,minimum-scale=0.5,maximum-scale=1.0">
-    
+
     <link rel="stylesheet" href="css/normalize.css" />
     <link rel="stylesheet" href="css/ie10mobile.css" />
     <link rel="stylesheet" href="css/durandal.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="css/summary.css" />
+    <!--[if IE]><script type="text/javascript" src="js/excanvas.compiled.js"></script><![endif]-->
     <script type="text/javascript">
         if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
             var msViewportStyle = document.createElement("style");
@@ -25,15 +26,16 @@
         }
     </script>
 </head>
-    <body>
-        <div id="applicationHost" class="application-wrapper">
-            <img class="loader" src="img/loader.gif" alt="" />
-        </div>
-        <script src="js/jquery-1.9.1.js"></script>
-        <script src="js/knockout-2.2.1.js"></script>
-        <script src="js/sammy-0.7.4.js"></script>
-        <script src="js/underscore-1.5.1.js"></script>
-        <script src="js/q.js"></script>
-        <script src="App/durandal/amd/require.js" data-main="App/main.js"></script>
-    </body>
+<body>
+    <div id="applicationHost" class="application-wrapper">
+        <img class="loader" src="img/loader.gif" alt="" />
+    </div>
+    <script src="js/jquery-1.9.1.js"></script>
+    <script src="js/knockout-2.2.1.js"></script>
+    <script src="js/sammy-0.7.4.js"></script>
+    <script src="js/underscore-1.5.1.js"></script>
+    <script src="js/q.js"></script>
+
+    <script src="App/durandal/amd/require.js" data-main="App/main.js"></script>
+</body>
 </html>
