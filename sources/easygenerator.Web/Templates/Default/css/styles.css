@@ -474,11 +474,10 @@ menu, ol, ul {
     text-transform: uppercase;
 }
 
-.question-score {
-    font-size: 72px;
-    line-height: 72px;
+.question-progress {
     text-align: center;
-    margin: 100px 0;
+    padding-top: 48px;
+    padding-bottom: 40px;
 }
 
 .navigation-btn-container {

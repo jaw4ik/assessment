@@ -21,8 +21,8 @@
                 </div>
             </div>
         </div>
-        <div class="question-score">
-            <span data-bind="text: score"></span>%
+        <div class="question-progress">
+            <canvas width="217" height="217" data-bind="context: triggerRedraw, contextCallback:redrawCanvas"></canvas>
         </div>
         <div class="navigation-btn-container">
             <a class="navigation-btn-left" href="#" data-bind="click: showExplanations ">Show me explanations</a>
