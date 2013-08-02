@@ -493,9 +493,19 @@ menu, ol, ul {
 }
 
 .question-progress {
+    position: relative;
     text-align: center;
     padding-top: 48px;
     padding-bottom: 40px;
+}
+
+.question-progress-score {
+    position: absolute;
+    text-align: center;
+    top: 142px;
+    font-family: Arial;
+    font-size: 24pt;
+    width: 100%;
 }
 
 .navigation-btn-container {

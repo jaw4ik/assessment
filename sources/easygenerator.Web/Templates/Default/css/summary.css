@@ -105,11 +105,22 @@
 }
 
 .summary-progress-overall {
+    position: relative;
     float: right;
     width: 355px;
     text-align: center;
     margin-right: 25px;
     padding-top: 10px;
+}
+
+.summary-progress-overall-score {
+    position: absolute;
+    font-family: Arial;
+    font-size: 20pt;
+    color: #666666;
+    text-align: center;
+    width: 100%;
+    top: 62px;
 }
 
 .summary-objective {
@@ -139,7 +150,7 @@
     .summary-progress-overall {
        width: 125px; 
     }
-    
+
     .summary-progress-header-title {
         margin-right: 175px;
     }

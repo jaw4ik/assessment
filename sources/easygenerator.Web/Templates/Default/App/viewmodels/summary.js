@@ -41,13 +41,6 @@
 
                 cnxt.stroke();
             }
-            
-            cnxt.beginPath();
-            cnxt.font = '20pt Arial';
-            cnxt.textAlign = 'center';
-            cnxt.textBaseline = "middle";
-            cnxt.fillStyle = '#666666';
-            cnxt.fillText(this.score + "%", 62, 62);
         },
         backToObjectives = function() {
             router.navigateTo('#/');
