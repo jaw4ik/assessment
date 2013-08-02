@@ -502,10 +502,12 @@
     <Content Include="Templates\Default\App\viewmodels\explanations.js" />
     <Content Include="Templates\Default\App\viewmodels\feedback.js" />
     <Content Include="Templates\Default\App\viewmodels\home.js" />
+    <Content Include="Templates\Default\App\viewmodels\notsupportedbrowser.js" />
     <Content Include="Templates\Default\App\viewmodels\question.js" />
     <Content Include="Templates\Default\App\viewmodels\shell.js" />
     <Content Include="Templates\Default\App\viewmodels\summary.js" />
     <Content Include="Templates\Default\App\views\404.html" />
+    <Content Include="Templates\Default\App\views\notsupportedbrowser.html" />
     <Content Include="Templates\Default\App\views\explanations.html" />
     <Content Include="Templates\Default\App\views\feedback.html" />
     <Content Include="Templates\Default\App\views\home.html" />

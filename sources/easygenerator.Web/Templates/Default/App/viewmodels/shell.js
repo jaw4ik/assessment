@@ -5,7 +5,6 @@
         activate: function () {
 
             router.useConvention();
-
             router.map([
                 {
                     url: '#/',
@@ -48,9 +47,13 @@
                 router.replaceLocation("#/404/" + encodeURIComponent(route));
             };
 
-            return context.initialize().then(function () {
-                return router.activate('#/');
-            });
+
+
+            return context.initialize()
+                .then(function () {
+                    //window.location.hash = '#/';
+                    return router.activate();
+                });
         }
     };
 

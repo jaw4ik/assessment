@@ -1,6 +1,6 @@
 ﻿requirejs.config({
     paths: {
-        'text': 'durandal/amd/text'        
+        'text': 'durandal/amd/text'
     },
     urlArgs: 'v=' + Math.random()
 });
@@ -23,15 +23,28 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system'],
         //>>excludeEnd("build");
 
         app.title = 'easygenerator';
+        
         app.start().then(function () {
-            //Replace 'viewmodels' in the moduleId with 'views' to locate the view.
-            //Look for partial views in a 'views' folder in the root.
+
             viewLocator.useConvention();
 
+            var ie = (function () {
 
-            //app.adaptToDevice();
+                var undef,
+                    v = 3,
+                    div = document.createElement('div'),
+                    all = div.getElementsByTagName('i');
 
-            //Show the app by setting the root view model for our application with a transition.
-            app.setRoot('viewmodels/shell');
+                while (
+                    div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+                    all[0]
+                );
+
+                return v > 4 ? v : undef;
+
+            }());
+            
+
+            app.setRoot(ie < 9 ? 'viewmodels/notsupportedbrowser' : 'viewmodels/shell');
         });
     });
