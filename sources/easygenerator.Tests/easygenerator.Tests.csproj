@@ -44,7 +44,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssertException.cs" />
+    <Compile Include="PhysicalFileManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\easygenerator.Infrastructure\easygenerator.Infrastructure.csproj">
+      <Project>{E186A113-426B-4AB1-A4B1-5ECC54FA4E80}</Project>
+      <Name>easygenerator.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -28,10 +28,11 @@ namespace easygenerator.Web.Tests.Utils
         {
             IsViewResult(result);
             var viewResult = result as ViewResult;
-            Assert.AreEqual(viewResult.ViewName, viewName);
             Assert.IsNotNull(viewResult);
+            Assert.AreEqual(viewResult.ViewName, viewName);
             Assert.IsNotNull(viewResult.Model);
             Assert.AreEqual(viewModel, viewResult.Model);
+            
         }
 
         internal static void IsPartialViewResult(object result)

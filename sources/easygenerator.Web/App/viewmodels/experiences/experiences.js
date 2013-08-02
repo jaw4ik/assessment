@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'durandal/plugins/router'],
-    function (dataContext, constants, eventTracker, router) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'durandal/plugins/router', 'durandal/http'],
+    function (dataContext, constants, eventTracker, router, http) {
         "use strict";
 
         var
@@ -13,7 +13,7 @@
                 experienceUnselected: 'Experience unselected',
                 navigateToDetails: 'Navigate to details',
                 buildExperience: 'Build experience',
-                downloadExperience: 'Download experience',
+                downloadExperience: 'Download experience'
             },
 
             sendEvent = function (eventName) {
@@ -67,34 +67,38 @@
                  router.navigateTo('#/objectives');
              },
 
-//TODO: temporary method for testing markUp. Should be deleted or modifying then backend will be implemented.
-
         buildExperience = function (experience) {
-
             sendEvent(events.buildExperience);
-            if (experience.isBuilded())
-                experience.isBuilded(false);
+            experience.isBuilding(true);
 
-            experience.building(true);
-            experience.isSelected(false);
+            if (experience.isBuildFinished())
+                experience.isBuildFinished(false);
 
-            setTimeout(function () {
-                experience.building(false);
-                experience.isBuilded(true);
-                var trying = Math.floor(Math.random() * 2 + 1);
-                if (trying == 1) {
-                    experience.buildFinished(false);
-                } else {
-                    experience.buildFinished(true);
-                }
-            }, 2000);
+            if (experience.isBuildSucceed())
+                experience.isBuildSucceed(false);
+
+            if (experience.isSelected())
+                experience.isSelected(false);
+
+            var data = _.find(dataContext.experiences, function(item) {
+                return item.id == experience.id;
+            });
+
+            return http.post('experience/build', data)
+                .done(function (response) {
+                    experience.isBuildFinished(true);
+                    experience.isBuildSucceed(response.Success);
+                })
+                .always(function () {
+                    experience.isBuilding(false);
+                });
         },
 
-        downloadExperience = function () {
+        downloadExperience = function (experience) {
             sendEvent(events.downloadExperience);
-            alert('download not implemented yet');
+            router.navigateTo('download/' + experience.id + '.zip');
         },
-//TODO:END of temporary code
+
         activate = function () {
             var sortedExperiences = _.sortBy(dataContext.experiences, function (experience) { return experience.title.toLowerCase(); });
             currentSortingOption(constants.sortingOptions.byTitleAsc);
@@ -105,9 +109,9 @@
                     title: item.title,
                     objectives: item.objectives,
                     isSelected: ko.observable(false),
-                    building: ko.observable(false),
-                    isBuilded: ko.observable(false),
-                    buildFinished: ko.observable(false)
+                    isBuilding: ko.observable(false),
+                    isBuildFinished: ko.observable(false),
+                    isBuildSucceed: ko.observable(false)
                 };
             }));
         };
@@ -125,10 +129,10 @@
             navigateToDetails: navigateToDetails,
             navigateToObjectives: navigateToObjectives,
 
-            activate: activate,
-            //TODO: delete or modify this string!
             buildExperience: buildExperience,
-            downloadExperience: downloadExperience
+            downloadExperience: downloadExperience,
+
+            activate: activate
         };
     }
 );
