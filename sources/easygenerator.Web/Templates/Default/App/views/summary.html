@@ -1,8 +1,51 @@
-﻿<div class="summary">
-    <h3 style="text-align: center;">Score: <span data-bind="text: score"></span></h3>
-    <ul data-bind="foreach: objectives">
-        <li>
-            <span data-bind="text: title"></span> score: <span data-bind="text: score"></span>
-        </li>
-    </ul>
-</div>
+﻿<section class="summary">
+
+    <div class="navigation-link-container">
+        <div class="pull-left">
+            <a class="navigation-link navigation-link-left" href="/#" data-bind="click: backToObjectives">
+                <div class="navigation-link-left-image"></div>
+                Back to objectives</a>
+        </div>
+        <div class="pull-right">
+            <a class="navigation-link navigation-link-right" href="/#" data-bind="click: finish">Finish
+                <div class="navigation-link-right-image"></div>
+            </a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="content">
+        <div class="caption">
+            <div class="caption-stripe"></div>
+            <div class="caption-icon">
+                <div class="caption-icon-image"></div>
+            </div>
+            <div class="caption-text">Progress summary</div>
+        </div>
+        <div class="summary-progress-header">
+            <div class="summary-progress-overall">
+                <canvas width="125" height="125" data-bind="context: triggerRedraw, contextCallback:redrawCanvas"></canvas>
+            </div>
+            <div class="summary-progress-header-title">
+                Overall progress
+            </div>
+        </div>
+        <ul class="summary-objectives unstyled" data-bind="foreach: objectives">
+            <li class="summary-objective">
+                <div class="summary-objective-progress">
+                    <div class="summary-objective-progress-value" data-bind="text: score + '%'"></div>
+                    <div class="meter-wrapper">
+                        <div class="meter-background"></div>
+                        <div class="meter-value" data-bind="style: { width: score + '%' }"></div>
+                        <div class="meter-border-outer">
+                            <div class="meter-border-inset-dark">
+                                <div class="meter-border-inset-light"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="summary-objective-title" data-bind="text: title, attr: {title: title}"></div>
+            </li>
+        </ul>
+    </div>
+</section>

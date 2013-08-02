@@ -2,7 +2,9 @@
 <html>
 <head>
     <title>easygenerator</title>
-
+    <!--[if IE 9]>
+        <html class="ie9">
+    <![endif]-->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 
@@ -13,7 +15,7 @@
     <link rel="stylesheet" href="css/ie10mobile.css" />
     <link rel="stylesheet" href="css/durandal.css" />
     <link rel="stylesheet" href="css/styles.css" />
-
+    <link rel="stylesheet" href="css/summary.css" />
     <script type="text/javascript">
         if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
             var msViewportStyle = document.createElement("style");
@@ -23,11 +25,10 @@
         }
     </script>
 </head>
-    <body>        
+    <body>
         <div id="applicationHost" class="application-wrapper">
             <img class="loader" src="img/loader.gif" alt="" />
         </div>
-
         <script src="js/jquery-1.9.1.js"></script>
         <script src="js/knockout-2.2.1.js"></script>
         <script src="js/sammy-0.7.4.js"></script>

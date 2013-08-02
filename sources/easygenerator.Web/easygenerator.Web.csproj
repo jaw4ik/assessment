@@ -529,6 +529,7 @@
     <Content Include="Templates\Default\content\3\2\2.html" />
     <Content Include="Templates\Default\content\3\2\3.html" />
     <Content Include="Templates\Default\content\data.js" />
+    <Content Include="Templates\Default\css\summary.css" />
     <Content Include="Templates\Default\css\durandal.css" />
     <Content Include="Templates\Default\css\ie10mobile.css" />
     <Content Include="Templates\Default\css\images\glyphicons-halflings-white.png" />
@@ -546,12 +547,14 @@
     <Content Include="Templates\Default\img\expand.png" />
     <Content Include="Templates\Default\img\feedback.png" />
     <Content Include="Templates\Default\img\info-btn.png" />
+    <Content Include="Templates\Default\img\finish.png" />
     <Content Include="Templates\Default\img\loader.gif" />
     <Content Include="Templates\Default\img\logo.png" />
     <Content Include="Templates\Default\img\progress_summary.png" />
     <Content Include="Templates\Default\img\progress_summary_white.png" />
     <Content Include="Templates\Default\img\question.png" />
     <Content Include="Templates\Default\index.html" />
+    <Content Include="Templates\Default\js\excanvas.compiled.js" />
     <Content Include="Templates\Default\js\jquery-1.9.1.js" />
     <Content Include="Templates\Default\js\knockout-2.2.1.js" />
     <Content Include="Templates\Default\js\q.js" />
