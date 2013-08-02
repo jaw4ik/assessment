@@ -9,7 +9,7 @@ namespace easygenerator.Web.BuildExperience
     public class BuildHelper : IBuildHelper
     {
         public static readonly string BuildPath = "C:\\Temp\\eg\\build";
-        public static readonly string WebsitePath = "D:\\Applications\\easygenerator-web";
+        public static readonly string WebsitePath = "D:\\Applications\\easygenerator";
         public static readonly string TemplatePath = WebsitePath + "\\Templates";
         public static readonly string DownloadPath = WebsitePath + "\\Download";
 
