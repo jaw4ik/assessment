@@ -38,7 +38,7 @@ namespace easygenerator.Web.BuildExperience
                     string entryName = info2.FullName.Substring(fullName.Length, length).TrimStart(new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar });
                     if (info2 is FileInfo)
                     {
-                        archive.CreateEntryFromFile(info2.FullName, entryName);
+                        archive.CreateEntryFromFile(info2.FullName, entryName.Replace("\\", "/"));
                     }
                     else
                     {
