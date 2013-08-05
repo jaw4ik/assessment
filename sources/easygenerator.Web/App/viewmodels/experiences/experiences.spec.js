@@ -307,6 +307,15 @@
                     expect(experience.isSelected()).toBe(false);
                 });
 
+                it('should show process info', function () {
+                    var experience = viewModel.experiences()[0];
+                    experience.showBuildProgress(false);
+
+                    viewModel.buildExperience(experience);
+
+                    expect(experience.showBuildProgress()).toBe(true);
+                });
+
                 it('should send request to server', function () {
                     var experience = viewModel.experiences()[0],
                         experienceData;

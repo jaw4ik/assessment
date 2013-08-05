@@ -23,7 +23,7 @@ namespace easygenerator.Web.BuildExperience
             DoCreateFromDirectory(packageFolderPath, destinationFileName);
         }
 
-        private void DoCreateFromDirectory(string sourceDirectoryName, string destinationArchiveFileName)
+        private static void DoCreateFromDirectory(string sourceDirectoryName, string destinationArchiveFileName)
         {
             sourceDirectoryName = Path.GetFullPath(sourceDirectoryName);
             destinationArchiveFileName = Path.GetFullPath(destinationArchiveFileName);

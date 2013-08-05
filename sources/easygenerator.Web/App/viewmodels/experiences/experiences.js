@@ -69,6 +69,7 @@
 
         buildExperience = function (experience) {
             sendEvent(events.buildExperience);
+            experience.showBuildProgress(true);
             experience.buildingStatus(constants.buildingStatuses.inProgress);
 
             if (experience.isSelected())
@@ -85,6 +86,11 @@
                 })
                 .fail(function () {
                     experience.buildingStatus(constants.buildingStatuses.failed);
+                })
+                .always(function () {
+                    setTimeout(function() {
+                        experience.showBuildProgress(false);
+                    }, 10000);
                 });
         },
 
@@ -111,6 +117,7 @@
                     item.buildingStatus = newValue;
                 });
                 experience.isSelected = ko.observable(false);
+                experience.showBuildProgress = ko.observable(false);
 
                 return experience;
             }));
