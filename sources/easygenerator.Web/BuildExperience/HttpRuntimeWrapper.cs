@@ -1,6 +1,6 @@
 ﻿using System.Web;
 
-namespace easygenerator.Infrastructure
+namespace easygenerator.Web.BuildExperience
 {
     public class HttpRuntimeWrapper
     {

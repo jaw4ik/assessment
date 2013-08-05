@@ -36,7 +36,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,7 +45,6 @@
   <ItemGroup>
     <Compile Include="ArgumentValidation.cs" />
     <Compile Include="DateTimeWrapper.cs" />
-    <Compile Include="HttpRuntimeWrapper.cs" />
     <Compile Include="IPhysicalFileManager.cs" />
     <Compile Include="PhysicalFileManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

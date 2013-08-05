@@ -135,9 +135,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildExperience\BuildHelper.cs" />
+    <Compile Include="BuildExperience\BuildPathProvider.cs" />
     <Compile Include="BuildExperience\ExperienceBuilder.cs" />
-    <Compile Include="BuildExperience\IBuildHelper.cs" />
+    <Compile Include="BuildExperience\HttpRuntimeWrapper.cs" />
     <Compile Include="BuildExperience\IExperienceBuilder.cs" />
     <Compile Include="Configuration\BundleConfiguration.cs" />
     <Compile Include="Configuration\ContainerConfiguration.cs" />

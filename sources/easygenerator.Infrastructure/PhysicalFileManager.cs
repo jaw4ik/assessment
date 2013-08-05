@@ -4,9 +4,9 @@ using System.IO.Compression;
 
 namespace easygenerator.Infrastructure
 {
-    public class PhysicalFileManager : IPhysicalFileManager
+    public class PhysicalFileManager
     {
-        public void CreateDirectory(string path)
+        public virtual void CreateDirectory(string path)
         {
             if (String.IsNullOrEmpty(path))
                 throw new ArgumentException();
@@ -14,7 +14,7 @@ namespace easygenerator.Infrastructure
             Directory.CreateDirectory(path);
         }
 
-        public void DeleteDirectory(string path)
+        public virtual void DeleteDirectory(string path)
         {
             if (String.IsNullOrEmpty(path))
                 throw new ArgumentException();
@@ -22,7 +22,7 @@ namespace easygenerator.Infrastructure
             Directory.Delete(path, true);
         }
 
-        public void CopyDirectory(string source, string destination)
+        public virtual void CopyDirectory(string source, string destination)
         {
             if (String.IsNullOrEmpty(source))
                 throw new ArgumentException();
@@ -71,7 +71,7 @@ namespace easygenerator.Infrastructure
             }
         }
 
-        public void WriteToFile(string path, string content)
+        public virtual void WriteToFile(string path, string content)
         {
             if (content == null)
                 throw new ArgumentException();
@@ -79,7 +79,7 @@ namespace easygenerator.Infrastructure
             File.WriteAllText(path, content);
         }
 
-        public void ArchiveDirectory(string path, string destinationFilePath)
+        public virtual void ArchiveDirectory(string path, string destinationFilePath)
         {
             if (String.IsNullOrEmpty(path))
                 throw new ArgumentException();
@@ -90,7 +90,7 @@ namespace easygenerator.Infrastructure
             ZipFile.CreateFromDirectory(path, destinationFilePath);
         }
 
-        public void DeleteFile(string path)
+        public virtual void DeleteFile(string path)
         {
             File.Delete(path);
         }

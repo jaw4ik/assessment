@@ -1,48 +1,67 @@
-﻿using easygenerator.Web.BuildExperience.BuildModel;
+﻿using easygenerator.Infrastructure;
+using easygenerator.Web.BuildExperience.BuildModel;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace easygenerator.Web.BuildExperience
 {
     public class ExperienceBuilder : IExperienceBuilder
     {
-        private readonly IBuildHelper _buildHelper;
+        private readonly PhysicalFileManager _fileManager;
+        private readonly BuildPathProvider _buildPathProvider;
 
-        public ExperienceBuilder(IBuildHelper buildHelper)
+        public ExperienceBuilder(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider)
         {
-            _buildHelper = buildHelper;
+            _fileManager = fileManager;
+            _buildPathProvider = buildPathProvider;
         }
 
         public bool Build(ExperienceBuildModel model)
         {
             try
             {
-                _buildHelper.CreateBuildDirectory(model.Id);
-                _buildHelper.CopyTemplateToBuildDirectory(model.Id, "Default");
+                _fileManager.CreateDirectory(_buildPathProvider.GetBuildDirectoryName(model.Id));
+                _fileManager.CopyDirectory(_buildPathProvider.GetTemplateDirectoryName("Default"), _buildPathProvider.GetBuildDirectoryName(model.Id));
+                _fileManager.DeleteDirectory(_buildPathProvider.GetContentDirectoryName(model.Id));
 
                 foreach (ObjectiveBuildModel objective in model.Objectives)
                 {
-                    _buildHelper.CreateObjectiveDirectory(model.Id, objective.Id);
+                    _fileManager.CreateDirectory(_buildPathProvider.GetObjectiveDirectoryName(model.Id, objective.Id));
 
                     foreach (QuestionBuildModel question in objective.Questions)
                     {
-                        _buildHelper.CreateQuestionDirectory(model.Id, objective.Id, question.Id);
+                        _fileManager.CreateDirectory(_buildPathProvider.GetQuestionDirectoryName(model.Id, objective.Id, question.Id));
 
                         foreach (ExplanationBuildModel explanation in question.Explanations)
                         {
-                            _buildHelper.WriteExplanation(model.Id, objective.Id, question.Id, explanation.Id, explanation.Text);
+                            _fileManager.WriteToFile(_buildPathProvider.GetExplanationFileName(model.Id, objective.Id, question.Id, explanation.Id),
+                                explanation.Text);
                             explanation.Text = string.Empty;
                         }
                     }
                 }
 
-                _buildHelper.WriteDataToFile(model.Id, _buildHelper.SerializeBuildModel(model));
-                _buildHelper.CreateBuildPackage(model.Id);
+                _fileManager.WriteToFile(_buildPathProvider.GetDataFileName(model.Id), SerializeBuildModel(model));
+
+                var packagePath = _buildPathProvider.GetBuildPackageFileName(model.Id);
+                _fileManager.DeleteFile(packagePath);
+                _fileManager.ArchiveDirectory(_buildPathProvider.GetBuildDirectoryName(model.Id), packagePath);
             }
             finally
             {
-                _buildHelper.DeleteBuildDirectory(model.Id);
+                _fileManager.DeleteDirectory(_buildPathProvider.GetBuildDirectoryName(model.Id));
             }
 
             return true;
+        }
+
+        private string SerializeBuildModel(ExperienceBuildModel buildModel)
+        {
+            return JsonConvert.SerializeObject(
+                    buildModel,
+                    Formatting.None,
+                    new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() }
+                );
         }
     }
 }

@@ -109,7 +109,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildExperience\BuldHelperTests.cs" />
     <Compile Include="BuildExperience\ExperienceBuilderTests.cs" />
     <Compile Include="Controllers\ApplicationControllerTests.cs" />
     <Compile Include="Controllers\ExperienceControllerTests.cs" />

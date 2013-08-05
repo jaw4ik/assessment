@@ -7,12 +7,12 @@ namespace easygenerator.Tests
     [TestClass]
     public class PhysicalFileManagerTests
     {
-        private IPhysicalFileManager _physicalFileManager;
+        private PhysicalFileManager _physicalFileManager;
 
         [TestInitialize]
         public void InitializeContext()
         {
-            _physicalFileManager = new PhysicalFileManager();   
+            _physicalFileManager = new PhysicalFileManager();
         }
 
         [TestMethod]

@@ -24,12 +24,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<ExperienceBuilder>()
                    .As<IExperienceBuilder>();
 
-            builder.RegisterType<BuildHelper>()
-                   .As<IBuildHelper>();
-
-            builder.RegisterType<PhysicalFileManager>()
-                   .As<IPhysicalFileManager>();
-
+            builder.RegisterType<PhysicalFileManager>();
             builder.RegisterType<HttpRuntimeWrapper>();
 
             var container = builder.Build();
