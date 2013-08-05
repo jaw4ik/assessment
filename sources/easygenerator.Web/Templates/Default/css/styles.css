@@ -138,6 +138,10 @@ menu, ol, ul {
     color: #fff;
 }
 
+    .header.module-home .logo {
+        cursor: default;
+    }
+
 .navigation-menu,
 .navigation-menu-item {
     display: inline-block;
