@@ -247,19 +247,6 @@ namespace easygenerator.Web.Tests.BuildExperience
                _buildHelper.Verify(instance => instance.WriteDataToFile(buildModel.Id, serializedData));
            }
 
-           [TestMethod]
-           public void Build_ShouldArchiveExperience()
-           {
-               //Arrange
-               var buildModel = CreateDefaultBuildModel();
-
-               _buildHelper.Setup(instance => instance.CreateBuildPackage(It.IsAny<string>()));
-
-               //Act
-               _builder.Build(buildModel);
-
-               //Assert
-               _buildHelper.Verify(instance => instance.CreateBuildPackage(buildModel.Id));
-           }*/
+*/
     }
 }
