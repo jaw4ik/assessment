@@ -28,6 +28,9 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PhysicalFileManager>();
             builder.RegisterType<HttpRuntimeWrapper>();
             builder.RegisterType<BuildPackageCreator>();
+            builder.RegisterType<PackageModelMapper>();
+            builder.RegisterType<PackageModelSerializer>();
+            builder.RegisterType<BuildPackageCreator>();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
