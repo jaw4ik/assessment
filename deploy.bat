@@ -16,16 +16,12 @@ IF NOT EXIST sources/easygenerator.Web/obj/Release/TransformWebConfig/transforme
 ECHO "Building .Net unit tests"
 %SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild sources\easygenerator.DomainModel.Tests\easygenerator.DomainModel.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
-%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild sources\easygenerator.Tests\easygenerator.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true
-IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 %SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild sources\easygenerator.Web.Tests\easygenerator.Web.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
 ECHO Running .Net unit tests...
 
 "%VS110COMNTOOLS%..\IDE\mstest.exe" /testcontainer:sources\easygenerator.DomainModel.Tests\bin\Debug\easygenerator.DomainModel.Tests.dll
-IF NOT %ERRORLEVEL% == 0 GOTO ERROR
-"%VS110COMNTOOLS%..\IDE\mstest.exe" /testcontainer:sources\easygenerator.Tests\bin\Debug\easygenerator.Tests.dll
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 "%VS110COMNTOOLS%..\IDE\mstest.exe" /testcontainer:sources\easygenerator.Web.Tests\bin\Debug\easygenerator.Web.Tests.dll 
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR

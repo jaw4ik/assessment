@@ -1,8 +1,8 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using easygenerator.Infrastructure;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace easygenerator.Tests
+namespace easygenerator.Web.Tests.BuildExperience
 {
     [TestClass]
     public class PhysicalFileManagerTests
