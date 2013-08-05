@@ -562,11 +562,6 @@
     <Content Include="Templates\Default\css\summary.css" />
     <Content Include="Templates\Default\css\durandal.css" />
     <Content Include="Templates\Default\css\ie10mobile.css" />
-    <Content Include="Templates\Default\css\images\glyphicons-halflings-white.png" />
-    <Content Include="Templates\Default\css\images\glyphicons-halflings.png" />
-    <Content Include="Templates\Default\css\images\icon.png" />
-    <Content Include="Templates\Default\css\images\ios-startup-image-landscape.png" />
-    <Content Include="Templates\Default\css\images\ios-startup-image-portrait.png" />
     <Content Include="Templates\Default\css\normalize.css" />
     <Content Include="Templates\Default\img\checkbox.png" />
     <Content Include="Templates\Default\img\chrome.png" />
