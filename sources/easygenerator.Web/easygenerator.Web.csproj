@@ -140,6 +140,12 @@
     <Compile Include="BuildExperience\ExperienceBuilder.cs" />
     <Compile Include="BuildExperience\HttpRuntimeWrapper.cs" />
     <Compile Include="BuildExperience\IExperienceBuilder.cs" />
+    <Compile Include="BuildExperience\PackageModelMapper.cs" />
+    <Compile Include="BuildExperience\PackageModel\AnswerOptionPackageModel.cs" />
+    <Compile Include="BuildExperience\PackageModel\ExperiencePackageModel.cs" />
+    <Compile Include="BuildExperience\PackageModel\ExplanationPackageModel.cs" />
+    <Compile Include="BuildExperience\PackageModel\ObjectivePackageModel.cs" />
+    <Compile Include="BuildExperience\PackageModel\QuestionPackageModel.cs" />
     <Compile Include="Configuration\BundleConfiguration.cs" />
     <Compile Include="Configuration\ContainerConfiguration.cs" />
     <Compile Include="Configuration\FilterConfiguration.cs" />

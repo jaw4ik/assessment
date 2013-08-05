@@ -1,7 +1,5 @@
 ﻿using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience.BuildModel;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace easygenerator.Web.BuildExperience
 {
@@ -10,12 +8,16 @@ namespace easygenerator.Web.BuildExperience
         private readonly PhysicalFileManager _fileManager;
         private readonly BuildPathProvider _buildPathProvider;
         private readonly BuildPackageCreator _buildPackageCreator;
+        private readonly PackageModelMapper _packageModelMapper;
+        private readonly PackageModelSerializer _packageModelSerializer;
 
-        public ExperienceBuilder(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator)
+        public ExperienceBuilder(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator, PackageModelMapper packageModelMapper, PackageModelSerializer packageModelSerializer)
         {
             _fileManager = fileManager;
             _buildPathProvider = buildPathProvider;
             _buildPackageCreator = buildPackageCreator;
+            _packageModelMapper = packageModelMapper;
+            _packageModelSerializer = packageModelSerializer;
         }
 
         public bool Build(ExperienceBuildModel model)
@@ -43,7 +45,9 @@ namespace easygenerator.Web.BuildExperience
                     }
                 }
 
-                _fileManager.WriteToFile(_buildPathProvider.GetDataFileName(model.Id), SerializeBuildModel(model));
+                _fileManager.WriteToFile(_buildPathProvider.GetDataFileName(model.Id),
+                    _packageModelSerializer.Serialize(_packageModelMapper.MapExperienceBuildModel(model)));
+
                 _buildPackageCreator.CreatePackageFromFolder(_buildPathProvider.GetBuildDirectoryName(model.Id),
                     _buildPathProvider.GetBuildPackageFileName(model.Id));
 
@@ -54,15 +58,6 @@ namespace easygenerator.Web.BuildExperience
             }
 
             return true;
-        }
-
-        private string SerializeBuildModel(ExperienceBuildModel buildModel)
-        {
-            return JsonConvert.SerializeObject(
-                    buildModel,
-                    Formatting.None,
-                    new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() }
-                );
         }
     }
 }

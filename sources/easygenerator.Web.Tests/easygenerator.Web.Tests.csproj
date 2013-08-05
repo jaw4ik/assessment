@@ -113,6 +113,7 @@
     <Compile Include="BuildExperience\BuildPathProviderTests.cs" />
     <Compile Include="BuildExperience\BuildPackageCreatorTests.cs" />
     <Compile Include="BuildExperience\PhysicalFileManagerTests.cs" />
+    <Compile Include="BuildExperience\PackageModelMapperTests.cs" />
     <Compile Include="Controllers\ApplicationControllerTests.cs" />
     <Compile Include="Controllers\ExperienceControllerTests.cs" />
     <Compile Include="Controllers\ObjectiveControllerTests.cs" />

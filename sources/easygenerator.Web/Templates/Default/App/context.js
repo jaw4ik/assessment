@@ -20,7 +20,7 @@
                                 return {
                                     id: question.id,
                                     title: question.title,
-                                    answers: _.map(question.answerOptions, function (answer) {
+                                    answers: _.map(question.answers, function (answer) {
                                         return {
                                             id: answer.id,
                                             isCorrect: answer.isCorrect,

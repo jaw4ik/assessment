@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.BuildExperience.BuildModel;
+using easygenerator.Web.BuildExperience.PackageModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -16,6 +17,8 @@ namespace easygenerator.Web.Tests.BuildExperience
         private Mock<HttpRuntimeWrapper> _httpRuntimeWrapperMock;
         private Mock<BuildPathProvider> _buildPathProviderMock;
         private Mock<BuildPackageCreator> _buildPackageCreatorMock;
+        private Mock<PackageModelMapper> _packageModelMapperMock;
+        private Mock<PackageModelSerializer> _packageModelSerializerMock;
 
         [TestInitialize]
         public void InitializeContext()
@@ -29,7 +32,12 @@ namespace easygenerator.Web.Tests.BuildExperience
 
             _buildPackageCreatorMock = new Mock<BuildPackageCreator>(_fileManager.Object);
 
-            _builder = new ExperienceBuilder(_fileManager.Object, _buildPathProviderMock.Object, _buildPackageCreatorMock.Object);
+            _packageModelMapperMock = new Mock<PackageModelMapper>();
+
+            _packageModelSerializerMock = new Mock<PackageModelSerializer>();
+
+            _builder = new ExperienceBuilder(_fileManager.Object, _buildPathProviderMock.Object, _buildPackageCreatorMock.Object,
+                _packageModelMapperMock.Object, _packageModelSerializerMock.Object);
         }
 
         private static ExperienceBuildModel CreateDefaultBuildModel()
@@ -230,23 +238,35 @@ namespace easygenerator.Web.Tests.BuildExperience
             Assert.AreEqual(String.Empty, buildModel.Objectives[0].Questions[0].Explanations[0].Text);
         }
 
-        /*   [TestMethod]
-           public void Build_ShouldWriteJsonData()
-           {
-               //Arrange
-               var buildModel = CreateDefaultBuildModel();
-               var serializedData = "serializedData";
-               _buildHelper.Setup(instance => instance.SerializeBuildModel(It.IsAny<ExperienceBuildModel>())).Returns(serializedData);
-               _buildHelper.Setup(instance => instance.WriteDataToFile(It.IsAny<string>(), It.IsAny<string>()));
+        [TestMethod]
+        public void Build_ShouldCreatePackageModel()
+        {
+            //Arrange
+            var buildModel = CreateDefaultBuildModel();
+            _packageModelMapperMock.Setup(instance => instance.MapExperienceBuildModel(buildModel));
 
-               //Act
-               _builder.Build(buildModel);
+            //Act
+            _builder.Build(buildModel);
 
-               //Assert
-               _buildHelper.Verify(instance => instance.SerializeBuildModel(buildModel));
-               _buildHelper.Verify(instance => instance.WriteDataToFile(buildModel.Id, serializedData));
-           }
+            //Assert
+            _packageModelMapperMock.VerifyAll();
+        }
 
-*/
+        [TestMethod]
+        public void Build_ShouldSerializePackageModel()
+        {
+            //Arrange
+            var buildModel = CreateDefaultBuildModel();
+            var packageModel = new ExperiencePackageModel();
+            _packageModelMapperMock.Setup(instance => instance.MapExperienceBuildModel(It.IsAny<ExperienceBuildModel>()))
+                .Returns(packageModel);
+            _packageModelSerializerMock.Setup(instance => instance.Serialize(packageModel));
+
+            //Act
+            _builder.Build(buildModel);
+
+            //Assert
+            _packageModelSerializerMock.VerifyAll();
+        }
     }
 }
