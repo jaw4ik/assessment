@@ -165,9 +165,14 @@ namespace easygenerator.AcceptanceTests.Steps
             System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
 
             //tmp
-            System.Threading.Thread.Sleep(3000);
+            //System.Threading.Thread.Sleep(3000);
         }
 
+        [When(@"sleep")]
+        public void WhenSleep()
+        {
+            System.Threading.Thread.Sleep(3000);
+        }
 
 
         [When(@"click open publication list item with title '(.*)'")]

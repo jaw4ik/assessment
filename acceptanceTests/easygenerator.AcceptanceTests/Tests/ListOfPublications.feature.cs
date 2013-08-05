@@ -550,6 +550,8 @@ testRunner.When("unzip puckage to tmp", ((string)(null)), ((TechTalk.SpecFlow.Ta
 #line 198
 testRunner.And("open page by url \'http://ctest.corp.ism-ukraine.com/tmp/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 199
+testRunner.And("sleep", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 200
 testRunner.Then("browser navigates to url \'http://ctest.corp.ism-ukraine.com/tmp/#/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
