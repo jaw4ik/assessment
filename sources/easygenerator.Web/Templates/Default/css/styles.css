@@ -135,9 +135,9 @@ menu, ol, ul {
     line-height: 37px;
 }
 
-.navigation-menu-item.active {
-    display: none;
-}
+    .navigation-menu-item.active {
+        display: none;
+    }
 
 .navigation-menu-item-home {
     line-height: 34px;
@@ -593,6 +593,8 @@ menu, ol, ul {
 
     .not-supported-browser ul {
         display: inline-block;
+        zoom: 1;
+        *display: inline;
     }
 
 /* -------------- not supported browser view ------------- */
