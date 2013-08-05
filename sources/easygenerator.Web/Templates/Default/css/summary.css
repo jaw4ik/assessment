@@ -137,7 +137,6 @@
     overflow: hidden;
     -ms-text-overflow: ellipsis;
     text-overflow: ellipsis;
-    cursor: default;
 }
 
 .summary-objective-progress {

@@ -1,4 +1,4 @@
-﻿<section class="question">
+﻿<section class="question unselectable">
 
     <div class="navigation-link-container clearfix">
         <div class="pull-left">
@@ -22,7 +22,7 @@
                     <div class="caption-icon-image"></div>
                 </div>
                 <div class="caption-text">
-                    <span data-bind="text: title"></span>
+                    <span class="selectable" data-bind="text: title"></span>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
                 <div>
                     <a class="question-answer-checkbox" data-bind="click: toggleCheck, css: { checked: isChecked() }"></a>
                 </div>
-                <div class="question-answer-text" data-bind="text: text"></div>
+                <div class="question-answer-text selectable" data-bind="text: text"></div>
             </li>
         </ul>
         <div class="btn-submit-wrapper">

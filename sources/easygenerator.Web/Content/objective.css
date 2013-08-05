@@ -98,7 +98,6 @@ a.nav-control:hover {
     margin-top: -1px;
     border-top: 1px solid #e1e1e1;
     background-color: #ffffff;
-    cursor: default;
 }
 
     .questions-list-item.selected {
@@ -133,10 +132,6 @@ a.nav-control:hover {
     position: relative;
 }
 
-.questions-list-wrapper:hover {
-    cursor: pointer;
-}
-
 .image-background,
 .question-options {
     height: 100%;
@@ -167,9 +162,11 @@ a.nav-control:hover {
     position: relative;
     float: left;
     padding: 13px 0;
-    cursor: pointer;
 }
 
+.question-open {
+    cursor: pointer;
+}
     .question-select .action-img,
     .question-open .action-img {
         height: 34px;

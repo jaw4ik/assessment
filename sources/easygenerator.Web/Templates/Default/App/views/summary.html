@@ -1,4 +1,4 @@
-﻿<section class="summary">
+﻿<section class="summary unselectable">
 
     <div class="navigation-link-container">
         <div class="pull-left">
@@ -30,7 +30,7 @@
         <div class="summary-progress-header">
             <div class="summary-progress-overall">
                 <canvas width="125" height="125" data-bind="context: triggerRedraw, contextCallback: redrawCanvas"></canvas>
-                <div class="summary-progress-overall-score" data-bind="text: score + '%'"></div>
+                <div class="summary-progress-overall-score selectable" data-bind="text: score + '%'"></div>
             </div>
             <div class="summary-progress-header-title">
                 Overall progress
@@ -39,7 +39,7 @@
         <ul class="summary-objectives unstyled" data-bind="foreach: objectives">
             <li class="summary-objective">
                 <div class="summary-objective-progress">
-                    <div class="summary-objective-progress-value" data-bind="text: score + '%'"></div>
+                    <div class="summary-objective-progress-value selectable" data-bind="text: score + '%'"></div>
                     <div class="meter-wrapper">
                         <div class="meter-background"></div>
                         <div class="meter-value" data-bind="style: { width: score + '%' }"></div>
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="summary-objective-title" data-bind="text: title, attr: { title: title }"></div>
+                <div class="summary-objective-title selectable" data-bind="text: title, attr: { title: title }"></div>
             </li>
         </ul>
     </div>

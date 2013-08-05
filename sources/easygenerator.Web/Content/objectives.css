@@ -134,7 +134,7 @@
     .objectives-sort-by-title-asc:hover, .objectives-sort-by-title-desc:hover,
     .experiences-sort-by-title-asc:hover, .experiences-sort-by-title-desc:hover,
     .questions-sort-by-title-asc:hover, .questions-sort-by-title-desc:hover {
-        cursor: pointer;
+        cursor: default;
         -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.3) inset;
         -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.3) inset;
         box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.3) inset;
@@ -245,6 +245,9 @@
     .objective-brief-options-open:hover {
         background-color: #000000;
         background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .objective-brief-options-open:hover {
         cursor: pointer;
     }
 
