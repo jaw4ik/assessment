@@ -583,7 +583,7 @@ menu, ol, ul {
 /* -------------- not supported browser view ------------- */
 
 .not-supported-browser {
-    margin-top: 100px;
+    padding-top: 100px;
     text-align: center;
 }
 
