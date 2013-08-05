@@ -10,7 +10,10 @@
         <!-- /ko -->
     </ul>
 </div>
-<div class="content-wrapper">
+<div class="loader" data-bind="visible: router.isNavigating()">
+    <img src="/Content/images/loader.gif" alt=""/>
+</div>
+<div class="content-wrapper" data-bind="visible: !router.isNavigating()">
     <!--ko compose: {
         model: router.activeItem, 
         afterCompose: router.afterCompose } -->
