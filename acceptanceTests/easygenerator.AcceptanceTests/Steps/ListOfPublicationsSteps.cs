@@ -162,8 +162,10 @@ namespace easygenerator.AcceptanceTests.Steps
             {
                 System.IO.Directory.Delete(extractPath, true);
             }
-
             System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
+
+            //tmp
+            System.Threading.Thread.Sleep(3000);
         }
 
 
