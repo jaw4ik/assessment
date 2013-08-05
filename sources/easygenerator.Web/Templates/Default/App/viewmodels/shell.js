@@ -1,4 +1,5 @@
 ﻿define(['durandal/plugins/router', 'context'], function (router, context) {
+    
 
     return {
         router: router,
@@ -37,17 +38,17 @@
                     name: 'Explanation'
                 },
                 {
-                    url: '#/summary',
+                    url: 'summary',
                     moduleId: 'viewmodels/summary',
-                    name: 'Summary'
+                    name: 'Summary',
+                    visible: true,
+                    caption: '<a class="navigation-menu-item-summary" href="#/summary"><span>Progress summary</span>&nbsp;<img src="img/progress_summary_white.png" alt="" /></a>'
                 }
             ]);
 
             router.handleInvalidRoute = function (route) {
                 router.replaceLocation("#/404/" + encodeURIComponent(route));
             };
-
-
 
             return context.initialize()
                 .then(function () {

@@ -135,6 +135,10 @@ menu, ol, ul {
     line-height: 37px;
 }
 
+.navigation-menu-item.active {
+    display: none;
+}
+
 .navigation-menu-item-home {
     line-height: 34px;
 }
