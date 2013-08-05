@@ -196,5 +196,4 @@ Then browser navigates to url 'http://localhost:5656/#/objectives'
 Scenario: Temp
 When unzip puckage to tmp
 And open page by url 'http://ctest.corp.ism-ukraine.com/tmp/'
-And sleep
-Then browser navigates to url 'http://ctest.corp.ism-ukraine.com/tmp/#/'
+Then browser navigates to url 'http://ctest.corp.ism-ukraine.com/tmp/'
