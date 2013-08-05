@@ -143,13 +143,13 @@ menu, ol, ul {
     line-height: 34px;
 }
 
-.navigation-menu-item-summary {
+.navigation-menu-item-link {
     display: inline-block;
     height: 100%;
     padding: 0 20px;
 }
 
-    .navigation-menu-item-summary:hover {
+    .navigation-menu-item-link:hover {
         background-color: rgba(0, 0, 0, 0.2);
         cursor: pointer;
     }

@@ -3,13 +3,6 @@
 
     return {
         router: router,
-        showNavigation: ko.computed(function () {
-            var activeItem = router.activeItem();
-            if (_.isObject(activeItem)) {
-                return activeItem.__moduleId__ != 'viewmodels/summary';
-            }
-            return true;
-        }),
         activate: function () {
 
             router.useConvention();
@@ -45,9 +38,13 @@
                     name: 'Explanation'
                 },
                 {
-                    url: 'summary',
+                    url: '#/summary',
                     moduleId: 'viewmodels/summary',
-                    name: 'Summary',                    
+                    name: 'Summary',
+                    visible: true,
+                    settings: {
+                        caption: 'Progress summary&nbsp;<img src="img/progress_summary_white.png" alt="" />'
+                    }
                 }
             ]);
 
