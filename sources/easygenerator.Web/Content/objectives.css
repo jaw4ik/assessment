@@ -1,4 +1,9 @@
-﻿.objectives,
+﻿.module-objectives .logo {
+    cursor: default;
+}
+
+
+.objectives,
 .experiences {
     position: relative;
     margin: auto;
