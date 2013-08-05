@@ -8,13 +8,17 @@
 
         submit = function () {
             var result = 0;
-            _.each(this.answers, function (answer) {
-                if ((answer.isChecked() && answer.isCorrect) || (!answer.isChecked() && !answer.isCorrect)) {
-                    result++;
-                }
-            });
-            question.score = Math.round((result / this.answers.length) * 100);
 
+            if (this.answers.length > 0) {
+                _.each(this.answers, function (answer) {
+                    if ((answer.isChecked() && answer.isCorrect) || (!answer.isChecked() && !answer.isCorrect)) {
+                        result++;
+                    }
+                });
+                result = Math.round((result / this.answers.length) * 100);
+            }
+
+            question.score = result;
             showFeedback();
         },
 
@@ -24,7 +28,7 @@
         showExplanations = function () {
             router.navigateTo('#/objective/' + objective.id + '/question/' + question.id + '/explanations');
         },
-        showFeedback = function() {
+        showFeedback = function () {
             router.navigateTo('#/objective/' + objective.id + '/question/' + question.id + '/feedback');
         },
 
