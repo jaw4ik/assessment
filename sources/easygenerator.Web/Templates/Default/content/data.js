@@ -9,7 +9,7 @@
                 {
                     "id": "1",
                     "title": "Question 1",
-                    "answers": [
+                    "answerOptions": [
                         { "id": "1", "isCorrect": false, "text": "Answer option 1" },
                         { "id": "1", "isCorrect": true, "text": "Answer option 2" },
                         { "id": "1", "isCorrect": false, "text": "Answer option 3" }
@@ -23,7 +23,7 @@
                 {
                     "id": "2",
                     "title": "Question 2",
-                    "answers": [
+                    "answerOptions": [
                         { "id": "1", "isCorrect": true, "text": "Answer option 1" },
                         { "id": "1", "isCorrect": false, "text": "Answer option 2" },
                         { "id": "1", "isCorrect": true, "text": "Answer option 3" }
@@ -44,7 +44,7 @@
                 {
                     "id": "1",
                     "title": "Question 1",
-                    "answers": [
+                    "answerOptions": [
                         { "id": "1", "isCorrect": false, "text": "Answer option 1" },
                         { "id": "1", "isCorrect": true, "text": "Answer option 2" },
                         { "id": "1", "isCorrect": false, "text": "Answer option 3" }
@@ -58,7 +58,7 @@
                 {
                     "id": "2",
                     "title": "Question 2",
-                    "answers": [
+                    "answerOptions": [
                         { "id": "1", "isCorrect": true, "text": "Answer option 1" },
                         { "id": "1", "isCorrect": false, "text": "Answer option 2" },
                         { "id": "1", "isCorrect": true, "text": "Answer option 3" }
@@ -79,7 +79,7 @@
                 {
                     "id": "1",
                     "title": "Question 1",
-                    "answers": [
+                    "answerOptions": [
                         { "id": "1", "isCorrect": false, "text": "Answer option 1" },
                         { "id": "1", "isCorrect": true, "text": "Answer option 2" },
                         { "id": "1", "isCorrect": false, "text": "Answer option 3" }
@@ -93,7 +93,7 @@
                 {
                     "id": "2",
                     "title": "Question 2",
-                    "answers": [
+                    "answerOptions": [
                         { "id": "1", "isCorrect": true, "text": "Answer option 1" },
                         { "id": "1", "isCorrect": false, "text": "Answer option 2" },
                         { "id": "1", "isCorrect": true, "text": "Answer option 3" }

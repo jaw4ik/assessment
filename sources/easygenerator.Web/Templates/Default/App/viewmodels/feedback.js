@@ -10,8 +10,17 @@
         showExplanations = function () {
             router.navigateTo('#/objective/' + objective.id + '/question/' + question.id + '/explanations');
         },
+        isShowNextQuestionButton = function () {
+            return this.score == 100;
+        },
+        isShowTryAgainButton = function () {
+            return this.score < 100;
+        },
         chooseNextQuestion = function () {
             router.navigateTo('#/');
+        },
+        tryAgain = function () {
+            router.navigateTo('#/objective/' + objective.id + '/question/' + question.id );
         },
         activate = function (routeData) {
             objective = _.find(context.objectives, function (item) {
@@ -57,7 +66,10 @@
 
         backToObjectives: backToObjectives,
         showExplanations: showExplanations,
+        isShowNextQuestionButton: isShowNextQuestionButton,
+        isShowTryAgainButton: isShowTryAgainButton,
         chooseNextQuestion: chooseNextQuestion,
+        tryAgain: tryAgain,
         activate: activate,
         triggerRedraw: triggerRedraw,
         redrawCanvas: redrawCanvas
