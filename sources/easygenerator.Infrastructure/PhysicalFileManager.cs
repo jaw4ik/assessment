@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.IO.Compression;
 
 namespace easygenerator.Infrastructure
 {
@@ -79,20 +78,13 @@ namespace easygenerator.Infrastructure
             File.WriteAllText(path, content);
         }
 
-        public virtual void ArchiveDirectory(string path, string destinationFilePath)
+        public virtual void DeleteFile(string path)
         {
             if (String.IsNullOrEmpty(path))
                 throw new ArgumentException();
 
-            if (String.IsNullOrEmpty(destinationFilePath))
-                throw new ArgumentException();
-
-            ZipFile.CreateFromDirectory(path, destinationFilePath);
-        }
-
-        public virtual void DeleteFile(string path)
-        {
-            File.Delete(path);
+            if (File.Exists(path))
+                File.Delete(path);
         }
     }
 }

@@ -89,30 +89,6 @@ namespace easygenerator.Tests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void ArchiveDirectory_ShouldThrowArgumentException_WhenPathIsEmpty()
-        {
-            //Arrange
-
-            //Act
-            _physicalFileManager.ArchiveDirectory(string.Empty, "asdadsasd");
-
-            //Assert
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ArchiveDirectory_ShouldThrowArgumentException_WhenDestinationIsEmpty()
-        {
-            //Arrange
-
-            //Act
-            _physicalFileManager.ArchiveDirectory("asasd", String.Empty);
-
-            //Assert
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
         public void DeleteFile_ShouldThrowArgumentException_WhenPathIsEmpty()
         {
             //Arrange

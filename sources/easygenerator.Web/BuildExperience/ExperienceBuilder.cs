@@ -9,11 +9,13 @@ namespace easygenerator.Web.BuildExperience
     {
         private readonly PhysicalFileManager _fileManager;
         private readonly BuildPathProvider _buildPathProvider;
+        private readonly BuildPackageCreator _buildPackageCreator;
 
-        public ExperienceBuilder(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider)
+        public ExperienceBuilder(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator)
         {
             _fileManager = fileManager;
             _buildPathProvider = buildPathProvider;
+            _buildPackageCreator = buildPackageCreator;
         }
 
         public bool Build(ExperienceBuildModel model)
@@ -42,10 +44,9 @@ namespace easygenerator.Web.BuildExperience
                 }
 
                 _fileManager.WriteToFile(_buildPathProvider.GetDataFileName(model.Id), SerializeBuildModel(model));
+                _buildPackageCreator.CreatePackageFromFolder(_buildPathProvider.GetBuildDirectoryName(model.Id),
+                    _buildPathProvider.GetBuildPackageFileName(model.Id));
 
-                var packagePath = _buildPathProvider.GetBuildPackageFileName(model.Id);
-                _fileManager.DeleteFile(packagePath);
-                _fileManager.ArchiveDirectory(_buildPathProvider.GetBuildDirectoryName(model.Id), packagePath);
             }
             finally
             {

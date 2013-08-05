@@ -135,6 +135,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildExperience\BuildPackageCreator.cs" />
     <Compile Include="BuildExperience\BuildPathProvider.cs" />
     <Compile Include="BuildExperience\ExperienceBuilder.cs" />
     <Compile Include="BuildExperience\HttpRuntimeWrapper.cs" />

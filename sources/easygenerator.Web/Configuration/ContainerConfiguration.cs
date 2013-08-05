@@ -24,8 +24,10 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<ExperienceBuilder>()
                    .As<IExperienceBuilder>();
 
+            builder.RegisterType<BuildPathProvider>();
             builder.RegisterType<PhysicalFileManager>();
             builder.RegisterType<HttpRuntimeWrapper>();
+            builder.RegisterType<BuildPackageCreator>();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

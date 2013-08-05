@@ -15,7 +15,7 @@ namespace easygenerator.Web.Tests.BuildExperience
         private Mock<PhysicalFileManager> _fileManager;
         private Mock<HttpRuntimeWrapper> _httpRuntimeWrapperMock;
         private Mock<BuildPathProvider> _buildPathProviderMock;
-
+        private Mock<BuildPackageCreator> _buildPackageCreatorMock;
 
         [TestInitialize]
         public void InitializeContext()
@@ -27,7 +27,9 @@ namespace easygenerator.Web.Tests.BuildExperience
 
             _buildPathProviderMock = new Mock<BuildPathProvider>(_httpRuntimeWrapperMock.Object);
 
-            _builder = new ExperienceBuilder(_fileManager.Object, _buildPathProviderMock.Object);
+            _buildPackageCreatorMock = new Mock<BuildPackageCreator>(_fileManager.Object);
+
+            _builder = new ExperienceBuilder(_fileManager.Object, _buildPathProviderMock.Object, _buildPackageCreatorMock.Object);
         }
 
         private static ExperienceBuildModel CreateDefaultBuildModel()

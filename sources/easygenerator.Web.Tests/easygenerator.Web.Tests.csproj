@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildExperience\ExperienceBuilderTests.cs" />
+    <Compile Include="BuildExperience\BuildPathProviderTests.cs" />
     <Compile Include="Controllers\ApplicationControllerTests.cs" />
     <Compile Include="Controllers\ExperienceControllerTests.cs" />
     <Compile Include="Controllers\ObjectiveControllerTests.cs" />
