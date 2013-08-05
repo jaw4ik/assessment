@@ -8,7 +8,7 @@
                 {
                     "id": 0,
                     "title": "1. Which of the following statements fits the WYSIWYG feature best?",
-                    "answers": [
+                    "answerOptions": [
                         {
                             "id": 0,
                             "isCorrect": false,
@@ -34,7 +34,7 @@
                 {
                     "id": 1,
                     "title": "2. Which of the following characteristics apply to easygenerator?",
-                    "answers": [
+                    "answerOptions": [
                         {
                             "id": 0,
                             "isCorrect": true,
@@ -127,7 +127,7 @@
                 {
                     "id": 2,
                     "title": "3. Which standard buttons does the 'page element' toolbar offer?",
-                    "answers": [
+                    "answerOptions": [
                         {
                             "id": 0,
                             "isCorrect": true,
@@ -170,7 +170,7 @@
                 {
                     "id": 0,
                     "title": "1. In what way can easygenerator support these expectations?",
-                    "answers": [
+                    "answerOptions": [
                         {
                             "id": 0,
                             "isCorrect": false,
@@ -214,7 +214,7 @@
                 {
                     "id": 1,
                     "title": "2. How can you create navigation rules that put together adaptive e-Learning?",
-                    "answers": [
+                    "answerOptions": [
                         {
                             "id": 0,
                             "isCorrect": true,
@@ -250,7 +250,7 @@
                 {
                     "id": 2,
                     "title": "3. Which combination of elements do you minimally need to create navigation rules?",
-                    "answers": [
+                    "answerOptions": [
                         {
                             "id": 0,
                             "isCorrect": false,
@@ -305,7 +305,7 @@
                 {
                     "id": 0,
                     "title": "1. How does easygenerator facilitate the collaboration between participants?",
-                    "answers": [
+                    "answerOptions": [
                         {
                             "id": 0,
                             "isCorrect": false,
@@ -362,7 +362,7 @@
                 {
                     "id": 1,
                     "title": "2. How does easygenerator facilitate this review functionality?",
-                    "answers": [
+                    "answerOptions": [
                         {
                             "id": 0,
                             "isCorrect": false,
@@ -417,7 +417,7 @@
                 {
                     "id": 0,
                     "title": "1. Which of the following statements about page and content links is not true?",
-                    "answers": [
+                    "answerOptions": [
                         {
                             "id": 0,
                             "isCorrect": false,
@@ -457,7 +457,7 @@
                 {
                     "id": 1,
                     "title": "2. Which of the following descriptions fits the 'page link' best?",
-                    "answers": [
+                    "answerOptions": [
                         {
                             "id": 0,
                             "isCorrect": true,
