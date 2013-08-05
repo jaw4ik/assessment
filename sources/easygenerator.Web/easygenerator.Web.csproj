@@ -141,6 +141,7 @@
     <Compile Include="BuildExperience\HttpRuntimeWrapper.cs" />
     <Compile Include="BuildExperience\IExperienceBuilder.cs" />
     <Compile Include="BuildExperience\PackageModelMapper.cs" />
+    <Compile Include="BuildExperience\PackageModelSerializer.cs" />
     <Compile Include="BuildExperience\PackageModel\AnswerOptionPackageModel.cs" />
     <Compile Include="BuildExperience\PackageModel\ExperiencePackageModel.cs" />
     <Compile Include="BuildExperience\PackageModel\ExplanationPackageModel.cs" />
