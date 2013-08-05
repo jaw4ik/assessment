@@ -6,10 +6,11 @@
                 byTitleAsc: 'byTitleAsc',
                 byTitleDesc: 'byTitleDesc'
             },
+
             buildingStatuses: {
                 notStarted: 'notStarted',
                 inProgress: 'inProgress',
-                done: 'done',
+                succeed: 'succeed',
                 failed: 'failed'
             }
         };

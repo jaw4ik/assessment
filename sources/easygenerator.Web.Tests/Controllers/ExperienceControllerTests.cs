@@ -34,7 +34,7 @@ namespace easygenerator.Web.Tests.Controllers
             var result = _controller.Build(viewModel);
 
             //Assert
-            Assert.IsInstanceOfType(result, typeof(JsonResult));
+            ActionResultAssert.IsJsonResult(result);
         }
 
         [TestMethod]

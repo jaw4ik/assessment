@@ -94,5 +94,10 @@ namespace easygenerator.Web.Tests.Utils
         {
             IsHttpStatusCodeResult(result, 400);
         }
+        
+        internal static void IsJsonResult(object result)
+        {
+            Assert.IsInstanceOfType(result, typeof(JsonResult));
+        }
     }
 }

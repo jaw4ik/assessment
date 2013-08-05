@@ -37,7 +37,8 @@
                                 return _.find(objectives, function(objective) {
                                     return objective.id == objectiveId;
                                 });
-                            })
+                            }),
+                            buildingStatus: 'notStarted'
                         });
                     }));
                 }).fail(function () {

@@ -69,28 +69,22 @@
 
         buildExperience = function (experience) {
             sendEvent(events.buildExperience);
-            experience.isBuilding(true);
-
-            if (experience.isBuildFinished())
-                experience.isBuildFinished(false);
-
-            if (experience.isBuildSucceed())
-                experience.isBuildSucceed(false);
+            experience.buildingStatus(constants.buildingStatuses.inProgress);
 
             if (experience.isSelected())
                 experience.isSelected(false);
 
-            var data = _.find(dataContext.experiences, function(item) {
+            var data = _.find(dataContext.experiences, function (item) {
                 return item.id == experience.id;
             });
 
             return http.post('experience/build', data)
                 .done(function (response) {
-                    experience.isBuildFinished(true);
-                    experience.isBuildSucceed(response.Success);
+                    var buildingStatus = response.Success ? constants.buildingStatuses.succeed : constants.buildingStatuses.failed;
+                    experience.buildingStatus(buildingStatus);
                 })
-                .always(function () {
-                    experience.isBuilding(false);
+                .fail(function () {
+                    experience.buildingStatus(constants.buildingStatuses.failed);
                 });
         },
 
@@ -100,19 +94,25 @@
         },
 
         activate = function () {
-            var sortedExperiences = _.sortBy(dataContext.experiences, function (experience) { return experience.title.toLowerCase(); });
+            var sortedExperiences = _.sortBy(dataContext.experiences, function(experience) {
+                 return experience.title.toLowerCase();
+            });
+            
             currentSortingOption(constants.sortingOptions.byTitleAsc);
 
             experiences(ko.utils.arrayMap(sortedExperiences, function (item) {
-                return {
-                    id: item.id,
-                    title: item.title,
-                    objectives: item.objectives,
-                    isSelected: ko.observable(false),
-                    isBuilding: ko.observable(false),
-                    isBuildFinished: ko.observable(false),
-                    isBuildSucceed: ko.observable(false)
-                };
+                var experience = {};
+                
+                experience.id = item.id;
+                experience.title = item.title;
+                experience.objectives = item.objectives;
+                experience.buildingStatus = ko.observable(item.buildingStatus);
+                experience.buildingStatus.subscribe(function (newValue) {
+                    item.buildingStatus = newValue;
+                });
+                experience.isSelected = ko.observable(false);
+
+                return experience;
             }));
         };
 
@@ -129,6 +129,7 @@
             navigateToDetails: navigateToDetails,
             navigateToObjectives: navigateToObjectives,
 
+            buildingStatuses: constants.buildingStatuses,
             buildExperience: buildExperience,
             downloadExperience: downloadExperience,
 

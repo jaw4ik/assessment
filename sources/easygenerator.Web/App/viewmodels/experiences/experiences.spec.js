@@ -16,17 +16,20 @@
                 new experienceModel({
                     id: 'testId3',
                     title: 'Test Experience 3',
-                    objectives: []
+                    objectives: [],
+                    buildingStatus: constants.buildingStatuses.notStarted
                 }),
                 new experienceModel({
                     id: 'testId2',
                     title: 'Test Experience 2',
-                    objectives: []
+                    objectives: [],
+                    buildingStatus: constants.buildingStatuses.notStarted
                 }),
                 new experienceModel({
                     id: 'testId1',
                     title: 'Test Experience 1',
-                    objectives: []
+                    objectives: [],
+                    buildingStatus: constants.buildingStatuses.notStarted
                 })
             ];
 
@@ -40,8 +43,12 @@
                 expect(ko.isObservable(viewModel.experiences)).toBeTruthy();
             });
 
-            it('should expose objectives sortingOptions', function () {
+            it('should expose experiences sortingOptions', function () {
                 expect(viewModel.sortingOptions).toBeDefined();
+            });
+
+            it('should expose experiences buildingStatuses', function () {
+                expect(viewModel.buildingStatuses).toBeDefined();
             });
 
             it('should expose current sortingOption observable', function () {
@@ -273,6 +280,16 @@
                     expect(viewModel.buildExperience).toEqual(jasmine.any(Function));
                 });
 
+                it('should return promise', function () {
+                    var experience = viewModel.experiences()[0],
+                        promise;
+
+                    promise = viewModel.buildExperience(experience);
+
+                    expect(promise).toEqual(jasmine.any(Object));
+                    expect(promise.then).toEqual(jasmine.any(Function));
+                });
+
                 it('should send event \"Build experience\"', function () {
                     var experience = viewModel.experiences()[0];
 
@@ -281,117 +298,89 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Build experience', eventsCategory);
                 });
 
-                it('should start building experience', function () {
+                it('should reset item selection', function () {
                     var experience = viewModel.experiences()[0];
-                    experience.isBuilding(false);
-
-                    viewModel.buildExperience(experience);
-
-                    expect(experience.isBuilding()).toBe(true);
-                });
-
-                it('should reset previous building state', function () {
-                    var experience = viewModel.experiences()[0];
-                    experience.isBuilding(false);
-                    experience.isBuildFinished(true);
-                    experience.isBuildSucceed(true);
-
-                    viewModel.buildExperience(experience);
-
-                    expect(experience.isBuilding()).toBe(true);
-                    expect(experience.isBuildFinished()).toBe(false);
-                    expect(experience.isBuildSucceed()).toBe(false);
-                });
-
-                it('should reset selection', function () {
-                    var experience = viewModel.experiences()[0];
-                    experience.isBuilding(false);
                     experience.isSelected(true);
 
                     viewModel.buildExperience(experience);
 
-                    expect(experience.isBuilding()).toBe(true);
                     expect(experience.isSelected()).toBe(false);
                 });
 
-                it('should return promise', function () {
+                it('should send request to server', function () {
                     var experience = viewModel.experiences()[0],
-                        promise;
+                        experienceData;
 
-                    experience.isBuilding(false);
-
-                    promise = viewModel.buildExperience(experience);
-
-                    expect(promise).toEqual(jasmine.any(Object));
-                    expect(promise.then).toEqual(jasmine.any(Function));
-                });
-
-                it('should stop building when responce is succeed', function () {
-                    var experience = viewModel.experiences()[0],
-                        experienceData,
-                        promise;
-
-                    deferred.resolve({ Success: true });
-                    experience.isBuilding(false);
                     experienceData = _.find(experiences, function (item) {
                         return item.id == experience.id;
                     });
 
-                    promise = viewModel.buildExperience(experience);
+                    viewModel.buildExperience(experience);
 
-                    waitsFor(function () {
-                        return promise.state() == 'resolved';
-                    });
-                    runs(function () {
-                        expect(http.post).toHaveBeenCalledWith('experience/build', experienceData);
-                        expect(experience.isBuildFinished()).toEqual(true);
-                        expect(experience.isBuildSucceed()).toEqual(true);
-                        expect(experience.isBuilding()).toEqual(false);
-                    });
+                    expect(http.post).toHaveBeenCalledWith('experience/build', experienceData);
                 });
 
-                it('should stop building when response is failed', function () {
-                    var experience = viewModel.experiences()[0],
-                        experienceData,
-                        promise;
+                describe('should change experience building status to:', function () {
+                    
+                    it('\"inProgress\" when build is started', function () {
+                        var experience = viewModel.experiences()[0];
 
-                    deferred.resolve({ Success: false });
-                    experience.isBuilding(false);
-                    experienceData = _.find(experiences, function (item) {
-                        return item.id == experience.id;
+                        viewModel.buildExperience(experience);
+
+                        expect(experience.buildingStatus()).toBe(constants.buildingStatuses.inProgress);
+                    });
+
+                    it('\"succeed\" when responce is succeed', function () {
+                        var experience = viewModel.experiences()[0],
+                            promise;
+
+                        deferred.resolve({ Success: true });
+
+                        promise = viewModel.buildExperience(experience);
+
+                        waitsFor(function () {
+                            return promise.state() == 'resolved';
+                        });
+                        runs(function () {
+                            expect(experience.buildingStatus()).toEqual(constants.buildingStatuses.succeed);
+                        });
+                    });
+
+                    it('\"failed\" when response is failed', function () {
+                        var experience = viewModel.experiences()[0],
+                            promise;
+
+                        deferred.resolve({ Success: false });
+
+                        promise = viewModel.buildExperience(experience);
+
+                        waitsFor(function () {
+                            return promise.state() == 'resolved';
+                        });
+
+                        runs(function () {
+                            expect(experience.buildingStatus()).toEqual(constants.buildingStatuses.failed);
+                        });
+                    });
+
+                    it('\"failed\" when request is failed', function () {
+                        var experience = viewModel.experiences()[0],
+                            promise;
+
+                        deferred.reject();
+
+                        promise = viewModel.buildExperience(experience);
+
+                        waitsFor(function () {
+                            return promise.state() == 'rejected';
+                        });
+
+                        runs(function () {
+                            expect(http.post).toHaveBeenCalled();
+                            expect(experience.buildingStatus()).toEqual(constants.buildingStatuses.failed);
+                        });
                     });
                     
-                    promise = viewModel.buildExperience(experience);
-
-                    waitsFor(function () {
-                        return promise.state() == 'resolved';
-                    });
-
-                    runs(function () {
-                        expect(http.post).toHaveBeenCalledWith('experience/build', experienceData);
-                        expect(experience.isBuildFinished()).toEqual(true);
-                        expect(experience.isBuildSucceed()).toEqual(false);
-                        expect(experience.isBuilding()).toEqual(false);
-                    });
-                });
-
-                it('should stop building when request is failed', function () {
-                    var experience = viewModel.experiences()[0],
-                        promise;
-
-                    deferred.reject();
-                    experience.isBuilding(false);
-
-                    promise = viewModel.buildExperience(experience);
-
-                    waitsFor(function () {
-                        return promise.state() == 'rejected';
-                    });
-
-                    runs(function () {
-                        expect(http.post).toHaveBeenCalled();
-                        expect(experience.isBuilding()).toEqual(false);
-                    });
                 });
 
             });
