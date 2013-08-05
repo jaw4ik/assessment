@@ -2,6 +2,15 @@
     function (router, routes, datacontext, localizationManager) {
         var
             startModule = 'objectives',
+            cssName = ko.computed(function () {
+                var activeItem = router.activeItem();
+                if (_.isObject(activeItem)) {
+                    var moduleId = activeItem.__moduleId__;
+                    moduleId = moduleId.slice(moduleId.lastIndexOf('/') + 1);
+                    return moduleId;
+                }
+                return '';
+            }),
             activate = function () {
                 return datacontext.initialize()
                     .then(function () {
@@ -31,6 +40,7 @@
 
         return {
             activate: activate,
+            cssName: cssName,
             router: router
         };
     }

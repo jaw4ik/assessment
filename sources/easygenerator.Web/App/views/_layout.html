@@ -1,5 +1,10 @@
-﻿<div class="icon-spinner-wrapper" data-bind="visible: router.isNavigating()">
-    <img src="/Content/images/loader.gif" alt=""/>
+﻿<div class="header clearfix unselectable" data-bind="css: 'module-' + cssName()">
+    <div class="brand">
+        <a href="#/" class="inline logo">&nbsp;</a>
+    </div>
+</div>
+<div class="icon-spinner-wrapper" data-bind="visible: router.isNavigating()">
+    <img src="/Content/images/loader.gif" alt="" />
 </div>
 <section id="content" class="main" data-bind="visible: !router.isNavigating()">
     <!--ko compose: {
