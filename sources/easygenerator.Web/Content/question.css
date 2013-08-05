@@ -200,6 +200,7 @@
     color: #666;
     font-size: 13px;
     font-family: Arial,sans-serif;
+    overflow: hidden;
 }
 
 .question-answer-text,
