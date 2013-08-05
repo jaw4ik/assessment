@@ -215,6 +215,7 @@ COMMON CLASSES CSS-STYLES
  */
 
 h2.page-header-title {
+    display: inline-block;
     color: #666666;
     font-size: 14px;
     text-decoration: none;
