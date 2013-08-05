@@ -17,7 +17,7 @@ namespace easygenerator.Web.Controllers
         [HttpPost]
         public ActionResult Build(ExperienceBuildModel model)
         {
-            if(model == null)
+            if (model == null || !ModelState.IsValid)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var buildingResult = _builder.Build(model);

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.BuildExperience.BuildModel;
 using easygenerator.Web.Controllers;
@@ -21,6 +22,8 @@ namespace easygenerator.Web.Tests.Controllers
             _controller = new ExperienceController(_builder.Object);
         }
 
+        #region Build
+
         [TestMethod]
         public void Build_ShouldReturnJson()
         {
@@ -38,7 +41,7 @@ namespace easygenerator.Web.Tests.Controllers
         public void Build_ShouldReturnBadRequest_WhenViewModelIsNull()
         {
             //Arrange
-            
+
             //Act
             var result = _controller.Build(null);
 
@@ -81,5 +84,21 @@ namespace easygenerator.Web.Tests.Controllers
             Assert.IsNotNull(buildResult);
             Assert.IsFalse(buildResult.Success);
         }
+
+        [TestMethod]
+        public void Build_ShouldReturnBadRequest_WhenModelIsNotValid()
+        {
+            //Arrange
+            var viewModel = new ExperienceBuildModel();
+
+            //Act
+            _controller.AddRandomModelStateError();
+            var result = _controller.Build(viewModel);
+
+            //Assert
+            ActionResultAssert.IsBadRequestStatusCodeResult(result);
+        }
+
+        #endregion
     }
 }
