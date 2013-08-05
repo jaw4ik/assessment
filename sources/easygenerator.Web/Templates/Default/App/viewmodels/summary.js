@@ -1,14 +1,14 @@
 ﻿define(['context', 'durandal/plugins/router'], function (context, router) {
     var objectives = [],
         score = 0,
-        activate = function() {
+        activate = function () {
 
             function getObjectiveScore(objective) {
                 var result = _.reduce(objective.questions, function (memo, question) { return memo + question.score; }, 0);
                 return Math.round(result / objective.questions.length);
             }
 
-            this.objectives = _.map(context.objectives, function(item) {
+            this.objectives = _.map(context.objectives, function (item) {
                 return { title: item.title, score: getObjectiveScore(item) };
             });
 
@@ -16,7 +16,7 @@
             this.score = Math.round(result / this.objectives.length);
         },
         triggerRedraw = ko.observable(false),
-        redrawCanvas = function(cnxt) {
+        redrawCanvas = function (cnxt) {
             var progress = this.score / 100;
 
             cnxt.beginPath();
@@ -42,12 +42,17 @@
                 cnxt.stroke();
             }
         },
-        backToObjectives = function() {
+        backToObjectives = function () {
             router.navigateTo('#/');
         },
         finish = function () {
             window.close();
+
+            if (navigator.appName != "Microsoft Internet Explorer") {
+                setTimeout("alert('Thank you. It is now safe to close this page.')", 100);
+            }
         };
+        
 
     return {
         activate: activate,
