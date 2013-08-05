@@ -16,7 +16,7 @@ xcopy "%~dp0..\sources\easygenerator.Web\obj\AutoTests\TransformWebConfig\transf
 if not %errorlevel% ==0 (
 echo Cannot execute or build tests
 exit /B 1)
-"%~dp0packages\NUnit.Runners.2.6.2\tools\nunit-console.exe" /exclude=%excluded%,Errors,AnswerOptions,Explanations,ListOfObjectives,ListOfQuestions,Question,Localization /labels /out="%~dp0TestsResults\TestResult.txt" /xml="%~dp0TestsResults\TestResult.xml" "%webSiteDir%easygenerator.AcceptanceTests.dll"
+"%~dp0packages\NUnit.Runners.2.6.2\tools\nunit-console.exe" /exclude=%excluded%,Errors,AnswerOptions,Explanations,ObjectivesList,QuestionsList,Question,Localization /labels /out="%~dp0TestsResults\TestResult.txt" /xml="%~dp0TestsResults\TestResult.xml" "%webSiteDir%easygenerator.AcceptanceTests.dll"
 set errorCode=%errorLevel%
 "%~dp0packages\SpecFlow.1.9.0\tools\specflow.exe" nunitexecutionreport "%testsProject%" /out:%outFile% /testOutput:"%~dp0TestsResults\TestResult.txt" /xmlTestResult:"%~dp0TestsResults\TestResult.xml"  
 exit /B %errorCode%
