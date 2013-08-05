@@ -8,12 +8,25 @@ namespace easygenerator.Web.BuildExperience
 {
     public class BuildHelper : IBuildHelper
     {
-        public static readonly string BuildPath = "C:\\Temp\\eg\\build";
-        public static readonly string WebsitePath = "D:\\Applications\\easygenerator";
-        public static readonly string TemplatePath = WebsitePath + "\\Templates";
-        public static readonly string DownloadPath = WebsitePath + "\\Download";
+        private readonly IPhysicalFileManager _fileManager;
+        private readonly HttpRuntimeWrapper _httpRuntimeWrapper;
 
-        private IPhysicalFileManager _fileManager;
+        public string BuildPath { get; private set; }
+        public string WebsitePath { get; private set; }
+        public string TemplatesPath { get; private set; }
+        public string DownloadPath { get; private set; }
+
+        public BuildHelper(IPhysicalFileManager fileManager, HttpRuntimeWrapper httpRuntimeWrapper)
+        {
+            _httpRuntimeWrapper = httpRuntimeWrapper;
+
+            BuildPath = Path.Combine(Path.GetTempPath(), "eg", "build");
+            WebsitePath = _httpRuntimeWrapper.GetDomainAppPath();
+            TemplatesPath = Path.Combine(WebsitePath, "Templates");
+            DownloadPath = Path.Combine(WebsitePath, "Download");
+
+            _fileManager = fileManager;
+        }
 
         private string GetBuildDirectoryName(string buildId)
         {
@@ -22,7 +35,7 @@ namespace easygenerator.Web.BuildExperience
 
         private string GetTemplateDirectoryName(string templateName)
         {
-            return Path.Combine(TemplatePath, templateName);
+            return Path.Combine(TemplatesPath, templateName);
         }
 
         private string GetObjectiveDirectoryName(string buildId, string objectiveId)
@@ -53,11 +66,6 @@ namespace easygenerator.Web.BuildExperience
         private string GetContentDirectoryName(string buildId)
         {
             return Path.Combine(BuildPath, buildId, "content");
-        }
-
-        public BuildHelper(IPhysicalFileManager fileManager)
-        {
-            _fileManager = fileManager;
         }
 
         public void CreateBuildDirectory(string buildId)

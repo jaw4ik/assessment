@@ -30,6 +30,8 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PhysicalFileManager>()
                    .As<IPhysicalFileManager>();
 
+            builder.RegisterType<HttpRuntimeWrapper>();
+
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }

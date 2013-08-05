@@ -1,5 +1,4 @@
-﻿using System;
-using easygenerator.Web.BuildExperience.BuildModel;
+﻿using easygenerator.Web.BuildExperience.BuildModel;
 
 namespace easygenerator.Web.BuildExperience
 {
@@ -38,11 +37,11 @@ namespace easygenerator.Web.BuildExperience
                 _buildHelper.WriteDataToFile(model.Id, _buildHelper.SerializeBuildModel(model));
                 _buildHelper.CreateBuildPackage(model.Id);
             }
-            finally 
+            finally
             {
                 _buildHelper.DeleteBuildDirectory(model.Id);
             }
-            
+
             return true;
         }
     }

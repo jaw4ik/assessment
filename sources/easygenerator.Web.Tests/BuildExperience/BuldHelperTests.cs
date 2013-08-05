@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
@@ -12,13 +13,17 @@ namespace easygenerator.Web.Tests.BuildExperience
     public class BuldHelperTests
     {
         private Mock<IPhysicalFileManager> _fileManager;
+        private Mock<HttpRuntimeWrapper> _httpRuntimeWrapper;
         private BuildHelper _buildHelper;
 
         [TestInitialize]
         public void InitializeContext()
         {
             _fileManager = new Mock<IPhysicalFileManager>();
-            _buildHelper = new BuildHelper(_fileManager.Object);
+            _httpRuntimeWrapper = new Mock<HttpRuntimeWrapper>();
+            _httpRuntimeWrapper.Setup(instance => instance.GetDomainAppPath()).Returns(String.Empty);
+
+            _buildHelper = new BuildHelper(_fileManager.Object, _httpRuntimeWrapper.Object);
         }
 
         [TestMethod]
@@ -26,7 +31,7 @@ namespace easygenerator.Web.Tests.BuildExperience
         {
             //Arrange
             string buildId = "BuildId";
-            string buildDirectory = Path.Combine(BuildHelper.BuildPath, buildId);
+            string buildDirectory = Path.Combine(_buildHelper.BuildPath, buildId);
             _fileManager.Setup(instance => instance.CreateDirectory(It.IsAny<string>()));
 
             //Act
@@ -41,7 +46,7 @@ namespace easygenerator.Web.Tests.BuildExperience
         {
             //Arrange
             string buildId = "BuildId";
-            string buildDirectory = Path.Combine(BuildHelper.BuildPath, buildId);
+            string buildDirectory = Path.Combine(_buildHelper.BuildPath, buildId);
             _fileManager.Setup(instance => instance.DeleteDirectory(It.IsAny<string>()));
 
             //Act
@@ -57,8 +62,8 @@ namespace easygenerator.Web.Tests.BuildExperience
             //Arrange
             string buildId = "BuildId";
             string templateName = "Default";
-            string buildDirectory = Path.Combine(BuildHelper.BuildPath, buildId);
-            string templateDirectory = Path.Combine(BuildHelper.TemplatePath, templateName);
+            string buildDirectory = Path.Combine(_buildHelper.BuildPath, buildId);
+            string templateDirectory = Path.Combine(_buildHelper.TemplatesPath, templateName);
             _fileManager.Setup(instance => instance.CopyDirectory(It.IsAny<string>(), It.IsAny<string>()));
 
             //Act
@@ -74,7 +79,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             //Arrange
             string buildId = "BuildId";
             string templateName = "Default";
-            string buildDirectory = Path.Combine(BuildHelper.BuildPath, buildId, "content");
+            string buildDirectory = Path.Combine(_buildHelper.BuildPath, buildId, "content");
             _fileManager.Setup(instance => instance.DeleteDirectory(It.IsAny<string>()));
 
             //Act
@@ -90,7 +95,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             //Arrange
             string buildId = "BuildId";
             string objectiveId = "ObjectiveId";
-            string objectiveDirectory = Path.Combine(BuildHelper.BuildPath, buildId, "content", objectiveId);
+            string objectiveDirectory = Path.Combine(_buildHelper.BuildPath, buildId, "content", objectiveId);
             _fileManager.Setup(instance => instance.CreateDirectory(It.IsAny<string>()));
 
             //Act
@@ -107,7 +112,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             string buildId = "BuildId";
             string objectiveId = "ObjectiveId";
             string questionId = "QuestionId";
-            string questionDirectory = Path.Combine(BuildHelper.BuildPath, buildId, "content", objectiveId, questionId);
+            string questionDirectory = Path.Combine(_buildHelper.BuildPath, buildId, "content", objectiveId, questionId);
             _fileManager.Setup(instance => instance.CreateDirectory(It.IsAny<string>()));
 
             //Act
@@ -126,7 +131,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             string questionId = "QuestionId";
             string explanationId = "ExplanationId";
             string explanationText = "Explanation Text";
-            string explanationFilePath = Path.Combine(BuildHelper.BuildPath, buildId, "content", objectiveId, questionId, explanationId + ".html");
+            string explanationFilePath = Path.Combine(_buildHelper.BuildPath, buildId, "content", objectiveId, questionId, explanationId + ".html");
             _fileManager.Setup(instance => instance.WriteToFile(It.IsAny<string>(), It.IsAny<string>()));
 
             //Act
@@ -142,7 +147,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             //Arrange
             string buildId = "BuildId";
             string serializedData = "Some data";
-            string dataFilePath = Path.Combine(BuildHelper.BuildPath, buildId, "content", "data.js");
+            string dataFilePath = Path.Combine(_buildHelper.BuildPath, buildId, "content", "data.js");
             _fileManager.Setup(instance => instance.WriteToFile(It.IsAny<string>(), It.IsAny<string>()));
 
             //Act
@@ -176,7 +181,7 @@ namespace easygenerator.Web.Tests.BuildExperience
         {
             //Arrange
             var buildId = "buildId";
-            var packagePath = Path.Combine(BuildHelper.DownloadPath, buildId + ".zip");
+            var packagePath = Path.Combine(_buildHelper.DownloadPath, buildId + ".zip");
             _fileManager.Setup(instance => instance.DeleteFile(It.IsAny<string>()));
 
             //Act
@@ -191,8 +196,8 @@ namespace easygenerator.Web.Tests.BuildExperience
         {
             //Arrange
             var buildId = "buildId";
-            var packagePath = Path.Combine(BuildHelper.DownloadPath, buildId + ".zip");
-            var buildPath = Path.Combine(BuildHelper.BuildPath, buildId);
+            var packagePath = Path.Combine(_buildHelper.DownloadPath, buildId + ".zip");
+            var buildPath = Path.Combine(_buildHelper.BuildPath, buildId);
             _fileManager.Setup(instance => instance.ArchiveDirectory(It.IsAny<string>(), It.IsAny<string>()));
 
             //Act
