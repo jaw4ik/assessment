@@ -558,6 +558,7 @@
     <Content Include="Templates\Default\content\3\2\2.html" />
     <Content Include="Templates\Default\content\3\2\3.html" />
     <Content Include="Templates\Default\content\data.js" />
+    <Content Include="Templates\Default\css\styles.css" />
     <Content Include="Templates\Default\css\summary.css" />
     <Content Include="Templates\Default\css\durandal.css" />
     <Content Include="Templates\Default\css\ie10mobile.css" />
@@ -567,7 +568,6 @@
     <Content Include="Templates\Default\css\images\ios-startup-image-landscape.png" />
     <Content Include="Templates\Default\css\images\ios-startup-image-portrait.png" />
     <Content Include="Templates\Default\css\normalize.css" />
-    <Content Include="Templates\Default\css\styles.css" />
     <Content Include="Templates\Default\img\checkbox.png" />
     <Content Include="Templates\Default\img\chrome.png" />
     <Content Include="Templates\Default\img\collapse.png" />
@@ -582,9 +582,27 @@
     <Content Include="Templates\Default\img\safari.png" />
     <Content Include="Templates\Default\index.html" />
     <Content Include="Templates\Default\js\jquery-1.9.1.js" />
+    <Content Include="Templates\Default\js\jquery-1.9.1.min.js">
+      <DependentUpon>jquery-1.9.1.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Default\js\knockout-2.2.1.js" />
+    <Content Include="Templates\Default\js\knockout-2.2.1.min.js">
+      <DependentUpon>knockout-2.2.1.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Default\js\sammy-0.7.4.js" />
+    <Content Include="Templates\Default\js\sammy-0.7.4.min.js">
+      <DependentUpon>sammy-0.7.4.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Default\js\underscore-1.5.1.js" />
+    <Content Include="Templates\Default\js\underscore-1.5.1.min.js">
+      <DependentUpon>underscore-1.5.1.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Default\js\vendor.js">
+      <DependentUpon>vendor.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Templates\Default\js\vendor.min.js">
+      <DependentUpon>vendor.js.bundle</DependentUpon>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -599,6 +617,22 @@
     <Content Include="Views\Application\splash.cshtml" />
     <Content Include="Views\Application\GoogleAnalytics.cshtml" />
     <None Include="Scripts\underscore.min.map" />
+    <Content Include="Templates\Default\js\underscore-1.5.1.min.js.map">
+      <DependentUpon>underscore-1.5.1.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Default\js\sammy-0.7.4.min.js.map">
+      <DependentUpon>sammy-0.7.4.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Default\js\knockout-2.2.1.min.js.map">
+      <DependentUpon>knockout-2.2.1.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Default\js\jquery-1.9.1.min.js.map">
+      <DependentUpon>jquery-1.9.1.js</DependentUpon>
+    </Content>
+    <None Include="Templates\Default\js\vendor.js.bundle" />
+    <Content Include="Templates\Default\js\vendor.min.js.map">
+      <DependentUpon>vendor.js.bundle</DependentUpon>
+    </Content>
     <None Include="Web.AutoTests.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
