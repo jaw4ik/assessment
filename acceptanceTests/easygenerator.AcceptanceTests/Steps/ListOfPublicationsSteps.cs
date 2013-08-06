@@ -164,8 +164,11 @@ namespace easygenerator.AcceptanceTests.Steps
         public void GivenUnzipPackageTo(string zipFile, string extractFolder)
         {
             //string zipPath = @"D:\Downloads\" + zipFile;
-            string zipPath = System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Downloads", zipFile);
-            string extractPath = @"D:\Development\easygenerator-web\acceptanceTests\easygenerator.AcceptanceTests\bin\Debug\easygenerator.Web\Templates\" + extractFolder;
+            
+            //string zipPath = System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Downloads", zipFile);
+            string zipPath = @"C:\Windows\SysWOW64\config\systemprofile\Documents\Downloads" + zipFile;
+            //string extractPath = @"D:\Development\easygenerator-web\acceptanceTests\easygenerator.AcceptanceTests\bin\Debug\easygenerator.Web\Templates\" + extractFolder;
+            string extractPath = @"D:\AcceptanceTests_WorkDirectory\acceptanceTests\easygenerator.AcceptanceTests\bin\Release\easygenerator.Web\Templates\" + extractFolder;
             if (System.IO.Directory.Exists(extractPath))
             {
                 System.IO.Directory.Delete(extractPath, true);
