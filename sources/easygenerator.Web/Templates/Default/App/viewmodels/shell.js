@@ -63,7 +63,7 @@
 
             return context.initialize()
                 .then(function () {
-                    //window.location.hash = '#/';
+                    window.location.hash = '#/';
                     return router.activate();
                 });
         }

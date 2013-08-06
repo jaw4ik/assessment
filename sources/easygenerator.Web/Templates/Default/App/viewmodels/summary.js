@@ -42,8 +42,8 @@
                 cnxt.stroke();
             }
         },
-        backToObjectives = function () {
-            router.navigateTo('#/');
+        navigateBack = function () {
+            router.navigateBack();
         },
         finish = function () {
             window.close();
@@ -60,7 +60,7 @@
         objectives: objectives,
         triggerRedraw: triggerRedraw,
         redrawCanvas: redrawCanvas,
-        backToObjectives: backToObjectives,
+        navigateBack: navigateBack,
         finish: finish
     };
 });
