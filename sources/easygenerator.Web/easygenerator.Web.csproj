@@ -559,7 +559,6 @@
     <Content Include="Templates\Default\content\3\2\3.html" />
     <Content Include="Templates\Default\content\data.js" />
     <Content Include="Templates\Default\css\styles.css" />
-    <Content Include="Templates\Default\css\summary.css" />
     <Content Include="Templates\Default\css\durandal.css" />
     <Content Include="Templates\Default\css\ie10mobile.css" />
     <Content Include="Templates\Default\css\normalize.css" />
