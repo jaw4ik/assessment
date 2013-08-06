@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>easygenerator</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+
+    <script type="text/javascript">
+        if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+            var msViewportStyle = document.createElement("style");
+            var mq = "@@-ms-viewport{width:auto!important}";
+            msViewportStyle.appendChild(document.createTextNode(mq));
+            document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+        }
+    </script>
+</head>
+<body>
+    <div id="applicationHost" class="application-wrapper">
+        <div class="progress progress-striped active loader">
+            <div class="progress-bar" style="width: 100%"></div>
+        </div>
+    </div>
+
+    <script src="js/jquery-1.9.1.js"></script>
+    <script src="js/knockout-2.2.1.js"></script>
+    <script src="js/sammy-0.7.4.js"></script>
+    <script src="js/underscore-1.5.1.js"></script>
+    <script src="js/q.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/scrollBinding.js"></script>
+    <script src="App/durandal/amd/require.js" data-main="App/main.js"></script>
+</body>
+</html>

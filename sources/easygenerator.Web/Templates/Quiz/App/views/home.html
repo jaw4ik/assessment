@@ -1,0 +1,20 @@
+﻿<section>
+    <div data-bind="foreach: itemsQuestion">
+        <div class="panel" data-bind="attr: { id: objectiveId + id }">
+            <div class="panel-heading  eg-question-title" data-bind=" click: $parent.showExplanations, text: title"></div>
+            <ul class="list-unstyled" data-bind="foreach: answers">
+                <li class="eg-answer eg-cursor-pointer" data-bind="click: toggleCheck">
+                    <div>
+                        <a class="eg-answer-checkbox" data-bind="css: { checked: isChecked() }"></a>
+                    </div>
+                    <div data-bind="text: text"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="btn-group btn-group-justified" data-bind="visible: isEndScroll()">
+        <a class="btn btn-default" href="javascript:scroll(0,0)">Move up</a>
+        <a class="btn btn-default" data-bind="click: submit">Submit</a>
+    </div>
+    <div data-bind="scroll: !(itemsQuestion().length == questions().length), scrollOptions: { loadFunc: getItems, offset: 5 }"></div>
+</section>
