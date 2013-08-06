@@ -14,6 +14,7 @@ namespace easygenerator.AcceptanceTests.Helpers
     public class DataSetter
     {
         const string dataContextFilePath = @"easygenerator.Web\data.js";
+
         public void AddObjectivesToDatabase(Objective[] objectives)
         {
             UpdateDataContext((dataContext) =>
@@ -25,14 +26,30 @@ namespace easygenerator.AcceptanceTests.Helpers
                 }
             });
         }
-        public void AddPublicationsToDatabase(Expirience[] expiriences)
+
+        public void AddObjectivesToDatabase(string expTitle, Objective[] objectives)
         {
             UpdateDataContext((dataContext) =>
             {
-                dataContext.Expiriences.Clear();
-                foreach (var obj in expiriences)
+                var experience = dataContext.Experiences.First(obj => obj.Title == expTitle);
+                experience.Objectives.Clear();
+                dataContext.Objectives.Clear();
+                foreach (var objective in objectives)
                 {
-                    dataContext.Expiriences.Add(obj);
+                    experience.Objectives.Add(objective.Id);
+                    dataContext.Objectives.Add(objective);
+                }
+            });
+        }
+
+        public void AddPublicationsToDatabase(Experience[] experiences)
+        {
+            UpdateDataContext((dataContext) =>
+            {
+                dataContext.Experiences.Clear();
+                foreach (var obj in experiences)
+                {
+                    dataContext.Experiences.Add(obj);
                 }
             });
         }

@@ -32,6 +32,14 @@ namespace easygenerator.AcceptanceTests.Steps
             dataSetter.AddObjectivesToDatabase(objectives.Select(data => BuildObjective(data)).ToArray());
         }
 
+        [Given(@"objectives related to '(.*)' are present in database")]
+        public void GivenObjectivesRelatedToArePresentInDatabase(string expTitle, Table table)
+        {
+            var objectives = table.CreateSet<ObjectiveData>().ToArray();
+            var dataSetter = new DataSetter();
+            dataSetter.AddObjectivesToDatabase(expTitle, objectives.Select(obj => BuildObjective(obj)).ToArray());
+        }
+
         [Then(@"objectives list page header text is '(.*)'")]
         public void ThenObjectivesListPageHeaderTextIs(string expectedText)
         {

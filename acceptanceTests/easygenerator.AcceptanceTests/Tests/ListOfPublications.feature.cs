@@ -537,23 +537,6 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#/objectives\'
 #line hidden
             this.ScenarioCleanup();
         }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Temp")]
-        public virtual void Temp()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Temp", ((string[])(null)));
-#line 196
-this.ScenarioSetup(scenarioInfo);
-#line 197
-testRunner.When("unzip puckage to tmp", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 198
-testRunner.And("open page by url \'http://ctest.corp.ism-ukraine.com/tmp/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 199
-testRunner.Then("browser navigates to url \'http://ctest.corp.ism-ukraine.com/tmp/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
     }
 }
 #pragma warning restore

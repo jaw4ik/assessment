@@ -60,6 +60,15 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
+        public bool IsDownloadEnabled
+        {
+            get
+            {
+                var selectEl = Container.FindElementByXPath(model.DownloadElement);
+                return selectEl.Displayed;
+            }
+        }
+
         internal void Open()
         {
             GetByXPathInside(model.OpenElement).Click();
@@ -75,6 +84,12 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             GetByXPathInside(model.BuildElement).Click();
         }
 
+        internal void Download()
+        {
+            var el = GetByXPathInside(model.DownloadElement);
+            el.Click();
+            System.Threading.Thread.Sleep(3000);
+        }
         
     }
 }

@@ -46,5 +46,12 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Element not found with text " + text);
         }
 
+        [Given(@"open page by url '(.*)'")]
+        public void GivenOpenPageByUrl(string url)
+        {
+            DriverProvider.Current().Driver.Navigate().GoToUrl(url);
+        }
+
+
     }
 }

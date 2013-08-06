@@ -66,6 +66,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Web" />
     <Reference Include="TechTalk.SpecFlow">
       <HintPath>..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
@@ -90,6 +91,9 @@
     <Compile Include="ElementObjects\Explanation.cs" />
     <Compile Include="ElementObjects\ObjectivesListItem.cs" />
     <Compile Include="ElementObjects\ObjectivesListPage.cs" />
+    <Compile Include="ElementObjects\PackageObjectivesListItem.cs" />
+    <Compile Include="ElementObjects\PackageObjectivesListPage.cs" />
+    <Compile Include="ElementObjects\PackageQuestionsListItem.cs" />
     <Compile Include="ElementObjects\QuestionPage.cs" />
     <Compile Include="ElementObjects\QuestionsList.cs" />
     <Compile Include="ElementObjects\QuestionsListItem.cs" />
@@ -111,6 +115,8 @@
     <Compile Include="ElementObjects\BasePageElement.cs" />
     <Compile Include="LinkingModels\ObjectiveListItemLinkingModel.cs" />
     <Compile Include="LinkingModels\ObjectiveListLinkingModel.cs" />
+    <Compile Include="LinkingModels\PackageObjectiveListItemLinkingModel.cs" />
+    <Compile Include="LinkingModels\PackageObjectiveListLinkingModel.cs" />
     <Compile Include="LinkingModels\QuestionListItemLinkingModel.cs" />
     <Compile Include="LinkingModels\QuestionPageLinkingModel.cs" />
     <Compile Include="LinkingModels\QuestionsListLinkingModel.cs" />
@@ -123,6 +129,7 @@
     <Compile Include="Steps\Hooks.cs" />
     <Compile Include="Steps\ListOfObjectivesSteps.cs" />
     <Compile Include="Steps\ListOfQuestionsSteps.cs" />
+    <Compile Include="Steps\PackageListOfObjectivesSteps.cs" />
     <Compile Include="Steps\QuestionSteps.cs" />
     <Compile Include="Steps\UserSettingsSteps.cs" />
     <Compile Include="Tests\AnswerOptions.feature.cs">
@@ -159,6 +166,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Localization.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Tests\PackageListOfObjectives.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PackageListOfObjectives.feature</DependentUpon>
     </Compile>
     <Compile Include="Tests\Question.feature.cs">
       <AutoGen>True</AutoGen>
@@ -198,6 +210,10 @@
     <None Include="Tests\Localization.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Localization.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Tests\PackageListOfObjectives.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PackageListOfObjectives.feature.cs</LastGenOutput>
     </None>
     <None Include="Tests\Question.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

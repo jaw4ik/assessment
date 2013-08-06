@@ -12,7 +12,7 @@ namespace easygenerator.AcceptanceTests.Helpers
         [JsonProperty("objectives")]
         public List<Objective> Objectives { get; set; }
         [JsonProperty("experiences")]
-        public List<Expirience> Expiriences { get; set; }
+        public List<Experience> Experiences { get; set; }
     }
     public class Objective
     {
@@ -53,12 +53,14 @@ namespace easygenerator.AcceptanceTests.Helpers
         [JsonProperty("text")]
         public string Text { get; set; }
     }
-    public class Expirience
+    public class Experience
     {
         [JsonProperty("id")]
         public int Id { get; set; }
         [JsonProperty("title")]
         public string Title { get; set; }
+        [JsonProperty("objectives")]
+        public List<int> Objectives { get; set; }
     }
 
 }

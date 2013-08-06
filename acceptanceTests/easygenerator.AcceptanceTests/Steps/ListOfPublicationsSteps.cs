@@ -11,7 +11,7 @@ using TechTalk.SpecFlow.Assist;
 
 namespace easygenerator.AcceptanceTests.Steps
 {
-    public class ExpirienceData : UniqueData
+    public class ExperienceData : UniqueData
     {
         public string Title { get; set; }
     }
@@ -27,14 +27,14 @@ namespace easygenerator.AcceptanceTests.Steps
         [Given(@"publications are present in database")]
         public void GivenPublicationsArePresentInDatabase(Table table)
         {
-            var publications = table.CreateSet<ExpirienceData>().ToArray();
+            var publications = table.CreateSet<ExperienceData>().ToArray();
             var dataSetter = new DataSetter();
             dataSetter.AddPublicationsToDatabase(publications.Select(data => BuildExpirience(data)).ToArray());
         }
         [Then(@"publications tiles list contains items with data")]
         public void ThenPublicationsTilesListContainsItemsWithData(Table table)
         {
-            var expectedPublications = table.CreateSet<ExpirienceData>().ToArray();
+            var expectedPublications = table.CreateSet<ExperienceData>().ToArray();
             TestUtils.Assert_IsTrue_WithWait(() =>
                 expectedPublications.All(obj => publicationsPage.Items.Select(pub => pub.Title).ToArray().Any(item => item == obj.Title)),
                 "Not all expected publications on page", publicationsPage.Items.Select(pub => pub.Title).ToArray());
@@ -43,7 +43,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [Then(@"publications tiles list consists of ordered items")]
         public void ThenPublicationsTilesListConsistsOfOrderedItems(Table table)
         {
-            var expectedPublications = table.CreateSet<ExpirienceData>().Select(obj => obj.Title).ToArray();
+            var expectedPublications = table.CreateSet<ExperienceData>().Select(obj => obj.Title).ToArray();
             TestUtils.Assert_IsTrue_WithWait(() =>
                 TestUtils.AreCollectionsEqual(expectedPublications, publicationsPage.Items.Select(pub => pub.Title).ToArray()),
                 "Order of publications should be the same", publicationsPage.Items.Select(pub => pub.Title).ToArray());
@@ -125,6 +125,14 @@ namespace easygenerator.AcceptanceTests.Steps
             item.Hover();
         }
 
+        [Given(@"mouse hover element of publications list with title '(.*)'")]
+        public void GivenMouseHoverElementOfPublicationsListWithTitle(string title)
+        {
+            var item = publicationsPage.ItemByTitle(title);
+            item.Hover();
+        }
+
+
         [Then(@"Action open is enabled (.*) for publications list item with title '(.*)'")]
         public void ThenActionOpenIsEnabledTrueForPublicationsListItemWithTitle(bool isEnabled, string title)
         {
@@ -152,17 +160,40 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Build should be enabled");
         }
 
-        [When(@"unzip puckage to tmp")]
-        public void WhenUnzipPuckageToTmp()
+        [Given(@"unzip '(.*)' package to '(.*)'")]
+        public void GivenUnzipPackageTo(string zipFile, string extractFolder)
         {
-            string zipPath = @"\\eg-d-web02\Shared\Download\Default.zip";
-            string extractPath = @"\\eg-d-web02\Shared\TestCourse\tmp";
+            //string zipPath = @"D:\Downloads\" + zipFile;
+            string zipPath = System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Downloads", zipFile);
+            string extractPath = @"D:\Development\easygenerator-web\acceptanceTests\easygenerator.AcceptanceTests\bin\Debug\easygenerator.Web\Templates\" + extractFolder;
+            if (System.IO.Directory.Exists(extractPath))
+            {
+                System.IO.Directory.Delete(extractPath, true);
+            }
+            System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
+            System.Threading.Thread.Sleep(2000);
+            System.IO.File.Delete(zipPath);
+        }
+
+
+        [When(@"unzip '(.*)' package to '(.*)'")]
+        public void WhenUnzipPackageTo(string zipFile, string extractFolder)
+        {
+            string zipPath = @"D:\Downloads" + zipFile;
+            string extractPath = @"D:\Development\easygenerator-web\acceptanceTests\easygenerator.AcceptanceTests\bin\Debug\easygenerator.Web\Templates\" + extractFolder;
+
+            if (System.IO.File.Exists(zipPath) && DateTime.Now - System.IO.File.GetLastWriteTime(zipPath) < TimeSpan.FromMinutes(30))
+            {
+                return;
+            }
+            
 
             if (System.IO.Directory.Exists(extractPath))
             {
                 System.IO.Directory.Delete(extractPath, true);
             }
             System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
+            System.IO.File.Delete(zipPath);
 
             //tmp
             //System.Threading.Thread.Sleep(3000);
@@ -180,18 +211,44 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             publicationsPage.ItemByTitle(title).Open();
         }
+
+        [Given(@"click build publication list item with title '(.*)'")]
+        public void GivenClickBuildPublicationListItemWithTitle(string title)
+        {
+            var item = publicationsPage.Items.First(it => it.Title == title);
+            if (TestUtils.WaitForCondition((() => item.IsBuildEnabled),1000))
+            {
+                item.Build();
+            }
+        
+        }
+
+        [Given(@"click download publication list item with title '(.*)'")]
+        public void GivenClickDownloadPublicationListItemWithTitle(string title)
+        {
+            var item = publicationsPage.Items.First(it => it.Title == title);
+            if (TestUtils.WaitForCondition((() => item.IsDownloadEnabled), 1000))
+            {
+                item.Download();
+            }
+            System.Threading.Thread.Sleep(1000);
+        }
+
+
+
         [When(@"click on tab objectives link on expiriences list page")]
         public void WhenClickOnTabObjectivesLinkOnExpiriencesListPage()
         {
             publicationsPage.NavigateToObjectivesUsingTabs();
         }
 
-        Expirience BuildExpirience(ExpirienceData data)
+        Experience BuildExpirience(ExperienceData data)
         {
-            return new Expirience()
+            return new Experience()
             {
                 Id = data.Id,
-                Title = data.Title
+                Title = data.Title,
+                Objectives = new List<int>()
             };
         }
 
