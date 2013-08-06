@@ -17,27 +17,9 @@ namespace easygenerator.Web.Tests.BuildExperience
             _packageModelMapper = new PackageModelMapper();
         }
 
-        #region MapExperienceBuildModel
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void MapExperienceBuildModel_ShouldThrowArgumentNullAxception_WhenExperienceBuildModelIsNull()
+        private ExperienceBuildModel GetExperienceBuildModel()
         {
-            //Arrange
-
-
-            //Act
-            _packageModelMapper.MapExperienceBuildModel(null);
-
-            //Assert
-
-        }
-
-        [TestMethod]
-        public void MapExperienceBuildModel_ShouldReturnMappedExperiencePackageModel()
-        {
-            //Arrange
-            var experienceBuildModel = new ExperienceBuildModel()
+            return new ExperienceBuildModel()
             {
                 Id = "0",
                 Title = "Some experience title",
@@ -61,6 +43,90 @@ namespace easygenerator.Web.Tests.BuildExperience
                     }
                 }
             };
+        }
+
+        #region MapExperienceBuildModel
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void MapExperienceBuildModel_ShouldThrowArgumentNullAxception_WhenExperienceBuildModelIsNull()
+        {
+            //Arrange
+
+
+            //Act
+            _packageModelMapper.MapExperienceBuildModel(null);
+
+            //Assert
+
+        }
+
+        [TestMethod]
+        public void MapExperienceBuildModel_ShouldReturnMappedExplanationPackageModel()
+        {
+            //Arrange
+            var experienceBuildModel = GetExperienceBuildModel();
+
+            //Act
+            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
+
+            //Assert
+            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].Explanations[0].Id, result.Objectives[0].Questions[0].Explanations[0].Id);
+
+        }
+
+        [TestMethod]
+        public void MapExperienceBuildModel_ShouldReturnMappedAnswerOptionPackageModel()
+        {
+            //Arrange
+            var experienceBuildModel = GetExperienceBuildModel();
+
+            //Act
+            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
+
+            //Assert
+            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].AnswerOptions[0].Id, result.Objectives[0].Questions[0].Answers[0].Id);
+            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].AnswerOptions[0].Text, result.Objectives[0].Questions[0].Answers[0].Text);
+            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].AnswerOptions[0].IsCorrect, result.Objectives[0].Questions[0].Answers[0].IsCorrect);
+        }
+
+        [TestMethod]
+        public void MapExperienceBuildModel_ShouldReturnMappedQuestionPackageModel()
+        {
+            //Arrange
+            var experienceBuildModel = GetExperienceBuildModel();
+
+            //Act
+            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
+
+            //Assert
+            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].Id, result.Objectives[0].Questions[0].Id);
+            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].Title, result.Objectives[0].Questions[0].Title);
+            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].AnswerOptions.Count, result.Objectives[0].Questions[0].Answers.Count);
+            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].Explanations.Count, result.Objectives[0].Questions[0].Explanations.Count);
+        }
+
+        [TestMethod]
+        public void MapExperienceBuildModel_ShouldReturnMappedObjectivePackageModel()
+        {
+            //Arrange
+            var experienceBuildModel = GetExperienceBuildModel();
+
+            //Act
+            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
+
+            //Assert
+            Assert.AreEqual(experienceBuildModel.Objectives[0].Id, result.Objectives[0].Id);
+            Assert.AreEqual(experienceBuildModel.Objectives[0].Title, result.Objectives[0].Title);
+            Assert.AreEqual(experienceBuildModel.Objectives[0].Image, result.Objectives[0].Image);
+            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions.Count, result.Objectives[0].Questions.Count);
+        }
+
+        [TestMethod]
+        public void MapExperienceBuildModel_ShouldReturnMappedExperiencePackageModel()
+        {
+            //Arrange
+            var experienceBuildModel = GetExperienceBuildModel();
 
             //Act
             var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
@@ -69,24 +135,6 @@ namespace easygenerator.Web.Tests.BuildExperience
             Assert.AreEqual(experienceBuildModel.Id, result.Id);
             Assert.AreEqual(experienceBuildModel.Title, result.Title);
             Assert.AreEqual(experienceBuildModel.Objectives.Count, result.Objectives.Count);
-
-
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Id, result.Objectives[0].Id);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Title, result.Objectives[0].Title);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Image, result.Objectives[0].Image);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions.Count, result.Objectives[0].Questions.Count);
-
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].Id, result.Objectives[0].Questions[0].Id);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].Title, result.Objectives[0].Questions[0].Title);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].AnswerOptions.Count, result.Objectives[0].Questions[0].Answers.Count);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].Explanations.Count, result.Objectives[0].Questions[0].Explanations.Count);
-
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].AnswerOptions[0].Id, result.Objectives[0].Questions[0].Answers[0].Id);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].AnswerOptions[0].Text, result.Objectives[0].Questions[0].Answers[0].Text);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].AnswerOptions[0].IsCorrect, result.Objectives[0].Questions[0].Answers[0].IsCorrect);
-
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].Explanations[0].Id, result.Objectives[0].Questions[0].Explanations[0].Id);
-
         }
 
         #endregion
