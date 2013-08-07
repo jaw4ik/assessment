@@ -309,11 +309,11 @@
 
                 it('should disable open command', function () {
                     var experience = viewModel.experiences()[0];
-                    experience.enableOpenDetails(true);
+                    experience.showBuildingStatus(true);
 
                     viewModel.buildExperience(experience);
 
-                    expect(experience.enableOpenDetails()).toBe(false);
+                    expect(experience.showBuildingStatus()).toBe(false);
                 });
 
                 it('should send request to server', function () {
@@ -430,11 +430,11 @@
                 
                 it('should enable possibility to open expirience', function () {
                     var experience = viewModel.experiences()[0];
-                    experience.enableOpenDetails(false);
+                    experience.showBuildingStatus(false);
                     
                     viewModel.enableOpenExperience(experience);
                     
-                    expect(experience.enableOpenDetails()).toBe(true);
+                    expect(experience.showBuildingStatus()).toBe(true);
                 });
                 
             });

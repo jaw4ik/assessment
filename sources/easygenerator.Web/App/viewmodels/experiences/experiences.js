@@ -69,7 +69,7 @@
 
         buildExperience = function (experience) {
             sendEvent(events.buildExperience);
-            experience.enableOpenDetails(false);
+            experience.showBuildingStatus(false);
             experience.buildingStatus(constants.buildingStatuses.inProgress);
 
             if (experience.isSelected())
@@ -89,7 +89,7 @@
                 })
                 .always(function () {
                     setTimeout(function() {
-                        experience.enableOpenDetails(true);
+                        experience.showBuildingStatus(true);
                     }, 10000);
                 });
         },
@@ -100,7 +100,7 @@
         },
             
         enableOpenExperience = function (experience) {
-            experience.enableOpenDetails(true);
+            experience.showBuildingStatus(true);
         },
 
         activate = function () {
@@ -116,12 +116,17 @@
                 experience.id = item.id;
                 experience.title = item.title;
                 experience.objectives = item.objectives;
+
                 experience.buildingStatus = ko.observable(item.buildingStatus);
                 experience.buildingStatus.subscribe(function (newValue) {
                     item.buildingStatus = newValue;
                 });
+                experience.showBuildingStatus = ko.observable(item.showBuildingStatus);
+                experience.showBuildingStatus.subscribe(function (newValue) {
+                    item.showBuildingStatus = newValue;
+                });
+
                 experience.isSelected = ko.observable(false);
-                experience.enableOpenDetails = ko.observable(false);
 
                 return experience;
             }));

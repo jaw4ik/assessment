@@ -8,6 +8,7 @@
             obj.title = spec.title;
             obj.objectives = spec.objectives;
             obj.buildingStatus = spec.buildingStatus;
+            obj.showBuildingStatus = spec.showBuildingStatus;
 
             return obj;
         };

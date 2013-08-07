@@ -38,7 +38,8 @@
                                     return objective.id == objectiveId;
                                 });
                             }),
-                            buildingStatus: 'notStarted'
+                            buildingStatus: 'notStarted',
+                            showBuildingStatus: true
                         });
                     }));
                 }).fail(function () {
