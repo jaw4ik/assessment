@@ -1,25 +1,27 @@
 ﻿<section id="content" class="home content unselectable">
     <ul class="unstyled objective-brief-list" data-bind="foreach: objectives">
         <li class="objective-brief-list-item">
-            <a class="objective-brief" data-bind="click: toggleExpand">
-                <div class="objective-brief-indicator"></div>
-                <div class="objective-brief-image-wrapper">
-                    <div class="objective-brief-image-border">
-                        <div>
-                            <img class="objective-brief-image" src="" alt="" data-bind="attr: { src: image }">
+            <div class="objective-brief-wrapper">
+                <a class="objective-brief" data-bind="click: toggleExpand, css: { 'shadow-bottom-curve': isExpanded() }">
+                    <div class="objective-brief-indicator"></div>
+                    <div class="objective-brief-image-wrapper">
+                        <div class="objective-brief-image-border">
+                            <div>
+                                <img class="objective-brief-image" src="" alt="" data-bind="attr: { src: image }">
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="objective-brief-title selectable" style="" data-bind="text: title"></div>
-                <div class="objective-brief-expand-collapse-wrapper" style="">
-                    <div data-bind="css: { 'btn-collapse': isExpanded(), 'btn-expand': !isExpanded() }"></div>
-                </div>
-                <!--<div class="objective-brief-title-expand-collapse-wrapper">
+                    <div class="objective-brief-title selectable" style="" data-bind="text: title"></div>
+                    <div class="objective-brief-expand-collapse-wrapper">
+                        <div data-bind="css: { 'btn-collapse': isExpanded(), 'btn-expand': !isExpanded() }"></div>
+                    </div>
+                    <!--<div class="objective-brief-title-expand-collapse-wrapper">
                         <div class="objective-brief-title-expand-collapse">
                             <div data-bind="css: { 'btn-collapse': isExpanded(), 'btn-expand': !isExpanded() }"></div>
                         </div>
                     </div>-->
-            </a>
+                </a>
+            </div>
             <!-- ko if: isExpanded() -->
             <ul class="unstyled question-brief-list" data-bind="foreach: questions">
                 <li class="question-brief">

@@ -196,9 +196,9 @@ menu, ol, ul {
     background-color: #FFFFFF;
 }
 
-.content.home {
-    margin-top: 11px;
-}
+    .content.home {
+        margin-top: 11px;
+    }
 
 /* -------------- caption partial ------------- */
 
@@ -321,8 +321,13 @@ menu, ol, ul {
     margin-top: 5px;
 }
 
+.objective-brief-wrapper {
+    position: relative;
+    z-index: 1;
+}
+
 .objective-brief {
-    display: table;
+    display: block;
     padding: 0;
     width: 100%;
     border: 1px solid #E1E1E1;
@@ -777,7 +782,7 @@ menu, ol, ul {
 
 @media (max-width: 850px) {
     .summary-progress-overall {
-       width: 125px;
+        width: 125px;
     }
 
     .summary-progress-header-title {
