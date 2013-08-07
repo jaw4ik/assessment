@@ -40,7 +40,6 @@ var CKBUILDER_CONFIG = {
 		'format' : 1,
 		'htmlwriter' : 1,
 		'horizontalrule' : 1,
-		'wysiwygarea' : 1,
 		'image' : 1,
 		'indentlist' : 1,
 		'link' : 1,
@@ -72,7 +71,6 @@ var CKBUILDER_CONFIG = {
 		'fakeobjects' : 1,
 		'menubutton' : 1,
 		'flash' : 1,
-		'iframe' : 1,
 		'mediaembed' : 1
 	},
 	languages : {
