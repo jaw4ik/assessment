@@ -22,7 +22,6 @@ menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
     padding: 0;
     margin: 0;
-    border: 0;
     outline: 0;
 }
 
