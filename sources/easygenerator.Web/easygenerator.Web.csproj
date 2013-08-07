@@ -214,7 +214,6 @@
     <Content Include="Content\images\sample\9.png" />
     <Content Include="Content\images\small-options-icons.png" />
     <Content Include="Content\images\small_icons.png" />
-    <Content Include="Download\Readme.txt" />
     <Content Include="Scripts\ckeditorBinding.js" />
     <Content Include="App\configuration\images.js" />
     <Content Include="App\configuration\routes.js" />

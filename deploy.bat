@@ -13,6 +13,9 @@ ECHO "Building ..."
 
 IF NOT EXIST sources/easygenerator.Web/obj/Release/TransformWebConfig/transformed/Web.config GOTO ERROR
 
+ECHO Creating "Download" directory ...
+IF NOT EXIST "%DeploymentDirectory%\Download" MKDIR "%DeploymentDirectory%\Download"
+
 ECHO "Building .Net unit tests"
 %SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild sources\easygenerator.DomainModel.Tests\easygenerator.DomainModel.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
