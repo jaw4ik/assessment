@@ -1,7 +1,12 @@
 ﻿ko.bindingHandlers.ckeditor = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        var bindingArguments = valueAccessor();
-        var language = bindingArguments.language() || 'en';
+
+        var
+            language = valueAccessor().language() || 'en',
+            eventTracker = valueAccessor().eventTracker || null,
+            data = valueAccessor().data,
+            isEditing = valueAccessor().isEditing;
+
         var $el = $(element);
 
         var commandsToTrack = ['cut', 'copy', 'paste', 'pastetext', 'undo', 'redo', 'bold', 'italic',
@@ -11,27 +16,28 @@
 
         $el.attr({ 'contenteditable': true });
         var editor = CKEDITOR.inline(element);
+        editor.publishEvent = publishEditorEvent;
         editor.element.$.title = '';
 
         editor.on('instanceReady', function () {
             addContentFilter();
-            addCommandsTracking(bindingArguments.eventTracker || null);
+            addCommandsTracking();
 
-            if (bindingArguments.data().length > 0) {
-                editor.setData(bindingArguments.data());
+            if (data().length > 0) {
+                editor.setData(data());
             } else {
                 editor.setData('<p></p>');
             }
 
-            if (bindingArguments.isEditing())
+            if (isEditing())
                 editor.focus();
 
             editor.on('focus', function () {
-                bindingArguments.isEditing(true);
+                isEditing(true);
             });
 
             editor.on('blur', function () {
-                bindingArguments.isEditing(false);
+                isEditing(false);
             });
 
             editor.on('key', function (event) {
@@ -40,7 +46,7 @@
             });
 
             editor.on('change', function () {
-                bindingArguments.data(editor.getData());
+                data(editor.getData());
             });
         });
 
@@ -52,21 +58,25 @@
             $el.attr({ 'contenteditable': false });
         });
 
-        function addCommandsTracking(eventTracker) {
-            if (!editor || !eventTracker)
-                return;
-
+        function addCommandsTracking() {
             _.each(editor.commands, function (command) {
                 if (commandsToTrack.indexOf(command.name) != -1) {
                     (function (cmd) {
                         var baseExec = cmd.exec;
                         cmd.exec = function (data) {
-                            eventTracker.publish(cmd.name, 'CKEditor');
+                            editor.publishEvent(cmd.name);
                             baseExec.call(cmd, data);
                         };
                     })(command);
                 }
             });
+        }
+
+        function publishEditorEvent(event) {
+            if (!editor || !eventTracker)
+                return;
+
+            eventTracker.publish(event, 'CKEditor');
         }
 
         function addContentFilter() {
