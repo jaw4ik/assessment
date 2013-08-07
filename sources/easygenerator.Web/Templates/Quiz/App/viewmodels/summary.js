@@ -3,6 +3,13 @@
         scores = [],
         overallScore = ko.observable(0),
         titleOfExperience = ko.observable(''),
+        tryAgain = function () {
+            home.isTryAgain(true);
+            router.navigateTo('#/');
+        },
+        finish = function () {
+            alert('Doesn\'t work yet!');
+        },
         activate = function () {
             if (home.objectives.length == 0)
                 return router.navigateTo('#/');
@@ -12,7 +19,7 @@
                 overallScore(0);
                 titleOfExperience('Overall progress on "' + context.title + '"');
 
-                objectives(_.map(home.objectives, function(objective) {
+                objectives(_.map(home.objectives, function (objective) {
                     return {
                         id: objective.id,
                         title: objective.title,
@@ -23,9 +30,8 @@
                 }));
                 var result = 0;
 
-                _.each(home.itemsQuestion(), function(item) {
+                _.each(home.itemsQuestion(), function (item) {
                     _.each(item.answers, function (answer) {
-                        debugger;
                         if ((answer.isChecked() && answer.isCorrect) || (!answer.isChecked() && !answer.isCorrect)) {
                             result++;
                         }
@@ -38,8 +44,8 @@
                     result = 0;
                 });
 
-                _.each(scores, function(score) {
-                    _.each(objectives(), function(objective) {
+                _.each(scores, function (score) {
+                    _.each(objectives(), function (objective) {
                         if (score.objectiveId == objective.id) {
                             objective.score += score.value;
                             objective.count++;
@@ -47,12 +53,12 @@
                     });
                     overallScore(overallScore() + score.value);
                 });
-                
+
                 overallScore(Math.round(overallScore() / scores.length));
-                
+
                 window.scroll(0, 0);
 
-                return _.each(objectives(), function(objective) {
+                return _.each(objectives(), function (objective) {
                     objective.score = Math.round(objective.score / objective.count);
                 });
             }
@@ -62,6 +68,8 @@
         activate: activate,
         objectives: objectives,
         overallScore: overallScore,
-        titleOfExperience: titleOfExperience
+        titleOfExperience: titleOfExperience,
+        tryAgain: tryAgain,
+        finish: finish
     };
 });

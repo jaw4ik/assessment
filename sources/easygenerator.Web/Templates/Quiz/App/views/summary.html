@@ -1,7 +1,7 @@
 ﻿<section>
     <div class="panel">
         <div class="panel-heading">
-            <h4 data-bind="text: titleOfExperience"></h4>
+            <h3 class="text-center" data-bind="text: titleOfExperience"></h3>
         </div>
         <div class="progress eg-progress">
             <div class="progress-bar " data-bind="style: { width: overallScore() + '%' }, css: overallScore() > 33 ? overallScore() <= 67 ? 'progress-bar-warning' : 'progress-bar-success' : 'progress-bar-danger'"></div>
@@ -24,8 +24,8 @@
             </li>
         </ul>
     </div>
-    <!--<div class="btn-group btn-group-justified">
-        <a class="btn btn-default">Try again</a>
-        <a class="btn btn-default">Finish</a>
-    </div>-->
+    <div class="btn-group btn-group-justified">
+        <a class="btn btn-default" data-bind="click: tryAgain">Try again</a>
+        <a class="btn btn-default" data-bind="click: finish">Finish</a>
+    </div>
 </section>

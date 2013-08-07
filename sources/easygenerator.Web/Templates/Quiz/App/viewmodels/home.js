@@ -2,87 +2,116 @@
 
     var objectives = [],
         questions = ko.observableArray([]),
+        itemsQuestion = ko.observableArray([]),
         titleOfExperience = '',
         step = 5,
         maxId = 0,
         countQuestionsLoaded = step,
-        itemsQuestion = ko.observableArray([]),
         scrollId = '0',
+        isEndScroll = ko.observable(false),
+        isTryAgain = ko.observable(false),
         isEndTest = ko.observable(false),
+
+        getItems = function () {
+            for (var i = maxId; i < countQuestionsLoaded; i++) {
+                maxId++;
+                if (maxId == questions().length + 1) {
+                    isEndScroll(true);
+                    break;
+                } else if (maxId == questions().length) {
+                    itemsQuestion.push(questions()[i]);
+                    isEndScroll(true);
+                } else
+                    itemsQuestion.push(questions()[i]);
+            }
+            countQuestionsLoaded += step;
+        },
+
+        submit = function () {
+            scrollId = '0';
+            isEndTest(true);
+            router.navigateTo('#/summary');
+        },
+
+        showExplanations = function (item) {
+            router.navigateTo('#/objective/' + item.objectiveId + '/question/' + item.id + '/explanations');
+            scrollId = '' + item.objectiveId + item.id;
+        },
+        
+        shuffleAndSetNumber = function() {
+            questions(_.shuffle(questions()));
+
+            var countOfQuestions = questions().length;
+            _.each(questions(), function (question, key) {
+                question.title = question.title + ' (Question ' + (key + 1) + ' of ' + countOfQuestions + ')';
+            });
+        },
+        
+        getQuestions = function (objectives) {
+            var questionsTemp = [];
+            _.each(objectives, function (objective) {
+                questionsTemp.push(_.map(objective.questions, function (question) {
+                    return {
+                        id: question.id,
+                        objectiveId: objective.id,
+                        answers: _.map(question.answers, function (answer) {
+                            return {
+                                id: answer.id,
+                                text: answer.text,
+                                isCorrect: answer.isCorrect,
+                                isChecked: ko.observable(false),
+                                toggleCheck: function () {
+                                    this.isChecked(!this.isChecked());
+                                }
+                            };
+                        }),
+                        explanations: question.explanations,
+                        title: question.title
+                    };
+                }));
+            });
+
+            _.each(questionsTemp, function (item) {
+                _.each(item, function (question) {
+                    questions.push(question);
+                });
+            });
+        },
+
         activate = function () {
             if (this.objectives.length == 0) {
                 this.titleOfExperience = context.title;
+
                 this.objectives = _.map(context.objectives, function (item) {
                     return {
                         id: item.id,
                         title: item.title,
                         image: item.image,
                         questions: item.questions,
-                        isExpanded: ko.observable(false),
-                        toggleExpand: function () { this.isExpanded(!this.isExpanded()); }
                     };
                 });
 
-                var questionTemp = [];
-                _.each(this.objectives, function (objective) {
-                    questionTemp.push(_.map(objective.questions, function (question) {
-                        return {
-                            id: question.id,
-                            objectiveId: objective.id,
-                            answers: _.map(question.answers, function (answer) {
-                                return {
-                                    id: answer.id,
-                                    text: answer.text,
-                                    isCorrect: answer.isCorrect,
-                                    isChecked: ko.observable(false),
-                                    toggleCheck: function () {
-                                        this.isChecked(!this.isChecked());
-                                    }
-                                };
-                            }),
-                            explanations: question.explanations,
-                            title: question.title
-                        };
-                    }));
-                });
+                getQuestions(this.objectives);
 
-                _.each(questionTemp, function (item) {
-                    _.each(item, function (qustion) {
-                        questions.push(qustion);
+                shuffleAndSetNumber();
+
+                return getItems();
+            } else if (isTryAgain()) {
+                _.each(questions(), function (question) {
+                    _.each(question.answers, function (answer) {
+                        answer.isChecked(false);
                     });
                 });
-                questions(_.shuffle(questions()));
+                isEndScroll(false);
+                isTryAgain(false);
+                itemsQuestion([]);
+                countQuestionsLoaded = step;
+                maxId = 0;
+                window.scroll(0, 0);
                 return getItems();
             }
         },
-        getItems = function () {
-            var entries = [];
-            for (var i = maxId; i < countQuestionsLoaded; i++) {
-                maxId++;
-                if (maxId == questions().length + 1) {
-                    isEndScroll(true);
-                    break;
-                } else if (maxId == questions().length){
-                    entries.push(questions()[i]);
-                    isEndScroll(true);
-                } else 
-                    entries.push(questions()[i]);
-            }
-            countQuestionsLoaded += step;
-            _.each(entries, function (item) {
-                itemsQuestion.push(item);
-            });
-        },
-        isEndScroll = ko.observable(false),
-        submit = function () {
-            scrollId = '0';
-            isEndTest(true);
-            router.navigateTo('#/summary');
-        },
-        showExplanations = function (item) {
-            router.navigateTo('#/objective/' + item.objectiveId + '/question/' + item.id + '/explanations');
-            scrollId = '' + item.objectiveId + item.id;
-        },
+
         viewAttached = function () {
             if (scrollId != '0') {
                 var targetTop = $('div[id="' + scrollId + '"]').offset().top;
@@ -104,6 +133,7 @@
         showExplanations: showExplanations,
         viewAttached: viewAttached,
         isEndTest: isEndTest,
-        titleOfExperience: titleOfExperience
+        titleOfExperience: titleOfExperience,
+        isTryAgain: isTryAgain
     };
 });
