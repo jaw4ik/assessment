@@ -37,8 +37,8 @@
             router.navigateTo('#/objective/' + item.objectiveId + '/question/' + item.id + '/explanations');
             scrollId = '' + item.objectiveId + item.id;
         },
-        
-        shuffleAndSetNumber = function() {
+
+        shuffleAndSetNumber = function () {
             questions(_.shuffle(questions()));
 
             var countOfQuestions = questions().length;
@@ -46,7 +46,7 @@
                 question.title = question.title + ' (Question ' + (key + 1) + ' of ' + countOfQuestions + ')';
             });
         },
-        
+
         getQuestions = function (objectives) {
             var questionsTemp = [];
             _.each(objectives, function (objective) {
