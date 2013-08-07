@@ -16,7 +16,6 @@
 
         $el.attr({ 'contenteditable': true });
         var editor = CKEDITOR.inline(element);
-        editor.element.$.title = '';
 
         editor.on('instanceReady', function () {
             addContentFilter();

@@ -18,4 +18,5 @@ CKEDITOR.editorConfig = function (config) {
     config.removeFormatTags = 'b,big,code,del,dfn,em,font,i,ins,kbd,q,s,samp,small,span,strike,strong,sub,sup,tt,u,var,abbr,acronym,blockquote,cite,mark,figcaption,time';
 
     config.startupOutlineBlocks = true;
+    config.title = false;
 };
