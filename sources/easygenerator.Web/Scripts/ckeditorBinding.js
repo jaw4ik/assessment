@@ -16,7 +16,6 @@
 
         $el.attr({ 'contenteditable': true });
         var editor = CKEDITOR.inline(element);
-        editor.publishEvent = publishEditorEvent;
         editor.element.$.title = '';
 
         editor.on('instanceReady', function () {
@@ -59,24 +58,24 @@
         });
 
         function addCommandsTracking() {
+            if (!editor || !eventTracker)
+                return;
+            
             _.each(editor.commands, function (command) {
                 if (commandsToTrack.indexOf(command.name) != -1) {
                     (function (cmd) {
                         var baseExec = cmd.exec;
                         cmd.exec = function (data) {
-                            editor.publishEvent(cmd.name);
+                            eventTracker.publish(cmd.name, 'CKEditor');
                             baseExec.call(cmd, data);
                         };
                     })(command);
                 }
             });
-        }
 
-        function publishEditorEvent(event) {
-            if (!editor || !eventTracker)
-                return;
-
-            eventTracker.publish(event, 'CKEditor');
+            editor.on('publishEvent', function (eventInfo) {
+                eventTracker.publish(eventInfo.data, 'CKEditor');
+            });
         }
 
         function addContentFilter() {

@@ -73,6 +73,7 @@ CKEDITOR.plugins.semanticTagsPlugin = {
                 else
                     element.checkActive(editor.elementPath()) ? editor.removeStyle(element) : editor.applyStyle(element);
                 editor.fire('saveSnapshot');
+                editor.fire('publishEvent', 'Semantic tag \"' + lang[value] + '\" applied');
             },
 
             onRender: function () {
