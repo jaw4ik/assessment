@@ -168,7 +168,7 @@ menu, ol, ul {
 .navigation-menu-item-link {
     display: inline-block;
     height: 100%;
-    padding: 0 20px;
+    padding: 0 27px;
 }
 
     .navigation-menu-item-link:hover {
@@ -187,13 +187,17 @@ menu, ol, ul {
 
 .content-wrapper {
     max-width: 1182px;
-    margin: 11px auto 0;
+    margin: 0 auto;
 }
 
 .content {
     padding: 10px;
     border: 1px solid #E0E0E0;
     background-color: #FFFFFF;
+}
+
+.content.home {
+    margin-top: 11px;
 }
 
 /* -------------- caption partial ------------- */
