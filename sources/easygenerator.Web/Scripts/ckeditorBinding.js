@@ -1,20 +1,26 @@
 ﻿ko.bindingHandlers.ckeditor = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 
-        var
-            language = valueAccessor().language() || 'en',
+        var language = valueAccessor().language() || 'en',
             eventTracker = valueAccessor().eventTracker || null,
             data = valueAccessor().data,
             isEditing = valueAccessor().isEditing;
 
         var $el = $(element);
 
+        var subscribers = {
+            focusSubscriber: null,
+            blurSubscriber: null,
+            keySubscriber: null,
+            changeSubscriber: null
+        };
+
         var commandsToTrack = ['cut', 'copy', 'paste', 'pastetext', 'undo', 'redo', 'bold', 'italic',
-            'underline', 'removeformat', 'numberedlist', 'bulletedlist', 'link', 'unlink', 'table', 'image'];
+            'underline', 'removeformat', 'numberedlist', 'bulletedlist', 'link', 'unlink', 'table', 'image', 'mediaembed'];
 
         CKEDITOR.config.language = language;
 
-        $el.attr({ 'contenteditable': true });
+        $el.attr('contenteditable', true);
         var editor = CKEDITOR.inline(element);
 
         editor.on('instanceReady', function () {
@@ -30,20 +36,20 @@
             if (isEditing())
                 editor.focus();
 
-            editor.on('focus', function () {
+            subscribers.focusSubscriber = editor.on('focus', function () {
                 isEditing(true);
             });
 
-            editor.on('blur', function () {
+            subscribers.blurSubscriber = editor.on('blur', function () {
                 isEditing(false);
             });
 
-            editor.on('key', function (event) {
+            subscribers.keySubscriber = editor.on('key', function (event) {
                 if (event.data.keyCode == 27)
                     editor.focusManager.blur();
             });
 
-            editor.on('change', function () {
+            subscribers.changeSubscriber = editor.on('change', function () {
                 data(editor.getData());
             });
         });
@@ -52,21 +58,25 @@
             if (!!CKEDITOR.dialog._.currentTop)
                 CKEDITOR.dialog._.currentTop.hide();
 
-            editor.destroy();
-            $el.attr({ 'contenteditable': false });
+            for (var subscriber in subscribers)
+                subscribers[subscriber].removeListener();
+
+            editor.setData('');
+            editor.destroy(true);
+            $el.removeAttr('contenteditable');
         });
 
         function addCommandsTracking() {
             if (!editor || !eventTracker)
                 return;
-            
+
             _.each(editor.commands, function (command) {
                 if (commandsToTrack.indexOf(command.name) != -1) {
                     (function (cmd) {
                         var baseExec = cmd.exec;
-                        cmd.exec = function (data) {
+                        cmd.exec = function (eventInfo) {
                             eventTracker.publish(cmd.name, 'CKEditor');
-                            baseExec.call(cmd, data);
+                            baseExec.call(cmd, eventInfo);
                         };
                     })(command);
                 }

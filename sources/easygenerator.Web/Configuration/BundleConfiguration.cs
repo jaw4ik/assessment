@@ -33,7 +33,8 @@ namespace easygenerator.Web.Configuration
                             .Include("~/Content/objective.css")
                             .Include("~/Content/objectives.css")
                             .Include("~/Content/experiences.css")
-                            .Include("~/Scripts/ckeditor/Content.css"));
+                            .Include("~/Scripts/ckeditor/Content.css")
+                            .Include("~/Content/ckeditor.css"));
 
         }
     }
