@@ -1,56 +1,37 @@
 ﻿ko.bindingHandlers.ckeditor = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var bindingArguments = valueAccessor();
-        var editor = null;
         var language = bindingArguments.language() || 'en';
         var $el = $(element);
+
         var commandsToTrack = ['cut', 'copy', 'paste', 'pastetext', 'undo', 'redo', 'bold', 'italic',
             'underline', 'removeformat', 'numberedlist', 'bulletedlist', 'link', 'unlink', 'table', 'image'];
 
-        CKEDITOR.disableAutoInline = true;
         CKEDITOR.config.language = language;
 
-        $el.html(bindingArguments.data());
+        $el.attr({ 'contenteditable': true });
+        var editor = CKEDITOR.inline(element);
+        editor.element.$.title = '';
 
-        $el.on('click', function () {
-            if (!bindingArguments.isEditing())
-                startEdit();
-        });
+        editor.on('instanceReady', function () {
+            addContentFilter();
+            addCommandsTracking(bindingArguments.eventTracker || null);
 
-        if (bindingArguments.isEditing()) {
-            startEdit();
-        }
+            if (bindingArguments.data().length > 0) {
+                editor.setData(bindingArguments.data());
+            } else {
+                editor.setData('<p></p>');
+            }
 
-        function endEdit() {
-            bindingArguments.isEditing(false);
-            destroyEditor();
-        }
-
-        function startEdit() {
-            bindingArguments.isEditing(true);
-
-            $el.attr({ 'contenteditable': true });
-            editor = CKEDITOR.inline(element);
-            editor.focusManager.lock();
-
-            editor.on('instanceReady', function () {
-                addContentFilter();
-                editor.element.$.title = '';
-                addCommandsTracking(bindingArguments.eventTracker || null);
-
-                if (editor.getData() == '')
-                    editor.setData('<p></p>');
-                editor.focusManager.unlock();
-                setCaretToStartPosition();
+            if (bindingArguments.isEditing())
                 editor.focus();
-            });
 
-            editor.on('change', function () {
-                updateData();
+            editor.on('focus', function () {
+                bindingArguments.isEditing(true);
             });
 
             editor.on('blur', function () {
-                endEdit();
+                bindingArguments.isEditing(false);
             });
 
             editor.on('key', function (event) {
@@ -58,32 +39,18 @@
                     editor.focusManager.blur();
             });
 
-            ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                destroyEditor();
+            editor.on('change', function () {
+                bindingArguments.data(editor.getData());
             });
-        }
+        });
 
-        function setCaretToStartPosition() {
-            var elem = editor.document.getBody();
-
-            var range = editor.createRange();
-            if (range) {
-                range.moveToElementEditablePosition(elem, false);
-                range.select();
-            }
-        }
-
-        function destroyEditor() {
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
             if (!!CKEDITOR.dialog._.currentTop)
                 CKEDITOR.dialog._.currentTop.hide();
 
             editor.destroy();
             $el.attr({ 'contenteditable': false });
-        }
-
-        function updateData() {
-            bindingArguments.data(editor.getData());
-        }
+        });
 
         function addCommandsTracking(eventTracker) {
             if (!editor || !eventTracker)

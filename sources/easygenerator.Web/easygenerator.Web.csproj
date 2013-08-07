@@ -369,8 +369,6 @@
     <Content Include="Scripts\ckeditor\plugins\flash\images\placeholder.png" />
     <Content Include="Scripts\ckeditor\plugins\icons.png" />
     <Content Include="Scripts\ckeditor\plugins\icons_hidpi.png" />
-    <Content Include="Scripts\ckeditor\plugins\iframe\dialogs\iframe.js" />
-    <Content Include="Scripts\ckeditor\plugins\iframe\images\placeholder.png" />
     <Content Include="Scripts\ckeditor\plugins\image\dialogs\image.js" />
     <Content Include="Scripts\ckeditor\plugins\image\images\noimage.png" />
     <Content Include="Scripts\ckeditor\plugins\link\dialogs\anchor.js" />
@@ -379,7 +377,6 @@
     <Content Include="Scripts\ckeditor\plugins\link\images\hidpi\anchor.png" />
     <Content Include="Scripts\ckeditor\plugins\magicline\images\hidpi\icon.png" />
     <Content Include="Scripts\ckeditor\plugins\magicline\images\icon.png" />
-    <Content Include="Scripts\ckeditor\plugins\mediaembed\images\icon.png" />
     <Content Include="Scripts\ckeditor\plugins\pastefromword\filter\default.js" />
     <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\options.js" />
     <Content Include="Scripts\ckeditor\plugins\scayt\dialogs\toolbar.css" />
@@ -694,21 +691,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\ckeditor\plugins\colordialog\dialogs\" />
-    <Folder Include="Scripts\ckeditor\plugins\div\dialogs\" />
-    <Folder Include="Scripts\ckeditor\plugins\find\dialogs\" />
-    <Folder Include="Scripts\ckeditor\plugins\forms\dialogs\" />
-    <Folder Include="Scripts\ckeditor\plugins\forms\images\" />
-    <Folder Include="Scripts\ckeditor\plugins\liststyle\dialogs\" />
-    <Folder Include="Scripts\ckeditor\plugins\pagebreak\images\" />
-    <Folder Include="Scripts\ckeditor\plugins\preview\" />
-    <Folder Include="Scripts\ckeditor\plugins\showblocks\images\" />
-    <Folder Include="Scripts\ckeditor\plugins\smiley\dialogs\" />
-    <Folder Include="Scripts\ckeditor\plugins\smiley\images\" />
-    <Folder Include="Scripts\ckeditor\plugins\templates\dialogs\" />
-    <Folder Include="Scripts\ckeditor\plugins\templates\templates\images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
