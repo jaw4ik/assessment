@@ -1,14 +1,31 @@
 ﻿<section>
-    <div data-bind="foreach: objectives">
-        <div class="panel" data-bind="css: scope > 33 ? scope <= 67 ? 'panel-warning' : 'panel-success' : 'panel-danger'">
-            <!--<div class="panel-heading">Some head</div>-->
-            <img src="" alt="" class="img-thumbnail pull-left eg-objective-item-image" data-bind="attr: { src: image }" />
-            <p data-bind="text: title" class="text-left"></p>
-            <div class="clearfix"></div>
-            <div class="progress eg-progress">
-                <div class="progress-bar " data-bind="style: { width: scope + '%' }, css: scope > 33 ? scope <= 67 ? 'progress-bar-warning' : 'progress-bar-success' : 'progress-bar-danger'"></div>
-                <span class="badge eg-badge " data-bind="text: scope + '%'"></span>
-            </div>
+    <div class="panel">
+        <div class="panel-heading">
+            <h4 data-bind="text: titleOfExperience"></h4>
+        </div>
+        <div class="progress eg-progress">
+            <div class="progress-bar " data-bind="style: { width: overallScore() + '%' }, css: overallScore() > 33 ? overallScore() <= 67 ? 'progress-bar-warning' : 'progress-bar-success' : 'progress-bar-danger'"></div>
+            <span class="badge eg-badge " data-bind="text: overallScore() + '%'"></span>
         </div>
     </div>
+    <div class="panel">
+        <div class="panel-heading">
+            <h4>Progress objectives</h4>
+        </div>
+        <ul class="list-group" data-bind="foreach: objectives">
+            <li class="list-group-item">
+                <img src="" alt="" class="img-thumbnail pull-left eg-objective-item-image" data-bind="attr: { src: image }" />
+                <p data-bind="text: title" class="text-left"></p>
+                <div class="clearfix"></div>
+                <div class="progress eg-progress">
+                    <div class="progress-bar " data-bind="style: { width: score + '%' }, css: score > 33 ? score <= 67 ? 'progress-bar-warning' : 'progress-bar-success' : 'progress-bar-danger'"></div>
+                    <span class="badge eg-badge " data-bind="text: score + '%'"></span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!--<div class="btn-group btn-group-justified">
+        <a class="btn btn-default">Try again</a>
+        <a class="btn btn-default">Finish</a>
+    </div>-->
 </section>

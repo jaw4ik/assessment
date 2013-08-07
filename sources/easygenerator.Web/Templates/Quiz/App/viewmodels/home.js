@@ -2,13 +2,16 @@
 
     var objectives = [],
         questions = ko.observableArray([]),
-        maxId = 0,
+        titleOfExperience = '',
         step = 5,
+        maxId = 0,
+        countQuestionsLoaded = step,
         itemsQuestion = ko.observableArray([]),
         scrollId = '0',
         isEndTest = ko.observable(false),
         activate = function () {
             if (this.objectives.length == 0) {
+                this.titleOfExperience = context.title;
                 this.objectives = _.map(context.objectives, function (item) {
                     return {
                         id: item.id,
@@ -49,20 +52,23 @@
                     });
                 });
                 questions(_.shuffle(questions()));
-                getItems();
+                return getItems();
             }
         },
         getItems = function () {
             var entries = [];
-            for (var i = maxId; i < step; i++) {
+            for (var i = maxId; i < countQuestionsLoaded; i++) {
                 maxId++;
                 if (maxId == questions().length + 1) {
                     isEndScroll(true);
                     break;
-                } else
+                } else if (maxId == questions().length){
+                    entries.push(questions()[i]);
+                    isEndScroll(true);
+                } else 
                     entries.push(questions()[i]);
             }
-            step += 5;
+            countQuestionsLoaded += step;
             _.each(entries, function (item) {
                 itemsQuestion.push(item);
             });
@@ -75,13 +81,13 @@
         },
         showExplanations = function (item) {
             router.navigateTo('#/objective/' + item.objectiveId + '/question/' + item.id + '/explanations');
-            scrollId = item.objectiveId + item.id;
+            scrollId = '' + item.objectiveId + item.id;
         },
         viewAttached = function () {
             if (scrollId != '0') {
                 var targetTop = $('div[id="' + scrollId + '"]').offset().top;
                 $('html, body').animate({
-                    scrollTop: targetTop - 70
+                    scrollTop: targetTop - 5
                 });
                 scrollId = '0';
             }
@@ -97,6 +103,7 @@
         submit: submit,
         showExplanations: showExplanations,
         viewAttached: viewAttached,
-        isEndTest: isEndTest
+        isEndTest: isEndTest,
+        titleOfExperience: titleOfExperience
     };
 });

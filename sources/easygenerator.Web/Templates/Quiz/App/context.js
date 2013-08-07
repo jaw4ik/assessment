@@ -3,7 +3,7 @@
 
         var
             objectives = [],
-
+            title = '',
             initialize = function () {
                 var that = this;
                 return $.ajax({
@@ -11,6 +11,7 @@
                     contentType: 'application/json',
                     dataType: 'json'
                 }).then(function (response) {
+                    that.title = response.title;
                     that.objectives = _.map(response.objectives, function (objective) {
                         return {
                             id: objective.id,

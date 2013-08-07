@@ -1,7 +1,11 @@
 ﻿<section>
+    <h2 class="text-center eg-experience-title" data-bind="text: titleOfExperience"></h2>
     <div data-bind="foreach: itemsQuestion">
-        <div class="panel" data-bind="attr: { id: objectiveId + id }">
-            <div class="panel-heading  eg-question-title" data-bind=" click: $parent.showExplanations, text: title"></div>
+        <div class="panel" data-bind="attr: { id: '' + objectiveId + id }">
+            <div class="panel-heading  eg-question-title">
+                <div class="title pull-left" data-bind="text: title"></div>
+                <img src="img/explanation.png" alt="" class="img-circle pull-right explanation-icon" title="Show explanation" data-bind=" click: $parent.showExplanations"  />
+            </div>
             <ul class="list-unstyled" data-bind="foreach: answers">
                 <li class="eg-answer eg-cursor-pointer" data-bind="click: toggleCheck">
                     <div>
@@ -13,7 +17,6 @@
         </div>
     </div>
     <div class="btn-group btn-group-justified" data-bind="visible: isEndScroll()">
-        <a class="btn btn-default" href="javascript:scroll(0,0)">Move up</a>
         <a class="btn btn-default" data-bind="click: submit">Submit</a>
     </div>
     <div data-bind="scroll: !(itemsQuestion().length == questions().length), scrollOptions: { loadFunc: getItems, offset: 5 }"></div>

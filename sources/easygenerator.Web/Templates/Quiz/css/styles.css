@@ -5,19 +5,21 @@
     color: #666 !important;
 }
 
-body
-{
-    padding-top: 100px;
-}
-
 .eg-navbar-color
 {
     background-color: #404A4C !important;
+    border-radius: 0 !important;
 }
 
 .eg-container
 {
     padding: 0 0 10px;
+}
+
+.eg-experience-title
+{
+    margin-bottom: 20px;
+    margin-top: 0;
 }
 
 .eg-answers
@@ -29,8 +31,18 @@ body
 {
     padding: 0 0 10px;
     font-size: 20px;
-    cursor: pointer;
+    overflow: hidden;
 }
+
+    .eg-question-title .title
+    {
+        width: 90%;
+    }
+
+    .eg-question-title .explanation-icon
+    {
+        cursor: pointer;
+    }
 
 .eg-answer
 {
