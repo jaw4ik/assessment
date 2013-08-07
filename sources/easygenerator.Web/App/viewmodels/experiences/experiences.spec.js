@@ -307,13 +307,13 @@
                     expect(experience.isSelected()).toBe(false);
                 });
 
-                it('should show process info', function () {
+                it('should disable open command', function () {
                     var experience = viewModel.experiences()[0];
-                    experience.showBuildProgress(false);
+                    experience.enableOpenDetails(true);
 
                     viewModel.buildExperience(experience);
 
-                    expect(experience.showBuildProgress()).toBe(true);
+                    expect(experience.enableOpenDetails()).toBe(false);
                 });
 
                 it('should send request to server', function () {
@@ -420,6 +420,23 @@
 
                     expect(router.navigateTo).toHaveBeenCalledWith('download/' + experience.id + '.zip');
                 });
+            });
+
+            describe('enableOpenExperience', function () {
+                
+                it('should be a function', function () {
+                    expect(viewModel.enableOpenExperience).toEqual(jasmine.any(Function));
+                });
+                
+                it('should enable possibility to open expirience', function () {
+                    var experience = viewModel.experiences()[0];
+                    experience.enableOpenDetails(false);
+                    
+                    viewModel.enableOpenExperience(experience);
+                    
+                    expect(experience.enableOpenDetails()).toBe(true);
+                });
+                
             });
 
         });

@@ -69,7 +69,7 @@
 
         buildExperience = function (experience) {
             sendEvent(events.buildExperience);
-            experience.showBuildProgress(true);
+            experience.enableOpenDetails(false);
             experience.buildingStatus(constants.buildingStatuses.inProgress);
 
             if (experience.isSelected())
@@ -89,7 +89,7 @@
                 })
                 .always(function () {
                     setTimeout(function() {
-                        experience.showBuildProgress(false);
+                        experience.enableOpenDetails(true);
                     }, 10000);
                 });
         },
@@ -97,6 +97,10 @@
         downloadExperience = function (experience) {
             sendEvent(events.downloadExperience);
             router.navigateTo('download/' + experience.id + '.zip');
+        },
+            
+        enableOpenExperience = function (experience) {
+            experience.enableOpenDetails(true);
         },
 
         activate = function () {
@@ -117,7 +121,7 @@
                     item.buildingStatus = newValue;
                 });
                 experience.isSelected = ko.observable(false);
-                experience.showBuildProgress = ko.observable(false);
+                experience.enableOpenDetails = ko.observable(false);
 
                 return experience;
             }));
@@ -139,6 +143,7 @@
             buildingStatuses: constants.buildingStatuses,
             buildExperience: buildExperience,
             downloadExperience: downloadExperience,
+            enableOpenExperience: enableOpenExperience,
 
             activate: activate
         };
