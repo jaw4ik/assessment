@@ -88,11 +88,17 @@
         }
 
         function addContentFilter() {
+            var widthRegExp = /\s*width\s*:\s*([^;]*)/g;
+            var heightRegExp = /\s*height\s*:\s*([^;]*)/g;
+
             var rules = {
                 elements: {
                     $: function (e) {
                         if (e.attributes.style) {
+                            var width = e.attributes.style.match(widthRegExp) + ';';
+                            var height = e.attributes.style.match(heightRegExp) + ';';
                             delete e.attributes.style;
+                            e.attributes.style = width + height;
                         }
 
                         if (e.attributes.class) {
