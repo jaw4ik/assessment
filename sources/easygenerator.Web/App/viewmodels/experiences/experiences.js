@@ -34,7 +34,7 @@
                 experience.isSelected(!experience.isSelected());
             },
 
-            currentSortingOption = ko.observable(),
+            currentSortingOption = ko.observable(constants.sortingOptions.byTitleAsc),
 
             sortByTitleAsc = function () {
                 if (currentSortingOption() == constants.sortingOptions.byTitleAsc)
@@ -90,7 +90,7 @@
                     experience.buildingStatus(constants.buildingStatuses.failed);
                 })
                 .always(function () {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         experience.showBuildingStatus(true);
                     }, 10000);
                 });
@@ -100,21 +100,21 @@
             sendEvent(events.downloadExperience);
             router.navigateTo('download/' + experience.id + '.zip');
         },
-            
+
         enableOpenExperience = function (experience) {
             experience.showBuildingStatus(true);
         },
 
         activate = function () {
-            var sortedExperiences = _.sortBy(dataContext.experiences, function(experience) {
-                 return experience.title.toLowerCase();
+            var sortedExperiences = _.sortBy(dataContext.experiences, function (experience) {
+                return experience.title.toLowerCase();
             });
-            
-            currentSortingOption(constants.sortingOptions.byTitleAsc);
+
+            sortedExperiences = currentSortingOption() == constants.sortingOptions.byTitleAsc ? sortedExperiences : sortedExperiences.reverse();
 
             experiences(ko.utils.arrayMap(sortedExperiences, function (item) {
                 var experience = {};
-                
+
                 experience.id = item.id;
                 experience.title = item.title;
                 experience.objectives = item.objectives;

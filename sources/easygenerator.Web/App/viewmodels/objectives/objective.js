@@ -23,7 +23,7 @@
             title = ko.observable(),
             image = ko.observable(),
             questions = ko.observableArray([]),
-            currentSortingOption = ko.observable(),
+            currentSortingOption = ko.observable(constants.sortingOptions.byTitleAsc),
 
             sortByTitleAsc = function () {
                 sendEvent(events.sortByTitleAsc);
@@ -134,19 +134,18 @@
                     router.replaceLocation('#/404');
                     return;
                 }
-
+                
                 objectiveId = routeData.id;
                 title(objective.title);
                 image(objective.image);
 
-                currentSortingOption(constants.sortingOptions.byTitleAsc);
                 var array = _.chain(objective.questions)
                                 .map(function (item) {
                                     return mapQuestion(item);
                                 })
                     .sortBy(function (question) { return question.title().toLowerCase(); })
                                 .value();
-                questions(array);
+                questions(currentSortingOption() == constants.sortingOptions.byTitleAsc ? array : array.reverse());
             },
 
             getSelectedQuestions = function () {

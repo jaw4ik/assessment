@@ -20,8 +20,8 @@
         var
             objectives = ko.observableArray([]),
 
-            currentSortingOption = ko.observable(),
-            
+            currentSortingOption = ko.observable(constants.sortingOptions.byTitleAsc),
+
             enableSorting = ko.observable(true),
 
             sortByTitleAsc = function () {
@@ -51,9 +51,8 @@
 
             activate = function () {
                 return repository.getCollection().then(function (objectiveBriefCollection) {
-                    currentSortingOption(constants.sortingOptions.byTitleAsc);
                     var array = _.chain(objectiveBriefCollection)
-                        .map(function(item) {
+                        .map(function (item) {
                             return {
                                 id: item.id,
                                 title: item.title,
@@ -70,9 +69,9 @@
                                 }
                             };
                         })
-                        .sortBy(function(objective) { return objective.title.toLowerCase(); })
+                        .sortBy(function (objective) { return objective.title.toLowerCase(); })
                         .value();
-                    objectives(array);
+                    objectives(currentSortingOption() == constants.sortingOptions.byTitleAsc ? array : array.reverse());
 
                     enableSorting(objectives().length > 1);
                 });

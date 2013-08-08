@@ -204,7 +204,9 @@
                             return promise.isFulfilled();
                         });
                         runs(function () {
-                            expect(viewModel.currentSortingOption()).toEqual(constants.sortingOptions.byTitleAsc);
+                            var isPossibleOption =
+                                viewModel.currentSortingOption() == constants.sortingOptions.byTitleAsc || viewModel.currentSortingOption() == constants.sortingOptions.byTitleDesc;
+                            expect(isPossibleOption).toBe(true);
                         });
                     });
 
