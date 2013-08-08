@@ -20,7 +20,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             get
             {
                 var title = GetByXPathInside(model.QuestionTitle);
-                return title.GetTextContent();
+                return title.GetAttribute("value");
             }
         }
 

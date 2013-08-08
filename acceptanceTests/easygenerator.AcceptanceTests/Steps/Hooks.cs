@@ -51,6 +51,18 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             DriverProvider.Current().Driver.Navigate().GoToUrl("about:blank");
         }
+        [BeforeStep]
+        public void BeforeStep()
+        {
+            System.Threading.Thread.Sleep(100);
+        }
+        [AfterStep]
+        public void AfterStep()
+        {
+            System.Threading.Thread.Sleep(100);
+        }
+    
+
         //
         // https://github.com/techtalk/SpecFlow/wiki/Hooks
         //

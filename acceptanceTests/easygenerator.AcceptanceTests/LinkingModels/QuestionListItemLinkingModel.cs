@@ -9,7 +9,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 {
     public class QuestionListItemLinkingModel : ILinkingModel
     {
-        public string QuestionTitle = ".//div[contains(@class,'question-title')]";
+        public string QuestionTitle = ".//div[contains(@class,'question-title')]//textarea";
         public string AddButton = "//a[contains(@class,'questions-header-create-link')]";
         public string OpenButton = ".//div[contains(@class,'question-open')]";
         //public string EditButton = ".//div[contains(@class,'question-edit')]";
