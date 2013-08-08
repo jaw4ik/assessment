@@ -82,9 +82,9 @@
                         </div>
                         <!-- /ko -->
                         <div class="white-framing experience-brief-inner">
-                            <figure>
+                            <div>
                                 <div class="experience-brief-image"></div>
-                                <figcaption class="experience-brief-toolbar">
+                                <div class="experience-brief-toolbar">
                                     <div class="experience-brief-title" data-bind="attr: { title: title }">
                                         <span class="selectable" data-bind="text: title"></span>
                                     </div><!--
@@ -92,7 +92,7 @@
                                         <span class="experience-brief-toolbar-icon-objective"></span>
                                         <div class="selectable" data-bind="text: objectives.length"></div>
                                     </div>
-                                </figcaption>
+                                </div>
                                 <div class="experience-brief-option">
                                     <!-- ko if: showBuildingStatus() || buildingStatus() == $parent.buildingStatuses.notStarted -->
                                     <div class="experience-brief-option-inner experience-brief-options-open" data-bind="click: $parent.navigateToDetails">
@@ -119,7 +119,7 @@
                                     </div>
                                     <!-- /ko -->
                                 </div>
-                            </figure>
+                            </div>
                         </div>
                         <span class="substrate-block">
                             <span class="substrate-inner">

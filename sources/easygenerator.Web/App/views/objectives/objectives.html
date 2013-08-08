@@ -33,10 +33,10 @@
                     <!-- ko foreach: objectives -->
                     <li class="objective-brief" data-bind="css: { 'objective-brief-selected': isSelected() }">
                         <div class="white-framing objective-brief-inner">
-                            <figure>
+                            <div>
                                 <div class="objective-brief-image" data-bind="style: { backgroundImage: 'url(' + image + ')' }">
                                 </div>
-                                <figcaption class="objective-brief-toolbar">
+                                <div class="objective-brief-toolbar">
                                     <div class="objective-brief-title" data-bind="attr: { title: title }">
                                         <span class="selectable" data-bind="text: title"></span>
                                     </div><!--
@@ -44,7 +44,7 @@
                                         <div class="objective-brief-toolbar-icon-question"></div>
                                         <div class="objective-question-count-text" data-bind="text: questionsCount"></div>
                                     </div>
-                                </figcaption>
+                                </div>
                                 <div class="objective-brief-options">
                                     <div class="objective-brief-options-select" data-bind="click: toggleSelection">
                                         <!-- ko if: isSelected -->
@@ -63,7 +63,7 @@
                                         <div class="objective-brief-options-open-image"></div>
                                     </div>
                                 </div>
-                            </figure>
+                            </div>
                         </div>
                     </li>
                     <!-- /ko -->
