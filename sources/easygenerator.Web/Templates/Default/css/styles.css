@@ -137,6 +137,22 @@ menu, ol, ul {
         vertical-align: top;
     }
 
+input[type="radio"],
+input[type="checkbox"] {
+    margin: 0;
+}
+
+.custom-checkbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+
 .loader {
     position: absolute;
     top: 50%;
@@ -491,15 +507,18 @@ menu, ol, ul {
 .question-answer-checkbox {
     width: 38px;
     height: 36px;
+    position: relative;
     border: 1px dashed #DADADA;
-    display: block;
-    margin-right: 15px;
 }
 
     .question-answer-checkbox.checked {
         border: 2px solid #666666;
         background: url("../img/checkbox.png") no-repeat scroll center center transparent;
     }
+
+.question-answer-text {
+    padding-left: 15px;
+}
 
 .btn-submit-wrapper {
     margin: 0 20px 20px;
