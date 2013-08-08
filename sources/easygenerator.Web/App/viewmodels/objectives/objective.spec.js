@@ -101,7 +101,7 @@
 
             });
 
-            describe('navigateToDetails', function () {
+            describe('navigateToEdit', function () {
                 beforeEach(function () {
                     objectives = createObjectives();
                     spyOn(eventTracker, 'publish');
@@ -110,14 +110,14 @@
 
                 it('should navigate to #/objectives', function () {
                     viewModel.objectiveId = objectives[0].id;
-                    viewModel.navigateToDetails(objectives[0].questions[0]);
+                    viewModel.navigateToEdit(objectives[0].questions[0]);
                     expect(router.navigateTo).toHaveBeenCalledWith('#/objective/' + objectives[0].id + '/question/' + objectives[0].questions[0].id);
                 });
 
-                it('should send event \"Navigate to question details\"', function () {
+                it('should send event \"Navigate to edit question\"', function () {
                     viewModel.objectiveId = objectives[0].id;
-                    viewModel.navigateToDetails(objectives[0].questions[0]);
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to question details', eventsCategory);
+                    viewModel.navigateToEdit(objectives[0].questions[0]);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to edit question', eventsCategory);
                 });
 
             });
@@ -384,6 +384,31 @@
                         expect(question.title.isModified()).toBe(true);
                     });
 
+                });
+
+                describe('toggleSelection', function() {
+
+                    it('should be a function', function () {
+                        expect(question.saveTitle).toEqual(jasmine.any(Function));
+                    });
+                    
+                    it('should send event \'Select question\'', function () {
+                        spyOn(eventTracker, 'publish');
+                        question.isSelected(false);
+
+                        question.toggleSelection(question);
+
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Select question', eventsCategory);
+                    });
+                    
+                    it('should send event \'Unelect question\'', function () {
+                        spyOn(eventTracker, 'publish');
+                        question.isSelected(true);
+
+                        question.toggleSelection(question);
+
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Unselect question', eventsCategory);
+                    });
                 });
             });
 

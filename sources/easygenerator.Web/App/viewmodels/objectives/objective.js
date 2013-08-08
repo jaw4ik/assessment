@@ -5,11 +5,12 @@
         var
             events = {
                 category: 'Learning Objective',
-                navigateToDetails: "Navigate to question details",
+                navigateToEdit: "Navigate to edit question",
                 navigateToObjectives: "Navigate to Learning Objectives",
                 sortByTitleAsc: "Sort questions by title ascending",
                 sortByTitleDesc: "Sort questions by title descending",
                 selectQuestion: "Select question",
+                unselectQuestion: "Unselect question",
                 addQuestion: "Add question",
                 editQuestionTitle: "Edit question title",
                 deleteQuestions: "Delete question"
@@ -41,8 +42,8 @@
                 router.navigateTo('#/objectives');
             },
 
-            navigateToDetails = function (item) {
-                sendEvent(events.navigateToDetails);
+            navigateToEdit = function (item) {
+                sendEvent(events.navigateToEdit);
                 router.navigateTo('#/objective/' + objectiveId + '/question/' + item.id);
             },
 
@@ -85,8 +86,8 @@
                     isSelected: ko.observable(false),
                     isEditing: ko.observable(false),
                     toggleSelection: function (instance) {
-                        sendEvent(events.selectQuestion);
                         instance.isSelected(!instance.isSelected());
+                        sendEvent(instance.isSelected() ? events.selectQuestion : events.unselectQuestion);
                     },
                     saveTitle: function (instance) {
                         if (!instance.title.isValid()) {
@@ -184,7 +185,7 @@
             currentSortingOption: currentSortingOption,
             sortingOptions: constants.sortingOptions,
 
-            navigateToDetails: navigateToDetails,
+            navigateToEdit: navigateToEdit,
             navigateToObjectives: navigateToObjectives,
 
             addQuestion: addQuestion,
