@@ -71,7 +71,7 @@ And input text 'AnswerOption14' into answer option text field 'AnswerOption12'
 And click on correct answer option for 'AnswerOption11'
 And click on back to objective
 And mouse hover element of questions list with title 'Question11'
-And click on edit question with title 'Question11'
+And click on open question with title 'Question11'
 Then answer options list contains only items with data
 | Text           |
 | AnswerOption11 |

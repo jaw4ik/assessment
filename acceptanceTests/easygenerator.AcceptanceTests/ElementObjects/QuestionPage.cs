@@ -242,8 +242,8 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             get
             {
                 var el = GetByXPathInside(model.AnswerItemText);
-                return el.GetTextContent();
-                //return el.GetAttribute("value");
+                //return el.GetTextContent();
+                return el.GetAttribute("value");
             }
         }
 
