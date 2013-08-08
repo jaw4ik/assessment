@@ -225,14 +225,14 @@
                     expect(viewModel.deleteQuestions).toEqual(jasmine.any(Function));
                 });
 
-                it('should send event \'Delete question(s)\'', function () {
+                it('should send event \'Delete question\'', function () {
                     spyOn(eventTracker, 'publish');
                     viewModel.questions()[0].isSelected(false);
                     viewModel.questions()[0].isSelected(true);
 
                     viewModel.deleteQuestions();
 
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete question(s)', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete question', eventsCategory);
                 });
 
                 it('should delete selected question', function () {
