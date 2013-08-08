@@ -53,6 +53,7 @@
                 sendEvent(events.navigateToRelatedObjective);
                 router.navigateTo('#/objective/' + this.objectiveId);
             },
+            
             goToPreviousQuestion = function () {
                 if (!hasPrevious)
                     router.navigateTo('#/404');
@@ -60,6 +61,7 @@
                 sendEvent(events.navigateToPreviousQuestion);
                 router.navigateTo('#/objective/' + this.objectiveId + '/question/' + this.previousId);
             },
+            
             goToNextQuestion = function () {
                 if (!hasNext)
                     router.navigateTo('#/404');
@@ -67,12 +69,22 @@
                 sendEvent(events.navigateToNextQuestion);
                 router.navigateTo('#/objective/' + this.objectiveId + '/question/' + this.nextId);
             },
+            
             toggleAnswers = function () {
                 this.isAnswersBlockExpanded(!isAnswersBlockExpanded());
             },
+            
             toggleExplanations = function () {
                 this.isExplanationsBlockExpanded(!isExplanationsBlockExpanded());
+                
+                if (!this.isExplanationsBlockExpanded()) {
+                    _.each(this.explanations(), function (item) {
+                        if (item.isEditing())
+                            item.isEditing(false);
+                    });
+                }
             },
+            
             addAnswerOption = function () {
                 sendEvent(events.addAnswerOption);
 
@@ -100,6 +112,7 @@
                     answerOptions.push(observableAnswer);
                 }
             },
+            
             toggleAnswerCorrectness = function (instance) {
                 sendEvent(events.toggleAnswerCorrectness);
 
@@ -125,6 +138,7 @@
                     notification.update();
                 }
             },
+            
             saveAnswerOption = function (instance, context) {
                 sendEvent(events.saveAnswerOption);
 
@@ -154,9 +168,11 @@
                     notification.update();
                 }
             },
+            
             updateAnswerOptionText = function (instance, context) {
                 instance.isEmpty(_.isEmptyOrWhitespace(context.target.value));
             },
+            
             deleteAnswerOption = function (instance) {
                 sendEvent(events.deleteAnswerOption);
 
@@ -177,6 +193,7 @@
                     answerOptions.remove(answer);
                 }
             },
+            
             addExplanation = function () {
                 sendEvent(events.addExplanation);
                 var explanation = mapExplanation(new expalantionModel({
@@ -189,6 +206,7 @@
 
                 this.explanations.push(explanation);
             },
+            
             deleteExplanation = function (explanation) {
                 sendEvent(events.deleteExplanation);
                 this.question().explanations = _.reject(this.question().explanations, function (item) {
@@ -200,6 +218,7 @@
 
                 this.explanations.remove(explanation);
             },
+            
             activate = function (routeData) {
                 if (_.isEmpty(routeData) || _.isEmpty(routeData.objectiveId) || _.isEmpty(routeData.id)) {
                     router.navigateTo('#/400');
@@ -240,12 +259,14 @@
                 currentLanguage(localizationManager.currentLanguage);
                 notification.visibility(false);
             },
+            
             deactivate = function () {
                 _.each(this.explanations(), function(item) {
                     if (item.isEditing())
                         item.isEditing(false);
                 });
             },
+            
             mapAnswerOption = function (answer) {
                 return {
                     id: answer.id,
@@ -255,6 +276,7 @@
                     isEmpty: ko.observable(answer.text == '')
                 };
             },
+            
             mapExplanation = function (explanation) {
                 var mappedExplanation = {
                     text: ko.observable(explanation.text),
@@ -297,6 +319,7 @@
                 })(mappedExplanation);
                 return mappedExplanation;
             },
+            
             generateNewEntryId = function (collection) {
                 var id = 0;
                 if (collection.length > 0) {
@@ -309,6 +332,7 @@
 
                 return id;
             },
+            
             saveExplanation = function (id, text) {
                 if (_.isEmptyOrWhitespace(text))
                     return;
