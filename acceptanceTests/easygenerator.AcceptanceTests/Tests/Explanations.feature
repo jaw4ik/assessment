@@ -44,7 +44,6 @@ Then explanation delete button is enabled true for explanation with text 'Explan
 
 Scenario: Delete buttons are not enabled for inactive explanation elements
 When open page by url 'http://localhost:5656/#/objective/1/question/1'
-And sleep
 And mouse hover element of explanation with text 'Explanation12'
 Then explanation delete button is enabled true for explanation with text 'Explanation12'
 And explanation delete button is enabled false for explanation with text 'Explanation11'
@@ -88,7 +87,6 @@ Then explanations list contains only items with data
 
 Scenario: Changes to explanation data are not lost when user go out from current question page
 When open page by url 'http://localhost:5656/#/objective/1/question/1'
-And sleep
 And input text 'Explanation14' into explanation text field 'Explanation12'
 And click on back to objective
 And mouse hover element of questions list with title 'Question11'
