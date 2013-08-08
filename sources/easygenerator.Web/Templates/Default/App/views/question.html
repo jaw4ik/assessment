@@ -28,8 +28,8 @@
         </div>
         <ul class="question-answers unstyled" data-bind="foreach: answers">
             <li class="question-answer">
-                <div class="question-answer-checkbox" data-bind="click: toggleCheck, css: { checked: isChecked() }">
-                    <input type="checkbox" class="custom-checkbox"/>
+                <div>
+                    <a class="question-answer-checkbox" data-bind="click: toggleCheck, css: { checked: isChecked() }"></a>
                 </div>
                 <div class="question-answer-text selectable" data-bind="text: text"></div>
             </li>
