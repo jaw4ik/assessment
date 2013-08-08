@@ -110,6 +110,7 @@
     <Compile Include="Helpers\DriverProvider.cs" />
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\FsHelper.cs" />
+    <Compile Include="Helpers\TestExperienceBuilder.cs" />
     <Compile Include="Helpers\TestUtils.cs" />
     <Compile Include="LinkingModels\ILinkingModel.cs" />
     <Compile Include="ElementObjects\BasePageElement.cs" />
@@ -250,7 +251,8 @@ IF NOT EXIST IEDriverServer.exe (xcopy $(ProjectDir)..\packages\WebDriver.IEDriv
 IF NOT EXIST StartServer.bat (xcopy $(ProjectDir)..\StartServer.bat)
 IF EXIST "easygenerator.Web\" (rd /Q /S "easygenerator.Web")
 IF EXIST "ChromeData\" (rd /Q /S "ChromeData")
-xcopy  /S /F /Y /I "$(ProjectDir)..\..\sources\easygenerator.Web" ".\easygenerator.Web\"</PostBuildEvent>
+xcopy  /E /F /Y /I "$(ProjectDir)..\..\sources\easygenerator.Web" ".\easygenerator.Web\"
+xcopy  /F /Y $(ProjectDir)..\testdata.json</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

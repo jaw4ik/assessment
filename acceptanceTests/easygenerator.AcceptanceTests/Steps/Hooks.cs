@@ -15,6 +15,15 @@ namespace easygenerator.AcceptanceTests.Steps
         public static void InitTestRun()
         {
             Process.Start("StartServer.bat");
+
+            TestExperienceBuilder builder = new TestExperienceBuilder();
+            System.Threading.Thread.Sleep(6000);
+            string result = builder.BuildExperience("testdata.json", @"http://localhost:5656/experience/build");
+            if (System.IO.Directory.Exists(@"easygenerator.Web\Templates\TestPackage"))
+            {
+                System.IO.Directory.Delete(@"easygenerator.Web\Templates\TestPackage", true);
+            }
+            System.IO.Compression.ZipFile.ExtractToDirectory(@"easygenerator.Web\Download\7.zip", @"easygenerator.Web\Templates\TestPackage");
         }
         [AfterTestRun]
         public static void CleanTestRun()

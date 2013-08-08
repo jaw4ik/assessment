@@ -88,132 +88,276 @@ testRunner.Given("publications are present in database", ((string)(null)), table
                         "Title",
                         "Id"});
             table2.AddRow(new string[] {
-                        "Objective1",
+                        "Objective11",
                         "1"});
             table2.AddRow(new string[] {
-                        "Objective2",
+                        "Objective12",
                         "2"});
+            table2.AddRow(new string[] {
+                        "Objective21",
+                        "3"});
+            table2.AddRow(new string[] {
+                        "Objective22",
+                        "4"});
 #line 12
-testRunner.Given("objectives related to \'Experience1\' are present in database", ((string)(null)), table2, "Given ");
+testRunner.Given("objectives are present in database", ((string)(null)), table2, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
             table3.AddRow(new string[] {
-                        "Question1",
+                        "Objective11",
                         "1"});
             table3.AddRow(new string[] {
-                        "Question2",
+                        "Objective12",
                         "2"});
-#line 17
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table3, "Given ");
+#line 18
+testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table3, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Text",
-                        "isCorrect"});
-            table4.AddRow(new string[] {
-                        "AnswerOption11",
-                        "true"});
-            table4.AddRow(new string[] {
-                        "AnswerOption12",
-                        "false"});
-#line 21
-testRunner.Given("answer options related to \'Question1\' of \'Objective1\' are present in database", ((string)(null)), table4, "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Text",
-                        "isCorrect"});
-            table5.AddRow(new string[] {
-                        "AnswerOption21",
-                        "true"});
-            table5.AddRow(new string[] {
-                        "AnswerOption22",
-                        "false"});
-#line 25
-testRunner.Given("answer options related to \'Question2\' of \'Objective1\' are present in database", ((string)(null)), table5, "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Explanation"});
-            table6.AddRow(new string[] {
-                        "Explanation11"});
-            table6.AddRow(new string[] {
-                        "Explanation12"});
-#line 29
-testRunner.Given("explanations related to \'Question1\' of \'Objective1\' are present in database", ((string)(null)), table6, "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Explanation"});
-            table7.AddRow(new string[] {
-                        "Explanation21"});
-            table7.AddRow(new string[] {
-                        "Explanation22"});
-#line 33
-testRunner.Given("explanations related to \'Question2\' of \'Objective1\' are present in database", ((string)(null)), table7, "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table8.AddRow(new string[] {
-                        "Question21",
+            table4.AddRow(new string[] {
+                        "Objective21",
+                        "3"});
+            table4.AddRow(new string[] {
+                        "Objective22",
+                        "4"});
+#line 22
+testRunner.Given("objectives are linked to experiance \'Experience2\'", ((string)(null)), table4, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table5.AddRow(new string[] {
+                        "Question11",
                         "1"});
-            table8.AddRow(new string[] {
-                        "Question22",
+            table5.AddRow(new string[] {
+                        "Question12",
                         "2"});
-#line 38
-testRunner.Given("questions related to \'Objective2\' are present in database", ((string)(null)), table8, "Given ");
+#line 27
+testRunner.Given("questions related to \'Objective11\' are present in database", ((string)(null)), table5, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Text",
+                        "isCorrect"});
+            table6.AddRow(new string[] {
+                        "AnswerOption11",
+                        "true"});
+            table6.AddRow(new string[] {
+                        "AnswerOption12",
+                        "false"});
+#line 31
+testRunner.Given("answer options related to \'Question11\' of \'Objective11\' are present in database", ((string)(null)), table6, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Text",
+                        "isCorrect"});
+            table7.AddRow(new string[] {
+                        "AnswerOption21",
+                        "true"});
+            table7.AddRow(new string[] {
+                        "AnswerOption22",
+                        "false"});
+#line 35
+testRunner.Given("answer options related to \'Question12\' of \'Objective11\' are present in database", ((string)(null)), table7, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Explanation"});
+            table8.AddRow(new string[] {
+                        "Explanation11"});
+            table8.AddRow(new string[] {
+                        "Explanation12"});
+#line 39
+testRunner.Given("explanations related to \'Question11\' of \'Objective11\' are present in database", ((string)(null)), table8, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Text",
-                        "isCorrect"});
+                        "Explanation"});
             table9.AddRow(new string[] {
-                        "AnswerOption211",
-                        "true"});
+                        "Explanation21"});
             table9.AddRow(new string[] {
-                        "AnswerOption212",
-                        "false"});
-#line 42
-testRunner.Given("answer options related to \'Question21\' of \'Objective2\' are present in database", ((string)(null)), table9, "Given ");
+                        "Explanation22"});
+#line 43
+testRunner.Given("explanations related to \'Question12\' of \'Objective11\' are present in database", ((string)(null)), table9, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Text",
-                        "isCorrect"});
+                        "Title",
+                        "Id"});
             table10.AddRow(new string[] {
-                        "AnswerOption221",
-                        "true"});
+                        "Question21",
+                        "1"});
             table10.AddRow(new string[] {
-                        "AnswerOption222",
-                        "false"});
-#line 46
-testRunner.Given("answer options related to \'Question22\' of \'Objective2\' are present in database", ((string)(null)), table10, "Given ");
+                        "Question22",
+                        "2"});
+#line 48
+testRunner.Given("questions related to \'Objective12\' are present in database", ((string)(null)), table10, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Explanation"});
+                        "Text",
+                        "isCorrect"});
             table11.AddRow(new string[] {
-                        "Explanation211"});
+                        "AnswerOption211",
+                        "true"});
             table11.AddRow(new string[] {
-                        "Explanation212"});
-#line 50
-testRunner.Given("explanations related to \'Question21\' of \'Objective2\' are present in database", ((string)(null)), table11, "Given ");
+                        "AnswerOption212",
+                        "false"});
+#line 52
+testRunner.Given("answer options related to \'Question21\' of \'Objective12\' are present in database", ((string)(null)), table11, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Text",
+                        "isCorrect"});
+            table12.AddRow(new string[] {
+                        "AnswerOption221",
+                        "true"});
+            table12.AddRow(new string[] {
+                        "AnswerOption222",
+                        "false"});
+#line 56
+testRunner.Given("answer options related to \'Question22\' of \'Objective12\' are present in database", ((string)(null)), table12, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
                         "Explanation"});
-            table12.AddRow(new string[] {
-                        "Explanation221"});
-            table12.AddRow(new string[] {
-                        "Explanation222"});
-#line 54
-testRunner.Given("explanations related to \'Question22\' of \'Objective2\' are present in database", ((string)(null)), table12, "Given ");
-#line 59
-testRunner.And("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            table13.AddRow(new string[] {
+                        "Explanation211"});
+            table13.AddRow(new string[] {
+                        "Explanation212"});
 #line 60
-testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 61
-testRunner.And("click build publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 62
-testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 63
-testRunner.And("click download publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.Given("explanations related to \'Question21\' of \'Objective12\' are present in database", ((string)(null)), table13, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Explanation"});
+            table14.AddRow(new string[] {
+                        "Explanation221"});
+            table14.AddRow(new string[] {
+                        "Explanation222"});
 #line 64
+testRunner.Given("explanations related to \'Question22\' of \'Objective12\' are present in database", ((string)(null)), table14, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table15.AddRow(new string[] {
+                        "Question11e2",
+                        "1"});
+            table15.AddRow(new string[] {
+                        "Question12e2",
+                        "2"});
+#line 70
+testRunner.Given("questions related to \'Objective21\' are present in database", ((string)(null)), table15, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Text",
+                        "isCorrect"});
+            table16.AddRow(new string[] {
+                        "AnswerOption11e2",
+                        "true"});
+            table16.AddRow(new string[] {
+                        "AnswerOption12e2",
+                        "false"});
+#line 74
+testRunner.Given("answer options related to \'Question11e2\' of \'Objective21\' are present in database" +
+                    "", ((string)(null)), table16, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Text",
+                        "isCorrect"});
+            table17.AddRow(new string[] {
+                        "AnswerOption21e2",
+                        "true"});
+            table17.AddRow(new string[] {
+                        "AnswerOption22e2",
+                        "false"});
+#line 78
+testRunner.Given("answer options related to \'Question12e2\' of \'Objective21\' are present in database" +
+                    "", ((string)(null)), table17, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Explanation"});
+            table18.AddRow(new string[] {
+                        "Explanation11e2"});
+            table18.AddRow(new string[] {
+                        "Explanation12e2"});
+#line 82
+testRunner.Given("explanations related to \'Question11e2\' of \'Objective21\' are present in database", ((string)(null)), table18, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Explanation"});
+            table19.AddRow(new string[] {
+                        "Explanation21e2"});
+            table19.AddRow(new string[] {
+                        "Explanation22e2"});
+#line 86
+testRunner.Given("explanations related to \'Question12e2\' of \'Objective21\' are present in database", ((string)(null)), table19, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table20.AddRow(new string[] {
+                        "Question21e2",
+                        "1"});
+            table20.AddRow(new string[] {
+                        "Question22e2",
+                        "2"});
+#line 91
+testRunner.Given("questions related to \'Objective22\' are present in database", ((string)(null)), table20, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Text",
+                        "isCorrect"});
+            table21.AddRow(new string[] {
+                        "AnswerOption211e2",
+                        "true"});
+            table21.AddRow(new string[] {
+                        "AnswerOption212e2",
+                        "false"});
+#line 95
+testRunner.Given("answer options related to \'Question21e2\' of \'Objective22\' are present in database" +
+                    "", ((string)(null)), table21, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Text",
+                        "isCorrect"});
+            table22.AddRow(new string[] {
+                        "AnswerOption221e2",
+                        "true"});
+            table22.AddRow(new string[] {
+                        "AnswerOption222e2",
+                        "false"});
+#line 99
+testRunner.Given("answer options related to \'Question22e2\' of \'Objective22\' are present in database" +
+                    "", ((string)(null)), table22, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table23 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Explanation"});
+            table23.AddRow(new string[] {
+                        "Explanation211e2"});
+            table23.AddRow(new string[] {
+                        "Explanation212e2"});
+#line 103
+testRunner.Given("explanations related to \'Question21e2\' of \'Objective22\' are present in database", ((string)(null)), table23, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table24 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Explanation"});
+            table24.AddRow(new string[] {
+                        "Explanation221e2"});
+            table24.AddRow(new string[] {
+                        "Explanation222e2"});
+#line 107
+testRunner.Given("explanations related to \'Question22e2\' of \'Objective22\' are present in database", ((string)(null)), table24, "Given ");
+#line 112
+testRunner.And("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 113
+testRunner.And("sleep \'5000\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 114
+testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 115
+testRunner.And("click build publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 116
+testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 117
+testRunner.And("click download publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 118
 testRunner.And("unzip \'1.zip\' package to \'tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
@@ -223,21 +367,23 @@ testRunner.And("unzip \'1.zip\' package to \'tmp\'", ((string)(null)), ((TechTal
         public virtual void AllPackageObjectivesArePresentOnPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All package objectives are present on page", ((string[])(null)));
-#line 66
+#line 120
 this.ScenarioSetup(scenarioInfo);
 #line 7
 this.FeatureBackground();
-#line 67
+#line 121
 testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table13.AddRow(new string[] {
-                        "Objective1"});
-            table13.AddRow(new string[] {
-                        "Objective2"});
-#line 68
-testRunner.Then("package objectives tiles list contains only items with data", ((string)(null)), table13, "Then ");
+            table25.AddRow(new string[] {
+                        "Objective11"});
+            table25.AddRow(new string[] {
+                        "Objective12"});
+#line 122
+testRunner.Then("package objectives tiles list contains only items with data", ((string)(null)), table25, "Then ");
+#line 126
+testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             this.ScenarioCleanup();
         }

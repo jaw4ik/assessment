@@ -27,17 +27,17 @@ namespace easygenerator.AcceptanceTests.Helpers
             });
         }
 
-        public void AddObjectivesToDatabase(string expTitle, Objective[] objectives)
+        public void AddObjectivesToExperiance(string expTitle, Objective[] objectives)
         {
             UpdateDataContext((dataContext) =>
             {
                 var experience = dataContext.Experiences.First(obj => obj.Title == expTitle);
                 experience.Objectives.Clear();
-                dataContext.Objectives.Clear();
+                //dataContext.Objectives.Clear();
                 foreach (var objective in objectives)
                 {
                     experience.Objectives.Add(objective.Id);
-                    dataContext.Objectives.Add(objective);
+                    //dataContext.Objectives.Add(objective);
                 }
             });
         }

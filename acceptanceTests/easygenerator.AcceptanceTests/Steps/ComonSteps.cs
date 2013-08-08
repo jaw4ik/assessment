@@ -52,6 +52,11 @@ namespace easygenerator.AcceptanceTests.Steps
             DriverProvider.Current().Driver.Navigate().GoToUrl(url);
         }
 
+        [Given(@"sleep '(.*)'")]
+        public void WhenSleep(int timeout)
+        {
+            System.Threading.Thread.Sleep(timeout);
+        }
 
     }
 }

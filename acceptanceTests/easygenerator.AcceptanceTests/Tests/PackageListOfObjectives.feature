@@ -9,54 +9,108 @@ Given publications are present in database
 | Title       | Id |
 | Experience1 | 1  |
 | Experience2 | 2  |
-Given objectives related to 'Experience1' are present in database
-| Title      | Id |
-| Objective1 | 1  |
-| Objective2 | 2  |
+Given objectives are present in database
+| Title       | Id |
+| Objective11 | 1  |
+| Objective12 | 2  |
+| Objective21 | 3  |
+| Objective22 | 4  |
+Given objectives are linked to experiance 'Experience1'
+| Title       | Id |
+| Objective11 | 1  |
+| Objective12 | 2  |
+Given objectives are linked to experiance 'Experience2'
+| Title       | Id |
+| Objective21 | 3  |
+| Objective22 | 4  |
 
-Given questions related to 'Objective1' are present in database
-| Title     | Id |
-| Question1 | 1  |
-| Question2 | 2  |
-Given answer options related to 'Question1' of 'Objective1' are present in database
+Given questions related to 'Objective11' are present in database
+| Title      | Id |
+| Question11 | 1  |
+| Question12 | 2  |
+Given answer options related to 'Question11' of 'Objective11' are present in database
 | Text           | isCorrect |
 | AnswerOption11 | true      |
 | AnswerOption12 | false     |
-Given answer options related to 'Question2' of 'Objective1' are present in database
+Given answer options related to 'Question12' of 'Objective11' are present in database
 | Text           | isCorrect |
 | AnswerOption21 | true      |
 | AnswerOption22 | false     |
-Given explanations related to 'Question1' of 'Objective1' are present in database
+Given explanations related to 'Question11' of 'Objective11' are present in database
 | Explanation   |
 | Explanation11 |
 | Explanation12 |
-Given explanations related to 'Question2' of 'Objective1' are present in database
+Given explanations related to 'Question12' of 'Objective11' are present in database
 | Explanation   |
 | Explanation21 |
 | Explanation22 |
 
-Given questions related to 'Objective2' are present in database
+Given questions related to 'Objective12' are present in database
 | Title      | Id |
 | Question21 | 1  |
 | Question22 | 2  |
-Given answer options related to 'Question21' of 'Objective2' are present in database
+Given answer options related to 'Question21' of 'Objective12' are present in database
 | Text            | isCorrect |
 | AnswerOption211 | true      |
 | AnswerOption212 | false     |
-Given answer options related to 'Question22' of 'Objective2' are present in database
+Given answer options related to 'Question22' of 'Objective12' are present in database
 | Text            | isCorrect |
 | AnswerOption221 | true      |
 | AnswerOption222 | false     |
-Given explanations related to 'Question21' of 'Objective2' are present in database
+Given explanations related to 'Question21' of 'Objective12' are present in database
 | Explanation    |
 | Explanation211 |
 | Explanation212 |
-Given explanations related to 'Question22' of 'Objective2' are present in database
+Given explanations related to 'Question22' of 'Objective12' are present in database
 | Explanation    |
 | Explanation221 |
 | Explanation222 |
 
+
+Given questions related to 'Objective21' are present in database
+| Title        | Id |
+| Question11e2 | 1  |
+| Question12e2 | 2  |
+Given answer options related to 'Question11e2' of 'Objective21' are present in database
+| Text             | isCorrect |
+| AnswerOption11e2 | true      |
+| AnswerOption12e2 | false     |
+Given answer options related to 'Question12e2' of 'Objective21' are present in database
+| Text             | isCorrect |
+| AnswerOption21e2 | true      |
+| AnswerOption22e2 | false     |
+Given explanations related to 'Question11e2' of 'Objective21' are present in database
+| Explanation     |
+| Explanation11e2 |
+| Explanation12e2 |
+Given explanations related to 'Question12e2' of 'Objective21' are present in database
+| Explanation     |
+| Explanation21e2 |
+| Explanation22e2 |
+
+Given questions related to 'Objective22' are present in database
+| Title        | Id |
+| Question21e2 | 1  |
+| Question22e2 | 2  |
+Given answer options related to 'Question21e2' of 'Objective22' are present in database
+| Text              | isCorrect |
+| AnswerOption211e2 | true      |
+| AnswerOption212e2 | false     |
+Given answer options related to 'Question22e2' of 'Objective22' are present in database
+| Text              | isCorrect |
+| AnswerOption221e2 | true      |
+| AnswerOption222e2 | false     |
+Given explanations related to 'Question21e2' of 'Objective22' are present in database
+| Explanation      |
+| Explanation211e2 |
+| Explanation212e2 |
+Given explanations related to 'Question22e2' of 'Objective22' are present in database
+| Explanation      |
+| Explanation221e2 |
+| Explanation222e2 |
+
 And open page by url 'http://localhost:5656/#/experiences'
+And sleep '5000'
 And mouse hover element of publications list with title 'Experience1'
 And click build publication list item with title 'Experience1'
 And mouse hover element of publications list with title 'Experience1'
@@ -67,6 +121,7 @@ Scenario: All package objectives are present on page
 When open page by url 'http://localhost:5656/Templates/tmp'
 Then package objectives tiles list contains only items with data 
 | Title      |
-| Objective1 |
-| Objective2 |
+| Objective11 |
+| Objective12 |
+When open page by url 'http://localhost:5656/Templates/tmp'
 
