@@ -12,7 +12,7 @@ require.config({
 //>>excludeEnd("build");
 
 ko.validation.configure({
-    errorMessageClass: 'help-inline'
+    insertMessages: false
 });
 
 define(function (require) {

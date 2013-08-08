@@ -287,6 +287,11 @@
         nl: 'Nieuwe vraag toevoegen',
         de: 'Neue Fragen hinzufügen'
     },
+    clickToAddNewQuestion   : {
+        en: 'Click here to add question',
+        nl: 'Click here to add question[nl]',
+        de: 'Click here to add question[de]'
+    },
     /* End resource section for model Questions */
     
     /* Resource section for model customLocalizationPlugin */

@@ -659,9 +659,6 @@ define(function (require) {
                 expect(viewModel.explanations()[0].isEditing()).toBe(true);
             });
 
-            it('should be observable', function () {
-                expect(ko.isObservable(viewModel.language)).toBe(true);
-            });
 
             it('should set canAddExplanation to false', function () {
                 //assert

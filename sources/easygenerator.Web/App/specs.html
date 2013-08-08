@@ -62,54 +62,49 @@
                 beforeEach(function () {
                     var matchers = {
                         toBeSortedAsc: function (sortingField) {
-
-                            if (this.isNot) {
-                                throw '[.not] is not supported';
-                            }
-
-                            if (_.isEmpty(sortingField)) {
-                                throw 'You should specify sorting field';
-                            }
-
-                            this.message = function () {
-                                return "Expected " + JSON.stringify(this.actual) + " to be sorted ascending by '" + sortingField + "'";
-                            };
-
-                            var arr = this.actual;
-                            for (var i = 0, len = arr.length; i < len - 1; i++) {
-                                if (arr[i][sortingField].toLowerCase() > arr[i + 1][sortingField].toLowerCase()) {
-                                    return false;
-                                }
-                            }
-                            return true;
+                            return toBeSorted(sortingField, this.actual, true);
                         },
 
                         toBeSortedDesc: function (sortingField) {
-
-                            if (this.isNot) {
-                                throw '[.not] is not supported';
-                            }
-
-                            if (_.isEmpty(sortingField)) {
-                                throw 'You should specify sorting field';
-                            }
-
-                            this.message = function () {
-                                return "Expected " + JSON.stringify(this.actual) + " to be sorted descending by '" + sortingField + "'";
-                            };
-
-                            var arr = this.actual;
-                            for (var i = 0, len = arr.length; i < len - 1; i++) {
-                                if (arr[i][sortingField].toLowerCase() < arr[i + 1][sortingField].toLowerCase()) {
-                                    return false;
-                                }
-                            }
-                            return true;
+                            return toBeSorted(sortingField, this.actual, false);
                         }
                     };
 
                     this.addMatchers(matchers);
                 });
+
+                function toBeSorted(sortingField, asc, actual) {
+                    if (this.isNot) {
+                        throw '[.not] is not supported';
+                    }
+
+                    if (_.isEmpty(sortingField)) {
+                        throw 'You should specify sorting field';
+                    }
+
+                    this.message = function () {
+                        if (asc)
+                            return "Expected " + JSON.stringify(this.actual) + " to be sorted ascending by '" + sortingField + "'";
+
+                        return "Expected " + JSON.stringify(this.actual) + " to be sorted descending by '" + sortingField + "'";
+                    };
+
+                    var arr = actual;
+                    for (var i = 0, len = arr.length; i < len - 1; i++) {
+                        var value1 = arr[i][sortingField];
+                        var value2 = arr[i + 1][sortingField];
+
+                        if (ko.isObservable(value1)) {
+                            value1 = value1();
+                            value2 = value2();
+                        }
+
+                        if (asc) {
+                            if (value1.toLowerCase() > value2.toLowerCase()) return false;
+                        } else if (value1.toLowerCase() < value2.toLowerCase()) return false;
+                    }
+                    return true;
+                }
 
             });
         })();
