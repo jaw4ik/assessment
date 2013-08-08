@@ -11,6 +11,7 @@ namespace easygenerator.Web.BuildExperience
     public class BuildPackageCreator
     {
         private PhysicalFileManager _fileManager;
+        private static List<string> _ignoredTypes = new List<string>(new string[] { ".exe" }); 
 
         public BuildPackageCreator(PhysicalFileManager fileManager)
         {
@@ -20,10 +21,10 @@ namespace easygenerator.Web.BuildExperience
         public virtual void CreatePackageFromFolder(string packageFolderPath, string destinationFileName)
         {
             _fileManager.DeleteFile(destinationFileName);
-            DoCreateFromDirectory(packageFolderPath, destinationFileName);
+            DoCreateFromDirectory(packageFolderPath, destinationFileName, _ignoredTypes);
         }
 
-        private static void DoCreateFromDirectory(string sourceDirectoryName, string destinationArchiveFileName)
+        private static void DoCreateFromDirectory(string sourceDirectoryName, string destinationArchiveFileName, List<string> ignoredTypes)
         {
             sourceDirectoryName = Path.GetFullPath(sourceDirectoryName);
             destinationArchiveFileName = Path.GetFullPath(destinationArchiveFileName);
@@ -38,7 +39,8 @@ namespace easygenerator.Web.BuildExperience
                     string entryName = info2.FullName.Substring(fullName.Length, length).TrimStart(new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar });
                     if (info2 is FileInfo)
                     {
-                        archive.CreateEntryFromFile(info2.FullName, entryName.Replace("\\", "/"));
+                        if (!ignoredTypes.Contains(info2.Extension.ToLower()))
+                            archive.CreateEntryFromFile(info2.FullName, entryName.Replace("\\", "/"));
                     }
                     else
                     {
