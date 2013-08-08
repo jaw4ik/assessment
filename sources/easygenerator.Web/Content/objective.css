@@ -11,13 +11,14 @@
 .navbar {
     height: 57px;
     width: 100%;
-    margin: 7px 0;
+    margin: 12px 0 7px;
 }
 
 .nav-control {
     height: 57px;
     width: 100%;
     line-height: 57px;
+    -ms-opacity: 0.6;
     opacity: 0.6;
     filter: alpha(opacity=60);
     white-space: nowrap;
@@ -57,7 +58,7 @@ a.nav-control:hover {
 .objective-header {
     height: 240px;
     width: 100%;
-    padding: 15px 0;
+    padding: 5px 0 15px;
 }
 
 .objective-image {
