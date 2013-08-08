@@ -160,6 +160,15 @@ input[type="checkbox"] {
     margin-left: -16px;
 }
 
+.loader-image {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    vertical-align: middle;
+    background-image: url(../img/loader.gif);
+    background-repeat: no-repeat;
+}
+
 .header {
     padding-left: 20px;
     height: 40px;
