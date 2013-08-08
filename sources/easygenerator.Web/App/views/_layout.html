@@ -6,7 +6,7 @@
 <div class="icon-spinner-wrapper" data-bind="visible: router.isNavigating()">
     <img src="/Content/images/loader.gif" alt="" />
 </div>
-<section id="content" class="main" data-bind="visible: !router.isNavigating()">
+<section id="content" class="main" data-bind="style: { visibility: router.isNavigating() ? 'hidden' : 'visible'}">
     <!--ko compose: {
         model: router.activeItem, 
         afterCompose: router.afterCompose } -->
