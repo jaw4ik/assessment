@@ -203,7 +203,14 @@
 
 .objective-brief-inner {
     height: 100%;
+    width: 100%;
+    position: relative;
+    z-index: 10;
 }
+
+    .objective-brief-inner > * {
+        height: 100%;
+    }
 
 .objective-brief-selected {
     -webkit-box-shadow: 0 0 9px 2px #6bb4d8;
@@ -287,26 +294,6 @@
     background: url('images/objexp-sprite.png') 0 -272px;
 }
 
-.objective-brief-title {
-    float: left;
-    overflow: hidden;
-    padding: 0 10px;
-    width: 321px;
-    height: 38px;
-    border-right: 1px solid #E3E3E3;
-    color: #333333;
-    font-size: 12px;
-    line-height: 40px;
-}
-
-    .objective-brief-title > span {
-        display: block;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        cursor: default;
-    }
-
 .objective-brief-toolbar {
     height: 40px;
     width: 100%;
@@ -315,18 +302,33 @@
     border: 1px solid #E3E3E3;
     background: #fff;
     vertical-align: top;
+    white-space: nowrap;
 }
 
-.objective-brief-toolbar-icon-question {
+.objective-brief-title {
     display: inline-block;
-    width: 16px;
-    height: 15px;
-    background: url('images/objexp-sprite.png') 0 -321px;
+    height: 38px;
+    line-height: 40px;
+    width: 321px;
+    padding: 0 10px;
+    border-right: 1px solid #E3E3E3;
+    overflow: hidden;
+    vertical-align: top;
+    color: #333333;
+    font-size: 12px;
 }
+
+    .objective-brief-title > span {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        -ms-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        cursor: default;
+    }
 
 .objective-brief-toolbar-question-count {
-    display: block;
-    float: left;
+    display: inline-block;
     padding: 5px 0;
     width: 29px;
     color: #484848;
@@ -334,6 +336,14 @@
     font-size: 12px;
     font-family: Arial,sans-serif;
     line-height: 12px;
+}
+
+
+.objective-brief-toolbar-icon-question {
+    display: inline-block;
+    width: 16px;
+    height: 15px;
+    background: url('images/objexp-sprite.png') 0 -321px;
 }
 
 .objective-question-count-text {

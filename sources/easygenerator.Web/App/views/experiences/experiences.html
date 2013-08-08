@@ -82,42 +82,44 @@
                         </div>
                         <!-- /ko -->
                         <div class="white-framing experience-brief-inner">
-                            <div class="experience-brief-image"></div>
-                            <div class="experience-brief-toolbar">
-                                <div class="experience-brief-title" data-bind="attr: { title: title }">
-                                    <span class="selectable" data-bind="text: title"></span>
+                            <figure>
+                                <div class="experience-brief-image"></div>
+                                <figcaption class="experience-brief-toolbar">
+                                    <div class="experience-brief-title" data-bind="attr: { title: title }">
+                                        <span class="selectable" data-bind="text: title"></span>
+                                    </div><!--
+                                 --><div class="experience-brief-toolbar-objective-count">
+                                        <span class="experience-brief-toolbar-icon-objective"></span>
+                                        <div class="selectable" data-bind="text: objectives.length"></div>
+                                    </div>
+                                </figcaption>
+                                <div class="experience-brief-option">
+                                    <!-- ko if: showBuildingStatus() || buildingStatus() == $parent.buildingStatuses.notStarted -->
+                                    <div class="experience-brief-option-inner experience-brief-options-open" data-bind="click: $parent.navigateToDetails">
+                                        <div data-bind="localize: { text: 'open' }">Open</div>
+                                        <div class="experience-brief-options-open-image"></div>
+                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko if: !showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.inProgress -->
+                                    <div class="experience-brief-option-inner experience-brief-options-building">
+                                        <div data-bind="localize: { text: 'experienceBuildingStatus' }"></div>
+                                        <div class="experience-brief-options-building-image"></div>
+                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko if: !showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.succeed -->
+                                    <div class="experience-brief-option-inner experience-brief-options-complete" data-bind="event: { mouseover: $parent.enableOpenExperience }">
+                                        <div data-bind="localize: { text: 'experienceCompleteStatus' }"></div>
+                                        <div class="experience-brief-options-complete-image"></div>
+                                    </div>
+                                    <!-- /ko -->
+                                    <!-- ko if: !showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.failed -->
+                                    <div class="experience-brief-option-inner experience-brief-options-failed" data-bind="event: { mouseover: $parent.enableOpenExperience }">
+                                        <div data-bind="localize: { text: 'experienceFailedStatus' }"></div>
+                                        <div class="experience-brief-options-failed-image"></div>
+                                    </div>
+                                    <!-- /ko -->
                                 </div>
-                                <div class="experience-brief-toolbar-objective-count">
-                                    <span class="experience-brief-toolbar-icon-objective"></span>
-                                    <div class="selectable" data-bind="text: objectives.length"></div>
-                                </div>
-                            </div>
-                            <div class="experience-brief-option">
-                                <!-- ko if: showBuildingStatus() || buildingStatus() == $parent.buildingStatuses.notStarted -->
-                                <div class="experience-brief-option-inner experience-brief-options-open" data-bind="click: $parent.navigateToDetails">
-                                    <div data-bind="localize: { text: 'open' }">Open</div>
-                                    <div class="experience-brief-options-open-image"></div>
-                                </div>
-                                <!-- /ko -->
-                                <!-- ko if: !showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.inProgress -->
-                                <div class="experience-brief-option-inner experience-brief-options-building">
-                                    <div data-bind="localize: { text: 'experienceBuildingStatus' }"></div>
-                                    <div class="experience-brief-options-building-image"></div>
-                                </div>
-                                <!-- /ko -->
-                                <!-- ko if: !showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.succeed -->
-                                <div class="experience-brief-option-inner experience-brief-options-complete" data-bind="event: { mouseover: $parent.enableOpenExperience }">
-                                    <div data-bind="localize: { text: 'experienceCompleteStatus' }"></div>
-                                    <div class="experience-brief-options-complete-image"></div>
-                                </div>
-                                <!-- /ko -->
-                                <!-- ko if: !showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.failed -->
-                                <div class="experience-brief-option-inner experience-brief-options-failed" data-bind="event: { mouseover: $parent.enableOpenExperience }">
-                                    <div data-bind="localize: { text: 'experienceFailedStatus' }"></div>
-                                    <div class="experience-brief-options-failed-image"></div>
-                                </div>
-                                <!-- /ko -->
-                            </div>
+                            </figure>
                         </div>
                         <span class="substrate-block">
                             <span class="substrate-inner">

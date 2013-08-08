@@ -33,35 +33,37 @@
                     <!-- ko foreach: objectives -->
                     <li class="objective-brief" data-bind="css: { 'objective-brief-selected': isSelected() }">
                         <div class="white-framing objective-brief-inner">
-                            <div class="objective-brief-image" data-bind="style: { backgroundImage: 'url(' + image + ')' }">
-                            </div>
-                            <div class="objective-brief-toolbar">
-                                <div class="objective-brief-title" data-bind="attr: { title: title }">
-                                    <span class="selectable" data-bind="text: title"></span>
+                            <figure>
+                                <div class="objective-brief-image" data-bind="style: { backgroundImage: 'url(' + image + ')' }">
                                 </div>
-                                <div class="objective-brief-toolbar-question-count" data-bind="localize: { title: 'numberOfRelatedQuestions' }">
-                                    <div class="objective-brief-toolbar-icon-question"></div>
-                                    <div class="objective-question-count-text" data-bind="text: questionsCount"></div>
-                                </div>
-                            </div>
-                            <div class="objective-brief-options">
-                                <div class="objective-brief-options-select" data-bind="click: toggleSelection">
-                                    <!-- ko if: isSelected -->
-                                    <div data-bind="localize: { text: 'unselect' }">Unselect</div>
-                                    <!-- /ko-->
-                                    <!-- ko ifnot: isSelected -->
-                                    <div data-bind="localize: { text: 'select' }">Select</div>
-                                    <!-- /ko-->
-                                    <div class="objective-brief-options-select-image" data-bind="css: { selected: isSelected() }">
-                                        <input class="custom-checkbox" type="checkbox" />
+                                <figcaption class="objective-brief-toolbar">
+                                    <div class="objective-brief-title" data-bind="attr: { title: title }">
+                                        <span class="selectable" data-bind="text: title"></span>
+                                    </div><!--
+                                 --><div class="objective-brief-toolbar-question-count" data-bind="localize: { title: 'numberOfRelatedQuestions' }">
+                                        <div class="objective-brief-toolbar-icon-question"></div>
+                                        <div class="objective-question-count-text" data-bind="text: questionsCount"></div>
+                                    </div>
+                                </figcaption>
+                                <div class="objective-brief-options">
+                                    <div class="objective-brief-options-select" data-bind="click: toggleSelection">
+                                        <!-- ko if: isSelected -->
+                                        <div data-bind="localize: { text: 'unselect' }">Unselect</div>
+                                        <!-- /ko-->
+                                        <!-- ko ifnot: isSelected -->
+                                        <div data-bind="localize: { text: 'select' }">Select</div>
+                                        <!-- /ko-->
+                                        <div class="objective-brief-options-select-image" data-bind="css: { selected: isSelected() }">
+                                            <input class="custom-checkbox" type="checkbox" />
+                                        </div>
+                                    </div>
+                                    <div class="objective-brief-options-separator"></div>
+                                    <div class="objective-brief-options-open" data-bind="click: $parent.navigateToDetails">
+                                        <div data-bind="localize: { text: 'open' }">Open</div>
+                                        <div class="objective-brief-options-open-image"></div>
                                     </div>
                                 </div>
-                                <div class="objective-brief-options-separator"></div>
-                                <div class="objective-brief-options-open" data-bind="click: $parent.navigateToDetails">
-                                    <div data-bind="localize: { text: 'open' }">Open</div>
-                                    <div class="objective-brief-options-open-image"></div>
-                                </div>
-                            </div>
+                            </figure>
                         </div>
                     </li>
                     <!-- /ko -->
