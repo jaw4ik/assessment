@@ -632,6 +632,15 @@ menu, ol, ul {
 /* -------------- end of not supported browser view ------------- */
 
 
+/* -------------- not found view ------------- */
+
+.not-found {
+    padding: 0 20px;
+}
+
+/* -------------- not found view ------------- */
+
+
 /* -------------- progress summary view ------------- */
 .meter-wrapper {
     position: relative;
