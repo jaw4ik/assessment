@@ -6,21 +6,12 @@
             data = valueAccessor().data,
             isEditing = valueAccessor().isEditing;
 
-        var $el = $(element);
-
-        var subscribers = {
-            focusSubscriber: null,
-            blurSubscriber: null,
-            keySubscriber: null,
-            changeSubscriber: null
-        };
-
         var commandsToTrack = ['cut', 'copy', 'paste', 'pastetext', 'undo', 'redo', 'bold', 'italic',
             'underline', 'removeformat', 'numberedlist', 'bulletedlist', 'link', 'unlink', 'table', 'image', 'mediaembed'];
 
         CKEDITOR.config.language = language;
 
-        $el.attr('contenteditable', true);
+        $(element).attr('contenteditable', true);
         var editor = CKEDITOR.inline(element);
 
         editor.on('instanceReady', function () {
@@ -36,20 +27,20 @@
             if (isEditing())
                 editor.focus();
 
-            subscribers.focusSubscriber = editor.on('focus', function () {
+            editor.on('focus', function () {
                 isEditing(true);
             });
 
-            subscribers.blurSubscriber = editor.on('blur', function () {
+            editor.on('blur', function () {
                 isEditing(false);
             });
 
-            subscribers.keySubscriber = editor.on('key', function (event) {
+            editor.on('key', function (event) {
                 if (event.data.keyCode == 27)
                     editor.focusManager.blur();
             });
 
-            subscribers.changeSubscriber = editor.on('change', function () {
+            editor.on('change', function () {
                 data(editor.getData());
             });
         });
@@ -58,12 +49,8 @@
             if (!!CKEDITOR.dialog._.currentTop)
                 CKEDITOR.dialog._.currentTop.hide();
 
-            for (var subscriber in subscribers)
-                subscribers[subscriber].removeListener();
-
-            editor.setData('');
             editor.destroy(true);
-            $el.removeAttr('contenteditable');
+            $(element).removeAttr('contenteditable');
         });
 
         function addCommandsTracking() {
