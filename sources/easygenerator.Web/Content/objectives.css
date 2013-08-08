@@ -68,6 +68,11 @@
     display: table-cell;
     white-space: nowrap;
 }
+    .objectives-header-title.alone,
+    .experiences-header-title.alone,
+    .questions-header-title.alone {
+        display: block;
+    }
 
 .objectives-header-title,
 .experiences-header-title,
@@ -106,9 +111,9 @@
     }
 
 
-.objectives-header-sort-label,
-.experiences-header-sort-label,
-.questions-header-sort-label {
+.objectives-header-sort-label span,
+.experiences-header-sort-label span,
+.questions-header-sort-label span {
     padding-left: 10px;
 }
 

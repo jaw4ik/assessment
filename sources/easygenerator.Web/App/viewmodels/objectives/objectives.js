@@ -21,6 +21,8 @@
             objectives = ko.observableArray([]),
 
             currentSortingOption = ko.observable(),
+            
+            enableSorting = ko.observable(true),
 
             sortByTitleAsc = function () {
                 sendEvent(events.sortByTitleAsc);
@@ -71,6 +73,8 @@
                         .sortBy(function(objective) { return objective.title.toLowerCase(); })
                         .value();
                     objectives(array);
+
+                    enableSorting(objectives().length > 1);
                 });
             };
 
@@ -81,6 +85,7 @@
             sortByTitleDesc: sortByTitleDesc,
             currentSortingOption: currentSortingOption,
             sortingOptions: constants.sortingOptions,
+            enableSorting: enableSorting,
 
             navigateToCreation: navigateToCreation,
             navigateToDetails: navigateToDetails,

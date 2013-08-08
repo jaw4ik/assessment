@@ -141,19 +141,19 @@
         de: 'Download'
     },
     experienceBuildingStatus: {
-        en: 'Building…',
+        en: 'building...',
         nl: 'Samenstellen…',
-        de: 'Aufbau…'
+        de: 'Aufbau...'
     },
     experienceFailedStatus: {
-        en: 'Failed',
-        nl: 'Mislukt',
-        de: 'Fehlgeschlagen'
+        en: 'failed',
+        nl: 'mislukt',
+        de: 'fehlgeschlagen'
     },
     experienceCompleteStatus: {
-        en: 'Complete',
-        nl: 'Voltooid',
-        de: 'Vollständig'
+        en: 'complete',
+        nl: 'voltooid',
+        de: 'vollständig'
     },
     /* End resource section for model Experiences */
     
@@ -244,6 +244,11 @@
         nl: 'Klik hier als u een antwoordoptie wilt toevoegen',
         de: 'Hier klicken, um Anwortoption hinzuzufügen'
     },
+    deleteAnswerOption: {
+        en: 'Delete answer',
+        nl: 'Delete answer[nl]',
+        de: 'Delete answer[de]'
+    },
     /* End resource section for model Question */
     
     /* Resource section for model Questions */
@@ -267,6 +272,11 @@
         nl: 'Juist antwoord',
         de: 'Korrekte Antwort'
     },
+    incorrectAnswer: {
+        en: 'Incorrect answer',
+        nl: 'Incorrect answer[nl]',
+        de: 'Incorrect answer[de]'
+    },
     lastSaving: {
         en: 'Last saving',
         nl: 'Last saving[nl]',
@@ -276,7 +286,190 @@
         en: 'Add new question',
         nl: 'Nieuwe vraag toevoegen',
         de: 'Neue Fragen hinzufügen'
-    }
+    },
     /* End resource section for model Questions */
-
+    
+    /* Resource section for model customLocalizationPlugin */
+    tag_abbr: {
+        en: 'Abbreviation',
+        nl: 'Afkorting',
+        de: 'Abkürzung'
+    },
+    tag_acronym: {
+        en: 'Acronym',
+        nl: 'Acroniem',
+        de: 'Akronym'
+    },
+    tag_blockquote: {
+        en: 'Long quotation',
+        nl: 'Lang citaat',
+        de: 'Langes Zitat'
+    },
+    tag_q: {
+        en: 'Short inline quotation',
+        nl: 'Kort citaat in regel',
+        de: 'Kurzes Zitat in Zeile'
+    },
+    tag_cite: {
+        en: 'Citation',
+        nl: 'Aanhaling',
+        de: 'Zitat'
+    },
+    tag_dfn: {
+        en: 'Definition',
+        nl: 'Definitie',
+        de: 'Definition'
+    },
+    tag_code: {
+        en: 'Code reference',
+        nl: 'Codeverwijzing',
+        de: 'Codereferenz'
+    },
+    tag_samp: {
+        en: 'Sample output',
+        nl: 'Voorbeelduitvoer',
+        de: 'Beispielausgabe'
+    },
+    tag_tt: {
+        en: 'Teletype text',
+        nl: 'Teletype-tekst',
+        de: 'Teletype-Text'
+    },
+    tag_em: {
+        en: 'Emphasis',
+        nl: 'Nadruk',
+        de: 'Hervorhebung'
+    },
+    tag_strong: {
+        en: 'Strong emphasis',
+        nl: 'Extra nadruk',
+        de: 'Starke Hervorhebung'
+    },
+    tag_sub: {
+        en: 'Subscript',
+        nl: 'Subscript',
+        de: 'Untergeschrieben'
+    },
+    tag_sup: {
+        en: 'Superscript',
+        nl: 'Superscript',
+        de: 'Übergeschrieben'
+    },
+    tag_hr: {
+        en: 'Thematic break',
+        nl: 'Thematische onderbreking',
+        de: 'Themawechsel'
+    },
+    tag_article: {
+        en: 'Article',
+        nl: 'Artikel',
+        de: 'Artikel'
+    },
+    tag_section: {
+        en: 'Section',
+        nl: 'Sectie',
+        de: 'Abschnitt'
+    },
+    tag_aside: {
+        en: 'Aside content',
+        nl: 'Aside-inhoud',
+        de: 'Nebeninhalt'
+    },
+    tag_header: {
+        en: 'Header',
+        nl: 'Koptekst',
+        de: 'Kopfzeile'
+    },
+    tag_footer: {
+        en: 'Footer',
+        nl: 'Voettekst',
+        de: 'Fußzeile'
+    },
+    tag_mark: {
+        en: 'Marked/highlighted text',
+        nl: 'Gemarkeerde/gehighlighte tekst',
+        de: 'Markierter/hervorgehobener Text'
+    },
+    tag_figcaption: {
+        en: 'Caption of Figure',
+        nl: 'Bijschrift bij afbeelding',
+        de: 'Bildunterschrift'
+    },
+    tag_figure: {
+        en: 'Figure',
+        nl: 'Afbeelding',
+        de: 'Abbildung'
+    },
+    tag_nav: {
+        en: 'Navigation element',
+        nl: 'Navigatie-element',
+        de: 'Navigationselement'
+    },
+    tag_time: {
+        en: 'Date/Time',
+        nl: 'Datum/tijd',
+        de: 'Datum/Uhrzeit'
+    },
+    tag_h1: {
+        en: 'First level headline',
+        nl: 'Kopregel op eerste niveau',
+        de: 'Überschrift erste Ebene'
+    },
+    tag_h2: {
+        en: 'Second level headline',
+        nl: 'Kopregel op tweede niveau',
+        de: 'Überschrift zweite Ebene'
+    },
+    tag_h3: {
+        en: 'Third level headline',
+        nl: 'Kopregel op derde niveau',
+        de: 'Überschrift dritte Ebene'
+    },
+    tag_h4: {
+        en: 'Fourth level headline',
+        nl: 'Kopregel op vierde niveau',
+        de: 'Überschrift vierte Ebene'
+    },
+    tag_h5: {
+        en: 'Fifth level headline',
+        nl: 'Kopregel op vijfde niveau',
+        de: 'Überschrift fünfte Ebene'
+    },
+    tag_h6: {
+        en: 'Sixth level headline',
+        nl: 'Kopregel op zesde niveau',
+        de: 'Überschrift sechste Ebene'
+    },
+    tag_address: {
+        en: 'Address',
+        nl: 'Adres',
+        de: 'Adresse'
+    },
+    label: {
+        en: 'Semantic',
+        nl: 'Semantisch',
+        de: 'Semantik'
+    },
+    panelTitle: {
+        en: 'Semantic',
+        nl: 'Semantisch',
+        de: 'Semantik'
+    },
+    paragraphTitle: {
+        en: 'Paragraph Format',
+        nl: 'Alineaopmaak',
+        de: 'Absatzformat'
+    },
+    selectionTitle: {
+        en: 'Selection Format',
+        nl: 'Selectieopmaak',
+        de: 'Auswahlformat'
+    },
+    p: {
+        en: 'Normal',
+        nl: 'Normaal',
+        de: 'Normale'
+    }
+    /* End resource section for model customLocalizationPlugin */
+           
 });

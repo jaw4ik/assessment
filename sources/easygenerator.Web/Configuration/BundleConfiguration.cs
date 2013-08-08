@@ -17,12 +17,14 @@ namespace easygenerator.Web.Configuration
                             .Include("~/scripts/jquery-{version}.js")
                             .Include("~/scripts/knockout-{version}.js")
                             .Include("~/scripts/knockout.validation.debug.js")
+                            .Include("~/scripts/knockout.handlers.js")
                             .Include("~/scripts/sammy-{version}.js")
                             .Include("~/scripts/q.js")
                             .Include("~/scripts/underscore.js")
                             .Include("~/scripts/underscore.extensions.js")
                             .Include("~/scripts/ckeditor/ckeditor.js")
-                            .Include("~/scripts/ckeditorBinding.js"));
+                            .Include("~/scripts/ckeditorBinding.js")
+                            .Include("~/scripts/jquery.autosize.js"));
 
             bundles.Add(new StyleBundle("~/Content/css")
                             .Include("~/Content/font-awesome.css")

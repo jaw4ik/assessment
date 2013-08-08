@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'durandal/plugins/router', 'eventTracker', 'models/answerOption', 'models/explanation', 'localization/localizationManager'],
-    function (dataContext, router, eventTracker, answerOptionModel, expalantionModel, localizationManager) {
+﻿define(['dataContext', 'durandal/plugins/router', 'eventTracker', 'models/answerOption', 'models/explanation', 'localization/localizationManager', 'constants'],
+    function (dataContext, router, eventTracker, answerOptionModel, expalantionModel, localizationManager, constants) {
         "use strict";
         var
             events = {
@@ -105,8 +105,8 @@
                         callback(newAnswer);
                 }
 
-                function success(answer) {
-                    var observableAnswer = mapAnswerOption(answer);
+                function success(newInstance) {
+                    var observableAnswer = mapAnswerOption(newInstance);
                     observableAnswer.isInEdit(true);
 
                     answerOptions.push(observableAnswer);
@@ -119,7 +119,6 @@
                 toggleCorrectness(instance, success);
 
                 //TODO: temporary method. Would be changed, when dataContext will be reconstructed
-
                 function toggleCorrectness(answer, callback) {
                     var currentAnswer = _.find(question().answerOptions, function (obj) {
                         return obj.id == answer.id;
@@ -138,39 +137,27 @@
                     notification.update();
                 }
             },
-            
-            saveAnswerOption = function (instance, context) {
+            saveAnswerOption = function (instance) {
                 sendEvent(events.saveAnswerOption);
 
-                if (_.isEmptyOrWhitespace(context.target.value)) {
-                    deleteAnswerOption(instance);
-                    return;
-                }
-
-                save(instance, context.target.value, success);
+                save(instance, success);
 
                 //TODO: temporary method. Would be changed, when dataContext will be reconstructed
-
-                function save(answer, value, callback) {
+                function save(answer, callback) {
                     var currentAnswer = _.find(question().answerOptions, function (obj) {
                         return obj.id == answer.id;
                     });
-                    if (_.isObject(currentAnswer)) {
-                        currentAnswer.text = value;
+                    if (_.isObject(currentAnswer) && currentAnswer.text !== answer.text()) {
+                        currentAnswer.text = answer.text();
 
                         if (_.isFunction(callback))
-                            callback(value);
+                            callback();
                     }
                 }
 
-                function success(value) {
-                    instance.text = value;
+                function success() {
                     notification.update();
                 }
-            },
-            
-            updateAnswerOptionText = function (instance, context) {
-                instance.isEmpty(_.isEmptyOrWhitespace(context.target.value));
             },
             
             deleteAnswerOption = function (instance) {
@@ -179,7 +166,6 @@
                 deleteAnswer(instance, success);
 
                 //TODO: temporary method. Would be changed, when dataContext will be reconstructed
-
                 function deleteAnswer(answer, callback) {
                     question().answerOptions = _.reject(question().answerOptions, function (item) {
                         return item.id == answer.id;
@@ -268,13 +254,43 @@
             },
             
             mapAnswerOption = function (answer) {
-                return {
+                var mappedAnswerOption = {
                     id: answer.id,
-                    text: answer.text || '',
+                    text: ko.observable(answer.text || ''),
                     isCorrect: ko.observable(answer.isCorrect || false),
+                    correctnessTooltip: function () {
+                        return localizationManager.localize(this.isCorrect() ? 'correctAnswer' : 'incorrectAnswer');
+                    },
                     isInEdit: ko.observable(false),
-                    isEmpty: ko.observable(answer.text == '')
+                    isEmpty: ko.observable(_.isEmptyOrWhitespace(answer.text))
                 };
+
+                (function (item) {
+                    item.text.subscribe(function (value) {
+                        item.isEmpty(_.isEmptyOrWhitespace(value));
+                    });
+
+                    var saveIntervalId = null;
+                    item.isInEdit.subscribe(function (value) {
+
+                        if (value) {
+                            saveIntervalId = setInterval(function() {
+                                saveAnswerOption(item);
+                            }, constants.autosaveTimersDelay.answerOption);
+                            return;
+                        }
+                        else if (_.isEmptyOrWhitespace(item.text())) {
+                            deleteAnswerOption(item);
+                        }
+                        else {
+                            saveAnswerOption(item);
+                        }
+
+                        clearInterval(saveIntervalId);
+                    });
+                })(mappedAnswerOption);
+
+                return mappedAnswerOption;
             },
             
             mapExplanation = function (explanation) {
@@ -297,7 +313,7 @@
 
                             saveIntervalId = setInterval(function () {
                                 saveExplanation(item.id, item.text());
-                            }, 60000);
+                            }, constants.autosaveTimersDelay.explanation);
                         } else {
 
                             if (!_.isNull(saveIntervalId)) {
@@ -385,7 +401,6 @@
             addAnswerOption: addAnswerOption,
             toggleAnswerCorrectness: toggleAnswerCorrectness,
             saveAnswerOption: saveAnswerOption,
-            updateAnswerOptionText: updateAnswerOptionText,
             deleteAnswerOption: deleteAnswerOption,
 
             language: currentLanguage,

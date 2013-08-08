@@ -4,15 +4,15 @@
         <span class="experiences-btn current" data-bind="localize: { text: 'experiences' }">Experiences</span>
     </div>
     <div class="experiences-header">
-        <div class="experiences-header-title">
+        <div class="experiences-header-title" data-bind="css: { 'alone': !enableSorting() }">
             <a class="experiences-header-create-link" href="/#/404" data-bind="click: navigateToCreation"></a>
             <span data-bind="localize: { text: 'experience' }">Experience</span>
             <hr />
         </div>
         <div class="experiences-header-sort-label">
-            <span data-bind="localize: { text: 'sortByTitle' }"></span>
+            <span data-bind="visible: enableSorting(), localize: { text: 'sortByTitle' }"></span>
         </div>
-        <div class="experiences-header-sort-container">
+        <div class="experiences-header-sort-container" data-bind="visible: enableSorting()">
             <div class="experiences-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }">
                 <span data-bind="localize: { text: 'firstLetter' }">a</span>
                 &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;

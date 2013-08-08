@@ -742,6 +742,23 @@ define(function (require) {
         });
 
         beforeEach(function () {
+            dataContext.objectives = [
+                new objectiveModel({
+                    id: 'obj3',
+                    title: 'Test Objective',
+                    image: images[0],
+                    questions:
+                    [
+                        new questionModel({
+                            id: '0',
+                            title: 'Question 1',
+                            answerOptions: [answer],
+                            explanations: []
+                        })
+                    ]
+                })];
+            viewModel.activate({ id: '0', objectiveId: 'obj3' });
+
             spyOn(eventTracker, 'publish');
             spyOn(viewModel.notification, 'update');
         });
@@ -775,21 +792,6 @@ define(function (require) {
 
         describe('edit', function () {
 
-            var context = {};
-
-            beforeEach(function () {
-                viewModel.question({ answerOptions: [answer] });
-                viewModel.answerOptions([{
-                    id: answer.id,
-                    text: answer.text,
-                    isCorrect: ko.observable(answer.isCorrect),
-                    isInEdit: ko.observable(false)
-                }]);
-                context = {
-                    target: { value: '' }
-                };
-            });
-
             it('the field [isCorrect] should be observable', function () {
                 expect(ko.isObservable(viewModel.answerOptions()[0].isCorrect)).toBeTruthy();
             });
@@ -808,7 +810,6 @@ define(function (require) {
 
             it('should change option correctness', function () {
                 viewModel.answerOptions()[0].isCorrect(false);
-                viewModel.question().answerOptions[0].isCorrect = false;
 
                 viewModel.toggleAnswerCorrectness(viewModel.answerOptions()[0]);
 
@@ -816,33 +817,45 @@ define(function (require) {
             });
 
             it('should track event \"Save the answer option text\"', function () {
-                viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
+                viewModel.saveAnswerOption(viewModel.answerOptions()[0]);
 
                 expect(eventTracker.publish).toHaveBeenCalledWith('Save the answer option text', eventsCategory);
             });
 
+            it('function [saveAnswerOption] must not be called when text not changed', function () {
+                spyOn(viewModel, 'saveAnswerOption');
+                
+                viewModel.answerOptions()[0].isInEdit(true);
+                viewModel.answerOptions()[0].isInEdit(false);
+
+                expect(viewModel.saveAnswerOption.calls.length).toEqual(0);
+            });
+            
+            it('[isEmpty] property should be true when text is empty', function () {
+                viewModel.answerOptions()[0].text('');
+
+                expect(viewModel.answerOptions()[0].isEmpty()).toBeTruthy();
+            });
+            
+            it('[isEmpty] property should be false when text is not empty', function () {
+                viewModel.answerOptions()[0].text('some text');
+
+                expect(viewModel.answerOptions()[0].isEmpty()).toBeFalsy();
+            });
+
             it('function [saveAnswerOption] should call nofification update', function () {
-                context.target.value = 'some text';
-                viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
+                viewModel.answerOptions()[0].text('new text');
+                viewModel.saveAnswerOption(viewModel.answerOptions()[0]);
 
                 expect(viewModel.notification.update).toHaveBeenCalled();
             });
 
-            it('should edit answer text', function () {
-                viewModel.answerOptions()[0].text = answer.text;
-
-                var newText = 'new text';
-                context.target.value = newText;
-
-                viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
-
-                expect(viewModel.answerOptions()[0].text).toBe(newText);
-            });
-
             it('should delete answer option when text is empty', function () {
                 var answersCount = viewModel.answerOptions().length;
-
-                viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
+                
+                viewModel.answerOptions()[0].isInEdit(true);
+                viewModel.answerOptions()[0].text('');
+                viewModel.answerOptions()[0].isInEdit(false);
 
                 expect(viewModel.answerOptions().length).toBe(answersCount - 1);
             });
@@ -850,10 +863,9 @@ define(function (require) {
             it('should delete answer option when text contains only white-spaces and new lines codes', function () {
                 var answersCount = viewModel.answerOptions().length;
 
-                context.target.textContent = '   \n\r  \n\r';
-                context.target.innerHTML = '<p>&nbsp</p><p>&nbsp</p>';
-
-                viewModel.saveAnswerOption(viewModel.answerOptions()[0], context);
+                viewModel.answerOptions()[0].isInEdit(true);
+                viewModel.answerOptions()[0].text('   \n  \n');
+                viewModel.answerOptions()[0].isInEdit(false);
 
                 expect(viewModel.answerOptions().length).toBe(answersCount - 1);
             });

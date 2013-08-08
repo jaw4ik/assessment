@@ -23,6 +23,8 @@
         var
             experiences = ko.observableArray([]),
 
+            enableSorting = ko.observable(true),
+
             toggleSelection = function (experience) {
                 if (!experience.isSelected())
                     sendEvent(events.experienceSelected);
@@ -130,6 +132,8 @@
 
                 return experience;
             }));
+
+            enableSorting(experiences().length > 1);
         };
 
         return {
@@ -140,6 +144,7 @@
             sortByTitleDesc: sortByTitleDesc,
             currentSortingOption: currentSortingOption,
             sortingOptions: constants.sortingOptions,
+            enableSorting: enableSorting,
 
             navigateToCreation: navigateToCreation,
             navigateToDetails: navigateToDetails,

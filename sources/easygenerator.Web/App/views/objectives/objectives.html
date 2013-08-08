@@ -5,15 +5,15 @@
     </div>
 
     <div class="objectives-header">
-        <div class="objectives-header-title">
+        <div class="objectives-header-title" data-bind="css: { 'alone': !enableSorting() }">
             <a class="objectives-header-create-link" href="/#/404" data-bind="click: navigateToCreation, localize: { title: 'addNewObjective' }"></a>
             <span data-bind="localize: { text: 'learningObjective' }">Learning objective</span>
             <hr />
         </div>
         <div class="objectives-header-sort-label">
-            <span data-bind="localize: { text: 'sortByTitle' }"></span>
+            <span data-bind="visible: enableSorting(), localize: { text: 'sortByTitle' }"></span>
         </div>
-        <div class="objectives-header-sort-container">
+        <div class="objectives-header-sort-container" data-bind="visible: enableSorting()">
             <div class="objectives-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }, localize: { title: 'ascending' }">
                 <span data-bind="localize: { text: 'firstLetter' }">a</span>
                 &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;

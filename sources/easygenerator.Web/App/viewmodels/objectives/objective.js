@@ -21,7 +21,8 @@
             image = ko.observable(),
             questions = ko.observableArray([]),
             currentSortingOption = ko.observable(),
-            
+            enableSorting = ko.observable(true),
+
             sortByTitleAsc = function() {
                 sendEvent(events.sortByTitleAsc);
                 currentSortingOption(constants.sortingOptions.byTitleAsc);
@@ -85,6 +86,8 @@
                                 .sortBy(function (question) { return question.title.toLowerCase(); })
                                 .value();
                 questions(array);
+
+                enableSorting(questions().length > 1);
             };
         
         return {
@@ -98,6 +101,7 @@
             sortByTitleDesc: sortByTitleDesc,
             currentSortingOption: currentSortingOption,
             sortingOptions: constants.sortingOptions,
+            enableSorting: enableSorting,
 
             navigateToCreation: navigateToCreation,
             navigateToDetails: navigateToDetails,

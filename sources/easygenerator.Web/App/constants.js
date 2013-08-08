@@ -12,6 +12,11 @@
                 inProgress: 'inProgress',
                 succeed: 'succeed',
                 failed: 'failed'
+            },
+            
+            autosaveTimersDelay: {
+                answerOption: 60000,
+                explanation: 60000
             }
         };
     }
