@@ -407,6 +407,20 @@ define(function (require) {
                     //assert
                     expect(viewModel.isExplanationsBlockExpanded()).toBe(false);
                 });
+
+                it('should finish editing on collapse', function() {
+                    viewModel.isExplanationsBlockExpanded(true);
+                    var explanation = {
+                        text: ko.observable('Some text'),
+                        isEditing: ko.observable(true),
+                        id: '0'
+                    };
+                    viewModel.explanations([explanation]);
+                    
+                    viewModel.toggleExplanations();
+
+                    expect(explanation.isEditing()).toBeFalsy();
+                });
             });
         });
 
