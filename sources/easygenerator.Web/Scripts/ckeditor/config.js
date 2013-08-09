@@ -20,4 +20,5 @@ CKEDITOR.editorConfig = function (config) {
 
     config.startupOutlineBlocks = true;
     config.title = false;
+    config.fillEmptyBlocks = false;
 };
