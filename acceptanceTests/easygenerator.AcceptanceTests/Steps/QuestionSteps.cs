@@ -214,6 +214,13 @@ namespace easygenerator.AcceptanceTests.Steps
             Question.AddNewExplanationText(Text);
         }
 
+        [When(@"click on question title")]
+        public void WhenClickOnQuestionTitle()
+        {
+            Question.QuestionTitleClick();            
+        }
+
+
         [When(@"mouse hover element of explanation with text '(.*)'")]
         public void WhenMouseHoverElementOfExplanationWithText(string Text)
         {

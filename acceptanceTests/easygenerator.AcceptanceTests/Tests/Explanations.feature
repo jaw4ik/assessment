@@ -31,6 +31,7 @@ Scenario: Explanation becomes saved and not selected on collapse explanation
 When open page by url 'http://localhost:5656/#/objective/1/question/1'
 And input text 'Explanation14' into new explanation text field
 And click on collapse explanations
+And click on collapse explanations
 Then explanations list contains only items with data
 | Explanation   |
 | Explanation11 |

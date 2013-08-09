@@ -135,6 +135,11 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             button.Click();
         }
 
+        internal void QuestionTitleClick()
+        {
+            var questionTitle = GetByXPath(model.QuestionTitle);
+            questionTitle.Click();
+        }
 
         internal void AddNewAnswerOptionButtonClick()
         {
