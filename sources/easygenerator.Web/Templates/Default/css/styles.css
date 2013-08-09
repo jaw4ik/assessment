@@ -12,6 +12,8 @@
 
 html, body, .application-wrapper {
     width: 100%;
+}
+body, .application-wrapper {
     height: 100%;
 }
 
