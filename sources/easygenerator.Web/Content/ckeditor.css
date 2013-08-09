@@ -1,9 +1,3 @@
 ﻿.semantic-dropdown a .cke_combo_text {
      width: 121px !important;
 }
-
-a.cke_dialog_ui_button_ok {
-    text-shadow: 0 -1px 0 #fff !important;
-    border-color: #fff !important;
-    background: gray !important;
-}
