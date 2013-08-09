@@ -126,7 +126,7 @@
                         <li class="question-explanation-item" data-bind="css: { active: isEditing }">
                             <div class="question-explanation-list-item">
                                 <div class="question-explanation-wrapper">
-                                    <div class="question-explanation selectable" data-bind="ckeditor: { data: text, language: $parent.language, eventTracker: $parent.eventTracker, isEditing: isEditing }">
+                                    <div class="question-explanation selectable" data-bind="ckeditor: { data: text, language: $parent.language, eventTracker: $parent.eventTracker, isEditing: isEditing, save: $parent.saveExplanation, autosaveInterval: $parent.explanationAutosaveInterval }">
                                     </div>
                                 </div>
                                 <div class="question-explanation-delete-wrapper" data-bind="click: $parent.deleteExplanation.bind($parent), localize: { title: 'remove' }">

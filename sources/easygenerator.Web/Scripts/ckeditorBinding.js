@@ -3,7 +3,12 @@
         var language = valueAccessor().language() || 'en',
             eventTracker = valueAccessor().eventTracker || null,
             data = valueAccessor().data,
-            isEditing = valueAccessor().isEditing;
+            isEditing = valueAccessor().isEditing,
+            saveHandler = valueAccessor().save,
+            saveIntervalId = null,
+            autosaveInterval = valueAccessor().autosaveInterval || 60000;
+
+        var $toolbarElement = null;
 
         var commandsToTrack = ['cut', 'copy', 'paste', 'pastetext', 'undo', 'redo', 'bold', 'italic',
             'underline', 'removeformat', 'numberedlist', 'bulletedlist', 'link', 'unlink', 'table', 'image', 'mediaembed'];
@@ -14,6 +19,8 @@
         var editor = CKEDITOR.inline(element);
 
         editor.on('instanceReady', function () {
+            $toolbarElement = $('#cke_' + editor.name);
+
             addContentFilter();
             addCommandsTracking();
 
@@ -27,15 +34,14 @@
                 editor.focus();
 
             editor.on('focus', function () {
-                var toolbar = $('#cke_' + editor.name);
-                var positionTopOfElement = editor.container.getDocumentPosition().y;
-                var editorHeight = toolbar.height();
-                toolbar.css('top', positionTopOfElement - editorHeight);
+                var toolbarTopPosition = editor.container.getDocumentPosition().y - $toolbarElement.height();
+                $toolbarElement.css('top', toolbarTopPosition);
                 isEditing(true);
             });
 
             editor.on('blur', function () {
                 isEditing(false);
+                saveData();
             });
 
             editor.on('key', function (event) {
@@ -46,6 +52,8 @@
             editor.on('change', function () {
                 data(editor.getData());
             });
+
+            saveIntervalId = setInterval(saveData, autosaveInterval);
         });
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
@@ -55,6 +63,13 @@
             editor.destroy(true);
             $(element).removeAttr('contenteditable');
         });
+
+        function saveData() {
+            if (!!saveHandler) {
+                data(editor.getData());
+                saveHandler(viewModel);
+            }
+        }
 
         function addCommandsTracking() {
             if (!editor || !eventTracker)

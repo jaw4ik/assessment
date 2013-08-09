@@ -207,7 +207,7 @@ define(function (require) {
             it('should be a function', function () {
                 expect(viewModel.deactivate).toBeDefined();
             });
-            
+
             it('should set explanation isEditing() to \'false\' if current value is \'true\'', function () {
                 viewModel.explanations()[0].isEditing(true);
 
@@ -351,7 +351,7 @@ define(function (require) {
                     expect(viewModel.isExplanationsBlockExpanded()).toBe(false);
                 });
 
-                it('should finish editing on collapse', function() {
+                it('should finish editing on collapse', function () {
                     viewModel.isExplanationsBlockExpanded(true);
                     var explanation = {
                         text: ko.observable('Some text'),
@@ -359,7 +359,7 @@ define(function (require) {
                         id: '0'
                     };
                     viewModel.explanations([explanation]);
-                    
+
                     viewModel.toggleExplanations();
 
                     expect(explanation.isEditing()).toBeFalsy();
@@ -396,7 +396,7 @@ define(function (require) {
                                          ]
                                  })];
                 viewModel.activate({ id: '0', objectiveId: 'obj3' });
-                
+
                 jasmine.Clock.useMock();
             });
 
@@ -406,36 +406,6 @@ define(function (require) {
                     expect(ko.isObservable(viewModel.explanations()[0].text)).toBeTruthy();
                 });
 
-                it('should set canAddExplanation to false on empty value for last explanation', function () {
-                    viewModel.canAddExplanation(true);
-                    var explanation = viewModel.explanations()[1];
-
-                    explanation.text('');
-
-                    expect(viewModel.canAddExplanation()).toBe(false);
-
-                    explanation.text('Lalala');
-                });
-
-                it('should not change canAddExplanation on empty value for not last explanation', function () {
-                    viewModel.canAddExplanation(true);
-                    var explanation = viewModel.explanations()[0];
-
-                    explanation.text('');
-
-                    expect(viewModel.canAddExplanation()).toBe(true);
-
-                    explanation.text('Lalala');
-                });
-
-                it('should set canAddExplanation to true on value changed for last explanation', function () {
-                    viewModel.canAddExplanation(false);
-                    var explanation = viewModel.explanations()[1];
-
-                    explanation.text('Trololo');
-
-                    expect(viewModel.canAddExplanation()).toBe(true);
-                });
             });
 
             describe('isEditing', function () {
@@ -476,17 +446,6 @@ define(function (require) {
                     expect(ko.isObservable(viewModel.explanations()[0].isEditing)).toBeTruthy();
                 });
 
-                it('should save explanation on timer tick when value is \'true\'', function () {
-                    var explanation = viewModel.explanations()[0];
-                    var newText = "New text lalala";
-                    explanation.text(newText);
-
-                    explanation.isEditing(true);
-                    jasmine.Clock.tick(60000);
-
-                    expect(dataContext.objectives[0].questions[0].explanations[0].text).toBe(newText);
-                });
-
                 it('should send event \"Start editing explanation\" if true', function () {
                     viewModel.explanations()[0].isEditing(true);
 
@@ -502,33 +461,8 @@ define(function (require) {
                     expect(eventTracker.publish).toHaveBeenCalledWith('End editing explanation', eventsCategory);
                 });
 
-                it('should remove entry whith empty text on false', function () {
-                    var explanation = viewModel.explanations()[0];
-                    explanation.isEditing(true);
-                    explanation.text('');
-
-                    explanation.isEditing(false);
-
-                    expect(_.find(viewModel.explanations(), function (item) {
-                        return item.id == explanation.id;
-                    })).toBeUndefined();
-
-                    explanation.text('lalala');
-                });
-
-                it('should set canAddExplanation to true if entry text is empty on false', function () {
-                    viewModel.canAddExplanation(false);
-                    var explanation = viewModel.explanations()[0];
-                    explanation.isEditing(true);
-                    explanation.text('');
-
-                    explanation.isEditing(false);
-
-                    expect(viewModel.canAddExplanation()).toBe(true);
-
-                    explanation.text('lalala');
-                });
             });
+
         });
 
         describe('canAddExplanation', function () {
@@ -541,7 +475,6 @@ define(function (require) {
 
             beforeEach(function () {
                 viewModel.explanations = ko.observableArray([]);
-                jasmine.Clock.useMock();
             });
 
             it('should be a function', function () {
@@ -558,7 +491,7 @@ define(function (require) {
 
             it('should add explanation to viewModel', function () {
                 viewModel.addExplanation();
-                
+
                 expect(viewModel.explanations().length).toBe(1);
                 expect(viewModel.explanations()[0].text).toBeDefined();
                 expect(viewModel.explanations()[0].id).toBeDefined();
@@ -570,28 +503,195 @@ define(function (require) {
 
                 expect(viewModel.explanations()[0].isEditing()).toBe(true);
             });
+        });
 
+        describe('canAddExplanation:', function () {
 
-            it('should set canAddExplanation to false', function () {
-                viewModel.canAddExplanation(true);
+            describe('when explanation is just added', function () {
 
-                viewModel.addExplanation();
+                it('should be false', function () {
+                    viewModel.addExplanation();
 
-                expect(viewModel.canAddExplanation()).toBe(false);
+                    expect(viewModel.canAddExplanation()).toBe(false);
+                });
+
             });
+
+            describe('when text of just added explanation is empty', function () {
+
+                it('should be false', function () {
+                    viewModel.explanations([]);
+                    viewModel.addExplanation();
+                    var explanation = viewModel.explanations()[0];
+
+                    explanation.text('Some text');
+                    explanation.text('');
+
+                    expect(viewModel.canAddExplanation()).toBe(false);
+                });
+
+            });
+
+            describe('when last added explanation was removed', function () {
+
+                it('should be true', function () {
+                    viewModel.explanations([]);
+                    viewModel.addExplanation();
+                    viewModel.deleteExplanation(viewModel.explanations()[0]);
+
+                    expect(viewModel.canAddExplanation()).toBe(true);
+                });
+
+            });
+
+            describe('when text from any explanation except last is empty', function () {
+
+                it('should be true', function () {
+                    viewModel.explanations([]);
+                    viewModel.addExplanation();
+                    var explanation = viewModel.explanations()[0];
+
+                    viewModel.addExplanation();
+                    viewModel.explanations()[1].text('Some text');
+
+                    explanation.text('');
+
+                    expect(viewModel.canAddExplanation()).toBe(true);
+                });
+
+            });
+
+            describe('when text of last added explanation not empty', function () {
+
+                it('should be true', function () {
+                    viewModel.explanations([]);
+                    viewModel.addExplanation();
+                    var explanation = viewModel.explanations()[0];
+
+                    explanation.text('Some text');
+
+                    expect(viewModel.canAddExplanation()).toBe(true);
+                });
+
+            });
+
+            describe('when text is empty after end editing', function () {
+
+                it('should be true', function () {
+                    viewModel.explanations([]);
+                    viewModel.addExplanation();
+
+                    var explanation = viewModel.explanations()[0];
+                    explanation.text('Some text');
+                    explanation.isEditing(false);
+                    viewModel.saveExplanation(explanation);
+
+                    explanation.text('');
+                    expect(viewModel.canAddExplanation()).toBe(true);
+                });
+
+            });
+
+            describe('should be false', function () {
+
+                xit('when new explanation added', function () {
+                    viewModel.addExplanation();
+
+                    expect(viewModel.canAddExplanation()).toBe(false);
+                });
+
+                xit('when value of last added explanation is empty', function () {
+                    viewModel.explanations([]);
+                    viewModel.addExplanation();
+                    var explanation = viewModel.explanations()[0];
+
+                    explanation.text('Some text');
+                    explanation.text('');
+
+                    expect(viewModel.canAddExplanation()).toBe(false);
+                });
+
+            });
+
+            describe('should be true', function () {
+
+                xit('when last added explanationa was removed', function () {
+                    viewModel.explanations([]);
+                    viewModel.addExplanation();
+                    viewModel.deleteExplanation(viewModel.explanations()[0]);
+
+                    expect(viewModel.canAddExplanation()).toBe(true);
+                });
+
+                xit('when text from any explanation except last is empty', function () {
+                    viewModel.explanations([]);
+                    viewModel.addExplanation();
+                    var explanation = viewModel.explanations()[0];
+
+                    viewModel.addExplanation();
+                    viewModel.explanations()[1].text('Some text');
+
+                    explanation.text('');
+
+                    expect(viewModel.canAddExplanation()).toBe(true);
+                });
+
+                xit('when text of last added explanation not empty', function () {
+                    viewModel.explanations([]);
+                    viewModel.addExplanation();
+                    var explanation = viewModel.explanations()[0];
+
+                    explanation.text('Some text');
+
+                    expect(viewModel.canAddExplanation()).toBe(true);
+                });
+
+                xit('when text is empty after end editing', function () {
+                    viewModel.explanations([]);
+                    viewModel.addExplanation();
+
+                    var explanation = viewModel.explanations()[0];
+                    explanation.text('');
+                    explanation.isEditing(false);
+                    viewModel.saveExplanation(explanation);
+
+                    expect(viewModel.canAddExplanation()).toBe(true);
+                });
+
+            });
+
         });
 
         describe('deleteExplanation', function () {
 
-            var explanation = {
-                text: ko.observable('Some text'),
-                isEditing: ko.observable(false),
-                id: '0'
-            };
-
             beforeEach(function () {
-                viewModel.explanations = ko.observableArray([explanation]);
-                jasmine.Clock.useMock();
+                dataContext.objectives = [
+                             new objectiveModel(
+                                 {
+                                     id: 'obj3',
+                                     title: 'Test Objective',
+                                     image: images[0],
+                                     questions:
+                                         [
+                                             new questionModel({
+                                                 id: '0',
+                                                 title: 'Question 1',
+                                                 answerOptions: [],
+                                                 explanations: [
+                                                     new explanationModel({
+                                                         id: '0',
+                                                         text: 'Default text1'
+                                                     }),
+                                                      new explanationModel({
+                                                          id: '1',
+                                                          text: 'Default text2'
+                                                      })
+                                                 ]
+                                             })
+                                         ]
+                                 })];
+                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+                spyOn(eventTracker, 'publish');
             });
 
             it('should be a function', function () {
@@ -599,26 +699,17 @@ define(function (require) {
             });
 
             it('should send event \'Delete explanation\'', function () {
-                spyOn(eventTracker, 'publish');
-
-                viewModel.deleteExplanation(explanation);
-
+                viewModel.deleteExplanation(viewModel.explanations()[0]);
                 expect(eventTracker.publish).toHaveBeenCalledWith('Delete explanation', eventsCategory);
             });
 
             it('should delete explanation form viewModel', function () {
+                var explanation = viewModel.explanations()[0];
                 viewModel.deleteExplanation(explanation);
 
-                expect(viewModel.explanations().length).toBe(0);
+                expect(viewModel.explanations().indexOf(explanation)).toBe(-1);
             });
 
-            it('should set canAddExplanation to true if deleted last explanation', function () {
-                viewModel.canAddExplanation(false);
-
-                viewModel.deleteExplanation(explanation);
-
-                expect(viewModel.canAddExplanation()).toBe(true);
-            });
         });
 
     });
@@ -723,19 +814,19 @@ define(function (require) {
 
             it('function [saveAnswerOption] must not be called when text not changed', function () {
                 spyOn(viewModel, 'saveAnswerOption');
-                
+
                 viewModel.answerOptions()[0].isInEdit(true);
                 viewModel.answerOptions()[0].isInEdit(false);
 
                 expect(viewModel.saveAnswerOption.calls.length).toEqual(0);
             });
-            
+
             it('[isEmpty] property should be true when text is empty', function () {
                 viewModel.answerOptions()[0].text('');
 
                 expect(viewModel.answerOptions()[0].isEmpty()).toBeTruthy();
             });
-            
+
             it('[isEmpty] property should be false when text is not empty', function () {
                 viewModel.answerOptions()[0].text('some text');
 
@@ -751,7 +842,7 @@ define(function (require) {
 
             it('should delete answer option when text is empty', function () {
                 var answersCount = viewModel.answerOptions().length;
-                
+
                 viewModel.answerOptions()[0].isInEdit(true);
                 viewModel.answerOptions()[0].text('');
                 viewModel.answerOptions()[0].isInEdit(false);
