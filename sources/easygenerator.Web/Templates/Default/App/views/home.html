@@ -18,7 +18,7 @@
             <!-- ko if: isExpanded() -->
             <ul class="unstyled question-brief-list" data-bind="foreach: questions">
                 <li class="question-brief">
-                    <a class="question-brief-title selectable" href="#" data-bind="text: title, attr: { href: '#/objective/' + $parent.id + '/question/' + id }, attr: { title: title }"></a>
+                    <a class="question-brief-title selectable" href="#" data-bind="text: title, attr: { href: '#/objective/' + $parent.id + '/question/' + id, title: title }"></a>
                 </li>
             </ul>
             <!-- /ko -->
