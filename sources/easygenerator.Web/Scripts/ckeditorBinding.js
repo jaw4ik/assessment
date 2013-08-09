@@ -42,6 +42,7 @@
             editor.on('blur', function () {
                 isEditing(false);
                 saveData();
+                clearInterval(saveIntervalId);
             });
 
             editor.on('key', function (event) {
@@ -59,6 +60,8 @@
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
             if (!!CKEDITOR.dialog._.currentTop)
                 CKEDITOR.dialog._.currentTop.hide();
+
+            saveData();
 
             editor.destroy(true);
             $(element).removeAttr('contenteditable');
@@ -93,8 +96,8 @@
         }
 
         function addContentFilter() {
-            var widthRegExp = /\s*width\s*:\s*([^;]*)/g;
-            var heightRegExp = /\s*height\s*:\s*([^;]*)/g;
+            var widthRegExp = new RegExp("\s*width\s*:\s*([^;]*)", "g");
+            var heightRegExp = new RegExp("\s*height\s*:\s*([^;]*)", "g");
 
             var rules = {
                 elements: {

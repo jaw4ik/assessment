@@ -293,7 +293,7 @@
                     return;
                 }
 
-                if (!explanation.isEditing() && explanation.id == lastAddedExplanation().id)
+                if (!explanation.isEditing() && !!lastAddedExplanation() && explanation.id == lastAddedExplanation().id)
                     lastAddedExplanation(null);
 
                 var contextExplanation = _.find(question().explanations, function (obj) {
@@ -316,8 +316,10 @@
 
             finishEditingExplanations = function () {
                 _.each(explanations(), function (item) {
-                    if (item.isEditing())
+                    if (item.isEditing()) {
                         item.isEditing(false);
+                        saveExplanation(item);
+                    }
                 });
             },
 
