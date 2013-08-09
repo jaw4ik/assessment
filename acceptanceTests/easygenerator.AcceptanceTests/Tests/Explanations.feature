@@ -27,6 +27,21 @@ Then explanations list contains only items with data
 | Explanation13 |
 | Explanation14 |
 
+Scenario: Explanation becomes saved and not selected on collapse explanation
+When open page by url 'http://localhost:5656/#/objective/1/question/1'
+And input text 'Explanation14' into new explanation text field
+And click on collapse explanations
+Then explanations list contains only items with data
+| Explanation   |
+| Explanation11 |
+| Explanation12 |
+| Explanation13 |
+| Explanation14 |
+And explanation delete button is enabled false for explanation with text 'Explanation11'
+And explanation delete button is enabled false for explanation with text 'Explanation12'
+And explanation delete button is enabled false for explanation with text 'Explanation13'
+And explanation delete button is enabled false for explanation with text 'Explanation14'
+
 Scenario: Explanation text could be edited
 When open page by url 'http://localhost:5656/#/objective/1/question/1'
 And input text 'Explanation14' into explanation text field 'Explanation12'
@@ -97,6 +112,20 @@ Then explanations list contains only items with data
 | Explanation14 |
 | Explanation13 |
 
+Scenario: Changes to explanation list are not lost when user go out from current question page
+When open page by url 'http://localhost:5656/#/objective/1/question/1'
+And input text 'Explanation14' into new explanation text field
+And mouse hover element of explanation with text 'Explanation12'
+And click on delete explanation 'Explanation12'
+And click on back to objective
+And mouse hover element of questions list with title 'Question11'
+And click on open question with title 'Question11'
+Then explanations list contains only items with data
+| Explanation   |
+| Explanation11 |
+| Explanation13 |
+| Explanation14 |
+
 Scenario: Explanation could contain special symbols
 Given explanations related to 'Question11' of 'Objective1' are present in database
 | Explanation                          |
@@ -133,6 +162,4 @@ When open page by url 'http://localhost:5656/#/objective/1/question/1'
 And browser window width and height is set to 640 and 300
 And scroll new explanation button into the view
 Then new explanation button is visible
-
-
 
