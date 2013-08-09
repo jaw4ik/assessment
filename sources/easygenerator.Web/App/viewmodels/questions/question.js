@@ -260,7 +260,7 @@
                     id: explanation.id
                 };
 
-                mappedExplanation.isEditing.subscribe(function (value) {
+                mappedExplanation.editingSubscription = mappedExplanation.isEditing.subscribe(function (value) {
                     if (value) {
                         sendEvent(events.startEditingExplanation);
                     } else {
@@ -331,10 +331,8 @@
             }),
 
             removeSubscribersFromExplanation = function (explanation) {
-                if (explanation.isEditing.getSubscriptionsCount() != 0)
-                    _.each(explanation.isEditing._subscriptions.change, function (subscription) {
-                        subscription.dispose();
-                    });
+                if (!!explanation.editingSubscription)
+                    explanation.editingSubscription.dispose();
             },
 
             //#endregion Explanations
