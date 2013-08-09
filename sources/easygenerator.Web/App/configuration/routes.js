@@ -79,6 +79,12 @@
                 moduleId: 'viewmodels/experiences/experience',
                 name: 'Experience',
                 caption: 'Experience'
+            },
+            {
+                url: 'test',
+                moduleId: 'viewmodels/test',
+                name: 'Test',
+                caption: 'test'
             }
         ];
     }
