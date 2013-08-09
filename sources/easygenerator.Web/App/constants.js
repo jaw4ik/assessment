@@ -14,9 +14,10 @@
                 failed: 'failed'
             },
             
-            autosaveTimersDelay: {
+            autosaveTimersInterval: {
                 answerOption: 60000,
-                explanation: 60000
+                explanation: 60000,
+                questionTitle: 5000
             }
         };
     }

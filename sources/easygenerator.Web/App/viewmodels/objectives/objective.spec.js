@@ -40,6 +40,10 @@
 
         describe('viewModel [objective]', function () {
 
+            beforeEach(function () {
+                jasmine.Clock.useMock();
+            });
+
             it('is object', function () {
                 expect(viewModel).toEqual(jasmine.any(Object));
             });
@@ -79,6 +83,26 @@
                     expect(viewModel.title()).toBe(objectives[0].title);
                     expect(viewModel.image()).toBe(objectives[0].image);
                     expect(viewModel.questions().length).toBe(objectives[0].questions.length);
+                });
+            });
+
+            describe('deactivate', function() {
+                beforeEach(function() {
+                    objectives = createObjectives();
+                    dataContext.objectives = objectives;
+
+                    viewModel.activate({ id: objectives[0].id });
+                });
+
+                it('should remove all subscribtions from question', function () {
+                    viewModel.questions()[0].isEditing(true);
+                    viewModel.questions()[0].isEditing(false);
+                    viewModel.questions()[1].isEditing(true);
+
+                    viewModel.deactivate();
+
+                    expect(viewModel.questions()[0].isEditing.getSubscriptionsCount()).toBe(0);
+                    expect(viewModel.questions()[1].isEditing.getSubscriptionsCount()).toBe(0);
                 });
             });
 
@@ -212,41 +236,48 @@
                 });
             });
 
-            describe('deleteQuestions', function () {
-
+            describe('deleteSelectedQuestions', function () {
+                var question;
                 beforeEach(function () {
                     objectives = createObjectives();
                     dataContext.objectives = objectives;
 
                     viewModel.activate({ id: objectives[0].id });
+                    question = viewModel.questions()[0];
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.deleteQuestions).toEqual(jasmine.any(Function));
+                    expect(viewModel.deleteSelectedQuestions).toEqual(jasmine.any(Function));
                 });
 
                 it('should send event \'Delete question\'', function () {
                     spyOn(eventTracker, 'publish');
-                    viewModel.questions()[0].isSelected(false);
                     viewModel.questions()[0].isSelected(true);
 
-                    viewModel.deleteQuestions();
+                    viewModel.deleteSelectedQuestions();
 
                     expect(eventTracker.publish).toHaveBeenCalledWith('Delete question', eventsCategory);
                 });
 
                 it('should delete selected question', function () {
-                    var questionToDeleteId = viewModel.questions()[0].id;
-                    viewModel.questions()[0].isSelected(false);
-                    viewModel.questions()[0].isSelected(true);
+                    var questionToDeleteId = question.id;
+                    question.isSelected(true);
 
-                    viewModel.deleteQuestions();
+                    viewModel.deleteSelectedQuestions();
 
                     expect(_.find(viewModel.questions(), function (item) {
                         return item.id == questionToDeleteId;
                     })).toBeUndefined();
                 });
 
+                it('should remove subscribtions from deleted question', function() {
+                    question.isEditing(true);
+                    question.isSelected(true);
+                
+                    viewModel.deleteSelectedQuestions();
+
+                    expect(question.isEditing.getSubscriptionsCount()).toBe(0);
+                });
             });
 
             describe('canDeleteQuestions()', function () {
@@ -267,17 +298,12 @@
                 });
 
                 it('should be \'true\' if question is selected', function () {
-                    viewModel.questions()[0].isSelected(false);
-
                     viewModel.questions()[0].isSelected(true);
 
                     expect(viewModel.canDeleteQuestions()).toBe(true);
                 });
 
                 it('should be \'false\' is few questions selected', function () {
-                    viewModel.questions()[0].isSelected(false);
-                    viewModel.questions()[1].isSelected(false);
-
                     viewModel.questions()[0].isSelected(true);
                     viewModel.questions()[1].isSelected(true);
 
@@ -285,10 +311,68 @@
                 });
             });
 
+            describe('endEditQuestionTitle', function () {
+
+                var question;
+                beforeEach(function () {
+                    objectives = createObjectives();
+                    dataContext.objectives = objectives;
+
+                    viewModel.activate({ id: objectives[0].id });
+
+                    question = viewModel.questions()[0];
+                });
+
+                it('should be a function', function () {
+                    expect(viewModel.endEditQuestionTitle).toEqual(jasmine.any(Function));
+                });
+
+                it('should send event \'Edit question title\'', function () {
+                    question.title('newtitle');
+                    spyOn(eventTracker, 'publish');
+
+                    viewModel.endEditQuestionTitle(question);
+
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Edit question title', eventsCategory);
+                });
+
+                it('should set \'isEditable\' to \'false\'', function () {
+                    question.isEditing(true);
+
+                    viewModel.endEditQuestionTitle(question);
+
+                    expect(question.isEditing()).toBe(false);
+                });
+
+                it('should set \'isModified\' to \'true\' if value is empty', function () {
+                    question.title('');
+                    question.title.isModified(false);
+
+                    viewModel.endEditQuestionTitle(question);
+
+                    expect(question.title.isModified()).toBe(true);
+                });
+
+                it('should set \'isModified\' to \'true\' if value is too long', function () {
+                    var title = '';
+                    for (var i = 0; i < 256; i++)
+                        title += '*';
+
+                    question.title(title);
+                    question.title.isModified(false);
+
+                    viewModel.endEditQuestionTitle(question);
+
+                    expect(question.title.isModified()).toBe(true);
+                });
+
+            });
+
             describe('questions', function () {
                 var question;
                 beforeEach(function () {
                     objectives = createObjectives();
+                    objectives.questions = [objectives[0].questions[0]];
                     dataContext.objectives = objectives;
 
                     viewModel.activate({ id: objectives[0].id });
@@ -300,8 +384,32 @@
                     expect(ko.isObservable(viewModel.questions)).toBeTruthy();
                 });
 
-                it('should have isEdititng observable', function () {
-                    expect(ko.isObservable(question.isEditing)).toBeTruthy();
+                describe('isEditing', function () {
+                    
+                    beforeEach(function () {
+                        objectives = createObjectives();
+                        objectives[0].questions = [objectives[0].questions[0]];
+                        dataContext.objectives = objectives;
+
+                        viewModel.activate({ id: objectives[0].id });
+
+                        question = viewModel.questions()[0];
+                    });
+
+                    it('should be observable', function () {
+                        expect(ko.isObservable(question.isEditing)).toBeTruthy();
+                    });
+
+                    it('should save question title on timer when \'true\'', function () {
+                        question.isEditing(false);
+                        var newText = "New text lalala";
+                        question.title(newText);
+
+                        question.isEditing(true);
+                        jasmine.Clock.tick(60000);
+
+                        expect(dataContext.objectives[0].questions[0].title).toBe(newText);
+                    });
                 });
 
                 describe('title', function () {
@@ -339,59 +447,12 @@
                     });
                 });
 
-                describe('saveTitle', function () {
+                describe('toggleSelection', function () {
 
                     it('should be a function', function () {
-                        expect(question.saveTitle).toEqual(jasmine.any(Function));
+                        expect(question.toggleSelection).toEqual(jasmine.any(Function));
                     });
 
-                    it('should send event \'Edit question title\'', function () {
-                        question.title('newtitle');
-                        spyOn(eventTracker, 'publish');
-
-                        question.saveTitle(question);
-
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Edit question title', eventsCategory);
-                    });
-
-                    it('should set \'isEditable\' to \'false\'', function () {
-                        question.isEditing(true);
-
-                        question.saveTitle(question);
-
-                        expect(question.isEditing()).toBe(false);
-                    });
-
-                    it('should set \'isModified\' to \'true\' if value is empty', function () {
-                        question.title('');
-                        question.title.isModified(false);
-
-                        question.saveTitle(question);
-
-                        expect(question.title.isModified()).toBe(true);
-                    });
-
-                    it('should set \'isModified\' to \'true\' if value is too long', function () {
-                        var title = '';
-                        for (var i = 0; i < 256; i++)
-                            title += '*';
-
-                        question.title(title);
-                        question.title.isModified(false);
-
-                        question.saveTitle(question);
-
-                        expect(question.title.isModified()).toBe(true);
-                    });
-
-                });
-
-                describe('toggleSelection', function() {
-
-                    it('should be a function', function () {
-                        expect(question.saveTitle).toEqual(jasmine.any(Function));
-                    });
-                    
                     it('should send event \'Select question\'', function () {
                         spyOn(eventTracker, 'publish');
                         question.isSelected(false);
@@ -400,7 +461,7 @@
 
                         expect(eventTracker.publish).toHaveBeenCalledWith('Select question', eventsCategory);
                     });
-                    
+
                     it('should send event \'Unelect question\'', function () {
                         spyOn(eventTracker, 'publish');
                         question.isSelected(true);
@@ -411,7 +472,6 @@
                     });
                 });
             });
-
         });
     }
 );

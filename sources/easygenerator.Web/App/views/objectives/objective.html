@@ -84,8 +84,11 @@
                         <!--<div class="question-title-error-message" data-bind="text: title.error"></div>-->
                         <!--/ko -->
                         <div class="question-title-wrapper" data-bind="css: {active: isEditing, error: !title.isValid() && title.isModified()}">
+                            <div class="question-title-chars-counter">
+                                <span data-bind="text: title().length"></span>/255
+                            </div>
                             <div class="question-title selectable">
-                                <textarea data-bind="value: title, valueUpdate: 'afterkeydown', event: { blur: saveTitle.bind($data) }, hasFocus: isEditing"></textarea>
+                                <textarea data-bind="value: title, valueUpdate: 'afterkeydown', event: { blur: $parent.endEditQuestionTitle }, hasFocus: isEditing"></textarea>
                             </div>
                         </div>
                     </li>

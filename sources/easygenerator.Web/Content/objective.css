@@ -292,3 +292,30 @@ a.nav-control:hover {
     margin-left: 20px;
     cursor: pointer;
 }
+
+.question-title-wrapper.active .question-title-chars-counter {
+    display: block;
+}
+
+.question-title-wrapper.error .question-title-chars-counter {
+    background-color: #f26c4f;
+    display: block;
+}
+
+.question-title-chars-counter {
+    display: none;
+    color: white;
+    background-color: #6DCEFC;
+    padding: 0 5px;
+    width: auto;
+    height: 17px;
+    line-height: 17px;
+    position: absolute;
+    font-size: 12px;
+    margin-top: 4px;
+    right: 26px;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    text-align: center;
+}

@@ -201,7 +201,7 @@
                         if (value) {
                             saveIntervalId = setInterval(function () {
                                 saveAnswerOption(item);
-                            }, constants.autosaveTimersDelay.answerOption);
+                            }, constants.autosaveTimersInterval.answerOption);
                             return;
                         } else if (_.isEmptyOrWhitespace(item.text())) {
                             deleteAnswerOption(item);
@@ -417,7 +417,7 @@
             addExplanation: addExplanation,
             deleteExplanation: deleteExplanation,
             saveExplanation: saveExplanation,
-            explanationAutosaveInterval: constants.autosaveTimersDelay.explanation,
+            explanationAutosaveInterval: constants.autosaveTimersInterval.explanation,
 
             notification: notification,
             language: currentLanguage,

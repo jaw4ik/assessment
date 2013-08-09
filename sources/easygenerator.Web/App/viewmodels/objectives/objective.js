@@ -13,7 +13,7 @@
                 unselectQuestion: "Unselect question",
                 addQuestion: "Add question",
                 editQuestionTitle: "Edit question title",
-                deleteQuestions: "Delete question"
+                deleteSelectedQuestions: "Delete question"
             },
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName, events.category);
@@ -24,29 +24,24 @@
             image = ko.observable(),
             questions = ko.observableArray([]),
             currentSortingOption = ko.observable(constants.sortingOptions.byTitleAsc),
-
             sortByTitleAsc = function () {
                 sendEvent(events.sortByTitleAsc);
                 currentSortingOption(constants.sortingOptions.byTitleAsc);
                 questions(_.sortBy(questions(), function (question) { return question.title().toLowerCase(); }));
             },
-
             sortByTitleDesc = function () {
                 sendEvent(events.sortByTitleDesc);
                 currentSortingOption(constants.sortingOptions.byTitleDesc);
                 questions(_.sortBy(questions(), function (question) { return question.title().toLowerCase(); }).reverse());
             },
-
             navigateToObjectives = function () {
                 sendEvent(events.navigateToObjectives);
                 router.navigateTo('#/objectives');
             },
-
             navigateToEdit = function (item) {
                 sendEvent(events.navigateToEdit);
                 router.navigateTo('#/objective/' + objectiveId + '/question/' + item.id);
             },
-
             addQuestion = function () {
                 var model = {
                     id: generateNewEntryId(questions()),
@@ -58,12 +53,10 @@
                 questions.push(question);
                 sendEvent(events.addQuestion);
             },
-
-            deleteQuestions = function () {
+            deleteSelectedQuestions = function () {
                 _.each(getSelectedQuestions(), deleteQuestion);
-                sendEvent(events.deleteQuestions);
+                sendEvent(events.deleteSelectedQuestions);
             },
-
             deleteQuestion = function (question) {
                 var objective = _.find(dataContext.objectives, function (e) {
                     return e.id == objectiveId;
@@ -74,10 +67,41 @@
                 });
 
                 questions.remove(question);
+                removeSubscribersFromQuestion(question);
             },
+            endEditQuestionTitle = function (instance) {
+                saveQuestionTitle(instance);
+                instance.isEditing(false);
+            },
+            saveQuestionTitle = function (instance) {
+                if (!instance.title.isValid()) {
+                    instance.title.isModified(true);
+                    return;
+                }
 
+                var objective = _.find(dataContext.objectives, function (e) {
+                    return e.id == objectiveId;
+                });
+
+                var question = _.find(objective.questions, function (e) {
+                    return e.id == instance.id;
+                });
+
+                if (_.isObject(question)) {
+                    question.title = instance.title();
+                } else {
+                    objective.questions.push({
+                        id: instance.id,
+                        title: instance.title(),
+                        answerOptions: [],
+                        explanations: []
+                    });
+                }
+
+                sendEvent(events.editQuestionTitle);
+            },
             mapQuestion = function (item) {
-                var result = {
+                var mappedQuestion = {
                     id: item.id,
                     title: ko.observable(item.title).extend({
                         required: { message: 'Please, provide title for question' },
@@ -88,40 +112,24 @@
                     toggleSelection: function (instance) {
                         instance.isSelected(!instance.isSelected());
                         sendEvent(instance.isSelected() ? events.selectQuestion : events.unselectQuestion);
-                    },
-                    saveTitle: function (instance) {
-                        if (!instance.title.isValid()) {
-                            instance.title.isModified(true);
-                            return;
-                        }
-
-                        var objective = _.find(dataContext.objectives, function (e) {
-                            return e.id == objectiveId;
-                        });
-
-                        var question = _.find(objective.questions, function (e) {
-                            return e.id == instance.id;
-                        });
-
-                        if (_.isObject(question)) {
-                            question.title = instance.title();
-                        } else {
-                            objective.questions.push({
-                                id: instance.id,
-                                title: instance.title(),
-                                answerOptions: [],
-                                explanations: []
-                            });
-                        }
-
-                        instance.isEditing(false);
-                        sendEvent(events.editQuestionTitle);
                     }
                 };
-                
-                return result;
-            },
 
+                var saveIntervalId = null;
+                mappedQuestion.isEditing.subscribe(function (value) {
+                    if (value) {
+                        saveIntervalId = setInterval(function () {
+                            saveQuestionTitle(mappedQuestion);
+                        }, constants.autosaveTimersInterval.questionTitle);
+                    } else {
+                        if (!_.isNull(saveIntervalId)) {
+                            clearInterval(saveIntervalId);
+                        }
+                    }
+                });
+
+                return mappedQuestion;
+            },
             activate = function (routeData) {
                 if (_.isEmpty(routeData) || _.isEmpty(routeData.id)) {
                     router.replaceLocation('#/400');
@@ -142,24 +150,26 @@
                 image(objective.image);
 
                 var array = _.chain(objective.questions)
-                                .map(function (item) {
-                                    return mapQuestion(item);
-                                })
+                    .map(function (item) {
+                        return mapQuestion(item);
+                    })
                     .sortBy(function (question) { return question.title().toLowerCase(); })
-                                .value();
+                    .value();
                 questions(currentSortingOption() == constants.sortingOptions.byTitleAsc ? array : array.reverse());
             },
-
+            deactivate = function () {
+                _.each(questions(), function (question) {
+                    removeSubscribersFromQuestion(question);
+                });
+            },
             getSelectedQuestions = function () {
                 return _.reject(questions(), function (item) {
                     return !item.isSelected();
                 });
             },
-
             canDeleteQuestions = ko.computed(function () {
                 return getSelectedQuestions().length == 1;
             }),
-
             generateNewEntryId = function (collection) {
                 var id = 0;
                 if (collection.length > 0) {
@@ -171,6 +181,12 @@
                 }
 
                 return id;
+            },
+            removeSubscribersFromQuestion = function (question) {
+                if (question.isEditing.getSubscriptionsCount() != 0)
+                    _.each(question.isEditing._subscriptions.change, function (subscription) {
+                        subscription.dispose();
+                    });
             };
 
         return {
@@ -190,9 +206,11 @@
             navigateToObjectives: navigateToObjectives,
 
             addQuestion: addQuestion,
-            deleteQuestions: deleteQuestions,
+            deleteSelectedQuestions: deleteSelectedQuestions,
+            endEditQuestionTitle: endEditQuestionTitle,
 
-            activate: activate
+            activate: activate,
+            deactivate: deactivate
         };
     }
 );
