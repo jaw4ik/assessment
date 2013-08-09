@@ -108,7 +108,9 @@
                         } else {
                             objective.questions.push({
                                 id: instance.id,
-                                title: instance.title()
+                                title: instance.title(),
+                                answerOptions: [],
+                                explanations: []
                             });
                         }
 
@@ -116,7 +118,7 @@
                         sendEvent(events.editQuestionTitle);
                     }
                 };
-
+                
                 return result;
             },
 
@@ -134,7 +136,7 @@
                     router.replaceLocation('#/404');
                     return;
                 }
-                
+
                 objectiveId = routeData.id;
                 title(objective.title);
                 image(objective.image);
