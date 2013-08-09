@@ -346,9 +346,10 @@
 
 .objective-brief-toolbar-icon-question {
     display: inline-block;
-    width: 16px;
-    height: 15px;
-    background: url('images/objexp-sprite.png') 0 -321px;
+    width: 17px;
+    height: 17px;
+    background-image: url('images/middle-size-icons-pack.png');
+    background-position: center -303px;
 }
 
 .objective-question-count-text {
