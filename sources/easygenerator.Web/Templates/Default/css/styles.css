@@ -475,7 +475,7 @@ input[type="checkbox"] {
 
 .question-brief-title {
     display: inline-block;
-    padding: 15px 20px;
+    padding: 15px 47px 15px 20px;
     width: 100%;
     color: #666666;
     white-space: nowrap;
