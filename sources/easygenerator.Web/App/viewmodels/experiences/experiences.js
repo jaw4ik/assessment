@@ -13,7 +13,8 @@
                 experienceUnselected: 'Experience unselected',
                 navigateToDetails: 'Navigate to details',
                 buildExperience: 'Build experience',
-                downloadExperience: 'Download experience'
+                downloadExperience: 'Download experience',
+                experienceBuildFailed: 'Experience build is failed'
             },
 
             sendEvent = function (eventName) {
@@ -87,6 +88,7 @@
                     experience.buildingStatus(buildingStatus);
                 })
                 .fail(function () {
+                    sendEvent(events.experienceBuildFailed);
                     experience.buildingStatus(constants.buildingStatuses.failed);
                 })
                 .always(function () {

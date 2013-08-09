@@ -298,6 +298,23 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Build experience', eventsCategory);
                 });
 
+                it('should send event \"Experience build is failed\" when request is failed', function () {
+                    var experience = viewModel.experiences()[0],
+                            promise;
+
+                    deferred.reject();
+
+                    promise = viewModel.buildExperience(experience);
+
+                    waitsFor(function () {
+                        return promise.state() == 'rejected';
+                    });
+
+                    runs(function () {
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Experience build is failed', eventsCategory);
+                    });
+                });
+
                 it('should reset item selection', function () {
                     var experience = viewModel.experiences()[0];
                     experience.isSelected(true);
@@ -391,7 +408,6 @@
                     });
                     
                 });
-
             });
 
             describe('downloadExperience', function () {
