@@ -1,6 +1,5 @@
 ﻿ko.bindingHandlers.ckeditor = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-
         var language = valueAccessor().language() || 'en',
             eventTracker = valueAccessor().eventTracker || null,
             data = valueAccessor().data,
@@ -28,6 +27,10 @@
                 editor.focus();
 
             editor.on('focus', function () {
+                var toolbar = $('#cke_' + editor.name);
+                var positionTopOfElement = editor.container.getDocumentPosition().y;
+                var editorHeight = toolbar.height();
+                toolbar.css('top', positionTopOfElement - editorHeight);
                 isEditing(true);
             });
 
