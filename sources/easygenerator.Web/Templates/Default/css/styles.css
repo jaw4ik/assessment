@@ -660,7 +660,8 @@ input[type="checkbox"] {
 
 /* -------------- not supported browser view ------------- */
 
-html, body, .application-wrapper {
+html.ie7, .ie7 body, .ie7 .application-wrapper,
+html.ie8, .ie8 body, .ie8 .application-wrapper {
     overflow-y: hidden;
     -moz-min-width: 600px;
     -ms-min-width: 600px;
