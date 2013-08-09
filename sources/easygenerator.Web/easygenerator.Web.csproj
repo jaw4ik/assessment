@@ -183,10 +183,8 @@
     <Content Include="App\repositories\objectiveBriefRepository.spec.js" />
     <Content Include="App\viewmodels\errors\404.js" />
     <Content Include="App\viewmodels\errors\400.js" />
-    <Content Include="App\viewmodels\test.js" />
     <Content Include="App\views\errors\404.html" />
     <Content Include="App\views\errors\400.html" />
-    <Content Include="App\views\test.html" />
     <Content Include="Content\ckeditor.css" />
     <Content Include="Content\experiences.css" />
     <Content Include="Content\images\icons.png" />
