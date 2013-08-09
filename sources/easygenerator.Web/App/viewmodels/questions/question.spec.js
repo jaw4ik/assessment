@@ -29,26 +29,20 @@ define(function (require) {
                 });
 
                 it('route data is empty', function () {
-                    //act
                     viewModel.activate();
 
-                    //assert
                     expect(router.navigateTo).toHaveBeenCalledWith('#/400');
                 });
 
                 it('objectiveId is undefined', function () {
-                    //act
                     viewModel.activate({ id: '0', objectiveId: undefined });
 
-                    //assert
                     expect(router.navigateTo).toHaveBeenCalledWith('#/400');
                 });
 
                 it('question id is undefined', function () {
-                    //act
                     viewModel.activate({ objectiveId: '123', id: undefined });
 
-                    //assert
                     expect(router.navigateTo).toHaveBeenCalledWith('#/400');
                 });
             });
@@ -60,18 +54,14 @@ define(function (require) {
                 });
 
                 it('objective not found', function () {
-                    // arrange
                     dataContext.objectives = [];
 
-                    //act
                     viewModel.activate({ id: '0', objectiveId: '0' });
 
-                    //assert
                     expect(router.navigateTo).toHaveBeenCalledWith('#/404');
                 });
 
                 it('question not found', function () {
-                    //arrange
                     dataContext.objectives = [
                         new objectiveModel({
                             id: 'obj1',
@@ -83,14 +73,12 @@ define(function (require) {
                     //act
                     viewModel.activate({ id: 'someId', objectiveId: 'obj1' });
 
-                    //assert
                     expect(router.navigateTo).toHaveBeenCalledWith('#/404');
                 });
 
             });
 
             it('should disable next when question is last', function () {
-                //arrange
                 dataContext.objectives = [
                        new objectiveModel(
                         {
@@ -108,15 +96,12 @@ define(function (require) {
                                 ]
                         })];
 
-                //act
                 viewModel.activate({ objectiveId: 'obj2', id: '0' });
 
-                //assert
                 expect(viewModel.hasNext).toBe(false);
             });
 
             it('should disable previous when question is first', function () {
-                //arrange
                 dataContext.objectives = [
                        new objectiveModel(
                         {
@@ -134,15 +119,12 @@ define(function (require) {
                                 ]
                         })];
 
-                //act
                 viewModel.activate({ objectiveId: 'obj3', id: '0' });
 
-                //assert
                 expect(viewModel.hasPrevious).toBe(false);
             });
 
             it('should initialize fields', function () {
-                //arrange
                 var question = new questionModel({
                     id: '1',
                     title: 'Question 2',
@@ -227,13 +209,10 @@ define(function (require) {
             });
             
             it('should set explanation isEditing() to \'false\' if current value is \'true\'', function () {
-                //arrange
                 viewModel.explanations()[0].isEditing(true);
 
-                //act
                 viewModel.deactivate();
 
-                //assert
                 expect(viewModel.explanations()[0].isEditing()).toBe(false);
             });
         });
@@ -246,22 +225,16 @@ define(function (require) {
             });
 
             it('should track event \"Navigate to related objective\"', function () {
-                //act
                 viewModel.goToRelatedObjective();
 
-                //assert
                 expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to related objective', eventsCategory);
             });
 
             it('should navigate to objective', function () {
-
-                //arrange
                 viewModel.objectiveId = '0';
 
-                //act
                 viewModel.goToRelatedObjective();
 
-                //assert
                 expect(router.navigateTo).toHaveBeenCalledWith('#/objective/0');
             });
 
@@ -275,39 +248,30 @@ define(function (require) {
             });
 
             it('should track event \"Navigate to previous question\"', function () {
-                //arrange
                 viewModel.objectiveId = '1';
                 viewModel.hasPrevious = true;
                 viewModel.previousId = 0;
 
-                //act
                 viewModel.goToPreviousQuestion();
 
-                //assert
                 expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to previous question', eventsCategory);
             });
 
             it('should navigate to previous question', function () {
-                //arrange
                 viewModel.objectiveId = '1';
                 viewModel.hasPrevious = true;
                 viewModel.previousId = 0;
 
-                //act
                 viewModel.goToPreviousQuestion();
 
-                //assert
                 expect(router.navigateTo).toHaveBeenCalledWith('#/objective/1/question/0');
             });
 
             it('should navigate to #/404 if previous question doesnt exist', function () {
-                //arrange
                 viewModel.hasPrevious = false;
 
-                // act
                 viewModel.goToPreviousQuestion();
 
-                // asert
                 expect(router.navigateTo).toHaveBeenCalledWith('#/404');
             });
         });
@@ -320,39 +284,30 @@ define(function (require) {
             });
 
             it('should track event \'Navigate to next question\'', function () {
-                //arrange
                 viewModel.objectiveId = '1';
                 viewModel.hasNext = true;
                 viewModel.nextId = '1';
 
-                //act
                 viewModel.goToNextQuestion();
 
-                //assert
                 expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to next question', eventsCategory);
             });
 
             it('should navigate to next question', function () {
-                //arrange
                 viewModel.objectiveId = '1';
                 viewModel.hasNext = true;
                 viewModel.nextId = '1';
 
-                //act
                 viewModel.goToNextQuestion();
 
-                //assert
                 expect(router.navigateTo).toHaveBeenCalledWith('#/objective/1/question/1');
             });
 
             it('should throw if next question doesnt exist', function () {
-                //arrange
                 viewModel.hasNext = false;
 
-                // act
                 viewModel.goToNextQuestion();
 
-                // assert
                 expect(router.navigateTo).toHaveBeenCalledWith('#/404');
             });
         });
@@ -362,24 +317,18 @@ define(function (require) {
             describe('answers', function () {
 
                 it('should toggle false value', function () {
-                    //arrange
                     viewModel.isAnswersBlockExpanded(false);
 
-                    //act
                     viewModel.toggleAnswers();
 
-                    //assert
                     expect(viewModel.isAnswersBlockExpanded()).toBe(true);
                 });
 
                 it('should toggle true value', function () {
-                    //arrange
                     viewModel.isAnswersBlockExpanded(true);
 
-                    //act
                     viewModel.toggleAnswers();
 
-                    //assert
                     expect(viewModel.isAnswersBlockExpanded()).toBe(false);
                 });
             });
@@ -387,24 +336,18 @@ define(function (require) {
             describe('explanations', function () {
 
                 it('should toggle false value', function () {
-                    //arrange
                     viewModel.isExplanationsBlockExpanded(false);
 
-                    //act
                     viewModel.toggleExplanations();
 
-                    //assert
                     expect(viewModel.isExplanationsBlockExpanded()).toBe(true);
                 });
 
                 it('should toggle true value', function () {
-                    //arrange
                     viewModel.isExplanationsBlockExpanded(true);
 
-                    //act
                     viewModel.toggleExplanations();
 
-                    //assert
                     expect(viewModel.isExplanationsBlockExpanded()).toBe(false);
                 });
 
@@ -453,6 +396,8 @@ define(function (require) {
                                          ]
                                  })];
                 viewModel.activate({ id: '0', objectiveId: 'obj3' });
+                
+                jasmine.Clock.useMock();
             });
 
             describe('text', function () {
@@ -462,44 +407,33 @@ define(function (require) {
                 });
 
                 it('should set canAddExplanation to false on empty value for last explanation', function () {
-                    //arrange
                     viewModel.canAddExplanation(true);
                     var explanation = viewModel.explanations()[1];
 
-                    //act
                     explanation.text('');
 
-                    //assert
                     expect(viewModel.canAddExplanation()).toBe(false);
 
-                    //rollback
                     explanation.text('Lalala');
                 });
 
                 it('should not change canAddExplanation on empty value for not last explanation', function () {
-                    //arrange
                     viewModel.canAddExplanation(true);
                     var explanation = viewModel.explanations()[0];
 
-                    //act
                     explanation.text('');
 
-                    //assert
                     expect(viewModel.canAddExplanation()).toBe(true);
 
-                    //rollback
                     explanation.text('Lalala');
                 });
 
                 it('should set canAddExplanation to true on value changed for last explanation', function () {
-                    //arrange
                     viewModel.canAddExplanation(false);
                     var explanation = viewModel.explanations()[1];
 
-                    //act
                     explanation.text('Trololo');
 
-                    //assert
                     expect(viewModel.canAddExplanation()).toBe(true);
                 });
             });
@@ -534,6 +468,7 @@ define(function (require) {
                                     })];
                     viewModel.activate({ id: '0', objectiveId: 'obj3' });
 
+                    jasmine.Clock.useMock();
                     spyOn(eventTracker, 'publish');
                 });
 
@@ -542,72 +477,55 @@ define(function (require) {
                 });
 
                 it('should save explanation on timer tick when value is \'true\'', function () {
-                    //arrange
-                    jasmine.Clock.useMock();
                     var explanation = viewModel.explanations()[0];
                     var newText = "New text lalala";
                     explanation.text(newText);
 
-                    //act
                     explanation.isEditing(true);
                     jasmine.Clock.tick(60000);
 
-                    //assert
                     expect(dataContext.objectives[0].questions[0].explanations[0].text).toBe(newText);
                 });
 
                 it('should send event \"Start editing explanation\" if true', function () {
-                    //act
                     viewModel.explanations()[0].isEditing(true);
 
-                    //assert
                     expect(eventTracker.publish).toHaveBeenCalledWith('Start editing explanation', eventsCategory);
                 });
 
                 it('should send event \"End editing explanation\" if false', function () {
-                    //arrange
                     viewModel.explanations()[0].isEditing(true);
                     eventTracker.publish.reset();
 
-                    //act
                     viewModel.explanations()[0].isEditing(false);
 
-                    //assert
                     expect(eventTracker.publish).toHaveBeenCalledWith('End editing explanation', eventsCategory);
                 });
 
                 it('should remove entry whith empty text on false', function () {
-                    //arrange
                     var explanation = viewModel.explanations()[0];
                     explanation.isEditing(true);
                     explanation.text('');
 
-                    //act
                     explanation.isEditing(false);
 
-                    //aasert
                     expect(_.find(viewModel.explanations(), function (item) {
                         return item.id == explanation.id;
                     })).toBeUndefined();
 
-                    //rollback
                     explanation.text('lalala');
                 });
 
                 it('should set canAddExplanation to true if entry text is empty on false', function () {
-                    //assert
                     viewModel.canAddExplanation(false);
                     var explanation = viewModel.explanations()[0];
                     explanation.isEditing(true);
                     explanation.text('');
 
-                    //act
                     explanation.isEditing(false);
 
-                    //assert
                     expect(viewModel.canAddExplanation()).toBe(true);
 
-                    //rollback
                     explanation.text('lalala');
                 });
             });
@@ -623,28 +541,24 @@ define(function (require) {
 
             beforeEach(function () {
                 viewModel.explanations = ko.observableArray([]);
+                jasmine.Clock.useMock();
             });
 
             it('should be a function', function () {
-                //act & assert
                 expect(viewModel.addExplanation).toEqual(jasmine.any(Function));
             });
 
             it('should send event \'Add explanation\'', function () {
-                //arrange
                 spyOn(eventTracker, 'publish');
 
-                //act
                 viewModel.addExplanation();
 
-                //assert
                 expect(eventTracker.publish).toHaveBeenCalledWith('Add explanation', eventsCategory);
             });
 
             it('should add explanation to viewModel', function () {
-                //act
                 viewModel.addExplanation();
-                //assert
+                
                 expect(viewModel.explanations().length).toBe(1);
                 expect(viewModel.explanations()[0].text).toBeDefined();
                 expect(viewModel.explanations()[0].id).toBeDefined();
@@ -652,22 +566,17 @@ define(function (require) {
             });
 
             it('should set isEditing observable to true for new explanation', function () {
-                //act
                 viewModel.addExplanation();
 
-                //assert
                 expect(viewModel.explanations()[0].isEditing()).toBe(true);
             });
 
 
             it('should set canAddExplanation to false', function () {
-                //assert
                 viewModel.canAddExplanation(true);
 
-                //act
                 viewModel.addExplanation();
 
-                //assert
                 expect(viewModel.canAddExplanation()).toBe(false);
             });
         });
@@ -682,40 +591,32 @@ define(function (require) {
 
             beforeEach(function () {
                 viewModel.explanations = ko.observableArray([explanation]);
+                jasmine.Clock.useMock();
             });
 
             it('should be a function', function () {
-                //act & assert
                 expect(viewModel.deleteExplanation).toEqual(jasmine.any(Function));
             });
 
             it('should send event \'Delete explanation\'', function () {
-                //arrange
                 spyOn(eventTracker, 'publish');
 
-                //act
                 viewModel.deleteExplanation(explanation);
 
-                //assert
                 expect(eventTracker.publish).toHaveBeenCalledWith('Delete explanation', eventsCategory);
             });
 
             it('should delete explanation form viewModel', function () {
-                //act
                 viewModel.deleteExplanation(explanation);
 
-                //assert
                 expect(viewModel.explanations().length).toBe(0);
             });
 
             it('should set canAddExplanation to true if deleted last explanation', function () {
-                //arrange
                 viewModel.canAddExplanation(false);
 
-                //act
                 viewModel.deleteExplanation(explanation);
 
-                //assert
                 expect(viewModel.canAddExplanation()).toBe(true);
             });
         });
@@ -758,6 +659,7 @@ define(function (require) {
 
             spyOn(eventTracker, 'publish');
             spyOn(viewModel.notification, 'update');
+            jasmine.Clock.useMock();
         });
 
         describe('add', function () {
