@@ -660,7 +660,7 @@ input[type="checkbox"] {
 
 /* -------------- not supported browser view ------------- */
 
-html.ie7, .ie7 body, .ie7 .application-wrapper html.ie8, .ie8 body, .ie8 .application-wrapper {
+html, body, .application-wrapper {
     overflow-y: hidden;
     -moz-min-width: 600px;
     -ms-min-width: 600px;
@@ -679,12 +679,12 @@ html.ie7, .ie7 body, .ie7 .application-wrapper html.ie8, .ie8 body, .ie8 .applic
     margin: 0 auto;
 }
 
-.ie7 .browser-group {
-    display: inline;
+.browser-group {
+    display: inline-block;
 }
 
-.ie8 .browser-group {
-    display: inline-block;
+.ie7 .browser-group {
+    display: inline;
 }
 
 .browser-group {
