@@ -658,6 +658,15 @@ input[type="checkbox"] {
 
 /* -------------- not supported browser view ------------- */
 
+html.ie7, .ie7 body, .ie7 .application-wrapper html.ie8, .ie8 body, .ie8 .application-wrapper {
+    overflow-y: hidden;
+    -moz-min-width: 600px;
+    -ms-min-width: 600px;
+    -o-min-width: 600px;
+    -webkit-min-width: 600px;
+    min-width: 600px;
+}
+
 .not-supported-browser {
     padding-top: 100px;
     text-align: center;
@@ -668,8 +677,15 @@ input[type="checkbox"] {
     margin: 0 auto;
 }
 
-.browser-group {
+.ie7 .browser-group {
     display: inline;
+}
+
+.ie8 .browser-group {
+    display: inline-block;
+}
+
+.browser-group {
     white-space: nowrap;
 }
 
