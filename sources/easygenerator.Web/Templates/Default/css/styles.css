@@ -478,8 +478,9 @@ input[type="checkbox"] {
     padding: 15px 20px;
     width: 100%;
     color: #666666;
-    -ms-word-wrap: break-word;
-    word-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
     .question-brief-title:hover {

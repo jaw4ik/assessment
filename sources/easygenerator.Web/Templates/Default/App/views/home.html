@@ -13,28 +13,12 @@
                     <div class="objective-brief-expand-collapse-wrapper">
                         <div data-bind="css: { 'btn-collapse': isExpanded(), 'btn-expand': !isExpanded() }"></div>
                     </div>
-                    <!--<div class="objective-brief-title-expand-collapse-wrapper">
-                        <div class="objective-brief-title-expand-collapse">
-                            <div data-bind="css: { 'btn-collapse': isExpanded(), 'btn-expand': !isExpanded() }"></div>
-                        </div>
-                    </div>-->
                 </a>
             </div>
             <!-- ko if: isExpanded() -->
             <ul class="unstyled question-brief-list" data-bind="foreach: questions">
                 <li class="question-brief">
-                    <a class="question-brief-title selectable" href="#" data-bind="text: title, attr: { href: '#/objective/' + $parent.id + '/question/' + id }"></a>
-                    <!--<ul data-bind="foreach: answers">
-                            <li>
-                                <span data-bind="text: text"></span>
-                                <span data-bind="text: isCorrect"></span>
-                            </li>
-                        </ul>
-                        <ul data-bind="foreach: explanations">
-                            <li>
-                                <a href="#" data-bind="text: id, attr: { href: '#/objective/' + $parents[1].id + '/question/' + $parent.id + '/explanation/' + id }"></a>
-                            </li>
-                        </ul>-->
+                    <a class="question-brief-title selectable" href="#" data-bind="text: title, attr: { href: '#/objective/' + $parent.id + '/question/' + id }, attr: { title: title }"></a>
                 </li>
             </ul>
             <!-- /ko -->
