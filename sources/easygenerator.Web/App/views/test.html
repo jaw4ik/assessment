@@ -1,12 +1,12 @@
 ﻿<section class="objectives unselectable">
     <div class="objectives-navigation">
         <span class="learning-objectives-btn current" data-bind="localize: { text: 'learningObjectives' }">Learning objectives</span>
-        <a class="experiences-btn" href="#/experiences" data-bind="click: navigateToExperiences, localize: { text: 'experiences' }">Experiences</a>
+        <a class="experiences-btn" href="#/experiences" data-bind="localize: { text: 'experiences' }">Experiences</a>
     </div>
 
     <div class="objectives-header">
         <div class="objectives-header-title" data-bind="css: { 'alone': !enableSorting() }">
-            <a class="objectives-header-create-link" href="/#/404" data-bind="click: navigateToCreation, localize: { title: 'addNewObjective' }"></a>
+            <a class="objectives-header-create-link" href="/#/404" data-bind="localize: { title: 'addNewObjective' }"></a>
             <span data-bind="localize: { text: 'learningObjective' }">Learning objective</span>
             <hr />
         </div>
@@ -28,10 +28,10 @@
     </div>
     <div class="objectives-content-wrapper">
         <div class="objectives-content">
-            <div class="objectives-list-wrapper">
+            <div class="objectives-list-wrapper" style="border: 1px solid red;">
                 <ul class="unstyled objectives-list clearfix">
                     <!-- ko foreach: objectives -->
-                    <li class="objective-brief" data-bind="css: { 'objective-brief-selected': isSelected() }">
+                    <li class="objective-brief" data-bind="css: { 'objective-brief-selected': isSelected() }" onclick="javascript: alert('yes');">
                         <div class="white-framing objective-brief-inner">
                             <div>
                                 <div class="objective-brief-image" data-bind="style: { backgroundImage: 'url(' + image + ')' }">
@@ -58,7 +58,7 @@
                                         </div>
                                     </div>
                                     <div class="objective-brief-options-separator"></div>
-                                    <div class="objective-brief-options-open" data-bind="click: $parent.navigateToDetails">
+                                    <div class="objective-brief-options-open" onclick="javascript:alert('goto');">
                                         <div data-bind="localize: { text: 'open' }">Open</div>
                                         <div class="objective-brief-options-open-image"></div>
                                     </div>
