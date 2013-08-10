@@ -22,6 +22,10 @@ define(function (require) {
 
         describe('activate:', function () {
 
+            it('should be a function', function () {
+                expect(viewModel.activate).toEqual(jasmine.any(Function));
+            });
+
             describe('when route data is empty', function () {
 
                 it('should navigate to #/400', function () {
@@ -194,35 +198,51 @@ define(function (require) {
 
         describe('deactivate:', function () {
 
+            beforeEach(function () {
+                dataContext.objectives = [
+                             new objectiveModel(
+                                 {
+                                     id: 'obj3',
+                                     title: 'Test Objective',
+                                     image: images[0],
+                                     questions:
+                                         [
+                                             new questionModel({
+                                                 id: '0',
+                                                 title: 'Question 1',
+                                                 answerOptions: [],
+                                                 explanations: [
+                                                     new explanationModel({
+                                                         id: '0',
+                                                         text: 'Default text1'
+                                                     }),
+                                                      new explanationModel({
+                                                          id: '1',
+                                                          text: 'Default text2'
+                                                      })
+                                                 ]
+                                             })
+                                         ]
+                                 })];
+                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+            });
+
             it('should be a function', function () {
-                expect(viewModel.deactivate).toBeDefined();
+                expect(viewModel.deactivate).toEqual(jasmine.any(Function));
             });
 
             it('should finish editing explanation', function () {
-                var explanation = {
-                    text: ko.observable('Some text'),
-                    isEditing: ko.observable(true),
-                    id: '0'
-                };
-
-                viewModel.explanations([explanation]);
-
+                viewModel.explanations()[0].isEditing(false);
                 viewModel.deactivate();
 
-                expect(explanation.isEditing()).toBe(false);
+                expect(viewModel.explanations()[0].isEditing()).toBe(false);
             });
 
             it('should remove subscribers from explanation', function () {
-                var explanation = {
-                    text: ko.observable('Some text'),
-                    isEditing: ko.observable(true),
-                    id: '0'
-                };
+                var explanation = viewModel.explanations()[0];
 
                 var disposeSpy = jasmine.createSpyObj('disposeSpy', ['dispose']);
                 explanation.editingSubscription = disposeSpy;
-
-                viewModel.explanations([explanation]);
 
                 viewModel.deactivate();
 
@@ -236,6 +256,10 @@ define(function (require) {
             beforeEach(function () {
                 spyOn(eventTracker, 'publish');
                 spyOn(router, 'navigateTo');
+            });
+
+            it('should be a function', function () {
+                expect(viewModel.goToRelatedObjective).toEqual(jasmine.any(Function));
             });
 
             it('should track event \"Navigate to related objective\"', function () {
@@ -259,6 +283,10 @@ define(function (require) {
             beforeEach(function () {
                 spyOn(eventTracker, 'publish');
                 spyOn(router, 'navigateTo');
+            });
+
+            it('should be a function', function () {
+                expect(viewModel.goToPreviousQuestion).toEqual(jasmine.any(Function));
             });
 
             it('should track event \"Navigate to previous question\"', function () {
@@ -302,6 +330,10 @@ define(function (require) {
                 spyOn(router, 'navigateTo');
             });
 
+            it('should be a function', function () {
+                expect(viewModel.goToNextQuestion).toEqual(jasmine.any(Function));
+            });
+
             it('should track event \'Navigate to next question\'', function () {
                 viewModel.objectiveId = '1';
                 viewModel.hasNext = true;
@@ -323,7 +355,7 @@ define(function (require) {
             });
 
             describe('when next question doesnt exist', function () {
-                
+
                 it('should navigate to #/404', function () {
                     viewModel.hasNext = false;
 
@@ -331,17 +363,32 @@ define(function (require) {
 
                     expect(router.navigateTo).toHaveBeenCalledWith('#/404');
                 });
-                
+
             });
 
         });
 
+        describe('toggleAnswers:', function () {
 
-        describe('toggle', function () {
+            it('should be a function', function () {
+                expect(viewModel.toggleAnswers).toEqual(jasmine.any(Function));
+            });
 
-            describe('answers', function () {
+            describe('when called while answers block is expanded', function () {
 
-                it('should toggle false value', function () {
+                it('should collapse answers block', function () {
+                    viewModel.isAnswersBlockExpanded(true);
+
+                    viewModel.toggleAnswers();
+
+                    expect(viewModel.isAnswersBlockExpanded()).toBe(false);
+                });
+
+            });
+
+            describe('when called while answers block is collapsed', function () {
+
+                it('should expand answers block', function () {
                     viewModel.isAnswersBlockExpanded(false);
 
                     viewModel.toggleAnswers();
@@ -349,50 +396,11 @@ define(function (require) {
                     expect(viewModel.isAnswersBlockExpanded()).toBe(true);
                 });
 
-                it('should toggle true value', function () {
-                    viewModel.isAnswersBlockExpanded(true);
-
-                    viewModel.toggleAnswers();
-
-                    expect(viewModel.isAnswersBlockExpanded()).toBe(false);
-                });
             });
 
-            describe('explanations', function () {
-
-                it('should toggle false value', function () {
-                    viewModel.isExplanationsBlockExpanded(false);
-
-                    viewModel.toggleExplanations();
-
-                    expect(viewModel.isExplanationsBlockExpanded()).toBe(true);
-                });
-
-                it('should toggle true value', function () {
-                    viewModel.isExplanationsBlockExpanded(true);
-
-                    viewModel.toggleExplanations();
-
-                    expect(viewModel.isExplanationsBlockExpanded()).toBe(false);
-                });
-
-                it('should finish editing on collapse', function () {
-                    viewModel.isExplanationsBlockExpanded(true);
-                    var explanation = {
-                        text: ko.observable('Some text'),
-                        isEditing: ko.observable(true),
-                        id: '0'
-                    };
-                    viewModel.explanations([explanation]);
-
-                    viewModel.toggleExplanations();
-
-                    expect(explanation.isEditing()).toBeFalsy();
-                });
-            });
         });
 
-        describe('explanations', function () {
+        describe('toggleExplanations:', function () {
 
             beforeEach(function () {
                 dataContext.objectives = [
@@ -421,11 +429,84 @@ define(function (require) {
                                          ]
                                  })];
                 viewModel.activate({ id: '0', objectiveId: 'obj3' });
-
-                jasmine.Clock.useMock();
             });
 
-            describe('text', function () {
+            it('should be a function', function () {
+                expect(viewModel.toggleExplanations).toEqual(jasmine.any(Function));
+            });
+
+            describe('when called while explanations block is expanded', function () {
+
+                it('should collapse explanations block', function () {
+                    viewModel.isExplanationsBlockExpanded(true);
+
+                    viewModel.toggleExplanations();
+
+                    expect(viewModel.isExplanationsBlockExpanded()).toBe(false);
+                });
+
+                it('should finish editing', function () {
+                    viewModel.isExplanationsBlockExpanded(true);
+                    var explanation = viewModel.explanations()[0];
+                    explanation.isEditing(true);
+                    
+                    viewModel.toggleExplanations();
+
+                    expect(explanation.isEditing()).toBeFalsy();
+                });
+
+            });
+
+            describe('when called while explanations block is collapsed', function () {
+
+                it('should expand explanations block', function () {
+                    viewModel.isExplanationsBlockExpanded(false);
+
+                    viewModel.toggleExplanations();
+
+                    expect(viewModel.isExplanationsBlockExpanded()).toBe(true);
+                });
+
+            });
+
+        });
+
+        describe('explanations:', function () {
+
+            beforeEach(function () {
+                dataContext.objectives = [
+                             new objectiveModel(
+                                 {
+                                     id: 'obj3',
+                                     title: 'Test Objective',
+                                     image: images[0],
+                                     questions:
+                                         [
+                                             new questionModel({
+                                                 id: '0',
+                                                 title: 'Question 1',
+                                                 answerOptions: [],
+                                                 explanations: [
+                                                     new explanationModel({
+                                                         id: '0',
+                                                         text: 'Default text1'
+                                                     }),
+                                                      new explanationModel({
+                                                          id: '1',
+                                                          text: 'Default text2'
+                                                      })
+                                                 ]
+                                             })
+                                         ]
+                                 })];
+                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+            });
+
+            it('should be observable', function () {
+                expect(ko.isObservable(viewModel.explanations)).toBeTruthy();
+            });
+
+            describe('text:', function () {
 
                 it('should be observable', function () {
                     expect(ko.isObservable(viewModel.explanations()[0].text)).toBeTruthy();
@@ -436,67 +517,52 @@ define(function (require) {
             describe('isEditing', function () {
 
                 beforeEach(function () {
-                    dataContext.objectives = [
-                                new objectiveModel(
-                                    {
-                                        id: 'obj3',
-                                        title: 'Test Objective',
-                                        image: images[0],
-                                        questions:
-                                            [
-                                                new questionModel({
-                                                    id: '0',
-                                                    title: 'Question 1',
-                                                    answerOptions: [],
-                                                    explanations: [
-                                                   new explanationModel({
-                                                       id: '0',
-                                                       text: 'Default text1'
-                                                   }),
-                                                    new explanationModel({
-                                                        id: '1',
-                                                        text: 'Default text2'
-                                                    })
-                                                    ]
-                                                })
-                                            ]
-                                    })];
-                    viewModel.activate({ id: '0', objectiveId: 'obj3' });
-
-                    jasmine.Clock.useMock();
                     spyOn(eventTracker, 'publish');
                 });
 
-                it('should have isEdititng observable', function () {
+                it('should be observable', function () {
                     expect(ko.isObservable(viewModel.explanations()[0].isEditing)).toBeTruthy();
                 });
 
-                it('should send event \"Start editing explanation\" if true', function () {
-                    viewModel.explanations()[0].isEditing(true);
+                describe('when start editing', function () {
 
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Start editing explanation', eventsCategory);
+                    it('should send event \"Start editing explanation\"', function () {
+                        viewModel.explanations()[0].isEditing(true);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Start editing explanation', eventsCategory);
+                    });
+
                 });
 
-                it('should send event \"End editing explanation\" if false', function () {
-                    viewModel.explanations()[0].isEditing(true);
-                    eventTracker.publish.reset();
+                describe('when finish editing', function () {
 
-                    viewModel.explanations()[0].isEditing(false);
+                    it('should send event \"End editing explanation\"', function () {
+                        viewModel.explanations()[0].isEditing(true);
+                        eventTracker.publish.reset();
 
-                    expect(eventTracker.publish).toHaveBeenCalledWith('End editing explanation', eventsCategory);
+                        viewModel.explanations()[0].isEditing(false);
+
+                        expect(eventTracker.publish).toHaveBeenCalledWith('End editing explanation', eventsCategory);
+                    });
+
+                });
+
+            });
+
+            describe('editingSubscription', function () {
+
+                it('should be object', function () {
+                    expect(viewModel.explanations()[0].editingSubscription).toEqual(jasmine.any(Object));
+                });
+
+                it('should have dispose function', function () {
+                    expect(viewModel.explanations()[0].editingSubscription.dispose).toEqual(jasmine.any(Function));
                 });
 
             });
 
         });
 
-        describe('canAddExplanation', function () {
-            it('should be observable', function () {
-                expect(ko.isObservable(viewModel.canAddExplanation)).toBe(true);
-            });
-        });
-
-        describe('addExplanation', function () {
+        describe('addExplanation:', function () {
 
             beforeEach(function () {
                 viewModel.explanations = ko.observableArray([]);
@@ -506,31 +572,69 @@ define(function (require) {
                 expect(viewModel.addExplanation).toEqual(jasmine.any(Function));
             });
 
-            it('should send event \'Add explanation\'', function () {
-                spyOn(eventTracker, 'publish');
+            describe('when called', function () {
 
-                viewModel.addExplanation();
+                it('should send event \'Add explanation\'', function () {
+                    spyOn(eventTracker, 'publish');
 
-                expect(eventTracker.publish).toHaveBeenCalledWith('Add explanation', eventsCategory);
+                    viewModel.addExplanation();
+
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Add explanation', eventsCategory);
+                });
+
+                it('should add explanation to viewModel', function () {
+                    viewModel.addExplanation();
+
+                    expect(viewModel.explanations().length).toBe(1);
+                    expect(viewModel.explanations()[0].text).toBeDefined();
+                    expect(viewModel.explanations()[0].id).toBeDefined();
+                    expect(ko.isObservable(viewModel.explanations()[0].isEditing)).toBe(true);
+                });
+
+                it('should start editing new explanation', function () {
+                    viewModel.addExplanation();
+
+                    expect(viewModel.explanations()[0].isEditing()).toBe(true);
+                });
+
             });
 
-            it('should add explanation to viewModel', function () {
-                viewModel.addExplanation();
-
-                expect(viewModel.explanations().length).toBe(1);
-                expect(viewModel.explanations()[0].text).toBeDefined();
-                expect(viewModel.explanations()[0].id).toBeDefined();
-                expect(ko.isObservable(viewModel.explanations()[0].isEditing)).toBe(true);
-            });
-
-            it('should set isEditing observable to true for new explanation', function () {
-                viewModel.addExplanation();
-
-                expect(viewModel.explanations()[0].isEditing()).toBe(true);
-            });
         });
 
         describe('canAddExplanation:', function () {
+            
+            beforeEach(function () {
+                dataContext.objectives = [
+                             new objectiveModel(
+                                 {
+                                     id: 'obj3',
+                                     title: 'Test Objective',
+                                     image: images[0],
+                                     questions:
+                                         [
+                                             new questionModel({
+                                                 id: '0',
+                                                 title: 'Question 1',
+                                                 answerOptions: [],
+                                                 explanations: [
+                                                     new explanationModel({
+                                                         id: '0',
+                                                         text: 'Default text1'
+                                                     }),
+                                                      new explanationModel({
+                                                          id: '1',
+                                                          text: 'Default text2'
+                                                      })
+                                                 ]
+                                             })
+                                         ]
+                                 })];
+                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+            });
+
+            it('should be computed', function () {
+                expect(ko.isComputed(viewModel.canAddExplanation)).toBe(true);
+            });
 
             describe('when explanation is just added', function () {
 
@@ -619,7 +723,7 @@ define(function (require) {
 
         });
 
-        describe('deleteExplanation', function () {
+        describe('deleteExplanation:', function () {
 
             beforeEach(function () {
                 dataContext.objectives = [
@@ -648,28 +752,37 @@ define(function (require) {
                                          ]
                                  })];
                 viewModel.activate({ id: '0', objectiveId: 'obj3' });
-                spyOn(eventTracker, 'publish');
             });
 
             it('should be a function', function () {
                 expect(viewModel.deleteExplanation).toEqual(jasmine.any(Function));
             });
 
-            it('should send event \'Delete explanation\'', function () {
-                viewModel.deleteExplanation(viewModel.explanations()[0]);
-                expect(eventTracker.publish).toHaveBeenCalledWith('Delete explanation', eventsCategory);
-            });
+            describe('when called', function () {
 
-            it('should delete explanation form viewModel', function () {
-                var explanation = viewModel.explanations()[0];
-                viewModel.deleteExplanation(explanation);
+                it('should send event \'Delete explanation\'', function () {
+                    spyOn(eventTracker, 'publish');
+                    viewModel.deleteExplanation(viewModel.explanations()[0]);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete explanation', eventsCategory);
+                });
 
-                expect(viewModel.explanations().indexOf(explanation)).toBe(-1);
+                it('should delete explanation form viewModel', function () {
+                    var explanation = {
+                        text: ko.observable('Some text'),
+                        isEditing: ko.observable(true),
+                        id: '0'
+                    };
+                    viewModel.explanations([explanation]);
+                    viewModel.deleteExplanation(explanation);
+
+                    expect(viewModel.explanations().indexOf(explanation)).toBe(-1);
+                });
+
             });
 
         });
 
-        describe('language', function () {
+        describe('language:', function () {
 
             it('should be observable', function () {
                 expect(ko.isObservable(viewModel.language)).toBe(true);
@@ -705,7 +818,6 @@ define(function (require) {
 
                 spyOn(eventTracker, 'publish');
                 spyOn(viewModel.notification, 'update');
-                jasmine.Clock.useMock();
             });
 
             describe('add', function () {
