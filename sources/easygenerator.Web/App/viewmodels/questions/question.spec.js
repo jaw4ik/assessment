@@ -790,6 +790,12 @@ define(function (require) {
 
         });
 
+        describe('answerOptions:', function () {
+            it('should be observable', function () {
+                expect(ko.isObservable(viewModel.answerOptions)).toBeTruthy();
+            });
+        });
+
         describe('answer options', function () {
 
             var answer = new answerOptionModel({
