@@ -245,8 +245,9 @@
                     return item.id == explanation.id;
                 });
 
-                if (!!lastAddedExplanation() && explanation.id == lastAddedExplanation().id)
+                if (!!lastAddedExplanation() && explanation.id == lastAddedExplanation().id) {
                     lastAddedExplanation(null);
+                }
 
                 this.explanations.remove(explanation);
                 removeSubscribersFromExplanation(explanation);
@@ -285,6 +286,10 @@
             },
 
             saveExplanation = function (explanation) {
+                
+                if (!explanation.isEditing() && !!lastAddedExplanation() && explanation.id == lastAddedExplanation().id)
+                    lastAddedExplanation(null);
+                
                 if (_.isEmptyOrWhitespace(explanation.text())) {
                     if (!explanation.isEditing()) {
                         removeSubscribersFromExplanation(explanation);
@@ -292,9 +297,6 @@
                     }
                     return;
                 }
-
-                if (!explanation.isEditing() && !!lastAddedExplanation() && explanation.id == lastAddedExplanation().id)
-                    lastAddedExplanation(null);
 
                 var contextExplanation = _.find(question().explanations, function (obj) {
                     return obj.id == explanation.id;
