@@ -184,7 +184,6 @@ define(function (require) {
                 expect(viewModel.objectiveTitle).toBe(objective.title);
                 expect(viewModel.objectiveId).toBe(objective.id);
                 expect(viewModel.title).toBe(question.title);
-                expect(viewModel.question).toBeDefined();
 
                 expect(viewModel.answerOptions().lenght).toBe(question.answerOptions.lenght);
                 expect(viewModel.explanations().lenght).toBe(question.explanations.lenght);
@@ -336,6 +335,7 @@ define(function (require) {
             });
 
         });
+
 
         describe('toggle', function () {
 
@@ -719,16 +719,13 @@ define(function (require) {
                 });
 
                 it('should track event \"Add answer option\"', function () {
-                    viewModel.question({ answerOptions: [] });
                     viewModel.addAnswerOption();
 
                     expect(eventTracker.publish).toHaveBeenCalledWith('Add answer option', eventsCategory);
                 });
 
                 it('function [addAnswerOption] should create option', function () {
-                    viewModel.question({ answerOptions: [] });
                     viewModel.answerOptions([]);
-
                     viewModel.addAnswerOption();
 
                     expect(viewModel.answerOptions().length).toBe(1);
@@ -819,7 +816,6 @@ define(function (require) {
             describe('delete', function () {
 
                 beforeEach(function () {
-                    viewModel.question({ answerOptions: [answer] });
                     viewModel.answerOptions([{
                         id: answer.id,
                         text: ko.observable(answer.text),
@@ -838,7 +834,7 @@ define(function (require) {
                 });
 
                 it('should delete item', function () {
-                    var currentCount = viewModel.question().answerOptions.length;
+                    var currentCount = viewModel.answerOptions().length;
                     viewModel.deleteAnswerOption(viewModel.answerOptions()[0]);
 
                     expect(viewModel.answerOptions().length).toBe(currentCount - 1);

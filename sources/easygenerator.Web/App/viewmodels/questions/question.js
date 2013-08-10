@@ -241,7 +241,7 @@
             },
 
             deleteExplanation = function (explanation) {
-                this.question().explanations = _.reject(this.question().explanations, function (item) {
+                question().explanations = _.reject(question().explanations, function (item) {
                     return item.id == explanation.id;
                 });
 
@@ -354,22 +354,23 @@
                     return;
                 }
 
-                this.question(_.find(objective.questions, function (item) {
+                question(_.find(objective.questions, function (item) {
                     return item.id == routeData.id;
                 }));
 
-                if (!_.isObject(this.question())) {
+                if (!_.isObject(question())) {
                     router.navigateTo('#/404');
                     return;
                 }
 
-                this.title = this.question().title;
+                this.title = question().title;
                 this.objectiveTitle = objective.title;
                 this.objectiveId = objective.id;
 
-                this.answerOptions(_.map(this.question().answerOptions, mapAnswerOption));
-                this.explanations(_.map(this.question().explanations, mapExplanation));
-                var questionIndex = objective.questions.indexOf(this.question());
+                this.answerOptions(_.map(question().answerOptions, mapAnswerOption));
+                this.explanations(_.map(question().explanations, mapExplanation));
+                
+                var questionIndex = objective.questions.indexOf(question());
                 this.nextId = (objective.questions.length > questionIndex + 1) ? objective.questions[questionIndex + 1].id : null;
                 this.previousId = (questionIndex != 0) ? objective.questions[questionIndex - 1].id : null;
 
@@ -389,8 +390,8 @@
             };
 
         return {
+            //#region Properties
             objectiveId: objectiveId,
-            question: question,
 
             objectiveTitle: objectiveTitle,
             title: title,
@@ -398,7 +399,14 @@
             explanations: explanations,
             hasPrevious: hasPrevious,
             hasNext: hasNext,
+            language: currentLanguage,
+            isAnswersBlockExpanded: isAnswersBlockExpanded,
+            isExplanationsBlockExpanded: isExplanationsBlockExpanded,
+            notification: notification,
+            eventTracker: eventTracker,
+            //#endregion Properties
 
+            //#region Methods
             activate: activate,
             deactivate: deactivate,
 
@@ -406,24 +414,19 @@
             goToPreviousQuestion: goToPreviousQuestion,
             goToNextQuestion: goToNextQuestion,
 
-            isAnswersBlockExpanded: isAnswersBlockExpanded,
             toggleAnswers: toggleAnswers,
             addAnswerOption: addAnswerOption,
             toggleAnswerCorrectness: toggleAnswerCorrectness,
             saveAnswerOption: saveAnswerOption,
             deleteAnswerOption: deleteAnswerOption,
 
-            isExplanationsBlockExpanded: isExplanationsBlockExpanded,
             toggleExplanations: toggleExplanations,
             canAddExplanation: canAddExplanation,
             addExplanation: addExplanation,
             deleteExplanation: deleteExplanation,
             saveExplanation: saveExplanation,
-            explanationAutosaveInterval: constants.autosaveTimersInterval.explanation,
-
-            notification: notification,
-            language: currentLanguage,
-            eventTracker: eventTracker
+            explanationAutosaveInterval: constants.autosaveTimersInterval.explanation
+            //#endregion Methods
         };
     }
 );
