@@ -1,6 +1,19 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/Hierarchy/Browsers/Browsers/@EntryValue">C28+,FF23+,IE9+,S6+</s:String>
 	<s:Boolean x:Key="/Default/Environment/UnitTesting/DisabledProviders/=nUnit/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Description/@EntryValue">jasmine xdescription</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Field/=WHEN_005FCONDITION/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Field/=WHEN_005FCONDITION/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Scope/=FFA15E6CFCBE90499C572A859225B012/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Scope/=FFA15E6CFCBE90499C572A859225B012/Type/@EntryValue">InJavaScriptFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Shortcut/@EntryValue">xds</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Text/@EntryValue">xdescribe('$WHEN_CONDITION$', function() {&#xD;
+	$END$&#xD;
+});</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADE0B39FE551014B8EFC116C9E2223D3/@KeyIndexDefined">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADE0B39FE551014B8EFC116C9E2223D3/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADE0B39FE551014B8EFC116C9E2223D3/Description/@EntryValue">jasmine it</s:String>
@@ -12,6 +25,17 @@
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADE0B39FE551014B8EFC116C9E2223D3/Shortcut/@EntryValue">it</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADE0B39FE551014B8EFC116C9E2223D3/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADE0B39FE551014B8EFC116C9E2223D3/Text/@EntryValue">it('$SHOULD_BEHAVIOUR$', function() {&#xD;
+	$END$&#xD;
+});</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4B4195ACFC04E4B89B1263F29B7B8D0/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4B4195ACFC04E4B89B1263F29B7B8D0/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4B4195ACFC04E4B89B1263F29B7B8D0/Description/@EntryValue">jasmine beforeEach</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4B4195ACFC04E4B89B1263F29B7B8D0/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4B4195ACFC04E4B89B1263F29B7B8D0/Scope/=FFA15E6CFCBE90499C572A859225B012/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4B4195ACFC04E4B89B1263F29B7B8D0/Scope/=FFA15E6CFCBE90499C572A859225B012/Type/@EntryValue">InJavaScriptFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4B4195ACFC04E4B89B1263F29B7B8D0/Shortcut/@EntryValue">be</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4B4195ACFC04E4B89B1263F29B7B8D0/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4B4195ACFC04E4B89B1263F29B7B8D0/Text/@EntryValue">beforeEach(function() {&#xD;
 	$END$&#xD;
 });</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=D98629DA5E717E4B910765890AB72B8F/@KeyIndexDefined">True</s:Boolean>
