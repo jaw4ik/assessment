@@ -449,7 +449,7 @@ define(function (require) {
                     viewModel.isExplanationsBlockExpanded(true);
                     var explanation = viewModel.explanations()[0];
                     explanation.isEditing(true);
-                    
+
                     viewModel.toggleExplanations();
 
                     expect(explanation.isEditing()).toBeFalsy();
@@ -565,7 +565,7 @@ define(function (require) {
         describe('addExplanation:', function () {
 
             beforeEach(function () {
-                viewModel.explanations = ko.observableArray([]);
+                viewModel.explanations([]);
             });
 
             it('should be a function', function () {
@@ -583,12 +583,12 @@ define(function (require) {
                 });
 
                 it('should add explanation to viewModel', function () {
+                    viewModel.explanations([]);
                     viewModel.addExplanation();
 
                     expect(viewModel.explanations().length).toBe(1);
                     expect(viewModel.explanations()[0].text).toBeDefined();
                     expect(viewModel.explanations()[0].id).toBeDefined();
-                    expect(ko.isObservable(viewModel.explanations()[0].isEditing)).toBe(true);
                 });
 
                 it('should start editing new explanation', function () {
@@ -597,12 +597,18 @@ define(function (require) {
                     expect(viewModel.explanations()[0].isEditing()).toBe(true);
                 });
 
+                it('should have empty text', function () {
+                    viewModel.addExplanation();
+
+                    expect(viewModel.explanations()[0].text()).toBe('');
+                });
+
             });
 
         });
 
         describe('canAddExplanation:', function () {
-            
+
             beforeEach(function () {
                 dataContext.objectives = [
                              new objectiveModel(
@@ -790,10 +796,201 @@ define(function (require) {
 
         });
 
+        describe('saveExplanation:', function () {
+
+            beforeEach(function () {
+                dataContext.objectives = [
+                             new objectiveModel(
+                                 {
+                                     id: 'obj3',
+                                     title: 'Test Objective',
+                                     image: images[0],
+                                     questions:
+                                         [
+                                             new questionModel({
+                                                 id: '0',
+                                                 title: 'Question 1',
+                                                 answerOptions: [],
+                                                 explanations: [
+                                                     new explanationModel({
+                                                         id: '0',
+                                                         text: 'Default text1'
+                                                     })
+                                                 ]
+                                             })
+                                         ]
+                                 })];
+                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+            });
+
+            it('should be a function', function () {
+                expect(viewModel.saveExplanation).toEqual(jasmine.any(Function));
+            });
+
+            describe('when called with empty text', function () {
+
+                describe('and finished editing', function () {
+
+                    it('should remove explanation from viewmodel', function () {
+                        var explanation = viewModel.explanations()[0];
+                        explanation.text(' ');
+                        explanation.isEditing(false);
+                        viewModel.saveExplanation(explanation);
+
+                        expect(viewModel.explanations().indexOf(explanation)).toBe(-1);
+                    });
+
+                    it('should remove subscriptions from explanation', function () {
+                        var explanation = viewModel.explanations()[0];
+                        explanation.text(' ');
+                        explanation.isEditing(false);
+
+                        var disposeSpy = jasmine.createSpyObj('disposeSpy', ['dispose']);
+                        explanation.editingSubscription = disposeSpy;
+
+                        viewModel.saveExplanation(explanation);
+
+                        expect(disposeSpy.dispose).toHaveBeenCalled();
+                    });
+
+                });
+
+            });
+
+            describe('when called with not empty text', function () {
+
+                describe('and explanation exists in data context', function () {
+
+                    it('should save text', function () {
+                        var explanation = viewModel.explanations()[0];
+                        explanation.text('Some text');
+
+                        viewModel.saveExplanation(explanation);
+
+                        expect(dataContext.objectives[0].questions[0].explanations[0].text).toBe(explanation.text());
+                    });
+
+                });
+
+                describe('and explanation does not exist in data context', function () {
+
+                    it('should create explanation and save text', function () {
+                        var explanation = viewModel.explanations()[0];
+                        explanation.text('Some text');
+                        explanation.id = 'newId';
+
+                        viewModel.saveExplanation(explanation);
+
+                        var savedExplanation = _.find(dataContext.objectives[0].questions[0].explanations, function (item) {
+                            return item.id == explanation.id;
+                        });
+
+                        expect(savedExplanation).toBeDefined();
+                        expect(savedExplanation.text).toBe(explanation.text());
+                    });
+
+                });
+
+                it('should update notification', function () {
+                    spyOn(viewModel.notification, 'update');
+
+                    var explanation = viewModel.explanations()[0];
+                    explanation.text('Some text');
+
+                    viewModel.saveExplanation(explanation);
+
+                    expect(viewModel.notification.update).toHaveBeenCalled();
+                });
+            });
+
+        });
+
         describe('answerOptions:', function () {
+
             it('should be observable', function () {
                 expect(ko.isObservable(viewModel.answerOptions)).toBeTruthy();
             });
+
+        });
+
+        describe('explanationAutosaveInterval:', function () {
+
+            it('should be number', function () {
+                expect(viewModel.explanationAutosaveInterval).toEqual(jasmine.any(Number));
+            });
+
+        });
+
+        describe('eventTracker:', function () {
+
+            it('should be object', function () {
+                expect(viewModel.eventTracker).toEqual(jasmine.any(Object));
+            });
+
+        });
+
+        describe('notification:', function () {
+
+            it('should be object', function () {
+                expect(viewModel.notification).toEqual(jasmine.any(Object));
+            });
+
+            it('should have text observable', function () {
+                expect(ko.isObservable(viewModel.notification.text)).toBeDefined();
+                expect(ko.isObservable(viewModel.notification.text)).toBe(true);
+            });
+
+            it('should have visibility observable', function () {
+                expect(ko.isObservable(viewModel.notification.visibility)).toBeDefined();
+                expect(ko.isObservable(viewModel.notification.visibility)).toBe(true);
+            });
+
+            describe('close', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.notification.close).toEqual(jasmine.any(Function));
+                });
+
+                describe('when called', function () {
+
+                    describe('and visibility is true', function () {
+
+                        it('should set visibility to false', function () {
+                            viewModel.notification.visibility(true);
+                            viewModel.notification.close();
+
+                            expect(viewModel.notification.visibility()).toBeFalsy();
+                        });
+
+                    });
+
+                });
+
+            });
+
+            describe('update', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.notification.update).toEqual(jasmine.any(Function));
+                });
+
+                describe('when called', function () {
+
+                    describe('and visibility is false', function () {
+
+                        it('should set visibility to true', function () {
+                            viewModel.notification.visibility(false);
+                            viewModel.notification.update();
+
+                            expect(viewModel.notification.visibility()).toBeTruthy();
+                        });
+
+                    });
+
+                });
+
+            });
+
         });
 
         describe('answer options', function () {

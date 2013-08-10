@@ -11,7 +11,7 @@
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Scope/=FFA15E6CFCBE90499C572A859225B012/Type/@EntryValue">InJavaScriptFile</s:String>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Shortcut/@EntryValue">xds</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
-	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Text/@EntryValue">xdescribe('$WHEN_CONDITION$', function() {&#xD;
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Text/@EntryValue">xdescribe('$WHEN_CONDITION$', function () {&#xD;
 	$END$&#xD;
 });</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADE0B39FE551014B8EFC116C9E2223D3/@KeyIndexDefined">True</s:Boolean>
@@ -24,7 +24,7 @@
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADE0B39FE551014B8EFC116C9E2223D3/Scope/=FFA15E6CFCBE90499C572A859225B012/Type/@EntryValue">InJavaScriptFile</s:String>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADE0B39FE551014B8EFC116C9E2223D3/Shortcut/@EntryValue">it</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADE0B39FE551014B8EFC116C9E2223D3/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
-	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADE0B39FE551014B8EFC116C9E2223D3/Text/@EntryValue">it('$SHOULD_BEHAVIOUR$', function() {&#xD;
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADE0B39FE551014B8EFC116C9E2223D3/Text/@EntryValue">it('$SHOULD_BEHAVIOUR$', function () {&#xD;
 	$END$&#xD;
 });</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4B4195ACFC04E4B89B1263F29B7B8D0/@KeyIndexDefined">True</s:Boolean>
@@ -35,7 +35,7 @@
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4B4195ACFC04E4B89B1263F29B7B8D0/Scope/=FFA15E6CFCBE90499C572A859225B012/Type/@EntryValue">InJavaScriptFile</s:String>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4B4195ACFC04E4B89B1263F29B7B8D0/Shortcut/@EntryValue">be</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4B4195ACFC04E4B89B1263F29B7B8D0/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
-	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4B4195ACFC04E4B89B1263F29B7B8D0/Text/@EntryValue">beforeEach(function() {&#xD;
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4B4195ACFC04E4B89B1263F29B7B8D0/Text/@EntryValue">beforeEach(function () {&#xD;
 	$END$&#xD;
 });</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=D98629DA5E717E4B910765890AB72B8F/@KeyIndexDefined">True</s:Boolean>
@@ -48,7 +48,7 @@
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=D98629DA5E717E4B910765890AB72B8F/Scope/=FFA15E6CFCBE90499C572A859225B012/Type/@EntryValue">InJavaScriptFile</s:String>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=D98629DA5E717E4B910765890AB72B8F/Shortcut/@EntryValue">xit</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=D98629DA5E717E4B910765890AB72B8F/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
-	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=D98629DA5E717E4B910765890AB72B8F/Text/@EntryValue">xit('$SHOULD_BEHAVIOUR$', function() {&#xD;
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=D98629DA5E717E4B910765890AB72B8F/Text/@EntryValue">xit('$SHOULD_BEHAVIOUR$', function () {&#xD;
 	$END$&#xD;
 });</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E411B7E353A96A43B002F0B4D30DF033/@KeyIndexDefined">True</s:Boolean>
@@ -85,6 +85,6 @@ public void $MethodName_ShouldDoSomething_WhenSomeConditionMatches$()&#xD;
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F40F788622EE7C4E82FBE95339A46A35/Scope/=FFA15E6CFCBE90499C572A859225B012/Type/@EntryValue">InJavaScriptFile</s:String>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F40F788622EE7C4E82FBE95339A46A35/Shortcut/@EntryValue">ds</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F40F788622EE7C4E82FBE95339A46A35/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
-	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F40F788622EE7C4E82FBE95339A46A35/Text/@EntryValue">describe('$WHEN_CONDITION$', function() {&#xD;
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F40F788622EE7C4E82FBE95339A46A35/Text/@EntryValue">describe('$WHEN_CONDITION$', function () {&#xD;
 	$END$&#xD;
 });</s:String></wpf:ResourceDictionary>

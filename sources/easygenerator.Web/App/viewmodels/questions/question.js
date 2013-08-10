@@ -216,6 +216,19 @@
                 return mappedAnswerOption;
             },
 
+            generateNewEntryId = function (collection) {
+                var id = 0;
+                if (collection.length > 0) {
+                    var maxId = _.max(_.map(collection, function (exp) {
+                        return parseInt(exp.id);
+                    }));
+
+                    id = maxId + 1;
+                }
+
+                return id;
+            },
+
             //#endregion Answer options
 
             //#region Explanations
@@ -272,24 +285,11 @@
                 return mappedExplanation;
             },
 
-            generateNewEntryId = function (collection) {
-                var id = 0;
-                if (collection.length > 0) {
-                    var maxId = _.max(_.map(collection, function (exp) {
-                        return parseInt(exp.id);
-                    }));
-
-                    id = maxId + 1;
-                }
-
-                return id;
-            },
-
             saveExplanation = function (explanation) {
-                
+
                 if (!explanation.isEditing() && !!lastAddedExplanation() && explanation.id == lastAddedExplanation().id)
                     lastAddedExplanation(null);
-                
+
                 if (_.isEmptyOrWhitespace(explanation.text())) {
                     if (!explanation.isEditing()) {
                         removeSubscribersFromExplanation(explanation);
@@ -369,7 +369,7 @@
 
                 this.answerOptions(_.map(question().answerOptions, mapAnswerOption));
                 this.explanations(_.map(question().explanations, mapExplanation));
-                
+
                 var questionIndex = objective.questions.indexOf(question());
                 this.nextId = (objective.questions.length > questionIndex + 1) ? objective.questions[questionIndex + 1].id : null;
                 this.previousId = (questionIndex != 0) ? objective.questions[questionIndex - 1].id : null;
