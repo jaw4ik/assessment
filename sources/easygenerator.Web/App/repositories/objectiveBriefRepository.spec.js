@@ -19,15 +19,14 @@
             });
 
             it('should be object', function () {
-                expect(objectiveBriefRepository).toEqual(jasmine.any(Object));
+                expect(objectiveBriefRepository).toBeObject();
             });
 
             describe('getCollection', function () {
 
                 it('should return promise', function () {
                     var promise = objectiveBriefRepository.getCollection();
-                    expect(promise).toEqual(jasmine.any(Object));
-                    expect(promise.then).toEqual(jasmine.any(Function));
+                    expect(promise).toBePromise();
                 });
 
                 describe('when promise is resolved', function () {

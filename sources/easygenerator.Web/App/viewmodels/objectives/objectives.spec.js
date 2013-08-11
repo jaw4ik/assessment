@@ -14,11 +14,11 @@
         describe('viewModel [objectives]', function () {
 
             it('should be object', function () {
-                expect(viewModel).toEqual(jasmine.any(Object));
+                expect(viewModel).toBeObject();
             });
 
             it('should expose objectives observable', function () {
-                expect(ko.isObservable(viewModel.objectives)).toBeTruthy();
+                expect(viewModel.objectives).toBeObservable();
             });
 
             it('should expose objectives sortingOptions', function () {
@@ -26,7 +26,7 @@
             });
 
             it('should expose current sortingOption observable', function () {
-                expect(ko.isObservable(viewModel.currentSortingOption)).toBeTruthy();
+                expect(viewModel.currentSortingOption).toBeObservable();
             });
 
             describe('navigateToCreation', function () {
@@ -37,7 +37,7 @@
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.navigateToCreation).toEqual(jasmine.any(Function));
+                    expect(viewModel.navigateToCreation).toBeFunction();
                 });
 
                 it('should send event \'Navigate to Objective creation\'', function () {
@@ -60,7 +60,7 @@
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.navigateToCreation).toEqual(jasmine.any(Function));
+                    expect(viewModel.navigateToCreation).toBeFunction();
                 });
 
                 it('should send event \'Navigate to Objective details\'', function () {
@@ -84,7 +84,7 @@
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.navigateToExperiences).toEqual(jasmine.any(Function));
+                    expect(viewModel.navigateToExperiences).toBeFunction();
                 });
 
                 it('should send event \'Navigate to Experiences\'', function () {
@@ -107,7 +107,7 @@
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.sortByTitleAsc).toEqual(jasmine.any(Function));
+                    expect(viewModel.sortByTitleAsc).toBeFunction();
                 });
 
                 it('should send event \'Sort by title ascending\'', function () {
@@ -144,7 +144,7 @@
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.sortByTitleDesc).toEqual(jasmine.any(Function));
+                    expect(viewModel.sortByTitleDesc).toBeFunction();
                 });
 
                 it('should send event \'Sort by title descending\'', function () {
@@ -191,8 +191,8 @@
 
                 it('should return promise', function () {
                     var promise = viewModel.activate();
-                    expect(promise).toEqual(jasmine.any(Object));
-                    expect(promise.then).toEqual(jasmine.any(Function));
+                    
+                    expect(promise).toBePromise();
                 });
 
                 describe("when promise is resolved", function () {
@@ -203,6 +203,7 @@
                         waitsFor(function () {
                             return promise.isFulfilled();
                         });
+                        
                         runs(function () {
                             var isPossibleOption =
                                 viewModel.currentSortingOption() == constants.sortingOptions.byTitleAsc || viewModel.currentSortingOption() == constants.sortingOptions.byTitleDesc;
@@ -210,12 +211,14 @@
                         });
                     });
 
-                    it('should set objectives collection sorted by title ascending', function () {
+                    it('should sort objectives collection by title ascending', function () {
+                        viewModel.currentSortingOption(constants.sortingOptions.byTitleAsc);
                         var promise = viewModel.activate();
 
                         waitsFor(function () {
                             return promise.isFulfilled();
                         });
+                        
                         runs(function () {
                             expect(viewModel.objectives().length).toEqual(5);
                             expect(viewModel.objectives()).toBeSortedAsc('title');

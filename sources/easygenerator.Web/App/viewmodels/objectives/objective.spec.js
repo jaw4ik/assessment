@@ -45,7 +45,7 @@
             });
 
             it('is object', function () {
-                expect(viewModel).toEqual(jasmine.any(Object));
+                expect(viewModel).toBeObject();
             });
 
             describe('activate', function () {
@@ -204,7 +204,7 @@
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.addQuestion).toEqual(jasmine.any(Function));
+                    expect(viewModel.addQuestion).toBeFunction();
                 });
 
                 it('should send event \'Add question\'', function () {
@@ -247,7 +247,7 @@
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.deleteSelectedQuestions).toEqual(jasmine.any(Function));
+                    expect(viewModel.deleteSelectedQuestions).toBeFunction();
                 });
 
                 it('should send event \'Delete question\'', function () {
@@ -290,7 +290,7 @@
                 });
 
                 it('should be observable', function () {
-                    expect(ko.isObservable(viewModel.canDeleteQuestions)).toBeTruthy();
+                    expect(viewModel.canDeleteQuestions).toBeObservable();
                 });
 
                 it('should be \'false\' initially', function () {
@@ -324,7 +324,7 @@
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.endEditQuestionTitle).toEqual(jasmine.any(Function));
+                    expect(viewModel.endEditQuestionTitle).toBeFunction();
                 });
 
                 it('should send event \'Edit question title\'', function () {
@@ -381,7 +381,7 @@
                 });
 
                 it('should be observable', function () {
-                    expect(ko.isObservable(viewModel.questions)).toBeTruthy();
+                    expect(viewModel.questions).toBeObservable();
                 });
 
                 describe('isEditing', function () {
@@ -397,7 +397,7 @@
                     });
 
                     it('should be observable', function () {
-                        expect(ko.isObservable(question.isEditing)).toBeTruthy();
+                        expect(question.isEditing).toBeObservable();
                     });
 
                     it('should save question title on timer when \'true\'', function () {
@@ -415,17 +415,17 @@
                 describe('title', function () {
 
                     it('should be observable', function () {
-                        expect(ko.isObservable(question.title)).toBeTruthy();
+                        expect(question.title).toBeObservable();
                     });
 
                     it('should have \'isModified\' observable', function () {
-                        expect(ko.isObservable(question.title.isModified)).toBeTruthy();
+                        expect(question.title.isModified).toBeObservable();
                     });
 
                     describe('isValid()', function () {
 
                         it('should be observable', function () {
-                            expect(ko.isObservable(question.title.isValid)).toBeTruthy();
+                            expect(question.title.isValid).toBeObservable();
                         });
 
                         it('should be \'false\' is title is empty', function () {
@@ -450,7 +450,7 @@
                 describe('toggleSelection', function () {
 
                     it('should be a function', function () {
-                        expect(question.toggleSelection).toEqual(jasmine.any(Function));
+                        expect(question.toggleSelection).toBeFunction();
                     });
 
                     it('should send event \'Select question\'', function () {

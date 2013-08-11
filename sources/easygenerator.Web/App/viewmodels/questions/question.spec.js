@@ -23,7 +23,7 @@ define(function (require) {
         describe('activate:', function () {
 
             it('should be a function', function () {
-                expect(viewModel.activate).toEqual(jasmine.any(Function));
+                expect(viewModel.activate).toBeFunction();
             });
 
             describe('when route data is empty', function () {
@@ -228,7 +228,7 @@ define(function (require) {
             });
 
             it('should be a function', function () {
-                expect(viewModel.deactivate).toEqual(jasmine.any(Function));
+                expect(viewModel.deactivate).toBeFunction();
             });
 
             it('should finish editing explanation', function () {
@@ -259,7 +259,7 @@ define(function (require) {
             });
 
             it('should be a function', function () {
-                expect(viewModel.goToRelatedObjective).toEqual(jasmine.any(Function));
+                expect(viewModel.goToRelatedObjective).toBeFunction();
             });
 
             it('should track event \"Navigate to related objective\"', function () {
@@ -286,7 +286,7 @@ define(function (require) {
             });
 
             it('should be a function', function () {
-                expect(viewModel.goToPreviousQuestion).toEqual(jasmine.any(Function));
+                expect(viewModel.goToPreviousQuestion).toBeFunction();
             });
 
             it('should track event \"Navigate to previous question\"', function () {
@@ -331,7 +331,7 @@ define(function (require) {
             });
 
             it('should be a function', function () {
-                expect(viewModel.goToNextQuestion).toEqual(jasmine.any(Function));
+                expect(viewModel.goToNextQuestion).toBeFunction();
             });
 
             it('should track event \'Navigate to next question\'', function () {
@@ -371,7 +371,7 @@ define(function (require) {
         describe('toggleAnswers:', function () {
 
             it('should be a function', function () {
-                expect(viewModel.toggleAnswers).toEqual(jasmine.any(Function));
+                expect(viewModel.toggleAnswers).toBeFunction();
             });
 
             describe('when called while answers block is expanded', function () {
@@ -432,7 +432,7 @@ define(function (require) {
             });
 
             it('should be a function', function () {
-                expect(viewModel.toggleExplanations).toEqual(jasmine.any(Function));
+                expect(viewModel.toggleExplanations).toBeFunction();
             });
 
             describe('when called while explanations block is expanded', function () {
@@ -503,13 +503,13 @@ define(function (require) {
             });
 
             it('should be observable', function () {
-                expect(ko.isObservable(viewModel.explanations)).toBeTruthy();
+                expect(viewModel.explanations).toBeObservable();
             });
 
             describe('text:', function () {
 
                 it('should be observable', function () {
-                    expect(ko.isObservable(viewModel.explanations()[0].text)).toBeTruthy();
+                    expect(viewModel.explanations()[0].text).toBeObservable();
                 });
 
             });
@@ -521,7 +521,7 @@ define(function (require) {
                 });
 
                 it('should be observable', function () {
-                    expect(ko.isObservable(viewModel.explanations()[0].isEditing)).toBeTruthy();
+                    expect(viewModel.explanations()[0].isEditing).toBeObservable();
                 });
 
                 describe('when start editing', function () {
@@ -551,11 +551,11 @@ define(function (require) {
             describe('editingSubscription', function () {
 
                 it('should be object', function () {
-                    expect(viewModel.explanations()[0].editingSubscription).toEqual(jasmine.any(Object));
+                    expect(viewModel.explanations()[0].editingSubscription).toBeObject();
                 });
 
                 it('should have dispose function', function () {
-                    expect(viewModel.explanations()[0].editingSubscription.dispose).toEqual(jasmine.any(Function));
+                    expect(viewModel.explanations()[0].editingSubscription.dispose).toBeFunction();
                 });
 
             });
@@ -569,7 +569,7 @@ define(function (require) {
             });
 
             it('should be a function', function () {
-                expect(viewModel.addExplanation).toEqual(jasmine.any(Function));
+                expect(viewModel.addExplanation).toBeFunction();
             });
 
             describe('when called', function () {
@@ -639,7 +639,7 @@ define(function (require) {
             });
 
             it('should be computed', function () {
-                expect(ko.isComputed(viewModel.canAddExplanation)).toBe(true);
+                expect(viewModel.canAddExplanation).toBeComputed();
             });
 
             describe('when explanation is just added', function () {
@@ -761,7 +761,7 @@ define(function (require) {
             });
 
             it('should be a function', function () {
-                expect(viewModel.deleteExplanation).toEqual(jasmine.any(Function));
+                expect(viewModel.deleteExplanation).toBeFunction();
             });
 
             describe('when called', function () {
@@ -791,7 +791,7 @@ define(function (require) {
         describe('language:', function () {
 
             it('should be observable', function () {
-                expect(ko.isObservable(viewModel.language)).toBe(true);
+                expect(viewModel.language).toBeObservable();
             });
 
         });
@@ -824,7 +824,7 @@ define(function (require) {
             });
 
             it('should be a function', function () {
-                expect(viewModel.saveExplanation).toEqual(jasmine.any(Function));
+                expect(viewModel.saveExplanation).toBeFunction();
             });
 
             describe('when called with empty text', function () {
@@ -908,7 +908,7 @@ define(function (require) {
         describe('answerOptions:', function () {
 
             it('should be observable', function () {
-                expect(ko.isObservable(viewModel.answerOptions)).toBeTruthy();
+                expect(viewModel.answerOptions).toBeObservable();
             });
 
         });
@@ -924,7 +924,7 @@ define(function (require) {
         describe('eventTracker:', function () {
 
             it('should be object', function () {
-                expect(viewModel.eventTracker).toEqual(jasmine.any(Object));
+                expect(viewModel.eventTracker).toBeObject();
             });
 
         });
@@ -932,23 +932,23 @@ define(function (require) {
         describe('notification:', function () {
 
             it('should be object', function () {
-                expect(viewModel.notification).toEqual(jasmine.any(Object));
+                expect(viewModel.notification).toBeObject();
             });
 
             it('should have text observable', function () {
-                expect(ko.isObservable(viewModel.notification.text)).toBeDefined();
-                expect(ko.isObservable(viewModel.notification.text)).toBe(true);
+                expect(viewModel.notification.text).toBeDefined();
+                expect(viewModel.notification.text).toBeObservable();
             });
 
             it('should have visibility observable', function () {
-                expect(ko.isObservable(viewModel.notification.visibility)).toBeDefined();
-                expect(ko.isObservable(viewModel.notification.visibility)).toBe(true);
+                expect(viewModel.notification.visibility).toBeDefined();
+                expect(viewModel.notification.visibility).toBeObservable();
             });
 
             describe('close', function () {
 
                 it('should be function', function () {
-                    expect(viewModel.notification.close).toEqual(jasmine.any(Function));
+                    expect(viewModel.notification.close).toBeFunction();
                 });
 
                 describe('when called', function () {
@@ -971,7 +971,7 @@ define(function (require) {
             describe('update', function () {
 
                 it('should be function', function () {
-                    expect(viewModel.notification.update).toEqual(jasmine.any(Function));
+                    expect(viewModel.notification.update).toBeFunction();
                 });
 
                 describe('when called', function () {
@@ -1026,11 +1026,11 @@ define(function (require) {
             describe('add', function () {
 
                 it('[addAnswerOption] should be a function', function () {
-                    expect(viewModel.addAnswerOption).toEqual(jasmine.any(Function));
+                    expect(viewModel.addAnswerOption).toBeFunction();
                 });
 
                 it('[answerOptions] should be observable', function () {
-                    expect(ko.isObservable(viewModel.answerOptions)).toBeTruthy();
+                    expect(viewModel.answerOptions).toBeObservable();
                 });
 
                 it('should track event \"Add answer option\"', function () {
@@ -1050,7 +1050,7 @@ define(function (require) {
             describe('edit', function () {
 
                 it('the field [isCorrect] should be observable', function () {
-                    expect(ko.isObservable(viewModel.answerOptions()[0].isCorrect)).toBeTruthy();
+                    expect(viewModel.answerOptions()[0].isCorrect).toBeObservable();
                 });
 
                 it('should track event \"Change answer option correctness\"', function () {
@@ -1145,7 +1145,7 @@ define(function (require) {
                 });
 
                 it('[deleteAnswerOption] should be function', function () {
-                    expect(viewModel.deleteAnswerOption).toEqual(jasmine.any(Function));
+                    expect(viewModel.deleteAnswerOption).toBeFunction();
                 });
 
                 it('should delete item', function () {

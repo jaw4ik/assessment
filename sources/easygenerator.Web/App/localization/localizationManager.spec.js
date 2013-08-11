@@ -6,7 +6,7 @@
         describe('localizationManager', function () {
 
             it('should be object', function () {
-                expect(localizationManager).toEqual(jasmine.any(Object));
+                expect(localizationManager).toBeObject();
             });
 
             describe('initialize', function () {

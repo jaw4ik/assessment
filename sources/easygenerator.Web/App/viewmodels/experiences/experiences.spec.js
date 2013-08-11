@@ -36,11 +36,11 @@
         describe('viewModel [experience]', function () {
 
             it('should be object', function () {
-                expect(viewModel).toEqual(jasmine.any(Object));
+                expect(viewModel).toBeObject();
             });
 
             it('should expose experiences observable', function () {
-                expect(ko.isObservable(viewModel.experiences)).toBeTruthy();
+                expect(viewModel.experiences).toBeObservable();
             });
 
             it('should expose experiences sortingOptions', function () {
@@ -52,13 +52,13 @@
             });
 
             it('should expose current sortingOption observable', function () {
-                expect(ko.isObservable(viewModel.currentSortingOption)).toBeTruthy();
+                expect(viewModel.currentSortingOption).toBeObservable();
             });
 
             describe('activate', function () {
 
                 it('should be a function', function () {
-                    expect(viewModel.activate).toEqual(jasmine.any(Function));
+                    expect(viewModel.activate).toBeFunction();
                 });
 
                 it('should take data from dataContext', function () {
@@ -101,7 +101,7 @@
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.navigateToCreation).toEqual(jasmine.any(Function));
+                    expect(viewModel.navigateToCreation).toBeFunction();
                 });
 
                 it('should send event \"Navigate to create experience\"', function () {
@@ -124,7 +124,7 @@
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.navigateToDetails).toEqual(jasmine.any(Function));
+                    expect(viewModel.navigateToDetails).toBeFunction();
                 });
 
                 it('should send event \"Navigate to details\"', function () {
@@ -149,7 +149,7 @@
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.navigateToObjectives).toEqual(jasmine.any(Function));
+                    expect(viewModel.navigateToObjectives).toBeFunction();
                 });
 
                 it('should send event \"Navigate to objectives\"', function () {
@@ -174,7 +174,7 @@
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.toggleSelection).toEqual(jasmine.any(Function));
+                    expect(viewModel.toggleSelection).toBeFunction();
                 });
 
                 it('should select experience', function () {
@@ -210,7 +210,7 @@
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.sortByTitleAsc).toEqual(jasmine.any(Function));
+                    expect(viewModel.sortByTitleAsc).toBeFunction();
                 });
 
                 it('should set currentSortingoption to constants.sortingOptions.byTitleAsc', function () {
@@ -242,7 +242,7 @@
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.sortByTitleDesc).toEqual(jasmine.any(Function));
+                    expect(viewModel.sortByTitleDesc).toBeFunction();
                 });
 
                 it('should set currentSortingoption to constants.sortingOptions.byTitleDesc', function () {
@@ -277,7 +277,7 @@
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.buildExperience).toEqual(jasmine.any(Function));
+                    expect(viewModel.buildExperience).toBeFunction();
                 });
 
                 it('should return promise', function () {
@@ -286,8 +286,7 @@
 
                     promise = viewModel.buildExperience(experience);
 
-                    expect(promise).toEqual(jasmine.any(Object));
-                    expect(promise.then).toEqual(jasmine.any(Function));
+                    expect(promise).toBePromise();
                 });
 
                 it('should send event \"Build experience\"', function () {
@@ -421,7 +420,7 @@
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.downloadExperience).toEqual(jasmine.any(Function));
+                    expect(viewModel.downloadExperience).toBeFunction();
                 });
 
                 it('should send event \"Download experience\"', function () {
@@ -441,7 +440,7 @@
             describe('enableOpenExperience', function () {
                 
                 it('should be a function', function () {
-                    expect(viewModel.enableOpenExperience).toEqual(jasmine.any(Function));
+                    expect(viewModel.enableOpenExperience).toBeFunction();
                 });
                 
                 it('should enable possibility to open expirience', function () {
