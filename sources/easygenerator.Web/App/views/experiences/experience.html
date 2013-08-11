@@ -1,9 +1,104 @@
-﻿<section>
-    <div data-bind="text: title"></div>
-    <span data-bind="localize: { text: 'learningObjectives' }">Learning objectives</span>
-    <!-- ko foreach: objectives -->
-    <p data-bind="text: title"></p>
-    <!-- /ko -->
-    <br/>
-    <button type="button" class="btn" data-bind="click: navigateBack, localize: { text: 'back' }">Back</button>
+﻿<section class="experience container">
+
+    <div class="navbar navbar-left" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'experiences', goBackAction: navigateToExperiences } }"></div>
+
+    <div class="navbar experience-build-progress-status">
+        <!-- ko if: status() == statuses.notStarted -->
+        <a href="#" data-bind="click: buildExperience">
+            <span class="experience-build-status-text">Build experience</span><!--
+                --><span class="experience-build-status-image experience-build-status-image-not-started"></span>
+        </a>
+        <!-- /ko -->
+        <!-- ko if: status() == statuses.inProgress -->
+        <span class="experience-build-status-text">Building...</span><!--
+            --><img class="experience-build-status-image experience-build-status-image-in-progress" src="Content/images/buildprogress.gif"></img>
+        <!-- /ko-->
+        <!-- ko if: status() == statuses.failed -->
+        <span class="experience-build-status-text">Building failed</span><!--
+            --><span class="experience-build-status-image experience-build-status-image-failed"></span>
+        <!-- /ko -->
+        <!-- ko if: status() == statuses.succeed -->
+        <a href="#" data-bind="click: downloadExperience">
+            <span class="experience-build-status-text">Download</span><!--
+                --><span class="experience-build-status-image experience-build-status-image-complete"></span>
+        </a>
+        <!-- /ko -->
+    </div>
+
+    <div class="experience-header-wrapper">
+        <div class="experience-header-wrapper-nav-container">
+            <!-- ko if: _.isNumber(previousExperienceId) -->
+            <a href="#" class="experience-header-wrapper-nav-btn previous" title="Previous" data-bind="click: navigateToPreviousExperience, localize: { title: 'previous' }"></a>
+            <!-- /ko -->
+            <!-- ko ifnot: _.isNumber(previousExperienceId) -->
+            <div class="experience-header-wrapper-nav-btn previous disabled" title="Previous" data-bind="localize: { title: 'previous' }">
+            </div>
+            <!-- /ko -->
+        </div>
+        <div class="experience-header">
+            <div class="white-framing left">
+                <img class="experience-header-image" src="/Content/images/experience.png" alt="" />
+            </div>
+            <div class="experience-header-title">
+                <h2 class="page-header-title selectable" data-bind="text: title"></h2>
+            </div>
+        </div>
+        <div class="experience-header-wrapper-nav-container">
+            <!-- ko if: _.isNumber(nextExperienceId) -->
+            <a href="#" class="experience-header-wrapper-nav-btn next" title="Next" data-bind="click: navigateToNextExperience, localize: { title: 'next' }"></a>
+            <!-- /ko -->
+            <!-- ko ifnot: _.isNumber(nextExperienceId) -->
+            <div class="experience-header-wrapper-nav-btn next disabled" title="Next" data-bind="localize: { title: 'next' }">
+            </div>
+            <!-- /ko -->
+        </div>
+
+    </div>
+
+    <div class="experience-related-objectives-header">
+        <span>Related learning objectives</span>
+        <hr />
+    </div>
+
+    <div class="ul-default-wrapper">
+        <ul class="ul-default">
+            <!-- ko foreach: objectives -->
+            <li class="li-default li-related-objective">
+                <div class="li-default-hover-indicator"></div>
+                <div class="li-default-logo-wrapper  white-framing">
+                    <div>
+                        <img class="li-default-logo" data-bind="attr: { src: image }" alt="">
+                    </div>
+                    <div class="li-default-options">
+                        <div class="li-default-select" data-bind="click: $parent.toggleObjectiveSelection">
+                            <!-- ko ifnot: isSelected() -->
+                            <div class="nowrap" data-bind="localize: { text: 'select' }">Select</div>
+                            <div class="action-img unchecked inline">
+                                <input type="checkbox" class="custom-checkbox">
+                            </div>
+                            <!-- /ko -->
+                            <!-- ko if: isSelected() -->
+                            <div class="nowrap" data-bind="localize: { text: 'unselect' }">Unselect</div>
+                            <div class="action-img checked inline">
+                                <input class="custom-checkbox" type="checkbox">
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                        <div class="separator"></div>
+                        <div class="li-default-open" data-bind="click: $parent.navigateToObjectiveDetails">
+                            <div class="nowrap" data-bind="localize: { text: 'open' }">Open</div>
+                            <div class="action-img inline">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="li-related-objective-question-count-wrapper">
+                    <div class="li-related-objective-question-count-image"></div>
+                    <div class="li-related-objective-question-count-text" data-bind="text: questionsCount"></div>
+                </div>
+                <span class="li-default-text" data-bind="text: title"></span>
+            </li>
+            <!-- /ko -->
+        </ul>
+    </div>
 </section>

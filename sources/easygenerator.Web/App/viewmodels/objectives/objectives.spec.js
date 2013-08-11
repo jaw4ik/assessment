@@ -69,9 +69,9 @@
                 });
 
                 it('should navigate to #/objective/{id}', function () {
-                    var experienceId = 1;
-                    viewModel.navigateToDetails({ id: experienceId });
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/objective/' + experienceId);
+                    var objectiveId = 1;
+                    viewModel.navigateToDetails({ id: objectiveId });
+                    expect(router.navigateTo).toHaveBeenCalledWith('#/objective/' + objectiveId);
                 });
 
             });

@@ -33,7 +33,7 @@
                 })
             ];
 
-        describe('viewModel [experience]', function () {
+        describe('viewModel [experiences]', function () {
 
             it('should be object', function () {
                 expect(viewModel).toBeObject();

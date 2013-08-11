@@ -1,0 +1,303 @@
+﻿.navbar-left {
+    float: left;
+    width: 50%;
+}
+
+.experience-build-progress-status {
+    float: right;
+    width: auto;
+    text-align: right;
+    opacity: 0.6;
+}
+
+    .experience-build-progress-status:hover {
+        opacity: 0.75;
+    }
+
+.experience-build-status-text {
+    color: #666666;
+    vertical-align: top;
+    text-transform: uppercase;
+    font-size: 14px;
+    line-height: 57px;
+}
+
+.experience-build-status-image {
+    display: inline-block;
+    margin-left: 13px;
+    width: 57px;
+    height: 57px;
+    background: url('images/build-sprite.png') no-repeat top left;
+}
+
+.experience-build-status-image-not-started {
+    background-position: 0 0;
+}
+
+.experience-build-progress-status:hover .experience-build-status-image-not-started {
+    background-position: 0 -67px;
+}
+
+.experience-build-status-image-in-progress {
+    background-image: none;
+}
+
+.experience-build-status-image-complete {
+    background-position: 0 -268px;
+}
+
+.experience-build-progress-status:hover .experience-build-status-image-complete {
+    background-position: 0 -335px;
+}
+
+.experience-build-status-image-failed {
+    background-position: 0 -201px;
+}
+
+
+.experience-header-wrapper {
+    padding: 15px 0;
+    width: 100%;
+}
+
+
+.experience-header-wrapper-nav-container {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.experience-header-wrapper-nav-btn {
+    display: block;
+    -moz-min-width: 17px;
+    -ms-min-width: 17px;
+    -webkit-min-width: 17px;
+    min-width: 17px;
+    width: 17px;
+    height: 50px;
+    background-image: url('images/nav-buttons.png');
+    background-repeat: no-repeat;
+    text-decoration: none;
+    opacity: 0.6;
+}
+
+.experience-header-wrapper-nav-btn:hover {
+        opacity: 1;
+    }
+
+    .experience-header-wrapper-nav-btn.previous {
+        margin-right: 50px;
+        background-position: left center;
+    }
+
+    .experience-header-wrapper-nav-btn.next {
+        margin-left: 50px;
+        background-position: right center;
+    }
+
+    .experience-header-wrapper-nav-btn.disabled {
+        opacity: 0.2;
+    }
+
+
+.experience-header {
+    display: table-cell;
+    width: 100%;
+}
+
+.experience-header-image {
+    width: 270px;
+    height: 158px;
+    vertical-align: top;
+}
+
+
+.experience-header-title {
+    margin-left: 295px;
+    padding-top: 10px;
+    -ms-word-break: break-all;
+    word-break: break-all;
+}
+
+
+
+.experience-related-objectives-header {
+    display: inline-block;
+    overflow: hidden;
+    margin: 20px 0;
+    width: 100%;
+    color: #666666;
+    text-transform: uppercase;
+    white-space: nowrap;
+    font-size: 18px;
+}
+
+    .experience-related-objectives-header > * {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .experience-related-objectives-header hr {
+        width: 100%;
+    }
+
+
+
+.ul-default-wrapper {
+    padding: 10px;
+    border: 1px solid #E1E1E1;
+    background-color: #fff;
+}
+
+.ul-default {
+    margin-left: 0;
+    list-style: none outside none;
+}
+
+.li-default {
+    position: relative;
+    display: block;
+    border: 1px solid #E1E1E1;
+    background-color: #FFFFFF;
+}
+
+.li-default-hover-indicator {
+    float: left;
+    -moz-min-width: 10px;
+    -ms-min-width: 10px;
+    -webkit-min-width: 10px;
+    min-width: 10px;
+    width: 10px;
+    height: 100%;
+}
+
+.li-default:hover {
+    background-color: #F5F5F5;
+}
+
+    .li-default:hover .li-default-hover-indicator {
+        background-color: #f26c4f;
+    }
+
+    .li-default:hover .li-default-options {
+        display: block;
+        background-color: #000000;
+        background-color: rgba(0,0,0,.5);
+    }
+
+    .li-default:hover .li-default-select:hover {
+        background-color: #000000;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .li-default:hover .li-default-open:hover {
+        background-color: #000000;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+.li-default-options {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: none;
+    width: 100%;
+    height: 100%;
+    color: #cecece;
+    text-align: center;
+    font-size: 12px;
+}
+
+
+.li-default-select,
+.li-default-open {
+    position: relative;
+    float: left;
+    padding: 13px 0;
+    width: 49%;
+    height: 100%;
+}
+
+.li-default-open {
+    cursor: pointer;
+}
+
+    .li-default-select .action-img,
+    .li-default-open .action-img {
+        width: 34px;
+        height: 34px;
+        background-image: url(images/small-options-icons.png);
+        -moz-background-size: 100%;
+        -o-background-size: 100%;
+        -webkit-background-size: 100%;
+        background-size: 100%;
+        background-repeat: no-repeat;
+    }
+
+.li-default-select .unchecked {
+    background-position: 0 0;
+}
+
+.li-default-select .checked {
+    background-position: 0 -34px;
+}
+
+.li-default-open .action-img {
+    margin-top: -1px;
+    background-position: 0 -102px;
+}
+
+
+.li-default-logo {
+    width: 182px;
+    height: 92px;
+    vertical-align: top;
+}
+
+.li-default-logo-wrapper {
+    position: relative;
+    float: left;
+    margin: 9px;
+    width: 190px;
+    height: 100px;
+}
+
+.li-default-text {
+    display: block;
+    overflow: hidden;
+    margin: 10px;
+    padding-left: 10px;
+    height: 100px;
+    color: #666666;
+    text-align: justify;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+}
+
+
+.li-related-objective {
+    height: 120px;
+}
+
+.li-related-objective-question-count-wrapper {
+    float: right;
+    margin: 10px;
+    color: #666666;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    line-height: 17px;
+}
+
+.li-related-objective-question-count-image {
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    background-image: url('images/middle-size-icons-pack.png');
+    background-position: center -303px;
+    vertical-align: top;
+}
+
+.li-related-objective-question-count-text {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 12px;
+}
