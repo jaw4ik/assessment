@@ -22,16 +22,19 @@
                 eventTracker.publish(eventName, events.category);
             };
 
-        var objectiveId = '',
-            question = ko.observable(),
+        var self = {};
+        self.objectiveId = '';
+        self.questionId = '';
+        self.previousId = '';
+        self.nextId = '';
+
+        var 
             objectiveTitle = '',
             title = '',
             answerOptions = ko.observableArray([]),
             explanations = ko.observableArray([]),
             hasPrevious = false,
             hasNext = false,
-            previousId = '',
-            nextId = '',
             currentLanguage = ko.observable(''),
             lastAddedExplanation = ko.observable(null),
             isAnswersBlockExpanded = ko.observable(true),
@@ -52,7 +55,7 @@
 
             goToRelatedObjective = function () {
                 sendEvent(events.navigateToRelatedObjective);
-                router.navigateTo('#/objective/' + this.objectiveId);
+                router.navigateTo('#/objective/' + self.objectiveId);
             },
 
             goToPreviousQuestion = function () {
@@ -60,7 +63,7 @@
                     router.navigateTo('#/404');
 
                 sendEvent(events.navigateToPreviousQuestion);
-                router.navigateTo('#/objective/' + this.objectiveId + '/question/' + this.previousId);
+                router.navigateTo('#/objective/' + self.objectiveId + '/question/' + self.previousId);
             },
 
             goToNextQuestion = function () {
@@ -68,7 +71,17 @@
                     router.navigateTo('#/404');
 
                 sendEvent(events.navigateToNextQuestion);
-                router.navigateTo('#/objective/' + this.objectiveId + '/question/' + this.nextId);
+                router.navigateTo('#/objective/' + self.objectiveId + '/question/' + self.nextId);
+            },
+
+            getQuestionFromDataContext = function (objectiveId, questionId) {
+                var objective = _.find(dataContext.objectives, function (item) {
+                    return item.id == objectiveId;
+                });
+
+                return _.find(objective.questions, function (item) {
+                    return item.id == questionId;
+                });
             },
 
             //#endregion Question
@@ -76,11 +89,13 @@
             //#region Answer options
 
             toggleAnswers = function () {
-                this.isAnswersBlockExpanded(!isAnswersBlockExpanded());
+                isAnswersBlockExpanded(!isAnswersBlockExpanded());
             },
 
             addAnswerOption = function () {
                 sendEvent(events.addAnswerOption);
+
+                var question = getQuestionFromDataContext(self.objectiveId, self.questionId);
 
                 addAnswer(success);
 
@@ -88,12 +103,12 @@
 
                 function addAnswer(callback) {
                     var newAnswer = new answerOptionModel({
-                        id: generateNewEntryId(question().answerOptions),
+                        id: generateNewEntryId(question.answerOptions),
                         text: '',
                         isCorrect: false
                     });
 
-                    question().answerOptions.push(newAnswer);
+                    question.answerOptions.push(newAnswer);
 
                     if (_.isFunction(callback))
                         callback(newAnswer);
@@ -107,52 +122,34 @@
                 }
             },
 
-            toggleAnswerCorrectness = function (instance) {
+            toggleAnswerCorrectness = function (answer) {
                 sendEvent(events.toggleAnswerCorrectness);
 
-                toggleCorrectness(instance, success);
+                var currentAnswer = _.find(getQuestionFromDataContext(self.objectiveId, self.questionId).answerOptions, function (obj) {
+                    return obj.id == answer.id;
+                });
 
-                //TODO: temporary method. Would be changed, when dataContext will be reconstructed
+                if (_.isObject(currentAnswer)) {
+                    var newValue = !currentAnswer.isCorrect;
+                    currentAnswer.isCorrect = newValue;
 
-                function toggleCorrectness(answer, callback) {
-                    var currentAnswer = _.find(question().answerOptions, function (obj) {
-                        return obj.id == answer.id;
-                    });
-                    if (_.isObject(currentAnswer)) {
-                        var newValue = !currentAnswer.isCorrect;
-                        currentAnswer.isCorrect = newValue;
-
-                        if (_.isFunction(callback))
-                            callback(newValue);
-                    }
-                }
-
-                function success(value) {
-                    instance.isCorrect(value);
+                    answer.isCorrect(newValue);
                     notification.update();
                 }
             },
 
-            saveAnswerOption = function (instance) {
+            saveAnswerOption = function (answer) {
                 sendEvent(events.saveAnswerOption);
 
-                save(instance, success);
+                var question = getQuestionFromDataContext(self.objectiveId, self.questionId);
 
-                //TODO: temporary method. Would be changed, when dataContext will be reconstructed
+                var currentAnswer = _.find(question.answerOptions, function (obj) {
+                    return obj.id == answer.id;
+                });
 
-                function save(answer, callback) {
-                    var currentAnswer = _.find(question().answerOptions, function (obj) {
-                        return obj.id == answer.id;
-                    });
-                    if (_.isObject(currentAnswer) && currentAnswer.text !== answer.text()) {
-                        currentAnswer.text = answer.text();
+                if (_.isObject(currentAnswer) && currentAnswer.text !== answer.text()) {
+                    currentAnswer.text = answer.text();
 
-                        if (_.isFunction(callback))
-                            callback();
-                    }
-                }
-
-                function success() {
                     notification.update();
                 }
             },
@@ -160,12 +157,14 @@
             deleteAnswerOption = function (instance) {
                 sendEvent(events.deleteAnswerOption);
 
+                var question = getQuestionFromDataContext(self.objectiveId, self.questionId);
+
                 deleteAnswer(instance, success);
 
                 //TODO: temporary method. Would be changed, when dataContext will be reconstructed
 
                 function deleteAnswer(answer, callback) {
-                    question().answerOptions = _.reject(question().answerOptions, function (item) {
+                    question.answerOptions = _.reject(question.answerOptions, function (item) {
                         return item.id == answer.id;
                     });
 
@@ -179,6 +178,8 @@
             },
 
             mapAnswerOption = function (answer) {
+                var that = this;
+
                 var mappedAnswerOption = {
                     id: answer.id,
                     text: ko.observable(answer.text || ''),
@@ -190,28 +191,25 @@
                     isEmpty: ko.observable(_.isEmptyOrWhitespace(answer.text))
                 };
 
-                (function (item) {
-                    item.text.subscribe(function (value) {
-                        item.isEmpty(_.isEmptyOrWhitespace(value));
-                    });
+                mappedAnswerOption.text.subscribe(function (value) {
+                    mappedAnswerOption.isEmpty(_.isEmptyOrWhitespace(value));
+                });
 
-                    var saveIntervalId = null;
-                    item.isInEdit.subscribe(function (value) {
+                var saveIntervalId = null;
+                mappedAnswerOption.isInEdit.subscribe(function (value) {
+                    if (value) {
+                        saveIntervalId = setInterval(function () {
+                            saveAnswerOption.call(that, mappedAnswerOption);
+                        }, constants.autosaveTimersInterval.answerOption);
+                        return;
+                    } else if (_.isEmptyOrWhitespace(mappedAnswerOption.text())) {
+                        deleteAnswerOption.call(that, mappedAnswerOption);
+                    } else {
+                        saveAnswerOption.call(that, mappedAnswerOption);
+                    }
 
-                        if (value) {
-                            saveIntervalId = setInterval(function () {
-                                saveAnswerOption(item);
-                            }, constants.autosaveTimersInterval.answerOption);
-                            return;
-                        } else if (_.isEmptyOrWhitespace(item.text())) {
-                            deleteAnswerOption(item);
-                        } else {
-                            saveAnswerOption(item);
-                        }
-
-                        clearInterval(saveIntervalId);
-                    });
-                })(mappedAnswerOption);
+                    clearInterval(saveIntervalId);
+                });
 
                 return mappedAnswerOption;
             },
@@ -234,27 +232,29 @@
             //#region Explanations
 
             toggleExplanations = function () {
-                this.isExplanationsBlockExpanded(!isExplanationsBlockExpanded());
+                isExplanationsBlockExpanded(!isExplanationsBlockExpanded());
 
-                if (!this.isExplanationsBlockExpanded()) {
-                    finishEditingExplanations();
+                if (!isExplanationsBlockExpanded()) {
+                    finishEditingExplanations.apply(this);
                 }
             },
 
             addExplanation = function () {
                 var explanation = mapExplanation(new expalantionModel({
-                    id: this.explanations().length,
+                    id: explanations().length,
                     text: ''
                 }));
                 explanation.isEditing(true);
 
                 lastAddedExplanation(explanation);
-                this.explanations.push(explanation);
+                explanations.push(explanation);
                 sendEvent(events.addExplanation);
             },
 
             deleteExplanation = function (explanation) {
-                question().explanations = _.reject(question().explanations, function (item) {
+                sendEvent(events.deleteExplanation);
+                var question = getQuestionFromDataContext(self.objectiveId, self.questionId);
+                question.explanations = _.reject(question.explanations, function (item) {
                     return item.id == explanation.id;
                 });
 
@@ -262,9 +262,10 @@
                     lastAddedExplanation(null);
                 }
 
-                this.explanations.remove(explanation);
+                explanations(_.reject(explanations(), function (item) {
+                    return item.id == explanation.id;
+                }));
                 removeSubscribersFromExplanation(explanation);
-                sendEvent(events.deleteExplanation);
             },
 
             mapExplanation = function (explanation) {
@@ -286,7 +287,6 @@
             },
 
             saveExplanation = function (explanation) {
-
                 if (!explanation.isEditing() && !!lastAddedExplanation() && explanation.id == lastAddedExplanation().id)
                     lastAddedExplanation(null);
 
@@ -297,8 +297,9 @@
                     }
                     return;
                 }
+                var question = getQuestionFromDataContext(self.objectiveId, self.questionId);
 
-                var contextExplanation = _.find(question().explanations, function (obj) {
+                var contextExplanation = _.find(question.explanations, function (obj) {
                     return obj.id == explanation.id;
                 });
 
@@ -306,7 +307,7 @@
                     contextExplanation.text = explanation.text();
                 }
                 else {
-                    question().explanations.push(
+                    question.explanations.push(
                         {
                             id: explanation.id,
                             text: explanation.text()
@@ -317,10 +318,11 @@
             },
 
             finishEditingExplanations = function () {
+                var that = this;
                 _.each(explanations(), function (item) {
                     if (item.isEditing()) {
                         item.isEditing(false);
-                        saveExplanation(item);
+                        saveExplanation.call(that, item);
                     }
                 });
             },
@@ -354,28 +356,34 @@
                     return;
                 }
 
-                question(_.find(objective.questions, function (item) {
+                var question = _.find(objective.questions, function (item) {
                     return item.id == routeData.id;
-                }));
+                });
 
-                if (!_.isObject(question())) {
+                if (!_.isObject(question)) {
                     router.navigateTo('#/404');
                     return;
                 }
 
-                this.title = question().title;
+                var that = this;
+
+                self.objectiveId = objective.id;
+                self.questionId = question.id;
+
+                this.title = question.title;
                 this.objectiveTitle = objective.title;
-                this.objectiveId = objective.id;
 
-                this.answerOptions(_.map(question().answerOptions, mapAnswerOption));
-                this.explanations(_.map(question().explanations, mapExplanation));
+                this.answerOptions(_.map(question.answerOptions, function(item) {
+                    return mapAnswerOption.call(that, item);
+                }));
+                this.explanations(_.map(question.explanations, mapExplanation));
 
-                var questionIndex = objective.questions.indexOf(question());
-                this.nextId = (objective.questions.length > questionIndex + 1) ? objective.questions[questionIndex + 1].id : null;
-                this.previousId = (questionIndex != 0) ? objective.questions[questionIndex - 1].id : null;
+                var questionIndex = objective.questions.indexOf(question);
+                self.nextId = (objective.questions.length > questionIndex + 1) ? objective.questions[questionIndex + 1].id : null;
+                self.previousId = (questionIndex != 0) ? objective.questions[questionIndex - 1].id : null;
 
-                this.hasNext = this.nextId != null;
-                this.hasPrevious = this.previousId != null;
+                this.hasNext = self.nextId != null;
+                this.hasPrevious = self.previousId != null;
 
                 currentLanguage(localizationManager.currentLanguage);
                 notification.visibility(false);
@@ -391,8 +399,6 @@
 
         return {
             //#region Properties
-            objectiveId: objectiveId,
-
             objectiveTitle: objectiveTitle,
             title: title,
             answerOptions: answerOptions,

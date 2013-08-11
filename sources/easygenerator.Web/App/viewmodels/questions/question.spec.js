@@ -186,7 +186,6 @@ define(function (require) {
 
                 //assert
                 expect(viewModel.objectiveTitle).toBe(objective.title);
-                expect(viewModel.objectiveId).toBe(objective.id);
                 expect(viewModel.title).toBe(question.title);
 
                 expect(viewModel.answerOptions().lenght).toBe(question.answerOptions.lenght);
@@ -254,6 +253,33 @@ define(function (require) {
         describe('goToRelatedObjective:', function () {
 
             beforeEach(function () {
+                dataContext.objectives = [
+                             new objectiveModel(
+                                 {
+                                     id: 'obj3',
+                                     title: 'Test Objective',
+                                     image: images[0],
+                                     questions:
+                                         [
+                                             new questionModel({
+                                                 id: '0',
+                                                 title: 'Question 1',
+                                                 answerOptions: [],
+                                                 explanations: [
+                                                     new explanationModel({
+                                                         id: '0',
+                                                         text: 'Default text1'
+                                                     }),
+                                                      new explanationModel({
+                                                          id: '1',
+                                                          text: 'Default text2'
+                                                      })
+                                                 ]
+                                             })
+                                         ]
+                                 })];
+                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+
                 spyOn(eventTracker, 'publish');
                 spyOn(router, 'navigateTo');
             });
@@ -269,11 +295,9 @@ define(function (require) {
             });
 
             it('should navigate to objective', function () {
-                viewModel.objectiveId = '0';
-
                 viewModel.goToRelatedObjective();
 
-                expect(router.navigateTo).toHaveBeenCalledWith('#/objective/0');
+                expect(router.navigateTo).toHaveBeenCalledWith('#/objective/obj3');
             });
 
         });
@@ -281,6 +305,47 @@ define(function (require) {
         describe('goToPreviousQuestion:', function () {
 
             beforeEach(function () {
+                dataContext.objectives = [
+                             new objectiveModel(
+                                 {
+                                     id: 'obj3',
+                                     title: 'Test Objective',
+                                     image: images[0],
+                                     questions:
+                                         [
+                                             new questionModel({
+                                                 id: '0',
+                                                 title: 'Question 1',
+                                                 answerOptions: [],
+                                                 explanations: [
+                                                     new explanationModel({
+                                                         id: '0',
+                                                         text: 'Default text1'
+                                                     }),
+                                                      new explanationModel({
+                                                          id: '1',
+                                                          text: 'Default text2'
+                                                      })
+                                                 ]
+                                             }),
+                                             new questionModel({
+                                                 id: '1',
+                                                 title: 'Question 2',
+                                                 answerOptions: [],
+                                                 explanations: [
+                                                     new explanationModel({
+                                                         id: '0',
+                                                         text: 'Default text1'
+                                                     }),
+                                                      new explanationModel({
+                                                          id: '1',
+                                                          text: 'Default text2'
+                                                      })
+                                                 ]
+                                             })
+                                         ]
+                                 })];
+                viewModel.activate({ id: '1', objectiveId: 'obj3' });
                 spyOn(eventTracker, 'publish');
                 spyOn(router, 'navigateTo');
             });
@@ -290,23 +355,15 @@ define(function (require) {
             });
 
             it('should track event \"Navigate to previous question\"', function () {
-                viewModel.objectiveId = '1';
-                viewModel.hasPrevious = true;
-                viewModel.previousId = 0;
-
                 viewModel.goToPreviousQuestion();
 
                 expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to previous question', eventsCategory);
             });
 
             it('should navigate to previous question', function () {
-                viewModel.objectiveId = '1';
-                viewModel.hasPrevious = true;
-                viewModel.previousId = 0;
-
                 viewModel.goToPreviousQuestion();
 
-                expect(router.navigateTo).toHaveBeenCalledWith('#/objective/1/question/0');
+                expect(router.navigateTo).toHaveBeenCalledWith('#/objective/obj3/question/0');
             });
 
             describe('when previous question doesnt exist', function () {
@@ -326,6 +383,47 @@ define(function (require) {
         describe('goToNextQuestion:', function () {
 
             beforeEach(function () {
+                dataContext.objectives = [
+                             new objectiveModel(
+                                 {
+                                     id: 'obj3',
+                                     title: 'Test Objective',
+                                     image: images[0],
+                                     questions:
+                                         [
+                                             new questionModel({
+                                                 id: '0',
+                                                 title: 'Question 1',
+                                                 answerOptions: [],
+                                                 explanations: [
+                                                     new explanationModel({
+                                                         id: '0',
+                                                         text: 'Default text1'
+                                                     }),
+                                                      new explanationModel({
+                                                          id: '1',
+                                                          text: 'Default text2'
+                                                      })
+                                                 ]
+                                             }),
+                                             new questionModel({
+                                                 id: '1',
+                                                 title: 'Question 2',
+                                                 answerOptions: [],
+                                                 explanations: [
+                                                     new explanationModel({
+                                                         id: '0',
+                                                         text: 'Default text1'
+                                                     }),
+                                                      new explanationModel({
+                                                          id: '1',
+                                                          text: 'Default text2'
+                                                      })
+                                                 ]
+                                             })
+                                         ]
+                                 })];
+                viewModel.activate({ id: '0', objectiveId: 'obj3' });
                 spyOn(eventTracker, 'publish');
                 spyOn(router, 'navigateTo');
             });
@@ -335,23 +433,17 @@ define(function (require) {
             });
 
             it('should track event \'Navigate to next question\'', function () {
-                viewModel.objectiveId = '1';
-                viewModel.hasNext = true;
-                viewModel.nextId = '1';
-
                 viewModel.goToNextQuestion();
 
                 expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to next question', eventsCategory);
             });
 
             it('should navigate to next question', function () {
-                viewModel.objectiveId = '1';
                 viewModel.hasNext = true;
-                viewModel.nextId = '1';
 
                 viewModel.goToNextQuestion();
 
-                expect(router.navigateTo).toHaveBeenCalledWith('#/objective/1/question/1');
+                expect(router.navigateTo).toHaveBeenCalledWith('#/objective/obj3/question/1');
             });
 
             describe('when next question doesnt exist', function () {

@@ -6,7 +6,8 @@
             isEditing = valueAccessor().isEditing,
             saveHandler = valueAccessor().save,
             saveIntervalId = null,
-            autosaveInterval = valueAccessor().autosaveInterval || 60000;
+            autosaveInterval = valueAccessor().autosaveInterval || 60000,
+            that = bindingContext.$root;
 
         var $toolbarElement = null;
 
@@ -70,7 +71,7 @@
         function saveData() {
             if (!!saveHandler) {
                 data(editor.getData());
-                saveHandler(viewModel);
+                saveHandler.call(that, viewModel);
             }
         }
 
