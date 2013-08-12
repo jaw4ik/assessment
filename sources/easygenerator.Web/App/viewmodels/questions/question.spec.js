@@ -931,6 +931,19 @@ define(function (require) {
 
                         expect(viewModel.explanations().indexOf(explanation)).toBe(-1);
                     });
+                    
+                    it('should remove explanation from dataContext', function () {
+                        var explanation = viewModel.explanations()[0];
+                        explanation.text(' ');
+                        explanation.isEditing(false);
+                        viewModel.saveExplanation(explanation);
+                        
+                        var explanationEntity = _.find(dataContext.objectives[0].questions[0].explanations, function(item) {
+                            return item.id == explanation.id;
+                        });
+
+                        expect(explanationEntity).not.toBeDefined();
+                    });
 
                     it('should remove subscriptions from explanation', function () {
                         var explanation = viewModel.explanations()[0];

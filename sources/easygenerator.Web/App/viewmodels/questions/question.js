@@ -247,7 +247,9 @@
 
             addExplanation = function () {
                 var explanation = mapExplanation(new expalantionModel({
-                    id: explanations().length,
+                    id: _.max(explanations(), function(item) {
+                         return parseInt(item.id);
+                    }),
                     text: ''
                 }));
                 explanation.isEditing(true);
@@ -297,15 +299,20 @@
             saveExplanation = function (explanation) {
                 if (!explanation.isEditing() && !!lastAddedExplanation() && explanation.id == lastAddedExplanation().id)
                     lastAddedExplanation(null);
+                
+                var question = getQuestionFromDataContext(self.objectiveId, self.questionId);
 
                 if (_.isEmptyOrWhitespace(explanation.text())) {
                     if (!explanation.isEditing()) {
                         removeSubscribersFromExplanation(explanation);
+                        
                         explanations.remove(explanation);
+                        question.explanations = _.reject(question.explanations, function (item) {
+                            return item.id == explanation.id;
+                        });
                     }
                     return;
                 }
-                var question = getQuestionFromDataContext(self.objectiveId, self.questionId);
 
                 var contextExplanation = _.find(question.explanations, function (obj) {
                     return obj.id == explanation.id;
