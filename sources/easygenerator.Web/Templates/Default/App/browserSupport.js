@@ -54,7 +54,7 @@
         }());
 
         if (isMobileDevice) {
-            return isSupportedMobile ? 'viewmodels/notsupportedbrowserMobile' : 'viewmodels/shell';
+            return isSupportedMobile ? 'viewmodels/shell' : 'viewmodels/notsupportedbrowserMobile';
         } else {
             return isSupportedBrowser ? 'viewmodels/shell' : 'viewmodels/notsupportedbrowser';
         }
