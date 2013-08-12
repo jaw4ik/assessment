@@ -56,7 +56,7 @@
                 <div class="logo-wrapper white-framing">
                     <img class="logo" alt="" src="../../../Content/images/multichoice-question.png">
                     <div class="item-options">
-                        <div class="item-option select" data-bind="click: toggleSelection">
+                        <div class="item-option select question-select" data-bind="click: toggleSelection">
                             <!-- ko ifnot: isSelected() -->
                             <div class="nowrap" data-bind="localize: { text: 'select' }"></div>
                             <div class="action-img unchecked inline">
@@ -71,14 +71,14 @@
                             <!-- /ko -->
                         </div>
                         <div class="separator"></div>
-                        <div class="item-option edit" data-bind="click: $parent.navigateToEdit">
+                        <div class="item-option edit question-open" data-bind="click: $parent.navigateToEdit">
                             <div class="nowrap" data-bind="localize: { text: 'edit' }"></div>
                             <div class="action-img inline">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="text-block selectable" data-bind="css: { active: isEditing, error: !title.isValid() && title.isModified() }">
+                <div class="text-block question-title selectable" data-bind="css: { active: isEditing, error: !title.isValid() && title.isModified() }">
                     <div class="question-title-chars-counter">
                         <span data-bind="text: title().length"></span>/255
                     </div>
