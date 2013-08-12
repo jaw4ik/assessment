@@ -10,9 +10,9 @@
 </head>
 <body>
     <script type="text/javascript">
-	
+
         var ua = navigator.userAgent.toLowerCase();
-        
+
         var isMobileDevice = (function () {
             if (ua.indexOf("ipod") != -1 ||
                 ua.indexOf("iphone") != -1 ||
@@ -22,7 +22,7 @@
             return false;
         }());
 
-        var isSupportedMobile = (function() {
+        var isSupportedMobile = (function () {
             if (/iP(hone|od|ad)/.test(navigator.platform)) {
                 var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
                 if (parseInt(v[1], 10) >= 6)
@@ -30,7 +30,7 @@
             }
 
             //Android is supported but not chrome, opera or firefox
-            if (ua.indexOf("android") != -1 && 
+            if (ua.indexOf("android") != -1 &&
                 ua.indexOf("chrome") == -1 &&
                 ua.indexOf("opera") == -1 &&
                 ua.indexOf("firefox") == -1 &&
@@ -66,10 +66,9 @@
 
         if (isMobileDevice) {
             alert(isSupportedMobile ? 'viewmodels/shell' : 'viewmodels/notsupportedbrowserMobile');
-        } 
-      
-        alert(isSupportedBrowser ? 'viewmodels/shell' : 'viewmodels/notsupportedbrowser');
-
+        } else {
+            alert(isSupportedBrowser ? 'viewmodels/shell' : 'viewmodels/notsupportedbrowser');
+        }
     </script>
 
     test page
