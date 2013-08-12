@@ -15,7 +15,6 @@
             if (/iP(hone|od|ad)/.test(navigator.platform)) {
                 var v = (navigator.appVersion).match(/OS (\d+)_(\d+)_?(\d+)?/);
                 if (parseInt(v[1], 10) >= 6) {
-                    alert("ios support");
                     return true;
                 }
             }
@@ -25,7 +24,6 @@
                 ua.indexOf("chrome") == -1 &&
                 ua.indexOf("opera") == -1 &&
                 ua.indexOf("firefox") == -1) {
-                alert("android support");
                 return true;
             }
             
@@ -57,10 +55,7 @@
         }());
 
         if (isMobileDevice) {
-            alert("mobile");
-            var check = isSupportedMobile;
-            alert(check);
-            return check == true? 'viewmodels/shell' : 'viewmodels/notsupportedbrowserMobile';
+            return isSupportedMobile ? 'viewmodels/shell' : 'viewmodels/notsupportedbrowserMobile';
         } else {
             return isSupportedBrowser ? 'viewmodels/shell' : 'viewmodels/notsupportedbrowser';
         }
