@@ -323,13 +323,13 @@
                     expect(experience.isSelected()).toBe(false);
                 });
 
-                it('should disable open command', function () {
+                it('should show building status', function () {
                     var experience = viewModel.experiences()[0];
-                    experience.showBuildingStatus(true);
+                    experience.showBuildingStatus(false);
 
                     viewModel.buildExperience(experience);
 
-                    expect(experience.showBuildingStatus()).toBe(false);
+                    expect(experience.showBuildingStatus()).toBe(true);
                 });
 
                 it('should send request to server', function () {
@@ -443,13 +443,13 @@
                     expect(viewModel.enableOpenExperience).toBeFunction();
                 });
                 
-                it('should enable possibility to open expirience', function () {
+                it('should hide showBuildingStatus and so enable open experience', function () {
                     var experience = viewModel.experiences()[0];
-                    experience.showBuildingStatus(false);
+                    experience.showBuildingStatus(true);
                     
                     viewModel.enableOpenExperience(experience);
                     
-                    expect(experience.showBuildingStatus()).toBe(true);
+                    expect(experience.showBuildingStatus()).toBe(false);
                 });
                 
             });

@@ -33,9 +33,9 @@
                     <li class="experience-brief"
                         data-bind="css: {
                             'experience-brief-selected': isSelected,
-                            'experience-building': !showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.inProgress,
-                            'experience-success': !showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.succeed,
-                            'experience-failed': !showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.failed
+                            'experience-building': showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.inProgress,
+                            'experience-success': showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.succeed,
+                            'experience-failed': showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.failed
                         }">
                         <!-- ko if: buildingStatus() != $parent.buildingStatuses.inProgress -->
                         <div class="build-experience-tooltip-wrapper">
@@ -94,25 +94,25 @@
                                     </div>
                                 </div>
                                 <div class="experience-brief-option">
-                                    <!-- ko if: showBuildingStatus() || buildingStatus() == $parent.buildingStatuses.notStarted -->
+                                    <!-- ko if: !showBuildingStatus() || buildingStatus() == $parent.buildingStatuses.notStarted -->
                                     <div class="experience-brief-option-inner experience-brief-options-open" data-bind="click: $parent.navigateToDetails">
                                         <div data-bind="localize: { text: 'open' }">Open</div>
                                         <div class="experience-brief-options-open-image"></div>
                                     </div>
                                     <!-- /ko -->
-                                    <!-- ko if: !showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.inProgress -->
+                                    <!-- ko if: showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.inProgress -->
                                     <div class="experience-brief-option-inner experience-brief-options-building">
                                         <div data-bind="localize: { text: 'experienceBuildingStatus' }"></div>
                                         <div class="experience-brief-options-building-image"></div>
                                     </div>
                                     <!-- /ko -->
-                                    <!-- ko if: !showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.succeed -->
+                                    <!-- ko if: showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.succeed -->
                                     <div class="experience-brief-option-inner experience-brief-options-complete" data-bind="event: { mouseover: $parent.enableOpenExperience }">
                                         <div data-bind="localize: { text: 'experienceCompleteStatus' }"></div>
                                         <div class="experience-brief-options-complete-image"></div>
                                     </div>
                                     <!-- /ko -->
-                                    <!-- ko if: !showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.failed -->
+                                    <!-- ko if: showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.failed -->
                                     <div class="experience-brief-option-inner experience-brief-options-failed" data-bind="event: { mouseover: $parent.enableOpenExperience }">
                                         <div data-bind="localize: { text: 'experienceFailedStatus' }"></div>
                                         <div class="experience-brief-options-failed-image"></div>

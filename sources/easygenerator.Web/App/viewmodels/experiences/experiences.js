@@ -72,7 +72,7 @@
 
         buildExperience = function (experience) {
             sendEvent(events.buildExperience);
-            experience.showBuildingStatus(false);
+            experience.showBuildingStatus(true);
             experience.buildingStatus(constants.buildingStatuses.inProgress);
 
             if (experience.isSelected())
@@ -93,7 +93,7 @@
                 })
                 .always(function () {
                     setTimeout(function () {
-                        experience.showBuildingStatus(true);
+                        experience.showBuildingStatus(false);
                     }, 10000);
                 });
         },
@@ -104,7 +104,7 @@
         },
 
         enableOpenExperience = function (experience) {
-            experience.showBuildingStatus(true);
+            experience.showBuildingStatus(false);
         },
 
         activate = function () {
