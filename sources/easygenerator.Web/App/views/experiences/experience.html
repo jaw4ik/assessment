@@ -64,17 +64,15 @@
         <hr />
     </div>
 
-    <div class="ul-default-wrapper">
-        <ul class="ul-default">
+    <div class="content-list-wrapper">
+        <ul class="content-list">
             <!-- ko foreach: objectives -->
-            <li class="li-default li-related-objective">
-                <div class="li-default-hover-indicator"></div>
-                <div class="li-default-logo-wrapper  white-framing">
-                    <div>
-                        <img class="li-default-logo" data-bind="attr: { src: image }" alt="">
-                    </div>
-                    <div class="li-default-options">
-                        <div class="li-default-select" data-bind="click: $parent.toggleObjectiveSelection">
+            <li class="content-list-item" data-bind="css: { 'selected': isSelected }">
+                <div class="hover-indicator"></div>
+                <div class="logo-wrapper white-framing">
+                    <img class="logo" alt="" data-bind="attr: { src: image }">
+                    <div class="item-options">
+                        <div class="item-option select" data-bind="click: $parent.toggleObjectiveSelection">
                             <!-- ko ifnot: isSelected() -->
                             <div class="nowrap" data-bind="localize: { text: 'select' }">Select</div>
                             <div class="action-img unchecked inline">
@@ -89,7 +87,7 @@
                             <!-- /ko -->
                         </div>
                         <div class="separator"></div>
-                        <div class="li-default-open" data-bind="click: $parent.navigateToObjectiveDetails">
+                        <div class="item-option open" data-bind="click: $parent.navigateToObjectiveDetails">
                             <div class="nowrap" data-bind="localize: { text: 'open' }">Open</div>
                             <div class="action-img inline">
                             </div>
@@ -100,7 +98,9 @@
                     <div class="li-related-objective-question-count-image"></div>
                     <div class="li-related-objective-question-count-text" data-bind="text: questionsCount"></div>
                 </div>
-                <span class="li-default-text" data-bind="text: title"></span>
+                <div class="text-block">
+                    <p data-bind="text: title"></p>
+                </div>
             </li>
             <!-- /ko -->
         </ul>

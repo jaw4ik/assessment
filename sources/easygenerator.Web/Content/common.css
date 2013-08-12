@@ -129,6 +129,133 @@ ol.unstyled  {
     list-style: none;
 }
 
+/* lists of containers*/
+
+.content-list-wrapper {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #E1E1E1;
+    background-color: #fff;
+}
+
+.content-list {
+    list-style: none outside none;
+}
+
+.content-list-item {
+    height: 120px;
+    border: 1px solid #E1E1E1;
+}
+
+    .content-list-item.selected {
+        background-color: #f5f5f5;
+    }
+
+    .content-list-item + .content-list-item {
+        margin-top: -1px;
+    }
+
+    .content-list-item .hover-indicator {
+        float: left;
+        height: 100%;
+        width: 10px;
+    }
+
+    .content-list-item:hover .hover-indicator {
+        background-color: #f26c4f;
+    }
+
+    .content-list-item .logo-wrapper {
+        float: left;
+        height: 100px;
+        width: 190px;
+        margin: 8px 10px;
+        position: relative;
+    }
+
+.logo-wrapper .logo {
+    height: 100%;
+    width: 100%;
+}
+
+.item-options {
+    display: none;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .5);
+    color: #cecece;
+    text-align: center;
+    font-size: 12px;
+}
+
+
+.content-list-item:hover .item-options {
+    display: block;
+}
+
+.item-options .item-option {
+    position: relative;
+    float: left;
+    padding: 13px 0;
+    width: 49%;
+    height: 100%;
+}
+
+    .item-options .item-option:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .item-option.select .action-img {
+        background-position: 0 0;
+    }
+
+    .selected .item-option.select .action-img {
+        background-position: 0 -34px;
+    }
+
+    .item-option.open .action-img {
+        background-position: 0 -102px;
+    }
+
+    .item-option.edit {
+        
+    }
+
+.item-options .separator {
+    height: 100%;
+    width: 2%;
+    float: left;
+    background-color: #e0e0e0;
+    background-color: rgba(224, 224, 224, 0.5);
+}
+
+.item-option .action-img {
+    width: 34px;
+    height: 34px;
+    background-image: url(images/small-options-icons.png);
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.content-list-item .text-block {
+    height: 100%;
+    line-height: 1.4;
+    margin-left: 220px;
+    padding: 10px;
+    color: #666;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    min-height: 40px;
+}
+
 /**
  * Images.
  */
