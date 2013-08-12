@@ -15,8 +15,8 @@ ko.bindingHandlers.context = {
     }
 };
 
-define(['durandal/app', 'durandal/viewLocator', 'durandal/system'],
-    function (app, viewLocator, system) {
+define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'browserSupport'],
+    function (app, viewLocator, system, isBrowserSupported) {
 
         //>>excludeStart("build", true);
         system.debug(true);
@@ -27,23 +27,6 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system'],
         app.start().then(function () {
 
             viewLocator.useConvention();
-
-            var ie = (function () {
-
-                var undef,
-                    v = 3,
-                    div = document.createElement('div'),
-                    all = div.getElementsByTagName('i');
-
-                while (
-                    div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
-                    all[0]
-                );
-
-                return v > 4 ? v : undef;
-
-            }());
-
-            app.setRoot(ie < 9 ? 'viewmodels/notsupportedbrowser' : 'viewmodels/shell');
+            app.setRoot(isBrowserSupported ? 'viewmodels/shell' : 'viewmodels/notsupportedbrowser');
         });
     });
