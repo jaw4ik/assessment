@@ -54,8 +54,8 @@
         }());
 
         if (isMobileDevice) {
-            return isSupportedMobile ? 'viewmodels/shell' : 'viewmodels/notsupportedbrowserMobile';
-        } 
-      
-        return isSupportedBrowser ? 'viewmodels/shell' : 'viewmodels/notsupportedbrowser';
+            return isSupportedMobile ? 'viewmodels/notsupportedbrowserMobile' : 'viewmodels/shell';
+        } else {
+            return isSupportedBrowser ? 'viewmodels/shell' : 'viewmodels/notsupportedbrowser';
+        }
     });

@@ -538,6 +538,7 @@
     <Content Include="Templates\Default\App\main-built.js" />
     <Content Include="Templates\Default\App\main.js" />
     <Content Include="Templates\Default\App\viewmodels\404.js" />
+    <Content Include="Templates\Default\App\viewmodels\notsupportedbrowserMobile.js" />
     <Content Include="Templates\Default\App\viewmodels\explanations.js" />
     <Content Include="Templates\Default\App\viewmodels\feedback.js" />
     <Content Include="Templates\Default\App\viewmodels\home.js" />

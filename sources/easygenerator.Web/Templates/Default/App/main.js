@@ -16,7 +16,7 @@ ko.bindingHandlers.context = {
 };
 
 define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'browserSupport'],
-    function (app, viewLocator, system, getRoot) {
+    function (app, viewLocator, system, getRootView) {
 
         //>>excludeStart("build", true);
         system.debug(true);
@@ -27,6 +27,6 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'browserSuppo
         app.start().then(function () {
 
             viewLocator.useConvention();
-            app.setRoot(getRoot);
+            app.setRoot(getRootView);
         });
     });
