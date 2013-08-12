@@ -10,4 +10,9 @@
 
         return _.isEmpty(obj.trim());
     };
+
+    _.isNullOrUndefined = function (obj) {
+        return _.isUndefined(obj) || _.isNull(obj);
+    };
+
 })();

@@ -13,13 +13,17 @@
                 unselectQuestion: "Unselect question",
                 addQuestion: "Add question",
                 editQuestionTitle: "Edit question title",
-                deleteSelectedQuestions: "Delete question"
+                deleteSelectedQuestions: "Delete question",
+                navigateToNextObjective: "Navigate to next objective",
+                navigateToPreviousObjective: "Navigate to previous objective"
             },
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName, events.category);
             };
 
         var objectiveId = '',
+            nextObjectiveId = '',
+            previousObjectiveId = '',
             title = ko.observable(),
             image = ko.observable(),
             questions = ko.observableArray([]),
@@ -41,6 +45,22 @@
             navigateToEdit = function (item) {
                 sendEvent(events.navigateToEdit);
                 router.navigateTo('#/objective/' + objectiveId + '/question/' + item.id);
+            },
+            navigateToNextObjective = function () {
+                sendEvent(events.navigateToNextObjective);
+                if (_.isNullOrUndefined(this.nextObjectiveId)) {
+                    router.navigateTo('#/404');
+                } else {
+                    router.navigateTo('#/objective/' + this.nextObjectiveId);
+                }
+            },
+            navigateToPreviousObjective = function () {
+                sendEvent(events.navigateToPreviousObjective);
+                if (_.isNullOrUndefined(this.previousObjectiveId)) {
+                    router.navigateTo('#/404');
+                } else {
+                    router.navigateTo('#/objective/' + this.previousObjectiveId);
+                }
             },
             addQuestion = function () {
                 var model = {
@@ -149,6 +169,10 @@
                 title(objective.title);
                 image(objective.image);
 
+                var index = _.indexOf(dataContext.objectives, objective);
+                nextObjectiveId = index != dataContext.objectives.length - 1 ? dataContext.objectives[index + 1].id : null;
+                previousObjectiveId = index != dataContext.objectives.length - 1 ? dataContext.objectives[index + 1].id : null;
+
                 var array = _.chain(objective.questions)
                     .map(function (item) {
                         return mapQuestion(item);
@@ -191,7 +215,8 @@
 
         return {
             objectiveId: objectiveId,
-
+            nextObjectiveId: nextObjectiveId,
+            previousObjectiveId: previousObjectiveId,
             title: title,
             image: image,
             questions: questions,
@@ -204,6 +229,8 @@
 
             navigateToEdit: navigateToEdit,
             navigateToObjectives: navigateToObjectives,
+            navigateToNextObjective: navigateToNextObjective,
+            navigateToPreviousObjective: navigateToPreviousObjective,
 
             addQuestion: addQuestion,
             deleteSelectedQuestions: deleteSelectedQuestions,

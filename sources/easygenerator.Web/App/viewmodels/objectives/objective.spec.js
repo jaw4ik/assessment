@@ -42,6 +42,9 @@
 
             beforeEach(function () {
                 jasmine.Clock.useMock();
+
+                spyOn(eventTracker, 'publish');
+                spyOn(router, 'navigateTo');
             });
 
             it('is object', function () {
@@ -86,8 +89,8 @@
                 });
             });
 
-            describe('deactivate', function() {
-                beforeEach(function() {
+            describe('deactivate', function () {
+                beforeEach(function () {
                     objectives = createObjectives();
                     dataContext.objectives = objectives;
 
@@ -108,11 +111,6 @@
 
             describe('navigateToObjectives', function () {
 
-                beforeEach(function () {
-                    spyOn(eventTracker, 'publish');
-                    spyOn(router, 'navigateTo');
-                });
-
                 it('should navigate to #/objectives', function () {
                     viewModel.navigateToObjectives();
                     expect(router.navigateTo).toHaveBeenCalledWith('#/objectives');
@@ -128,8 +126,6 @@
             describe('navigateToEdit', function () {
                 beforeEach(function () {
                     objectives = createObjectives();
-                    spyOn(eventTracker, 'publish');
-                    spyOn(router, 'navigateTo');
                 });
 
                 it('should navigate to #/objectives', function () {
@@ -146,6 +142,89 @@
 
             });
 
+            describe('navigateToNextObjective:', function () {
+                var nextObjectiveId = 1;
+
+                it('should be a function', function () {
+                    expect(viewModel.navigateToNextObjective).toBeFunction();
+                });
+
+                it('should send event \'Navigate to next objective\'', function () {
+                    viewModel.navigateToNextObjective();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to next objective', eventsCategory);
+                });
+
+                describe('when nextObjectiveId is undefined', function () {
+
+                    it('should navigate to #/404', function () {
+                        viewModel.nextObjectiveId = undefined;
+                        viewModel.navigateToNextObjective();
+                        expect(router.navigateTo).toHaveBeenCalledWith('#/404');
+                    });
+
+                });
+
+                describe('when nextObjectiveId is null', function () {
+
+                    it('should navigate to #/404', function () {
+                        viewModel.nextObjectiveId = null;
+                        viewModel.navigateToNextObjective();
+                        expect(router.navigateTo).toHaveBeenCalledWith('#/404');
+                    });
+
+                });
+
+                describe('when nextObjectiveId is not null or undefined', function () {
+                    it('should navigate to #/objective/{nextObjectiveId}', function () {
+                        viewModel.nextObjectiveId = nextObjectiveId;
+                        viewModel.navigateToNextObjective();
+                        expect(router.navigateTo).toHaveBeenCalledWith('#/objective/' + nextObjectiveId);
+                    });
+                });
+            });
+            
+            describe('navigateToPreviousObjective:', function () {
+                var previousObjectiveId = 0;
+
+                it('should be a function', function () {
+                    expect(viewModel.navigateToPreviousObjective).toBeFunction();
+                });
+
+                it('should send event \'Navigate to previous objective\'', function () {
+                    viewModel.navigateToPreviousObjective();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to previous objective', eventsCategory);
+                });
+
+                describe('when previousObjectiveId is null', function () {
+
+                    it('should navigate to #/404', function () {
+                        viewModel.previousObjectiveId = null;
+                        viewModel.navigateToPreviousObjective();
+                        expect(router.navigateTo).toHaveBeenCalledWith('#/404');
+                    });
+
+                });
+
+                describe('when previousObjectiveId is undefined', function () {
+
+                    it('should navigate to #/404', function () {
+                        viewModel.previousExperienceId = undefined;
+                        viewModel.navigateToPreviousObjective();
+                        expect(router.navigateTo).toHaveBeenCalledWith('#/404');
+                    });
+
+                });
+
+                describe('when previousObjectiveId is not null', function () {
+
+                    it('should navigate to #/experience/{previousObjectiveId}', function () {
+                        viewModel.previousObjectiveId = previousObjectiveId;
+                        viewModel.navigateToPreviousObjective();
+                        expect(router.navigateTo).toHaveBeenCalledWith('#/objective/' + previousObjectiveId);
+                    });
+                });
+            });
+
             describe('sortByTitleAsc', function () {
 
                 beforeEach(function () {
@@ -156,7 +235,6 @@
                 });
 
                 it('should send event \"Sort questions by title ascending\"', function () {
-                    spyOn(eventTracker, 'publish');
                     viewModel.sortByTitleAsc();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Sort questions by title ascending', eventsCategory);
                 });
@@ -181,7 +259,6 @@
                 });
 
                 it('should send event \"Sort questions by title descending\"', function () {
-                    spyOn(eventTracker, 'publish');
                     viewModel.sortByTitleDesc();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Sort questions by title descending', eventsCategory);
                 });
@@ -208,8 +285,6 @@
                 });
 
                 it('should send event \'Add question\'', function () {
-                    spyOn(eventTracker, 'publish');
-
                     viewModel.addQuestion();
 
                     expect(eventTracker.publish).toHaveBeenCalledWith('Add question', eventsCategory);
@@ -251,7 +326,6 @@
                 });
 
                 it('should send event \'Delete question\'', function () {
-                    spyOn(eventTracker, 'publish');
                     viewModel.questions()[0].isSelected(true);
 
                     viewModel.deleteSelectedQuestions();
@@ -270,10 +344,10 @@
                     })).toBeUndefined();
                 });
 
-                it('should remove subscribtions from deleted question', function() {
+                it('should remove subscribtions from deleted question', function () {
                     question.isEditing(true);
                     question.isSelected(true);
-                
+
                     viewModel.deleteSelectedQuestions();
 
                     expect(question.isEditing.getSubscriptionsCount()).toBe(0);
@@ -329,7 +403,6 @@
 
                 it('should send event \'Edit question title\'', function () {
                     question.title('newtitle');
-                    spyOn(eventTracker, 'publish');
 
                     viewModel.endEditQuestionTitle(question);
 
@@ -385,7 +458,7 @@
                 });
 
                 describe('isEditing', function () {
-                    
+
                     beforeEach(function () {
                         objectives = createObjectives();
                         objectives[0].questions = [objectives[0].questions[0]];
@@ -454,7 +527,6 @@
                     });
 
                     it('should send event \'Select question\'', function () {
-                        spyOn(eventTracker, 'publish');
                         question.isSelected(false);
 
                         question.toggleSelection(question);
@@ -463,7 +535,6 @@
                     });
 
                     it('should send event \'Unelect question\'', function () {
-                        spyOn(eventTracker, 'publish');
                         question.isSelected(true);
 
                         question.toggleSelection(question);
