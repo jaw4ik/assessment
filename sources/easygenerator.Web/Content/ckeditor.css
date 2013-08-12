@@ -1,3 +1,7 @@
 ﻿.semantic-dropdown a .cke_combo_text {
      width: 121px !important;
 }
+
+.cke_editable > p:empty:before {
+    content: "\200B"
+}

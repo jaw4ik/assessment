@@ -27,12 +27,15 @@
 
             if (data().length > 0) {
                 editor.setData(data());
-            } else {
-                editor.setData('<p></p>');
             }
 
-            if (isEditing())
+            if (isEditing()) {
                 editor.focus();
+
+                var range = editor.createRange();
+                range.moveToPosition(range.root, CKEDITOR.POSITION_BEFORE_END);
+                editor.getSelection().selectRanges([range]);
+            }
 
             editor.on('focus', function () {
                 var toolbarTopPosition = editor.container.getDocumentPosition().y - $toolbarElement.height();
@@ -70,6 +73,7 @@
 
         function saveData() {
             if (!!saveHandler) {
+                filterContent(editor.editable().$);
                 data(editor.getData());
                 saveHandler.call(that, viewModel);
             }
@@ -113,16 +117,54 @@
                         if (e.attributes.class) {
                             delete e.attributes.class;
                         }
-
-                        if (e.name == 'style') {
-                            delete e;
-                        }
                     }
                 }
             };
 
             editor.dataProcessor.htmlFilter.addRules(rules);
             editor.dataProcessor.dataFilter.addRules(rules);
+        }
+
+        function isElementEmpty(e) {
+            var $element = $(e);
+
+            if (e.nodeType == 3 && $element.text().trim().length == 0) {
+                return true;
+            }
+
+
+            if ($element.prop("tagName") != 'P') {
+                return false;
+            }
+
+            if ($element.contents().length == 0) {
+                return true;
+            }
+
+            return _.every($element.contents(), function (child) {
+                return isElementEmpty(child);
+            });
+        }
+
+        function filterContent(contentElement) {
+            var $content = $(contentElement);
+
+            $content.find('br').each(function (index, brElement) {
+                brElement.remove();
+            });
+
+            $content.find('style').each(function (index, styleElement) {
+                styleElement.remove();
+            });
+
+            var isContentEmpty = _.every($content.contents(), function (child) {
+                return isElementEmpty(child);
+            });
+
+            if (isContentEmpty) {
+                $content.empty();
+            }
+
         }
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
