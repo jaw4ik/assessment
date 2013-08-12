@@ -133,12 +133,12 @@
     experienceBuildAction: {
         en: 'Build',
         nl: 'Samenstellen',
-        de: 'Build'
+        de: 'Erstellen'
     },
     experienceDownloadAction: {
         en: 'Download',
         nl: 'Downloaden',
-        de: 'Download'
+        de: 'Herunterladen'
     },
     experienceBuildingStatus: {
         en: 'building...',
