@@ -102,7 +102,7 @@
         position: relative;
         top: 50%;
         margin-top: -14px;
-        background-image: url(images/middle-sized-icons-pack.png);
+        background-image: url(images/middle-size-icons-pack.png);
         background-repeat: no-repeat;
     }
 
@@ -315,7 +315,7 @@
     height: 25px;
     width: 22px;
     vertical-align: middle;
-    background-image: url(images/middle-sized-icons-pack.png);
+    background-image: url(images/middle-size-icons-pack.png);
     background-position: center -222px;
     background-repeat: no-repeat;
 }
