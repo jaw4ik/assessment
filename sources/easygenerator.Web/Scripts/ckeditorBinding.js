@@ -132,7 +132,6 @@
                 return true;
             }
 
-
             if ($element.prop("tagName") != 'P') {
                 return false;
             }
