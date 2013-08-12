@@ -16,7 +16,7 @@ ko.bindingHandlers.context = {
 };
 
 define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'browserSupport'],
-    function (app, viewLocator, system, isBrowserSupported) {
+    function (app, viewLocator, system, getRoot) {
 
         //>>excludeStart("build", true);
         system.debug(true);
@@ -27,6 +27,6 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'browserSuppo
         app.start().then(function () {
 
             viewLocator.useConvention();
-            app.setRoot(isBrowserSupported ? 'viewmodels/shell' : 'viewmodels/notsupportedbrowser');
+            app.setRoot(getRoot);
         });
     });
