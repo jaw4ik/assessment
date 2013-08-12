@@ -18,92 +18,81 @@
             <h2 class="page-header-title selectable" data-bind="text: title"></h2>
         </div>
     </div>
-    <div id="scroll-wrapper" class="question-content clearfix">
-        <div class="question-content-block question-explanations">
-            <div class="question-content-block-header-wrapper">
-                <div class="question-content-block-header shadow-bottom-curve">
-                    <div class="question-content-block-header-icon">
-                        <i class="explanation-icon"></i>
-                    </div>
-                    <div class="question-content-block-header-title" data-bind="localize: { text: 'relatedQuestions' }">Related questions</div>
-                    <!-- ko if: canDeleteQuestions() -->
-                    <div class="nav-element objective-toolbar-remove-btn" data-bind="click: deleteSelectedQuestions, localize: { title: 'remove' }">
-                        X
-                    </div>
-                    <!-- /ko -->
-                    <div class="right" data-bind="visible: questions().length > 1">
-                        <div>
-                            <div class="questions-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }, localize: { title: 'ascending' }">
-                                <span data-bind="localize: { text: 'firstLetter' }"></span>
-                                &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
-                <span data-bind="localize: { text: 'lastLetter' }"></span>
-                            </div>
-                            <div class="questions-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }, localize: { title: 'descending' }">
+
+    <div class="content-list-wrapper">
+        <header class="list-section-header">
+            <div class="list-section-header-inner shadow-bottom-curve">
+                <div class="list-section-header-icon">
+                    <i class="explanation-icon"></i>
+                </div>
+                <div class="list-section-header-title">
+                    <span data-bind="localize: { text: 'relatedQuestions' }"></span>
+                </div>
+                <!-- ko if: canDeleteQuestions() -->
+                <div class="nav-element objective-toolbar-remove-btn" data-bind="click: deleteSelectedQuestions, localize: { title: 'remove' }">
+                    X
+                </div>
+                <!-- /ko -->
+                <div class="right" data-bind="visible: questions().length > 1">
+                    <div>
+                        <div class="questions-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }, localize: { title: 'ascending' }">
+                            <span data-bind="localize: { text: 'firstLetter' }"></span>
+                            &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
                                 <span data-bind="localize: { text: 'lastLetter' }"></span>
-                                &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
-                <span data-bind="localize: { text: 'firstLetter' }"></span>
-                            </div>
+                        </div>
+                        <div class="questions-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }, localize: { title: 'descending' }">
+                            <span data-bind="localize: { text: 'lastLetter' }"></span>
+                            &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
+                                <span data-bind="localize: { text: 'firstLetter' }"></span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div>
-                <ul class="unstyled">
-                    <!-- ko foreach: questions -->
-                    <li class="questions-list-item" data-bind="css: { 'selected': isSelected }">
-                        <div class="hover-indicator"></div>
-                        <div class="question-logo-wrapper white-framing">
-                            <div>
-                                <img class="question-logo" alt="" src="../../../Content/images/multichoice-question.png" />
+        </header>
+        <ul class="content-list unstyled">
+            <!-- ko foreach: questions -->
+            <li class="content-list-item" data-bind="css: { 'selected': isSelected }">
+                <div class="hover-indicator"></div>
+                <div class="logo-wrapper white-framing">
+                    <img class="logo" alt="" src="../../../Content/images/multichoice-question.png">
+                    <div class="item-options">
+                        <div class="item-option select" data-bind="click: toggleSelection">
+                            <!-- ko ifnot: isSelected() -->
+                            <div class="nowrap" data-bind="localize: { text: 'select' }"></div>
+                            <div class="action-img unchecked inline">
+                                <input type="checkbox" class="custom-checkbox">
                             </div>
-                            <div class="question-options">
-                                <div class="question-select" data-bind="click: toggleSelection">
-                                    <!-- ko if: isSelected() -->
-                                    <div class="nowrap" data-bind="localize: { text: 'unselect' }">
-                                    </div>
-                                    <div class="action-img checked inline">
-                                        <input class="custom-checkbox" type="checkbox" checked="checked" />
-                                    </div>
-                                    <!-- /ko -->
-                                    <!-- ko if: !isSelected() -->
-                                    <div class="nowrap" data-bind="localize: { text: 'select' }">
-                                    </div>
-                                    <div class="action-img unchecked inline">
-                                        <input class="custom-checkbox" type="checkbox" />
-                                    </div>
-                                    <!-- /ko -->
-                                </div>
-                                <div class="separator"></div>
-                                <div class="question-open" data-bind="click: $parent.navigateToEdit">
-                                    <div class="nowrap" data-bind="localize: { text: 'edit' }">
-                                    </div>
-                                    <div class="action-img inline">
-                                    </div>
-                                </div>
+                            <!-- /ko -->
+                            <!-- ko if: isSelected() -->
+                            <div class="nowrap" data-bind="localize: { text: 'unselect' }"></div>
+                            <div class="action-img checked inline">
+                                <input class="custom-checkbox" type="checkbox">
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                        <div class="separator"></div>
+                        <div class="item-option edit" data-bind="click: $parent.navigateToEdit">
+                            <div class="nowrap" data-bind="localize: { text: 'edit' }"></div>
+                            <div class="action-img inline">
                             </div>
                         </div>
-                        <!-- ko if: !title.isValid() && title.isModified() -->
-                        <!--<div class="question-title-error-message" data-bind="text: title.error"></div>-->
-                        <!--/ko -->
-                        <div class="question-title-wrapper" data-bind="css: {active: isEditing, error: !title.isValid() && title.isModified()}">
-                            <div class="question-title-chars-counter">
-                                <span data-bind="text: title().length"></span>/255
-                            </div>
-                            <div class="question-title selectable">
-                                <textarea data-bind="value: title, valueUpdate: 'afterkeydown', event: { blur: $parent.endEditQuestionTitle }, hasFocus: isEditing"></textarea>
-                            </div>
-                        </div>
-                    </li>
-                    <!-- /ko -->
-                    <li class="add-button">
-                        <div class="question-explanation-list-item">
-                            <div class="question-explanation-wrapper enabled">
-                                <div class="question-explanation selectable" data-bind="click: addQuestion, localize: { text: 'clickToAddNewQuestion' }">Click here to add question</div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
+                    </div>
+                </div>
+                <div class="text-block selectable" data-bind="css: { active: isEditing, error: !title.isValid() && title.isModified() }">
+                    <div class="question-title-chars-counter">
+                        <span data-bind="text: title().length"></span>/255
+                    </div>
+                    <textarea class="editarea" data-bind="value: title, valueUpdate: 'afterkeydown', event: { blur: $parent.endEditQuestionTitle }, hasFocus: isEditing"></textarea>
+                </div>
+            </li>
+            <!-- /ko -->
+            <li class="add-button">
+                <div class="question-explanation-list-item">
+                    <div class="question-explanation-wrapper enabled">
+                        <div class="question-explanation selectable" data-bind="click: addQuestion, localize: { text: 'clickToAddNewQuestion' }">Click here to add question</div>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
 </section>

@@ -243,11 +243,12 @@
         color: #666;
         font-size: 13px;
         font-family: Arial,sans-serif;
+        -ms-resize: none;
         resize: none;
         overflow-y: hidden;
     }
 
-    .question-answer-text p {
+.question-answer-text p {
         padding: 8px 10px;
     }
 
