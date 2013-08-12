@@ -14,6 +14,10 @@
         opacity: 0.75;
     }
 
+    .experience-build-progress-status > a {
+        display: inline-block;
+    }
+
 .experience-build-status-text {
     color: #666666;
     vertical-align: top;
@@ -34,24 +38,16 @@
     background-position: 0 0;
 }
 
-.experience-build-progress-status:hover .experience-build-status-image-not-started {
-    background-position: 0 -67px;
-}
-
 .experience-build-status-image-in-progress {
     background-image: none;
 }
 
 .experience-build-status-image-complete {
-    background-position: 0 -268px;
-}
-
-.experience-build-progress-status:hover .experience-build-status-image-complete {
-    background-position: 0 -335px;
+    background-position: 0 -67px;
 }
 
 .experience-build-status-image-failed {
-    background-position: 0 -201px;
+    background-position: 0 -134px;
 }
 
 
@@ -80,7 +76,7 @@
     opacity: 0.6;
 }
 
-.experience-header-wrapper-nav-btn:hover {
+    .experience-header-wrapper-nav-btn:hover {
         opacity: 1;
     }
 
