@@ -252,11 +252,9 @@
             },
 
             deleteExplanation = function (explanation) {
+                debugger;
                 sendEvent(events.deleteExplanation);
                 var question = getQuestionFromDataContext(self.objectiveId, self.questionId);
-                question.explanations = _.reject(question.explanations, function (item) {
-                    return item.id == explanation.id;
-                });
 
                 if (!!lastAddedExplanation() && explanation.id == lastAddedExplanation().id) {
                     lastAddedExplanation(null);
@@ -265,6 +263,11 @@
                 explanations(_.reject(explanations(), function (item) {
                     return item.id == explanation.id;
                 }));
+                
+                question.explanations = _.reject(question.explanations, function (item) {
+                    return item.id == explanation.id;
+                });
+                
                 removeSubscribersFromExplanation(explanation);
             },
 
@@ -376,7 +379,9 @@
                 this.answerOptions(_.map(question.answerOptions, function(item) {
                     return mapAnswerOption.call(that, item);
                 }));
-                this.explanations(_.map(question.explanations, mapExplanation));
+                this.explanations(_.map(question.explanations, function(item) {
+                    return mapExplanation.call(that, item);
+                }));
 
                 var questionIndex = objective.questions.indexOf(question);
                 self.nextId = (objective.questions.length > questionIndex + 1) ? objective.questions[questionIndex + 1].id : null;
