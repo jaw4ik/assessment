@@ -157,6 +157,14 @@
     },
     /* End resource section for model Experiences */
     
+    /* Resource section for model DisplayExperience */
+    relatedLearningObjectives: {
+        en: 'Related learning objectives',
+        nl: 'Gerelateerde leerdoelen',
+        de: 'Verwandte Lernziele'
+    },
+    /* End resource section for model DisplayExperience */
+    
     /* Resource section for model CreateObjective */
     newObjective: {
         en: 'New Objective',

@@ -5,26 +5,26 @@
     <div class="navbar experience-build-progress-status">
         <!-- ko if: status() == statuses.notStarted -->
         <a href="#" data-bind="click: buildExperience">
-            <span class="experience-build-status-text">Build experience</span><!--
+            <span class="experience-build-status-text" data-bind="localize: { text: 'experienceBuildAction' }">Build experience</span><!--
                 --><span class="experience-build-status-image experience-build-status-image-not-started"></span>
         </a>
         <!-- /ko -->
         <!-- ko if: status() == statuses.inProgress -->
-        <span class="experience-build-status-text">Building...</span><!--
+        <span class="experience-build-status-text" data-bind="localize: { text: 'experienceBuildingStatus' }">Building...</span><!--
             --><img class="experience-build-status-image experience-build-status-image-in-progress" src="Content/images/buildprogress.gif"></img>
         <!-- /ko-->
         <!-- ko if: status() == statuses.failed -->
-        <span class="experience-build-status-text">Building failed</span><!--
+        <span class="experience-build-status-text" data-bind="localize: { text: 'experienceFailedStatus' }">Building failed</span><!--
             --><span class="experience-build-status-image experience-build-status-image-failed"></span>
         <!-- /ko -->
         <!-- ko if: status() == statuses.succeed -->
         <a href="#" data-bind="click: downloadExperience">
-            <span class="experience-build-status-text">Download</span><!--
+            <span class="experience-build-status-text" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span><!--
                 --><span class="experience-build-status-image experience-build-status-image-complete"></span>
         </a>
         <!-- /ko -->
     </div>
-
+    <div class="clearfix"></div>
     <div class="experience-header-wrapper">
         <div class="experience-header-wrapper-nav-container">
             <!-- ko if: _.isNumber(previousExperienceId) -->
@@ -56,7 +56,7 @@
     </div>
 
     <div class="experience-related-objectives-header">
-        <span>Related learning objectives</span>
+        <span data-bind="localize: { text: 'relatedLearningObjectives' }">Related learning objectives</span>
         <hr />
     </div>
 
@@ -92,7 +92,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="li-related-objective-question-count-wrapper">
+                <div class="li-related-objective-question-count-wrapper" data-bind="localize: { title: 'numberOfRelatedQuestions' }">
                     <div class="li-related-objective-question-count-image"></div>
                     <div class="li-related-objective-question-count-text" data-bind="text: questionsCount"></div>
                 </div>
