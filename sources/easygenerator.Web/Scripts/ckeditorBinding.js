@@ -30,17 +30,19 @@
             }
 
             if (isEditing()) {
-                editor.focus();
+                editor.focusManager.focus();
 
                 var range = editor.createRange();
                 range.moveToPosition(range.root, CKEDITOR.POSITION_BEFORE_END);
                 editor.getSelection().selectRanges([range]);
+                saveIntervalId = setInterval(saveData, autosaveInterval);
             }
 
             editor.on('focus', function () {
                 var toolbarTopPosition = editor.container.getDocumentPosition().y - $toolbarElement.height();
                 $toolbarElement.css('top', toolbarTopPosition);
                 isEditing(true);
+                saveIntervalId = setInterval(saveData, autosaveInterval);
             });
 
             editor.on('blur', function () {
@@ -58,7 +60,6 @@
                 data(editor.getData());
             });
 
-            saveIntervalId = setInterval(saveData, autosaveInterval);
         });
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
@@ -74,7 +75,7 @@
         function saveData() {
             if (!!saveHandler) {
                 filterContent(editor.editable().$);
-                data(editor.getData());
+                data(editor.getData(true));
                 saveHandler.call(that, viewModel);
             }
         }
