@@ -27,8 +27,7 @@
 
                     getById.resolve(null);
 
-                    expect(promise).toEqual(jasmine.any(Object));
-                    expect(promise.then).toEqual(jasmine.any(Function));
+                    expect(promise).toBePromise();
                 });
 
                 describe('when get experience from repository', function () {
@@ -67,7 +66,7 @@
 
                     });
 
-                    describe('and promise is pending', function () {
+                    describe('and promise is not resolved or rejected', function () {
 
                         it('should change building status to \'inProgress\'', function () {
 
