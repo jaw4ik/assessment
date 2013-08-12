@@ -252,7 +252,6 @@
             },
 
             deleteExplanation = function (explanation) {
-                debugger;
                 sendEvent(events.deleteExplanation);
                 var question = getQuestionFromDataContext(self.objectiveId, self.questionId);
 
