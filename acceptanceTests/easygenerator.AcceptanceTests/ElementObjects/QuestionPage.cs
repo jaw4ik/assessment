@@ -155,6 +155,13 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             DriverProvider.Current().Driver.FindElementByXPath(model.AnswerOptionActiveText).SendKeys(text);
         }
 
+        internal void AnswerOptionTextClick(string existingText)
+        {
+            var answerItem = AnswerItemByText(existingText);
+            var itemTextField = answerItem.Container.FindElementByXPath(model.AnswerItemText);
+            itemTextField.Click();
+        }
+
         internal void AddAnswerOptionTextIntoExisting(string newText, string existingText)
         {
             var answerItem = AnswerItemByText(existingText);
@@ -219,7 +226,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             var itemTextField = explanationItem.Container.FindElementByXPath(model.ExplanationItemText);
             itemTextField.Click();
         }
-
+               
         internal bool IsNewExplanationButtonVisible()
         {
             return NewExplanationButton.IsVisisble();            
@@ -260,6 +267,8 @@ namespace easygenerator.AcceptanceTests.ElementObjects
                 return el.Displayed;
             }
         }
+
+        public bool AnswerItemDeleteButtonIsEnabled { get { return GetByXPathInside(model.AnswerItemDeleteButton).Displayed; } }
     }
 
     public class ExplanationItem : ContainerElement<QuestionPageLinkingModel>

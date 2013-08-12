@@ -248,11 +248,27 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Incorrect explanation delete button visibility");
         }
 
+        [Then(@"answer option delete button is enabled (.*) for answer option with text '(.*)'")]
+        public void ThenAnswerOptionDeleteButtonIsEnabledFalseForAnswerOptionWithText(bool isEnabled, string text)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                Question.AnswerItems.First(it => it.Text == text).AnswerItemDeleteButtonIsEnabled == isEnabled,
+                "Incorrect answer option delete button visibility");
+        }
+
+
         [When(@"click explanation text field '(.*)'")]
         public void WhenClickExplanationTextField(string text)
         {
             Question.ExplanationTextClick(text);
         }
+
+        [When(@"click answer option text field '(.*)'")]
+        public void WhenClickAnswerOptionTextField(string text)
+        {
+            Question.AnswerOptionTextClick(text);
+        }
+
 
         [When(@"scroll new explanation button into the view")]
         public void WhenScrollNewExplanationButtonIntoTheView()
