@@ -546,6 +546,7 @@
     <Content Include="Templates\Default\App\viewmodels\shell.js" />
     <Content Include="Templates\Default\App\viewmodels\summary.js" />
     <Content Include="Templates\Default\App\views\404.html" />
+    <Content Include="Templates\Default\App\views\notsupportedbrowserMobile.html" />
     <Content Include="Templates\Default\App\views\notsupportedbrowser.html" />
     <Content Include="Templates\Default\App\views\explanations.html" />
     <Content Include="Templates\Default\App\views\feedback.html" />
@@ -599,6 +600,7 @@
     <Content Include="Templates\Default\js\vendor.min.js">
       <DependentUpon>vendor.js.bundle</DependentUpon>
     </Content>
+    <Content Include="Templates\Default\test.html" />
     <Content Include="Templates\Quiz\App\context.js" />
     <Content Include="Templates\Quiz\App\durandal\amd\almond-custom.js" />
     <Content Include="Templates\Quiz\App\durandal\amd\optimizer.exe" />
