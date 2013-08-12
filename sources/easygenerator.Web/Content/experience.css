@@ -14,7 +14,7 @@
         opacity: 0.75;
     }
 
-    .experience-build-progress-status > a {
+    .experience-build-progress-status > * {
         display: inline-block;
     }
 

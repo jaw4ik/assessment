@@ -6,21 +6,25 @@
         <!-- ko if: status() == statuses.notStarted -->
         <a href="#" data-bind="click: buildExperience">
             <span class="experience-build-status-text" data-bind="localize: { text: 'experienceBuildAction' }">Build experience</span><!--
-                --><span class="experience-build-status-image experience-build-status-image-not-started"></span>
+            --><span class="experience-build-status-image experience-build-status-image-not-started"></span>
         </a>
         <!-- /ko -->
         <!-- ko if: status() == statuses.inProgress -->
-        <span class="experience-build-status-text" data-bind="localize: { text: 'experienceBuildingStatus' }">Building...</span><!--
+        <div>
+            <span class="experience-build-status-text" data-bind="localize: { text: 'experienceBuildingStatus' }">Building...</span><!--
             --><img class="experience-build-status-image experience-build-status-image-in-progress" src="Content/images/buildprogress.gif"></img>
+        </div>
         <!-- /ko-->
         <!-- ko if: status() == statuses.failed -->
-        <span class="experience-build-status-text" data-bind="localize: { text: 'experienceFailedStatus' }">Building failed</span><!--
+        <div data-bind="event: { mouseover: resetBuildStatus }">
+            <span class="experience-build-status-text" data-bind="localize: { text: 'experienceFailedStatus' }">Building failed</span><!--
             --><span class="experience-build-status-image experience-build-status-image-failed"></span>
+        </div>
         <!-- /ko -->
         <!-- ko if: status() == statuses.succeed -->
         <a href="#" data-bind="click: downloadExperience">
             <span class="experience-build-status-text" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span><!--
-                --><span class="experience-build-status-image experience-build-status-image-complete"></span>
+            --><span class="experience-build-status-image experience-build-status-image-complete"></span>
         </a>
         <!-- /ko -->
     </div>

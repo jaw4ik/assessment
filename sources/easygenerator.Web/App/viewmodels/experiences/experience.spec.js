@@ -410,6 +410,19 @@
                 });
             });
 
+            describe('resetBuildStatus', function() {
+
+                it('should be a function', function () {
+                    expect(viewModel.resetBuildStatus).toBeFunction();
+                });
+
+                it('should change status to \'notStarted\'', function () {
+                    viewModel.resetBuildStatus();
+                    expect(viewModel.status()).toEqual(constants.buildingStatuses.notStarted);
+                });
+
+            });
+
             describe('activate:', function () {
 
                 var repository = require('repositories/experienceRepository');

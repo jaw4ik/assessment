@@ -28,6 +28,7 @@
             nextExperienceId = null,
             previousExperienceId = null,
 
+
             navigateToExperiences = function () {
                 sendEvent(events.navigateToExperiences);
                 router.navigateTo('#/experiences');
@@ -72,16 +73,17 @@
                 router.navigateTo('#/objective/' + objective.id);
             },
 
+
             toggleObjectiveSelection = function (objective) {
-                
+
                 if (_.isUndefined(objective)) {
                     throw 'Objective is undefined';
                 }
-                
+
                 if (_.isNull(objective)) {
                     throw 'Objective is null';
                 }
-                
+
                 if (!ko.isObservable(objective.isSelected)) {
                     throw 'Objective does not have isSelected observable';
                 }
@@ -94,6 +96,7 @@
                     objective.isSelected(true);
                 }
             },
+
 
             buildExperience = function () {
                 sendEvent(events.buildExperience);
@@ -115,6 +118,11 @@
                 router.navigateTo('download/' + this.id + '.zip');
             },
 
+            resetBuildStatus = function () {
+                this.status(constants.buildingStatuses.notStarted);
+            },
+
+
             activate = function (routeData) {
 
                 if (!_.isObject(routeData) || _.isUndefined(routeData.id)) {
@@ -124,10 +132,10 @@
 
                 var that = this;
                 return repository.getCollection().then(function (response) {
-                    var experiences = _.sortBy(response, function(item) {
+                    var experiences = _.sortBy(response, function (item) {
                         return item.title;
                     });
-                    
+
                     var experience = _.find(experiences, function (item) {
                         return item.id == routeData.id;
                     });
@@ -175,7 +183,9 @@
             toggleObjectiveSelection: toggleObjectiveSelection,
 
             buildExperience: buildExperience,
-            downloadExperience: downloadExperience
+            downloadExperience: downloadExperience,
+
+            resetBuildStatus: resetBuildStatus
         };
     }
 );
