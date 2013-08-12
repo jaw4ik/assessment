@@ -16,6 +16,7 @@
 
     .experience-build-progress-status > * {
         display: inline-block;
+        cursor: default;
     }
 
 .experience-build-status-text {
