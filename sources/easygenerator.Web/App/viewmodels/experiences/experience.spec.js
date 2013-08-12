@@ -525,13 +525,13 @@
                     });
                 });
 
-                describe('when previous experience exists', function () {
+                describe('when previous experience exists in sorted by title collection of experiences', function () {
 
                     it('should set previousExperienceId', function () {
                         viewModel.previousExperienceId = null;
 
                         var promise = viewModel.activate({ id: experience.id });
-                        deferred.resolve([{ id: previousExperienceId }, experience]);
+                        deferred.resolve([{ id: previousExperienceId, title: 'a' }, { id: experience.id, title: 'b' }]);
 
                         waitsFor(function () {
                             return promise.isFulfilled();
@@ -543,19 +543,55 @@
 
                 });
 
-                describe('when next experience exists', function () {
+                describe('when previous experience does not exist in sorted by title collection of experiences', function () {
+
+                    it('should set previousExperienceId to null ', function () {
+                        viewModel.previousExperienceId = null;
+
+                        var promise = viewModel.activate({ id: experience.id });
+                        deferred.resolve([{ id: previousExperienceId, title: 'z' }, { id: experience.id, title: 'b' }]);
+
+                        waitsFor(function () {
+                            return promise.isFulfilled();
+                        });
+                        runs(function () {
+                            expect(viewModel.previousExperienceId).toBeNull();
+                        });
+                    });
+
+                });
+
+                describe('when next experience exists in sorted by title collection of experiences', function () {
 
                     it('should set nextExperienceId', function () {
                         viewModel.nextExperienceId = null;
 
                         var promise = viewModel.activate({ id: experience.id });
-                        deferred.resolve([experience, { id: nextExperienceId }]);
+                        deferred.resolve([{ id: experience.id, title: 'a' }, { id: nextExperienceId, title: 'b' }]);
 
                         waitsFor(function () {
                             return promise.isFulfilled();
                         });
                         runs(function () {
                             expect(viewModel.nextExperienceId).toEqual(nextExperienceId);
+                        });
+                    });
+
+                });
+                
+                describe('when next experience does not exist in sorted by title collection of experiences', function () {
+
+                    it('should set nextExperienceId to null', function () {
+                        viewModel.nextExperienceId = null;
+
+                        var promise = viewModel.activate({ id: experience.id });
+                        deferred.resolve([{ id: experience.id, title: 'z' }, { id: nextExperienceId, title: 'b' }]);
+
+                        waitsFor(function () {
+                            return promise.isFulfilled();
+                        });
+                        runs(function () {
+                            expect(viewModel.nextExperienceId).toBeNull();
                         });
                     });
 

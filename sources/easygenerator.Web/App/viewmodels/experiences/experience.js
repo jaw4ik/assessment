@@ -124,7 +124,11 @@
 
                 var that = this;
                 return repository.getCollection().then(function (response) {
-                    var experience = _.find(response, function (item) {
+                    var experiences = _.sortBy(response, function(item) {
+                        return item.title;
+                    });
+                    
+                    var experience = _.find(experiences, function (item) {
                         return item.id == routeData.id;
                     });
 
@@ -144,9 +148,9 @@
                             .sortBy(function (objective) { return objective.title.toLowerCase(); })
                             .value();
 
-                    var index = _.indexOf(response, experience);
-                    that.previousExperienceId = index != 0 ? response[index - 1].id : null;
-                    that.nextExperienceId = index != response.length - 1 ? response[index + 1].id : null;
+                    var index = _.indexOf(experiences, experience);
+                    that.previousExperienceId = index != 0 ? experiences[index - 1].id : null;
+                    that.nextExperienceId = index != experiences.length - 1 ? experiences[index + 1].id : null;
                 });
             };
 
