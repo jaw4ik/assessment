@@ -7,7 +7,7 @@
                 navigateToRelatedObjective: 'Navigate to related objective',
                 navigateToNextQuestion: 'Navigate to next question',
                 navigateToPreviousQuestion: 'Navigate to previous question',
-                
+
                 addAnswerOption: 'Add answer option',
                 toggleAnswerCorrectness: 'Change answer option correctness',
                 saveAnswerOption: 'Save the answer option text',
@@ -31,7 +31,7 @@
         self.previousId = '';
         self.nextId = '';
 
-        var 
+        var
             objectiveTitle = '',
             title = '',
             answerOptions = ko.observableArray([]),
@@ -203,7 +203,7 @@
                     if (value) {
                         sendEvent(events.startEditingAnswerOption);
 
-                        saveIntervalId = setInterval(function() {
+                        saveIntervalId = setInterval(function () {
                             saveAnswerOption(mappedItem);
                         }, constants.autosaveTimersInterval.answerOption);
                         return;
@@ -247,9 +247,9 @@
 
             addExplanation = function () {
                 var explanation = mapExplanation(new expalantionModel({
-                    id: _.max(explanations(), function(item) {
-                         return parseInt(item.id);
-                    }),
+                    id: parseInt(_.max(explanations(), function (item) {
+                        return parseInt(item.id);
+                    }).id) + 1,
                     text: ''
                 }));
                 explanation.isEditing(true);
@@ -270,11 +270,11 @@
                 explanations(_.reject(explanations(), function (item) {
                     return item.id == explanation.id;
                 }));
-                
+
                 question.explanations = _.reject(question.explanations, function (item) {
                     return item.id == explanation.id;
                 });
-                
+
                 removeSubscribersFromExplanation(explanation);
             },
 
@@ -299,13 +299,13 @@
             saveExplanation = function (explanation) {
                 if (!explanation.isEditing() && !!lastAddedExplanation() && explanation.id == lastAddedExplanation().id)
                     lastAddedExplanation(null);
-                
+
                 var question = getQuestionFromDataContext(self.objectiveId, self.questionId);
 
                 if (_.isEmptyOrWhitespace(explanation.text())) {
                     if (!explanation.isEditing()) {
                         removeSubscribersFromExplanation(explanation);
-                        
+
                         explanations.remove(explanation);
                         question.explanations = _.reject(question.explanations, function (item) {
                             return item.id == explanation.id;
@@ -388,10 +388,10 @@
                 this.title = question.title;
                 this.objectiveTitle = objective.title;
 
-                this.answerOptions(_.map(question.answerOptions, function(item) {
+                this.answerOptions(_.map(question.answerOptions, function (item) {
                     return mapAnswerOption.call(that, item);
                 }));
-                this.explanations(_.map(question.explanations, function(item) {
+                this.explanations(_.map(question.explanations, function (item) {
                     return mapExplanation.call(that, item);
                 }));
 
