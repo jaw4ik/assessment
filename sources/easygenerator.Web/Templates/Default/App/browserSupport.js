@@ -21,13 +21,14 @@
             alert(ua);
             
             //Android is supported but not chrome, opera or firefox
-            if (ua.indexOf("android") != -1 && 
+            if (ua.indexOf("android") != -1 &&
                 ua.indexOf("chrome") == -1 &&
                 ua.indexOf("opera") == -1 &&
-                ua.indexOf("firefox") == -1 &&
-                ua.indexOf("opr") == -1)
+                ua.indexOf("firefox") == -1) {
+                alert(ua.indexOf("chrome"));
                 return true;
-
+            }
+            
             return false;
         }());
 
