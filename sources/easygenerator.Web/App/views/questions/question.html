@@ -52,17 +52,17 @@
                     <div class="question-content-block-header-title" data-bind="localize: { text: 'answerOptions' }">Answer options</div>
                     <div class="question-content-block-size-element-wrapper right">
                         <a href="#" class="nav-element">
-                            <!-- ko if:isAnswersBlockExpanded -->
+                            <!-- ko if: isAnswersBlockExpanded -->
                             <span class="inline question-content-block-size-btn collapse-btn" data-bind="localize: { title: 'collapse' }"></span>
                             <!-- /ko -->
-                            <!-- ko ifnot:isAnswersBlockExpanded -->
+                            <!-- ko ifnot: isAnswersBlockExpanded -->
                             <span class="inline question-content-block-size-btn expand-btn" data-bind="localize: { title: 'expand' }"></span>
                             <!-- /ko -->
                         </a>
                     </div>
                 </div>
             </div>
-            <!-- ko if:isAnswersBlockExpanded -->
+            <!-- ko if: isAnswersBlockExpanded -->
             <div class="question-content-items-list">
                 <ul class="unstyled">
                     <!-- ko foreach: answerOptions() -->
@@ -75,7 +75,7 @@
                             </div>
                             <div class="question-answer-text-wrapper">
                                 <div class="question-answer-text selectable">
-                                    <textarea data-bind="value: text, valueUpdate: 'afterkeydown', event: { blur: $parent.saveAnswerOption }, hasFocus: isInEdit, autoResize: true"></textarea>
+                                    <textarea data-bind="value: text, valueUpdate: 'afterkeydown', hasFocus: isInEdit, autoResize: true"></textarea>
                                 </div>
                             </div>
                             <div class="question-answer-delete-wrapper" data-bind="click: $parent.deleteAnswerOption, localize: { title: 'deleteAnswerOption' }">
@@ -94,8 +94,6 @@
                                 <div class="question-answer-text">
                                     <p data-bind="localize: { text: 'clickToAddNewAnswerOption' }"></p>
                                 </div>
-                            </div>
-                            <div class="question-answer-delete-wrapper">
                             </div>
                         </div>
                     </li>

@@ -1,6 +1,16 @@
 ﻿ko.bindingHandlers.autoResize = {
     init: function (element, valueAccessor) {
-        if (valueAccessor() == true)
-            setTimeout(function() { $(element).autosize(); }, 70);
+        
+        var value = ko.unwrap(valueAccessor());
+        if (value != true) return;
+
+        Q(element)
+            .then(
+                function (input) { return $(input).load(); }
+            )
+            .then(
+                function (input) { input.autosize(); }
+            );
+
     }
 };

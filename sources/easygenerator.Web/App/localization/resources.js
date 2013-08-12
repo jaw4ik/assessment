@@ -142,8 +142,8 @@
     },
     experienceBuildingStatus: {
         en: 'building...',
-        nl: 'Samenstellen…',
-        de: 'Aufbau...'
+        nl: 'samenstellen…',
+        de: 'aufbau...'
     },
     experienceFailedStatus: {
         en: 'failed',
@@ -156,14 +156,6 @@
         de: 'vollständig'
     },
     /* End resource section for model Experiences */
-    
-    /* Resource section for model DisplayExperience */
-    relatedLearningObjectives: {
-        en: 'Related learning objectives',
-        nl: 'Gerelateerde leerdoelen',
-        de: 'Verwandte Lernziele'
-    },
-    /* End resource section for model DisplayExperience */
     
     /* Resource section for model CreateObjective */
     newObjective: {
@@ -254,8 +246,8 @@
     },
     deleteAnswerOption: {
         en: 'Delete answer',
-        nl: 'Delete answer[nl]',
-        de: 'Delete answer[de]'
+        nl: 'Antwoord verwijderen',
+        de: 'Antwort löschen'
     },
     /* End resource section for model Question */
     
@@ -282,178 +274,178 @@
     },
     incorrectAnswer: {
         en: 'Incorrect answer',
-        nl: 'Incorrect answer[nl]',
-        de: 'Incorrect answer[de]'
+        nl: 'Onjuist antwoord',
+        de: 'Falsche Antwort'
     },
     lastSaving: {
         en: 'Last saving',
-        nl: 'Last saving[nl]',
-        de: 'Last saving[de]'
+        nl: 'Laatst opgeslagen',
+        de: 'Letzte Speicherung'
     },
     addNewQuestion: {
         en: 'Add new question',
         nl: 'Nieuwe vraag toevoegen',
         de: 'Neue Fragen hinzufügen'
     },
-    clickToAddNewQuestion   : {
+    clickToAddNewQuestion: {
         en: 'Click here to add question',
-        nl: 'Click here to add question[nl]',
-        de: 'Click here to add question[de]'
+        nl: 'Klik hier om een vraag toe te voegen',
+        de: 'Hier klicken, um eine Frage hinzuzufügen'
     },
     /* End resource section for model Questions */
     
     /* Resource section for model customLocalizationPlugin */
-    tag_abbr: {
+    abbr: {
         en: 'Abbreviation',
         nl: 'Afkorting',
         de: 'Abkürzung'
     },
-    tag_acronym: {
+    acronym: {
         en: 'Acronym',
         nl: 'Acroniem',
         de: 'Akronym'
     },
-    tag_blockquote: {
+    blockquote: {
         en: 'Long quotation',
         nl: 'Lang citaat',
         de: 'Langes Zitat'
     },
-    tag_q: {
+    q: {
         en: 'Short inline quotation',
         nl: 'Kort citaat in regel',
         de: 'Kurzes Zitat in Zeile'
     },
-    tag_cite: {
+    cite: {
         en: 'Citation',
         nl: 'Aanhaling',
         de: 'Zitat'
     },
-    tag_dfn: {
+    dfn: {
         en: 'Definition',
         nl: 'Definitie',
         de: 'Definition'
     },
-    tag_code: {
+    code: {
         en: 'Code reference',
         nl: 'Codeverwijzing',
         de: 'Codereferenz'
     },
-    tag_samp: {
+    samp: {
         en: 'Sample output',
         nl: 'Voorbeelduitvoer',
         de: 'Beispielausgabe'
     },
-    tag_tt: {
+    tt: {
         en: 'Teletype text',
         nl: 'Teletype-tekst',
         de: 'Teletype-Text'
     },
-    tag_em: {
+    em: {
         en: 'Emphasis',
         nl: 'Nadruk',
         de: 'Hervorhebung'
     },
-    tag_strong: {
+    strong: {
         en: 'Strong emphasis',
         nl: 'Extra nadruk',
         de: 'Starke Hervorhebung'
     },
-    tag_sub: {
+    sub: {
         en: 'Subscript',
         nl: 'Subscript',
         de: 'Untergeschrieben'
     },
-    tag_sup: {
+    sup: {
         en: 'Superscript',
         nl: 'Superscript',
         de: 'Übergeschrieben'
     },
-    tag_hr: {
+    hr: {
         en: 'Thematic break',
         nl: 'Thematische onderbreking',
         de: 'Themawechsel'
     },
-    tag_article: {
+    article: {
         en: 'Article',
         nl: 'Artikel',
         de: 'Artikel'
     },
-    tag_section: {
+    section: {
         en: 'Section',
         nl: 'Sectie',
         de: 'Abschnitt'
     },
-    tag_aside: {
+    aside: {
         en: 'Aside content',
         nl: 'Aside-inhoud',
         de: 'Nebeninhalt'
     },
-    tag_header: {
+    header: {
         en: 'Header',
         nl: 'Koptekst',
         de: 'Kopfzeile'
     },
-    tag_footer: {
+    footer: {
         en: 'Footer',
         nl: 'Voettekst',
         de: 'Fußzeile'
     },
-    tag_mark: {
+    mark: {
         en: 'Marked/highlighted text',
         nl: 'Gemarkeerde/gehighlighte tekst',
         de: 'Markierter/hervorgehobener Text'
     },
-    tag_figcaption: {
+    figcaption: {
         en: 'Caption of Figure',
         nl: 'Bijschrift bij afbeelding',
         de: 'Bildunterschrift'
     },
-    tag_figure: {
+    figure: {
         en: 'Figure',
         nl: 'Afbeelding',
         de: 'Abbildung'
     },
-    tag_nav: {
+    nav: {
         en: 'Navigation element',
         nl: 'Navigatie-element',
         de: 'Navigationselement'
     },
-    tag_time: {
+    time: {
         en: 'Date/Time',
         nl: 'Datum/tijd',
         de: 'Datum/Uhrzeit'
     },
-    tag_h1: {
+    h1: {
         en: 'First level headline',
         nl: 'Kopregel op eerste niveau',
         de: 'Überschrift erste Ebene'
     },
-    tag_h2: {
+    h2: {
         en: 'Second level headline',
         nl: 'Kopregel op tweede niveau',
         de: 'Überschrift zweite Ebene'
     },
-    tag_h3: {
+    h3: {
         en: 'Third level headline',
         nl: 'Kopregel op derde niveau',
         de: 'Überschrift dritte Ebene'
     },
-    tag_h4: {
+    h4: {
         en: 'Fourth level headline',
         nl: 'Kopregel op vierde niveau',
         de: 'Überschrift vierte Ebene'
     },
-    tag_h5: {
+    h5: {
         en: 'Fifth level headline',
         nl: 'Kopregel op vijfde niveau',
         de: 'Überschrift fünfte Ebene'
     },
-    tag_h6: {
+    h6: {
         en: 'Sixth level headline',
         nl: 'Kopregel op zesde niveau',
         de: 'Überschrift sechste Ebene'
     },
-    tag_address: {
+    address: {
         en: 'Address',
         nl: 'Adres',
         de: 'Adresse'
@@ -482,7 +474,56 @@
         en: 'Normal',
         nl: 'Normaal',
         de: 'Normale'
-    }
+    },
     /* End resource section for model customLocalizationPlugin */
+    
+    /* Resource section for model Display experience */
+    relatedLearningObjectives: {
+        en: 'Related learning objectives',
+        nl: 'Gerelateerde leerdoelen',
+        de: 'Verwandte Lernziele'
+    },
+    buildExperience: {
+        en: 'Build experience',
+        nl: 'Build experience[nl]',
+        de: 'Build experience[de]'
+    },
+    /* End resource section for model Display experience */
+    
+    /* Resource section for model Error pages */
+    badRequest: {
+        en: 'Bad request',
+        nl: 'Bad request[nl]',
+        de: 'Bad request[de]'
+    },
+    badRequestDescription: {
+        en: 'Sorry, the request you sent was somehow malformed therefore we were unable to understand or process the request.',
+        nl: 'Sorry, the request you sent was somehow malformed therefore we were unable to understand or process the request.[nl]',
+        de: 'Sorry, the request you sent was somehow malformed therefore we were unable to understand or process the request.[de]'
+    },
+    pageNotFound: {
+        en: 'Page not found',
+        nl: 'Page not found[nl]',
+        de: 'Page not found[de]'
+    },
+    pageNotFoundDescription: {
+        en: 'Sorry, the page you have been looking for has not been found. Try checking the URL on errors, use the navigation above or click \'Home\' link below.',
+        nl: 'Sorry, the page you have been looking for has not been found. Try checking the URL on errors, use the navigation above or click \'Home\' link below.[nl]',
+        de: 'Sorry, the page you have been looking for has not been found. Try checking the URL on errors, use the navigation above or click \'Home\' link below.[de]'
+    },
+    homeLink: {
+        en: 'Home',
+        nl: 'Home[nl]',
+        de: 'Home[de]'
+    },
+    /* End resource section for model Error pages */
+    
+    /* Resource section for model User properties */
+    userProperties: {
+        en: 'User properties',
+        nl: 'User properties[nl]',
+        de: 'User properties[de]'
+    }
+    /* End resource section for model User properties */
            
 });

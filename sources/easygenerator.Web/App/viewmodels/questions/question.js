@@ -7,10 +7,13 @@
                 navigateToRelatedObjective: 'Navigate to related objective',
                 navigateToNextQuestion: 'Navigate to next question',
                 navigateToPreviousQuestion: 'Navigate to previous question',
+                
                 addAnswerOption: 'Add answer option',
                 toggleAnswerCorrectness: 'Change answer option correctness',
                 saveAnswerOption: 'Save the answer option text',
                 deleteAnswerOption: 'Delete answer option',
+                startEditingAnswerOption: 'Start editing answer option',
+                endEditingAnswerOption: 'End editing answer option',
 
                 addExplanation: 'Add explanation',
                 deleteExplanation: 'Delete explanation',
@@ -45,7 +48,7 @@
                 visibility: ko.observable(false),
                 close: function () { notification.visibility(false); },
                 update: function () {
-                    var message = 'Last saving: ' + new Date().toLocaleTimeString();
+                    var message = localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString();
                     notification.text(message);
                     notification.visibility(true);
                 }
@@ -174,13 +177,12 @@
 
                 function success(answer) {
                     answerOptions.remove(answer);
+                    notification.update();
                 }
             },
 
             mapAnswerOption = function (answer) {
-                var that = this;
-
-                var mappedAnswerOption = {
+                var mappedItem = {
                     id: answer.id,
                     text: ko.observable(answer.text || ''),
                     isCorrect: ko.observable(answer.isCorrect || false),
@@ -191,27 +193,31 @@
                     isEmpty: ko.observable(_.isEmptyOrWhitespace(answer.text))
                 };
 
-                mappedAnswerOption.text.subscribe(function (value) {
-                    mappedAnswerOption.isEmpty(_.isEmptyOrWhitespace(value));
+                mappedItem.text.subscribe(function (value) {
+                    mappedItem.isEmpty(_.isEmptyOrWhitespace(value));
                 });
 
                 var saveIntervalId = null;
-                mappedAnswerOption.isInEdit.subscribe(function (value) {
+                mappedItem.isInEdit.subscribe(function (value) {
+
                     if (value) {
-                        saveIntervalId = setInterval(function () {
-                            saveAnswerOption.call(that, mappedAnswerOption);
+                        sendEvent(events.startEditingAnswerOption);
+
+                        saveIntervalId = setInterval(function() {
+                            saveAnswerOption(mappedItem);
                         }, constants.autosaveTimersInterval.answerOption);
                         return;
-                    } else if (_.isEmptyOrWhitespace(mappedAnswerOption.text())) {
-                        deleteAnswerOption.call(that, mappedAnswerOption);
+                    } else if (_.isEmptyOrWhitespace(mappedItem.text())) {
+                        deleteAnswerOption(mappedItem);
                     } else {
-                        saveAnswerOption.call(that, mappedAnswerOption);
+                        saveAnswerOption(mappedItem);
                     }
 
+                    sendEvent(events.endEditingAnswerOption);
                     clearInterval(saveIntervalId);
                 });
 
-                return mappedAnswerOption;
+                return mappedItem;
             },
 
             generateNewEntryId = function (collection) {
