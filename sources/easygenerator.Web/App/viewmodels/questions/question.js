@@ -247,13 +247,12 @@
 
             addExplanation = function () {
                 var explanation = mapExplanation(new expalantionModel({
-                    id: parseInt(_.max(explanations(), function (item) {
-                        return parseInt(item.id);
-                    }).id) + 1,
+                    id: generateNewEntryId(explanations()),
                     text: ''
                 }));
+                
                 explanation.isEditing(true);
-
+                
                 lastAddedExplanation(explanation);
                 explanations.push(explanation);
                 sendEvent(events.addExplanation);
