@@ -18,6 +18,8 @@
                     return true;
             }
 
+            alert(ua);
+            
             //Android is supported but not chrome, opera or firefox
             if (ua.indexOf("android") != -1 && 
                 ua.indexOf("chrome") == -1 &&
