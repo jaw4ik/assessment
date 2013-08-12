@@ -22,7 +22,9 @@
         <div class="question-content-block question-explanations">
             <div class="question-content-block-header-wrapper">
                 <div class="question-content-block-header shadow-bottom-curve">
-                    <div class="question-content-block-header-icon explanation-icon"></div>
+                    <div class="question-content-block-header-icon">
+                        <i class="explanation-icon"></i>
+                    </div>
                     <div class="question-content-block-header-title" data-bind="localize: { text: 'relatedQuestions' }">Related questions</div>
                     <!-- ko if: canDeleteQuestions() -->
                     <div class="nav-element objective-toolbar-remove-btn" data-bind="click: deleteSelectedQuestions, localize: { title: 'remove' }">

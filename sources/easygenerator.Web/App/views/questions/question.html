@@ -46,7 +46,9 @@
         <div class="question-content-block question-answers">
             <div class="question-content-block-header-wrapper" data-bind="click: toggleAnswers">
                 <div class="question-content-block-header" data-bind="css: { 'shadow-bottom-curve': isAnswersBlockExpanded() }">
-                    <div class="question-content-block-header-icon answer-option-icon"></div>
+                    <div class="question-content-block-header-icon">
+                        <i class="answer-option-icon"></i>
+                    </div>
                     <div class="question-content-block-header-title" data-bind="localize: { text: 'answerOptions' }">Answer options</div>
                     <div class="question-content-block-size-element-wrapper right">
                         <a href="#" class="nav-element">
@@ -78,7 +80,7 @@
                             </div>
                             <div class="question-answer-delete-wrapper" data-bind="click: $parent.deleteAnswerOption, localize: { title: 'deleteAnswerOption' }">
                                 <span class="question-answer-delete-icon"></span>
-                            </div>  
+                            </div>
                         </div>
                     </li>
                     <!-- /ko -->
@@ -105,7 +107,9 @@
             <div class="question-content-block question-explanations">
                 <div class="question-content-block-header-wrapper" data-bind="click: toggleExplanations">
                     <div class="question-content-block-header" data-bind="css: { 'shadow-bottom-curve': isExplanationsBlockExpanded() }">
-                        <div class="question-content-block-header-icon explanation-icon"></div>
+                        <div class="question-content-block-header-icon">
+                            <i class="explanation-icon"></i>
+                        </div>
                         <div class="question-content-block-header-title" data-bind="localize: { text: 'explanations' }">Explanations</div>
                         <div class="question-content-block-size-element-wrapper right">
                             <a href="#" class="nav-element">
@@ -137,7 +141,7 @@
                         <!-- /ko -->
                         <li class="add-button">
                             <div class="question-explanation-list-item">
-                                <div class="question-explanation-wrapper" data-bind="css: {'enabled': canAddExplanation }">
+                                <div class="question-explanation-wrapper" data-bind="css: { 'enabled': canAddExplanation }">
                                     <!-- ko if: canAddExplanation -->
                                     <div class="question-explanation selectable" data-bind="click: addExplanation, localize: { text: 'clickToAddNewExplanation' }">
                                         Click to add new explanation
