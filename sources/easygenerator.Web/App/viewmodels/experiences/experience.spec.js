@@ -124,6 +124,16 @@
 
                 });
 
+                describe('when previousExperienceId is undefined', function () {
+
+                    it('should navigate to #/404', function () {
+                        viewModel.previousExperienceId = undefined;
+                        viewModel.navigateToPreviousExperience();
+                        expect(router.navigateTo).toHaveBeenCalledWith('#/404');
+                    });
+
+                });
+
                 describe('when previousExperienceId is not null', function () {
 
                     it('should navigate to #/experience/{previousExperienceId}', function () {
@@ -170,6 +180,17 @@
                     it('should throw exception', function () {
                         var f = function () {
                             viewModel.navigateToObjectiveDetails({});
+                        };
+                        expect(f).toThrow();
+                    });
+
+                });
+
+                describe('when objective.id is null', function () {
+
+                    it('should throw exception', function () {
+                        var f = function () {
+                            viewModel.navigateToObjectiveDetails({ id: null });
                         };
                         expect(f).toThrow();
                     });
@@ -243,7 +264,7 @@
                     });
 
                 });
-                
+
                 describe('when objective is not selected', function () {
 
                     it('should send event \'Select Objective\'', function () {
@@ -541,8 +562,8 @@
                 });
 
                 it('should resolve promise with undefined', function () {
-                    var promise = viewModel.activate({ id: 0 });
-                    deferred.resolve(null);
+                    var promise = viewModel.activate({ id: 1 });
+                    deferred.resolve([experience]);
 
                     waitsFor(function () {
                         return !promise.isPending();

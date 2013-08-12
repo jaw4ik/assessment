@@ -24,14 +24,15 @@
             title = '',
             objectives = [],
             status = ko.observable(),
-            
+
             nextExperienceId = null,
             previousExperienceId = null,
-            
+
             navigateToExperiences = function () {
                 sendEvent(events.navigateToExperiences);
                 router.navigateTo('#/experiences');
             },
+
             navigateToNextExperience = function () {
                 sendEvent(events.navigateToNextExperience);
                 if (_.isUndefined(this.nextExperienceId) || _.isNull(this.nextExperienceId)) {
@@ -40,6 +41,7 @@
                     router.navigateTo('#/experience/' + this.nextExperienceId);
                 }
             },
+
             navigateToPreviousExperience = function () {
                 sendEvent(events.navigateToPreviousExperience);
                 if (_.isUndefined(this.previousExperienceId) || _.isNull(this.previousExperienceId)) {
@@ -48,31 +50,42 @@
                     router.navigateTo('#/experience/' + this.previousExperienceId);
                 }
             },
+
             navigateToObjectiveDetails = function (objective) {
                 sendEvent(events.navigateToObjectiveDetails);
                 if (_.isUndefined(objective)) {
                     throw 'Objective is undefined';
                 }
+
                 if (_.isNull(objective)) {
                     throw 'Objective is null';
-                }                
+                }
+
                 if (_.isUndefined(objective.id)) {
                     throw 'Objective does not have id property';
-                }                
+                }
+
+                if (_.isNull(objective.id)) {
+                    throw 'Objective id property is null';
+                }
+
                 router.navigateTo('#/objective/' + objective.id);
             },
-            
-            toggleObjectiveSelection = function(objective) {
+
+            toggleObjectiveSelection = function (objective) {
+                
                 if (_.isUndefined(objective)) {
                     throw 'Objective is undefined';
                 }
+                
                 if (_.isNull(objective)) {
                     throw 'Objective is null';
                 }
+                
                 if (!ko.isObservable(objective.isSelected)) {
                     throw 'Objective does not have isSelected observable';
                 }
-                
+
                 if (objective.isSelected()) {
                     sendEvent(events.unselectObjective);
                     objective.isSelected(false);
@@ -88,7 +101,7 @@
 
                 var that = this;
                 return service.build(this.id)
-                    .then(function(isSuccessful) {
+                    .then(function (isSuccessful) {
                         if (isSuccessful) {
                             that.status(constants.buildingStatuses.succeed);
                         } else {
@@ -130,9 +143,9 @@
                             })
                             .sortBy(function (objective) { return objective.title.toLowerCase(); })
                             .value();
-                   
-                    var index = _.indexOf(response, experience);                    
-                    that.previousExperienceId = index != 0 ? response[index - 1].id : null;                    
+
+                    var index = _.indexOf(response, experience);
+                    that.previousExperienceId = index != 0 ? response[index - 1].id : null;
                     that.nextExperienceId = index != response.length - 1 ? response[index + 1].id : null;
                 });
             };
@@ -158,7 +171,7 @@
             toggleObjectiveSelection: toggleObjectiveSelection,
 
             buildExperience: buildExperience,
-            downloadExperience: downloadExperience            
+            downloadExperience: downloadExperience
         };
     }
 );
