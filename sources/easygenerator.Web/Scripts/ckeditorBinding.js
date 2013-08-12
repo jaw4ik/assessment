@@ -75,7 +75,9 @@
         function saveData() {
             if (!!saveHandler) {
                 filterContent(editor.editable().$);
-                data(editor.getData(true));
+                editor.focusManager.lock();
+                data(editor.getData());
+                editor.focusManager.unlock();
                 saveHandler.call(that, viewModel);
             }
         }
