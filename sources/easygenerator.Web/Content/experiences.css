@@ -109,6 +109,10 @@
     border-radius: 0 3px 3px 0;
 }
 
+.experience-brief-options-download {
+        padding: 2px 6px;
+}
+
     .experience-brief-options-select:hover,
     .experience-brief-options-build:hover,
     .experience-brief-options-download:hover {
@@ -151,7 +155,7 @@
 
 .experience-brief-options-download-image {
     width: 33px;
-    margin-right: 6px;
+    margin-right: 0px;
     background-position: 0px -64px;
 }
 
