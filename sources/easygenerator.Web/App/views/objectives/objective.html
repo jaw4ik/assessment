@@ -1,6 +1,6 @@
 ﻿<section class="container list-of-questions unselectable">
     <div class="navbar">
-        <a href="#/objectives" data-bind="click: navigateToObjectives" class="inline nav-control">
+        <a href="#" data-bind="click: navigateToObjectives" class="inline nav-control">
             <div class="nav-btn back-btn left"></div>
             <div class="nav-title">
                 <span data-bind="localize: { text: 'backTo' }"></span>
@@ -9,6 +9,30 @@
         </a>
     </div>
     <div class="objective-header clearfix" style="height: auto">
+        <div class="absolute-left hidden">
+            <!-- ko if: _.isNumber(previousObjectiveId)  -->
+            <a href="#" class="nav-element" data-bind="click: navigateToPreviousObjective, localize: { title: 'previous' }">
+                <div class="question-nav-btn prev-btn inline"></div>
+            </a>
+            <!-- /ko -->
+            <!-- ko ifnot: _.isNumber(previousObjectiveId) -->
+            <div class="nav-element disabled" data-bind="localize: { title: 'previous' }">
+                <div class="question-nav-btn prev-btn inline"></div>
+            </div>
+            <!-- /ko -->
+        </div>
+        <div class="absolute-right hidden">
+            <!-- ko if: _.isNumber(nextObjectiveId) -->
+            <a href="#" class="nav-element" data-bind="click: navigateToNextObjective, localize: { title: 'next' }">
+                <div class="question-nav-btn next-btn inline"></div>
+            </a>
+            <!-- /ko -->
+            <!-- ko ifnot: _.isNumber(nextObjectiveId) -->
+            <div class="nav-element disabled" data-bind="localize: { title: 'next' }">
+                <div class="question-nav-btn next-btn inline"></div>
+            </div>
+            <!-- /ko -->
+        </div>
         <div class="left white-framing">
             <div>
                 <img class="objective-image" data-bind="attr: { src: image }" alt="" />
@@ -51,12 +75,12 @@
         </header>
         <ul class="content-list unstyled">
             <!-- ko foreach: questions -->
-            <li class="content-list-item questions-list-item" data-bind="css: { 'selected': isSelected }">
+            <li class="content-list-item" data-bind="css: { 'selected': isSelected }">
                 <div class="hover-indicator"></div>
                 <div class="logo-wrapper white-framing">
                     <img class="logo" alt="" src="../../../Content/images/multichoice-question.png">
                     <div class="item-options">
-                        <div class="item-option select question-select" data-bind="click: toggleSelection">
+                        <div class="item-option select" data-bind="click: toggleSelection">
                             <!-- ko ifnot: isSelected() -->
                             <div class="nowrap" data-bind="localize: { text: 'select' }"></div>
                             <div class="action-img unchecked inline">
@@ -71,28 +95,29 @@
                             <!-- /ko -->
                         </div>
                         <div class="separator"></div>
-                        <div class="item-option edit question-open" data-bind="click: $parent.navigateToEdit">
+                        <div class="item-option edit" data-bind="click: $parent.navigateToEdit.bind($parent)">
                             <div class="nowrap" data-bind="localize: { text: 'edit' }"></div>
                             <div class="action-img inline">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="text-block question-title selectable" data-bind="css: { active: isEditing, error: !title.isValid() && title.isModified() }">
-                    <div class="question-title-chars-counter">
-                        <span data-bind="text: title().length"></span>/255
-                    </div>
-                    <textarea class="editarea" data-bind="value: title, valueUpdate: 'afterkeydown', event: { blur: $parent.endEditQuestionTitle }, hasFocus: isEditing"></textarea>
+                <div class="text-block selectable">
+                    <!--   <div class="question-title-chars-counter">
+                               <span data-bind="text: title().length"></span>/255
+                           </div>
+                        <textarea class="editarea" data-bind="value: title, valueUpdate: 'afterkeydown', event: { blur: $parent.endEditQuestionTitle }, hasFocus: isEditing"></textarea>-->
+                    <p data-bind="text: title"></p>
                 </div>
             </li>
             <!-- /ko -->
-            <li class="add-button">
+           <!-- <li class="add-button">
                 <div class="question-explanation-list-item">
                     <div class="question-explanation-wrapper enabled">
                         <div class="question-explanation selectable" data-bind="click: addQuestion, localize: { text: 'clickToAddNewQuestion' }">Click here to add question</div>
                     </div>
                 </div>
-            </li>
+            </li>-->
         </ul>
     </div>
 </section>

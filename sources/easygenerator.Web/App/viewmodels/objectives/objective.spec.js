@@ -51,63 +51,154 @@
                 expect(viewModel).toBeObject();
             });
 
-            describe('activate', function () {
+            describe('activate:', function () {
+                var objective2 = new objectiveModel({
+                    id: '1',
+                    title: 'Test Objective 1',
+                    image: images[0],
+                    questions: []
+                });
 
                 beforeEach(function () {
                     spyOn(router, 'replaceLocation');
                 });
 
-                describe('should navigate to #/400', function () {
-
-                    it('when route data is not defined', function () {
+                describe('when route data is not defined', function () {
+                    it('should navigate to #/400', function () {
                         viewModel.activate(undefined);
                         expect(router.replaceLocation).toHaveBeenCalledWith('#/400');
                     });
+                });
 
-                    it('when objective is not defined', function () {
+                describe('when objective is not defined', function () {
+                    it('should navigate to #/400', function () {
                         viewModel.activate({ id: undefined });
                         expect(router.replaceLocation).toHaveBeenCalledWith('#/400');
                     });
-
                 });
 
-                it('should navigate to #/404 when objective not found', function () {
-                    viewModel.activate({ id: 'Invalid id' });
-                    expect(router.replaceLocation).toHaveBeenCalledWith('#/404');
+                describe('when objectiveId not found', function () {
+                    it('should navigate to #/404', function () {
+                        viewModel.activate({ id: 'Invalid id' });
+                        expect(router.replaceLocation).toHaveBeenCalledWith('#/404');
+                    });
                 });
 
-                it('should initialize fileds with objective values', function () {
+                it('should set current objective title', function () {
                     objectives = createObjectives();
                     dataContext.objectives = objectives;
 
                     viewModel.activate({ id: objectives[0].id });
 
-                    expect(viewModel.canDeleteQuestions()).toBe(false);
-                    expect(viewModel.title()).toBe(objectives[0].title);
+                    expect(viewModel.title).toBe(objectives[0].title);
+                });
+
+                it('should set current objective image', function () {
+                    objectives = createObjectives();
+                    dataContext.objectives = objectives;
+
+                    viewModel.activate({ id: objectives[0].id });
+
                     expect(viewModel.image()).toBe(objectives[0].image);
+                });
+
+                it('should initialize questions collection', function () {
+                    objectives = createObjectives();
+                    dataContext.objectives = objectives;
+
+                    viewModel.activate({ id: objectives[0].id });
+
                     expect(viewModel.questions().length).toBe(objectives[0].questions.length);
                 });
-            });
 
-            describe('deactivate', function () {
-                beforeEach(function () {
-                    objectives = createObjectives();
-                    dataContext.objectives = objectives;
+                describe('when currentSortingOption is asc', function () {
+                    it('should sort question asc', function () {
+                        objectives = createObjectives();
+                        dataContext.objectives = objectives;
 
-                    viewModel.activate({ id: objectives[0].id });
+                        viewModel.activate({ id: objectives[0].id });
+
+                        expect(viewModel.questions).toBeSortedAsc('title');
+                    });
                 });
 
-                it('should remove all subscribtions from question', function () {
-                    viewModel.questions()[0].isEditing(true);
-                    viewModel.questions()[0].isEditing(false);
-                    viewModel.questions()[1].isEditing(true);
+                describe('when currentSortingOption is desc', function () {
+                    it('should sort question desc', function () {
+                        objectives = createObjectives();
+                        dataContext.objectives = objectives;
 
-                    viewModel.deactivate();
+                        viewModel.activate({ id: objectives[0].id });
 
-                    expect(viewModel.questions()[0].isEditing.getSubscriptionsCount()).toBe(0);
-                    expect(viewModel.questions()[1].isEditing.getSubscriptionsCount()).toBe(0);
+                        expect(viewModel.questions).toBeSortedDesc('title');
+                    });
+                });
+
+                describe('when previous objective exists', function () {
+                    it('should set previousObjectiveId', function () {
+                        objectives = createObjectives();
+                        objectives.push(objective2);
+                        dataContext.objectives = objectives;
+
+                        viewModel.activate({ id: objectives[1].id });
+
+                        expect(viewModel.previousObjectiveId).toBe(objectives[0].id);
+                    });
+                });
+                
+                describe('when previous objective does not exist', function () {
+                    it('should set previousObjectiveId to null', function () {
+                        objectives = createObjectives();
+                        dataContext.objectives = objectives;
+
+                        viewModel.activate({ id: objectives[0].id });
+
+                        expect(viewModel.previousObjectiveId).toBeNull();
+                    });
+                });
+                
+                describe('when next objective exists', function () {
+                    it('should set nextObjectiveId', function () {
+                        objectives = createObjectives();
+                        objectives.push(objective2);
+                        dataContext.objectives = objectives;
+
+                        viewModel.activate({ id: objectives[0].id });
+
+                        expect(viewModel.nextObjectiveId).toBe(objectives[1].id);
+                    });
+                });
+                
+                describe('when next objective does not exist', function () {
+                    it('should set nextObjectiveId to null', function () {
+                        objectives = createObjectives();
+                        dataContext.objectives = objectives;
+
+                        viewModel.activate({ id: objectives[0].id });
+
+                        expect(viewModel.nextObjectiveId).toBeNull();
+                    });
                 });
             });
+
+            //describe('deactivate', function () {
+            //    beforeEach(function () {
+            //        objectives = createObjectives();
+            //        dataContext.objectives = objectives;
+
+            //        viewModel.activate({ id: objectives[0].id });
+            //    });
+
+            //    it('should remove all subscribtions from question', function () {
+            //        viewModel.questions()[0].isEditing(true);
+            //        viewModel.questions()[0].isEditing(false);
+            //        viewModel.questions()[1].isEditing(true);
+
+            //        viewModel.deactivate();
+
+            //        expect(viewModel.questions()[0].isEditing.getSubscriptionsCount()).toBe(0);
+            //        expect(viewModel.questions()[1].isEditing.getSubscriptionsCount()).toBe(0);
+            //    });
+            //});
 
             describe('navigateToObjectives', function () {
 
@@ -182,7 +273,7 @@
                     });
                 });
             });
-            
+
             describe('navigateToPreviousObjective:', function () {
                 var previousObjectiveId = 0;
 
@@ -275,41 +366,41 @@
                 });
             });
 
-            describe('addQuestion', function () {
-                beforeEach(function () {
-                    viewModel.questions([]);
-                });
+            //describe('addQuestion', function () {
+            //    beforeEach(function () {
+            //        viewModel.questions([]);
+            //    });
 
-                it('should be a function', function () {
-                    expect(viewModel.addQuestion).toBeFunction();
-                });
+            //    it('should be a function', function () {
+            //        expect(viewModel.addQuestion).toBeFunction();
+            //    });
 
-                it('should send event \'Add question\'', function () {
-                    viewModel.addQuestion();
+            //    it('should send event \'Add question\'', function () {
+            //        viewModel.addQuestion();
 
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Add question', eventsCategory);
-                });
+            //        expect(eventTracker.publish).toHaveBeenCalledWith('Add question', eventsCategory);
+            //    });
 
-                it('should add question to viewModel', function () {
-                    viewModel.addQuestion();
+            //    it('should add question to viewModel', function () {
+            //        viewModel.addQuestion();
 
-                    expect(viewModel.questions().length).toBe(1);
-                    expect(viewModel.questions()[0].id).toBeDefined();
-                    expect(viewModel.questions()[0].title).toBeDefined();
-                });
+            //        expect(viewModel.questions().length).toBe(1);
+            //        expect(viewModel.questions()[0].id).toBeDefined();
+            //        expect(viewModel.questions()[0].title).toBeDefined();
+            //    });
 
-                it('should add question with empty title', function () {
-                    viewModel.addQuestion();
+            //    it('should add question with empty title', function () {
+            //        viewModel.addQuestion();
 
-                    expect(viewModel.questions()[0].title()).toBe('');
-                });
+            //        expect(viewModel.questions()[0].title()).toBe('');
+            //    });
 
-                it('should set to added question isEditing to true', function () {
-                    viewModel.addQuestion();
+            //    it('should set to added question isEditing to true', function () {
+            //        viewModel.addQuestion();
 
-                    expect(viewModel.questions()[0].isEditing()).toBe(true);
-                });
-            });
+            //        expect(viewModel.questions()[0].isEditing()).toBe(true);
+            //    });
+            //});
 
             describe('deleteSelectedQuestions', function () {
                 var question;
@@ -344,14 +435,14 @@
                     })).toBeUndefined();
                 });
 
-                it('should remove subscribtions from deleted question', function () {
-                    question.isEditing(true);
-                    question.isSelected(true);
+                //it('should remove subscribtions from deleted question', function () {
+                //    question.isEditing(true);
+                //    question.isSelected(true);
 
-                    viewModel.deleteSelectedQuestions();
+                //    viewModel.deleteSelectedQuestions();
 
-                    expect(question.isEditing.getSubscriptionsCount()).toBe(0);
-                });
+                //    expect(question.isEditing.getSubscriptionsCount()).toBe(0);
+                //});
             });
 
             describe('canDeleteQuestions()', function () {
@@ -385,61 +476,61 @@
                 });
             });
 
-            describe('endEditQuestionTitle', function () {
+            //describe('endEditQuestionTitle', function () {
 
-                var question;
-                beforeEach(function () {
-                    objectives = createObjectives();
-                    dataContext.objectives = objectives;
+            //    var question;
+            //    beforeEach(function () {
+            //        objectives = createObjectives();
+            //        dataContext.objectives = objectives;
 
-                    viewModel.activate({ id: objectives[0].id });
+            //        viewModel.activate({ id: objectives[0].id });
 
-                    question = viewModel.questions()[0];
-                });
+            //        question = viewModel.questions()[0];
+            //    });
 
-                it('should be a function', function () {
-                    expect(viewModel.endEditQuestionTitle).toBeFunction();
-                });
+            //    it('should be a function', function () {
+            //        expect(viewModel.endEditQuestionTitle).toBeFunction();
+            //    });
 
-                it('should send event \'Edit question title\'', function () {
-                    question.title('newtitle');
+            //    it('should send event \'Edit question title\'', function () {
+            //        question.title('newtitle');
 
-                    viewModel.endEditQuestionTitle(question);
+            //        viewModel.endEditQuestionTitle(question);
 
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Edit question title', eventsCategory);
-                });
+            //        expect(eventTracker.publish).toHaveBeenCalledWith('Edit question title', eventsCategory);
+            //    });
 
-                it('should set \'isEditable\' to \'false\'', function () {
-                    question.isEditing(true);
+            //    it('should set \'isEditable\' to \'false\'', function () {
+            //        question.isEditing(true);
 
-                    viewModel.endEditQuestionTitle(question);
+            //        viewModel.endEditQuestionTitle(question);
 
-                    expect(question.isEditing()).toBe(false);
-                });
+            //        expect(question.isEditing()).toBe(false);
+            //    });
 
-                it('should set \'isModified\' to \'true\' if value is empty', function () {
-                    question.title('');
-                    question.title.isModified(false);
+            //    it('should set \'isModified\' to \'true\' if value is empty', function () {
+            //        question.title('');
+            //        question.title.isModified(false);
 
-                    viewModel.endEditQuestionTitle(question);
+            //        viewModel.endEditQuestionTitle(question);
 
-                    expect(question.title.isModified()).toBe(true);
-                });
+            //        expect(question.title.isModified()).toBe(true);
+            //    });
 
-                it('should set \'isModified\' to \'true\' if value is too long', function () {
-                    var title = '';
-                    for (var i = 0; i < 256; i++)
-                        title += '*';
+            //    it('should set \'isModified\' to \'true\' if value is too long', function () {
+            //        var title = '';
+            //        for (var i = 0; i < 256; i++)
+            //            title += '*';
 
-                    question.title(title);
-                    question.title.isModified(false);
+            //        question.title(title);
+            //        question.title.isModified(false);
 
-                    viewModel.endEditQuestionTitle(question);
+            //        viewModel.endEditQuestionTitle(question);
 
-                    expect(question.title.isModified()).toBe(true);
-                });
+            //        expect(question.title.isModified()).toBe(true);
+            //    });
 
-            });
+            //});
 
             describe('questions', function () {
                 var question;
@@ -457,68 +548,68 @@
                     expect(viewModel.questions).toBeObservable();
                 });
 
-                describe('isEditing', function () {
+                //describe('isEditing', function () {
 
-                    beforeEach(function () {
-                        objectives = createObjectives();
-                        objectives[0].questions = [objectives[0].questions[0]];
-                        dataContext.objectives = objectives;
+                //    beforeEach(function () {
+                //        objectives = createObjectives();
+                //        objectives[0].questions = [objectives[0].questions[0]];
+                //        dataContext.objectives = objectives;
 
-                        viewModel.activate({ id: objectives[0].id });
+                //        viewModel.activate({ id: objectives[0].id });
 
-                        question = viewModel.questions()[0];
-                    });
+                //        question = viewModel.questions()[0];
+                //    });
 
-                    it('should be observable', function () {
-                        expect(question.isEditing).toBeObservable();
-                    });
+                //    it('should be observable', function () {
+                //        expect(question.isEditing).toBeObservable();
+                //    });
 
-                    it('should save question title on timer when \'true\'', function () {
-                        question.isEditing(false);
-                        var newText = "New text lalala";
-                        question.title(newText);
+                //    it('should save question title on timer when \'true\'', function () {
+                //        question.isEditing(false);
+                //        var newText = "New text lalala";
+                //        question.title(newText);
 
-                        question.isEditing(true);
-                        jasmine.Clock.tick(60000);
+                //        question.isEditing(true);
+                //        jasmine.Clock.tick(60000);
 
-                        expect(dataContext.objectives[0].questions[0].title).toBe(newText);
-                    });
-                });
+                //        expect(dataContext.objectives[0].questions[0].title).toBe(newText);
+                //    });
+                //});
 
-                describe('title', function () {
+                //describe('title', function () {
 
-                    it('should be observable', function () {
-                        expect(question.title).toBeObservable();
-                    });
+                //    it('should be observable', function () {
+                //        expect(question.title).toBeObservable();
+                //    });
 
-                    it('should have \'isModified\' observable', function () {
-                        expect(question.title.isModified).toBeObservable();
-                    });
+                //    it('should have \'isModified\' observable', function () {
+                //        expect(question.title.isModified).toBeObservable();
+                //    });
 
-                    describe('isValid()', function () {
+                //    describe('isValid()', function () {
 
-                        it('should be observable', function () {
-                            expect(question.title.isValid).toBeObservable();
-                        });
+                //        it('should be observable', function () {
+                //            expect(question.title.isValid).toBeObservable();
+                //        });
 
-                        it('should be \'false\' is title is empty', function () {
-                            question.title('');
+                //        it('should be \'false\' is title is empty', function () {
+                //            question.title('');
 
-                            expect(question.title.isValid()).toBe(false);
-                        });
+                //            expect(question.title.isValid()).toBe(false);
+                //        });
 
-                        it('should be \'false\' is title is longer than 255', function () {
-                            var title = '';
-                            for (var i = 0; i < 256; i++)
-                                title += '*';
+                //        it('should be \'false\' is title is longer than 255', function () {
+                //            var title = '';
+                //            for (var i = 0; i < 256; i++)
+                //                title += '*';
 
-                            question.title(title);
+                //            question.title(title);
 
-                            expect(question.title.isValid()).toBe(false);
-                        });
+                //            expect(question.title.isValid()).toBe(false);
+                //        });
 
-                    });
-                });
+                //    });
+                //});
 
                 describe('toggleSelection', function () {
 
