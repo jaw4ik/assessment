@@ -154,7 +154,6 @@
                 return mappedQuestion;
             },
             activate = function(routeData) {
-                debugger;
                 if (_.isEmpty(routeData) || _.isEmpty(routeData.id)) {
                     router.replaceLocation('#/400');
                     return;
