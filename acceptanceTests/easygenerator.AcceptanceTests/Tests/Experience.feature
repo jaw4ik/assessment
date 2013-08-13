@@ -58,7 +58,7 @@ Given objectives are linked to experiance 'Experience1'
 | Objective11 | 1  |
 | Objective12 | 2  |
 When open page by url 'http://localhost:5656/#/experience/1'
-When mouse hover element of related objectives list with title 'Objective11'
+And mouse hover element of related objectives list with title 'Objective11'
 Then Action open is enabled true for related objectives list item with title 'Objective11'
 And Action select is enabled true for related objectives list item with title 'Objective11'
 
@@ -77,6 +77,52 @@ When open page by url 'http://localhost:5656/#/experience/1'
 Then related objectives list item with title 'Objective12' is not selected
 And related objectives list item with title 'Objective11' is not selected
 And related objectives list item with title 'Objective13' is not selected
+
+Scenario: Selected objective should be highlited after selecting
+Given objectives are present in database
+| Title       | Id |
+| Objective11 | 1  |
+| Objective12 | 2  |
+| Objective13 | 3  |
+Given objectives are linked to experiance 'Experience1'
+| Title       | Id |
+| Objective11 | 1  |
+| Objective12 | 2  |
+| Objective13 | 3  |
+When open page by url 'http://localhost:5656/#/experience/1'
+And mouse hover element of related objectives list with title 'Objective12'
+And select related objective list item with title 'Objective12'
+Then related objectives list item with title 'Objective12' is selected
+But related objectives list item with title 'Objective11' is not selected
+And related objectives list item with title 'Objective13' is not selected
+
+Scenario: Objective could be deselected
+Given objectives are present in database
+| Title       | Id |
+| Objective11 | 1  |
+| Objective12 | 2  |
+| Objective13 | 3  |
+Given objectives are linked to experiance 'Experience1'
+| Title       | Id |
+| Objective11 | 1  |
+| Objective12 | 2  |
+| Objective13 | 3  |
+When open page by url 'http://localhost:5656/#/experience/1'
+When mouse hover element of related objectives list with title 'Objective11'
+And select related objective list item with title 'Objective11'
+And mouse hover element of related objectives list with title 'Objective12'
+And select related objective list item with title 'Objective12'
+And mouse hover element of related objectives list with title 'Objective13'
+And select related objective list item with title 'Objective13'
+And mouse hover element of related objectives list with title 'Objective11'
+And select related objective list item with title 'Objective11'
+And mouse hover element of related objectives list with title 'Objective12'
+And select related objective list item with title 'Objective12'
+Then related objectives list item with title 'Objective11' is not selected
+And related objectives list item with title 'Objective12' is not selected
+And related objectives list item with title 'Objective13' is selected
+
+
 
 
 Scenario: Question count is shown for each related objective list item

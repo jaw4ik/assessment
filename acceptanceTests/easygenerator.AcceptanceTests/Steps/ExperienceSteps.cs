@@ -100,6 +100,16 @@ namespace easygenerator.AcceptanceTests.Steps
             TestUtils.Assert_IsTrue_WithWait(() => !experiencePage.IsNextButtonEnabled(), "Next button is enabled");
         }
 
+        [Then(@"related objectives list item with title '(.*)' is selected")]
+        public void ThenRelatedObjectivesListItemWithTitleIsSelected(string title)
+        {
+            var item = experiencePage.ItemByTitle(title);
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                item.IsSelected,
+                "Objective should be selected");
+        }
+
+
         [Then(@"related objectives list item with title '(.*)' is not selected")]
         public void ThenRelatedObjectivesListItemWithTitleIsNotSelected(string title)
         {
@@ -108,6 +118,19 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Objective should not be selected");
         }
 
+        [When(@"select related objective list item with title '(.*)'")]
+        public void WhenSelectRelatedObjectiveListItemWithTitle(string title)
+        {
+            foreach (var item in experiencePage.ObjectiveItems)
+            {
+                if (item.Title == title)
+                {
+                    item.Select();
+                    return;
+                }
+            }
+            throw new InvalidOperationException("Cannot find objective with given title");
+        }
 
 
     }
