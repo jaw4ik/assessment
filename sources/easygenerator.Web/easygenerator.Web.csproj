@@ -186,6 +186,7 @@
     <Content Include="App\viewmodels\errors\400.js" />
     <Content Include="App\viewmodels\errors\404.js" />
     <Content Include="App\viewmodels\experiences\createExperience.js" />
+    <Content Include="App\viewmodels\experiences\createExperience.spec.js" />
     <Content Include="App\viewmodels\experiences\experience.js" />
     <Content Include="App\viewmodels\experiences\experience.spec.js" />
     <Content Include="App\viewmodels\experiences\experiences.js" />
@@ -201,6 +202,7 @@
     <Content Include="App\views\common\navbar.html" />
     <Content Include="App\views\errors\404.html" />
     <Content Include="App\views\errors\400.html" />
+    <Content Include="App\views\experiences\createExperience.html" />
     <Content Include="Content\ckeditor.css" />
     <Content Include="Content\experience.css" />
     <Content Include="Content\experiences.css" />

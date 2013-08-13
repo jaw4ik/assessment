@@ -1,32 +1,34 @@
-﻿<fieldset>
-    <legend data-bind="localize: { text: 'newExperience' }">New Experience</legend>
-    <form class="form-horizontal">
-        <div class="control-group" data-bind="css: { error: !title.isValid() && title.isModified() }">
-            <label class="control-label" for="experienceTitle" data-bind="localize: { text: 'experienceTitle' }">Title</label>
-            <div class="controls">
-                <input type="text" id="experienceTitle" placeholder="Experience title..."
-                    data-bind="value: title, valueUpdate: 'afterkeydown', localize: { placeholder: 'experienceTitlePlaceholder' }">
+﻿<section class="create-experience">
+    <fieldset>
+        <legend data-bind="localize: { text: 'newExperience' }">New Experience</legend>
+        <form class="form-horizontal">
+            <div class="control-group" data-bind="css: { error: !title.isValid() && title.isModified() }">
+                <label class="control-label" for="experienceTitle" data-bind="localize: { text: 'experienceTitle' }">Title</label>
+                <div class="controls">
+                    <input type="text" id="experienceTitle" placeholder="Experience title..."
+                        data-bind="value: title, valueUpdate: 'afterkeydown', localize: { placeholder: 'experienceTitlePlaceholder' }">
+                </div>
             </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="objectives-list" data-bind="localize: { text: 'objectivesInExperience' }">Objectives in experience</label>
-            <div class="controls">
-                <ul class="unstyled" id="objectives-list">
-                    <!-- ko foreach: objectives -->
-                    <li>
-                        <label class="checkbox">
-                            <input type="checkbox" data-bind="checked: isSelected">
-                            <!-- ko text: title -->
-                            <!-- /ko -->
-                        </label>
-                    </li>
-                    <!-- /ko -->
-                </ul>
+            <div class="control-group">
+                <label class="control-label" for="objectives-list" data-bind="localize: { text: 'objectivesInExperience' }">Objectives in experience</label>
+                <div class="controls">
+                    <ul class="unstyled" id="objectives-list">
+                        <!-- ko foreach: objectives -->
+                        <li>
+                            <label class="checkbox">
+                                <input type="checkbox" data-bind="checked: isSelected">
+                                <!-- ko text: title -->
+                                <!-- /ko -->
+                            </label>
+                        </li>
+                        <!-- /ko -->
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary" data-bind="click: save, localize: {text: 'save'}">Save</button>
-            <button type="button" class="btn" data-bind="click: cancel, localize: { text: 'cancel' }">Cancel</button>
-        </div>
-    </form>
-</fieldset>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" data-bind="click: save, localize: { text: 'save' }">Save</button>
+                <button type="button" class="btn" data-bind="click: cancel, localize: { text: 'cancel' }">Cancel</button>
+            </div>
+        </form>
+    </fieldset>
+</section>
