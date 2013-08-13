@@ -264,6 +264,13 @@
 
             });
 
+            describe('excludeEmptyObjectives:', function () {
+
+
+
+
+            });
+
             describe('buildExperience', function () {
                 var deferred;
 
@@ -346,7 +353,7 @@
                 });
 
                 describe('should change experience building status to:', function () {
-                    
+
                     it('\"inProgress\" when build is started', function () {
                         var experience = viewModel.experiences()[0];
 
@@ -405,7 +412,80 @@
                             expect(experience.buildingStatus()).toEqual(constants.buildingStatuses.failed);
                         });
                     });
-                    
+
+                });
+
+                describe('when objective has no questions', function () {
+
+                    it('should reject such objective', function () {
+
+                        var emptyObjective = {
+                            "id": 1,
+                            "title": "test objective 1",
+                            "image": "",
+                            "questions": []
+                        };
+
+                        var data = {
+                            id: '10',
+                            title: 'Test Experience',
+                            objectives: [emptyObjective],
+                            buildingStatus: constants.buildingStatuses.notStarted
+                        };
+
+                        dataContext.experiences = [data];
+
+                        var mappedData = data;
+
+                        mappedData.buildingStatus = ko.observable(constants.buildingStatuses.notStarted);
+                        mappedData.showBuildingStatus = ko.observable('true');
+                        mappedData.isSelected = ko.observable('true');
+
+                        http.post.reset();
+                        viewModel.buildExperience(mappedData);
+
+                        expect(http.post.mostRecentCall.args[0]).toBe('experience/build');
+                        expect(http.post.mostRecentCall.args[1].objectives).not.toContain(emptyObjective);
+
+                    });
+
+                });
+
+                it('should return objective with questions', function () {
+
+                    var objective = {
+                        "id": 1,
+                        "title": "test objective 1",
+                        "image": "",
+                        "questions": [{
+                            "id": 0,
+                            "title": "test question 1",
+                            "answerOptions": [],
+                            "explanations": []
+                        }]
+                    };
+
+                    var data = {
+                        id: '11',
+                        title: 'Test Experience',
+                        objectives: [objective],
+                        buildingStatus: constants.buildingStatuses.notStarted
+                    };
+
+                    dataContext.experiences = [data];
+
+                    var mappedData = data;
+
+                    mappedData.buildingStatus = ko.observable(constants.buildingStatuses.notStarted);
+                    mappedData.showBuildingStatus = ko.observable('true');
+                    mappedData.isSelected = ko.observable('true');
+
+                    http.post.reset();
+                    viewModel.buildExperience(mappedData);
+
+                    expect(http.post.mostRecentCall.args[0]).toBe('experience/build');
+                    expect(http.post.mostRecentCall.args[1].objectives).toContain(objective);
+
                 });
             });
 
@@ -438,20 +518,20 @@
             });
 
             describe('enableOpenExperience', function () {
-                
+
                 it('should be a function', function () {
                     expect(viewModel.enableOpenExperience).toBeFunction();
                 });
-                
+
                 it('should hide showBuildingStatus and so enable open experience', function () {
                     var experience = viewModel.experiences()[0];
                     experience.showBuildingStatus(true);
-                    
+
                     viewModel.enableOpenExperience(experience);
-                    
+
                     expect(experience.showBuildingStatus()).toBe(false);
                 });
-                
+
             });
 
         });

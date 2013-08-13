@@ -65,38 +65,47 @@
                 router.navigateTo('#/experience/' + experience.id);
             },
 
-             navigateToObjectives = function () {
-                 sendEvent(events.navigateToObjectives);
-                 router.navigateTo('#/objectives');
-             },
+            navigateToObjectives = function () {
+                sendEvent(events.navigateToObjectives);
+                router.navigateTo('#/objectives');
+            },
 
-        buildExperience = function (experience) {
-            sendEvent(events.buildExperience);
-            experience.showBuildingStatus(true);
-            experience.buildingStatus(constants.buildingStatuses.inProgress);
-
-            if (experience.isSelected())
-                experience.isSelected(false);
-
-            var data = _.find(dataContext.experiences, function (item) {
-                return item.id == experience.id;
-            });
-
-            return http.post('experience/build', data)
-                .done(function (response) {
-                    var buildingStatus = response.Success ? constants.buildingStatuses.succeed : constants.buildingStatuses.failed;
-                    experience.buildingStatus(buildingStatus);
-                })
-                .fail(function () {
-                    sendEvent(events.experienceBuildFailed);
-                    experience.buildingStatus(constants.buildingStatuses.failed);
-                })
-                .always(function () {
-                    setTimeout(function () {
-                        experience.showBuildingStatus(false);
-                    }, 10000);
+            excludeEmptyObjectives = function (exp) {
+                var dataRejected = _.clone(exp);
+                dataRejected.objectives = _.reject(dataRejected.objectives, function (objective) {
+                    return objective.questions.length == 0;
                 });
-        },
+
+                return dataRejected;
+            },
+            
+            buildExperience = function (experience) {
+                sendEvent(events.buildExperience);
+                experience.showBuildingStatus(true);
+                experience.buildingStatus(constants.buildingStatuses.inProgress);
+
+                if (experience.isSelected())
+                    experience.isSelected(false);
+
+                var data = _.find(dataContext.experiences, function (item) {
+                    return item.id == experience.id;
+                });
+
+                return http.post('experience/build', excludeEmptyObjectives(data))
+                    .done(function (response) {
+                        var buildingStatus = response.Success ? constants.buildingStatuses.succeed : constants.buildingStatuses.failed;
+                        experience.buildingStatus(buildingStatus);
+                    })
+                    .fail(function () {
+                        sendEvent(events.experienceBuildFailed);
+                        experience.buildingStatus(constants.buildingStatuses.failed);
+                    })
+                    .always(function () {
+                        setTimeout(function () {
+                            experience.showBuildingStatus(false);
+                        }, 10000);
+                    });
+            },
 
         downloadExperience = function (experience) {
             sendEvent(events.downloadExperience);
