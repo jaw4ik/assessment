@@ -21,6 +21,13 @@ namespace easygenerator.AcceptanceTests.Steps
             this.experiencePage = experiencePage;
         }
 
+        [Then(@"'(.*)' title is shown in experiance page header")]
+        public void ThenTitleIsShownInExperiancePageHeader(string title)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() => experiencePage.ExperienceTitle == title, "Incorrect question title, shown title is " + experiencePage.ExperienceTitle);
+        }
+
+
         [Then(@"related objectives list contains only items with data")]
         public void ThenRelatedObjectivesListContainsOnlyItemsWithData(Table table)
         {
@@ -62,6 +69,45 @@ namespace easygenerator.AcceptanceTests.Steps
             TestUtils.Assert_IsTrue_WithWait(() => questionCount == item.QuestionCount,
                 "Incorrect question count");
         }
+
+        [When(@"click on back to experiences")]
+        public void WhenClickOnBackToExperiences()
+        {
+            experiencePage.NavigateBackToExperiences();
+        }
+
+        [When(@"click on next experience")]
+        public void WhenClickOnNextExperience()
+        {
+            experiencePage.NavigateToNextExperience();
+        }
+
+        [When(@"click on previous experience")]
+        public void WhenClickOnPreviousExperience()
+        {
+            experiencePage.NavigateToPreviousExperience();
+        }
+
+        [Then(@"previous experience action is not available")]
+        public void ThenPreviousExperienceActionIsNotAvailable()
+        {
+            TestUtils.Assert_IsTrue_WithWait(() => !experiencePage.IsPreviousButtonEnabled(), "Previous button is enabled");
+        }
+
+        [Then(@"next experience action is not available")]
+        public void ThenNextExperienceActionIsNotAvailable()
+        {
+            TestUtils.Assert_IsTrue_WithWait(() => !experiencePage.IsNextButtonEnabled(), "Next button is enabled");
+        }
+
+        [Then(@"related objectives list item with title '(.*)' is not selected")]
+        public void ThenRelatedObjectivesListItemWithTitleIsNotSelected(string title)
+        {
+            TestUtils.Assert_IsFalse_WithWait(() =>
+                experiencePage.ObjectiveItems.First(it => it.Title == title).IsSelected,
+                "Objective should not be selected");
+        }
+
 
 
     }

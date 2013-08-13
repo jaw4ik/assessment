@@ -28,5 +28,51 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             return ObjectiveItems.First(it => it.Title == title);
         }
 
+        public string BackToExperiencesLinkText
+        {
+            get
+            {
+                var el = GetByXPath(model.BackToExperiencesLink);
+                return el.GetTextContent();
+            }
+        }
+
+        public string ExperienceTitle
+        {
+            get
+            {
+                var el = GetByXPath(model.ExperienceTitle);
+                return el.GetTextContent();
+            }
+        }
+
+        internal void NavigateBackToExperiences()
+        {
+            var link = GetByXPath(model.BackToExperiencesLink);
+            link.Click();
+        }
+
+        internal void NavigateToNextExperience()
+        {
+            var link = GetByXPath(model.NextExperienceButton);
+            link.Click();            
+        }
+
+        internal void NavigateToPreviousExperience()
+        {
+            var link = GetByXPath(model.PreviousExperienceButton);
+            link.Click();
+        }
+
+        internal bool IsNextButtonEnabled()
+        {
+            return base.ExistsOnPage(model.NextExperienceButton);
+        }
+
+        internal bool IsPreviousButtonEnabled()
+        {
+            return base.ExistsOnPage(model.PreviousExperienceButton);
+        }
+
     }
 }

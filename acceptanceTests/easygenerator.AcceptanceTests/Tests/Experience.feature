@@ -8,6 +8,11 @@ Given publications are present in database
 | Title       | Id |
 | Experience1 | 1  |
 | Experience2 | 2  |
+| Experience3 | 3  |
+
+Scenario: Experience title is shown in experiance page header
+When open page by url 'http://localhost:5656/#/experience/2'
+Then 'Experience2' title is shown in experiance page header
 
 Scenario: All related objectives should be present in list
 Given objectives are present in database
@@ -57,6 +62,22 @@ When mouse hover element of related objectives list with title 'Objective11'
 Then Action open is enabled true for related objectives list item with title 'Objective11'
 And Action select is enabled true for related objectives list item with title 'Objective11'
 
+Scenario: No objectives are selected by default in related objectives list
+Given objectives are present in database
+| Title       | Id |
+| Objective11 | 1  |
+| Objective12 | 2  |
+| Objective13 | 3  |
+Given objectives are linked to experiance 'Experience1'
+| Title       | Id |
+| Objective11 | 1  |
+| Objective12 | 2  |
+| Objective13 | 3  |
+When open page by url 'http://localhost:5656/#/experience/1'
+Then related objectives list item with title 'Objective12' is not selected
+And related objectives list item with title 'Objective11' is not selected
+And related objectives list item with title 'Objective13' is not selected
+
 
 Scenario: Question count is shown for each related objective list item
 Given objectives are present in database
@@ -77,4 +98,26 @@ Given questions related to 'Objective12' are present in database
 When open page by url 'http://localhost:5656/#/experience/1'
 Then question count for related objective item with title 'Objective11' is '2'
 And question count for related objective item with title 'Objective12' is '1'
+
+Scenario: Back action of experience page navigates to experiences page
+When open page by url 'http://localhost:5656/#/experience/1'
+And click on back to experiences
+Then browser navigates to url 'http://localhost:5656/#/experiences'
+
+Scenario: Next and previous actions of experience page navigate through experiences
+When open page by url 'http://localhost:5656/#/experience/1'
+And click on next experience
+Then browser navigates to url 'http://localhost:5656/#/experience/2'
+When click on next experience
+Then browser navigates to url 'http://localhost:5656/#/experience/3'
+When click on previous experience
+Then browser navigates to url 'http://localhost:5656/#/experience/2'
+
+Scenario: Previous experience action is not available for first experience
+When open page by url 'http://localhost:5656/#/experience/1'
+Then previous experience action is not available
+
+Scenario: Next experience action is not available for last experience
+When open page by url 'http://localhost:5656/#/experience/3'
+Then next experience action is not available
 
