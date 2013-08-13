@@ -132,6 +132,27 @@ namespace easygenerator.AcceptanceTests.Steps
             throw new InvalidOperationException("Cannot find objective with given title");
         }
 
+        [When(@"scroll related objective with title '(.*)' into the view")]
+        public void WhenScrollRelatedObjectiveWithTitleIntoTheView(string title)
+        {
+            experiencePage.ItemByTitle(title).ScrollIntoView();
+        }
+
+        [Then(@"element of related objectives list with title '(.*)' is visible")]
+        public void ThenElementOfRelatedObjectivesListWithTitleIsVisible(string title)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                experiencePage.ItemByTitle(title).IsVisisble(),
+                "Element should be visible");
+        }
+
+        [When(@"click open related objective list item with title '(.*)'")]
+        public void WhenClickOpenRelatedObjectiveListItemWithTitle(string title)
+        {
+            experiencePage.ItemByTitle(title).Open();
+        }
+
+
 
     }
 }

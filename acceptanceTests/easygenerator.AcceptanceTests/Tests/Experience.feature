@@ -122,8 +122,40 @@ Then related objectives list item with title 'Objective11' is not selected
 And related objectives list item with title 'Objective12' is not selected
 And related objectives list item with title 'Objective13' is selected
 
+Scenario: All elements of related objectives list can be made visible using scroll
+Given objectives are present in database
+| Title       | Id |
+| Objective11 | 1  |
+| Objective12 | 2  |
+| Objective13 | 3  |
+| Objective14 | 4  |
+| Objective15 | 5  |
+| Objective16 | 6  |
+Given objectives are linked to experiance 'Experience1'
+| Title       | Id |
+| Objective11 | 1  |
+| Objective12 | 2  |
+| Objective13 | 3  |
+| Objective14 | 4  |
+| Objective15 | 5  |
+| Objective16 | 6  |
+When open page by url 'http://localhost:5656/#/experience/1'
+When browser window width and height is set to 640 and 600
+And scroll related objective with title 'Objective16' into the view
+Then element of related objectives list with title 'Objective16' is visible
 
-
+@NotFirefox
+Scenario: Open action of related objectives list item navigates to objective's editing page 
+Given objectives are present in database
+| Title       | Id |
+| Objective11 | 1  |
+Given objectives are linked to experiance 'Experience1'
+| Title       | Id |
+| Objective11 | 1  |
+When open page by url 'http://localhost:5656/#/experience/1'
+When mouse hover element of related objectives list with title 'Objective11'
+And click open related objective list item with title 'Objective11'
+Then browser navigates to url 'http://localhost:5656/#/objective/1'
 
 Scenario: Question count is shown for each related objective list item
 Given objectives are present in database
