@@ -127,6 +127,26 @@
             editor.dataProcessor.htmlFilter.addRules(rules);
             editor.dataProcessor.dataFilter.addRules(rules);
         }
+        
+        function filterContent(contentElement) {
+            var $content = $(contentElement);
+
+            $content.find('br').each(function (index, brElement) {
+                $(brElement).remove();
+            });
+
+            $content.find('style').each(function (index, styleElement) {
+                $(styleElement).remove();
+            });
+
+            var isContentEmpty = _.every($content.contents(), function (child) {
+                return isElementEmpty(child);
+            });
+
+            if (isContentEmpty) {
+                $content.empty();
+            }
+        }
 
         function isElementEmpty(e) {
             var $element = $(e);
@@ -146,27 +166,6 @@
             return _.every($element.contents(), function (child) {
                 return isElementEmpty(child);
             });
-        }
-
-        function filterContent(contentElement) {
-            var $content = $(contentElement);
-
-            $content.find('br').each(function (index, brElement) {
-                brElement.remove();
-            });
-
-            $content.find('style').each(function (index, styleElement) {
-                styleElement.remove();
-            });
-
-            var isContentEmpty = _.every($content.contents(), function (child) {
-                return isElementEmpty(child);
-            });
-
-            if (isContentEmpty) {
-                $content.empty();
-            }
-
         }
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
