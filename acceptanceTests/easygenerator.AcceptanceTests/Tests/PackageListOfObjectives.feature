@@ -110,7 +110,6 @@ Given explanations related to 'Question22e2' of 'Objective22' are present in dat
 | Explanation222e2 |
 
 And open page by url 'http://localhost:5656/#/experiences'
-And sleep '5000'
 And mouse hover element of publications list with title 'Experience1'
 And click build publication list item with title 'Experience1'
 And mouse hover element of publications list with title 'Experience1'

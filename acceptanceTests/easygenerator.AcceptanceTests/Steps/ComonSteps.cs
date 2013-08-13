@@ -52,6 +52,7 @@ namespace easygenerator.AcceptanceTests.Steps
         public void GivenOpenPageByUrl(string url)
         {
             DriverProvider.Current().Driver.Navigate().GoToUrl(url);
+            System.Threading.Thread.Sleep(5000);
         }
 
         [Given(@"sleep '(.*)'")]

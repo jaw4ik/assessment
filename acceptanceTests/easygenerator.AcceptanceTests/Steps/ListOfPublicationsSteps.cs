@@ -160,6 +160,16 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Build should be enabled");
         }
 
+        [Then(@"Action download is enabled (.*) for publications list item with title '(.*)'")]
+        public void ThenActionDownloadIsEnabledForPublicationsListItemWithTitle(bool isEnabled, string title)
+        {
+            var item = publicationsPage.Items.First(it => it.Title == title);
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                isEnabled = item.IsDownloadEnabled,
+                "Build should be enabled");
+        }
+
+
         [Given(@"unzip '(.*)' package to '(.*)'")]
         public void GivenUnzipPackageTo(string zipFile, string extractFolder)
         {
@@ -232,6 +242,17 @@ namespace easygenerator.AcceptanceTests.Steps
             }
         
         }
+
+        [When(@"click build publication list item with title '(.*)'")]
+        public void WhenClickBuildPublicationListItemWithTitle(string title)
+        {
+            var item = publicationsPage.Items.First(it => it.Title == title);
+            if (TestUtils.WaitForCondition((() => item.IsBuildEnabled), 1000))
+            {
+                item.Build();
+            }
+        }
+
 
         [Given(@"click download publication list item with title '(.*)'")]
         public void GivenClickDownloadPublicationListItemWithTitle(string title)

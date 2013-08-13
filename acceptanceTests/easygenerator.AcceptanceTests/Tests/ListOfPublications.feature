@@ -166,7 +166,7 @@ Then element with title 'Publication5' of publications list is visible
 
 
 @NotFirefox
-Scenario: Actions open and select are enabled if hover item of publications list
+Scenario: Actions open, select and build are enabled if hover item of publications list
 Given publications are present in database
 | Title        |
 | Publication1 |
@@ -178,7 +178,6 @@ Then Action open is enabled true for publications list item with title 'Publicat
 And Action select is enabled true for publications list item with title 'Publication1'
 And Action build is enabled true for publications list item with title 'Publication1'
 
-
 Scenario: Open action of publications list item navigates to publication's editing page 
 Given publications are present in database
 | Title        | Id |
@@ -187,6 +186,31 @@ When open page by url 'http://localhost:5656/#/experiences'
 And mouse hover element of publications list with title 'Publication1'
 And click open publication list item with title 'Publication1'
 Then browser navigates to url 'http://localhost:5656/#/experience/1'
+
+Scenario: Download action becomes available after build
+Given publications are present in database
+| Title       | Id |
+| Experience1 | 1  |
+Given objectives are present in database
+| Title       | Id |
+| Objective11 | 1  |
+Given objectives are linked to experiance 'Experience1'
+| Title       | Id |
+| Objective11 | 1  |
+Given questions related to 'Objective11' are present in database
+| Title      | Id |
+| Question11 | 1  |
+Given answer options related to 'Question11' of 'Objective11' are present in database
+| Text           | isCorrect |
+| AnswerOption11 | true      |
+Given explanations related to 'Question11' of 'Objective11' are present in database
+| Explanation   |
+| Explanation11 |
+When open page by url 'http://localhost:5656/#/experiences'
+And mouse hover element of publications list with title 'Experience1'
+And click build publication list item with title 'Experience1'
+And mouse hover element of publications list with title 'Experience1'
+Then Action download is enabled true for publications list item with title 'Experience1'
 
 Scenario: Navigation works using tab navigation to objectives
 When open page by url 'http://localhost:5656/#/experiences'

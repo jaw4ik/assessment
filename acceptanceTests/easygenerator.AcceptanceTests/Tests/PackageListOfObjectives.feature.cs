@@ -348,16 +348,14 @@ testRunner.Given("explanations related to \'Question22e2\' of \'Objective22\' ar
 #line 112
 testRunner.And("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 113
-testRunner.And("sleep \'5000\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 114
-testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 115
 testRunner.And("click build publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 116
+#line 115
 testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 117
+#line 116
 testRunner.And("click download publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 118
+#line 117
 testRunner.And("unzip \'1.zip\' package to \'tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
@@ -367,11 +365,11 @@ testRunner.And("unzip \'1.zip\' package to \'tmp\'", ((string)(null)), ((TechTal
         public virtual void AllPackageObjectivesArePresentOnPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All package objectives are present on page", ((string[])(null)));
-#line 120
+#line 119
 this.ScenarioSetup(scenarioInfo);
 #line 7
 this.FeatureBackground();
-#line 121
+#line 120
 testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
@@ -380,9 +378,9 @@ testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((st
                         "Objective11"});
             table25.AddRow(new string[] {
                         "Objective12"});
-#line 122
+#line 121
 testRunner.Then("package objectives tiles list contains only items with data", ((string)(null)), table25, "Then ");
-#line 126
+#line 125
 testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             this.ScenarioCleanup();
