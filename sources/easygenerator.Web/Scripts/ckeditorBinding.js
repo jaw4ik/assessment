@@ -77,6 +77,7 @@
                 filterContent(editor.editable().$);
                 editor.focusManager.lock();
                 data(editor.getData());
+                editor.setData(data());
                 editor.focusManager.unlock();
                 saveHandler.call(that, viewModel);
             }
