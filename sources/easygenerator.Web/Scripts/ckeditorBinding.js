@@ -30,7 +30,7 @@
             }
 
             if (isEditing()) {
-                editor.focusManager.focus();
+                editor.focus();
 
                 var range = editor.createRange();
                 range.moveToPosition(range.root, CKEDITOR.POSITION_BEFORE_END);
