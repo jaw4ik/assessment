@@ -29,7 +29,7 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             var publications = table.CreateSet<ExperienceData>().ToArray();
             var dataSetter = new DataSetter();
-            dataSetter.AddPublicationsToDatabase(publications.Select(data => BuildExpirience(data)).ToArray());
+            dataSetter.AddPublicationsToDatabase(publications.Select(data => BuildExperience(data)).ToArray());
         }
         [Then(@"publications tiles list contains items with data")]
         public void ThenPublicationsTilesListContainsItemsWithData(Table table)
@@ -282,7 +282,7 @@ namespace easygenerator.AcceptanceTests.Steps
         }
 
 
-        Experience BuildExpirience(ExperienceData data)
+        Experience BuildExperience(ExperienceData data)
         {
             return new Experience()
             {
