@@ -26,8 +26,8 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string AnswerOptionsBlock = ".//div[contains(@class,'question-answers')]";
         public string ExplanationsBlock = ".//div[contains(@class,'question-explanations')]";
         public string BlockList = ".//div[@class='question-content-items-list']";
-        public string ExpandAnswerOptionsButton = "//div[contains(@class,'question-answers')]//a[contains(@class,'nav-element')]";
-        public string ExpandExplanationsButton = "//div[contains(@class,'question-explanations')]//a[contains(@class,'nav-element')]";
+        public string ExpandAnswerOptionsButton = "//div[contains(@class,'question-answers')]//span[contains(@class,'nav-element')]";
+        public string ExpandExplanationsButton = "//div[contains(@class,'question-explanations')]//span[contains(@class,'nav-element')]";
 
         public string NextQuestionButton = ".//a[@class='nav-element'and @title='Next']";
         public string PreviousQuestionButton = ".//a[@class='nav-element'and @title='Previous']";
