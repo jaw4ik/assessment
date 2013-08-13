@@ -23,7 +23,17 @@ namespace easygenerator.AcceptanceTests.ElementObjects
                 var el = GetByXPathInside(model.Title);
                 return el.GetTextContent();
             }
+        }
+
+        public string ObjectiveCount
+        {
+            get
+            {
+                var el = GetByXPathInside(model.ObjectiveCountElement);
+                return el.GetTextContent();
+            }
         }                    
+
 
         public bool IsSelected
         {

@@ -273,6 +273,15 @@ namespace easygenerator.AcceptanceTests.Steps
             publicationsPage.NavigateToObjectivesUsingTabs();
         }
 
+        [Then(@"objective count for element of publications list with title '(.*)' is '(.*)'")]
+        public void ThenObjectiveCountForElementOfPublicationsListWithTitleIs(string title, string objectiveCount)
+        {
+            var item = publicationsPage.Items.First(it => it.Title == title);
+            TestUtils.Assert_IsTrue_WithWait(() => objectiveCount == item.ObjectiveCount,
+                "Incorrect objective count");
+        }
+
+
         Experience BuildExpirience(ExperienceData data)
         {
             return new Experience()

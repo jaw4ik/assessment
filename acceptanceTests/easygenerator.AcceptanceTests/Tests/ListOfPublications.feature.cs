@@ -596,17 +596,88 @@ testRunner.Then("Action download is enabled true for publications list item with
         }
         
         [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Objective count is shown for each publications list item")]
+        public virtual void ObjectiveCountIsShownForEachPublicationsListItem()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Objective count is shown for each publications list item", ((string[])(null)));
+#line 215
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table24 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table24.AddRow(new string[] {
+                        "Experience1",
+                        "1"});
+            table24.AddRow(new string[] {
+                        "Experience2",
+                        "2"});
+#line 216
+testRunner.Given("publications are present in database", ((string)(null)), table24, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table25.AddRow(new string[] {
+                        "Objective11",
+                        "1"});
+            table25.AddRow(new string[] {
+                        "Objective12",
+                        "2"});
+            table25.AddRow(new string[] {
+                        "Objective13",
+                        "3"});
+#line 220
+testRunner.Given("objectives are present in database", ((string)(null)), table25, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table26.AddRow(new string[] {
+                        "Objective11",
+                        "1"});
+            table26.AddRow(new string[] {
+                        "Objective12",
+                        "2"});
+#line 225
+testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table26, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table27.AddRow(new string[] {
+                        "Objective11",
+                        "1"});
+            table27.AddRow(new string[] {
+                        "Objective12",
+                        "2"});
+            table27.AddRow(new string[] {
+                        "Objective13",
+                        "3"});
+#line 229
+testRunner.Given("objectives are linked to experiance \'Experience2\'", ((string)(null)), table27, "Given ");
+#line 234
+testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 235
+testRunner.Then("objective count for element of publications list with title \'Experience1\' is \'2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 236
+testRunner.And("objective count for element of publications list with title \'Experience2\' is \'3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Navigation works using tab navigation to objectives")]
         public virtual void NavigationWorksUsingTabNavigationToObjectives()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Navigation works using tab navigation to objectives", ((string[])(null)));
-#line 215
+#line 239
 this.ScenarioSetup(scenarioInfo);
-#line 216
+#line 240
 testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 217
+#line 241
 testRunner.And("click on tab objectives link on expiriences list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 218
+#line 242
 testRunner.Then("browser navigates to url \'http://localhost:5656/#/objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

@@ -212,6 +212,30 @@ And click build publication list item with title 'Experience1'
 And mouse hover element of publications list with title 'Experience1'
 Then Action download is enabled true for publications list item with title 'Experience1'
 
+Scenario: Objective count is shown for each publications list item
+Given publications are present in database
+| Title       | Id |
+| Experience1 | 1  |
+| Experience2 | 2  |
+Given objectives are present in database
+| Title       | Id |
+| Objective11 | 1  |
+| Objective12 | 2  |
+| Objective13 | 3  |
+Given objectives are linked to experiance 'Experience1'
+| Title       | Id |
+| Objective11 | 1  |
+| Objective12 | 2  |
+Given objectives are linked to experiance 'Experience2'
+| Title       | Id |
+| Objective11 | 1  |
+| Objective12 | 2  |
+| Objective13 | 3  |
+When open page by url 'http://localhost:5656/#/experiences'
+Then objective count for element of publications list with title 'Experience1' is '2'
+And objective count for element of publications list with title 'Experience2' is '3'
+
+
 Scenario: Navigation works using tab navigation to objectives
 When open page by url 'http://localhost:5656/#/experiences'
 And click on tab objectives link on expiriences list page
