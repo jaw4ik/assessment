@@ -155,8 +155,8 @@
 
 .experience-brief-options-download-image {
     width: 33px;
-    margin-right: 0px;
-    background-position: 0px -64px;
+    margin-right: 0;
+    background-position: 0 -64px;
 }
 
 .experience-brief-options-select-text,
@@ -167,12 +167,14 @@
     max-width: 132px;
     overflow: hidden;
     -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
 }
 
 .build-experience-tooltip .separator {
     width: 1px;
     height: 100%;
+    float: left;
     background-color: #232323;
 }
 
@@ -287,7 +289,7 @@
     display: inline-block;
     width: 18px;
     height: 18px;
-    background-image: url('images/middle-size-icons-pack.png');
+    background-image: url('images/middle-sized-icons-pack.png');
     background-repeat: no-repeat;
     background-position: center -276px;
 }

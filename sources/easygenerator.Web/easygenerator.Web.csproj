@@ -212,7 +212,7 @@
     <Content Include="Content\images\buildprogress.gif" />
     <Content Include="Content\images\icons.png" />
     <Content Include="Content\images\loader.gif" />
-    <Content Include="Content\images\middle-size-icons-pack.png" />
+    <Content Include="Content\images\middle-sized-icons-pack.png" />
     <Content Include="Content\images\nav-buttons.png" />
     <Content Include="Content\images\options-icons.png" />
     <Content Include="Content\images\options_icons.png" />
