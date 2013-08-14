@@ -46,6 +46,15 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
+        public string BuildButtonText
+        {
+            get
+            {
+                var el = GetByXPath(model.BuildButton);
+                return el.GetTextContent();
+            }
+        }
+
         internal void NavigateBackToExperiences()
         {
             var link = GetByXPath(model.BackToExperiencesLink);
@@ -74,5 +83,13 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             return base.ExistsOnPage(model.PreviousExperienceButton);
         }
 
+
+        internal void Build()
+        {
+            var buildButton = GetByXPath(model.BuildButton);
+            buildButton.Click();
+        }
+
+        
     }
 }

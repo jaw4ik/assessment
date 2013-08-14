@@ -78,6 +78,28 @@ Then related objectives list item with title 'Objective12' is not selected
 And related objectives list item with title 'Objective11' is not selected
 And related objectives list item with title 'Objective13' is not selected
 
+Scenario: Download action becomes available after build
+Given objectives are present in database
+| Title       | Id |
+| Objective11 | 1  |
+Given objectives are linked to experiance 'Experience1'
+| Title       | Id |
+| Objective11 | 1  |
+Given questions related to 'Objective11' are present in database
+| Title      | Id |
+| Question11 | 1  |
+Given answer options related to 'Question11' of 'Objective11' are present in database
+| Text           | isCorrect |
+| AnswerOption11 | true      |
+| AnswerOption12 | false     |
+Given explanations related to 'Question11' of 'Objective11' are present in database
+| Explanation   |
+| Explanation11 |
+| Explanation12 |
+When open page by url 'http://localhost:5656/#/experience/1'
+And click on build button
+Then download action becomes available
+
 Scenario: Selected objective should be highlited after selecting
 Given objectives are present in database
 | Title       | Id |

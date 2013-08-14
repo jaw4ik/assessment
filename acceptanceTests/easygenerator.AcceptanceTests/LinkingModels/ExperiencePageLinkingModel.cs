@@ -18,5 +18,6 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string NextExperienceButton = "//div[contains(@class,'experience-header-wrapper')]//a[contains(@class,'next')]";
         public string PreviousExperienceButton = "//div[contains(@class,'experience-header-wrapper')]//a[contains(@class,'previous')]";
 
+        public string BuildButton = "//div[contains(@class,'experience-build-progress-status')]//a";
     }
 }

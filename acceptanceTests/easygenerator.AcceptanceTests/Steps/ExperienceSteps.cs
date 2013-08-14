@@ -152,6 +152,20 @@ namespace easygenerator.AcceptanceTests.Steps
             experiencePage.ItemByTitle(title).Open();
         }
 
+        [When(@"click on build button")]
+        public void WhenClickOnBuildButton()
+        {
+            experiencePage.Build();
+        }
+
+        [Then(@"download action becomes available")]
+        public void ThenDownloadActionBecomesAvailable()
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                experiencePage.BuildButtonText == "Download",
+                "Element should be visible");
+        }
+
 
 
     }
