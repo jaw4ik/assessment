@@ -24,4 +24,6 @@ CKEDITOR.editorConfig = function (config) {
     
     config.commandsToTrack = ['cut', 'copy', 'paste', 'pastetext', 'undo', 'redo', 'bold', 'italic',
             'underline', 'removeformat', 'numberedlist', 'bulletedlist', 'link', 'unlink', 'table', 'image', 'mediaembed'];
+
+    config.magicline_color = '#aeb3b9';
 };

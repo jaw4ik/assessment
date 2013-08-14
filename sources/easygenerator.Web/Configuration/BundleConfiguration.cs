@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace easygenerator.Web.Configuration
 {
@@ -38,7 +37,6 @@ namespace easygenerator.Web.Configuration
                             .Include("~/Content/experience.css")
                             .Include("~/Scripts/ckeditor/Content.css")
                             .Include("~/Content/ckeditor.css"));
-
         }
     }
 }
