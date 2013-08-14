@@ -62,7 +62,8 @@
                 CKEDITOR.dialog._.currentTop.hide();
 
             clearInterval(saveIntervalId);
-            saveData();
+            if (isEditing())
+                saveData();
             editor.destroy(true);
             $(element).removeAttr('contenteditable');
         });
