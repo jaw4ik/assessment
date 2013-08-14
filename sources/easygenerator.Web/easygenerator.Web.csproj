@@ -138,6 +138,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\repositories\objectiveRepository.js" />
     <Compile Include="BuildExperience\BuildPackageCreator.cs" />
     <Compile Include="BuildExperience\BuildPathProvider.cs" />
     <Compile Include="BuildExperience\ExperienceBuilder.cs" />
@@ -195,6 +196,7 @@
     <Content Include="App\viewmodels\objectives\objectiveBrief.spec.js" />
     <Content Include="App\viewmodels\objectives\objectives.js" />
     <Content Include="App\viewmodels\questions\createQuestion.js" />
+    <Content Include="App\viewmodels\questions\createQuestion.spec.js" />
     <Content Include="App\viewmodels\questions\question.js" />
     <Content Include="App\viewmodels\questions\question.spec.js" />
     <Content Include="App\viewmodels\userproperties.js" />

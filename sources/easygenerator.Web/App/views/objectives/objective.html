@@ -80,7 +80,7 @@
                 <div class="logo-wrapper white-framing">
                     <img class="logo" alt="" src="../../../Content/images/multichoice-question.png">
                     <div class="item-options">
-                        <div class="item-option select" data-bind="click: toggleSelection">
+                        <div class="item-option select" data-bind="click: $parent.toggleQuestionSelection">
                             <!-- ko ifnot: isSelected() -->
                             <div class="nowrap" data-bind="localize: { text: 'select' }"></div>
                             <div class="action-img unchecked inline">
@@ -95,7 +95,7 @@
                             <!-- /ko -->
                         </div>
                         <div class="separator"></div>
-                        <div class="item-option edit" data-bind="click: $parent.navigateToEdit.bind($parent)">
+                        <div class="item-option edit" data-bind="click: $parent.navigateToEditQuestion.bind($parent)">
                             <div class="nowrap" data-bind="localize: { text: 'edit' }"></div>
                             <div class="action-img inline">
                             </div>
@@ -103,21 +103,10 @@
                     </div>
                 </div>
                 <div class="text-block selectable">
-                    <!--   <div class="question-title-chars-counter">
-                               <span data-bind="text: title().length"></span>/255
-                           </div>
-                        <textarea class="editarea" data-bind="value: title, valueUpdate: 'afterkeydown', event: { blur: $parent.endEditQuestionTitle }, hasFocus: isEditing"></textarea>-->
                     <p data-bind="text: title"></p>
                 </div>
             </li>
             <!-- /ko -->
-           <!-- <li class="add-button">
-                <div class="question-explanation-list-item">
-                    <div class="question-explanation-wrapper enabled">
-                        <div class="question-explanation selectable" data-bind="click: addQuestion, localize: { text: 'clickToAddNewQuestion' }">Click here to add question</div>
-                    </div>
-                </div>
-            </li>-->
         </ul>
     </div>
 </section>
