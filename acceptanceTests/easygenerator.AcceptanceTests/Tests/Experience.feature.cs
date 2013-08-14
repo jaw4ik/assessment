@@ -313,11 +313,28 @@ testRunner.And("related objectives list item with title \'Objective13\' is not s
         }
         
         [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Build action is available by default")]
+        public virtual void BuildActionIsAvailableByDefault()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Build action is available by default", ((string[])(null)));
+#line 81
+this.ScenarioSetup(scenarioInfo);
+#line 6
+this.FeatureBackground();
+#line 82
+testRunner.When("open page by url \'http://localhost:5656/#/experience/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 83
+testRunner.Then("build action on experiance page is available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Download action becomes available after build")]
         public virtual void DownloadActionBecomesAvailableAfterBuild()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Download action becomes available after build", ((string[])(null)));
-#line 81
+#line 85
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
@@ -328,7 +345,7 @@ this.FeatureBackground();
             table13.AddRow(new string[] {
                         "Objective11",
                         "1"});
-#line 82
+#line 86
 testRunner.Given("objectives are present in database", ((string)(null)), table13, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
@@ -337,7 +354,7 @@ testRunner.Given("objectives are present in database", ((string)(null)), table13
             table14.AddRow(new string[] {
                         "Objective11",
                         "1"});
-#line 85
+#line 89
 testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table14, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
@@ -346,7 +363,7 @@ testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string
             table15.AddRow(new string[] {
                         "Question11",
                         "1"});
-#line 88
+#line 92
 testRunner.Given("questions related to \'Objective11\' are present in database", ((string)(null)), table15, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
@@ -358,7 +375,7 @@ testRunner.Given("questions related to \'Objective11\' are present in database",
             table16.AddRow(new string[] {
                         "AnswerOption12",
                         "false"});
-#line 91
+#line 95
 testRunner.Given("answer options related to \'Question11\' of \'Objective11\' are present in database", ((string)(null)), table16, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
@@ -367,14 +384,14 @@ testRunner.Given("answer options related to \'Question11\' of \'Objective11\' ar
                         "Explanation11"});
             table17.AddRow(new string[] {
                         "Explanation12"});
-#line 95
-testRunner.Given("explanations related to \'Question11\' of \'Objective11\' are present in database", ((string)(null)), table17, "Given ");
 #line 99
+testRunner.Given("explanations related to \'Question11\' of \'Objective11\' are present in database", ((string)(null)), table17, "Given ");
+#line 103
 testRunner.When("open page by url \'http://localhost:5656/#/experience/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 100
+#line 104
 testRunner.And("click on build button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 101
-testRunner.Then("download action becomes available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 105
+testRunner.Then("download action on experiance page is available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -384,7 +401,7 @@ testRunner.Then("download action becomes available", ((string)(null)), ((TechTal
         public virtual void SelectedObjectiveShouldBeHighlitedAfterSelecting()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Selected objective should be highlited after selecting", ((string[])(null)));
-#line 103
+#line 107
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
@@ -401,7 +418,7 @@ this.FeatureBackground();
             table18.AddRow(new string[] {
                         "Objective13",
                         "3"});
-#line 104
+#line 108
 testRunner.Given("objectives are present in database", ((string)(null)), table18, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
@@ -416,19 +433,19 @@ testRunner.Given("objectives are present in database", ((string)(null)), table18
             table19.AddRow(new string[] {
                         "Objective13",
                         "3"});
-#line 109
+#line 113
 testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table19, "Given ");
-#line 114
-testRunner.When("open page by url \'http://localhost:5656/#/experience/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 115
-testRunner.And("mouse hover element of related objectives list with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 116
-testRunner.And("select related objective list item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 117
-testRunner.Then("related objectives list item with title \'Objective12\' is selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 118
-testRunner.But("related objectives list item with title \'Objective11\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
+testRunner.When("open page by url \'http://localhost:5656/#/experience/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 119
+testRunner.And("mouse hover element of related objectives list with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 120
+testRunner.And("select related objective list item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 121
+testRunner.Then("related objectives list item with title \'Objective12\' is selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 122
+testRunner.But("related objectives list item with title \'Objective11\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
+#line 123
 testRunner.And("related objectives list item with title \'Objective13\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -439,7 +456,7 @@ testRunner.And("related objectives list item with title \'Objective13\' is not s
         public virtual void ObjectiveCouldBeDeselected()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Objective could be deselected", ((string[])(null)));
-#line 121
+#line 125
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
@@ -456,7 +473,7 @@ this.FeatureBackground();
             table20.AddRow(new string[] {
                         "Objective13",
                         "3"});
-#line 122
+#line 126
 testRunner.Given("objectives are present in database", ((string)(null)), table20, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
@@ -471,35 +488,35 @@ testRunner.Given("objectives are present in database", ((string)(null)), table20
             table21.AddRow(new string[] {
                         "Objective13",
                         "3"});
-#line 127
+#line 131
 testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table21, "Given ");
-#line 132
-testRunner.When("open page by url \'http://localhost:5656/#/experience/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 133
-testRunner.When("mouse hover element of related objectives list with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 134
-testRunner.And("select related objective list item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 135
-testRunner.And("mouse hover element of related objectives list with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 136
-testRunner.And("select related objective list item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#/experience/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 137
-testRunner.And("mouse hover element of related objectives list with title \'Objective13\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("mouse hover element of related objectives list with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 138
-testRunner.And("select related objective list item with title \'Objective13\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 139
-testRunner.And("mouse hover element of related objectives list with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 140
 testRunner.And("select related objective list item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 141
+#line 139
 testRunner.And("mouse hover element of related objectives list with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 142
+#line 140
 testRunner.And("select related objective list item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 141
+testRunner.And("mouse hover element of related objectives list with title \'Objective13\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 142
+testRunner.And("select related objective list item with title \'Objective13\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 143
-testRunner.Then("related objectives list item with title \'Objective11\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("mouse hover element of related objectives list with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 144
-testRunner.And("related objectives list item with title \'Objective12\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("select related objective list item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 145
+testRunner.And("mouse hover element of related objectives list with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 146
+testRunner.And("select related objective list item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 147
+testRunner.Then("related objectives list item with title \'Objective11\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 148
+testRunner.And("related objectives list item with title \'Objective12\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 149
 testRunner.And("related objectives list item with title \'Objective13\' is selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -510,7 +527,7 @@ testRunner.And("related objectives list item with title \'Objective13\' is selec
         public virtual void AllElementsOfRelatedObjectivesListCanBeMadeVisibleUsingScroll()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All elements of related objectives list can be made visible using scroll", ((string[])(null)));
-#line 147
+#line 151
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
@@ -536,7 +553,7 @@ this.FeatureBackground();
             table22.AddRow(new string[] {
                         "Objective16",
                         "6"});
-#line 148
+#line 152
 testRunner.Given("objectives are present in database", ((string)(null)), table22, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table23 = new TechTalk.SpecFlow.Table(new string[] {
@@ -560,15 +577,15 @@ testRunner.Given("objectives are present in database", ((string)(null)), table22
             table23.AddRow(new string[] {
                         "Objective16",
                         "6"});
-#line 156
+#line 160
 testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table23, "Given ");
-#line 164
+#line 168
 testRunner.When("open page by url \'http://localhost:5656/#/experience/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 165
+#line 169
 testRunner.When("browser window width and height is set to 640 and 600", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 166
+#line 170
 testRunner.And("scroll related objective with title \'Objective16\' into the view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 167
+#line 171
 testRunner.Then("element of related objectives list with title \'Objective16\' is visible", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -583,7 +600,7 @@ testRunner.Then("element of related objectives list with title \'Objective16\' i
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Open action of related objectives list item navigates to objective\'s editing page" +
                     "", new string[] {
                         "NotFirefox"});
-#line 170
+#line 174
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
@@ -594,7 +611,7 @@ this.FeatureBackground();
             table24.AddRow(new string[] {
                         "Objective11",
                         "1"});
-#line 171
+#line 175
 testRunner.Given("objectives are present in database", ((string)(null)), table24, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
@@ -603,15 +620,15 @@ testRunner.Given("objectives are present in database", ((string)(null)), table24
             table25.AddRow(new string[] {
                         "Objective11",
                         "1"});
-#line 174
-testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table25, "Given ");
-#line 177
-testRunner.When("open page by url \'http://localhost:5656/#/experience/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 178
+testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table25, "Given ");
+#line 181
+testRunner.When("open page by url \'http://localhost:5656/#/experience/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 182
 testRunner.When("mouse hover element of related objectives list with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 179
+#line 183
 testRunner.And("click open related objective list item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 180
+#line 184
 testRunner.Then("browser navigates to url \'http://localhost:5656/#/objective/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -622,7 +639,7 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#/objective/1\
         public virtual void QuestionCountIsShownForEachRelatedObjectiveListItem()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Question count is shown for each related objective list item", ((string[])(null)));
-#line 182
+#line 186
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
@@ -636,7 +653,7 @@ this.FeatureBackground();
             table26.AddRow(new string[] {
                         "Objective12",
                         "2"});
-#line 183
+#line 187
 testRunner.Given("objectives are present in database", ((string)(null)), table26, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
@@ -648,7 +665,7 @@ testRunner.Given("objectives are present in database", ((string)(null)), table26
             table27.AddRow(new string[] {
                         "Objective12",
                         "2"});
-#line 187
+#line 191
 testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table27, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table28 = new TechTalk.SpecFlow.Table(new string[] {
@@ -660,7 +677,7 @@ testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string
             table28.AddRow(new string[] {
                         "Question12",
                         "2"});
-#line 191
+#line 195
 testRunner.Given("questions related to \'Objective11\' are present in database", ((string)(null)), table28, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table29 = new TechTalk.SpecFlow.Table(new string[] {
@@ -669,13 +686,13 @@ testRunner.Given("questions related to \'Objective11\' are present in database",
             table29.AddRow(new string[] {
                         "Question21",
                         "1"});
-#line 195
-testRunner.Given("questions related to \'Objective12\' are present in database", ((string)(null)), table29, "Given ");
-#line 198
-testRunner.When("open page by url \'http://localhost:5656/#/experience/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 199
+testRunner.Given("questions related to \'Objective12\' are present in database", ((string)(null)), table29, "Given ");
+#line 202
+testRunner.When("open page by url \'http://localhost:5656/#/experience/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 203
 testRunner.Then("question count for related objective item with title \'Objective11\' is \'2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 200
+#line 204
 testRunner.And("question count for related objective item with title \'Objective12\' is \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -686,15 +703,15 @@ testRunner.And("question count for related objective item with title \'Objective
         public virtual void BackActionOfExperiencePageNavigatesToExperiencesPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Back action of experience page navigates to experiences page", ((string[])(null)));
-#line 202
+#line 206
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 203
+#line 207
 testRunner.When("open page by url \'http://localhost:5656/#/experience/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 204
+#line 208
 testRunner.And("click on back to experiences", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 205
+#line 209
 testRunner.Then("browser navigates to url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -705,23 +722,23 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#/experiences\
         public virtual void NextAndPreviousActionsOfExperiencePageNavigateThroughExperiences()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Next and previous actions of experience page navigate through experiences", ((string[])(null)));
-#line 207
+#line 211
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 208
-testRunner.When("open page by url \'http://localhost:5656/#/experience/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 209
-testRunner.And("click on next experience", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 210
-testRunner.Then("browser navigates to url \'http://localhost:5656/#/experience/2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 211
-testRunner.When("click on next experience", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 212
-testRunner.Then("browser navigates to url \'http://localhost:5656/#/experience/3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.When("open page by url \'http://localhost:5656/#/experience/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 213
-testRunner.When("click on previous experience", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.And("click on next experience", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 214
+testRunner.Then("browser navigates to url \'http://localhost:5656/#/experience/2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 215
+testRunner.When("click on next experience", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 216
+testRunner.Then("browser navigates to url \'http://localhost:5656/#/experience/3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 217
+testRunner.When("click on previous experience", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 218
 testRunner.Then("browser navigates to url \'http://localhost:5656/#/experience/2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -732,13 +749,13 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#/experience/2
         public virtual void PreviousExperienceActionIsNotAvailableForFirstExperience()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Previous experience action is not available for first experience", ((string[])(null)));
-#line 216
+#line 220
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 217
+#line 221
 testRunner.When("open page by url \'http://localhost:5656/#/experience/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 218
+#line 222
 testRunner.Then("previous experience action is not available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -749,13 +766,13 @@ testRunner.Then("previous experience action is not available", ((string)(null)),
         public virtual void NextExperienceActionIsNotAvailableForLastExperience()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Next experience action is not available for last experience", ((string[])(null)));
-#line 220
+#line 224
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 221
+#line 225
 testRunner.When("open page by url \'http://localhost:5656/#/experience/3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 222
+#line 226
 testRunner.Then("next experience action is not available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

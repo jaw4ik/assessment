@@ -78,6 +78,10 @@ Then related objectives list item with title 'Objective12' is not selected
 And related objectives list item with title 'Objective11' is not selected
 And related objectives list item with title 'Objective13' is not selected
 
+Scenario: Build action is available by default
+When open page by url 'http://localhost:5656/#/experience/1'
+Then build action on experiance page is available
+
 Scenario: Download action becomes available after build
 Given objectives are present in database
 | Title       | Id |
@@ -98,7 +102,7 @@ Given explanations related to 'Question11' of 'Objective11' are present in datab
 | Explanation12 |
 When open page by url 'http://localhost:5656/#/experience/1'
 And click on build button
-Then download action becomes available
+Then download action on experiance page is available
 
 Scenario: Selected objective should be highlited after selecting
 Given objectives are present in database
