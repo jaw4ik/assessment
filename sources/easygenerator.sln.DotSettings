@@ -27,6 +27,18 @@
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADE0B39FE551014B8EFC116C9E2223D3/Text/@EntryValue">it('$SHOULD_BEHAVIOUR$', function () {&#xD;
 	$END$&#xD;
 });</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BCEFD5AF2F9E2446AC4694DAFB6C5658/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BCEFD5AF2F9E2446AC4694DAFB6C5658/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BCEFD5AF2F9E2446AC4694DAFB6C5658/Field/=METHOD_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BCEFD5AF2F9E2446AC4694DAFB6C5658/Field/=METHOD_005FNAME/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BCEFD5AF2F9E2446AC4694DAFB6C5658/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BCEFD5AF2F9E2446AC4694DAFB6C5658/Scope/=FFA15E6CFCBE90499C572A859225B012/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BCEFD5AF2F9E2446AC4694DAFB6C5658/Scope/=FFA15E6CFCBE90499C572A859225B012/Type/@EntryValue">InJavaScriptFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BCEFD5AF2F9E2446AC4694DAFB6C5658/Shortcut/@EntryValue">itfunction</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BCEFD5AF2F9E2446AC4694DAFB6C5658/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BCEFD5AF2F9E2446AC4694DAFB6C5658/Text/@EntryValue">it('should be function', function () {    &#xD;
+    expect(viewModel.$METHOD_NAME$).toBeFunction();&#xD;
+});</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4B4195ACFC04E4B89B1263F29B7B8D0/@KeyIndexDefined">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4B4195ACFC04E4B89B1263F29B7B8D0/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C4B4195ACFC04E4B89B1263F29B7B8D0/Description/@EntryValue">jasmine beforeEach</s:String>
@@ -50,6 +62,21 @@
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=D98629DA5E717E4B910765890AB72B8F/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=D98629DA5E717E4B910765890AB72B8F/Text/@EntryValue">xit('$SHOULD_BEHAVIOUR$', function () {&#xD;
 	$END$&#xD;
+});</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E3ECDD1C104BC342897C22BC6B125CAB/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E3ECDD1C104BC342897C22BC6B125CAB/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E3ECDD1C104BC342897C22BC6B125CAB/Field/=EVENT_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E3ECDD1C104BC342897C22BC6B125CAB/Field/=EVENT_005FNAME/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E3ECDD1C104BC342897C22BC6B125CAB/Field/=METHOD_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E3ECDD1C104BC342897C22BC6B125CAB/Field/=METHOD_005FNAME/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E3ECDD1C104BC342897C22BC6B125CAB/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E3ECDD1C104BC342897C22BC6B125CAB/Scope/=FFA15E6CFCBE90499C572A859225B012/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E3ECDD1C104BC342897C22BC6B125CAB/Scope/=FFA15E6CFCBE90499C572A859225B012/Type/@EntryValue">InJavaScriptFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E3ECDD1C104BC342897C22BC6B125CAB/Shortcut/@EntryValue">itevent</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E3ECDD1C104BC342897C22BC6B125CAB/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E3ECDD1C104BC342897C22BC6B125CAB/Text/@EntryValue">it('should send event \'$EVENT_NAME$\'', function () {&#xD;
+    viewModel.$METHOD_NAME$();&#xD;
+    expect(eventTracker.publish).toHaveBeenCalledWith('$EVENT_NAME$', eventsCategory);&#xD;
 });</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E411B7E353A96A43B002F0B4D30DF033/@KeyIndexDefined">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E411B7E353A96A43B002F0B4D30DF033/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
