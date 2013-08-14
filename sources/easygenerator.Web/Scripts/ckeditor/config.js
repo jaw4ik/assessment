@@ -21,4 +21,7 @@ CKEDITOR.editorConfig = function (config) {
     config.startupOutlineBlocks = true;
     config.title = false;
     config.autoParagraph = false;
+    
+    config.commandsToTrack = ['cut', 'copy', 'paste', 'pastetext', 'undo', 'redo', 'bold', 'italic',
+            'underline', 'removeformat', 'numberedlist', 'bulletedlist', 'link', 'unlink', 'table', 'image', 'mediaembed'];
 };

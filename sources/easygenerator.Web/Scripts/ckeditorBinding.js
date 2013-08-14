@@ -1,23 +1,24 @@
 ﻿ko.bindingHandlers.ckeditor = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        var language = valueAccessor().language() || 'en',
+        var
+            language = valueAccessor().language() || 'en',
             eventTracker = valueAccessor().eventTracker || null,
             data = valueAccessor().data,
             isEditing = valueAccessor().isEditing,
             saveHandler = valueAccessor().save,
-            saveIntervalId = null,
             autosaveInterval = valueAccessor().autosaveInterval || 60000,
-            that = bindingContext.$root;
 
-        var $toolbarElement = null;
-
-        var commandsToTrack = ['cut', 'copy', 'paste', 'pastetext', 'undo', 'redo', 'bold', 'italic',
-            'underline', 'removeformat', 'numberedlist', 'bulletedlist', 'link', 'unlink', 'table', 'image', 'mediaembed'];
+            that = bindingContext.$root,
+            saveIntervalId = null,
+            $toolbarElement = null,
+            editor = null,
+            commandsToTrack = CKEDITOR.config.commandsToTrack || [];
 
         CKEDITOR.config.language = language;
 
         $(element).attr('contenteditable', true);
-        var editor = CKEDITOR.inline(element);
+        editor = CKEDITOR.inline(element);
+        editor.setData(data());
 
         editor.on('instanceReady', function () {
             $toolbarElement = $('#cke_' + editor.name);
@@ -25,25 +26,18 @@
             addContentFilter();
             addCommandsTracking();
 
-            if (data().length > 0) {
-                editor.setData(data());
-            }
+            editor.on('focus', function () {
+                if (!isEditing())
+                    isEditing(true);
+
+                updateToolbarPosition();
+                saveIntervalId = setInterval(saveData, autosaveInterval);
+            });
 
             if (isEditing()) {
                 editor.focus();
-
-                var range = editor.createRange();
-                range.moveToPosition(range.root, CKEDITOR.POSITION_BEFORE_END);
-                editor.getSelection().selectRanges([range]);
-                saveIntervalId = setInterval(saveData, autosaveInterval);
+                setCaretToStart();
             }
-
-            editor.on('focus', function () {
-                var toolbarTopPosition = editor.container.getDocumentPosition().y - $toolbarElement.height();
-                $toolbarElement.css('top', toolbarTopPosition);
-                isEditing(true);
-                saveIntervalId = setInterval(saveData, autosaveInterval);
-            });
 
             editor.on('blur', function () {
                 isEditing(false);
@@ -52,8 +46,9 @@
             });
 
             editor.on('key', function (event) {
-                if (event.data.keyCode == 27)
-                    editor.focusManager.blur();
+                if (event.data.keyCode == 27) {
+                    $(editor.editable().$).blur();
+                }
             });
 
             editor.on('change', function () {
@@ -66,8 +61,8 @@
             if (!!CKEDITOR.dialog._.currentTop)
                 CKEDITOR.dialog._.currentTop.hide();
 
+            clearInterval(saveIntervalId);
             saveData();
-
             editor.destroy(true);
             $(element).removeAttr('contenteditable');
         });
@@ -75,10 +70,7 @@
         function saveData() {
             if (!!saveHandler) {
                 filterContent(editor.editable().$);
-                editor.focusManager.lock();
                 data(editor.getData());
-                editor.setData(data());
-                editor.focusManager.unlock();
                 saveHandler.call(that, viewModel);
             }
         }
@@ -128,7 +120,7 @@
             editor.dataProcessor.htmlFilter.addRules(rules);
             editor.dataProcessor.dataFilter.addRules(rules);
         }
-        
+
         function filterContent(contentElement) {
             var $content = $(contentElement);
 
@@ -167,6 +159,17 @@
             return _.every($element.contents(), function (child) {
                 return isElementEmpty(child);
             });
+        }
+
+        function setCaretToStart() {
+            var range = editor.createRange();
+            range.moveToPosition(range.root, CKEDITOR.POSITION_BEFORE_END);
+            editor.getSelection().selectRanges([range]);
+        }
+
+        function updateToolbarPosition() {
+            var toolbarTopPosition = editor.container.getDocumentPosition().y - $toolbarElement.height();
+            $toolbarElement.css('top', toolbarTopPosition);
         }
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
