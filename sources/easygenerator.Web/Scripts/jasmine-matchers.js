@@ -1,33 +1,41 @@
 ﻿beforeEach(function () {
     var matchers = {
         toBeSortedAsc: function (sortingField) {
-            return toBeSorted(sortingField, this.actual, true);
+            return toBeSorted.apply(this, [sortingField, this.actual, true]);
         },
 
         toBeSortedDesc: function (sortingField) {
-            return toBeSorted(sortingField, this.actual, false);
+            return toBeSorted.apply(this, [sortingField, this.actual, false]);
         },
-        
+
         toBeObservable: function () {
-            return toBeObservable(this.actual);
+            return toBeObservable.call(this, this.actual);
         },
-        
+
         toBeComputed: function () {
-            return toBeComputed(this.actual);
+            return toBeComputed.call(this, this.actual);
         },
-        
+
         toBeFunction: function () {
-            return toBeFunction(this.actual);
+            return toBeFunction.call(this, this.actual);
         },
 
         toBeObject: function () {
-            return toBeObject(this.actual);
+            return toBeObject.call(this, this.actual);
         },
-        
-        toBePromise: function() {
-            return toBePromise(this.actual);
+
+        toBePromise: function () {
+            return toBePromise.call(this, this.actual);
+        },
+
+        toBeResolved: function (value) {
+            return toBeResolved.apply(this, [this.actual, value]);
+        },
+
+        toBeRejected: function (reason) {
+            return toBeRejected.apply(this, [this.actual, reason]);
         }
-        
+
     };
 
     this.addMatchers(matchers);
@@ -66,11 +74,11 @@ function toBeObservable(actual) {
     if (this.isNot) {
         throw '[.not] is not supported';
     }
-    
+
     this.message = function () {
         return "Expected to be observable";
     };
-    
+
     return ko.isObservable(actual);
 }
 
@@ -120,4 +128,54 @@ function toBePromise(actual) {
     };
 
     return toBeObject(actual) && actual.then !== undefined && toBeFunction(actual.then);
+}
+
+function toBeResolved(actual, value) {
+    if (this.isNot) {
+        throw '[.not] is not supported';
+    }
+
+    if (!toBePromise(actual)) {
+        throw 'Expected to be promise';
+    }
+
+    this.message = function () {
+        return "Expected promise to be resolved";
+    };
+
+    var isResolved = actual.inspect().state == "fulfilled";
+
+    if (typeof value != "undefined") {
+        this.message = function () {
+            return "Expected promise to be resolved with value '" + JSON.stringify(value) + "'";
+        };
+        return isResolved && actual.inspect().value == value;
+    };
+
+    return isResolved;
+}
+
+function toBeRejected(actual, reason) {
+    if (this.isNot) {
+        throw '[.not] is not supported';
+    }
+
+    if (!toBePromise(actual)) {
+        throw 'Expected to be promise';
+    }
+
+    this.message = function () {
+        return "Expected promise to be rejected";
+    };
+
+    var isRejected = actual.inspect().state == "rejected";
+
+    if (typeof reason != "undefined") {
+        this.message = function () {
+            return "Expected promise to be rejected with reason '" + reason + "'";
+        };
+        return isRejected && actual.inspect().reason == reason;
+    };
+
+    return isRejected;
 }
