@@ -114,7 +114,8 @@
                     <li class="objective-brief" data-bind="css: { 'objective-brief-selected': isSelected() }">
                         <div class="white-framing objective-brief-inner">
                             <div>
-                                <div class="objective-brief-image" data-bind="style: { backgroundImage: 'url(' + image + ')' }">
+                                <div class="objective-brief-image">
+                                    <img alt="" data-bind="attr: { src: image } " />
                                 </div>
                                 <div class="objective-brief-toolbar">
                                     <div class="objective-brief-title" data-bind="attr: { title: title }">
