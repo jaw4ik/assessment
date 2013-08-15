@@ -28,32 +28,38 @@
     </div>
     <hr>
     <ul class="content-list unstyled">
+        <!-- ko foreach: objectives -->
         <li class="content-list-item">
-            <div class="hover-indicator"></div>
-            <div class="logo-wrapper white-framing">
-                <img class="logo" alt="" src="../../../Content/images/multichoice-question.png">
-                <div class="item-options">
-                    <div class="item-option select">
-                        <div class="nowrap"></div>
-                        <div class="action-img unchecked inline">
-                            <input type="checkbox" class="custom-checkbox">
+            <figure class="logo-wrapper white-framing">
+                <div style="height: 70px; width: 100%;">
+                    <img class="logo" alt="" src="../../../Content/images/multichoice-question.png">
+                    <div class="item-options">
+                        <div class="item-option select" data-bind="click: $parent.toggleQuestionSelection">
+                            <!-- ko ifnot: isSelected() -->
+                            <div class="nowrap">wwwww</div>
+                            <div class="action-img unchecked inline">
+                                <input type="checkbox" class="custom-checkbox">
+                            </div>
+                             <!-- /ko -->
+                            <!-- ko if: isSelected() -->
+                            <div class="nowrap">wwww</div>
+                            <div class="action-img checked inline">
+                                <input class="custom-checkbox" type="checkbox">
+                            </div>
+                            <!-- /ko -->
                         </div>
-                        <div class="nowrap"></div>
-                        <div class="action-img checked inline">
-                            <input class="custom-checkbox" type="checkbox">
-                        </div>
-                    </div>
-                    <div class="separator"></div>
-                    <div class="item-option edit">
-                        <div class="nowrap"></div>
-                        <div class="action-img inline">
+                        <div class="separator"></div>
+                        <div class="item-option edit">
+                            <div class="nowrap">wwww</div>
+                            <div class="action-img inline">
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="text-block selectable">
-                <p>asdasdsa</p>
-            </div>
+                <figcaption>asdasd
+                </figcaption>
+            </figure>
         </li>
+        <!-- /ko -->
     </ul>
 </section>
