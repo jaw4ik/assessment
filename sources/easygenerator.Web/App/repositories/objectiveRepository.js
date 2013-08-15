@@ -20,9 +20,19 @@
         return deferred.promise;
     };
 
+    //todo: refactor
+    self.update = function(obj) {
+        var deferred = Q.defer();
+
+        deferred.resolve(true);
+
+        return deferred.promise;
+    };
+
     return {
         getById: self.getById,
-        getCollection: self.getCollection
+        getCollection: self.getCollection,
+        update: self.update
     };
 }
 );

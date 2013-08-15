@@ -5,39 +5,25 @@
         var router = require('durandal/plugins/router'),
             eventTracker = require('eventTracker'),
             dataContext = require('dataContext'),
-            objectiveModel = require('models/objective'),
-            questionModel = require('models/question'),
             images = require('configuration/images'),
-            constants = require('constants');
+            constants = require('constants'),
+            repository = require('repositories/objectiveRepository');
 
-        var
-            createObjectives = function () {
-                return [
-                        new objectiveModel({
-                            id: '0',
-                            title: 'Test Objective 0',
-                            image: images[0],
-                            questions: [
-                                new questionModel({
-                                    id: '0',
-                                    title: 'Question 0',
-                                    answerOptions: [],
-                                    explanations: []
-                                }),
-                                new questionModel({
-                                    id: '1',
-                                    title: 'Question 1',
-                                    answerOptions: [],
-                                    explanations: []
-                                })
-                            ]
-                        })
-                ];
-            },
-            objectives = null,
-            eventsCategory = 'Learning Objective';
+        var eventsCategory = 'Learning Objective';
 
         describe('viewModel [objective]', function () {
+
+            var objective = {
+                id: '1',
+                title: 'Test Objective 1',
+                image: images[0],
+                questions: [
+                    { id: 0, title: 'A' },
+                    { id: 1, title: 'b' },
+                    { id: 2, title: 'B' },
+                    { id: 3, title: 'a' }
+                ]
+            };
 
             beforeEach(function () {
                 jasmine.Clock.useMock();
@@ -51,11 +37,10 @@
             });
 
             describe('activate:', function () {
-                var objective2 = new objectiveModel({
-                    id: '1',
-                    title: 'Test Objective 1',
-                    image: images[0],
-                    questions: []
+                var deferred;
+                beforeEach(function () {
+                    deferred = Q.defer();
+                    spyOn(repository, 'getCollection').andReturn(deferred.promise);
                 });
 
                 describe('when route data is not defined', function () {
@@ -63,116 +48,185 @@
                         viewModel.activate(undefined);
                         expect(router.navigateTo).toHaveBeenCalledWith('#/400');
                     });
+
+                    it('should return undefined', function () {
+                        var result = viewModel.activate(undefined);
+                        expect(result).toBeUndefined();
+                    });
                 });
 
-                describe('when objective is not defined', function () {
+                describe('when objective id is not defined', function () {
                     it('should navigate to #/400', function () {
                         viewModel.activate({ id: undefined });
                         expect(router.navigateTo).toHaveBeenCalledWith('#/400');
                     });
+
+                    it('should return undefined', function () {
+                        var result = viewModel.activate({ id: undefined });
+                        expect(result).toBeUndefined();
+                    });
                 });
 
-                describe('when objectiveId not found', function () {
+                it('should return promise', function () {
+                    var promise = viewModel.activate({ id: 0 });
+                    expect(promise).toBePromise();
+                });
+
+                describe('when objective not found', function () {
                     it('should navigate to #/404', function () {
-                        viewModel.activate({ id: 'Invalid id' });
-                        expect(router.navigateTo).toHaveBeenCalledWith('#/404');
+                        var promise = viewModel.activate({ id: 'Invalid id' });
+                        deferred.resolve(null);
+
+                        waitsFor(function () {
+                            return promise.isFulfilled();
+                        });
+                        runs(function () {
+                            expect(router.navigateTo).toHaveBeenCalledWith('#/404');
+                        });
+                    });
+
+                    it('should return undefined', function () {
+                        var promise = viewModel.activate({ id: 'Invalid id' });
+                        deferred.resolve(null);
+
+                        waitsFor(function () {
+                            return promise.isFulfilled();
+                        });
+                        runs(function () {
+                            expect(promise.inspect().value).toEqual(undefined);
+                        });
                     });
                 });
 
                 it('should set current objective title', function () {
-                    objectives = createObjectives();
-                    dataContext.objectives = objectives;
+                    viewModel.title = null;
 
-                    viewModel.activate({ id: objectives[0].id });
+                    var promise = viewModel.activate({ id: objective.id });
+                    deferred.resolve([objective]);
 
-                    expect(viewModel.title).toBe(objectives[0].title);
+                    waitsFor(function () {
+                        return promise.isFulfilled();
+                    });
+                    runs(function () {
+                        expect(viewModel.title).toBe(objective.title);
+                    });
                 });
 
                 it('should set current objective image', function () {
-                    objectives = createObjectives();
-                    dataContext.objectives = objectives;
+                    viewModel.image(null);
 
-                    viewModel.activate({ id: objectives[0].id });
+                    var promise = viewModel.activate({ id: objective.id });
+                    deferred.resolve([objective]);
 
-                    expect(viewModel.image()).toBe(objectives[0].image);
+                    waitsFor(function () {
+                        return promise.isFulfilled();
+                    });
+                    runs(function () {
+                        expect(viewModel.image()).toBe(objective.image);
+                    });
                 });
 
                 it('should initialize questions collection', function () {
-                    objectives = createObjectives();
-                    dataContext.objectives = objectives;
+                    viewModel.questions([]);
 
-                    viewModel.activate({ id: objectives[0].id });
+                    var promise = viewModel.activate({ id: objective.id });
+                    deferred.resolve([objective]);
 
-                    expect(viewModel.questions().length).toBe(objectives[0].questions.length);
+                    waitsFor(function () {
+                        return promise.isFulfilled();
+                    });
+                    runs(function () {
+                        expect(viewModel.questions().length).toBe(objective.questions.length);
+                    });
                 });
 
                 describe('when currentSortingOption is asc', function () {
-                    it('should sort question asc', function () {
-                        objectives = createObjectives();
-                        dataContext.objectives = objectives;
+                    it('should sort questions asc', function () {
                         viewModel.currentSortingOption(constants.sortingOptions.byTitleAsc);
 
-                        viewModel.activate({ id: objectives[0].id });
+                        var promise = viewModel.activate({ id: objective.id });
+                        deferred.resolve([objective]);
 
-                        expect(viewModel.questions).toBeSortedAsc('title');
+                        waitsFor(function () {
+                            return promise.isFulfilled();
+                        });
+                        runs(function () {
+                            expect(viewModel.questions).toBeSortedAsc('title');
+                        });
                     });
                 });
 
                 describe('when currentSortingOption is desc', function () {
-                    it('should sort question desc', function () {
-                        objectives = createObjectives();
-                        dataContext.objectives = objectives;
+                    it('should sort questions desc', function () {
                         viewModel.currentSortingOption(constants.sortingOptions.byTitleDesc);
 
-                        viewModel.activate({ id: objectives[0].id });
+                        var promise = viewModel.activate({ id: objective.id });
+                        deferred.resolve([objective]);
 
-                        expect(viewModel.questions).toBeSortedDesc('title');
+                        waitsFor(function () {
+                            return promise.isFulfilled();
+                        });
+                        runs(function () {
+                            expect(viewModel.questions).toBeSortedDesc('title');
+                        });
                     });
                 });
 
-                describe('when previous objective exists', function () {
+                describe('when previous objective exists in sorted by title objectives collection', function () {
                     it('should set previousObjectiveId', function () {
-                        objectives = createObjectives();
-                        objectives.push(objective2);
-                        dataContext.objectives = objectives;
+                        var previousObjectiveId = '0';
+                        var promise = viewModel.activate({ id: objective.id });
+                        deferred.resolve([{ id: previousObjectiveId, title: 'B' }, { id: '0', title: 'a' }, objective]);
 
-                        viewModel.activate({ id: objectives[1].id });
-
-                        expect(viewModel.previousObjectiveId).toBe(objectives[0].id);
+                        waitsFor(function () {
+                            return promise.isFulfilled();
+                        });
+                        runs(function () {
+                            expect(viewModel.previousObjectiveId).toBe(previousObjectiveId);
+                        });
                     });
                 });
 
-                describe('when previous objective does not exist', function () {
+                describe('when previous objective does not exist in sorted by title objectives collection', function () {
                     it('should set previousObjectiveId to null', function () {
-                        objectives = createObjectives();
-                        dataContext.objectives = objectives;
+                        var promise = viewModel.activate({ id: objective.id });
+                        deferred.resolve([{ id: '0', title: 'z' }, { id: '5', title: 'Z' }, objective]);
 
-                        viewModel.activate({ id: objectives[0].id });
-
-                        expect(viewModel.previousObjectiveId).toBeNull();
+                        waitsFor(function () {
+                            return promise.isFulfilled();
+                        });
+                        runs(function () {
+                            expect(viewModel.previousObjectiveId).toBeNull();
+                        });
                     });
                 });
 
-                describe('when next objective exists', function () {
+                describe('when next objective exists in sorted by title objectives collection', function () {
                     it('should set nextObjectiveId', function () {
-                        objectives = createObjectives();
-                        objectives.push(objective2);
-                        dataContext.objectives = objectives;
+                        var nextObjectiveId = '2';
+                        var promise = viewModel.activate({ id: objective.id });
+                        deferred.resolve([objective, { id: nextObjectiveId, title: 'z' }, { id: '5', title: 'Z' }]);
 
-                        viewModel.activate({ id: objectives[0].id });
-
-                        expect(viewModel.nextObjectiveId).toBe(objectives[1].id);
+                        waitsFor(function () {
+                            return promise.isFulfilled();
+                        });
+                        runs(function () {
+                            expect(viewModel.nextObjectiveId).toBe(nextObjectiveId);
+                        });
                     });
                 });
 
-                describe('when next objective does not exist', function () {
+                describe('when next objective does not exist in sorted by title objectives collection', function () {
                     it('should set nextObjectiveId to null', function () {
-                        objectives = createObjectives();
-                        dataContext.objectives = objectives;
+                        var promise = viewModel.activate({ id: objective.id });
+                        deferred.resolve([objective, { id: '0', title: 'a' }, { id: '5', title: 'B' }]);
 
-                        viewModel.activate({ id: objectives[0].id });
-
-                        expect(viewModel.nextObjectiveId).toBeNull();
+                        waitsFor(function () {
+                            return promise.isFulfilled();
+                        });
+                        runs(function () {
+                            expect(viewModel.nextObjectiveId).toBeNull();
+                        });
                     });
                 });
             });
@@ -192,10 +246,6 @@
             });
 
             describe('navigateToEditQuestion', function () {
-                beforeEach(function () {
-                    objectives = createObjectives();
-                });
-
                 describe('when question is null', function () {
                     it('should throw exception', function () {
                         var f = function () { viewModel.navigateToEditQuestion(null); };
@@ -225,17 +275,17 @@
                 });
 
                 it('should navigate to #/objectives', function () {
-                    viewModel.objectiveId = objectives[0].id;
+                    viewModel.objectiveId = objective.id;
 
-                    viewModel.navigateToEditQuestion(objectives[0].questions[0]);
+                    viewModel.navigateToEditQuestion(objective.questions[0]);
 
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/objective/' + objectives[0].id + '/question/' + objectives[0].questions[0].id);
+                    expect(router.navigateTo).toHaveBeenCalledWith('#/objective/' + objective.id + '/question/' + objective.questions[0].id);
                 });
 
                 it('should send event \"Navigate to edit question\"', function () {
-                    viewModel.objectiveId = objectives[0].id;
+                    viewModel.objectiveId = objective.id;
 
-                    viewModel.navigateToEditQuestion(objectives[0].questions[0]);
+                    viewModel.navigateToEditQuestion(objective.questions[0]);
 
                     expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to edit question', eventsCategory);
                 });
@@ -343,14 +393,6 @@
             });
 
             describe('sortByTitleAsc', function () {
-
-                beforeEach(function () {
-                    objectives = createObjectives();
-                    dataContext.objectives = objectives;
-
-                    viewModel.activate({ id: objectives[0].id });
-                });
-
                 it('should send event \"Sort questions by title ascending\"', function () {
                     viewModel.sortByTitleAsc();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Sort questions by title ascending', eventsCategory);
@@ -362,19 +404,13 @@
                 });
 
                 it('should sort questions', function () {
+                    viewModel.questions(ko.observableArray(objective.questions));
                     viewModel.sortByTitleAsc();
                     expect(viewModel.questions()).toBeSortedAsc('title');
                 });
             });
 
             describe('sortByTitleDesc', function () {
-
-                beforeEach(function () {
-                    dataContext.objectives = objectives;
-
-                    viewModel.activate({ id: objectives[0].id });
-                });
-
                 it('should send event \"Sort questions by title descending\"', function () {
                     viewModel.sortByTitleDesc();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Sort questions by title descending', eventsCategory);
@@ -386,20 +422,22 @@
                 });
 
                 it('should sort questions', function () {
+                    viewModel.questions(ko.observableArray([objective.questions]));
                     viewModel.sortByTitleDesc();
-
                     expect(viewModel.questions()).toBeSortedDesc('title');
                 });
             });
 
             describe('deleteSelectedQuestions', function () {
-                var question;
-                beforeEach(function () {
-                    objectives = createObjectives();
-                    dataContext.objectives = objectives;
 
-                    viewModel.activate({ id: objectives[0].id });
-                    question = viewModel.questions()[0];
+                var getDeferred;
+                var updateDeferred;
+
+                beforeEach(function () {
+                    getDeferred = Q.defer();
+                    updateDeferred = Q.defer();
+                    spyOn(repository, 'getById').andReturn(getDeferred.promise);
+                    spyOn(repository, 'update').andReturn(updateDeferred.promise);
                 });
 
                 it('should be a function', function () {
@@ -407,72 +445,78 @@
                 });
 
                 it('should send event \'Delete question\'', function () {
-                    viewModel.questions()[0].isSelected(true);
-
+                    viewModel.questions([{ isSelected: ko.observable(true) }]);
                     viewModel.deleteSelectedQuestions();
-
                     expect(eventTracker.publish).toHaveBeenCalledWith('Delete question', eventsCategory);
                 });
 
-                it('should delete selected question', function () {
-                    var questionToDeleteId = question.id;
-                    question.isSelected(true);
+                describe('when no selected questions', function () {
+                    it('should throw exception', function () {
+                        viewModel.questions([]);
+                        var f = function () { viewModel.deleteSelectedQuestions(); };
+                        expect(f).toThrow();
+                    });
+                });
 
-                    viewModel.deleteSelectedQuestions();
+                it('should return promise', function () {
+                    var promise = viewModel.activate({ id: 0 });
+                    expect(promise).toBePromise();
+                });
 
-                    expect(_.find(viewModel.questions(), function (item) {
-                        return item.id == questionToDeleteId;
-                    })).toBeUndefined();
+                describe('when there are selected questions', function () {
+                    it('should delete selected question from viewModel', function () {
+                        viewModel.questions([{ id: '0', isSelected: ko.observable(true) }]);
+                        var promise = viewModel.deleteSelectedQuestions();
+
+                        getDeferred.resolve({ id: '0', qurstions: [{ id: '0' }] });
+                        updateDeferred.resolve(true);
+
+                        waitsFor(function () {
+                            return promise.isFulfilled();
+                        });
+                        runs(function () {
+                            expect(viewModel.questions().length).toBe(0);
+                        });
+                    });
                 });
             });
 
             describe('canDeleteQuestions:', function () {
 
-                beforeEach(function () {
-                    objectives = createObjectives();
-                    dataContext.objectives = objectives;
-
-                    viewModel.activate({ id: objectives[0].id });
-                });
-
                 it('should be observable', function () {
                     expect(viewModel.canDeleteQuestions).toBeObservable();
                 });
 
-                describe('when viewModel just created', function () {
+                describe('when no question selected', function () {
                     it('should be false', function () {
+                        viewModel.questions([]);
                         expect(viewModel.canDeleteQuestions()).toBe(false);
                     });
                 });
 
                 describe('when question is selected', function () {
                     it('should be true', function () {
-                        viewModel.questions()[0].isSelected(true);
+                        viewModel.questions([
+                            { isSelected: ko.observable(true) }
+                        ]);
+
                         expect(viewModel.canDeleteQuestions()).toBe(true);
                     });
                 });
 
                 describe('when few questions are selected', function () {
                     it('should befalse', function () {
-                        viewModel.questions()[0].isSelected(true);
-                        viewModel.questions()[1].isSelected(true);
+                        viewModel.questions([
+                            { isSelected: ko.observable(true) },
+                            { isSelected: ko.observable(true) }
+                        ]);
+
                         expect(viewModel.canDeleteQuestions()).toBe(false);
                     });
                 });
             });
 
             describe('toggleQuestionSelection', function () {
-
-                var question;
-                beforeEach(function () {
-                    objectives = createObjectives();
-                    objectives.questions = [objectives[0].questions[0]];
-                    dataContext.objectives = objectives;
-
-                    viewModel.activate({ id: objectives[0].id });
-
-                    question = viewModel.questions()[0];
-                });
 
                 it('should be a function', function () {
                     expect(viewModel.toggleQuestionSelection).toBeFunction();
@@ -501,36 +545,26 @@
 
                 describe('when question is not selected', function () {
                     it('should send event \'Select question\'', function () {
-                        question.isSelected(false);
-
-                        viewModel.toggleQuestionSelection(question);
-
+                        viewModel.toggleQuestionSelection({ isSelected: ko.observable(false) });
                         expect(eventTracker.publish).toHaveBeenCalledWith('Select question', eventsCategory);
                     });
 
                     it('should set question.isSelected to true', function () {
-                        question.isSelected(false);
-
+                        var question = { isSelected: ko.observable(false) };
                         viewModel.toggleQuestionSelection(question);
-
                         expect(question.isSelected()).toBeTruthy();
                     });
                 });
 
                 describe('when question is selected', function () {
                     it('should send event \'Unselect question\'', function () {
-                        question.isSelected(true);
-
-                        viewModel.toggleQuestionSelection(question);
-
+                        viewModel.toggleQuestionSelection({ isSelected: ko.observable(true) });
                         expect(eventTracker.publish).toHaveBeenCalledWith('Unselect question', eventsCategory);
                     });
 
                     it('should set question.isSelected to false', function () {
-                        question.isSelected(true);
-
+                        var question = { isSelected: ko.observable(true) };
                         viewModel.toggleQuestionSelection(question);
-
                         expect(question.isSelected()).toBeFalsy();
                     });
                 });
