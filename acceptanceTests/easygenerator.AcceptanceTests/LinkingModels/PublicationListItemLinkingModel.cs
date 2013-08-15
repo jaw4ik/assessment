@@ -18,5 +18,9 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string DownloadElement = ".//div[contains(@class,'experience-brief-options-download')]";
 
         public string ObjectiveCountElement = ".//div[contains(@class,'experience-brief-toolbar-objective-count')]";
+
+        public string BuildingStatus = ".//div[contains(@class,'experience-brief-options-building')]";
+        public string CompleteStatus = ".//div[contains(@class,'experience-brief-options-complete')]";
+        public string FailedStatus = ".//div[contains(@class,'experience-brief-options-failed')]";
     }
 }

@@ -218,14 +218,7 @@ namespace easygenerator.AcceptanceTests.Steps
             //tmp
             //System.Threading.Thread.Sleep(3000);
         }
-
-        [When(@"sleep")]
-        public void WhenSleep()
-        {
-            System.Threading.Thread.Sleep(3000);
-        }
-
-
+                
         [When(@"click open publication list item with title '(.*)'")]
         public void WhenClickOpenPublicationListItemWithTitle(string title)
         {

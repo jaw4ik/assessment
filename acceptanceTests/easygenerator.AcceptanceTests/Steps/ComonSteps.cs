@@ -61,5 +61,11 @@ namespace easygenerator.AcceptanceTests.Steps
             System.Threading.Thread.Sleep(timeout);
         }
 
+        [When(@"sleep (.*) milliseconds")]
+        public void WhenSleepMillieconds(int timeout)
+        {
+            System.Threading.Thread.Sleep(timeout);
+        }
+
     }
 }

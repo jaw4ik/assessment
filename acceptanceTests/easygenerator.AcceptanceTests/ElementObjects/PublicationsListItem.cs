@@ -79,6 +79,30 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
+        public bool IsBuildingStatusDisplayed
+        {
+            get
+            {
+                return Container.FindElementByXPath(model.BuildingStatus).Displayed;
+            }
+        }
+
+        public bool IsCompleteStatusDisplayed
+        {
+            get
+            {                
+                return base.ExistsOnPage(model.CompleteStatus);                
+            }
+        }
+
+        public bool IsFailedStatusDisplayed
+        {
+            get
+            {
+                return base.ExistsOnPage(model.FailedStatus);
+            }
+        }
+
         internal void Open()
         {
             GetByXPathInside(model.OpenElement).Click();
