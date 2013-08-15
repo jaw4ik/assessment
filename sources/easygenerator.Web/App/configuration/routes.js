@@ -75,6 +75,12 @@
                 }
             },
             {
+                url: 'testPage',
+                moduleId: 'viewmodels/testPage',
+                name: 'testPage',
+                caption: 'testPage'
+            },
+            {
                 url: 'experience/:id',
                 moduleId: 'viewmodels/experiences/experience',
                 name: 'Experience',
