@@ -29,53 +29,12 @@
     <div class="objectives-content-wrapper">
         <div class="objectives-content">
             <div class="objectives-list-wrapper">
-                <ul class="unstyled objectives-list clearfix">
-                    <!-- ko foreach: objectives -->
-                    <li class="objective-brief" data-bind="css: { 'objective-brief-selected': isSelected() }">
-                        <div class="white-framing objective-brief-inner">
-                            <div>
-                                <div class="objective-brief-image" data-bind="style: { backgroundImage: 'url(' + image + ')' }">
-                                </div>
-                                <div class="objective-brief-toolbar">
-                                    <div class="objective-brief-title" data-bind="attr: { title: title }">
-                                        <span class="selectable" data-bind="text: title"></span>
-                                    </div>
-                                    <!--
-                                        -->
-                                    <div class="objective-brief-toolbar-question-count" data-bind="localize: { title: 'numberOfRelatedQuestions' }">
-                                        <div class="objective-brief-toolbar-icon-question"></div>
-                                        <div class="objective-question-count-text" data-bind="text: questionsCount"></div>
-                                    </div>
-                                </div>
-                                <div class="objective-brief-options">
-                                    <div class="objective-brief-options-select">
-                                        <!-- ko if: isSelected -->
-                                        <div data-bind="localize: { text: 'unselect' }">Unselect</div>
-                                        <!-- /ko-->
-                                        <!-- ko ifnot: isSelected -->
-                                        <div data-bind="localize: { text: 'select' }">Select</div>
-                                        <!-- /ko-->
-                                        <div class="objective-brief-options-select-image">
-                                            <input class="custom-checkbox" type="checkbox" />
-                                        </div>
-                                    </div>
-                                    <div class="objective-brief-options-separator"></div>
-                                    <div class="objective-brief-options-open">
-                                        <div data-bind="localize: { text: 'open' }">Open</div>
-                                        <div class="objective-brief-options-open-image"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <!-- /ko -->
-                </ul>
             </div>
         </div>
     </div>
     <hr>
     <ul>
-        <!-- ko foreach: objectives -->
+        <!-- ko foreach:objectives() -->
         <li class="li-test">
             <div class="obj-test">
             </div>
@@ -105,6 +64,9 @@
             height: 100%;
             position: absolute;
             top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background-color: black;
         }
         .li-test:hover .options-test {
