@@ -34,13 +34,13 @@
                 <div style="height: 70px; width: 100%;">
                     <img class="logo" alt="" src="../../../Content/images/multichoice-question.png">
                     <div class="item-options">
-                        <div class="item-option select" data-bind="click: $parent.toggleQuestionSelection">
+                        <div class="item-option select" data-bind="click: toggleSelection">
                             <!-- ko ifnot: isSelected() -->
                             <div class="nowrap">wwwww</div>
                             <div class="action-img unchecked inline">
                                 <input type="checkbox" class="custom-checkbox">
                             </div>
-                             <!-- /ko -->
+                            <!-- /ko -->
                             <!-- ko if: isSelected() -->
                             <div class="nowrap">wwww</div>
                             <div class="action-img checked inline">
@@ -62,4 +62,35 @@
         </li>
         <!-- /ko -->
     </ul>
+    <hr>
+    <ul>
+        <li class="test-wrapper">
+            <figure class="white-framing">
+                <img width="300" height="170" src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSquMn3u84SWcQvKAbmrlUicfv2bYY3197JsNsilftexOQYce-Z" alt=""/>
+                <div class="test-shadow"></div>
+            </figure>
+        </li>
+    </ul>
+    <style>
+           .white-framing {
+               position: relative;
+           }
+
+           .test-shadow {
+               display: none;
+               height: 100%;
+               width: 100%;
+               background-color: black;
+               position: absolute;
+               top: 0;
+           }
+
+           .test-wrapper {
+               float: left;
+           }
+
+         .test-wrapper:hover .test-shadow {
+             display: block;
+         }
+    </style>
 </section>
