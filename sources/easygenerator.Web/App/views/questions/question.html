@@ -8,41 +8,34 @@
             </div>
         </a>
     </div>
-    <div class="question-header clearfix">
-        <div class="absolute-left">
+
+    <header class="page-header-wrapper">
+        <aside class="nav-element-wrapper previous">
             <!-- ko if: hasPrevious -->
-            <a href="#" class="nav-element" title="Previous" data-bind="click: goToPreviousQuestion, localize: { title: 'previous' }">
-                <div class="question-nav-btn prev-btn inline"></div>
-            </a>
+            <a class="nav-element prev-btn" href="" title="Previous" data-bind="click: goToPreviousQuestion, localize: { title: 'previous' }"></a>
             <!-- /ko -->
             <!-- ko ifnot: hasPrevious -->
-            <div class="nav-element disabled" title="Previous" data-bind="localize: { title: 'previous' }">
-                <div class="question-nav-btn prev-btn inline"></div>
-            </div>
+            <span class="nav-element prev-btn disabled" title="Previous" data-bind="localize: { title: 'previous' }"></span>
             <!-- /ko -->
-        </div>
-        <div class="absolute-right">
-            <!-- ko if: hasNext -->
-            <a href="#" class="nav-element" title="Next" data-bind="click: goToNextQuestion, localize: { title: 'next' }">
-                <div class="question-nav-btn next-btn inline"></div>
-            </a>
-            <!-- /ko -->
-            <!-- ko ifnot: hasNext -->
-            <div class="nav-element disabled" title="Next" data-bind="localize: { title: 'next' }">
-                <div class="question-nav-btn next-btn inline"></div>
+        </aside>
+        <div class="page-header clearfix">
+            <div class="page-header-image white-framing">
+                <img alt="" class="question-image" src="/Content/images/multichoice-question.png" />
             </div>
-            <!-- /ko -->
-        </div>
-        <div class="question-info-container clearfix">
-            <div class="white-framing left">
-                <img class="question-image" src="/Content/images/multichoice-question.png" alt="" />
-            </div>
-            <div class="question-header-title">
+            <div class="page-header-info question-header-title">
                 <h2 class="page-header-title selectable" data-bind="text: title"></h2>
             </div>
         </div>
-    </div>
-    <div id="scroll-wrapper" class="question-content clearfix">
+        <aside class="nav-element-wrapper next">
+            <!-- ko if: hasNext -->
+            <a class="nav-element next-btn" href="" title="Next" data-bind="click: goToNextQuestion, localize: { title: 'next' }"></a>
+            <!-- /ko -->
+            <!-- ko ifnot: hasNext -->
+            <span class="nav-element next-btn disabled" title="Next" data-bind="localize: { title: 'next' }"></span>
+            <!-- /ko -->
+        </aside>
+    </header>
+    <div class="question-content clearfix">
         <div class="question-content-block question-answers">
             <div class="question-content-block-header-wrapper" data-bind="click: toggleAnswers">
                 <div class="question-content-block-header" data-bind="css: { 'shadow-bottom-curve': isAnswersBlockExpanded() }">

@@ -21,7 +21,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string ExplanationDeleteButton = ".//div[@class='question-explanation-delete-wrapper']";
 
         public string BackToObjectiveLink = ".//a[contains(@class,'inline nav-control')]";
-        public string QuestionTitle = ".//div[@class='question-header-title']";
+        public string QuestionTitle = ".//div[contains(@class,'question-header-title')]";
 
         public string AnswerOptionsBlock = ".//div[contains(@class,'question-answers')]";
         public string ExplanationsBlock = ".//div[contains(@class,'question-explanations')]";
@@ -29,8 +29,8 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string ExpandAnswerOptionsButton = "//div[contains(@class,'question-answers')]//span[contains(@class,'nav-element')]";
         public string ExpandExplanationsButton = "//div[contains(@class,'question-explanations')]//span[contains(@class,'nav-element')]";
 
-        public string NextQuestionButton = ".//a[@class='nav-element'and @title='Next']";
-        public string PreviousQuestionButton = ".//a[@class='nav-element'and @title='Previous']";
+        public string NextQuestionButton = ".//aside[contains(@class,'next')]//a[contains(@class,'next-btn')]";
+        public string PreviousQuestionButton = ".//aside[contains(@class,'previous')]//a[contains(@class,'prev-btn')]";
 
         public string AddNewAnswerOptionButton = ".//div[contains(@class,'question-answers')]//li[@class='add-button']//div[@class='question-answer-text']";
         //public string AnswerOptionActiveText = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[@class='question-answer-text']//p";

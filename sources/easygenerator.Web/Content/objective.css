@@ -55,29 +55,15 @@ a.nav-control:hover {
     text-overflow: ellipsis;
 }
 
-.objective-header {
-    height: 240px;
-    width: 100%;
-    padding: 5px 0 15px;
-}
-
 .objective-image {
     height: 158px;
     width: 270px;
     vertical-align: top;
 }
 
-.objective-info {
-    margin-left: 275px;
+.objective-header-title {
     padding: 15px;
-}
-
-.separator {
-    height: 100%;
-    width: 2%;
-    float: left;
-    background-color: #e0e0e0;
-    background-color: rgba(224, 224, 224, 0.5);
+    margin-left: 280px;
 }
 
 .objective-toolbar-remove-btn.nav-element {
@@ -109,8 +95,8 @@ a.nav-control:hover {
     font-size: 12px;
     margin-top: 4px;
     right: 26px;
-    border-radius: 7px;
     -webkit-border-radius: 7px;
     -moz-border-radius: 7px;
+    border-radius: 7px;
     text-align: center;
 }

@@ -2,7 +2,6 @@
  * easygenerator | Copyright 2013
  */
 
-
 /*===================================
 RESET CSS-STYLES IN FOREIGN BROWSERS 
 ===================================*/
@@ -99,8 +98,6 @@ input[type="checkbox"] {
     filter: alpha(opacity=0);
 }
 
-
-
 /**
  * Links.
  */
@@ -129,217 +126,6 @@ ol.unstyled  {
     list-style: none;
 }
 
-/* list of containers*/
-
-.content-list-wrapper {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #E1E1E1;
-    background-color: #fff;
-}
-
-.list-section-header {
-    height: 56px;
-    position: relative;
-    z-index: 0;
-    margin-bottom: 15px;
-    border: 1px solid #E1E1E1;
-}
-
-.list-section-header-inner {
-    height: 100%;
-    line-height: 54px;
-    padding-left: 16px;
-    background-color: #F5F5F5;
-    cursor: default;
-    border-left: 10px solid #f36c4f;
-}
-
-.list-section-header-icon {
-    height: 100%;
-    width: 40px;
-    float: left;
-}
-
-    .list-section-header-icon > i {
-        display: block;
-        width: 27px;
-        height: 27px;
-        position: relative;
-        top: 50%;
-        margin-top: -14px;
-        background-image: url(images/middle-size-icons-pack.png);
-        background-repeat: no-repeat;
-    }
-
-    .list-section-header-icon .explanation-icon {
-        background-position: center -194px;
-    }
-
-.list-section-header-title {
-    height: 100%;
-    line-height: 54px;
-    float: left;
-    color: #666666;
-    font-size: 16px;
-    text-transform: uppercase;
-}
-
-.content-list {
-    list-style: none outside none;
-}
-
-.content-list-item {
-    height: 120px;
-    border: 1px solid #E1E1E1;
-}
-
-    .content-list-item.selected {
-        background-color: #f5f5f5;
-    }
-
-    .content-list-item + .content-list-item {
-        margin-top: -1px;
-    }
-
-    .content-list-item .hover-indicator {
-        float: left;
-        height: 100%;
-        width: 10px;
-    }
-
-    .content-list-item:hover .hover-indicator {
-        background-color: #f26c4f;
-    }
-
-    .content-list-item .logo-wrapper {
-        float: left;
-        height: 100px;
-        width: 190px;
-        margin: 8px 10px;
-        position: relative;
-    }
-
-.logo-wrapper .logo {
-    height: 100%;
-    width: 100%;
-}
-
-.item-options {
-    display: none;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, .5);
-    color: #cecece;
-    text-align: center;
-    font-size: 12px;
-}
-
-
-.content-list-item:hover .item-options {
-    display: block;
-}
-
-.item-options .item-option {
-    position: relative;
-    float: left;
-    padding: 13px 0;
-    width: 49%;
-    height: 100%;
-}
-
-    .item-options .item-option:hover {
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-
-.item-option.select .action-img.unchecked {
-    background-position: 0 0;
-}
-
-.item-option.select .action-img.checked {
-    background-position: 0 -34px;
-}
-
-.item-option.open {
-    cursor: pointer;
-}
-
-    .item-option.open .action-img,
-    .item-option.edit .action-img {
-        background-position: 0 -102px;
-    }
-
-.item-options .separator {
-    height: 100%;
-    width: 2%;
-    float: left;
-    background-color: #e0e0e0;
-    background-color: rgba(224, 224, 224, 0.5);
-}
-
-.item-option .action-img {
-    width: 34px;
-    height: 34px;
-    background-image: url(images/small-options-icons.png);
-    -moz-background-size: 100%;
-    -o-background-size: 100%;
-    -webkit-background-size: 100%;
-    background-size: 100%;
-    background-repeat: no-repeat;
-}
-
-.content-list-item .text-block {
-    height: 100%;
-    line-height: 1.4;
-    margin-left: 215px;
-    padding: 10px;
-    color: #666;
-    font-size: 13px;
-    font-family: Arial, sans-serif;
-    -ms-word-break: break-all;
-    word-break: break-all;
-    min-height: 40px;
-}
-
-    .content-list-item .text-block textarea {
-        width: 100%;
-        height: 100%;
-        border: 1px solid transparent;
-        -ms-resize: none;
-        resize: none;
-        outline: none;
-        overflow-y: hidden;
-        background-color: transparent;
-        color: #666;
-        font-size: 13px;
-        font-family: Arial,sans-serif;
-    }
-
-    .content-list-item .text-block:hover > .editarea {
-        border: 1px solid #e1e1e1;
-        -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-        -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-    }
-
-    .content-list-item .text-block.active > .editarea {
-        border: 1px solid rgba(68, 192, 252, 0.4);
-        -webkit-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
-        -moz-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
-        box-shadow: 0 0 3px rgba(68, 192, 252, 1);
-    }
-
-    .content-list-item .text-block.error > .editarea {
-        border: 1px solid rgba(242, 108, 79, 0.4);
-        -webkit-box-shadow: 0 0 3px rgba(242, 108, 79, 1);
-        -moz-box-shadow: 0 0 3px rgba(242, 108, 79, 1);
-        box-shadow: 0 0 3px rgba(242, 108, 79, 1);
-    }
-
-
 /**
  * Images.
  */
@@ -358,20 +144,15 @@ COMMON CLASSES CSS-STYLES
  * Use for every container of floated elements.
  */
 
-.clearfix {
-    -ms-zoom: 1;
-    zoom: 1;
+.clear {
+    clear: both;
 }
 
-    .clearfix:before,
-    .clearfix:after {
-        content: "";
-        display: table;
-    }
-
-    .clearfix:after {
-        clear: both;
-    }
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
+}
 
 .inline {
     display: inline-block;
@@ -419,20 +200,6 @@ COMMON CLASSES CSS-STYLES
     -webkit-user-select: text;
     -ms-user-select: text;
     user-select: text;
-}
-
-/**
- * Titles
- */
-
-h2.page-header-title {
-    display: inline-block;
-    color: #666666;
-    font-size: 14px;
-    text-decoration: none;
-    text-transform: none;
-    word-break: break-all;
-    -ms-word-break: break-all;
 }
 
 /**
@@ -534,3 +301,307 @@ h2.page-header-title {
     font-size: 20px;
     font-weight: bold;
 }
+
+/**
+  *    info-header (image, title, navigation)
+  */
+
+.page-header-wrapper {
+    width: 100%;
+    margin: 11px 0 15px;
+}
+
+/**
+  *    Navigation elements
+  */
+
+.nav-element-wrapper {
+    display: table-cell;
+    width: 22px;
+    vertical-align: middle;
+}
+
+    .nav-element-wrapper.previous {
+        padding-right: 40px;
+    }
+
+    .nav-element-wrapper.next {
+        padding-left: 40px;
+    }
+
+@media (max-width: 779px) {
+    .nav-element-wrapper.previous {
+        padding-right: 20px;
+    }
+
+    .nav-element-wrapper.next {
+        padding-left: 20px;
+    }
+}
+
+.nav-element-wrapper .nav-element {
+    display: inline-block;
+    height: 32px;
+    width: 22px;
+    cursor: pointer;
+    background-image: url(images/middle-sized-icons-pack.png);
+    background-repeat: no-repeat;
+    opacity: 0.6;
+}
+
+    .nav-element-wrapper .nav-element:hover {
+        opacity: 1;
+    }
+
+    .nav-element-wrapper .nav-element.disabled {
+        opacity: 0.2;
+        cursor: default;
+    }
+
+.nav-element.prev-btn {
+    background-position: 0 -104px;
+}
+
+.nav-element.next-btn {
+    background-position: 0 -136px;
+}
+
+/**
+  *    Page info block
+  */
+
+.page-header {
+    display: table-cell;
+    width: 100%;
+}
+
+.page-header-image {
+    float: left;
+}
+
+.page-header-info {
+    -ms-word-break: break-all;
+    word-break: break-all;
+}
+
+h2.page-header-title {
+    color: #666;
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: none;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+}
+
+/**
+  *    List of page items
+  */
+
+.content-list-wrapper {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #E1E1E1;
+    background-color: #fff;
+}
+
+.list-section-header {
+    height: 56px;
+    position: relative;
+    z-index: 0;
+    margin-bottom: 15px;
+    border: 1px solid #E1E1E1;
+}
+
+.list-section-header-inner {
+    height: 100%;
+    line-height: 54px;
+    padding-left: 16px;
+    background-color: #F5F5F5;
+    cursor: default;
+    border-left: 10px solid #f36c4f;
+}
+
+.list-section-header-icon {
+    height: 100%;
+    width: 40px;
+    float: left;
+}
+
+    .list-section-header-icon > i {
+        display: block;
+        width: 27px;
+        height: 27px;
+        position: relative;
+        top: 50%;
+        margin-top: -14px;
+        background-image: url(images/middle-sized-icons-pack.png);
+        background-repeat: no-repeat;
+    }
+
+    .list-section-header-icon .explanation-icon {
+        background-position: center -195px;
+    }
+
+.list-section-header-title {
+    height: 100%;
+    line-height: 54px;
+    float: left;
+    color: #666666;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.content-list {
+    list-style: none outside none;
+}
+
+.content-list-item {
+    height: 120px;
+    border: 1px solid #E1E1E1;
+}
+
+    .content-list-item.selected {
+        background-color: #f5f5f5;
+    }
+
+    .content-list-item + .content-list-item {
+        margin-top: -1px;
+    }
+
+    .content-list-item .hover-indicator {
+        float: left;
+        height: 100%;
+        width: 10px;
+    }
+
+    .content-list-item:hover .hover-indicator {
+        background-color: #f26c4f;
+    }
+
+    .content-list-item .logo-wrapper {
+        float: left;
+        height: 100px;
+        width: 190px;
+        margin: 8px 10px;
+        position: relative;
+    }
+
+.logo-wrapper .logo {
+    height: 100%;
+    width: 100%;
+}
+
+.item-options {
+    display: none;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .5);
+    color: #cecece;
+    text-align: center;
+    font-size: 12px;
+}
+
+
+.content-list-item:hover .item-options {
+    display: block;
+}
+
+.item-options .item-option {
+    position: relative;
+    float: left;
+    padding: 13px 0;
+    width: 49%;
+    height: 100%;
+}
+
+    .item-options .item-option:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+.item-option.select .action-img.unchecked {
+    background-position: 0 0;
+}
+
+.item-option.select .action-img.checked {
+    background-position: 0 -34px;
+}
+
+.item-option.open,
+.item-option.edit {
+    cursor: pointer;
+}
+
+    .item-option.open .action-img,
+    .item-option.edit .action-img {
+        background-position: 0 -102px;
+    }
+
+.item-options .separator {
+    height: 100%;
+    width: 2%;
+    float: left;
+    background-color: #e0e0e0;
+    background-color: rgba(224, 224, 224, 0.5);
+}
+
+.item-option .action-img {
+    width: 34px;
+    height: 34px;
+    background-image: url(images/small-options-icons.png);
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.content-list-item .text-block {
+    height: 100%;
+    line-height: 1.4;
+    margin-left: 215px;
+    padding: 10px;
+    color: #666;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    min-height: 40px;
+}
+
+    .content-list-item .text-block textarea {
+        width: 100%;
+        height: 100%;
+        border: 1px solid transparent;
+        -ms-resize: none;
+        resize: none;
+        outline: none;
+        overflow-y: hidden;
+        background-color: transparent;
+        color: #666;
+        font-size: 13px;
+        font-family: Arial,sans-serif;
+    }
+
+    .content-list-item .text-block:hover > .editarea {
+        border: 1px solid #e1e1e1;
+        -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .content-list-item .text-block.active > .editarea {
+        border: 1px solid rgba(68, 192, 252, 0.4);
+        -webkit-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
+        -moz-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
+        box-shadow: 0 0 3px rgba(68, 192, 252, 1);
+    }
+
+    .content-list-item .text-block.error > .editarea {
+        border: 1px solid rgba(242, 108, 79, 0.4);
+        -webkit-box-shadow: 0 0 3px rgba(242, 108, 79, 1);
+        -moz-box-shadow: 0 0 3px rgba(242, 108, 79, 1);
+        box-shadow: 0 0 3px rgba(242, 108, 79, 1);
+    }

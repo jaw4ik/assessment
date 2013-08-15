@@ -51,71 +51,16 @@
     background-position: 0 -134px;
 }
 
-
-.experience-header-wrapper {
-    padding: 15px 0;
-    width: 100%;
-}
-
-
-.experience-header-wrapper-nav-container {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-.experience-header-wrapper-nav-btn {
-    display: block;
-    -moz-min-width: 17px;
-    -ms-min-width: 17px;
-    -webkit-min-width: 17px;
-    min-width: 17px;
-    width: 17px;
-    height: 50px;
-    background-image: url('images/nav-buttons.png');
-    background-repeat: no-repeat;
-    text-decoration: none;
-    opacity: 0.6;
-}
-
-    .experience-header-wrapper-nav-btn:hover {
-        opacity: 1;
-    }
-
-    .experience-header-wrapper-nav-btn.previous {
-        margin-right: 50px;
-        background-position: left center;
-    }
-
-    .experience-header-wrapper-nav-btn.next {
-        margin-left: 50px;
-        background-position: right center;
-    }
-
-    .experience-header-wrapper-nav-btn.disabled {
-        opacity: 0.2;
-    }
-
-
-.experience-header {
-    display: table-cell;
-    width: 100%;
-}
-
-.experience-header-image {
+.experience-image {
     width: 270px;
     height: 158px;
     vertical-align: top;
 }
 
-
 .experience-header-title {
-    margin-left: 295px;
-    padding-top: 10px;
-    -ms-word-break: break-all;
-    word-break: break-all;
+    margin-left: 280px;
+    padding: 15px;
 }
-
-
 
 .experience-related-objectives-header {
     display: inline-block;
