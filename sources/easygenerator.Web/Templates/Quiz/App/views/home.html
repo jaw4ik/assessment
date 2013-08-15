@@ -19,5 +19,5 @@
     <div class="btn-group btn-group-justified" data-bind="visible: isEndScroll()">
         <a class="btn btn-default" data-bind="click: submit">Submit</a>
     </div>
-    <div data-bind="scroll: !(itemsQuestion().length == questions().length), scrollOptions: { loadFunc: getItems, offset: 5 }"></div>
+    <div data-bind="scroll: !(itemsQuestion().length == questions.length), scrollOptions: { loadFunc: getItems, offset: 5 }"></div>
 </section>

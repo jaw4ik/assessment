@@ -608,6 +608,7 @@
     <Content Include="Templates\Default\js\vendor.min.js">
       <DependentUpon>vendor.js.bundle</DependentUpon>
     </Content>
+    <Content Include="Templates\Quiz\App\browserSupport.js" />
     <Content Include="Templates\Quiz\App\context.js" />
     <Content Include="Templates\Quiz\App\durandal\amd\almond-custom.js" />
     <Content Include="Templates\Quiz\App\durandal\amd\optimizer.exe" />
@@ -629,13 +630,24 @@
     <Content Include="Templates\Quiz\App\durandal\viewModel.js" />
     <Content Include="Templates\Quiz\App\durandal\viewModelBinder.js" />
     <Content Include="Templates\Quiz\App\durandal\widget.js" />
-    <Content Include="Templates\Quiz\App\main-built.js" />
     <Content Include="Templates\Quiz\App\main.js" />
+    <Content Include="Templates\Quiz\App\specs.html" />
+    <Content Include="Templates\Quiz\App\viewmodels\400.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\400.spec.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\404.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\404.spec.js" />
     <Content Include="Templates\Quiz\App\viewmodels\explanations.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\explanations.spec.js" />
     <Content Include="Templates\Quiz\App\viewmodels\home.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\home.spec.js" />
     <Content Include="Templates\Quiz\App\viewmodels\notsupportedbrowser.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\notsupportedbrowser.spec.js" />
     <Content Include="Templates\Quiz\App\viewmodels\shell.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\shell.spec.js" />
     <Content Include="Templates\Quiz\App\viewmodels\summary.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\summary.spec.js" />
+    <Content Include="Templates\Quiz\App\views\400.html" />
+    <Content Include="Templates\Quiz\App\views\404.html" />
     <Content Include="Templates\Quiz\App\views\explanations.html" />
     <Content Include="Templates\Quiz\App\views\home.html" />
     <Content Include="Templates\Quiz\App\views\notsupportedbrowser.html" />
@@ -686,6 +698,7 @@
     <Content Include="Templates\Quiz\css\images\icon.png" />
     <Content Include="Templates\Quiz\css\images\ios-startup-image-landscape.png" />
     <Content Include="Templates\Quiz\css\images\ios-startup-image-portrait.png" />
+    <Content Include="Templates\Quiz\css\jasmine.css" />
     <Content Include="Templates\Quiz\css\normalize.css" />
     <Content Include="Templates\Quiz\css\styles.css" />
     <Content Include="Templates\Quiz\img\arrow_up.png" />
@@ -701,6 +714,10 @@
     <Content Include="Templates\Quiz\img\safari.png" />
     <Content Include="Templates\Quiz\index.html" />
     <Content Include="Templates\Quiz\js\bootstrap.min.js" />
+    <Content Include="Templates\Quiz\js\jasmine-1.3.1-console.js" />
+    <Content Include="Templates\Quiz\js\jasmine-1.3.1-html.js" />
+    <Content Include="Templates\Quiz\js\jasmine-1.3.1.js" />
+    <Content Include="Templates\Quiz\js\jasmine-matchers.js" />
     <Content Include="Templates\Quiz\js\jquery-1.9.1.js" />
     <Content Include="Templates\Quiz\js\knockout-2.2.1.js" />
     <Content Include="Templates\Quiz\js\q.js" />

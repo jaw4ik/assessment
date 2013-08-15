@@ -1,25 +1,29 @@
-﻿define(['viewmodels/home', 'durandal/plugins/router', 'context'], function (home, router, context) {
-    var objectives = ko.observableArray([]),
+﻿define(['durandal/plugins/router', 'context'], function (router, context) {
+    var
+        objectives = [],
         scores = [],
-        overallScore = ko.observable(0),
-        titleOfExperience = ko.observable(''),
+        overallScore = 0,
+
         tryAgain = function () {
-            home.isTryAgain(true);
+            context.isTryAgain = true;
             router.navigateTo('#/');
         },
+
         finish = function () {
-            alert('Doesn\'t work yet!');
+            alert('You overall score ' + this.overallScore + '%');
         },
+
         activate = function () {
-            if (home.objectives.length == 0)
+            var that = this;
+
+            if (context.testResult().length == 0)
                 return router.navigateTo('#/');
             else {
-                objectives([]);
+                that.objectives = [];
                 score = [];
-                overallScore(0);
-                titleOfExperience('Overall progress on "' + context.title + '"');
+                that.overallScore = 0;
 
-                objectives(_.map(home.objectives, function (objective) {
+                that.objectives = _.map(context.objectives, function (objective) {
                     return {
                         id: objective.id,
                         title: objective.title,
@@ -27,10 +31,10 @@
                         score: 0,
                         count: 0
                     };
-                }));
+                });
                 var result = 0;
 
-                _.each(home.itemsQuestion(), function (item) {
+                _.each(context.testResult(), function (item) {
                     _.each(item.answers, function (answer) {
                         if ((answer.isChecked() && answer.isCorrect) || (!answer.isChecked() && !answer.isCorrect)) {
                             result++;
@@ -43,22 +47,22 @@
                     });
                     result = 0;
                 });
-
+                
                 _.each(scores, function (score) {
-                    _.each(objectives(), function (objective) {
+                    _.each(that.objectives, function (objective) {
                         if (score.objectiveId == objective.id) {
                             objective.score += score.value;
                             objective.count++;
                         }
                     });
-                    overallScore(overallScore() + score.value);
+                    that.overallScore = that.overallScore + score.value;
                 });
 
-                overallScore(Math.round(overallScore() / scores.length));
+                that.overallScore = Math.round(that.overallScore / scores.length);
 
                 window.scroll(0, 0);
 
-                return _.each(objectives(), function (objective) {
+                return _.each(that.objectives, function (objective) {
                     objective.score = Math.round(objective.score / objective.count);
                 });
             }
@@ -68,7 +72,7 @@
         activate: activate,
         objectives: objectives,
         overallScore: overallScore,
-        titleOfExperience: titleOfExperience,
+        titleOfExperience: context.title,
         tryAgain: tryAgain,
         finish: finish
     };

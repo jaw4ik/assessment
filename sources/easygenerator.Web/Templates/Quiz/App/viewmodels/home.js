@@ -1,30 +1,30 @@
 ﻿define(['context', 'durandal/plugins/router'], function (context, router) {
 
-    var objectives = [],
-        questions = ko.observableArray([]),
-        itemsQuestion = ko.observableArray([]),
-        titleOfExperience = '',
+    var
+        objectives = [],
+        questions = [],
         step = 5,
         maxId = 0,
         countQuestionsLoaded = step,
         scrollId = '0',
         isEndScroll = ko.observable(false),
-        isTryAgain = ko.observable(false),
         isEndTest = ko.observable(false),
 
         getItems = function () {
-            for (var i = maxId; i < countQuestionsLoaded; i++) {
-                maxId++;
-                if (maxId == questions().length + 1) {
-                    isEndScroll(true);
-                    break;
-                } else if (maxId == questions().length) {
-                    itemsQuestion.push(questions()[i]);
-                    isEndScroll(true);
-                } else
-                    itemsQuestion.push(questions()[i]);
+            if (!isEndScroll()) {
+                for (var i = maxId; i < countQuestionsLoaded; i++) {
+                    maxId++;
+                    if (maxId == questions.length + 1) {
+                        isEndScroll(true);
+                        break;
+                    } else if (maxId == questions.length) {
+                        context.testResult.push(questions[i]);
+                        isEndScroll(true);
+                    } else
+                        context.testResult.push(questions[i]);
+                }
+                countQuestionsLoaded += step;
             }
-            countQuestionsLoaded += step;
         },
 
         submit = function () {
@@ -39,18 +39,17 @@
         },
 
         shuffleAndSetNumber = function () {
-            questions(_.shuffle(questions()));
+            questions = _.shuffle(questions);
 
-            var countOfQuestions = questions().length;
-            _.each(questions(), function (question, key) {
+            var countOfQuestions = questions.length;
+            _.each(questions, function (question, key) {
                 question.title = question.title + ' (Question ' + (key + 1) + ' of ' + countOfQuestions + ')';
             });
         },
 
         getQuestions = function (objectives) {
-            var questionsTemp = [];
             _.each(objectives, function (objective) {
-                questionsTemp.push(_.map(objective.questions, function (question) {
+                questions = questions.concat(_.map(objective.questions, function (question) {
                     return {
                         id: question.id,
                         objectiveId: objective.id,
@@ -70,17 +69,10 @@
                     };
                 }));
             });
-
-            _.each(questionsTemp, function (item) {
-                _.each(item, function (question) {
-                    questions.push(question);
-                });
-            });
         },
 
         activate = function () {
             if (this.objectives.length == 0) {
-                this.titleOfExperience = context.title;
 
                 this.objectives = _.map(context.objectives, function (item) {
                     return {
@@ -91,20 +83,21 @@
                     };
                 });
 
+                this.questions = [];
                 getQuestions(this.objectives);
 
                 shuffleAndSetNumber();
 
                 return getItems();
-            } else if (isTryAgain()) {
-                _.each(questions(), function (question) {
+            } else if (context.isTryAgain) {
+                _.each(questions, function (question) {
                     _.each(question.answers, function (answer) {
                         answer.isChecked(false);
                     });
                 });
                 isEndScroll(false);
-                isTryAgain(false);
-                itemsQuestion([]);
+                context.isTryAgain = false;
+                context.testResult([]);
                 countQuestionsLoaded = step;
                 maxId = 0;
                 window.scroll(0, 0);
@@ -127,13 +120,12 @@
         questions: questions,
         objectives: objectives,
         isEndScroll: isEndScroll,
-        itemsQuestion: itemsQuestion,
+        itemsQuestion: context.testResult,
         getItems: getItems,
         submit: submit,
         showExplanations: showExplanations,
         viewAttached: viewAttached,
         isEndTest: isEndTest,
-        titleOfExperience: titleOfExperience,
-        isTryAgain: isTryAgain
+        titleOfExperience: context.title
     };
 });

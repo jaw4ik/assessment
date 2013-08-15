@@ -4,8 +4,12 @@
         var
             objectives = [],
             title = '',
+            testResult = ko.observableArray([]),
+            isTryAgain = false,
+            
             initialize = function () {
                 var that = this;
+                
                 return $.ajax({
                     url: 'content/data.js?v=' + Math.random(),
                     contentType: 'application/json',
@@ -41,8 +45,10 @@
 
         return {
             initialize: initialize,
-
-            objectives: objectives
+            title: title,
+            objectives: objectives,
+            testResult: testResult,
+            isTryAgain: isTryAgain
         };
 
     });
