@@ -801,6 +801,92 @@ testRunner.Then("status failed is shown false for publication list item with tit
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Open, select and download actions become available after build on hover")]
+        public virtual void OpenSelectAndDownloadActionsBecomeAvailableAfterBuildOnHover()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Open, select and download actions become available after build on hover", ((string[])(null)));
+#line 255
+this.ScenarioSetup(scenarioInfo);
+#line hidden
+            TechTalk.SpecFlow.Table table56 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table56.AddRow(new string[] {
+                        "Experience1",
+                        "1"});
+#line 256
+testRunner.Given("publications are present in database", ((string)(null)), table56, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table57 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table57.AddRow(new string[] {
+                        "Objective11",
+                        "1"});
+#line 259
+testRunner.Given("objectives are present in database", ((string)(null)), table57, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table58 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table58.AddRow(new string[] {
+                        "Objective11",
+                        "1"});
+#line 262
+testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table58, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table59 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table59.AddRow(new string[] {
+                        "Question11",
+                        "1"});
+#line 265
+testRunner.Given("questions related to \'Objective11\' are present in database", ((string)(null)), table59, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table60 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Text",
+                        "isCorrect"});
+            table60.AddRow(new string[] {
+                        "AnswerOption11",
+                        "true"});
+            table60.AddRow(new string[] {
+                        "AnswerOption12",
+                        "false"});
+#line 268
+testRunner.Given("answer options related to \'Question11\' of \'Objective11\' are present in database", ((string)(null)), table60, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table61 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Explanation"});
+            table61.AddRow(new string[] {
+                        "Explanation11"});
+            table61.AddRow(new string[] {
+                        "Explanation12"});
+#line 272
+testRunner.Given("explanations related to \'Question11\' of \'Objective11\' are present in database", ((string)(null)), table61, "Given ");
+#line 276
+testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 277
+testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 278
+testRunner.And("click build publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 279
+testRunner.And("sleep 1000 milliseconds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 280
+testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 281
+testRunner.Then("Action open is enabled true for publications list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 282
+testRunner.And("Action select is enabled true for publications list item with title \'Experience1\'" +
+                    "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 283
+testRunner.And("Action download is enabled true for publications list item with title \'Experience" +
+                    "1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

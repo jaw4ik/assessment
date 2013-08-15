@@ -252,4 +252,34 @@ And click build publication list item with title 'Experience1'
 And sleep 10000 milliseconds
 Then status failed is shown false for publication list item with title 'Experience1' after build finished
 
+Scenario: Open, select and download actions become available after build on hover
+Given publications are present in database
+| Title       | Id |
+| Experience1 | 1  |
+Given objectives are present in database
+| Title       | Id |
+| Objective11 | 1  |
+Given objectives are linked to experiance 'Experience1'
+| Title       | Id |
+| Objective11 | 1  |
+Given questions related to 'Objective11' are present in database
+| Title      | Id |
+| Question11 | 1  |
+Given answer options related to 'Question11' of 'Objective11' are present in database
+| Text           | isCorrect |
+| AnswerOption11 | true      |
+| AnswerOption12 | false     |
+Given explanations related to 'Question11' of 'Objective11' are present in database
+| Explanation   |
+| Explanation11 |
+| Explanation12 |
+When open page by url 'http://localhost:5656/#/experiences'
+And mouse hover element of publications list with title 'Experience1'
+And click build publication list item with title 'Experience1'
+And sleep 1000 milliseconds
+And mouse hover element of publications list with title 'Experience1'
+Then Action open is enabled true for publications list item with title 'Experience1'
+And Action select is enabled true for publications list item with title 'Experience1'
+And Action download is enabled true for publications list item with title 'Experience1'
+
 
