@@ -68,7 +68,6 @@
     display: table-cell;
     white-space: nowrap;
 }
-
     .objectives-header-title.alone,
     .experiences-header-title.alone,
     .questions-header-title.alone {
@@ -209,6 +208,7 @@
 .objective-brief-inner {
     height: 100%;
     width: 100%;
+    position: relative;
     z-index: 10;
 }
 
@@ -242,8 +242,8 @@
 }
 
 .objective-brief:hover .objective-brief-options {
-    display: block;
     background-color: rgba(0, 0, 0, 0.4);
+    display: block;
 }
 
 .objective-brief-options-select,
