@@ -183,6 +183,8 @@
     <Content Include="App\repositories\experienceRepository.js" />
     <Content Include="App\repositories\objectiveBriefRepository.js" />
     <Content Include="App\repositories\objectiveBriefRepository.spec.js" />
+    <Content Include="App\repositories\questionRepository.js" />
+    <Content Include="App\repositories\questionRepository.spec.js" />
     <Content Include="App\services\buildExperience.js" />
     <Content Include="App\viewmodels\errors\400.js" />
     <Content Include="App\viewmodels\errors\404.js" />

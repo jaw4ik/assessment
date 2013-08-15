@@ -4,7 +4,6 @@
 
         var router = require('durandal/plugins/router'),
             eventTracker = require('eventTracker'),
-            dataContext = require('dataContext'),
             images = require('configuration/images'),
             constants = require('constants'),
             repository = require('repositories/objectiveRepository');
@@ -85,15 +84,16 @@
                         });
                     });
 
-                    it('should return undefined', function () {
+                    it('should resolve promise with undefined', function () {
                         var promise = viewModel.activate({ id: 'Invalid id' });
                         deferred.resolve(null);
 
                         waitsFor(function () {
-                            return promise.isFulfilled();
+                            return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise.inspect().value).toEqual(undefined);
+                            expect(promise.inspect().state).toEqual('fulfilled');
+                            expect(promise.inspect().value).toBe(undefined);
                         });
                     });
                 });
