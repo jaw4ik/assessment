@@ -46,19 +46,19 @@
                                     </div>
                                 </div>
                                 <div class="objective-brief-options">
-                                    <div class="objective-brief-options-select" data-bind="click: toggleSelection">
+                                    <div class="objective-brief-options-select">
                                         <!-- ko if: isSelected -->
                                         <div data-bind="localize: { text: 'unselect' }">Unselect</div>
                                         <!-- /ko-->
                                         <!-- ko ifnot: isSelected -->
                                         <div data-bind="localize: { text: 'select' }">Select</div>
                                         <!-- /ko-->
-                                        <div class="objective-brief-options-select-image" data-bind="css: { selected: isSelected() }">
+                                        <div class="objective-brief-options-select-image">
                                             <input class="custom-checkbox" type="checkbox" />
                                         </div>
                                     </div>
                                     <div class="objective-brief-options-separator"></div>
-                                    <div class="objective-brief-options-open" data-bind="click: $parent.navigateToDetails">
+                                    <div class="objective-brief-options-open">
                                         <div data-bind="localize: { text: 'open' }">Open</div>
                                         <div class="objective-brief-options-open-image"></div>
                                     </div>
