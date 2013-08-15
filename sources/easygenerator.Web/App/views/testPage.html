@@ -39,8 +39,10 @@
                                 <div class="objective-brief-toolbar">
                                     <div class="objective-brief-title" data-bind="attr: { title: title }">
                                         <span class="selectable" data-bind="text: title"></span>
-                                    </div><!--
-                                 --><div class="objective-brief-toolbar-question-count" data-bind="localize: { title: 'numberOfRelatedQuestions' }">
+                                    </div>
+                                    <!--
+                                        -->
+                                    <div class="objective-brief-toolbar-question-count" data-bind="localize: { title: 'numberOfRelatedQuestions' }">
                                         <div class="objective-brief-toolbar-icon-question"></div>
                                         <div class="objective-question-count-text" data-bind="text: questionsCount"></div>
                                     </div>
@@ -71,4 +73,42 @@
             </div>
         </div>
     </div>
+    <hr>
+    <ul>
+        <!-- ko foreach: objectives -->
+        <li class="li-test">
+            <div class="obj-test">
+            </div>
+            <div class="options-test"></div>
+        </li>
+        <!-- /ko -->
+    </ul>
+
+    <style>
+        .li-test {
+            display: inline-block;
+            position: relative;
+            width: 300px;
+            height: 150px;
+        }
+
+        .obj-test {
+            height: 100%;
+            width: 100%;
+            border: 1px solid red;
+            background-color: #c3c3c3;
+        }
+
+        .options-test {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            background-color: black;
+        }
+        .li-test:hover .options-test {
+            display: block;
+        }
+    </style>
 </section>
