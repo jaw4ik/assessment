@@ -178,14 +178,10 @@
     background-color: #232323;
 }
 
+.experience-brief-image-wrapper,
 .experience-brief-image {
     width: 100%;
     height: 100%;
-    background-image: url(images/experience.png);
-    -webkit-background-size: 100%;
-    -moz-background-size: 100%;
-    background-size: 100%;
-    background-repeat: no-repeat;
 }
 
 .experience-brief-option {

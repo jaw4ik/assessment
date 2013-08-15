@@ -199,14 +199,12 @@
     <Content Include="App\viewmodels\questions\createQuestion.spec.js" />
     <Content Include="App\viewmodels\questions\question.js" />
     <Content Include="App\viewmodels\questions\question.spec.js" />
-    <Content Include="App\viewmodels\testPage.js" />
     <Content Include="App\viewmodels\userproperties.js" />
     <Content Include="App\viewmodels\_layout.js" />
     <Content Include="App\views\common\navbar.html" />
     <Content Include="App\views\errors\404.html" />
     <Content Include="App\views\errors\400.html" />
     <Content Include="App\views\experiences\createExperience.html" />
-    <Content Include="App\views\testPage.html" />
     <Content Include="Content\ckeditor.css" />
     <Content Include="Content\experience.css" />
     <Content Include="Content\experiences.css" />
