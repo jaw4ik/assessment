@@ -34,36 +34,45 @@
             <!-- /ko -->
         </aside>
     </header>
-    <div class="content-list-wrapper">
-        <header class="list-section-header">
-            <div class="list-section-header-inner shadow-bottom-curve">
-                <div class="list-section-header-icon">
-                    <i class="explanation-icon"></i>
-                </div>
-                <div class="list-section-header-title">
-                    <span data-bind="localize: { text: 'relatedQuestions' }"></span>
-                </div>
+
+    <div class="questions-header">
+        <div class="questions-header-title" data-bind="css: { 'alone': questions().length <= 1 }">
+            <a class="questions-header-create-link" href="#" data-bind="click: navigateToCreateQuestion, localize: { title: 'addNewQuestion' }"></a>
+            <span data-bind="localize: { text: 'relatedQuestions' }"></span>
+            <span class="nav-element-wrapper objective-toolbar-remove-btn-wrapper">
                 <!-- ko if: canDeleteQuestions() -->
-                <div class="nav-element objective-toolbar-remove-btn" data-bind="click: deleteSelectedQuestions, localize: { title: 'remove' }">
-                    X
-                </div>
+                <span class="nav-element enabled" data-bind="click: deleteSelectedQuestions, localize: { title: 'remove' }">
+                    <span class="objective-toolbar-remove-icon"></span>
+                </span>
                 <!-- /ko -->
-                <div class="right" data-bind="visible: questions().length > 1">
-                    <div>
-                        <div class="questions-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }, localize: { title: 'ascending' }">
-                            <span data-bind="localize: { text: 'firstLetter' }"></span>
-                            &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
-                                <span data-bind="localize: { text: 'lastLetter' }"></span>
-                        </div>
-                        <div class="questions-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }, localize: { title: 'descending' }">
-                            <span data-bind="localize: { text: 'lastLetter' }"></span>
-                            &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
-                                <span data-bind="localize: { text: 'firstLetter' }"></span>
-                        </div>
-                    </div>
-                </div>
+                <!-- ko ifnot: canDeleteQuestions() -->
+                <span class="nav-element objective-toolbar-remove-btn disabled" data-bind="localize: { title: 'remove' }">
+                    <span class="objective-toolbar-remove-icon"></span>
+                </span>
+                <!-- /ko -->
+            </span>
+            <!-- ko: if questions().length > 1 -->
+            <hr />
+        </div>
+        <div class="questions-header-sort-label">
+            <span data-bind="localize: { text: 'sortByTitle' }"></span>
+        </div>
+        <div class="questions-header-sort-container">
+            <div class="questions-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }, localize: { title: 'ascending' }">
+                <span data-bind="localize: { text: 'firstLetter' }"></span>
+                &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
+                <span data-bind="localize: { text: 'lastLetter' }"></span>
             </div>
-        </header>
+            <div class="questions-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }, localize: { title: 'descending' }">
+                <span data-bind="localize: { text: 'lastLetter' }"></span>
+                &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
+                <span data-bind="localize: { text: 'firstLetter' }"></span>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+
+    <div class="content-list-wrapper objective-questions-list">
         <ul class="content-list unstyled">
             <!-- ko foreach: questions -->
             <li class="content-list-item" data-bind="css: { 'selected': isSelected }">

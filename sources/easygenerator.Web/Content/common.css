@@ -342,10 +342,7 @@ COMMON CLASSES CSS-STYLES
 
 .nav-element-wrapper .nav-element {
     display: inline-block;
-    height: 32px;
-    width: 22px;
     cursor: pointer;
-    background-image: url(images/middle-sized-icons-pack.png);
     background-repeat: no-repeat;
     opacity: 0.6;
 }
@@ -360,10 +357,16 @@ COMMON CLASSES CSS-STYLES
     }
 
 .nav-element.prev-btn {
+    height: 32px;
+    width: 22px;
+    background-image: url(images/middle-sized-icons-pack.png);
     background-position: 0 -104px;
 }
 
 .nav-element.next-btn {
+    height: 32px;
+    width: 22px;
+    background-image: url(images/middle-sized-icons-pack.png);
     background-position: 0 -136px;
 }
 

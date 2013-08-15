@@ -207,6 +207,7 @@
     <Content Include="App\views\errors\404.html" />
     <Content Include="App\views\errors\400.html" />
     <Content Include="App\views\experiences\createExperience.html" />
+    <Content Include="App\views\questions\createQuestion.html" />
     <Content Include="Content\ckeditor.css" />
     <Content Include="Content\experience.css" />
     <Content Include="Content\experiences.css" />

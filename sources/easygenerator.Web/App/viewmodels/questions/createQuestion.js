@@ -15,6 +15,7 @@
            };
 
         var objectiveId = null,
+         objectiveTitle = null,
          showValidation = ko.observable(),
          title = ko.observable('').extend({
              required: true,
@@ -50,7 +51,7 @@
 
             this.showValidation(false);
             sendEvent(events.saveAndCreate);
-            
+
             var that = this;
             return questionRepository.create(that.objectiveId, { title: that.title() }).then(function () {
                 that.title('');
@@ -74,6 +75,7 @@
                      }
 
                      that.objectiveId = objective.id;
+                     that.objectiveTitle = objective.title;
                      that.showValidation(false);
                      that.title('');
                      that.title.isEditing(true);
@@ -85,6 +87,7 @@
             objectiveId: objectiveId,
             title: title,
             showValidation: showValidation,
+            objectiveTitle: objectiveTitle,
 
             navigateToObjective: navigateToObjective,
             saveAndEdit: saveAndEdit,

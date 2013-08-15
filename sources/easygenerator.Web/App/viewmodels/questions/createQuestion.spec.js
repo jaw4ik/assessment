@@ -400,6 +400,20 @@
                         expect(viewModel.title.isEditing()).toBeTruthy();
                     });
                 });
+
+                it('should set objectiveTitle', function () {
+                    viewModel.objectiveTitle = null;
+
+                    var promise = viewModel.activate({ objectiveId: objective.id });
+                    deferred.resolve(objective);
+
+                    waitsFor(function () {
+                        return promise.isFulfilled();
+                    });
+                    runs(function () {
+                        expect(viewModel.objectiveTitle).toBe(objective.title);
+                    });
+                });
             });
         });
     });
