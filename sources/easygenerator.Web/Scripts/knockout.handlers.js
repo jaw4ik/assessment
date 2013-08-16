@@ -29,9 +29,7 @@ ko.bindingHandlers.keyPress = {
                     return;
 
                 try {
-                    var argsForAction = ko.utils.makeArray(arguments);
-                    argsForAction.unshift(viewModel);
-                    action.apply(viewModel, argsForAction);
+                    action.apply(viewModel);
                 } finally {
                     event.preventDefault();
                     event.returnValue = false;
