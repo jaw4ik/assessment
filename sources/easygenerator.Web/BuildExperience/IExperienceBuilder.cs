@@ -1,9 +1,9 @@
-﻿using easygenerator.Web.BuildExperience.BuildModel;
+﻿using easygenerator.Web.BuildExperience.PackageModel;
 
 namespace easygenerator.Web.BuildExperience
 {
     public interface IExperienceBuilder
     {
-        bool Build(ExperienceBuildModel viewModel);
+        bool Build(ExperiencePackageModel viewModel);
     }
 }

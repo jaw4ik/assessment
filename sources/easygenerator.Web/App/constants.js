@@ -18,7 +18,9 @@
                 answerOption: 60000,
                 explanation: 60000,
                 questionTitle: 5000
-            }
+            },
+
+            experienceShowStatusInterval: 10000
         };
     }
 );

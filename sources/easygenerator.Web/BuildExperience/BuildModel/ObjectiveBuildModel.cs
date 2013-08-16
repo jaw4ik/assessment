@@ -15,7 +15,6 @@ namespace easygenerator.Web.BuildExperience.BuildModel
         [Required]
         public string Image { get; set; }
 
-        [Required]
         public List<QuestionBuildModel> Questions { get; set; }
     }
 }

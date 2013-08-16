@@ -17,7 +17,7 @@ namespace easygenerator.Web.Tests.BuildExperience
         private Mock<HttpRuntimeWrapper> _httpRuntimeWrapperMock;
         private Mock<BuildPathProvider> _buildPathProviderMock;
         private Mock<BuildPackageCreator> _buildPackageCreatorMock;
-        private Mock<PackageModelMapper> _packageModelMapperMock;
+        
         private Mock<PackageModelSerializer> _packageModelSerializerMock;
 
         [TestInitialize]
@@ -32,24 +32,24 @@ namespace easygenerator.Web.Tests.BuildExperience
 
             _buildPackageCreatorMock = new Mock<BuildPackageCreator>(_fileManager.Object);
 
-            _packageModelMapperMock = new Mock<PackageModelMapper>();
+            
 
             _packageModelSerializerMock = new Mock<PackageModelSerializer>();
 
             _builder = new ExperienceBuilder(_fileManager.Object, _buildPathProviderMock.Object, _buildPackageCreatorMock.Object,
-                _packageModelMapperMock.Object, _packageModelSerializerMock.Object);
+                _packageModelSerializerMock.Object);
         }
 
-        private static ExperienceBuildModel CreateDefaultBuildModel()
+        private static ExperiencePackageModel CreateDefaultPackageModel()
         {
-            return new ExperienceBuildModel() { Id = "0", Objectives = new List<ObjectiveBuildModel>() };
+            return new ExperiencePackageModel() { Id = "0", Objectives = new List<ObjectivePackageModel>() };
         }
 
         [TestMethod]
         public void Build_ShouldReturnSuccess()
         {
             //Arrange
-            var buildModel = CreateDefaultBuildModel();
+            var buildModel = CreateDefaultPackageModel();
 
             //Act
             var result = _builder.Build(buildModel);
@@ -62,7 +62,7 @@ namespace easygenerator.Web.Tests.BuildExperience
         public void Build_ShouldCreateBuildFolder()
         {
             //Arrange
-            var buildModel = CreateDefaultBuildModel();
+            var buildModel = CreateDefaultPackageModel();
             string buildPath = "Some path";
 
             _buildPathProviderMock.Setup(instance => instance.GetBuildDirectoryName(buildModel.Id)).Returns(buildPath);
@@ -80,7 +80,7 @@ namespace easygenerator.Web.Tests.BuildExperience
         public void Build_ShouldDeleteBuildFolder()
         {
             //Arrange
-            var buildModel = CreateDefaultBuildModel();
+            var buildModel = CreateDefaultPackageModel();
 
             string buildPath = "Some path";
 
@@ -99,7 +99,7 @@ namespace easygenerator.Web.Tests.BuildExperience
         public void Build_ShouldCopyDefaultTemplate()
         {
             //Arrange
-            var buildModel = CreateDefaultBuildModel();
+            var buildModel = CreateDefaultPackageModel();
             string buildPath = "Some path";
             string templatePath = "Some template path";
 
@@ -119,12 +119,12 @@ namespace easygenerator.Web.Tests.BuildExperience
         public void Build_ShouldCreateFolderForObjectives()
         {
             //Arrange
-            var buildModel = CreateDefaultBuildModel();
+            var buildModel = CreateDefaultPackageModel();
             buildModel.Objectives.Add(
-                 new ObjectiveBuildModel()
+                 new ObjectivePackageModel()
                  {
                      Id = "0",
-                     Questions = new List<QuestionBuildModel>()
+                     Questions = new List<QuestionPackageModel>()
                  }
              );
 
@@ -145,14 +145,14 @@ namespace easygenerator.Web.Tests.BuildExperience
         public void Build_ShouldCreateFolderForQuestions()
         {
             //Arrange
-            var buildModel = CreateDefaultBuildModel();
+            var buildModel = CreateDefaultPackageModel();
             buildModel.Objectives.Add(
-                new ObjectiveBuildModel()
+                new ObjectivePackageModel()
                 {
                     Id = "1",
-                    Questions = new List<QuestionBuildModel>()
+                    Questions = new List<QuestionPackageModel>()
                      {
-                         new QuestionBuildModel() { Id = "1", Explanations = new List<ExplanationBuildModel>()}
+                         new QuestionPackageModel() { Id = "1", Explanations = new List<ExplanationPackageModel>()}
                      }
                 }
             );
@@ -174,19 +174,19 @@ namespace easygenerator.Web.Tests.BuildExperience
         public void Build_ShouldCreateExplanationFiles()
         {
             //Arrange
-            var buildModel = CreateDefaultBuildModel();
+            var buildModel = CreateDefaultPackageModel();
             buildModel.Objectives.Add(
-                new ObjectiveBuildModel()
+                new ObjectivePackageModel()
                 {
                     Id = "1",
-                    Questions = new List<QuestionBuildModel>()
+                    Questions = new List<QuestionPackageModel>()
                      {
-                         new QuestionBuildModel()
+                         new QuestionPackageModel()
                          { 
                              Id = "1", 
-                             Explanations = new List<ExplanationBuildModel>()
+                             Explanations = new List<ExplanationPackageModel>()
                              {
-                                 new ExplanationBuildModel() { Id = "1", Text = "Some text 1" }
+                                 new ExplanationPackageModel() { Id = "1", Text = "Some text 1" }
                              }
                          }
                      }
@@ -207,60 +207,11 @@ namespace easygenerator.Web.Tests.BuildExperience
         }
 
         [TestMethod]
-        public void Build_ShouldClearExplanationTextInViewModel()
-        {
-            //Arrange
-            var buildModel = CreateDefaultBuildModel();
-            buildModel.Objectives.Add(new ObjectiveBuildModel()
-                {
-                    Id = "1",
-                    Questions = new List<QuestionBuildModel>()
-                     {
-                         new QuestionBuildModel()
-                         {
-                             Id = "1",
-                             Explanations = new List<ExplanationBuildModel>()
-                             {
-                                 new ExplanationBuildModel()
-                                 {
-                                     Id = "1",
-                                     Text = "Some text 1"
-                                 }
-                             }
-                         }
-                     }
-                });
-
-            //Act
-            _builder.Build(buildModel);
-
-            //Assert
-            Assert.AreEqual(String.Empty, buildModel.Objectives[0].Questions[0].Explanations[0].Text);
-        }
-
-        [TestMethod]
-        public void Build_ShouldCreatePackageModel()
-        {
-            //Arrange
-            var buildModel = CreateDefaultBuildModel();
-            _packageModelMapperMock.Setup(instance => instance.MapExperienceBuildModel(buildModel));
-
-            //Act
-            _builder.Build(buildModel);
-
-            //Assert
-            _packageModelMapperMock.VerifyAll();
-        }
-
-        [TestMethod]
         public void Build_ShouldSerializePackageModel()
         {
             //Arrange
-            var buildModel = CreateDefaultBuildModel();
-            var packageModel = new ExperiencePackageModel();
-            _packageModelMapperMock.Setup(instance => instance.MapExperienceBuildModel(It.IsAny<ExperienceBuildModel>()))
-                .Returns(packageModel);
-            _packageModelSerializerMock.Setup(instance => instance.Serialize(packageModel));
+            var buildModel = CreateDefaultPackageModel();
+            _packageModelSerializerMock.Setup(instance => instance.Serialize(buildModel));
 
             //Act
             _builder.Build(buildModel);

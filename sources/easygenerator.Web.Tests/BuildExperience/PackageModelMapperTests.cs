@@ -137,6 +137,128 @@ namespace easygenerator.Web.Tests.BuildExperience
             Assert.AreEqual(experienceBuildModel.Objectives.Count, result.Objectives.Count);
         }
 
+        [TestMethod]
+        public void MapExperienceBuildModel_ShouldIgnoreQuestionsWithoutAnswerOptionsAndExplanations()
+        {
+            //Arrange
+            var experienceBuildModel = GetExperienceBuildModel();
+            experienceBuildModel.Objectives[0].Questions.Add(new QuestionBuildModel()
+            {
+                Id = "1",
+                Title = "Some text1",
+                AnswerOptions = null,
+                Explanations = null
+            });
+
+            //Act
+            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
+
+            //Assert
+            Assert.AreEqual(1, result.Objectives[0].Questions.Count);
+            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].Id, result.Objectives[0].Questions[0].Id);
+        }
+
+        [TestMethod]
+        public void MapExperienceBuildModel_ShouldIgnoreObjectivesWithoutQuestions()
+        {
+            //Arrange
+            var experienceBuildModel = GetExperienceBuildModel();
+            experienceBuildModel.Objectives.Add(
+                new ObjectiveBuildModel()
+                    {
+                        Id = "1",
+                        Title = "Some text",
+                        Image = "Some image url",
+                        Questions = null
+                    });
+            //Act
+            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
+
+            //Assert
+            Assert.AreEqual(1, result.Objectives.Count);
+            Assert.AreEqual(experienceBuildModel.Objectives[0].Id, result.Objectives[0].Id);
+        }
+
+        [TestMethod]
+        public void MapExperienceBuildModel_ShouldIgnoreObjectivesWithFilteredQuestions()
+        {
+            //Arrange
+            var experienceBuildModel = GetExperienceBuildModel();
+            experienceBuildModel.Objectives.Add(
+                new ObjectiveBuildModel()
+                {
+                    Id = "1",
+                    Title = "Some text",
+                    Image = "Some image url",
+                    Questions = new List<QuestionBuildModel>()
+                    {
+                        new QuestionBuildModel()
+                        {
+                            Id = "Some Id",
+                            AnswerOptions = null,
+                            Explanations = null
+                        }   
+                    }
+                });
+            //Act
+            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
+
+            //Assert
+            Assert.AreEqual(1, result.Objectives.Count);
+            Assert.AreEqual(experienceBuildModel.Objectives[0].Id, result.Objectives[0].Id);
+        }
+
+        [TestMethod]
+        public void MapExperienceBuildModel_ShouldReturnEmptyListOfAswers_WhenAswerOptionsIsNull()
+        {
+            //Arrange
+            var experienceBuildModel = GetExperienceBuildModel();
+            experienceBuildModel.Objectives[0].Questions.Add(new QuestionBuildModel()
+            {
+                Id = "1",
+                Title = "Some text1",
+                AnswerOptions = null,
+                Explanations = new List<ExplanationBuildModel>() { new ExplanationBuildModel() { Id = "Some Id", Text = "Some Text" } }
+            });
+            //Act
+            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
+
+            //Assert
+            Assert.IsNotNull(result.Objectives[0].Questions[1].Answers);
+        }
+
+        [TestMethod]
+        public void MapExperienceBuildModel_ShouldReturnEmptyListOfExplanations_WhenSourceExplanationsIsNull()
+        {
+            //Arrange
+            var experienceBuildModel = GetExperienceBuildModel();
+            experienceBuildModel.Objectives[0].Questions.Add(new QuestionBuildModel()
+            {
+                Id = "1",
+                Title = "Some text1",
+                AnswerOptions = new List<AnswerOptionBuildModel>() { new AnswerOptionBuildModel() { Id = "Some Id", IsCorrect = true, Text = "Some text" } },
+                Explanations = null
+            });
+            //Act
+            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
+
+            //Assert
+            Assert.IsNotNull(result.Objectives[0].Questions[1].Explanations);
+        }
+
+        [TestMethod]
+        public void MapExperienceBuildModel_ShouldReturnEmptyListOfObjectives_WhenSourceObjectivesIsNull()
+        {
+            //Arrange
+            var experienceBuildModel = GetExperienceBuildModel();
+            experienceBuildModel.Objectives = null;
+            //Act
+            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
+
+            //Assert
+            Assert.IsNotNull(result.Objectives);
+        }
+
         #endregion
     }
 }

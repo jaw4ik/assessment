@@ -8,7 +8,7 @@
             dataContext = require('dataContext'),
             experienceModel = require('models/experience'),
             constants = require('constants'),
-            http = require('durandal/http');
+            experienceService = require('services/buildExperience');
 
         var
             eventsCategory = 'Experiences',
@@ -72,6 +72,161 @@
                     viewModel.activate();
                     expect(viewModel.experiences()).toBeSortedAsc('title');
                     expect(viewModel.currentSortingOption()).toBe(constants.sortingOptions.byTitleAsc);
+                });
+
+                describe('when previous showBuildingStatus is not set', function () {
+
+                    var dataExperience;
+
+                    beforeEach(function () {
+                        dataContext.experiences = [];
+                        viewModel.activate();
+                        viewModel.deactivate();
+                        
+                        dataContext.experiences = experiences;
+                        dataExperience = dataContext.experiences[0];
+                    });
+
+                    describe('and buildingStatus is \"Not started\"', function () {
+
+                        beforeEach(function () {
+                            dataExperience.buildingStatus = constants.buildingStatuses.notStarted;
+                        });
+
+                        it('should set current showBuildingStatus to \"false\"', function () {
+                            viewModel.activate();
+                            var viewExperience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
+                            expect(viewExperience.showBuildingStatus()).toBe(false);
+                        });
+
+                    });
+
+                    describe('and buildingStatus is not \"Not started\"', function () {
+
+                        beforeEach(function () {
+                            dataExperience.buildingStatus = constants.buildingStatuses.succeed;
+                        });
+
+                        it('should set current showBuildingStatus to \"true\"', function () {
+                            viewModel.activate();
+                            var viewExperience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
+                            expect(viewExperience.showBuildingStatus()).toBe(true);
+                        });
+
+                        describe('and timeout after ' + constants.experienceShowStatusInterval + ' ms', function () {
+
+                            it('should change showBuildingStatus to \"false\"', function () {
+                                jasmine.Clock.useMock();
+                                viewModel.activate();
+                                var viewExperience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
+                                jasmine.Clock.tick(constants.experienceShowStatusInterval);
+
+                                expect(viewExperience.showBuildingStatus()).toBe(false);
+                            });
+
+                        });
+
+                    });
+
+                });
+
+                describe('when previous showBuildingStatus is \"false\"', function () {
+                    var dataExperience;
+
+                    beforeEach(function () {
+                        dataContext.experiences = experiences;
+                        dataExperience = dataContext.experiences[0];
+                        viewModel.activate();
+                        var viewExperience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
+                        viewExperience.buildingStatus(constants.buildingStatuses.notStarted);
+                        viewExperience.showBuildingStatus(false);
+                        viewModel.deactivate();
+                    });
+
+                    describe('and buildingStatus is not changed', function () {
+
+                        beforeEach(function () {
+                            dataExperience.buildingStatus = constants.buildingStatuses.notStarted;
+                        });
+
+                        it('should set current showBuildingStatus to \"false\"', function () {
+                            viewModel.activate();
+                            var viewExperience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
+                            expect(viewExperience.showBuildingStatus()).toBe(false);
+                        });
+
+                    });
+
+                    describe('and buildingStatus is changed', function () {
+
+                        beforeEach(function () {
+                            dataExperience.buildingStatus = constants.buildingStatuses.succeed;
+                        });
+
+                        it('should set current showBuildingStatus to \"true\"', function () {
+                            viewModel.activate();
+                            var viewExperience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
+                            expect(viewExperience.showBuildingStatus()).toBe(true);
+                        });
+
+                        describe('and timeout after ' + constants.experienceShowStatusInterval + ' ms', function () {
+
+                            it('should change showBuildingStatus to \"false\"', function () {
+                                jasmine.Clock.useMock();
+                                viewModel.activate();
+                                var viewExperience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
+                                jasmine.Clock.tick(constants.experienceShowStatusInterval);
+
+                                expect(viewExperience.showBuildingStatus()).toBe(false);
+                            });
+
+                        });
+
+                    });
+
+                });
+
+                describe('when previous showBuildingStatus is \"true\"', function () {
+                    var dataExperience;
+
+                    beforeEach(function () {
+                        dataContext.experiences = experiences;
+                        dataExperience = dataContext.experiences[0];
+                        viewModel.activate();
+                        var viewExperience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
+
+                        viewExperience.showBuildingStatus(true);
+                        viewModel.deactivate();
+                    });
+
+                    it('should set current showBuildingStatus to \"true\"', function () {
+                        viewModel.activate();
+                        
+                        var viewExperience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
+                        expect(viewExperience.showBuildingStatus()).toBe(true);
+                    });
+
+                    describe('and timeout after ' + constants.experienceShowStatusInterval + ' ms', function () {
+
+                        it('should change showBuildingStatus to \"false\"', function () {
+                            jasmine.Clock.useMock();
+                            viewModel.activate();
+                            var viewExperience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
+                            jasmine.Clock.tick(constants.experienceShowStatusInterval);
+                            
+                            expect(viewExperience.showBuildingStatus()).toBe(false);
+                        });
+
+                    });
+
+                });
+
+            });
+
+            describe('deactivate', function () {
+
+                it('should be a function', function () {
+                    expect(viewModel.deactivate).toBeFunction();
                 });
 
             });
@@ -264,23 +419,18 @@
 
             });
 
-            describe('excludeEmptyObjectives:', function () {
-
-
-
-
-            });
-
             describe('buildExperience', function () {
-                var deferred;
+                var deferred,
+                    experience;
 
                 beforeEach(function () {
                     dataContext.experiences = experiences;
                     viewModel.activate();
+                    experience = viewModel.experiences()[0];
+                    deferred = Q.defer();
 
                     spyOn(eventTracker, 'publish');
-                    deferred = $.Deferred();
-                    spyOn(http, 'post').andReturn(deferred.promise());
+                    spyOn(experienceService, 'build').andReturn(deferred.promise);
                 });
 
                 it('should be a function', function () {
@@ -288,41 +438,18 @@
                 });
 
                 it('should return promise', function () {
-                    var experience = viewModel.experiences()[0],
-                        promise;
-
-                    promise = viewModel.buildExperience(experience);
+                    var promise = viewModel.buildExperience(experience);
 
                     expect(promise).toBePromise();
                 });
 
                 it('should send event \"Build experience\"', function () {
-                    var experience = viewModel.experiences()[0];
-
                     viewModel.buildExperience(experience);
 
                     expect(eventTracker.publish).toHaveBeenCalledWith('Build experience', eventsCategory);
                 });
 
-                it('should send event \"Experience build is failed\" when request is failed', function () {
-                    var experience = viewModel.experiences()[0],
-                            promise;
-
-                    deferred.reject();
-
-                    promise = viewModel.buildExperience(experience);
-
-                    waitsFor(function () {
-                        return promise.state() == 'rejected';
-                    });
-
-                    runs(function () {
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Experience build is failed', eventsCategory);
-                    });
-                });
-
                 it('should reset item selection', function () {
-                    var experience = viewModel.experiences()[0];
                     experience.isSelected(true);
 
                     viewModel.buildExperience(experience);
@@ -331,7 +458,6 @@
                 });
 
                 it('should show building status', function () {
-                    var experience = viewModel.experiences()[0];
                     experience.showBuildingStatus(false);
 
                     viewModel.buildExperience(experience);
@@ -339,154 +465,140 @@
                     expect(experience.showBuildingStatus()).toBe(true);
                 });
 
-                it('should send request to server', function () {
-                    var experience = viewModel.experiences()[0],
-                        experienceData;
-
-                    experienceData = _.find(experiences, function (item) {
-                        return item.id == experience.id;
-                    });
-
+                it('should call buildExperience service', function () {
                     viewModel.buildExperience(experience);
 
-                    expect(http.post).toHaveBeenCalledWith('experience/build', experienceData);
+                    expect(experienceService.build).toHaveBeenCalledWith(experience.id);
                 });
 
-                describe('should change experience building status to:', function () {
+                describe('when build is started', function () {
 
-                    it('\"inProgress\" when build is started', function () {
-                        var experience = viewModel.experiences()[0];
-
+                    it('should change experience building status to \"inProgress\"', function () {
                         viewModel.buildExperience(experience);
 
                         expect(experience.buildingStatus()).toBe(constants.buildingStatuses.inProgress);
                     });
 
-                    it('\"succeed\" when responce is succeed', function () {
-                        var experience = viewModel.experiences()[0],
-                            promise;
+                });
 
-                        deferred.resolve({ Success: true });
+                describe('when build is finished', function () {
 
-                        promise = viewModel.buildExperience(experience);
+                    describe('and buildExperience service return \"true\"', function () {
 
-                        waitsFor(function () {
-                            return promise.state() == 'resolved';
+                        beforeEach(function () {
+                            deferred.resolve(true);
                         });
-                        runs(function () {
-                            expect(experience.buildingStatus()).toEqual(constants.buildingStatuses.succeed);
+
+                        it('should change experience building status to \"succeed\"', function () {
+                            var promise = viewModel.buildExperience(experience);
+
+                            waitsFor(function () {
+                                return promise.isFulfilled();
+                            });
+
+                            runs(function () {
+                                expect(experience.buildingStatus()).toEqual(constants.buildingStatuses.succeed);
+                            });
                         });
+
+                        describe('and timeout after ' + constants.experienceShowStatusInterval + ' ms', function () {
+
+                            it('should hide progress status', function () {
+                                var promise = viewModel.buildExperience(experience);
+                                jasmine.Clock.useMock();
+
+                                waitsFor(function () {
+                                    return promise.isFulfilled();
+                                });
+
+                                runs(function () {
+                                    jasmine.Clock.tick(constants.experienceShowStatusInterval);
+                                    expect(experience.showBuildingStatus()).toBe(false);
+                                });
+                            });
+
+                        });
+
                     });
 
-                    it('\"failed\" when response is failed', function () {
-                        var experience = viewModel.experiences()[0],
-                            promise;
+                    describe('and buildExperience service return \"false\"', function () {
 
-                        deferred.resolve({ Success: false });
-
-                        promise = viewModel.buildExperience(experience);
-
-                        waitsFor(function () {
-                            return promise.state() == 'resolved';
+                        beforeEach(function () {
+                            deferred.resolve(false);
                         });
 
-                        runs(function () {
-                            expect(experience.buildingStatus()).toEqual(constants.buildingStatuses.failed);
-                        });
-                    });
+                        it('should change experience building status to \"failed\"', function () {
+                            var promise = viewModel.buildExperience(experience);
 
-                    it('\"failed\" when request is failed', function () {
-                        var experience = viewModel.experiences()[0],
-                            promise;
+                            waitsFor(function () {
+                                return promise.isFulfilled();
+                            });
 
-                        deferred.reject();
-
-                        promise = viewModel.buildExperience(experience);
-
-                        waitsFor(function () {
-                            return promise.state() == 'rejected';
+                            runs(function () {
+                                expect(experience.buildingStatus()).toEqual(constants.buildingStatuses.failed);
+                            });
                         });
 
-                        runs(function () {
-                            expect(http.post).toHaveBeenCalled();
-                            expect(experience.buildingStatus()).toEqual(constants.buildingStatuses.failed);
+                        it('should send event \"Experience build is failed\"', function () {
+                            var promise = viewModel.buildExperience(experience);
+
+                            waitsFor(function () {
+                                return promise.isFulfilled();
+                            });
+
+                            runs(function () {
+                                expect(eventTracker.publish).toHaveBeenCalledWith('Experience build is failed', eventsCategory);
+                            });
                         });
+
+                        describe('and timeout after ' + constants.experienceShowStatusInterval + ' ms', function () {
+
+                            it('should hide progress status', function () {
+                                var promise = viewModel.buildExperience(experience);
+                                jasmine.Clock.useMock();
+
+                                waitsFor(function () {
+                                    return promise.isFulfilled();
+                                });
+
+                                runs(function () {
+                                    jasmine.Clock.tick(constants.experienceShowStatusInterval);
+                                    expect(experience.showBuildingStatus()).toBe(false);
+                                });
+                            });
+
+                        });
+
                     });
 
                 });
 
-                describe('when objective has no questions', function () {
+                describe('when buildExperience service rejected', function () {
 
-                    it('should reject such objective', function () {
+                    beforeEach(function () {
+                        deferred.reject("Some error");
+                    });
 
-                        var emptyObjective = {
-                            "id": 1,
-                            "title": "test objective 1",
-                            "image": "",
-                            "questions": []
-                        };
+                    describe('and timeout after ' + constants.experienceShowStatusInterval + ' ms', function () {
 
-                        var data = {
-                            id: '10',
-                            title: 'Test Experience',
-                            objectives: [emptyObjective],
-                            buildingStatus: constants.buildingStatuses.notStarted
-                        };
+                        it('should hide progress status', function () {
+                            var promise = viewModel.buildExperience(experience);
+                            jasmine.Clock.useMock();
 
-                        dataContext.experiences = [data];
+                            waitsFor(function () {
+                                return promise.isRejected();
+                            });
+                            runs(function () {
+                                jasmine.Clock.tick(constants.experienceShowStatusInterval);
+                                expect(experience.showBuildingStatus()).toBe(false);
+                            });
 
-                        var mappedData = data;
-
-                        mappedData.buildingStatus = ko.observable(constants.buildingStatuses.notStarted);
-                        mappedData.showBuildingStatus = ko.observable('true');
-                        mappedData.isSelected = ko.observable('true');
-
-                        http.post.reset();
-                        viewModel.buildExperience(mappedData);
-
-                        expect(http.post.mostRecentCall.args[0]).toBe('experience/build');
-                        expect(http.post.mostRecentCall.args[1].objectives).not.toContain(emptyObjective);
+                        });
 
                     });
 
                 });
 
-                it('should return objective with questions', function () {
-
-                    var objective = {
-                        "id": 1,
-                        "title": "test objective 1",
-                        "image": "",
-                        "questions": [{
-                            "id": 0,
-                            "title": "test question 1",
-                            "answerOptions": [],
-                            "explanations": []
-                        }]
-                    };
-
-                    var data = {
-                        id: '11',
-                        title: 'Test Experience',
-                        objectives: [objective],
-                        buildingStatus: constants.buildingStatuses.notStarted
-                    };
-
-                    dataContext.experiences = [data];
-
-                    var mappedData = data;
-
-                    mappedData.buildingStatus = ko.observable(constants.buildingStatuses.notStarted);
-                    mappedData.showBuildingStatus = ko.observable('true');
-                    mappedData.isSelected = ko.observable('true');
-
-                    http.post.reset();
-                    viewModel.buildExperience(mappedData);
-
-                    expect(http.post.mostRecentCall.args[0]).toBe('experience/build');
-                    expect(http.post.mostRecentCall.args[1].objectives).toContain(objective);
-
-                });
             });
 
             describe('downloadExperience', function () {
@@ -518,6 +630,11 @@
             });
 
             describe('enableOpenExperience', function () {
+
+                beforeEach(function () {
+                    dataContext.experiences = experiences;
+                    viewModel.activate();
+                });
 
                 it('should be a function', function () {
                     expect(viewModel.enableOpenExperience).toBeFunction();

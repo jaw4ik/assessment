@@ -7,11 +7,13 @@ namespace easygenerator.Web.Controllers
 {
     public class ExperienceController : Controller
     {
-        private IExperienceBuilder _builder;
+        private readonly IExperienceBuilder _builder;
+        private readonly PackageModelMapper _packageModelMapper;
 
-        public ExperienceController(IExperienceBuilder experienceBuilder)
+        public ExperienceController(IExperienceBuilder experienceBuilder, PackageModelMapper packageModelMapper)
         {
             _builder = experienceBuilder;
+            _packageModelMapper = packageModelMapper;
         }
 
         [HttpPost]
@@ -20,7 +22,7 @@ namespace easygenerator.Web.Controllers
             if (model == null || !ModelState.IsValid)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var buildingResult = _builder.Build(model);
+            var buildingResult = _builder.Build(_packageModelMapper.MapExperienceBuildModel(model));
             return Json(new BuildResult() { Success = buildingResult });
         }
     }

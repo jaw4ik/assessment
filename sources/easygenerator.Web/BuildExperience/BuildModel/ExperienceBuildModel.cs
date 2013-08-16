@@ -12,7 +12,6 @@ namespace easygenerator.Web.BuildExperience.BuildModel
         [StringLength(255)]
         public string Title { get; set; }
 
-        [Required]
         public List<ObjectiveBuildModel> Objectives { get; set; }
     }
 }

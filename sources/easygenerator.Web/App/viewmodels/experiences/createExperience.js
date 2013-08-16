@@ -32,7 +32,8 @@
             dataContext.experiences.push(new ExperienceModel({
                 id: dataContext.experiences.length,
                 title: self.title(),
-                objectives: self.selectedObjectives()
+                objectives: self.selectedObjectives(),
+                buildingStatus: constants.buildingStatuses.notStarted
             }));
 
             sendEvent(events.navigateToExperiences);

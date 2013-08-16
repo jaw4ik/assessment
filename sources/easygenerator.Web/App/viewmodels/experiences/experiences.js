@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'durandal/plugins/router', 'durandal/http'],
-    function (dataContext, constants, eventTracker, router, http) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'durandal/plugins/router', 'services/buildExperience'],
+    function (dataContext, constants, eventTracker, router, experienceService) {
         "use strict";
 
         var
@@ -19,7 +19,9 @@
 
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName, events.category);
-            };
+            },
+
+            storage = [];
 
         var
             experiences = ko.observableArray([]),
@@ -70,15 +72,6 @@
                 router.navigateTo('#/objectives');
             },
 
-            excludeEmptyObjectives = function (exp) {
-                var dataRejected = _.clone(exp);
-                dataRejected.objectives = _.reject(dataRejected.objectives, function (objective) {
-                    return objective.questions.length == 0;
-                });
-
-                return dataRejected;
-            },
-            
             buildExperience = function (experience) {
                 sendEvent(events.buildExperience);
                 experience.showBuildingStatus(true);
@@ -87,65 +80,76 @@
                 if (experience.isSelected())
                     experience.isSelected(false);
 
-                var data = _.find(dataContext.experiences, function (item) {
-                    return item.id == experience.id;
-                });
-
-                return http.post('experience/build', excludeEmptyObjectives(data))
-                    .done(function (response) {
-                        var buildingStatus = response.Success ? constants.buildingStatuses.succeed : constants.buildingStatuses.failed;
-                        experience.buildingStatus(buildingStatus);
+                return experienceService.build(experience.id)
+                    .then(function (success) {
+                        if (success) {
+                            experience.buildingStatus(constants.buildingStatuses.succeed);
+                        }
+                        else {
+                            experience.buildingStatus(constants.buildingStatuses.failed);
+                            sendEvent(events.experienceBuildFailed);
+                        }
                     })
-                    .fail(function () {
-                        sendEvent(events.experienceBuildFailed);
-                        experience.buildingStatus(constants.buildingStatuses.failed);
-                    })
-                    .always(function () {
+                    .fin(function () {
                         setTimeout(function () {
                             experience.showBuildingStatus(false);
-                        }, 10000);
+                        }, constants.experienceShowStatusInterval);
                     });
             },
 
-        downloadExperience = function (experience) {
-            sendEvent(events.downloadExperience);
-            router.navigateTo('download/' + experience.id + '.zip');
-        },
+            downloadExperience = function (experience) {
+                sendEvent(events.downloadExperience);
+                router.navigateTo('download/' + experience.id + '.zip');
+            },
 
-        enableOpenExperience = function (experience) {
-            experience.showBuildingStatus(false);
-        },
+            enableOpenExperience = function (experience) {
+                experience.showBuildingStatus(false);
+            },
 
-        activate = function () {
-            var sortedExperiences = _.sortBy(dataContext.experiences, function (experience) {
-                return experience.title.toLowerCase();
-            });
-
-            sortedExperiences = currentSortingOption() == constants.sortingOptions.byTitleAsc ? sortedExperiences : sortedExperiences.reverse();
-
-            experiences(ko.utils.arrayMap(sortedExperiences, function (item) {
-                var experience = {};
-
-                experience.id = item.id;
-                experience.title = item.title;
-                experience.objectives = item.objectives;
-
-                experience.buildingStatus = ko.observable(item.buildingStatus);
-                experience.buildingStatus.subscribe(function (newValue) {
-                    item.buildingStatus = newValue;
-                });
-                experience.showBuildingStatus = ko.observable(item.showBuildingStatus);
-                experience.showBuildingStatus.subscribe(function (newValue) {
-                    item.showBuildingStatus = newValue;
+            activate = function () {
+                var sortedExperiences = _.sortBy(dataContext.experiences, function (experience) {
+                    return experience.title.toLowerCase();
                 });
 
-                experience.isSelected = ko.observable(false);
+                sortedExperiences = currentSortingOption() == constants.sortingOptions.byTitleAsc ? sortedExperiences : sortedExperiences.reverse();
 
-                return experience;
-            }));
+                experiences(ko.utils.arrayMap(sortedExperiences, function (item) {
+                    var experience = {};
 
-            enableSorting(experiences().length > 1);
-        };
+                    experience.id = item.id;
+                    experience.title = item.title;
+                    experience.objectives = item.objectives;
+                    experience.buildingStatus = ko.observable(item.buildingStatus);
+
+                    experience.isSelected = ko.observable(false);
+                    experience.showBuildingStatus = ko.observable();
+
+                    var storageItem = storage[item.id] || { showBuildingStatus: false, buildingStatus: constants.buildingStatuses.notStarted };
+                    var showBuildingStatus = storageItem.showBuildingStatus || item.buildingStatus != storageItem.buildingStatus;
+                    console.log(item.buildingStatus != storageItem.buildingStatus);
+                    experience.showBuildingStatus(showBuildingStatus);
+
+                    if (showBuildingStatus) {
+                        setTimeout(function () {
+                            experience.showBuildingStatus(false);
+                        }, constants.experienceShowStatusInterval);
+                    }
+
+                    return experience;
+                }));
+
+                enableSorting(experiences().length > 1);
+            },
+
+            deactivate = function () {
+                storage = [];
+                _.each(experiences(), function (item) {
+                    storage[item.id] = {
+                        showBuildingStatus: item.showBuildingStatus(),
+                        buildingStatus: item.buildingStatus()
+                    };
+                });
+            };
 
         return {
             experiences: experiences,
@@ -166,7 +170,8 @@
             downloadExperience: downloadExperience,
             enableOpenExperience: enableOpenExperience,
 
-            activate: activate
+            activate: activate,
+            deactivate: deactivate
         };
     }
 );
