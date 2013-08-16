@@ -25,7 +25,6 @@
             };
 
             beforeEach(function () {
-                jasmine.Clock.useMock();
 
                 spyOn(eventTracker, 'publish');
                 spyOn(router, 'navigateTo');
