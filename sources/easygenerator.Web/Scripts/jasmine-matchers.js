@@ -28,12 +28,20 @@
             return toBePromise.call(this, this.actual);
         },
 
-        toBeResolved: function (value) {
-            return toBeResolved.apply(this, [this.actual, value]);
+        toBeResolved: function () {
+            return toBeResolved.call(this, this.actual);
         },
 
-        toBeRejected: function (reason) {
-            return toBeRejected.apply(this, [this.actual, reason]);
+        toBeResolvedWith: function (value) {
+            return toBeResolvedWith.apply(this, [this.actual, value]);
+        },
+
+        toBeRejected: function () {
+            return toBeRejected.call(this, this.actual);
+        },
+
+        toBeRejectedWith: function (reason) {
+            return toBeRejectedWith.apply(this, [this.actual, reason]);
         }
 
     };
@@ -130,7 +138,7 @@ function toBePromise(actual) {
     return toBeObject(actual) && actual.then !== undefined && toBeFunction(actual.then);
 }
 
-function toBeResolved(actual, value) {
+function toBeResolved(actual) {
     if (this.isNot) {
         throw '[.not] is not supported';
     }
@@ -143,19 +151,27 @@ function toBeResolved(actual, value) {
         return "Expected promise to be resolved";
     };
 
-    var isResolved = actual.inspect().state == "fulfilled";
-
-    if (typeof value != "undefined") {
-        this.message = function () {
-            return "Expected promise to be resolved with value '" + JSON.stringify(value) + "'";
-        };
-        return isResolved && actual.inspect().value == value;
-    };
-
-    return isResolved;
+    return actual.inspect().state == "fulfilled";
 }
 
-function toBeRejected(actual, reason) {
+function toBeResolvedWith(actual, value) {
+    var isResolved = toBeResolved.call(this, actual);
+    if (!isResolved) {
+        return false;
+    }
+
+    if (typeof value == "undefined") {
+        throw 'value is required';
+    }
+
+    this.message = function () {
+        return "Expected promise to be resolved with value '" + JSON.stringify(value) + "', but it was resolved with value '" + actual.inspect().value + "'";
+    };
+
+    return actual.inspect().value == value;
+}
+
+function toBeRejected(actual) {
     if (this.isNot) {
         throw '[.not] is not supported';
     }
@@ -168,14 +184,22 @@ function toBeRejected(actual, reason) {
         return "Expected promise to be rejected";
     };
 
-    var isRejected = actual.inspect().state == "rejected";
+    return actual.inspect().state == "rejected";
+}
 
-    if (typeof reason != "undefined") {
-        this.message = function () {
-            return "Expected promise to be rejected with reason '" + reason + "'";
-        };
-        return isRejected && actual.inspect().reason == reason;
+function toBeRejectedWith(actual, reason) {
+    var isRejected = toBeRejected.call(this, actual);
+    if (!isRejected) {
+        return false;
+    }
+
+    if (typeof reason == "undefined") {
+        throw 'reason is required';
+    }
+
+    this.message = function () {
+        return "Expected promise to be rejected with reason '" + reason + "', but it was rejected with reason '" + actual.inspect().reason + "'";
     };
 
-    return isRejected;
+    return actual.inspect().reason == reason;
 }
