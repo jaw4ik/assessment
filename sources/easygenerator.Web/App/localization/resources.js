@@ -132,7 +132,7 @@
     },
     experienceBuildAction: {
         en: 'Build',
-        nl: 'Samenstellen',
+        nl: 'Samenstellen…',
         de: 'Erstellen'
     },
     experienceDownloadAction: {
@@ -485,36 +485,36 @@
     },
     buildExperience: {
         en: 'Build experience',
-        nl: 'Build experience[nl]',
-        de: 'Build experience[de]'
+        nl: 'Ervaring samenstellen',
+        de: 'Erfahrung aufbauen'
     },
     /* End resource section for model Display experience */
     
     /* Resource section for model Error pages */
     badRequest: {
         en: 'Bad request',
-        nl: 'Bad request[nl]',
-        de: 'Bad request[de]'
+        nl: 'Probleem met verzoek',
+        de: 'Ungültige Anfrage'
     },
     badRequestDescription: {
         en: 'Sorry, the request you sent was somehow malformed therefore we were unable to understand or process the request.',
-        nl: 'Sorry, the request you sent was somehow malformed therefore we were unable to understand or process the request.[nl]',
-        de: 'Sorry, the request you sent was somehow malformed therefore we were unable to understand or process the request.[de]'
+        nl: 'Het verzoek dat u hebt verstuurd is beschadigd. Wij kunnen het helaas niet interpreteren of verwerken.',
+        de: 'Die von Ihnen gesendete Anfrage einhielt leider einen Formfehler, daher konnten wir die Anfrage nicht verstehen oder bearbeiten.'
     },
     pageNotFound: {
         en: 'Page not found',
-        nl: 'Page not found[nl]',
-        de: 'Page not found[de]'
+        nl: 'Pagina niet gevonden',
+        de: 'Seite nicht gefunden'
     },
     pageNotFoundDescription: {
-        en: 'Sorry, the page you have been looking for has not been found. Try checking the URL on errors, use the navigation above or click \'Home\' link below.',
-        nl: 'Sorry, the page you have been looking for has not been found. Try checking the URL on errors, use the navigation above or click \'Home\' link below.[nl]',
-        de: 'Sorry, the page you have been looking for has not been found. Try checking the URL on errors, use the navigation above or click \'Home\' link below.[de]'
+        en: 'Sorry, the page you have been looking for has not been found. Try checking the URL for errors, use the navigation above or click \'Home\' link below.',
+        nl: 'De pagina die u zoekt is onvindbaar. Controleer of de URL klopt, gebruik de bovenstaande navigatieopties of klik hieronder op \'Startpagina\'.',
+        de: 'Die Seite, die Sie suchen, wurde leider nicht gefunden. Überprüfen Sie die URL auf Fehler, verwenden Sie die Navigation oben, oder klicken Sie auf den “Start”-Link unten.'
     },
     homeLink: {
         en: 'Home',
-        nl: 'Home[nl]',
-        de: 'Home[de]'
+        nl: 'Startpagina',
+        de: 'Start'
     },
     /* End resource section for model Error pages */
     
@@ -523,7 +523,20 @@
         en: 'User properties',
         nl: 'User properties[nl]',
         de: 'User properties[de]'
-    }
+    },
     /* End resource section for model User properties */
+    
+    /* Resource section for model Not supported browsers */
+    browserNotSupport: {
+        en: 'Your browser is currently not supported.Don’t worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.',
+        nl: 'Your browser is currently not supported.Don’t worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.[nl]',
+        de: 'Your browser is currently not supported.Don’t worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.[de]'
+    },
+    mobileDeviceNotSupport: {
+        en: 'Unfortunately, mobile devices are not supported yet.Please, use desktop or laptop computer with modern web browser to enjoy easygenerator capabilities.',
+        nl: 'Unfortunately, mobile devices are not supported yet.Please, use desktop or laptop computer with modern web browser to enjoy easygenerator capabilities.[nl]',
+        de: 'Unfortunately, mobile devices are not supported yet.Please, use desktop or laptop computer with modern web browser to enjoy easygenerator capabilities.[de]'
+    }
+    /* End resource section for model Not supported browsers */
            
 });
