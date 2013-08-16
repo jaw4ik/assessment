@@ -107,6 +107,18 @@
                     viewModel.saveAndEdit();
                     expect(viewModel.showValidation()).toBeTruthy();
                 });
+                it('should set title.isModified to \'true\'', function () {
+                    viewModel.title('');
+                    viewModel.title.isModified(false);
+                    viewModel.saveAndEdit();
+                    expect(viewModel.title.isModified()).toBeTruthy();
+                });
+                it('should set title.isEditing to \'true\'', function () {
+                    viewModel.title('');
+                    viewModel.title.isEditing(false);
+                    viewModel.saveAndEdit();
+                    expect(viewModel.title.isEditing()).toBeTruthy();
+                });
                 it('should return undefined', function () {
                     viewModel.title('');
                     var result = viewModel.saveAndEdit();
@@ -184,6 +196,18 @@
                     viewModel.title('');
                     viewModel.saveAndCreate();
                     expect(viewModel.showValidation()).toBeTruthy();
+                });
+                it('should set title.isModified to \'true\'', function () {
+                    viewModel.title('');
+                    viewModel.title.isModified(false);
+                    viewModel.saveAndEdit();
+                    expect(viewModel.title.isModified()).toBeTruthy();
+                });
+                it('should set title.isEditing to \'true\'', function () {
+                    viewModel.title('');
+                    viewModel.title.isEditing(false);
+                    viewModel.saveAndEdit();
+                    expect(viewModel.title.isEditing()).toBeTruthy();
                 });
                 it('should return undefined', function () {
                     viewModel.title('');
@@ -387,7 +411,8 @@
                     });
                 });
 
-                it('should set title isEditing to \'true\'', function () {
+                
+                it('should set title.isModified to \'false\'', function () {
                     viewModel.title.isEditing(false);
 
                     var promise = viewModel.activate({ objectiveId: objective.id });
@@ -397,7 +422,7 @@
                         return promise.isFulfilled();
                     });
                     runs(function () {
-                        expect(viewModel.title.isEditing()).toBeTruthy();
+                        expect(viewModel.title.isModified()).toBeFalsy();
                     });
                 });
 

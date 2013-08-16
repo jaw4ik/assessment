@@ -30,6 +30,8 @@
 
          saveAndEdit = function () {
              if (!this.title.isValid()) {
+                 this.title.isModified(true);
+                 this.title.isEditing(true);
                  this.showValidation(true);
                  return undefined;
              }
@@ -45,6 +47,8 @@
 
         saveAndCreate = function () {
             if (!this.title.isValid()) {
+                this.title.isModified(true);
+                this.title.isEditing(true);
                 this.showValidation(true);
                 return undefined;
             }
@@ -78,12 +82,21 @@
                      that.objectiveTitle = objective.title;
                      that.showValidation(false);
                      that.title('');
-                     that.title.isEditing(true);
+                     that.title.isModified(false);
+                     that.title.isEditing(false);
                  });
-         };
+         },
+
+        viewAttached = function () {
+            var that = this;
+            setTimeout(function () {
+                that.title.isEditing(true);
+            }, 100);
+        };
 
         return {
             activate: activate,
+            viewAttached: viewAttached,
             objectiveId: objectiveId,
             title: title,
             showValidation: showValidation,

@@ -307,6 +307,16 @@
         nl: 'Klik hier om een vraag toe te voegen',
         de: 'Hier klicken, um eine Frage hinzuzufügen'
     },
+    createAndEdit: {
+        en: 'Create and edit',
+        nl: 'Create and edit[nl]',
+        de: 'Create and edit[de]'
+    },
+    createAndNew: {
+        en: 'Create and new',
+        nl: 'Create and new[nl]',
+        de: 'Create and new[de]'
+    },
     /* End resource section for model Questions */
     
     /* Resource section for model customLocalizationPlugin */

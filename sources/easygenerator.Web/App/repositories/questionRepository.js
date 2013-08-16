@@ -17,13 +17,15 @@
 
             var question = {
                 id: self.generateNewEntryId(objective.questions),
-                title: obj.title
+                title: obj.title,
+                explanations: [],
+                answerOptions: []
             };
 
             objective.questions.push(question);
             deferred.resolve(question);
         });
-        
+
         return deferred.promise;
     };
 

@@ -97,7 +97,7 @@
                         });
                         runs(function () {
                             expect(promise.inspect().state).toEqual('fulfilled');
-                            expect(promise.inspect().value).toEqual({ id: 0, title: question.title });
+                            expect(promise.inspect().value).toEqual({ id: 0, title: question.title, explanations: [], answerOptions: [] });
                         });
                     });
                 });

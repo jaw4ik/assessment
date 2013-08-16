@@ -1,4 +1,4 @@
-﻿<section class="container create-question unselectable">
+﻿<section class="question create-question container unselectable">
     <div class="navbar">
         <a href="#/objective" data-bind="click: navigateToObjective" class="inline nav-control">
             <div class="nav-btn back-btn left"></div>
@@ -8,7 +8,25 @@
             </div>
         </a>
     </div>
-
-    <h1>Not implemented :)</h1>
+    <div class="create-question-content-wrapper">
+        <div class="create-question-content clearfix">
+            <div class="create-question-image white-framing">
+                <img alt="" class="question-image" src="/Content/images/multichoice-question.png" />
+            </div>
+            <div class="create-question-text-wrapper">
+                <div class="edit-field selectable">
+                    <div class="text-block bordered" data-bind="css: {'active': title.isEditing(), error: !title.isValid() && title.isModified()}">
+                        <textarea class="editarea" data-autofocus="data-autofocus" data-bind="value: title, valueUpdate: 'afterkeydown', hasFocus: title.isEditing, autoResize: true, keyPress: {13: saveAndEdit}"></textarea>
+                        <div class="chars-counter" data-bind="css:{ error:  !title.isValid() && title.isModified()}">
+                            <span data-bind="text: title().length"></span>/255
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="create-question-form-actions">
+                <div class="btn default" data-bind="click: saveAndEdit, localize: { text: 'createAndEdit' }, css: { disabled: !title.isValid() && title.isModified() }"></div>
+                <div class="btn" data-bind="click: saveAndCreate, localize: { text: 'createAndNew' }, css: { disabled: !title.isValid() && title.isModified()  }"></div>
+            </div>
+        </div>
+    </div>
 </section>
-
