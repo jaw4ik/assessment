@@ -69,12 +69,13 @@ a.nav-control:hover {
 .objective-toolbar-remove-btn-wrapper {
     margin-left: 10px;
     margin-right: 10px;
-    width: 30px;
-    height: 30px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
+    width: 32px;
+    height: 32px;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;
     background-color: #E9E9E9;
+    border: 1px solid #DCDCDC;
 }
 
 .objective-toolbar-remove-icon {
