@@ -155,6 +155,21 @@
         nl: 'voltooid',
         de: 'vollständig'
     },
+    experienceRebuildAction: {
+        en: 'Rebuild',
+        nl: 'Rebuild[nl]',
+        de: 'Rebuild[de]'
+    },
+    addNewExperience: {
+        en: 'Add new experience',
+        nl: 'Add new experience[nl]',
+        de: 'Add new experience[de]'
+    },
+    numberOfRelatedObjectives: {
+        en: 'Number of related objectives',
+        nl: 'Number of related objectives[nl]',
+        de: 'Number of related objectives[de]'
+    },
     /* End resource section for model Experiences */
     
     /* Resource section for model CreateObjective */
