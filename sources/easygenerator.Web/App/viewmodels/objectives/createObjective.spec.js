@@ -1,109 +1,193 @@
 ﻿define(['viewmodels/objectives/createObjective'],
-    function(viewModel) {
+    function (viewModel) {
         "use strict";
-        
+
         var dataContext = require('dataContext'),
             router = require('durandal/plugins/router'),
-            eventTracker = require('eventTracker');
-        
-        var eventsCategory = 'Create Learning Objective';
+            eventTracker = require('eventTracker')
 
-        describe('viewModel [createObjective]', function() {
+        ;
 
-            it('is object', function() {
-                expect(viewModel).toEqual(jasmine.any(Object));
+        var eventsCategory = 'Create learning objective';
+
+        describe('viewModel [createObjective]', function () {
+
+            var repository = require('repositories/objectiveRepository');
+
+            var addObjective;
+
+            var objectiveId = 'objectiveId';
+            var objectiveTitle = 'objectiveTitle';
+
+            beforeEach(function () {
+                addObjective = Q.defer();
+                spyOn(repository, 'addObjective').andReturn(addObjective.promise);
+                spyOn(eventTracker, 'publish');
+                spyOn(router, 'navigateTo');
             });
-            
-            describe('title', function () {
+
+            it('should be object', function () {
+                expect(viewModel).toBeObject();
+            });
+
+            describe('showValidation:', function () {
                 
-                it('should be defined as observable', function () {
-                    expect(ko.isObservable(viewModel.title)).toBeTruthy();
+                it('should be observable', function () {
+                    expect(viewModel.showValidation).toBeObservable();
+                });
+                
+            });
+
+            describe('title:', function() {
+
+                it('should be observable', function() {
+                    expect(viewModel.title).toBeObservable();
                 });
 
-                it('should be non-valid when empty', function () {
-                    viewModel.title('');
-                    expect(viewModel.title.isValid()).toBeFalsy();
-                });
+                describe('isValid:', function() {
 
-                it('should be non-valid when more then 255 character', function () {
-                    viewModel.title(new Array(300).join('a'));
-                    expect(viewModel.title.isValid()).toBeFalsy();
+                    it('should be observable', function () {
+                        expect(viewModel.title.isValid).toBeObservable();
+                    });
+
+                    describe('when title is longer than 255 symbols', function() {
+
+                        it('should be false', function () {
+                            viewModel.title(utils.createString(256));
+                            expect(viewModel.title.isValid()).toBeFalsy();
+                        });
+
+                    });
+                    
+                    describe('when title is less than 255 symbols', function () {
+
+                        it('should be false', function () {
+                            viewModel.title(utils.createString(25));
+                            expect(viewModel.title.isValid()).toBeTruthy();
+                        });
+
+                    });
+
                 });
 
             });
 
-            describe('saveObjective', function () {
-
-                beforeEach(function () {
-                    spyOn(eventTracker, 'publish');
-                    spyOn(router, 'navigateTo');
-                    spyOn(dataContext.objectives, 'push');
-                });
-
-                it('should be function', function () {
-                    expect(viewModel.saveObjective).toEqual(jasmine.any(Function));
-                });
-
-                describe('with valid title', function () {
-                    beforeEach(function () {
-                        viewModel.title('Test Objective 0');
-                    });
-
-                    it('should save objective with dataContext', function () {
-                        viewModel.saveObjective();
-                        expect(dataContext.objectives.push).toHaveBeenCalled();
-                    });
-
-                    it('should send event \"Objective created\"', function () {
-                        viewModel.saveObjective();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Objective created', eventsCategory);
-                    });
-
-                    it('should navigate to #/objectives', function () {
-                        viewModel.saveObjective();
-                        expect(router.navigateTo).toHaveBeenCalledWith('#/objectives');
-                    });
-                });
-
-                describe('with non-valid title', function () {
-                    beforeEach(function () {
-                        viewModel.title('');
-                    });
-
-                    it('should not save objective with dataContext', function () {
-                        viewModel.saveObjective();
-                        expect(dataContext.objectives.push).not.toHaveBeenCalled();
-                    });
-
-                    it('should not send event \"Objective created\"', function () {
-                        viewModel.saveObjective();
-                        expect(eventTracker.publish).not.toHaveBeenCalled();
-                    });
-
-                    it('should not navigate to #/objectives', function () {
-                        viewModel.saveObjective();
-                        expect(router.navigateTo).not.toHaveBeenCalled();
-                    });
-                });
-            });
-
-            describe('cancel', function () {
-                beforeEach(function () {
-                    spyOn(eventTracker, 'publish');
-                    spyOn(router, 'navigateTo');
-                });
-
-                it('should be function', function () {
-                    expect(viewModel.cancel).toEqual(jasmine.any(Function));
-                });
-
-                it('should navigate to #/objectives', function () {
-                    viewModel.cancel();
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/objectives');
-                });
-            });
             
+            describe('createAndOpen:', function () {
+
+                it('should be a function', function () {
+                    expect(viewModel.createAndOpen).toBeFunction();
+                });
+
+                it('should send event \'Create learning objective and open it properties\'', function () {
+                    viewModel.createAndOpen();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and open it properties', eventsCategory);
+                });
+
+                //describe('when title is not valid', function() {
+
+                //    beforeEach(function() {
+                //        viewModel.title(utils.createString(256));
+                //    });
+
+                //    it('should show validation error', function () {
+                //        viewModel.showValidation(false);
+                        
+                //        viewModel.createAndOpen();
+
+                //        expect(viewModel.showValidation).toBeTruthy();
+                //    });
+                    
+                //    it('should not add objective to repository', function () {
+                //        viewModel.createAndOpen();
+
+                //        expect(repository.addObjective).not.toHaveBeenCalled();
+                //    });
+
+                //});
+
+                it('should add objective to repository', function () {
+                    viewModel.title = ko.observable(objectiveTitle);
+
+                    viewModel.createAndOpen();
+
+                    expect(repository.addObjective).toHaveBeenCalledWith({ title: objectiveTitle });
+                });
+
+                describe('and objective was added successfully', function () {
+
+                    it('should navigate to #/objective/{objectiveId}', function () {
+
+                        viewModel.createAndOpen();
+
+                        var promise = addObjective.promise.finally(function () { });
+                        addObjective.resolve(objectiveId);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(router.navigateTo).toHaveBeenCalledWith('#/objective/' + objectiveId);
+                        });
+                    });
+
+                });
+
+            });
+
+            describe('createAndNew:', function () {
+
+                it('should be a function', function () {
+                    expect(viewModel.createAndNew).toBeFunction();
+                });
+
+                it('should send event \'Create learning objective and create new\'', function () {
+                    viewModel.createAndNew();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and create new', eventsCategory);
+                });
+
+                it('should add objective to repository', function () {
+                    viewModel.title = ko.observable(objectiveTitle);
+
+                    viewModel.createAndNew();
+
+                    expect(repository.addObjective).toHaveBeenCalledWith({ title: objectiveTitle });
+                });
+
+                describe('and objective was added successfully', function () {
+
+                    it('should navigate to #/objective/create', function () {
+                        viewModel.createAndNew();
+
+                        var promise = addObjective.promise.finally(function () { });
+                        addObjective.resolve(objectiveId);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(router.navigateTo).toHaveBeenCalledWith('#/objective/create');
+                        });
+                    });
+
+                });
+
+            });
+
+            describe('activate:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.activate).toBeFunction();
+                });
+
+                it('should set empty string to title', function () {
+                    viewModel.activate();
+                    expect(viewModel.title).toBeObservable();                    
+                    expect(viewModel.title()).toEqual("");
+                });
+
+            });
+
         });
 
-        
     });

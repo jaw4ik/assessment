@@ -26,6 +26,14 @@
     <script type="text/javascript">
 
         (function () {
+
+            this.utils = {
+                createString: function (length) {
+                    return new Array(length + 1).join("*");
+                }
+            };
+
+
             require.config({
                 paths: {
                     "text": "durandal/amd/text"
@@ -37,11 +45,12 @@
                 'localization/localizationManager.spec',
                 'services/buildExperience.spec',
                 'repositories/objectiveBriefRepository.spec',
+                'repositories/objectiveRepository.spec',
                 'repositories/questionRepository.spec',
                 'viewmodels/objectives/objectives.spec',
                 'viewmodels/objectives/objective.spec',
                 'viewmodels/objectives/objectiveBrief.spec',
-                //'viewmodels/objectives/createObjective.spec',
+                'viewmodels/objectives/createObjective.spec',
                 'viewmodels/questions/question.spec',
                 'viewmodels/questions/createQuestion.spec',
                 'viewmodels/experiences/experiences.spec',

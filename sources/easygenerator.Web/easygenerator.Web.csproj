@@ -193,6 +193,10 @@
     <Content Include="App\viewmodels\experiences\experience.js" />
     <Content Include="App\viewmodels\experiences\experience.spec.js" />
     <Content Include="App\viewmodels\experiences\experiences.js" />
+    <Content Include="App\viewmodels\objectives\createObjective.js" />
+    <Content Include="App\viewmodels\objectives\createObjective.spec.js">
+      <DependentUpon>createObjective.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\objectives\objective.js" />
     <Content Include="App\viewmodels\objectives\objectiveBrief.js" />
     <Content Include="App\viewmodels\objectives\objectiveBrief.spec.js" />
@@ -207,6 +211,7 @@
     <Content Include="App\views\errors\404.html" />
     <Content Include="App\views\errors\400.html" />
     <Content Include="App\views\experiences\createExperience.html" />
+    <Content Include="App\views\objectives\createObjective.html" />
     <Content Include="App\views\questions\createQuestion.html" />
     <Content Include="Content\ckeditor.css" />
     <Content Include="Content\experience.css" />
@@ -277,6 +282,9 @@
     <Content Include="App\models\experience.js" />
     <Content Include="App\models\question.js" />
     <Content Include="App\services\buildExperience.spec.js" />
+    <Content Include="App\repositories\objectiveRepository.spec.js">
+      <DependentUpon>objectiveRepository.js</DependentUpon>
+    </Content>
     <None Include="App\specs.html" />
     <Content Include="App\localization\localizationManager.js" />
     <Content Include="App\views\experiences\experience.html" />

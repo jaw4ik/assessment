@@ -1,69 +1,65 @@
-﻿define(['dataContext', 'models/objective', 'durandal/plugins/router', 'configuration/images', 'eventTracker'],
-    function (dataContext, ObjectiveModel, router, images, eventTracker) {
+﻿define(['repositories/objectiveRepository', 'durandal/plugins/router', 'eventTracker'],
+    function (objectiveRepository, router, eventTracker) {
 
         var
             events = {
-                category: 'Create Learning Objective',
-                objectiveCreated: "Objective created"
+                category: 'Create learning objective',
+                createAndNew: "Create learning objective and create new",
+                createAndOpen: "Create learning objective and open it properties",
             },
-            
+
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName, events.category);
             };
 
-        var self = {};
 
-        self.title = ko.observable().extend({
-            required: { message: 'Please, provide title for objective' },
-            maxLength: { message: 'Objective title can not be lnger than 255 symbols', params: 255 }
-        });
+        var
+            title = (function() {
+                var t = ko.observable();
+                t.minlength = 1;
+                t.maxlength = 255;
+                t.isValid = ko.computed(function () {
+                    var text = t();                    
+                    return text && text.length > t.minlength && text.length < t.maxlength;
+                });
+                return t;
+            })(),
+            
+            showValidation = ko.observable(false),
+            
+            createAndNew = function () {
+                sendEvent(events.createAndNew);
+                objectiveRepository.addObjective({ title: ko.unwrap(this.title) })
+                    .then(function () {
+                        router.navigateTo('#/objective/create');
+                    });
+            },
+            createAndOpen = function () {
+                //if (!this.title.isValid()) {
+                //    this.showValidation(true);
+                //    return;
+                //}
+                sendEvent(events.createAndOpen);
+                objectiveRepository.addObjective({ title: ko.unwrap(this.title) })
+                    .then(function (objectiveId) {
+                        router.navigateTo('#/objective/' + objectiveId);
+                    });
+            },
 
-        self.image = ko.observable();
+            activate = function () {                
+                this.title("");
+            };
 
-        self.image.options = images.slice(0, images.length - 1);
-
-        self.image.currentOption = ko.observable(-1);
-
-        self.image.nextOption = function () {
-            var index = self.image.options.length > self.image.currentOption() + 1 ? self.image.currentOption() + 1 : 0;
-            self.image.currentOption(index);
-            self.image(self.image.options[index]);
-        };
-
-        self.image.previousOption = function () {
-            var index = self.image.currentOption() - 1 < 0 ? self.image.options.length - 1 : self.image.currentOption() - 1;
-            self.image.currentOption(index);
-            self.image(self.image.options[index]);
-        };
-
-        self.saveObjective = function () {
-            if (!self.title.isValid()) {
-                self.title.isModified(true);
-                return;
-            }
-            var objective = new ObjectiveModel({ id: dataContext.objectives.length, title: self.title(), image: self.image(), questions: [] });
-            dataContext.objectives.push(objective);
-            sendEvent(events.objectiveCreated);
-            router.navigateTo('#/objectives');
-        };
-
-        self.cancel = function () {
-            router.navigateTo('#/objectives');
-        };
-
-        self.activate = function () {
-            self.title(null);
-            self.title.isModified(false);
-            self.image.currentOption(-1);
-            self.image.nextOption();
-        };
 
         return {
-            activate: self.activate,
-            title: self.title,
-            image: self.image,
-            saveObjective: self.saveObjective,
-            cancel: self.cancel
+            activate: activate,
+
+            title: title,
+
+            showValidation: showValidation,
+
+            createAndNew: createAndNew,
+            createAndOpen: createAndOpen
         };
     }
 );
