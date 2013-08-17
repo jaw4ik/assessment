@@ -169,7 +169,9 @@
         }
 
         function updateToolbarPosition() {
-            var toolbarTopPosition = editor.container.getDocumentPosition().y - $toolbarElement.height();
+            var screenTop = document.documentElement.scrollTop || document.body.scrollTop;
+            var editorTop = editor.container.getDocumentPosition().y - $toolbarElement.height();
+            var toolbarTopPosition = screenTop > editorTop ? 0 : editorTop;
             $toolbarElement.css('top', toolbarTopPosition);
         }
     },
