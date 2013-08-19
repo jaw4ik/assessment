@@ -12,11 +12,11 @@
         <!-- ko if: status() == statuses.succeed ||  status() == statuses.inProgress && !isFirstBuild() || status() == statuses.failed-->
         <div class="experience-build-progress-status-item" data-bind="click: buildExperience, visible: status() != statuses.inProgress">
             <span class="experience-build-status-image experience-build-status-image-re-build"></span>
-            <span class="experience-build-status-text" data-bind="localize: { text: status() == statuses.failed ? 'buildExperience' : 'experienceRebuildAction' }">Rebuild</span>
+            <span class="experience-build-status-text" data-bind="localize: { text: 'experienceRebuildAction' }">Rebuild</span>
         </div>
         <span class="experience-build-progress-status-item disabled" data-bind="visible: status() == statuses.inProgress">
             <span class="experience-build-status-image experience-build-status-image-re-build"></span>
-            <span class="experience-build-status-text" data-bind="localize: { text: status() == statuses.failed ? 'buildExperience' : 'experienceRebuildAction' }">Rebuild</span>
+            <span class="experience-build-status-text" data-bind="localize: { text: 'experienceRebuildAction' }">Rebuild</span>
         </span>
         <span class="experience-build-progress-status-seperator"></span>
         <!-- /ko -->
