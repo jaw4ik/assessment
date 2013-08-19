@@ -23,23 +23,21 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
-        public PackageQuestionsListItem[] QuestionItems
-        {
-            get
-            {
-                var els = GetAllByXPath(model.QuestionItem);
-                return els.Select(el => new PackageQuestionsListItem(el)).ToArray();
-            }
-        }
 
         public PackageObjectivesListItem ObjectiveItemByTitle(string title)
         {
             return ObjectiveItems.First(it => it.Title == title);
         }
 
-        public PackageQuestionsListItem QuestionItemByTitle(string title)
+        public PackageQuestionsListItem[] ObjectiveQuestionItems(string title)
         {
-            return QuestionItems.First(it => it.Title == title);
+
+
+            var obj = ObjectiveItemByTitle(title);
+            var questions = obj.Container.FindElementsByXPath(model.QuestionItem).Cast<RemoteWebElement>().ToArray();
+
+            return questions.Select(el => new PackageQuestionsListItem(el)).ToArray();
+
         }
 
     }

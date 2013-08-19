@@ -23,5 +23,25 @@ namespace easygenerator.AcceptanceTests.ElementObjects
                 return el.GetTextContent();
             }
         }
+
+        public PackageQuestionsListItem[] QuestionItems
+        {
+            get
+            {
+                var els = GetAllByXPath(model.QuestionItem);
+                return els.Select(el => new PackageQuestionsListItem(el)).ToArray();
+            }
+        }
+
+        public PackageQuestionsListItem QuestionItemByTitle(string title)
+        {
+            return QuestionItems.First(it => it.Title == title);
+        }
+
+        internal void ToggleExpandButtonClick()
+        {
+            GetByXPathInside(model.ToggleExpandButton).Click();
+        }
+
     }
 }

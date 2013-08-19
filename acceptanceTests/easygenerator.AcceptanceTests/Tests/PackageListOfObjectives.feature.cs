@@ -380,8 +380,51 @@ testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((st
                         "Objective12"});
 #line 121
 testRunner.Then("package objectives tiles list contains only items with data", ((string)(null)), table25, "Then ");
-#line 125
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("All package questions are present on page")]
+        public virtual void AllPackageQuestionsArePresentOnPage()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All package questions are present on page", ((string[])(null)));
+#line 126
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
+#line 127
 testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 128
+testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 129
+testRunner.And("toggle expand package objective item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table26.AddRow(new string[] {
+                        "Question11",
+                        "1"});
+            table26.AddRow(new string[] {
+                        "Question12",
+                        "2"});
+#line 130
+testRunner.Then("package questions list of objective item with title \'Objective11\' containes only " +
+                    "items with data", ((string)(null)), table26, "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table27.AddRow(new string[] {
+                        "Question21",
+                        "1"});
+            table27.AddRow(new string[] {
+                        "Question22",
+                        "2"});
+#line 134
+testRunner.And("package questions list of objective item with title \'Objective12\' containes only " +
+                    "items with data", ((string)(null)), table27, "And ");
 #line hidden
             this.ScenarioCleanup();
         }

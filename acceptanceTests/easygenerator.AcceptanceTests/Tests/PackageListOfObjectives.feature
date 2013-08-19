@@ -119,8 +119,20 @@ And unzip '1.zip' package to 'tmp'
 Scenario: All package objectives are present on page
 When open page by url 'http://localhost:5656/Templates/tmp'
 Then package objectives tiles list contains only items with data 
-| Title      |
+| Title       |
 | Objective11 |
 | Objective12 |
+
+Scenario: All package questions are present on page
 When open page by url 'http://localhost:5656/Templates/tmp'
+And toggle expand package objective item with title 'Objective11'
+And toggle expand package objective item with title 'Objective12'
+Then package questions list of objective item with title 'Objective11' containes only items with data
+| Title      | Id |
+| Question11 | 1  |
+| Question12 | 2  |
+And package questions list of objective item with title 'Objective12' containes only items with data
+| Title      | Id |
+| Question21 | 1  |
+| Question22 | 2  |
 

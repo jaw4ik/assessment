@@ -34,5 +34,24 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Not all expected package objectives on page", packageObjectivesPage.ObjectiveItems.Select(obj => obj.Title).ToArray());
         }
 
+        [When(@"toggle expand package objective item with title '(.*)'")]
+        public void WhenToggleExpandPackageObjectiveItemWithTitle(string title)
+        {
+            var objItem = packageObjectivesPage.ObjectiveItemByTitle(title);
+            objItem.ToggleExpandButtonClick();
+        }
+
+        [Then(@"package questions list of objective item with title '(.*)' containes only items with data")]
+        public void ThenPackageQuestionsListOfObjectiveItemWithTitleContainesOnlyItemsWithData(string title, Table table)
+        {
+            var expectedQuestions = table.CreateSet<QuestionData>().Select(obj => obj.Title).ToArray();
+            var realQuestions = packageObjectivesPage.ObjectiveQuestionItems(title).Select(obj => obj.Title).ToArray();
+            TestUtils.Assert_IsTrue_WithWait(() => TestUtils.AreCollectionsTheSame(expectedQuestions, realQuestions),
+                "Not all expected package objectives on page", realQuestions);
+
+
+        }
+
+
     }
 }
