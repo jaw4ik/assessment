@@ -538,9 +538,12 @@ h2.page-header-title {
     cursor: pointer;
 }
 
-    .item-option.open .action-img,
-    .item-option.edit .action-img {
+    .item-option.open .action-img {
         background-position: 0 -102px;
+    }
+
+    .item-option.edit .action-img {
+        background-position: 0 -68px;
     }
 
 .item-options .separator {

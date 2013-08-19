@@ -379,10 +379,8 @@
 
 .create-question-form {
     position: relative;
-    margin-left: 50px;
+    margin-left: 60px;
     height: 100%;
-    width: 90%;
-    max-width: 1060px;
     padding-bottom: 10px;
 }
 
@@ -392,7 +390,7 @@
 
 .create-question-text-wrapper {
     position: relative;
-    margin-left: 210px;
+    margin-left: 225px;
 }
 
     .create-question-text-wrapper textarea {
@@ -403,8 +401,8 @@
 
 .create-question-form-actions {
     float: right;
-    padding-top: 20px;
-    margin-left: 210px;
+    padding-top: 25px;
+    margin-left: 225px;
 }
 
     .create-question-form-actions .btn {
