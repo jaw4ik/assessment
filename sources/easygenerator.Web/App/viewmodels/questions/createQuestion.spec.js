@@ -102,37 +102,37 @@
 
         });
 
-        describe('saveAndEdit:', function () {
+        describe('saveAndOpen:', function () {
 
             it('should be a function', function () {
-                expect(viewModel.saveAndEdit).toBeFunction();
+                expect(viewModel.saveAndOpen).toBeFunction();
             });
 
             describe('when title is not valid', function () {
 
                 it('should set showValidation to \'true\'', function () {
                     viewModel.title('');
-                    viewModel.saveAndEdit();
+                    viewModel.saveAndOpen();
                     expect(viewModel.showValidation()).toBeTruthy();
                 });
 
                 it('should set title.isModified to \'true\'', function () {
                     viewModel.title('');
                     viewModel.title.isModified(false);
-                    viewModel.saveAndEdit();
+                    viewModel.saveAndOpen();
                     expect(viewModel.title.isModified()).toBeTruthy();
                 });
 
                 it('should set title.isEditing to \'true\'', function () {
                     viewModel.title('');
                     viewModel.title.isEditing(false);
-                    viewModel.saveAndEdit();
+                    viewModel.saveAndOpen();
                     expect(viewModel.title.isEditing()).toBeTruthy();
                 });
 
                 it('should return undefined', function () {
                     viewModel.title('');
-                    var result = viewModel.saveAndEdit();
+                    var result = viewModel.saveAndOpen();
                     expect(result).toBeUndefined();
                 });
 
@@ -142,19 +142,19 @@
 
                 it('should set showValidation to \'false\'', function () {
                     viewModel.title('lala');
-                    viewModel.saveAndEdit();
+                    viewModel.saveAndOpen();
                     expect(viewModel.showValidation()).toBeFalsy();
                 });
 
                 it('should send event \'Save and edit question\'', function () {
                     viewModel.title('lala');
-                    viewModel.saveAndEdit();
+                    viewModel.saveAndOpen();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Save and edit question', eventsCategory);
                 });
 
                 it('should return promise', function () {
                     viewModel.title('lala');
-                    var promise = viewModel.saveAndEdit();
+                    var promise = viewModel.saveAndOpen();
                     expect(promise).toBePromise();
                 });
 
@@ -170,7 +170,7 @@
                         var question = { id: 0, title: 'lala' };
                         viewModel.objectiveId = objective.id;
                         viewModel.title(question.title);
-                        var promise = viewModel.saveAndEdit();
+                        var promise = viewModel.saveAndOpen();
                         deferred.resolve(question);
 
                         waitsFor(function () {
@@ -185,7 +185,7 @@
                         var question = { id: 0, title: 'lala' };
                         viewModel.objectiveId = objective.id;
                         viewModel.title(question.title);
-                        var promise = viewModel.saveAndEdit();
+                        var promise = viewModel.saveAndOpen();
                         deferred.resolve(question);
 
                         waitsFor(function () {
@@ -202,37 +202,37 @@
 
         });
 
-        describe('saveAndCreate:', function () {
+        describe('saveAndNew:', function () {
 
             it('should be a function', function () {
-                expect(viewModel.saveAndCreate).toBeFunction();
+                expect(viewModel.saveAndNew).toBeFunction();
             });
 
             describe('when title is not valid', function () {
 
                 it('should set showValidation to \'true\'', function () {
                     viewModel.title('');
-                    viewModel.saveAndCreate();
+                    viewModel.saveAndNew();
                     expect(viewModel.showValidation()).toBeTruthy();
                 });
 
                 it('should set title.isModified to \'true\'', function () {
                     viewModel.title('');
                     viewModel.title.isModified(false);
-                    viewModel.saveAndEdit();
+                    viewModel.saveAndOpen();
                     expect(viewModel.title.isModified()).toBeTruthy();
                 });
 
                 it('should set title.isEditing to \'true\'', function () {
                     viewModel.title('');
                     viewModel.title.isEditing(false);
-                    viewModel.saveAndEdit();
+                    viewModel.saveAndOpen();
                     expect(viewModel.title.isEditing()).toBeTruthy();
                 });
 
                 it('should return undefined', function () {
                     viewModel.title('');
-                    var result = viewModel.saveAndCreate();
+                    var result = viewModel.saveAndNew();
                     expect(result).toBeUndefined();
                 });
 
@@ -242,19 +242,19 @@
 
                 it('should set showValidation to \'false\'', function () {
                     viewModel.title('lala');
-                    viewModel.saveAndCreate();
+                    viewModel.saveAndNew();
                     expect(viewModel.showValidation()).toBeFalsy();
                 });
 
                 it('should send event \'Save and create question\'', function () {
                     viewModel.title('lala');
-                    viewModel.saveAndCreate();
+                    viewModel.saveAndNew();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Save and create question', eventsCategory);
                 });
 
                 it('should return promise', function () {
                     viewModel.title('lala');
-                    var promise = viewModel.saveAndCreate();
+                    var promise = viewModel.saveAndNew();
                     expect(promise).toBePromise();
                 });
 
@@ -270,7 +270,7 @@
                         var question = { id: 0, title: 'lala' };
                         viewModel.objectiveId = objective.id;
                         viewModel.title(question.title);
-                        var promise = viewModel.saveAndCreate();
+                        var promise = viewModel.saveAndNew();
                         deferred.resolve(question);
 
                         waitsFor(function () {
@@ -286,7 +286,7 @@
                         viewModel.objectiveId = objective.id;
                         viewModel.title(question.title);
                         viewModel.title.isEditing(false);
-                        var promise = viewModel.saveAndCreate();
+                        var promise = viewModel.saveAndNew();
                         deferred.resolve(question);
 
                         waitsFor(function () {
@@ -302,7 +302,7 @@
                         viewModel.objectiveId = objective.id;
                         viewModel.title('lalal');
                         viewModel.title.isModified(true);
-                        var promise = viewModel.saveAndCreate();
+                        var promise = viewModel.saveAndNew();
                         deferred.resolve(question);
 
                         waitsFor(function () {
@@ -317,7 +317,7 @@
                         var question = { id: 0, title: 'lala' };
                         viewModel.objectiveId = objective.id;
                         viewModel.title(question.title);
-                        var promise = viewModel.saveAndCreate();
+                        var promise = viewModel.saveAndNew();
                         deferred.resolve(question);
 
                         waitsFor(function () {

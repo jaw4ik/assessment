@@ -6,8 +6,8 @@
            events = {
                category: 'Create Question',
                navigateToObjective: 'Navigate to objective',
-               saveAndEdit: 'Save and edit question',
-               saveAndCreate: 'Save and create question'
+               saveAndOpen: 'Save and edit question',
+               saveAndNew: 'Save and create question'
            },
 
            sendEvent = function (eventName) {
@@ -28,7 +28,7 @@
             router.navigate('objective/' + this.objectiveId);
         },
 
-         saveAndEdit = function () {
+         saveAndOpen = function () {
              if (!this.title.isValid()) {
                  this.title.isModified(true);
                  this.title.isEditing(true);
@@ -37,7 +37,7 @@
              }
 
              this.showValidation(false);
-             sendEvent(events.saveAndEdit);
+             sendEvent(events.saveAndOpen);
 
              var that = this;
              return questionRepository.create(that.objectiveId, { title: that.title() }).then(function (newQuestion) {
@@ -45,7 +45,7 @@
              });
          },
 
-        saveAndCreate = function () {
+        saveAndNew = function () {
             if (!this.title.isValid()) {
                 this.title.isModified(true);
                 this.title.isEditing(true);
@@ -54,7 +54,7 @@
             }
 
             this.showValidation(false);
-            sendEvent(events.saveAndCreate);
+            sendEvent(events.saveAndNew);
 
             var that = this;
             return questionRepository.create(that.objectiveId, { title: that.title() }).then(function () {
@@ -103,8 +103,8 @@
             objectiveTitle: objectiveTitle,
 
             navigateToObjective: navigateToObjective,
-            saveAndEdit: saveAndEdit,
-            saveAndCreate: saveAndCreate
+            saveAndOpen: saveAndOpen,
+            saveAndNew: saveAndNew
         };
     }
 );

@@ -372,18 +372,17 @@
     }
 }
 
-/*Create question page*/
+/* Create question page */
 
 .create-question-content-wrapper {
-    margin: 11px 15px 15px 15px;
 }
 
-.create-question-content {
+.create-question-form {
     position: relative;
     margin-left: 50px;
     height: 100%;
-    width: 100%;
-    max-width: 1000px;
+    width: 90%;
+    max-width: 1060px;
     padding-bottom: 10px;
 }
 
@@ -404,9 +403,63 @@
 
 .create-question-form-actions {
     float: right;
-    padding-top: 15px;
+    padding-top: 20px;
+    margin-left: 210px;
 }
 
     .create-question-form-actions .btn {
         float: left;
+    }
+
+        .create-question-form-actions .btn .btn-text {
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .create-question-form-actions .btn .btn-img {
+            display: inline-block;
+            vertical-align: middle;
+            background-image: url(images/create-actions-sprite.png);
+            background-repeat: no-repeat;
+            width: 25px;
+            height: 25px;
+        }
+
+        .create-question-form-actions .btn.saveAndOpen .btn-img {
+            background-position: left -25px;
+        }
+
+        .create-question-form-actions .btn.saveAndNew .btn-img {
+            background-position: left 0;
+        }
+
+
+@media (max-width: 870px) {
+    .create-question-form-actions .btn {
+        float: right;
+        clear: both;
+        margin-bottom: 10px;
+    }
+}
+
+.create-question-tip {
+    position: absolute;
+}
+
+    .create-question-tip .create-question-tip-text {
+        position: absolute;
+        transform: rotate(352deg);
+        -webkit-transform: rotate(352deg);
+        -moz-transform: rotate(352deg);
+        -ms-transform: rotate(352deg);
+        left: -170px;
+        top: 40px;
+    }
+
+    .create-question-tip .create-question-tip-arrow {
+        background-image: url(images/typeQuestionTitleArrow.png);
+        width: 53px;
+        height: 54px;
+        position: absolute;
+        top: 5px;
     }
