@@ -554,13 +554,10 @@
 
                 describe('when expierense build status equals \'notStarted\'', function () {
 
-                    beforeEach(function() {
-                        experience.buildingStatus = 'notStarted';
-                    });
-
                     it('should set isFirstBuild to true', function () {
                         viewModel.id = null;
                         viewModel.isFirstBuild(false);
+                        experience.buildingStatus = 'notStarted';
                         var promise = viewModel.activate(experience.id);
                         deferred.resolve([experience]);
 
@@ -571,6 +568,7 @@
                             expect(viewModel.isFirstBuild()).toBeTruthy();
                         });
                     });
+                    
                 });
 
                 describe('when previous experience exists in sorted by title collection of experiences', function () {
