@@ -17,19 +17,16 @@
             questions: []
         };
 
+        var deferred;
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
             spyOn(router, 'navigate');
+            deferred = Q.defer();
+            spyOn(questionRepository, 'add').andReturn(deferred.promise);
         });
 
         it('should be defined', function () {
             expect(viewModel).toBeDefined();
-        });
-
-        describe('showValidation:', function () {
-            it('should be observable', function () {
-                expect(viewModel.showValidation).toBeObservable();
-            });
         });
 
         describe('title:', function () {
@@ -61,11 +58,7 @@
 
                 describe('when title is longer than 255', function () {
                     it('should be false', function () {
-                        var title = '';
-                        for (var i = 0; i < 256; i++)
-                            title += '*';
-
-                        viewModel.title(title);
+                        viewModel.title(utils.createString(256));
                         expect(viewModel.title.isValid()).toBeFalsy();
                     });
                 });
@@ -73,14 +66,12 @@
                 describe('when title is not empty and not longer than 255', function () {
 
                     it('should be true', function () {
-                        viewModel.title('lala');
+                        viewModel.title(utils.createString(25));
                         expect(viewModel.title.isValid()).toBeTruthy();
                     });
 
                 });
-
             });
-
         });
 
         describe('navigateToObjective:', function () {
@@ -110,12 +101,6 @@
 
             describe('when title is not valid', function () {
 
-                it('should set showValidation to \'true\'', function () {
-                    viewModel.title('');
-                    viewModel.saveAndOpen();
-                    expect(viewModel.showValidation()).toBeTruthy();
-                });
-
                 it('should set title.isModified to \'true\'', function () {
                     viewModel.title('');
                     viewModel.title.isModified(false);
@@ -140,66 +125,46 @@
 
             describe('when title is valid', function () {
 
-                it('should set showValidation to \'false\'', function () {
-                    viewModel.title('lala');
-                    viewModel.saveAndOpen();
-                    expect(viewModel.showValidation()).toBeFalsy();
-                });
-
                 it('should send event \'Save and edit question\'', function () {
                     viewModel.title('lala');
                     viewModel.saveAndOpen();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Save and edit question', eventsCategory);
                 });
 
-                it('should return promise', function () {
-                    viewModel.title('lala');
-                    var promise = viewModel.saveAndOpen();
-                    expect(promise).toBePromise();
-                });
-
-                describe('when question is updated successfully', function () {
-                    var deferred;
-
+                describe('and when question is updated successfully', function () {
+                    var question = { id: 0, title: 'lala' };
+                    
                     beforeEach(function () {
-                        deferred = Q.defer();
-                        spyOn(questionRepository, 'create').andReturn(deferred.promise);
-                    });
-
-                    it('should navigate to edit question', function () {
-                        var question = { id: 0, title: 'lala' };
                         viewModel.objectiveId = objective.id;
                         viewModel.title(question.title);
-                        var promise = viewModel.saveAndOpen();
-                        deferred.resolve(question);
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(router.navigate).toHaveBeenCalledWith('objective/' + objective.id + '/question/' + question.id);
-                        });
                     });
 
-                    it('should resolve promise', function () {
-                        var question = { id: 0, title: 'lala' };
-                        viewModel.objectiveId = objective.id;
+                    it('should add question to repository', function () {
                         viewModel.title(question.title);
-                        var promise = viewModel.saveAndOpen();
-                        deferred.resolve(question);
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise.inspect().state).toEqual('fulfilled');
-                        });
+                        viewModel.saveAndOpen();
+                        expect(questionRepository.add).toHaveBeenCalledWith(objective.id, { title: question.title });
                     });
 
+                    describe('and when question added successfully', function () {
+                        it('should navigate to edit question', function () {
+                            viewModel.objectiveId = objective.id;
+                            viewModel.title(question.title);
+
+                            viewModel.saveAndOpen();
+
+                            var promise = deferred.promise.finally(function () { });
+                            deferred.resolve(question.id);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(router.navigate).toHaveBeenCalledWith('objective/' + objective.id + '/question/' + question.id);
+                            });
+                        });
+                    });
                 });
-
             });
-
         });
 
         describe('saveAndNew:', function () {
@@ -209,12 +174,6 @@
             });
 
             describe('when title is not valid', function () {
-
-                it('should set showValidation to \'true\'', function () {
-                    viewModel.title('');
-                    viewModel.saveAndNew();
-                    expect(viewModel.showValidation()).toBeTruthy();
-                });
 
                 it('should set title.isModified to \'true\'', function () {
                     viewModel.title('');
@@ -239,12 +198,7 @@
             });
 
             describe('when title is valid', function () {
-
-                it('should set showValidation to \'false\'', function () {
-                    viewModel.title('lala');
-                    viewModel.saveAndNew();
-                    expect(viewModel.showValidation()).toBeFalsy();
-                });
+                var question = { id: 0, title: 'lala' };
 
                 it('should send event \'Save and create question\'', function () {
                     viewModel.title('lala');
@@ -252,29 +206,27 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Save and create question', eventsCategory);
                 });
 
-                it('should return promise', function () {
-                    viewModel.title('lala');
-                    var promise = viewModel.saveAndNew();
-                    expect(promise).toBePromise();
+                it('should add question to repository', function () {
+                    viewModel.title(question.title);
+                    viewModel.saveAndOpen();
+                    expect(questionRepository.add).toHaveBeenCalledWith(objective.id, { title: question.title });
                 });
 
-                describe('when question is updated successfully', function () {
-                    var deferred;
+                describe('and when question is updated successfully', function () {
 
                     beforeEach(function () {
-                        deferred = Q.defer();
-                        spyOn(questionRepository, 'create').andReturn(deferred.promise);
+                        viewModel.objectiveId = objective.id;
+                        viewModel.title(question.title);
                     });
 
                     it('should set title value to empty string', function () {
-                        var question = { id: 0, title: 'lala' };
-                        viewModel.objectiveId = objective.id;
-                        viewModel.title(question.title);
-                        var promise = viewModel.saveAndNew();
+                        viewModel.saveAndNew();
+
+                        var promise = deferred.promise.finally(function () { });
                         deferred.resolve(question);
 
                         waitsFor(function () {
-                            return promise.isFulfilled();
+                            return !promise.isPending();
                         });
                         runs(function () {
                             expect(viewModel.title()).toBe('');
@@ -282,15 +234,14 @@
                     });
 
                     it('should set title isEditing to \'true\'', function () {
-                        var question = { id: 0, title: 'lala' };
-                        viewModel.objectiveId = objective.id;
-                        viewModel.title(question.title);
                         viewModel.title.isEditing(false);
-                        var promise = viewModel.saveAndNew();
+                        viewModel.saveAndNew();
+
+                        var promise = deferred.promise.finally(function () { });
                         deferred.resolve(question);
 
                         waitsFor(function () {
-                            return promise.isFulfilled();
+                            return !promise.isPending();
                         });
                         runs(function () {
                             expect(viewModel.title.isEditing()).toBeTruthy();
@@ -298,36 +249,19 @@
                     });
 
                     it('should set title isModified to \'false\'', function () {
-                        var question = { id: 0, title: 'lala' };
-                        viewModel.objectiveId = objective.id;
-                        viewModel.title('lalal');
                         viewModel.title.isModified(true);
-                        var promise = viewModel.saveAndNew();
-                        deferred.resolve(question);
+                        viewModel.saveAndNew();
 
-                        waitsFor(function () {
-                            return promise.isFulfilled();
-                        });
-                        runs(function () {
-                            expect(viewModel.title.isModified()).toBeFalsy();
-                        });
-                    });
-
-                    it('should resolve promise', function () {
-                        var question = { id: 0, title: 'lala' };
-                        viewModel.objectiveId = objective.id;
-                        viewModel.title(question.title);
-                        var promise = viewModel.saveAndNew();
-                        deferred.resolve(question);
+                        var promise = deferred.promise.finally(function () { });
+                        deferred.resolve(question.id);
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise.inspect().state).toEqual('fulfilled');
+                            expect(viewModel.title.isModified()).toBeFalsy();
                         });
                     });
-
                 });
 
             });

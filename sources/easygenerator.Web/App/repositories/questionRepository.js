@@ -2,12 +2,9 @@
 
     var self = {};
 
-    self.create = function (objectiveId, obj) {
+    self.add = function (objectiveId, obj) {
         if (_.isNullOrUndefined(objectiveId) || _.isNullOrUndefined(obj))
             throw 'Invalid arguments';
-
-        if (_.isNullOrUndefined(obj.title))
-            throw 'Question title is null or undefined';
 
         var deferred = Q.defer();
 
@@ -23,7 +20,7 @@
             };
 
             objective.questions.push(question);
-            deferred.resolve(question);
+            deferred.resolve(question.id);
         });
 
         return deferred.promise;
@@ -43,6 +40,6 @@
     };
 
     return {
-        create: self.create
+        add: self.add
     };
 });

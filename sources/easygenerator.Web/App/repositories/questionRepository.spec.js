@@ -14,7 +14,7 @@
                 describe('when objectiveId is undefined', function () {
                     it('should throw exception', function () {
                         var f = function () {
-                            questionRepository.create();
+                            questionRepository.add();
                         };
                         expect(f).toThrow();
                     });
@@ -23,7 +23,7 @@
                 describe('when objectiveId is null', function () {
                     it('should throw exception', function () {
                         var f = function () {
-                            questionRepository.create(null);
+                            questionRepository.add(null);
                         };
                         expect(f).toThrow();
                     });
@@ -32,7 +32,7 @@
                 describe('when question is null', function () {
                     it('should throw exception', function () {
                         var f = function () {
-                            questionRepository.create(1, null);
+                            questionRepository.add(1, null);
                         };
                         expect(f).toThrow();
                     });
@@ -41,38 +41,20 @@
                 describe('when question is undefined', function () {
                     it('should throw exception', function () {
                         var f = function () {
-                            questionRepository.create(1);
-                        };
-                        expect(f).toThrow();
-                    });
-                });
-
-                describe('when question title is undefined', function () {
-                    it('should throw exception', function () {
-                        var f = function () {
-                            questionRepository.create(1, {});
-                        };
-                        expect(f).toThrow();
-                    });
-                });
-
-                describe('when question title is null', function () {
-                    it('should throw exception', function () {
-                        var f = function () {
-                            questionRepository.create(1, { title: null });
+                            questionRepository.add(1);
                         };
                         expect(f).toThrow();
                     });
                 });
 
                 it('should return promise', function () {
-                    var promise = questionRepository.create(1, { title: 'lalala' });
+                    var promise = questionRepository.add(1, { title: 'lalala' });
                     expect(promise).toBePromise();
                 });
 
                 describe('when objective does not exist', function () {
                     it('should reject promise', function () {
-                        var promise = questionRepository.create(-1, { title: 'lalala' });
+                        var promise = questionRepository.add(-1, { title: 'lalala' });
                         getObjectiveDeferred.resolve(null);
 
                         waitsFor(function () {
@@ -88,8 +70,8 @@
                     var objective = { id: 1, questions: [] };
                     var question = { title: 'lalal' };
 
-                    it('should resolve promise with new quuestion value', function () {
-                        var promise = questionRepository.create(objective.id, question);
+                    it('should resolve promise with new question id value', function () {
+                        var promise = questionRepository.add(objective.id, question);
                         getObjectiveDeferred.resolve(objective);
 
                         waitsFor(function () {
@@ -97,7 +79,7 @@
                         });
                         runs(function () {
                             expect(promise.inspect().state).toEqual('fulfilled');
-                            expect(promise.inspect().value).toEqual({ id: 0, title: question.title, explanations: [], answerOptions: [] });
+                            expect(promise.inspect().value).toEqual(0);
                         });
                     });
                 });

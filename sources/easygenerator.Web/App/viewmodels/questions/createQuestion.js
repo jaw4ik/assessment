@@ -16,7 +16,6 @@
 
         var objectiveId = null,
          objectiveTitle = null,
-         showValidation = ko.observable(),
          title = ko.observable('').extend({
              required: true,
              maxLength: 255
@@ -32,16 +31,14 @@
              if (!this.title.isValid()) {
                  this.title.isModified(true);
                  this.title.isEditing(true);
-                 this.showValidation(true);
-                 return undefined;
+                 return;
              }
 
-             this.showValidation(false);
              sendEvent(events.saveAndOpen);
 
              var that = this;
-             return questionRepository.create(that.objectiveId, { title: that.title() }).then(function (newQuestion) {
-                 router.navigate('objective/' + that.objectiveId + '/question/' + newQuestion.id);
+             questionRepository.add(that.objectiveId, { title: that.title() }).then(function (newQuestionId) {
+                 router.navigate('objective/' + that.objectiveId + '/question/' + newQuestionId);
              });
          },
 
@@ -49,15 +46,13 @@
             if (!this.title.isValid()) {
                 this.title.isModified(true);
                 this.title.isEditing(true);
-                this.showValidation(true);
-                return undefined;
+                return;
             }
 
-            this.showValidation(false);
             sendEvent(events.saveAndNew);
 
             var that = this;
-            return questionRepository.create(that.objectiveId, { title: that.title() }).then(function () {
+            questionRepository.add(that.objectiveId, { title: that.title() }).then(function () {
                 that.title('');
                 that.title.isModified(false);
                 that.title.isEditing(true);
@@ -80,14 +75,13 @@
 
                      that.objectiveId = objective.id;
                      that.objectiveTitle = objective.title;
-                     that.showValidation(false);
                      that.title('');
                      that.title.isModified(false);
                      that.title.isEditing(false);
                  });
          },
 
-        viewAttached = function () {
+        attached = function () {
             var that = this;
             setTimeout(function () {
                 that.title.isEditing(true);
@@ -96,10 +90,9 @@
 
         return {
             activate: activate,
-            viewAttached: viewAttached,
+            attached: attached,
             objectiveId: objectiveId,
             title: title,
-            showValidation: showValidation,
             objectiveTitle: objectiveTitle,
 
             navigateToObjective: navigateToObjective,
