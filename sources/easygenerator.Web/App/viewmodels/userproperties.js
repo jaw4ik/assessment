@@ -10,7 +10,7 @@
             selectedLanguage = ko.observable(),
             save = function () {
                 localizationManager.currentLanguage = selectedLanguage();
-                router.navigateTo("#/");
+                router.navigate("");
             },
 
             activate = function () {

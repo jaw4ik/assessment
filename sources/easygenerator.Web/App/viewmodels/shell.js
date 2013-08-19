@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'configuration/routes', 'dataContext', 'localization/localizationManager'],
-    function (router, routes, datacontext, localizationManager) {
+﻿define(['durandal/app', 'plugins/router', 'configuration/routes', 'dataContext', 'localization/localizationManager'],
+    function (app, router, routes, datacontext, localizationManager) {
         var
             startModule = 'objectives',
             cssName = ko.computed(function () {
@@ -17,31 +17,23 @@
 
                         localizationManager.initialize(window.top.userCultures);
 
-                        return router.map(routes)
-                            .buildNavigationModel()                            
-                            .activate('objectives');
+                        router.updateDocumentTitle = function (instance, instruction) {
+                            var title = null;
 
+                            if (instruction.config.settings && instruction.config.settings.localizationKey) {
+                                title = localizationManager.localize(instruction.config.settings.localizationKey);
 
-
-
-                        router.useConvention();
-
-                        router.map();
-
-                        router.handleInvalidRoute = function (route) {
-                            router.replaceLocation("#/404");
-                        };
-
-                        var onNavigationCompleteBase = router.onNavigationComplete;
-                        router.onNavigationComplete = function (routeInfo, params, module) {
-                            if (!_.isEmpty(routeInfo.settings.localizationKey)) {
-                                routeInfo.caption = localizationManager.localize(routeInfo.settings.localizationKey);
+                            } else if (instruction.config.title) {
+                                title = instruction.config.title;
                             }
 
-                            onNavigationCompleteBase(routeInfo, params, module);
+                            document.title = title ? app.title + ' | ' + title : app.title;
                         };
 
-                        return router.activate(startModule);
+                        return router.map(routes)
+                            .buildNavigationModel()
+                            .activate('objectives');
+
                     });
             };
 

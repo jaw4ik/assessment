@@ -13,7 +13,7 @@
                 title: '404 Bad Request',
             },
             {
-                route: '#/user',
+                route: 'user',
                 moduleId: 'viewmodels/userproperties',
                 title: 'User Properties',
             },
