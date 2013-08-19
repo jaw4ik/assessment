@@ -570,6 +570,25 @@
                     });
                     
                 });
+                
+                describe('when expierense build status not equals \'notStarted\'', function () {
+
+                    it('should set isFirstBuild to false', function () {
+                        viewModel.id = null;
+                        viewModel.isFirstBuild(true);
+                        experience.buildingStatus = 'succeed';
+                        var promise = viewModel.activate(experience.id);
+                        deferred.resolve([experience]);
+
+                        waitsFor(function () {
+                            return promise.isFulfilled();
+                        });
+                        runs(function () {
+                            expect(viewModel.isFirstBuild()).toBeFalsy();
+                        });
+                    });
+
+                });
 
                 describe('when previous experience exists in sorted by title collection of experiences', function () {
 

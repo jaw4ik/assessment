@@ -147,8 +147,10 @@
                         return;
                     }
                     
-                    if (experience.buildingStatus == constants.buildingStatuses.notStarted && !that.isFirstBuild()) {
+                    if (experience.buildingStatus == constants.buildingStatuses.notStarted) {
                         that.isFirstBuild(true);
+                    } else {
+                        that.isFirstBuild(false);
                     }
                     
                     that.status(experience.buildingStatus);
