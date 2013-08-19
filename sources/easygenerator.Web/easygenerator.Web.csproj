@@ -172,6 +172,7 @@
     <Compile Include="BuildExperience\BuildModel\QuestionBuildModel.cs" />
     <Compile Include="ViewModels\Objective\CreateObjectiveViewModel.cs" />
     <Content Include="Content\durandal.css" />
+    <Content Include="Content\images\build-sprite.png" />
     <Content Include="Scripts\almond-custom.js" />
     <Content Include="Scripts\durandal\activator.js" />
     <Content Include="Scripts\durandal\app.js" />
@@ -248,7 +249,6 @@
     <Content Include="Content\ckeditor.css" />
     <Content Include="Content\experience.css" />
     <Content Include="Content\experiences.css" />
-    <Content Include="Content\images\build-sprite.png" />
     <Content Include="Content\images\buildprogress.gif" />
     <Content Include="Content\images\create-actions-sprite.png" />
     <Content Include="Content\images\icons.png" />

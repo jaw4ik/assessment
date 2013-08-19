@@ -24,6 +24,7 @@
             title = '',
             objectives = [],
             status = ko.observable(),
+            isFirstBuild = ko.observable(true),
 
             nextExperienceId = null,
             previousExperienceId = null,
@@ -110,6 +111,7 @@
                         } else {
                             that.status(constants.buildingStatuses.failed);
                         }
+                        that.isFirstBuild(false);
                     });
             },
 
@@ -144,7 +146,11 @@
                         router.navigate('404');
                         return;
                     }
-
+                    
+                    if (experience.buildingStatus == constants.buildingStatuses.notStarted && !that.isFirstBuild()) {
+                        that.isFirstBuild(true);
+                    }
+                    
                     that.status(experience.buildingStatus);
 
                     that.id = experience.id;
@@ -167,6 +173,7 @@
 
             id: id,
             title: title,
+            isFirstBuild: isFirstBuild,
             //template: 'Default',
             objectives: objectives,
             status: status,

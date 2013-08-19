@@ -1,25 +1,51 @@
-﻿.navbar-left {
+﻿.navbar-left
+{
     float: left;
     width: 50%;
 }
 
-.experience-build-progress-status {
+.experience-build-progress-status
+{
     float: right;
     width: auto;
     text-align: right;
     opacity: 0.6;
 }
 
-    .experience-build-progress-status:hover {
-        opacity: 0.75;
+    .experience-build-progress-status > *
+    {
+        display: inline-block;
+        cursor: pointer;
     }
 
-    .experience-build-progress-status > * {
-        display: inline-block;
+.experience-build-progress-status-item
+{
+    opacity: 0.75;
+}
+
+    .experience-build-progress-status-item:hover
+    {
+        opacity: 1;
+    }
+
+    .experience-build-progress-status-item.disabled
+    {
+        opacity: 0.25;
+    }
+
+    .experience-build-progress-status-item.rebuild
+    {
+        width: 181px;
+        text-align: center;
+        vertical-align: top;
+    }
+    .experience-build-progress-status-item.failed {
+        opacity: 1;
         cursor: default;
     }
 
-.experience-build-status-text {
+.experience-build-status-text
+{
     color: #666666;
     vertical-align: top;
     text-transform: uppercase;
@@ -27,7 +53,8 @@
     line-height: 57px;
 }
 
-.experience-build-status-image {
+.experience-build-status-image
+{
     display: inline-block;
     margin-left: 13px;
     width: 57px;
@@ -35,34 +62,64 @@
     background: url('images/build-sprite.png') no-repeat top left;
 }
 
-.experience-build-status-image-not-started {
+.experience-build-status-image-not-started
+{
     background-position: 0 0;
 }
 
-.experience-build-status-image-in-progress {
-    background-image: none;
+.experience-build-status-image-re-build
+{
+    background-position: 0 0;
+    margin: 0 13px 0 0;
 }
 
-.experience-build-status-image-complete {
-    background-position: 0 -67px;
+.experience-build-status-image-in-progress
+{
+    background-image: url('images/buildprogress.gif');
 }
 
-.experience-build-status-image-failed {
-    background-position: 0 -134px;
+.experience-build-status-image-complete
+{
+    background-position: 0 -60px;
 }
 
-.experience-image {
+.experience-build-status-image-failed
+{
+    background-position: 0 -119px;
+}
+
+.experience-build-progress-status-seperator
+{
+    height: 57px;
+    width: 1px;
+    margin: 0 17px;
+    background: #e6e6e6; /* Old browsers */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIxJSIgc3RvcC1jb2xvcj0iI2U2ZTZlNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iI2FiYWJhYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlNmU2ZTYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #e6e6e6 1%, #ababab 50%, #e6e6e6 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#e6e6e6), color-stop(50%,#ababab), color-stop(100%,#e6e6e6)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #e6e6e6 1%,#ababab 50%,#e6e6e6 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #e6e6e6 1%,#ababab 50%,#e6e6e6 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #e6e6e6 1%,#ababab 50%,#e6e6e6 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #e6e6e6 1%,#ababab 50%,#e6e6e6 100%); /* W3C */
+    filter: none;
+    display: inline-block;
+}
+
+.experience-image
+{
     width: 270px;
     height: 158px;
     vertical-align: top;
 }
 
-.experience-header-title {
+.experience-header-title
+{
     margin-left: 280px;
     padding: 15px;
 }
 
-.experience-related-objectives-header {
+.experience-related-objectives-header
+{
     display: inline-block;
     overflow: hidden;
     margin: 20px 0;
@@ -73,20 +130,24 @@
     font-size: 18px;
 }
 
-    .experience-related-objectives-header > * {
+    .experience-related-objectives-header > *
+    {
         display: inline-block;
         vertical-align: middle;
     }
 
-    .experience-related-objectives-header hr {
+    .experience-related-objectives-header hr
+    {
         width: 100%;
     }
 
-.experience .content-list-item .text-block {
+.experience .content-list-item .text-block
+{
     margin-right: 37px;
 }
 
-.li-related-objective-question-count-wrapper {
+.li-related-objective-question-count-wrapper
+{
     float: right;
     margin: 10px;
     color: #666666;
@@ -95,7 +156,8 @@
     line-height: 17px;
 }
 
-.li-related-objective-question-count-image {
+.li-related-objective-question-count-image
+{
     display: inline-block;
     width: 17px;
     height: 17px;
@@ -104,7 +166,8 @@
     vertical-align: top;
 }
 
-.li-related-objective-question-count-text {
+.li-related-objective-question-count-text
+{
     display: inline-block;
     vertical-align: middle;
     line-height: 12px;
