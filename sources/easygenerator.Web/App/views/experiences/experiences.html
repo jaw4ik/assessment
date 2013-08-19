@@ -5,7 +5,7 @@
     </div>
     <div class="experiences-header">
         <div class="experiences-header-title" data-bind="css: { 'alone': !enableSorting() }">
-            <a class="experiences-header-create-link" href="/#/404" data-bind="click: navigateToCreation"></a>
+            <a class="experiences-header-create-link" href="/#/404" data-bind="click: navigateToCreation, localize: { title: 'addNewExperience' }"></a>
             <span data-bind="localize: { text: 'experience' }">Experience</span>
             <hr />
         </div>
@@ -13,12 +13,12 @@
             <span data-bind="visible: enableSorting(), localize: { text: 'sortByTitle' }"></span>
         </div>
         <div class="experiences-header-sort-container" data-bind="visible: enableSorting()">
-            <div class="experiences-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }">
+            <div class="experiences-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }, localize: { title: 'ascending' }">
                 <span data-bind="localize: { text: 'firstLetter' }">a</span>
                 &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
                 <span data-bind="localize: { text: 'lastLetter' }">z</span>
             </div>
-            <div class="experiences-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }">
+            <div class="experiences-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }, localize: { title: 'descending' }">
                 <span data-bind="localize: { text: 'lastLetter' }">z</span>
                 &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
                 <span data-bind="localize: { text: 'firstLetter' }">a</span>
@@ -44,31 +44,26 @@
                                 </div>
                             </div>
                             <div class="build-experience-tooltip clearfix">
-                                <div class="experience-brief-options-select left" data-bind="click: $parent.toggleSelection">
-                                    <div class="inline">
-                                        <div class="experience-brief-options-select-image inline" data-bind="css: { selected: isSelected() }">
-                                            <input class="custom-checkbox" type="checkbox" />
-                                        </div>
-                                        <!-- ko if: isSelected -->
-                                        <div class="experience-brief-options-select-text inline" data-bind="localize: { text: 'unselect' }">Unselect</div>
-                                        <!-- /ko-->
-                                        <!-- ko ifnot: isSelected -->
-                                        <div class="experience-brief-options-select-text inline" data-bind="localize: { text: 'select' }">Select</div>
-                                        <!-- /ko-->
-                                    </div>
-                                </div>
-                                <div class="separator"></div>
                                 <!-- ko if: buildingStatus() == $parent.buildingStatuses.notStarted || buildingStatus() == $parent.buildingStatuses.failed -->
                                 <div class="experience-brief-options-build clearfix" data-bind="click: $parent.buildExperience">
                                     <div class="inline">
                                         <div class="experience-brief-options-build-image inline" data-bind="css: { selected: isSelected() }">
                                             &nbsp;
                                         </div>
-                                        <div class="experience-brief-options-build-text inline" data-bind="localize: { text: 'experienceBuildAction' }"></div>
+                                        <div class="experience-brief-options-build-text inline" data-bind="localize: { text: 'buildExperience' }"></div>
                                     </div>
                                 </div>
                                 <!-- /ko -->
                                 <!-- ko if: buildingStatus() == $parent.buildingStatuses.succeed -->
+                                <div class="experience-brief-options-rebuild left" data-bind="click: $parent.buildExperience">
+                                    <div class="inline">
+                                        <div class="experience-brief-options-rebuild-image inline">
+                                            <input class="custom-checkbox" type="checkbox" />
+                                        </div>
+                                        <div class="experience-brief-options-rebuild-text inline" data-bind="localize: { text: 'experienceRebuildAction' }"></div>
+                                    </div>
+                                </div>
+                                <div class="separator"></div>
                                 <div class="experience-brief-options-download clearfix" data-bind="click: $parent.downloadExperience">
                                     <div class="inline">
                                         <div class="experience-brief-options-download-image inline" data-bind="css: { selected: isSelected() }">
@@ -90,14 +85,26 @@
                                     <div class="experience-brief-title" data-bind="attr: { title: title }">
                                         <span class="selectable" data-bind="text: title"></span>
                                     </div><!--
-                                 --><div class="experience-brief-toolbar-objective-count">
+                                 --><div class="experience-brief-toolbar-objective-count" data-bind="localize: { title: 'numberOfRelatedObjectives' }">
                                         <span class="experience-brief-toolbar-icon-objective"></span>
                                         <div class="selectable" data-bind="text: objectives.length"></div>
                                     </div>
                                 </div>
                                 <div class="experience-brief-option">
                                     <!-- ko if: !showBuildingStatus() || buildingStatus() == $parent.buildingStatuses.notStarted -->
-                                    <div class="experience-brief-option-inner experience-brief-options-open" data-bind="click: $parent.navigateToDetails">
+                                    <div class="experience-brief-options-select" data-bind="click: $parent.toggleSelection">
+                                        <!-- ko if: isSelected -->
+                                        <div data-bind="localize: { text: 'unselect' }">Unselect</div>
+                                        <!-- /ko -->
+                                        <!-- ko ifnot: isSelected -->
+                                        <div data-bind="localize: { text: 'select' }">Select</div>
+                                        <!-- /ko -->
+                                        <div class="experience-brief-options-select-image" data-bind="css: { selected: isSelected() }">
+                                            <input class="custom-checkbox" type="checkbox" />
+                                        </div>
+                                    </div>
+                                    <div class="experience-brief-options-separator"></div>
+                                    <div class="experience-brief-options-open" data-bind="click: $parent.navigateToDetails">
                                         <div data-bind="localize: { text: 'open' }">Open</div>
                                         <div class="experience-brief-options-open-image"></div>
                                     </div>
@@ -136,5 +143,4 @@
             </div>
         </div>
     </div>
-
 </div>
