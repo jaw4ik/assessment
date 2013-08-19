@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
-using easygenerator.Web.BuildExperience.BuildModel;
 using easygenerator.Web.BuildExperience.PackageModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -113,6 +112,26 @@ namespace easygenerator.Web.Tests.BuildExperience
             //Assert
             _buildPathProviderMock.VerifyAll();
             _fileManager.Verify(instance => instance.CopyDirectory(templatePath, buildPath));
+        }
+
+        [TestMethod]
+        public void Build_ShouldRecreateContentFolder()
+        {
+            //Arrange
+            var buildModel = CreateDefaultPackageModel();
+            string contentPath = "Some path";
+
+            int callOrder = 0;
+            _buildPathProviderMock.Setup(instance => instance.GetContentDirectoryName(buildModel.Id)).Returns(contentPath);
+            _fileManager.Setup(instance => instance.DeleteDirectory(contentPath)).Callback(() => Assert.AreEqual(0, callOrder++));
+            _fileManager.Setup(instance => instance.CreateDirectory(contentPath)).Callback(() => Assert.AreEqual(1, callOrder++));
+
+            //Act
+            _builder.Build(buildModel);
+
+            //Assert
+            _buildPathProviderMock.VerifyAll();
+            _fileManager.VerifyAll();
         }
 
         [TestMethod]

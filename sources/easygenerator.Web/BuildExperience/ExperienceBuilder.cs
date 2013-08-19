@@ -25,7 +25,9 @@ namespace easygenerator.Web.BuildExperience
             {
                 _fileManager.CreateDirectory(_buildPathProvider.GetBuildDirectoryName(buildId));
                 _fileManager.CopyDirectory(_buildPathProvider.GetTemplateDirectoryName("Default"), _buildPathProvider.GetBuildDirectoryName(buildId));
+
                 _fileManager.DeleteDirectory(_buildPathProvider.GetContentDirectoryName(buildId));
+                _fileManager.CreateDirectory(_buildPathProvider.GetContentDirectoryName(buildId));
 
                 foreach (ObjectivePackageModel objective in model.Objectives)
                 {
