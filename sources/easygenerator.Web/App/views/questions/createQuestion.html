@@ -17,23 +17,23 @@
                 <div class="edit-field selectable">
                     <div class="text-block bordered" data-bind="css: {'active': title.isEditing(), error: !title.isValid() && title.isModified()}">
                         <textarea class="editarea" data-bind="value: title, valueUpdate: 'afterkeydown', hasFocus: title.isEditing, autoResize: true, keyPress: {13: saveAndOpen}"></textarea>
-                        <div class="chars-counter" data-bind="css:{ error:  !title.isValid() && title.isModified()}">
+                        <div class="chars-counter" data-bind="css: { error:  !title.isValid() && title.isModified()}">
                             <span data-bind="text: title().length"></span>/255
                         </div>
                     </div>
                 </div>
                 <div class="create-question-tip">
-                    <div class="create-question-tip-text">Type question title here</div>
+                    <div class="create-question-tip-text" data-bind="localize: { text: 'typeQuestionTitleHere'}"></div>
                     <div class="create-question-tip-arrow"></div>
                 </div>
             </div>
             <div class="create-question-form-actions">
                 <!-- ko if: (!title.isValid() && !title.isModified()) || title.isValid() -->
-                <button type="submit" class="btn default saveAndOpen" data-bind="click: saveAndOpen">
+                <button type="submit" class="btn default enabled saveAndOpen" data-bind="click: saveAndOpen">
                     <span class="btn-img"></span>
                     <span class="btn-text" data-bind="localize: { text: 'createAndEdit' }"></span>
                 </button>
-                <button type="button" class="btn saveAndNew" data-bind="click: saveAndNew">
+                <button type="button" class="btn enabled saveAndNew" data-bind="click: saveAndNew">
                     <span class="btn-img"></span>
                     <span class="btn-text" data-bind="localize: { text: 'createAndNew' }"></span>
                 </button>

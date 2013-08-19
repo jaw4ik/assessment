@@ -317,6 +317,11 @@
         nl: 'Create and new[nl]',
         de: 'Create and new[de]'
     },
+    typeQuestionTitleHere: {
+        en: 'Type question title here',
+        nl: 'Type question title here[nl]',
+        de: 'Type question title here[de]'
+    },
     /* End resource section for model Questions */
     
     /* Resource section for model customLocalizationPlugin */
