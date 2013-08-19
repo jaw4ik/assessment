@@ -1,4 +1,4 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'durandal/plugins/router', 'repositories/objectiveRepository'],
+﻿define(['dataContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository'],
     function (dataContext, constants, eventTracker, router, repository) {
         "use strict";
 
@@ -38,7 +38,7 @@
             },
             navigateToObjectives = function () {
                 sendEvent(events.navigateToObjectives);
-                router.navigateTo('#/objectives');
+                router.navigate('objectives');
             },
             navigateToEditQuestion = function (question) {
                 sendEvent(events.navigateToEditQuestion);
@@ -50,26 +50,26 @@
                     throw 'Question id is null or undefined';
                 }
 
-                router.navigateTo('#/objective/' + this.objectiveId + '/question/' + question.id);
+                router.navigate('objective/' + this.objectiveId + '/question/' + question.id);
             },
             navigateToCreateQuestion = function () {
                 sendEvent(events.navigateToCreateQuestion);
-                router.navigateTo('#/objective/' + this.objectiveId + '/question/create');
+                router.navigate('objective/' + this.objectiveId + '/question/create');
             },
             navigateToNextObjective = function () {
                 sendEvent(events.navigateToNextObjective);
                 if (_.isNullOrUndefined(this.nextObjectiveId)) {
-                    router.navigateTo('#/404');
+                    router.navigate('404');
                 } else {
-                    router.navigateTo('#/objective/' + this.nextObjectiveId);
+                    router.navigate('objective/' + this.nextObjectiveId);
                 }
             },
             navigateToPreviousObjective = function () {
                 sendEvent(events.navigateToPreviousObjective);
                 if (_.isNullOrUndefined(this.previousObjectiveId)) {
-                    router.navigateTo('#/404');
+                    router.navigate('404');
                 } else {
-                    router.navigateTo('#/objective/' + this.previousObjectiveId);
+                    router.navigate('objective/' + this.previousObjectiveId);
                 }
             },
             //todo: refactor delete functionality
@@ -117,9 +117,9 @@
 
                 return mappedQuestion;
             },
-            activate = function (routeData) {
-                if (!_.isObject(routeData) || _.isUndefined(routeData.id)) {
-                    router.navigateTo('#/400');
+            activate = function (objId) {
+                if (!_.isString(objId)) {
+                    router.navigate('400');
                     return undefined;
                 }
 
@@ -131,15 +131,15 @@
                         });
 
                         var objective = _.find(objectives, function (item) {
-                            return item.id == routeData.id;
+                            return item.id == objId;
                         });
 
                         if (!_.isObject(objective)) {
-                            router.navigateTo('#/404');
+                            router.navigate('404');
                             return;
                         }
 
-                        that.objectiveId = routeData.id;
+                        that.objectiveId = objId;
                         that.title = objective.title;
                         that.image(objective.image);
 

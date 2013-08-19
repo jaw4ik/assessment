@@ -160,10 +160,6 @@ function toBeResolvedWith(actual, value) {
         return false;
     }
 
-    if (typeof value == "undefined") {
-        throw 'value is required';
-    }
-
     this.message = function () {
         return "Expected promise to be resolved with value '" + JSON.stringify(value) + "', but it was resolved with value '" + actual.inspect().value + "'";
     };
@@ -191,11 +187,7 @@ function toBeRejectedWith(actual, reason) {
     var isRejected = toBeRejected.call(this, actual);
     if (!isRejected) {
         return false;
-    }
-
-    if (typeof reason == "undefined") {
-        throw 'reason is required';
-    }
+    }    
 
     this.message = function () {
         return "Expected promise to be rejected with reason '" + reason + "', but it was rejected with reason '" + actual.inspect().reason + "'";

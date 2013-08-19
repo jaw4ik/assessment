@@ -3,7 +3,7 @@
 
     var viewModel = require('viewModels/questions/createQuestion'),
         eventTracker = require('eventTracker'),
-        router = require('durandal/plugins/router'),
+        router = require('plugins/router'),
         objectiveRepository = require('repositories/objectiveRepository'),
         questionRepository = require('repositories/questionRepository');
 
@@ -19,7 +19,7 @@
 
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
-            spyOn(router, 'navigateTo');
+            spyOn(router, 'navigate');
         });
 
         it('should be defined', function () {
@@ -33,6 +33,7 @@
         });
 
         describe('title:', function () {
+
             it('should be observable', function () {
                 expect(viewModel.title).toBeObservable();
             });
@@ -70,15 +71,20 @@
                 });
 
                 describe('when title is not empty and not longer than 255', function () {
+
                     it('should be true', function () {
                         viewModel.title('lala');
                         expect(viewModel.title.isValid()).toBeTruthy();
                     });
+
                 });
+
             });
+
         });
 
         describe('navigateToObjective:', function () {
+
             it('should be a function', function () {
                 expect(viewModel.navigateToObjective).toBeFunction();
             });
@@ -91,8 +97,9 @@
             it('should navigate to #/objective/{objectiveId}', function () {
                 viewModel.objectiveId = 0;
                 viewModel.navigateToObjective();
-                expect(router.navigateTo).toHaveBeenCalledWith('#/objective/0');
+                expect(router.navigate).toHaveBeenCalledWith('objective/0');
             });
+
         });
 
         describe('saveAndEdit:', function () {
@@ -102,31 +109,37 @@
             });
 
             describe('when title is not valid', function () {
+
                 it('should set showValidation to \'true\'', function () {
                     viewModel.title('');
                     viewModel.saveAndEdit();
                     expect(viewModel.showValidation()).toBeTruthy();
                 });
+
                 it('should set title.isModified to \'true\'', function () {
                     viewModel.title('');
                     viewModel.title.isModified(false);
                     viewModel.saveAndEdit();
                     expect(viewModel.title.isModified()).toBeTruthy();
                 });
+
                 it('should set title.isEditing to \'true\'', function () {
                     viewModel.title('');
                     viewModel.title.isEditing(false);
                     viewModel.saveAndEdit();
                     expect(viewModel.title.isEditing()).toBeTruthy();
                 });
+
                 it('should return undefined', function () {
                     viewModel.title('');
                     var result = viewModel.saveAndEdit();
                     expect(result).toBeUndefined();
                 });
+
             });
 
             describe('when title is valid', function () {
+
                 it('should set showValidation to \'false\'', function () {
                     viewModel.title('lala');
                     viewModel.saveAndEdit();
@@ -164,10 +177,10 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise.inspect().state).toEqual('fulfilled');
-                            expect(router.navigateTo).toHaveBeenCalledWith('#/objective/' + objective.id + '/question/' + question.id);
+                            expect(router.navigate).toHaveBeenCalledWith('objective/' + objective.id + '/question/' + question.id);
                         });
                     });
+
                     it('should resolve promise', function () {
                         var question = { id: 0, title: 'lala' };
                         viewModel.objectiveId = objective.id;
@@ -182,41 +195,51 @@
                             expect(promise.inspect().state).toEqual('fulfilled');
                         });
                     });
+
                 });
+
             });
+
         });
 
         describe('saveAndCreate:', function () {
+
             it('should be a function', function () {
                 expect(viewModel.saveAndCreate).toBeFunction();
             });
 
             describe('when title is not valid', function () {
+
                 it('should set showValidation to \'true\'', function () {
                     viewModel.title('');
                     viewModel.saveAndCreate();
                     expect(viewModel.showValidation()).toBeTruthy();
                 });
+
                 it('should set title.isModified to \'true\'', function () {
                     viewModel.title('');
                     viewModel.title.isModified(false);
                     viewModel.saveAndEdit();
                     expect(viewModel.title.isModified()).toBeTruthy();
                 });
+
                 it('should set title.isEditing to \'true\'', function () {
                     viewModel.title('');
                     viewModel.title.isEditing(false);
                     viewModel.saveAndEdit();
                     expect(viewModel.title.isEditing()).toBeTruthy();
                 });
+
                 it('should return undefined', function () {
                     viewModel.title('');
                     var result = viewModel.saveAndCreate();
                     expect(result).toBeUndefined();
                 });
+
             });
 
             describe('when title is valid', function () {
+
                 it('should set showValidation to \'false\'', function () {
                     viewModel.title('lala');
                     viewModel.saveAndCreate();
@@ -304,8 +327,11 @@
                             expect(promise.inspect().state).toEqual('fulfilled');
                         });
                     });
+
                 });
+
             });
+
         });
 
         describe('activate:', function () {
@@ -320,74 +346,60 @@
                 expect(viewModel.activate).toBeFunction();
             });
 
-            describe('when routeData is not an object', function () {
-                it('should navigate to #/400', function () {
-                    viewModel.activate();
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/400');
-                });
-                it('should return undefined', function () {
-                    var result = viewModel.activate();
-                    expect(result).toBeUndefined();
-                });
-            });
+            describe('when objectiveId is not a string', function () {
 
-            describe('when routeData.objectiveId is empty', function () {
-                it('should navigate to #/400', function () {
-                    viewModel.activate({});
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/400');
+                it('should navigate to #400', function () {
+                    viewModel.activate();
+                    expect(router.navigate).toHaveBeenCalledWith('400');
                 });
+
                 it('should return undefined', function () {
                     var result = viewModel.activate({});
                     expect(result).toBeUndefined();
                 });
-            });
 
-            describe('when routeData.objectiveId is null', function () {
-                it('should navigate to #/400', function () {
-                    viewModel.activate({ objectiveId: null });
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/400');
-                });
-                it('should return undefined', function () {
-                    var result = viewModel.activate({ objectiveId: null });
-                    expect(result).toBeUndefined();
-                });
             });
 
             it('should return promise', function () {
-                var promise = viewModel.activate({ objectiveId: 0 });
+                var promise = viewModel.activate('objectiveId');
                 expect(promise).toBePromise();
             });
 
             describe('when objective does not exist', function () {
-                it('should navigate to #/404', function () {
-                    var promise = viewModel.activate({ objectiveId: 0 });
+
+                beforeEach(function () {
                     deferred.resolve(null);
+                });
+
+                it('should navigate to #404', function () {
+                    var promise = viewModel.activate('objectiveId');
 
                     waitsFor(function () {
                         return promise.isFulfilled();
                     });
                     runs(function () {
-                        expect(router.navigateTo).toHaveBeenCalledWith('#/404');
+                        expect(router.navigate).toHaveBeenCalledWith('404');
                     });
                 });
+
                 it('should resolve promise with undefined', function () {
-                    var promise = viewModel.activate({ objectiveId: 0 });
-                    deferred.resolve(null);
+                    var promise = viewModel.activate('objectiveId');
 
                     waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(promise.inspect().state).toEqual('fulfilled');
-                        expect(promise.inspect().value).toEqual(undefined);
+                        expect(promise).toBeResolvedWith(undefined);
                     });
                 });
+
             });
 
             describe('when objective exists', function () {
+
                 it('should set objectiveId', function () {
                     viewModel.objectiveId = null;
-                    var promise = viewModel.activate({ objectiveId: objective.id });
+                    var promise = viewModel.activate(objective.id);
                     deferred.resolve({ id: objective.id });
 
                     waitsFor(function () {
@@ -400,7 +412,7 @@
 
                 it('should set title value to empty string', function () {
                     viewModel.title();
-                    var promise = viewModel.activate({ objectiveId: objective.id });
+                    var promise = viewModel.activate(objective.id);
                     deferred.resolve({ id: objective.id });
 
                     waitsFor(function () {
@@ -411,11 +423,11 @@
                     });
                 });
 
-                
+
                 it('should set title.isModified to \'false\'', function () {
                     viewModel.title.isEditing(false);
 
-                    var promise = viewModel.activate({ objectiveId: objective.id });
+                    var promise = viewModel.activate(objective.id);
                     deferred.resolve({ id: objective.id });
 
                     waitsFor(function () {
@@ -429,7 +441,7 @@
                 it('should set objectiveTitle', function () {
                     viewModel.objectiveTitle = null;
 
-                    var promise = viewModel.activate({ objectiveId: objective.id });
+                    var promise = viewModel.activate(objective.id);
                     deferred.resolve(objective);
 
                     waitsFor(function () {
@@ -439,7 +451,11 @@
                         expect(viewModel.objectiveTitle).toBe(objective.title);
                     });
                 });
+
             });
+
         });
+
     });
+
 });

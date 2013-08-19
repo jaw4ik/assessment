@@ -1,4 +1,4 @@
-﻿define(['dataContext', 'durandal/plugins/router', 'eventTracker', 'models/answerOption', 'models/explanation', 'localization/localizationManager', 'constants'],
+﻿define(['dataContext', 'plugins/router', 'eventTracker', 'models/answerOption', 'models/explanation', 'localization/localizationManager', 'constants'],
     function (dataContext, router, eventTracker, answerOptionModel, expalantionModel, localizationManager, constants) {
         "use strict";
         var
@@ -58,23 +58,23 @@
 
             goToRelatedObjective = function () {
                 sendEvent(events.navigateToRelatedObjective);
-                router.navigateTo('#/objective/' + self.objectiveId);
+                router.navigate('objective/' + self.objectiveId);
             },
 
             goToPreviousQuestion = function () {
-                if (!hasPrevious)
-                    router.navigateTo('#/404');
+                if (!this.hasPrevious)
+                    router.navigate('404');
 
                 sendEvent(events.navigateToPreviousQuestion);
-                router.navigateTo('#/objective/' + self.objectiveId + '/question/' + self.previousId);
+                router.navigate('objective/' + self.objectiveId + '/question/' + self.previousId);
             },
 
             goToNextQuestion = function () {
-                if (!hasNext)
-                    router.navigateTo('#/404');
+                if (!this.hasNext)
+                    router.navigate('404');
 
                 sendEvent(events.navigateToNextQuestion);
-                router.navigateTo('#/objective/' + self.objectiveId + '/question/' + self.nextId);
+                router.navigate('objective/' + self.objectiveId + '/question/' + self.nextId);
             },
 
             getQuestionFromDataContext = function (objectiveId, questionId) {
@@ -355,27 +355,27 @@
 
             //#endregion Explanations
 
-            activate = function (routeData) {
-                if (_.isEmpty(routeData) || _.isEmpty(routeData.objectiveId) || _.isEmpty(routeData.id)) {
-                    router.navigateTo('#/400');
+            activate = function (objId, quesId) {                
+                if (!_.isString(objId) || !_.isString(quesId)) {
+                    router.navigate('400');
                     return;
                 }
 
                 var objective = _.find(dataContext.objectives, function (item) {
-                    return item.id == routeData.objectiveId;
+                    return item.id == objId;
                 });
 
                 if (!_.isObject(objective)) {
-                    router.navigateTo('#/404');
+                    router.navigate('404');
                     return;
                 }
 
                 var question = _.find(objective.questions, function (item) {
-                    return item.id == routeData.id;
+                    return item.id == quesId;
                 });
 
                 if (!_.isObject(question)) {
-                    router.navigateTo('#/404');
+                    router.navigate('404');
                     return;
                 }
 

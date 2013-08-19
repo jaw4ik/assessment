@@ -1,4 +1,4 @@
-﻿define(['dataContext', 'durandal/plugins/router', 'constants', 'eventTracker', 'repositories/experienceRepository', 'services/buildExperience', 'viewmodels/objectives/objectiveBrief'],
+﻿define(['dataContext', 'plugins/router', 'constants', 'eventTracker', 'repositories/experienceRepository', 'services/buildExperience', 'viewmodels/objectives/objectiveBrief'],
     function (dataContext, router, constants, eventTracker, repository, service, objectiveBrief) {
         "use strict";
 
@@ -31,24 +31,24 @@
 
             navigateToExperiences = function () {
                 sendEvent(events.navigateToExperiences);
-                router.navigateTo('#/experiences');
+                router.navigate('experiences');
             },
 
             navigateToNextExperience = function () {
                 sendEvent(events.navigateToNextExperience);
                 if (_.isUndefined(this.nextExperienceId) || _.isNull(this.nextExperienceId)) {
-                    router.navigateTo('#/404');
+                    router.navigate('404');
                 } else {
-                    router.navigateTo('#/experience/' + this.nextExperienceId);
+                    router.navigate('experience/' + this.nextExperienceId);
                 }
             },
 
             navigateToPreviousExperience = function () {
                 sendEvent(events.navigateToPreviousExperience);
                 if (_.isUndefined(this.previousExperienceId) || _.isNull(this.previousExperienceId)) {
-                    router.navigateTo('#/404');
+                    router.navigate('404');
                 } else {
-                    router.navigateTo('#/experience/' + this.previousExperienceId);
+                    router.navigate('experience/' + this.previousExperienceId);
                 }
             },
 
@@ -70,7 +70,7 @@
                     throw 'Objective id property is null';
                 }
 
-                router.navigateTo('#/objective/' + objective.id);
+                router.navigate('objective/' + objective.id);
             },
 
 
@@ -115,7 +115,8 @@
 
             downloadExperience = function () {
                 sendEvent(events.downloadExperience);
-                router.navigateTo('download/' + this.id + '.zip');
+                var downloadUrl = window.location.href.replace(window.location.hash, 'download/' + this.id + '.zip');
+                window.location.assign(downloadUrl);
             },
 
             resetBuildStatus = function () {
@@ -123,10 +124,9 @@
             },
 
 
-            activate = function (routeData) {
-
-                if (!_.isObject(routeData) || _.isUndefined(routeData.id)) {
-                    router.navigateTo('#/400');
+            activate = function (experienceId) {
+                if (!_.isString(experienceId)) {
+                    router.navigate('400');
                     return undefined;
                 }
 
@@ -137,11 +137,11 @@
                     });
 
                     var experience = _.find(experiences, function (item) {
-                        return item.id == routeData.id;
+                        return item.id == experienceId;
                     });
 
                     if (!_.isObject(experience)) {
-                        router.navigateTo('#/404');
+                        router.navigate('404');
                         return;
                     }
 

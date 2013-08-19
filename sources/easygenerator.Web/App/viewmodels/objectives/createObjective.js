@@ -1,4 +1,4 @@
-﻿define(['repositories/objectiveRepository', 'durandal/plugins/router', 'eventTracker'],
+﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker'],
     function (objectiveRepository, router, eventTracker) {
 
         var
@@ -31,7 +31,7 @@
                 sendEvent(events.createAndNew);
                 objectiveRepository.addObjective({ title: ko.unwrap(this.title) })
                     .then(function () {
-                        router.navigateTo('#/objective/create');
+                        router.navigate('objective/create');
                     });
             },
             createAndOpen = function () {
@@ -42,7 +42,7 @@
                 sendEvent(events.createAndOpen);
                 objectiveRepository.addObjective({ title: ko.unwrap(this.title) })
                     .then(function (objectiveId) {
-                        router.navigateTo('#/objective/' + objectiveId);
+                        router.navigate('objective/' + objectiveId);
                     });
             },
 

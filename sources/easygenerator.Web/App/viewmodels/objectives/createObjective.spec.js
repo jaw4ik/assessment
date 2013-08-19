@@ -3,7 +3,7 @@
         "use strict";
 
         var dataContext = require('dataContext'),
-            router = require('durandal/plugins/router'),
+            router = require('plugins/router'),
             eventTracker = require('eventTracker')
 
         ;
@@ -23,7 +23,7 @@
                 addObjective = Q.defer();
                 spyOn(repository, 'addObjective').andReturn(addObjective.promise);
                 spyOn(eventTracker, 'publish');
-                spyOn(router, 'navigateTo');
+                spyOn(router, 'navigate');
             });
 
             it('should be object', function () {
@@ -116,7 +116,7 @@
 
                 describe('and objective was added successfully', function () {
 
-                    it('should navigate to #/objective/{objectiveId}', function () {
+                    it('should navigate to #objective/{objectiveId}', function () {
 
                         viewModel.createAndOpen();
 
@@ -127,7 +127,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(router.navigateTo).toHaveBeenCalledWith('#/objective/' + objectiveId);
+                            expect(router.navigate).toHaveBeenCalledWith('objective/' + objectiveId);
                         });
                     });
 
@@ -156,7 +156,7 @@
 
                 describe('and objective was added successfully', function () {
 
-                    it('should navigate to #/objective/create', function () {
+                    it('should navigate to #objective/create', function () {
                         viewModel.createAndNew();
 
                         var promise = addObjective.promise.finally(function () { });
@@ -166,7 +166,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(router.navigateTo).toHaveBeenCalledWith('#/objective/create');
+                            expect(router.navigate).toHaveBeenCalledWith('objective/create');
                         });
                     });
 

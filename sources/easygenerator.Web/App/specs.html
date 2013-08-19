@@ -21,7 +21,7 @@
     <script type="text/javascript" src="../Scripts/underscore.extensions.js"></script>
 
     <!-- Source scripts -->
-    <script type="text/javascript" src="durandal/amd/require.js"></script>
+    <script type="text/javascript" src="../Scripts/require.js"></script>
 
     <script type="text/javascript">
 
@@ -36,10 +36,17 @@
 
             require.config({
                 paths: {
-                    "text": "durandal/amd/text"
+                    'text': '../Scripts/text',
+                    'durandal': '../Scripts/durandal',
+                    'plugins': '../Scripts/durandal/plugins',
+                    'transitions': '../Scripts/durandal/transitions'
                 },
                 urlArgs: 'v=' + Math.random()
             });
+
+            define('jquery', function () { return jQuery; });
+            define('knockout', ko);
+
 
             var specs = [
                 'localization/localizationManager.spec',

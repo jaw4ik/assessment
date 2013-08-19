@@ -3,7 +3,7 @@
         "use strict";
 
         var
-           http = require('durandal/http');
+           http = require('plugins/http');
 
         describe('repository [objectiveRepository]', function () {
 
@@ -11,16 +11,7 @@
 
             beforeEach(function () {
                 post = $.Deferred();
-                spyOn(http, 'post').andReturn(post.promise());
-                //deferred.resolve({
-                //    objectives: [
-                //        { id: '', title: '', image: '', questions: [{}, {}] },
-                //        { id: '', title: '', image: '', questions: [{}, {}] },
-                //        { id: '', title: '', image: '', questions: [{}, {}] },
-                //        { id: '', title: '', image: '', questions: [{}, {}] },
-                //        { id: '', title: '', image: '', questions: [{}, {}] }
-                //    ]
-                //});                
+                spyOn(http, 'post').andReturn(post.promise());            
             });
 
             it('should be object', function () {

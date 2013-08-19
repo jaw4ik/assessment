@@ -1,9 +1,14 @@
-﻿require.config({
+﻿requirejs.config({
     paths: {
-        "text": "durandal/amd/text"
+        'text': '../Scripts/text',
+        'durandal': '../Scripts/durandal',
+        'plugins': '../Scripts/durandal/plugins',
+        'transitions': '../Scripts/durandal/transitions'
     }
 });
 
+define('jquery', function () { return jQuery; });
+define('knockout', ko);
 
 //>>excludeStart("build", true);
 require.config({
@@ -15,28 +20,29 @@ ko.validation.configure({
     insertMessages: false
 });
 
-define(function (require) {
-    var
-        system = require('durandal/system'),
-        app = require('durandal/app'),
-        viewLocator = require('durandal/viewLocator')
-    ;
+define(['durandal/system', 'durandal/app', 'durandal/viewLocator'],
+    function (system, app, viewLocator) {
+        //>>excludeStart("build", true);
+        system.debug(true);
+        //>>excludeEnd("build");
 
-    //>>excludeStart("build", true);
-    system.debug(true);
-    //>>excludeEnd("build");
+        app.title = "easygenerator";
 
-    app.title = "easygenerator";
+        app.configurePlugins({
+            router: true,
+            dialog: true,
+            http: true
+        });
 
-    app.start().then(function () {
-        // When finding a module, replace the viewmodel string 
-        // with view to find it partner view.
-        // [viewmodel]s/sessions --> [view]s/sessions.html
-        // Otherwise you can pass paths for modules, views, partials
-        // Defaults to viewmodels/views/views. 
-        viewLocator.useConvention();
+        app.start().then(function () {
+            // When finding a module, replace the viewmodel string 
+            // with view to find it partner view.
+            // [viewmodel]s/sessions --> [view]s/sessions.html
+            // Otherwise you can pass paths for modules, views, partials
+            // Defaults to viewmodels/views/views. 
+            viewLocator.useConvention();
 
-        app.setRoot('viewmodels/_layout', 'entrance');
+            app.setRoot('viewmodels/shell');
+        });
+
     });
-
-});

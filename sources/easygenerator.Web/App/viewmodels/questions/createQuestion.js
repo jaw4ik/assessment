@@ -1,4 +1,4 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'durandal/plugins/router', 'repositories/objectiveRepository', 'repositories/questionRepository'],
+﻿define(['dataContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/questionRepository'],
     function (dataContext, constants, eventTracker, router, objectiveRepository, questionRepository) {
         "use strict";
 
@@ -25,7 +25,7 @@
 
         var navigateToObjective = function () {
             sendEvent(events.navigateToObjective);
-            router.navigateTo('#/objective/' + this.objectiveId);
+            router.navigate('objective/' + this.objectiveId);
         },
 
          saveAndEdit = function () {
@@ -41,7 +41,7 @@
 
              var that = this;
              return questionRepository.create(that.objectiveId, { title: that.title() }).then(function (newQuestion) {
-                 router.navigateTo('#/objective/' + that.objectiveId + '/question/' + newQuestion.id);
+                 router.navigate('objective/' + that.objectiveId + '/question/' + newQuestion.id);
              });
          },
 
@@ -64,17 +64,17 @@
             });
         },
 
-         activate = function (routeData) {
-             if (!_.isObject(routeData) || _.isNullOrUndefined(routeData.objectiveId)) {
-                 router.navigateTo('#/400');
+         activate = function (objId) {
+             if (!_.isString(objId)) {
+                 router.navigate('400');
                  return undefined;
              }
 
              var that = this;
-             return objectiveRepository.getById(routeData.objectiveId).then(
+             return objectiveRepository.getById(objId).then(
                  function (objective) {
                      if (_.isNull(objective)) {
-                         router.navigateTo('#/404');
+                         router.navigate('404');
                          return;
                      }
 

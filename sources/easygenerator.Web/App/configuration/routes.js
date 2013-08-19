@@ -1,84 +1,81 @@
-﻿define(['localization/localizationManager'],
-    function (localizationManager) {
+﻿define([],
+    function () {
 
         return [
             {
-                url: '#/404',
+                route: '404',
                 moduleId: 'viewmodels/errors/404',
-                name: '404 Not Found',
-                caption: '404 Not Found'
+                title: '404 Not Found',
             },
             {
-                url: '#/400',
+                route: '400',
                 moduleId: 'viewmodels/errors/400',
-                name: '404 Bad Request',
-                caption: '404 Bad Request'
+                title: '404 Bad Request',
             },
             {
-                url: '#/user',
+                route: '#/user',
                 moduleId: 'viewmodels/userproperties',
-                name: 'User Properties',
-                caption: 'User Properties'
+                title: 'User Properties',
             },
             {
-                url: 'objectives',
+                route: '',
                 moduleId: 'viewmodels/objectives/objectives',
-                name: 'Objectives',
-                caption: 'Objectives',
+                title: 'Objectives',
                 settings: {
                     localizationKey: 'learningObjectives'
                 }
             },
             {
-                url: 'objective/create',
-                moduleId: 'viewmodels/objectives/createObjective',
-                name: 'Create New Objective',
-                caption: 'Create New Objective'
+                route: 'objectives',
+                moduleId: 'viewmodels/objectives/objectives',
+                title: 'Objectives',
+                settings: {
+                    localizationKey: 'learningObjectives'
+                }
             },
             {
-                url: 'objective/:id',
+                route: 'objective/create',
+                moduleId: 'viewmodels/objectives/createObjective',
+                title: 'Create New Objective',
+            },
+            {
+                route: 'objective/:id',
                 moduleId: 'viewmodels/objectives/objective',
-                name: 'Objective Properties',
-                caption: 'Objective Properties',
+                title: 'Objective Properties',
                 settings: {
                     localizationKey: 'objectiveProperties'
                 }
             },
             {
-                url: 'experience/create',
+                route: 'experience/create',
                 moduleId: 'viewmodels/experiences/createExperience',
-                name: 'Create New Experiences',
-                caption: 'Create New Experiences'
+                title: 'Create New Experiences',
             },
             {
-                url: 'objective/:objectiveId/question/create',
+                route: 'objective/:objectiveId/question/create',
                 moduleId: 'viewmodels/questions/createQuestion',
-                name: 'Create New Question',
-                caption: 'Create New Question'
+                title: 'Create New Question',
             },
             {
-                url: 'objective/:objectiveId/question/:id',
+                route: 'objective/:objectiveId/question/:id',
                 moduleId: 'viewmodels/questions/question',
-                name: 'Question Properties',
-                caption: 'Question Properties',
+                title: 'Question Properties',
                 settings: {
                     localizationKey: 'questionProperties'
                 }
             },
             {
-                url: 'experiences',
+                route: 'experiences',
                 moduleId: 'viewmodels/experiences/experiences',
-                name: 'Experiences',
-                caption: 'Experiences',
+                title: 'Experiences',
                 settings: {
                     localizationKey: 'experiences'
                 }
             },
             {
-                url: 'experience/:id',
+                route: 'experience/:id',
                 moduleId: 'viewmodels/experiences/experience',
-                name: 'Experience',
-                caption: 'Experience'
+                title: 'Experience',
             }
         ];
     }

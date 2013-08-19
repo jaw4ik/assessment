@@ -502,17 +502,17 @@
         {
             "id": 1,
             "title": "1",
-            "objectives": ["1", "2", "3"]
+            "objectives": []
         },
         {
             "id": 2,
             "title": "2",
-            "objectives": ["0", "1", "3"]
+            "objectives": []
         },
         {
             "id": 3,
             "title": "3",
-            "objectives": ["0", "2", "3"]
+            "objectives": []
         }
     ]
 }

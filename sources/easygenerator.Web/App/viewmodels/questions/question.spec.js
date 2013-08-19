@@ -3,7 +3,7 @@ define(function (require) {
 
     var
         viewModel = require('viewModels/questions/question'),
-        router = require('durandal/plugins/router'),
+        router = require('plugins/router'),
         dataContext = require('dataContext'),
         objectiveModel = require('models/objective'),
         questionModel = require('models/question'),
@@ -26,59 +26,47 @@ define(function (require) {
                 expect(viewModel.activate).toBeFunction();
             });
 
-            describe('when route data is empty', function () {
+            describe('when objectiveId is not a string', function () {
 
-                it('should navigate to #/400', function () {
-                    spyOn(router, 'navigateTo');
+                it('should navigate to #400', function () {
+                    spyOn(router, 'navigate');
 
-                    viewModel.activate();
+                    viewModel.activate(undefined, 'questiondId');
 
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/400');
+                    expect(router.navigate).toHaveBeenCalledWith('400');
                 });
 
             });
 
-            describe('when objectiveId is undefined', function () {
+            describe('when questionId is not a string', function () {
 
                 it('should navigate to #/400', function () {
-                    spyOn(router, 'navigateTo');
+                    spyOn(router, 'navigate');
 
-                    viewModel.activate({ id: '0', objectiveId: undefined });
+                    viewModel.activate('objectiveId', undefined);
 
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/400');
-                });
-
-            });
-
-            describe('when questionId is undefined', function () {
-
-                it('should navigate to #/400', function () {
-                    spyOn(router, 'navigateTo');
-
-                    viewModel.activate({ objectiveId: '123', id: undefined });
-
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/400');
+                    expect(router.navigate).toHaveBeenCalledWith('400');
                 });
 
             });
 
             describe('when objective not found', function () {
 
-                it('should navigate to #/404 when', function () {
-                    spyOn(router, 'navigateTo');
+                it('should navigate to #404 when', function () {
+                    spyOn(router, 'navigate');
                     dataContext.objectives = [];
 
-                    viewModel.activate({ id: '0', objectiveId: '0' });
+                    viewModel.activate('objectiveId', 'questionId');
 
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/404');
+                    expect(router.navigate).toHaveBeenCalledWith('404');
                 });
 
             });
 
             describe('when question not found', function () {
 
-                it('should navigate to #/404 when', function () {
-                    spyOn(router, 'navigateTo');
+                it('should navigate to #404', function () {
+                    spyOn(router, 'navigate');
                     dataContext.objectives = [
                         new objectiveModel({
                             id: 'obj1',
@@ -87,9 +75,9 @@ define(function (require) {
                             questions: []
                         })];
 
-                    viewModel.activate({ id: 'someId', objectiveId: 'obj1' });
+                    viewModel.activate('obj1', 'someId');
 
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/404');
+                    expect(router.navigate).toHaveBeenCalledWith('404');
                 });
 
             });
@@ -114,7 +102,7 @@ define(function (require) {
                                     ]
                             })];
 
-                    viewModel.activate({ objectiveId: 'obj2', id: '0' });
+                    viewModel.activate('obj2', '0');
 
                     expect(viewModel.hasNext).toBe(false);
                 });
@@ -141,7 +129,7 @@ define(function (require) {
                                  ]
                          })];
 
-                    viewModel.activate({ objectiveId: 'obj3', id: '0' });
+                    viewModel.activate('obj3', '0');
 
                     expect(viewModel.hasPrevious).toBe(false);
                 });
@@ -182,7 +170,7 @@ define(function (require) {
                 dataContext.objectives = [objective];
 
                 //act
-                viewModel.activate({ id: question.id, objectiveId: objective.id });
+                viewModel.activate(objective.id, question.id);
 
                 //assert
                 expect(viewModel.objectiveTitle).toBe(objective.title);
@@ -223,7 +211,7 @@ define(function (require) {
                                              })
                                          ]
                                  })];
-                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+                viewModel.activate('obj3', '0');
             });
 
             it('should be a function', function () {
@@ -278,10 +266,10 @@ define(function (require) {
                                              })
                                          ]
                                  })];
-                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+                viewModel.activate('obj3', '0');
 
                 spyOn(eventTracker, 'publish');
-                spyOn(router, 'navigateTo');
+                spyOn(router, 'navigate');
             });
 
             it('should be a function', function () {
@@ -294,10 +282,10 @@ define(function (require) {
                 expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to related objective', eventsCategory);
             });
 
-            it('should navigate to objective', function () {
+            it('should navigate to #objective/{objectiveId}', function () {
                 viewModel.goToRelatedObjective();
 
-                expect(router.navigateTo).toHaveBeenCalledWith('#/objective/obj3');
+                expect(router.navigate).toHaveBeenCalledWith('objective/obj3');
             });
 
         });
@@ -345,9 +333,9 @@ define(function (require) {
                                              })
                                          ]
                                  })];
-                viewModel.activate({ id: '1', objectiveId: 'obj3' });
+                viewModel.activate('obj3', '1');
                 spyOn(eventTracker, 'publish');
-                spyOn(router, 'navigateTo');
+                spyOn(router, 'navigate');
             });
 
             it('should be a function', function () {
@@ -363,17 +351,17 @@ define(function (require) {
             it('should navigate to previous question', function () {
                 viewModel.goToPreviousQuestion();
 
-                expect(router.navigateTo).toHaveBeenCalledWith('#/objective/obj3/question/0');
+                expect(router.navigate).toHaveBeenCalledWith('objective/obj3/question/0');
             });
 
             describe('when previous question doesnt exist', function () {
 
-                it('should navigate to #/404 ', function () {
+                it('should navigate to #404 ', function () {
                     viewModel.hasPrevious = false;
 
                     viewModel.goToPreviousQuestion();
 
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/404');
+                    expect(router.navigate).toHaveBeenCalledWith('404');
                 });
 
             });
@@ -423,9 +411,9 @@ define(function (require) {
                                              })
                                          ]
                                  })];
-                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+                viewModel.activate('obj3', '0');
                 spyOn(eventTracker, 'publish');
-                spyOn(router, 'navigateTo');
+                spyOn(router, 'navigate');
             });
 
             it('should be a function', function () {
@@ -443,17 +431,17 @@ define(function (require) {
 
                 viewModel.goToNextQuestion();
 
-                expect(router.navigateTo).toHaveBeenCalledWith('#/objective/obj3/question/1');
+                expect(router.navigate).toHaveBeenCalledWith('objective/obj3/question/1');
             });
 
             describe('when next question doesnt exist', function () {
 
-                it('should navigate to #/404', function () {
+                it('should navigate to #404', function () {
                     viewModel.hasNext = false;
 
                     viewModel.goToNextQuestion();
 
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/404');
+                    expect(router.navigate).toHaveBeenCalledWith('404');
                 });
 
             });
@@ -520,7 +508,7 @@ define(function (require) {
                                              })
                                          ]
                                  })];
-                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+                viewModel.activate('obj3', '0');
             });
 
             it('should be a function', function () {
@@ -591,7 +579,7 @@ define(function (require) {
                                              })
                                          ]
                                  })];
-                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+                viewModel.activate('obj3', '0');
             });
 
             it('should be observable', function () {
@@ -727,7 +715,7 @@ define(function (require) {
                                              })
                                          ]
                                  })];
-                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+                viewModel.activate('obj3', '0');
             });
 
             it('should be computed', function () {
@@ -849,7 +837,7 @@ define(function (require) {
                                              })
                                          ]
                                  })];
-                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+                viewModel.activate('obj3', '0');
             });
 
             it('should be a function', function () {
@@ -912,7 +900,7 @@ define(function (require) {
                                              })
                                          ]
                                  })];
-                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+                viewModel.activate('obj3', '0');
             });
 
             it('should be a function', function () {
@@ -931,14 +919,14 @@ define(function (require) {
 
                         expect(viewModel.explanations().indexOf(explanation)).toBe(-1);
                     });
-                    
+
                     it('should remove explanation from dataContext', function () {
                         var explanation = viewModel.explanations()[0];
                         explanation.text(' ');
                         explanation.isEditing(false);
                         viewModel.saveExplanation(explanation);
-                        
-                        var explanationEntity = _.find(dataContext.objectives[0].questions[0].explanations, function(item) {
+
+                        var explanationEntity = _.find(dataContext.objectives[0].questions[0].explanations, function (item) {
                             return item.id == explanation.id;
                         });
 
@@ -1122,7 +1110,7 @@ define(function (require) {
                             })
                         ]
                     })];
-                viewModel.activate({ id: '0', objectiveId: 'obj3' });
+                viewModel.activate('obj3', '0');
 
                 spyOn(eventTracker, 'publish');
                 spyOn(viewModel.notification, 'update');

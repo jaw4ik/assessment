@@ -1,4 +1,4 @@
-﻿define(['dataContext', 'durandal/http', 'models/objective'], function (dataContext, http, objectiveModel) {
+﻿define(['dataContext', 'plugins/http', 'models/objective'], function (dataContext, http, objectiveModel) {
 
     var self = {};
 

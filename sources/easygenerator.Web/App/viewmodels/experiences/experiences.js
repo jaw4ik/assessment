@@ -1,4 +1,4 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'durandal/plugins/router', 'services/buildExperience'],
+﻿define(['dataContext', 'constants', 'eventTracker', 'plugins/router', 'services/buildExperience'],
     function (dataContext, constants, eventTracker, router, experienceService) {
         "use strict";
 
@@ -59,17 +59,17 @@
 
             navigateToCreation = function () {
                 sendEvent(events.navigateToCreateExperience);
-                router.navigateTo('#/404');
+                router.navigate('404');
             },
 
             navigateToDetails = function (experience) {
                 sendEvent(events.navigateToDetails);
-                router.navigateTo('#/experience/' + experience.id);
+                router.navigate('experience/' + experience.id);
             },
 
             navigateToObjectives = function () {
                 sendEvent(events.navigateToObjectives);
-                router.navigateTo('#/objectives');
+                router.navigate('objectives');
             },
 
             buildExperience = function (experience) {
@@ -99,7 +99,8 @@
 
             downloadExperience = function (experience) {
                 sendEvent(events.downloadExperience);
-                router.navigateTo('download/' + experience.id + '.zip');
+                var downloadUrl = window.location.href.replace(window.location.hash, 'download/' + experience.id + '.zip');
+                window.location.assign(downloadUrl);
             },
 
             enableOpenExperience = function (experience) {
@@ -126,7 +127,7 @@
 
                     var storageItem = storage[item.id] || { showBuildingStatus: false, buildingStatus: constants.buildingStatuses.notStarted };
                     var showBuildingStatus = storageItem.showBuildingStatus || item.buildingStatus != storageItem.buildingStatus;
-                    console.log(item.buildingStatus != storageItem.buildingStatus);
+                    //console.log(item.buildingStatus != storageItem.buildingStatus);
                     experience.showBuildingStatus(showBuildingStatus);
 
                     if (showBuildingStatus) {

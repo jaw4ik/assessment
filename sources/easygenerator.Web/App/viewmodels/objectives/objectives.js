@@ -1,4 +1,4 @@
-﻿define(['constants', 'eventTracker', 'durandal/plugins/router', 'repositories/objectiveBriefRepository'],
+﻿define(['constants', 'eventTracker', 'plugins/router', 'repositories/objectiveBriefRepository'],
     function (constants, eventTracker, router, repository) {
         "use strict";
 
@@ -37,15 +37,15 @@
 
             navigateToCreation = function () {
                 sendEvent(events.navigateToCreation);
-                router.navigateTo('#/404');
+                router.navigate('404');
             },
             navigateToDetails = function (item) {
                 sendEvent(events.navigateToDetails);
-                router.navigateTo('#/objective/' + item.id);
+                router.navigate('objective/' + item.id);
             },
             navigateToExperiences = function () {
                 sendEvent(events.navigateToExperiences);
-                router.navigateTo('#/experiences');
+                router.navigate('experiences');
             },
 
 

@@ -1,4 +1,4 @@
-﻿define(['dataContext', 'models/experience', 'durandal/plugins/router', 'constants', 'eventTracker'],
+﻿define(['dataContext', 'models/experience', 'plugins/router', 'constants', 'eventTracker'],
     function (dataContext, ExperienceModel, router, constants, eventTracker) {
         var self = {};
 

@@ -171,6 +171,24 @@
     <Compile Include="BuildExperience\BuildModel\ObjectiveBuildModel.cs" />
     <Compile Include="BuildExperience\BuildModel\QuestionBuildModel.cs" />
     <Compile Include="ViewModels\Objective\CreateObjectiveViewModel.cs" />
+    <Content Include="Content\durandal.css" />
+    <Content Include="Scripts\almond-custom.js" />
+    <Content Include="Scripts\durandal\activator.js" />
+    <Content Include="Scripts\durandal\app.js" />
+    <Content Include="Scripts\durandal\binder.js" />
+    <Content Include="Scripts\durandal\composition.js" />
+    <Content Include="Scripts\durandal\events.js" />
+    <Content Include="Scripts\durandal\plugins\dialog.js" />
+    <Content Include="Scripts\durandal\plugins\history.js" />
+    <Content Include="Scripts\durandal\plugins\http.js" />
+    <Content Include="Scripts\durandal\plugins\observable.js" />
+    <Content Include="Scripts\durandal\plugins\router.js" />
+    <Content Include="Scripts\durandal\plugins\serializer.js" />
+    <Content Include="Scripts\durandal\plugins\widget.js" />
+    <Content Include="Scripts\durandal\system.js" />
+    <Content Include="Scripts\durandal\viewEngine.js" />
+    <Content Include="Scripts\durandal\viewLocator.js" />
+    <Content Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="apple-touch-icon-114x114-precomposed.png" />
@@ -182,16 +200,24 @@
     <Content Include="App\models\explanation.js" />
     <Content Include="App\repositories\experienceRepository.js" />
     <Content Include="App\repositories\objectiveBriefRepository.js" />
-    <Content Include="App\repositories\objectiveBriefRepository.spec.js" />
+    <Content Include="App\repositories\objectiveBriefRepository.spec.js">
+      <DependentUpon>objectiveBriefRepository.js</DependentUpon>
+    </Content>
     <Content Include="App\repositories\questionRepository.js" />
-    <Content Include="App\repositories\questionRepository.spec.js" />
+    <Content Include="App\repositories\questionRepository.spec.js">
+      <DependentUpon>questionRepository.js</DependentUpon>
+    </Content>
     <Content Include="App\services\buildExperience.js" />
     <Content Include="App\viewmodels\errors\400.js" />
     <Content Include="App\viewmodels\errors\404.js" />
     <Content Include="App\viewmodels\experiences\createExperience.js" />
-    <Content Include="App\viewmodels\experiences\createExperience.spec.js" />
+    <Content Include="App\viewmodels\experiences\createExperience.spec.js">
+      <DependentUpon>createExperience.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\experiences\experience.js" />
-    <Content Include="App\viewmodels\experiences\experience.spec.js" />
+    <Content Include="App\viewmodels\experiences\experience.spec.js">
+      <DependentUpon>experience.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\experiences\experiences.js" />
     <Content Include="App\viewmodels\objectives\createObjective.js" />
     <Content Include="App\viewmodels\objectives\createObjective.spec.js">
@@ -199,14 +225,20 @@
     </Content>
     <Content Include="App\viewmodels\objectives\objective.js" />
     <Content Include="App\viewmodels\objectives\objectiveBrief.js" />
-    <Content Include="App\viewmodels\objectives\objectiveBrief.spec.js" />
+    <Content Include="App\viewmodels\objectives\objectiveBrief.spec.js">
+      <DependentUpon>objectiveBrief.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\objectives\objectives.js" />
     <Content Include="App\viewmodels\questions\createQuestion.js" />
-    <Content Include="App\viewmodels\questions\createQuestion.spec.js" />
+    <Content Include="App\viewmodels\questions\createQuestion.spec.js">
+      <DependentUpon>createQuestion.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\questions\question.js" />
-    <Content Include="App\viewmodels\questions\question.spec.js" />
+    <Content Include="App\viewmodels\questions\question.spec.js">
+      <DependentUpon>question.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\userproperties.js" />
-    <Content Include="App\viewmodels\_layout.js" />
+    <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\views\common\navbar.html" />
     <Content Include="App\views\errors\404.html" />
     <Content Include="App\views\errors\400.html" />
@@ -251,28 +283,10 @@
     <Content Include="App\configuration\routes.js" />
     <Content Include="App\constants.js" />
     <Content Include="App\dataContext.js" />
-    <None Include="App\durandal\amd\almond-custom.js" />
-    <None Include="App\durandal\amd\optimizer.exe" />
-    <None Include="App\durandal\amd\r.js" />
-    <Content Include="App\durandal\amd\require.js" />
-    <Content Include="App\durandal\amd\text.js" />
-    <Content Include="App\durandal\app.js" />
-    <Content Include="App\durandal\composition.js" />
-    <Content Include="App\durandal\events.js" />
-    <Content Include="App\durandal\http.js" />
-    <Content Include="App\durandal\messageBox.html" />
-    <Content Include="App\durandal\messageBox.js" />
-    <Content Include="App\durandal\modalDialog.js" />
-    <Content Include="App\durandal\plugins\router.js" />
-    <Content Include="App\durandal\system.js" />
-    <Content Include="App\durandal\transitions\entrance.js" />
-    <Content Include="App\durandal\viewEngine.js" />
-    <Content Include="App\durandal\viewLocator.js" />
-    <Content Include="App\durandal\viewModel.js" />
-    <Content Include="App\durandal\viewModelBinder.js" />
-    <Content Include="App\durandal\widget.js" />
     <Content Include="App\eventTracker.js" />
-    <Content Include="App\localization\localizationManager.spec.js" />
+    <Content Include="App\localization\localizationManager.spec.js">
+      <DependentUpon>localizationManager.js</DependentUpon>
+    </Content>
     <Content Include="App\localization\resources.js" />
     <Content Include="App\logger.js" />
     <Content Include="App\main.js" />
@@ -281,7 +295,9 @@
     <Content Include="App\models\objective.js" />
     <Content Include="App\models\experience.js" />
     <Content Include="App\models\question.js" />
-    <Content Include="App\services\buildExperience.spec.js" />
+    <Content Include="App\services\buildExperience.spec.js">
+      <DependentUpon>buildExperience.js</DependentUpon>
+    </Content>
     <Content Include="App\repositories\objectiveRepository.spec.js">
       <DependentUpon>objectiveRepository.js</DependentUpon>
     </Content>
@@ -293,12 +309,17 @@
     <Content Include="App\views\experiences\experiences.html" />
     <Content Include="App\views\questions\question.html" />
     <Content Include="App\views\userproperties.html" />
-    <Content Include="App\views\_layout.html" />
+    <Content Include="App\views\shell.html" />
     <Content Include="Content\common.css" />
-    <Content Include="Content\durandal.css" />
-    <Content Include="App\viewmodels\experiences\experiences.spec.js" />
-    <Content Include="App\viewmodels\objectives\objective.spec.js" />
-    <Content Include="App\viewmodels\objectives\objectives.spec.js" />
+    <Content Include="App\viewmodels\experiences\experiences.spec.js">
+      <DependentUpon>experiences.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\objectives\objective.spec.js">
+      <DependentUpon>objective.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\objectives\objectives.spec.js">
+      <DependentUpon>objectives.js</DependentUpon>
+    </Content>
     <None Include="Content\font-awesome-ie7.css" />
     <None Include="Content\font-awesome-ie7.min.css" />
     <Content Include="Content\font-awesome.css" />
@@ -523,8 +544,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\q.js" />
     <None Include="Scripts\q.min.js" />
-    <Content Include="Scripts\sammy-0.7.4.js" />
-    <None Include="Scripts\sammy-0.7.4.min.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\text.js" />
     <Content Include="Scripts\underscore.extensions.js" />
     <Content Include="Scripts\underscore.js" />
     <None Include="Scripts\underscore.min.js" />
@@ -756,7 +778,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Application\index.cshtml" />
@@ -802,17 +826,15 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.7\tools\Microsoft.Bcl.Build.targets" />
   <PropertyGroup>
-    <PostBuildEvent>set PATH=C:\Program Files\nodejs
-cd $(ProjectDir)App\durandal\amd
-preoptimizer.exe
-optimizer.exe --verbose --config app.config.js
-IF NOT EXIST $(ProjectDir)App\main-built.js EXIT /B 1</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>del  $(ProjectDir)App\main-built.js</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
+  <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.8\tools\Microsoft.Bcl.Build.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

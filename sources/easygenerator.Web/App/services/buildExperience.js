@@ -1,4 +1,4 @@
-﻿define(['durandal/http', 'repositories/experienceRepository', 'constants'], function (http, repository, constants) {
+﻿define(['plugins/http', 'repositories/experienceRepository', 'constants'], function (http, repository, constants) {
 
     var build = function (experienceId) {
 

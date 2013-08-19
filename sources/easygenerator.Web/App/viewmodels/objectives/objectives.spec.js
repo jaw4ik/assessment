@@ -3,7 +3,7 @@
         "use strict";
 
         var
-            router = require('durandal/plugins/router'),
+            router = require('plugins/router'),
             eventTracker = require('eventTracker'),
             constants = require('constants');
 
@@ -33,7 +33,7 @@
 
                 beforeEach(function () {
                     spyOn(eventTracker, 'publish');
-                    spyOn(router, 'navigateTo');
+                    spyOn(router, 'navigate');
                 });
 
                 it('should be a function', function () {
@@ -45,9 +45,9 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Objective creation', eventsCategory);
                 });
 
-                it('should navigate to #/404', function () {
+                it('should navigate to 404', function () {
                     viewModel.navigateToCreation();
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/404');
+                    expect(router.navigate).toHaveBeenCalledWith('404');
                 });
 
             });
@@ -56,7 +56,7 @@
 
                 beforeEach(function () {
                     spyOn(eventTracker, 'publish');
-                    spyOn(router, 'navigateTo');
+                    spyOn(router, 'navigate');
                 });
 
                 it('should be a function', function () {
@@ -71,7 +71,7 @@
                 it('should navigate to #/objective/{id}', function () {
                     var objectiveId = 1;
                     viewModel.navigateToDetails({ id: objectiveId });
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/objective/' + objectiveId);
+                    expect(router.navigate).toHaveBeenCalledWith('objective/' + objectiveId);
                 });
 
             });
@@ -80,7 +80,7 @@
 
                 beforeEach(function () {
                     spyOn(eventTracker, 'publish');
-                    spyOn(router, 'navigateTo');
+                    spyOn(router, 'navigate');
                 });
 
                 it('should be a function', function () {
@@ -94,7 +94,7 @@
 
                 it('should navigate to #/experiences', function () {
                     viewModel.navigateToExperiences();
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/experiences');
+                    expect(router.navigate).toHaveBeenCalledWith('experiences');
                 });
 
             });
@@ -103,7 +103,7 @@
 
                 beforeEach(function () {
                     spyOn(eventTracker, 'publish');
-                    spyOn(router, 'navigateTo');
+                    spyOn(router, 'navigate');
                 });
 
                 it('should be a function', function () {
@@ -140,7 +140,7 @@
 
                 beforeEach(function () {
                     spyOn(eventTracker, 'publish');
-                    spyOn(router, 'navigateTo');
+                    spyOn(router, 'navigate');
                 });
 
                 it('should be a function', function () {
@@ -191,7 +191,7 @@
 
                 it('should return promise', function () {
                     var promise = viewModel.activate();
-                    
+
                     expect(promise).toBePromise();
                 });
 
@@ -203,7 +203,7 @@
                         waitsFor(function () {
                             return promise.isFulfilled();
                         });
-                        
+
                         runs(function () {
                             var isPossibleOption =
                                 viewModel.currentSortingOption() == constants.sortingOptions.byTitleAsc || viewModel.currentSortingOption() == constants.sortingOptions.byTitleDesc;
@@ -218,13 +218,13 @@
                         waitsFor(function () {
                             return promise.isFulfilled();
                         });
-                        
+
                         runs(function () {
                             expect(viewModel.objectives().length).toEqual(5);
                             expect(viewModel.objectives()).toBeSortedAsc('title');
                         });
                     });
-                    
+
                 });
 
             });

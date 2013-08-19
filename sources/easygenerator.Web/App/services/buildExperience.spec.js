@@ -5,7 +5,7 @@
         var
             constants = require('constants'),
             repository = require('repositories/experienceRepository'),
-            http = require('durandal/http');
+            http = require('plugins/http');
 
         describe('service [buildExperience]', function () {
 
