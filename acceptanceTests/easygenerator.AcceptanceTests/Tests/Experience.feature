@@ -181,7 +181,7 @@ Given objectives are linked to experiance 'Experience1'
 When open page by url 'http://localhost:5656/#/experience/1'
 When mouse hover element of related objectives list with title 'Objective11'
 And click open related objective list item with title 'Objective11'
-Then browser navigates to url 'http://localhost:5656/#/objective/1'
+Then browser navigates to url 'http://localhost:5656/#objective/1'
 
 Scenario: Question count is shown for each related objective list item
 Given objectives are present in database
@@ -206,16 +206,16 @@ And question count for related objective item with title 'Objective12' is '1'
 Scenario: Back action of experience page navigates to experiences page
 When open page by url 'http://localhost:5656/#/experience/1'
 And click on back to experiences
-Then browser navigates to url 'http://localhost:5656/#/experiences'
+Then browser navigates to url 'http://localhost:5656/#experiences'
 
 Scenario: Next and previous actions of experience page navigate through experiences
 When open page by url 'http://localhost:5656/#/experience/1'
 And click on next experience
-Then browser navigates to url 'http://localhost:5656/#/experience/2'
+Then browser navigates to url 'http://localhost:5656/#experience/2'
 When click on next experience
-Then browser navigates to url 'http://localhost:5656/#/experience/3'
+Then browser navigates to url 'http://localhost:5656/#experience/3'
 When click on previous experience
-Then browser navigates to url 'http://localhost:5656/#/experience/2'
+Then browser navigates to url 'http://localhost:5656/#experience/2'
 
 Scenario: Previous experience action is not available for first experience
 When open page by url 'http://localhost:5656/#/experience/1'

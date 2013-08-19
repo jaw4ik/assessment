@@ -195,7 +195,7 @@ Given questions related to 'Objective1' are present in database
 When open page by url 'http://localhost:5656/#/objective/1'
 And mouse hover element of questions list with title 'Question1'
 And click on open question with title 'Question1'
-Then browser navigates to url 'http://localhost:5656/#/objective/1/question/1'
+Then browser navigates to url 'http://localhost:5656/#objective/1/question/1'
 
 
 Scenario: Back action of questions list navigates to objectives list page 
@@ -204,4 +204,4 @@ Given questions related to 'Objective1' are present in database
 | Question1 |
 When open page by url 'http://localhost:5656/#/objective/1'
 And click on back from questions list
-Then browser navigates to url 'http://localhost:5656/#/objectives'
+Then browser navigates to url 'http://localhost:5656/#objectives'

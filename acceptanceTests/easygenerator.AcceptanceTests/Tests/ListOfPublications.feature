@@ -185,7 +185,7 @@ Given publications are present in database
 When open page by url 'http://localhost:5656/#/experiences'
 And mouse hover element of publications list with title 'Publication1'
 And click open publication list item with title 'Publication1'
-Then browser navigates to url 'http://localhost:5656/#/experience/1'
+Then browser navigates to url 'http://localhost:5656/#experience/1'
 
 Scenario: Download action becomes available after build
 Given publications are present in database
@@ -239,5 +239,5 @@ And objective count for element of publications list with title 'Experience2' is
 Scenario: Navigation works using tab navigation to objectives
 When open page by url 'http://localhost:5656/#/experiences'
 And click on tab objectives link on expiriences list page
-Then browser navigates to url 'http://localhost:5656/#/objectives'
+Then browser navigates to url 'http://localhost:5656/#objectives'
 

@@ -66,11 +66,11 @@ And correct answer option is set to 'false' for 'AnswerOption12'
 Scenario: Next and previous actions of question page navigate through questions of current objective
 When open page by url 'http://localhost:5656/#/objective/1/question/1'
 And click on next question
-Then browser navigates to url 'http://localhost:5656/#/objective/1/question/2'
+Then browser navigates to url 'http://localhost:5656/#objective/1/question/2'
 When click on next question
-Then browser navigates to url 'http://localhost:5656/#/objective/1/question/3'
+Then browser navigates to url 'http://localhost:5656/#objective/1/question/3'
 When click on previous question
-Then browser navigates to url 'http://localhost:5656/#/objective/1/question/2'
+Then browser navigates to url 'http://localhost:5656/#objective/1/question/2'
 
 Scenario: Previous question action is not available for first question
 When open page by url 'http://localhost:5656/#/objective/1/question/1'
@@ -116,6 +116,6 @@ And answer options block is collapsed
 Scenario: Back action of question page navigates to relative objective page
 When open page by url 'http://localhost:5656/#/objective/1/question/1'
 And click on back to objective
-Then browser navigates to url 'http://localhost:5656/#/objective/1'
+Then browser navigates to url 'http://localhost:5656/#objective/1'
 
 

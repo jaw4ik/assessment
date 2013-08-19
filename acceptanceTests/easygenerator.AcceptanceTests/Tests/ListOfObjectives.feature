@@ -184,13 +184,13 @@ Given objectives are present in database
 When open page by url 'http://localhost:5656'
 When mouse hover element of objectives list with title 'Objective1'
 And click open objective list item with title 'Objective1'
-Then browser navigates to url 'http://localhost:5656/#/objective/1'
+Then browser navigates to url 'http://localhost:5656/#objective/1'
 
 
 Scenario: Navigation works using tab navigation to expiriences from objectives list
 When open page by url 'http://localhost:5656/#/objectives'
 And click on tab expiriences link on objectives
-Then browser navigates to url 'http://localhost:5656/#/experiences' 
+Then browser navigates to url 'http://localhost:5656/#experiences' 
 
 
 
