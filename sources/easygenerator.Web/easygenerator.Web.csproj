@@ -830,7 +830,7 @@
   </ProjectExtensions>
   <PropertyGroup>
     <PostBuildEvent>cd /d $(ProjectDir)
-weyland build
+$(ProjectDir)../../tools/weyland/weyland build
 IF NOT EXIST $(ProjectDir)App\main-built.js EXIT /B 1</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
