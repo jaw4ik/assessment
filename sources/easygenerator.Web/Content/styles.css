@@ -39,7 +39,6 @@ body {
     }
 
 .brand, .navigation-menu {
-    display: inline-block;
     float: left;
 }
 

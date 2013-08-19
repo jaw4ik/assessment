@@ -83,6 +83,10 @@
     font-family: Arial, sans-serif;
 }
 
+.ie9 .build-experience-tooltip {
+    filter: none;
+}
+
 .experience-brief:hover .build-experience-tooltip-wrapper {
     display: block;
 }
@@ -123,6 +127,12 @@
         background: -webkit-linear-gradient(top, rgba(63,63,63,1) 0%,rgba(63,63,63,1) 100%); /* Chrome10+,Safari5.1+ */
         background: -ms-linear-gradient(top, rgba(63,63,63,1) 0%,rgba(63,63,63,1) 100%); /* IE10+ */
         background: linear-gradient(to bottom, rgba(63,63,63,1) 0%,rgba(63,63,63,1) 100%); /* W3C */
+    }
+
+    .ie9 .experience-brief-options-rebuild:hover,
+    .ie9 .experience-brief-options-build:hover,
+    .ie9 .experience-brief-options-download:hover {
+        filter: none;
     }
 
     .experience-brief-options-build > .inline,

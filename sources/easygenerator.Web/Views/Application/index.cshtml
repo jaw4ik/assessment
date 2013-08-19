@@ -11,8 +11,12 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/scripts/modernizr")
 </head>
+<!--[if IE 9]>
+<body class="ie9">
+<![endif]-->
+<!--[if !IE 9]>-->
 <body>
-
+<!--<![endif]-->
     <div class="wrapper">
         <div class="content-container">
             <div id="applicationHost">
