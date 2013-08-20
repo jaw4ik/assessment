@@ -1,59 +1,49 @@
-﻿.navbar-left
-{
+﻿.navbar-left {
     float: left;
-    width: 50%;
 }
 
-.experience-build-progress-status
-{
+.experience-build-progress-status {
     float: right;
     width: auto;
     text-align: right;
     opacity: 0.6;
 }
 
-    .experience-build-progress-status > *
-    {
+    .experience-build-progress-status > * {
         display: inline-block;
         cursor: pointer;
     }
 
-.experience-build-progress-status-item
-{
+.experience-build-progress-status-item {
     opacity: 0.75;
     width: 192px;
     text-align: center;
     vertical-align: top;
 }
 
-    .experience-build-progress-status-item:hover
-    {
+    .experience-build-progress-status-item:hover {
         opacity: 1;
     }
 
-    .experience-build-progress-status-item.disabled
-    {
+    .experience-build-progress-status-item.disabled {
         opacity: 0.25;
     }
 
-    .experience-build-progress-status-item.rebuild
-    {
+    .experience-build-progress-status-item.rebuild {
         padding-right: 9px;
         width: auto;
     }
-    .experience-build-progress-status-item.build
-    {
+
+    .experience-build-progress-status-item.build {
         width: auto;
     }
 
-    .experience-build-progress-status-item.not-transparent
-    {
+    .experience-build-progress-status-item.not-transparent {
         opacity: 1;
         cursor: default;
     }
 
-.experience-build-status-text
-{
+.experience-build-status-text {
     color: #666666;
     vertical-align: top;
     text-transform: uppercase;
@@ -61,13 +51,11 @@
     line-height: 57px;
 }
 
-    .experience-build-status-text.rebuild
-    {
+    .experience-build-status-text.rebuild {
         margin-left: 3px;
     }
 
-.experience-build-status-image
-{
+.experience-build-status-image {
     display: inline-block;
     margin-left: 13px;
     width: 57px;
@@ -75,34 +63,28 @@
     background: url('images/build-sprite.png') no-repeat top left;
 }
 
-.experience-build-status-image-not-started
-{
+.experience-build-status-image-not-started {
     background-position: 0 0;
 }
 
-.experience-build-status-image-re-build
-{
+.experience-build-status-image-re-build {
     background-position: 0 0;
     margin: 0 13px 0 0;
 }
 
-.experience-build-status-image-in-progress
-{
+.experience-build-status-image-in-progress {
     background-image: url('images/buildprogress.gif');
 }
 
-.experience-build-status-image-complete
-{
+.experience-build-status-image-complete {
     background-position: 0 -60px;
 }
 
-.experience-build-status-image-failed
-{
+.experience-build-status-image-failed {
     background-position: 0 -119px;
 }
 
-.experience-build-progress-status-seperator
-{
+.experience-build-progress-status-seperator {
     height: 57px;
     width: 1px;
     margin: 0 8px;
@@ -118,21 +100,18 @@
     display: inline-block;
 }
 
-.experience-image
-{
+.experience-image {
     width: 270px;
     height: 158px;
     vertical-align: top;
 }
 
-.experience-header-title
-{
+.experience-header-title {
     margin-left: 280px;
     padding: 15px;
 }
 
-.experience-related-objectives-header
-{
+.experience-related-objectives-header {
     display: inline-block;
     overflow: hidden;
     margin: 20px 0;
@@ -143,24 +122,20 @@
     font-size: 18px;
 }
 
-    .experience-related-objectives-header > *
-    {
+    .experience-related-objectives-header > * {
         display: inline-block;
         vertical-align: middle;
     }
 
-    .experience-related-objectives-header hr
-    {
+    .experience-related-objectives-header hr {
         width: 100%;
     }
 
-.experience .content-list-item .text-block
-{
+.experience .content-list-item .text-block {
     margin-right: 37px;
 }
 
-.li-related-objective-question-count-wrapper
-{
+.li-related-objective-question-count-wrapper {
     float: right;
     margin: 10px;
     color: #666666;
@@ -169,8 +144,7 @@
     line-height: 17px;
 }
 
-.li-related-objective-question-count-image
-{
+.li-related-objective-question-count-image {
     display: inline-block;
     width: 17px;
     height: 17px;
@@ -179,8 +153,7 @@
     vertical-align: top;
 }
 
-.li-related-objective-question-count-text
-{
+.li-related-objective-question-count-text {
     display: inline-block;
     vertical-align: middle;
     line-height: 12px;

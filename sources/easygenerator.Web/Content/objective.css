@@ -10,7 +10,7 @@
 
 .navbar {
     height: 57px;
-    width: 100%;
+    display: inline-block;
     margin: 12px 0 7px;
 }
 
