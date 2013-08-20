@@ -146,13 +146,9 @@
                         router.navigate('404');
                         return;
                     }
-                    
-                    if (experience.buildingStatus == constants.buildingStatuses.notStarted) {
-                        that.isFirstBuild(true);
-                    } else {
-                        that.isFirstBuild(false);
-                    }
-                    
+
+                    that.isFirstBuild(experience.buildingStatus == constants.buildingStatuses.notStarted);
+
                     that.status(experience.buildingStatus);
 
                     that.id = experience.id;
