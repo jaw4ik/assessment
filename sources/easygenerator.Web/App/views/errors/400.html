@@ -1,10 +1,12 @@
-﻿<section class="error error-404" style="margin: 100px auto; width: 1000px;">
+﻿<section class="error error-page">
 
-    <h4>Bad request (400)</h4>
-    <p>
-        Sorry, the request you sent was somehow malformed therefore we were unable to understand or process the request.
-    </p>
+    <h2>
+        <span data-bind="localize: { text: 'badRequest' }"></span> (400)
+    </h2>
+    <p data-bind="localize: { text: 'badRequestDescription' }"></p>
+
     <p style="margin-top: 20px">
-        <a href="#/">Home</a>
+        <a href="#/" data-bind="localize: { text: 'homeLink' }"></a>
     </p>
+
 </section>

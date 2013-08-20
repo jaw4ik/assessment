@@ -685,3 +685,15 @@ h2.page-header-title {
     border-radius: 7px;
     text-align: center;
 }
+
+
+/*----------Error pages------------*/
+
+.error-page {
+    margin: 100px auto; 
+    min-width: 500px; 
+    max-width: 1000px; 
+    padding: 15px;
+}
+
+/*----------End Error pages--------*/
