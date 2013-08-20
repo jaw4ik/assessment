@@ -38,7 +38,7 @@
     <div class="questions-header">
         <div class="questions-header-title" data-bind="css: { 'alone': questions().length <= 1 }">
             <a class="questions-header-create-link" href="#" data-bind="click: navigateToCreateQuestion, localize: { title: 'addNewQuestion' }"></a>
-            <span data-bind="localize: { text: 'relatedQuestions' }"></span>
+            <span data-bind="localize: { text: 'relatedQuestion' }"></span>
             <span class="nav-element-wrapper objective-toolbar-remove-btn-wrapper">
                 <!-- ko if: canDeleteQuestions() -->
                 <span class="nav-element enabled" data-bind="click: deleteSelectedQuestions, localize: { title: 'remove' }">

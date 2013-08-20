@@ -322,6 +322,11 @@
         nl: 'Type question title here[nl]',
         de: 'Type question title here[de]'
     },
+    relatedQuestion: {
+        en: 'Related question',
+        nl: 'Related question[nl]',
+        de: 'Related question[de]'
+    },
     /* End resource section for model Questions */
     
     /* Resource section for model customLocalizationPlugin */
