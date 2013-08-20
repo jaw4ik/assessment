@@ -1,7 +1,6 @@
 ﻿define(['context', 'durandal/plugins/router'], function (context, router) {
 
-    var
-        objectives = [],
+    var objectives = [],
         questions = [],
         step = 5,
         maxId = 0,
@@ -9,6 +8,7 @@
         scrollId = '0',
         isEndScroll = ko.observable(false),
         isEndTest = ko.observable(false),
+        countOfQuestions = ko.observable(0),
 
         getItems = function () {
             if (!isEndScroll()) {
@@ -41,9 +41,8 @@
         shuffleAndSetNumber = function () {
             questions = _.shuffle(questions);
 
-            var countOfQuestions = questions.length;
             _.each(questions, function (question, key) {
-                question.title = question.title + ' (Question ' + (key + 1) + ' of ' + countOfQuestions + ')';
+                question.number = key + 1; 
             });
         },
 
@@ -65,10 +64,12 @@
                             };
                         }),
                         explanations: question.explanations,
-                        title: question.title
+                        title: question.title,
+                        number: 0
                     };
                 }));
             });
+            countOfQuestions(questions.length);
         },
 
         activate = function () {
@@ -126,6 +127,7 @@
         showExplanations: showExplanations,
         viewAttached: viewAttached,
         isEndTest: isEndTest,
-        titleOfExperience: context.title
+        titleOfExperience: context.title,
+        countOfQuestions: countOfQuestions
     };
 });

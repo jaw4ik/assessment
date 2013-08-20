@@ -677,19 +677,33 @@
     <Content Include="Templates\Quiz\App\main.js" />
     <Content Include="Templates\Quiz\App\specs.html" />
     <Content Include="Templates\Quiz\App\viewmodels\400.js" />
-    <Content Include="Templates\Quiz\App\viewmodels\400.spec.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\400.spec.js">
+      <DependentUpon>400.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\App\viewmodels\404.js" />
-    <Content Include="Templates\Quiz\App\viewmodels\404.spec.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\404.spec.js">
+      <DependentUpon>404.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\App\viewmodels\explanations.js" />
-    <Content Include="Templates\Quiz\App\viewmodels\explanations.spec.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\explanations.spec.js">
+      <DependentUpon>explanations.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\App\viewmodels\home.js" />
-    <Content Include="Templates\Quiz\App\viewmodels\home.spec.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\home.spec.js">
+      <DependentUpon>home.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\App\viewmodels\notsupportedbrowser.js" />
-    <Content Include="Templates\Quiz\App\viewmodels\notsupportedbrowser.spec.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\notsupportedbrowser.spec.js">
+      <DependentUpon>notsupportedbrowser.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\App\viewmodels\shell.js" />
-    <Content Include="Templates\Quiz\App\viewmodels\shell.spec.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\shell.spec.js">
+      <DependentUpon>shell.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\App\viewmodels\summary.js" />
-    <Content Include="Templates\Quiz\App\viewmodels\summary.spec.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\summary.spec.js">
+      <DependentUpon>summary.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\App\views\400.html" />
     <Content Include="Templates\Quiz\App\views\404.html" />
     <Content Include="Templates\Quiz\App\views\explanations.html" />
