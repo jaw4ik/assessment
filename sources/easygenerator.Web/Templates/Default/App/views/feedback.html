@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="question-progress">
-            <canvas width="217" height="217" data-bind="context: triggerRedraw, contextCallback: redrawCanvas"></canvas>
+            <canvas width="214" height="214" data-bind="circleProgress: {progress: score, lineWidth: 20}"></canvas>
             <div class="question-progress-score selectable" data-bind="text: score + '%'"></div>
         </div>
         <div class="navigation-btn-container clearfix">
