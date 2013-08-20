@@ -193,6 +193,7 @@ html, body, .application-wrapper {
 
 .header {
     height: 40px;
+    width: 100%;
     background-color: #353c3e;
     border-bottom: 3px solid #000000;
 }
