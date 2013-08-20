@@ -9,7 +9,7 @@
             <span class="experience-build-status-image experience-build-status-image-not-started"></span>
         </div>
         <!-- /ko -->
-        <!-- ko if: status() == statuses.succeed ||  status() == statuses.inProgress && !isFirstBuild() || status() == statuses.failed-->
+        <!-- ko if: status() == statuses.succeed ||  status() == statuses.inProgress && !isFirstBuild() -->
         <div class="experience-build-progress-status-item rebuild" data-bind="click: buildExperience, visible: status() != statuses.inProgress">
             <span class="experience-build-status-image experience-build-status-image-re-build"></span>
             <span class="experience-build-status-text rebuild" data-bind="localize: { text: 'experienceRebuildAction' }">Rebuild</span>
@@ -20,8 +20,8 @@
         </span>
         <span class="experience-build-progress-status-seperator"></span>
         <!-- /ko -->
-        <!-- ko if: status() == statuses.failed && status() != statuses.notStarted -->
-        <div class="experience-build-progress-status-item not-transparent">
+        <!-- ko if: status() == statuses.failed -->
+        <div class="experience-build-progress-status-item failed not-transparent" data-bind="event: { mouseover: resetBuildStatus }">
             <span class="experience-build-status-image experience-build-status-image-failed pull-right"></span>
             <span class="experience-build-status-text" data-bind="localize: { text: 'experienceFailedStatus' }">Building failed</span>
         </div>

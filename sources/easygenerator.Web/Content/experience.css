@@ -16,7 +16,7 @@
 
 .experience-build-progress-status-item {
     opacity: 0.75;
-    width: 192px;
+    width: 197px;
     text-align: center;
     vertical-align: top;
 }
@@ -36,6 +36,10 @@
 
     .experience-build-progress-status-item.build {
         width: auto;
+    }
+    .experience-build-progress-status-item.failed
+    {
+        text-align: right;
     }
 
     .experience-build-progress-status-item.not-transparent {

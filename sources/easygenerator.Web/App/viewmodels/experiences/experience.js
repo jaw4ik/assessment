@@ -123,6 +123,7 @@
 
             resetBuildStatus = function () {
                 this.status(constants.buildingStatuses.notStarted);
+                this.isFirstBuild(true);
             },
 
 

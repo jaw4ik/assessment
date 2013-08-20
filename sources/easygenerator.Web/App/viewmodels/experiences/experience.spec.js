@@ -448,6 +448,11 @@
                     viewModel.resetBuildStatus();
                     expect(viewModel.status()).toEqual(constants.buildingStatuses.notStarted);
                 });
+                
+                it('should change isFirstBuild to true', function () {
+                    viewModel.resetBuildStatus();
+                    expect(viewModel.isFirstBuild()).toBeTruthy();
+                });
 
             });
 
