@@ -1,4 +1,4 @@
-﻿define(['durandal/plugins/router', 'context'], function (router, context) {
+﻿define(['durandal/plugins/router', 'context', 'eventTracker'], function (router, context, eventTracker) {
     
 
     return {
@@ -54,6 +54,11 @@
                     settings: {
                         caption: 'Progress summary&nbsp;<img src="img/progress_summary_white.png" alt="" />'
                     }
+                },
+                {
+                    url: '#/xapierror',
+                    moduleId: 'viewmodels/xAPIError',
+                    name: 'xAPIError'
                 }
             ]);
 
@@ -64,7 +69,10 @@
             return context.initialize()
                 .then(function () {
                     window.location.hash = '#/';
-                    return router.activate();
+
+                    return router.activate().then(function() {
+                        eventTracker.courseStarted();
+                    });
                 });
         }
     };

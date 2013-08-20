@@ -15,14 +15,16 @@ ko.bindingHandlers.context = {
     }
 };
 
-define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'browserSupport'],
-    function (app, viewLocator, system, getRootView) {
+define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'browserSupport', 'eventTracker', 'xAPI/requestManager'],
+    function (app, viewLocator, system, getRootView, eventTracker, xAPIRequestManager) {
 
         //>>excludeStart("build", true);
         system.debug(true);
         //>>excludeEnd("build");
 
         app.title = 'easygenerator';
+        
+        xAPIRequestManager.init(eventTracker, "Anonymous user", "anonymous@easygenerator.com", app.title, window.location.toString());
 
         app.start().then(function () {
 

@@ -1,4 +1,4 @@
-﻿define(['context', 'durandal/plugins/router'], function (context, router) {
+﻿define(['context', 'durandal/plugins/router', 'eventTracker'], function (context, router, eventTracker) {
     var objectives = [],
         score = 0,
         activate = function () {
@@ -46,6 +46,9 @@
             router.navigateBack();
         },
         finish = function () {
+            eventTracker.courseStopped();
+            eventTracker.courseFinished(this.score);
+
             window.close();
 
             if (navigator.appName != "Microsoft Internet Explorer") {
