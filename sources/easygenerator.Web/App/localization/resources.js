@@ -86,6 +86,16 @@
         nl: 'Aflopend',
         de: 'Absteigend'
     },
+    createdOn: {
+        en: 'Created on',
+        nl: 'Created on[nl]',
+        de: 'Created on[de]'
+    },
+    modifiedOn: {
+        en: 'Modified on',
+        nl: 'Modified on[nl]',
+        de: 'Modified on[de]'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -157,18 +167,18 @@
     },
     experienceRebuildAction: {
         en: 'Rebuild',
-        nl: 'Rebuild[nl]',
-        de: 'Rebuild[de]'
+        nl: 'Opnieuw maken',
+        de: 'Neu aufbauen'
     },
     addNewExperience: {
         en: 'Add new experience',
-        nl: 'Add new experience[nl]',
-        de: 'Add new experience[de]'
+        nl: 'Nieuwe ervaring toevoegen',
+        de: 'Neue Umgebung hinzufügen'
     },
     numberOfRelatedObjectives: {
         en: 'Number of related objectives',
-        nl: 'Number of related objectives[nl]',
-        de: 'Number of related objectives[de]'
+        nl: 'Aantal aanverwante doelstellingen',
+        de: 'Anzahl der verwandten Ziele'
     },
     /* End resource section for model Experiences */
     
@@ -309,18 +319,18 @@
     },
     createAndEdit: {
         en: 'Create and edit',
-        nl: 'Create and edit[nl]',
-        de: 'Create and edit[de]'
+        nl: 'Maken en bewerken',
+        de: 'Erstellen und bearbeiten'
     },
     createAndNew: {
         en: 'Create and new',
-        nl: 'Create and new[nl]',
-        de: 'Create and new[de]'
+        nl: 'Maken en nieuw',
+        de: 'Erstellen und neu'
     },
     typeQuestionTitleHere: {
         en: 'Type question title here',
-        nl: 'Type question title here[nl]',
-        de: 'Type question title here[de]'
+        nl: 'Type titel van vraag hier',
+        de: 'Titel der Frage hier eingeben'
     },
     relatedQuestion: {
         en: 'Related question',
