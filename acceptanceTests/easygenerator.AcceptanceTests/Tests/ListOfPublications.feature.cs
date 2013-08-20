@@ -19,9 +19,9 @@ namespace easygenerator.AcceptanceTests.Tests
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("ListOfPublications")]
-    [NUnit.Framework.CategoryAttribute("ExperiencesList")]
-    public partial class ListOfPublicationsFeature
+    [NUnit.Framework.DescriptionAttribute("ListOfExperiences")]
+    [NUnit.Framework.CategoryAttribute("ListOfExperiences")]
+    public partial class ListOfExperiencesFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -33,10 +33,10 @@ namespace easygenerator.AcceptanceTests.Tests
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ListOfPublications", "As an author I want to see list of previously created Publications,\r\nso I could c" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ListOfExperiences", "As an author I want to see list of previously created Publications,\r\nso I could c" +
                     "orrect needed settings and perform publication once more without defining all th" +
                     "e settings each time.", ProgrammingLanguage.CSharp, new string[] {
-                        "ExperiencesList"});
+                        "ListOfExperiences"});
             testRunner.OnFeatureStart(featureInfo);
         }
         

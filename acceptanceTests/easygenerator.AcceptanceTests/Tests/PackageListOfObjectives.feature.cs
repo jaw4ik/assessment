@@ -385,10 +385,10 @@ testRunner.Then("package objectives tiles list contains only items with data", (
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("All package questions are present on page")]
-        public virtual void AllPackageQuestionsArePresentOnPage()
+        [NUnit.Framework.DescriptionAttribute("package objectives are not expanded by default")]
+        public virtual void PackageObjectivesAreNotExpandedByDefault()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All package questions are present on page", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("package objectives are not expanded by default", ((string[])(null)));
 #line 126
 this.ScenarioSetup(scenarioInfo);
 #line 7
@@ -396,8 +396,25 @@ this.FeatureBackground();
 #line 127
 testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 128
+testRunner.Then("package questions are not displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("All package questions are present on page")]
+        public virtual void AllPackageQuestionsArePresentOnPage()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All package questions are present on page", ((string[])(null)));
+#line 131
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
+#line 132
+testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 133
 testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 129
+#line 134
 testRunner.And("toggle expand package objective item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
@@ -409,7 +426,7 @@ testRunner.And("toggle expand package objective item with title \'Objective12\'"
             table26.AddRow(new string[] {
                         "Question12",
                         "2"});
-#line 130
+#line 135
 testRunner.Then("package questions list of objective item with title \'Objective11\' containes only " +
                     "items with data", ((string)(null)), table26, "Then ");
 #line hidden
@@ -422,7 +439,7 @@ testRunner.Then("package questions list of objective item with title \'Objective
             table27.AddRow(new string[] {
                         "Question22",
                         "2"});
-#line 134
+#line 139
 testRunner.And("package questions list of objective item with title \'Objective12\' containes only " +
                     "items with data", ((string)(null)), table27, "And ");
 #line hidden

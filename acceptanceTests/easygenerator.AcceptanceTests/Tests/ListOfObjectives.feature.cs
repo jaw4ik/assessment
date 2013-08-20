@@ -20,7 +20,7 @@ namespace easygenerator.AcceptanceTests.Tests
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("ListOfObjectives")]
-    [NUnit.Framework.CategoryAttribute("ObjectivesList")]
+    [NUnit.Framework.CategoryAttribute("ListOfObjectives")]
     public partial class ListOfObjectivesFeature
     {
         
@@ -35,7 +35,7 @@ namespace easygenerator.AcceptanceTests.Tests
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ListOfObjectives", "As an author I want to see list of previously created Learning Objectives, so I c" +
                     "ould select certain Learning Objective to start working with related content.", ProgrammingLanguage.CSharp, new string[] {
-                        "ObjectivesList"});
+                        "ListOfObjectives"});
             testRunner.OnFeatureStart(featureInfo);
         }
         

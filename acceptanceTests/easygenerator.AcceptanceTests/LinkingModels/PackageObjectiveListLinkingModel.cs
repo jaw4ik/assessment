@@ -11,7 +11,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
     {
         public string ObjectiveItem = ".//li[contains(@class,'objective-brief-list-item')]";
         public string QuestionItem = ".//li[contains(@class,'question-brief')]";
-        public string QuestionList = ".//ul[contains(@class,'question-brief-list')]";
+        
         
         
     }

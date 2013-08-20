@@ -48,8 +48,14 @@ namespace easygenerator.AcceptanceTests.Steps
             var realQuestions = packageObjectivesPage.ObjectiveQuestionItems(title).Select(obj => obj.Title).ToArray();
             TestUtils.Assert_IsTrue_WithWait(() => TestUtils.AreCollectionsTheSame(expectedQuestions, realQuestions),
                 "Not all expected package objectives on page", realQuestions);
+        }
 
-
+        [Then(@"package questions are not displayed")]
+        public void ThenPackageQuestionsAreNotDisplayed()
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                packageObjectivesPage.QuestionItems.Length == 0,
+                "package questions are displayed");            
         }
 
 

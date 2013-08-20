@@ -29,6 +29,15 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             return ObjectiveItems.First(it => it.Title == title);
         }
 
+        public PackageQuestionsListItem[] QuestionItems
+        {
+            get
+            {
+                var els = GetAllByXPath(model.QuestionItem);
+                return els.Select(el => new PackageQuestionsListItem(el)).ToArray();
+            }
+        }
+
         public PackageQuestionsListItem[] ObjectiveQuestionItems(string title)
         {
 

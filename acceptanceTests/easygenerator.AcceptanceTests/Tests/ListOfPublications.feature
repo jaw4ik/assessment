@@ -1,5 +1,5 @@
-﻿@ExperiencesList
-Feature: ListOfPublications
+﻿@ListOfExperiences
+Feature: ListOfExperiences
 	As an author I want to see list of previously created Publications,
 	so I could correct needed settings and perform publication once more without defining all the settings each time. 
 

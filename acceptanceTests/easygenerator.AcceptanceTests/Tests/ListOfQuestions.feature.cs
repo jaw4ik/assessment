@@ -20,7 +20,7 @@ namespace easygenerator.AcceptanceTests.Tests
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("ListOfQuestions")]
-    [NUnit.Framework.CategoryAttribute("QuestionsList")]
+    [NUnit.Framework.CategoryAttribute("ListOfQuestions")]
     public partial class ListOfQuestionsFeature
     {
         
@@ -35,7 +35,7 @@ namespace easygenerator.AcceptanceTests.Tests
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ListOfQuestions", "As an author I can see list of previously created Questions related to selected L" +
                     "earning Objective, so I can select one for editing.", ProgrammingLanguage.CSharp, new string[] {
-                        "QuestionsList"});
+                        "ListOfQuestions"});
             testRunner.OnFeatureStart(featureInfo);
         }
         

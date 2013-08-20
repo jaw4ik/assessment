@@ -123,6 +123,11 @@ Then package objectives tiles list contains only items with data
 | Objective11 |
 | Objective12 |
 
+Scenario: package objectives are not expanded by default
+When open page by url 'http://localhost:5656/Templates/tmp'
+Then package questions are not displayed
+
+
 Scenario: All package questions are present on page
 When open page by url 'http://localhost:5656/Templates/tmp'
 And toggle expand package objective item with title 'Objective11'
