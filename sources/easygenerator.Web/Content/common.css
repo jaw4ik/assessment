@@ -383,6 +383,12 @@ COMMON CLASSES CSS-STYLES
     float: left;
 }
 
+    .page-header-image .image-element {
+        height: 84px;
+        width: 164px;
+        vertical-align: top;
+    }
+
 .page-header-info {
     -ms-word-break: break-all;
     word-break: break-all;
@@ -690,9 +696,9 @@ h2.page-header-title {
 /*----------Error pages------------*/
 
 .error-page {
-    margin: 100px auto; 
-    min-width: 500px; 
-    max-width: 1000px; 
+    margin: 100px auto;
+    min-width: 500px;
+    max-width: 1000px;
     padding: 15px;
 }
 
