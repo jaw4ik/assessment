@@ -7,6 +7,20 @@ if "%Browser%"=="FF" (set excluded="NotFirefox")
 if "%Browser%"=="Chrome" (set excluded="NotChrome")
 if "%Browser%"=="IE" (set excluded="NotIE")
 
+if "%Feature%"=="All" (set excludedfeatures="Errors")
+if "%Feature%"=="AnswerOptions" (set excludedfeatures="Errors,BuildExperience,Experience,Explanations,ListOfObjectives,ListOfExperiences,ListOfQuestions,Localization,PackageListOfObjectives,Question")
+if "%Feature%"=="BuildExperience" (set excludedfeatures="Errors,AnswerOptions,Experience,Explanations,ListOfObjectives,ListOfExperiences,ListOfQuestions,Localization,PackageListOfObjectives,Question")
+if "%Feature%"=="Experience" (set excludedfeatures="Errors,AnswerOptions,BuildExperience,Explanations,ListOfObjectives,ListOfExperiences,ListOfQuestions,Localization,PackageListOfObjectives,Question")
+if "%Feature%"=="Explanations" (set excludedfeatures="Errors,AnswerOptions,BuildExperience,Experience,ListOfObjectives,ListOfExperiences,ListOfQuestions,Localization,PackageListOfObjectives,Question")
+if "%Feature%"=="ListOfObjectives" (set excludedfeatures="Errors,AnswerOptions,BuildExperience,Experience,Explanations,ListOfExperiences,ListOfQuestions,Localization,PackageListOfObjectives,Question")
+if "%Feature%"=="ListOfExperiences" (set excludedfeatures="Errors,AnswerOptions,BuildExperience,Experience,Explanations,ListOfObjectives,ListOfQuestions,Localization,PackageListOfObjectives,Question")
+if "%Feature%"=="ListOfQuestions" (set excludedfeatures="Errors,AnswerOptions,BuildExperience,Experience,Explanations,ListOfObjectives,ListOfExperiences,Localization,PackageListOfObjectives,Question")
+if "%Feature%"=="Localization" (set excludedfeatures="Errors,AnswerOptions,BuildExperience,Experience,Explanations,ListOfObjectives,ListOfExperiences,ListOfQuestions,PackageListOfObjectives,Question")
+if "%Feature%"=="PackageListOfObjectives" (set excludedfeatures="Errors,AnswerOptions,BuildExperience,Experience,Explanations,ListOfObjectives,ListOfExperiences,ListOfQuestions,Localization,Question")
+if "%Feature%"=="Question" (set excludedfeatures="Errors,AnswerOptions,BuildExperience,Experience,Explanations,ListOfObjectives,ListOfExperiences,ListOfQuestions,Localization,PackageListOfObjectives")
+
+
+
 if exist %outFile% del %outFile%
 %SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild %~dp0..\sources\easygenerator.Web\easygenerator.Web.csproj /verbosity:q /nologo /p:TreatWarningsAsErrors=true /t:Clean,Build,TransformWebConfig /p:Configuration=AutoTests
 %SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild "%testsProject%" /t:Clean,Build /verbosity:q /nologo /property:TreatWarningsAsErrors=true /p:Configuration=Release
@@ -16,7 +30,7 @@ xcopy "%~dp0..\sources\easygenerator.Web\obj\AutoTests\TransformWebConfig\transf
 if not %errorlevel% ==0 (
 echo Cannot execute or build tests
 exit /B 1)
-"%~dp0packages\NUnit.Runners.2.6.2\tools\nunit-console.exe" /exclude=%excluded%,Errors /labels /out="%~dp0TestsResults\TestResult.txt" /xml="%~dp0TestsResults\TestResult.xml" "%webSiteDir%easygenerator.AcceptanceTests.dll"
+"%~dp0packages\NUnit.Runners.2.6.2\tools\nunit-console.exe" /exclude=%excluded%,%excludedfeatures% /labels /out="%~dp0TestsResults\TestResult.txt" /xml="%~dp0TestsResults\TestResult.xml" "%webSiteDir%easygenerator.AcceptanceTests.dll"
 set errorCode=%errorLevel%
 "%~dp0packages\SpecFlow.1.9.0\tools\specflow.exe" nunitexecutionreport "%testsProject%" /out:%outFile% /testOutput:"%~dp0TestsResults\TestResult.txt" /xmlTestResult:"%~dp0TestsResults\TestResult.xml"  
 exit /B %errorCode%
