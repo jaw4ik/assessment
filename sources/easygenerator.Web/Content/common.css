@@ -304,7 +304,7 @@ COMMON CLASSES CSS-STYLES
 }
 
 /**
-  *    info-header (image, title, navigation)
+  * info-header (image, title, navigation)
   */
 
 .page-header-wrapper {
@@ -313,7 +313,7 @@ COMMON CLASSES CSS-STYLES
 }
 
 /**
-  *    Navigation elements
+  * Navigation elements
   */
 
 .nav-element-wrapper {
@@ -371,7 +371,7 @@ COMMON CLASSES CSS-STYLES
 }
 
 /**
-  *    Page info block
+  *  Page info block
   */
 
 .page-header {

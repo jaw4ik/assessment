@@ -99,12 +99,15 @@ a {
 /**
  * Lists.
  */
-
-ul.unstyled,
-ol.unstyled  {
-    margin-left: 0;
-    list-style: none;
+ul, ol {
+    margin-bottom: 0;
 }
+
+    ul.unstyled,
+    ol.unstyled  {
+        margin-left: 0;
+        list-style: none;
+    }
 
 /**
  * Images.
@@ -216,8 +219,8 @@ html, body, .application-wrapper {
     margin: 15px auto;
     height: 100%;
     width: 90%;
-    max-width: 1200px;
     min-width: 500px;
+    max-width: 1200px;
     padding-bottom: 10px;
 }
 
@@ -231,7 +234,7 @@ html, body, .application-wrapper {
 }
 
 .eg-question-title {
-    padding: 0 0 10px;
+    padding: 10px 15px;
     font-size: 20px;
     overflow: hidden;
 }
