@@ -11,6 +11,7 @@
 .main-nav-item {
     display: table-cell;
     vertical-align: top;
+    cursor: default;
 }
 
 .nav-control.left {
@@ -39,7 +40,6 @@
     background: -ms-linear-gradient(top,  #e6e6e6 0%,#ababab 50%,#e6e6e6 100%);
     background: linear-gradient(to bottom,  #e6e6e6 0%,#ababab 50%,#e6e6e6 100%);
     filter: none;
-
 }
 
 .nav-control.rebuild {
@@ -60,10 +60,6 @@
 
 .nav-control-inner.disabled {
     opacity: 0.25;
-}
-
-.nav-control-inner.rebuild {
-    cursor: default;
 }
 
 .nav-control-inner.rebuild:before {

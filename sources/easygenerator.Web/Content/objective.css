@@ -42,6 +42,8 @@
 }
 
 .nav-title {
+    line-height: 57px;
+    height: 57px;
     padding: 0 13px;
     font-size: 14px;
     text-transform: uppercase;
