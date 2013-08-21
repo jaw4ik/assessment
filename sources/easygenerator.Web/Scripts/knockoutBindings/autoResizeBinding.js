@@ -3,14 +3,20 @@
         var autoresizeEnabled = ko.unwrap(valueAccessor());
         if (!autoresizeEnabled) return;
 
-        $(element).autosize();
-        $(element).trigger('autosize.resize');
-
-        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-            $(element).trigger('autosize.destroy');
+        Q.fcall(function() {
+            $(element).autosize();
+        }).then(function() {
+            ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+                $(element).trigger('autosize.destroy');
+            });
+        }).then(function() {
+            $(element).trigger('autosize.resize');
         });
     },
-    update: function(element) {
+    update: function (element, valueAccessor) {
+        var autoresizeEnabled = ko.unwrap(valueAccessor());
+        if (!autoresizeEnabled) return;
+        
         $(element).trigger('autosize.resize');
     }
 };
