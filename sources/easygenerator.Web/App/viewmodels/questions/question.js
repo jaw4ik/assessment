@@ -415,12 +415,15 @@
             this.title(question.title);
             this.objectiveTitle = objective.title;
 
-            this.answerOptions(_.map(question.answerOptions, function (item) {
+            var mappedAnswerOptions = _.map(question.answerOptions, function(item) {
                 return mapAnswerOption.call(that, item);
-            }));
-            this.explanations(_.map(question.explanations, function (item) {
+            });
+            this.answerOptions(mappedAnswerOptions);
+
+            var mappedExplanations = _.map(question.explanations, function(item) {
                 return mapExplanation.call(that, item);
-            }));
+            });
+            this.explanations(mappedExplanations);
 
             var questionIndex = objective.questions.indexOf(question);
             self.nextId = (objective.questions.length > questionIndex + 1) ? objective.questions[questionIndex + 1].id : null;
