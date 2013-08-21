@@ -367,11 +367,11 @@ COMMON CLASSES CSS-STYLES
     opacity: 0.6;
 }
 
-    .nav-element-wrapper .nav-element:hover {
+    .nav-element:hover {
         opacity: 1;
     }
 
-    .nav-element-wrapper .nav-element.disabled {
+    .nav-element.disabled {
         opacity: 0.2;
         cursor: default;
     }
