@@ -9,5 +9,8 @@
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
             $(element).trigger('autosize.destroy');
         });
+    },
+    update: function(element) {
+        $(element).trigger('autosize.resize');
     }
 };

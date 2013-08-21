@@ -59,6 +59,10 @@
             });
         },
 
+        endEditTitle = function () {
+            this.title.isEditing(false);
+        },
+
          activate = function (objId) {
              if (!_.isString(objId)) {
                  router.navigate('400');
@@ -96,6 +100,7 @@
             objectiveTitle: objectiveTitle,
 
             navigateToObjective: navigateToObjective,
+            endEditTitle: endEditTitle,
             saveAndOpen: saveAndOpen,
             saveAndNew: saveAndNew
         };

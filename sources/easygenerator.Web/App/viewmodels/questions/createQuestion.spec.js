@@ -268,6 +268,18 @@
 
         });
 
+        describe('endEditQuestionTitle:', function () {
+            it('should be function', function() {
+                expect(viewModel.endEditTitle).toBeFunction();
+            });
+
+            it('should set title.isEditable to false', function() {
+                viewModel.title.isEditing(true);
+                viewModel.endEditTitle();
+                expect(viewModel.title.isEditing()).toBeFalsy();
+            });
+        });
+
         describe('activate:', function () {
             var deferred;
 
@@ -359,7 +371,7 @@
 
 
                 it('should set title.isModified to \'false\'', function () {
-                    viewModel.title.isEditing(false);
+                    viewModel.title.isModified(true);
 
                     var promise = viewModel.activate(objective.id);
                     deferred.resolve({ id: objective.id });
