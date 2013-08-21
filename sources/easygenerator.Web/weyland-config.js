@@ -4,10 +4,12 @@ exports.config = function (weyland) {
             include: 'App/**/*.js'
         })
         .task.uglifyjs({
-            include: ['App/**/*.js', 'Scripts/durandal/**/*.js']
+            include: ['App/**/*.js', 'Scripts/durandal/**/*.js'],
+            exclude: ['App/**/*.spec.js']
         })
         .task.rjs({
             include: ['App/**/*.{js,html}', 'Scripts/durandal/**/*.js'],
+            exclude: ['App/**/*.spec.js'],
             loaderPluginExtensionMaps: {
                 '.html': 'text'
             },
