@@ -309,30 +309,6 @@ COMMON CLASSES CSS-STYLES
 }
 
 /**
-  * Main navigation elements
-  */
-
-.main-nav {
-    display: table;
-    width: 100%;
-    margin: 12px 0 7px;
-}
-
-.main-nav-list {
-    display: table-row;
-}
-
-.main-nav-item {
-    display: table-cell;
-    vertical-align: top;
-}
-
-/**
-  * End main navigation elements
-  */
-
-
-/**
   * Page navigation elements
   */
 

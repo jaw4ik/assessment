@@ -1,5 +1,70 @@
-﻿.navbar-left {
+﻿.main-nav {
+    display: table;
+    width: 100%;
+    margin: 12px 0 7px;
+}
+
+.main-nav-list {
+    display: table-row;
+}
+
+.main-nav-item {
+    display: table-cell;
+    vertical-align: top;
+}
+
+.nav-control.left {
+    text-align: left;
+}
+
+.nav-control.right {
+    width: 200px;
+    text-align: right;
+}
+
+.main-nav-item.right .nav-control {
+    float: right;
+}
+
+.main-nav-separator {
+    height: 57px;
+    float: right;
+    width: 1px;
+    background: #e6e6e6;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #e6e6e6 1%, #ababab 50%, #e6e6e6 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#e6e6e6), color-stop(50%,#ababab), color-stop(100%,#e6e6e6));
+    background: -webkit-linear-gradient(top, #e6e6e6 1%,#ababab 50%,#e6e6e6 100%);
+    background: -o-linear-gradient(top, #e6e6e6 1%,#ababab 50%,#e6e6e6 100%);
+    background: -ms-linear-gradient(top, #e6e6e6 1%,#ababab 50%,#e6e6e6 100%);
+    background: linear-gradient(to bottom, #e6e6e6 1%,#ababab 50%,#e6e6e6 100%);
+    filter: none;
+}
+
+.nav-control.rebuild {
+    min-width: 180px;
+}
+
+.nav-control.build-experience {
+    width: auto;
+}
+
+.nav-control > * {
+    display: inline-block;
+}
+
+.nav-control-inner.disabled {
+    opacity: 0.25;
+}
+
+.nav-control-inner.rebuild:before {
+    content: '';
+    display: block;
+    height: 57px;
     float: left;
+    width: 57px;
+    background-image: url(images/nav-icons.png);
+    background-position: 0 -114px;
 }
 
 .experience-build-progress-status {
@@ -16,8 +81,6 @@
 
 .experience-build-progress-status-item {
     opacity: 0.75;
-    width: 197px;
-    text-align: center;
     vertical-align: top;
 }
 
@@ -37,8 +100,8 @@
     .experience-build-progress-status-item.build {
         width: auto;
     }
-    .experience-build-progress-status-item.failed
-    {
+
+    .experience-build-progress-status-item.failed {
         text-align: right;
     }
 
@@ -161,4 +224,32 @@
     display: inline-block;
     vertical-align: middle;
     line-height: 12px;
+}
+
+@media (max-width: 790px) {
+
+    .main-nav-item {
+        width: 50%;
+    }
+
+    .main-nav-separator {
+        display: none;
+    }
+
+    .nav-control.left {
+        text-align: right;
+    }
+
+    .nav-control.rebuild {
+        margin-top: 10px;
+    }
+
+    .experience .main-nav-item.right .nav-control,
+    .experience .main-nav-item.right .nav-control.rebuild {
+        width: 100%;
+    }
+
+    .experience .nav-control-inner.rebuild:before {
+        float: right;
+    }
 }

@@ -23,7 +23,7 @@
     white-space: nowrap;
 }
 
-a.nav-control:hover {
+.nav-control:hover {
     text-decoration: none;
     opacity: 0.75;
     filter: alpha(opacity=75);
@@ -36,28 +36,20 @@ a.nav-control:hover {
     background-repeat: no-repeat;
 }
 
-.nav-control.left .nav-icon {
-    margin-right: 13px;
-}
-
-.nav-control.right .nav-icon {
-    margin-left: 13px;
-}
-
 .nav-icon.back-icon {
     background-image: url(images/back-btn.png);
     background-repeat: no-repeat;
 }
 
 .nav-title {
-    display: inline-block;
-    vertical-align: top;
+    padding: 0 13px;
     font-size: 14px;
     text-transform: uppercase;
     color: #666666;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    vertical-align: middle;
 }
 
 .objective-image {

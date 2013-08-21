@@ -1,45 +1,61 @@
 ﻿<section class="experience unselectable container">
+    <nav class="main-nav">
+        <ul class="unstyled main-nav-list">
+            <li class="main-nav-item left" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'experiences',  isGoBackTextLocalizable: true, goBackAction: navigateToExperiences } }"></li>
+            <li class="main-nav-item right">
+                <div class="nav-control right" data-bind="css: { 'build-experience': status() == statuses.notStarted }">
+                    <!-- BUILD EXPERIENCE BUTTON -->
+                    <!-- ko if: status() == statuses.notStarted -->
+                    <div class="experience-build-progress-status-item build" data-bind="click: buildExperience">
+                        <span class="experience-build-status-text" data-bind="localize: { text: 'buildExperience' }">Build experience</span>
+                        <span class="experience-build-status-image experience-build-status-image-not-started"></span>
+                    </div>
+                    <!-- /ko -->
 
-    <div class="navbar navbar-left" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'experiences', isGoBackTextLocalizable: true, goBackAction: navigateToExperiences } }"></div>
+                    <!-- BUILDING STATUS -->
+                    <!-- ko if: status() == statuses.inProgress && status() != statuses.notStarted -->
+                    <div class="experience-build-progress-status-item not-transparent">
+                        <span class="experience-build-status-image experience-build-status-image-in-progress pull-right"></span>
+                        <span class="experience-build-status-text" data-bind="localize: { text: 'experienceBuildingStatus' }">Building...</span>
+                    </div>
+                    <!-- /ko -->
 
-    <div class="navbar experience-build-progress-status">
-        <!-- ko if: status() == statuses.notStarted -->
-        <div class="experience-build-progress-status-item build" data-bind="click: buildExperience">
-            <span class="experience-build-status-text" data-bind="localize: { text: 'buildExperience' }">Build experience</span>
-            <span class="experience-build-status-image experience-build-status-image-not-started"></span>
-        </div>
-        <!-- /ko -->
-        <!-- ko if: status() == statuses.succeed ||  status() == statuses.inProgress && !isFirstBuild() -->
-        <div class="experience-build-progress-status-item rebuild" data-bind="click: buildExperience, visible: status() != statuses.inProgress">
-            <span class="experience-build-status-image experience-build-status-image-re-build"></span>
-            <span class="experience-build-status-text rebuild" data-bind="localize: { text: 'experienceRebuildAction' }">Rebuild</span>
-        </div>
-        <span class="experience-build-progress-status-item rebuild disabled" data-bind="visible: status() == statuses.inProgress">
-            <span class="experience-build-status-image experience-build-status-image-re-build"></span>
-            <span class="experience-build-status-text rebuild" data-bind="localize: { text: 'experienceRebuildAction' }">Rebuild</span>
-        </span>
-        <span class="experience-build-progress-status-seperator"></span>
-        <!-- /ko -->
-        <!-- ko if: status() == statuses.failed -->
-        <div class="experience-build-progress-status-item failed not-transparent" data-bind="event: { mouseover: resetBuildStatus }">
-            <span class="experience-build-status-image experience-build-status-image-failed pull-right"></span>
-            <span class="experience-build-status-text" data-bind="localize: { text: 'experienceFailedStatus' }">Building failed</span>
-        </div>
-        <!-- /ko -->
-        <!-- ko if: status() == statuses.inProgress && status() != statuses.notStarted -->
-        <div class="experience-build-progress-status-item not-transparent">
-            <span class="experience-build-status-image experience-build-status-image-in-progress pull-right"></span>
-            <span class="experience-build-status-text" data-bind="localize: { text: 'experienceBuildingStatus' }">Building...</span>
-        </div>
-        <!-- /ko-->
-        <!-- ko if: status() == statuses.succeed && status() != statuses.notStarted -->
-        <div class="experience-build-progress-status-item" data-bind="click: downloadExperience">
-            <span class="experience-build-status-image experience-build-status-image-complete pull-right"></span>
-            <span class="experience-build-status-text" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
-        </div>
-        <!-- /ko -->
-    </div>
-    <div class="clear"></div>
+                    <!-- BUILD SUCCESS/ DOWNLOAD BUTTON -->
+                    <!-- ko if: status() == statuses.succeed && status() != statuses.notStarted -->
+                    <div class="experience-build-progress-status-item" data-bind="click: downloadExperience">
+                        <span class="experience-build-status-image experience-build-status-image-complete pull-right"></span>
+                        <span class="experience-build-status-text" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
+                    </div>
+                    <!-- /ko -->
+
+                    <!-- BUILD FAILED BUTTON -->
+                    <!-- ko if: status() == statuses.failed -->
+                    <div class="experience-build-progress-status-item failed not-transparent" data-bind="event: { mouseover: resetBuildStatus }">
+                        <span class="experience-build-status-image experience-build-status-image-failed pull-right"></span>
+                        <span class="experience-build-status-text" data-bind="localize: { text: 'experienceFailedStatus' }">Building failed</span>
+                    </div>
+                    <!-- /ko -->
+                </div>
+
+                <!-- REBUILD BUTTON -->
+                <!-- ko if: status() == statuses.succeed ||  status() == statuses.inProgress && !isFirstBuild() -->
+                <div class="main-nav-separator"></div>
+                <div class="nav-control rebuild left">
+                    <!-- ko if: status() == statuses.inProgress -->
+                    <div class="disabled nav-control-inner rebuild">
+                        <div class="nav-title" data-bind="localize: { text: 'experienceRebuildAction' }"></div>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: status() == statuses.inProgress -->
+                    <div class="nav-control-inner rebuild" data-bind=" click: buildExperience">
+                        <div class="nav-title" data-bind="localize: { text: 'experienceRebuildAction' }"></div>
+                    </div>
+                    <!-- /ko -->
+                </div>
+                <!-- /ko -->
+            </li>
+        </ul>
+    </nav>
     <header class="page-header-wrapper">
         <aside class="nav-element-wrapper previous">
             <!-- ko if: _.isNumber(previousExperienceId) -->
