@@ -30,7 +30,7 @@ a.nav-control:hover {
     filter: alpha(opacity=75);
 }
 
-.nav-btn {
+.nav-icon {
     height: 57px;
     line-height: 57px;
     width: 57px;
@@ -40,7 +40,7 @@ a.nav-control:hover {
     text-align: center;
 }
 
-    .nav-btn.back-btn {
+    .nav-icon.back-btn {
         background-image: url(images/back-btn.png);
         background-repeat: no-repeat;
     }
