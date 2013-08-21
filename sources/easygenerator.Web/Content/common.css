@@ -621,65 +621,60 @@ h2.page-header-title {
     position: relative;
 }
 
-    .edit-field .text-block {
-        padding: 10px 15px 25px 15px;
-        min-height: 15px;
-    }
+.edit-field .text-block textarea {
+    width: 100%;
+    height: 90px;
+    border: 1px solid transparent;
+    -ms-resize: none;
+    resize: none;
+    padding: 10px 15px 25px 15px;
+    vertical-align: top;
+    outline: none;
+    overflow-y: hidden;
+    background-color: transparent;
+    color: #666;
+    font-size: 13px;
+    font-family: Arial,sans-serif;
+}
 
-        .edit-field .text-block.bordered {
-            background-color: white;
-            border: 1px solid #e1e1e1;
-            -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-            -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-            box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-        }
+.edit-field .text-block.bordered > .editarea {
+    background-color: white;
+    border: 1px solid #e1e1e1;
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
 
-        .edit-field .text-block:hover {
-            border: 1px solid #e1e1e1;
-            -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-            -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-            box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-        }
+.edit-field .text-block:hover > .editarea {
+    border: 1px solid #e1e1e1;
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
 
-        .edit-field .text-block.active {
-            background-color: white;
-            border: 1px solid rgba(68, 192, 252, 0.4);
-            -webkit-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
-            -moz-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
-            box-shadow: 0 0 3px rgba(68, 192, 252, 1);
-        }
+.edit-field .text-block.active > .editarea {
+    background-color: white;
+    border: 1px solid rgba(68, 192, 252, 0.4);
+    -webkit-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
+    -moz-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
+    box-shadow: 0 0 3px rgba(68, 192, 252, 1);
+}
 
-        .edit-field .text-block.error {
-            border: 1px solid rgba(242, 108, 79, 0.4);
-            -webkit-box-shadow: 0 0 3px rgba(242, 108, 79, 1);
-            -moz-box-shadow: 0 0 3px rgba(242, 108, 79, 1);
-            box-shadow: 0 0 3px rgba(242, 108, 79, 1);
-        }
+.edit-field .text-block.error > .editarea {
+    border: 1px solid rgba(242, 108, 79, 0.4);
+    -webkit-box-shadow: 0 0 3px rgba(242, 108, 79, 1);
+    -moz-box-shadow: 0 0 3px rgba(242, 108, 79, 1);
+    box-shadow: 0 0 3px rgba(242, 108, 79, 1);
+}
 
-        .edit-field .text-block textarea {
-            width: 100%;
-            height: 100%;
-            border: 1px solid transparent;
-            -ms-resize: none;
-            resize: none;
-            padding: 0;
-            vertical-align: top;
-            outline: none;
-            overflow-y: hidden;
-            background-color: transparent;
-            color: #666;
-            font-size: 13px;
-            font-family: Arial,sans-serif;
-        }
+.edit-field .text-block.active .chars-counter {
+    display: block;
+}
 
-        .edit-field .text-block.active .chars-counter {
-            display: block;
-        }
-
-        .edit-field .text-block .chars-counter.error {
-            background-color: #f26c4f;
-            display: block;
-        }
+.edit-field .text-block .chars-counter.error {
+    background-color: #f26c4f;
+    display: block;
+}
 
 .chars-counter {
     display: none;
