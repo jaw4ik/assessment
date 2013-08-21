@@ -16,9 +16,9 @@
 
         CKEDITOR.config.language = language;
 
+        $(element).html(data());
         $(element).attr('contenteditable', true);
         editor = CKEDITOR.inline(element);
-        editor.setData(data());
 
         editor.on('instanceReady', function () {
             $toolbarElement = $('#cke_' + editor.name);
