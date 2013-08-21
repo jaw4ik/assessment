@@ -4,27 +4,27 @@
         'durandal': '../Scripts/durandal',
         'plugins': '../Scripts/durandal/plugins',
         'transitions': '../Scripts/durandal/transitions'
-    }
+    },
+    urlArgs: has('release') ? 'v=' + Math.random() : ''
 });
 
-define('jquery', function () { return jQuery; });
-define('knockout', ko);
-
-//>>excludeStart("build", true);
-require.config({
-    urlArgs: 'v=' + Math.random()
+define('jquery', function () {
+    return jQuery;
 });
-//>>excludeEnd("build");
 
-ko.validation.configure({
-    insertMessages: false
+define('knockout', function () {
+    ko.validation.configure({
+        insertMessages: false
+    });
+    return ko;
 });
 
 define(['durandal/system', 'durandal/app', 'durandal/viewLocator'],
     function (system, app, viewLocator) {
-        //>>excludeStart("build", true);
-        system.debug(true);
-        //>>excludeEnd("build");
+
+        if (!has('release')) {
+            system.debug(true);
+        }
 
         app.title = "easygenerator";
 
@@ -45,4 +45,5 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator'],
             app.setRoot('viewmodels/shell');
         });
 
-    });
+    }
+);

@@ -27,13 +27,13 @@ exports.config = function (weyland) {
                     'jquery': '../Scripts/jquery-2.0.3'
                 },
                 inlineText: true,
-                optimize: 'none',
-                pragmas: {
-                    build: true
-                },
+                optimize: 'uglify2',
                 stubModules: ['text', 'knockout', 'jquery'],
                 keepBuildDir: true,
-                out: 'App/main-built.js'
+                out: 'App/main-built.js',
+                has: {
+                    release: true
+                }
             }
         });
 }
