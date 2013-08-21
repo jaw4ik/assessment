@@ -1,4 +1,4 @@
-﻿define(['durandal/plugins/router', 'context', 'eventTracker'], function (router, context, eventTracker) {
+﻿define(['durandal/plugins/router', 'context', 'eventsManager'], function (router, context, eventsManager) {
     
 
     return {
@@ -56,7 +56,7 @@
                     }
                 },
                 {
-                    url: '#/xapierror',
+                    url: '#/xapierror/:backUrl',
                     moduleId: 'viewmodels/xAPIError',
                     name: 'xAPIError'
                 }
@@ -71,7 +71,7 @@
                     window.location.hash = '#/';
 
                     return router.activate().then(function() {
-                        eventTracker.courseStarted();
+                        eventsManager.fireEvent(eventsManager.eventsList.courseStarted);
                     });
                 });
         }

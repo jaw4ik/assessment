@@ -1,16 +1,22 @@
-﻿define(['xAPI/settings', 'xAPI/errorsHandler', 'xAPI/verbs', 'xAPI/base64', 'events'],
-    function (settings, errorsHandler, verbs, base64, events) {
+﻿define(['xAPI/settings', 'xAPI/errorsHandler', 'xAPI/verbs', 'xAPI/base64'],
+    function (settings, errorsHandler, verbs, base64) {
+
+        "use strict";
 
         var
-            actorData = {},
+            actor = {},
             activity = {},
 
-            init = function (tracker, actorName, actorMail, activityName, activityUrl, activityLanguage) {
+            init = function (eventsTracker, actorName, actorMail, activityName, activityUrl, activityLanguage) {
 
-                if (typeof tracker === "undefined" || _.isNull(tracker))
+                if (typeof eventsTracker === "undefined" || _.isNull(eventsTracker))
                     return;
 
-                actorData = {
+                var hashIndex = activityUrl.indexOf("#/");
+                if (hashIndex !== -1)
+                    activityUrl = activityUrl.substring(0, hashIndex);
+
+                actor = {
                     name: actorName,
                     mbox: actorMail
                 };
@@ -21,85 +27,70 @@
                     language: activityLanguage
                 };
 
-                if (_.isFunction(tracker.courseStarted))
-                    tracker.addListener(events.courseStarted, function () {
-                        trackAction(verbs.started);
-                    });
+                //add listeners to events
+                eventsTracker.addEventListener(eventsTracker.eventsList.courseStarted, function () {
+                    trackAction(verbs.started);
+                });
 
-                if (_.isFunction(tracker.courseStopped))
-                    tracker.addListener(events.courseStopped, function () {
-                        trackAction(verbs.stopped);
-                    });
+                eventsTracker.addEventListener(eventsTracker.eventsList.courseStopped, function () {
+                    trackAction(verbs.stopped);
+                });
 
-                if (_.isFunction(tracker.courseFinished))
-                    tracker.addListener(events.courseFinished, function (score) {
-                        if (typeof score === "undefined" ||
-                            typeof settings === "undefined" ||
-                            _.isUndefined(settings.scoresDistribution.minScoreForPositiveResult) ||
-                            _.isUndefined(settings.scoresDistribution.positiveVerb)) {
+                eventsTracker.addEventListener(eventsTracker.eventsList.courseFinished, function (data) {
+                    if (typeof data === "undefined" ||
+                        _.isUndefined(data.result) ||
+                        typeof settings === "undefined" ||
+                        _.isUndefined(settings.scoresDistribution.minScoreForPositiveResult) ||
+                        _.isUndefined(settings.scoresDistribution.positiveVerb)) {
 
-                            errorsHandler.handleError(errorsHandler.errors.notEnoughDataInSettings);
-                            return;
-                        }
+                        errorsHandler.handleError(errorsHandler.errors.notEnoughDataInSettings);
+                        return;
+                    }
 
-                        if (score >= settings.scoresDistribution.minScoreForPositiveResult)
-                            trackAction(settings.scoresDistribution.positiveVerb, score);
-                        else
-                            trackAction(verbs.failed, score);
-                    });
+                    if (data.result >= settings.scoresDistribution.minScoreForPositiveResult)
+                        trackAction(settings.scoresDistribution.positiveVerb, data.result);
+                    else
+                        trackAction(verbs.failed, data.result);
+                });
 
             },
 
-            trackAction = function (verb, result, actor, activityName, activityUrl, activityLanguage) {
-
-                var statement = buildStatement(verb, result, actor, activityName, activityUrl, activityLanguage);
+            trackAction = function (verb, result) {
+                
+                var statement = buildStatement(verb, result);
 
                 sendRequest(statement);
             },
 
-            buildStatement = function (verb, result, actor, activityName, activityUrl, activityLanguage) {
-                
+            buildStatement = function (verb, result) {
+
                 if (typeof verb === "undefined" || !_.isObject(verb) || _.isUndefined(verb.id) || _.isUndefined(verb.display)) {
                     errorsHandler.handleError(errorsHandler.errors.verbIsIncorrect);
                     return;
-                }
-
-                if (typeof result !== "undefined" && !_.isObject(result)) {
-                    result = {
-                        score: {
-                            scaled: result
-                        }
-                    };
-                }
-
-                if (typeof activityName === "undefined")
-                    activityName = activity.name;
-
-                if (typeof activityUrl === "undefined") {
-                    if (typeof activity.url !== "undefined")
-                        activityUrl = activity.url;
-                    else if (window && window.location)
-                        activityUrl = window.location.toString();
-                }
-
-                if (typeof activityLanguage === "undefined") {
-                    if (typeof activity.language !== "undefined")
-                        activityLanguage = activity.language;
-                    else
-                        activityLanguage = settings.defaultLanguage;
-                }
-
-                if (typeof actor === "undefined") {
-                    if (typeof actorData !== "undefined")
-                        actor = actorData;
-                    else
-                        errorsHandler.handleError(errorsHandler.errors.actorDataIsIncorrect);
                 }
 
                 if (_.isUndefined(actor.mbox) || _.isEmpty(actor.mbox)) {
                     errorsHandler.handleError(errorsHandler.errors.actorDataIsIncorrect);
                     return;
                 }
+
+                if (typeof result !== "undefined" && !_.isObject(result)) {
+
+                    var formattedResult = { score: {} };
+
+                    if (result >= 0 && result <= 1)
+                        formattedResult.score.scaled = result;
+                    else
+                        formattedResult.score.raw = result;
+
+                    result = formattedResult;
+                }
+
+                if (_.isUndefined(activity.url) && window && window.location)
+                    activity.url = window.location.toString();
+
+                if (_.isUndefined(activity.language))
+                    activity.language = settings.defaultLanguage;
 
                 if (actor.mbox.substring(0, 7) != "mailto:")
                     actor.mbox = "mailto:" + actor.mbox;
@@ -108,17 +99,17 @@
                     actor.objectType = "Agent";
 
                 var name = {};
-                name[activityLanguage] = activityName;
+                name[activity.language] = activity.name;
 
                 var object = {
-                    id: activityUrl,
+                    id: activity.url,
                     definition: {
                         name: name
                     }
                 };
 
                 var statement = {
-                    id: ruuid(),
+                    id: generateGuid(),
                     actor: actor,
                     verb: verb,
                     object: object,
@@ -135,7 +126,7 @@
                 if (!$.support.cors) {
                     initXDomainRequestTransport();
 
-                    options = getXApiIEModeRequest(options);
+                    options = getOptionsForIEMode(options);
                 }
 
                 $.ajax(options);
@@ -143,8 +134,12 @@
 
             buildRequestOptions = function (statement) {
 
-                var lrsUrl = settings.LRSUri + 'statements';
-                var auth = "Basic " + base64.encode(settings.authenticationCredentials.username + ':' + settings.authenticationCredentials.password);
+                var lrsUrl = settings.LRS.uri;
+                
+                if (lrsUrl.indexOf("/statements") === -1)
+                    lrsUrl = lrsUrl + "/statements";
+
+                var auth = "Basic " + base64.encode(settings.LRS.credentials.username + ':' + settings.LRS.credentials.password);
 
                 var headers = [];
                 headers["X-Experience-API-Version"] = settings.xApiVersion;
@@ -174,33 +169,32 @@
                 };
 
                 options.error = function (request, textStatus, error) {
-                    if (textStatus == "timeout")
-                        error = errorsHandler.errors.timeoutError;
-                    else
-                        switch (request.status) {
-                            case 0:
+                    
+                    switch (request.status) {
+                        case 0:
+                            if (error == "timeout")
                                 error = errorsHandler.errors.invalidEndpoint;
-                                break;
-                            case 400:
-                                if (request.responseText.indexOf("Mbox") !== -1)
-                                    error = errorsHandler.errors.invalidEmail;
+                            break;
+                        case 400:
+                            if (request.responseText.indexOf("Mbox") !== -1)
+                                error = errorsHandler.errors.invalidEmail;
 
-                                else if (request.responseText.indexOf("URL") !== -1 || request.responseText.indexOf("endpoint") !== -1)
-                                    error = errorsHandler.errors.invalidEndpoint;
+                            else if (request.responseText.indexOf("URL") !== -1 || request.responseText.indexOf("endpoint") !== -1)
+                                error = errorsHandler.errors.invalidEndpoint;
 
-                                else error = errorsHandler.errors.badRequest + request.responseText;
+                            else error = errorsHandler.errors.badRequest + request.responseText;
 
-                                break;
-                            case 401:
-                                error = errorsHandler.errors.invalidCredentials;
-                                break;
-                            case 404:
-                                error = errorsHandler.errors.notFoundEndpoint;
-                                break;
-                            default:
-                                error = errorsHandler.errors.unhandledMessage + request.statusText;
-                                break;
-                        }
+                            break;
+                        case 401:
+                            error = errorsHandler.errors.invalidCredentials;
+                            break;
+                        case 404:
+                            error = errorsHandler.errors.notFoundEndpoint;
+                            break;
+                        default:
+                            error = errorsHandler.errors.unhandledMessage + request.statusText;
+                            break;
+                    }
 
                     errorsHandler.handleError(error);
                 };
@@ -208,7 +202,7 @@
                 return options;
             },
 
-            getXApiIEModeRequest = function (options) {
+            getOptionsForIEMode = function (options) {
                 var newUrl = options.url;
 
                 //Everything that was on query string goes into form vars
@@ -264,7 +258,7 @@
                                     callback(200, "OK", { text: xdr.responseText });
                                 };
 
-                                xdr.onerror = function () {
+                                xdr.onerror = function (params, par) {
                                     callback(-1, errorsHandler.errors.xDomainRequestError);
                                 };
 
@@ -281,7 +275,7 @@
                                 catch (e) {
                                     var errorMessage;
 
-                                    if (location.protocol != getProtocol(s.url))
+                                    if (location.protocol != s.url.split("/")[0])
                                         errorMessage = errorsHandler.errors.invalidProtocol;
                                     else
                                         errorMessage = e.message;
@@ -305,12 +299,7 @@
                 }
             },
 
-            getProtocol = function (url) {
-                var arr = url.split("/");
-                return arr[0];
-            },
-
-            ruuid = function () {
+            generateGuid = function () {
                 return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
                     /[xy]/g,
                     function (c) {

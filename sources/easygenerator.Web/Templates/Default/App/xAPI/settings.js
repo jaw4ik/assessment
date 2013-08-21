@@ -3,13 +3,13 @@
 
         var xAPISettings = {
         
-            LRSUri: 'http://cloud.scorm.com/ScormEngineInterface/TCAPI/public/',
-            
-            //LRSUri: 'https://easygenerator.waxlrs.com/TCAPI/',
+            LRS: {
+                uri: 'http://cloud.scorm.com/ScormEngineInterface/TCAPI/public/',
 
-            authenticationCredentials: {
-                username: "9Gm3vd8CD9Jo4Du5I9RE",
-                password: "ejuoYRnXFsaWtjooytXZ"
+                credentials: {
+                    username: "",
+                    password: ""
+                }
             },
         
             scoresDistribution: {

@@ -2,20 +2,20 @@
     function (router, eventTracker) {
         
         var
-            restartExperience = function () {
-                var url = window.location.toString();
-                url = url.substring(0, url.indexOf("#/"));
+            navigateBackUrl = '',
 
-                router.replaceLocation(url);
+            restartExperience = function () {
+                router.replaceLocation("#/");
             },
             
             continueLearning = function () {
                 eventTracker.removeAllListeners();
 
-                router.navigateBack();
+                router.navigateTo(navigateBackUrl);
             },
 
-            activate = function () {
+            activate = function (route) {
+                navigateBackUrl = route.backUrl;
             };
 
         return {

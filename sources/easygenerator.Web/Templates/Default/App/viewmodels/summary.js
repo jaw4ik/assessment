@@ -1,4 +1,4 @@
-﻿define(['context', 'durandal/plugins/router', 'eventTracker'], function (context, router, eventTracker) {
+﻿define(['context', 'durandal/plugins/router', 'eventsManager'], function (context, router, eventsManager) {
     var objectives = [],
         score = 0,
         activate = function () {
@@ -21,8 +21,8 @@
         },
         
         finish = function () {
-            eventTracker.courseStopped();
-            eventTracker.courseFinished(this.score);
+            eventsManager.fireEvent(eventsManager.eventsList.courseStopped);
+            eventsManager.fireEvent(eventsManager.eventsList.courseFinished, { result: this.score / 100 });
 
             window.close();
 

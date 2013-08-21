@@ -5,7 +5,7 @@
             
             courseStarted: "courseStarted",
             courseStopped: "courseStopped",
-            courseFinished: 'courseFinished'
+            courseFinished: "courseFinished"
             
         };
 

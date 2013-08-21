@@ -3,7 +3,7 @@
     var
         _listeners = {},
 
-        _fire = function (eventName, eventData) {
+        fireEvent = function (eventName, eventData) {
 
             if (!_.isString(eventName) || _.isEmpty(eventName)) {
                 throw new Error("Event object missing 'eventName' property.");
@@ -18,7 +18,7 @@
             }
         },
 
-        addListener = function (eventName, listener) {
+        addEventListener = function (eventName, listener) {
             if (_.isUndefined(_listeners[eventName])) {
                 _listeners[eventName] = [];
             }
@@ -26,7 +26,7 @@
             _listeners[eventName].push(listener);
         },
 
-        removeListener = function (eventName, listener) {
+        removeEventListener = function (eventName, listener) {
             if (_.isArray(_listeners[eventName])) {
                 _listeners[eventName] = _.without(_listeners[eventName], listener);
             }
@@ -34,42 +34,18 @@
 
         removeAllListeners = function () {
             _listeners = {};
-        },
-
-
-        //#region Events
-        
-        courseStarted = function () {
-            _fire(events.courseStarted);
-        },
-
-        courseStopped = function () {
-            _fire(events.courseStopped);
-        },
-
-        courseFinished = function (result) {
-            _fire(events.courseFinished, result / 100);
         };
-    
-        //#endregion Events
 
     return {
-        //#region Private properties
         
-        addListener: addListener,
-        removeListener: removeListener,
+        fireEvent: fireEvent,
+
+        addEventListener: addEventListener,
+        removeEventListener: removeEventListener,
         removeAllListeners: removeAllListeners,
 
-        //#endregion Private properties
-
-
-        //#region Events
-
-        courseStarted: courseStarted,
-        courseStopped: courseStopped,
-        courseFinished: courseFinished
-
-        //#endregion Events
+        eventsList: events
+        
     };
 
 });

@@ -22,8 +22,12 @@
             },
 
             handleError = function (errorMessage) {
-                debugger;
-                router.replaceLocation('#/xapierror');
+
+                if (window.location.hash.indexOf('#/xapierror') !== -1)
+                    return;
+
+                var navigateUrl = '#/xapierror/' + encodeURIComponent(window.location.hash);
+                router.replaceLocation(navigateUrl);
             };
 
         return {

@@ -575,7 +575,7 @@
     <Content Include="Templates\Default\App\durandal\viewModelBinder.js" />
     <Content Include="Templates\Default\App\durandal\widget.js" />
     <Content Include="Templates\Default\App\events.js" />
-    <Content Include="Templates\Default\App\eventTracker.js" />
+    <Content Include="Templates\Default\App\eventsManager.js" />
     <Content Include="Templates\Default\App\main-built.js" />
     <Content Include="Templates\Default\App\main.js" />
     <Content Include="Templates\Default\App\viewmodels\404.js" />
@@ -603,7 +603,6 @@
     <Content Include="Templates\Default\App\xAPI\requestManager.js" />
     <Content Include="Templates\Default\App\xAPI\settings.js" />
     <Content Include="Templates\Default\App\xAPI\verbs.js" />
-    <Content Include="Templates\Default\App\xAPI\xAPI.spec.js" />
     <Content Include="Templates\Default\content\1\1\1.html" />
     <Content Include="Templates\Default\content\1\1\2.html" />
     <Content Include="Templates\Default\content\1\1\3.html" />
