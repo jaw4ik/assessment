@@ -1,6 +1,6 @@
 ﻿<section class="experience unselectable container">
 
-    <div class="navbar navbar-left" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'experiences', goBackAction: navigateToExperiences } }"></div>
+    <div class="navbar navbar-left" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'experiences', isGoBackTextLocalizable: true, goBackAction: navigateToExperiences } }"></div>
 
     <div class="navbar experience-build-progress-status">
         <!-- ko if: status() == statuses.notStarted -->

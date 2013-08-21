@@ -1,13 +1,6 @@
 ﻿<div class="question container unselectable">
-    <div class="navbar">
-        <a href="#" data-bind="click: goToRelatedObjective" class="inline nav-control left">
-            <div class="nav-icon back-icon pull-left"></div>
-            <div class="nav-title">
-                <span data-bind="localize: { text: 'backTo' }"></span>
-                <span data-bind="text: ' \'' + objectiveTitle + '\''"></span>
-            </div>
-        </a>
-    </div>
+
+    <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: ' \'' + objectiveTitle + '\'', isGoBackTextLocalizable: false, goBackAction: goToRelatedObjective } }"></div>
 
     <header class="page-header-wrapper">
         <aside class="nav-element-wrapper previous">
@@ -23,7 +16,18 @@
                 <img alt="" class="question-image" src="/Content/images/multichoice-question.png" />
             </div>
             <div class="page-header-info question-header-title">
-                <h2 class="page-header-title selectable" data-bind="text: title"></h2>
+                <div class="question-text-wrapper">
+                    <div class="edit-field selectable">
+                        <div class="text-block" data-bind="css: {'active': title.isEditing(), error: !title.isValid()}">
+                            <textarea class="editarea" data-bind="value: title, valueUpdate: 'afterkeydown', autoResize: true, hasFocus: title.isEditing, keyPress: {13: endEditQuestionTitle}, event: { focus: startEditQuestionTitle.bind($data), blur: endEditQuestionTitle.bind($data) }"></textarea>
+                            <div class="chars-counter" data-bind="css: { error:  !title.isValid()}">
+                                <span data-bind="text: title().length"></span>
+                                <span>/</span>
+                                <span data-bind="text: questionTitleMaxLength"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <aside class="nav-element-wrapper next">

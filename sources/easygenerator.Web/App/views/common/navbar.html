@@ -2,6 +2,11 @@
     <div class="nav-icon back-icon pull-left"></div>
     <div class="nav-title">
         <span data-bind="localize: { text: 'backTo' }"></span>
+        <!-- ko if: isGoBackTextLocalizable -->
         <span data-bind="localize: { text: goBackText }"></span>
+        <!-- /ko -->
+        <!-- ko ifnot: isGoBackTextLocalizable -->
+        <span data-bind="text: goBackText"></span>
+        <!-- /ko -->
     </div>
 </a>

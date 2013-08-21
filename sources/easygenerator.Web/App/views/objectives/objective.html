@@ -1,13 +1,7 @@
 ﻿<section class="container list-of-questions unselectable">
-    <div class="navbar">
-        <a href="#/objectives" data-bind="click: navigateToObjectives" class="inline nav-control left">
-            <div class="nav-icon back-icon pull-left"></div>
-            <div class="nav-title">
-                <span data-bind="localize: { text: 'backTo' }"></span>
-                <span data-bind="localize: { text: 'learningObjectives' }"></span>
-            </div>
-        </a>
-    </div>
+
+    <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'learningObjectives', isGoBackTextLocalizable: true, goBackAction: navigateToObjectives } }"></div>
+
     <header class="page-header-wrapper">
         <aside class="nav-element-wrapper previous">
             <!-- ko if: _.isNumber(previousObjectiveId)  -->

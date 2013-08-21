@@ -10,7 +10,8 @@ define(function (require) {
         explanationModel = require('models/explanation'),
         answerOptionModel = require('models/answerOption'),
         images = require('configuration/images'),
-        eventTracker = require('eventTracker');
+        eventTracker = require('eventTracker'),
+        questionRepository = require('repositories/questionRepository');
 
     var eventsCategory = 'Question';
 
@@ -18,6 +19,143 @@ define(function (require) {
 
         it('is defined', function () {
             expect(viewModel).toBeDefined();
+        });
+
+        describe('title:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.title).toBeObservable();
+            });
+
+            describe('isEditing', function () {
+                it('should be observable', function () {
+                    expect(viewModel.title.isEditing).toBeObservable();
+                });
+            });
+
+            describe('isValid', function () {
+                it('should be observable', function () {
+                    expect(viewModel.title.isValid).toBeObservable();
+                });
+
+                describe('when title is empty', function () {
+                    it('should be false', function () {
+                        viewModel.title('');
+                        expect(viewModel.title.isValid()).toBeFalsy();
+                    });
+                });
+
+                describe('when title is longer than 255', function () {
+                    it('should be false', function () {
+                        viewModel.title(utils.createString(256));
+                        expect(viewModel.title.isValid()).toBeFalsy();
+                    });
+                });
+
+                describe('when title is not empty and not longer than 255', function () {
+                    it('should be true', function () {
+                        viewModel.title(utils.createString(25));
+                        expect(viewModel.title.isValid()).toBeTruthy();
+                    });
+                });
+            });
+        });
+
+        describe('questionTitleMaxLenth:', function() {
+            it('should be defined', function() {
+                expect(viewModel.questionTitleMaxLength).toBeDefined();
+            });
+            
+            it('should be 255', function () {
+                expect(viewModel.questionTitleMaxLength).toBe(255);
+            });
+        });
+
+        describe('startEditQuestionTitle', function () {
+            it('should be function', function () {
+                expect(viewModel.startEditQuestionTitle).toBeFunction();
+            });
+
+            it('should set title.isEditing to true', function () {
+                viewModel.title.isEditing(false);
+                viewModel.startEditQuestionTitle();
+                expect(viewModel.title.isEditing()).toBeTruthy();
+            });
+        });
+
+        describe('endEditQuestionTitle', function () {
+            var updateDeferred, getByIdDeferred;
+            var question = { id: '0', title: 'lalala' };
+            var objective = { id: 'testObj', questions: [question] };
+
+            beforeEach(function () {
+                updateDeferred = Q.defer();
+                getByIdDeferred = Q.defer();
+                spyOn(questionRepository, 'update').andReturn(updateDeferred.promise);
+                spyOn(questionRepository, 'getById').andReturn(getByIdDeferred.promise);
+                spyOn(eventTracker, 'publish');
+                spyOn(viewModel.notification, 'update');
+
+                dataContext.objectives = [objective];
+                viewModel.activate(objective.id, question.id);
+            });
+
+            it('should be function', function () {
+                expect(viewModel.endEditQuestionTitle).toBeFunction();
+            });
+
+            it('should send event \'Update question title\'', function () {
+                viewModel.endEditQuestionTitle();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Update question title', eventsCategory);
+            });
+
+            it('should set title.isEditing to false', function () {
+                viewModel.title.isEditing(true);
+                viewModel.endEditQuestionTitle();
+                expect(viewModel.title.isEditing()).toBeFalsy();
+            });
+
+            describe('when title is valid', function () {
+                it('should update question in repository', function () {
+                    viewModel.title(question.title);
+                    viewModel.endEditQuestionTitle();
+                    expect(questionRepository.update).toHaveBeenCalledWith(objective.id, { id: question.id, title: question.title });
+                });
+
+                describe('and when question updated successfully', function () {
+                    it('should update notificaion', function () {
+                        viewModel.title(question.title);
+                        viewModel.endEditQuestionTitle();
+
+                        var promise = updateDeferred.promise.finally(function () { });
+                        updateDeferred.resolve();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.notification.update).toHaveBeenCalled();
+                        });
+                    });
+                });
+            });
+
+            describe('when title is not valid', function () {
+                it('should revert quiestion title value', function () {
+                    viewModel.title('');
+                    viewModel.endEditQuestionTitle();
+
+                    var promise = getByIdDeferred.promise.finally(function () { });
+                    getByIdDeferred.resolve(question);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.title()).toBe(question.title);
+                    });
+                });
+            });
         });
 
         describe('activate:', function () {
@@ -174,7 +312,7 @@ define(function (require) {
 
                 //assert
                 expect(viewModel.objectiveTitle).toBe(objective.title);
-                expect(viewModel.title).toBe(question.title);
+                expect(viewModel.title()).toBe(question.title);
 
                 expect(viewModel.answerOptions().lenght).toBe(question.answerOptions.lenght);
                 expect(viewModel.explanations().lenght).toBe(question.explanations.lenght);

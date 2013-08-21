@@ -1,8 +1,6 @@
 ﻿define(['dataContext', 'repositories/objectiveRepository'], function (dataContext, objectiveRepository) {
 
-    var self = {};
-
-    self.add = function (objectiveId, obj) {
+    var add = function (objectiveId, obj) {
         if (_.isNullOrUndefined(objectiveId) || _.isNullOrUndefined(obj))
             throw 'Invalid arguments';
 
@@ -13,7 +11,7 @@
                 deferred.reject('Objective does not exist');
 
             var question = {
-                id: self.generateNewEntryId(objective.questions),
+                id: generateNewEntryId(objective.questions),
                 title: obj.title,
                 explanations: [],
                 answerOptions: []
@@ -24,9 +22,58 @@
         });
 
         return deferred.promise;
-    };
+    },
 
-    self.generateNewEntryId = function (collection) {
+    update = function (objectiveId, obj) {
+        if (_.isNullOrUndefined(objectiveId) || _.isNullOrUndefined(obj))
+            throw 'Invalid arguments';
+
+        var deferred = Q.defer();
+
+        objectiveRepository.getById(objectiveId).then(function (objective) {
+            if (!_.isObject(objective)) {
+                deferred.reject('Objective does not exist');
+                return;
+            }
+
+            var question = _.find(objective.questions, function (item) {
+                return item.id == obj.id;
+            });
+
+            if (!_.isObject(question)) {
+                deferred.reject('Question does not exist');
+                return;
+            }
+
+            question.title = obj.title;
+
+            deferred.resolve();
+        });
+
+        return deferred.promise;
+    },
+
+    getById = function (objectiveId, questionId) {
+        if (_.isNullOrUndefined(objectiveId) || _.isNullOrUndefined(questionId))
+            throw 'Invalid arguments';
+
+        var deferred = Q.defer();
+
+        objectiveRepository.getById(objectiveId).then(function (objective) {
+            if (!_.isObject(objective))
+                deferred.reject('Objective does not exist');
+
+            var question = _.find(objective.questions, function (item) {
+                return item.id == questionId;
+            });
+
+            deferred.resolve(question);
+        });
+
+        return deferred.promise;
+    },
+
+    generateNewEntryId = function (collection) {
         var id = 0;
         if (collection.length > 0) {
             var maxId = _.max(_.map(collection, function (exp) {
@@ -40,6 +87,8 @@
     };
 
     return {
-        add: self.add
+        add: add,
+        update: update,
+        getById: getById
     };
 });

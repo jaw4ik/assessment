@@ -1,6 +1,19 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/Hierarchy/Browsers/Browsers/@EntryValue">C28+,FF23+,IE9+,S6+</s:String>
 	<s:Boolean x:Key="/Default/Environment/UnitTesting/DisabledProviders/=nUnit/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=787A5D87526E2B45AB242FC2C69C8EE8/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=787A5D87526E2B45AB242FC2C69C8EE8/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=787A5D87526E2B45AB242FC2C69C8EE8/Field/=OBJECT/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=787A5D87526E2B45AB242FC2C69C8EE8/Field/=OBJECT/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=787A5D87526E2B45AB242FC2C69C8EE8/Field/=PROPERTY_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=787A5D87526E2B45AB242FC2C69C8EE8/Field/=PROPERTY_005FNAME/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=787A5D87526E2B45AB242FC2C69C8EE8/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=787A5D87526E2B45AB242FC2C69C8EE8/Scope/=FFA15E6CFCBE90499C572A859225B012/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=787A5D87526E2B45AB242FC2C69C8EE8/Scope/=FFA15E6CFCBE90499C572A859225B012/Type/@EntryValue">InJavaScriptFile</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=787A5D87526E2B45AB242FC2C69C8EE8/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=787A5D87526E2B45AB242FC2C69C8EE8/Text/@EntryValue">it('should be observable', function () {    &#xD;
+    expect($OBJECT$.$PROPERTY_NAME$).toBeObservable();&#xD;
+});</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/@KeyIndexDefined">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Description/@EntryValue">jasmine xdescription</s:String>
@@ -13,6 +26,20 @@
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Text/@EntryValue">xdescribe('$WHEN_CONDITION$', function () {&#xD;
 	$END$&#xD;
+});</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=987F67E71A985743986833D15AC278D9/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=987F67E71A985743986833D15AC278D9/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=987F67E71A985743986833D15AC278D9/Field/=OBJECT/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=987F67E71A985743986833D15AC278D9/Field/=OBJECT/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=987F67E71A985743986833D15AC278D9/Field/=PROPERTY_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=987F67E71A985743986833D15AC278D9/Field/=PROPERTY_005FNAME/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=987F67E71A985743986833D15AC278D9/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=987F67E71A985743986833D15AC278D9/Scope/=FFA15E6CFCBE90499C572A859225B012/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=987F67E71A985743986833D15AC278D9/Scope/=FFA15E6CFCBE90499C572A859225B012/Type/@EntryValue">InJavaScriptFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=987F67E71A985743986833D15AC278D9/Shortcut/@EntryValue">itobservable</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=987F67E71A985743986833D15AC278D9/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=987F67E71A985743986833D15AC278D9/Text/@EntryValue">it('should be observable', function () {    &#xD;
+    expect($OBJECT$.$PROPERTY_NAME$).toBeObservable();&#xD;
 });</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=9A4560FDAD15C74AB6702DB9EC2A8882/@KeyIndexDefined">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=9A4560FDAD15C74AB6702DB9EC2A8882/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
