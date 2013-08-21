@@ -61,6 +61,10 @@
     opacity: 0.25;
 }
 
+.nav-control-inner.rebuild {
+    cursor: default;
+}
+
 .nav-control-inner.rebuild:before {
     content: '';
     display: block;
@@ -120,6 +124,7 @@
     text-transform: uppercase;
     font-size: 14px;
     line-height: 57px;
+    cursor: default;
 }
 
     .experience-build-status-text.rebuild {
