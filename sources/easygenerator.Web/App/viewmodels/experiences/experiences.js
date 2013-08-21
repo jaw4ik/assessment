@@ -43,18 +43,18 @@
                 if (currentSortingOption() == constants.sortingOptions.byTitleAsc)
                     return;
 
+                sendEvent(events.sortByTitleAsc);
                 currentSortingOption(constants.sortingOptions.byTitleAsc);
                 experiences(_.sortBy(experiences(), function (experience) { return experience.title.toLowerCase(); }));
-                sendEvent(events.sortByTitleAsc);
             },
 
             sortByTitleDesc = function () {
                 if (currentSortingOption() == constants.sortingOptions.byTitleDesc)
                     return;
 
+                sendEvent(events.sortByTitleDesc);
                 currentSortingOption(constants.sortingOptions.byTitleDesc);
                 experiences(_.sortBy(experiences(), function (experience) { return experience.title.toLowerCase(); }).reverse());
-                sendEvent(events.sortByTitleDesc);
             },
 
             navigateToCreation = function () {
@@ -80,20 +80,15 @@
                 if (experience.isSelected())
                     experience.isSelected(false);
 
-                return experienceService.build(experience.id)
+                experienceService.build(experience.id)
                     .then(function (success) {
                         if (success) {
                             experience.buildingStatus(constants.buildingStatuses.succeed);
                         }
                         else {
-                            experience.buildingStatus(constants.buildingStatuses.failed);
                             sendEvent(events.experienceBuildFailed);
+                            experience.buildingStatus(constants.buildingStatuses.failed);
                         }
-                    })
-                    .fin(function () {
-                        setTimeout(function () {
-                            experience.showBuildingStatus(false);
-                        }, constants.experienceShowStatusInterval);
                     });
             },
 
@@ -114,7 +109,7 @@
 
                 sortedExperiences = currentSortingOption() == constants.sortingOptions.byTitleAsc ? sortedExperiences : sortedExperiences.reverse();
 
-                experiences(ko.utils.arrayMap(sortedExperiences, function (item) {
+                experiences(_.map(sortedExperiences, function (item) {
                     var experience = {};
 
                     experience.id = item.id;
@@ -126,15 +121,11 @@
                     experience.showBuildingStatus = ko.observable();
 
                     var storageItem = storage[item.id] || { showBuildingStatus: false, buildingStatus: constants.buildingStatuses.notStarted };
-                    var showBuildingStatus = storageItem.showBuildingStatus || item.buildingStatus != storageItem.buildingStatus;
-                    //console.log(item.buildingStatus != storageItem.buildingStatus);
-                    experience.showBuildingStatus(showBuildingStatus);
+                    var showBuildingStatus = storageItem.showBuildingStatus
+                        || item.buildingStatus == constants.buildingStatuses.inProgress
+                        || item.buildingStatus != storageItem.buildingStatus;
 
-                    if (showBuildingStatus) {
-                        setTimeout(function () {
-                            experience.showBuildingStatus(false);
-                        }, constants.experienceShowStatusInterval);
-                    }
+                    experience.showBuildingStatus(showBuildingStatus);
 
                     return experience;
                 }));
