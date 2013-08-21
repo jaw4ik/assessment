@@ -53,6 +53,10 @@
     display: inline-block;
 }
 
+.nav-control-inner {
+    width: 100%;
+}
+
 .nav-control-inner.disabled {
     opacity: 0.25;
 }
@@ -227,6 +231,9 @@
 }
 
 @media (max-width: 790px) {
+    .nav-control.rebuild .nav-title {
+        margin-right: 57px;
+    }
 
     .main-nav-item {
         width: 50%;
