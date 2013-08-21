@@ -29,7 +29,7 @@ exports.config = function (weyland) {
                 pragmas: {
                     build: true
                 },
-                stubModules: ['text'],
+                stubModules: ['text', 'knockout', 'jquery'],
                 keepBuildDir: true,
                 out: 'App/main-built.js'
             }

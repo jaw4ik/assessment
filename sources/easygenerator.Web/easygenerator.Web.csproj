@@ -280,7 +280,8 @@
     <Content Include="Content\images\small-options-icons.png" />
     <Content Include="Content\images\small_icons.png" />
     <Content Include="Content\images\typeQuestionTitleArrow.png" />
-    <Content Include="Scripts\ckeditorBinding.js" />
+    <Content Include="Scripts\knockoutBindings\autoResizeBinding.js" />
+    <Content Include="Scripts\knockoutBindings\ckeditorBinding.js" />
     <Content Include="App\configuration\images.js" />
     <Content Include="App\configuration\routes.js" />
     <Content Include="App\constants.js" />
@@ -540,7 +541,7 @@
     <None Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <None Include="Scripts\knockout-2.3.0.debug.js" />
     <Content Include="Scripts\knockout-2.3.0.js" />
-    <Content Include="Scripts\knockout.handlers.js" />
+    <Content Include="Scripts\knockoutBindings\keyPressBinding.js" />
     <Content Include="Scripts\knockout.validation.debug.js" />
     <None Include="Scripts\knockout.validation.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -781,7 +782,9 @@
     <Content Include="Templates\Quiz\js\sammy-0.7.4.js" />
     <Content Include="Templates\Quiz\js\scrollBinding.js" />
     <Content Include="Templates\Quiz\js\underscore-1.5.1.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
