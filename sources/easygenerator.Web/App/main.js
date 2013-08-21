@@ -5,7 +5,7 @@
         'plugins': '../Scripts/durandal/plugins',
         'transitions': '../Scripts/durandal/transitions'
     },
-    urlArgs: has('release') ? 'v=' + Math.random() : ''
+    urlArgs: !has('release') ? 'v=' + Math.random() : ''
 });
 
 define('jquery', function () {
