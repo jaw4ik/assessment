@@ -281,6 +281,7 @@
     <Content Include="Content\images\small-options-icons.png" />
     <Content Include="Content\images\small_icons.png" />
     <Content Include="Content\images\typeQuestionTitleArrow.png" />
+    <Content Include="Scripts\has.js" />
     <Content Include="Scripts\knockoutBindings\autoResizeBinding.js" />
     <Content Include="Scripts\knockoutBindings\ckeditorBinding.js" />
     <Content Include="App\configuration\images.js" />

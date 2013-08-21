@@ -24,6 +24,7 @@ namespace easygenerator.Web.Configuration
                     .Include("~/scripts/underscore.extensions.js")
                     .Include("~/scripts/ckeditor/ckeditor.js")
                     .Include("~/scripts/jquery.autosize.js")
+                    .Include("~/scripts/has.js")
                     .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
                 );
 
