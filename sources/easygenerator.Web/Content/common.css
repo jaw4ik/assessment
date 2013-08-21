@@ -158,11 +158,11 @@ COMMON CLASSES CSS-STYLES
     display: inline-block;
 }
 
-.left {
+.pull-left {
     float: left;
 }
 
-.right {
+.pull-right {
     float: right;
 }
 
