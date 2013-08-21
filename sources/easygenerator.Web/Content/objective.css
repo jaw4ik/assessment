@@ -17,7 +17,6 @@
 .nav-control {
     height: 57px;
     line-height: 57px;
-    -ms-opacity: 0.6;
     opacity: 0.6;
     filter: alpha(opacity=60);
     white-space: nowrap;
@@ -37,7 +36,8 @@
 }
 
 .nav-icon.back-icon {
-    background-image: url(images/back-btn.png);
+    background-image: url(images/nav-icons.png);
+    background-position: 0 0;
     background-repeat: no-repeat;
 }
 
