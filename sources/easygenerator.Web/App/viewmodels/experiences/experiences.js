@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'plugins/router', 'services/buildExperience'],
-    function (dataContext, constants, eventTracker, router, experienceService) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'plugins/router', 'services/buildExperience', 'services/downloadExperience'],
+    function (dataContext, constants, eventTracker, router, experienceService, downloadService) {
         "use strict";
 
         var
@@ -94,8 +94,7 @@
 
             downloadExperience = function (experience) {
                 sendEvent(events.downloadExperience);
-                var downloadUrl = window.location.href.replace(window.location.hash, 'download/' + experience.id + '.zip');
-                window.location.assign(downloadUrl);
+                downloadService.download(experience.id);
             },
 
             enableOpenExperience = function (experience) {

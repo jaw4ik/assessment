@@ -7,8 +7,7 @@
             eventTracker = require('eventTracker'),
             dataContext = require('dataContext'),
             experienceModel = require('models/experience'),
-            constants = require('constants'),
-            experienceService = require('services/buildExperience');
+            constants = require('constants');
 
         var
             eventsCategory = 'Experiences',
@@ -517,6 +516,8 @@
             });
 
             describe('buildExperience:', function () {
+                var experienceService = require('services/buildExperience');
+
                 var buildDeferred,
                     experience,
                     buildPromise;
@@ -635,28 +636,28 @@
             });
 
             describe('downloadExperience:', function () {
-                var experience;
-
+                var experience,
+                    downloadService = require('services/downloadExperience');
+                
                 beforeEach(function () {
                     experience = { id: 'some id' };
 
                     spyOn(eventTracker, 'publish');
-                    spyOn(router, 'navigate');
+                    spyOn(downloadService, 'download');
                 });
 
                 it('should be a function', function () {
                     expect(viewModel.downloadExperience).toBeFunction();
                 });
 
-                xit('should send event \"Download experience\"', function () {
+                it('should send event \"Download experience\"', function () {
                     viewModel.downloadExperience(experience);
                     expect(eventTracker.publish).toHaveBeenCalledWith('Download experience', eventsCategory);
                 });
 
-                xit('should navigate to file for download', function () {
+                it('should call download service', function () {
                     viewModel.downloadExperience(experience);
-
-                    expect(router.navigate).toHaveBeenCalledWith('download/' + experience.id + '.zip');
+                    expect(downloadService.download).toHaveBeenCalledWith(experience.id);
                 });
             });
 

@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'plugins/router', 'constants', 'eventTracker', 'repositories/experienceRepository', 'services/buildExperience', 'viewmodels/objectives/objectiveBrief'],
-    function (dataContext, router, constants, eventTracker, repository, service, objectiveBrief) {
+﻿define(['dataContext', 'plugins/router', 'constants', 'eventTracker', 'repositories/experienceRepository', 'services/buildExperience', 'viewmodels/objectives/objectiveBrief', 'services/downloadExperience'],
+    function (dataContext, router, constants, eventTracker, repository, service, objectiveBrief, downloadService) {
         "use strict";
 
         var
@@ -117,8 +117,7 @@
 
             downloadExperience = function () {
                 sendEvent(events.downloadExperience);
-                var downloadUrl = window.location.href.replace(window.location.hash, 'download/' + this.id + '.zip');
-                window.location.assign(downloadUrl);
+                downloadService.download(this.id);
             },
 
             resetBuildStatus = function () {
