@@ -292,8 +292,8 @@
     display: inline-block;
     margin-top: 10px;
     width: 51px;
-    height: 39px;
-    background: url('images/objexp-sprite.png') 0 -272px;
+    height: 52px;
+    background: url('images/objexp-sprite.png') 0 -270px;
 }
 
 .objective-brief-toolbar {

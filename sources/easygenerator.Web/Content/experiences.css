@@ -78,7 +78,7 @@
     -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
     -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
-    color: #d9d9d9;
+    color: #f0f0f0;
     font-size: 18px;
     font-family: Arial, sans-serif;
 }
@@ -277,8 +277,8 @@
     display: inline-block;
     margin-top: 10px;
     width: 51px;
-    height: 39px;
-    background: url('images/objexp-sprite.png') 0 -272px;
+    height: 52px;
+    background: url('images/objexp-sprite.png') 0 -270px;
 }
 
 .experience-brief-options-building,
