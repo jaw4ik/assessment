@@ -1,13 +1,15 @@
 ﻿<section class="question create-question container unselectable">
-    <div class="navbar">
-        <a href="#/objective" data-bind="click: navigateToObjective" class="inline nav-control left">
-            <div class="nav-icon back-icon pull-left"></div>
-            <div class="nav-title">
+    <nav class="navbar nowrap">
+        <div class="nav-icon back-icon pull-left"></div><!--
+     --><div class="nav-title inline">
+            <div class="first-part pull-left">
                 <span data-bind="localize: { text: 'backTo' }"></span>
+            </div>
+            <div class="second-part">
                 <span data-bind="text: ' \'' + objectiveTitle + '\''"></span>
             </div>
-        </a>
-    </div>
+        </div>
+    </nav>
     <div class="create-question-content-wrapper">
         <form class="create-question-form clearfix">
             <div class="create-question-image white-framing">
@@ -15,15 +17,15 @@
             </div>
             <div class="create-question-text-wrapper">
                 <div class="edit-field selectable">
-                    <div class="text-block bordered" data-bind="css: {'active': title.isEditing(), error: !title.isValid() && title.isModified()}">
+                    <div class="text-block bordered" data-bind="css: { 'active': title.isEditing(), error: !title.isValid() && title.isModified() }">
                         <textarea class="editarea" data-bind="singleLineValue: title, valueUpdate: 'afterkeydown', hasFocus: title.isEditing, autoResize: true"></textarea>
-                        <div class="chars-counter" data-bind="css: { error:  !title.isValid() && title.isModified()}">
+                        <div class="chars-counter" data-bind="css: { error: !title.isValid() && title.isModified() }">
                             <span data-bind="text: title().length"></span>/255
                         </div>
                     </div>
                 </div>
                 <div class="create-question-tip">
-                    <div class="create-question-tip-text" data-bind="localize: { text: 'typeQuestionTitleHere'}"></div>
+                    <div class="create-question-tip-text" data-bind="localize: { text: 'typeQuestionTitleHere' }"></div>
                     <div class="create-question-tip-arrow"></div>
                 </div>
             </div>

@@ -22,6 +22,24 @@
     padding-bottom: 5px;
 }
 
+.question .navbar {
+    width: 100%;
+}
+
+.question .nav-title {
+    width: 100%;
+    margin-left: -57px;
+    padding-right: 0;
+    padding-left: 70px;
+}
+
+.nav-title .second-part span {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .question-text-wrapper .edit-field .text-block textarea {
     min-height: 93px;
 }
@@ -447,9 +465,13 @@
         width: 100%;
     }
 
-    .question .btn+.btn {
+    .question .btn + .btn {
         margin-left: 0;
     }
+}
+
+.create-question-tip {
+    position: absolute;
 }
 
 @media (max-width: 690px) {
@@ -458,28 +480,24 @@
     }
 }
 
-.create-question-tip {
+.create-question-tip .create-question-tip-text {
     position: absolute;
+    -webkit-transform: rotate(352deg);
+    -moz-transform: rotate(352deg);
+    -ms-transform: rotate(352deg);
+    transform: rotate(352deg);
+    right: 15px;
+    top: 40px;
+    white-space: nowrap;
 }
 
-    .create-question-tip .create-question-tip-text {
-        position: absolute;
-        -webkit-transform: rotate(352deg);
-        -moz-transform: rotate(352deg);
-        -ms-transform: rotate(352deg);
-        transform: rotate(352deg);
-        right: 15px;
-        top: 40px;
-        white-space: nowrap;
-    }
-
-    .create-question-tip .create-question-tip-arrow {
-        background-image: url(images/typeQuestionTitleArrow.png);
-        width: 53px;
-        height: 54px;
-        position: absolute;
-        top: 10px;
-    }
+.create-question-tip .create-question-tip-arrow {
+    background-image: url(images/typeQuestionTitleArrow.png);
+    width: 53px;
+    height: 54px;
+    position: absolute;
+    top: 10px;
+}
 
 /* buttons */
 

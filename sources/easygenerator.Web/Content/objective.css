@@ -54,6 +54,10 @@
     vertical-align: middle;
 }
 
+.nav-title.inline {
+    vertical-align: top;
+}
+
 .objective-image {
     height: 111px;
     width: 176px;
