@@ -172,6 +172,7 @@
     <Compile Include="BuildExperience\BuildModel\QuestionBuildModel.cs" />
     <Compile Include="ViewModels\Objective\CreateObjectiveViewModel.cs" />
     <Content Include="App\services\downloadExperience.js" />
+    <Content Include="App\services\navigation.js" />
     <Content Include="Content\durandal.css" />
     <Content Include="Content\images\build-sprite.png" />
     <Content Include="Content\images\nav-icons.png" />
@@ -547,7 +548,6 @@
     <Content Include="Scripts\knockoutBindings\keyPressBinding.js" />
     <Content Include="Scripts\knockout.validation.debug.js" />
     <None Include="Scripts\knockout.validation.js" />
-    <Content Include="Scripts\knockoutBindings\singleLineValueBinding.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\q.js" />
     <None Include="Scripts\q.min.js" />

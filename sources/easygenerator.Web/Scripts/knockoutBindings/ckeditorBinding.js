@@ -55,6 +55,12 @@
                 data(editor.getData());
             });
 
+            $(editor.editable().$).on('drop', function () {
+                setTimeout(function() {
+                    filterContent(editor.editable().$);
+                }, 100);
+            });
+
         });
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
@@ -126,7 +132,7 @@
             var $content = $(contentElement);
 
             $content.find('br').each(function (index, brElement) {
-                $(brElement).remove();
+                $(brElement).replaceWith(' ');
             });
 
             $content.find('style').each(function (index, styleElement) {
