@@ -31,7 +31,8 @@
     padding-bottom: 5px;
 }
 
-.question .navbar {
+.question .navbar,
+.question .nav-control {
     width: 100%;
 }
 
