@@ -19,7 +19,7 @@
 }
 
 .nav-control.right {
-    width: 200px;
+    width: 203px;
     text-align: right;
 }
 
@@ -231,7 +231,7 @@
     line-height: 12px;
 }
 
-@media (max-width: 790px) {
+@media (max-width: 800px) {
 
     .main-nav-item {
         width: 50%;
