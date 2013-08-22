@@ -6,7 +6,6 @@ define(function (require) {
         router = require('services/navigation'),
         objectiveModel = require('models/objective'),
         questionModel = require('models/question'),
-        explanationModel = require('models/explanation'),
         answerOptionModel = require('models/answerOption'),
         images = require('configuration/images'),
         eventTracker = require('eventTracker'),
@@ -365,7 +364,7 @@ define(function (require) {
         });
 
         describe('goToRelatedObjective:', function () {
-            
+
             beforeEach(function () {
                 spyOn(router, 'navigate');
                 spyOn(eventTracker, 'publish');
@@ -502,14 +501,14 @@ define(function (require) {
 
                 it('should finish editing', function () {
                     viewModel.isExplanationsBlockExpanded(true);
-                    
+
                     var explanation = {
                         text: ko.observable('Some text'),
                         isEditing: ko.observable(true),
                         id: '0'
                     };
                     viewModel.explanations([explanation]);
-                    
+
                     explanation.isEditing(true);
 
                     viewModel.toggleExplanations();
@@ -690,12 +689,12 @@ define(function (require) {
                     var promise = getQuestionByIdDeferredPromise.fin(function () { });
                     getQuestionByIdDeferred.resolve(question);
 
-                    waitsFor(function() {
+                    waitsFor(function () {
                         return !promise.isPending();
                     });
-                    runs(function() {
+                    runs(function () {
                         expect(viewModel.canAddExplanation()).toBe(true);
-                    }); 
+                    });
                 });
 
             });
@@ -757,7 +756,7 @@ define(function (require) {
             });
 
             describe('when called', function () {
-                
+
                 var getQuestionByIdDeferred;
                 var getQuestionByIdDeferredPromise;
 
@@ -782,7 +781,7 @@ define(function (require) {
                     };
                     viewModel.explanations([explanation]);
                     viewModel.deleteExplanation(explanation);
-                    
+
                     var promise = getQuestionByIdDeferredPromise.fin(function () { });
                     getQuestionByIdDeferred.resolve(question);
 
@@ -807,7 +806,7 @@ define(function (require) {
         });
 
         describe('saveExplanation:', function () {
-            
+
             var getQuestionByIdDeferred;
             var getQuestionByIdDeferredPromise;
 
@@ -825,7 +824,7 @@ define(function (require) {
             describe('when called with empty text', function () {
 
                 describe('and finished editing', function () {
-                    
+
                     it('should remove explanation from viewmodel', function () {
                         var explanation = {
                             text: ko.observable('Some text'),
@@ -836,7 +835,7 @@ define(function (require) {
                         explanation.text(' ');
                         explanation.isEditing(false);
                         viewModel.saveExplanation(explanation);
-                        
+
                         var promise = getQuestionByIdDeferredPromise.fin(function () { });
                         getQuestionByIdDeferred.resolve(question);
 
@@ -862,12 +861,12 @@ define(function (require) {
                             answerOptions: [],
                             explanations: [explanation]
                         };
-                        
+
                         viewModel.explanations([explanation]);
                         explanation.text(' ');
                         explanation.isEditing(false);
                         viewModel.saveExplanation(explanation);
-                        
+
                         var promise = getQuestionByIdDeferredPromise.fin(function () { });
                         getQuestionByIdDeferred.resolve(testQuestion);
 
@@ -886,7 +885,7 @@ define(function (require) {
                             id: '0'
                         };
                         viewModel.explanations([explanation]);
-                        
+
                         explanation.text(' ');
                         explanation.isEditing(false);
 
@@ -894,7 +893,7 @@ define(function (require) {
                         explanation.editingSubscription = disposeSpy;
 
                         viewModel.saveExplanation(explanation);
-                        
+
                         var promise = getQuestionByIdDeferredPromise.fin(function () { });
                         getQuestionByIdDeferred.resolve(question);
 
@@ -921,7 +920,7 @@ define(function (require) {
                             id: '0'
                         };
                         viewModel.explanations([explanation]);
-                        
+
                         viewModel.explanations()[0].text('Some text');
 
                         viewModel.saveExplanation(explanation);
@@ -958,7 +957,7 @@ define(function (require) {
                         viewModel.explanations([explanation]);
 
                         viewModel.saveExplanation(explanation);
-                        
+
                         var promise = getQuestionByIdDeferredPromise.fin(function () { });
                         getQuestionByIdDeferred.resolve(testQuestion);
 
@@ -982,11 +981,11 @@ define(function (require) {
                         id: '0'
                     };
                     viewModel.explanations([explanation]);
-                    
+
                     explanation.text('Some text');
 
                     viewModel.saveExplanation(explanation);
-                    
+
                     var promise = getQuestionByIdDeferredPromise.fin(function () { });
                     getQuestionByIdDeferred.resolve(question);
 
@@ -997,7 +996,7 @@ define(function (require) {
                         expect(viewModel.notification.update).toHaveBeenCalled();
                     });
                 });
-                
+
             });
 
         });
@@ -1090,169 +1089,587 @@ define(function (require) {
 
         });
 
-        xdescribe('answer options', function () {
+        describe('addAnswerOption:', function () {
 
-            var answer = new answerOptionModel({
-                id: 0,
-                text: 'option 1',
-                isCorrect: false
-            });
+            var getQuestionByIdDeferred;
+            var getQuestionByIdDeferredPromise;
 
             beforeEach(function () {
-                dataContext.objectives = [
-                    new objectiveModel({
-                        id: 'obj3',
-                        title: 'Test Objective',
-                        image: images[0],
-                        questions:
-                        [
-                            new questionModel({
-                                id: '0',
-                                title: 'Question 1',
-                                answerOptions: [answer],
-                                explanations: []
-                            })
-                        ]
-                    })];
-                viewModel.activate('obj3', '0');
+                getQuestionByIdDeferred = Q.defer();
+                getQuestionByIdDeferredPromise = getQuestionByIdDeferred.promise;
 
+                spyOn(questionRepository, 'getById').andReturn(getQuestionByIdDeferredPromise);
+                spyOn(eventTracker, 'publish');
+            });
+
+            it('should be function', function () {
+                expect(viewModel.addAnswerOption).toBeFunction();
+            });
+
+            it('should send event \'Add answer option\'', function () {
+                viewModel.addAnswerOption();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Add answer option', eventsCategory);
+            });
+
+            it('should get question from repository', function () {
+                viewModel.addAnswerOption();
+
+                expect(questionRepository.getById).toHaveBeenCalled();
+            });
+
+            it('should add new answer option to repository', function () {
+                var newQuestion = {
+                    id: '2',
+                    title: 'Some text',
+                    answerOptions: [],
+                    explanations: []
+                };
+
+                viewModel.addAnswerOption();
+
+                var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                getQuestionByIdDeferred.resolve(newQuestion);
+
+                waitsFor(function () {
+                    return !promise.isPending();
+                });
+                runs(function () {
+                    expect(newQuestion.answerOptions.length).toEqual(1);
+                });
+            });
+
+            it('should add new answer option to viewModel', function () {
+                var newQuestion = {
+                    id: '2',
+                    title: 'Some text',
+                    answerOptions: [],
+                    explanations: []
+                };
+
+                viewModel.answerOptions([]);
+
+                viewModel.addAnswerOption();
+
+                var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                getQuestionByIdDeferred.resolve(newQuestion);
+
+                waitsFor(function () {
+                    return !promise.isPending();
+                });
+                runs(function () {
+                    expect(viewModel.answerOptions().length).toEqual(1);
+                });
+            });
+            
+            describe('when new answer option added', function () {
+
+                var addPromise;
+
+                beforeEach(function () {
+                    viewModel.answerOptions([]);
+                    viewModel.addAnswerOption();
+
+                    addPromise = getQuestionByIdDeferredPromise.fin(function () { });
+                    getQuestionByIdDeferred.resolve({
+                        id: '1',
+                        title: 'lalala',
+                        answerOptions: [],
+                        explanations: []
+                    });
+                });
+
+                it('should have empty text', function () {
+                    waitsFor(function() {
+                        return !addPromise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.answerOptions()[0].text).toBeObservable();
+                        expect(viewModel.answerOptions()[0].text().length).toEqual(0);
+                    });
+                });
+                
+                it('should add isInEdit observable', function () {
+                    waitsFor(function () {
+                        return !addPromise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.answerOptions()[0].isInEdit).toBeObservable();
+                    });
+                });
+                
+                it('should add isEmpty observable', function () {
+                    waitsFor(function () {
+                        return !addPromise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.answerOptions()[0].isEmpty).toBeObservable();
+                    });
+                });
+
+            });
+            
+        });
+
+        describe('toggleAnswerCorrectness:', function () {
+            
+            var getQuestionByIdDeferred;
+            var getQuestionByIdDeferredPromise;
+
+            beforeEach(function () {
+                getQuestionByIdDeferred = Q.defer();
+                getQuestionByIdDeferredPromise = getQuestionByIdDeferred.promise;
+
+                spyOn(questionRepository, 'getById').andReturn(getQuestionByIdDeferredPromise);
                 spyOn(eventTracker, 'publish');
                 spyOn(viewModel.notification, 'update');
             });
 
-            describe('add', function () {
-
-                it('[addAnswerOption] should be a function', function () {
-                    expect(viewModel.addAnswerOption).toBeFunction();
-                });
-
-                it('[answerOptions] should be observable', function () {
-                    expect(viewModel.answerOptions).toBeObservable();
-                });
-
-                it('should track event \"Add answer option\"', function () {
-                    viewModel.addAnswerOption();
-
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Add answer option', eventsCategory);
-                });
-
-                it('function [addAnswerOption] should create option', function () {
-                    viewModel.answerOptions([]);
-                    viewModel.addAnswerOption();
-
-                    expect(viewModel.answerOptions().length).toBe(1);
-                });
+            it('should be function', function () {
+                expect(viewModel.toggleAnswerCorrectness).toBeFunction();
             });
 
-            describe('edit', function () {
+            it('should send event \'Change answer option correctness\'', function () {
+                viewModel.toggleAnswerCorrectness();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Change answer option correctness', eventsCategory);
+            });
+            
+            it('should get question from repository', function () {
+                viewModel.toggleAnswerCorrectness();
 
-                it('the field [isCorrect] should be observable', function () {
-                    expect(viewModel.answerOptions()[0].isCorrect).toBeObservable();
+                expect(questionRepository.getById).toHaveBeenCalled();
+            });
+
+            it('should update notification', function () {
+                var answerOption = {
+                    id: 0,
+                    text: 'Some text',
+                    isCorrect: true
+                };
+
+                var question = {
+                    id: '1',
+                    title: 'lalala',
+                    answerOptions: [answerOption],
+                    explanations: []
+                };
+
+                var mappedAnswerOption = {
+                    id: answerOption.id,
+                    text: ko.observable(answerOption.text),
+                    isCorrect: ko.observable(answerOption.text)
+                };
+
+                viewModel.answerOptions([mappedAnswerOption]);
+
+                viewModel.toggleAnswerCorrectness(mappedAnswerOption);
+
+                var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                getQuestionByIdDeferred.resolve(question);
+
+                waitsFor(function () {
+                    return !promise.isPending();
                 });
-
-                it('should track event \"Change answer option correctness\"', function () {
-                    viewModel.toggleAnswerCorrectness(viewModel.answerOptions()[0]);
-
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Change answer option correctness', eventsCategory);
-                });
-
-                it('function [toggleAnswerCorrectness] should call nofification update', function () {
-                    viewModel.toggleAnswerCorrectness(viewModel.answerOptions()[0]);
-
+                runs(function () {
                     expect(viewModel.notification.update).toHaveBeenCalled();
                 });
 
-                it('should change option correctness', function () {
-                    viewModel.answerOptions()[0].isCorrect(false);
+            });
 
-                    viewModel.toggleAnswerCorrectness(viewModel.answerOptions()[0]);
+            describe('when answerOption is correct', function () {
 
-                    expect(viewModel.answerOptions()[0].isCorrect()).toBeTruthy();
+                it('should make it incorrect in repository', function () {
+                    var answerOption = {
+                        id: 0,
+                        text: 'Some text',
+                        isCorrect: true
+                    };
+
+                    var question = {
+                        id: '1',
+                        title: 'lalala',
+                        answerOptions: [answerOption],
+                        explanations: []
+                    };
+
+                    var mappedAnswerOption = {
+                        id: answerOption.id,
+                        text: ko.observable(answerOption.text),
+                        isCorrect: ko.observable(answerOption.text)
+                    };
+
+                    viewModel.answerOptions([mappedAnswerOption]);
+
+                    viewModel.toggleAnswerCorrectness(mappedAnswerOption);
+
+                    var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                    getQuestionByIdDeferred.resolve(question);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(answerOption.isCorrect).toBeFalsy();
+                    });
+
                 });
 
-                it('should track event \"Save the answer option text\"', function () {
-                    viewModel.saveAnswerOption(viewModel.answerOptions()[0]);
+                it('should make it incorrect in viewModel', function () {
+                    var answerOption = {
+                        id: 0,
+                        text: 'Some text',
+                        isCorrect: true
+                    };
 
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Save the answer option text', eventsCategory);
+                    var question = {
+                        id: '1',
+                        title: 'lalala',
+                        answerOptions: [answerOption],
+                        explanations: []
+                    };
+
+                    var mappedAnswerOption = {
+                        id: answerOption.id,
+                        text: ko.observable(answerOption.text),
+                        isCorrect: ko.observable(answerOption.text)
+                    };
+
+                    viewModel.answerOptions([mappedAnswerOption]);
+
+                    viewModel.toggleAnswerCorrectness(mappedAnswerOption);
+
+                    var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                    getQuestionByIdDeferred.resolve(question);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(mappedAnswerOption.isCorrect()).toBeFalsy();
+                    });
+
                 });
 
-                it('function [saveAnswerOption] must not be called when text not changed', function () {
-                    spyOn(viewModel, 'saveAnswerOption');
+            });
 
-                    viewModel.answerOptions()[0].isInEdit(true);
-                    viewModel.answerOptions()[0].isInEdit(false);
+            describe('when answerOption is incorrect', function () {
 
-                    expect(viewModel.saveAnswerOption.calls.length).toEqual(0);
+                it('should make it correct in repository', function () {
+                    var answerOption = {
+                        id: 0,
+                        text: 'Some text',
+                        isCorrect: false
+                    };
+
+                    var question = {
+                        id: '1',
+                        title: 'lalala',
+                        answerOptions: [answerOption],
+                        explanations: []
+                    };
+
+                    var mappedAnswerOption = {
+                        id: answerOption.id,
+                        text: ko.observable(answerOption.text),
+                        isCorrect: ko.observable(answerOption.text)
+                    };
+
+                    viewModel.answerOptions([mappedAnswerOption]);
+
+                    viewModel.toggleAnswerCorrectness(mappedAnswerOption);
+
+                    var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                    getQuestionByIdDeferred.resolve(question);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(answerOption.isCorrect).toBeTruthy();
+                    });
+
                 });
 
-                it('[isEmpty] property should be true when text is empty', function () {
-                    viewModel.answerOptions()[0].text('');
+                it('should make it correct in viewModel', function () {
+                    var answerOption = {
+                        id: 0,
+                        text: 'Some text',
+                        isCorrect: false
+                    };
 
-                    expect(viewModel.answerOptions()[0].isEmpty()).toBeTruthy();
+                    var question = {
+                        id: '1',
+                        title: 'lalala',
+                        answerOptions: [answerOption],
+                        explanations: []
+                    };
+
+                    var mappedAnswerOption = {
+                        id: answerOption.id,
+                        text: ko.observable(answerOption.text),
+                        isCorrect: ko.observable(answerOption.text)
+                    };
+
+                    viewModel.answerOptions([mappedAnswerOption]);
+
+                    viewModel.toggleAnswerCorrectness(mappedAnswerOption);
+
+                    var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                    getQuestionByIdDeferred.resolve(question);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(mappedAnswerOption.isCorrect()).toBeTruthy();
+                    });
+
                 });
 
-                it('[isEmpty] property should be false when text is not empty', function () {
-                    viewModel.answerOptions()[0].text('some text');
+            });
 
-                    expect(viewModel.answerOptions()[0].isEmpty()).toBeFalsy();
+        });
+
+        describe('saveAnswerOption:', function () {
+            
+            var getQuestionByIdDeferred;
+            var getQuestionByIdDeferredPromise;
+
+            beforeEach(function () {
+                getQuestionByIdDeferred = Q.defer();
+                getQuestionByIdDeferredPromise = getQuestionByIdDeferred.promise;
+
+                spyOn(questionRepository, 'getById').andReturn(getQuestionByIdDeferredPromise);
+                spyOn(eventTracker, 'publish');
+                spyOn(viewModel.notification, 'update');
+            });
+
+            it('should be function', function() {
+                expect(viewModel.saveAnswerOption).toBeFunction();
+            });
+
+            it('should send event \'Save the answer option text\'', function () {
+                viewModel.saveAnswerOption();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Save the answer option text', eventsCategory);
+            });
+            
+            it('should get question from repository', function () {
+                viewModel.saveAnswerOption();
+                expect(questionRepository.getById).toHaveBeenCalled();
+            });
+            
+            it('should save text in repository', function () {
+                var answerOption = {
+                    id: 0,
+                    text: 'Some text',
+                    isCorrect: true
+                };
+
+                var question = {
+                    id: '1',
+                    title: 'lalala',
+                    answerOptions: [answerOption],
+                    explanations: []
+                };
+
+                var mappedAnswerOption = {
+                    id: answerOption.id,
+                    text: ko.observable(answerOption.text),
+                    isCorrect: ko.observable(answerOption.text)
+                };
+
+                viewModel.answerOptions([mappedAnswerOption]);
+                
+                mappedAnswerOption.text('Some new text');
+
+                viewModel.saveAnswerOption(mappedAnswerOption);
+
+                var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                getQuestionByIdDeferred.resolve(question);
+
+                waitsFor(function () {
+                    return !promise.isPending();
+                });
+                runs(function () {
+                    expect(mappedAnswerOption.text()).toEqual(answerOption.text);
                 });
 
-                it('function [saveAnswerOption] should call nofification update', function () {
-                    viewModel.answerOptions()[0].text('new text');
-                    viewModel.saveAnswerOption(viewModel.answerOptions()[0]);
+            });
+            
+            it('should update notification', function () {
+                var answerOption = {
+                    id: 0,
+                    text: 'Some text',
+                    isCorrect: true
+                };
 
+                var question = {
+                    id: '1',
+                    title: 'lalala',
+                    answerOptions: [answerOption],
+                    explanations: []
+                };
+
+                var mappedAnswerOption = {
+                    id: answerOption.id,
+                    text: ko.observable(answerOption.text),
+                    isCorrect: ko.observable(answerOption.text)
+                };
+
+                viewModel.answerOptions([mappedAnswerOption]);
+                
+                mappedAnswerOption.text('Some new text');
+
+                viewModel.saveAnswerOption(mappedAnswerOption);
+
+                var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                getQuestionByIdDeferred.resolve(question);
+
+                waitsFor(function () {
+                    return !promise.isPending();
+                });
+                runs(function () {
                     expect(viewModel.notification.update).toHaveBeenCalled();
                 });
 
-                it('should delete answer option when text is empty', function () {
-                    var answersCount = viewModel.answerOptions().length;
+            });
+            
+        });
 
-                    viewModel.answerOptions()[0].isInEdit(true);
-                    viewModel.answerOptions()[0].text('');
-                    viewModel.answerOptions()[0].isInEdit(false);
+        describe('deleteAnswerOption:', function () {
 
-                    expect(viewModel.answerOptions().length).toBe(answersCount - 1);
-                });
+            var getQuestionByIdDeferred;
+            var getQuestionByIdDeferredPromise;
 
-                it('should delete answer option when text contains only white-spaces and new lines codes', function () {
-                    var answersCount = viewModel.answerOptions().length;
+            beforeEach(function () {
+                getQuestionByIdDeferred = Q.defer();
+                getQuestionByIdDeferredPromise = getQuestionByIdDeferred.promise;
 
-                    viewModel.answerOptions()[0].isInEdit(true);
-                    viewModel.answerOptions()[0].text('   \n  \n');
-                    viewModel.answerOptions()[0].isInEdit(false);
-
-                    expect(viewModel.answerOptions().length).toBe(answersCount - 1);
-                });
+                spyOn(questionRepository, 'getById').andReturn(getQuestionByIdDeferredPromise);
+                spyOn(eventTracker, 'publish');
+                spyOn(viewModel.notification, 'update');
+            });
+            
+            it('should be function', function () {
+                expect(viewModel.deleteAnswerOption).toBeFunction();
             });
 
-            describe('delete', function () {
-
-                beforeEach(function () {
-                    viewModel.answerOptions([{
-                        id: answer.id,
-                        text: ko.observable(answer.text),
-                        isCorrect: ko.observable(answer.isCorrect)
-                    }]);
-                });
-
-                it('should track event \"Delete answer option\"', function () {
-                    viewModel.deleteAnswerOption(viewModel.answerOptions()[0]);
-
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete answer option', eventsCategory);
-                });
-
-                it('[deleteAnswerOption] should be function', function () {
-                    expect(viewModel.deleteAnswerOption).toBeFunction();
-                });
-
-                it('should delete item', function () {
-                    var currentCount = viewModel.answerOptions().length;
-                    viewModel.deleteAnswerOption(viewModel.answerOptions()[0]);
-
-                    expect(viewModel.answerOptions().length).toBe(currentCount - 1);
-                });
+            it('should send event \'Delete answer option\'', function () {
+                viewModel.deleteAnswerOption();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Delete answer option', eventsCategory);
             });
 
+            it('should get question from repository', function () {
+                viewModel.deleteAnswerOption();
+                expect(questionRepository.getById).toHaveBeenCalled();
+            });
+            
+            it('should delete answer option from repository', function () {
+                var answerOption = {
+                    id: 0,
+                    text: 'Some text',
+                    isCorrect: true
+                };
+
+                var question = {
+                    id: '1',
+                    title: 'lalala',
+                    answerOptions: [answerOption],
+                    explanations: []
+                };
+
+                var mappedAnswerOption = {
+                    id: answerOption.id,
+                    text: ko.observable(answerOption.text),
+                    isCorrect: ko.observable(answerOption.text)
+                };
+
+                viewModel.answerOptions([mappedAnswerOption]);
+
+                viewModel.deleteAnswerOption(mappedAnswerOption);
+
+                var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                getQuestionByIdDeferred.resolve(question);
+
+                waitsFor(function () {
+                    return !promise.isPending();
+                });
+                runs(function () {
+                    expect(question.answerOptions.length).toEqual(0);
+                });
+
+            });
+
+            it('should delete answer option from viewModel', function () {
+                var answerOption = {
+                    id: 0,
+                    text: 'Some text',
+                    isCorrect: true
+                };
+
+                var question = {
+                    id: '1',
+                    title: 'lalala',
+                    answerOptions: [answerOption],
+                    explanations: []
+                };
+
+                var mappedAnswerOption = {
+                    id: answerOption.id,
+                    text: ko.observable(answerOption.text),
+                    isCorrect: ko.observable(answerOption.text)
+                };
+
+                viewModel.answerOptions([mappedAnswerOption]);
+
+                viewModel.deleteAnswerOption(mappedAnswerOption);
+
+                var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                getQuestionByIdDeferred.resolve(question);
+
+                waitsFor(function () {
+                    return !promise.isPending();
+                });
+                runs(function () {
+                    expect(viewModel.answerOptions().length).toEqual(0);
+                });
+
+            });
+            
+            it('should update notification', function () {
+                var answerOption = {
+                    id: 0,
+                    text: 'Some text',
+                    isCorrect: true
+                };
+
+                var question = {
+                    id: '1',
+                    title: 'lalala',
+                    answerOptions: [answerOption],
+                    explanations: []
+                };
+
+                var mappedAnswerOption = {
+                    id: answerOption.id,
+                    text: ko.observable(answerOption.text),
+                    isCorrect: ko.observable(answerOption.text)
+                };
+
+                viewModel.answerOptions([mappedAnswerOption]);
+
+                viewModel.deleteAnswerOption(mappedAnswerOption);
+
+                var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                getQuestionByIdDeferred.resolve(question);
+
+                waitsFor(function () {
+                    return !promise.isPending();
+                });
+                runs(function () {
+                    expect(viewModel.notification.update).toHaveBeenCalled();
+                });
+
+            });
         });
 
     });

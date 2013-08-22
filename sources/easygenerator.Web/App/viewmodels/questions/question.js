@@ -367,7 +367,6 @@
             return objectiveRepository.getById(objId).then(function (objective) {
                 questionRepository.getById(objectiveId, questionId).then(function (question) {
 
-
                     that.title(question.title);
                     that.objectiveTitle = objective.title;
 
