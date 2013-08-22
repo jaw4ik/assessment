@@ -22,11 +22,11 @@
     white-space: nowrap;
 }
 
-.nav-control:hover {
-    text-decoration: none;
-    opacity: 0.75;
-    filter: alpha(opacity=75);
-}
+    .nav-control:hover {
+        text-decoration: none;
+        opacity: 0.75;
+        filter: alpha(opacity=75);
+    }
 
 .nav-icon {
     height: 57px;
@@ -35,11 +35,11 @@
     background-repeat: no-repeat;
 }
 
-.nav-icon.back-icon {
-    background-image: url(images/nav-icons.png);
-    background-position: 0 0;
-    background-repeat: no-repeat;
-}
+    .nav-icon.back-icon {
+        background-image: url(images/nav-icons.png);
+        background-position: 0 0;
+        background-repeat: no-repeat;
+    }
 
 .nav-title {
     line-height: 57px;
@@ -89,4 +89,65 @@
 
 .objective-questions-list {
     margin-top: 15px;
+}
+
+/****************************
+empty list    
+********************************/
+
+.add-new-item-tip {
+    position: absolute;
+}
+
+    .add-new-item-tip .add-new-item-tip-text {
+        position: absolute;
+        -webkit-transform: rotate(352deg);
+        -moz-transform: rotate(352deg);
+        -ms-transform: rotate(352deg);
+        transform: rotate(352deg);
+        left: 100px;
+        top: 50px;
+        white-space: nowrap;
+    }
+
+    .add-new-item-tip .add-new-item-tip-arrow {
+        background-image: url(images/typeQuestionTitleArrow.png);
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        width: 53px;
+        height: 54px;
+        position: absolute;
+        top: 10px;
+        left: 30px;
+    }
+
+.empty-list-wrapper {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+    .empty-list-wrapper .empty-list {
+        display: inline-block;
+        line-height: 90px;
+        background-image: url(images/emptyBox.png);
+        background-position: left top;
+        background-repeat: no-repeat;
+    }
+
+    .empty-list-wrapper .empty-list-text {
+        margin-left: 100px;
+        display: inline-block;
+        font-family: Tahoma;
+        font-size: 28px;
+        color: #DCDCDC;
+    }
+
+@media (max-width: 1130px) {
+
+    .empty-list-wrapper {
+        margin-top: 140px;
+    }
 }

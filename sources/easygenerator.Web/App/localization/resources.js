@@ -332,6 +332,11 @@
         nl: 'Type titel van vraag hier',
         de: 'Titel der Frage hier eingeben'
     },
+    questionListIsEmpty: {
+        en: 'Question list is empty',
+        nl: 'Question list is empty[nl]',
+        de: 'Question list is empty[de]'
+    },
     relatedQuestion: {
         en: 'Related question',
         nl: 'Related question[nl]',

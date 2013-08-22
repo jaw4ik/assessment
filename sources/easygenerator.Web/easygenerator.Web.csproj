@@ -175,6 +175,7 @@
     <Content Include="App\services\navigation.js" />
     <Content Include="Content\durandal.css" />
     <Content Include="Content\images\build-sprite.png" />
+    <Content Include="Content\images\emptyBox.png" />
     <Content Include="Content\images\nav-icons.png" />
     <Content Include="Scripts\almond-custom.js" />
     <Content Include="Scripts\durandal\activator.js" />

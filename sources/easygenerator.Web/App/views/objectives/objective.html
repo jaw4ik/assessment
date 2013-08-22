@@ -29,7 +29,7 @@
         </aside>
     </header>
 
-    <div class="questions-header">
+    <div class="questions-header clearfix">
         <div class="questions-header-title" data-bind="css: { 'alone': questions().length <= 1 }">
             <a class="questions-header-create-link" href="/#" data-bind="click: navigateToCreateQuestion, localize: { title: 'addNewQuestion' }"></a>
             <span data-bind="localize: { text: 'relatedQuestion' }"></span>
@@ -66,7 +66,8 @@
         <!-- /ko -->
     </div>
 
-    <div class="content-list-wrapper objective-questions-list">
+    <!-- ko if: questions().length > 0 -->
+     <div class="content-list-wrapper objective-questions-list">
         <ul class="content-list unstyled">
             <!-- ko foreach: questions -->
             <li class="content-list-item" data-bind="css: { 'selected': isSelected }">
@@ -103,4 +104,17 @@
             <!-- /ko -->
         </ul>
     </div>
+    <!-- /ko -->
+    <!-- ko ifnot: questions().length > 0 -->
+    <div class="add-new-item-tip">
+        <div class="add-new-item-tip-arrow"></div>
+        <div class="add-new-item-tip-text" data-bind="localize: { text: 'clickToAddNewQuestion'}"></div>
+    </div>
+    <div class="empty-list-wrapper">
+        <div class="empty-list">
+            <div class="empty-list-text" data-bind="localize: {text: 'questionListIsEmpty'}"></div>
+        </div>
+    </div>
+    <!-- /ko -->
+
 </section>

@@ -356,7 +356,7 @@
         activate = function (objId, quesId) {
             if (!_.isString(objId) || !_.isString(quesId)) {
                 router.navigate('400');
-                return;
+                return undefined;
             }
 
             objectiveId = objId;
