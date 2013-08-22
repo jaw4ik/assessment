@@ -116,7 +116,7 @@
     }
 
 .experience-build-status-text {
-    color: #666666;
+    color: #666;
     vertical-align: top;
     text-transform: uppercase;
     font-size: 14px;
@@ -188,7 +188,7 @@
     overflow: hidden;
     margin: 20px 0;
     width: 100%;
-    color: #666666;
+    color: #666;
     text-transform: uppercase;
     white-space: nowrap;
     font-size: 18px;
@@ -210,7 +210,7 @@
 .li-related-objective-question-count-wrapper {
     float: right;
     margin: 10px;
-    color: #666666;
+    color: #666;
     font-size: 12px;
     font-family: Arial, sans-serif;
     line-height: 17px;
