@@ -2,6 +2,8 @@
     function () {
 
         var
+            experience = {},
+
             objectives = [],
 
             initialize = function () {
@@ -11,6 +13,10 @@
                     contentType: 'application/json',
                     dataType: 'json'
                 }).then(function (response) {
+
+                    that.experience.id = response.id;
+                    that.experience.title = response.title;
+
                     that.objectives = _.map(response.objectives, function (objective) {
                         return {
                             id: objective.id,
@@ -40,6 +46,8 @@
 
         return {
             initialize: initialize,
+
+            experience: experience,
 
             objectives: objectives
         };

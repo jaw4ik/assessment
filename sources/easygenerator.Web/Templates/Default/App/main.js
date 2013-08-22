@@ -15,16 +15,25 @@ ko.bindingHandlers.context = {
     }
 };
 
-define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'browserSupport', 'eventsManager', 'xAPI/requestManager'],
-    function (app, viewLocator, system, getRootView, eventsManager, xAPIRequestManager) {
+define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'browserSupport', 'context', 'eventsManager', 'xAPI/requestManager'],
+    function (app, viewLocator, system, getRootView, courseContext, eventsManager, xAPIRequestManager) {
 
         //>>excludeStart("build", true);
         system.debug(true);
         //>>excludeEnd("build");
 
-        app.title = 'easygenerator';
+        courseContext.initialize().then(function () {
+            
+            app.title = courseContext.experience.title;
 
-        xAPIRequestManager.init(eventsManager, "Anonymous user", "anonymous@easygenerator.com", app.title, window.location.toString());
+            var url = window.location.toString();
+            var hashIndex = url.indexOf("#");
+            if (hashIndex !== -1)
+                url = url.substring(0, hashIndex);
+            url += '?experience_id=' + courseContext.experience.id;
+
+            xAPIRequestManager.init(eventsManager, "Anonymous user", "anonymous@easygenerator.com", app.title, url);
+        });
 
         app.start().then(function () {
 
