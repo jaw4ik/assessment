@@ -31,14 +31,14 @@
     height: 57px;
     float: right;
     width: 1px;
-    background: #e6e6e6; 
+    background: #e6e6e6;
     background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2U2ZTZlNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iI2FiYWJhYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlNmU2ZTYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-    background: -moz-linear-gradient(top,  #e6e6e6 0%, #ababab 50%, #e6e6e6 100%); 
+    background: -moz-linear-gradient(top, #e6e6e6 0%, #ababab 50%, #e6e6e6 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e6e6e6), color-stop(50%,#ababab), color-stop(100%,#e6e6e6));
-    background: -webkit-linear-gradient(top,  #e6e6e6 0%,#ababab 50%,#e6e6e6 100%); 
-    background: -o-linear-gradient(top,  #e6e6e6 0%,#ababab 50%,#e6e6e6 100%);
-    background: -ms-linear-gradient(top,  #e6e6e6 0%,#ababab 50%,#e6e6e6 100%);
-    background: linear-gradient(to bottom,  #e6e6e6 0%,#ababab 50%,#e6e6e6 100%);
+    background: -webkit-linear-gradient(top, #e6e6e6 0%,#ababab 50%,#e6e6e6 100%);
+    background: -o-linear-gradient(top, #e6e6e6 0%,#ababab 50%,#e6e6e6 100%);
+    background: -ms-linear-gradient(top, #e6e6e6 0%,#ababab 50%,#e6e6e6 100%);
+    background: linear-gradient(to bottom, #e6e6e6 0%,#ababab 50%,#e6e6e6 100%);
     filter: none;
 }
 
@@ -58,19 +58,19 @@
     width: 100%;
 }
 
-.nav-control-inner.disabled {
-    opacity: 0.25;
-}
+    .nav-control-inner.disabled {
+        opacity: 0.25;
+    }
 
-.nav-control-inner.rebuild:before {
-    content: '';
-    display: block;
-    height: 57px;
-    float: left;
-    width: 57px;
-    background-image: url(images/nav-icons.png);
-    background-position: 0 -114px;
-}
+    .nav-control-inner.rebuild:before {
+        content: '';
+        display: block;
+        height: 57px;
+        float: left;
+        width: 57px;
+        background-image: url(images/nav-icons.png);
+        background-position: 0 -114px;
+    }
 
 .experience-build-progress-status {
     float: right;
@@ -130,7 +130,6 @@
 
 .experience-build-status-image {
     display: inline-block;
-    margin-left: 13px;
     width: 57px;
     height: 57px;
     background: url('images/build-sprite.png') no-repeat top left;
@@ -233,9 +232,6 @@
 }
 
 @media (max-width: 790px) {
-    .nav-control.rebuild .nav-title {
-        margin-right: 57px;
-    }
 
     .main-nav-item {
         width: 50%;
