@@ -814,7 +814,7 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     text-align: center;
     font-family: Arial;
     font-size: 36px;
-    padding: 60px 0;
+    padding: 66px 0;
     margin-right: 420px;
 }
 
@@ -824,7 +824,7 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     width: 355px;
     text-align: center;
     margin-right: 25px;
-    padding-top: 10px;
+    padding-top: 16px;
 }
 
 .summary-progress-overall-score {
@@ -834,7 +834,7 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
     color: #666666;
     text-align: center;
     width: 100%;
-    top: 60px;
+    top: 66px;
 }
 
 .summary-objective {
