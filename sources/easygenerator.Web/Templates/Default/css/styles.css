@@ -294,6 +294,7 @@ input[type="checkbox"] {
     display: table-cell;
     vertical-align: middle;
     padding: 9px 18px;
+    width: 100%;
 }
 
     .caption-text > span {
