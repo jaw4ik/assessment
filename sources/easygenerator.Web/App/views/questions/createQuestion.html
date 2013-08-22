@@ -1,14 +1,18 @@
 ﻿<section class="question create-question container unselectable">
     <nav class="navbar nowrap">
-        <div class="nav-icon back-icon pull-left"></div><!--
-     --><div class="nav-title inline">
-            <div class="first-part pull-left">
-                <span data-bind="localize: { text: 'backTo' }"></span>&nbsp;
+        <a href="#/objective" data-bind="click: navigateToObjective" class="inline nav-control left">
+            <div class="nav-icon back-icon pull-left"></div>
+            <!--
+            -->
+            <div class="nav-title inline">
+                <div class="first-part pull-left">
+                    <span data-bind="localize: { text: 'backTo' }"></span>&nbsp;
+                </div>
+                <div class="second-part">
+                    <span data-bind="text: ' \'' + objectiveTitle + '\''"></span>
+                </div>
             </div>
-            <div class="second-part">
-                <span data-bind="text: ' \'' + objectiveTitle + '\''"></span>
-            </div>
-        </div>
+        </a>
     </nav>
     <div class="create-question-content-wrapper">
         <form class="create-question-form clearfix">
