@@ -47,7 +47,7 @@ define(function (require) {
         ]
     };
 
-    xdescribe('viewModel [question]', function () {
+    describe('viewModel [question]', function () {
 
         it('is defined', function () {
             expect(viewModel).toBeDefined();
@@ -502,7 +502,14 @@ define(function (require) {
 
                 it('should finish editing', function () {
                     viewModel.isExplanationsBlockExpanded(true);
-                    var explanation = viewModel.explanations()[0];
+                    
+                    var explanation = {
+                        text: ko.observable('Some text'),
+                        isEditing: ko.observable(true),
+                        id: '0'
+                    };
+                    viewModel.explanations([explanation]);
+                    
                     explanation.isEditing(true);
 
                     viewModel.toggleExplanations();
@@ -635,35 +642,6 @@ define(function (require) {
 
         describe('canAddExplanation:', function () {
 
-            beforeEach(function () {
-                dataContext.objectives = [
-                             new objectiveModel(
-                                 {
-                                     id: 'obj3',
-                                     title: 'Test Objective',
-                                     image: images[0],
-                                     questions:
-                                         [
-                                             new questionModel({
-                                                 id: '0',
-                                                 title: 'Question 1',
-                                                 answerOptions: [],
-                                                 explanations: [
-                                                     new explanationModel({
-                                                         id: '0',
-                                                         text: 'Default text1'
-                                                     }),
-                                                      new explanationModel({
-                                                          id: '1',
-                                                          text: 'Default text2'
-                                                      })
-                                                 ]
-                                             })
-                                         ]
-                                 })];
-                viewModel.activate('obj3', '0');
-            });
-
             it('should be computed', function () {
                 expect(viewModel.canAddExplanation).toBeComputed();
             });
@@ -695,12 +673,29 @@ define(function (require) {
 
             describe('when last added explanation was removed', function () {
 
+                var getQuestionByIdDeferred;
+                var getQuestionByIdDeferredPromise;
+
+                beforeEach(function () {
+                    getQuestionByIdDeferred = Q.defer();
+                    getQuestionByIdDeferredPromise = getQuestionByIdDeferred.promise;
+
+                    spyOn(questionRepository, 'getById').andReturn(getQuestionByIdDeferredPromise);
+                });
+
                 it('should be true', function () {
                     viewModel.explanations([]);
                     viewModel.addExplanation();
                     viewModel.deleteExplanation(viewModel.explanations()[0]);
+                    var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                    getQuestionByIdDeferred.resolve(question);
 
-                    expect(viewModel.canAddExplanation()).toBe(true);
+                    waitsFor(function() {
+                        return !promise.isPending();
+                    });
+                    runs(function() {
+                        expect(viewModel.canAddExplanation()).toBe(true);
+                    }); 
                 });
 
             });
@@ -757,40 +752,21 @@ define(function (require) {
 
         describe('deleteExplanation:', function () {
 
-            beforeEach(function () {
-                dataContext.objectives = [
-                             new objectiveModel(
-                                 {
-                                     id: 'obj3',
-                                     title: 'Test Objective',
-                                     image: images[0],
-                                     questions:
-                                         [
-                                             new questionModel({
-                                                 id: '0',
-                                                 title: 'Question 1',
-                                                 answerOptions: [],
-                                                 explanations: [
-                                                     new explanationModel({
-                                                         id: '0',
-                                                         text: 'Default text1'
-                                                     }),
-                                                      new explanationModel({
-                                                          id: '1',
-                                                          text: 'Default text2'
-                                                      })
-                                                 ]
-                                             })
-                                         ]
-                                 })];
-                viewModel.activate('obj3', '0');
-            });
-
             it('should be a function', function () {
                 expect(viewModel.deleteExplanation).toBeFunction();
             });
 
             describe('when called', function () {
+                
+                var getQuestionByIdDeferred;
+                var getQuestionByIdDeferredPromise;
+
+                beforeEach(function () {
+                    getQuestionByIdDeferred = Q.defer();
+                    getQuestionByIdDeferredPromise = getQuestionByIdDeferred.promise;
+
+                    spyOn(questionRepository, 'getById').andReturn(getQuestionByIdDeferredPromise);
+                });
 
                 it('should send event \'Delete explanation\'', function () {
                     spyOn(eventTracker, 'publish');
@@ -806,8 +782,16 @@ define(function (require) {
                     };
                     viewModel.explanations([explanation]);
                     viewModel.deleteExplanation(explanation);
+                    
+                    var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                    getQuestionByIdDeferred.resolve(question);
 
-                    expect(viewModel.explanations().indexOf(explanation)).toBe(-1);
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.explanations().indexOf(explanation)).toBe(-1);
+                    });
                 });
 
             });
@@ -823,30 +807,15 @@ define(function (require) {
         });
 
         describe('saveExplanation:', function () {
+            
+            var getQuestionByIdDeferred;
+            var getQuestionByIdDeferredPromise;
 
             beforeEach(function () {
-                dataContext.objectives = [
-                             new objectiveModel(
-                                 {
-                                     id: 'obj3',
-                                     title: 'Test Objective',
-                                     image: images[0],
-                                     questions:
-                                         [
-                                             new questionModel({
-                                                 id: '0',
-                                                 title: 'Question 1',
-                                                 answerOptions: [],
-                                                 explanations: [
-                                                     new explanationModel({
-                                                         id: '0',
-                                                         text: 'Default text1'
-                                                     })
-                                                 ]
-                                             })
-                                         ]
-                                 })];
-                viewModel.activate('obj3', '0');
+                getQuestionByIdDeferred = Q.defer();
+                getQuestionByIdDeferredPromise = getQuestionByIdDeferred.promise;
+
+                spyOn(questionRepository, 'getById').andReturn(getQuestionByIdDeferredPromise);
             });
 
             it('should be a function', function () {
@@ -856,31 +825,68 @@ define(function (require) {
             describe('when called with empty text', function () {
 
                 describe('and finished editing', function () {
-
+                    
                     it('should remove explanation from viewmodel', function () {
-                        var explanation = viewModel.explanations()[0];
+                        var explanation = {
+                            text: ko.observable('Some text'),
+                            isEditing: ko.observable(true),
+                            id: '0'
+                        };
+                        viewModel.explanations([explanation]);
                         explanation.text(' ');
                         explanation.isEditing(false);
                         viewModel.saveExplanation(explanation);
+                        
+                        var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                        getQuestionByIdDeferred.resolve(question);
 
-                        expect(viewModel.explanations().indexOf(explanation)).toBe(-1);
-                    });
-
-                    it('should remove explanation from dataContext', function () {
-                        var explanation = viewModel.explanations()[0];
-                        explanation.text(' ');
-                        explanation.isEditing(false);
-                        viewModel.saveExplanation(explanation);
-
-                        var explanationEntity = _.find(dataContext.objectives[0].questions[0].explanations, function (item) {
-                            return item.id == explanation.id;
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.explanations().indexOf(explanation)).toBe(-1);
                         });
 
-                        expect(explanationEntity).not.toBeDefined();
+                    });
+
+                    it('should remove explanation from repository', function () {
+                        var explanation = {
+                            text: ko.observable('Some text'),
+                            isEditing: ko.observable(true),
+                            id: '0'
+                        };
+
+                        var testQuestion = {
+                            id: '1',
+                            title: 'lalala',
+                            answerOptions: [],
+                            explanations: [explanation]
+                        };
+                        
+                        viewModel.explanations([explanation]);
+                        explanation.text(' ');
+                        explanation.isEditing(false);
+                        viewModel.saveExplanation(explanation);
+                        
+                        var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                        getQuestionByIdDeferred.resolve(testQuestion);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(testQuestion.explanations.length).toEqual(0);
+                        });
                     });
 
                     it('should remove subscriptions from explanation', function () {
-                        var explanation = viewModel.explanations()[0];
+                        var explanation = {
+                            text: ko.observable('Some text'),
+                            isEditing: ko.observable(true),
+                            id: '0'
+                        };
+                        viewModel.explanations([explanation]);
+                        
                         explanation.text(' ');
                         explanation.isEditing(false);
 
@@ -888,8 +894,16 @@ define(function (require) {
                         explanation.editingSubscription = disposeSpy;
 
                         viewModel.saveExplanation(explanation);
+                        
+                        var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                        getQuestionByIdDeferred.resolve(question);
 
-                        expect(disposeSpy.dispose).toHaveBeenCalled();
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(disposeSpy.dispose).toHaveBeenCalled();
+                        });
                     });
 
                 });
@@ -901,12 +915,26 @@ define(function (require) {
                 describe('and explanation exists in data context', function () {
 
                     it('should save text', function () {
-                        var explanation = viewModel.explanations()[0];
-                        explanation.text('Some text');
+                        var explanation = {
+                            text: ko.observable('Some text'),
+                            isEditing: ko.observable(true),
+                            id: '0'
+                        };
+                        viewModel.explanations([explanation]);
+                        
+                        viewModel.explanations()[0].text('Some text');
 
                         viewModel.saveExplanation(explanation);
 
-                        expect(dataContext.objectives[0].questions[0].explanations[0].text).toBe(explanation.text());
+                        var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                        getQuestionByIdDeferred.resolve(question);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.explanations()[0].text()).toBe(explanation.text());
+                        });
                     });
 
                 });
@@ -914,18 +942,33 @@ define(function (require) {
                 describe('and explanation does not exist in data context', function () {
 
                     it('should create explanation and save text', function () {
-                        var explanation = viewModel.explanations()[0];
-                        explanation.text('Some text');
-                        explanation.id = 'newId';
+                        var explanation = {
+                            text: ko.observable('Some text'),
+                            isEditing: ko.observable(true),
+                            id: '0'
+                        };
+
+                        var testQuestion = {
+                            id: '1',
+                            title: 'lalala',
+                            answerOptions: [],
+                            explanations: []
+                        };
+
+                        viewModel.explanations([explanation]);
 
                         viewModel.saveExplanation(explanation);
+                        
+                        var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                        getQuestionByIdDeferred.resolve(testQuestion);
 
-                        var savedExplanation = _.find(dataContext.objectives[0].questions[0].explanations, function (item) {
-                            return item.id == explanation.id;
+                        waitsFor(function () {
+                            return !promise.isPending();
                         });
-
-                        expect(savedExplanation).toBeDefined();
-                        expect(savedExplanation.text).toBe(explanation.text());
+                        runs(function () {
+                            expect(testQuestion.explanations[0]).toBeDefined();
+                            expect(testQuestion.explanations[0].text).toBe(explanation.text());
+                        });
                     });
 
                 });
@@ -933,13 +976,28 @@ define(function (require) {
                 it('should update notification', function () {
                     spyOn(viewModel.notification, 'update');
 
-                    var explanation = viewModel.explanations()[0];
+                    var explanation = {
+                        text: ko.observable('Some text'),
+                        isEditing: ko.observable(true),
+                        id: '0'
+                    };
+                    viewModel.explanations([explanation]);
+                    
                     explanation.text('Some text');
 
                     viewModel.saveExplanation(explanation);
+                    
+                    var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                    getQuestionByIdDeferred.resolve(question);
 
-                    expect(viewModel.notification.update).toHaveBeenCalled();
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.notification.update).toHaveBeenCalled();
+                    });
                 });
+                
             });
 
         });
@@ -1032,7 +1090,7 @@ define(function (require) {
 
         });
 
-        describe('answer options', function () {
+        xdescribe('answer options', function () {
 
             var answer = new answerOptionModel({
                 id: 0,
