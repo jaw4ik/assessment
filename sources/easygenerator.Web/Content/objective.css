@@ -111,6 +111,9 @@ empty list
         left: 100px;
         top: 50px;
         white-space: nowrap;
+        color: #666;
+        font-size: 26px;
+        font-family: 'Rabiohead-Regular', sans-serif;
     }
 
     .add-new-item-tip .add-new-item-tip-arrow {
