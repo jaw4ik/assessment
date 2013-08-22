@@ -148,66 +148,120 @@ define(function (require) {
                 expect(viewModel.endEditQuestionTitle).toBeFunction();
             });
 
-            it('should send event \'Update question title\'', function () {
-                viewModel.endEditQuestionTitle();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Update question title', eventsCategory);
-            });
-
             it('should set title.isEditing to false', function () {
                 viewModel.title.isEditing(true);
                 viewModel.endEditQuestionTitle();
                 expect(viewModel.title.isEditing()).toBeFalsy();
             });
 
-            describe('when title is valid', function () {
-
-                it('should update question in repository', function () {
+            describe('when title is not modified', function () {
+                var promise = null;
+                beforeEach(function () {
                     viewModel.title(question.title);
-                    viewModel.endEditQuestionTitle();
-
-                    expect(questionRepository.update).toHaveBeenCalled();
-                    expect(questionRepository.update.mostRecentCall.args[1].title).toEqual(question.title);
-                });
-
-                describe('and when question updated successfully', function () {
-
-                    it('should update notificaion', function () {
-                        viewModel.title(question.title);
-                        viewModel.endEditQuestionTitle();
-
-                        var promise = updateDeferred.promise.finally(function () { });
-                        updateDeferred.resolve();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(viewModel.notification.update).toHaveBeenCalled();
-                        });
-
-                    });
-
-                });
-
-            });
-
-            describe('when title is not valid', function () {
-
-                it('should revert quiestion title value', function () {
-                    viewModel.title('');
-                    viewModel.endEditQuestionTitle();
-
-                    var promise = getByIdDeferred.promise.finally(function () { });
+                    promise = getByIdDeferred.promise.finally(function () { });
                     getByIdDeferred.resolve(question);
+                });
 
+                it('should not send event', function () {
+                    viewModel.endEditQuestionTitle();
                     waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(viewModel.title()).toBe(question.title);
+                        expect(eventTracker.publish).not.toHaveBeenCalled();
                     });
                 });
 
+                it('should not show notification', function () {
+                    viewModel.endEditQuestionTitle();
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.notification.update).not.toHaveBeenCalled();
+                    });
+                });
+
+                it('should not update question in repository', function () {
+                    viewModel.endEditQuestionTitle();
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(questionRepository.update).not.toHaveBeenCalled();
+                    });
+                });
+            });
+
+            describe('when title is modified', function () {
+
+                var getPromise = null, newTitle = question.title + 'lala';
+                beforeEach(function () {
+
+                    viewModel.title(newTitle);
+                    getPromise = getByIdDeferred.promise.finally(function () { });
+                    getByIdDeferred.resolve(question);
+                });
+
+                it('should send event \'Update question title\'', function () {
+                    viewModel.endEditQuestionTitle();
+                    waitsFor(function () {
+                        return !getPromise.isPending();
+                    });
+                    runs(function () {
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Update question title', eventsCategory);
+                    });
+                });
+
+                describe('and when title is valid', function () {
+
+                    it('should update question in repository', function () {
+                        viewModel.endEditQuestionTitle();
+                        waitsFor(function () {
+                            return !getPromise.isPending();
+                        });
+                        runs(function () {
+                            expect(questionRepository.update).toHaveBeenCalled();
+                            expect(questionRepository.update.mostRecentCall.args[1].title).toEqual(newTitle);
+                        });
+                    });
+
+                    describe('and when question updated successfully', function () {
+
+                        it('should update notificaion', function () {
+                            viewModel.endEditQuestionTitle();
+
+                            var promise = updateDeferred.promise.finally(function () { });
+                            updateDeferred.resolve();
+
+                            waitsFor(function () {
+                                return !getPromise.isPending() && !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.notification.update).toHaveBeenCalled();
+                            });
+
+                        });
+
+                    });
+
+                });
+
+                describe('and when title is not valid', function () {
+
+                    it('should revert quiestion title value', function () {
+                        viewModel.title('');
+                        viewModel.endEditQuestionTitle();
+
+                        waitsFor(function () {
+                            return !getPromise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.title()).toBe(question.title);
+                        });
+                    });
+
+                });
             });
         });
 

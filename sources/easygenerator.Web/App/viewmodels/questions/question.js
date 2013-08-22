@@ -89,19 +89,27 @@
         },
 
         endEditQuestionTitle = function () {
-            sendEvent(events.updateQuestionTitle);
             title.isEditing(false);
 
-            var that = this;
-            if (that.title.isValid()) {
-                questionRepository.update(objectiveId, { id: questionId, title: that.title() }).then(function () {
-                    notification.update();
-                });
-            } else {
-                questionRepository.getById(objectiveId, questionId).then(function (response) {
-                    that.title(response.title);
-                });
-            }
+            var questionTitle = null;
+            questionRepository.getById(objectiveId, questionId).then(function (response) {
+                debugger;
+                questionTitle = response.title;
+                
+                if (title() == questionTitle)
+                    return;
+
+                sendEvent(events.updateQuestionTitle);
+
+                if (title.isValid()) {
+                    questionRepository.update(objectiveId, { id: questionId, title: title() }).then(function () {
+                        debugger;
+                        notification.update();
+                    });
+                } else {
+                    title(questionTitle);
+                }
+            });
         },
 
         //#endregion Question
@@ -372,7 +380,7 @@
                     that.objectiveTitle = objective.title;
                     that.createdOn = question.createdOn;
                     that.modifiedOn = question.modifiedOn;
-                    
+
                     var mappedAnswerOptions = _.map(question.answerOptions, function (item) {
                         return mapAnswerOption.call(that, item);
                     });
