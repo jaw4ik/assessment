@@ -15,6 +15,14 @@
             <div class="page-header-image white-framing">
                 <img alt="" class="question-image" src="/Content/images/multichoice-question.png" />
             </div>
+            <div class="info-popup">
+                <span>Created on:</span>
+                <span data-bind="date: {value: createdOn, formatString:'LT', language: language}"></span>
+                <span data-bind="date: {value: createdOn, formatString:'L', language: language}"></span>
+                <span>Modified on:</span>
+                <span data-bind="date: {value: modifiedOn, formatString:'LT', language: language}"></span>
+                <span data-bind="date: {value: modifiedOn, formatString:'L', language: language}"></span>
+            </div>
             <div class="page-header-info question-header-title">
                 <div class="question-text-wrapper">
                     <div class="edit-field selectable">

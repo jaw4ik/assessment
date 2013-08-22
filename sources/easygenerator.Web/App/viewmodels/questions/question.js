@@ -32,6 +32,8 @@
             previousId = '',
             nextId = '',
             objectiveTitle = '',
+            createdOn = null,
+            modifiedOn = null,
             questionTitleMaxLength = 255,
             answerOptions = ko.observableArray([]),
             explanations = ko.observableArray([]),
@@ -366,10 +368,11 @@
 
             return objectiveRepository.getById(objId).then(function (objective) {
                 questionRepository.getById(objectiveId, questionId).then(function (question) {
-
                     that.title(question.title);
                     that.objectiveTitle = objective.title;
-
+                    that.createdOn = question.createdOn;
+                    that.modifiedOn = question.modifiedOn;
+                    
                     var mappedAnswerOptions = _.map(question.answerOptions, function (item) {
                         return mapAnswerOption.call(that, item);
                     });
@@ -412,6 +415,8 @@
             //#region Properties
             objectiveTitle: objectiveTitle,
             title: title,
+            createdOn: createdOn,
+            modifiedOn: modifiedOn,
             questionTitleMaxLength: questionTitleMaxLength,
             answerOptions: answerOptions,
             explanations: explanations,

@@ -550,11 +550,16 @@
     <None Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <None Include="Scripts\knockout-2.3.0.debug.js" />
     <Content Include="Scripts\knockout-2.3.0.js" />
+    <Content Include="Scripts\knockoutBindings\dateBinding.js" />
     <Content Include="Scripts\knockoutBindings\keyPressBinding.js" />
     <Content Include="Scripts\knockout.validation.debug.js" />
     <None Include="Scripts\knockout.validation.js" />
     <Content Include="Scripts\knockoutBindings\singleLineValueBinding.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\moment-lang-de.js" />
+    <Content Include="Scripts\moment-lang-nl.js" />
     <Content Include="Scripts\q.js" />
     <None Include="Scripts\q.min.js" />
     <Content Include="Scripts\r.js" />

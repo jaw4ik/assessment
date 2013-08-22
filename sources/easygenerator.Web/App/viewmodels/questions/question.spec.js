@@ -17,6 +17,8 @@ define(function (require) {
     var question = {
         id: '1',
         title: 'lalala',
+        createdOn: new Date(),
+        modifiedOn: new Date(),
         answerOptions: [],
         explanations: []
     };
@@ -327,6 +329,8 @@ define(function (require) {
                 runs(function () {
                     expect(viewModel.objectiveTitle).toBe(objectiveFull.title);
                     expect(viewModel.title()).toBe(question.title);
+                    expect(viewModel.createdOn).toBe(question.createdOn);
+                    expect(viewModel.modifiedOn).toBe(question.modifiedOn);
 
                     expect(viewModel.answerOptions().lenght).toBe(question.answerOptions.lenght);
                     expect(viewModel.explanations().lenght).toBe(question.explanations.lenght);
@@ -1160,7 +1164,7 @@ define(function (require) {
                     expect(viewModel.answerOptions().length).toEqual(1);
                 });
             });
-            
+
             describe('when new answer option added', function () {
 
                 var addPromise;
@@ -1179,7 +1183,7 @@ define(function (require) {
                 });
 
                 it('should have empty text', function () {
-                    waitsFor(function() {
+                    waitsFor(function () {
                         return !addPromise.isPending();
                     });
                     runs(function () {
@@ -1187,7 +1191,7 @@ define(function (require) {
                         expect(viewModel.answerOptions()[0].text().length).toEqual(0);
                     });
                 });
-                
+
                 it('should add isInEdit observable', function () {
                     waitsFor(function () {
                         return !addPromise.isPending();
@@ -1196,7 +1200,7 @@ define(function (require) {
                         expect(viewModel.answerOptions()[0].isInEdit).toBeObservable();
                     });
                 });
-                
+
                 it('should add isEmpty observable', function () {
                     waitsFor(function () {
                         return !addPromise.isPending();
@@ -1207,11 +1211,11 @@ define(function (require) {
                 });
 
             });
-            
+
         });
 
         describe('toggleAnswerCorrectness:', function () {
-            
+
             var getQuestionByIdDeferred;
             var getQuestionByIdDeferredPromise;
 
@@ -1232,7 +1236,7 @@ define(function (require) {
                 viewModel.toggleAnswerCorrectness();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Change answer option correctness', eventsCategory);
             });
-            
+
             it('should get question from repository', function () {
                 viewModel.toggleAnswerCorrectness();
 
@@ -1430,7 +1434,7 @@ define(function (require) {
         });
 
         describe('saveAnswerOption:', function () {
-            
+
             var getQuestionByIdDeferred;
             var getQuestionByIdDeferredPromise;
 
@@ -1443,7 +1447,7 @@ define(function (require) {
                 spyOn(viewModel.notification, 'update');
             });
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.saveAnswerOption).toBeFunction();
             });
 
@@ -1451,12 +1455,12 @@ define(function (require) {
                 viewModel.saveAnswerOption();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Save the answer option text', eventsCategory);
             });
-            
+
             it('should get question from repository', function () {
                 viewModel.saveAnswerOption();
                 expect(questionRepository.getById).toHaveBeenCalled();
             });
-            
+
             it('should save text in repository', function () {
                 var answerOption = {
                     id: 0,
@@ -1478,7 +1482,7 @@ define(function (require) {
                 };
 
                 viewModel.answerOptions([mappedAnswerOption]);
-                
+
                 mappedAnswerOption.text('Some new text');
 
                 viewModel.saveAnswerOption(mappedAnswerOption);
@@ -1494,7 +1498,7 @@ define(function (require) {
                 });
 
             });
-            
+
             it('should update notification', function () {
                 var answerOption = {
                     id: 0,
@@ -1516,7 +1520,7 @@ define(function (require) {
                 };
 
                 viewModel.answerOptions([mappedAnswerOption]);
-                
+
                 mappedAnswerOption.text('Some new text');
 
                 viewModel.saveAnswerOption(mappedAnswerOption);
@@ -1532,7 +1536,7 @@ define(function (require) {
                 });
 
             });
-            
+
         });
 
         describe('deleteAnswerOption:', function () {
@@ -1548,7 +1552,7 @@ define(function (require) {
                 spyOn(eventTracker, 'publish');
                 spyOn(viewModel.notification, 'update');
             });
-            
+
             it('should be function', function () {
                 expect(viewModel.deleteAnswerOption).toBeFunction();
             });
@@ -1562,7 +1566,7 @@ define(function (require) {
                 viewModel.deleteAnswerOption();
                 expect(questionRepository.getById).toHaveBeenCalled();
             });
-            
+
             it('should delete answer option from repository', function () {
                 var answerOption = {
                     id: 0,
@@ -1634,7 +1638,7 @@ define(function (require) {
                 });
 
             });
-            
+
             it('should update notification', function () {
                 var answerOption = {
                     id: 0,

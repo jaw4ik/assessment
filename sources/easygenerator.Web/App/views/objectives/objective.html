@@ -33,18 +33,13 @@
         <div class="questions-header-title" data-bind="css: { 'alone': questions().length <= 1 }">
             <a class="questions-header-create-link" href="/#" data-bind="click: navigateToCreateQuestion, localize: { title: 'addNewQuestion' }"></a>
             <span data-bind="localize: { text: 'relatedQuestion' }"></span>
+            <!-- ko if: canDeleteQuestions() -->
             <span class="objective-toolbar-remove-btn-wrapper">
-                <!-- ko if: canDeleteQuestions() -->
                 <span class="nav-element enabled" data-bind="click: deleteSelectedQuestions, localize: { title: 'remove' }">
                     <span class="objective-toolbar-remove-icon"></span>
                 </span>
-                <!-- /ko -->
-                <!-- ko ifnot: canDeleteQuestions() -->
-                <span class="nav-element disabled" data-bind="localize: { title: 'remove' }">
-                    <span class="objective-toolbar-remove-icon"></span>
-                </span>
-                <!-- /ko -->
             </span>
+            <!-- /ko -->
             <hr />
         </div>
         <!-- ko if: questions().length > 1 -->
@@ -108,7 +103,7 @@
     <!-- ko ifnot: questions().length > 0 -->
     <div class="add-new-item-tip">
         <div class="add-new-item-tip-arrow"></div>
-        <div class="add-new-item-tip-text" data-bind="localize: { text: 'clickToAddNewQuestion'}"></div>
+        <div class="add-new-item-tip-text rotate-right" data-bind="localize: { text: 'clickToAddNewQuestion'}"></div>
     </div>
     <div class="empty-list-wrapper">
         <div class="empty-list">

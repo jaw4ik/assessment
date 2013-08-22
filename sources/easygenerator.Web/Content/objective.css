@@ -94,8 +94,20 @@
     margin-top: 15px;
 }
 
+
+/********************************
+ROTATION    
+********************************/
+
+.rotate-right {
+    -webkit-transform: rotate(345deg);
+    -moz-transform: rotate(345deg);
+    -ms-transform: rotate(345deg);
+    transform: rotate(345deg);
+}
+
 /****************************
-empty list    
+EMPTY LIST 
 ********************************/
 
 .add-new-item-tip {
@@ -104,10 +116,6 @@ empty list
 
     .add-new-item-tip .add-new-item-tip-text {
         position: absolute;
-        -webkit-transform: rotate(352deg);
-        -moz-transform: rotate(352deg);
-        -ms-transform: rotate(352deg);
-        transform: rotate(352deg);
         left: 100px;
         top: 50px;
         white-space: nowrap;

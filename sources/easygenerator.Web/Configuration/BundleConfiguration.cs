@@ -25,6 +25,8 @@ namespace easygenerator.Web.Configuration
                     .Include("~/scripts/ckeditor/ckeditor.js")
                     .Include("~/scripts/jquery.autosize.js")
                     .Include("~/scripts/has.js")
+                    .Include("~/scripts/moment.js")
+                    .Include("~/scripts/moment-lang-nl.js", "~/scripts/moment-lang-de.js")
                     .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
                 );
 

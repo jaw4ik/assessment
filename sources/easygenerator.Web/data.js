@@ -4,14 +4,14 @@
             "id": 0,
             "title": "1. The learner is able to appreciate the easy and powerful features of easygenerator",
             "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSquMn3u84SWcQvKAbmrlUicfv2bYY3197JsNsilftexOQYce-Z",
-            "createdOn" : "8/21/2013 2:08:53 PM",
-            "modifiedOn" : "8/21/2013 2:08:53 PM",
+            "createdOn" : "/Date(1377173811487)/",
+            "modifiedOn" : "/Date(1377173811487)/",
             "questions": [
                 {
                     "id": 0,
                     "title": "1. Which of the following statements fits the WYSIWYG feature best?",
-                    "createdOn" : "8/21/2013 2:08:53 PM",
-                    "modifiedOn" : "8/21/2013 2:08:53 PM",
+                    "createdOn" : "/Date(1377173811487)/",
+                    "modifiedOn" : "/Date(1377173811487)/",
                     "answerOptions": [
                         {
                             "id": 0,
@@ -38,8 +38,8 @@
                 {
                     "id": 1,
                     "title": "2. Which of the following characteristics apply to easygenerator?",
-                    "createdOn" : "8/21/2013 2:08:53 PM",
-                    "modifiedOn" : "8/21/2013 2:08:53 PM",
+                    "createdOn" : "/Date(1377173811487)/",
+                    "modifiedOn" : "/Date(1377173811487)/",
                     "answerOptions": [
                         {
                             "id": 0,
@@ -133,8 +133,8 @@
                 {
                     "id": 2,
                     "title": "3. Which standard buttons does the 'page element' toolbar offer?",
-                    "createdOn" : "8/21/2013 2:08:53 PM",
-                    "modifiedOn" : "8/21/2013 2:08:53 PM",
+                    "createdOn" : "/Date(1377173811487)/",
+                    "modifiedOn" : "/Date(1377173811487)/",
                     "answerOptions": [
                         {
                             "id": 0,
@@ -174,12 +174,14 @@
             "id": 1,
             "title": "2. The learner is able to create more effective learning",
             "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSquMn3u84SWcQvKAbmrlUicfv2bYY3197JsNsilftexOQYce-Z",
-            "createdOn" : "8/21/2013 2:08:53 PM",
-            "modifiedOn" : "8/21/2013 2:08:53 PM",
+            "createdOn" : "/Date(1377173811487)/",
+            "modifiedOn" : "/Date(1377173811487)/",
             "questions": [
                 {
                     "id": 0,
                     "title": "1. In what way can easygenerator support these expectations?",
+                    "createdOn" : "/Date(1377173811487)/",
+                    "modifiedOn" : "/Date(1377173811487)/",
                     "answerOptions": [
                         {
                             "id": 0,
@@ -224,8 +226,8 @@
                 {
                     "id": 1,
                     "title": "2. How can you create navigation rules that put together adaptive e-Learning?",
-                    "createdOn" : "8/21/2013 2:08:53 PM",
-                    "modifiedOn" : "8/21/2013 2:08:53 PM",
+                    "createdOn" : "/Date(1377173811487)/",
+                    "modifiedOn" : "/Date(1377173811487)/",
                     "answerOptions": [
                         {
                             "id": 0,
@@ -262,8 +264,8 @@
                 {
                     "id": 2,
                     "title": "3. Which combination of elements do you minimally need to create navigation rules?",
-                    "createdOn" : "8/21/2013 2:08:53 PM",
-                    "modifiedOn" : "8/21/2013 2:08:53 PM",
+                    "createdOn" : "/Date(1377173811487)/",
+                    "modifiedOn" : "/Date(1377173811487)/",
                     "answerOptions": [
                         {
                             "id": 0,
@@ -315,12 +317,14 @@
             "id": 2,
             "title": "3. The learner is able to explain the collaborative features to his boss",
             "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSquMn3u84SWcQvKAbmrlUicfv2bYY3197JsNsilftexOQYce-Z",
-            "createdOn" : "8/21/2013 2:08:53 PM",
-            "modifiedOn" : "8/21/2013 2:08:53 PM",
+            "createdOn" : "\/Date(1377172218190)\/",
+            "modifiedOn" : "\/Date(1377172218190)\/",
             "questions": [
                 {
                     "id": 0,
                     "title": "1. How does easygenerator facilitate the collaboration between participants?",
+                    "createdOn" : "/Date(1377173811487)/",
+                    "modifiedOn" : "/Date(1377173811487)/",
                     "answerOptions": [
                         {
                             "id": 0,
@@ -378,8 +382,8 @@
                 {
                     "id": 1,
                     "title": "2. How does easygenerator facilitate this review functionality?",
-                    "createdOn" : "8/21/2013 2:08:53 PM",
-                    "modifiedOn" : "8/21/2013 2:08:53 PM",
+                    "createdOn" : "\/Date(1377172218190)\/",
+                    "modifiedOn" : "\/Date(1377172218190)\/",
                     "answerOptions": [
                         {
                             "id": 0,
@@ -431,12 +435,14 @@
             "id": 3,
             "title": "4. The learner is able to save 40% on maintenance",
             "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSquMn3u84SWcQvKAbmrlUicfv2bYY3197JsNsilftexOQYce-Z",
-            "createdOn" : "8/21/2013 2:08:53 PM",
-            "modifiedOn" : "8/21/2013 2:08:53 PM",
+            "createdOn" : "\/Date(1377172218190)\/",
+            "modifiedOn" : "\/Date(1377172218190)\/",
             "questions": [
                 {
                     "id": 0,
                     "title": "1. Which of the following statements about page and content links is not true?",
+                    "createdOn" : "/Date(1377173811487)/",
+                    "modifiedOn" : "/Date(1377173811487)/",
                     "answerOptions": [
                         {
                             "id": 0,
@@ -477,8 +483,8 @@
                 {
                     "id": 1,
                     "title": "2. Which of the following descriptions fits the 'page link' best?",
-                    "createdOn" : "8/21/2013 2:08:53 PM",
-                    "modifiedOn" : "8/21/2013 2:08:53 PM",
+                    "createdOn" : "\/Date(1377172218190)\/",
+                    "modifiedOn" : "\/Date(1377172218190)\/",
                     "answerOptions": [
                         {
                             "id": 0,
@@ -519,40 +525,40 @@
         {
             "id": 0,
             "title": "The new generation of e-Learning",
-            "createdOn" : "8/21/2013 2:08:53 PM",
-            "modifiedOn" : "8/21/2013 2:08:53 PM",
+            "createdOn" : "\/Date(1377172218190)\/",
+            "modifiedOn" : "\/Date(1377172218190)\/",
             "buildOn" : "",
             "objectives": ["0", "1", "2", "3"]
         },
         {
             "id": 1,
             "title": "1",
-            "createdOn" : "8/21/2013 2:08:53 PM",
-            "modifiedOn" : "8/21/2013 2:08:53 PM",
+            "createdOn" : "\/Date(1377172218190)\/",
+            "modifiedOn" : "\/Date(1377172218190)\/",
             "buildOn" : "",
             "objectives": ["1", "2", "3"]
         },
         {
             "id": 2,
             "title": "2",
-            "createdOn" : "8/21/2013 2:08:53 PM",
-            "modifiedOn" : "8/21/2013 2:08:53 PM",
+            "createdOn" : "\/Date(1377172218190)\/",
+            "modifiedOn" : "\/Date(1377172218190)\/",
             "buildOn" : "",
             "objectives": ["0", "1", "3"]
         },
         {
             "id": 3,
             "title": "3",
-            "createdOn" : "8/21/2013 2:08:53 PM",
-            "modifiedOn" : "8/21/2013 2:08:53 PM",
+            "createdOn" : "\/Date(1377172218190)\/",
+            "modifiedOn" : "\/Date(1377172218190)\/",
             "buildOn" : "",
             "objectives": ["0", "2", "3"]
         },
         {
             "id": 4,
             "title": "Empty experience",
-            "createdOn" : "8/21/2013 2:08:53 PM",
-            "modifiedOn" : "8/21/2013 2:08:53 PM",
+            "createdOn" : "\/Date(1377172218190)\/",
+            "modifiedOn" : "\/Date(1377172218190)\/",
             "buildOn" : "",
             "objectives": []
         }

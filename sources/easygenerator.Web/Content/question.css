@@ -571,3 +571,18 @@
 .btn + .btn {
     margin-left: 20px;
 }
+
+/*****************************
+ INFO POPUP
+*****************************/
+.page-header:hover .info-popup {
+    display: block;
+}
+
+.info-popup {
+    display: none;
+    position: absolute;
+    background-color: #DEDFE3;
+    width: 170px;
+}
+

@@ -1,6 +1,10 @@
 ﻿define(['durandal/app', 'plugins/http', 'models/objective', 'models/objective', 'models/question', 'models/experience', 'models/answerOption', 'models/explanation'],
     function (app, http, objectiveModel, ObjectiveModel, QuestionModel, ExperienceModel, AnswerOptionModel, ExplanationModel) {
 
+        function parseDateString(str) {
+            return new Date(parseInt(str.substr(6)));
+        }
+
         var
             objectives = [],
             experiences = [],
@@ -14,11 +18,15 @@
                         return new ObjectiveModel({
                             id: objective.id,
                             title: objective.title,
+                            createdOn: parseDateString(objective.createdOn),
+                            modifiedOn: parseDateString(objective.modifiedOn),
                             image: objective.image,
                             questions: _.map(objective.questions, function (question) {
                                 return new QuestionModel({
                                     id: question.id,
                                     title: question.title,
+                                    createdOn: parseDateString(question.createdOn),
+                                    modifiedOn: parseDateString(question.modifiedOn),
                                     answerOptions: _.map(question.answerOptions, function (answerOption) {
                                         return new AnswerOptionModel(answerOption);
                                     }),
@@ -33,8 +41,10 @@
                         return new ExperienceModel({
                             id: experience.id,
                             title: experience.title,
+                            createdOn: parseDateString(experience.createdOn),
+                            modifiedOn: parseDateString(experience.modifiedOn),
                             objectives: _.map(experience.objectives, function (objectiveId) {
-                                return _.find(objectives, function(objective) {
+                                return _.find(objectives, function (objective) {
                                     return objective.id == objectiveId;
                                 });
                             }),
