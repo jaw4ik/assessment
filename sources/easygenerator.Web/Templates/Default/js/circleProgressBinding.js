@@ -11,7 +11,7 @@
 
         var centerX = element.width / 2;
         var centerY = element.height / 2;
-        var radius = centerX < centerY ? centerX : centerY - lineWidth / 2;
+        var radius = centerX < centerY ? centerX : centerY - lineWidth / 2 - 1;
 
         var progress = score / 100;
 
