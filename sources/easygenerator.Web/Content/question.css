@@ -1,4 +1,13 @@
-﻿.question {
+﻿@font-face {
+    font-family: 'Rabiohead-Regular';
+    src: url('font/rabiohead_0.eot');
+    src: url('font/rabiohead_0.eot') format('embedded-opentype'), 
+         url('font/rabiohead_0.svg#RabioheadRegular') format('svg'),
+         url('font/rabiohead_0.woff') format('woff'),
+         url('font/rabiohead_0.ttf') format('truetype');
+}
+
+.question {
     color: #656565;
     font-size: 14px;
 }
@@ -489,6 +498,8 @@
     right: 15px;
     top: 40px;
     white-space: nowrap;
+    font-size: 26px;
+    font-family: 'Rabiohead-Regular', serif;
 }
 
 .create-question-tip .create-question-tip-arrow {
