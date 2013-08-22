@@ -47,7 +47,7 @@ define(function (require) {
         ]
     };
 
-    describe('viewModel [question]', function () {
+    xdescribe('viewModel [question]', function () {
 
         it('is defined', function () {
             expect(viewModel).toBeDefined();
