@@ -9,13 +9,20 @@
                 throw new Error("Event object missing 'eventName' property.");
             }
 
+            var deferredQueue = Q();
+
             if (_.isArray(_listeners[eventName])) {
                 var listeners = _listeners[eventName];
 
                 _.each(listeners, function (listener) {
-                    listener.call(this, eventData);
+                    
+                    deferredQueue = deferredQueue.then(function () {
+                        return listener(eventData);
+                    });
                 });
             }
+
+            return deferredQueue;
         },
 
         addEventListener = function (eventName, listener) {

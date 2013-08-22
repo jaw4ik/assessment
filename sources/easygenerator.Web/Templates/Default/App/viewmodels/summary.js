@@ -19,18 +19,21 @@
         navigateBack = function () {
             router.navigateBack();
         },
-        
+
         finish = function () {
-            eventsManager.fireEvent(eventsManager.eventsList.courseStopped);
-            eventsManager.fireEvent(eventsManager.eventsList.courseFinished, { result: this.score / 100 });
 
-            window.close();
+            eventsManager.fireEvent(eventsManager.eventsList.courseFinished, { result: this.score / 100 }).then(function () {
+                eventsManager.fireEvent(eventsManager.eventsList.courseStopped).then(function () {
+                    window.close();
 
-            if (navigator.appName != "Microsoft Internet Explorer") {
-                setTimeout("alert('Thank you. It is now safe to close this page.')", 100);
-            }
+                    if (navigator.appName != "Microsoft Internet Explorer") {
+                        setTimeout("alert('Thank you. It is now safe to close this page.')", 100);
+                    }
+                });
+            });
+
         };
-        
+
 
     return {
         activate: activate,

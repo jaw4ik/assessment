@@ -1,15 +1,15 @@
-﻿define(['durandal/plugins/router', 'eventTracker'],
-    function (router, eventTracker) {
+﻿define(['durandal/plugins/router', 'eventsManager'],
+    function (router, eventsManager) {
         
         var
             navigateBackUrl = '',
 
             restartExperience = function () {
-                router.replaceLocation("#/");
+                router.replaceLocation("");
             },
             
             continueLearning = function () {
-                eventTracker.removeAllListeners();
+                eventsManager.removeAllListeners();
 
                 router.navigateTo(navigateBackUrl);
             },

@@ -7,9 +7,9 @@
             actor = {},
             activity = {},
 
-            init = function (eventsTracker, actorName, actorMail, activityName, activityUrl, activityLanguage) {
+            init = function (eventsManager, actorName, actorMail, activityName, activityUrl, activityLanguage) {
 
-                if (typeof eventsTracker === "undefined" || _.isNull(eventsTracker))
+                if (typeof eventsManager === "undefined" || _.isNull(eventsManager))
                     return;
 
                 var hashIndex = activityUrl.indexOf("#/");
@@ -28,15 +28,15 @@
                 };
 
                 //add listeners to events
-                eventsTracker.addEventListener(eventsTracker.eventsList.courseStarted, function () {
+                eventsManager.addEventListener(eventsManager.eventsList.courseStarted, function () {
                     trackAction(verbs.started);
                 });
 
-                eventsTracker.addEventListener(eventsTracker.eventsList.courseStopped, function () {
-                    trackAction(verbs.stopped);
+                eventsManager.addEventListener(eventsManager.eventsList.courseStopped, function () {
+                    return trackAction(verbs.stopped);
                 });
 
-                eventsTracker.addEventListener(eventsTracker.eventsList.courseFinished, function (data) {
+                eventsManager.addEventListener(eventsManager.eventsList.courseFinished, function (data) {
                     if (typeof data === "undefined" ||
                         _.isUndefined(data.result) ||
                         typeof settings === "undefined" ||
@@ -48,9 +48,9 @@
                     }
 
                     if (data.result >= settings.scoresDistribution.minScoreForPositiveResult)
-                        trackAction(settings.scoresDistribution.positiveVerb, data.result);
+                        return trackAction(settings.scoresDistribution.positiveVerb, data.result);
                     else
-                        trackAction(verbs.failed, data.result);
+                        return trackAction(verbs.failed, data.result);
                 });
 
             },
@@ -59,7 +59,7 @@
                 
                 var statement = buildStatement(verb, result);
 
-                sendRequest(statement);
+                return sendRequest(statement);
             },
 
             buildStatement = function (verb, result) {
@@ -124,12 +124,13 @@
                 var options = buildRequestOptions(statement);
 
                 if (!$.support.cors) {
+                    
                     initXDomainRequestTransport();
 
                     options = getOptionsForIEMode(options);
                 }
-
-                $.ajax(options);
+                
+                return $.ajax(options);
             },
 
             buildRequestOptions = function (statement) {
@@ -145,6 +146,7 @@
                 headers["X-Experience-API-Version"] = settings.xApiVersion;
                 headers["Content-Type"] = "application/json";
                 headers["Authorization"] = auth;
+                
 
                 var options = {};
 
@@ -172,8 +174,7 @@
                     
                     switch (request.status) {
                         case 0:
-                            if (error == "timeout")
-                                error = errorsHandler.errors.invalidEndpoint;
+                            error = errorsHandler.errors.invalidEndpoint;
                             break;
                         case 400:
                             if (request.responseText.indexOf("Mbox") !== -1)
@@ -258,7 +259,7 @@
                                     callback(200, "OK", { text: xdr.responseText });
                                 };
 
-                                xdr.onerror = function (params, par) {
+                                xdr.onerror = function () {
                                     callback(-1, errorsHandler.errors.xDomainRequestError);
                                 };
 
