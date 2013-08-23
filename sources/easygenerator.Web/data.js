@@ -527,40 +527,40 @@
             "title": "The new generation of e-Learning",
             "createdOn" : "\/Date(1377172218190)\/",
             "modifiedOn" : "\/Date(1377172218190)\/",
-            "buildOn" : "",
-            "objectives": ["0", "1", "2", "3"]
+            "builtOn" : "",
+            "objectives": ["0", "1", "2", "3"],
         },
         {
             "id": 1,
             "title": "1",
             "createdOn" : "\/Date(1377172218190)\/",
             "modifiedOn" : "\/Date(1377172218190)\/",
-            "buildOn" : "",
-            "objectives": ["1", "2", "3"]
+            "builtOn" : "",
+            "objectives": ["1", "2", "3"],
         },
         {
             "id": 2,
             "title": "2",
             "createdOn" : "\/Date(1377172218190)\/",
             "modifiedOn" : "\/Date(1377172218190)\/",
-            "buildOn" : "",
-            "objectives": ["0", "1", "3"]
+            "builtOn" : "",
+            "objectives": ["0", "1", "3"],
         },
         {
             "id": 3,
             "title": "3",
             "createdOn" : "\/Date(1377172218190)\/",
             "modifiedOn" : "\/Date(1377172218190)\/",
-            "buildOn" : "",
-            "objectives": ["0", "2", "3"]
+            "builtOn" : "",
+            "objectives": ["0", "2", "3"],
         },
         {
             "id": 4,
             "title": "Empty experience",
             "createdOn" : "\/Date(1377172218190)\/",
             "modifiedOn" : "\/Date(1377172218190)\/",
-            "buildOn" : "",
-            "objectives": []
+            "builtOn" : "",
+            "objectives": [],
         }
     ]
 }
