@@ -22,15 +22,35 @@
                     <div class="info-btn"></div>
                     <div class="info-popup-wrapper">
                         <div class="question-info-popup">
-                            <div>
-                                <span>Created on:</span>
-                                <span data-bind="date: { value: createdOn, formatString: 'LT', language: language }"></span>
-                                <span data-bind="date: { value: createdOn, formatString: 'L', language: language }"></span>
-                                <br/>
-                                <span>Modified on:</span>
-                                <span data-bind="date: { value: modifiedOn, formatString: 'LT', language: language }"></span>
-                                <span data-bind="date: { value: modifiedOn, formatString: 'L', language: language }"></span>
-                            </div>
+                            <table class="question-info-table">
+                                <tbody>
+                                    <tr>
+                                        <td rowspan="2">Created on:
+                                        </td>
+                                        <td>
+                                            <span data-bind="date: { value: createdOn, formatString: 'LT', language: language }"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span data-bind="date: { value: createdOn, formatString: 'L', language: language }"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="2">
+                                            Modified on:
+                                        </td>
+                                        <td>
+                                            <span data-bind="date: { value: modifiedOn, formatString: 'LT', language: language }"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span data-bind="date: { value: modifiedOn, formatString: 'L', language: language }"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                             <div class="question-info-popup-triangle-wrapper">
                                 <div class="question-info-popup-triangle"></div>
                             </div>
@@ -41,7 +61,7 @@
             <div class="page-header-info question-header-title">
                 <div class="question-text-wrapper">
                     <div class="edit-field selectable">
-                        <div class="text-block" data-bind="css: {'active': title.isEditing(), error: !title.isValid()}">
+                        <div class="text-block" data-bind="css: { 'active': title.isEditing(), error: !title.isValid() }">
                             <textarea class="editarea" data-bind="singleLineValue: title, valueUpdate: 'afterkeydown', autoResize: true, hasFocus: title.isEditing, event: { focus: startEditQuestionTitle.bind($data), blur: endEditQuestionTitle.bind($data) }"></textarea>
                             <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
                                 <span data-bind="text: title().length"></span>

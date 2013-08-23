@@ -80,6 +80,14 @@
     filter: none;
 }
 
+.question-info-table {
+    width: 100%;
+}
+
+.question-info-table td {
+    width: 50%;
+}
+
 .question-info-popup-triangle-wrapper {
     position: absolute;
     width: 8px;
