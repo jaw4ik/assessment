@@ -95,10 +95,7 @@
     margin-top: 15px;
 }
 
-
-/********************************
-ROTATION    
-********************************/
+/*#region ROTATION*/
 
 .rotate-right {
     -webkit-transform: rotate(345deg);
@@ -107,9 +104,9 @@ ROTATION
     transform: rotate(345deg);
 }
 
-/****************************
-EMPTY LIST 
-********************************/
+/*#endregion ROTATION*/
+
+/*#region EMPTY LIST */
 
 .add-new-item-tip {
     position: absolute;
@@ -117,8 +114,8 @@ EMPTY LIST
 
     .add-new-item-tip .add-new-item-tip-text {
         position: absolute;
-        left: 100px;
-        top: 50px;
+        left: 90px;
+        top: 30px;
         white-space: nowrap;
         color: #666;
         font-size: 26px;
@@ -130,6 +127,7 @@ EMPTY LIST
         -moz-transform: scaleX(-1);
         -o-transform: scaleX(-1);
         -webkit-transform: scaleX(-1);
+        -ms-transform: scaleX(-1);
         transform: scaleX(-1);
         width: 53px;
         height: 54px;
@@ -141,7 +139,7 @@ EMPTY LIST
 .empty-list-wrapper {
     width: 100%;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 40px;
 }
 
     .empty-list-wrapper .empty-list {
@@ -163,6 +161,8 @@ EMPTY LIST
 @media (max-width: 1130px) {
 
     .empty-list-wrapper {
-        margin-top: 140px;
+        margin-top: 120px;
     }
 }
+
+/*#endregion EMPTY LIST */
