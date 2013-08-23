@@ -33,7 +33,7 @@
 
 .question .navbar,
 .question .nav-control {
-    width: 100%;
+    max-width: 100%;
 }
 
 .question .nav-title {
@@ -408,6 +408,7 @@
 /* Create question page */
 
 .create-question-content-wrapper {
+    padding-top: 11px;
 }
 
 .create-question-form {
@@ -575,6 +576,7 @@
 /*****************************
  INFO POPUP
 *****************************/
+
 .page-header:hover .info-popup {
     display: block;
 }
@@ -585,4 +587,3 @@
     background-color: #DEDFE3;
     width: 170px;
 }
-
