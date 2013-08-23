@@ -22,6 +22,10 @@ namespace easygenerator.AcceptanceTests.Helpers
         public string Title { get; set; }
         [JsonProperty("image")]
         public string ImageSource { get; set; }
+        [JsonProperty("createdOn")]
+        public string CreatedOn { get; set; }
+        [JsonProperty("modifiedOn")]
+        public string ModifiedOn { get; set; }
         [JsonProperty("questions")]
         public List<Question> Questions { get; set; }
 
@@ -32,6 +36,10 @@ namespace easygenerator.AcceptanceTests.Helpers
         public int Id { get; set; }
         [JsonProperty("title")]
         public string Title { get; set; }
+        [JsonProperty("createdOn")]
+        public string CreatedOn { get; set; }
+        [JsonProperty("modifiedOn")]
+        public string ModifiedOn { get; set; }
         [JsonProperty("answerOptions")]
         public List<AnswerOption> AnswerOptions { get; set; }
         [JsonProperty("explanations")]
@@ -59,6 +67,12 @@ namespace easygenerator.AcceptanceTests.Helpers
         public int Id { get; set; }
         [JsonProperty("title")]
         public string Title { get; set; }
+        [JsonProperty("createdOn")]
+        public string CreatedOn { get; set; }
+        [JsonProperty("modifiedOn")]
+        public string ModifiedOn { get; set; }
+        [JsonProperty("builtOn")]
+        public string BuiltOn { get; set; }
         [JsonProperty("objectives")]
         public List<int> Objectives { get; set; }
     }

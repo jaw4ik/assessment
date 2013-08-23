@@ -180,6 +180,8 @@ namespace easygenerator.AcceptanceTests.Steps
                 Id = obj.Id,
                 Title = obj.Title,
                 ImageSource = @"Content/images/logo.png",
+                CreatedOn = @"\/Date(1377172218190)\/",
+                ModifiedOn = @"\/Date(1377172218190)\/",
                 Questions = new List<Question>()
             };
         }

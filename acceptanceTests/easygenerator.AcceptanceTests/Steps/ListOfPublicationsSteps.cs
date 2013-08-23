@@ -281,6 +281,9 @@ namespace easygenerator.AcceptanceTests.Steps
             {
                 Id = data.Id,
                 Title = data.Title,
+                CreatedOn = @"\/Date(1377172218190)\/",
+                ModifiedOn = @"\/Date(1377172218190)\/",
+                BuiltOn = "",
                 Objectives = new List<int>()
             };
         }
