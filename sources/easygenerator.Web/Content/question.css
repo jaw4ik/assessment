@@ -88,14 +88,31 @@
     font-size: 12px;
 }
 
-.question-info-table td {
-    width: 50%;
+    .condition-title {
+        width: 45%;
+    }
+
+.condition-title {
+    padding: 8px;
+    vertical-align: top;
 }
 
- .condition-title {
-     padding: 8px;
-     vertical-align: top;
- }
+.condition-date-time-text,
+.condition-date-text {
+    display: block;
+    text-transform: lowercase;
+}
+
+.condition-date-time-text:before,
+.condition-date-text:before {
+    content: '';
+    display: block;
+    height: 16px;
+    width: 16px;
+    float: left;
+    margin-right: 10px;
+    background-color: red;
+}
 
 .question-info-popup-triangle-wrapper {
     position: absolute;
