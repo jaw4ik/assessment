@@ -528,7 +528,7 @@
             "createdOn" : "\/Date(1377172218190)\/",
             "modifiedOn" : "\/Date(1377172218190)\/",
             "builtOn" : "",
-            "objectives": ["0", "1", "2", "3"],
+            "objectives": ["0", "1", "2", "3"]
         },
         {
             "id": 1,
@@ -536,7 +536,7 @@
             "createdOn" : "\/Date(1377172218190)\/",
             "modifiedOn" : "\/Date(1377172218190)\/",
             "builtOn" : "",
-            "objectives": ["1", "2", "3"],
+            "objectives": ["1", "2", "3"]
         },
         {
             "id": 2,
@@ -544,7 +544,7 @@
             "createdOn" : "\/Date(1377172218190)\/",
             "modifiedOn" : "\/Date(1377172218190)\/",
             "builtOn" : "",
-            "objectives": ["0", "1", "3"],
+            "objectives": ["0", "1", "3"]
         },
         {
             "id": 3,
@@ -552,7 +552,7 @@
             "createdOn" : "\/Date(1377172218190)\/",
             "modifiedOn" : "\/Date(1377172218190)\/",
             "builtOn" : "",
-            "objectives": ["0", "2", "3"],
+            "objectives": ["0", "2", "3"]
         },
         {
             "id": 4,
@@ -560,7 +560,7 @@
             "createdOn" : "\/Date(1377172218190)\/",
             "modifiedOn" : "\/Date(1377172218190)\/",
             "builtOn" : "",
-            "objectives": [],
+            "objectives": []
         }
     ]
 }
