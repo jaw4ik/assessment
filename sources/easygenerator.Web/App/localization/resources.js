@@ -119,6 +119,11 @@
         nl: 'Nieuw leerdoel toevoegen',
         de: 'Neues Lernziel hinzufügen'
     },
+    learningObjectiveListIsEmpty: {
+        en: 'Learning objective list is empty',
+        nl: 'Learning objective list is empty[nl]',
+        de: 'Learning objective list is empty[de]'
+    },
     /* End resource section for model Objectives */
     
     /* Resource section for model Objective */
@@ -180,6 +185,11 @@
         nl: 'Aantal aanverwante doelstellingen',
         de: 'Anzahl der verwandten Ziele'
     },
+    experienceListIsEmpty: {
+        en: 'Experience list is empty',
+        nl: 'Experience list is empty[nl]',
+        de: 'Experience list is empty[de]'
+    },
     /* End resource section for model Experiences */
     
     /* Resource section for model CreateObjective */
@@ -203,6 +213,16 @@
         nl: 'Thumbnail[nl]',
         de: 'Thumbnail[de]'
     },
+    typeObjectiveTitleHere: {
+        en: 'Type objective title here',
+        nl: 'Type objective title here[nl]',
+        de: 'Type objective title here[de]'
+    },
+    ClickToAddObjective: {
+        en: 'Click to add objective',
+        nl: 'Click to add objective[nl]',
+        de: 'Click to add objective[de]'
+    },
     /* End resource section for model CreateObjective */
     
     /* Resource section for model CreateExperience */
@@ -225,6 +245,16 @@
         en: 'Objectives in experience',
         nl: 'Objectives in experience[nl]',
         de: 'Objectives in experience[de]'
+    },
+    typeExperienceTitleHere: {
+        en: 'Type experience title here',
+        nl: 'Type experience title here[nl]',
+        de: 'Type experience title here[de]'
+    },
+    clickToAddExperience: {
+        en: 'Click to add experience',
+        nl: 'Click to add experience[nl]',
+        de: 'Click to add experience[de]'
     },
     /* End resource section for model CreateExperience */
     
@@ -341,6 +371,11 @@
         en: 'Related question',
         nl: 'Related question[nl]',
         de: 'Related question[de]'
+    },
+    createNewQuestion: {
+        en: 'Create new question',
+        nl: 'Create new question[nl]',
+        de: 'Create new question[de]'
     },
     /* End resource section for model Questions */
     

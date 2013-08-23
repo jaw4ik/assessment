@@ -16,10 +16,10 @@
                 <img alt="" class="question-image" src="/Content/images/multichoice-question.png" />
             </div>
             <div class="info-popup">
-                <span>Created on:</span>
+                <span data-bind="localize: { text: 'createdOn' }"></span><span>:</span>
                 <span data-bind="date: {value: createdOn, formatString:'LT', language: language}"></span>
                 <span data-bind="date: {value: createdOn, formatString:'L', language: language}"></span>
-                <span>Modified on:</span>
+                <span data-bind="localize: { text: 'modifiedOn' }"></span><span>:</span>
                 <span data-bind="date: {value: modifiedOn, formatString:'LT', language: language}"></span>
                 <span data-bind="date: {value: modifiedOn, formatString:'L', language: language}"></span>
             </div>
@@ -146,14 +146,10 @@
                             <div class="question-explanation-list-item">
                                 <div class="question-explanation-wrapper" data-bind="css: { 'enabled': canAddExplanation }">
                                     <!-- ko if: canAddExplanation -->
-                                    <div class="question-explanation selectable" data-bind="click: addExplanation, localize: { text: 'clickToAddNewExplanation' }">
-                                        Click to add new explanation
-                                    </div>
+                                    <div class="question-explanation selectable" data-bind="click: addExplanation, localize: { text: 'clickToAddNewExplanation' }"></div>
                                     <!-- /ko -->
                                     <!-- ko ifnot: canAddExplanation -->
-                                    <div class="question-explanation selectable disabled" data-bind="localize: { text: 'clickToAddNewExplanation' }">
-                                        Click to add new explanation
-                                    </div>
+                                    <div class="question-explanation selectable disabled" data-bind="localize: { text: 'clickToAddNewExplanation' }"></div>
                                     <!-- /ko -->
                                 </div>
                             </div>
