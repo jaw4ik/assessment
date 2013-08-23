@@ -88,13 +88,13 @@
     },
     createdOn: {
         en: 'Created on',
-        nl: 'Created on[nl]',
-        de: 'Created on[de]'
+        nl: 'Aangemaakt op',
+        de: 'Erstellt am'
     },
     modifiedOn: {
         en: 'Modified on',
-        nl: 'Modified on[nl]',
-        de: 'Modified on[de]'
+        nl: 'Gewijzigd op',
+        de: 'Geändert am'
     },
     /* End resource section for model General */
     
@@ -121,8 +121,8 @@
     },
     learningObjectiveListIsEmpty: {
         en: 'Learning objective list is empty',
-        nl: 'Learning objective list is empty[nl]',
-        de: 'Learning objective list is empty[de]'
+        nl: 'Leerdoelenlijst is leeg',
+        de: 'Liste der Lernziele ist leer'
     },
     /* End resource section for model Objectives */
     
@@ -187,8 +187,8 @@
     },
     experienceListIsEmpty: {
         en: 'Experience list is empty',
-        nl: 'Experience list is empty[nl]',
-        de: 'Experience list is empty[de]'
+        nl: 'Ervaringenlijst is leeg',
+        de: 'Liste der Umgebungen ist leer'
     },
     /* End resource section for model Experiences */
     
@@ -215,13 +215,13 @@
     },
     typeObjectiveTitleHere: {
         en: 'Type objective title here',
-        nl: 'Type objective title here[nl]',
-        de: 'Type objective title here[de]'
+        nl: 'Typ hier de titel van de doelstelling',
+        de: 'Titel des Lernziels hier eingeben'
     },
     ClickToAddObjective: {
         en: 'Click to add objective',
-        nl: 'Click to add objective[nl]',
-        de: 'Click to add objective[de]'
+        nl: 'Klik om de doelstelling toe te voegen',
+        de: 'Klicken, um Lernziel hinzuzufügen'
     },
     /* End resource section for model CreateObjective */
     
@@ -248,13 +248,13 @@
     },
     typeExperienceTitleHere: {
         en: 'Type experience title here',
-        nl: 'Type experience title here[nl]',
-        de: 'Type experience title here[de]'
+        nl: 'Typ hier de titel van de ervaring',
+        de: 'Titel der Umgebung hier eingeben'
     },
     clickToAddExperience: {
         en: 'Click to add experience',
-        nl: 'Click to add experience[nl]',
-        de: 'Click to add experience[de]'
+        nl: 'Klik om ervaring toe te voegen',
+        de: 'Klicken, um Umgebung hinzuzufügen'
     },
     /* End resource section for model CreateExperience */
     
@@ -364,18 +364,18 @@
     },
     questionListIsEmpty: {
         en: 'Question list is empty',
-        nl: 'Question list is empty[nl]',
-        de: 'Question list is empty[de]'
+        nl: 'Vragenlijst is leeg',
+        de: 'Fragenliste ist leer'
     },
     relatedQuestion: {
         en: 'Related question',
-        nl: 'Related question[nl]',
-        de: 'Related question[de]'
+        nl: 'Verwante vraag',
+        de: 'Verwandte Frage'
     },
     createNewQuestion: {
         en: 'Create new question',
-        nl: 'Create new question[nl]',
-        de: 'Create new question[de]'
+        nl: 'Nieuwe vraag aanmaken',
+        de: 'Neue Frage erstellen'
     },
     /* End resource section for model Questions */
     
