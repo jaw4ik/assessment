@@ -38,7 +38,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="condition-title" rowspan="2">
-                                            <span>Created on:</span>
+                                            <span class="after-colon" data-bind="localize: { text: 'createdOn'}"></span>
                                         </td>
                                         <td class="condition-date-time">
                                             <span class="condition-date-time-text" data-bind="date: { value: createdOn, formatString: 'LT', language: language }"></span>
@@ -51,7 +51,7 @@
                                     </tr>
                                     <tr>
                                         <td class="condition-title" rowspan="2">
-                                            <span>Modified on:</span>
+                                            <span class="after-colon" data-bind="localize: { text: 'modifiedOn'}"></span>
                                         </td>
                                         <td class="condition-date-time">
                                             <span class="condition-date-time-text" data-bind="date: { value: modifiedOn, formatString: 'LT', language: language }"></span>

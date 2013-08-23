@@ -242,6 +242,14 @@ COMMON CLASSES CSS-STYLES
         border-radius: 250px / 10px;
     }
 
+ /**
+ * after-colon
+ */
+
+ .after-colon:after {
+     content: ':';
+ }
+
 /**
  * messages
  */

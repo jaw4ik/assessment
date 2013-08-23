@@ -706,6 +706,7 @@
 /*#region Create new question navigation button*/
 
 .nav-control-item {
+    cursor: pointer;
     opacity: 0.75;
     vertical-align: top;
     width: auto;
