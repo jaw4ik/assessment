@@ -1,65 +1,77 @@
-﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker'],
+﻿define(['repositories/objectiveRepository', 'services/navigation', 'eventTracker'],
     function (objectiveRepository, router, eventTracker) {
 
         var
             events = {
                 category: 'Create learning objective',
+                navigateToObjectives: 'Navigate to objectives',
                 createAndNew: "Create learning objective and create new",
-                createAndOpen: "Create learning objective and open it properties",
+                createAndEdit: "Create learning objective and open it properties",
             },
 
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName, events.category);
             };
 
-
         var
-            title = (function() {
-                var t = ko.observable();
-                t.minlength = 1;
-                t.maxlength = 255;
-                t.isValid = ko.computed(function () {
-                    var text = t();                    
-                    return text && text.length > t.minlength && text.length < t.maxlength;
+            title = ko.observable('').extend({
+                required: true,
+                maxLength: 255
+            }),
+            validationVisible = ko.observable(false),
+
+            navigateToObjectives = function () {
+                sendEvent(events.navigateToObjectives);
+                router.navigate('objectives');
+            },
+
+            activate = function () {
+                var that = this;
+
+                return Q.fcall(function () {
+                    that.validationVisible(false);
+                    that.title('');
                 });
-                return t;
-            })(),
-            
-            showValidation = ko.observable(false),
-            
+            },
+
             createAndNew = function () {
                 sendEvent(events.createAndNew);
-                objectiveRepository.addObjective({ title: ko.unwrap(this.title) })
-                    .then(function () {
-                        router.navigate('objective/create');
-                    });
-            },
-            createAndOpen = function () {
-                //if (!this.title.isValid()) {
-                //    this.showValidation(true);
-                //    return;
-                //}
-                sendEvent(events.createAndOpen);
-                objectiveRepository.addObjective({ title: ko.unwrap(this.title) })
-                    .then(function (objectiveId) {
-                        router.navigate('objective/' + objectiveId);
-                    });
+
+                if (!title.isValid()) {
+                    validationVisible(true);
+                    return;
+                }
+
+                objectiveRepository.add(title()).then(function (addedObjective) {
+                    title('');
+                    validationVisible(false);
+                    return;
+                });
             },
 
-            activate = function () {                
-                this.title("");
+            createAndEdit = function () {
+                sendEvent(events.createAndEdit);
+                
+                if (!title.isValid()) {
+                    validationVisible(true);
+                    return;
+                }
+                
+                objectiveRepository.add(title()).then(function (addedObjective) {
+                    router.navigate('objective/' + addedObjective.id);
+                    return;
+                });
             };
 
 
         return {
-            activate: activate,
-
             title: title,
+            validationVisible: validationVisible,
 
-            showValidation: showValidation,
-
+            activate: activate,
+            navigateToObjectives: navigateToObjectives,
             createAndNew: createAndNew,
-            createAndOpen: createAndOpen
+            createAndEdit: createAndEdit
         };
     }
 );

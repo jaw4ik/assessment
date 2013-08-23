@@ -1,24 +1,17 @@
-﻿<fieldset>
-    <legend data-bind="localize: { text: 'newObjective' }">New Objective</legend>
-    <form class="form-horizontal">
-        <div class="control-group" data-bind="css : { error: !title.isValid() && title.isModified() }">
-            <label class="control-label" for="objectiveTitle" data-bind="localize: { text: 'objectiveTitle' }">Title</label>
-            <div class="controls">
-                <input type="text" id="objectiveTitle" placeholder="Objective title..." data-bind="value: title, valueUpdate: 'afterkeydown', localize: { placeholder: 'objectiveTitlePlaceholder' }">
+﻿<section class="create-objective">
+    <div class="create-objective-navigation" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'learningObjectives', isGoBackTextLocalizable: true, goBackAction: navigateToObjectives } }">
+    </div>
+    <div class="create-objective-form">
+        <form>
+            <img class="create-objective-image" src="/Content/images/multichoice-question.png" />
+            <textarea class="create-objective-title" data-bind="singleLineValue: title, valueUpdate: 'afterkeydown', autoResize: true"></textarea>
+            <div class="create-objective-tip">
+                some hint here
             </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="objectiveTitle" data-bind="localize: { text: 'objectiveThumbnail' }">Thumbnail</label>
-            <div class="controls">
-                <a href="#" data-bind="click: image.previousOption"><i class="icon-arrow-left"></i></a>
-                <img data-bind="attr: { src: image }, localize: { title: 'objectiveThumbnail' }" title="Thumbnail" />
-                <a href="#" data-bind="click: image.nextOption"><i class="icon-arrow-right"></i></a>
+            <div class="create-objective-buttons">
+                <button class="create-objective-create-and-edit" type="submit" data-bind="click: createAndEdit">Create and edit</button>
+                <button class="create-objective-create-and-new" type="button" data-bind="click: createAndNew">Create and new</button>
             </div>
-        </div>
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary" data-bind="click: saveObjective, localize: { text: 'save' }">Save</button>
-            <button type="button" class="btn" data-bind="click: cancel, localize: { text: 'cancel' }">Cancel</button>
-        </div>
-    </form>
-
-</fieldset>
+        </form>
+    </div>
+</section>

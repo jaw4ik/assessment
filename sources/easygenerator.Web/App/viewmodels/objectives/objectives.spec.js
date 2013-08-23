@@ -47,7 +47,7 @@
 
                 it('should navigate to 404', function () {
                     viewModel.navigateToCreation();
-                    expect(router.navigate).toHaveBeenCalledWith('404');
+                    expect(router.navigate).toHaveBeenCalledWith('objective/create');
                 });
 
             });

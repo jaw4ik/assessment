@@ -37,7 +37,7 @@
 
             navigateToCreation = function () {
                 sendEvent(events.navigateToCreation);
-                router.navigate('404');
+                router.navigate('objective/create');
             },
             navigateToDetails = function (item) {
                 sendEvent(events.navigateToDetails);

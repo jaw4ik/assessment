@@ -2,11 +2,9 @@
     function (viewModel) {
         "use strict";
 
-        var dataContext = require('dataContext'),
-            router = require('plugins/router'),
-            eventTracker = require('eventTracker')
-
-        ;
+        var
+            router = require('services/navigation'),
+            eventTracker = require('eventTracker');
 
         var eventsCategory = 'Create learning objective';
 
@@ -14,14 +12,7 @@
 
             var repository = require('repositories/objectiveRepository');
 
-            var addObjective;
-
-            var objectiveId = 'objectiveId';
-            var objectiveTitle = 'objectiveTitle';
-
             beforeEach(function () {
-                addObjective = Q.defer();
-                spyOn(repository, 'addObjective').andReturn(addObjective.promise);
                 spyOn(eventTracker, 'publish');
                 spyOn(router, 'navigate');
             });
@@ -30,146 +21,40 @@
                 expect(viewModel).toBeObject();
             });
 
-            describe('showValidation:', function () {
-                
+            describe('title:', function () {
+
                 it('should be observable', function () {
-                    expect(viewModel.showValidation).toBeObservable();
-                });
-                
-            });
-
-            describe('title:', function() {
-
-                it('should be observable', function() {
                     expect(viewModel.title).toBeObservable();
                 });
 
-                describe('isValid:', function() {
+                it('should have isValid observable', function () {
+                    expect(viewModel.title.isValid).toBeObservable();
+                });
 
-                    it('should be observable', function () {
-                        expect(viewModel.title.isValid).toBeObservable();
+                describe('when longer than 255 symbols', function () {
+
+                    it('should be not valid', function () {
+                        viewModel.title(new Array(257).join('a'));
+                        expect(viewModel.title.isValid()).toBeFalsy();
                     });
 
-                    describe('when title is longer than 255 symbols', function() {
+                });
 
-                        it('should be false', function () {
-                            viewModel.title(utils.createString(256));
-                            expect(viewModel.title.isValid()).toBeFalsy();
-                        });
+                describe('when empty', function () {
 
-                    });
-                    
-                    describe('when title is less than 255 symbols', function () {
-
-                        it('should be false', function () {
-                            viewModel.title(utils.createString(25));
-                            expect(viewModel.title.isValid()).toBeTruthy();
-                        });
-
+                    it('should be not valid', function () {
+                        viewModel.title('');
+                        expect(viewModel.title.isValid()).toBeFalsy();
                     });
 
                 });
 
             });
 
-            
-            describe('createAndOpen:', function () {
+            describe('validationVisible:', function () {
 
-                it('should be a function', function () {
-                    expect(viewModel.createAndOpen).toBeFunction();
-                });
-
-                it('should send event \'Create learning objective and open it properties\'', function () {
-                    viewModel.createAndOpen();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and open it properties', eventsCategory);
-                });
-
-                //describe('when title is not valid', function() {
-
-                //    beforeEach(function() {
-                //        viewModel.title(utils.createString(256));
-                //    });
-
-                //    it('should show validation error', function () {
-                //        viewModel.showValidation(false);
-                        
-                //        viewModel.createAndOpen();
-
-                //        expect(viewModel.showValidation).toBeTruthy();
-                //    });
-                    
-                //    it('should not add objective to repository', function () {
-                //        viewModel.createAndOpen();
-
-                //        expect(repository.addObjective).not.toHaveBeenCalled();
-                //    });
-
-                //});
-
-                it('should add objective to repository', function () {
-                    viewModel.title = ko.observable(objectiveTitle);
-
-                    viewModel.createAndOpen();
-
-                    expect(repository.addObjective).toHaveBeenCalledWith({ title: objectiveTitle });
-                });
-
-                describe('and objective was added successfully', function () {
-
-                    it('should navigate to #objective/{objectiveId}', function () {
-
-                        viewModel.createAndOpen();
-
-                        var promise = addObjective.promise.finally(function () { });
-                        addObjective.resolve(objectiveId);
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(router.navigate).toHaveBeenCalledWith('objective/' + objectiveId);
-                        });
-                    });
-
-                });
-
-            });
-
-            describe('createAndNew:', function () {
-
-                it('should be a function', function () {
-                    expect(viewModel.createAndNew).toBeFunction();
-                });
-
-                it('should send event \'Create learning objective and create new\'', function () {
-                    viewModel.createAndNew();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and create new', eventsCategory);
-                });
-
-                it('should add objective to repository', function () {
-                    viewModel.title = ko.observable(objectiveTitle);
-
-                    viewModel.createAndNew();
-
-                    expect(repository.addObjective).toHaveBeenCalledWith({ title: objectiveTitle });
-                });
-
-                describe('and objective was added successfully', function () {
-
-                    it('should navigate to #objective/create', function () {
-                        viewModel.createAndNew();
-
-                        var promise = addObjective.promise.finally(function () { });
-                        addObjective.resolve(objectiveId);
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(router.navigate).toHaveBeenCalledWith('objective/create');
-                        });
-                    });
-
+                it('should be observable', function () {
+                    expect(viewModel.validationVisible).toBeObservable();
                 });
 
             });
@@ -180,10 +65,235 @@
                     expect(viewModel.activate).toBeFunction();
                 });
 
-                it('should set empty string to title', function () {
-                    viewModel.activate();
-                    expect(viewModel.title).toBeObservable();                    
-                    expect(viewModel.title()).toEqual("");
+                it('should return promise', function () {
+                    var result = viewModel.activate();
+                    expect(result).toBePromise();
+                });
+
+                it('should reset validationVisible', function () {
+                    viewModel.validationVisible(true);
+                    var promise = viewModel.activate();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.validationVisible()).toBeFalsy();
+                    });
+                });
+
+                it('should clear title', function () {
+                    viewModel.title('Some text');
+                    var promise = viewModel.activate();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.title().length).toEqual(0);
+                    });
+                });
+
+            });
+
+            describe('navigateToObjectives:', function () {
+
+                it('should send event \'Navigate to objectives\'', function () {
+                    viewModel.navigateToObjectives();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objectives', eventsCategory);
+                });
+
+            });
+
+            describe('createAndNew:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.createAndNew).toBeFunction();
+                });
+
+                describe('when triggered', function () {
+
+                    describe('and title is emty', function () {
+
+                        it('should show validation', function () {
+                            viewModel.title('');
+                            viewModel.createAndNew();
+
+                            expect(viewModel.validationVisible()).toBeTruthy();
+                        });
+
+                    });
+
+                    describe('and title is longer than 255', function () {
+
+                        it('should show validation', function () {
+                            viewModel.title(new Array(257).join('a'));
+                            viewModel.createAndNew();
+
+                            expect(viewModel.validationVisible()).toBeTruthy();
+                        });
+
+                    });
+
+                    describe('and title is valid', function () {
+
+                        var addObjectiveDeferred;
+                        var addObjectiveDeferredPromise;
+
+                        beforeEach(function () {
+                            viewModel.title('Some valid text');
+
+                            addObjectiveDeferred = Q.defer();
+                            addObjectiveDeferredPromise = addObjectiveDeferred.promise;
+
+                            spyOn(repository, 'add').andReturn(addObjectiveDeferredPromise);
+                        });
+
+                        it('should create new objective in repository', function () {
+                            var title = viewModel.title();
+
+                            viewModel.createAndNew();
+
+                            var promise = addObjectiveDeferredPromise.fin(function () { });
+                            addObjectiveDeferred.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(repository.add).toHaveBeenCalled();
+                                expect(repository.add.mostRecentCall.args[0]).toEqual(title);
+                            });
+                        });
+
+                        it('should clear title', function () {
+                            viewModel.createAndNew();
+
+                            var promise = addObjectiveDeferredPromise.fin(function () { });
+                            addObjectiveDeferred.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.title().length).toEqual(0);
+                            });
+                        });
+
+                        it('should hide validation', function () {
+                            viewModel.createAndNew();
+
+                            var promise = addObjectiveDeferredPromise.fin(function () { });
+                            addObjectiveDeferred.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(router.validationVisible).toBeFalsy();
+                            });
+                        });
+
+                    });
+
+                    it('should send event \'Create learning objective and create new\'', function () {
+                        viewModel.createAndNew();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and create new', eventsCategory);
+                    });
+
+                });
+
+            });
+
+            describe('createAndEdit:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.createAndEdit).toBeFunction();
+                });
+
+                describe('when triggered', function () {
+
+                    beforeEach(function () {
+                        viewModel.title('Some valid text');
+                        viewModel.validationVisible(false);
+                    });
+
+                    describe('and title is emty', function () {
+
+                        it('should show validation', function () {
+                            viewModel.title('');
+                            viewModel.createAndEdit();
+
+                            expect(viewModel.validationVisible()).toBeTruthy();
+                        });
+
+                    });
+
+                    describe('and title is longer than 255', function () {
+
+                        it('should show validation', function () {
+                            viewModel.title(new Array(257).join('a'));
+                            viewModel.createAndEdit();
+
+                            expect(viewModel.validationVisible()).toBeTruthy();
+                        });
+
+                    });
+
+                    describe('and title is valid', function () {
+
+                        var addObjectiveDeferred;
+                        var addObjectiveDeferredPromise;
+
+                        beforeEach(function () {
+                            viewModel.title('Some valid text');
+
+                            addObjectiveDeferred = Q.defer();
+                            addObjectiveDeferredPromise = addObjectiveDeferred.promise;
+
+                            spyOn(repository, 'add').andReturn(addObjectiveDeferredPromise);
+                        });
+
+                        it('should create new objective in repository', function () {
+                            var title = viewModel.title();
+
+                            viewModel.createAndEdit();
+
+                            var promise = addObjectiveDeferredPromise.fin(function () { });
+                            addObjectiveDeferred.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(repository.add).toHaveBeenCalled();
+                                expect(repository.add.mostRecentCall.args[0]).toEqual(title);
+                            });
+                        });
+
+                        it('should navigate to created objective', function () {
+                            var id = '0';
+
+                            viewModel.createAndEdit();
+
+                            var promise = addObjectiveDeferredPromise.fin(function () { });
+                            addObjectiveDeferred.resolve({ id: id });
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(router.navigate).toHaveBeenCalledWith('objective/' + id);
+                            });
+                        });
+
+                    });
+                    
+                    it('should send event \'Create learning objective and open it properties\'', function () {
+                        viewModel.createAndEdit();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and open it properties', eventsCategory);
+                    });
+
                 });
 
             });
