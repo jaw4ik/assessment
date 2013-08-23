@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/questionRepository'],
-    function (dataContext, constants, eventTracker, router, objectiveRepository, questionRepository) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/questionRepository', 'localization/localizationManager'],
+    function (dataContext, constants, eventTracker, router, objectiveRepository, questionRepository, localizationManager) {
         "use strict";
 
         var
@@ -21,6 +21,17 @@
              maxLength: 255
          });
         title.isEditing = ko.observable();
+
+        var notification = {
+            text: ko.observable(''),
+            visibility: ko.observable(false),
+            close: function () { notification.visibility(false); },
+            update: function () {
+                var message = localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString();
+                notification.text(message);
+                notification.visibility(true);
+            }
+        };
 
         var navigateToObjective = function () {
             sendEvent(events.navigateToObjective);
@@ -56,6 +67,8 @@
                 that.title('');
                 that.title.isModified(false);
                 that.title.isEditing(true);
+
+                notification.update();
             });
         },
 
@@ -82,6 +95,8 @@
                      that.title('');
                      that.title.isModified(false);
                      that.title.isEditing(false);
+
+                     that.notification.visibility(false);
                  });
          },
 
@@ -98,6 +113,7 @@
             objectiveId: objectiveId,
             title: title,
             objectiveTitle: objectiveTitle,
+            notification: notification,
 
             navigateToObjective: navigateToObjective,
             endEditTitle: endEditTitle,

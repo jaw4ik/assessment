@@ -262,6 +262,23 @@
                             expect(viewModel.title.isModified()).toBeFalsy();
                         });
                     });
+                    
+                    it('should show notification', function () {
+                        spyOn(viewModel.notification, 'update');
+
+                        viewModel.title.isModified(true);
+                        viewModel.saveAndNew();
+
+                        var promise = deferred.promise.finally(function () { });
+                        deferred.resolve(question.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.notification.update).toHaveBeenCalled();
+                        });
+                    });
                 });
 
             });
@@ -321,7 +338,7 @@
                     var promise = viewModel.activate('objectiveId');
 
                     waitsFor(function () {
-                        return promise.isFulfilled();
+                        return !promise.isPending();
                     });
                     runs(function () {
                         expect(router.navigate).toHaveBeenCalledWith('404');
@@ -349,7 +366,7 @@
                     deferred.resolve({ id: objective.id });
 
                     waitsFor(function () {
-                        return promise.isFulfilled();
+                        return !promise.isPending();
                     });
                     runs(function () {
                         expect(viewModel.objectiveId).toBe(objective.id);
@@ -362,9 +379,10 @@
                     deferred.resolve({ id: objective.id });
 
                     waitsFor(function () {
-                        return promise.isFulfilled();
+                        return !promise.isPending();
                     });
                     runs(function () {
+                        expect(promise).toBeResolved();
                         expect(viewModel.title()).toBe('');
                     });
                 });
@@ -377,9 +395,10 @@
                     deferred.resolve({ id: objective.id });
 
                     waitsFor(function () {
-                        return promise.isFulfilled();
+                        return !promise.isPending();
                     });
                     runs(function () {
+                        expect(promise).toBeResolved();
                         expect(viewModel.title.isModified()).toBeFalsy();
                     });
                 });
@@ -391,17 +410,91 @@
                     deferred.resolve(objective);
 
                     waitsFor(function () {
-                        return promise.isFulfilled();
+                        return !promise.isPending();
                     });
                     runs(function () {
+                        expect(promise).toBeResolved();
                         expect(viewModel.objectiveTitle).toBe(objective.title);
+                    });
+                });
+                
+                it('should set notification visibility to false', function () {
+                    viewModel.notification.visibility(true);
+
+                    var promise = viewModel.activate(objective.id);
+                    deferred.resolve(objective);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(promise).toBeResolved();
+                        expect(viewModel.notification.visibility()).toBeFalsy();
                     });
                 });
 
             });
 
         });
+        
+        describe('notification:', function () {
 
+            it('should be object', function () {
+                expect(viewModel.notification).toBeObject();
+            });
+
+            it('should have text observable', function () {
+                expect(viewModel.notification.text).toBeDefined();
+                expect(viewModel.notification.text).toBeObservable();
+            });
+
+            it('should have visibility observable', function () {
+                expect(viewModel.notification.visibility).toBeDefined();
+                expect(viewModel.notification.visibility).toBeObservable();
+            });
+
+            describe('close', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.notification.close).toBeFunction();
+                });
+
+                describe('when called', function () {
+
+                    describe('and visibility is true', function () {
+
+                        it('should set visibility to false', function () {
+                            viewModel.notification.visibility(true);
+                            viewModel.notification.close();
+
+                            expect(viewModel.notification.visibility()).toBeFalsy();
+                        });
+
+                    });
+
+                });
+
+            });
+
+            describe('update', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.notification.update).toBeFunction();
+                });
+
+                describe('when called', function () {
+
+                    describe('and visibility is false', function () {
+                        it('should set visibility to true', function () {
+                            viewModel.notification.visibility(false);
+                            viewModel.notification.update();
+
+                            expect(viewModel.notification.visibility()).toBeTruthy();
+                        });
+                    });
+                });
+
+            });
+        });
     });
-
 });

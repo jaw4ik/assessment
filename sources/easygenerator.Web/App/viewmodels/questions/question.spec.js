@@ -174,6 +174,7 @@ define(function (require) {
                         return !promise.isPending();
                     });
                     runs(function () {
+                        expect(promise).toBeResolved();
                         expect(eventTracker.publish).not.toHaveBeenCalled();
                     });
                 });
@@ -184,6 +185,7 @@ define(function (require) {
                         return !promise.isPending();
                     });
                     runs(function () {
+                        expect(promise).toBeResolved();
                         expect(viewModel.notification.update).not.toHaveBeenCalled();
                     });
                 });
@@ -194,6 +196,7 @@ define(function (require) {
                         return !promise.isPending();
                     });
                     runs(function () {
+                        expect(promise).toBeResolved();
                         expect(questionRepository.update).not.toHaveBeenCalled();
                     });
                 });
@@ -215,6 +218,7 @@ define(function (require) {
                         return !getPromise.isPending();
                     });
                     runs(function () {
+                        expect(getPromise).toBeResolved();
                         expect(eventTracker.publish).toHaveBeenCalledWith('Update question title', eventsCategory);
                     });
                 });
@@ -227,7 +231,7 @@ define(function (require) {
                             return !getPromise.isPending();
                         });
                         runs(function () {
-                            expect(getPromise.inspect().state).toEqual('fulfilled');
+                            expect(getPromise).toBeResolved();
                             expect(questionRepository.update).toHaveBeenCalled();
                             expect(questionRepository.update.mostRecentCall.args[1].title).toEqual(newTitle);
                         });
@@ -245,7 +249,7 @@ define(function (require) {
                                 return !getPromise.isPending() && !promise.isPending();
                             });
                             runs(function () {
-                                expect(promise.inspect().state).toEqual('fulfilled');
+                                expect(promise).toBeResolved();
                                 expect(viewModel.notification.update).toHaveBeenCalled();
                             });
                         });
@@ -263,7 +267,7 @@ define(function (require) {
                                 return !getPromise.isPending() && !promise.isPending();
                             });
                             runs(function () {
-                                expect(promise.inspect().state).toEqual('fulfilled');
+                                expect(promise).toBeResolved();
                                 expect(viewModel.modifiedOn()).toEqual(question.modifiedOn);
                             });
                         });
