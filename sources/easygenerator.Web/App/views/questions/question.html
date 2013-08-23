@@ -1,6 +1,18 @@
 ﻿<div class="question container unselectable">
 
-    <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: ' \'' + objectiveTitle + '\'', isGoBackTextLocalizable: false, goBackAction: goToRelatedObjective } }"></div>
+        <nav class="main-nav">
+        <ul class="unstyled main-nav-list">
+            <li class="main-nav-item left" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: ' \'' + objectiveTitle + '\'', isGoBackTextLocalizable: false, goBackAction: goToRelatedObjective }}"></li>
+            <li class="main-nav-item right">
+                <div class="nav-control pull-right create-question">
+                    <div class="nav-control-item" data-bind="click: goToCreateQuestion">
+                        <span class="create-question-image pull-right"></span>
+                        <span class="nav-title" data-bind="localize: { text: 'createNewQuestion' }"></span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </nav>
 
     <header class="page-header-wrapper">
         <aside class="nav-element-wrapper previous">

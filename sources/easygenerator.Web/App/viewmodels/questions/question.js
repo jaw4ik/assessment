@@ -8,6 +8,7 @@
                 navigateToNextQuestion: 'Navigate to next question',
                 navigateToPreviousQuestion: 'Navigate to previous question',
                 updateQuestionTitle: 'Update question title',
+                navigateToCreateQuestion: 'Navigate to create question',
 
                 addAnswerOption: 'Add answer option',
                 toggleAnswerCorrectness: 'Change answer option correctness',
@@ -82,6 +83,11 @@
 
             sendEvent(events.navigateToNextQuestion);
             router.navigate('objective/' + objectiveId + '/question/' + nextId);
+        },
+
+        goToCreateQuestion = function () {
+            sendEvent(events.navigateToCreateQuestion);
+            router.navigate('objective/' + objectiveId + '/question/create');
         },
 
         startEditQuestionTitle = function () {
@@ -444,6 +450,7 @@
             goToRelatedObjective: goToRelatedObjective,
             goToPreviousQuestion: goToPreviousQuestion,
             goToNextQuestion: goToNextQuestion,
+            goToCreateQuestion: goToCreateQuestion,
             startEditQuestionTitle: startEditQuestionTitle,
             endEditQuestionTitle: endEditQuestionTitle,
 

@@ -685,3 +685,28 @@
     background-color: #DEDFE3;
     width: 170px;
 }
+
+/*#region Create new question navigation button*/
+
+.nav-control-item {
+    opacity: 0.75;
+    vertical-align: top;
+    width: auto;
+}
+
+.nav-control.create-question {
+    width: auto;
+}
+
+    .nav-control.create-question .create-question-image {
+        display: inline-block;
+        width: 57px;
+        height: 57px;
+        background: url('images/nav-icons.png') no-repeat top left;
+        background-position: 0 -228px;
+    }
+
+.nav-control.create-question .nav-title{
+    margin-right: 10px;
+}
+/*#endregion Create new question navigation button*/

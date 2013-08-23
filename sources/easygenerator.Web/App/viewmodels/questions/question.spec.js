@@ -449,6 +449,29 @@ define(function (require) {
 
         });
 
+        describe('goToCreateQuestion:', function () {
+            
+            beforeEach(function () {
+                spyOn(router, 'navigate');
+                spyOn(eventTracker, 'publish');
+            });
+
+            it('should be a function', function () {
+                expect(viewModel.goToCreateQuestion).toBeFunction();
+            });
+
+            it('should track event \"Navigate to create question\"', function () {
+                viewModel.goToCreateQuestion();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to create question', eventsCategory);
+            });
+
+            it('should navigate to #objective/{objectiveId}', function () {
+                viewModel.goToCreateQuestion();
+                expect(router.navigate).toHaveBeenCalled();
+            });
+
+        });
+
         describe('goToRelatedObjective:', function () {
 
             beforeEach(function () {
