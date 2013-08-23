@@ -24,7 +24,7 @@
             $elem.unbind('keypress', onKeyPress);
         });
     },
-
+    
     update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
         var value = ko.unwrap(valueAccessor());
         valueAccessor()(filterValue(value));

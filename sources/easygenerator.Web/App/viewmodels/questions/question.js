@@ -33,7 +33,7 @@
             nextId = '',
             objectiveTitle = '',
             createdOn = null,
-            modifiedOn = null,
+            modifiedOn = ko.observable(),
             questionTitleMaxLength = 255,
             answerOptions = ko.observableArray([]),
             explanations = ko.observableArray([]),
@@ -91,19 +91,19 @@
         endEditQuestionTitle = function () {
             title.isEditing(false);
 
+            var that = this;
             var questionTitle = null;
             questionRepository.getById(objectiveId, questionId).then(function (response) {
-                debugger;
                 questionTitle = response.title;
-                
+
                 if (title() == questionTitle)
                     return;
 
                 sendEvent(events.updateQuestionTitle);
 
                 if (title.isValid()) {
-                    questionRepository.update(objectiveId, { id: questionId, title: title() }).then(function () {
-                        debugger;
+                    questionRepository.update(objectiveId, { id: questionId, title: title() }).then(function (updatedQuestion) {
+                        that.modifiedOn(updatedQuestion.modifiedOn);
                         notification.update();
                     });
                 } else {
@@ -379,7 +379,7 @@
                     that.title(question.title);
                     that.objectiveTitle = objective.title;
                     that.createdOn = question.createdOn;
-                    that.modifiedOn = question.modifiedOn;
+                    that.modifiedOn(question.modifiedOn);
 
                     var mappedAnswerOptions = _.map(question.answerOptions, function (item) {
                         return mapAnswerOption.call(that, item);

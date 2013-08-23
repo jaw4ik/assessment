@@ -14,7 +14,9 @@
                 id: generateNewEntryId(objective.questions),
                 title: obj.title,
                 explanations: [],
-                answerOptions: []
+                answerOptions: [],
+                createdOn: new Date(),
+                modifiedOn: new Date()
             };
 
             objective.questions.push(question);
@@ -46,8 +48,9 @@
             }
 
             question.title = obj.title;
+            question.modifiedOn = new Date();
 
-            deferred.resolve();
+            deferred.resolve(question);
         });
 
         return deferred.promise;

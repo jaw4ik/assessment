@@ -54,6 +54,12 @@ define(function (require) {
             expect(viewModel).toBeDefined();
         });
 
+        describe('modifiedOn:', function() {
+            it('should be observable', function() {
+                expect(viewModel.modifiedOn).toBeObservable();
+            });
+        });
+
         describe('title:', function () {
 
             it('should be observable', function () {
@@ -221,6 +227,7 @@ define(function (require) {
                             return !getPromise.isPending();
                         });
                         runs(function () {
+                            expect(getPromise.inspect().state).toEqual('fulfilled');
                             expect(questionRepository.update).toHaveBeenCalled();
                             expect(questionRepository.update.mostRecentCall.args[1].title).toEqual(newTitle);
                         });
@@ -232,17 +239,34 @@ define(function (require) {
                             viewModel.endEditQuestionTitle();
 
                             var promise = updateDeferred.promise.finally(function () { });
-                            updateDeferred.resolve();
+                            updateDeferred.resolve(question);
 
                             waitsFor(function () {
                                 return !getPromise.isPending() && !promise.isPending();
                             });
                             runs(function () {
+                                expect(promise.inspect().state).toEqual('fulfilled');
                                 expect(viewModel.notification.update).toHaveBeenCalled();
                             });
-
                         });
+                        
+                        it('should update modifiedOn', function () {
+                            viewModel.endEditQuestionTitle();
 
+                            var modificationDate = new Date();
+                            question.modifiedOn = modificationDate;
+                            
+                            var promise = updateDeferred.promise.finally(function () { });
+                            updateDeferred.resolve(question);
+
+                            waitsFor(function () {
+                                return !getPromise.isPending() && !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise.inspect().state).toEqual('fulfilled');
+                                expect(viewModel.modifiedOn()).toEqual(question.modifiedOn);
+                            });
+                        });
                     });
 
                 });
@@ -384,7 +408,7 @@ define(function (require) {
                     expect(viewModel.objectiveTitle).toBe(objectiveFull.title);
                     expect(viewModel.title()).toBe(question.title);
                     expect(viewModel.createdOn).toBe(question.createdOn);
-                    expect(viewModel.modifiedOn).toBe(question.modifiedOn);
+                    expect(viewModel.modifiedOn()).toBe(question.modifiedOn);
 
                     expect(viewModel.answerOptions().lenght).toBe(question.answerOptions.lenght);
                     expect(viewModel.explanations().lenght).toBe(question.explanations.lenght);

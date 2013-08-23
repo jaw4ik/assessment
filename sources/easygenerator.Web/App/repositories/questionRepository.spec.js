@@ -146,7 +146,7 @@
                         });
                     });
                 });
-                
+
                 describe('when question does not exist', function () {
                     var objective = { id: 1, questions: [] };
 
@@ -167,7 +167,7 @@
                     var question = { id: 0, title: 'lalal' };
                     var objective = { id: 1, questions: [question] };
 
-                    it('should resolve promise', function () {
+                    it('should resolve promise with updated entry', function () {
                         var promise = questionRepository.update(objective.id, { id: 0, title: 'smth' });
                         getObjectiveDeferred.resolve(objective);
 
@@ -176,6 +176,7 @@
                         });
                         runs(function () {
                             expect(promise.inspect().state).toEqual('fulfilled');
+                            expect(promise.inspect().value.id).toEqual(question.id);
                         });
                     });
                 });
