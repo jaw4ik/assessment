@@ -14,6 +14,18 @@
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=787A5D87526E2B45AB242FC2C69C8EE8/Text/@EntryValue">it('should be observable', function () {    &#xD;
     expect($OBJECT$.$PROPERTY_NAME$).toBeObservable();&#xD;
 });</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=7A944149B69C7D4B9E0EEC3622BDAB0C/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=7A944149B69C7D4B9E0EEC3622BDAB0C/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=7A944149B69C7D4B9E0EEC3622BDAB0C/Field/=REGION_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=7A944149B69C7D4B9E0EEC3622BDAB0C/Field/=REGION_005FNAME/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=7A944149B69C7D4B9E0EEC3622BDAB0C/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=7A944149B69C7D4B9E0EEC3622BDAB0C/Scope/=4B37B5D594083A4BB9DEB0E10E61D85E/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=7A944149B69C7D4B9E0EEC3622BDAB0C/Scope/=4B37B5D594083A4BB9DEB0E10E61D85E/Type/@EntryValue">InCssFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=7A944149B69C7D4B9E0EEC3622BDAB0C/Shortcut/@EntryValue">region</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=7A944149B69C7D4B9E0EEC3622BDAB0C/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=7A944149B69C7D4B9E0EEC3622BDAB0C/Text/@EntryValue">/*#region $REGION_NAME$*/&#xD;
+&#xD;
+/*#endregion $REGION_NAME$*/</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/@KeyIndexDefined">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Description/@EntryValue">jasmine xdescription</s:String>
