@@ -17,11 +17,24 @@
             }
         };
 
+        var onDragDrop = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            event.returnValue = false;
+            
+            return false;
+        };
+
         var $elem = $(element);
         $elem.bind('keypress', onKeyPress);
+        $elem.bind('dragover', onDragDrop);
+        $elem.bind('drop', onDragDrop);
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
             $elem.unbind('keypress', onKeyPress);
+            $elem.unbind('dragover', onDragDrop);
+            $elem.unbind('drop', onDragDrop);
         });
     },
     
