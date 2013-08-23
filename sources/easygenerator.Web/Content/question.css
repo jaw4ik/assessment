@@ -711,26 +711,23 @@
 
 /*#region Create new question navigation button*/
 
-.nav-control-item {
-    cursor: pointer;
-    opacity: 0.75;
-    vertical-align: top;
-    width: auto;
+.question.navbar {
+    width: 100%;
 }
 
-.nav-control.create-question {
-    width: auto;
+.question .nav-control.flexible {
+    display: block;
+    margin-right: 250px;
 }
 
-    .nav-control.create-question .create-question-image {
-        display: inline-block;
-        width: 57px;
-        height: 57px;
-        background: url('images/nav-icons.png') no-repeat top left;
-        background-position: 0 -228px;
-    }
+.nav-icon.create-question-image {
+    background-image: url('images/nav-icons.png');
+    background-position: 0 -228px;
+    background-repeat: no-repeat;
+}
 
-    .nav-control.create-question .nav-title {
-        margin-right: 10px;
-    }
+.question .fixed .nav-title {
+    padding-right: 10px;
+}
+
 /*#endregion Create new question navigation button*/
