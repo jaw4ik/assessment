@@ -86,14 +86,12 @@
     color: #666;
     font-family: Tahoma, sans-serif;
     font-size: 12px;
+    table-layout: fixed;
 }
 
-    .condition-title {
-        width: 45%;
-    }
-
 .condition-title {
-    padding: 8px;
+    width: 45%;
+    padding: 4px 8px;
     vertical-align: top;
 }
 
@@ -103,16 +101,24 @@
     text-transform: lowercase;
 }
 
-.condition-date-time-text:before,
-.condition-date-text:before {
-    content: '';
-    display: block;
-    height: 16px;
-    width: 16px;
-    float: left;
-    margin-right: 10px;
-    background-color: red;
-}
+    .condition-date-time-text:before,
+    .condition-date-text:before {
+        content: '';
+        display: block;
+        height: 16px;
+        width: 16px;
+        float: left;
+        margin-right: 10px;
+        background-image: url(images/middle-sized-icons-pack.png);
+    }
+
+    .condition-date-time-text:before {
+        background-position: -6px -326px;
+    }
+
+    .condition-date-text:before {
+        background-position: -6px -350px;
+    }
 
 .question-info-popup-triangle-wrapper {
     position: absolute;
@@ -724,7 +730,7 @@
         background-position: 0 -228px;
     }
 
-.nav-control.create-question .nav-title{
-    margin-right: 10px;
-}
+    .nav-control.create-question .nav-title {
+        margin-right: 10px;
+    }
 /*#endregion Create new question navigation button*/
