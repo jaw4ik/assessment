@@ -79,9 +79,7 @@
                         <div class="text-block" data-bind="css: { 'active': title.isEditing(), error: !title.isValid() }">
                             <textarea class="editarea" data-bind="singleLineValue: title, valueUpdate: 'afterkeydown', autoResize: true, hasFocus: title.isEditing, event: { focus: startEditQuestionTitle.bind($data), blur: endEditQuestionTitle.bind($data) }"></textarea>
                             <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
-                                <span data-bind="text: title().length"></span>
-                                <span>/</span>
-                                <span data-bind="text: questionTitleMaxLength"></span>
+                                <span data-bind="text: title().length"></span><span>/</span><span data-bind="text: questionTitleMaxLength"></span>
                             </div>
                         </div>
                     </div>
