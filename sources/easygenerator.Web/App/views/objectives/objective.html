@@ -4,10 +4,10 @@
 
     <header class="page-header-wrapper">
         <aside class="nav-element-wrapper previous">
-            <!-- ko if: _.isNumber(previousObjectiveId)  -->
+            <!-- ko ifnot: _.isNullOrUndefined(previousObjectiveId)  -->
             <a class="nav-element prev-btn" href="#" title="Previous" data-bind="click: navigateToPreviousObjective, localize: { title: 'previous' }"></a>
             <!-- /ko -->
-            <!-- ko ifnot: _.isNumber(previousObjectiveId) -->
+            <!-- ko if: _.isNullOrUndefined(previousObjectiveId) -->
             <span class="nav-element prev-btn disabled" title="Previous" data-bind="localize: { title: 'previous' }"></span>
             <!-- /ko -->
         </aside>
@@ -31,10 +31,10 @@
             </div>
         </div>
         <aside class="nav-element-wrapper next">
-            <!-- ko if: _.isNumber(nextObjectiveId) -->
+            <!-- ko ifnot: _.isNullOrUndefined(nextObjectiveId) -->
             <a class="nav-element next-btn" href="#" title="Next" data-bind="click: navigateToNextObjective, localize: { title: 'next' }"></a>
             <!-- /ko -->
-            <!-- ko ifnot: _.isNumber(nextObjectiveId) -->
+            <!-- ko if: _.isNullOrUndefined(nextObjectiveId) -->
             <span class="nav-element next-btn disabled" title="Next" data-bind="localize: { title: 'next' }"></span>
             <!-- /ko -->
         </aside>
