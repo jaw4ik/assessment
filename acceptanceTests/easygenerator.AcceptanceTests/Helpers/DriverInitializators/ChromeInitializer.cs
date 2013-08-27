@@ -20,6 +20,7 @@ namespace easygenerator.AcceptanceTests.Helpers.DriverInitializators
             preferencesPath = Path.Combine(chromeDirectory, "Default\\Preferences");
             opt.AddArgument(@"user-data-dir=" + chromeDirectory);
             opt.AddArgument("--lang=en");
+            opt.AddArguments("no-default-browser-check");
         }
         public override void SetNoCashe()
         {

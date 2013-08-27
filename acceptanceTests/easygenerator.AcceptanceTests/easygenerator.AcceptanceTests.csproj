@@ -72,10 +72,10 @@
       <HintPath>..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver">
-      <HintPath>..\packages\Selenium.WebDriver.2.33.0\lib\net40\WebDriver.dll</HintPath>
+      <HintPath>..\packages\Selenium.WebDriver.2.35.0\lib\net40\WebDriver.dll</HintPath>
     </Reference>
     <Reference Include="WebDriver.Support">
-      <HintPath>..\packages\Selenium.Support.2.33.0\lib\net40\WebDriver.Support.dll</HintPath>
+      <HintPath>..\packages\Selenium.Support.2.35.0\lib\net40\WebDriver.Support.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Choose>
@@ -271,7 +271,7 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>IF NOT EXIST ChromeDriver.exe (xcopy $(ProjectDir)..\packages\WebDriver.ChromeDriver.26.0.1383.1\tools\ChromeDriver.exe)
+    <PostBuildEvent>IF NOT EXIST ChromeDriver.exe (xcopy $(ProjectDir)..\packages\ChromeDriver2.1.2.1.210652\tools\chromedriver.exe)
 IF NOT EXIST IEDriverServer.exe (xcopy $(ProjectDir)..\packages\WebDriver.IEDriver.2.29.1.1\tools\IEDriverServer.exe)
 IF NOT EXIST StartServer.bat (xcopy $(ProjectDir)..\StartServer.bat)
 IF EXIST "easygenerator.Web\" (rd /Q /S "easygenerator.Web")
