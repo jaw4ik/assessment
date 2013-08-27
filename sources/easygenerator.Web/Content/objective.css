@@ -61,7 +61,6 @@
 .objective-text-wrapper .edit-field .text-block textarea {
     min-height: 93px;
 }
-
 .objective-image {
     height: 111px;
     width: 176px;
@@ -161,8 +160,6 @@
         top: 30px;
         white-space: nowrap;
         color: #666;
-        font-size: 26px;
-        font-family: 'Rabiohead-Regular', sans-serif;
     }
 
     .add-new-item-tip .add-new-item-tip-arrow {

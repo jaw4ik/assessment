@@ -1,7 +1,7 @@
 ﻿@font-face {
-    font-family: 'Rabiohead-Regular';
-    src: url('font/rabiohead_0.eot');
-    src: url('font/rabiohead_0.eot') format('embedded-opentype'), url('font/rabiohead_0.svg#RabioheadRegular') format('svg'), url('font/rabiohead_0.woff') format('woff'), url('font/rabiohead_0.ttf') format('truetype');
+    font-family: 'AlphaMackAOERegular';
+    src: url('font/alphamacaoe.eot');
+    src: url('font/alphamacaoe.eot') format('embedded-opentype'), url('font/alphamacaoe.woff') format('woff'), url('font/alphamacaoe.ttf') format('truetype'), url('font/alphamacaoe.svg#AlphaMackAOERegular') format('svg');
 }
 
 .question {
@@ -630,8 +630,6 @@
     right: 15px;
     top: 40px;
     white-space: nowrap;
-    font-size: 26px;
-    font-family: 'Rabiohead-Regular', sans-serif;
 }
 
 .create-question-tip .create-question-tip-arrow {
@@ -754,3 +752,10 @@
 }
 
 /*#endregion Create new question navigation button*/
+
+/*#region hand-writing generic*/
+.hand-writing {
+    font-size: 30px;
+    font-family: 'AlphaMackAOERegular', sans-serif;
+}
+/*#endregion hand-writing generic*/
