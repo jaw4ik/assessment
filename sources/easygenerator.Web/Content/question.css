@@ -741,7 +741,7 @@
 
 .question .nav-control.flexible {
     display: block;
-    margin-right: 310px;
+    margin-right: 327px;
 }
 
 .nav-icon.create-question-image {
@@ -759,6 +759,7 @@
 .question .flexible .nav-title {
     margin-left: 0;
     padding-left: 10px;
+    padding-right: 20px;
 }
 
 /*#endregion Create new question navigation button*/
