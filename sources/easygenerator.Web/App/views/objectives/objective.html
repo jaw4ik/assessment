@@ -32,13 +32,11 @@
     <div class="questions-header clearfix">
         <div class="questions-header-title" data-bind="css: { 'alone': questions().length <= 1 }">
             <a class="questions-header-create-link" href="/#" data-bind="click: navigateToCreateQuestion, localize: { title: 'addNewQuestion' }"></a>
-            <span data-bind="localize: { text: 'relatedQuestion' }"></span>
+            <span class="header-title-text" data-bind="localize: { text: 'relatedQuestion' }"></span>
             <!-- ko if: canDeleteQuestions() -->
-            <span class="objective-toolbar-remove-btn-wrapper">
-                <span class="nav-element enabled" data-bind="click: deleteSelectedQuestions, localize: { title: 'remove' }">
-                    <span class="objective-toolbar-remove-icon"></span>
+                <span class="header-toolbar-item-wrapper" data-bind="click: deleteSelectedQuestions, localize: { title: 'remove' }">
+                    <span class="toolbar-remove-icon"></span>
                 </span>
-            </span>
             <!-- /ko -->
             <hr />
         </div>
@@ -62,7 +60,7 @@
     </div>
 
     <!-- ko if: questions().length > 0 -->
-     <div class="content-list-wrapper objective-questions-list">
+    <div class="content-list-wrapper objective-questions-list">
         <ul class="content-list unstyled">
             <!-- ko foreach: questions -->
             <li class="content-list-item" data-bind="css: { 'selected': isSelected }">

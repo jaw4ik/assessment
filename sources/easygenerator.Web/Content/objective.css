@@ -54,9 +54,9 @@
     text-align: left;
 }
 
-.nav-title.inline {
-    vertical-align: top;
-}
+    .nav-title.inline {
+        vertical-align: top;
+    }
 
 .objective-image {
     height: 111px;
@@ -69,31 +69,69 @@
     padding: 0 15px;
 }
 
-.objective-toolbar-remove-btn-wrapper {
-    margin-left: 10px;
-    margin-right: 10px;
-    width: 32px;
-    height: 32px;
-    -webkit-border-radius: 16px;
-    -moz-border-radius: 16px;
-    border-radius: 16px;
-    background-color: #E9E9E9;
-    border: 1px solid #DCDCDC;
+/*#region OBJECTIVE TOOLBAR*/
+
+.questions-header .header-title-text {
+    margin-right: 25px;
+    margin-left: 5px;
 }
 
-.objective-toolbar-remove-icon {
+.questions-header .header-toolbar-item-wrapper {
+    width: 40px;
+    height: 28px;
+    margin-right: 25px;
+    text-align: center;
+    -moz-border-radius: 18px / 18px;
+    -webkit-border-radius: 18px / 18px;
+    border-radius: 18px / 18px;
+    -webkit-box-shadow: inset 0 3px 3px -3px #212121;
+    -moz-box-shadow: inset 0 3px 3px -3px #212121;
+    box-shadow: inset 0 3px 3px -3px #212121;
+    background: #626262; /* Old browsers */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIxJSIgc3RvcC1jb2xvcj0iIzYyNjI2MiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3YzdjN2MiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #626262 1%, #7c7c7c 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#626262), color-stop(100%,#7c7c7c)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #626262 1%,#7c7c7c 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #626262 1%,#7c7c7c 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #626262 1%,#7c7c7c 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #626262 1%,#7c7c7c 100%); /* W3C */
+}
+
+.ie9 .questions-header .header-toolbar-item-wrapper {
+    filter: none;
+}
+
+.questions-header .header-toolbar-item-wrapper:hover {
+    background: #4b4b4b; /* Old browsers */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzRiNGI0YiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3MTcxNzEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #4b4b4b 0%, #717171 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4b4b4b), color-stop(100%,#717171)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #4b4b4b 0%,#717171 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #4b4b4b 0%,#717171 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #4b4b4b 0%,#717171 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #4b4b4b 0%,#717171 100%); /* W3C */
+}
+
+.ie9 .questions-header .header-toolbar-item-wrapper:hover {
+    filter: none;
+}
+
+.questions-header .toolbar-remove-icon {
     display: inline-block;
     height: 22px;
     width: 28px;
+    margin-top: 2px;
     vertical-align: middle;
     background-image: url(images/middle-sized-icons-pack.png);
-    background-position: center -222px;
+    background-position: 0 -367px;
     background-repeat: no-repeat;
 }
 
 .objective-questions-list {
     margin-top: 15px;
 }
+
+/*#endregion OBJECTIVE TOOLBAR*/
 
 /*#region ROTATION*/
 
