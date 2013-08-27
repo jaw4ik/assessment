@@ -59,7 +59,7 @@
 
             dataContext.objectives.push(new objectiveModel(objective));
 
-            objectiveBriefRepository.getCollection().then(function(collection) {
+            objectiveBriefRepository.getCollection().then(function (collection) {
                 collection.push({
                     id: objective.id,
                     title: objective.title,
@@ -85,7 +85,7 @@
                     deferred.reject('Objective data is null');
                 }
 
-                http.post('objective/create', objective)
+                http.post('api/objective/create', objective)
                     .done(function (response) {
                         if (_.isUndefined(response)) {
                             deferred.reject('Response is undefined');
@@ -96,21 +96,24 @@
                             return;
                         }
 
-                        if (!response.isSuccessful) {
+                        if (!response.success) {
                             deferred.reject('Response is not successful');
                             return;
                         }
-                        if (_.isUndefined(response.objectiveId)) {
+
+                        var objectiveId = response.data;
+
+                        if (_.isUndefined(objectiveId)) {
                             deferred.reject('Objective Id is undefined');
                             return;
                         }
-                        if (_.isNull(response.objectiveId)) {
+                        if (_.isNull(objectiveId)) {
                             deferred.reject('Objective Id is null');
                             return;
                         }
 
-                        dataContext.objectives.push(objectiveModel({ id: response.objectiveId, title: objective.title, questions: [] }));
-                        deferred.resolve(response.objectiveId);
+                        dataContext.objectives.push(objectiveModel({ id: objectiveId, title: objective.title, questions: [] }));
+                        deferred.resolve(objectiveId);
                     })
                     .fail(function (reason) {
                         deferred.reject(reason);

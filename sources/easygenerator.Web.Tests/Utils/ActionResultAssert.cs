@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using easygenerator.Web.Components.ActionResults;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace easygenerator.Web.Tests.Utils
@@ -98,6 +99,32 @@ namespace easygenerator.Web.Tests.Utils
         internal static void IsJsonResult(object result)
         {
             Assert.IsInstanceOfType(result, typeof(JsonResult));
+        }
+
+        internal static void IsJsonErrorResult(object result)
+        {
+            Assert.IsInstanceOfType(result, typeof(JsonErrorResult));
+        }
+
+        internal static void IsJsonErrorResult(object result, object brokenRules)
+        {
+            Assert.IsInstanceOfType(result, typeof(JsonErrorResult));
+
+            var jsonErrorResult = result as JsonErrorResult;
+            Assert.AreEqual(brokenRules, jsonErrorResult.BrokenRules);
+        }
+
+        internal static void IsJsonSuccessResult(object result)
+        {
+            Assert.IsInstanceOfType(result, typeof(JsonSuccessResult));
+        }
+
+        internal static void IsJsonSuccessResult(object result, object data)
+        {
+            Assert.IsInstanceOfType(result, typeof(JsonSuccessResult));
+
+            var jsonSuccessResult = result as JsonSuccessResult;
+            Assert.AreEqual(data, jsonSuccessResult.Data);
         }
     }
 }

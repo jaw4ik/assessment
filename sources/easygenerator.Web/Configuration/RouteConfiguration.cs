@@ -18,24 +18,30 @@ namespace easygenerator.Web.Configuration
                 defaults: new { controller = "Application", action = "ApplicationData" }
             );
 
+            //routes.MapRoute(
+            //    name: "CreateObjective",
+            //    url: "objective/create",
+            //    defaults: new { controller = "Objective", action = "Create" }
+            //);
+
+            //routes.MapRoute(
+            //    name: "ObjectiveDetails",
+            //    url: "objective/details",
+            //    defaults: new { controller = "Objective", action = "Details" }
+            //);
+
+            //routes.MapRoute(
+            //    name: "Objectives",
+            //    url: "objectives",
+            //    defaults: new { controller = "Objective", action = "Index" }
+            //);
+
             routes.MapRoute(
                 name: "CreateObjective",
-                url: "objective/create",
+                url: "api/objective/create",
                 defaults: new { controller = "Objective", action = "Create" }
             );
 
-
-            routes.MapRoute(
-                name: "ObjectiveDetails",
-                url: "objective/details",
-                defaults: new { controller = "Objective", action = "Details" }
-            );
-
-            routes.MapRoute(
-                name: "Objectives",
-                url: "objectives",
-                defaults: new { controller = "Objective", action = "Index" }
-            );
 
             routes.MapRoute(
                 name: "BuildExperience",

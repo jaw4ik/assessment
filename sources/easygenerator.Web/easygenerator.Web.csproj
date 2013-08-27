@@ -151,14 +151,17 @@
     <Compile Include="BuildExperience\PackageModel\ExplanationPackageModel.cs" />
     <Compile Include="BuildExperience\PackageModel\ObjectivePackageModel.cs" />
     <Compile Include="BuildExperience\PackageModel\QuestionPackageModel.cs" />
+    <Compile Include="Components\ActionResults\JsonErrorResult.cs" />
+    <Compile Include="Components\ActionResults\JsonSuccessResult.cs" />
     <Compile Include="Configuration\BundleConfiguration.cs" />
     <Compile Include="Configuration\ContainerConfiguration.cs" />
     <Compile Include="Configuration\FilterConfiguration.cs" />
     <Compile Include="Configuration\RouteConfiguration.cs" />
+    <Compile Include="Controllers\Api\ObjectiveController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="BuildExperience\BuildResult.cs" />
+    <Compile Include="Components\DefaultController.cs" />
     <Compile Include="Controllers\ExperienceController.cs" />
-    <Compile Include="Controllers\ObjectiveController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

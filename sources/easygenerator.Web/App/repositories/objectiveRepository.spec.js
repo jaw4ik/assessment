@@ -60,7 +60,7 @@
 
                 describe('when objective data is an object', function () {
 
-                    it('should send request to server to /objective/create', function () {
+                    it('should send request to server to api/objective/create', function () {
                         var objective = {};
                         var promise = objectiveRepository.addObjective(objective);
 
@@ -70,7 +70,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(http.post).toHaveBeenCalledWith('objective/create', objective);
+                            expect(http.post).toHaveBeenCalledWith('api/objective/create', objective);
                         });
                     });
 
@@ -152,10 +152,10 @@
 
                                 describe('and response is successful', function () {
 
-                                    describe('and objective id is undefined', function () {
+                                    describe('and response data is undefined', function () {
 
                                         beforeEach(function () {
-                                            post.resolve({ isSuccessful: true });
+                                            post.resolve({ success: true });
                                         });
 
                                         it('should reject promise', function () {
@@ -171,10 +171,10 @@
 
                                     });
 
-                                    describe('and objective id is null', function () {
+                                    describe('and response data is null', function () {
 
                                         beforeEach(function () {
-                                            post.resolve({ isSuccessful: true, objectiveId: null });
+                                            post.resolve({ success: true, data: null });
                                         });
 
                                         it('should reject promise', function () {
@@ -196,7 +196,7 @@
                                         var objectiveTitle = 'objectiveTitle';
 
                                         beforeEach(function () {
-                                            post.resolve({ isSuccessful: true, objectiveId: objectiveId });
+                                            post.resolve({ success: true, data: objectiveId });
                                         });
 
                                         it('should resolve promise with objective id', function () {

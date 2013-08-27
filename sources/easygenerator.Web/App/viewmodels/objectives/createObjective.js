@@ -1,4 +1,4 @@
-﻿define(['repositories/objectiveRepository', 'services/navigation', 'eventTracker'],
+﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker'],
     function (objectiveRepository, router, eventTracker) {
 
         var
@@ -42,7 +42,7 @@
                     return;
                 }
 
-                objectiveRepository.add(title()).then(function (addedObjective) {
+                objectiveRepository.addObjective({ title: title() }).then(function () {
                     title('');
                     validationVisible(false);
                 });
@@ -50,14 +50,14 @@
 
             createAndEdit = function () {
                 sendEvent(events.createAndEdit);
-                
+
                 if (!title.isValid()) {
                     validationVisible(true);
                     return;
                 }
-                
-                objectiveRepository.add(title()).then(function (addedObjective) {
-                    router.navigate('objective/' + addedObjective.id);
+
+                objectiveRepository.addObjective({ title: title() }).then(function (objectiveId) {
+                    router.navigate('objective/' + objectiveId);
                 });
             };
 
