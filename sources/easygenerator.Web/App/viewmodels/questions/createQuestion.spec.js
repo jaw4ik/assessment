@@ -1,7 +1,7 @@
 ﻿define(function (require) {
     "use strict";
 
-    var viewModel = require('viewModels/questions/createQuestion'),
+    var viewModel = require('viewmodels/questions/createQuestion'),
         eventTracker = require('eventTracker'),
         router = require('plugins/router'),
         objectiveRepository = require('repositories/objectiveRepository'),

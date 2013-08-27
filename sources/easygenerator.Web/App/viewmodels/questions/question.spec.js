@@ -2,7 +2,7 @@ define(function (require) {
     "use strict";
 
     var
-        viewModel = require('viewModels/questions/question'),
+        viewModel = require('viewmodels/questions/question'),
         router = require('services/navigation'),
         objectiveModel = require('models/objective'),
         questionModel = require('models/question'),
