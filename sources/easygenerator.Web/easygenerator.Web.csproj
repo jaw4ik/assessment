@@ -174,7 +174,7 @@
     <Content Include="App\services\downloadExperience.js" />
     <Content Include="App\services\navigation.js" />
     <Content Include="Content\durandal.css" />
-    <Content Include="Content\font\rabiohead_0.svg" />
+    <Content Include="Content\font\alphamacaoe.svg" />
     <Content Include="Content\images\build-sprite.png" />
     <Content Include="Content\images\emptyBox.png" />
     <Content Include="Content\images\info-icon.png" />
@@ -195,9 +195,9 @@
     <Content Include="Scripts\durandal\system.js" />
     <Content Include="Scripts\durandal\viewEngine.js" />
     <Content Include="Scripts\durandal\viewLocator.js" />
-    <Content Include="Content\font\rabiohead_0.eot" />
-    <Content Include="Content\font\rabiohead_0.ttf" />
-    <Content Include="Content\font\rabiohead_0.woff" />
+    <Content Include="Content\font\alphamacaoe.eot" />
+    <Content Include="Content\font\alphamacaoe.ttf" />
+    <Content Include="Content\font\alphamacaoe.woff" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
