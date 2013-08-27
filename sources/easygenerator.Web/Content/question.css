@@ -442,7 +442,6 @@
     border: 1px solid transparent;
     border-left: 1px dashed #e1e1e1;
     text-align: center;
-    text-align: center;
 }
 
 .answer-option-item.active .question-answer-delete-wrapper,
@@ -604,6 +603,7 @@
         clear: both;
         margin-bottom: 10px;
         width: 100%;
+        text-align: left;
     }
 
     .question .btn + .btn {
