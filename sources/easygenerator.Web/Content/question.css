@@ -19,6 +19,8 @@
     margin-left: 225px;
 }
 
+/*#region Info button*/
+
 .question .info-btn-holder {
     line-height: 92px;
     height: 92px;
@@ -26,6 +28,7 @@
 
 .question .info-btn-wrapper {
     display: inline-block;
+    letter-spacing: normal;
     height: 32px;
     width: 32px;
     position: relative;
@@ -43,6 +46,10 @@
     background-repeat: no-repeat;
     border-radius: 16px;
 }
+
+/*#endregion Info button*/
+
+/*#region Info popup*/
 
 .question .info-popup-wrapper {
     display: none;
@@ -90,7 +97,6 @@
 }
 
 .condition-title {
-    width: 45%;
     padding: 4px 8px;
     vertical-align: top;
 }
@@ -143,6 +149,8 @@
     -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, .1);
     box-shadow: 0 0 4px rgba(0, 0, 0, .1);
 }
+
+/*#endregion Info popup*/
 
 .question-content {
     border: 1px solid #E1E1E1;
@@ -526,7 +534,7 @@
     }
 }
 
-/* Create question page */
+/*#region Create question page*/
 
 .create-question-content-wrapper {
     padding-top: 11px;
@@ -634,7 +642,9 @@
     top: 10px;
 }
 
-/* buttons */
+/*#endregion Create qyestion page*/
+
+/*#region Buttons generic*/
 
 .btn {
     font-family: Tahoma, sans-serif;
@@ -693,10 +703,9 @@
 .btn + .btn {
     margin-left: 20px;
 }
+/*#endregion Buttons generic*/
 
-/*****************************
- INFO POPUP
-*****************************/
+/*#region Info-popup*/
 
 .page-header:hover .info-popup {
     display: block;
@@ -708,6 +717,8 @@
     background-color: #DEDFE3;
     width: 170px;
 }
+
+/*#endregion Info-popup*/
 
 /*#region Create new question navigation button*/
 
