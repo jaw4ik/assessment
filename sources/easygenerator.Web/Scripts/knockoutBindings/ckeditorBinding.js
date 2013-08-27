@@ -54,6 +54,12 @@
             editor.on('change', function () {
                 data(editor.getData());
             });
+            
+            editor.on('paste', function () {
+                setTimeout(function () {
+                    filterContent(editor.editable().$);
+                }, 100);
+            });
 
             $(editor.editable().$).on('drop', function () {
                 setTimeout(function() {
