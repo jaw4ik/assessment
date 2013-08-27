@@ -45,7 +45,6 @@
                 objectiveRepository.add(title()).then(function (addedObjective) {
                     title('');
                     validationVisible(false);
-                    return;
                 });
             },
 
@@ -59,7 +58,6 @@
                 
                 objectiveRepository.add(title()).then(function (addedObjective) {
                     router.navigate('objective/' + addedObjective.id);
-                    return;
                 });
             };
 
