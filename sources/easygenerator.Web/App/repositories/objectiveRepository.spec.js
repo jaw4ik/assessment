@@ -243,7 +243,6 @@
 
             });
 
-
             describe('getCollection', function () {
 
                 it('should return promise', function () {
@@ -253,7 +252,18 @@
 
             });
 
+            describe("update", function() {
+                var getObjectiveDeferred;
+                beforeEach(function () {
+                    getObjectiveDeferred = Q.defer();
+                    spyOn(objectiveRepository, 'getById').andReturn(getObjectiveDeferred.promise);
+                });
 
+                it('should return promise', function () {
+                    var promise = objectiveRepository.update({ id: 0, title: 'test title' });
+                    expect(promise).toBePromise();
+                });
+            });
 
         });
 

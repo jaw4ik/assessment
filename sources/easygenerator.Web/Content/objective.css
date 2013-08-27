@@ -58,6 +58,10 @@
         vertical-align: top;
     }
 
+.objective-text-wrapper .edit-field .text-block textarea {
+    min-height: 93px;
+}
+
 .objective-image {
     height: 111px;
     width: 176px;

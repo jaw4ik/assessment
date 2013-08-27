@@ -22,9 +22,21 @@
         };
 
         self.update = function (obj) {
+            if (_.isNullOrUndefined(obj))
+                throw 'Invalid arguments';
+
             var deferred = Q.defer();
 
-            deferred.resolve(true);
+            self.getById(obj.id).then(function (objective) {
+                if (!_.isObject(objective)) {
+                    deferred.reject('Objective does not exist');
+                    return;
+                }
+
+                objective.title = obj.title;
+                objective.modifiedOn = Date.now();
+                deferred.resolve(objective);
+            });
 
             return deferred.promise;
         };

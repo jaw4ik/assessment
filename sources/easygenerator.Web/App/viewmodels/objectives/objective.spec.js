@@ -14,6 +14,8 @@
             var objective = {
                 id: '1',
                 title: 'Test Objective 1',
+                createdOn: new Date(),
+                modifiedOn: new Date(),
                 image: '',
                 questions: [
                     { id: 0, title: 'A' },
@@ -41,65 +43,56 @@
                     spyOn(repository, 'getCollection').andReturn(deferred.promise);
                 });
 
-                describe('when objectiveId is not a string', function () {
-
-                    it('should navigate to #400', function () {
-                        viewModel.activate();
-                        expect(router.navigate).toHaveBeenCalledWith('400');
-                    });
-
-                    it('should return undefined', function () {
-                        var result = viewModel.activate();
-                        expect(result).toBeUndefined();
-                    });
-
+                it('should be a function', function () {
+                    expect(viewModel.activate).toBeFunction();
                 });
 
                 it('should return promise', function () {
                     expect(viewModel.activate('id')).toBePromise();
                 });
 
-                describe('when objective not found', function () {
-
-                    it('should navigate to #404', function () {
-                        var promise = viewModel.activate('id');
-                        deferred.resolve(null);
-
-                        waitsFor(function () {
-                            return promise.isFulfilled();
-                        });
-                        runs(function () {
-                            expect(router.navigate).toHaveBeenCalledWith('404');
-                        });
-
-                    });
-
-                    it('should resolve promise with undefined', function () {
-                        var promise = viewModel.activate('id');
-                        deferred.resolve(null);
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise.inspect().state).toEqual('fulfilled');
-                            expect(promise.inspect().value).toBe(undefined);
-                        });
-                    });
-
-                });
-
-                it('should set current objective title', function () {
-                    viewModel.title = null;
+                it('should set objective title', function () {
+                    viewModel.title(null);
 
                     var promise = viewModel.activate(objective.id);
                     deferred.resolve([objective]);
+
 
                     waitsFor(function () {
                         return promise.isFulfilled();
                     });
                     runs(function () {
-                        expect(viewModel.title).toBe(objective.title);
+                        expect(viewModel.title()).toBe(objective.title);
+                    });
+                });
+
+                it('should set objective createdOn', function () {
+                    viewModel.createdOn = null;
+
+                    var promise = viewModel.activate(objective.id);
+                    deferred.resolve([objective]);
+
+
+                    waitsFor(function () {
+                        return promise.isFulfilled();
+                    });
+                    runs(function () {
+                        expect(viewModel.createdOn).toBe(objective.createdOn);
+                    });
+                });
+
+                it('should set objective modifiedOn', function () {
+                    viewModel.modifiedOn(null);
+
+                    var promise = viewModel.activate(objective.id);
+                    deferred.resolve([objective]);
+
+
+                    waitsFor(function () {
+                        return promise.isFulfilled();
+                    });
+                    runs(function () {
+                        expect(viewModel.modifiedOn()).toBe(objective.modifiedOn);
                     });
                 });
 
@@ -131,6 +124,49 @@
                     });
                 });
 
+                describe('when objectiveId is not a string', function () {
+
+                    it('should navigate to #400', function () {
+                        viewModel.activate();
+                        expect(router.navigate).toHaveBeenCalledWith('400');
+                    });
+
+                    it('should return undefined', function () {
+                        var result = viewModel.activate();
+                        expect(result).toBeUndefined();
+                    });
+
+                });
+
+                describe('when objective not found', function () {
+
+                    it('should navigate to #404', function () {
+                        var promise = viewModel.activate('id');
+                        deferred.resolve(null);
+
+                        waitsFor(function () {
+                            return promise.isFulfilled();
+                        });
+                        runs(function () {
+                            expect(router.navigate).toHaveBeenCalledWith('404');
+                        });
+
+                    });
+
+                    it('should resolve promise with undefined', function () {
+                        var promise = viewModel.activate('id');
+                        deferred.resolve(null);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeResolvedWith(undefined);
+                        });
+                    });
+
+                });
+                
                 describe('when currentSortingOption is asc', function () {
 
                     it('should sort questions asc', function () {
@@ -232,6 +268,308 @@
                     });
 
                 });
+            });
+            
+            describe('title:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.title).toBeObservable();
+                });
+
+                describe('isEditing', function () {
+
+                    it('should be observable', function () {
+                        expect(viewModel.title.isEditing).toBeObservable();
+                    });
+
+                });
+
+                describe('isValid', function () {
+
+                    it('should be observable', function () {
+                        expect(viewModel.title.isValid).toBeObservable();
+                    });
+
+                    describe('when title is empty', function () {
+
+                        it('should be false', function () {
+                            viewModel.title('');
+                            expect(viewModel.title.isValid()).toBeFalsy();
+                        });
+
+                    });
+
+                    describe('when title is longer than 255', function () {
+
+                        it('should be false', function () {
+                            viewModel.title(utils.createString(viewModel.titleMaxLength + 1));
+                            expect(viewModel.title.isValid()).toBeFalsy();
+                        });
+
+                    });
+
+                    describe('when title is not empty and not longer than 255', function () {
+
+                        it('should be true', function () {
+                            viewModel.title(utils.createString(viewModel.titleMaxLength - 1));
+                            expect(viewModel.title.isValid()).toBeTruthy();
+                        });
+
+                    });
+                });
+            });
+
+            describe('modifiedOn:', function () {
+                it('should be observable', function () {
+                    expect(viewModel.modifiedOn).toBeObservable();
+                });
+            });
+
+            describe('titleMaxLength:', function () {
+
+                it('should be defined', function () {
+                    expect(viewModel.titleMaxLength).toBeDefined();
+                });
+
+                it('should be 255', function () {
+                    expect(viewModel.titleMaxLength).toBe(255);
+                });
+
+            });
+
+            describe('startEditTitle:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.startEditTitle).toBeFunction();
+                });
+
+                it('should set title.isEditing to true', function () {
+                    viewModel.title.isEditing(false);
+                    viewModel.startEditTitle();
+                    expect(viewModel.title.isEditing()).toBeTruthy();
+                });
+
+            });
+
+            describe('endEditTitle:', function () {
+
+                var updateDeferred, getByIdDeferred;
+
+                beforeEach(function () {
+                    updateDeferred = Q.defer();
+                    getByIdDeferred = Q.defer();
+
+                    spyOn(repository, 'update').andReturn(updateDeferred.promise);
+                    spyOn(repository, 'getById').andReturn(getByIdDeferred.promise);
+
+                    spyOn(viewModel.notification, 'update');
+                });
+
+                it('should be function', function () {
+                    expect(viewModel.endEditTitle).toBeFunction();
+                });
+
+                it('should set title.isEditing to false', function () {
+                    viewModel.title.isEditing(true);
+                    viewModel.endEditTitle();
+                    expect(viewModel.title.isEditing()).toBeFalsy();
+                });
+
+                describe('when title is not modified', function () {
+                    var promise = null;
+                    beforeEach(function () {
+                        viewModel.title(objective.title);
+                        promise = getByIdDeferred.promise.finally(function () { });
+                        getByIdDeferred.resolve(objective);
+                    });
+
+                    it('should not send event', function () {
+                        viewModel.endEditTitle();
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeResolved();
+                            expect(eventTracker.publish).not.toHaveBeenCalled();
+                        });
+                    });
+
+                    it('should not show notification', function () {
+                        viewModel.endEditTitle();
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeResolved();
+                            expect(viewModel.notification.update).not.toHaveBeenCalled();
+                        });
+                    });
+
+                    it('should not update question in repository', function () {
+                        viewModel.endEditTitle();
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeResolved();
+                            expect(repository.update).not.toHaveBeenCalled();
+                        });
+                    });
+                });
+
+                describe('when title is modified', function () {
+
+                    var getPromise = null, newTitle = objective.title + 'test';
+                    beforeEach(function () {
+
+                        viewModel.title(newTitle);
+                        getPromise = getByIdDeferred.promise.finally(function () { });
+                        getByIdDeferred.resolve(objective);
+                    });
+
+                    it('should send event \'Update objective title\'', function () {
+                        viewModel.endEditTitle();
+                        waitsFor(function () {
+                            return !getPromise.isPending();
+                        });
+                        runs(function () {
+                            expect(getPromise).toBeResolved();
+                            expect(eventTracker.publish).toHaveBeenCalledWith('Update objective title', eventsCategory);
+                        });
+                    });
+
+                    describe('and when title is valid', function () {
+
+                        it('should update objective in repository', function () {
+                            viewModel.endEditTitle();
+                            waitsFor(function () {
+                                return !getPromise.isPending();
+                            });
+                            runs(function () {
+                                expect(getPromise).toBeResolved();
+                                expect(repository.update).toHaveBeenCalled();
+                                expect(repository.update.mostRecentCall.args[0].title).toEqual(newTitle);
+                            });
+                        });
+
+                        describe('and when objective updated successfully', function () {
+
+                            it('should update notificaion', function () {
+                                viewModel.endEditTitle();
+
+                                var promise = updateDeferred.promise.finally(function () { });
+                                updateDeferred.resolve(objective);
+
+                                waitsFor(function () {
+                                    return !getPromise.isPending() && !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolved();
+                                    expect(viewModel.notification.update).toHaveBeenCalled();
+                                });
+                            });
+
+                            it('should update modifiedOn', function () {
+                                viewModel.endEditTitle();
+
+                                var modificationDate = new Date();
+                                objective.modifiedOn = modificationDate;
+
+                                var promise = updateDeferred.promise.finally(function () { });
+                                updateDeferred.resolve(objective);
+
+                                waitsFor(function () {
+                                    return !getPromise.isPending() && !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolved();
+                                    expect(viewModel.modifiedOn()).toEqual(objective.modifiedOn);
+                                });
+                            });
+                        });
+
+                    });
+
+                    describe('and when title is not valid', function () {
+
+                        it('should revert objective title value', function () {
+                            viewModel.title('');
+                            viewModel.endEditTitle();
+
+                            waitsFor(function () {
+                                return !getPromise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.title()).toBe(objective.title);
+                            });
+                        });
+
+                    });
+                });
+            });
+
+            describe('notification:', function () {
+
+                it('should be object', function () {
+                    expect(viewModel.notification).toBeObject();
+                });
+
+                it('should have text observable', function () {
+                    expect(viewModel.notification.text).toBeDefined();
+                    expect(viewModel.notification.text).toBeObservable();
+                });
+
+                it('should have visibility observable', function () {
+                    expect(viewModel.notification.visibility).toBeDefined();
+                    expect(viewModel.notification.visibility).toBeObservable();
+                });
+
+                describe('close', function () {
+
+                    it('should be function', function () {
+                        expect(viewModel.notification.close).toBeFunction();
+                    });
+
+                    describe('when called', function () {
+
+                        describe('and visibility is true', function () {
+
+                            it('should set visibility to false', function () {
+                                viewModel.notification.visibility(true);
+                                viewModel.notification.close();
+
+                                expect(viewModel.notification.visibility()).toBeFalsy();
+                            });
+
+                        });
+
+                    });
+
+                });
+
+                describe('update', function () {
+
+                    it('should be function', function () {
+                        expect(viewModel.notification.update).toBeFunction();
+                    });
+
+                    describe('when called', function () {
+
+                        describe('and visibility is false', function () {
+
+                            it('should set visibility to true', function () {
+                                viewModel.notification.visibility(false);
+                                viewModel.notification.update();
+
+                                expect(viewModel.notification.visibility()).toBeTruthy();
+                            });
+
+                        });
+
+                    });
+
+                });
+
             });
 
             describe('navigateToObjectives', function () {
