@@ -179,5 +179,22 @@ namespace easygenerator.Web.Tests.BuildExperience
         }
 
         #endregion
+
+        #region GetDownloadPath
+
+        [TestMethod]
+        public void GetDownloadPath_ShouldReturnDownloadPath()
+        {
+            //Arrage
+            var expectedPath = DownloadPath;
+
+            //Act
+            var result = _buildPathProvider.GetDownloadPath();
+
+            //Assert
+            Assert.AreEqual(expectedPath, result);
+        }
+
+        #endregion
     }
 }

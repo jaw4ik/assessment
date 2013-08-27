@@ -15,7 +15,7 @@
                 deferred.reject('Experience is already building');
                 return;
             }
-
+            
             experience.buildingStatus = constants.buildingStatuses.inProgress;
 
             http.post('experience/build', experience)
@@ -23,14 +23,20 @@
                     if (_.isUndefined(response) || _.isUndefined(response.Success)) {
                         deferred.reject('Response has invalid format');
                     }
-                    experience.buildingStatus = constants.buildingStatuses.succeed;
-                    deferred.resolve(true);
+                    if (response.Success) {
+                        experience.buildingStatus = constants.buildingStatuses.succeed;
+                        experience.packageUrl = response.PackageUrl;
+                        deferred.resolve(response);
+                    } else {
+                        experience.buildingStatus = constants.buildingStatuses.failed;
+                        experience.packageUrl = '';
+                        deferred.resolve({ Success: false, PackageUrl: '' });
+                    }
                 })
                 .fail(function () {
                     experience.buildingStatus = constants.buildingStatuses.failed;
-                    deferred.resolve(false);
+                    deferred.resolve({Success: false, PackageUrl: ''});
                 });
-
         });
 
         return deferred.promise;

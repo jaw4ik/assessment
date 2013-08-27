@@ -54,7 +54,22 @@ namespace easygenerator.Web.Tests.BuildExperience
             var result = _builder.Build(buildModel);
 
             //Assert
-            Assert.IsTrue(result);
+            Assert.IsTrue(result.Success);
+        }
+
+        [TestMethod]
+        public void Build_ShouldReturnPackageUrl()
+        {
+            //Arrange
+            DateTimeWrapper.Now = () => new DateTime(2013, 10, 12);
+            var buildModel = CreateDefaultPackageModel();
+            var packageUrl = String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now().ToUniversalTime());
+
+            //Act
+            var result = _builder.Build(buildModel);
+
+            //Assert
+            Assert.AreEqual(result.PackageUrl, packageUrl);
         }
 
         [TestMethod]

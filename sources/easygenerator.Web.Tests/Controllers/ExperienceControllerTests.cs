@@ -86,7 +86,7 @@ namespace easygenerator.Web.Tests.Controllers
             var viewModel = new ExperienceBuildModel();
             var packageModel = new ExperiencePackageModel();
             _packageModelMapperMock.Setup(item => item.MapExperienceBuildModel(It.IsAny<ExperienceBuildModel>())).Returns(packageModel);
-            _builder.Setup(item => item.Build(It.IsAny<ExperiencePackageModel>())).Returns(true);
+            _builder.Setup(item => item.Build(It.IsAny<ExperiencePackageModel>())).Returns(new BuildResult() { Success = true, PackageUrl = "" });
 
             //Act
             var result = _controller.Build(viewModel);
@@ -106,7 +106,7 @@ namespace easygenerator.Web.Tests.Controllers
             var viewModel = new ExperienceBuildModel();
             var packageModel = new ExperiencePackageModel();
             _packageModelMapperMock.Setup(item => item.MapExperienceBuildModel(It.IsAny<ExperienceBuildModel>())).Returns(packageModel);
-            _builder.Setup(item => item.Build(It.IsAny<ExperiencePackageModel>())).Returns(false);
+            _builder.Setup(item => item.Build(It.IsAny<ExperiencePackageModel>())).Returns(new BuildResult() { Success = false, PackageUrl = "" });
 
             //Act
             var result = _controller.Build(viewModel);

@@ -48,7 +48,9 @@
                                     return objective.id == objectiveId;
                                 });
                             }),
-                            buildingStatus: 'notStarted'
+                            buildingStatus: 'notStarted',
+                            builtOn: experience.builtOn,
+                            packageUrl: experience.packageUrl
                         });
                     }));
                 }).fail(function () {

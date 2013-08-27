@@ -56,5 +56,10 @@ namespace easygenerator.Web.BuildExperience
         {
             return Path.Combine(BuildPath, buildId, "content");
         }
+
+        public virtual string GetDownloadPath()
+        {
+            return DownloadPath;
+        }
     }
 }

@@ -528,7 +528,8 @@
             "createdOn" : "\/Date(1377172218190)\/",
             "modifiedOn" : "\/Date(1377172218190)\/",
             "builtOn" : "",
-            "objectives": ["0", "1", "2", "3"]
+            "objectives": ["0", "1", "2", "3"],
+            "packageUrl": ""
         },
         {
             "id": 1,
@@ -536,7 +537,8 @@
             "createdOn" : "\/Date(1377172218190)\/",
             "modifiedOn" : "\/Date(1377172218190)\/",
             "builtOn" : "",
-            "objectives": ["1", "2", "3"]
+            "objectives": ["1", "2", "3"],
+            "packageUrl": ""
         },
         {
             "id": 2,
@@ -544,7 +546,8 @@
             "createdOn" : "\/Date(1377172218190)\/",
             "modifiedOn" : "\/Date(1377172218190)\/",
             "builtOn" : "",
-            "objectives": ["0", "1", "3"]
+            "objectives": ["0", "1", "3"],
+            "packageUrl": ""
         },
         {
             "id": 3,
@@ -552,7 +555,8 @@
             "createdOn" : "\/Date(1377172218190)\/",
             "modifiedOn" : "\/Date(1377172218190)\/",
             "builtOn" : "",
-            "objectives": ["0", "2", "3"]
+            "objectives": ["0", "2", "3"],
+            "packageUrl": ""
         },
         {
             "id": 4,
@@ -560,7 +564,8 @@
             "createdOn" : "\/Date(1377172218190)\/",
             "modifiedOn" : "\/Date(1377172218190)\/",
             "builtOn" : "",
-            "objectives": []
+            "objectives": [],
+            "packageUrl": ""
         }
     ]
 }

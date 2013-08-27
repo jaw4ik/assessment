@@ -81,20 +81,25 @@
                     experience.isSelected(false);
 
                 experienceService.build(experience.id)
-                    .then(function (success) {
-                        if (success) {
+                    .then(function (response) {
+                        if (response.Success) {
                             experience.buildingStatus(constants.buildingStatuses.succeed);
                         }
                         else {
                             sendEvent(events.experienceBuildFailed);
                             experience.buildingStatus(constants.buildingStatuses.failed);
                         }
+                        experience.packageUrl = response.PackageUrl;
+                        var experienceFromDataContext = _.find(dataContext.experiences, function(item) {
+                            return item.id == experience.id;
+                        });
+                        experienceFromDataContext.packageUrl = response.PackageUrl;
                     });
             },
 
             downloadExperience = function (experience) {
                 sendEvent(events.downloadExperience);
-                downloadService.download(experience.id);
+                downloadService.download(experience.packageUrl);
             },
 
             enableOpenExperience = function (experience) {
@@ -115,6 +120,7 @@
                     experience.title = item.title;
                     experience.objectives = item.objectives;
                     experience.buildingStatus = ko.observable(item.buildingStatus);
+                    experience.packageUrl = item.packageUrl;
 
                     experience.isSelected = ko.observable(false);
                     experience.showBuildingStatus = ko.observable();

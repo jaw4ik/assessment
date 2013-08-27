@@ -86,5 +86,26 @@ namespace easygenerator.Infrastructure
             if (File.Exists(path))
                 File.Delete(path);
         }
+
+        public virtual void DeletePreviousFiles(string packagePath, string lastFileName, string pattern)
+        {
+            var filesNames = Array.FindAll(Directory.GetFiles(packagePath, pattern + "*.zip"),
+                                            filename => filename != packagePath + "\\" + lastFileName + ".zip");
+
+            if (filesNames.Length == 0)
+                return;
+
+            foreach (var filesName in filesNames)
+            {
+                try
+                {
+                    DeleteFile(filesName);
+                }
+                catch (UnauthorizedAccessException e)
+                {
+                    
+                }
+            }
+        }
     }
 }

@@ -175,15 +175,72 @@
 
                                     var experience = { buildingStatus: '' };
 
+                                    var buildResuslt = { Success: true, PackageUrl: "20130818-09-59-16" };
+
                                     getById.resolve(experience);
-                                    post.resolve({ Success: true });
+                                    post.resolve(buildResuslt);
 
                                     waitsFor(function () {
                                         return !promise.isPending();
                                     });
                                     runs(function () {
-                                        expect(promise.inspect().state).toEqual("fulfilled");
-                                        expect(promise.inspect().value).toEqual(true);
+                                        expect(promise).toBeResolved();
+                                        expect(promise.inspect().value).toEqual(buildResuslt);
+                                    });
+                                });
+
+                            });
+
+                            describe('and response.Success is false', function () {
+
+                                it('should set experience buildingStatus to \'failed\'', function () {
+                                    var promise = service.build();
+
+                                    var experience = { buildingStatus: '' };
+
+                                    getById.resolve(experience);
+                                    post.resolve({ Success: false, PackageUrl: '' });
+
+                                    waitsFor(function () {
+                                        return promise.isFulfilled();
+                                    });
+                                    runs(function () {
+                                        expect(experience.buildingStatus).toEqual(constants.buildingStatuses.failed);
+                                    });
+                                });
+                                
+                                it('should set experience packageUrl to \'\'', function () {
+                                    var promise = service.build();
+
+                                    var experience = { buildingStatus: '' };
+
+                                    getById.resolve(experience);
+                                    post.resolve({ Success: false, PackageUrl: '' });
+
+                                    waitsFor(function () {
+                                        return promise.isFulfilled();
+                                    });
+                                    runs(function () {
+                                        expect(experience.packageUrl).toEqual('');
+                                    });
+                                });
+
+                                it('should be resolve promise ', function() {
+                                    var promise = service.build();
+
+                                    var experience = { buildingStatus: '' };
+
+                                    var buildResuslt = { Success: false, PackageUrl: '' };
+
+                                    getById.resolve(experience);
+                                    post.resolve(buildResuslt);
+                                    
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(promise).toBeResolved();
+                                        expect(promise.inspect().value).toEqual(buildResuslt);
                                     });
                                 });
 
@@ -218,8 +275,8 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(promise.inspect().state).toEqual("fulfilled");
-                                    expect(promise.inspect().value).toEqual(false);
+                                    expect(promise).toBeResolved();
+                                    expect(promise.inspect().value.Success).toEqual(false);
                                 });
                             });
 

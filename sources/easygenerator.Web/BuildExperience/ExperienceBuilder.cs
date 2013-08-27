@@ -1,4 +1,5 @@
-﻿using easygenerator.Infrastructure;
+﻿using System;
+using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience.PackageModel;
 
 namespace easygenerator.Web.BuildExperience
@@ -18,9 +19,10 @@ namespace easygenerator.Web.BuildExperience
             _packageModelSerializer = packageModelSerializer;
         }
 
-        public bool Build(ExperiencePackageModel model)
+        public BuildResult Build(ExperiencePackageModel model)
         {
-            var buildId = model.Id;
+            var buildDate = String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now().ToUniversalTime());
+            var buildId = model.Id + buildDate;
             try
             {
                 _fileManager.CreateDirectory(_buildPathProvider.GetBuildDirectoryName(buildId));
@@ -54,10 +56,11 @@ namespace easygenerator.Web.BuildExperience
             }
             finally
             {
+                _fileManager.DeletePreviousFiles(_buildPathProvider.GetDownloadPath(), buildId, model.Id);
                 _fileManager.DeleteDirectory(_buildPathProvider.GetBuildDirectoryName(buildId));
             }
 
-            return true;
+            return new BuildResult() { Success = true, PackageUrl = buildId + ".zip" };
         }
     }
 }

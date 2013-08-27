@@ -1,7 +1,7 @@
 ﻿define([], function () {
 
     var download = function (experienceId) {
-        var downloadUrl = window.location.href.replace(window.location.hash, 'download/' + experienceId + '.zip');
+        var downloadUrl = window.location.href.replace(window.location.hash, 'download/' + experienceId);
         window.location.assign(downloadUrl);
     };
 

@@ -23,7 +23,7 @@ namespace easygenerator.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
             var buildingResult = _builder.Build(_packageModelMapper.MapExperienceBuildModel(model));
-            return Json(new BuildResult() { Success = buildingResult });
+            return Json(buildingResult);
         }
     }
 }

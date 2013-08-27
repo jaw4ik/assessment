@@ -5,10 +5,10 @@
         var
             router = require('plugins/router'),
             eventTracker = require('eventTracker'),
-            constants = require('constants');
+            constants = require('constants'),
+            repository = require('repositories/experienceRepository');
 
-        var
-            eventsCategory = 'Experience';
+        var eventsCategory = 'Experience';
 
 
         describe('viewModel [experience]', function () {
@@ -24,7 +24,8 @@
                         { id: '2', title: 'z' },
                         { id: '3', title: 'b' }
                     ],
-                    buildingStatus: ''
+                    buildingStatus: '',
+                    packageUrl: ''
                 },
                 nextExperienceId = '2'
             ;
@@ -39,11 +40,11 @@
             });
 
             describe('isFirstBuild:', function () {
-
+                
                 it('should be defined', function () {
                     expect(viewModel.isFirstBuild()).toBeDefined();
                 });
-
+                
             });
 
             it('should expose allowed build statuses', function () {
@@ -292,6 +293,9 @@
 
             describe('buildExperience:', function () {
 
+                var experiencerepositorygetByIdDefer;
+                var experiencerepositorygetByIdPromise;
+
                 var service = require('services/buildExperience');
 
                 var build;
@@ -299,6 +303,9 @@
                 beforeEach(function () {
                     build = Q.defer();
                     spyOn(service, 'build').andReturn(build.promise);
+                    experiencerepositorygetByIdDefer = Q.defer();
+                    experiencerepositorygetByIdPromise = experiencerepositorygetByIdDefer.promise;
+                    spyOn(repository, 'getById').andReturn(experiencerepositorygetByIdPromise);
                 });
 
                 it('should be a function', function () {
@@ -325,13 +332,11 @@
                     viewModel.buildExperience();
                     expect(service.build).toHaveBeenCalledWith(1);
                 });
-
-
+                
                 describe('when build is finished successfully', function () {
 
                     it('should change status to \'succeed\'', function () {
-
-                        build.resolve(true);
+                        build.resolve({ Success: true, PackageUrl: "packageUrl" });
 
                         viewModel.id = 1;
                         var promise = viewModel.buildExperience();
@@ -346,8 +351,7 @@
                     });
 
                     it('should resolve promise', function () {
-
-                        build.resolve(true);
+                        build.resolve({ Success: true, PackageUrl: "packageUrl" });
 
                         viewModel.id = 1;
                         var promise = viewModel.buildExperience();
@@ -356,14 +360,14 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise.inspect().state).toEqual("fulfilled");
+                            expect(promise).toBeResolved();
                         });
 
                     });
-
+                    
 
                     it('should be set isFirstBuild to false', function () {
-                        build.resolve(true);
+                        build.resolve({ Success: true, PackageUrl: "packageUrl" });
 
                         viewModel.id = 1;
                         var promise = viewModel.buildExperience();
@@ -372,18 +376,66 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            experience.buildingStatus = '';
                             expect(viewModel.isFirstBuild()).toBeFalsy();
                         });
+                    });
+
+                    it('should change packageUrl in repository to \'packageUrl\'', function () {
+                        build.resolve({ Success: true, PackageUrl: "packageUrl" });
+                        
+                        experiencerepositorygetByIdDefer.resolve(experience);
+                        
+                        viewModel.id = 1;
+                        var promise = viewModel.buildExperience();
+                        experiencerepositorygetByIdPromise.fin(function() {
+                            experience.packageUrl = 'packageUrl';
+                        });
+                        
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(experience.packageUrl).toEqual("packageUrl");
+                        });
+                    });
+
+                    it('should be called getById', function () {
+                        build.resolve({ Success: true, PackageUrl: "packageUrl" });
+
+                        var promise = viewModel.buildExperience();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(repository.getById).toHaveBeenCalled();
+                        });
+                    });
+
+                    it('should be called getById with argument 1', function() {
+                        build.resolve({ Success: true, PackageUrl: "packageUrl" });
+
+                        viewModel.id = 1;
+                        var promise = viewModel.buildExperience();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(repository.getById).toHaveBeenCalledWith(viewModel.id);
+                        });
+                    });
+
+                    afterEach(function() {
+                        experience.packageUrl = '';
                     });
 
                 });
 
                 describe('when build is failed', function () {
 
-                    it('should change status to \'succeed\'', function () {
-
-                        build.resolve(false);
+                    it('should change status to \'failed\'', function () {
+                        build.resolve({ Success: false, PackageUrl: "" });
 
                         viewModel.id = 1;
                         var promise = viewModel.buildExperience();
@@ -398,8 +450,7 @@
                     });
 
                     it('should resolve promise', function () {
-
-                        build.resolve(false);
+                        build.resolve({ Success: false, PackageUrl: "" });
 
                         viewModel.id = 1;
                         var promise = viewModel.buildExperience();
@@ -408,35 +459,66 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise.inspect().state).toEqual("fulfilled");
+                            expect(promise).toBeResolved();
                         });
 
+                    });
+                    
+                    it('should be change experinceUrl', function () {
+                        build.resolve({ Success: false, packageUrl: "" });
+
+                        viewModel.id = 1;
+                        var promise = viewModel.buildExperience();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(experience.packageUrl).toEqual("");
+                        });
+
+                    });
+                    
+                    it('should be change packageUrl in repository to \'\'', function () {
+                        build.resolve({ Success: false, PackageUrl: "" });
+
+                        experiencerepositorygetByIdDefer.resolve(experience);
+
+                        viewModel.id = 1;
+                        var promise = viewModel.buildExperience();
+                        experiencerepositorygetByIdPromise.fin(function () {
+                            experience.packageUrl = '';
+                        });
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(experience.packageUrl).toEqual("");
+                        });
                     });
 
                 });
             });
 
             describe('downloadExperience:', function () {
-                var service = require('services/downloadExperience');
 
                 beforeEach(function () {
                     spyOn(window.location, 'assign');
-                    spyOn(service, 'download');
                 });
 
                 it('should be a function', function () {
                     expect(viewModel.downloadExperience).toBeFunction();
                 });
 
-                it('should send event \"Download experience\"', function () {
-                    viewModel.downloadExperience();
+                xit('should send event \"Download experience\"', function () {
                     expect(eventTracker.publish).toHaveBeenCalledWith('Download experience', eventsCategory);
                 });
 
-                it('should call download service', function () {
+                xit('should navigate to file for download', function () {
                     viewModel.id = experience.id;
-                    viewModel.downloadExperience();
-                    expect(service.download).toHaveBeenCalledWith(experience.id);
+                    //viewModel.downloadExperience();
+                    expect(window.location.assign).toHaveBeenCalledWith('download/' + experience.id + '.zip');
                 });
             });
 
@@ -450,7 +532,7 @@
                     viewModel.resetBuildStatus();
                     expect(viewModel.status()).toEqual(constants.buildingStatuses.notStarted);
                 });
-
+                
                 it('should change isFirstBuild to true', function () {
                     viewModel.resetBuildStatus();
                     expect(viewModel.isFirstBuild()).toBeTruthy();
@@ -458,102 +540,164 @@
 
             });
 
-            describe('activate:', function () {
+            describe('startEditing:', function() {
+
+                it('should be function', function() {
+                    expect(viewModel.startEditing).toBeFunction();
+                });
+
+                it('should be set title.isEditing to true', function() {
+                    viewModel.title.isEditing(false);
+                    viewModel.startEditing();
+                    expect(viewModel.title.isEditing()).toBeTruthy();
+                });
+
+            });
+
+            describe('saveChanges:', function() {
+
+                it('should be function', function() {
+                    expect(viewModel.saveChanges).toBeFunction();
+                });
+
+                describe('when title does not valid', function() {
+
+                    it('should be set title to \'\'', function() {
+                        viewModel.title('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.');
+                        viewModel.saveChanges();
+                        expect(viewModel.title()).toBe('');
+                    });
+
+                });
+            });
+            
+            describe('startEditing:', function() {
+
+                it('should be function', function() {
+                    expect(viewModel.startEditing).toBeFunction();
+                });
+
+                it('should be set title.isEditing to true', function() {
+                    viewModel.title.isEditing(false);
+                    viewModel.startEditing();
+                    expect(viewModel.title.isEditing()).toBeTruthy();
+                });
+
+            });
+
+            describe('saveChanges:', function() {
+
+                it('should be function', function() {
+                    expect(viewModel.saveChanges).toBeFunction();
+                });
+
+                describe('when title does not valid', function() {
+
+                    it('should be set title to \'\'', function() {
+                        viewModel.title('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.');
+                        viewModel.saveChanges();
+                        expect(viewModel.title()).toBe('');
+                    });
+
+                });
+            });
+
+            describe('activate:', function() {
 
                 var repository = require('repositories/experienceRepository');
 
                 var deferred;
 
-                beforeEach(function () {
+                beforeEach(function() {
                     deferred = Q.defer();
                     spyOn(repository, 'getCollection').andReturn(deferred.promise);
                 });
 
 
-                describe('when experienceId is not a string', function () {
+                describe('when experienceId is not a string', function() {
 
-                    it('should navigate to #400', function () {
+                    it('should navigate to #400', function() {
                         viewModel.activate();
                         expect(router.navigate).toHaveBeenCalledWith('400');
                     });
 
-                    it('should return undefined', function () {
+                    it('should return undefined', function() {
                         expect(viewModel.activate()).toBeUndefined();
                     });
 
                 });
 
-                it('should return promise', function () {
+                it('should return promise', function() {
                     var promise = viewModel.activate('experienceId');
                     expect(promise).toBePromise();
                 });
 
-                describe('when experience does not exist', function () {
+                describe('when experience does not exist', function() {
 
-                    it('should navigate to #404 ', function () {
+                    it('should navigate to #404 ', function() {
                         var promise = viewModel.activate('experienceId');
                         deferred.resolve(null);
 
-                        waitsFor(function () {
+                        waitsFor(function() {
                             return promise.isFulfilled();
                         });
-                        runs(function () {
+                        runs(function() {
                             expect(router.navigate).toHaveBeenCalledWith('404');
                         });
                     });
 
-                    it('should resolve promise with undefined', function () {
+                    it('should resolve promise with undefined', function() {
                         var promise = viewModel.activate('experienceId');
                         deferred.resolve(null);
 
-                        waitsFor(function () {
+                        waitsFor(function() {
                             return !promise.isPending();
                         });
-                        runs(function () {
+                        runs(function() {
                             expect(promise).toBeResolvedWith(undefined);
                         });
                     });
 
                 });
 
-                it('should set current experience id', function () {
+                it('should set current experience id', function() {
                     viewModel.id = null;
 
                     var promise = viewModel.activate(experience.id);
                     deferred.resolve([experience]);
 
-                    waitsFor(function () {
+                    waitsFor(function() {
                         return promise.isFulfilled();
                     });
-                    runs(function () {
+                    runs(function() {
                         expect(viewModel.id).toEqual(experience.id);
                     });
                 });
 
-                it('should set current experience title', function () {
-                    viewModel.title = null;
+                it('should set current experience title', function() {
+                    viewModel.title(null);
 
                     var promise = viewModel.activate(experience.id);
                     deferred.resolve([experience]);
 
-                    waitsFor(function () {
+                    waitsFor(function() {
                         return promise.isFulfilled();
                     });
-                    runs(function () {
-                        expect(viewModel.title).toEqual(experience.title);
+                    runs(function() {
+                        expect(viewModel.title()).toEqual(experience.title);
                     });
                 });
 
-                it('should set current experience objectives sorted by title ascending', function () {
+                it('should set current experience objectives sorted by title ascending', function() {
                     viewModel.objectives = null;
 
                     var promise = viewModel.activate(experience.id);
                     deferred.resolve([experience]);
 
-                    waitsFor(function () {
+                    waitsFor(function() {
                         return promise.isFulfilled();
                     });
-                    runs(function () {
+                    runs(function() {
                         expect(viewModel.objectives.length).toEqual(4);
                         expect(viewModel.objectives).toBeSortedAsc('title');
                     });
@@ -575,9 +719,9 @@
                             expect(viewModel.isFirstBuild()).toBeTruthy();
                         });
                     });
-
+                    
                 });
-
+                
                 describe('when expierense build status not equals \'notStarted\'', function () {
 
                     it('should set isFirstBuild to false', function () {

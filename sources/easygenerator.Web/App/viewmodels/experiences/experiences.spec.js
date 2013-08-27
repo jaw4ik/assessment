@@ -524,6 +524,7 @@
 
                 beforeEach(function () {
                     experience = {
+                        Id:1,
                         buildingStatus: ko.observable(),
                         showBuildingStatus: ko.observable(),
                         isSelected: ko.observable()
@@ -582,7 +583,7 @@
                     describe('and buildExperience service return \"true\"', function () {
 
                         beforeEach(function () {
-                            buildDeferred.resolve(true);
+                            buildDeferred.resolve({Success: true, PackageUrl: ''});
                         });
 
                         it('should change experience building status to \"succeed\"', function () {
@@ -599,10 +600,28 @@
 
                     });
 
+                    describe('and buildExperince service return packageUrl', function() {
+                        beforeEach(function () {
+                            buildDeferred.resolve({ Success: true, PackageUrl: '20131218' });
+                        });
+
+                        it('should change package Url to \'20131218\'', function () {
+                            viewModel.buildExperience(experience);
+
+                            waitsFor(function () {
+                                return !buildPromise.isPending();
+                            });
+
+                            runs(function () {
+                                expect(experience.packageUrl).toEqual('20131218');
+                            });
+                        });
+                    });
+
                     describe('and buildExperience service return \"false\"', function () {
 
                         beforeEach(function () {
-                            buildDeferred.resolve(false);
+                            buildDeferred.resolve({ Success: false, PackageUrl: '' });
                         });
 
                         it('should change experience building status to \"failed\"', function () {
@@ -629,6 +648,18 @@
                             });
                         });
 
+                        it('should be change package Url to \'\'', function() {
+                            viewModel.buildExperience(experience);
+
+                            waitsFor(function () {
+                                return !buildPromise.isPending();
+                            });
+
+                            runs(function () {
+                                expect(experience.packageUrl).toEqual('');
+                            });
+                        });
+
                     });
 
                 });
@@ -640,7 +671,7 @@
                     downloadService = require('services/downloadExperience');
                 
                 beforeEach(function () {
-                    experience = { id: 'some id' };
+                    experience = { packageUrl: 'some url' };
 
                     spyOn(eventTracker, 'publish');
                     spyOn(downloadService, 'download');
@@ -657,7 +688,7 @@
 
                 it('should call download service', function () {
                     viewModel.downloadExperience(experience);
-                    expect(downloadService.download).toHaveBeenCalledWith(experience.id);
+                    expect(downloadService.download).toHaveBeenCalledWith(experience.packageUrl);
                 });
             });
 

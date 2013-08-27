@@ -8,6 +8,8 @@
             obj.title = spec.title;
             obj.objectives = spec.objectives;
             obj.buildingStatus = spec.buildingStatus;
+            obj.builtOn = spec.builtOn;
+            obj.packageUrl = spec.packageUrl;
 
             return obj;
         };

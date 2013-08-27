@@ -4,6 +4,6 @@ namespace easygenerator.Web.BuildExperience
 {
     public interface IExperienceBuilder
     {
-        bool Build(ExperiencePackageModel viewModel);
+        BuildResult Build(ExperiencePackageModel viewModel);
     }
 }
