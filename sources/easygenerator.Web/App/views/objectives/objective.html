@@ -13,14 +13,14 @@
         </aside>
         <div class="page-header clearfix">
             <div class="page-header-image white-framing">
-                <img class="image-element" alt="" data-bind="attr: { src: image }" />
+                <img class="image-element" alt="" src="/Content/images/objective.png" />
             </div>
             <div class="page-header-info objective-header-title">
                 <div class="objective-text-wrapper">
                     <div class="edit-field selectable">
-                        <div class="text-block" data-bind="css: {'active': title.isEditing(), error: !title.isValid()}">
+                        <div class="text-block" data-bind="css: { 'active': title.isEditing(), error: !title.isValid() }">
                             <textarea class="editarea" data-bind="singleLineValue: title, valueUpdate: 'afterkeydown', autoResize: true, hasFocus: title.isEditing, event: { focus: startEditTitle.bind($data), blur: endEditTitle.bind($data) }"></textarea>
-                            <div class="chars-counter" data-bind="css: { error:  !title.isValid()}">
+                            <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
                                 <span data-bind="text: title().length"></span>
                                 <span>/</span>
                                 <span data-bind="text: titleMaxLength"></span>
@@ -45,9 +45,9 @@
             <a class="questions-header-create-link" href="/#" data-bind="click: navigateToCreateQuestion, localize: { title: 'addNewQuestion' }"></a>
             <span class="header-title-text" data-bind="localize: { text: 'relatedQuestion' }"></span>
             <!-- ko if: canDeleteQuestions() -->
-                <span class="header-toolbar-item-wrapper" data-bind="click: deleteSelectedQuestions, localize: { title: 'remove' }">
-                    <span class="toolbar-remove-icon"></span>
-                </span>
+            <span class="header-toolbar-item-wrapper" data-bind="click: deleteSelectedQuestions, localize: { title: 'remove' }">
+                <span class="toolbar-remove-icon"></span>
+            </span>
             <!-- /ko -->
             <hr />
         </div>
@@ -112,11 +112,11 @@
     <!-- ko ifnot: questions().length > 0 -->
     <div class="add-new-item-tip hand-writing">
         <div class="add-new-item-tip-arrow"></div>
-        <div class="add-new-item-tip-text rotate-right" data-bind="localize: { text: 'clickToAddNewQuestion'}"></div>
+        <div class="add-new-item-tip-text rotate-right" data-bind="localize: { text: 'clickToAddNewQuestion' }"></div>
     </div>
     <div class="empty-list-wrapper">
         <div class="empty-list">
-            <div class="empty-list-text" data-bind="localize: {text: 'questionListIsEmpty'}"></div>
+            <div class="empty-list-text" data-bind="localize: { text: 'questionListIsEmpty' }"></div>
         </div>
     </div>
     <!-- /ko -->
