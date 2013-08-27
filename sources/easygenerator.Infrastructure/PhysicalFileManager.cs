@@ -101,7 +101,7 @@ namespace easygenerator.Infrastructure
                 {
                     DeleteFile(filesName);
                 }
-                catch (UnauthorizedAccessException e)
+                catch (UnauthorizedAccessException)
                 {
                     
                 }
