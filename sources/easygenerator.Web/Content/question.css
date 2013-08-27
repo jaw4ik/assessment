@@ -159,8 +159,8 @@
 
 .question .nav-title {
     width: 100%;
-    margin-left: -57px;
     padding-right: 0;
+    margin-left: -57px;
     padding-left: 70px;
 }
 
@@ -711,13 +711,17 @@
 
 /*#region Create new question navigation button*/
 
+.navbar .nav-control {
+    display: inline-block;
+}
+
 .question.navbar {
     width: 100%;
 }
 
 .question .nav-control.flexible {
     display: block;
-    margin-right: 250px;
+    margin-right: 300px;
 }
 
 .nav-icon.create-question-image {
@@ -727,7 +731,14 @@
 }
 
 .question .fixed .nav-title {
-    padding-right: 10px;
+    margin-left: -57px;
+    padding-left: 70px;
+    margin-right: 10px;
+}
+
+.question .flexible .nav-title {
+    margin-left: 0;
+    padding-left: 10px;
 }
 
 /*#endregion Create new question navigation button*/

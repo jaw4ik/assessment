@@ -346,9 +346,12 @@ COMMON CLASSES CSS-STYLES
 
 .nav-element-wrapper .nav-element {
     display: inline-block;
-    cursor: pointer;
     background-repeat: no-repeat;
     opacity: 0.6;
+}
+
+.nav-element {
+    cursor: pointer;
 }
 
 .nav-element:hover {

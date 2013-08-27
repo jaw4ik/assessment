@@ -1,19 +1,21 @@
 ﻿<div class="question container unselectable">
 
     <nav class="navbar question clearfix">
-        <a class="nav-control fixed pull-right" data-bind="click: goToCreateQuestion" href="#">
-            <div class="nav-icon create-question-image pull-right"></div>
+        <div class="nav-control fixed pull-right">
+            <div class="nav-element nav-icon create-question-image pull-right" data-bind="click: goToCreateQuestion"></div>
             <div class="nav-title">
-                <span data-bind="localize: { text: 'createNewQuestion' }"></span>
+                <span class="nav-element" data-bind="localize: { text: 'createNewQuestion' }, click: goToCreateQuestion"></span>
             </div>
-        </a>
-        <a class="nav-control flexible" data-bind="click: goToRelatedObjective" href="#">
-            <div class="nav-icon back-icon pull-left"></div>
+        </div>
+        <div class="nav-control flexible">
+            <div class="nav-element nav-icon back-icon pull-left" data-bind="click: goToRelatedObjective"></div>
             <div class="nav-title">
-                <span data-bind="localize: { text: 'backTo' }"></span>&nbsp;
-                 <span data-bind="text: ' \'' + objectiveTitle + '\''"></span>
+                <span class="nav-element" data-bind="click: goToRelatedObjective">
+                    <span data-bind="localize: { text: 'backTo' }"></span>&nbsp;
+                    <span data-bind="text: ' \'' + objectiveTitle + '\''"></span>
+                </span>
             </div>
-        </a>
+        </div>
     </nav>
 
     <header class="page-header-wrapper">
@@ -79,7 +81,9 @@
                         <div class="text-block" data-bind="css: { 'active': title.isEditing(), error: !title.isValid() }">
                             <textarea class="editarea" data-bind="singleLineValue: title, valueUpdate: 'afterkeydown', autoResize: true, hasFocus: title.isEditing, event: { focus: startEditQuestionTitle.bind($data), blur: endEditQuestionTitle.bind($data) }"></textarea>
                             <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
-                                <span data-bind="text: title().length"></span><span>/</span><span data-bind="text: questionTitleMaxLength"></span>
+                                <span data-bind="text: title().length"></span>
+                                <span>/</span>
+                                <span data-bind="text: questionTitleMaxLength"></span>
                             </div>
                         </div>
                     </div>
