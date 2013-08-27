@@ -75,6 +75,8 @@ namespace easygenerator.AcceptanceTests.Helpers
         public string BuiltOn { get; set; }
         [JsonProperty("objectives")]
         public List<int> Objectives { get; set; }
+        [JsonProperty("packageUrl")]
+        public string PackageUrl { get; set; }        
     }
 
 }
