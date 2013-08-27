@@ -1,0 +1,22 @@
+﻿<div class="form-actions">
+    <!-- ko if: isValid -->
+    <button type="submit" class="btn enabled saveAndOpen" data-bind="click: createAndEdit">
+        <span class="btn-img"></span>
+        <span class="btn-text" data-bind="localize: { text: 'createAndEdit' }"></span>
+    </button>
+    <button type="button" class="btn enabled saveAndNew" data-bind="click: createAndNew">
+        <span class="btn-img"></span>
+        <span class="btn-text" data-bind="localize: { text: 'createAndNew' }"></span>
+    </button>
+    <!-- /ko -->
+    <!-- ko ifnot: isValid -->
+    <div class="btn disabled saveAndOpen">
+        <span class="btn-img"></span>
+        <span class="btn-text" data-bind="localize: { text: 'createAndEdit' }"></span>
+    </div>
+    <button class="btn disabled saveAndNew">
+        <span class="btn-img"></span>
+        <span class="btn-text" data-bind="localize: { text: 'createAndNew' }"></span>
+    </button>
+    <!-- /ko -->
+</div>

@@ -10,7 +10,7 @@
 .navbar {
     height: 57px;
     display: inline-block;
-    margin: 20px 0 7px;
+    margin: 20px 0 0px;
 }
 
 .nav-control {
@@ -50,7 +50,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    vertical-align: middle;
     text-align: left;
 }
 
@@ -61,6 +60,7 @@
 .objective-text-wrapper .edit-field .text-block textarea {
     min-height: 93px;
 }
+
 .objective-image {
     height: 111px;
     width: 176px;
@@ -239,53 +239,6 @@
         /*min-height: 50px;*/
     }
 
-.create-objective-form-actions {
-    float: right;
-    padding-top: 25px;
-    margin-left: 225px;
-}
-
-    .create-objective-form-actions .btn {
-        float: left;
-    }
-
-        .create-objective-form-actions .btn .btn-text {
-            display: inline-block;
-            vertical-align: middle;
-            margin-left: 10px;
-        }
-
-        .create-objective-form-actions .btn .btn-img {
-            display: inline-block;
-            vertical-align: middle;
-            background-image: url(images/create-actions-sprite.png);
-            background-repeat: no-repeat;
-            width: 25px;
-            height: 25px;
-        }
-
-        .create-objective-form-actions .btn.saveAndOpen .btn-img {
-            background-position: left -25px;
-        }
-
-        .create-objective-form-actions .btn.saveAndNew .btn-img {
-            background-position: left 0;
-        }
-
-
-@media (max-width: 945px) {
-    .create-objective-form-actions .btn {
-        float: right;
-        clear: both;
-        margin-bottom: 10px;
-        width: 100%;
-        text-align: left;
-    }
-
-    .question .btn + .btn {
-        margin-left: 0;
-    }
-}
 
 .create-objective-tip {
     position: absolute;

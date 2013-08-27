@@ -176,6 +176,7 @@
     <Compile Include="ViewModels\Objective\CreateObjectiveViewModel.cs" />
     <Content Include="App\services\downloadExperience.js" />
     <Content Include="App\services\navigation.js" />
+    <Content Include="App\views\common\formactions.html" />
     <Content Include="Content\durandal.css" />
     <Content Include="Content\font\alphamacaoe.svg" />
     <Content Include="Content\images\build-sprite.png" />
