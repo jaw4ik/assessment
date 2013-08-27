@@ -96,6 +96,11 @@
         nl: 'Gewijzigd op',
         de: 'Geändert am'
     },
+    builtOn: {
+        en: 'Built on',
+        nl: 'Built on[nl]',
+        de: 'Built on[de]'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -120,9 +125,14 @@
         de: 'Neues Lernziel hinzufügen'
     },
     learningObjectiveListIsEmpty: {
-        en: 'Learning objective list is empty',
+        en: 'Learning objectives list is empty',
         nl: 'Leerdoelenlijst is leeg',
         de: 'Liste der Lernziele ist leer'
+    },
+    clickToAddNewObjective: {
+        en: 'Click to add objective',
+        nl: 'Click to add objective[nl]',
+        de: 'Click to add objective[de]'
     },
     /* End resource section for model Objectives */
     
@@ -193,27 +203,12 @@
     /* End resource section for model Experiences */
     
     /* Resource section for model CreateObjective */
-    newObjective: {
-        en: 'New Objective',
-        nl: 'New Objective[nl]',
-        de: 'New Objective[de]'
+    createNewObjective: {
+        en: 'Create New Objective',
+        nl: 'Create New Objective[nl]',
+        de: 'Create New Objective[de]'
     },
-    objectiveTitle: {
-        en: 'Objective title',
-        nl: 'Objective title[nl]',
-        de: 'Objective title[de]'
-    },
-    objectiveTitlePlaceholder: {
-        en: 'Objective title...',
-        nl: 'Objective title...[nl]',
-        de: 'Objective title...[de]'
-    },
-    objectiveThumbnail: {
-        en: 'Thumbnail',
-        nl: 'Thumbnail[nl]',
-        de: 'Thumbnail[de]'
-    },
-    typeObjectiveTitleHere: {
+    createObjectiveHint: {
         en: 'Type objective title here',
         nl: 'Typ hier de titel van de doelstelling',
         de: 'Titel des Lernziels hier eingeben'
