@@ -18,7 +18,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                var el = GetByXPath(model.BackToObjectiveLink);
+                var el = GetByXPath(model.BackToObjectiveText);
                 return el.GetTextContent();
             }
         }
@@ -28,7 +28,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             get
             {
                 var el = GetByXPath(model.QuestionTitle);
-                return el.GetTextContent();
+                return el.GetAttribute("value");
             }
         }
 
@@ -94,6 +94,12 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         internal void NavigateBackToObjective()
         {
             var link = GetByXPath(model.BackToObjectiveLink);
+            link.Click();
+        }
+
+        internal void NavigateBackToObjectiveByObjectiveTitleClick()
+        {
+            var link = GetByXPath(model.BackToObjectiveText);
             link.Click();
         }
 

@@ -20,8 +20,10 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string AnswerItemDeleteButton = ".//div[@class='question-answer-delete-wrapper']";
         public string ExplanationDeleteButton = ".//div[@class='question-explanation-delete-wrapper']";
 
-        public string BackToObjectiveLink = ".//a[contains(@class,'inline nav-control')]";
-        public string QuestionTitle = ".//div[contains(@class,'question-header-title')]";
+        public string BackToObjectiveLink = "//div[contains(@class,'nav-control') and contains(@class,'flexible')]//div[contains(@class,'nav-element')]";
+        public string BackToObjectiveText = "//div[contains(@class,'nav-control') and contains(@class,'flexible')]//span[contains(@class,'nav-element')]";
+
+        public string QuestionTitle = ".//div[contains(@class,'question-text-wrapper')]//textarea";
 
         public string AnswerOptionsBlock = ".//div[contains(@class,'question-answers')]";
         public string ExplanationsBlock = ".//div[contains(@class,'question-explanations')]";

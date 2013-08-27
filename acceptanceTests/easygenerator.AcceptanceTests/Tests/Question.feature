@@ -115,7 +115,10 @@ And answer options block is collapsed
 
 Scenario: Back action of question page navigates to relative objective page
 When open page by url 'http://localhost:5656/#/objective/1/question/1'
-And click on back to objective
+And click on back to objective on question page
 Then browser navigates to url 'http://localhost:5656/#objective/1'
 
-
+Scenario: Objectiive title of question page navigates to relative objective page
+When open page by url 'http://localhost:5656/#/objective/1/question/1'
+And click on back to objective title on question page
+Then browser navigates to url 'http://localhost:5656/#objective/1'

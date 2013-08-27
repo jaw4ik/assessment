@@ -49,7 +49,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [AfterScenario]
         public void AfterScenario()
         {
-            DriverProvider.Current().Driver.Navigate().GoToUrl("about:blank");
+            //DriverProvider.Current().Driver.Navigate().GoToUrl("about:blank");
         }
         [BeforeStep]
         public void BeforeStep()

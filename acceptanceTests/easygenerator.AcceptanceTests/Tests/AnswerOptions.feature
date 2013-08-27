@@ -69,7 +69,7 @@ Scenario: Changes to answer option data are not lost when user go out from curre
 When open page by url 'http://localhost:5656/#/objective/1/question/1'
 And click on correct answer option for 'AnswerOption11'
 And input text 'AnswerOption14' into answer option text field 'AnswerOption12'
-And click on back to objective
+And click on back to objective on question page
 And mouse hover element of questions list with title 'Question11'
 And click on open question with title 'Question11'
 Then answer options list contains only items with data
@@ -144,7 +144,7 @@ Scenario: New answer option with special symbols could be added by entering new 
 When open page by url 'http://localhost:5656/#/objective/1/question/1'
 And input text '~`!@#$%^&*()_+-={[]}:;"'|\<,.>/?№ё' into new answer option text field
 And click on collapse explanations
-And click on back to objective
+And click on back to objective on question page
 And mouse hover element of questions list with title 'Question11'
 And click on open question with title 'Question11'
 Then answer options list contains only items with data
