@@ -619,6 +619,18 @@
     .create-question-tip {
         left: -56px;
     }
+
+    .create-question-tip .create-question-tip-text {
+        right: -10px;
+        top: 35px;
+    }
+}
+
+@media (min-width: 690px) {
+    .create-question-tip .create-question-tip-text {
+        right: 20px;
+        top: 40px;
+    }
 }
 
 .create-question-tip .create-question-tip-text {
@@ -627,8 +639,6 @@
     -moz-transform: rotate(352deg);
     -ms-transform: rotate(352deg);
     transform: rotate(352deg);
-    right: 15px;
-    top: 40px;
     white-space: nowrap;
 }
 
