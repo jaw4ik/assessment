@@ -129,10 +129,10 @@
         nl: 'Leerdoelenlijst is leeg',
         de: 'Liste der Lernziele ist leer'
     },
-    clickToAddNewObjective: {
+    clickToAddObjective: {
         en: 'Click to add objective',
-        nl: 'Click to add objective[nl]',
-        de: 'Click to add objective[de]'
+        nl: 'Klik om de doelstelling toe te voegen',
+        de: 'Klicken, um Lernziel hinzuzufügen'
     },
     /* End resource section for model Objectives */
     
@@ -208,15 +208,10 @@
         nl: 'Create New Objective[nl]',
         de: 'Create New Objective[de]'
     },
-    createObjectiveHint: {
+    createObjectiveTip: {
         en: 'Type objective title here',
         nl: 'Typ hier de titel van de doelstelling',
         de: 'Titel des Lernziels hier eingeben'
-    },
-    ClickToAddObjective: {
-        en: 'Click to add objective',
-        nl: 'Klik om de doelstelling toe te voegen',
-        de: 'Klicken, um Lernziel hinzuzufügen'
     },
     /* End resource section for model CreateObjective */
     

@@ -18,6 +18,10 @@
                 answerOption: 60000,
                 explanation: 60000,
                 questionTitle: 5000
+            },
+            
+            validation: {
+                objectiveTitleMaxLength: 255   
             }
         };
     }

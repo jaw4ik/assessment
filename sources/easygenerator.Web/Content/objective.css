@@ -206,3 +206,115 @@
 }
 
 /*#endregion EMPTY LIST */
+
+
+/*#region Create objective*/
+
+
+.create-objective-content-wrapper {
+    padding-top: 11px;
+}
+
+.create-objective-form {
+    position: relative;
+    margin-left: 60px;
+    height: 100%;
+    padding-bottom: 10px;
+}
+
+    .create-objective-form .edit-field .text-block textarea {
+        min-height: 140px;
+    }
+
+.create-objective-image {
+    float: left;
+}
+
+.create-objective-text-wrapper {
+    position: relative;
+    margin-left: 225px;
+}
+
+    .create-objective-text-wrapper textarea {
+        /*min-height: 50px;*/
+    }
+
+.create-objective-form-actions {
+    float: right;
+    padding-top: 25px;
+    margin-left: 225px;
+}
+
+    .create-objective-form-actions .btn {
+        float: left;
+    }
+
+        .create-objective-form-actions .btn .btn-text {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
+        }
+
+        .create-objective-form-actions .btn .btn-img {
+            display: inline-block;
+            vertical-align: middle;
+            background-image: url(images/create-actions-sprite.png);
+            background-repeat: no-repeat;
+            width: 25px;
+            height: 25px;
+        }
+
+        .create-objective-form-actions .btn.saveAndOpen .btn-img {
+            background-position: left -25px;
+        }
+
+        .create-objective-form-actions .btn.saveAndNew .btn-img {
+            background-position: left 0;
+        }
+
+
+@media (max-width: 945px) {
+    .create-objective-form-actions .btn {
+        float: right;
+        clear: both;
+        margin-bottom: 10px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .question .btn + .btn {
+        margin-left: 0;
+    }
+}
+
+.create-objective-tip {
+    position: absolute;
+}
+
+@media (max-width: 690px) {
+    .create-objective-tip {
+        left: -56px;
+    }
+}
+
+.create-objective-tip .create-objective-tip-text {
+    position: absolute;
+    -webkit-transform: rotate(352deg);
+    -moz-transform: rotate(352deg);
+    -ms-transform: rotate(352deg);
+    transform: rotate(352deg);
+    right: 15px;
+    top: 65px;
+    white-space: nowrap;
+}
+
+.create-objective-tip .create-objective-tip-arrow {
+    background-image: url(images/typeQuestionTitleArrow.png);
+    width: 53px;
+    height: 54px;
+    position: absolute;
+    top: 10px;
+}
+
+
+/*#endregion Create objective*/

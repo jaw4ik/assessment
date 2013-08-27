@@ -1,5 +1,5 @@
-﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker'],
-    function (objectiveRepository, router, eventTracker) {
+﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'constants'],
+    function (objectiveRepository, router, eventTracker, constants) {
 
         var
             events = {
@@ -16,9 +16,8 @@
         var
             title = ko.observable('').extend({
                 required: true,
-                maxLength: 255
+                maxLength: constants.validation.objectiveTitleMaxLength
             }),
-            validationVisible = ko.observable(false),
 
             navigateToObjectives = function () {
                 sendEvent(events.navigateToObjectives);
@@ -29,7 +28,6 @@
                 var that = this;
 
                 return Q.fcall(function () {
-                    that.validationVisible(false);
                     that.title('');
                 });
             },
@@ -38,13 +36,11 @@
                 sendEvent(events.createAndNew);
 
                 if (!title.isValid()) {
-                    validationVisible(true);
                     return;
                 }
 
                 objectiveRepository.addObjective({ title: title() }).then(function () {
                     title('');
-                    validationVisible(false);
                 });
             },
 
@@ -52,7 +48,6 @@
                 sendEvent(events.createAndEdit);
 
                 if (!title.isValid()) {
-                    validationVisible(true);
                     return;
                 }
 
@@ -64,7 +59,7 @@
 
         return {
             title: title,
-            validationVisible: validationVisible,
+            objectiveTitleMaxLength: constants.validation.objectiveTitleMaxLength,
 
             activate: activate,
             navigateToObjectives: navigateToObjectives,

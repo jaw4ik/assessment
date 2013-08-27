@@ -51,14 +51,6 @@
 
             });
 
-            describe('validationVisible:', function () {
-
-                it('should be observable', function () {
-                    expect(viewModel.validationVisible).toBeObservable();
-                });
-
-            });            
-
             describe('createAndNew:', function () {
 
                 var addObjective;
@@ -73,28 +65,6 @@
                 });
 
                 describe('when triggered', function () {
-
-                    describe('and title is emty', function () {
-
-                        it('should show validation', function () {
-                            viewModel.title('');
-                            viewModel.createAndNew();
-
-                            expect(viewModel.validationVisible()).toBeTruthy();
-                        });
-
-                    });
-
-                    describe('and title is longer than 255', function () {
-
-                        it('should show validation', function () {
-                            viewModel.title(utils.createString(256));
-                            viewModel.createAndNew();
-
-                            expect(viewModel.validationVisible()).toBeTruthy();
-                        });
-
-                    });
 
                     describe('and title is valid', function () {
 
@@ -174,28 +144,7 @@
 
                 describe('when triggered', function () {
 
-                    describe('and title is empty', function () {
-
-                        it('should show validation', function () {
-                            viewModel.title('');
-                            viewModel.createAndEdit();
-
-                            expect(viewModel.validationVisible()).toBeTruthy();
-                        });
-
-                    });
-
-                    describe('and title is longer than 255', function () {
-
-                        it('should show validation', function () {
-                            viewModel.title(utils.createString(256));
-                            viewModel.createAndEdit();
-
-                            expect(viewModel.validationVisible()).toBeTruthy();
-                        });
-
-                    });
-
+                    describe('and title is emty', function () {
                     describe('and title is valid', function () {
 
                         beforeEach(function () {
