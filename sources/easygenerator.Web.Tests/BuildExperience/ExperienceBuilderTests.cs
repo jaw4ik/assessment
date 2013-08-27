@@ -31,7 +31,7 @@ namespace easygenerator.Web.Tests.BuildExperience
 
             _buildPackageCreatorMock = new Mock<BuildPackageCreator>(_fileManager.Object);
 
-            
+            DateTimeWrapper.Now = () => new DateTime(2013, 10, 12);
 
             _packageModelSerializerMock = new Mock<PackageModelSerializer>();
 
@@ -57,13 +57,12 @@ namespace easygenerator.Web.Tests.BuildExperience
             Assert.IsTrue(result.Success);
         }
 
-        /*[TestMethod]
+        [TestMethod]
         public void Build_ShouldReturnPackageUrl()
         {
             //Arrange
-            DateTimeWrapper.Now = () => new DateTime(2013, 10, 12);
             var buildModel = CreateDefaultPackageModel();
-            var packageUrl = String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now().ToUniversalTime());
+            var packageUrl = String.Format(buildModel.Id + " {0:yyyyMMdd-HH-mm-ss}-UTC.zip", DateTimeWrapper.Now().ToUniversalTime());
 
             //Act
             var result = _builder.Build(buildModel);
@@ -78,17 +77,16 @@ namespace easygenerator.Web.Tests.BuildExperience
             //Arrange
             var buildModel = CreateDefaultPackageModel();
             string buildPath = "Some path";
-            DateTimeWrapper.Now = () => new DateTime(2013, 10, 12);
-            var packageUrl = String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now().ToUniversalTime());
+            var packageUrl = String.Format(buildModel.Id + " {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now().ToUniversalTime());
 
-            _buildPathProviderMock.Setup(instance => instance.GetBuildDirectoryName(buildModel.Id)).Returns(buildPath);
+            _buildPathProviderMock.Setup(instance => instance.GetBuildDirectoryName(packageUrl)).Returns(buildPath);
             _fileManager.Setup(instance => instance.CreateDirectory(buildPath));
 
             //Act
             _builder.Build(buildModel);
 
             //Assert
-            _buildPathProviderMock.Verify(instance => instance.GetBuildDirectoryName(buildModel.Id));
+            _buildPathProviderMock.Verify(instance => instance.GetBuildDirectoryName(packageUrl));
             _fileManager.Verify(instance => instance.CreateDirectory(buildPath));
         }
 
@@ -98,16 +96,17 @@ namespace easygenerator.Web.Tests.BuildExperience
             //Arrange
             var buildModel = CreateDefaultPackageModel();
 
+            var packageUrl = String.Format(buildModel.Id + " {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now().ToUniversalTime());
             string buildPath = "Some path";
 
-            _buildPathProviderMock.Setup(instance => instance.GetBuildDirectoryName(buildModel.Id)).Returns(buildPath);
+            _buildPathProviderMock.Setup(instance => instance.GetBuildDirectoryName(packageUrl)).Returns(buildPath);
             _fileManager.Setup(instance => instance.DeleteDirectory(buildPath));
 
             //Act
             _builder.Build(buildModel);
 
             //Assert
-            _buildPathProviderMock.Verify(instance => instance.GetBuildDirectoryName(buildModel.Id));
+            _buildPathProviderMock.Verify(instance => instance.GetBuildDirectoryName(packageUrl));
             _fileManager.Verify(instance => instance.DeleteDirectory(buildPath));
         }
 
@@ -118,8 +117,9 @@ namespace easygenerator.Web.Tests.BuildExperience
             var buildModel = CreateDefaultPackageModel();
             string buildPath = "Some path";
             string templatePath = "Some template path";
+            var packageUrl = String.Format(buildModel.Id + " {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now().ToUniversalTime());
 
-            _buildPathProviderMock.Setup(instance => instance.GetBuildDirectoryName(buildModel.Id)).Returns(buildPath);
+            _buildPathProviderMock.Setup(instance => instance.GetBuildDirectoryName(packageUrl)).Returns(buildPath);
             _buildPathProviderMock.Setup(instance => instance.GetTemplateDirectoryName(It.IsAny<string>())).Returns(templatePath);
             _fileManager.Setup(instance => instance.CopyDirectory(templatePath, buildPath));
 
@@ -137,9 +137,10 @@ namespace easygenerator.Web.Tests.BuildExperience
             //Arrange
             var buildModel = CreateDefaultPackageModel();
             string contentPath = "Some path";
+            var packageUrl = String.Format(buildModel.Id + " {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now().ToUniversalTime());
 
             int callOrder = 0;
-            _buildPathProviderMock.Setup(instance => instance.GetContentDirectoryName(buildModel.Id)).Returns(contentPath);
+            _buildPathProviderMock.Setup(instance => instance.GetContentDirectoryName(packageUrl)).Returns(contentPath);
             _fileManager.Setup(instance => instance.DeleteDirectory(contentPath)).Callback(() => Assert.AreEqual(0, callOrder++));
             _fileManager.Setup(instance => instance.CreateDirectory(contentPath)).Callback(() => Assert.AreEqual(1, callOrder++));
 
@@ -149,7 +150,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             //Assert
             _buildPathProviderMock.VerifyAll();
             _fileManager.VerifyAll();
-        }*/
+        }
 
         [TestMethod]
         public void Build_ShouldCreateFolderForObjectives()
