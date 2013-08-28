@@ -101,6 +101,11 @@
         nl: 'Built on[nl]',
         de: 'Built on[de]'
     },
+    notBuilt: {
+        en: 'Not built',
+        nl: 'Not built[nl]',
+        de: 'Not built[de]'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -133,6 +138,11 @@
         en: 'Click to add objective',
         nl: 'Klik om de doelstelling toe te voegen',
         de: 'Klicken, um Lernziel hinzuzufügen'
+    },
+    objectiveCannnotBeDeleted: {
+        en: 'Learning Objective cannot be deleted, while it is related to experience(s) or contains questions.',
+        nl: 'Learning Objective cannot be deleted, while it is related to experience(s) or contains questions.[nl]',
+        de: 'Learning Objective cannot be deleted, while it is related to experience(s) or contains questions.[de]'
     },
     /* End resource section for model Objectives */
     
