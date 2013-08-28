@@ -2,8 +2,7 @@
     function (viewModel) {
         "use strict";
 
-        var
-            router = require('plugins/router'),
+        var router = require('plugins/router'),
             eventTracker = require('eventTracker');
 
         var eventsCategory = 'Create learning objective';
@@ -54,7 +53,7 @@
             describe('createAndNew:', function () {
 
                 var addObjective;
-                
+
                 beforeEach(function () {
                     addObjective = Q.defer();
                     spyOn(repository, 'addObjective').andReturn(addObjective.promise);
@@ -77,7 +76,8 @@
 
                             viewModel.createAndNew();
 
-                            var promise = addObjective.promise.fin(function () { });
+                            var promise = addObjective.promise.fin(function () {
+                            });
                             addObjective.resolve();
 
                             waitsFor(function () {
@@ -93,7 +93,8 @@
                         it('should clear title', function () {
                             viewModel.createAndNew();
 
-                            var promise = addObjective.promise.fin(function () { });
+                            var promise = addObjective.promise.fin(function () {
+                            });
                             addObjective.resolve();
 
                             waitsFor(function () {
@@ -107,7 +108,8 @@
                         it('should hide validation', function () {
                             viewModel.createAndNew();
 
-                            var promise = addObjective.promise.fin(function () { });
+                            var promise = addObjective.promise.fin(function () {
+                            });
                             addObjective.resolve();
 
                             waitsFor(function () {
@@ -133,7 +135,7 @@
 
                 var addObjective;
 
-                beforeEach(function() {
+                beforeEach(function () {
                     addObjective = Q.defer();
                     spyOn(repository, 'addObjective').andReturn(addObjective.promise);
                 });
@@ -145,71 +147,75 @@
                 describe('when triggered', function () {
 
                     describe('and title is emty', function () {
-                    describe('and title is valid', function () {
+                        describe('and title is valid', function () {
 
-                        beforeEach(function () {
-                            viewModel.title('Some valid text');                            
-                        });
-
-                        it('should create new objective in repository', function () {
-                            var title = viewModel.title();
-
-                            viewModel.createAndEdit();
-
-                            var promise = addObjective.promise.fin(function () { });
-                            addObjective.resolve();
-
-                            waitsFor(function () {
-                                return !promise.isPending();
+                            beforeEach(function () {
+                                viewModel.title('Some valid text');
                             });
-                            runs(function () {
-                                expect(repository.addObjective).toHaveBeenCalledWith({
-                                    title: title
+
+                            it('should create new objective in repository', function () {
+                                var title = viewModel.title();
+
+                                viewModel.createAndEdit();
+
+                                var promise = addObjective.promise.fin(function () {
+                                });
+                                addObjective.resolve();
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(repository.addObjective).toHaveBeenCalledWith({
+                                        title: title
+                                    });
                                 });
                             });
+
+                            it('should navigate to created objective', function () {
+                                var id = '0';
+
+                                viewModel.createAndEdit();
+
+                                var promise = addObjective.promise.fin(function () {
+                                });
+                                addObjective.resolve(id);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(router.navigate).toHaveBeenCalledWith('objective/' + id);
+                                });
+                            });
+
                         });
 
-                        it('should navigate to created objective', function () {
-                            var id = '0';
-
+                        it('should send event \'Create learning objective and open it properties\'', function () {
                             viewModel.createAndEdit();
-
-                            var promise = addObjective.promise.fin(function () { });
-                            addObjective.resolve(id);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(router.navigate).toHaveBeenCalledWith('objective/' + id);
-                            });
+                            expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and open it properties', eventsCategory);
                         });
 
                     });
-                    
-                    it('should send event \'Create learning objective and open it properties\'', function () {                        
-                        viewModel.createAndEdit();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and open it properties', eventsCategory);
+
+                });
+
+                describe('navigateToObjectives:', function () {
+
+                    it('should send event \'Navigate to objectives\'', function () {
+                        viewModel.navigateToObjectives();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objectives', eventsCategory);
+                    });
+
+                    it('should navigate to #objectives', function () {
+                        viewModel.navigateToObjectives();
+                        expect(router.navigate).toHaveBeenCalledWith('objectives');
                     });
 
                 });
 
             });
-
-            describe('navigateToObjectives:', function () {
-
-                it('should send event \'Navigate to objectives\'', function () {
-                    viewModel.navigateToObjectives();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objectives', eventsCategory);
-                });
-                
-                it('should navigate to #objectives', function () {
-                    viewModel.navigateToObjectives();
-                    expect(router.navigate).toHaveBeenCalledWith('objectives');
-                });
-
-            });
-
+            
             describe('activate:', function () {
 
                 it('should be function', function () {
@@ -219,18 +225,6 @@
                 it('should return promise', function () {
                     var result = viewModel.activate();
                     expect(result).toBePromise();
-                });
-
-                it('should reset validationVisible', function () {
-                    viewModel.validationVisible(true);
-                    var promise = viewModel.activate();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.validationVisible()).toBeFalsy();
-                    });
                 });
 
                 it('should clear title', function () {
@@ -247,6 +241,7 @@
 
             });
 
-        });
 
-    });
+        });
+    }
+);
