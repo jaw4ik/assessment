@@ -22,7 +22,9 @@
             
             validation: {
                 objectiveTitleMaxLength: 255   
-            }
+            },
+            
+            defaultObjectiveImage: '/Content/images/objective.png'
         };
     }
 );

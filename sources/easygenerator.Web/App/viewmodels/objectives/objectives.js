@@ -1,4 +1,4 @@
-﻿define(['constants', 'eventTracker', 'plugins/router', 'repositories/objectiveBriefRepository'],
+﻿define(['constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository'],
     function (constants, eventTracker, router, repository) {
         "use strict";
 
@@ -50,14 +50,14 @@
 
 
             activate = function () {
-                return repository.getCollection().then(function (objectiveBriefCollection) {
-                    var array = _.chain(objectiveBriefCollection)
+                return repository.getCollection().then(function (objectiveCollection) {
+                    var array = _.chain(objectiveCollection)
                         .map(function (item) {
                             return {
                                 id: item.id,
                                 title: item.title,
                                 image: item.image,
-                                questionsCount: item.questionsCount,
+                                questionsCount: item.questions.length,
                                 isSelected: ko.observable(false),
                                 toggleSelection: function () {
                                     if (this.isSelected()) {

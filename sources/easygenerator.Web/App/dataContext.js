@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/http', 'models/objective', 'models/objective', 'models/question', 'models/experience', 'models/answerOption', 'models/explanation'],
-    function (app, http, objectiveModel, ObjectiveModel, QuestionModel, ExperienceModel, AnswerOptionModel, ExplanationModel) {
+﻿define(['durandal/app', 'plugins/http', 'models/objective', 'models/objective', 'models/question', 'models/experience', 'models/answerOption', 'models/explanation', 'constants'],
+    function (app, http, objectiveModel, ObjectiveModel, QuestionModel, ExperienceModel, AnswerOptionModel, ExplanationModel, constants) {
 
         function parseDateString(str) {
             return new Date(parseInt(str.substr(6)));
@@ -20,7 +20,7 @@
                             title: objective.title,
                             createdOn: parseDateString(objective.createdOn),
                             modifiedOn: parseDateString(objective.modifiedOn),
-                            image: '/Content/images/objective.png',
+                            image: constants.defaultObjectiveImage,
                             questions: _.map(objective.questions, function (question) {
                                 return new QuestionModel({
                                     id: question.id,

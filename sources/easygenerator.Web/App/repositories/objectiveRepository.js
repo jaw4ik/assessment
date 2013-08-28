@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'plugins/http', 'models/objective', 'configuration/images', 'repositories/objectiveBriefRepository'],
-    function (dataContext, http, objectiveModel, images, objectiveBriefRepository) {
+﻿define(['dataContext', 'constants', 'plugins/http', 'models/objective', 'configuration/images', 'repositories/objectiveBriefRepository'],
+    function (dataContext, constants, http, objectiveModel, images, objectiveBriefRepository) {
 
         var self = {};
 
@@ -112,7 +112,7 @@
                             return;
                         }
 
-                        dataContext.objectives.push(objectiveModel({ id: objectiveId, title: objective.title, questions: [] }));
+                        dataContext.objectives.push(objectiveModel({ id: objectiveId, title: objective.title, image: constants.defaultObjectiveImage, questions: [] }));
                         deferred.resolve(objectiveId);
                     })
                     .fail(function (reason) {

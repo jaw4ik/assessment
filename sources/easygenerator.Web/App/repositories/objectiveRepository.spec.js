@@ -3,6 +3,7 @@
         "use strict";
 
         var
+           constants = require('constants'),
            http = require('plugins/http');
 
         describe('repository [objectiveRepository]', function () {
@@ -11,7 +12,7 @@
 
             beforeEach(function () {
                 post = $.Deferred();
-                spyOn(http, 'post').andReturn(post.promise());            
+                spyOn(http, 'post').andReturn(post.promise());
             });
 
             it('should be object', function () {
@@ -224,6 +225,7 @@
                                                 expect(dataContext.objectives[0]).toEqual({
                                                     id: objectiveId,
                                                     title: objectiveTitle,
+                                                    image: constants.defaultObjectiveImage,
                                                     questions: []
                                                 });
                                             });
@@ -252,7 +254,7 @@
 
             });
 
-            describe("update", function() {
+            describe("update", function () {
                 var getObjectiveDeferred;
                 beforeEach(function () {
                     getObjectiveDeferred = Q.defer();

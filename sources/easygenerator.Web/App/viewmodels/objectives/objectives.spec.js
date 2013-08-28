@@ -175,16 +175,16 @@
 
             describe('activate', function () {
 
-                var repository = require('repositories/objectiveBriefRepository');
+                var repository = require('repositories/objectiveRepository');
 
                 beforeEach(function () {
                     var deferred = Q.defer();
                     deferred.resolve([
-                        { id: '', title: 'z', image: '', questionsCount: 2 },
-                        { id: '', title: 'a', image: '', questionsCount: 2 },
-                        { id: '', title: 'A', image: '', questionsCount: 2 },
-                        { id: '', title: 'c', image: '', questionsCount: 2 },
-                        { id: '', title: 'B', image: '', questionsCount: 2 }
+                        { id: '', title: 'z', image: '', questions: [{}, {}] },
+                        { id: '', title: 'a', image: '', questions: [{}, {}] },
+                        { id: '', title: 'A', image: '', questions: [{}, {}] },
+                        { id: '', title: 'c', image: '', questions: [{}, {}] },
+                        { id: '', title: 'B', image: '', questions: [{}, {}] }
                     ]);
                     spyOn(repository, 'getCollection').andReturn(deferred.promise);
                 });
