@@ -736,6 +736,7 @@ h2.page-header-title {
     float: right;
     padding-top: 25px;
     margin-left: 225px;
+    letter-spacing: normal;
 }
 
     .form-actions .btn {
