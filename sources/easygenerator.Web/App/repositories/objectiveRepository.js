@@ -15,7 +15,7 @@
             var deferred = Q.defer();
 
             deferred.resolve(_.find(dataContext.objectives, function (item) {
-                return item.id == id;
+                return item.id === id;
             }));
 
             return deferred.promise;
@@ -40,39 +40,7 @@
 
             return deferred.promise;
         };
-
-        self.add = function (objectiveTitle) {
-            var deferred = Q.defer();
-
-            var maxId = _.max(_.map(dataContext.objectives, function (exp) {
-                return parseInt(exp.id);
-            }));
-
-            var objective = {
-                id: maxId + 1,
-                title: objectiveTitle,
-                image: images[0],
-                questions: [],
-                createdOn: Date.now(),
-                modifiedOn: Date.now()
-            };
-
-            dataContext.objectives.push(new objectiveModel(objective));
-
-            objectiveBriefRepository.getCollection().then(function (collection) {
-                collection.push({
-                    id: objective.id,
-                    title: objective.title,
-                    image: objective.image,
-                    questionsCount: objective.questions.length
-                });
-            });
-
-            deferred.resolve(objective);
-
-            return deferred.promise;
-        };
-
+        
         var
             addObjective = function (objective) {
                 var deferred = Q.defer();
@@ -132,9 +100,7 @@
             updateObjective: null,
             removeObjective: null,
 
-            update: self.update,
-
-            add: self.add
+            update: self.update
         };
     }
 );

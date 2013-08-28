@@ -39,7 +39,7 @@
             }
 
             var question = _.find(objective.questions, function (item) {
-                return item.id == obj.id;
+                return item.id === obj.id;
             });
 
             if (!_.isObject(question)) {
@@ -67,7 +67,7 @@
                 deferred.reject('Objective does not exist');
 
             var question = _.find(objective.questions, function (item) {
-                return item.id == questionId;
+                return item.id === questionId;
             });
 
             deferred.resolve(question);
@@ -80,7 +80,7 @@
         var id = 0;
         if (collection.length > 0) {
             var maxId = _.max(_.map(collection, function (exp) {
-                return parseInt(exp.id);
+                return parseInt(exp.id, 10);
             }));
 
             id = maxId + 1;

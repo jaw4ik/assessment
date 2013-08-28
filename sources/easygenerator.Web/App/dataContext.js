@@ -2,7 +2,7 @@
     function (app, http, objectiveModel, ObjectiveModel, QuestionModel, ExperienceModel, AnswerOptionModel, ExplanationModel, constants) {
 
         function parseDateString(str) {
-            return new Date(parseInt(str.substr(6)));
+            return new Date(parseInt(str.substr(6), 10));
         }
 
         var
@@ -45,7 +45,7 @@
                             modifiedOn: parseDateString(experience.modifiedOn),
                             objectives: _.map(experience.objectives, function (objectiveId) {
                                 return _.find(objectives, function (objective) {
-                                    return objective.id == objectiveId;
+                                    return objective.id === objectiveId;
                                 });
                             }),
                             buildingStatus: 'notStarted',
