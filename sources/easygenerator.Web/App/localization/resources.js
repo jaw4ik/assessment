@@ -106,6 +106,11 @@
         nl: 'Not built[nl]',
         de: 'Not built[de]'
     },
+    delete: {
+        en: 'Delete',
+        nl: 'Wissen',
+        de: 'Löschen'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
