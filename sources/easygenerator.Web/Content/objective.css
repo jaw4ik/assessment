@@ -248,6 +248,18 @@
     .create-objective-tip {
         left: -56px;
     }
+
+    .create-objective-tip .create-objective-tip-text {
+        right: -10px;
+        top: 35px;
+    }
+}
+
+@media (min-width: 690px) {
+    .create-objective-tip .create-objective-tip-text {
+        right: 20px;
+        top: 40px;
+    }
 }
 
 .create-objective-tip .create-objective-tip-text {
@@ -256,8 +268,6 @@
     -moz-transform: rotate(352deg);
     -ms-transform: rotate(352deg);
     transform: rotate(352deg);
-    right: 15px;
-    top: 65px;
     white-space: nowrap;
 }
 

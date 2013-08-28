@@ -1,5 +1,5 @@
-﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'constants'],
-    function (objectiveRepository, router, eventTracker, constants) {
+﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'constants', 'localization/localizationManager'],
+    function (objectiveRepository, router, eventTracker, constants, localizationManager) {
 
         var
             events = {
@@ -12,6 +12,17 @@
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName, events.category);
             };
+        
+        var notification = {
+            text: ko.observable(''),
+            visibility: ko.observable(false),
+            close: function () { notification.visibility(false); },
+            update: function () {
+                var message = localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString();
+                notification.text(message);
+                notification.visibility(true);
+            }
+        };
 
         var
             title = ko.observable('').extend({
@@ -42,7 +53,9 @@
                 }
 
                 objectiveRepository.addObjective({ title: title() }).then(function () {
+                    debugger;
                     title('');
+                    notification.update();
                 });
             },
 
@@ -63,6 +76,7 @@
             title: title,
             objectiveTitleMaxLength: constants.validation.objectiveTitleMaxLength,
             isTitleEditing: isTitleEditing,
+            notification: notification,
 
             activate: activate,
             navigateToObjectives: navigateToObjectives,

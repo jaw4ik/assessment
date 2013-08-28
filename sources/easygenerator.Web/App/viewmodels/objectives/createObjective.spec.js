@@ -49,6 +49,65 @@
                 });
 
             });
+            describe('notification:', function () {
+
+                it('should be object', function () {
+                    expect(viewModel.notification).toBeObject();
+                });
+
+                it('should have text observable', function () {
+                    expect(viewModel.notification.text).toBeDefined();
+                    expect(viewModel.notification.text).toBeObservable();
+                });
+
+                it('should have visibility observable', function () {
+                    expect(viewModel.notification.visibility).toBeDefined();
+                    expect(viewModel.notification.visibility).toBeObservable();
+                });
+
+                describe('close', function () {
+
+                    it('should be function', function () {
+                        expect(viewModel.notification.close).toBeFunction();
+                    });
+
+                    describe('when called', function () {
+
+                        describe('and visibility is true', function () {
+
+                            it('should set visibility to false', function () {
+                                viewModel.notification.visibility(true);
+                                viewModel.notification.close();
+
+                                expect(viewModel.notification.visibility()).toBeFalsy();
+                            });
+
+                        });
+
+                    });
+
+                });
+
+                describe('update', function () {
+
+                    it('should be function', function () {
+                        expect(viewModel.notification.update).toBeFunction();
+                    });
+
+                    describe('when called', function () {
+
+                        describe('and visibility is false', function () {
+                            it('should set visibility to true', function () {
+                                viewModel.notification.visibility(false);
+                                viewModel.notification.update();
+
+                                expect(viewModel.notification.visibility()).toBeTruthy();
+                            });
+                        });
+                    });
+
+                });
+            });
 
             describe('createAndNew:', function () {
 
@@ -69,6 +128,7 @@
 
                         beforeEach(function () {
                             viewModel.title('Some valid text');
+                            spyOn(viewModel.notification, 'update');
                         });
 
                         it('should create new objective in repository', function () {
@@ -117,6 +177,20 @@
                             });
                             runs(function () {
                                 expect(router.validationVisible).toBeFalsy();
+                            });
+                        });
+
+                        it('should show notification', function () {
+                            viewModel.createAndNew();
+                            
+                            var promise = addObjective.promise.finally(function () { });
+                            addObjective.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.notification.update).toHaveBeenCalled();
                             });
                         });
 

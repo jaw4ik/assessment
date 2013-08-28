@@ -1,6 +1,6 @@
 ﻿<section class="container unselectable">
     <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'learningObjectives', isGoBackTextLocalizable: true, goBackAction: navigateToObjectives }, cacheViews: false }">
-    </div>    
+    </div>
     <div class="create-objective-form">
         <form class="create-objective-form clearfix">
             <div class="create-objective-image white-framing">
@@ -25,3 +25,12 @@
         </form>
     </div>
 </section>
+<div class="alert alert-info" data-bind="visible: notification.visibility">
+    <button class="close absolute-right" data-bind="click: notification.close">×</button>
+    <span class="alert-content">
+        <span class="info-icon"></span>
+        <span class="alert-text">
+            <span data-bind="text: notification.text()"></span>
+        </span>
+    </span>
+</div>
