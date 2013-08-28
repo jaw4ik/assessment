@@ -78,9 +78,9 @@
             <div class="page-header-info question-header-title">
                 <div class="question-text-wrapper">
                     <div class="edit-field selectable">
-                        <div class="text-block" data-bind="css: { 'active': title.isEditing(), error: !title.isValid() }">
+                        <div class="text-block" data-bind="css: { 'active': title.isEditing(), error: !title.isValid() && title().length > questionTitleMaxLength }">
                             <textarea class="editarea" data-bind="singleLineValue: title, valueUpdate: 'afterkeydown', autoResize: true, hasFocus: title.isEditing, event: { focus: startEditQuestionTitle.bind($data), blur: endEditQuestionTitle.bind($data) }"></textarea>
-                            <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
+                            <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > questionTitleMaxLength }">
                                 <span data-bind="text: title().length"></span>
                                 <span>/</span>
                                 <span data-bind="text: questionTitleMaxLength"></span>

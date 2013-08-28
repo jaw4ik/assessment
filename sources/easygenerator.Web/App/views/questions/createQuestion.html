@@ -16,10 +16,10 @@
             </div>
             <div class="create-question-text-wrapper">
                 <div class="edit-field selectable">
-                    <div class="text-block bordered" data-bind="css: { 'active': title.isEditing(), error: !title.isValid() && title.isModified() }">
+                    <div class="text-block bordered" data-bind="css: { 'active': title.isEditing(), error: !title.isValid() && title().length > titleMaxLength }">
                         <textarea class="editarea" data-bind="singleLineValue: title, valueUpdate: 'afterkeydown', hasFocus: title.isEditing, autoResize: true"></textarea>
-                        <div class="chars-counter" data-bind="css: { error: !title.isValid() && title.isModified() }">
-                            <span data-bind="text: title().length"></span>/255
+                        <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > titleMaxLength }">
+                            <span data-bind="text: title().length"></span>/<span data-bind="text: titleMaxLength"></span>
                         </div>
                     </div>
                 </div>
@@ -28,28 +28,8 @@
                     <div class="create-question-tip-arrow"></div>
                 </div>
             </div>
-            <div class="create-question-form-actions">
-                <!-- ko if: (!title.isValid() && !title.isModified()) || title.isValid() -->
-                <button type="submit" class="btn enabled saveAndOpen" data-bind="click: saveAndOpen">
-                    <span class="btn-img"></span>
-                    <span class="btn-text" data-bind="localize: { text: 'createAndEdit' }"></span>
-                </button>
-                <button type="button" class="btn enabled saveAndNew" data-bind="click: saveAndNew">
-                    <span class="btn-img"></span>
-                    <span class="btn-text" data-bind="localize: { text: 'createAndNew' }"></span>
-                </button>
-                <!-- /ko -->
-                <!-- ko if: !title.isValid() && title.isModified() -->
-                <div class="btn disabled saveAndOpen">
-                    <span class="btn-img"></span>
-                    <span class="btn-text" data-bind="localize: { text: 'createAndEdit' }"></span>
-                </div>
-                <div class="btn disabled saveAndNew">
-                    <span class="btn-img"></span>
-                    <span class="btn-text" data-bind="localize: { text: 'createAndNew' }"></span>
-                </div>
-                <!-- /ko -->
-            </div>
+              <!-- ko compose: { view: 'views/common/formactions', model: { isValid: title.isValid(), saveAndNew: saveAndNew, saveAndOpen: saveAndOpen } } -->
+              <!-- /ko -->
         </form>
     </div>
 </section>

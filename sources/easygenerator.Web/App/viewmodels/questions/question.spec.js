@@ -109,7 +109,7 @@ define(function (require) {
             });
         });
 
-        describe('questionTitleMaxLenth:', function () {
+        describe('questionTitleMaxLength:', function () {
 
             it('should be defined', function () {
                 expect(viewModel.questionTitleMaxLength).toBeDefined();
