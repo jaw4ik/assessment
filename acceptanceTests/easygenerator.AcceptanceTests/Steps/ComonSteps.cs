@@ -25,7 +25,7 @@ namespace easygenerator.AcceptanceTests.Steps
         public void WhenOpenPageByUrl(string url)
         {
             DriverProvider.Current().Driver.Navigate().GoToUrl(url);
-            System.Threading.Thread.Sleep(10000);
+            System.Threading.Thread.Sleep(5000);
 
         }
 
