@@ -295,6 +295,8 @@
     <Content Include="Content\images\small_icons.png" />
     <Content Include="Content\images\typeQuestionTitleArrow.png" />
     <Content Include="Scripts\has.js" />
+    <Content Include="Scripts\jquery.autosize.js" />
+    <Content Include="Scripts\jquery.autosize.min.js" />
     <Content Include="Scripts\knockoutBindings\autoResizeBinding.js" />
     <Content Include="Scripts\knockoutBindings\ckeditorBinding.js" />
     <Content Include="App\configuration\images.js" />
@@ -548,8 +550,6 @@
     <Content Include="Scripts\ckeditor\skins\moono\images\lock.png" />
     <Content Include="Scripts\ckeditor\skins\moono\images\refresh.png" />
     <Content Include="Scripts\ckeditor\styles.js" />
-    <Content Include="Scripts\jquery.autosize-min.js" />
-    <Content Include="Scripts\jquery.autosize.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <None Include="Scripts\jquery.validate.min.js" />
     <None Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -887,7 +887,11 @@ IF NOT EXIST $(ProjectDir)App\main-built.js EXIT /B 1</PostBuildEvent>
   <PropertyGroup>
     <PreBuildEvent>del  $(ProjectDir)App\main-built.js</PreBuildEvent>
   </PropertyGroup>
-  <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.8\tools\Microsoft.Bcl.Build.targets" />
+  <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
