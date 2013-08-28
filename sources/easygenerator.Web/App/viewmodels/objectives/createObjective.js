@@ -18,6 +18,7 @@
                 required: true,
                 maxLength: constants.validation.objectiveTitleMaxLength
             }),
+            isTitleEditing = ko.observable(false),
 
             navigateToObjectives = function () {
                 sendEvent(events.navigateToObjectives);
@@ -29,6 +30,7 @@
 
                 return Q.fcall(function () {
                     that.title('');
+                    that.isTitleEditing(false);
                 });
             },
 
@@ -60,6 +62,7 @@
         return {
             title: title,
             objectiveTitleMaxLength: constants.validation.objectiveTitleMaxLength,
+            isTitleEditing: isTitleEditing,
 
             activate: activate,
             navigateToObjectives: navigateToObjectives,

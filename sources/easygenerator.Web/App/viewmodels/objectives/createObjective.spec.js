@@ -239,8 +239,27 @@
                     });
                 });
 
+                it('should disable title editing', function() {
+                    viewModel.isTitleEditing(true);
+                    var promise = viewModel.activate();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.isTitleEditing()).toBeFalsy();
+                    });
+                });
+
             });
 
+            describe('isTitleEditing:', function() {
+
+                it('should be observable', function() {
+                    expect(viewModel.isTitleEditing).toBeObservable();
+                });
+
+            });
 
         });
     }

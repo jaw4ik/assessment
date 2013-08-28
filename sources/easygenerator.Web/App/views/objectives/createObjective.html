@@ -8,8 +8,8 @@
             </div>
             <div class="create-objective-text-wrapper">
                 <div class="edit-field selectable">
-                    <div class="text-block bordered active" data-bind="css: { error: !title.isValid() && title().length > objectiveTitleMaxLength }">
-                        <textarea class="editarea" data-bind="singleLineValue: title, valueUpdate: 'afterkeydown', hasFocus: true, autoResize: true"></textarea>
+                    <div class="text-block bordered" data-bind="css: { error: !title.isValid() && title().length > objectiveTitleMaxLength , active: isTitleEditing }">
+                        <textarea class="editarea" data-bind="singleLineValue: title, valueUpdate: 'afterkeydown', hasFocus: isTitleEditing, autoResize: true"></textarea>
                         <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > objectiveTitleMaxLength }">
                             <span data-bind="text: title().length"></span>/<span data-bind="    text: objectiveTitleMaxLength"></span>
                         </div>
