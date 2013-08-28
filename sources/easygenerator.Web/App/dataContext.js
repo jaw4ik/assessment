@@ -20,7 +20,7 @@
                             title: objective.title,
                             createdOn: parseDateString(objective.createdOn),
                             modifiedOn: parseDateString(objective.modifiedOn),
-                            image: objective.image,
+                            image: '/Content/images/objective.png',
                             questions: _.map(objective.questions, function (question) {
                                 return new QuestionModel({
                                     id: question.id,

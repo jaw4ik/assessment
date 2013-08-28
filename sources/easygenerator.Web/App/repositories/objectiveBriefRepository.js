@@ -21,7 +21,7 @@
                 dataType: 'json'
             }).done(function (response) {
                 self.dataSet = _.map(response.objectives, function (objective) {
-                    return { id: objective.id, title: objective.title, image: objective.image, questionsCount: objective.questions.length };
+                    return { id: objective.id, title: objective.title, image: '/Content/images/objective.png', questionsCount: objective.questions.length };
                 });
                 self.isDataSetReady = true;
                 deferred.resolve(self.dataSet);
