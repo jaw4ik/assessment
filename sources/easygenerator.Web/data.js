@@ -1,7 +1,7 @@
 {
     "objectives": [
         {
-            "id": 0,
+            "id": "bd65b9e9f35a4dbeb51cb564654467af",
             "title": "1. The learner is able to appreciate the easy and powerful features of easygenerator",
             "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSquMn3u84SWcQvKAbmrlUicfv2bYY3197JsNsilftexOQYce-Z",
             "createdOn" : "/Date(1377173811487)/",
@@ -171,7 +171,7 @@
             ]
         },
         {
-            "id": 1,
+            "id": "44b89f07ac1348cc89f1f79cd8e476bc",
             "title": "2. The learner is able to create more effective learning",
             "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSquMn3u84SWcQvKAbmrlUicfv2bYY3197JsNsilftexOQYce-Z",
             "createdOn" : "/Date(1377173811487)/",
@@ -314,7 +314,7 @@
             ]
         },
         {
-            "id": 2,
+            "id": "1b27ce566e3e41ed853798c7782a3798",
             "title": "3. The learner is able to explain the collaborative features to his boss",
             "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSquMn3u84SWcQvKAbmrlUicfv2bYY3197JsNsilftexOQYce-Z",
             "createdOn" : "\/Date(1377172218190)\/",
@@ -432,7 +432,7 @@
             ]
         },
         {
-            "id": 3,
+            "id": "f500d3f1ccf847c0b44beb9ac1e994de",
             "title": "4. The learner is able to save 40% on maintenance",
             "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSquMn3u84SWcQvKAbmrlUicfv2bYY3197JsNsilftexOQYce-Z",
             "createdOn" : "\/Date(1377172218190)\/",
