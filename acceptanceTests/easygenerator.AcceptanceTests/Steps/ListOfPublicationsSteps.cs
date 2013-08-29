@@ -284,7 +284,7 @@ namespace easygenerator.AcceptanceTests.Steps
                 CreatedOn = @"\/Date(1377172218190)\/",
                 ModifiedOn = @"\/Date(1377172218190)\/",
                 BuiltOn = "",
-                Objectives = new List<int>(),
+                Objectives = new List<string>(),
                 PackageUrl = ""
             };
         }

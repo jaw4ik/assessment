@@ -17,7 +17,7 @@ namespace easygenerator.AcceptanceTests.Helpers
     public class Objective
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [JsonProperty("title")]
         public string Title { get; set; }
         [JsonProperty("image")]
@@ -33,7 +33,7 @@ namespace easygenerator.AcceptanceTests.Helpers
     public class Question
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [JsonProperty("title")]
         public string Title { get; set; }
         [JsonProperty("createdOn")]
@@ -48,7 +48,7 @@ namespace easygenerator.AcceptanceTests.Helpers
     public class AnswerOption
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [JsonProperty("isCorrect")]
         public bool IsCorrect { get; set; }
         [JsonProperty("text")]
@@ -57,14 +57,14 @@ namespace easygenerator.AcceptanceTests.Helpers
     public class Explanation
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [JsonProperty("text")]
         public string Text { get; set; }
     }
     public class Experience
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [JsonProperty("title")]
         public string Title { get; set; }
         [JsonProperty("createdOn")]
@@ -74,7 +74,7 @@ namespace easygenerator.AcceptanceTests.Helpers
         [JsonProperty("builtOn")]
         public string BuiltOn { get; set; }
         [JsonProperty("objectives")]
-        public List<int> Objectives { get; set; }
+        public List<string> Objectives { get; set; }
         [JsonProperty("packageUrl")]
         public string PackageUrl { get; set; }        
     }

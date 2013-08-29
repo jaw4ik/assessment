@@ -19,12 +19,10 @@ namespace easygenerator.AcceptanceTests.Helpers
     }
     public abstract class UniqueData
     {
-        static int currentId = 0;
         public UniqueData()
         {
-            Id = currentId;
-            currentId++;
+            Id = Guid.NewGuid().ToString();
         }
-        public int Id { get; set; }
+        public string Id { get; set; }
     }
 }
