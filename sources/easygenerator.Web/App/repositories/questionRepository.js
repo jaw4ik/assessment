@@ -67,7 +67,7 @@
                 deferred.reject('Objective does not exist');
 
             var question = _.find(objective.questions, function (item) {
-                return item.id === questionId;
+                return item.id == questionId;
             });
 
             deferred.resolve(question);
