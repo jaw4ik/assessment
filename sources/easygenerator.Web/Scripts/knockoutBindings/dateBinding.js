@@ -1,9 +1,9 @@
 ﻿ko.bindingHandlers.date = {
     update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-        var language = ko.unwrap(valueAccessor().language()) || 'en',
+        var language = ko.unwrap(valueAccessor().language) || 'en',
             value = ko.unwrap(valueAccessor().value),
             formatString = valueAccessor().formatString;
-
+        
         if (_.isNullOrUndefined(value))
             return;
 
