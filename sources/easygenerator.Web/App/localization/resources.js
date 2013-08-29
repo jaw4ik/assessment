@@ -98,8 +98,8 @@
     },
     builtOn: {
         en: 'Built on',
-        nl: 'Built on[nl]',
-        de: 'Built on[de]'
+        nl: 'Samengesteld op',
+        de: 'Erstellt am'
     },
     notBuilt: {
         en: 'Not built',
@@ -146,8 +146,8 @@
     },
     objectiveCannnotBeDeleted: {
         en: 'Learning Objective cannot be deleted, while it is related to experience(s) or contains questions.',
-        nl: 'Learning Objective cannot be deleted, while it is related to experience(s) or contains questions.[nl]',
-        de: 'Learning Objective cannot be deleted, while it is related to experience(s) or contains questions.[de]'
+        nl: 'Een leerdoel kan niet worden verwijderd als het is gerelateerd aan een of meer ervaringen of als het vragen bevat.',
+        de: 'Lernziel kann nicht gelöscht werden, da es mit (einer) Umgebung(en) verbunden ist oder Fragen enthält'
     },
     /* End resource section for model Objectives */
     
@@ -220,8 +220,8 @@
     /* Resource section for model CreateObjective */
     createNewObjective: {
         en: 'Create New Objective',
-        nl: 'Create New Objective[nl]',
-        de: 'Create New Objective[de]'
+        nl: 'Nieuwe doelstelling aanmaken',
+        de: 'Neues Lernziel erstellen'
     },
     createObjectiveTip: {
         en: 'Type objective title here',
