@@ -74,7 +74,7 @@
                     <div class="info-btn"></div>
                     <div class="info-popup-wrapper">
                         <div class="experience-info-popup">
-                            <table class="experience-info-table">
+                            <table class="experience-info-table" data-bind="css: _.isNaN(builtOn().valueOf()) ? 'not-built' : '' ">
                                 <tbody>
                                     <tr>
                                         <td class="condition-title" rowspan="2">

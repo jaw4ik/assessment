@@ -340,6 +340,10 @@
     table-layout: fixed;
 }
 
+.experience-info-table.not-built {
+    margin-top: 6px
+}
+
 .experience-info-popup-triangle-wrapper {
     position: absolute;
     width: 8px;
