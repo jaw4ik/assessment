@@ -69,8 +69,82 @@
             <div class="page-header-image white-framing">
                 <img alt="" class="experience-image" src="/Content/images/experience.png" />
             </div>
+            <div class="info-btn-holder pull-left">
+                <div class="info-btn-wrapper">
+                    <div class="info-btn"></div>
+                    <div class="info-popup-wrapper">
+                        <div class="experience-info-popup">
+                            <table class="experience-info-table">
+                                <tbody>
+                                    <tr>
+                                        <td class="condition-title" rowspan="2">
+                                            <span class="after-colon" data-bind="localize: { text: 'createdOn' }"></span>
+                                        </td>
+                                        <td>
+                                            <span class="condition-date-text" data-bind="date: { value: createdOn, formatString: 'L', language: currentlanguage }"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="condition-date-time-text" data-bind="date: { value: createdOn, formatString: 'LT', language: currentlanguage }"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="condition-title" rowspan="2">
+                                            <span class="after-colon" data-bind="localize: { text: 'modifiedOn' }"></span>
+                                        </td>
+                                        <td>
+                                            <span class="condition-date-text" data-bind="date: { value: modifiedOn, formatString: 'L', language: currentlanguage }"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="condition-date-time-text" data-bind="date: { value: modifiedOn, formatString: 'LT', language: currentlanguage }"></span>
+                                        </td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td class="condition-title" rowspan="2">
+                                            <span class="after-colon" data-bind="localize: { text: 'builtOn' }"></span>
+                                        </td>
+                                        <td>
+                                            <!--ko ifnot: _.isNaN(builtOn().valueOf())-->
+                                            <span class="condition-date-text" data-bind="date: { value: builtOn, formatString: 'L', language: currentlanguage }"></span>
+                                            <!--/ko-->
+                                            <!--ko if: _.isNaN(builtOn().valueOf())-->
+                                            <span class="condition-date-text" data-bind="localize: { text: 'notBuilt' }"></span>
+                                            <!--/ko-->
+                                        </td>
+                                    </tr>
+                                    <!--ko ifnot: _.isNaN(builtOn().valueOf())-->
+                                    <tr>
+                                        <td>
+                                            <span class="condition-date-time-text" data-bind="date: { value: builtOn, formatString: 'LT', language: currentlanguage }"></span>
+                                        </td>
+                                    </tr>
+                                    <!--/ko-->
+                                </tbody>
+                            </table>
+                            <div class="experience-info-popup-triangle-wrapper">
+                                <div class="experience-info-popup-triangle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="page-header-info experience-header-title">
-                <h2 class="page-header-title selectable" data-bind="text: title"></h2>
+                <div class="experience-text-wrapper">
+                    <div class="edit-field selectable">
+                        <div class="text-block" data-bind="css: { 'active': isEditing(), error: !title.isValid() }">
+                            <textarea class="editarea" data-bind="singleLineValue: title, valueUpdate: 'afterkeydown', autoResize: true, hasFocus: isEditing, event: { focus: startEditing,  blur: saveChanges}"></textarea>
+                            <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
+                                <span data-bind="text: title().length"></span>
+                                <span>/</span>
+                                <span data-bind="text: experienceTitleMaxLength"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <aside class="nav-element-wrapper next">
@@ -131,3 +205,12 @@
         </ul>
     </div>
 </section>
+<div class="alert alert-info" data-bind="visible: notification.visibility">
+    <button class="close absolute-right" data-bind="click: notification.close">×</button>
+    <span class="alert-content">
+        <span class="info-icon"></span>
+        <span class="alert-text">
+            <span data-bind="text: notification.text()"></span>
+        </span>
+    </span>
+</div>

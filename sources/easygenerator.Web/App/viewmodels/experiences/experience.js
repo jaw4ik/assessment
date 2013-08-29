@@ -12,7 +12,8 @@
                 navigateToPreviousExperience: 'Navigate to previous experience',
                 navigateToObjectiveDetails: 'Navigate to Objective details',
                 selectObjective: 'Select Objective',
-                unselectObjective: 'Unselect Objective'
+                unselectObjective: 'Unselect Objective',
+                updateExperienceTitle: 'Update experience title'
             },
 
             sendEvent = function (eventName) {
@@ -31,6 +32,9 @@
             previousExperienceId = null,
             previousTitle = '',
             experience = [],
+            createdOn = null,
+            modifiedOn = ko.observable(),
+            builtOn = ko.observable(),
             notification = {
                 text: ko.observable(''),
                 visibility: ko.observable(false),
@@ -40,9 +44,9 @@
                     notification.text(message);
                     notification.visibility(true);
                 }
-            };
+            },
 
-        title.isEditing = ko.observable(false);
+        isEditing = ko.observable();
 
         var navigateToExperiences = function () {
             sendEvent(events.navigateToExperiences);
@@ -112,23 +116,25 @@
             }
         },
 
-
         buildExperience = function () {
             sendEvent(events.buildExperience);
             status(constants.buildingStatuses.inProgress);
-
+            
             var that = this;
             return service.build(this.id)
                 .then(function (response) {
                     if (response.Success) {
                         that.status(constants.buildingStatuses.succeed);
+                        that.builtOn(new Date());
                     } else {
                         that.status(constants.buildingStatuses.failed);
+                        that.builtOn('');
                     }
                     that.experience.packageUrl = response.PackageUrl;
                     that.isFirstBuild(false);
                     repository.getById(that.id).then(function (item) {
                         item.packageUrl = response.PackageUrl;
+                        item.builtOn = that.builtOn();
                     });
                 });
         },
@@ -145,16 +151,24 @@
 
         startEditing = function () {
             previousTitle = title();
-            title.isEditing(true);
+            isEditing(true);
         },
 
         saveChanges = function () {
-            if (title.isValid() && title().length != 0) {
+            sendEvent(events.updateExperienceTitle);
+            if (title.isValid() && title().length != 0 && title() != previousTitle) {
                 experience.title = title();
+                var modified = new Date();
+                this.modifiedOn(modified);
+                repository.getById(this.id).then(function (item) {
+                    item.title = title();
+                    item.modifiedOn = modified;
+                });
                 notification.update();
             } else {
                 title(previousTitle);
             }
+            this.isEditing(false);
         },
 
         activate = function (experienceId) {
@@ -162,21 +176,26 @@
                 router.navigate('400');
                 return undefined;
             }
-
+            this.notification.visibility(false);
+            this.isEditing(false);
             var that = this;
             return repository.getCollection().then(function (response) {
                 var experiences = _.sortBy(response, function (item) {
                     return item.title;
                 });
-                
+
                 that.experience = _.find(experiences, function (item) {
                     return item.id == experienceId;
                 });
-                
+
                 if (!_.isObject(that.experience)) {
                     router.navigate('404');
                     return;
                 }
+
+                that.createdOn = that.experience.createdOn;
+                that.modifiedOn(that.experience.modifiedOn);
+                that.builtOn(that.experience.builtOn);
 
                 that.isFirstBuild(that.experience.buildingStatus == constants.buildingStatuses.notStarted);
 
@@ -196,7 +215,7 @@
                 that.nextExperienceId = index != experiences.length - 1 ? experiences[index + 1].id : null;
             });
         };
-
+        
         return {
             activate: activate,
 
@@ -208,7 +227,7 @@
             status: status,
             statuses: constants.buildingStatuses,
             notification: notification,
-            experience:experience,
+            experience: experience,
             nextExperienceId: nextExperienceId,
             previousExperienceId: previousExperienceId,
 
@@ -224,7 +243,13 @@
             startEditing: startEditing,
             saveChanges: saveChanges,
 
-            resetBuildStatus: resetBuildStatus
+            resetBuildStatus: resetBuildStatus,
+            currentlanguage: localizationManager.currentLanguage,
+            createdOn: createdOn,
+            modifiedOn: modifiedOn,
+            builtOn: builtOn,
+            experienceTitleMaxLength: constants.validation.experienceTitleMaxLength,
+            isEditing: isEditing
         };
     }
 );

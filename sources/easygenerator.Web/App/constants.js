@@ -21,7 +21,8 @@
             },
             
             validation: {
-                objectiveTitleMaxLength: 255   
+                objectiveTitleMaxLength: 255,
+                experienceTitleMaxLength: 255
             },
             
             defaultObjectiveImage: '/Content/images/objective.png'

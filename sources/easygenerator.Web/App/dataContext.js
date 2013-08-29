@@ -49,7 +49,7 @@
                                 });
                             }),
                             buildingStatus: 'notStarted',
-                            builtOn: experience.builtOn,
+                            builtOn: parseDateString(experience.builtOn),
                             packageUrl: experience.packageUrl
                         });
                     }));

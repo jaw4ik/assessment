@@ -4,7 +4,7 @@
             value = ko.unwrap(valueAccessor().value),
             formatString = valueAccessor().formatString;
         
-        if (_.isNullOrUndefined(value))
+        if (_.isNullOrUndefined(value) || _.isNaN(value.valueOf()))
             return;
 
         var date = moment(value);
