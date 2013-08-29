@@ -1,4 +1,4 @@
-﻿define(['services/navigation', 'eventTracker', 'models/answerOption', 'models/explanation', 'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository'],
+﻿define(['plugins/router', 'eventTracker', 'models/answerOption', 'models/explanation', 'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository'],
     function (router, eventTracker, answerOptionModel, expalantionModel, localizationManager, constants, questionRepository, objectiveRepository) {
         "use strict";
         var
@@ -70,7 +70,7 @@
 
         goToPreviousQuestion = function () {
             if (!this.hasPrevious)
-                router.navigate('404');
+                router.replace('404');
 
             sendEvent(events.navigateToPreviousQuestion);
             router.navigate('objective/' + objectiveId + '/question/' + previousId);
@@ -78,7 +78,7 @@
 
         goToNextQuestion = function () {
             if (!this.hasNext)
-                router.navigate('404');
+                router.replace('404');
 
             sendEvent(events.navigateToNextQuestion);
             router.navigate('objective/' + objectiveId + '/question/' + nextId);
@@ -370,7 +370,7 @@
 
         activate = function (objId, quesId) {
             if (!_.isString(objId) || !_.isString(quesId)) {
-                router.navigate('400');
+                router.replace('400');
                 return undefined;
             }
 
@@ -406,11 +406,11 @@
                     notification.visibility(false);
                 })
                 .fail(function () {
-                    router.navigate('404');
+                    router.replace('404');
                     return;
                 });
             }).fail(function () {
-                router.navigate('404');
+                router.replace('404');
                 return;
             });
         },

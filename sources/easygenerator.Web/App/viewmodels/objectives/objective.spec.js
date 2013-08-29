@@ -28,6 +28,7 @@
             beforeEach(function () {
                 spyOn(eventTracker, 'publish');
                 spyOn(router, 'navigate');
+                spyOn(router, 'replace');
             });
 
             it('is object', function () {
@@ -128,7 +129,7 @@
 
                     it('should navigate to #400', function () {
                         viewModel.activate();
-                        expect(router.navigate).toHaveBeenCalledWith('400');
+                        expect(router.replace).toHaveBeenCalledWith('400');
                     });
 
                     it('should return undefined', function () {
@@ -148,7 +149,7 @@
                             return promise.isFulfilled();
                         });
                         runs(function () {
-                            expect(router.navigate).toHaveBeenCalledWith('404');
+                            expect(router.replace).toHaveBeenCalledWith('404');
                         });
 
                     });
@@ -702,7 +703,7 @@
                     it('should navigate to #404', function () {
                         viewModel.nextObjectiveId = undefined;
                         viewModel.navigateToNextObjective();
-                        expect(router.navigate).toHaveBeenCalledWith('404');
+                        expect(router.replace).toHaveBeenCalledWith('404');
                     });
 
                 });
@@ -712,7 +713,7 @@
                     it('should navigate to #404', function () {
                         viewModel.nextObjectiveId = null;
                         viewModel.navigateToNextObjective();
-                        expect(router.navigate).toHaveBeenCalledWith('404');
+                        expect(router.replace).toHaveBeenCalledWith('404');
                     });
 
                 });
@@ -767,7 +768,7 @@
                     it('should navigate to #404', function () {
                         viewModel.previousObjectiveId = null;
                         viewModel.navigateToPreviousObjective();
-                        expect(router.navigate).toHaveBeenCalledWith('404');
+                        expect(router.replace).toHaveBeenCalledWith('404');
                     });
 
                 });
@@ -777,7 +778,7 @@
                     it('should navigate to #404', function () {
                         viewModel.previousExperienceId = undefined;
                         viewModel.navigateToPreviousObjective();
-                        expect(router.navigate).toHaveBeenCalledWith('404');
+                        expect(router.replace).toHaveBeenCalledWith('404');
                     });
 
                 });

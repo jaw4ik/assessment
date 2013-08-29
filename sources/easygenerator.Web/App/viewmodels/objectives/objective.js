@@ -120,7 +120,7 @@
             navigateToNextObjective = function () {
                 sendEvent(events.navigateToNextObjective);
                 if (_.isNullOrUndefined(this.nextObjectiveId)) {
-                    router.navigate('404');
+                    router.replace('404');
                 } else {
                     router.navigate('objective/' + this.nextObjectiveId);
                 }
@@ -129,7 +129,7 @@
             navigateToPreviousObjective = function () {
                 sendEvent(events.navigateToPreviousObjective);
                 if (_.isNullOrUndefined(this.previousObjectiveId)) {
-                    router.navigate('404');
+                    router.replace('404');
                 } else {
                     router.navigate('objective/' + this.previousObjectiveId);
                 }
@@ -185,7 +185,7 @@
             
             activate = function (objId) {
                 if (!_.isString(objId)) {
-                    router.navigate('400');
+                    router.replace('400');
                     return undefined;
                 }
 
@@ -202,7 +202,7 @@
                         });
 
                         if (!_.isObject(objective)) {
-                            router.navigate('404');
+                            router.replace('404');
                             return;
                         }
 

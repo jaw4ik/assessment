@@ -21,6 +21,7 @@
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
             spyOn(router, 'navigate');
+            spyOn(router, 'replace');
             deferred = Q.defer();
             spyOn(questionRepository, 'add').andReturn(deferred.promise);
         });
@@ -320,7 +321,7 @@
 
                 it('should navigate to #400', function () {
                     viewModel.activate();
-                    expect(router.navigate).toHaveBeenCalledWith('400');
+                    expect(router.replace).toHaveBeenCalledWith('400');
                 });
 
                 it('should return undefined', function () {
@@ -348,7 +349,7 @@
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(router.navigate).toHaveBeenCalledWith('404');
+                        expect(router.replace).toHaveBeenCalledWith('404');
                     });
                 });
 

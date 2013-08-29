@@ -16,7 +16,7 @@
                     .then(function () {
 
                         localizationManager.initialize(window.top.userCultures);
-
+                        
                         router.updateDocumentTitle = function (instance, instruction) {
                             var title = null;
 
@@ -28,6 +28,10 @@
                             }
 
                             document.title = title ? app.title + ' | ' + title : app.title;
+                        };
+
+                        router.replace = function (url) {
+                            router.navigate(url, { replace: true, trigger: true });
                         };
 
                         return router.map(routes)

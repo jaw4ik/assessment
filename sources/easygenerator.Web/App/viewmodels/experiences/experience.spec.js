@@ -35,6 +35,7 @@
             beforeEach(function () {
                 spyOn(eventTracker, 'publish');
                 spyOn(router, 'navigate');
+                spyOn(router, 'replace');
             });
 
             it('should be object', function () {
@@ -119,7 +120,7 @@
                     it('should navigate to #404', function () {
                         viewModel.nextExperienceId = null;
                         viewModel.navigateToNextExperience();
-                        expect(router.navigate).toHaveBeenCalledWith('404');
+                        expect(router.replace).toHaveBeenCalledWith('404');
                     });
 
                 });
@@ -129,7 +130,7 @@
                     it('should navigate to #404', function () {
                         viewModel.nextExperienceId = null;
                         viewModel.navigateToNextExperience();
-                        expect(router.navigate).toHaveBeenCalledWith('404');
+                        expect(router.replace).toHaveBeenCalledWith('404');
                     });
 
                 });
@@ -162,7 +163,7 @@
                     it('should navigate to #404', function () {
                         viewModel.previousExperienceId = null;
                         viewModel.navigateToPreviousExperience();
-                        expect(router.navigate).toHaveBeenCalledWith('404');
+                        expect(router.replace).toHaveBeenCalledWith('404');
                     });
 
                 });
@@ -172,7 +173,7 @@
                     it('should navigate to #404', function () {
                         viewModel.previousExperienceId = undefined;
                         viewModel.navigateToPreviousExperience();
-                        expect(router.navigate).toHaveBeenCalledWith('404');
+                        expect(router.replace).toHaveBeenCalledWith('404');
                     });
 
                 });
@@ -796,7 +797,7 @@
 
                     it('should navigate to #400', function() {
                         viewModel.activate();
-                        expect(router.navigate).toHaveBeenCalledWith('400');
+                        expect(router.replace).toHaveBeenCalledWith('400');
                     });
 
                     it('should return undefined', function() {
@@ -820,7 +821,7 @@
                             return promise.isFulfilled();
                         });
                         runs(function() {
-                            expect(router.navigate).toHaveBeenCalledWith('404');
+                            expect(router.replace).toHaveBeenCalledWith('404');
                         });
                     });
 

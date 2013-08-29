@@ -3,7 +3,7 @@ define(function (require) {
 
     var
         viewModel = require('viewmodels/questions/question'),
-        router = require('services/navigation'),
+        router = require('plugins/router'),
         objectiveModel = require('models/objective'),
         questionModel = require('models/question'),
         answerOptionModel = require('models/answerOption'),
@@ -50,12 +50,18 @@ define(function (require) {
 
     describe('viewModel [question]', function () {
 
+        beforeEach(function () {
+            spyOn(eventTracker, 'publish');
+            spyOn(router, 'navigate');
+            spyOn(router, 'replace');
+        });
+
         it('is defined', function () {
             expect(viewModel).toBeDefined();
         });
 
-        describe('modifiedOn:', function() {
-            it('should be observable', function() {
+        describe('modifiedOn:', function () {
+            it('should be observable', function () {
                 expect(viewModel.modifiedOn).toBeObservable();
             });
         });
@@ -146,7 +152,6 @@ define(function (require) {
                 spyOn(questionRepository, 'update').andReturn(updateDeferred.promise);
                 spyOn(questionRepository, 'getById').andReturn(getByIdDeferred.promise);
 
-                spyOn(eventTracker, 'publish');
                 spyOn(viewModel.notification, 'update');
             });
 
@@ -253,13 +258,13 @@ define(function (require) {
                                 expect(viewModel.notification.update).toHaveBeenCalled();
                             });
                         });
-                        
+
                         it('should update modifiedOn', function () {
                             viewModel.endEditQuestionTitle();
 
                             var modificationDate = new Date();
                             question.modifiedOn = modificationDate;
-                            
+
                             var promise = updateDeferred.promise.finally(function () { });
                             updateDeferred.resolve(question);
 
@@ -304,7 +309,6 @@ define(function (require) {
 
                 spyOn(questionRepository, 'getById').andReturn(getQuestionByIdDeferred.promise);
                 spyOn(objectiveRepository, 'getById').andReturn(getObjectiveByIdDeferred.promise);
-                spyOn(router, 'navigate');
             });
 
             it('should be a function', function () {
@@ -316,7 +320,7 @@ define(function (require) {
                 it('should navigate to #400', function () {
                     viewModel.activate(undefined, 'questiondId');
 
-                    expect(router.navigate).toHaveBeenCalledWith('400');
+                    expect(router.replace).toHaveBeenCalledWith('400');
                 });
 
             });
@@ -325,10 +329,8 @@ define(function (require) {
 
                 it('should navigate to #/400', function () {
                     viewModel.activate('objectiveId', undefined);
-
-                    expect(router.navigate).toHaveBeenCalledWith('400');
+                    expect(router.replace).toHaveBeenCalledWith('400');
                 });
-
             });
 
             describe('when objective not found', function () {
@@ -341,7 +343,7 @@ define(function (require) {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(router.navigate).toHaveBeenCalledWith('404');
+                        expect(router.replace).toHaveBeenCalledWith('404');
                     });
                 });
 
@@ -358,7 +360,7 @@ define(function (require) {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(router.navigate).toHaveBeenCalledWith('404');
+                        expect(router.replace).toHaveBeenCalledWith('404');
                     });
                 });
 
@@ -450,11 +452,6 @@ define(function (require) {
         });
 
         describe('goToCreateQuestion:', function () {
-            
-            beforeEach(function () {
-                spyOn(router, 'navigate');
-                spyOn(eventTracker, 'publish');
-            });
 
             it('should be a function', function () {
                 expect(viewModel.goToCreateQuestion).toBeFunction();
@@ -474,11 +471,6 @@ define(function (require) {
 
         describe('goToRelatedObjective:', function () {
 
-            beforeEach(function () {
-                spyOn(router, 'navigate');
-                spyOn(eventTracker, 'publish');
-            });
-
             it('should be a function', function () {
                 expect(viewModel.goToRelatedObjective).toBeFunction();
             });
@@ -496,11 +488,6 @@ define(function (require) {
         });
 
         describe('goToPreviousQuestion:', function () {
-
-            beforeEach(function () {
-                spyOn(eventTracker, 'publish');
-                spyOn(router, 'navigate');
-            });
 
             it('should be a function', function () {
                 expect(viewModel.goToPreviousQuestion).toBeFunction();
@@ -521,7 +508,7 @@ define(function (require) {
                 it('should navigate to #404 ', function () {
                     viewModel.hasPrevious = false;
                     viewModel.goToPreviousQuestion();
-                    expect(router.navigate).toHaveBeenCalledWith('404');
+                    expect(router.replace).toHaveBeenCalledWith('404');
                 });
 
             });
@@ -529,11 +516,6 @@ define(function (require) {
         });
 
         describe('goToNextQuestion:', function () {
-
-            beforeEach(function () {
-                spyOn(eventTracker, 'publish');
-                spyOn(router, 'navigate');
-            });
 
             it('should be a function', function () {
                 expect(viewModel.goToNextQuestion).toBeFunction();
@@ -555,7 +537,7 @@ define(function (require) {
                 it('should navigate to #404', function () {
                     viewModel.hasNext = false;
                     viewModel.goToNextQuestion();
-                    expect(router.navigate).toHaveBeenCalledWith('404');
+                    expect(router.replace).toHaveBeenCalledWith('404');
                 });
 
             });
@@ -657,10 +639,6 @@ define(function (require) {
 
             describe('isEditing', function () {
 
-                beforeEach(function () {
-                    spyOn(eventTracker, 'publish');
-                });
-
                 it('should be observable', function () {
                     expect(viewModel.explanations()[0].isEditing).toBeObservable();
                 });
@@ -716,8 +694,6 @@ define(function (require) {
             describe('when called', function () {
 
                 it('should send event \'Add explanation\'', function () {
-                    spyOn(eventTracker, 'publish');
-
                     viewModel.addExplanation();
 
                     expect(eventTracker.publish).toHaveBeenCalledWith('Add explanation', eventsCategory);
@@ -877,7 +853,6 @@ define(function (require) {
                 });
 
                 it('should send event \'Delete explanation\'', function () {
-                    spyOn(eventTracker, 'publish');
                     viewModel.deleteExplanation(viewModel.explanations()[0]);
                     expect(eventTracker.publish).toHaveBeenCalledWith('Delete explanation', eventsCategory);
                 });
@@ -1208,7 +1183,6 @@ define(function (require) {
                 getQuestionByIdDeferredPromise = getQuestionByIdDeferred.promise;
 
                 spyOn(questionRepository, 'getById').andReturn(getQuestionByIdDeferredPromise);
-                spyOn(eventTracker, 'publish');
             });
 
             it('should be function', function () {
@@ -1329,7 +1303,6 @@ define(function (require) {
                 getQuestionByIdDeferredPromise = getQuestionByIdDeferred.promise;
 
                 spyOn(questionRepository, 'getById').andReturn(getQuestionByIdDeferredPromise);
-                spyOn(eventTracker, 'publish');
                 spyOn(viewModel.notification, 'update');
             });
 
@@ -1548,7 +1521,6 @@ define(function (require) {
                 getQuestionByIdDeferredPromise = getQuestionByIdDeferred.promise;
 
                 spyOn(questionRepository, 'getById').andReturn(getQuestionByIdDeferredPromise);
-                spyOn(eventTracker, 'publish');
                 spyOn(viewModel.notification, 'update');
             });
 
@@ -1654,7 +1626,6 @@ define(function (require) {
                 getQuestionByIdDeferredPromise = getQuestionByIdDeferred.promise;
 
                 spyOn(questionRepository, 'getById').andReturn(getQuestionByIdDeferredPromise);
-                spyOn(eventTracker, 'publish');
                 spyOn(viewModel.notification, 'update');
             });
 

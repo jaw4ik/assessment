@@ -79,15 +79,15 @@
 
          activate = function (objId) {
              if (!_.isString(objId)) {
-                 router.navigate('400');
+                 router.replace('400');
                  return undefined;
              }
-
+             
              var that = this;
              return objectiveRepository.getById(objId).then(
                  function (objective) {
-                     if (_.isNull(objective)) {
-                         router.navigate('404');
+                     if (_.isNullOrUndefined(objective)) {
+                         router.replace('404');
                          return;
                      }
 

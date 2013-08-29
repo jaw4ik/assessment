@@ -33,6 +33,12 @@
             ];
 
         describe('viewModel [experiences]', function () {
+            
+            beforeEach(function () {
+                spyOn(eventTracker, 'publish');
+                spyOn(router, 'navigate');
+                spyOn(router, 'replace');
+            });
 
             it('should be object', function () {
                 expect(viewModel).toBeObject();
@@ -341,11 +347,6 @@
 
             describe('navigateToCreation', function () {
 
-                beforeEach(function () {
-                    spyOn(eventTracker, 'publish');
-                    spyOn(router, 'navigate');
-                });
-
                 it('should be a function', function () {
                     expect(viewModel.navigateToCreation).toBeFunction();
                 });
@@ -357,17 +358,12 @@
 
                 it('should navigate to #404', function () {
                     viewModel.navigateToCreation();
-                    expect(router.navigate).toHaveBeenCalledWith('404');
+                    expect(router.replace).toHaveBeenCalledWith('404');
                 });
 
             });
 
             describe('navigateToDetails:', function () {
-
-                beforeEach(function () {
-                    spyOn(eventTracker, 'publish');
-                    spyOn(router, 'navigate');
-                });
 
                 it('should be a function', function () {
                     expect(viewModel.navigateToDetails).toBeFunction();
@@ -388,11 +384,6 @@
             });
 
             describe('navigateToObjectives:', function () {
-
-                beforeEach(function () {
-                    spyOn(eventTracker, 'publish');
-                    spyOn(router, 'navigate');
-                });
 
                 it('should be a function', function () {
                     expect(viewModel.navigateToObjectives).toBeFunction();
@@ -417,8 +408,6 @@
                     experience = {
                         isSelected: ko.observable()
                     };
-
-                    spyOn(eventTracker, 'publish');
                 });
 
                 it('should be a function', function () {
@@ -453,8 +442,6 @@
                         { title: "title 1" },
                         { title: "title 2" }
                     ]);
-
-                    spyOn(eventTracker, 'publish');
                 });
 
                 it('should be a function', function () {
@@ -488,8 +475,6 @@
                         { title: "title 1" },
                         { title: "title 2" }
                     ]);
-
-                    spyOn(eventTracker, 'publish');
                 });
 
                 it('should be a function', function () {
@@ -531,7 +516,6 @@
                     };
                     buildDeferred = Q.defer();
 
-                    spyOn(eventTracker, 'publish');
                     buildPromise = buildDeferred.promise.finally(function () { });
                     spyOn(experienceService, 'build').andReturn(buildDeferred.promise);
                 });
@@ -673,7 +657,6 @@
                 beforeEach(function () {
                     experience = { packageUrl: 'some url' };
 
-                    spyOn(eventTracker, 'publish');
                     spyOn(downloadService, 'download');
                 });
 

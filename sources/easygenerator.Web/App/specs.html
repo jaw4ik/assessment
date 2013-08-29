@@ -46,6 +46,10 @@
             define('jquery', function () { return jQuery; });
             define('knockout', ko);
 
+            require(['plugins/router'], function (router) {
+                router.replace = function () {
+                };
+            });
 
             var specs = [
                 'localization/localizationManager.spec',

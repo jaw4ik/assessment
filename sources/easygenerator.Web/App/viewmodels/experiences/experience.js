@@ -56,7 +56,7 @@
         navigateToNextExperience = function () {
             sendEvent(events.navigateToNextExperience);
             if (_.isUndefined(this.nextExperienceId) || _.isNull(this.nextExperienceId)) {
-                router.navigate('404');
+                router.replace('404');
             } else {
                 router.navigate('experience/' + this.nextExperienceId);
             }
@@ -65,7 +65,7 @@
         navigateToPreviousExperience = function () {
             sendEvent(events.navigateToPreviousExperience);
             if (_.isUndefined(this.previousExperienceId) || _.isNull(this.previousExperienceId)) {
-                router.navigate('404');
+                router.replace('404');
             } else {
                 router.navigate('experience/' + this.previousExperienceId);
             }
@@ -173,7 +173,7 @@
 
         activate = function (experienceId) {
             if (!_.isString(experienceId)) {
-                router.navigate('400');
+                router.replace('400');
                 return undefined;
             }
             this.notification.visibility(false);
@@ -189,7 +189,7 @@
                 });
 
                 if (!_.isObject(that.experience)) {
-                    router.navigate('404');
+                    router.replace('404');
                     return;
                 }
 
