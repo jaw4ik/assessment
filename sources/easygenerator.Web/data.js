@@ -1,7 +1,7 @@
 {
     "objectives": [
         {
-            "id": "bd65b9e9f35a4dbeb51cb564654467af",
+            "id": "1",
             "title": "1. The learner is able to appreciate the easy and powerful features of easygenerator",
             "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSquMn3u84SWcQvKAbmrlUicfv2bYY3197JsNsilftexOQYce-Z",
             "createdOn" : "/Date(1377173811487)/",
@@ -171,7 +171,7 @@
             ]
         },
         {
-            "id": "44b89f07ac1348cc89f1f79cd8e476bc",
+            "id": "2",
             "title": "2. The learner is able to create more effective learning",
             "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSquMn3u84SWcQvKAbmrlUicfv2bYY3197JsNsilftexOQYce-Z",
             "createdOn" : "/Date(1377173811487)/",
@@ -314,7 +314,7 @@
             ]
         },
         {
-            "id": "1b27ce566e3e41ed853798c7782a3798",
+            "id": "3",
             "title": "3. The learner is able to explain the collaborative features to his boss",
             "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSquMn3u84SWcQvKAbmrlUicfv2bYY3197JsNsilftexOQYce-Z",
             "createdOn" : "\/Date(1377172218190)\/",
@@ -432,7 +432,7 @@
             ]
         },
         {
-            "id": "f500d3f1ccf847c0b44beb9ac1e994de",
+            "id": "4",
             "title": "4. The learner is able to save 40% on maintenance",
             "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSquMn3u84SWcQvKAbmrlUicfv2bYY3197JsNsilftexOQYce-Z",
             "createdOn" : "\/Date(1377172218190)\/",
@@ -528,7 +528,7 @@
             "createdOn" : "\/Date(1377172218190)\/",
             "modifiedOn" : "\/Date(1377172218190)\/",
             "builtOn" : "",
-            "objectives": ["0", "1", "2", "3"],
+            "objectives": ["4", "1", "2", "3"],
             "packageUrl": ""
         },
         {
@@ -546,7 +546,7 @@
             "createdOn" : "\/Date(1377172218190)\/",
             "modifiedOn" : "\/Date(1377172218190)\/",
             "builtOn" : "",
-            "objectives": ["0", "1", "3"],
+            "objectives": ["4", "1", "3"],
             "packageUrl": ""
         },
         {
@@ -555,7 +555,7 @@
             "createdOn" : "\/Date(1377172218190)\/",
             "modifiedOn" : "\/Date(1377172218190)\/",
             "builtOn" : "",
-            "objectives": ["0", "2", "3"],
+            "objectives": ["1", "2", "3"],
             "packageUrl": ""
         },
         {
