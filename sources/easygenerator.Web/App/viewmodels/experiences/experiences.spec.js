@@ -509,7 +509,7 @@
 
                 beforeEach(function () {
                     experience = {
-                        Id:1,
+                        id: 'testId3',
                         buildingStatus: ko.observable(),
                         showBuildingStatus: ko.observable(),
                         isSelected: ko.observable()
@@ -567,7 +567,7 @@
                     describe('and buildExperience service return \"true\"', function () {
 
                         beforeEach(function () {
-                            buildDeferred.resolve({Success: true, PackageUrl: ''});
+                            buildDeferred.resolve({Success: true, PackageUrl: 'packageUrl'});
                         });
 
                         it('should change experience building status to \"succeed\"', function () {
@@ -579,6 +579,43 @@
 
                             runs(function () {
                                 expect(experience.buildingStatus()).toEqual(constants.buildingStatuses.succeed);
+                            });
+                        });
+
+                        it('should change packageUrl in dataContext', function () {
+                            
+                            viewModel.buildExperience(experience);
+
+                            waitsFor(function () {
+                                return !buildPromise.isPending();
+                            });
+
+                            runs(function () {
+                                var expectExperience = _.find(dataContext.experiences, function (item) {
+                                    return item.id == experience.id;
+                                });
+                                expect(expectExperience.packageUrl).toEqual('packageUrl');
+                            });
+                        });
+                        
+                        it('should change builtOn in dataContext', function () {
+
+                            viewModel.buildExperience(experience);
+                            var expectExperience = _.find(dataContext.experiences, function (item) {
+                                return item.id == experience.id;
+                            });
+
+                            expectExperience.builtOn = '';
+                            
+                            waitsFor(function () {
+                                return !buildPromise.isPending();
+                            });
+
+                            runs(function () {
+                                var expectExperience = _.find(dataContext.experiences, function (item) {
+                                    return item.id == experience.id;
+                                });
+                                expect(expectExperience.packageUrl).toNotEqual('');
                             });
                         });
 

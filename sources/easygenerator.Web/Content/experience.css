@@ -298,7 +298,7 @@
 .experience .info-popup-wrapper {
     display: none;
     height: 130px;
-    width: 225px;
+    width: 240px;
     position: absolute;
     top: -48px;
     right: 34px;
@@ -311,7 +311,7 @@
 
 .experience-info-popup {
     height: 100%;
-    width: 215px;
+    width: 232px;
     position: relative;
     line-height: normal;
     border: 1px solid #bdbebf;
