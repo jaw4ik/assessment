@@ -560,6 +560,7 @@
     <Content Include="Scripts\knockoutBindings\keyPressBinding.js" />
     <Content Include="Scripts\knockout.validation.debug.js" />
     <None Include="Scripts\knockout.validation.js" />
+    <Content Include="Scripts\knockoutBindings\plainTextBinding.js" />
     <Content Include="Scripts\knockoutBindings\singleLineValueBinding.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment.js" />
