@@ -40,7 +40,6 @@
             explanations = ko.observableArray([]),
             hasPrevious = false,
             hasNext = false,
-            currentLanguage = ko.observable(''),
             lastAddedExplanation = ko.observable(null),
             isAnswersBlockExpanded = ko.observable(true),
             isExplanationsBlockExpanded = ko.observable(true),
@@ -404,7 +403,6 @@
                     that.hasNext = nextId != null;
                     that.hasPrevious = previousId != null;
 
-                    currentLanguage(localizationManager.currentLanguage);
                     notification.visibility(false);
                 })
                 .fail(function () {
@@ -436,7 +434,7 @@
             explanations: explanations,
             hasPrevious: hasPrevious,
             hasNext: hasNext,
-            language: currentLanguage,
+            language: localizationManager.currentLanguage,
             isAnswersBlockExpanded: isAnswersBlockExpanded,
             isExplanationsBlockExpanded: isExplanationsBlockExpanded,
             notification: notification,

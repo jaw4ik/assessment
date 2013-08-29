@@ -906,13 +906,13 @@ define(function (require) {
 
         });
 
-        describe('language:', function () {
+        //describe('language:', function () {
 
-            it('should be observable', function () {
-                expect(viewModel.language).toBeObservable();
-            });
+        //    it('should be observable', function () {
+        //        expect(viewModel.language).toBeObservable();
+        //    });
 
-        });
+        //});
 
         describe('saveExplanation:', function () {
 
