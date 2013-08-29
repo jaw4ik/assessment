@@ -1,7 +1,8 @@
 ﻿ko.bindingHandlers.ckeditor = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+
         var
-            language = valueAccessor().language() || 'en',
+            language = valueAccessor().language || 'en',
             eventTracker = valueAccessor().eventTracker || null,
             data = valueAccessor().data,
             isEditing = valueAccessor().isEditing,
