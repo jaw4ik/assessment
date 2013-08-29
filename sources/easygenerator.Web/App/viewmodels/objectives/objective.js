@@ -142,19 +142,20 @@
                 if (selectedQuestions.length == 0)
                     throw 'No selected questions to delete';
 
-                return repository.getById(this.objectiveId).then(function (objective) {
+                repository.getById(this.objectiveId).then(function (objective) {
                     _.each(selectedQuestions, function (question) {
                         objective.questions = _.reject(objective.questions, function (item) {
                             return item.id == question.id;
                         });
                     });
 
-                    return repository.update(objective).then(function (success) {
-                        if (success) {
-                            _.each(selectedQuestions, function (question) {
-                                questions.remove(question);
-                            });
-                        }
+                    return repository.update(objective).then(function (updatedObjective) {
+                        _.each(selectedQuestions, function (question) {
+                            questions.remove(question);
+                        });
+
+                        modifiedOn(updatedObjective.modifiedOn);
+                        notification.update();
                     });
                 });
             },

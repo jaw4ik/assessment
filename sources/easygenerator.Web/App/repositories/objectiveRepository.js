@@ -35,6 +35,7 @@
 
                 objective.title = obj.title;
                 objective.modifiedOn = Date.now();
+
                 deferred.resolve(objective);
             });
 
