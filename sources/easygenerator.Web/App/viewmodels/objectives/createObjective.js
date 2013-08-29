@@ -53,7 +53,6 @@
                 }
 
                 objectiveRepository.addObjective({ title: title() }).then(function () {
-                    debugger;
                     title('');
                     notification.update();
                 });
