@@ -44,6 +44,11 @@
                 notification.visibility(true);
             }
         },
+            
+            showErrorTitleValidation = function() {
+                return !title.isValid() && !title().length == 0;
+            },
+            
             startEditTitle = function () {
                 title.isEditing(true);
             },
@@ -219,6 +224,8 @@
                             .value();
 
                         that.questions(currentSortingOption() == constants.sortingOptions.byTitleAsc ? array : array.reverse());
+
+                        notification.visibility(false);
                     });
             },
             
@@ -236,10 +243,14 @@
             objectiveId: objectiveId,
             nextObjectiveId: nextObjectiveId,
             previousObjectiveId: previousObjectiveId,
+
             title: title,
+            titleMaxLength: titleMaxLength,
+            showErrorTitleValidation: showErrorTitleValidation,
+            language: localizationManager.currentLanguage,
             createdOn: createdOn,
             modifiedOn: modifiedOn,
-            titleMaxLength: titleMaxLength,
+            
             image: image,
             questions: questions,
             canDeleteQuestions: canDeleteQuestions,

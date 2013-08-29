@@ -13,14 +13,56 @@
         </aside>
         <div class="page-header clearfix">
             <div class="page-header-image white-framing">
-                <img class="image-element" alt="" data-bind="attr: { src: image }" />
+                <img class="objective-image" alt="" data-bind="attr: { src: image }" />
+            </div>
+            <div class="info-btn-holder pull-left">
+                <div class="info-btn-wrapper">
+                    <div class="info-btn"></div>
+                    <div class="info-popup-wrapper">
+                        <div class="objective-info-popup">
+                            <table class="objective-info-table">
+                                <tbody>
+                                    <tr>
+                                        <td class="condition-title" rowspan="2">
+                                            <span class="after-colon" data-bind="localize: { text: 'createdOn'}"></span>
+                                        </td>
+                                        <td>
+                                            <span class="condition-date-text" data-bind="date: { value: createdOn, formatString: 'L', language: language }"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="condition-date-time-text" data-bind="date: { value: createdOn, formatString: 'LT', language: language }"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="condition-title" rowspan="2">
+                                            <span class="after-colon" data-bind="localize: { text: 'modifiedOn'}"></span>
+                                        </td>
+                                        <td>
+                                            <span class="condition-date-text" data-bind="date: { value: modifiedOn, formatString: 'L', language: language }"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <span class="condition-date-time-text" data-bind="date: { value: modifiedOn, formatString: 'LT', language: language }"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="objective-info-popup-triangle-wrapper">
+                                <div class="objective-info-popup-triangle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="page-header-info objective-header-title">
                 <div class="objective-text-wrapper">
                     <div class="edit-field selectable">
-                        <div class="text-block" data-bind="css: { 'active': title.isEditing(), error: !title.isValid() }">
+                        <div class="text-block" data-bind="css: { 'active': title.isEditing(), error: showErrorTitleValidation() }">
                             <textarea class="editarea" data-bind="singleLineValue: title, valueUpdate: 'afterkeydown', autoResize: true, hasFocus: title.isEditing, event: { focus: startEditTitle.bind($data), blur: endEditTitle.bind($data) }"></textarea>
-                            <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
+                            <div class="chars-counter" data-bind="css: { error: showErrorTitleValidation() }">
                                 <span data-bind="text: title().length"></span>
                                 <span>/</span>
                                 <span data-bind="text: titleMaxLength"></span>
