@@ -81,7 +81,8 @@
                                             <span class="after-colon" data-bind="localize: { text: 'createdOn' }"></span>
                                         </td>
                                         <td>
-                                            <span class="condition-date-text" data-bind="date: { value: createdOn, formatString: 'L', language: currentlanguage }"></span>
+                                            <span class="condition-date-text"></span>
+                                            <div class="experience-date-block-text" data-bind="date: { value: createdOn, formatString: 'L', language: currentlanguage }"></div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -94,7 +95,8 @@
                                             <span class="after-colon" data-bind="localize: { text: 'modifiedOn' }"></span>
                                         </td>
                                         <td>
-                                            <span class="condition-date-text" data-bind="date: { value: modifiedOn, formatString: 'L', language: currentlanguage }"></span>
+                                            <span class="condition-date-text"></span>
+                                            <div class="experience-date-block-text" data-bind="date: { value: modifiedOn, formatString: 'L', language: currentlanguage }"></div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -109,10 +111,12 @@
                                         </td>
                                         <td>
                                             <!--ko ifnot: !_.isDate(builtOn())-->
-                                            <span class="condition-date-text" data-bind="date: { value: builtOn, formatString: 'L', language: currentlanguage }"></span>
+                                            <span class="condition-date-text"></span>
+                                            <div class="experience-date-block-text" data-bind="date: { value: builtOn, formatString: 'L', language: currentlanguage }"></div>
                                             <!--/ko-->
                                             <!--ko if: !_.isDate(builtOn())-->
-                                            <span class="condition-date-text" data-bind="localize: { text: 'notBuilt' }"></span>
+                                            <span class="condition-date-text"></span>
+                                            <div class="experience-date-block-text" data-bind="localize: { text: 'notBuilt' }"></div>
                                             <!--/ko-->
                                         </td>
                                     </tr>
