@@ -235,7 +235,7 @@
 }
 
 .experience-brief-options-select,
-.experience-brief-options-open {
+.experience-brief-options-edit {
     height: 182px;
     width: 50%;
     float: left;
@@ -247,7 +247,7 @@
 }
 
     .experience-brief-options-select:hover,
-    .experience-brief-options-open:hover {
+    .experience-brief-options-edit:hover {
         background-color: rgba(0, 0, 0, 0.4);
     }
 
@@ -263,7 +263,7 @@
         background-position: 0 -210px;
     }
 
-.experience-brief-options-open {
+.experience-brief-options-edit {
     cursor: pointer;
 }
 
