@@ -107,11 +107,10 @@
 
 .list-of-questions .info-popup-wrapper {
     display: none;
-    height: 100px;
-    width: 209px;
+    height: 122px;
     position: absolute;
-    top: -33px;
-    right: 31px;
+    top: -43px;
+    right: 40px;
     z-index: 30;
 }
 
@@ -121,7 +120,7 @@
 
 .objective-info-popup {
     height: 100%;
-    width: 200px;
+    width: 214px;
     position: relative;
     line-height: normal;
     border: 1px solid #bdbebf;
