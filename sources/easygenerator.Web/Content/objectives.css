@@ -244,7 +244,7 @@
 }
 
 .objective-brief-options-select,
-.objective-brief-options-open {
+.objective-brief-options-edit {
     height: 182px;
     width: 50%;
     float: left;
@@ -256,12 +256,12 @@
 }
 
     .objective-brief-options-select:hover,
-    .objective-brief-options-open:hover {
+    .objective-brief-options-edit:hover {
         background-color: #000000;
         background-color: rgba(0, 0, 0, 0.4);
     }
 
-    .objective-brief-options-open:hover {
+    .objective-brief-options-edit:hover {
         cursor: pointer;
     }
 
@@ -288,7 +288,7 @@
         background-position: 0 -210px;
     }
 
-.objective-brief-options-open-image {
+.objective-brief-options-edit-image {
     display: inline-block;
     margin-top: 2px;
     width: 51px;
