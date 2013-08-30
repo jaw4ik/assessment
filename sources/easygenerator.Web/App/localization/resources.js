@@ -103,8 +103,8 @@
     },
     notBuilt: {
         en: 'Not built',
-        nl: 'Not built[nl]',
-        de: 'Not built[de]'
+        nl: 'Niet samengesteld',
+        de: 'Nicht erstellt'
     },
     delete: {
         en: 'Delete',
