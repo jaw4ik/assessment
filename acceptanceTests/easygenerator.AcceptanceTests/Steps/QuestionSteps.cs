@@ -57,9 +57,10 @@ namespace easygenerator.AcceptanceTests.Steps
         public void ThenExplanationsListContainsOnlyItemsWithData(Table table)
         {
             var expectedExplanations = table.CreateSet<ExplanationData>().Select(obj => obj.Explanation).ToArray();
+            var realExplanations = Question.ExplanationItems.Select(obj => obj.Explanation).ToArray();
             TestUtils.Assert_IsTrue_WithWait(() =>
-                TestUtils.AreCollectionsTheSame(expectedExplanations, Question.ExplanationItems.Select(obj => obj.Explanation).ToArray()),
-                "Not all expected answers on page", Question.ExplanationItems.Select(obj => obj.Explanation).ToArray());
+                TestUtils.AreCollectionsTheSame(expectedExplanations, realExplanations),
+                "Not all expected answers on page", realExplanations);
         }
 
 

@@ -287,7 +287,8 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                return Container.GetTextContent();
+                var el = Container.GetTextContent();
+                return el.Replace(((char)8203).ToString(), "");
 
             }
         }
