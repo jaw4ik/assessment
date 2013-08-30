@@ -111,18 +111,22 @@
                                             <!--ko ifnot: !_.isDate(builtOn())-->
                                             <span class="condition-date-text" data-bind="date: { value: builtOn, formatString: 'L', language: currentlanguage }"></span>
                                             <!--/ko-->
-                                            <!--ko if:!_.isDate(builtOn())-->
+                                            <!--ko if: !_.isDate(builtOn())-->
                                             <span class="condition-date-text" data-bind="localize: { text: 'notBuilt' }"></span>
                                             <!--/ko-->
                                         </td>
                                     </tr>
-                                    <!--ko ifnot: !_.isDate(builtOn())-->
+                                    
                                     <tr>
                                         <td>
+                                            <!--ko ifnot: !_.isDate(builtOn())-->
                                             <span class="condition-date-time-text" data-bind="date: { value: builtOn, formatString: 'LT', language: currentlanguage }"></span>
+                                            <!--/ko-->
+                                            <!--ko if: !_.isDate(builtOn())-->
+                                            <span>&nbsp;</span>
+                                            <!--/ko-->
                                         </td>
                                     </tr>
-                                    <!--/ko-->
                                 </tbody>
                             </table>
                             <div class="experience-info-popup-triangle-wrapper">
