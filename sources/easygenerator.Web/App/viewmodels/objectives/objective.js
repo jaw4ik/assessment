@@ -135,7 +135,6 @@
                 }
             },
             
-            //todo: refactor delete functionality
             deleteSelectedQuestions = function () {
                 sendEvent(events.deleteSelectedQuestions);
                 var selectedQuestions = getSelectedQuestions();

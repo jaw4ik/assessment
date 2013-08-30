@@ -20,6 +20,8 @@
             };
 
             objective.questions.push(question);
+            objective.modifiedOn = new Date();
+
             deferred.resolve(question.id);
         });
 

@@ -82,6 +82,21 @@
                             expect(promise.inspect().value).toEqual(0);
                         });
                     });
+
+                    it('should update modified date of objective', function() {
+                        objective.modifiedOn = null;
+                        
+                        var promise = questionRepository.add(objective.id, question);
+                        getObjectiveDeferred.resolve(objective);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeResolved();
+                            expect(objective.modifiedOn).not.toBeNull();
+                        });
+                    });
                 });
             });
 
