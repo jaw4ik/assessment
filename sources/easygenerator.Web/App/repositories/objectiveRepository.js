@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'plugins/http', 'models/objective', 'configuration/images', 'repositories/objectiveBriefRepository'],
-    function (dataContext, constants, http, objectiveModel, images, objectiveBriefRepository) {
+﻿define(['dataContext', 'constants', 'plugins/http', 'models/objective'],
+    function (dataContext, constants, http, objectiveModel) {
 
         var self = {};
 

@@ -4,10 +4,6 @@ define(function (require) {
     var
         viewModel = require('viewmodels/questions/question'),
         router = require('plugins/router'),
-        objectiveModel = require('models/objective'),
-        questionModel = require('models/question'),
-        answerOptionModel = require('models/answerOption'),
-        images = require('configuration/images'),
         eventTracker = require('eventTracker'),
         questionRepository = require('repositories/questionRepository'),
         objectiveRepository = require('repositories/objectiveRepository');
@@ -30,7 +26,7 @@ define(function (require) {
     var objectiveFull = {
         id: '1',
         title: 'Test Objective',
-        image: images[0],
+        image: 'some image url',
         questions: [
             {
                 id: '0',
