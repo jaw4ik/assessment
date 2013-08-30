@@ -41,7 +41,7 @@
             }
 
             var question = _.find(objective.questions, function (item) {
-                return item.id === obj.id;
+                return item.id == obj.id;
             });
 
             if (!_.isObject(question)) {
