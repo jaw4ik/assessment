@@ -10,7 +10,7 @@
             {
                 route: '400',
                 moduleId: 'viewmodels/errors/400',
-                title: '404 Bad Request',
+                title: '400 Bad Request',
             },
             {
                 route: 'user',
