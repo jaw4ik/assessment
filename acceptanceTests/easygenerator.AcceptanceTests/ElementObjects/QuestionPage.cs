@@ -28,7 +28,8 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             get
             {
                 var el = GetByXPath(model.QuestionTitle);
-                return el.GetAttribute("value");
+                return el.GetTextContent();
+                //return el.GetAttribute("value");
             }
         }
 
@@ -260,8 +261,8 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             get
             {
                 var el = GetByXPathInside(model.AnswerItemText);
-                //return el.GetTextContent();
-                return el.GetAttribute("value");
+                return el.GetTextContent();
+                //return el.GetAttribute("value");
             }
         }
 

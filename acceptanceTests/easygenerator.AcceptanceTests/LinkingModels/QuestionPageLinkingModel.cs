@@ -14,7 +14,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string ExplanationItem = ".//div[contains(@class,'question-explanations')]//li[contains(@class,'question-explanation-item')]";
         public string CorrectAnswerIndicator = ".//span[@class='answer-correct-icon']";
         //public string AnswerItemText = ".//div[contains(@class,'question-answer-text')]";
-        public string AnswerItemText = ".//div[contains(@class,'question-answer-text')]//textarea";
+        public string AnswerItemText = ".//div[contains(@class,'question-answer-text')]//div[contains(@class,'editarea-editable-text')]";
         public string ExplanationItemText = ".//div[contains(@class,'question-explanation')]";
         public string AnswerItemValue = ".//div[contains(@class,'question-answer-value')]";
         public string AnswerItemDeleteButton = ".//div[@class='question-answer-delete-wrapper']";
@@ -23,7 +23,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string BackToObjectiveLink = "//div[contains(@class,'nav-control') and contains(@class,'flexible')]//div[contains(@class,'nav-element')]";
         public string BackToObjectiveText = "//div[contains(@class,'nav-control') and contains(@class,'flexible')]//span[contains(@class,'nav-element')]";
 
-        public string QuestionTitle = ".//div[contains(@class,'question-text-wrapper')]//textarea";
+        public string QuestionTitle = ".//div[contains(@class,'question-text-wrapper')]//div[contains(@class,'editarea-editable-text')]";
 
         public string AnswerOptionsBlock = ".//div[contains(@class,'question-answers')]";
         public string ExplanationsBlock = ".//div[contains(@class,'question-explanations')]";
@@ -36,7 +36,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 
         public string AddNewAnswerOptionButton = ".//div[contains(@class,'question-answers')]//li[@class='add-button']//div[@class='question-answer-text']";
         //public string AnswerOptionActiveText = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[@class='question-answer-text']//p";
-        public string AnswerOptionActiveText = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[contains(@class,'question-answer-text')]//textarea";        
+        public string AnswerOptionActiveText = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[contains(@class,'question-answer-text')]//div[contains(@class,'editarea-editable-text')]";        
         public string AnswerOptionActiveCorrectnessIndicator = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[@class='question-answer-value']";
 
         public string AddNewExplanationButton = ".//div[contains(@class,'question-explanations')]//li[@class='add-button']//div[contains(@class,'question-explanation')]";
