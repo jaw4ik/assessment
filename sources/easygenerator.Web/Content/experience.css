@@ -258,7 +258,7 @@
     }
 }
 
-.experience-text-wrapper .edit-field .text-block textarea {
+.experience-text-wrapper .edit-field .text-block .editarea-editable-text {
     min-height: 124px;
 }
 
