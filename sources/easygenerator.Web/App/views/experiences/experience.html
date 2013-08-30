@@ -74,7 +74,7 @@
                     <div class="info-btn"></div>
                     <div class="info-popup-wrapper">
                         <div class="experience-info-popup">
-                            <table class="experience-info-table" data-bind="css: _.isNaN(builtOn().valueOf()) ? 'not-built' : '' ">
+                            <table class="experience-info-table" data-bind="css: !_.isDate(builtOn()) ? 'not-built' : '' ">
                                 <tbody>
                                     <tr>
                                         <td class="condition-title" rowspan="2">
@@ -108,15 +108,15 @@
                                             <span class="after-colon" data-bind="localize: { text: 'builtOn' }"></span>
                                         </td>
                                         <td>
-                                            <!--ko ifnot: _.isNaN(builtOn().valueOf())-->
+                                            <!--ko ifnot: !_.isDate(builtOn())-->
                                             <span class="condition-date-text" data-bind="date: { value: builtOn, formatString: 'L', language: currentlanguage }"></span>
                                             <!--/ko-->
-                                            <!--ko if: _.isNaN(builtOn().valueOf())-->
+                                            <!--ko if:!_.isDate(builtOn())-->
                                             <span class="condition-date-text" data-bind="localize: { text: 'notBuilt' }"></span>
                                             <!--/ko-->
                                         </td>
                                     </tr>
-                                    <!--ko ifnot: _.isNaN(builtOn().valueOf())-->
+                                    <!--ko ifnot: !_.isDate(builtOn())-->
                                     <tr>
                                         <td>
                                             <span class="condition-date-time-text" data-bind="date: { value: builtOn, formatString: 'LT', language: currentlanguage }"></span>
