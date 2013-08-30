@@ -118,6 +118,10 @@
     display: block;
 }
 
+.list-of-questions .condition-title {
+    padding: 7px 5px;
+}
+
 .objective-info-popup {
     height: 100%;
     width: 214px;
