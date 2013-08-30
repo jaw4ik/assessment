@@ -48,12 +48,12 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
-        public bool IsOpenEnabled
+        public bool IsEditEnabled
         {
             get
             {
-                var openEl = GetByXPathInside(model.OpenElement);
-                return openEl.Displayed;
+                var editEl = GetByXPathInside(model.EditElement);
+                return editEl.Displayed;
             }
         }
         public bool IsSelectedEnabled
@@ -68,7 +68,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
 
         internal void Open()
         {
-            GetByXPathInside(model.OpenElement).Click();
+            GetByXPathInside(model.EditElement).Click();
         }
     }
 }

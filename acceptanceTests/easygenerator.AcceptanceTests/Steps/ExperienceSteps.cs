@@ -44,12 +44,12 @@ namespace easygenerator.AcceptanceTests.Steps
             item.Hover();
         }
 
-        [Then(@"Action open is enabled (.*) for related objectives list item with title '(.*)'")]
-        public void ThenActionOpenIsEnabledTrueForRelatedObjectivesListItemWithTitle(bool isEnabled, string title)
+        [Then(@"Action edit is enabled (.*) for related objectives list item with title '(.*)'")]
+        public void ThenActionEditIsEnabledTrueForRelatedObjectivesListItemWithTitle(bool isEnabled, string title)
         {
             var item = experiencePage.ItemByTitle(title);
             TestUtils.Assert_IsTrue_WithWait(() =>
-                isEnabled = item.IsOpenEnabled,
+                isEnabled = item.IsEditEnabled,
                 "Open should be enabled(disabled)");
         }
 

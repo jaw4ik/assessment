@@ -252,7 +252,7 @@ testRunner.When("open page by url \'http://localhost:5656/#/experience/1\'", ((s
 #line 61
 testRunner.And("mouse hover element of related objectives list with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 62
-testRunner.Then("Action open is enabled true for related objectives list item with title \'Objectiv" +
+testRunner.Then("Action edit is enabled true for related objectives list item with title \'Objectiv" +
                     "e11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 63
 testRunner.And("Action select is enabled true for related objectives list item with title \'Object" +

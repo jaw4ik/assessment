@@ -59,7 +59,7 @@ Given objectives are linked to experiance 'Experience1'
 | Objective12 | 2  |
 When open page by url 'http://localhost:5656/#/experience/1'
 And mouse hover element of related objectives list with title 'Objective11'
-Then Action open is enabled true for related objectives list item with title 'Objective11'
+Then Action edit is enabled true for related objectives list item with title 'Objective11'
 And Action select is enabled true for related objectives list item with title 'Objective11'
 
 Scenario: No objectives are selected by default in related objectives list
