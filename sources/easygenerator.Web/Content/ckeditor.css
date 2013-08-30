@@ -3,7 +3,7 @@
     width: 121px !important;
 }
 
-.cke_editable > p
+.cke_editable > p:empty
 {
     display: block;
     height: 1.7em;
