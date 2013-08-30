@@ -42,6 +42,7 @@
                 return Q.fcall(function () {
                     that.title('');
                     that.isTitleEditing(false);
+                    that.notification.visibility(false);
                 });
             },
 

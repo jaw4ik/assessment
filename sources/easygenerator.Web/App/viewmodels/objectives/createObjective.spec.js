@@ -325,6 +325,18 @@
                     });
                 });
 
+                it('should hide notification', function() {
+                    viewModel.notification.visibility(true);
+                    var promise = viewModel.activate();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.notification.visibility()).toBeFalsy();
+                    });
+                });
+
             });
 
             describe('isTitleEditing:', function() {
