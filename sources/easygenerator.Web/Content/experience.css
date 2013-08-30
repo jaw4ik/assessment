@@ -266,6 +266,10 @@
     margin-top: 1px;
 }
 
+.experience-date-block-text.not-built {
+    line-height: 16px;
+}
+
 /*#region Info button*/
 
 .experience .info-btn-holder {
