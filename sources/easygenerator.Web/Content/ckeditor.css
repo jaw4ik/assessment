@@ -3,10 +3,9 @@
     width: 121px !important;
 }
 
-.cke_editable > p
+.cke_editable > p:empty
 {
-    display: block;
-    min-height: 1.7em;
+    content: "\200B";
 }
 
 /* Special class appended to the Ok button. */
