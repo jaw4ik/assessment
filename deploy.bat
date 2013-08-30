@@ -17,9 +17,9 @@ ECHO Creating "Download" directory ...
 IF NOT EXIST "%DeploymentDirectory%\Download" MKDIR "%DeploymentDirectory%\Download"
 
 ECHO "Building .Net unit tests"
-%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild sources\easygenerator.DomainModel.Tests\easygenerator.DomainModel.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true
+%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild sources\easygenerator.DomainModel.Tests\easygenerator.DomainModel.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true /property:PreBuildEvent= /property:PostBuildEvent=
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
-%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild sources\easygenerator.Web.Tests\easygenerator.Web.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true
+%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild sources\easygenerator.Web.Tests\easygenerator.Web.Tests.csproj /verbosity:n /nologo /property:TreatWarningsAsErrors=true /property:PreBuildEvent= /property:PostBuildEvent=
 IF NOT %ERRORLEVEL% == 0 GOTO ERROR
 
 ECHO Running .Net unit tests...
