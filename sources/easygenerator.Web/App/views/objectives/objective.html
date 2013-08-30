@@ -61,7 +61,7 @@
                 <div class="objective-text-wrapper">
                     <div class="edit-field selectable">
                         <div class="text-block" data-bind="css: { 'active': title.isEditing(), error: showErrorTitleValidation() }">
-                            <textarea class="editarea" data-bind="singleLineValue: title, valueUpdate: 'afterkeydown', autoResize: true, hasFocus: title.isEditing, event: { focus: startEditTitle.bind($data), blur: endEditTitle.bind($data) }"></textarea>
+                            <div class="editarea editarea-editable-text" data-bind="editableText: { text: title, multiline: false }, hasFocus: title.isEditing, event: { focus: startEditTitle.bind($data), blur: endEditTitle.bind($data) }"></div>
                             <div class="chars-counter" data-bind="css: { error: showErrorTitleValidation() }">
                                 <span data-bind="text: title().length"></span>
                                 <span>/</span>

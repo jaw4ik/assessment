@@ -180,7 +180,7 @@
     white-space: nowrap;
 }
 
-.question-text-wrapper .edit-field .text-block textarea {
+.question-text-wrapper .edit-field .text-block .editarea-editable-text {
     min-height: 93px;
 }
 
@@ -386,10 +386,10 @@
     word-wrap: break-word;
 }
 
-    .question-answer-text textarea {
-        height: 15px;
+    .question-answer-text .editarea-editable-text {
+        min-height: 15px;
         width: 100%;
-        padding: 12px 10px;
+        padding: 10px 10px;
         vertical-align: top;
         border: none;
         color: #666;
@@ -546,7 +546,7 @@
     padding-bottom: 10px;
 }
 
-    .create-question-form .edit-field .text-block textarea {
+    .create-question-form .edit-field .text-block .editarea-editable-text {
         min-height: 140px;
     }
 
@@ -558,10 +558,6 @@
     position: relative;
     margin-left: 225px;
 }
-
-    .create-question-text-wrapper textarea {
-        /*min-height: 50px;*/
-    }
 
 .create-question-form-actions {
     float: right;

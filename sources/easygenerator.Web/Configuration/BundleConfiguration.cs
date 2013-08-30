@@ -23,7 +23,6 @@ namespace easygenerator.Web.Configuration
                     .Include("~/scripts/underscore.js")
                     .Include("~/scripts/underscore.extensions.js")
                     .Include("~/scripts/ckeditor/ckeditor.js")
-                    .Include("~/scripts/jquery.autosize.js")
                     .Include("~/scripts/has.js")
                     .Include("~/scripts/moment.js")
                     .Include("~/scripts/moment-lang-nl.js", "~/scripts/moment-lang-de.js")

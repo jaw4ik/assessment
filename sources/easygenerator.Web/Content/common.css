@@ -601,7 +601,7 @@ h2.page-header-title {
     min-height: 40px;
 }
 
-    .content-list-item .text-block textarea {
+    .content-list-item .text-block .editarea-editable-text {
         width: 100%;
         height: 100%;
         border: 1px solid transparent;
@@ -611,8 +611,7 @@ h2.page-header-title {
         overflow-y: hidden;
         background-color: transparent;
         color: #666;
-        font-size: 13px;
-        font-family: Arial,sans-serif;
+        font-size: 14px;
     }
 
     .content-list-item .text-block:hover > .editarea {
@@ -642,9 +641,8 @@ h2.page-header-title {
     position: relative;
 }
 
-    .edit-field .text-block textarea {
+    .edit-field .text-block .editarea-editable-text {
         width: 100%;
-        height: 90px;
         border: 1px solid transparent;
         -ms-resize: none;
         resize: none;
@@ -654,8 +652,7 @@ h2.page-header-title {
         overflow-y: hidden;
         background-color: transparent;
         color: #666;
-        font-size: 13px;
-        font-family: Arial,sans-serif;
+        font-size: 14px;
     }
 
     .edit-field .text-block.bordered > .editarea {
@@ -779,3 +776,7 @@ h2.page-header-title {
 
 
 /*#endregion */
+
+.prewrap {
+    white-space: pre-wrap;
+}

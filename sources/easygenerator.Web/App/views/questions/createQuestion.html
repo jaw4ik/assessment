@@ -17,7 +17,7 @@
             <div class="create-question-text-wrapper">
                 <div class="edit-field selectable">
                     <div class="text-block bordered" data-bind="css: { 'active': title.isEditing(), error: !title.isValid() && title().length > titleMaxLength }">
-                        <textarea class="editarea" data-bind="singleLineValue: title, valueUpdate: 'afterkeydown', hasFocus: title.isEditing, autoResize: true"></textarea>
+                        <div class="editarea editarea-editable-text" data-bind="editableText: { text: title, multiline: false }, hasFocus: title.isEditing"></div>
                         <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > titleMaxLength }">
                             <span data-bind="text: title().length"></span>/<span data-bind="text: titleMaxLength"></span>
                         </div>

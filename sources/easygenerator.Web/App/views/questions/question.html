@@ -79,7 +79,7 @@
                 <div class="question-text-wrapper">
                     <div class="edit-field selectable">
                         <div class="text-block" data-bind="css: { 'active': title.isEditing(), error: !title.isValid() && title().length > questionTitleMaxLength }">
-                            <textarea class="editarea" data-bind="singleLineValue: title, valueUpdate: 'afterkeydown', autoResize: true, hasFocus: title.isEditing, event: { focus: startEditQuestionTitle.bind($data), blur: endEditQuestionTitle.bind($data) }"></textarea>
+                            <div class="editarea editarea-editable-text" data-bind="editableText: { text: title, multiline: false }, hasFocus: title.isEditing, event: { focus: startEditQuestionTitle.bind($data), blur: endEditQuestionTitle.bind($data) }"></div>
                             <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > questionTitleMaxLength }">
                                 <span data-bind="text: title().length + '/' + questionTitleMaxLength"></span>
                             </div>
@@ -130,7 +130,7 @@
                             </div>
                             <div class="question-answer-text-wrapper">
                                 <div class="question-answer-text selectable">
-                                    <textarea data-bind="value: text, valueUpdate: 'afterkeydown', hasFocus: isInEdit, autoResize: true"></textarea>
+                                    <div class="editarea-editable-text" data-bind="editableText: { text: text, multiline: true }, hasFocus: isInEdit"></div>
                                 </div>
                             </div>
                             <div class="question-answer-delete-wrapper" data-bind="click: $parent.deleteAnswerOption, localize: { title: 'deleteAnswerOption' }">

@@ -1,19 +1,20 @@
 ﻿ko.bindingHandlers.editableText = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        var $element = $(element);
+        var $element = $(element),
+            text = valueAccessor().text,
+            multiline = valueAccessor().multiline || true;
 
         $element.attr('contenteditable', 'true');
         $element.toggleClass('editable-text-binding', true);
-        $element.text(ko.unwrap(valueAccessor()));
+        $element.toggleClass('prewrap', multiline);
+        $element.text(ko.unwrap(text));
 
         $element.on('drop', function (event) {
             event.preventDefault();
             event.stopPropagation();
         }).on('paste', function (event) {
             var clipboardData = event.originalEvent.clipboardData || window.clipboardData;
-            var text = clipboardData.getData('text');
-
-            pasteTextAtCaret(text, false);
+            pasteTextAtCaret(clipboardData.getData('text'), false);
 
             event.preventDefault();
             event.stopPropagation();
@@ -22,15 +23,19 @@
                 return;
             }
 
-            $element.blur();
+            if (multiline) {
+                pasteTextAtCaret('\r\n', false);
+            } else {
+                $element.blur();
+            }
 
             event.preventDefault();
             event.stopPropagation();
         });
 
         var saveIntervalId = setInterval(function () {
-            if (ko.unwrap(valueAccessor()) != $element.text()) {
-                valueAccessor()($element.text());
+            if (ko.unwrap(text) != $element.text()) {
+                text($element.text());
             }
         }, 100);
 
@@ -39,7 +44,8 @@
         });
 
         function pasteTextAtCaret(html, selectPastedContent) {
-            html = html.replace(/(\r\n|\n|\r)/gm, " ");
+            if (!multiline)
+                html = html.replace(/(\r\n|\n|\r)/gm, " ");
 
             var sel, range;
 
@@ -77,7 +83,7 @@
 
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        var text = ko.unwrap(valueAccessor());
+        var text = ko.unwrap(valueAccessor().text);
         var $element = $(element);
 
         if (text != $element.text())
