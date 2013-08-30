@@ -2,7 +2,7 @@
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var $element = $(element),
             text = valueAccessor().text,
-            multiline = valueAccessor().multiline || true;
+            multiline = valueAccessor().multiline;
 
         $element.attr('contenteditable', 'true');
         $element.toggleClass('editable-text-binding', true);
