@@ -154,31 +154,6 @@
     vertical-align: top;
 }
 
-.condition-date-time-text,
-.condition-date-text {
-    display: block;
-    text-transform: lowercase;
-}
-
-    .condition-date-time-text:before,
-    .condition-date-text:before {
-        content: '';
-        display: block;
-        height: 16px;
-        width: 16px;
-        float: left;
-        margin-right: 10px;
-        background-image: url(images/middle-sized-icons-pack.png);
-    }
-
-    .condition-date-time-text:before {
-        background-position: -6px -326px;
-    }
-
-    .condition-date-text:before {
-        background-position: -6px -350px;
-    }
-
 .objective-info-popup-triangle-wrapper {
     position: absolute;
     width: 8px;

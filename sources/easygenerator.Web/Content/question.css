@@ -104,7 +104,6 @@
 .condition-date-time-text,
 .condition-date-text {
     display: block;
-    text-transform: lowercase;
 }
 
     .condition-date-time-text:before,
