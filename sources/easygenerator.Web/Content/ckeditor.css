@@ -3,7 +3,7 @@
     width: 121px !important;
 }
 
-.cke_editable > p:empty
+.cke_editable > p:before
 {
     content: "\200B";
 }
