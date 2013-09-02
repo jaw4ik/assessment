@@ -376,6 +376,7 @@
     -ms-transform: rotate(352deg);
     transform: rotate(352deg);
     white-space: nowrap;
+    color: #666;
 }
 
 .create-objective-tip .create-objective-tip-arrow {
