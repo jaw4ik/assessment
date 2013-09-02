@@ -48,6 +48,8 @@
             createAndNew = function () {
                 sendEvent(events.createAndNew);
 
+                title(title().trim());
+
                 if (!title.isValid()) {
                     return;
                 }
@@ -62,10 +64,12 @@
             createAndEdit = function () {
                 sendEvent(events.createAndEdit);
 
+                title(title().trim());
+
                 if (!title.isValid()) {
                     return;
                 }
-
+                
                 objectiveRepository.addObjective({ title: title() }).then(function (objectiveId) {
                     router.navigate('objective/' + objectiveId);
                 });

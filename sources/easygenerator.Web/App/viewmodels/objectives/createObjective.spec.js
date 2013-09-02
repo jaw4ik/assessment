@@ -182,7 +182,7 @@
 
                         it('should show notification', function () {
                             viewModel.createAndNew();
-                            
+
                             var promise = addObjective.promise.finally(function () { });
                             addObjective.resolve();
 
@@ -194,6 +194,24 @@
                             });
                         });
 
+                    });
+
+                    describe('and title has spaces only', function() {
+
+                        it('should set title to invalid', function() {
+                            viewModel.title('   ');
+                            viewModel.createAndNew();
+                            expect(viewModel.title.isValid()).toBeFalsy();
+                            addObjective.resolve();
+                        });
+
+                    });
+                    
+                    it('should trim title', function () {
+                        viewModel.title('   abc   ');
+                        viewModel.createAndNew();
+                        expect(viewModel.title()).toEqual('abc');
+                        addObjective.resolve();
                     });
 
                     it('should send event \'Create learning objective and create new\'', function () {
@@ -271,6 +289,24 @@
                         });
 
                     });
+                    
+                    describe('and title has spaces only', function () {
+
+                        it('should set title to invalid', function () {
+                            viewModel.title('   ');
+                            viewModel.createAndEdit();
+                            expect(viewModel.title.isValid()).toBeFalsy();
+                            addObjective.resolve();
+                        });
+
+                    });
+
+                    it('should trim title', function () {
+                        viewModel.title('   abc   ');
+                        viewModel.createAndEdit();
+                        expect(viewModel.title()).toEqual('abc');
+                        addObjective.resolve();
+                    });
 
                 });
 
@@ -289,7 +325,7 @@
                 });
 
             });
-            
+
             describe('activate:', function () {
 
                 it('should be function', function () {
@@ -313,7 +349,7 @@
                     });
                 });
 
-                it('should hide notification', function() {
+                it('should hide notification', function () {
                     viewModel.notification.visibility(true);
                     var promise = viewModel.activate();
 
@@ -327,9 +363,9 @@
 
             });
 
-            describe('isTitleEditing:', function() {
+            describe('isTitleEditing:', function () {
 
-                it('should be observable', function() {
+                it('should be observable', function () {
                     expect(viewModel.isTitleEditing).toBeObservable();
                 });
 
@@ -337,13 +373,13 @@
 
             describe('attached:', function () {
 
-                it('should enable title editing', function() {
+                it('should enable title editing', function () {
                     viewModel.isTitleEditing(false);
-                    
+
                     jasmine.Clock.useMock();
-                    
+
                     viewModel.attached();
-                    
+
                     jasmine.Clock.tick(101);
 
                     expect(viewModel.isTitleEditing()).toBeTruthy();
