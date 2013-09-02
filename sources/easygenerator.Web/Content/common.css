@@ -608,7 +608,6 @@ h2.page-header-title {
         -ms-resize: none;
         resize: none;
         outline: none;
-        overflow-y: hidden;
         background-color: transparent;
         color: #666;
         font-size: 14px;
@@ -649,7 +648,6 @@ h2.page-header-title {
         padding: 10px 15px 25px 15px;
         vertical-align: top;
         outline: none;
-        overflow-y: hidden;
         background-color: transparent;
         color: #666;
         font-size: 14px;
