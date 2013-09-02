@@ -11,7 +11,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
     {
         public string Title = ".//div[contains(@class,'experience-brief-title')]";
         public string SelectElement = ".//div[contains(@class,'experience-brief-options-select')]";
-        public string OpenElement = ".//div[contains(@class,'experience-brief-options-open')]";
+        public string OpenElement = ".//div[contains(@class,'experience-brief-options-edit')]";
         public string IsSelectedClass = "experience-brief-selected";
 
         public string BuildElement = ".//div[contains(@class,'experience-brief-options-build')]";
