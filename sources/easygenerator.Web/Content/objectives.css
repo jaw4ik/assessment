@@ -462,6 +462,12 @@
     top: 23px;
 }
 
+.objectives .empty-list-wrapper {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
 .objectives .empty-list-wrapper .empty-list {
     line-height: 75px;
     background-size: 75px;
