@@ -171,18 +171,18 @@ namespace easygenerator.AcceptanceTests.Steps
 
 
         [Given(@"unzip '(.*)' package to '(.*)'")]
-        public void GivenUnzipPackageTo(string zipFile, string extractFolder)
+        public void GivenUnzipPackageTo(string zipFileName, string extractFolder)
         {
-            string zipPath;
+            string downloadDirPath;
             string extractPath;
             if (System.IO.Directory.Exists(@"D:\AcceptanceTests_WorkDirectory"))
             {
-                zipPath = @"C:\Windows\SysWOW64\config\systemprofile\Documents\Downloads\" + zipFile;
+                downloadDirPath = @"C:\Windows\SysWOW64\config\systemprofile\Documents\Downloads";
                 extractPath = @"D:\AcceptanceTests_WorkDirectory\acceptanceTests\easygenerator.AcceptanceTests\bin\Release\easygenerator.Web\Templates\" + extractFolder;
             }
             else
             {
-                zipPath = System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Downloads", zipFile);
+                downloadDirPath = System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Downloads");
                 extractPath = @"D:\Development\easygenerator-web\acceptanceTests\easygenerator.AcceptanceTests\bin\Debug\easygenerator.Web\Templates\" + extractFolder;
             }
             
@@ -190,9 +190,14 @@ namespace easygenerator.AcceptanceTests.Steps
             {
                 System.IO.Directory.Delete(extractPath, true);
             }
-            System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
+
+            System.IO.DirectoryInfo downloadDir = new System.IO.DirectoryInfo(downloadDirPath);
+            string zipFilePath = downloadDir.GetFiles().ToList().First(f => (f.Name.Contains(zipFileName + " ") && f.Name.Contains("-UTC"))).FullName;
+            System.IO.Compression.ZipFile.ExtractToDirectory(zipFilePath, extractPath);
             System.Threading.Thread.Sleep(2000);
-            System.IO.File.Delete(zipPath);
+
+            //System.IO.File.Delete(zipFilePath);
+            FsHelper.DirClean(downloadDir);
         }
 
 

@@ -20,5 +20,11 @@ namespace easygenerator.AcceptanceTests.Helpers
             var path = Path.Combine(Environment.CurrentDirectory, fileName);
             File.WriteAllText(path, data);
         }
+
+        public static void DirClean(System.IO.DirectoryInfo directory)
+        {
+            foreach (System.IO.FileInfo file in directory.GetFiles()) file.Delete();
+            foreach (System.IO.DirectoryInfo subDirectory in directory.GetDirectories()) subDirectory.Delete(true);
+        }
     }
 }

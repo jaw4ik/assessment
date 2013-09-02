@@ -114,7 +114,7 @@ And mouse hover element of publications list with title 'Experience1'
 And click build publication list item with title 'Experience1'
 And mouse hover element of publications list with title 'Experience1'
 And click download publication list item with title 'Experience1'
-And unzip '1.zip' package to 'tmp'
+And unzip '1' package to 'tmp'
 
 Scenario: All package objectives are present on page
 When open page by url 'http://localhost:5656/Templates/tmp'
