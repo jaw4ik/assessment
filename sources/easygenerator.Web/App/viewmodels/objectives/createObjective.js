@@ -12,7 +12,7 @@
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName, events.category);
             };
-        
+
         var notification = {
             text: ko.observable(''),
             visibility: ko.observable(false),
@@ -41,7 +41,6 @@
 
                 return Q.fcall(function () {
                     that.title('');
-                    that.isTitleEditing(false);
                     that.notification.visibility(false);
                 });
             },
@@ -55,6 +54,7 @@
 
                 objectiveRepository.addObjective({ title: title() }).then(function () {
                     title('');
+                    isTitleEditing(true);
                     notification.update();
                 });
             },
@@ -69,6 +69,13 @@
                 objectiveRepository.addObjective({ title: title() }).then(function (objectiveId) {
                     router.navigate('objective/' + objectiveId);
                 });
+            },
+
+            attached = function () {
+                var that = this;
+                setTimeout(function () {
+                    that.isTitleEditing(true);
+                }, 100);
             };
 
 
@@ -79,6 +86,7 @@
             notification: notification,
 
             activate: activate,
+            attached: attached,
             navigateToObjectives: navigateToObjectives,
             createAndNew: createAndNew,
             createAndEdit: createAndEdit

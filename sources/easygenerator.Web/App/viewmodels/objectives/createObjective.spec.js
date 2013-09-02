@@ -313,18 +313,6 @@
                     });
                 });
 
-                it('should disable title editing', function() {
-                    viewModel.isTitleEditing(true);
-                    var promise = viewModel.activate();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.isTitleEditing()).toBeFalsy();
-                    });
-                });
-
                 it('should hide notification', function() {
                     viewModel.notification.visibility(true);
                     var promise = viewModel.activate();
@@ -343,6 +331,22 @@
 
                 it('should be observable', function() {
                     expect(viewModel.isTitleEditing).toBeObservable();
+                });
+
+            });
+
+            describe('attached:', function () {
+
+                it('should enable title editing', function() {
+                    viewModel.isTitleEditing(false);
+                    
+                    jasmine.Clock.useMock();
+                    
+                    viewModel.attached();
+                    
+                    jasmine.Clock.tick(101);
+
+                    expect(viewModel.isTitleEditing()).toBeTruthy();
                 });
 
             });
