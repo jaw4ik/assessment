@@ -1,4 +1,4 @@
-﻿<section class="container list-of-questions unselectable">
+﻿t<section class="container list-of-questions unselectable">
 
     <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'learningObjectives', isGoBackTextLocalizable: true, goBackAction: navigateToObjectives } }"></div>
 
@@ -88,7 +88,7 @@
             <span class="header-title-text" data-bind="localize: { text: 'relatedQuestion' }"></span>
             <!-- ko if: canDeleteQuestions() -->
             <span class="header-toolbar-item-wrapper" data-bind="click: deleteSelectedQuestions, localize: { title: 'delete' }">
-                <span class="toolbar-remove-icon"></span>
+                <span class="toolbar-remove"></span>
             </span>
             <!-- /ko -->
             <hr />

@@ -1,29 +1,37 @@
-﻿define(['constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository'],
-    function (constants, eventTracker, router, repository) {
+﻿define(['constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/experienceRepository'],
+    function (constants, eventTracker, router, objectiveRepository, experienceRepository) {
         "use strict";
 
-        var
-            events = {
-                category: 'Objectives',
-                navigateToCreation: "Navigate to Objective creation",
-                navigateToDetails: "Navigate to Objective details",
-                navigateToExperiences: "Navigate to Experiences",
-                sortByTitleAsc: "Sort by title ascending",
-                sortByTitleDesc: "Sort by title descending",
-                selectObjective: "Select Objective",
-                unselectObjective: "Unselect Objective"
-            },
+        var events = {
+            category: 'Objectives',
+            navigateToCreation: "Navigate to Objective creation",
+            navigateToDetails: "Navigate to Objective details",
+            navigateToExperiences: "Navigate to Experiences",
+            sortByTitleAsc: "Sort by title ascending",
+            sortByTitleDesc: "Sort by title descending",
+            selectObjective: "Select Objective",
+            unselectObjective: "Unselect Objective",
+            deleteObjectives: "Delete selected objectives"
+        },
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName, events.category);
             };
 
-        var
-            objectives = ko.observableArray([]),
+        var objectives = ko.observableArray([]),
+            notification = {
+                key: ko.observable(''),
+                visibility: ko.observable(false),
+                close: function () { notification.visibility(false); },
+                showMessage: function (localizationKey) {
+                    if (typeof localizationKey === "undefined" || _.isEmpty(localizationKey))
+                        return;
+                    notification.key(localizationKey);
+                    notification.visibility(true);
+                }
+            },
+            //#region Sorting
 
             currentSortingOption = ko.observable(constants.sortingOptions.byTitleAsc),
-
-            enableSorting = ko.observable(true),
-
             sortByTitleAsc = function () {
                 sendEvent(events.sortByTitleAsc);
                 currentSortingOption(constants.sortingOptions.byTitleAsc);
@@ -34,6 +42,9 @@
                 currentSortingOption(constants.sortingOptions.byTitleDesc);
                 objectives(_.sortBy(objectives(), function (objective) { return objective.title.toLowerCase(); }).reverse());
             },
+            //#endregion Sorting
+
+            //#region Navigation
 
             navigateToCreation = function () {
                 sendEvent(events.navigateToCreation);
@@ -47,35 +58,101 @@
                 sendEvent(events.navigateToExperiences);
                 router.navigate('experiences');
             },
+            //#endregion Navigation
 
+            //#region Delete objective
 
-            activate = function () {
-                return repository.getCollection().then(function (objectiveCollection) {
-                    var array = _.chain(objectiveCollection)
-                        .map(function (item) {
-                            return {
-                                id: item.id,
-                                title: item.title,
-                                image: item.image,
-                                questionsCount: item.questions.length,
-                                isSelected: ko.observable(false),
-                                toggleSelection: function () {
-                                    if (this.isSelected()) {
-                                        sendEvent(events.unselectObjective);
-                                    } else {
-                                        sendEvent(events.selectObjective);
-                                    }
-                                    this.isSelected(!this.isSelected());
-                                }
-                            };
-                        })
-                        .sortBy(function (objective) { return objective.title.toLowerCase(); })
-                        .value();
-                    objectives(currentSortingOption() == constants.sortingOptions.byTitleAsc ? array : array.reverse());
-
-                    enableSorting(objectives().length > 1);
+            getSelectedObjectives = function () {
+                return _.reject(objectives(), function (objective) {
+                    return objective.isSelected && !objective.isSelected();
                 });
-            };
+            },
+            canDeleteObjectives = ko.computed(function () {
+                return getSelectedObjectives().length == 1;
+            }),
+            deleteSelectedObjectives = function () {
+                sendEvent(events.deleteObjectives);
+
+                notification.close();
+
+                var selectedObjectives = getSelectedObjectives();
+                if (selectedObjectives.length == 0)
+                    throw "No selected objectives to delete";
+                if (selectedObjectives.length > 1)
+                    throw "Too many elements to remove";
+
+                var selectedObjective = selectedObjectives[0];
+
+                if (!selectedObjective.canBeDeleted) {
+                    notification.showMessage('objectiveCannnotBeDeleted');
+                    return undefined;
+                }
+
+                objectiveRepository.removeObjective(selectedObjective.id).then(function () {
+                    objectives(_.reject(objectives(), function (objective) {
+                        return objective.id == selectedObjective.id;
+                    }));
+                });
+            },
+            //#endregion Delete objective
+
+            //#region Objective selection
+
+            toggleObjectiveSelection = function (objective) {
+
+                if (_.isNullOrUndefined(objective)) {
+                    throw 'Objective is null or undefined';
+                }
+
+                if (!ko.isObservable(objective.isSelected)) {
+                    throw 'Objective does not have isSelected observable';
+                }
+
+                objective.isSelected(!objective.isSelected());
+                sendEvent(objective.isSelected() ? events.selectObjective : events.unselectObjective);
+            },
+
+            //#endregion Objective selection
+
+             activate = function () {
+                 notification.close();
+
+                 return objectiveRepository.getCollection().then(function (objectiveBriefCollection) {
+
+                     experienceRepository.getCollection().then(function (experiences) {
+                         var includedObjectives = _.chain(experiences)
+                             .map(function (experience) {
+                                 return experience.objectives;
+                             }).flatten().uniq().value();
+
+                         var array = _.chain(objectiveBriefCollection)
+                             .map(function (item) {
+                                 return {
+                                     id: item.id,
+                                     title: item.title,
+                                     image: item.image,
+                                     questionsCount: item.questions.length,
+                                     isSelected: ko.observable(false),
+                                     canBeDeleted: (function (currentItem) {
+                                         if (item.questions.length > 0)
+                                             return false;
+
+                                         if (_.find(includedObjectives, function (objective) {
+                                             return objective.id == currentItem.id;
+                                         })) return false;
+
+                                         return true;
+                                     })(item)
+                                 };
+                             })
+                             .sortBy(function (objective) { return objective.title.toLowerCase(); })
+                             .value();
+
+                         objectives(currentSortingOption() == constants.sortingOptions.byTitleAsc ? array : array.reverse());
+                     });
+
+                 });
+             };
 
         return {
             objectives: objectives,
@@ -84,13 +161,18 @@
             sortByTitleDesc: sortByTitleDesc,
             currentSortingOption: currentSortingOption,
             sortingOptions: constants.sortingOptions,
-            enableSorting: enableSorting,
+
+            toggleObjectiveSelection: toggleObjectiveSelection,
 
             navigateToCreation: navigateToCreation,
             navigateToDetails: navigateToDetails,
             navigateToExperiences: navigateToExperiences,
 
+            canDeleteObjectives: canDeleteObjectives,
+            deleteSelectedObjectives: deleteSelectedObjectives,
+
+            notification: notification,
+
             activate: activate
         };
-    }
-);
+    });

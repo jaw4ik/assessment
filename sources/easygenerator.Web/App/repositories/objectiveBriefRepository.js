@@ -1,4 +1,4 @@
-﻿define([], function () {
+﻿define(['repositories/objectiveRepository'], function (objectiveRepository) {
 
     var self = {};
 
@@ -30,9 +30,19 @@
         return deferred.promise;
     };
 
+    self.removeObjective = function (id) {
+        self.dataSet = _.reject(self.dataSet, function(objective) {
+            return objective.id == id;
+        });
+
+        return objectiveRepository.removeObjective(id);
+    };
+
     return {
         invalidate: self.invalidate,
-        getCollection: self.getCollection
+        getCollection: self.getCollection,
+        
+        removeObjective: self.removeObjective
     };
 }
 );

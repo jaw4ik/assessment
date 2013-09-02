@@ -251,7 +251,7 @@
 
             });
 
-            describe('getCollection', function () {
+            describe('getCollection:', function () {
 
                 it('should return promise', function () {
                     var promise = objectiveRepository.getCollection();
@@ -260,7 +260,7 @@
 
             });
 
-            describe("update", function () {
+            describe("update:", function () {
                 var getObjectiveDeferred;
                 beforeEach(function () {
                     getObjectiveDeferred = Q.defer();
@@ -270,6 +270,78 @@
                 it('should return promise', function () {
                     var promise = objectiveRepository.update({ id: 0, title: 'test title' });
                     expect(promise).toBePromise();
+                });
+            });
+
+            describe('removeObjective:', function () {
+
+                describe('when invalid arguments', function () {
+
+                    describe('and when id is undefined', function () {
+                        it('should throw exception', function () {
+                            var f = function () {
+                                objectiveRepository.removeObjective(undefined);
+                            };
+                            expect(f).toThrow();
+                        });
+                    });
+
+                    describe('and when id is null', function () {
+                        it('should throw exception', function () {
+                            var f = function () {
+                                objectiveRepository.removeObjective(null);
+                            };
+                            expect(f).toThrow();
+                        });
+                    });
+
+                });
+
+                describe('when valid arguments', function () {
+
+                    it('should return promise', function () {
+                        var result = objectiveRepository.removeObjective(-1);
+                        expect(result).toBePromise();
+                    });
+
+                    describe('when get objective', function () {
+
+                        var getObjectiveDeferred;
+                        beforeEach(function () {
+                            getObjectiveDeferred = Q.defer();
+                            spyOn(objectiveRepository, 'getById').andReturn(getObjectiveDeferred.promise);
+                        });
+
+                        describe('and when objective does not exist', function () {
+                            it('should reject promise', function () {
+                                var promise = objectiveRepository.removeObjective(-1);
+                                getObjectiveDeferred.resolve(null);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejected();
+                                });
+                            });
+                        });
+
+                        describe('and when objective exists', function () {
+                            it('should resolve promise', function () {
+                                var promise = objectiveRepository.removeObjective(-1);
+                                getObjectiveDeferred.resolve({ id: 0 });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolved();
+                                });
+                            });
+                        });
+
+                    });
+
                 });
             });
 

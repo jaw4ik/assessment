@@ -286,6 +286,7 @@ COMMON CLASSES CSS-STYLES
     position: absolute;
     right: 5px;
     top: 45px;
+    margin-left: 5px;
     font-size: 12px;
     font-family: Arial, sans-serif;
 }
@@ -302,7 +303,7 @@ COMMON CLASSES CSS-STYLES
     }
 
 .alert .close {
-    line-height: 16px;
+    line-height: 18px;
     float: right;
     position: relative;
     right: 0;
@@ -311,11 +312,15 @@ COMMON CLASSES CSS-STYLES
     background: none;
     opacity: 0.5;
     filter: alpha(opacity=50);
-    cursor: pointer;
     color: black;
     font-size: 20px;
     font-weight: bold;
 }
+
+    .alert .close:hover {
+        opacity: 1.0;
+        filter: alpha(opacity=100);
+    }
 
 /**
   * info-header (image, title, navigation)

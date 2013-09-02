@@ -27,9 +27,9 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'browserSuppo
             app.title = courseContext.experience.title;
 
             var url = window.location.toString();
-            var hashIndex = url.indexOf("#");
-            if (hashIndex !== -1)
-                url = url.substring(0, hashIndex);
+            if (!_.isEmpty(window.location.hash))
+                url = url.substring(0, url.indexOf("#"));
+                
             url += '?experience_id=' + courseContext.experience.id;
 
             xAPIRequestManager.init(eventsManager, "Anonymous user", "anonymous@easygenerator.com", app.title, url);

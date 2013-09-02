@@ -4,8 +4,8 @@
         var
             languages = ko.observableArray([
                 { id: 'en', title: 'English' },
-                { id: 'nl', title: 'Netherlands' },
-                { id: 'de', title: 'German' }
+                { id: 'nl', title: 'Nederland' },
+                { id: 'de', title: 'Deutsch' }
             ]),
             selectedLanguage = ko.observable(),
             save = function () {

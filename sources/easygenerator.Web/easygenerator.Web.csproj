@@ -182,6 +182,7 @@
     <Content Include="Content\images\emptyBox.png" />
     <Content Include="Content\images\info-icon.png" />
     <Content Include="Content\images\nav-icons.png" />
+    <Content Include="Content\images\warning.png" />
     <Content Include="Content\images\objective.png" />
     <Content Include="Scripts\almond-custom.js" />
     <Content Include="Scripts\durandal\activator.js" />
