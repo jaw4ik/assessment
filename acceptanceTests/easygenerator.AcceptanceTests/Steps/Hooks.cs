@@ -30,6 +30,7 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             DriverProvider.Current().Stop();
             Process.Start("taskkill", "/IM iisexpress.exe");
+            Process.Start("taskkill", "/F /T /IM chromedriver.exe");
         }
         [BeforeScenario]
         public void BeforeScenario()
