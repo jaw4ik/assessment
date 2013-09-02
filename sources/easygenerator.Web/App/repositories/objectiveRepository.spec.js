@@ -191,29 +191,33 @@
 
                                     });
 
-                                    describe('and objective id is a string', function () {
+                                    describe('and response is an object', function () {
 
-                                        var objectiveId = 'objectiveId';
                                         var objectiveTitle = 'objectiveTitle';
+                                        var response = {
+                                            Id: 'objectiveId',
+                                            CreatedOn: "/Date(1378106938845)/"
+                                        };
 
                                         beforeEach(function () {
-                                            post.resolve({ success: true, data: objectiveId });
+                                            post.resolve({ success: true, data: response });
                                         });
 
-                                        it('should resolve promise with objective id', function () {
+                                        it('should resolve promise with response object', function () {
                                             var promise = objectiveRepository.addObjective({});
 
                                             waitsFor(function () {
                                                 return !promise.isPending();
                                             });
                                             runs(function () {
-                                                expect(promise).toBeResolvedWith(objectiveId);
+                                                expect(promise).toBeResolvedWith(response.Id);
                                             });
                                         });
 
                                         it('should add objective to dataContext', function () {
                                             var dataContext = require('dataContext');
-                                            dataContext.objectives.length = 0;
+                                            dataContext.objectives = [];
+                                            var date = new Date(parseInt(response.CreatedOn.substr(6), 10));
 
                                             var promise = objectiveRepository.addObjective({ title: objectiveTitle });
 
@@ -223,9 +227,11 @@
                                             runs(function () {
                                                 expect(dataContext.objectives.length).toEqual(1);
                                                 expect(dataContext.objectives[0]).toEqual({
-                                                    id: objectiveId,
+                                                    id: response.Id,
                                                     title: objectiveTitle,
                                                     image: constants.defaultObjectiveImage,
+                                                    createdOn: date,
+                                                    modifiedOn: date,
                                                     questions: []
                                                 });
                                             });
@@ -269,4 +275,5 @@
 
         });
 
-    });
+    }
+);

@@ -93,7 +93,7 @@
                         var experienceFromDataContext = _.find(dataContext.experiences, function(item) {
                             return item.id == experience.id;
                         });
-                        debugger;
+                        
                         experienceFromDataContext.packageUrl = response.PackageUrl;
                         experienceFromDataContext.builtOn = new Date();
                     });

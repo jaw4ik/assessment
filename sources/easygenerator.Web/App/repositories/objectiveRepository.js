@@ -41,7 +41,7 @@
 
             return deferred.promise;
         };
-        
+
         var
             addObjective = function (objective) {
                 var deferred = Q.defer();
@@ -56,10 +56,12 @@
 
                 http.post('api/objective/create', objective)
                     .done(function (response) {
+
                         if (_.isUndefined(response)) {
                             deferred.reject('Response is undefined');
                             return;
                         }
+                        
                         if (_.isNull(response)) {
                             deferred.reject('Response is null');
                             return;
@@ -70,18 +72,28 @@
                             return;
                         }
 
-                        var objectiveId = response.data;
-
-                        if (_.isUndefined(objectiveId)) {
-                            deferred.reject('Objective Id is undefined');
+                        if (_.isUndefined(response.data)) {
+                            deferred.reject('Response data is undefined');
                             return;
                         }
-                        if (_.isNull(objectiveId)) {
-                            deferred.reject('Objective Id is null');
+                        
+                        if (_.isNull(response.data)) {
+                            deferred.reject('Response data is null');
                             return;
                         }
+                        
+                        var
+                            objectiveId = response.data.Id,
+                            createdOn = response.data.CreatedOn;
 
-                        dataContext.objectives.push(objectiveModel({ id: objectiveId, title: objective.title, image: constants.defaultObjectiveImage, questions: [] }));
+                        dataContext.objectives.push(objectiveModel({
+                            id: objectiveId,
+                            title: objective.title,
+                            image: constants.defaultObjectiveImage,
+                            questions: [],
+                            createdOn: new Date(parseInt(createdOn.substr(6), 10)),
+                            modifiedOn: new Date(parseInt(createdOn.substr(6), 10))
+                        }));
                         deferred.resolve(objectiveId);
                     })
                     .fail(function (reason) {

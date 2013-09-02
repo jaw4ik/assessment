@@ -1,7 +1,6 @@
-﻿using System;
-using System.Web.Mvc;
-using easygenerator.Web.Controllers.Api;
+﻿using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
+using easygenerator.Web.ViewModels.Objective;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace easygenerator.Web.Tests.Controllers.Api
@@ -17,12 +16,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller = new ObjectiveController();
         }
 
-
         #region Create objective
 
-
         [TestMethod]
-        public void Create_ShouldReturnJsonSuccessResultWithObjectiveId()
+        public void Create_ShouldReturnJsonSuccessResult()
         {
             //Arrange
 
@@ -31,7 +28,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             ActionResultAssert.IsJsonSuccessResult(result);
-
         }
 
         #endregion

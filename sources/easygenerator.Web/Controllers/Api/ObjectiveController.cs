@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
-using easygenerator.Web.Components.ActionResults;
+using easygenerator.Web.ViewModels.Objective;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -13,7 +11,11 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         public ActionResult Create()
         {
-            return JsonSuccess(Guid.NewGuid().ToString().Replace("-", ""));
+            return JsonSuccess(new
+            {
+                Id = Guid.NewGuid().ToString().Replace("-", ""),
+                CreatedOn = DateTimeWrapper.Now()
+            });
         }
     }
 }
