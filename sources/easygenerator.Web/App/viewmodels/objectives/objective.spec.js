@@ -320,40 +320,6 @@
                 });
             });
             
-            describe('showErrorTitleValidation', function () {
-
-                it('should be defined', function () {
-                    expect(viewModel.showErrorTitleValidation).toBeDefined();
-                });
-
-                describe('when title is empty', function () {
-
-                    it('should be false', function () {
-                        viewModel.title('');
-                        expect(viewModel.showErrorTitleValidation()).toBeFalsy();
-                    });
-
-                });
-
-                describe('when title is longer than 255', function () {
-
-                    it('should be true', function () {
-                        viewModel.title(utils.createString(viewModel.titleMaxLength + 1));
-                        expect(viewModel.showErrorTitleValidation()).toBeTruthy();
-                    });
-
-                });
-
-                describe('when title is not empty and not longer than 255', function () {
-
-                    it('should be false', function () {
-                        viewModel.title(utils.createString(viewModel.titleMaxLength - 1));
-                        expect(viewModel.showErrorTitleValidation()).toBeFalsy();
-                    });
-
-                });
-            });
-
             describe('language:', function () {
 
                 it('should be defined', function () {

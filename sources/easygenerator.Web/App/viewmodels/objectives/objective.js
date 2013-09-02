@@ -45,10 +45,6 @@
             }
         },
             
-            showErrorTitleValidation = function() {
-                return !title.isValid() && !title().length == 0;
-            },
-            
             startEditTitle = function () {
                 title.isEditing(true);
             },
@@ -246,7 +242,6 @@
 
             title: title,
             titleMaxLength: titleMaxLength,
-            showErrorTitleValidation: showErrorTitleValidation,
             language: localizationManager.currentLanguage,
             createdOn: createdOn,
             modifiedOn: modifiedOn,

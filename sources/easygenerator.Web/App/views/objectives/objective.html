@@ -60,9 +60,9 @@
             <div class="page-header-info objective-header-title">
                 <div class="objective-text-wrapper">
                     <div class="edit-field selectable">
-                        <div class="text-block" data-bind="css: { 'active': title.isEditing(), error: showErrorTitleValidation() }">
+                        <div class="text-block" data-bind="css: { 'active': title.isEditing(), error: !title.isValid() }">
                             <div class="editarea editarea-editable-text" data-bind="editableText: { text: title, multiline: false }, hasFocus: title.isEditing, event: { focus: startEditTitle.bind($data), blur: endEditTitle.bind($data) }"></div>
-                            <div class="chars-counter" data-bind="css: { error: showErrorTitleValidation() }">
+                            <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
                                 <span data-bind="text: title().length"></span>
                                 <span>/</span>
                                 <span data-bind="text: titleMaxLength"></span>
