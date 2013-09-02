@@ -55,6 +55,16 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
+        public string DownloadButtonText
+        {
+            get
+            {
+                var el = GetByXPath(model.DownloadButton);
+                return el.GetTextContent();
+            }
+        }
+
+
         internal void NavigateBackToExperiences()
         {
             var link = GetByXPath(model.BackToExperiencesLink);
@@ -90,6 +100,11 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             buildButton.Click();
         }
 
+        internal void Download()
+        {
+            var buildButton = GetByXPath(model.DownloadButton);
+            buildButton.Click();
+        }
         
     }
 }

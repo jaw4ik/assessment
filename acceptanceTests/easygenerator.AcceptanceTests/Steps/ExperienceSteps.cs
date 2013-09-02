@@ -171,7 +171,7 @@ namespace easygenerator.AcceptanceTests.Steps
         public void ThenDownloadActionOnExperiancePageIsAvailable()
         {
             TestUtils.Assert_IsTrue_WithWait(() =>
-                experiencePage.BuildButtonText == "Download",
+                experiencePage.DownloadButtonText == "Download",
                 "Element should be visible");
         }
 
