@@ -9,7 +9,7 @@
         $element.toggleClass('prewrap', multiline);
         $element.text(ko.unwrap(text));
 
-        $element.on('drop', function (event) {
+        $element.on('drop dragover', function (event) {
             event.preventDefault();
             event.stopPropagation();
         }).on('paste', function (event) {
