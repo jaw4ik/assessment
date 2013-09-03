@@ -85,13 +85,8 @@
     }
 
 .experience-build-progress-status-item {
-    opacity: 0.75;
     vertical-align: top;
 }
-
-    .experience-build-progress-status-item:hover {
-        opacity: 1;
-    }
 
     .experience-build-progress-status-item.disabled {
         opacity: 0.25;
