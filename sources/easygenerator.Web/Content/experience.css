@@ -304,12 +304,20 @@
 
 .experience .info-popup-wrapper {
     display: none;
-    height: 130px;
-    width: 240px;
+    height: 133px;
+    width: 247px;
     position: absolute;
-    top: -48px;
+    top: -50px;
     right: 34px;
     z-index: 30;
+}
+
+.experience .value-column {
+    width: 40%;
+}
+
+.experience .condition-date-time-text {
+    margin-bottom: 5px;
 }
 
 .experience .info-btn-wrapper:hover .info-popup-wrapper {
@@ -318,7 +326,7 @@
 
 .experience-info-popup {
     height: 100%;
-    width: 232px;
+    width: 240px;
     position: relative;
     line-height: normal;
     border: 1px solid #bdbebf;
@@ -345,6 +353,7 @@
     font-family: Tahoma, sans-serif;
     font-size: 12px;
     table-layout: fixed;
+    margin-top: 2px;
 }
 
 .experience-info-table.not-built {

@@ -80,13 +80,13 @@
                                         <td class="condition-title" rowspan="2">
                                             <span class="after-colon" data-bind="localize: { text: 'createdOn' }"></span>
                                         </td>
-                                        <td>
+                                        <td class="value-column">
                                             <span class="condition-date-text"></span>
                                             <div class="experience-date-block-text" data-bind="date: { value: createdOn, formatString: 'L', language: currentlanguage }"></div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td class="value-column">
                                             <span class="condition-date-time-text" data-bind="date: { value: createdOn, formatString: 'LT', language: currentlanguage }"></span>
                                         </td>
                                     </tr>
@@ -94,13 +94,13 @@
                                         <td class="condition-title" rowspan="2">
                                             <span class="after-colon" data-bind="localize: { text: 'modifiedOn' }"></span>
                                         </td>
-                                        <td>
+                                        <td class="value-column">
                                             <span class="condition-date-text"></span>
                                             <div class="experience-date-block-text" data-bind="date: { value: modifiedOn, formatString: 'L', language: currentlanguage }"></div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td class="value-column">
                                             <span class="condition-date-time-text" data-bind="date: { value: modifiedOn, formatString: 'LT', language: currentlanguage }"></span>
                                         </td>
                                         
@@ -109,7 +109,7 @@
                                         <td class="condition-title" rowspan="2">
                                             <span class="after-colon" data-bind="localize: { text: 'builtOn' }"></span>
                                         </td>
-                                        <td>
+                                        <td class="value-column">
                                             <!--ko ifnot: !_.isDate(builtOn())-->
                                             <span class="condition-date-text"></span>
                                             <div class="experience-date-block-text" data-bind="date: { value: builtOn, formatString: 'L', language: currentlanguage }"></div>
@@ -122,7 +122,7 @@
                                     </tr>
                                     
                                     <tr>
-                                        <td>
+                                        <td class="value-column">
                                             <!--ko ifnot: !_.isDate(builtOn())-->
                                             <span class="condition-date-time-text" data-bind="date: { value: builtOn, formatString: 'LT', language: currentlanguage }"></span>
                                             <!--/ko-->
