@@ -64,7 +64,7 @@ namespace easygenerator.AcceptanceTests.Helpers
     public class Experience
     {
         [JsonProperty("id")]
-        public string Id { get; set; }
+        public int Id { get; set; }
         [JsonProperty("title")]
         public string Title { get; set; }
         [JsonProperty("createdOn")]

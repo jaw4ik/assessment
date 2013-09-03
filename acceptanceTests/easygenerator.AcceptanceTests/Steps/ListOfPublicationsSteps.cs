@@ -284,7 +284,7 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             return new Experience()
             {
-                Id = data.Id,
+                Id = int.Parse(data.Id),
                 Title = data.Title,
                 CreatedOn = @"\/Date(1377172218190)\/",
                 ModifiedOn = @"\/Date(1377172218190)\/",
