@@ -89,7 +89,7 @@
     createdOn: {
         en: 'Created on',
         nl: 'Aangemaakt op',
-        de: 'Erstellt am'
+        de: 'Zusammengestellt am'
     },
     modifiedOn: {
         en: 'Modified on',
