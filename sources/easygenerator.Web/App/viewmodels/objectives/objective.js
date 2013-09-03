@@ -62,7 +62,7 @@
                     sendEvent(events.updateObjectiveTitle);
 
                     if (title.isValid()) {
-                        repository.update({ id: that.objectiveId, title: that.title() }).then(function (objective) {
+                        repository.updateObjective({ id: that.objectiveId, title: that.title() }).then(function (objective) {
                             modifiedOn(objective.modifiedOn);
                             notification.update();
                         });
@@ -144,7 +144,7 @@
                         });
                     });
 
-                    return repository.update(objective).then(function (updatedObjective) {
+                    return repository.updateObjective(objective).then(function (updatedObjective) {
                         _.each(selectedQuestions, function (question) {
                             questions.remove(question);
                         });

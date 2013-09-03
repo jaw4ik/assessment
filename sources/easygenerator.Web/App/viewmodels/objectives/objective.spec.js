@@ -368,7 +368,7 @@
                     updateDeferred = Q.defer();
                     getByIdDeferred = Q.defer();
 
-                    spyOn(repository, 'update').andReturn(updateDeferred.promise);
+                    spyOn(repository, 'updateObjective').andReturn(updateDeferred.promise);
                     spyOn(repository, 'getById').andReturn(getByIdDeferred.promise);
 
                     spyOn(viewModel.notification, 'update');
@@ -421,7 +421,7 @@
                         });
                         runs(function () {
                             expect(promise).toBeResolved();
-                            expect(repository.update).not.toHaveBeenCalled();
+                            expect(repository.updateObjective).not.toHaveBeenCalled();
                         });
                     });
                 });
@@ -456,8 +456,8 @@
                             });
                             runs(function () {
                                 expect(getPromise).toBeResolved();
-                                expect(repository.update).toHaveBeenCalled();
-                                expect(repository.update.mostRecentCall.args[0].title).toEqual(newTitle);
+                                expect(repository.updateObjective).toHaveBeenCalled();
+                                expect(repository.updateObjective.mostRecentCall.args[0].title).toEqual(newTitle);
                             });
                         });
 
@@ -811,7 +811,7 @@
                     updateDeferred = Q.defer();
                     
                     spyOn(repository, 'getById').andReturn(getDeferred.promise);
-                    spyOn(repository, 'update').andReturn(updateDeferred.promise);
+                    spyOn(repository, 'updateObjective').andReturn(updateDeferred.promise);
                     spyOn(viewModel.notification, 'update');
                 });
 

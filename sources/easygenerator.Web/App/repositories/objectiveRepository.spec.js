@@ -4,7 +4,8 @@
 
         var
            constants = require('constants'),
-           http = require('plugins/http');
+           http = require('plugins/http'),
+           context = require('dataContext');;
 
         describe('repository [objectiveRepository]', function () {
 
@@ -17,6 +18,100 @@
 
             it('should be object', function () {
                 expect(objectiveRepository).toBeObject();
+            });
+
+            describe('getCollection:', function () {
+
+                it('should be function', function() {
+                    expect(objectiveRepository.getCollection).toBeFunction();
+                });
+
+                it('should be resolved with objectives collection', function () {
+                    var objectivesList = [{ id: 1 }, { id: 2 }];
+                    context.objectives = objectivesList;
+
+                    var promise = objectiveRepository.getCollection();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(promise).toBeResolvedWith(objectivesList);
+                    });
+                });
+
+            });
+            
+            describe('getById:', function () {
+
+                it('should be function', function () {
+                    expect(objectiveRepository.getById).toBeFunction();
+                });
+
+                describe('when arguments not valid', function () {
+
+                    describe('and when Id is undefined', function () {
+
+                        it('should throw exception', function () {
+                            var f = function () { objectiveRepository.getById(); };
+                            expect(f).toThrow();
+                        });
+
+                    });
+
+                    describe('and when Id is null', function () {
+
+                        it('should throw exception', function () {
+                            var f = function () { objectiveRepository.getById(null); };
+                            expect(f).toThrow();
+                        });
+
+                    });
+
+                });
+
+                describe('when arguments is valid', function () {
+
+                    it('should return promise', function () {
+                        var result = objectiveRepository.getById('0');
+                        expect(result).toBePromise();
+                    });
+
+                    describe('and when objective does not exist', function () {
+
+                        it('should be rejected', function () {
+                            var promise = objectiveRepository.getById('');
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeRejectedWith('Objective does not exist');
+                            });
+                        });
+
+                    });
+
+                    describe('and when objective exists', function() {
+                        
+                        it('should be resolved with objective from dataContext', function () {
+                            var objective = { id: '0' };
+                            context.objectives = [objective];
+
+                            var promise = objectiveRepository.getById(0);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeResolvedWith(objective);
+                            });
+                        });
+
+                    });
+
+                });
+
             });
 
             describe('addObjective:', function () {
@@ -251,29 +346,102 @@
 
             });
 
-            describe('getCollection:', function () {
-
-                it('should return promise', function () {
-                    var promise = objectiveRepository.getCollection();
-                    expect(promise).toBePromise();
-                });
-
-            });
-
-            describe("update:", function () {
-                var getObjectiveDeferred;
+            describe("updateObjective:", function () {
+                
                 beforeEach(function () {
-                    getObjectiveDeferred = Q.defer();
-                    spyOn(objectiveRepository, 'getById').andReturn(getObjectiveDeferred.promise);
+                    context.objectives = [{id: 0, title: 'some title'}];
                 });
 
-                it('should return promise', function () {
-                    var promise = objectiveRepository.update({ id: 0, title: 'test title' });
-                    expect(promise).toBePromise();
+                it('should be function', function () {
+                    expect(objectiveRepository.updateObjective).toBeFunction();
+                });
+
+                describe('when arguments not valid', function() {
+                    
+                    describe('and when objective data is undefined', function () {
+
+                        it('should throw exception', function () {
+                            var f = function () { objectiveRepository.updateObjective(); };
+                            expect(f).toThrow();
+                        });
+
+                    });
+
+                    describe('and when objective data is null', function () {
+
+                        it('should throw exception', function () {
+                            var f = function () { objectiveRepository.updateObjective(); };
+                            expect(f).toThrow();
+                        });
+
+                    });
+
+                });
+
+                describe('when arguments is valid', function() {
+
+                    it('should return promise', function () {
+                        var promise = objectiveRepository.updateObjective({ id: 0, title: 'test title' });
+                        expect(promise).toBePromise();
+                    });
+
+                    describe('when get objective to update', function() {
+                        
+                        describe('and when objective does not exist', function () {
+
+                            it('should be rejected', function () {
+                                var promise = objectiveRepository.updateObjective({ id: -1 });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Objective does not exist');
+                                });
+                            });
+
+                        });
+
+                        describe('and when objective exists', function () {
+
+                            it('should be resolved', function () {
+                                var promise = objectiveRepository.updateObjective({ id: 0 });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolved();
+                                });
+                            });
+
+                            it('should update title and modified date', function () {
+                                var objective = { id: '0', title: 'some title', modifiedOn: '' };
+                                context.objectives = [objective];
+
+                                var promise = objectiveRepository.updateObjective({ id: '0', title: 'new title' });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(context.objectives[0].title).toBe('new title');
+                                    expect(context.objectives[0].modifiedOn).toNotBe('');
+                                });
+                            });
+
+                        });
+
+                    });
+
                 });
             });
 
             describe('removeObjective:', function () {
+
+                it('should be function', function() {
+                    expect(objectiveRepository.removeObjective).toBeFunction();
+                });
 
                 describe('when invalid arguments', function () {
 
@@ -305,37 +473,44 @@
                     });
 
                     describe('when get objective', function () {
-
-                        var getObjectiveDeferred;
+                        
                         beforeEach(function () {
-                            getObjectiveDeferred = Q.defer();
-                            spyOn(objectiveRepository, 'getById').andReturn(getObjectiveDeferred.promise);
+                            context.objectives = [{id: 0}];
                         });
 
                         describe('and when objective does not exist', function () {
                             it('should reject promise', function () {
                                 var promise = objectiveRepository.removeObjective(-1);
-                                getObjectiveDeferred.resolve(null);
 
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(promise).toBeRejected();
+                                    expect(promise).toBeRejectedWith('Objective does not exist');
                                 });
                             });
                         });
 
                         describe('and when objective exists', function () {
-                            it('should resolve promise', function () {
-                                var promise = objectiveRepository.removeObjective(-1);
-                                getObjectiveDeferred.resolve({ id: 0 });
+                            it('should be resolved', function () {
+                                var promise = objectiveRepository.removeObjective(0);
 
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
                                     expect(promise).toBeResolved();
+                                });
+                            });
+
+                            it('should remove objective from dataContext', function() {
+                                var promise = objectiveRepository.removeObjective(0);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(context.objectives.length).toBe(0);
                                 });
                             });
                         });
