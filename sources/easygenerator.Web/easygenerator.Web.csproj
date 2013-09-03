@@ -174,7 +174,6 @@
     <Compile Include="BuildExperience\BuildModel\ObjectiveBuildModel.cs" />
     <Compile Include="BuildExperience\BuildModel\QuestionBuildModel.cs" />
     <Compile Include="ViewModels\Objective\CreateObjectiveViewModel.cs" />
-    <Content Include="App\services\downloadExperience.js" />
     <Content Include="App\views\common\formactions.html" />
     <Content Include="Content\durandal.css" />
     <Content Include="Content\font\alphamacaoe.svg" />

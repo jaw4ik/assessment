@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'plugins/router', 'services/buildExperience', 'services/downloadExperience'],
-    function (dataContext, constants, eventTracker, router, experienceService, downloadService) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'plugins/router', 'services/buildExperience'],
+    function (dataContext, constants, eventTracker, router, experienceService) {
         "use strict";
 
         var
@@ -90,10 +90,10 @@
                             experience.buildingStatus(constants.buildingStatuses.failed);
                         }
                         experience.packageUrl = response.PackageUrl;
-                        var experienceFromDataContext = _.find(dataContext.experiences, function(item) {
+                        var experienceFromDataContext = _.find(dataContext.experiences, function (item) {
                             return item.id == experience.id;
                         });
-                        
+
                         experienceFromDataContext.packageUrl = response.PackageUrl;
                         experienceFromDataContext.builtOn = new Date();
                     });
@@ -101,7 +101,7 @@
 
             downloadExperience = function (experience) {
                 sendEvent(events.downloadExperience);
-                downloadService.download(experience.packageUrl);
+                router.download('download/' + experience.packageUrl);
             },
 
             enableOpenExperience = function (experience) {

@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'plugins/router', 'constants', 'eventTracker', 'repositories/experienceRepository', 'services/buildExperience', 'viewmodels/objectives/objectiveBrief', 'localization/localizationManager', 'services/downloadExperience'],
-    function (dataContext, router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, downloadService) {
+﻿define(['dataContext', 'plugins/router', 'constants', 'eventTracker', 'repositories/experienceRepository', 'services/buildExperience', 'viewmodels/objectives/objectiveBrief', 'localization/localizationManager'],
+    function (dataContext, router, constants, eventTracker, repository, service, objectiveBrief, localizationManager) {
         "use strict";
 
         var
@@ -119,7 +119,7 @@
         buildExperience = function () {
             sendEvent(events.buildExperience);
             status(constants.buildingStatuses.inProgress);
-            
+
             var that = this;
             return service.build(this.id)
                 .then(function (response) {
@@ -141,7 +141,7 @@
 
         downloadExperience = function () {
             sendEvent(events.downloadExperience);
-            downloadService.download(this.experience.packageUrl);
+            router.download('download/' + this.experience.packageUrl);
         },
 
         resetBuildStatus = function () {
@@ -216,7 +216,7 @@
                 that.nextExperienceId = index != experiences.length - 1 ? experiences[index + 1].id : null;
             });
         };
-        
+
         return {
             activate: activate,
 

@@ -33,7 +33,7 @@
             ];
 
         describe('viewModel [experiences]', function () {
-            
+
             beforeEach(function () {
                 spyOn(eventTracker, 'publish');
                 spyOn(router, 'navigate');
@@ -567,7 +567,7 @@
                     describe('and buildExperience service return \"true\"', function () {
 
                         beforeEach(function () {
-                            buildDeferred.resolve({Success: true, PackageUrl: 'packageUrl'});
+                            buildDeferred.resolve({ Success: true, PackageUrl: 'packageUrl' });
                         });
 
                         it('should change experience building status to \"succeed\"', function () {
@@ -583,7 +583,7 @@
                         });
 
                         it('should change packageUrl in dataContext', function () {
-                            
+
                             viewModel.buildExperience(experience);
 
                             waitsFor(function () {
@@ -597,7 +597,7 @@
                                 expect(expectExperience.packageUrl).toEqual('packageUrl');
                             });
                         });
-                        
+
                         it('should change builtOn in dataContext', function () {
 
                             viewModel.buildExperience(experience);
@@ -606,7 +606,7 @@
                             });
 
                             expectExperience.builtOn = '';
-                            
+
                             waitsFor(function () {
                                 return !buildPromise.isPending();
                             });
@@ -621,7 +621,7 @@
 
                     });
 
-                    describe('and buildExperince service return packageUrl', function() {
+                    describe('and buildExperince service return packageUrl', function () {
                         beforeEach(function () {
                             buildDeferred.resolve({ Success: true, PackageUrl: '20131218' });
                         });
@@ -669,7 +669,7 @@
                             });
                         });
 
-                        it('should be change package Url to \'\'', function() {
+                        it('should be change package Url to \'\'', function () {
                             viewModel.buildExperience(experience);
 
                             waitsFor(function () {
@@ -688,13 +688,13 @@
             });
 
             describe('downloadExperience:', function () {
-                var experience,
-                    downloadService = require('services/downloadExperience');
-                
+
+                var experience;
+
                 beforeEach(function () {
                     experience = { packageUrl: 'some url' };
 
-                    spyOn(downloadService, 'download');
+                    spyOn(router, 'download');
                 });
 
                 it('should be a function', function () {
@@ -706,9 +706,9 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Download experience', eventsCategory);
                 });
 
-                it('should call download service', function () {
+                it('should download experience package', function () {
                     viewModel.downloadExperience(experience);
-                    expect(downloadService.download).toHaveBeenCalledWith(experience.packageUrl);
+                    expect(router.download).toHaveBeenCalledWith('download/' + experience.packageUrl);
                 });
             });
 

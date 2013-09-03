@@ -16,7 +16,7 @@
                     .then(function () {
 
                         localizationManager.initialize(window.top.userCultures);
-                        
+
                         router.updateDocumentTitle = function (instance, instruction) {
                             var title = null;
 
@@ -32,6 +32,11 @@
 
                         router.replace = function (url) {
                             router.navigate(url, { replace: true, trigger: true });
+                        };
+
+                        router.download = function (url) {
+                            var downloadUrl = window.location.href.replace(window.location.hash, url);
+                            window.location.assign(downloadUrl);
                         };
 
                         return router.map(routes)
