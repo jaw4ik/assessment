@@ -143,9 +143,9 @@
             <div class="page-header-info experience-header-title">
                 <div class="experience-text-wrapper">
                     <div class="edit-field selectable">
-                        <div class="text-block" data-bind="css: { 'active': isEditing(), error: !title.isValid() }">
+                        <div class="text-block" data-bind="css: { 'active': isEditing(), error: !title.isValid() || title().trim().length == 0 }">
                             <div class="editarea editarea-editable-text" data-bind="editableText: { text: title, multiline: false }, hasFocus: isEditing, event: { focus: startEditing,  blur: saveChanges}"></div>
-                            <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
+                            <div class="chars-counter" data-bind="css: { error: !title.isValid() || title().trim().length == 0 }">
                                 <span data-bind="text: title().length"></span>
                                 <span>/</span>
                                 <span data-bind="text: experienceTitleMaxLength"></span>

@@ -717,7 +717,17 @@
                         viewModel.saveChanges();
                         expect(viewModel.notification.update).not.toHaveBeenCalled();
                     });
-                    
+
+                    describe('when title contains only spaces', function() {
+
+                        it('should trim title', function() {
+                            viewModel.title('                                      ');
+                            viewModel.saveChanges();
+                            expect(viewModel.title()).toBe('');
+                        });
+
+                    });
+
                 });
 
                 describe('when title is valid', function() {
