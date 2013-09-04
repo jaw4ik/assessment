@@ -15,6 +15,14 @@ namespace easygenerator.AcceptanceTests.Steps
     [Binding]
     public class ComonSteps
     {
+        [Given(@"clear data context")]
+        public void GivenClearDataContext()
+        {
+            DataSetter dataSetter = new DataSetter();
+            dataSetter.ClearDataContext();
+        }
+
+
         [Given(@"browser localizatiom is set to '(.*)'")]
         public void GivenBrowserLocalizatiomIsSetTo(string localizationString)
         {

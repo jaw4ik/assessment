@@ -2,6 +2,10 @@
 Feature: ListOfObjectives
 	As an author I want to see list of previously created Learning Objectives, so I could select certain Learning Objective to start working with related content.
 
+Background: 
+
+Given clear data context
+
 
 Scenario: All objectives should be present in list
 Given objectives are present in database

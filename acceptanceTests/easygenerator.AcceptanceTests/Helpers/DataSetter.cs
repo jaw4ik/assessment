@@ -93,6 +93,16 @@ namespace easygenerator.AcceptanceTests.Helpers
             });
         }
 
+        public void ClearDataContext()
+        {
+            UpdateDataContext((dataContext) =>
+            {
+                dataContext.Objectives.Clear();
+                dataContext.Experiences.Clear();
+            });
+
+        }
+
         private void UpdateDataContext(Action<Root> update)
         {
             var dataContextString = FsHelper.Read(dataContextFilePath);
