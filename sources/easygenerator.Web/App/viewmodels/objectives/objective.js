@@ -140,7 +140,7 @@
                 repository.getById(this.objectiveId).then(function (objective) {
                     _.each(selectedQuestions, function (question) {
                         objective.questions = _.reject(objective.questions, function (item) {
-                            return item.id == question.id;
+                            return item.id === question.id;
                         });
                     });
 
@@ -194,7 +194,7 @@
                         });
 
                         var objective = _.find(objectives, function (item) {
-                            return item.id == objId;
+                            return item.id === objId;
                         });
 
                         if (!_.isObject(objective)) {

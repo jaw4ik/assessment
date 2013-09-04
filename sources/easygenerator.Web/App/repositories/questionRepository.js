@@ -1,4 +1,4 @@
-﻿define(['dataContext', 'repositories/objectiveRepository'], function (dataContext, objectiveRepository) {
+﻿define(['dataContext', 'repositories/objectiveRepository', 'durandal/system'], function (dataContext, objectiveRepository, system) {
 
     var add = function (objectiveId, obj) {
         if (_.isNullOrUndefined(objectiveId) || _.isNullOrUndefined(obj))
@@ -11,7 +11,7 @@
                 deferred.reject('Objective does not exist');
 
             var question = {
-                id: generateNewEntryId(objective.questions),
+                id: generateNewEntryId(),
                 title: obj.title,
                 explanations: [],
                 answerOptions: [],
@@ -41,7 +41,7 @@
             }
 
             var question = _.find(objective.questions, function (item) {
-                return item.id == obj.id;
+                return item.id === obj.id;
             });
 
             if (!_.isObject(question)) {
@@ -69,7 +69,7 @@
                 deferred.reject('Objective does not exist');
 
             var question = _.find(objective.questions, function (item) {
-                return item.id == questionId;
+                return item.id === questionId;
             });
 
             deferred.resolve(question);
@@ -78,17 +78,8 @@
         return deferred.promise;
     },
 
-    generateNewEntryId = function (collection) {
-        var id = 0;
-        if (collection.length > 0) {
-            var maxId = _.max(_.map(collection, function (exp) {
-                return parseInt(exp.id, 10);
-            }));
-
-            id = maxId + 1;
-        }
-
-        return id;
+    generateNewEntryId = function () {
+        return system.guid().replace(/[-]/g, '');
     };
 
     return {

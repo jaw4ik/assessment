@@ -90,7 +90,7 @@
 
                 objectiveRepository.removeObjective(selectedObjective.id).then(function () {
                     objectives(_.reject(objectives(), function (objective) {
-                        return objective.id == selectedObjective.id;
+                        return objective.id === selectedObjective.id;
                     }));
                 });
             },
@@ -138,7 +138,7 @@
                                              return false;
 
                                          if (_.find(includedObjectives, function (objective) {
-                                             return objective.id == currentItem.id;
+                                             return objective.id === currentItem.id;
                                          })) return false;
 
                                          return true;

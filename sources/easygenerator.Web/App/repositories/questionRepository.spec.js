@@ -1,5 +1,5 @@
-﻿define(['repositories/questionRepository', 'repositories/objectiveRepository'],
-    function (questionRepository, objectiveRepository) {
+﻿define(['repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system'],
+    function (questionRepository, objectiveRepository, system) {
         "use strict";
 
         describe('[questionRepository]', function () {
@@ -73,13 +73,30 @@
                     it('should resolve promise with new question id value', function () {
                         var promise = questionRepository.add(objective.id, question);
                         getObjectiveDeferred.resolve(objective);
+                        
+                        spyOn(system, 'guid').andReturn('some guid id');
+                        
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise.inspect().state).toEqual('fulfilled');
+                            expect(promise.inspect().value).toEqual('some guid id');
+                        });
+                    });
+                    
+                    it('should resolve promise with new question id value without \'-\'', function () {
+                        var promise = questionRepository.add(objective.id, question);
+                        getObjectiveDeferred.resolve(objective);
+
+                        spyOn(system, 'guid').andReturn('Some-Guid-Id');
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
                             expect(promise.inspect().state).toEqual('fulfilled');
-                            expect(promise.inspect().value).toEqual(0);
+                            expect(promise.inspect().value).toEqual('Some-Guid-Id'.replace(/[-]/g, ''));
                         });
                     });
 

@@ -14,7 +14,7 @@
         var deferred = Q.defer();
 
         deferred.resolve(_.find(dataContext.experiences, function(item) {
-            return item.id == id;
+            return item.id === id;
         }));
 
         return deferred.promise;

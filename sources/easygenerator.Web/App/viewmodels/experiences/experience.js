@@ -186,7 +186,7 @@
                 });
 
                 that.experience = _.find(experiences, function (item) {
-                    return item.id == experienceId;
+                    return item.id === experienceId;
                 });
 
                 if (!_.isObject(that.experience)) {

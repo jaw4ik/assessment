@@ -32,7 +32,7 @@
 
     self.removeObjective = function (id) {
         self.dataSet = _.reject(self.dataSet, function(objective) {
-            return objective.id == id;
+            return objective.id === id;
         });
 
         return objectiveRepository.removeObjective(id);

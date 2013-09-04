@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'eventTracker', 'models/answerOption', 'models/explanation', 'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository'],
-    function (router, eventTracker, answerOptionModel, expalantionModel, localizationManager, constants, questionRepository, objectiveRepository) {
+﻿define(['plugins/router', 'eventTracker', 'models/answerOption', 'models/explanation', 'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system'],
+    function (router, eventTracker, answerOptionModel, expalantionModel, localizationManager, constants, questionRepository, objectiveRepository, system) {
         "use strict";
         var
             events = {
@@ -131,7 +131,7 @@
             questionRepository.getById(objectiveId, questionId)
                 .then(function (question) {
                     var newAnswer = new answerOptionModel({
-                        id: generateNewEntryId(question.answerOptions),
+                        id: generateNewEntryId(),
                         text: '',
                         isCorrect: false
                     });
@@ -150,7 +150,7 @@
             questionRepository.getById(objectiveId, questionId)
                 .then(function (question) {
                     var currentAnswer = _.find(question.answerOptions, function (obj) {
-                        return obj.id == answerOption.id;
+                        return obj.id === answerOption.id;
                     });
 
                     if (_.isObject(currentAnswer)) {
@@ -168,7 +168,7 @@
             questionRepository.getById(objectiveId, questionId)
                 .then(function (question) {
                     var currentAnswer = _.find(question.answerOptions, function (obj) {
-                        return obj.id == answerOption.id;
+                        return obj.id === answerOption.id;
                     });
 
                     if (_.isObject(currentAnswer) && currentAnswer.text !== answerOption.text()) {
@@ -184,7 +184,7 @@
             questionRepository.getById(objectiveId, questionId)
                 .then(function (question) {
                     question.answerOptions = _.reject(question.answerOptions, function (item) {
-                        return item.id == answerOption.id;
+                        return item.id === answerOption.id;
                     });
 
                     answerOptions.remove(answerOption);
@@ -230,17 +230,8 @@
             return mappedAnswerOption;
         },
 
-        generateNewEntryId = function (collection) {
-            var id = 0;
-            if (collection.length > 0) {
-                var maxId = _.max(_.map(collection, function (exp) {
-                    return parseInt(exp.id);
-                }));
-
-                id = maxId + 1;
-            }
-
-            return id;
+        generateNewEntryId = function () {
+            return system.guid().replace(/[-]/g, '');
         },
 
         //#endregion Answer options
@@ -257,7 +248,7 @@
 
         addExplanation = function () {
             var explanation = mapExplanation(new expalantionModel({
-                id: generateNewEntryId(explanations()),
+                id: generateNewEntryId(),
                 text: ''
             }));
 
@@ -273,16 +264,16 @@
 
             questionRepository.getById(objectiveId, questionId)
                 .then(function (question) {
-                    if (!!lastAddedExplanation() && explanation.id == lastAddedExplanation().id) {
+                    if (!!lastAddedExplanation() && explanation.id === lastAddedExplanation().id) {
                         lastAddedExplanation(null);
                     }
 
                     explanations(_.reject(explanations(), function (item) {
-                        return item.id == explanation.id;
+                        return item.id === explanation.id;
                     }));
 
                     question.explanations = _.reject(question.explanations, function (item) {
-                        return item.id == explanation.id;
+                        return item.id === explanation.id;
                     });
 
                     removeSubscribersFromExplanation(explanation);
@@ -308,7 +299,7 @@
         },
 
         saveExplanation = function (explanation) {
-            if (!explanation.isEditing() && !!lastAddedExplanation() && explanation.id == lastAddedExplanation().id)
+            if (!explanation.isEditing() && !!lastAddedExplanation() && explanation.id === lastAddedExplanation().id)
                 lastAddedExplanation(null);
 
             questionRepository.getById(objectiveId, questionId)
@@ -319,14 +310,14 @@
 
                             explanations.remove(explanation);
                             question.explanations = _.reject(question.explanations, function (item) {
-                                return item.id == explanation.id;
+                                return item.id === explanation.id;
                             });
                         }
                         return;
                     }
 
                     var contextExplanation = _.find(question.explanations, function (obj) {
-                        return obj.id == explanation.id;
+                        return obj.id === explanation.id;
                     });
 
                     if (_.isObject(contextExplanation)) {

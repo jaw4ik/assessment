@@ -98,7 +98,7 @@
                             var objective = { id: '0' };
                             context.objectives = [objective];
 
-                            var promise = objectiveRepository.getById(0);
+                            var promise = objectiveRepository.getById('0');
 
                             waitsFor(function () {
                                 return !promise.isPending();

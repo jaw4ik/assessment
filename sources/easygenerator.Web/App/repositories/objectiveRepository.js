@@ -18,7 +18,7 @@
                 }
 
                 var result = _.find(dataContext.objectives, function (item) {
-                    return item.id == id;
+                    return item.id === id;
                 });
 
                 if (_.isUndefined(result)) {
