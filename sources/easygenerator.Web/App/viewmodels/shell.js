@@ -1,7 +1,7 @@
 ﻿define(['durandal/app', 'plugins/router', 'configuration/routes', 'dataContext', 'localization/localizationManager'],
     function (app, router, routes, datacontext, localizationManager) {
         var
-            startModule = 'objectives',
+            startModule = 'experiences',
             cssName = ko.computed(function () {
                 var activeItem = router.activeItem();
                 if (_.isObject(activeItem)) {
@@ -41,7 +41,7 @@
 
                         return router.map(routes)
                             .buildNavigationModel()
-                            .activate('objectives');
+                            .activate(startModule);
 
                     });
             };

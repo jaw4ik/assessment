@@ -90,7 +90,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
  testRunner.Given(string.Format("browser localizatiom is set to \'{0}\'", localization), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 7
- testRunner.When("open page by url \'http://localhost:5656\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 8
  testRunner.Then(string.Format("objectives list page header text is \'{0}\'", text), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -114,6 +114,8 @@ this.ScenarioSetup(scenarioInfo);
 #line 24
  testRunner.And("click save user settings", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 25
+ testRunner.And("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 26
  testRunner.Then(string.Format("objectives list page header text is \'{0}\'", text), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

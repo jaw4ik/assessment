@@ -96,7 +96,7 @@ this.FeatureBackground();
 #line 11
 testRunner.Given("objectives are present in database", ((string)(null)), table1, "Given ");
 #line 16
-testRunner.When("open page by url \'http://localhost:5656\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -129,7 +129,7 @@ this.FeatureBackground();
 #line 24
 testRunner.Given("objectives are present in database", ((string)(null)), table3, "Given ");
 #line 27
-testRunner.When("open page by url \'http://localhost:5656\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -168,7 +168,7 @@ this.FeatureBackground();
 #line 33
 testRunner.Given("objectives are present in database", ((string)(null)), table5, "Given ");
 #line 41
-testRunner.When("open page by url \'http://localhost:5656\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -217,7 +217,7 @@ this.FeatureBackground();
 #line 53
 testRunner.Given("objectives are present in database", ((string)(null)), table7, "Given ");
 #line 60
-testRunner.When("open page by url \'http://localhost:5656\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 61
 testRunner.When("I switch objectives list order to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 62
@@ -268,7 +268,7 @@ this.FeatureBackground();
 #line 73
 testRunner.Given("objectives are present in database", ((string)(null)), table9, "Given ");
 #line 80
-testRunner.When("open page by url \'http://localhost:5656\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 81
 testRunner.When("I switch objectives list order to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 82
@@ -315,7 +315,7 @@ this.FeatureBackground();
 #line 93
 testRunner.Given("objectives are present in database", ((string)(null)), table11, "Given ");
 #line 98
-testRunner.When("open page by url \'http://localhost:5656\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 99
 testRunner.When("mouse hover element of objectives list with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 100
@@ -351,7 +351,7 @@ this.FeatureBackground();
 #line 106
 testRunner.Given("objectives are present in database", ((string)(null)), table12, "Given ");
 #line 111
-testRunner.When("open page by url \'http://localhost:5656\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 112
 testRunner.When("mouse hover element of objectives list with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 113
@@ -403,7 +403,7 @@ this.FeatureBackground();
 #line 127
 testRunner.Given("objectives are present in database", ((string)(null)), table13, "Given ");
 #line 132
-testRunner.When("open page by url \'http://localhost:5656\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 133
 testRunner.Then("objective list item with title \'Objective2\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 134
@@ -443,7 +443,7 @@ this.FeatureBackground();
 #line 139
 testRunner.Given("objectives are present in database", ((string)(null)), table14, "Given ");
 #line 146
-testRunner.When("open page by url \'http://localhost:5656\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 147
 testRunner.When(string.Format("browser window width and height is set to {0} and 600", windowWidth), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 148
@@ -477,7 +477,7 @@ this.FeatureBackground();
 #line 158
 testRunner.Given("objectives are present in database", ((string)(null)), table15, "Given ");
 #line 165
-testRunner.When("open page by url \'http://localhost:5656\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 166
 testRunner.When("browser window width and height is set to 600 and 600", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 167
@@ -511,7 +511,7 @@ this.FeatureBackground();
 #line 172
 testRunner.Given("objectives are present in database", ((string)(null)), table16, "Given ");
 #line 177
-testRunner.When("open page by url \'http://localhost:5656\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 178
 testRunner.When("mouse hover element of objectives list with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 179
@@ -543,7 +543,7 @@ this.FeatureBackground();
 #line 185
 testRunner.Given("objectives are present in database", ((string)(null)), table17, "Given ");
 #line 188
-testRunner.When("open page by url \'http://localhost:5656\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 189
 testRunner.When("mouse hover element of objectives list with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 190

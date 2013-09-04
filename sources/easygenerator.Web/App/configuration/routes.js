@@ -18,14 +18,6 @@
                 title: 'User Properties',
             },
             {
-                route: '',
-                moduleId: 'viewmodels/objectives/objectives',
-                title: 'Objectives',
-                settings: {
-                    localizationKey: 'learningObjectives'
-                }
-            },
-            {
                 route: 'objectives',
                 moduleId: 'viewmodels/objectives/objectives',
                 title: 'Objectives',
@@ -65,7 +57,7 @@
                 }
             },
             {
-                route: 'experiences',
+                route: ['', 'experiences'],
                 moduleId: 'viewmodels/experiences/experiences',
                 title: 'Experiences',
                 settings: {
