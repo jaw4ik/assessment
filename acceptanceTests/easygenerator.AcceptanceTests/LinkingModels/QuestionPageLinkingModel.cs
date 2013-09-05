@@ -40,8 +40,8 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string AnswerOptionActiveCorrectnessIndicator = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[@class='question-answer-value']";
 
         public string AddNewExplanationButton = ".//div[contains(@class,'question-explanations')]//li[@class='add-button']//div[contains(@class,'question-explanation')]";
-        public string ExplanationActiveText = ".//div[contains(@class,'question-explanations')]//li[contains(@class,'active')]//div[contains(@class,'question-explanation')]//div[contains(@class,'cke_contents_ltr')]";
-
+        //public string ExplanationActiveText = ".//div[contains(@class,'question-explanations')]//li[contains(@class,'active')]//div[contains(@class,'question-explanation')]//div[contains(@class,'cke_contents_ltr')]";
+        public string ExplanationActiveText = ".//div[contains(@class,'question-explanations')]//li[contains(@class,'active')]//div[contains(@class,'cke_contents_ltr')]";
 
         //      <div class="cke_editable cke_editable_inline cke_contents_ltr"
         public string Ckeditor = ".//div[contains(@class,'cke_contents_ltr')]";

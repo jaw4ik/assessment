@@ -61,12 +61,12 @@ namespace easygenerator.AcceptanceTests.Steps
         [BeforeStep]
         public void BeforeStep()
         {
-            //System.Threading.Thread.Sleep(100);
+            System.Threading.Thread.Sleep(100);
         }
         [AfterStep]
         public void AfterStep()
         {
-            //System.Threading.Thread.Sleep(100);
+            System.Threading.Thread.Sleep(100);
         }
     
 

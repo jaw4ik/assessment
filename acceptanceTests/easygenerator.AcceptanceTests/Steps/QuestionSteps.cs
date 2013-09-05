@@ -221,7 +221,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [When(@"input text '(.*)' into new explanation text field")]
         public void WhenInputTextIntoNewExplanationTextField(string Text)
         {
-            Question.AddNewExplanationText(Text);
+            Question.AddNewExplanationText(Text);            
         }
 
         [When(@"click on question title")]
@@ -247,7 +247,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [When(@"input text '(.*)' into explanation text field '(.*)'")]
         public void WhenInputTextIntoExplanationTextField(string newText, string oldText)
         {
-            Question.AddExplanationTextIntoExisting(newText, oldText);
+            Question.AddExplanationTextIntoExisting(newText, oldText);            
         }
 
         [Then(@"explanation delete button is enabled (.*) for explanation with text '(.*)'")]
