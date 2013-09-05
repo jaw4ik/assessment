@@ -203,31 +203,36 @@
                     return localizationManager.localize(this.isCorrect() ? 'correctAnswer' : 'incorrectAnswer');
                 },
                 isInEdit: ko.observable(false),
-                isEmpty: ko.observable(_.isEmptyOrWhitespace(answerOption.text))
+                isEmpty: ko.observable(_.isEmptyOrWhitespace(answerOption.text)),
+                _subscriptions: []
             };
 
-            mappedAnswerOption.text.subscribe(function (value) {
-                mappedAnswerOption.isEmpty(_.isEmptyOrWhitespace(value));
-            });
+            mappedAnswerOption._subscriptions.push(
+                mappedAnswerOption.text.subscribe(function (value) {
+                    mappedAnswerOption.isEmpty(_.isEmptyOrWhitespace(value));
+                })
+            );
 
             var saveIntervalId = null;
-            mappedAnswerOption.isInEdit.subscribe(function (value) {
-                if (value) {
-                    sendEvent(events.startEditingAnswerOption);
+            mappedAnswerOption._subscriptions.push(
+                mappedAnswerOption.isInEdit.subscribe(function (value) {
+                    if (value) {
+                        sendEvent(events.startEditingAnswerOption);
 
-                    saveIntervalId = setInterval(function () {
+                        saveIntervalId = setInterval(function () {
+                            saveAnswerOption(mappedAnswerOption);
+                        }, constants.autosaveTimersInterval.answerOption);
+                        return;
+                    } else if (_.isEmptyOrWhitespace(mappedAnswerOption.text())) {
+                        deleteAnswerOption(mappedAnswerOption);
+                    } else {
                         saveAnswerOption(mappedAnswerOption);
-                    }, constants.autosaveTimersInterval.answerOption);
-                    return;
-                } else if (_.isEmptyOrWhitespace(mappedAnswerOption.text())) {
-                    deleteAnswerOption(mappedAnswerOption);
-                } else {
-                    saveAnswerOption(mappedAnswerOption);
-                }
+                    }
 
-                sendEvent(events.endEditingAnswerOption);
-                clearInterval(saveIntervalId);
-            });
+                    sendEvent(events.endEditingAnswerOption);
+                    clearInterval(saveIntervalId);
+                })
+            );
 
             return mappedAnswerOption;
         },
@@ -413,6 +418,14 @@
 
             _.each(explanations(), function (item) {
                 removeSubscribersFromExplanation(item);
+            });
+
+            _.each(answerOptions(), function(item) {
+                item.isInEdit(false);
+                
+                _.each(item._subscriptions, function (subscription) {
+                    subscription.dispose();
+                });
             });
         };
 

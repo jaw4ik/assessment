@@ -451,6 +451,24 @@ define(function (require) {
                 expect(explanation.editingSubscription.dispose).toHaveBeenCalled();
             });
 
+            it('should finish editing answer options', function() {
+                viewModel.answerOptions([{ isInEdit: ko.observable(true) }]);
+                viewModel.deactivate();
+
+                expect(viewModel.answerOptions()[0].isInEdit()).toBeFalsy();
+            });
+
+            it('should dispose answer options subscriptions', function() {
+                viewModel.answerOptions([{
+                    isInEdit: ko.observable(false),
+                    _subscriptions: [jasmine.createSpyObj('answerOptionDispose', ['dispose'])]
+                }]);
+
+                viewModel.deactivate();
+
+                expect(viewModel.answerOptions()[0]._subscriptions[0].dispose).toHaveBeenCalled();
+            });
+
         });
 
         describe('goToCreateQuestion:', function () {
