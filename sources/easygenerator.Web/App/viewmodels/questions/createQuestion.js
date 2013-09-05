@@ -40,6 +40,7 @@
         },
 
          saveAndOpen = function () {
+             this.title(this.title().trim());
              if (!this.title.isValid()) {
                  this.title.isModified(true);
                  this.title.isEditing(true);
@@ -55,6 +56,7 @@
          },
 
         saveAndNew = function () {
+            this.title(this.title().trim());
             if (!this.title.isValid()) {
                 this.title.isModified(true);
                 this.title.isEditing(true);

@@ -95,6 +95,7 @@
         },
 
         endEditQuestionTitle = function () {
+            title(title().trim());
             title.isEditing(false);
 
             var that = this;

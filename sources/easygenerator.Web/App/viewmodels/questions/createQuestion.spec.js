@@ -110,6 +110,12 @@
                 expect(viewModel.saveAndOpen).toBeFunction();
             });
 
+            it('should trim title', function() {
+                viewModel.title('    Some title     ');
+                viewModel.saveAndOpen();
+                expect(viewModel.title()).toEqual('Some title');
+            });
+
             describe('when title is not valid', function () {
 
                 it('should set title.isModified to \'true\'', function () {
@@ -180,6 +186,12 @@
 
             it('should be a function', function () {
                 expect(viewModel.saveAndNew).toBeFunction();
+            });
+
+            it('should trim title', function() {
+                viewModel.title('    Some title    ');
+                viewModel.saveAndNew();
+                expect(viewModel.title()).toEqual('Some title');
             });
 
             describe('when title is not valid', function () {

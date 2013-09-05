@@ -51,6 +51,7 @@
             },
 
             endEditTitle = function () {
+                title(title().trim());
                 title.isEditing(false);
 
                 var objectiveTitle = null;

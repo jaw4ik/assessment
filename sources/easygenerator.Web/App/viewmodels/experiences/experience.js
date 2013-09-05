@@ -156,9 +156,9 @@
         },
 
         saveChanges = function () {
-            sendEvent(events.updateExperienceTitle);
             this.title(title().trim());
             if (title.isValid() && title().length != 0 && title() != previousTitle) {
+                sendEvent(events.updateExperienceTitle);
                 experience.title = title();
                 var modified = new Date();
                 this.modifiedOn(modified);

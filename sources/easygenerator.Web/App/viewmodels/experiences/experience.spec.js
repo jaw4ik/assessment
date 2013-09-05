@@ -707,9 +707,10 @@
                     expect(viewModel.saveChanges).toBeFunction();
                 });
 
-                it('should send event \'Update experience title\'', function () {
+                it('should trim title', function() {
+                    viewModel.title('    Some title          ');
                     viewModel.saveChanges();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Update experience title', eventsCategory);
+                    expect(viewModel.title()).toEqual('Some title');
                 });
 
                 describe('when title does not valid', function () {
@@ -783,6 +784,11 @@
                     it('should show notification', function () {
                         viewModel.saveChanges();
                         expect(viewModel.notification.update).toHaveBeenCalled();
+                    });
+
+                    it('should send event \'Update experience title\'', function () {
+                        viewModel.saveChanges();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Update experience title', eventsCategory);
                     });
 
                 });

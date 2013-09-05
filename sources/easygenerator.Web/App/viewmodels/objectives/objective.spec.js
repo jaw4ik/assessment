@@ -388,6 +388,12 @@
                     expect(viewModel.title.isEditing()).toBeFalsy();
                 });
 
+                it('should trim title', function() {
+                    viewModel.title('    Some title     ');
+                    viewModel.endEditTitle();
+                    expect(viewModel.title()).toEqual('Some title');
+                });
+
                 describe('when title is not modified', function () {
                     var promise = null;
                     beforeEach(function () {
