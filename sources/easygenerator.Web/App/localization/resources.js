@@ -89,7 +89,7 @@
     createdOn: {
         en: 'Created on',
         nl: 'Aangemaakt op',
-        de: 'Zusammengestellt am'
+        de: 'Erstellt am'
     },
     modifiedOn: {
         en: 'Modified on',
@@ -99,7 +99,7 @@
     builtOn: {
         en: 'Built on',
         nl: 'Samengesteld op',
-        de: 'Erstellt am'
+        de: 'Zusammengestellt am'
     },
     notBuilt: {
         en: 'Not built',
@@ -260,6 +260,11 @@
         en: 'Click to add experience',
         nl: 'Klik om ervaring toe te voegen',
         de: 'Klicken, um Umgebung hinzuzufügen'
+    },
+    createNewExperience: {
+        en: 'Create New Experience',
+        nl: 'Create New Experience[nl]',
+        de: 'Create New Experience[de]'
     },
     /* End resource section for model CreateExperience */
     
@@ -577,6 +582,11 @@
         en: 'Build experience',
         nl: 'Ervaring samenstellen',
         de: 'Erfahrung aufbauen'
+    },
+    noRelatedLearningObjectives: {
+        en: 'No related learning objectives',
+        nl: 'No related learning objectives[nl]',
+        de: 'No related learning objectives[de]'
     },
     /* End resource section for model Display experience */
     

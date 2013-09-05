@@ -82,12 +82,12 @@
                                         </td>
                                         <td class="value-column">
                                             <span class="condition-date-text"></span>
-                                            <div class="experience-date-block-text" data-bind="date: { value: createdOn, formatString: 'L', language: currentlanguage }"></div>
+                                            <div class="experience-date-block-text" data-bind="date: { value: createdOn, formatString: 'L', language: language }"></div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="value-column">
-                                            <span class="condition-date-time-text" data-bind="date: { value: createdOn, formatString: 'LT', language: currentlanguage }"></span>
+                                            <span class="condition-date-time-text" data-bind="date: { value: createdOn, formatString: 'LT', language: language }"></span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -96,12 +96,12 @@
                                         </td>
                                         <td class="value-column">
                                             <span class="condition-date-text"></span>
-                                            <div class="experience-date-block-text" data-bind="date: { value: modifiedOn, formatString: 'L', language: currentlanguage }"></div>
+                                            <div class="experience-date-block-text" data-bind="date: { value: modifiedOn, formatString: 'L', language: language }"></div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="value-column">
-                                            <span class="condition-date-time-text" data-bind="date: { value: modifiedOn, formatString: 'LT', language: currentlanguage }"></span>
+                                            <span class="condition-date-time-text" data-bind="date: { value: modifiedOn, formatString: 'LT', language: language }"></span>
                                         </td>
                                         
                                     </tr>
@@ -112,7 +112,7 @@
                                         <td class="value-column">
                                             <!--ko ifnot: !_.isDate(builtOn())-->
                                             <span class="condition-date-text"></span>
-                                            <div class="experience-date-block-text" data-bind="date: { value: builtOn, formatString: 'L', language: currentlanguage }"></div>
+                                            <div class="experience-date-block-text" data-bind="date: { value: builtOn, formatString: 'L', language: language }"></div>
                                             <!--/ko-->
                                             <!--ko if: !_.isDate(builtOn())-->
                                             <span class="condition-date-text"></span>
@@ -124,7 +124,7 @@
                                     <tr>
                                         <td class="value-column">
                                             <!--ko ifnot: !_.isDate(builtOn())-->
-                                            <span class="condition-date-time-text" data-bind="date: { value: builtOn, formatString: 'LT', language: currentlanguage }"></span>
+                                            <span class="condition-date-time-text" data-bind="date: { value: builtOn, formatString: 'LT', language: language }"></span>
                                             <!--/ko-->
                                             <!--ko if: !_.isDate(builtOn())-->
                                             <span>&nbsp;</span>

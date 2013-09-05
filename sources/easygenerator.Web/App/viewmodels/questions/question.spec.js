@@ -883,6 +883,10 @@ define(function (require) {
                 expect(viewModel.language).toBeDefined();
             });
 
+            it('should be observable', function() {
+                expect(viewModel.language).toBeObservable();
+            });
+
         });
 
         describe('saveExplanation:', function () {

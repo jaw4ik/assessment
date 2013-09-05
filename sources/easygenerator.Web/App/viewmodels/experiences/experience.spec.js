@@ -81,7 +81,11 @@
             describe('language:', function () {
 
                 it('should be defined', function () {
-                    expect(viewModel.currentlanguage).toBeDefined();
+                    expect(viewModel.language).toBeDefined();
+                });
+
+                it('should be observable', function () {
+                    expect(viewModel.language).toBeObservable();
                 });
 
             });

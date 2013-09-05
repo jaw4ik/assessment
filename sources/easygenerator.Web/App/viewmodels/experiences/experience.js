@@ -45,6 +45,7 @@
                     notification.visibility(true);
                 }
             },
+            language = ko.observable(),
 
         isEditing = ko.observable();
 
@@ -179,6 +180,8 @@
             }
             this.notification.visibility(false);
             this.isEditing(false);
+            this.language(localizationManager.currentLanguage);
+
             var that = this;
             return repository.getCollection().then(function (response) {
                 var experiences = _.sortBy(response, function (item) {
@@ -245,7 +248,7 @@
             saveChanges: saveChanges,
 
             resetBuildStatus: resetBuildStatus,
-            currentlanguage: localizationManager.currentLanguage,
+            language: language,
             createdOn: createdOn,
             modifiedOn: modifiedOn,
             builtOn: builtOn,

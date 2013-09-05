@@ -46,7 +46,8 @@
             title = ko.observable('').extend({
                 required: true,
                 maxLength: questionTitleMaxLength
-            });
+            }),
+            language = ko.observable();
 
         title.isEditing = ko.observable();
 
@@ -367,9 +368,9 @@
 
             objectiveId = objId;
             questionId = quesId;
+            this.language(localizationManager.currentLanguage);
 
             var that = this;
-
             return objectiveRepository.getById(objId).then(function (objective) {
                 questionRepository.getById(objectiveId, questionId).then(function (question) {
                     that.title(question.title);
@@ -425,7 +426,7 @@
             explanations: explanations,
             hasPrevious: hasPrevious,
             hasNext: hasNext,
-            language: localizationManager.currentLanguage,
+            language: language,
             isAnswersBlockExpanded: isAnswersBlockExpanded,
             isExplanationsBlockExpanded: isExplanationsBlockExpanded,
             notification: notification,

@@ -30,7 +30,8 @@
             title = ko.observable('').extend({
                 required: true,
                 maxLength: titleMaxLength
-            });
+            }),
+            language = ko.observable();
 
         title.isEditing = ko.observable();
 
@@ -184,7 +185,7 @@
                     router.replace('400');
                     return undefined;
                 }
-
+                this.language(localizationManager.currentLanguage);
                 var that = this;
                 
                 return repository.getCollection().then(
@@ -242,7 +243,7 @@
 
             title: title,
             titleMaxLength: titleMaxLength,
-            language: localizationManager.currentLanguage,
+            language: language,
             createdOn: createdOn,
             modifiedOn: modifiedOn,
             
