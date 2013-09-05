@@ -94,3 +94,53 @@ body {
 #content {
     min-width: 600px;
 }
+
+
+/*#region Create form*/
+
+.create-form {
+    margin-top: 20px;
+}
+
+.create-form-image {
+    height: 111px;
+    width: 194px;
+    vertical-align: top;
+}
+
+.create-form-field {
+    margin-left: 250px;
+}
+
+.create-form .editarea {
+    min-height: 120px;
+}
+
+.create-form .editable-text-binding {
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.create-form .form-actions {
+    margin-left: 0;
+}
+
+.create-form-tip {
+    margin: 50px 0;
+    -webkit-transform: rotate(352deg);
+    -moz-transform: rotate(352deg);
+    -ms-transform: rotate(352deg);
+    transform: rotate(352deg);
+    white-space: nowrap;
+    color: #666;
+}
+
+.create-form-tip-image {
+    background-image: url(images/typeQuestionTitleArrow.png);
+    width: 54px;
+    height: 54px;
+    display: inline-block;
+}
+
+/*#endregion Create form*/

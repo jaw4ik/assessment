@@ -1,11 +1,17 @@
-﻿using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Web;
 using System.Web.Mvc;
+using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.BuildExperience.BuildModel;
+using easygenerator.Web.Components;
 
-namespace easygenerator.Web.Controllers
+namespace easygenerator.Web.Controllers.Api
 {
-    public class ExperienceController : Controller
+    public class ExperienceController : DefaultController
     {
         private readonly IExperienceBuilder _builder;
         private readonly PackageModelMapper _packageModelMapper;
@@ -14,6 +20,16 @@ namespace easygenerator.Web.Controllers
         {
             _builder = experienceBuilder;
             _packageModelMapper = packageModelMapper;
+        }
+
+        [HttpPost]
+        public ActionResult Create()
+        {
+            return JsonSuccess(new
+            {
+                Id = Guid.NewGuid().ToString().Replace("-", ""),
+                CreatedOn = DateTimeWrapper.Now()
+            });
         }
 
         [HttpPost]

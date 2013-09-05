@@ -138,6 +138,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\repositories\experienceRepository.spec.js">
+      <DependentUpon>experienceRepository.js</DependentUpon>
+    </Content>
     <Content Include="App\repositories\objectiveRepository.js" />
     <Compile Include="BuildExperience\BuildPackageCreator.cs" />
     <Compile Include="BuildExperience\BuildPathProvider.cs" />
@@ -157,11 +160,11 @@
     <Compile Include="Configuration\ContainerConfiguration.cs" />
     <Compile Include="Configuration\FilterConfiguration.cs" />
     <Compile Include="Configuration\RouteConfiguration.cs" />
+    <Compile Include="Controllers\Api\ExperienceController.cs" />
     <Compile Include="Controllers\Api\ObjectiveController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="BuildExperience\BuildResult.cs" />
     <Compile Include="Components\DefaultController.cs" />
-    <Compile Include="Controllers\ExperienceController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

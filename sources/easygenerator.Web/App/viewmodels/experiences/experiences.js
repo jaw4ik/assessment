@@ -59,7 +59,7 @@
 
             navigateToCreation = function () {
                 sendEvent(events.navigateToCreateExperience);
-                router.replace('404');
+                router.navigate('experience/create');
             },
 
             navigateToDetails = function (experience) {

@@ -1,13 +1,18 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.BuildExperience.BuildModel;
 using easygenerator.Web.BuildExperience.PackageModel;
-using easygenerator.Web.Controllers;
+using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace easygenerator.Web.Tests.Controllers
+namespace easygenerator.Web.Tests.Controllers.Api
 {
     [TestClass]
     public class ExperienceControllerTests
@@ -24,7 +29,24 @@ namespace easygenerator.Web.Tests.Controllers
             _controller = new ExperienceController(_builder.Object, _packageModelMapperMock.Object);
         }
 
-        #region Build
+
+        #region Create experience
+
+        [TestMethod]
+        public void Create_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.Create();
+
+            //Assert
+            ActionResultAssert.IsJsonSuccessResult(result);
+        }
+
+        #endregion
+
+        #region Build experience
 
         [TestMethod]
         public void Build_ShouldReturnJson()

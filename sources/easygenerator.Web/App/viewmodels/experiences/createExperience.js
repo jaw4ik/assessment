@@ -1,76 +1,74 @@
-﻿define(['dataContext', 'models/experience', 'plugins/router', 'constants', 'eventTracker'],
-    function (dataContext, ExperienceModel, router, constants, eventTracker) {
-        var self = {};
+﻿define(['repositories/experienceRepository', 'plugins/router', 'constants', 'eventTracker'],
+    function (repository, router, constants, eventTracker) {
 
         var
             events = {
                 category: 'Create Experience',
-                createExperience: 'Create experience',
                 navigateToExperiences: 'Navigate to experiences',
-                cancelExperienceCreateion: 'Cancel experience creation'
+                createAndNew: "Create learning experience and create new",
+                createAndEdit: "Create learning experience and open its properties",
             },
 
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName, events.category);
             };
 
-        self.title = ko.observable().extend({
-            required: { message: 'Please, provide title for experience' },
-            maxLength: { message: 'Experience title can not be longer than 255 symbols', params: 255 }
-        });
+        var
+            title = (function () {
+                var val = ko.observable();
+                val.maxLength = 255;
+                val.extend({
+                    required: true,
+                    maxLength: val.maxLength
+                });
+                val.isEditing = ko.observable(false);
+                return val;
+            })(),
 
-        self.objectives = ko.observableArray([]);
+            navigateToExperiences = function () {
+                sendEvent(events.navigateToExperiences);
+                router.navigate('experiences');
+            },
 
-        self.save = function () {
-            if (!self.title.isValid()) {
-                self.title.isModified(true);
-                return;
+            createAndNew = function () {
+                sendEvent(events.createAndNew);
+
+                if (!title.isValid()) {
+                    return;
+                }
+
+                repository.addExperience({ title: title() }).then(function () {
+                    title('');
+                });
+            },
+
+            createAndEdit = function () {
+                sendEvent(events.createAndEdit);
+
+                if (!title.isValid()) {
+                    return;
+                }
+
+                repository.addExperience({ title: title() }).then(function (experienceId) {
+                    title('');
+                    router.navigate('experience/' + experienceId);
+                });
+            },
+
+            activate = function () {
+                return Q.fcall(function () {
+                    title('');
+                });
             }
-            
-            sendEvent(events.createExperience);
-            
-            dataContext.experiences.push(new ExperienceModel({
-                id: dataContext.experiences.length,
-                title: self.title(),
-                objectives: self.selectedObjectives(),
-                buildingStatus: constants.buildingStatuses.notStarted
-            }));
-
-            sendEvent(events.navigateToExperiences);
-            router.navigateTo('#/experiences');
-        };
-
-        self.selectedObjectives = ko.computed(function () {
-            return _.reject(self.objectives(), function (objective) {
-                return objective.isSelected() !== true;
-            });
-        });
-
-        self.cancel = function () {
-            sendEvent(events.cancelExperienceCreateion);
-            sendEvent(events.navigateToExperiences);
-            router.navigateTo('#/experiences');
-        };
-
-        self.activate = function () {
-            self.title(null);
-            self.title.isModified(false);
-
-            self.objectives(ko.utils.arrayMap(dataContext.objectives, function (item) {
-                return {
-                    id: item.id,
-                    title: item.title,
-                    isSelected: ko.observable(false)
-                };
-            }));
-        };
+        ;
 
         return {
-            activate: self.activate,
-            title: self.title,
-            objectives: self.objectives,
-            save: self.save,
-            cancel: self.cancel
+            activate: activate,
+            title: title,
+
+            navigateToExperiences: navigateToExperiences,
+            createAndNew: createAndNew,
+            createAndEdit: createAndEdit
         };
     }
 );

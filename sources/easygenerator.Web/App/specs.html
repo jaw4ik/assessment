@@ -29,6 +29,9 @@
             this.utils = {
                 createString: function (length) {
                     return new Array(length + 1).join("*");
+                },
+                getDateFromString: function(str) {
+                    return new Date(parseInt(str.substr(6), 10));
                 }
             };
 
@@ -55,6 +58,7 @@
                 'localization/localizationManager.spec',
                 'services/buildExperience.spec',
                 'repositories/objectiveBriefRepository.spec',
+                'repositories/experienceRepository.spec',
                 'repositories/objectiveRepository.spec',
                 'repositories/questionRepository.spec',
                 'viewmodels/objectives/objectives.spec',
