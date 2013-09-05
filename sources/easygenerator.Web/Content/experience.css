@@ -384,3 +384,7 @@
 }
 
 /*#endregion Info popup*/
+
+.experience .empty-list-wrapper .empty-list-text {
+    font-size: 29px;
+}

@@ -1,7 +1,7 @@
 ﻿<section class="experience unselectable container">
     <nav class="main-nav">
         <ul class="unstyled main-nav-list">
-            <li class="main-nav-item left" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'experiences',  isGoBackTextLocalizable: true, goBackAction: navigateToExperiences } }"></li>
+            <li class="main-nav-item left" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'experiences', isGoBackTextLocalizable: true, goBackAction: navigateToExperiences } }"></li>
             <li class="main-nav-item right">
                 <div class="nav-control right" data-bind="css: { 'build-experience': status() == statuses.notStarted }">
                     <!-- BUILD EXPERIENCE BUTTON -->
@@ -103,7 +103,6 @@
                                         <td class="value-column">
                                             <span class="condition-date-time-text" data-bind="date: { value: modifiedOn, formatString: 'LT', language: language }"></span>
                                         </td>
-                                        
                                     </tr>
                                     <tr>
                                         <td class="condition-title" rowspan="2">
@@ -120,7 +119,6 @@
                                             <!--/ko-->
                                         </td>
                                     </tr>
-                                    
                                     <tr>
                                         <td class="value-column">
                                             <!--ko ifnot: !_.isDate(builtOn())-->
@@ -144,7 +142,7 @@
                 <div class="experience-text-wrapper">
                     <div class="edit-field selectable">
                         <div class="text-block" data-bind="css: { 'active': isEditing(), error: !title.isValid() || title().trim().length == 0 }">
-                            <div class="editarea editarea-editable-text" data-bind="editableText: { text: title, multiline: false }, hasFocus: isEditing, event: { focus: startEditing,  blur: saveChanges}"></div>
+                            <div class="editarea editarea-editable-text" data-bind="editableText: { text: title, multiline: false }, hasFocus: isEditing, event: { focus: startEditing, blur: saveChanges }"></div>
                             <div class="chars-counter" data-bind="css: { error: !title.isValid() || title().trim().length == 0 }">
                                 <span data-bind="text: title().length"></span>
                                 <span>/</span>
@@ -164,13 +162,11 @@
             <!-- /ko -->
         </aside>
     </header>
-
-
     <div class="experience-related-objectives-header">
         <span data-bind="localize: { text: 'relatedLearningObjectives' }">Related learning objectives</span>
         <hr />
     </div>
-
+    <!-- ko if: objectives.length != 0-->
     <div class="content-list-wrapper">
         <ul class="content-list">
             <!-- ko foreach: objectives -->
@@ -212,6 +208,14 @@
             <!-- /ko -->
         </ul>
     </div>
+    <!-- /ko -->
+    <!-- ko if: objectives.length == 0-->
+    <div class="empty-list-wrapper">
+        <div class="empty-list">
+            <div class="empty-list-text" data-bind="localize: { text: 'noRelatedLearningObjectives' }"></div>
+        </div>
+    </div>
+    <!-- /ko -->
 </section>
 <div class="alert alert-info" data-bind="visible: notification.visibility">
     <button class="close absolute-right" data-bind="click: notification.close">×</button>
