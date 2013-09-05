@@ -3,6 +3,7 @@ Feature: ListOfQuestions
 	As an author I can see list of previously created Questions related to selected Learning Objective, so I can select one for editing.
 
 Background: 
+Given clear data context
 Given objectives are present in database
 | Title      | Id |
 | Objective1 | 1  |

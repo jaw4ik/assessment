@@ -4,6 +4,7 @@ Feature: Experience
 	so I can check if the current experience is ready for publishing.
 
 Background:
+Given clear data context
 Given publications are present in database
 | Title       | Id |
 | Experience1 | 1  |

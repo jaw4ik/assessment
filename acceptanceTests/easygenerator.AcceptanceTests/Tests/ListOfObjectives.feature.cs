@@ -70,7 +70,7 @@ namespace easygenerator.AcceptanceTests.Tests
         public virtual void FeatureBackground()
         {
 #line 5
-#line 7
+#line 6
 testRunner.Given("clear data context", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
         }
@@ -80,7 +80,7 @@ testRunner.Given("clear data context", ((string)(null)), ((TechTalk.SpecFlow.Tab
         public virtual void AllObjectivesShouldBePresentInList()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All objectives should be present in list", ((string[])(null)));
-#line 10
+#line 9
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -93,9 +93,9 @@ this.FeatureBackground();
                         "Objective2"});
             table1.AddRow(new string[] {
                         "Objective3"});
-#line 11
+#line 10
 testRunner.Given("objectives are present in database", ((string)(null)), table1, "Given ");
-#line 16
+#line 15
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -106,7 +106,7 @@ testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((stri
                         "Objective2"});
             table2.AddRow(new string[] {
                         "Objective3"});
-#line 17
+#line 16
 testRunner.Then("objectives tiles list contains items with data", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -117,7 +117,7 @@ testRunner.Then("objectives tiles list contains items with data", ((string)(null
         public virtual void ObjectivesListItemNameCouldContainSpecialSymbols()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Objectives list item name could contain special symbols", ((string[])(null)));
-#line 23
+#line 22
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -126,16 +126,16 @@ this.FeatureBackground();
                         "Title"});
             table3.AddRow(new string[] {
                         "~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё"});
-#line 24
+#line 23
 testRunner.Given("objectives are present in database", ((string)(null)), table3, "Given ");
-#line 27
+#line 26
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table4.AddRow(new string[] {
                         "~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё"});
-#line 28
+#line 27
 testRunner.Then("objectives tiles list contains items with data", ((string)(null)), table4, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -146,7 +146,7 @@ testRunner.Then("objectives tiles list contains items with data", ((string)(null
         public virtual void ObjectivesAreSortedByTitleAscendingByDefault()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Objectives are sorted by title ascending by default", ((string[])(null)));
-#line 32
+#line 31
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -165,9 +165,9 @@ this.FeatureBackground();
                         "1_Objective"});
             table5.AddRow(new string[] {
                         "_Objective"});
-#line 33
+#line 32
 testRunner.Given("objectives are present in database", ((string)(null)), table5, "Given ");
-#line 41
+#line 40
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
@@ -184,9 +184,9 @@ testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((stri
                         "objective_b"});
             table6.AddRow(new string[] {
                         "Objective_z"});
-#line 42
+#line 41
 testRunner.Then("objectives tiles list consists of ordered items", ((string)(null)), table6, "Then ");
-#line 50
+#line 49
 testRunner.And("objectives list order switch is set to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -197,7 +197,7 @@ testRunner.And("objectives list order switch is set to \'ascending\'", ((string)
         public virtual void ObjectivesAreSortedByTitleDescendingIfSetDescendingOrder()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Objectives are sorted by title descending if set descending order", ((string[])(null)));
-#line 52
+#line 51
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -214,13 +214,13 @@ this.FeatureBackground();
                         "1_Objective"});
             table7.AddRow(new string[] {
                         "_Objective"});
-#line 53
+#line 52
 testRunner.Given("objectives are present in database", ((string)(null)), table7, "Given ");
-#line 60
+#line 59
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 61
+#line 60
 testRunner.When("I switch objectives list order to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 62
+#line 61
 testRunner.And("I switch objectives list order to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
@@ -235,9 +235,9 @@ testRunner.And("I switch objectives list order to \'descending\'", ((string)(nul
                         "_Objective"});
             table8.AddRow(new string[] {
                         "1_Objective"});
-#line 63
+#line 62
 testRunner.Then("objectives tiles list consists of ordered items", ((string)(null)), table8, "Then ");
-#line 70
+#line 69
 testRunner.And("objectives list order switch is set to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -248,7 +248,7 @@ testRunner.And("objectives list order switch is set to \'descending\'", ((string
         public virtual void ObjectivesAreSortedByTitleAscendingIfSetAscendingOrder()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Objectives are sorted by title ascending if set ascending order", ((string[])(null)));
-#line 72
+#line 71
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -265,13 +265,13 @@ this.FeatureBackground();
                         "1_Objective"});
             table9.AddRow(new string[] {
                         "_Objective"});
-#line 73
+#line 72
 testRunner.Given("objectives are present in database", ((string)(null)), table9, "Given ");
-#line 80
+#line 79
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 81
+#line 80
 testRunner.When("I switch objectives list order to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 82
+#line 81
 testRunner.And("I switch objectives list order to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
@@ -286,9 +286,9 @@ testRunner.And("I switch objectives list order to \'ascending\'", ((string)(null
                         "Objective_a"});
             table10.AddRow(new string[] {
                         "Objective_z"});
-#line 83
+#line 82
 testRunner.Then("objectives tiles list consists of ordered items", ((string)(null)), table10, "Then ");
-#line 90
+#line 89
 testRunner.And("objectives list order switch is set to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -299,7 +299,7 @@ testRunner.And("objectives list order switch is set to \'ascending\'", ((string)
         public virtual void SelectedObjectiveShouldBeHighlitedAfterSelecting()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Selected objective should be highlited after selecting", ((string[])(null)));
-#line 92
+#line 91
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -312,19 +312,19 @@ this.FeatureBackground();
                         "Objective2"});
             table11.AddRow(new string[] {
                         "Objective3"});
-#line 93
+#line 92
 testRunner.Given("objectives are present in database", ((string)(null)), table11, "Given ");
-#line 98
+#line 97
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 99
+#line 98
 testRunner.When("mouse hover element of objectives list with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 100
+#line 99
 testRunner.And("select objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 101
+#line 100
 testRunner.Then("objective list item with title \'Objective2\' is selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 102
+#line 101
 testRunner.But("objective list item with title \'Objective1\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
-#line 103
+#line 102
 testRunner.And("objective list item with title \'Objective3\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -335,7 +335,7 @@ testRunner.And("objective list item with title \'Objective3\' is not selected", 
         public virtual void ObjectiveCouldBeDeselected()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Objective could be deselected", ((string[])(null)));
-#line 105
+#line 104
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -348,35 +348,35 @@ this.FeatureBackground();
                         "Objective2"});
             table12.AddRow(new string[] {
                         "Objective3"});
-#line 106
+#line 105
 testRunner.Given("objectives are present in database", ((string)(null)), table12, "Given ");
-#line 111
+#line 110
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 112
+#line 111
 testRunner.When("mouse hover element of objectives list with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 112
+testRunner.And("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 113
-testRunner.And("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("mouse hover element of objectives list with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 114
-testRunner.And("mouse hover element of objectives list with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("select objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 115
-testRunner.And("select objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 116
 testRunner.And("mouse hover element of objectives list with title \'Objective3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 117
+#line 116
 testRunner.And("select objective list item with title \'Objective3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 118
+#line 117
 testRunner.And("mouse hover element of objectives list with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 119
+#line 118
 testRunner.And("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 120
+#line 119
 testRunner.And("mouse hover element of objectives list with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 121
+#line 120
 testRunner.And("select objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 122
+#line 121
 testRunner.Then("objective list item with title \'Objective1\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 123
+#line 122
 testRunner.But("objective list item with title \'Objective2\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "But ");
-#line 124
+#line 123
 testRunner.And("objective list item with title \'Objective3\' is selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -387,7 +387,7 @@ testRunner.And("objective list item with title \'Objective3\' is selected", ((st
         public virtual void NoObjectivesAreSelectedByDefaultInObjectivesList()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("No objectives are selected by default in objectives list", ((string[])(null)));
-#line 126
+#line 125
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -400,15 +400,15 @@ this.FeatureBackground();
                         "Objective2"});
             table13.AddRow(new string[] {
                         "Objective3"});
-#line 127
+#line 126
 testRunner.Given("objectives are present in database", ((string)(null)), table13, "Given ");
-#line 132
+#line 131
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 133
+#line 132
 testRunner.Then("objective list item with title \'Objective2\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 134
+#line 133
 testRunner.And("objective list item with title \'Objective1\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 135
+#line 134
 testRunner.And("objective list item with title \'Objective3\' is not selected", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -423,7 +423,7 @@ testRunner.And("objective list item with title \'Objective3\' is not selected", 
         public virtual void ObjectivesListColumnsCountShouldDependOnScreenWidth(string windowWidth, string columnsCount, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Objectives list columns count should depend on screen width", exampleTags);
-#line 138
+#line 137
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -440,13 +440,13 @@ this.FeatureBackground();
                         "Objective4"});
             table14.AddRow(new string[] {
                         "Objective5"});
-#line 139
+#line 138
 testRunner.Given("objectives are present in database", ((string)(null)), table14, "Given ");
-#line 146
+#line 145
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 147
+#line 146
 testRunner.When(string.Format("browser window width and height is set to {0} and 600", windowWidth), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 148
+#line 147
 testRunner.Then(string.Format("objectives list is displayed in {0} columns", columnsCount), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -457,7 +457,7 @@ testRunner.Then(string.Format("objectives list is displayed in {0} columns", col
         public virtual void AllElementsOfObjectivesListCanBeMadeVisibleUsingScroll()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All elements of objectives list can be made visible using scroll", ((string[])(null)));
-#line 157
+#line 156
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -474,15 +474,15 @@ this.FeatureBackground();
                         "Objective4"});
             table15.AddRow(new string[] {
                         "Objective5"});
-#line 158
+#line 157
 testRunner.Given("objectives are present in database", ((string)(null)), table15, "Given ");
-#line 165
+#line 164
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 166
+#line 165
 testRunner.When("browser window width and height is set to 600 and 600", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 167
+#line 166
 testRunner.And("scroll objective with title \'Objective5\' into the view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 168
+#line 167
 testRunner.Then("element of objectives list with title \'Objective5\' is visible", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -495,7 +495,7 @@ testRunner.Then("element of objectives list with title \'Objective5\' is visible
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Actions open and select are enabled if hover item of objectives list", new string[] {
                         "NotFirefox"});
-#line 171
+#line 170
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -508,15 +508,15 @@ this.FeatureBackground();
                         "Objective2"});
             table16.AddRow(new string[] {
                         "Objective3"});
-#line 172
+#line 171
 testRunner.Given("objectives are present in database", ((string)(null)), table16, "Given ");
-#line 177
+#line 176
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 178
+#line 177
 testRunner.When("mouse hover element of objectives list with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 179
+#line 178
 testRunner.Then("Action open is enabled true for objectives list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 180
+#line 179
 testRunner.And("Action select is enabled true for objectives list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -529,7 +529,7 @@ testRunner.And("Action select is enabled true for objectives list item with titl
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Open action of objectives list item navigates to objective\'s editing page", new string[] {
                         "NotFirefox"});
-#line 184
+#line 183
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
@@ -540,15 +540,15 @@ this.FeatureBackground();
             table17.AddRow(new string[] {
                         "Objective1",
                         "1"});
-#line 185
+#line 184
 testRunner.Given("objectives are present in database", ((string)(null)), table17, "Given ");
-#line 188
+#line 187
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 189
+#line 188
 testRunner.When("mouse hover element of objectives list with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 190
+#line 189
 testRunner.And("click open objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 191
+#line 190
 testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -559,15 +559,15 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1\'
         public virtual void NavigationWorksUsingTabNavigationToExpiriencesFromObjectivesList()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Navigation works using tab navigation to expiriences from objectives list", ((string[])(null)));
-#line 194
+#line 193
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 195
+#line 194
 testRunner.When("open page by url \'http://localhost:5656/#/objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 196
+#line 195
 testRunner.And("click on tab expiriences link on objectives", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 197
+#line 196
 testRunner.Then("browser navigates to url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

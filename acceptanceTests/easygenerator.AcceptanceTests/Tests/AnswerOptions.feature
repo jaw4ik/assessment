@@ -3,7 +3,8 @@ Feature: AnswerOptions
 	As an author I want to add new or delete existing Answer Option of current open Question, so I could define list of them for this Question. 
 
 
-Background: 
+Background:
+Given clear data context
 Given objectives are present in database
 | Title      | Id |
 | Objective1 | 1  |

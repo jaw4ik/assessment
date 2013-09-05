@@ -2,7 +2,9 @@
 Feature: Localization
 
 @Localization_Test
+
 Scenario Template: Localization of browser should be applied to course by default
+	Given clear data context
 	Given browser localizatiom is set to '<localization>'
 	When open page by url 'http://localhost:5656/#objectives'
 	Then objectives list page header text is '<text>'
@@ -19,6 +21,7 @@ Scenario Template: Localization of browser should be applied to course by defaul
 Scenario Template: Localization is changed if change user settings
 	#When open page by url 'http://localhost:5656'
 	#And open user settings
+	Given clear data context
 	When open page by url 'http://localhost:5656/#/user'
 	And select language '<language>' in user settings
 	And click save user settings

@@ -33,7 +33,10 @@ namespace easygenerator.AcceptanceTests.Steps
         public void WhenOpenPageByUrl(string url)
         {
             DriverProvider.Current().Driver.Navigate().GoToUrl(url);
-            System.Threading.Thread.Sleep(5000);
+            if (!TestUtils.WaitForCondition(() =>
+                (bool)DriverProvider.Current().Driver.ExecuteScript("return document.getElementById('content')!==null"), 20000))
+                throw new TimeoutException("Content data is not reachable");
+            //System.Threading.Thread.Sleep(5000);
 
         }
 
@@ -60,7 +63,10 @@ namespace easygenerator.AcceptanceTests.Steps
         public void GivenOpenPageByUrl(string url)
         {
             DriverProvider.Current().Driver.Navigate().GoToUrl(url);
-            System.Threading.Thread.Sleep(5000);
+            if (!TestUtils.WaitForCondition(() =>
+                (bool)DriverProvider.Current().Driver.ExecuteScript("return document.getElementById('content')!==null"), 20000))
+                throw new TimeoutException("Content data is not reachable");
+            //System.Threading.Thread.Sleep(5000);
         }
 
         [Given(@"sleep '(.*)'")]

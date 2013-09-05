@@ -2,7 +2,8 @@
 Feature: Question
 	As an author I can see content of open Question, so I can check if it is enough to check/provide a learner's knowledge. 
 
-Background: 
+Background:
+Given clear data context 
 Given objectives are present in database
 | Title      | Id |
 | Objective1 | 1  |

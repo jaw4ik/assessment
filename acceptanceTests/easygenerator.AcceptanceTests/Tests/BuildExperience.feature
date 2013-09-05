@@ -6,6 +6,7 @@ Feature: BuildExperience
 
 
 Scenario: Building status is shown after click on build button
+Given clear data context
 Given publications are present in database
 | Title       | Id |
 | Experience1 | 1  |

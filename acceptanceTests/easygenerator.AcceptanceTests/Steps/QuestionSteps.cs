@@ -180,12 +180,14 @@ namespace easygenerator.AcceptanceTests.Steps
         public void WhenInputTextIntoNewAnswerOptionTextField(string Text)
         {
             Question.AddNewAnswerOptionText(Text);
+            System.Threading.Thread.Sleep(100);
         }
 
         [When(@"input text '(.*)' into answer option text field '(.*)'")]
         public void WhenInputTextIntoAnswerOptionTextField(string newText, string oldText)
         {
             Question.AddAnswerOptionTextIntoExisting(newText, oldText);
+            System.Threading.Thread.Sleep(100);
         }
 
 

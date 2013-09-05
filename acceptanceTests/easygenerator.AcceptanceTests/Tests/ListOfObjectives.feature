@@ -3,7 +3,6 @@ Feature: ListOfObjectives
 	As an author I want to see list of previously created Learning Objectives, so I could select certain Learning Objective to start working with related content.
 
 Background: 
-
 Given clear data context
 
 

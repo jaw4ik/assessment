@@ -3,6 +3,8 @@ Feature: ListOfExperiences
 	As an author I want to see list of previously created Publications,
 	so I could correct needed settings and perform publication once more without defining all the settings each time. 
 
+Background:
+Given clear data context
 
 Scenario: All publications should be present in list
 Given publications are present in database

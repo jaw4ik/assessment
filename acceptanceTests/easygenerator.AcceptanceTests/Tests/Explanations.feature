@@ -3,7 +3,8 @@ Feature: Explanations
 	As an author I can Add Explanation, so I can divide needed content into more than one solid part.
     As an author I can Delete Explanation, so I do not keep not needed parts of content.
 
-Background: 
+Background:
+Given clear data context 
 Given objectives are present in database
 | Title      | Id |
 | Objective1 | 1  |

@@ -4,7 +4,8 @@ Feature: PackageListOfObjectives
 	so I'm able to see the tree of objectives and related to them questions. 
 
 
-Background: 
+Background:
+Given clear data context 
 Given publications are present in database
 | Title       | Id |
 | Experience1 | 1  |
