@@ -19,14 +19,16 @@ define('knockout', function () {
     return ko;
 });
 
-define(['durandal/system', 'durandal/app', 'durandal/viewLocator'],
-    function (system, app, viewLocator) {
+define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'durandal/composition'],
+    function (system, app, viewLocator, composition) {
 
         if (!has('release')) {
             system.debug(true);
         }
 
-        app.title = "easygenerator";
+        composition.addBindingHandler('hasFocus');
+
+        app.title = "easygenerator";        
 
         app.configurePlugins({
             router: true,

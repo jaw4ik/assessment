@@ -59,6 +59,7 @@
             activate = function () {
                 return Q.fcall(function () {
                     title('');
+                    title.isEditing(true);
                 });
             }
         ;

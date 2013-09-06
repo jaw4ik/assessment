@@ -278,6 +278,19 @@
                         });
                     });
                     
+                    it('should set focus to title', function () {
+                        viewModel.title.isEditing(false);
+
+                        var promise = viewModel.activate();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.title.isEditing()).toBeTruthy();
+                        });
+                    });
+                    
                 });
 
             });
