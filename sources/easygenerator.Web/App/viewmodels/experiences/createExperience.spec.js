@@ -132,6 +132,22 @@
                             });
                         });
                         
+                        it('should set focus to title', function () {
+                            viewModel.title.isEditing(false);
+
+                            viewModel.createAndNew();
+
+                            var promise = addExperience.promise.fin(function () { });
+                            addExperience.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.title.isEditing()).toBeTruthy();
+                            });
+                        });
+                        
                         it('should show info notification', function () {
                             viewModel.createAndNew();
 

@@ -39,6 +39,7 @@
 
                 repository.addExperience({ title: title() }).then(function () {
                     title('');
+                    title.isEditing(true);
                     notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
                 });
             },
