@@ -41,7 +41,10 @@
             {
                 route: 'experience/create',
                 moduleId: 'viewmodels/experiences/createExperience',
-                title: 'Create New Experiences',
+                title: 'Create New Experience',
+                settings: {
+                    localizationKey: 'createNewExperience'
+                }
             },
             {
                 route: 'objective/:objectiveId/question/create',
