@@ -11,19 +11,16 @@
                 <div class="text-block bordered active" data-bind="css: { error: !title.isValid() && title().length > title.maxLength, active: title.isEditing }">
                     <div class="editarea editarea-editable-text" data-bind="editableText: { text: title }, hasFocus: title.isEditing"></div>
                     <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > title.maxLength }">
-                        <span data-bind="text: title().length"></span>/<span data-bind="    text: title.maxLength"></span>
+                        <span data-bind="text: title().length"></span>/<span data-bind="text: title.maxLength"></span>
                     </div>
                 </div>
             </div>
+            <!-- ko compose: { view: 'views/common/createtip', model: { text: 'typeExperienceTitleHere' } } -->
+            <!-- /ko -->
         </div>
 
         <!-- ko compose: { view: 'views/common/formactions', model: { isValid: title.isValid(), saveAndNew: createAndNew, saveAndOpen: createAndEdit } } -->
         <!-- /ko -->
-
-        <div class="create-form-tip hand-writing pull-left">
-            <span data-bind="localize: { text: 'typeExperienceTitleHere' }"></span>
-            <span class="create-form-tip-image"></span>
-        </div>
 
     </form>
 
