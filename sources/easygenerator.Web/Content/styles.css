@@ -174,8 +174,8 @@ body
     .create-tip .create-tip-text-wrapper
     {
         position: absolute;
-        right: 15px;
-        top: 40px;
+        right: 10px;
+        top: 54px;
     }
 
     .create-tip .create-tip-text

@@ -203,6 +203,10 @@
     -moz-transform: rotate(345deg);
     -ms-transform: rotate(345deg);
     transform: rotate(345deg);
+    -webkit-transform-origin: 80px 20px;
+    -moz-transform-origin: 80px 20px;
+    -ms-transform-origin: 80px 20px;
+    transform-origin: 80px 20px;
 }
 
 /*#endregion ROTATION*/
@@ -276,7 +280,7 @@
 
 .create-objective-form {
     position: relative;
-    margin-left: 60px;
+    margin: 20px 0 0 50px;
     height: 100%;
     padding-bottom: 10px;
 }
@@ -291,7 +295,7 @@
 
 .create-objective-text-wrapper {
     position: relative;
-    margin-left: 225px;
+    margin-left: 250px;
 }
 
 @media (max-width: 700px) {
