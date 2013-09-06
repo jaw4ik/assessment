@@ -263,8 +263,8 @@
     },
     createNewExperience: {
         en: 'Create New Experience',
-        nl: 'Create New Experience[nl]',
-        de: 'Create New Experience[de]'
+        nl: 'Nieuwe ervaring aanmaken',
+        de: 'Neue Umgebung erstellen'
     },
     /* End resource section for model CreateExperience */
     
@@ -585,8 +585,8 @@
     },
     noRelatedLearningObjectives: {
         en: 'No related learning objectives',
-        nl: 'No related learning objectives[nl]',
-        de: 'No related learning objectives[de]'
+        nl: 'Geen verwante leerdoelen',
+        de: 'Keine verbundenen Lernziele'
     },
     /* End resource section for model Display experience */
     
