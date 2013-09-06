@@ -1,0 +1,50 @@
+﻿.notification-container {
+    position: absolute;
+    right: 10px;
+    top: 50px;
+}
+
+
+.notification {
+    font-family: Arial,sans-serif;
+    font-size: 12px;
+    border-radius: 4px 4px 4px 4px;
+    min-width: 325px;
+    padding: 10px;
+    border: 1px solid transparent;
+}
+
+.notification-icon {
+    background-image: url("images/icons.png");
+    background-position: 0 0;
+    display: inline-block;
+    height: 16px;
+    margin-right: 8px;
+    vertical-align: middle;
+    width: 16px;
+}
+
+.notification-close {
+    background: none;
+    border: 0;
+    float: right;
+    color: #000000;
+    opacity: 0.5;
+    margin-left: 3px;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: bold;
+    cursor: default;
+}
+
+    .notification-close:hover {
+        opacity: 1;
+        cursor: default;
+    }
+
+.notification.info {
+    background-color: #D4E6F2;
+    border-color: #4DC0F8;
+    color: #23485A;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}

@@ -1,5 +1,5 @@
-﻿define(['repositories/experienceRepository', 'plugins/router', 'constants', 'eventTracker'],
-    function (repository, router, constants, eventTracker) {
+﻿define(['repositories/experienceRepository', 'plugins/router', 'constants', 'eventTracker', 'notify', 'localization/localizationManager'],
+    function (repository, router, constants, eventTracker, notify, localizationManager) {
 
         var
             events = {
@@ -39,6 +39,7 @@
 
                 repository.addExperience({ title: title() }).then(function () {
                     title('');
+                    notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
                 });
             },
 

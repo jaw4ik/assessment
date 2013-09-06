@@ -41,6 +41,7 @@ namespace easygenerator.Web.Configuration
                     .Include("~/Content/experience.css")
                     .Include("~/Scripts/ckeditor/Content.css")
                     .Include("~/Content/ckeditor.css")
+                    .Include("~/Content/notify.css")
                 );
         }
     }

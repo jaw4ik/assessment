@@ -112,6 +112,12 @@
 
                     describe('and experience was added successfully', function () {
 
+                        var notify = require('notify');
+
+                        beforeEach(function() {
+                            spyOn(notify, "info");
+                        });
+
                         it('should clear title', function () {
                             viewModel.createAndNew();
 
@@ -123,6 +129,20 @@
                             });
                             runs(function () {
                                 expect(viewModel.title()).toEqual("");
+                            });
+                        });
+                        
+                        it('should show info notification', function () {
+                            viewModel.createAndNew();
+
+                            var promise = addExperience.promise.fin(function () { });
+                            addExperience.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(notify.info).toHaveBeenCalled();
                             });
                         });
 

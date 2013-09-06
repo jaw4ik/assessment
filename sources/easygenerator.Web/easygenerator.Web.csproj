@@ -138,6 +138,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\notify.js" />
     <Content Include="App\repositories\experienceRepository.spec.js">
       <DependentUpon>experienceRepository.js</DependentUpon>
     </Content>
@@ -187,6 +188,7 @@
     <Content Include="Content\images\nav-icons.png" />
     <Content Include="Content\images\warning.png" />
     <Content Include="Content\images\objective.png" />
+    <Content Include="Content\notify.css" />
     <Content Include="Scripts\almond-custom.js" />
     <Content Include="Scripts\durandal\activator.js" />
     <Content Include="Scripts\durandal\app.js" />
