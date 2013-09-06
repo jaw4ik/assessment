@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace easygenerator.AcceptanceTests.LinkingModels
 {
     public class QuestionPageLinkingModel : ILinkingModel
-    {        
+    {
         public string AnswerItem = ".//div[contains(@class,'question-answers')]//li[contains(@class,'answer-option-item')]";
         public string ExplanationItem = ".//div[contains(@class,'question-explanations')]//li[contains(@class,'question-explanation-item')]";
         public string CorrectAnswerIndicator = ".//span[@class='answer-correct-icon']";
@@ -23,7 +23,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string BackToObjectiveLink = "//div[contains(@class,'nav-control') and contains(@class,'flexible')]//div[contains(@class,'nav-element')]";
         public string BackToObjectiveText = "//div[contains(@class,'nav-control') and contains(@class,'flexible')]//span[contains(@class,'nav-element')]";
 
-        public string QuestionTitle = ".//div[contains(@class,'question-text-wrapper')]//div[contains(@class,'editarea-editable-text')]";
+        public string QuestionTitle = ".//section[contains(@class,'question')]//header[contains(@class,'view-header')]//div[contains(@class,'view-header-title-text')]";
 
         public string AnswerOptionsBlock = ".//div[contains(@class,'question-answers')]";
         public string ExplanationsBlock = ".//div[contains(@class,'question-explanations')]";
@@ -31,12 +31,12 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string ExpandAnswerOptionsButton = "//div[contains(@class,'question-answers')]//span[contains(@class,'nav-element')]";
         public string ExpandExplanationsButton = "//div[contains(@class,'question-explanations')]//span[contains(@class,'nav-element')]";
 
-        public string NextQuestionButton = ".//aside[contains(@class,'next')]//a[contains(@class,'next-btn')]";
-        public string PreviousQuestionButton = ".//aside[contains(@class,'previous')]//a[contains(@class,'prev-btn')]";
+        public string NextQuestionButton = ".//header[contains(@class,'view-header')]//a[contains(@class,'view-header-nav-btn next')]";
+        public string PreviousQuestionButton = ".//header[contains(@class,'view-header')]//a[contains(@class,'view-header-nav-btn previous')]";
 
         public string AddNewAnswerOptionButton = ".//div[contains(@class,'question-answers')]//li[@class='add-button']//div[@class='question-answer-text']";
         //public string AnswerOptionActiveText = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[@class='question-answer-text']//p";
-        public string AnswerOptionActiveText = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[contains(@class,'question-answer-text')]//div[contains(@class,'editarea-editable-text')]";        
+        public string AnswerOptionActiveText = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[contains(@class,'question-answer-text')]//div[contains(@class,'editarea-editable-text')]";
         public string AnswerOptionActiveCorrectnessIndicator = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[@class='question-answer-value']";
 
         public string AddNewExplanationButton = ".//div[contains(@class,'question-explanations')]//li[@class='add-button']//div[contains(@class,'question-explanation')]";

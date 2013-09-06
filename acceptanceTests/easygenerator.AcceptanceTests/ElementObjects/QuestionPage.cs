@@ -91,7 +91,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
                     children[0].Displayed;
             }
         }
-                
+
         internal void NavigateBackToObjective()
         {
             var link = GetByXPath(model.BackToObjectiveLink);
@@ -180,11 +180,11 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         }
 
         internal void ToggleActiveAnswerOptionCorrectness()
-        {            
+        {
             var button = GetByXPath(model.AnswerOptionActiveCorrectnessIndicator);
             button.Click();
         }
-                
+
         internal void ToggleAnswerOptionCorrectness(string Text)
         {
             var answerItem = AnswerItemByText(Text);
@@ -233,12 +233,12 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             var itemTextField = explanationItem.Container.FindElementByXPath(model.ExplanationItemText);
             itemTextField.Click();
         }
-               
+
         internal bool IsNewExplanationButtonVisible()
         {
-            return NewExplanationButton.IsVisisble();            
+            return NewExplanationButton.IsVisisble();
         }
-        
+
     }
 
 
