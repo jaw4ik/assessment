@@ -40,13 +40,6 @@ namespace easygenerator.AcceptanceTests.Steps
 
         }
 
-        [When(@"open error page by url '(.*)'")]
-        public void WhenOpenErrorPageByUrl(string url)
-        {
-            DriverProvider.Current().Driver.Navigate().GoToUrl(url);
-        }
-
-
         [When(@"browser window width and height is set to (.*) and (.*)")]
         public void WhenBrowserWindowWidthIsSetTo(int width, int height)
         {
