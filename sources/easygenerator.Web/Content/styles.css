@@ -207,29 +207,6 @@ body
         transform: rotate(352deg);
     }
 
-@media (max-width: 690px)
-{
-    .create-tip
-    {
-        left: -25px;
-    }
-
-        .create-tip .create-tip-text-wrapper
-        {
-            right: 10px;
-            top: 35px;
-        }
-}
-
-@media (min-width: 690px)
-{
-    .create-tip .create-tip-text-wrapper
-    {
-        right: 15px;
-        top: 40px;
-    }
-}
-
 /*#endregion Create entity tooltip*/
 
 /*#region hand-writing generic*/
