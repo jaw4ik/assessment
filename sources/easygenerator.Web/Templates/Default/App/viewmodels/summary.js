@@ -24,6 +24,8 @@
 
             eventsManager.fireEvent(eventsManager.eventsList.courseFinished, { result: this.score / 100 }).then(function () {
                 eventsManager.fireEvent(eventsManager.eventsList.courseStopped).then(function () {
+                    eventsManager.removeAllListeners(); 
+
                     window.close();
 
                     if (navigator.appName != "Microsoft Internet Explorer") {

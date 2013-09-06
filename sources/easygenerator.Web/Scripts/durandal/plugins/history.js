@@ -192,8 +192,10 @@ define(['durandal/system', 'jquery'], function (system, $) {
         if (history.iframe) {
             history.navigate(current, false);
         }
-        
-        history.loadUrl();
+
+        if (!history.loadUrl()) {
+            history.navigate('404', { trigger: true });
+        }
     };
     
     /**

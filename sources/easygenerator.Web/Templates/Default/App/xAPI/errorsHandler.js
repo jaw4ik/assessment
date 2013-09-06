@@ -22,7 +22,7 @@
             },
 
             handleError = function (errorMessage) {
-                
+
                 if (window.location.hash.indexOf('#/xapierror') !== -1)
                     return;
 

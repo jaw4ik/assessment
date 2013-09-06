@@ -9,20 +9,11 @@
                 throw new Error("Event object missing 'eventName' property.");
             }
 
-            var deferredQueue = Q();
-
-            if (_.isArray(_listeners[eventName])) {
-                var listeners = _listeners[eventName];
-
-                _.each(listeners, function (listener) {
-                    
-                    deferredQueue = deferredQueue.then(function () {
-                        return listener(eventData);
-                    });
+            return $.when(ko.utils.arrayMap(_listeners[eventName], function (event) {
+                return $.Deferred(function () {
+                    event(eventData);
                 });
-            }
-
-            return deferredQueue;
+            }));
         },
 
         addEventListener = function (eventName, listener) {

@@ -5,4 +5,5 @@
   <file>/Templates/Default/js/knockout-2.2.1.js</file>
   <file>/Templates/Default/js/sammy-0.7.4.js</file>
   <file>/Templates/Default/js/underscore-1.5.1.js</file>
+  <file>/Templates/Default/js/circleProgressBinding.js</file>
 </bundle>
