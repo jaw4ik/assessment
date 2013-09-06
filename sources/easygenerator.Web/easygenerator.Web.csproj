@@ -180,6 +180,7 @@
     <Compile Include="ViewModels\Objective\CreateObjectiveViewModel.cs" />
     <Content Include="App\views\common\createtip.html" />
     <Content Include="App\views\common\formactions.html" />
+    <Content Include="App\views\common\entityinfo.html" />
     <Content Include="Content\durandal.css" />
     <Content Include="Content\font\alphamacaoe.svg" />
     <Content Include="Content\images\build-sprite.png" />

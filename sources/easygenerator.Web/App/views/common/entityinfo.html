@@ -1,0 +1,29 @@
+﻿<div class="entity-info">
+    <img class="entity-info-img white-framing" data-bind="attr: { src: image }" />
+    <div class="entity-info-btn"></div>
+    <div class="entity-info-popup">
+        <div class="entity-info-popup-wrapper">
+            <!-- ko foreach: info -->
+            <div class="entity-info-popup-item">
+                <div class="entity-info-popup-item-title" data-bind="localize: { text: text }"></div>
+                <div class="entity-info-popup-item-data">
+                    <!-- ko if: _.isDate(date) -->
+                    <div>
+                        <span class="entity-info-popup-item-date-text" data-bind="date: { value: date, formatString: 'L', language: $parent.language }"></span>
+                    </div>
+                    <div>
+                        <span class="entity-info-popup-item-time-text" data-bind="date: { value: date, formatString: 'LT', language: $parent.language }"></span>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: _.isDate(date) -->
+                    <div class="entity-info-popup-item-date-text" data-bind="localize: { text: emptyText }"></div>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <!-- /ko -->
+            <div class="entity-info-popup-triangle-wrapper">
+                <div class="entity-info-popup-triangle"></div>
+            </div>
+        </div>
+    </div>
+</div>

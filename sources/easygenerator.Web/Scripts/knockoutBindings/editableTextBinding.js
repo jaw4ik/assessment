@@ -6,7 +6,6 @@
 
         $element.attr('contenteditable', 'true');
         $element.toggleClass('editable-text-binding', true);
-        $element.toggleClass('prewrap', multiline);
         $element.text(ko.unwrap(text));
 
         $element.on('drop dragover', function (event) {

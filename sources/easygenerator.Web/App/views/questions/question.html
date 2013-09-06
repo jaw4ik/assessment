@@ -1,4 +1,4 @@
-﻿<div class="question container unselectable">
+﻿<section class="question container unselectable">
 
     <nav class="navbar question clearfix">
         <div class="nav-control fixed pull-right">
@@ -18,85 +18,40 @@
         </div>
     </nav>
 
-    <header class="page-header-wrapper">
-        <aside class="nav-element-wrapper previous">
-            <!-- ko if: hasPrevious -->
-            <a class="nav-element prev-btn" href="" title="Previous" data-bind="click: goToPreviousQuestion, localize: { title: 'previous' }"></a>
+    <header class="view-header">
+        <!-- ko if: hasPrevious -->
+        <a class="view-header-nav-btn previous" href="" title="Previous" data-bind="click: goToPreviousQuestion, localize: { title: 'previous' }"></a>
+        <!-- /ko -->
+        <!-- ko ifnot: hasPrevious -->
+        <div class="view-header-nav-btn previous disabled" title="Previous" data-bind="localize: { title: 'previous' }"></div>
+        <!-- /ko -->
+
+        <div>
+            <!-- ko compose: { view: 'views/common/entityinfo', 
+                        model: {
+                        info: [ { text: 'createdOn', emptyText: '', date: createdOn }, { text: 'modifiedOn', emptyText: '', date: modifiedOn() } ],
+                        image: '/Content/images/multichoice-question.png',
+                        language: language
+                    },
+                    cacheViews: true 
+                } -->
             <!-- /ko -->
-            <!-- ko ifnot: hasPrevious -->
-            <span class="nav-element prev-btn disabled" title="Previous" data-bind="localize: { title: 'previous' }"></span>
-            <!-- /ko -->
-        </aside>
-        <div class="info-popup">
-        </div>
-        <div class="page-header clearfix">
-            <div class="page-header-image white-framing">
-                <img alt="" class="question-image" src="/Content/images/multichoice-question.png" />
-            </div>
-            <div class="info-btn-holder pull-left">
-                <div class="info-btn-wrapper">
-                    <div class="info-btn"></div>
-                    <div class="info-popup-wrapper">
-                        <div class="question-info-popup">
-                            <table class="question-info-table">
-                                <tbody>
-                                    <tr>
-                                        <td class="condition-title" rowspan="2">
-                                            <span class="after-colon" data-bind="localize: { text: 'createdOn'}"></span>
-                                        </td>
-                                        <td>
-                                            <span class="condition-date-text" data-bind="date: { value: createdOn, formatString: 'L', language: language }"></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="condition-date-time-text" data-bind="date: { value: createdOn, formatString: 'LT', language: language }"></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="condition-title" rowspan="2">
-                                            <span class="after-colon" data-bind="localize: { text: 'modifiedOn'}"></span>
-                                        </td>
-                                        <td>
-                                            <span class="condition-date-text" data-bind="date: { value: modifiedOn, formatString: 'L', language: language }"></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span class="condition-date-time-text" data-bind="date: { value: modifiedOn, formatString: 'LT', language: language }"></span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="question-info-popup-triangle-wrapper">
-                                <div class="question-info-popup-triangle"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="page-header-info question-header-title">
-                <div class="question-text-wrapper">
-                    <div class="edit-field selectable">
-                        <div class="text-block" data-bind="css: { 'active': title.isEditing(), error: !title.isValid() }">
-                            <div class="editarea editarea-editable-text" data-bind="editableText: { text: title, multiline: false }, hasFocus: title.isEditing, event: { focus: startEditQuestionTitle.bind($data), blur: endEditQuestionTitle.bind($data) }"></div>
-                            <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
-                                <span data-bind="text: title().length + '/' + questionTitleMaxLength"></span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="view-header-title" data-bind="css: { 'active': title.isEditing(), 'error': !title.isValid() }">
+                <div class="view-header-title-text selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }"></div>
+                <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
+                    <span data-bind="text: title().length + '/' + questionTitleMaxLength"></span>
                 </div>
             </div>
         </div>
-        <aside class="nav-element-wrapper next">
-            <!-- ko if: hasNext -->
-            <a class="nav-element next-btn" href="" title="Next" data-bind="click: goToNextQuestion, localize: { title: 'next' }"></a>
-            <!-- /ko -->
-            <!-- ko ifnot: hasNext -->
-            <span class="nav-element next-btn disabled" title="Next" data-bind="localize: { title: 'next' }"></span>
-            <!-- /ko -->
-        </aside>
+        
+        <!-- ko if: hasNext -->
+        <a class="view-header-nav-btn next" href="" title="Next" data-bind="click: goToNextQuestion, localize: { title: 'next' }"></a>
+        <!-- /ko -->
+        <!-- ko ifnot: hasNext -->
+        <div class="view-header-nav-btn next disabled" title="Next" data-bind="localize: { title: 'next' }"></div>
+        <!-- /ko -->
     </header>
+
     <div class="question-content clearfix">
         <div class="question-content-block question-answers">
             <div class="question-content-block-header-wrapper" data-bind="click: toggleAnswers">
@@ -210,7 +165,7 @@
             </div>
         </div>
     </div>
-</div>
+</section>
 <div class="alert alert-info" data-bind="visible: notification.visibility">
     <button class="close absolute-right" data-bind="click: notification.close">×</button>
     <span class="alert-content">
