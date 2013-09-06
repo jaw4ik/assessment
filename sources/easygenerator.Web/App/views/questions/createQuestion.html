@@ -23,10 +23,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="create-question-tip hand-writing">
-                    <div class="create-question-tip-text" data-bind="localize: { text: 'typeQuestionTitleHere' }"></div>
-                    <div class="create-question-tip-arrow"></div>
-                </div>
+                <!-- ko compose: { view: 'views/common/createtip', model: { text: 'typeQuestionTitleHere' } } -->
+                <!-- /ko -->
             </div>
               <!-- ko compose: { view: 'views/common/formactions', model: { isValid: title.isValid(), saveAndNew: saveAndNew.bind($data), saveAndOpen: saveAndOpen.bind($data) } } -->
               <!-- /ko -->

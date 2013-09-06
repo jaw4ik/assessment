@@ -15,10 +15,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="create-objective-tip hand-writing">
-                    <div class="create-objective-tip-text" data-bind="localize: { text: 'createObjectiveTip' }"></div>
-                    <div class="create-objective-tip-arrow"></div>
-                </div>
+                <!-- ko compose: { view: 'views/common/createtip', model: { text: 'createObjectiveTip' } } -->
+                <!-- /ko -->
             </div>
             <!-- ko compose: { view: 'views/common/formactions', model: { isValid: title.isValid(), saveAndNew: createAndNew, saveAndOpen: createAndEdit } } -->
             <!-- /ko -->

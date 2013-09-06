@@ -610,45 +610,6 @@ src: url('./font/alphamacaoe.woff') format('woff'), /* Modern Browsers */
     }
 }
 
-.create-question-tip {
-    position: absolute;
-}
-
-@media (max-width: 690px) {
-    .create-question-tip {
-        left: -56px;
-    }
-
-    .create-question-tip .create-question-tip-text {
-        right: -10px;
-        top: 35px;
-    }
-}
-
-@media (min-width: 690px) {
-    .create-question-tip .create-question-tip-text {
-        right: 20px;
-        top: 40px;
-    }
-}
-
-.create-question-tip .create-question-tip-text {
-    position: absolute;
-    -webkit-transform: rotate(352deg);
-    -moz-transform: rotate(352deg);
-    -ms-transform: rotate(352deg);
-    transform: rotate(352deg);
-    white-space: nowrap;
-}
-
-.create-question-tip .create-question-tip-arrow {
-    background-image: url(images/typeQuestionTitleArrow.png);
-    width: 53px;
-    height: 54px;
-    position: absolute;
-    top: 10px;
-}
-
 /*#endregion Create qyestion page*/
 
 /*#region Buttons generic*/
@@ -762,10 +723,3 @@ src: url('./font/alphamacaoe.woff') format('woff'), /* Modern Browsers */
 }
 
 /*#endregion Create new question navigation button*/
-
-/*#region hand-writing generic*/
-.hand-writing {
-    font-size: 30px;
-    font-family: 'AlphaMackAOERegular', sans-serif;
-}
-/*#endregion hand-writing generic*/

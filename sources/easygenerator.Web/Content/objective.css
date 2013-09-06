@@ -294,47 +294,6 @@
     margin-left: 225px;
 }
 
-
-.create-objective-tip {
-    position: absolute;
-}
-
-@media (max-width: 690px) {
-    .create-objective-tip {
-        left: -56px;
-    }
-
-    .create-objective-tip .create-objective-tip-text {
-        right: -10px;
-        top: 35px;
-    }
-}
-
-@media (min-width: 690px) {
-    .create-objective-tip .create-objective-tip-text {
-        right: 20px;
-        top: 40px;
-    }
-}
-
-.create-objective-tip .create-objective-tip-text {
-    position: absolute;
-    -webkit-transform: rotate(352deg);
-    -moz-transform: rotate(352deg);
-    -ms-transform: rotate(352deg);
-    transform: rotate(352deg);
-    white-space: nowrap;
-    color: #666;
-}
-
-.create-objective-tip .create-objective-tip-arrow {
-    background-image: url(images/typeQuestionTitleArrow.png);
-    width: 53px;
-    height: 54px;
-    position: absolute;
-    top: 10px;
-}
-
 @media (max-width: 700px) {
     .create-objective-form .form-actions {
         margin-top: 40px;
