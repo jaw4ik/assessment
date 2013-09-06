@@ -53,6 +53,24 @@
                             packageUrl: experience.packageUrl
                         });
                     }));
+                }).then(function () {
+                    return $.ajax({
+                        url: 'api/objectives',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        dataType: 'json'
+                    }).then(function (response) {
+                        _.each(response.data, function (item) {
+                            objectives.push(new ObjectiveModel({
+                                id: item.Id.split('-').join(''),
+                                title: item.Title,
+                                createdOn: parseDateString(item.CreatedOn),
+                                modifiedOn: parseDateString(item.ModifiedOn),
+                                image: constants.defaultObjectiveImage,
+                                questions: []
+                            }));
+                        });
+                    });
                 }).fail(function () {
                     app.showMessage("Failed to initialize datacontext.");
                 });

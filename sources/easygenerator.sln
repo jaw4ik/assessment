@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.Infrastructur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.Tests", "easygenerator.Tests\easygenerator.Tests.csproj", "{F820D996-5AA4-4D7E-AE66-A2EC988ECBCB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.DataAccess", "easygenerator.DataAccess\easygenerator.DataAccess.csproj", "{67A666AE-DE1A-4744-80BC-455536DB1171}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AutoTests|Any CPU = AutoTests|Any CPU
@@ -56,6 +58,12 @@ Global
 		{F820D996-5AA4-4D7E-AE66-A2EC988ECBCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F820D996-5AA4-4D7E-AE66-A2EC988ECBCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F820D996-5AA4-4D7E-AE66-A2EC988ECBCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67A666AE-DE1A-4744-80BC-455536DB1171}.AutoTests|Any CPU.ActiveCfg = Release|Any CPU
+		{67A666AE-DE1A-4744-80BC-455536DB1171}.AutoTests|Any CPU.Build.0 = Release|Any CPU
+		{67A666AE-DE1A-4744-80BC-455536DB1171}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67A666AE-DE1A-4744-80BC-455536DB1171}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67A666AE-DE1A-4744-80BC-455536DB1171}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67A666AE-DE1A-4744-80BC-455536DB1171}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

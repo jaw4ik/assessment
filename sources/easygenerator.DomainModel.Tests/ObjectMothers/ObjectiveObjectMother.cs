@@ -24,7 +24,7 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
 
         public static Objective Create(string title = Title, string createdBy = CreatedBy)
         {
-            return new Objective(title, createdBy);
+            return new Objective(title);
         }
     }
 }

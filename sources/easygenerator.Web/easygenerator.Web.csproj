@@ -170,7 +170,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ObjectiveRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="BuildExperience\BuildModel\AnswerOptionBuildModel.cs" />
     <Compile Include="BuildExperience\BuildModel\ExperienceBuildModel.cs" />
@@ -843,6 +842,10 @@
     <Content Include="Views\Application\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\easygenerator.DataAccess\easygenerator.DataAccess.csproj">
+      <Project>{67A666AE-DE1A-4744-80BC-455536DB1171}</Project>
+      <Name>easygenerator.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\easygenerator.DomainModel\easygenerator.DomainModel.csproj">
       <Project>{B1A55D50-7948-471A-9FA8-403512C179A6}</Project>
       <Name>easygenerator.DomainModel</Name>

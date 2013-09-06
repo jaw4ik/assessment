@@ -42,6 +42,12 @@ namespace easygenerator.Web.Configuration
                 defaults: new { controller = "Objective", action = "Create" }
             );
 
+            routes.MapRoute(
+                name: "GetObjectives",
+                url: "api/objectives",
+                defaults: new { controller = "Objective", action = "GetCollection" }
+            );
+
 
             routes.MapRoute(
                 name: "CreateExperience",
