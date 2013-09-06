@@ -69,21 +69,21 @@ namespace easygenerator.AcceptanceTests.Tests
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Correct error pages should be opened for")]
         [NUnit.Framework.TestCaseAttribute("Home page bad request", "http://localhost:5656/#/bla", "http://localhost:5656/#/", "Bad request", null)]
-        [NUnit.Framework.TestCaseAttribute("Objective bad request", "http://localhost:5656/#/objective/asd", "http://localhost:5656/#/403", "Bad request", null)]
-        [NUnit.Framework.TestCaseAttribute("Objective not found", "http://localhost:5656/#/objective/1000", "http://localhost:5656/#/404", "Not found", null)]
-        [NUnit.Framework.TestCaseAttribute("Publication bad request", "http://localhost:5656/#/publications/asd", "http://localhost:5656/#/403", "Bad request", null)]
-        [NUnit.Framework.TestCaseAttribute("Publication not found", "http://localhost:5656/#/publications/1000", "http://localhost:5656/#/404", "Not found", null)]
-        [NUnit.Framework.TestCaseAttribute("Question bad request", "http://localhost:5656/#/objective/0/question/aad", "http://localhost:5656/#/403", "Bad request", null)]
-        [NUnit.Framework.TestCaseAttribute("Question not found", "http://localhost:5656/#/objective/0/question/1000", "http://localhost:5656/#/404", "Not found", null)]
-        [NUnit.Framework.TestCaseAttribute("Answer bad request", "http://localhost:5656/#/objective/0/question/0/answer/asd", "http://localhost:5656/#/403", "Bad request", null)]
-        [NUnit.Framework.TestCaseAttribute("Answer not found", "http://localhost:5656/#/objective/0/question/0/answer/1000", "http://localhost:5656/#/404", "Not found", null)]
+        [NUnit.Framework.TestCaseAttribute("Objective bad request", "http://localhost:5656/#/objective/asd", "http://localhost:5656/#403", "Bad request", null)]
+        [NUnit.Framework.TestCaseAttribute("Objective not found", "http://localhost:5656/#/objective/1000", "http://localhost:5656/#404", "not found", null)]
+        [NUnit.Framework.TestCaseAttribute("Publication bad request", "http://localhost:5656/#/experiences/asd", "http://localhost:5656/#403", "Bad request", null)]
+        [NUnit.Framework.TestCaseAttribute("Publication not found", "http://localhost:5656/#/experiences/1000", "http://localhost:5656/#404", "not found", null)]
+        [NUnit.Framework.TestCaseAttribute("Question bad request", "http://localhost:5656/#/objective/0/question/aad", "http://localhost:5656/#403", "Bad request", null)]
+        [NUnit.Framework.TestCaseAttribute("Question not found", "http://localhost:5656/#/objective/0/question/1000", "http://localhost:5656/#404", "not found", null)]
+        [NUnit.Framework.TestCaseAttribute("Answer bad request", "http://localhost:5656/#/objective/0/question/0/answer/asd", "http://localhost:5656/#403", "Bad request", null)]
+        [NUnit.Framework.TestCaseAttribute("Answer not found", "http://localhost:5656/#/objective/0/question/0/answer/1000", "http://localhost:5656/#404", "not found", null)]
         public virtual void CorrectErrorPagesShouldBeOpenedFor(string testName, string url, string expectedUrl, string pageText, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Correct error pages should be opened for", exampleTags);
 #line 5
 this.ScenarioSetup(scenarioInfo);
 #line 6
-testRunner.When(string.Format("open page by url \'{0}\'", url), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When(string.Format("open error page by url \'{0}\'", url), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 7
 testRunner.Then(string.Format("browser navigates to url \'{0}\'", expectedUrl), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 8
