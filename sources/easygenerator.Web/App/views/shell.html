@@ -1,13 +1,10 @@
 ﻿<div class="header clearfix unselectable" data-bind="css: 'module-' + activeModuleName()">
     <div class="brand">
-        <!-- ko if: activeModuleName() == homeModuleName && !router.isNavigating() -->
+        <!-- ko if: activeModuleName() == homeModuleName || router.isNavigating() -->
         <span class="inline logo"></span>
         <!-- /ko -->
-        <!-- ko if: activeModuleName() != homeModuleName && !router.isNavigating() -->
+        <!-- ko ifnot: activeModuleName() == homeModuleName || router.isNavigating() -->
         <a href="#/" class="inline logo">&nbsp;</a>
-        <!-- /ko -->
-        <!-- ko if: router.isNavigating() -->
-        <span class="inline logo" style="cursor:wait"></span>
         <!-- /ko -->
     </div>
 </div>
