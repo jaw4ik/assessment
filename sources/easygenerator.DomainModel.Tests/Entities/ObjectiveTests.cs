@@ -5,7 +5,7 @@ using easygenerator.Tests;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
-   // [TestClass]
+    [TestClass]
     public class ObjectiveTests
     {
         [TestMethod]
@@ -24,18 +24,6 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void Objective_ShouldThrowArgumentOutOfRangeException_WhenTitleIsLongerThan255()
         {
             AssertException.ExpectArgumentOutOfRangeException(() => ObjectiveObjectMother.CreateWithTitle(new string('*', 256)), "title");
-        }
-
-        [TestMethod]
-        public void Objective_ShouldThrowArgumentNullException_WhenCreatedByIsNull()
-        {
-            AssertException.ExpectArgumentNullException(() => ObjectiveObjectMother.CreateWithCreatedBy(null), "createdBy");
-        }
-
-        [TestMethod]
-        public void Objective_ShouldThrowArgumentException_WhenCreatedByIsInvalid()
-        {
-            AssertException.ExpectArgumentException(() => ObjectiveObjectMother.CreateWithCreatedBy(String.Empty), "createdBy");
         }
     }
 }

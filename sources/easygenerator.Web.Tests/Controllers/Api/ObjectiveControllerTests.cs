@@ -9,7 +9,7 @@ using Moq;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
-    //[TestClass]
+    [TestClass]
     public class ObjectiveControllerTests
     {
         private ObjectiveController _controller;
@@ -31,7 +31,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
 
             //Act
-            var result = _controller.Create(String.Empty);
+            var result = _controller.Create("title");
 
             //Assert
             ActionResultAssert.IsJsonSuccessResult(result);
