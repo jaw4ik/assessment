@@ -1,6 +1,11 @@
-﻿<div class="header clearfix unselectable" data-bind="css: 'module-' + cssName()">
+﻿<div class="header clearfix unselectable" data-bind="css: 'module-' + activeModuleName()">
     <div class="brand">
+        <!-- ko if: activeModuleName() == homeModuleName -->
+        <span class="inline logo"></span>
+        <!-- /ko -->
+        <!-- ko ifnot: activeModuleName() == homeModuleName -->
         <a href="#/" class="inline logo">&nbsp;</a>
+        <!-- /ko -->
     </div>
 </div>
 <div class="icon-spinner-wrapper" data-bind="visible: router.isNavigating()">

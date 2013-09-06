@@ -55,6 +55,11 @@ body
         margin-top: 5px;
     }
 
+    .brand span.inline
+    {
+        margin-top: 5px;
+    }
+
 .navigation-menu
 {
     height: 40px;

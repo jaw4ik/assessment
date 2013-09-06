@@ -2,7 +2,7 @@
     function (app, router, routes, datacontext, localizationManager) {
         var
             startModule = 'experiences',
-            cssName = ko.computed(function () {
+            activeModule = ko.computed(function () {
                 var activeItem = router.activeItem();
                 if (_.isObject(activeItem)) {
                     var moduleId = activeItem.__moduleId__;
@@ -48,8 +48,9 @@
 
         return {
             activate: activate,
-            cssName: cssName,
-            router: router
+            activeModuleName: activeModule,
+            router: router,
+            homeModuleName: startModule
         };
     }
 );
