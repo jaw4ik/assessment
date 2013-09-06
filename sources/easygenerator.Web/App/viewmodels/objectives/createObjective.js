@@ -1,5 +1,5 @@
-﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'constants', 'localization/localizationManager'],
-    function (objectiveRepository, router, eventTracker, constants, localizationManager) {
+﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'constants', 'notify', 'localization/localizationManager'],
+    function (objectiveRepository, router, eventTracker, constants, notify, localizationManager) {
 
         var
             events = {
@@ -12,17 +12,6 @@
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName, events.category);
             };
-
-        var notification = {
-            text: ko.observable(''),
-            visibility: ko.observable(false),
-            close: function () { notification.visibility(false); },
-            update: function () {
-                var message = localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString();
-                notification.text(message);
-                notification.visibility(true);
-            }
-        };
 
         var
             title = ko.observable('').extend({
@@ -41,46 +30,42 @@
 
                 return Q.fcall(function () {
                     that.title('');
-                    that.notification.visibility(false);
                 });
             },
 
             createAndNew = function () {
                 sendEvent(events.createAndNew);
-
-                title(title().trim());
-
-                if (!title.isValid()) {
-                    return;
-                }
-
-                objectiveRepository.addObjective({ title: title() }).then(function () {
-                    title('');
+                createObjective(function () {
                     isTitleEditing(true);
-                    notification.update();
+                    notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
                 });
             },
 
             createAndEdit = function () {
                 sendEvent(events.createAndEdit);
-
-                title(title().trim());
-
-                if (!title.isValid()) {
-                    return;
-                }
-
-                objectiveRepository.addObjective({ title: title() }).then(function (objectiveId) {
+                createObjective(function (objectiveId) {
                     router.navigate('objective/' + objectiveId);
                 });
             }
         ;
 
+        function createObjective(callback) {
+            title(title().trim());
+
+            if (!title.isValid()) {
+                return;
+            }
+
+            objectiveRepository.addObjective({ title: title() }).then(function (objectiveId) {
+                title('');
+                callback(objectiveId);
+            });
+        }
+
         return {
             title: title,
             objectiveTitleMaxLength: constants.validation.objectiveTitleMaxLength,
             isTitleEditing: isTitleEditing,
-            notification: notification,
 
             activate: activate,
             navigateToObjectives: navigateToObjectives,

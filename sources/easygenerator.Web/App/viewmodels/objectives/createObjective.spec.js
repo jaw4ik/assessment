@@ -49,65 +49,6 @@
                 });
 
             });
-            describe('notification:', function () {
-
-                it('should be object', function () {
-                    expect(viewModel.notification).toBeObject();
-                });
-
-                it('should have text observable', function () {
-                    expect(viewModel.notification.text).toBeDefined();
-                    expect(viewModel.notification.text).toBeObservable();
-                });
-
-                it('should have visibility observable', function () {
-                    expect(viewModel.notification.visibility).toBeDefined();
-                    expect(viewModel.notification.visibility).toBeObservable();
-                });
-
-                describe('close', function () {
-
-                    it('should be function', function () {
-                        expect(viewModel.notification.close).toBeFunction();
-                    });
-
-                    describe('when called', function () {
-
-                        describe('and visibility is true', function () {
-
-                            it('should set visibility to false', function () {
-                                viewModel.notification.visibility(true);
-                                viewModel.notification.close();
-
-                                expect(viewModel.notification.visibility()).toBeFalsy();
-                            });
-
-                        });
-
-                    });
-
-                });
-
-                describe('update', function () {
-
-                    it('should be function', function () {
-                        expect(viewModel.notification.update).toBeFunction();
-                    });
-
-                    describe('when called', function () {
-
-                        describe('and visibility is false', function () {
-                            it('should set visibility to true', function () {
-                                viewModel.notification.visibility(false);
-                                viewModel.notification.update();
-
-                                expect(viewModel.notification.visibility()).toBeTruthy();
-                            });
-                        });
-                    });
-
-                });
-            });
 
             describe('createAndNew:', function () {
 
@@ -126,9 +67,11 @@
 
                     describe('and title is valid', function () {
 
+                        var notify = require('notify');
+
                         beforeEach(function () {
                             viewModel.title('Some valid text');
-                            spyOn(viewModel.notification, 'update');
+                            spyOn(notify, 'info');
                         });
 
                         it('should create new objective in repository', function () {
@@ -190,15 +133,15 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(viewModel.notification.update).toHaveBeenCalled();
+                                expect(notify.info).toHaveBeenCalled();
                             });
                         });
 
                     });
 
-                    describe('and title has spaces only', function() {
+                    describe('and title has spaces only', function () {
 
-                        it('should set title to invalid', function() {
+                        it('should set title to invalid', function () {
                             viewModel.title('   ');
                             viewModel.createAndNew();
                             expect(viewModel.title.isValid()).toBeFalsy();
@@ -206,7 +149,7 @@
                         });
 
                     });
-                    
+
                     it('should trim title', function () {
                         viewModel.title('   abc   ');
                         viewModel.createAndNew();
@@ -289,7 +232,7 @@
                         });
 
                     });
-                    
+
                     describe('and title has spaces only', function () {
 
                         it('should set title to invalid', function () {
@@ -310,18 +253,18 @@
 
                 });
 
-                describe('navigateToObjectives:', function () {
+            });
 
-                    it('should send event \'Navigate to objectives\'', function () {
-                        viewModel.navigateToObjectives();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objectives', eventsCategory);
-                    });
+            describe('navigateToObjectives:', function () {
 
-                    it('should navigate to #objectives', function () {
-                        viewModel.navigateToObjectives();
-                        expect(router.navigate).toHaveBeenCalledWith('objectives');
-                    });
+                it('should send event \'Navigate to objectives\'', function () {
+                    viewModel.navigateToObjectives();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objectives', eventsCategory);
+                });
 
+                it('should navigate to #objectives', function () {
+                    viewModel.navigateToObjectives();
+                    expect(router.navigate).toHaveBeenCalledWith('objectives');
                 });
 
             });
@@ -339,6 +282,7 @@
 
                 it('should clear title', function () {
                     viewModel.title('Some text');
+                    
                     var promise = viewModel.activate();
 
                     waitsFor(function () {
@@ -346,18 +290,6 @@
                     });
                     runs(function () {
                         expect(viewModel.title().length).toEqual(0);
-                    });
-                });
-
-                it('should hide notification', function () {
-                    viewModel.notification.visibility(true);
-                    var promise = viewModel.activate();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.notification.visibility()).toBeFalsy();
                     });
                 });
 
