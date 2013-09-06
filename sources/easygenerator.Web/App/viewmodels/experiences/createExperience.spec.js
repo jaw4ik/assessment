@@ -104,10 +104,16 @@
                         };
                     });
 
+                    it('should trim experience title', function () {
+                        viewModel.title('           title           ');
+                        viewModel.createAndNew();
+                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title' });
+                    });
+
                     it('should add experience to repository', function () {
                         viewModel.title('title');
                         viewModel.createAndNew();
-                        expect(repository.addExperience).toHaveBeenCalledWith({ title: viewModel.title() });
+                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title' });
                     });
 
                     describe('and experience was added successfully', function () {
@@ -210,10 +216,16 @@
                         };
                     });
 
+                    it('should trim experience title', function () {
+                        viewModel.title('           title           ');
+                        viewModel.createAndEdit();
+                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title' });
+                    });
+
                     it('should add experience to repository', function () {
                         viewModel.title('title');
                         viewModel.createAndEdit();
-                        expect(repository.addExperience).toHaveBeenCalledWith({ title: viewModel.title() });
+                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title' });
                     });
 
                     describe('and experience was added successfully', function () {

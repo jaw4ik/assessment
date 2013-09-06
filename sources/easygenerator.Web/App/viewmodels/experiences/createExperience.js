@@ -32,13 +32,7 @@
 
             createAndNew = function () {
                 sendEvent(events.createAndNew);
-
-                if (!title.isValid()) {
-                    return;
-                }
-
-                repository.addExperience({ title: title() }).then(function () {
-                    title('');
+                createExperience(function () {
                     title.isEditing(true);
                     notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
                 });
@@ -46,13 +40,7 @@
 
             createAndEdit = function () {
                 sendEvent(events.createAndEdit);
-
-                if (!title.isValid()) {
-                    return;
-                }
-
-                repository.addExperience({ title: title() }).then(function (experienceId) {
-                    title('');
+                createExperience(function (experienceId) {
                     router.navigate('experience/' + experienceId);
                 });
             },
@@ -64,6 +52,17 @@
                 });
             }
         ;
+
+        function createExperience(callback) {
+            if (!title.isValid()) {
+                return;
+            }
+
+            repository.addExperience({ title: title().trim() }).then(function (experienceId) {
+                title('');
+                callback(experienceId);
+            });
+        }
 
         return {
             activate: activate,
