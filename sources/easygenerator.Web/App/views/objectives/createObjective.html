@@ -1,25 +1,28 @@
-﻿<section class="container unselectable">
+﻿<section id="createObjective" class="create-objective container unselectable">
+
     <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'learningObjectives', isGoBackTextLocalizable: true, goBackAction: navigateToObjectives }, cacheViews: false }">
     </div>
-    <div class="">
-        <form class="create-objective-form clearfix">
-            <div class="create-objective-image white-framing">
-                <img alt="" class="objective-image" src="/Content/images/objective.png" />
-            </div>
-            <div class="create-objective-text-wrapper">
-                <div class="edit-field selectable">
-                    <div class="text-block bordered" data-bind="css: { error: !title.isValid() && title().length > objectiveTitleMaxLength, active: isTitleEditing }">
-                        <div data-autofocus="true" class="editarea editarea-editable-text" data-bind="editableText: { text: title, multiline: false }, hasFocus: isTitleEditing"></div>
-                        <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > objectiveTitleMaxLength }">
-                            <span data-bind="text: title().length"></span>/<span data-bind="text: objectiveTitleMaxLength"></span>
-                        </div>
+
+    <form class="create-form">
+        <div class="white-framing pull-left">
+            <img class="create-form-image" src="/Content/images/objective.png" alt="" />
+        </div>
+        <div class="create-form-field">
+            <div class="edit-field selectable">
+                <div class="text-block bordered" data-bind="css: { error: !title.isValid() && title().length > objectiveTitleMaxLength, active: isTitleEditing }">
+                    <div data-autofocus="true" class="editarea editarea-editable-text" data-bind="editableText: { text: title, multiline: false }, hasFocus: isTitleEditing"></div>
+                    <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > objectiveTitleMaxLength }">
+                        <span data-bind="text: title().length"></span>/<span data-bind="text: objectiveTitleMaxLength"></span>
                     </div>
                 </div>
-                <!-- ko compose: { view: 'views/common/createtip', model: { text: 'createObjectiveTip' } } -->
-                <!-- /ko -->
             </div>
-            <!-- ko compose: { view: 'views/common/formactions', model: { isValid: title.isValid(), saveAndNew: createAndNew, saveAndOpen: createAndEdit } } -->
+            <!-- ko compose: { view: 'views/common/createtip', model: { text: 'createObjectiveTip' } } -->
             <!-- /ko -->
-        </form>
-    </div>
+        </div>
+
+        <!-- ko compose: { view: 'views/common/formactions', model: { isValid: title.isValid(), saveAndNew: createAndNew, saveAndOpen: createAndEdit } } -->
+        <!-- /ko -->
+
+    </form>
+
 </section>
