@@ -371,22 +371,6 @@
 
             });
 
-            describe('attached:', function () {
-
-                it('should enable title editing', function () {
-                    viewModel.isTitleEditing(false);
-
-                    jasmine.Clock.useMock();
-
-                    viewModel.attached();
-
-                    jasmine.Clock.tick(101);
-
-                    expect(viewModel.isTitleEditing()).toBeTruthy();
-                });
-
-            });
-
         });
     }
 );

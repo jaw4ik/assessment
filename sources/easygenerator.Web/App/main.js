@@ -19,16 +19,18 @@ define('knockout', function () {
     return ko;
 });
 
-define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'durandal/composition'],
-    function (system, app, viewLocator, composition) {
+define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'durandal/binder'],
+    function (system, app, viewLocator, binder) {
 
         if (!has('release')) {
             system.debug(true);
         }
 
-        composition.addBindingHandler('hasFocus');
+        binder.bindingComplete = function () {
+            $("[data-autofocus='true']").focus();
+        };
 
-        app.title = "easygenerator";        
+        app.title = "easygenerator";
 
         app.configurePlugins({
             router: true,

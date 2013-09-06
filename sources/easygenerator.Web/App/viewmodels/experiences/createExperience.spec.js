@@ -20,21 +20,21 @@
                 expect(viewModel).toBeObject();
             });
 
-            describe('title:', function() {
+            describe('title:', function () {
 
-                it('should be observable', function() {
+                it('should be observable', function () {
                     expect(viewModel.title).toBeObservable();
                 });
 
-                it('should be validatable', function() {
+                it('should be validatable', function () {
                     expect(viewModel.title.isValid).toBeComputed();
                 });
 
-                it('should be editable', function() {
+                it('should be editable', function () {
                     expect(viewModel.title.isEditing).toBeObservable();
                 });
 
-                describe('when title is empty', function() {
+                describe('when title is empty', function () {
 
                     it('should be not valid', function () {
                         viewModel.title("");
@@ -42,16 +42,16 @@
                     });
 
                 });
-                
+
                 describe('when title is longer that 255', function () {
 
-                    it('should be not valid', function () {                        
+                    it('should be not valid', function () {
                         viewModel.title(utils.createString(256));
                         expect(viewModel.title.isValid()).toBeFalsy();
                     });
 
                 });
-                
+
                 describe('when title is whitespace', function () {
 
                     it('should be not valid', function () {
@@ -120,7 +120,7 @@
 
                         var notify = require('notify');
 
-                        beforeEach(function() {
+                        beforeEach(function () {
                             spyOn(notify, "info");
                         });
 
@@ -137,7 +137,7 @@
                                 expect(viewModel.title()).toEqual("");
                             });
                         });
-                        
+
                         it('should set focus to title', function () {
                             viewModel.title.isEditing(false);
 
@@ -153,7 +153,7 @@
                                 expect(viewModel.title.isEditing()).toBeTruthy();
                             });
                         });
-                        
+
                         it('should show info notification', function () {
                             viewModel.createAndNew();
 
@@ -291,7 +291,7 @@
                     expect(result).toBePromise();
                 });
 
-                describe('when promise is resolved', function() {
+                describe('when promise is resolved', function () {
 
                     it('should clear title', function () {
                         viewModel.title('text');
@@ -301,24 +301,11 @@
                         waitsFor(function () {
                             return !promise.isPending();
                         });
-                        runs(function() {
+                        runs(function () {
                             expect(viewModel.title()).toEqual("");
                         });
                     });
-                    
-                    it('should set focus to title', function () {
-                        viewModel.title.isEditing(false);
 
-                        var promise = viewModel.activate();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(viewModel.title.isEditing()).toBeTruthy();
-                        });
-                    });
-                    
                 });
 
             });

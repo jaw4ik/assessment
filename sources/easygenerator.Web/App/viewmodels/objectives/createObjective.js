@@ -69,19 +69,12 @@
                 if (!title.isValid()) {
                     return;
                 }
-                
+
                 objectiveRepository.addObjective({ title: title() }).then(function (objectiveId) {
                     router.navigate('objective/' + objectiveId);
                 });
-            },
-
-            attached = function () {
-                var that = this;
-                setTimeout(function () {
-                    that.isTitleEditing(true);
-                }, 100);
-            };
-
+            }
+        ;
 
         return {
             title: title,
@@ -90,7 +83,6 @@
             notification: notification,
 
             activate: activate,
-            attached: attached,
             navigateToObjectives: navigateToObjectives,
             createAndNew: createAndNew,
             createAndEdit: createAndEdit
