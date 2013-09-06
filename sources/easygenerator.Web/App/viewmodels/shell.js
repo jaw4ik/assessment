@@ -41,6 +41,7 @@
 
                         return router.map(routes)
                             .buildNavigationModel()
+                            .mapUnknownRoutes('viewmodels/errors/404', '404')
                             .activate(startModule);
 
                     });
