@@ -1,16 +1,9 @@
-﻿define([], function () {
+﻿window.utils = {
+    createString: function (length) {
+        return new Array(length + 1).join("*");
+    },
 
-    var
-        createString = function (length) {
-            return new Array(length + 1).join("*");
-        },
-        
-        getDateFromString = function (str) {
-            return new Date(parseInt(str.substr(6), 10));
-        };
-
-    return {
-        createString: createString,
-        getDateFromString: getDateFromString
-    };
-});
+    getDateFromString: function (str) {
+        return new Date(parseInt(str.substr(6), 10));
+    }
+};

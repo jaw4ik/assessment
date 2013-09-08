@@ -7,8 +7,7 @@ define(function (require) {
         eventTracker = require('eventTracker'),
         questionRepository = require('repositories/questionRepository'),
         objectiveRepository = require('repositories/objectiveRepository'),
-        notify = require('notify'),
-        utils = require('utils');
+        notify = require('notify');
 
     var eventsCategory = 'Question';
 

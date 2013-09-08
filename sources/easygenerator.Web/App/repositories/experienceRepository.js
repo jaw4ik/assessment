@@ -69,7 +69,7 @@
                             id: experienceId,
                             title: experience.title,
                             objectives: [],
-                            buildingStatus: constants.buildingStatuses.notStarted,                            
+                            buildingStatus: constants.buildingStatuses.notStarted,
                             createdOn: new Date(parseInt(createdOn.substr(6), 10)),
                             modifiedOn: new Date(parseInt(createdOn.substr(6), 10))
                         }));
@@ -88,7 +88,21 @@
             getById: self.getById,
             getCollection: self.getCollection,
 
-            addExperience: addExperience
+            addExperience: addExperience,
+            removeExperience: function (experienceId) {
+                var deferred = Q.defer();
+
+                this.getById(experienceId).then(function (experience) {
+
+                    dataContext.experiences = _.without(dataContext.experiences, experience);
+
+                    deferred.resolve();
+                });
+
+                deferred.resolve();
+
+                return deferred.promise;
+            }
         };
     }
 );

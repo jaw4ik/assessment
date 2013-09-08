@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'plugins/router', 'services/buildExperience'],
-    function (dataContext, constants, eventTracker, router, experienceService) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/experienceRepository', 'services/buildExperience', 'notify'],
+    function (dataContext, constants, eventTracker, router, experienceRepository, experienceService, notify) {
         "use strict";
 
         var
@@ -14,7 +14,8 @@
                 navigateToDetails: 'Navigate to details',
                 buildExperience: 'Build experience',
                 downloadExperience: 'Download experience',
-                experienceBuildFailed: 'Experience build is failed'
+                experienceBuildFailed: 'Experience build is failed',
+                deleteExperiences: "Delete selected experiences"
             },
 
             sendEvent = function (eventName) {
@@ -108,6 +109,39 @@
                 experience.showBuildingStatus(false);
             },
 
+            getSelectedExperiences = function () {
+                return _.filter(experiences(), function (experience) {
+                    return experience.isSelected && experience.isSelected();
+                });
+            },
+            canDeleteExperiences = ko.computed(function () {
+                return getSelectedExperiences().length == 1;
+            }),
+
+            deleteSelectedExperiences = function () {
+                sendEvent(events.deleteExperiences);
+
+                var selectedExperiences = getSelectedExperiences();
+                if (selectedExperiences.length == 0) {
+                    throw 'There are no experiences selected';
+                }
+                if (selectedExperiences.length > 1) {
+                    throw 'You can not delete more than 1 experience at once';
+                }
+
+                var selectedExperience = selectedExperiences[0];
+                if (selectedExperience.objectives.length > 0) {
+                    notify.error('Experience can not be deleted');
+                    return;
+                }
+
+                notify.hide();
+
+                experienceRepository.removeExperience(selectedExperience.id).then(function () {
+                    experiences(_.without(experiences(), selectedExperience));
+                });
+            },
+
             activate = function () {
                 var sortedExperiences = _.sortBy(dataContext.experiences, function (experience) {
                     return experience.title.toLowerCase();
@@ -168,6 +202,9 @@
             buildExperience: buildExperience,
             downloadExperience: downloadExperience,
             enableOpenExperience: enableOpenExperience,
+
+            canDeleteExperiences: canDeleteExperiences,
+            deleteSelectedExperiences: deleteSelectedExperiences,
 
             activate: activate,
             deactivate: deactivate

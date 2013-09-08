@@ -6,7 +6,12 @@
     <div class="experiences-header">
         <div class="experiences-header-title" data-bind="css: { 'alone': !enableSorting() }">
             <a class="experiences-header-create-link" href="/#/404" data-bind="click: navigateToCreation, localize: { title: 'addNewExperience' }"></a>
-            <span data-bind="localize: { text: 'experience' }">Experience</span>
+            <span style="padding-right: 25px;" data-bind="localize: { text: 'experience' }">Experience</span>
+            <!-- ko if: canDeleteExperiences -->
+            <span class="header-toolbar-item-wrapper" data-bind="click: deleteSelectedExperiences, localize: { title: 'delete' }">
+                <span class="toolbar-remove"></span>
+            </span>
+            <!-- /ko -->
             <hr />
         </div>
         <div class="experiences-header-sort-label">

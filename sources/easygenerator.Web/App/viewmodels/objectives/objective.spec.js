@@ -6,8 +6,7 @@
             eventTracker = require('eventTracker'),
             constants = require('constants'),
             repository = require('repositories/objectiveRepository'),
-            notify = require('notify'),
-            utils = require('utils');
+            notify = require('notify');
 
         var eventsCategory = 'Learning Objective';
 

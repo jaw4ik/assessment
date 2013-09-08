@@ -1,13 +1,13 @@
 ﻿define(function (require) {
     "use strict";
 
-    var viewModel = require('viewmodels/questions/createQuestion'),
+    var
+        viewModel = require('viewmodels/questions/createQuestion'),
         eventTracker = require('eventTracker'),
         router = require('plugins/router'),
         objectiveRepository = require('repositories/objectiveRepository'),
         questionRepository = require('repositories/questionRepository'),
-        notify = require('notify'),
-        utils = require('utils');
+        notify = require('notify');
 
     var eventsCategory = 'Create Question';
 
@@ -112,7 +112,7 @@
                 expect(viewModel.saveAndOpen).toBeFunction();
             });
 
-            it('should trim title', function() {
+            it('should trim title', function () {
                 viewModel.title('    Some title     ');
                 viewModel.saveAndOpen();
                 expect(viewModel.title()).toEqual('Some title');
@@ -190,7 +190,7 @@
                 expect(viewModel.saveAndNew).toBeFunction();
             });
 
-            it('should trim title', function() {
+            it('should trim title', function () {
                 viewModel.title('    Some title    ');
                 viewModel.saveAndNew();
                 expect(viewModel.title()).toEqual('Some title');

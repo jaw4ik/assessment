@@ -434,6 +434,150 @@
 
             });
 
+            describe('canDeleteExperiences:', function () {
+
+                it('should be computed', function () {
+                    expect(viewModel.canDeleteExperiences).toBeComputed();
+                });
+
+                describe('when no experience is selected', function () {
+
+                    it('should be false', function () {
+                        viewModel.experiences([{ isSelected: ko.observable(false) }]);
+                        expect(viewModel.canDeleteExperiences()).toBeFalsy();
+                    });
+
+                });
+
+                describe('when only 1 experience is selected', function () {
+
+                    it('should be true', function () {
+                        viewModel.experiences([{ isSelected: ko.observable(true) }]);
+                        expect(viewModel.canDeleteExperiences()).toBeTruthy();
+                    });
+
+                });
+
+                describe('when more than 1 experiences are selected', function () {
+
+                    it('should be false', function () {
+                        viewModel.experiences([{ isSelected: ko.observable(true) }, { isSelected: ko.observable(true) }]);
+                        expect(viewModel.canDeleteExperiences()).toBeFalsy();
+                    });
+
+                });
+            });
+
+            describe('deleteSelectedExperiences:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.deleteSelectedExperiences).toBeFunction();
+                });
+
+                it('should send event \'Delete selected experiences\'', function () {
+                    viewModel.experiences([{ isSelected: ko.observable(true), objectives: [] }]);
+                    viewModel.deleteSelectedExperiences();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete selected experiences', eventsCategory);
+                });
+
+                describe('when no experiences are selected', function () {
+
+                    it('should throw exception', function () {
+                        viewModel.experiences([]);
+
+                        var f = function () {
+                            viewModel.deleteSelectedExperiences();
+                        };
+                        expect(f).toThrow();
+                    });
+
+                });
+
+                describe('when more that 1 experience are selected', function () {
+
+                    it('should throw exception', function () {
+                        viewModel.experiences([{ isSelected: ko.observable(true) }, { isSelected: ko.observable(true) }]);
+
+                        var f = function () {
+                            viewModel.deleteSelectedExperiences();
+                        };
+                        expect(f).toThrow();
+                    });
+
+                });
+
+                describe('when there is only 1 selected objective', function () {
+
+                    var notify = require('notify');
+                    var repository = require('repositories/experienceRepository');
+
+                    var removeExperience;
+
+                    beforeEach(function () {
+                        removeExperience = Q.defer();
+                        spyOn(repository, 'removeExperience').andReturn(removeExperience.promise);
+                    });
+
+                    describe('and experience has related learning objectives', function () {
+
+                        beforeEach(function () {
+                            viewModel.experiences([{ isSelected: ko.observable(true), objectives: [{}] }]);
+                            spyOn(notify, 'error');
+                        });
+
+                        it('should show error notification', function () {
+                            viewModel.deleteSelectedExperiences();
+                            expect(notify.error).toHaveBeenCalled();
+                        });
+
+                        it('should not remove experience from repository', function () {
+                            viewModel.deleteSelectedExperiences();
+                            expect(repository.removeExperience).not.toHaveBeenCalled();
+                        });
+
+                    });
+
+                    describe('and experience has no related learning objectives', function () {
+
+                        beforeEach(function () {
+                            viewModel.experiences([{ id: 'id', isSelected: ko.observable(true), objectives: [] }]);
+                            spyOn(notify, 'hide');
+                        });
+
+                        it('should hide notification', function () {
+                            viewModel.deleteSelectedExperiences();
+                            expect(notify.hide).toHaveBeenCalled();
+                        });
+
+                        it('should remove experience from repository', function () {
+                            viewModel.deleteSelectedExperiences();
+                            expect(repository.removeExperience).toHaveBeenCalledWith('id');
+                        });
+
+                        describe('and experience was successfully removed from repository', function () {
+
+                            it('should remove experience from view model', function () {
+                                viewModel.deleteSelectedExperiences();
+
+                                var promise = removeExperience.promise.fin(function () { });
+
+                                removeExperience.resolve();
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(viewModel.experiences().length).toBe(0);
+                                });
+                            });
+
+                        });
+                    });
+
+                });
+
+            });
+
             describe('sortByTitleAsc:', function () {
 
                 beforeEach(function () {

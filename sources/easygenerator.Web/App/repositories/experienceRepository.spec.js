@@ -4,8 +4,7 @@
 
         var
            constants = require('constants'),
-           http = require('plugins/http'),
-           utils = require('utils');
+           http = require('plugins/http');
 
         describe('repository [experienceRepository]', function () {
 
