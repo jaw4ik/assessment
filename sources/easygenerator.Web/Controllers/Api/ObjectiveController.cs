@@ -35,7 +35,6 @@ namespace easygenerator.Web.Controllers.Api
         {
             var objectives = _repository.GetCollection();
 
-
             return JsonSuccess(objectives);
         }
     }

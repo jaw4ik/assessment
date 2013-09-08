@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using System.ServiceModel.Configuration;
 using System.Web.Razor.Parser.SyntaxTree;
@@ -73,9 +75,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void GetCollection_ShouldReturnJsonSuccessResult()
         {
+            var collection = new Collection<Objective>(new List<Objective>() { ObjectiveObjectMother.Create() });
+
+            _repository.GetCollection().Returns(collection);
+
             var result = _controller.GetCollection();
 
-            result.Should().BeJsonSuccessResult();
+            result.Should().BeJsonSuccessResult().And.Data.Should().Be(collection);
         }
 
         #endregion
