@@ -38,7 +38,12 @@
     <OutputPath>bin\AutoTests\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentAssertions">
+      <HintPath>..\..\packages\FluentAssertions.2.1.0.0\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -64,10 +69,17 @@
       <Project>{b1a55d50-7948-471a-9fa8-403512c179a6}</Project>
       <Name>easygenerator.DomainModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\easygenerator.Infrastructure\easygenerator.Infrastructure.csproj">
+      <Project>{E186A113-426B-4AB1-A4B1-5ECC54FA4E80}</Project>
+      <Name>easygenerator.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\easygenerator.Tests\easygenerator.Tests.csproj">
       <Project>{F820D996-5AA4-4D7E-AE66-A2EC988ECBCB}</Project>
       <Name>easygenerator.Tests</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -7,7 +7,7 @@ using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DomainModel.Tests.ObjectMothers
 {
-    class ObjectiveObjectMother
+    public class ObjectiveObjectMother
     {
         private const string Title = "Objective title";
         private const string CreatedBy = "Username";
@@ -17,14 +17,19 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return Create(title: title);
         }
 
-        public static Objective CreateWithCreatedBy(string createdBy)
-        {
-            return Create(createdBy: createdBy);
-        }
-
-        public static Objective Create(string title = Title, string createdBy = CreatedBy)
+        public static Objective Create(string title = Title)
         {
             return new Objective(title);
         }
+
+        //public static Objective CreateWithCreatedBy(string createdBy)
+        //{
+        //    return Create(createdBy: createdBy);
+        //}
+
+        //public static Objective Create(string title = Title, string createdBy = CreatedBy)
+        //{
+        //    return new Objective(title);
+        //}
     }
 }

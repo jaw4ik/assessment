@@ -170,7 +170,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Repository.cs" />
     <Compile Include="BuildExperience\BuildModel\AnswerOptionBuildModel.cs" />
     <Compile Include="BuildExperience\BuildModel\ExperienceBuildModel.cs" />
     <Compile Include="BuildExperience\BuildModel\ExplanationBuildModel.cs" />

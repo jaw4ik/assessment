@@ -8,12 +8,13 @@ using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DataAccess
 {
-    public class DataContext : IDataContext
+    public class InMemoryDataContext : IDataContext
     {
-        public DataContext()
+        public InMemoryDataContext()
         {
             Objectives = new Collection<Objective>();
         }
+
         public ICollection<Objective> Objectives { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace easygenerator.DomainModel.Entities
     {
         protected internal Objective() { }
 
-        public Objective(string title)
+        protected internal Objective(string title)
         {
             ThrowIfTitleIsInvalid(title);
             Title = title;

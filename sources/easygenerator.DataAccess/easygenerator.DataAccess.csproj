@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataContext.cs" />
+    <Compile Include="InMemoryDataContext.cs" />
     <Compile Include="IDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ObjectiveRepository.cs" />

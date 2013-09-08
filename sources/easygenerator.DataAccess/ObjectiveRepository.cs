@@ -8,7 +8,7 @@ using easygenerator.DomainModel.Repositories;
 
 namespace easygenerator.DataAccess
 {
-    public class ObjectiveRepository : IRepository<Objective>, IObjectiveRepository
+    public class ObjectiveRepository : IObjectiveRepository
     {
         private readonly IDataContext _dataContext;
 

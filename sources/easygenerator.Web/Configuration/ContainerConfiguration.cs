@@ -2,6 +2,7 @@
 using Autofac;
 using Autofac.Integration.Mvc;
 using easygenerator.DataAccess;
+using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
@@ -32,10 +33,14 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PackageModelSerializer>();
             builder.RegisterType<BuildPackageCreator>();
 
-            builder.RegisterType<DataContext>().As<IDataContext>().SingleInstance();
+            builder.RegisterType<InMemoryDataContext>().As<IDataContext>().SingleInstance();
             builder.RegisterType<ObjectiveRepository>().As<IObjectiveRepository>();
 
-            var container = builder.Build();
+            builder.RegisterType<ObjectiveRepository>().As<IObjectiveRepository>();
+
+            builder.RegisterType<EntityFactory>().As<IEntityFactory>();
+
+            var container = builder.Build();  
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
     }
