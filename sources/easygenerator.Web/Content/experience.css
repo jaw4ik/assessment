@@ -384,3 +384,11 @@
 .experience .empty-list-wrapper .empty-list-text {
     font-size: 29px;
 }
+
+.experience .entity-info-popup {
+    height: 130px;
+}
+
+.experience .entity-info-popup-triangle-wrapper {
+    margin-top: -26px;
+}

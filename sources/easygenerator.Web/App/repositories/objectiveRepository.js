@@ -100,7 +100,7 @@
                 this.getById(obj.id).then(function (objective) {
 
                     objective.title = obj.title;
-                    objective.modifiedOn = Date.now();
+                    objective.modifiedOn = new Date();
 
                     deferred.resolve(objective);
                 }).fail(function (reason) {

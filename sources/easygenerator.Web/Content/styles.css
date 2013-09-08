@@ -315,6 +315,10 @@ body
         -moz-box-shadow: 0 0 3px rgba(242, 108, 79, 1);
         box-shadow: 0 0 3px rgba(242, 108, 79, 1);
     }
+
+    .view-header-title-text {
+        font-size: 14px;
+    }
 /*#endregion View header*/
 
 /*#region Entity info*/
@@ -401,6 +405,7 @@ body
     color: #666666;
     font-family: Tahoma,sans-serif;
     font-size: 12px;
+    margin-left: 5px;
 }
 
     .entity-info-popup-item-title:after
@@ -411,11 +416,12 @@ body
 .entity-info-popup-item-data
 {
     display: inline-block;
-    float: right;
+    float: left;
     padding: 2px 2px;
     color: #666;
     font-family: Tahoma,sans-serif;
     font-size: 12px;
+    margin-left: 15px;
 }
 
 .entity-info-popup-item-date-text
