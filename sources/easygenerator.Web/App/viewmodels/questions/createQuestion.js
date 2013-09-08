@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/questionRepository', 'localization/localizationManager'],
-    function (dataContext, constants, eventTracker, router, objectiveRepository, questionRepository, localizationManager) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/questionRepository', 'localization/localizationManager', 'notify'],
+    function (dataContext, constants, eventTracker, router, objectiveRepository, questionRepository, localizationManager, notify) {
         "use strict";
 
         var
@@ -22,17 +22,6 @@
              maxLength: titleMaxLength
          });
         title.isEditing = ko.observable();
-
-        var notification = {
-            text: ko.observable(''),
-            visibility: ko.observable(false),
-            close: function () { notification.visibility(false); },
-            update: function () {
-                var message = localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString();
-                notification.text(message);
-                notification.visibility(true);
-            }
-        };
 
         var navigateToObjective = function () {
             sendEvent(events.navigateToObjective);
@@ -69,7 +58,7 @@
                     that.title.isModified(false);
                     that.title.isEditing(true);
 
-                    notification.update();
+                    notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
                 });
             },
             endEditTitle = function () {
@@ -94,8 +83,6 @@
                         that.title('');
                         that.title.isModified(false);
                         that.title.isEditing(false);
-
-                        that.notification.visibility(false);
                     });
             }
         ;
@@ -105,7 +92,6 @@
             titleMaxLength: titleMaxLength,
             title: title,
             objectiveTitle: objectiveTitle,
-            notification: notification,
 
             navigateToObjective: navigateToObjective,
             endEditTitle: endEditTitle,

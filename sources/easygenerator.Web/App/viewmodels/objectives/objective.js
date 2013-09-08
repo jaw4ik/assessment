@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'notify'],
+    function (dataContext, constants, eventTracker, localizationManager, router, repository, notify) {
         "use strict";
 
         var events = {
@@ -26,7 +26,7 @@
             createdOn = null,
             modifiedOn = ko.observable(),
             titleMaxLength = 255,
-            
+
             title = ko.observable('').extend({
                 required: true,
                 maxLength: titleMaxLength
@@ -35,17 +35,7 @@
 
         title.isEditing = ko.observable();
 
-        var notification = {
-            text: ko.observable(''),
-            visibility: ko.observable(false),
-            close: function () { notification.visibility(false); },
-            update: function () {
-                var message = localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString();
-                notification.text(message);
-                notification.visibility(true);
-            }
-        },
-            
+        var
             startEditTitle = function () {
                 title.isEditing(true);
             },
@@ -66,37 +56,37 @@
                     if (title.isValid()) {
                         repository.updateObjective({ id: that.objectiveId, title: that.title() }).then(function (objective) {
                             modifiedOn(objective.modifiedOn);
-                            notification.update();
+                            notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
                         });
                     } else {
                         title(objectiveTitle);
                     }
                 });
             },
-            
+
             image = ko.observable(),
-            
+
             questions = ko.observableArray([]),
-            
+
             currentSortingOption = ko.observable(constants.sortingOptions.byTitleAsc),
-            
+
             sortByTitleAsc = function () {
                 sendEvent(events.sortByTitleAsc);
                 currentSortingOption(constants.sortingOptions.byTitleAsc);
                 questions(_.sortBy(questions(), function (question) { return question.title.toLowerCase(); }));
             },
-            
+
             sortByTitleDesc = function () {
                 sendEvent(events.sortByTitleDesc);
                 currentSortingOption(constants.sortingOptions.byTitleDesc);
                 questions(_.sortBy(questions(), function (question) { return question.title.toLowerCase(); }).reverse());
             },
-            
+
             navigateToObjectives = function () {
                 sendEvent(events.navigateToObjectives);
                 router.navigate('objectives');
             },
-            
+
             navigateToEditQuestion = function (question) {
                 sendEvent(events.navigateToEditQuestion);
                 if (_.isNullOrUndefined(question)) {
@@ -109,12 +99,12 @@
 
                 router.navigate('objective/' + this.objectiveId + '/question/' + question.id);
             },
-            
+
             navigateToCreateQuestion = function () {
                 sendEvent(events.navigateToCreateQuestion);
                 router.navigate('objective/' + this.objectiveId + '/question/create');
             },
-            
+
             navigateToNextObjective = function () {
                 sendEvent(events.navigateToNextObjective);
                 if (_.isNullOrUndefined(this.nextObjectiveId)) {
@@ -123,7 +113,7 @@
                     router.navigate('objective/' + this.nextObjectiveId);
                 }
             },
-            
+
             navigateToPreviousObjective = function () {
                 sendEvent(events.navigateToPreviousObjective);
                 if (_.isNullOrUndefined(this.previousObjectiveId)) {
@@ -132,7 +122,7 @@
                     router.navigate('objective/' + this.previousObjectiveId);
                 }
             },
-            
+
             deleteSelectedQuestions = function () {
                 sendEvent(events.deleteSelectedQuestions);
                 var selectedQuestions = getSelectedQuestions();
@@ -152,11 +142,11 @@
                         });
 
                         modifiedOn(updatedObjective.modifiedOn);
-                        notification.update();
+                        notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
                     });
                 });
             },
-            
+
             toggleQuestionSelection = function (question) {
 
                 if (_.isNullOrUndefined(question)) {
@@ -170,7 +160,7 @@
                 question.isSelected(!question.isSelected());
                 sendEvent(question.isSelected() ? events.selectQuestion : events.unselectQuestion);
             },
-            
+
             mapQuestion = function (item) {
                 var mappedQuestion = {
                     id: item.id,
@@ -180,7 +170,7 @@
 
                 return mappedQuestion;
             },
-            
+
             activate = function (objId) {
                 if (!_.isString(objId)) {
                     router.replace('400');
@@ -188,7 +178,7 @@
                 }
                 this.language(localizationManager.currentLanguage);
                 var that = this;
-                
+
                 return repository.getCollection().then(
                     function (response) {
                         var objectives = _.sortBy(response, function (item) {
@@ -222,17 +212,15 @@
                             .value();
 
                         that.questions(currentSortingOption() == constants.sortingOptions.byTitleAsc ? array : array.reverse());
-
-                        notification.visibility(false);
                     });
             },
-            
+
             getSelectedQuestions = function () {
                 return _.reject(questions(), function (item) {
                     return !item.isSelected();
                 });
             },
-            
+
             canDeleteQuestions = ko.computed(function () {
                 return getSelectedQuestions().length == 1;
             });
@@ -247,7 +235,7 @@
             language: language,
             createdOn: createdOn,
             modifiedOn: modifiedOn,
-            
+
             image: image,
             questions: questions,
             canDeleteQuestions: canDeleteQuestions,
@@ -268,8 +256,6 @@
 
             deleteSelectedQuestions: deleteSelectedQuestions,
             toggleQuestionSelection: toggleQuestionSelection,
-
-            notification: notification,
 
             activate: activate,
         };

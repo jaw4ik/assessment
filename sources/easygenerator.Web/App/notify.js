@@ -17,6 +17,9 @@
     var
         info = function (message) {
             showMessage(message, infoClass);
+        },
+        error = function(message) {
+            showMessage(message, errorClass);
         }
     ;
 
@@ -48,7 +51,10 @@
     }
 
     return {
-        info: info
+        info: info,
+        error: error,
+
+        hide: hideMessage
     };
 
 });

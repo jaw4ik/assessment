@@ -1,5 +1,5 @@
-﻿define(['constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/experienceRepository'],
-    function (constants, eventTracker, router, objectiveRepository, experienceRepository) {
+﻿define(['constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/experienceRepository', 'notify', 'localization/localizationManager'],
+    function (constants, eventTracker, router, objectiveRepository, experienceRepository, notify, localizationManager) {
         "use strict";
 
         var events = {
@@ -18,17 +18,6 @@
             };
 
         var objectives = ko.observableArray([]),
-            notification = {
-                key: ko.observable(''),
-                visibility: ko.observable(false),
-                close: function () { notification.visibility(false); },
-                showMessage: function (localizationKey) {
-                    if (typeof localizationKey === "undefined" || _.isEmpty(localizationKey))
-                        return;
-                    notification.key(localizationKey);
-                    notification.visibility(true);
-                }
-            },
             //#region Sorting
 
             currentSortingOption = ko.observable(constants.sortingOptions.byTitleAsc),
@@ -73,8 +62,6 @@
             deleteSelectedObjectives = function () {
                 sendEvent(events.deleteObjectives);
 
-                notification.close();
-
                 var selectedObjectives = getSelectedObjectives();
                 if (selectedObjectives.length == 0)
                     throw "No selected objectives to delete";
@@ -84,8 +71,10 @@
                 var selectedObjective = selectedObjectives[0];
 
                 if (!selectedObjective.canBeDeleted) {
-                    notification.showMessage('objectiveCannnotBeDeleted');
+                    notify.error(localizationManager.localize('objectiveCannnotBeDeleted'));
                     return undefined;
+                } else {
+                    notify.hide();
                 }
 
                 objectiveRepository.removeObjective(selectedObjective.id).then(function () {
@@ -115,7 +104,6 @@
             //#endregion Objective selection
 
              activate = function () {
-                 notification.close();
 
                  return objectiveRepository.getCollection().then(function (objectiveBriefCollection) {
 
@@ -170,8 +158,6 @@
 
             canDeleteObjectives: canDeleteObjectives,
             deleteSelectedObjectives: deleteSelectedObjectives,
-
-            notification: notification,
 
             activate: activate
         };

@@ -48,3 +48,14 @@
     color: #23485A;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
+
+.notification.error {
+    border-color: #F38971;
+    background-color: #f26c4f;
+}
+
+    .notification.error .notification-icon {
+        background-image: url(images/warning.png);
+        height: 20px;
+        width: 19px;
+    }

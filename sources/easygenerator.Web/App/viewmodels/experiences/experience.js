@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'plugins/router', 'constants', 'eventTracker', 'repositories/experienceRepository', 'services/buildExperience', 'viewmodels/objectives/objectiveBrief', 'localization/localizationManager'],
-    function (dataContext, router, constants, eventTracker, repository, service, objectiveBrief, localizationManager) {
+﻿define(['dataContext', 'plugins/router', 'constants', 'eventTracker', 'repositories/experienceRepository', 'services/buildExperience', 'viewmodels/objectives/objectiveBrief', 'localization/localizationManager', 'notify'],
+    function (dataContext, router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify) {
         "use strict";
 
         var
@@ -35,16 +35,6 @@
             createdOn = null,
             modifiedOn = ko.observable(),
             builtOn = ko.observable(),
-            notification = {
-                text: ko.observable(''),
-                visibility: ko.observable(false),
-                close: function () { notification.visibility(false); },
-                update: function () {
-                    var message = localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString();
-                    notification.text(message);
-                    notification.visibility(true);
-                }
-            },
             language = ko.observable(),
 
         isEditing = ko.observable();
@@ -166,7 +156,7 @@
                     item.title = title();
                     item.modifiedOn = modified;
                 });
-                notification.update();
+                notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
             } else {
                 title(previousTitle);
             }
@@ -178,7 +168,6 @@
                 router.replace('400');
                 return undefined;
             }
-            this.notification.visibility(false);
             this.isEditing(false);
             this.language(localizationManager.currentLanguage);
 
@@ -230,7 +219,6 @@
             objectives: objectives,
             status: status,
             statuses: constants.buildingStatuses,
-            notification: notification,
             experience: experience,
             nextExperienceId: nextExperienceId,
             previousExperienceId: previousExperienceId,

@@ -5,7 +5,8 @@
         eventTracker = require('eventTracker'),
         router = require('plugins/router'),
         objectiveRepository = require('repositories/objectiveRepository'),
-        questionRepository = require('repositories/questionRepository');
+        questionRepository = require('repositories/questionRepository'),
+        notify = require('notify');
 
     var eventsCategory = 'Create Question';
 
@@ -284,7 +285,7 @@
                     });
 
                     it('should show notification', function () {
-                        spyOn(viewModel.notification, 'update');
+                        spyOn(notify, 'info');
 
                         viewModel.title.isModified(true);
                         viewModel.saveAndNew();
@@ -296,7 +297,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(viewModel.notification.update).toHaveBeenCalled();
+                            expect(notify.info).toHaveBeenCalled();
                         });
                     });
                 });
@@ -394,7 +395,6 @@
                     });
                 });
 
-
                 it('should set title.isModified to \'false\'', function () {
                     viewModel.title.isModified(true);
 
@@ -425,83 +425,8 @@
                     });
                 });
 
-                it('should set notification visibility to false', function () {
-                    viewModel.notification.visibility(true);
-
-                    var promise = viewModel.activate(objective.id);
-                    deferred.resolve(objective);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(promise).toBeResolved();
-                        expect(viewModel.notification.visibility()).toBeFalsy();
-                    });
-                });
-
             });
 
-        });
-
-        describe('notification:', function () {
-
-            it('should be object', function () {
-                expect(viewModel.notification).toBeObject();
-            });
-
-            it('should have text observable', function () {
-                expect(viewModel.notification.text).toBeDefined();
-                expect(viewModel.notification.text).toBeObservable();
-            });
-
-            it('should have visibility observable', function () {
-                expect(viewModel.notification.visibility).toBeDefined();
-                expect(viewModel.notification.visibility).toBeObservable();
-            });
-
-            describe('close', function () {
-
-                it('should be function', function () {
-                    expect(viewModel.notification.close).toBeFunction();
-                });
-
-                describe('when called', function () {
-
-                    describe('and visibility is true', function () {
-
-                        it('should set visibility to false', function () {
-                            viewModel.notification.visibility(true);
-                            viewModel.notification.close();
-
-                            expect(viewModel.notification.visibility()).toBeFalsy();
-                        });
-
-                    });
-
-                });
-
-            });
-
-            describe('update', function () {
-
-                it('should be function', function () {
-                    expect(viewModel.notification.update).toBeFunction();
-                });
-
-                describe('when called', function () {
-
-                    describe('and visibility is false', function () {
-                        it('should set visibility to true', function () {
-                            viewModel.notification.visibility(false);
-                            viewModel.notification.update();
-
-                            expect(viewModel.notification.visibility()).toBeTruthy();
-                        });
-                    });
-                });
-
-            });
         });
     });
 });

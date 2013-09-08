@@ -7,7 +7,8 @@
             eventTracker = require('eventTracker'),
             constants = require('constants'),
             objectiveRepository = require('repositories/objectiveRepository'),
-            experienceRepository = require('repositories/experienceRepository');
+            experienceRepository = require('repositories/experienceRepository'),
+            notify = require('notify');
 
         var
             eventsCategory = 'Objectives';
@@ -214,17 +215,8 @@
 
             describe('activate:', function () {
 
-                beforeEach(function () {
-                    spyOn(viewModel.notification, 'close');
-                });
-
                 it('should be function', function () {
                     expect(viewModel.activate).toBeFunction();
-                });
-
-                it('should close notification', function () {
-                    viewModel.activate();
-                    expect(viewModel.notification.close).toHaveBeenCalled();
                 });
 
                 it('should return promise', function () {
@@ -495,8 +487,7 @@
             describe('deleteSelectedObjectives:', function () {
 
                 beforeEach(function () {
-                    spyOn(viewModel.notification, 'showMessage');
-                    spyOn(viewModel.notification, 'close');
+                    spyOn(notify, 'info');
                 });
 
                 it('should be function', function () {
@@ -507,12 +498,6 @@
                     viewModel.objectives([{ isSelected: ko.observable(true) }]);
                     viewModel.deleteSelectedObjectives();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Delete selected objectives', eventsCategory);
-                });
-
-                it('should close notification', function () {
-                    viewModel.objectives([{ isSelected: ko.observable(true) }]);
-                    viewModel.deleteSelectedObjectives();
-                    expect(viewModel.notification.close).toHaveBeenCalled();
                 });
 
                 describe('when no selected objectives', function () {
@@ -542,9 +527,10 @@
                     describe('and when objective cannot be deleted', function () {
                         beforeEach(function () {
                             viewModel.objectives([{ isSelected: ko.observable(true), canBeDeleted: false }]);
+                            spyOn(notify, 'error');
                         });
 
-                        it('should show notification message', function () {
+                        it('should send event \'Delete selected objectives\'', function () {
                             viewModel.deleteSelectedObjectives();
                             expect(eventTracker.publish).toHaveBeenCalledWith('Delete selected objectives', eventsCategory);
                         });
@@ -552,6 +538,11 @@
                         it('should return undefined', function () {
                             var result = viewModel.deleteSelectedObjectives();
                             expect(result).toBeUndefined();
+                        });
+
+                        it('should show error notification', function() {
+                            viewModel.deleteSelectedObjectives();
+                            expect(notify.error).toHaveBeenCalled();
                         });
                     });
 
@@ -589,8 +580,15 @@
                                 expect(viewModel.objectives().length).toBe(0);
                             });
                         });
+                        
+                        it('should hide notification', function () {
+                            spyOn(notify, 'hide');
+                            viewModel.deleteSelectedObjectives();
+                            expect(notify.hide).toHaveBeenCalled();
+                        });
                     });
                 });
+                
             });
         });
     }

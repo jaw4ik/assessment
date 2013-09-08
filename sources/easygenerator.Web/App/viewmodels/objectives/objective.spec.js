@@ -5,7 +5,8 @@
         var router = require('plugins/router'),
             eventTracker = require('eventTracker'),
             constants = require('constants'),
-            repository = require('repositories/objectiveRepository');
+            repository = require('repositories/objectiveRepository'),
+            notify = require('notify');
 
         var eventsCategory = 'Learning Objective';
 
@@ -375,7 +376,7 @@
                     spyOn(repository, 'updateObjective').andReturn(updateDeferred.promise);
                     spyOn(repository, 'getById').andReturn(getByIdDeferred.promise);
 
-                    spyOn(viewModel.notification, 'update');
+                    spyOn(notify, 'info');
                 });
 
                 it('should be function', function () {
@@ -420,7 +421,7 @@
                         });
                         runs(function () {
                             expect(promise).toBeResolved();
-                            expect(viewModel.notification.update).not.toHaveBeenCalled();
+                            expect(notify.info).not.toHaveBeenCalled();
                         });
                     });
 
@@ -484,7 +485,7 @@
                                 });
                                 runs(function () {
                                     expect(promise).toBeResolved();
-                                    expect(viewModel.notification.update).toHaveBeenCalled();
+                                    expect(notify.info).toHaveBeenCalled();
                                 });
                             });
 
@@ -525,70 +526,6 @@
 
                     });
                 });
-            });
-
-            describe('notification:', function () {
-
-                it('should be object', function () {
-                    expect(viewModel.notification).toBeObject();
-                });
-
-                it('should have text observable', function () {
-                    expect(viewModel.notification.text).toBeDefined();
-                    expect(viewModel.notification.text).toBeObservable();
-                });
-
-                it('should have visibility observable', function () {
-                    expect(viewModel.notification.visibility).toBeDefined();
-                    expect(viewModel.notification.visibility).toBeObservable();
-                });
-
-                describe('close', function () {
-
-                    it('should be function', function () {
-                        expect(viewModel.notification.close).toBeFunction();
-                    });
-
-                    describe('when called', function () {
-
-                        describe('and visibility is true', function () {
-
-                            it('should set visibility to false', function () {
-                                viewModel.notification.visibility(true);
-                                viewModel.notification.close();
-
-                                expect(viewModel.notification.visibility()).toBeFalsy();
-                            });
-
-                        });
-
-                    });
-
-                });
-
-                describe('update', function () {
-
-                    it('should be function', function () {
-                        expect(viewModel.notification.update).toBeFunction();
-                    });
-
-                    describe('when called', function () {
-
-                        describe('and visibility is false', function () {
-
-                            it('should set visibility to true', function () {
-                                viewModel.notification.visibility(false);
-                                viewModel.notification.update();
-
-                                expect(viewModel.notification.visibility()).toBeTruthy();
-                            });
-
-                        });
-
-                    });
-
-                });
-
             });
 
             describe('navigateToObjectives', function () {
@@ -822,7 +759,7 @@
                     
                     spyOn(repository, 'getById').andReturn(getDeferred.promise);
                     spyOn(repository, 'updateObjective').andReturn(updateDeferred.promise);
-                    spyOn(viewModel.notification, 'update');
+                    spyOn(notify, 'info');
                 });
 
                 it('should be a function', function () {
@@ -881,7 +818,7 @@
                             });
                             runs(function () {
                                 expect(promise).toBeResolved();
-                                expect(viewModel.notification.update).toHaveBeenCalled();
+                                expect(notify.info).toHaveBeenCalled();
                             });
                         });
 

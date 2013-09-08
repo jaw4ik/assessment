@@ -6,7 +6,8 @@ define(function (require) {
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
         questionRepository = require('repositories/questionRepository'),
-        objectiveRepository = require('repositories/objectiveRepository');
+        objectiveRepository = require('repositories/objectiveRepository'),
+        notify = require('notify');
 
     var eventsCategory = 'Question';
 
@@ -147,8 +148,6 @@ define(function (require) {
 
                 spyOn(questionRepository, 'update').andReturn(updateDeferred.promise);
                 spyOn(questionRepository, 'getById').andReturn(getByIdDeferred.promise);
-
-                spyOn(viewModel.notification, 'update');
             });
 
             it('should be function', function () {
@@ -187,13 +186,14 @@ define(function (require) {
                 });
 
                 it('should not show notification', function () {
+                    spyOn(notify, 'info');
                     viewModel.endEditQuestionTitle();
                     waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
                         expect(promise).toBeResolved();
-                        expect(viewModel.notification.update).not.toHaveBeenCalled();
+                        expect(notify.info).not.toHaveBeenCalled();
                     });
                 });
 
@@ -247,6 +247,8 @@ define(function (require) {
                     describe('and when question updated successfully', function () {
 
                         it('should update notificaion', function () {
+                            spyOn(notify, 'info');
+
                             viewModel.endEditQuestionTitle();
 
                             var promise = updateDeferred.promise.finally(function () { });
@@ -257,7 +259,7 @@ define(function (require) {
                             });
                             runs(function () {
                                 expect(promise).toBeResolved();
-                                expect(viewModel.notification.update).toHaveBeenCalled();
+                                expect(notify.info).toHaveBeenCalled();
                             });
                         });
 
@@ -1081,7 +1083,7 @@ define(function (require) {
                 });
 
                 it('should update notification', function () {
-                    spyOn(viewModel.notification, 'update');
+                    spyOn(notify, 'info');
 
                     var explanation = {
                         text: ko.observable('Some text'),
@@ -1101,7 +1103,7 @@ define(function (require) {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(viewModel.notification.update).toHaveBeenCalled();
+                        expect(notify.info).toHaveBeenCalled();
                     });
                 });
 
@@ -1129,70 +1131,6 @@ define(function (require) {
 
             it('should be object', function () {
                 expect(viewModel.eventTracker).toBeObject();
-            });
-
-        });
-
-        describe('notification:', function () {
-
-            it('should be object', function () {
-                expect(viewModel.notification).toBeObject();
-            });
-
-            it('should have text observable', function () {
-                expect(viewModel.notification.text).toBeDefined();
-                expect(viewModel.notification.text).toBeObservable();
-            });
-
-            it('should have visibility observable', function () {
-                expect(viewModel.notification.visibility).toBeDefined();
-                expect(viewModel.notification.visibility).toBeObservable();
-            });
-
-            describe('close', function () {
-
-                it('should be function', function () {
-                    expect(viewModel.notification.close).toBeFunction();
-                });
-
-                describe('when called', function () {
-
-                    describe('and visibility is true', function () {
-
-                        it('should set visibility to false', function () {
-                            viewModel.notification.visibility(true);
-                            viewModel.notification.close();
-
-                            expect(viewModel.notification.visibility()).toBeFalsy();
-                        });
-
-                    });
-
-                });
-
-            });
-
-            describe('update', function () {
-
-                it('should be function', function () {
-                    expect(viewModel.notification.update).toBeFunction();
-                });
-
-                describe('when called', function () {
-
-                    describe('and visibility is false', function () {
-
-                        it('should set visibility to true', function () {
-                            viewModel.notification.visibility(false);
-                            viewModel.notification.update();
-
-                            expect(viewModel.notification.visibility()).toBeTruthy();
-                        });
-
-                    });
-
-                });
-
             });
 
         });
@@ -1327,7 +1265,7 @@ define(function (require) {
                 getQuestionByIdDeferredPromise = getQuestionByIdDeferred.promise;
 
                 spyOn(questionRepository, 'getById').andReturn(getQuestionByIdDeferredPromise);
-                spyOn(viewModel.notification, 'update');
+                spyOn(notify, 'info');
             });
 
             it('should be function', function () {
@@ -1376,7 +1314,7 @@ define(function (require) {
                     return !promise.isPending();
                 });
                 runs(function () {
-                    expect(viewModel.notification.update).toHaveBeenCalled();
+                    expect(notify.info).toHaveBeenCalled();
                 });
 
             });
@@ -1545,7 +1483,7 @@ define(function (require) {
                 getQuestionByIdDeferredPromise = getQuestionByIdDeferred.promise;
 
                 spyOn(questionRepository, 'getById').andReturn(getQuestionByIdDeferredPromise);
-                spyOn(viewModel.notification, 'update');
+                spyOn(notify, 'info');
             });
 
             it('should be function', function () {
@@ -1633,7 +1571,7 @@ define(function (require) {
                     return !promise.isPending();
                 });
                 runs(function () {
-                    expect(viewModel.notification.update).toHaveBeenCalled();
+                    expect(notify.info).toHaveBeenCalled();
                 });
 
             });
@@ -1650,7 +1588,7 @@ define(function (require) {
                 getQuestionByIdDeferredPromise = getQuestionByIdDeferred.promise;
 
                 spyOn(questionRepository, 'getById').andReturn(getQuestionByIdDeferredPromise);
-                spyOn(viewModel.notification, 'update');
+                spyOn(notify, 'info');
             });
 
             it('should be function', function () {
@@ -1770,7 +1708,7 @@ define(function (require) {
                     return !promise.isPending();
                 });
                 runs(function () {
-                    expect(viewModel.notification.update).toHaveBeenCalled();
+                    expect(notify.info).toHaveBeenCalled();
                 });
 
             });
