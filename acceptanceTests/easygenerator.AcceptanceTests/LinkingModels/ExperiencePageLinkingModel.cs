@@ -10,13 +10,13 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 {
     public class ExperiencePageLinkingModel : ILinkingModel
     {
-        public string ExperienceTitle = "//div[contains(@class,'experience-header-title')]//div[contains(@class,'editarea-editable-text')]";
+        public string ExperienceTitle = ".//section[contains(@class,'experience')]//header[contains(@class,'view-header')]//div[contains(@class,'view-header-title-text')]";
         public string Item = ".//li[contains(@class,'content-list-item')]";
 
         public string BackToExperiencesLink = "//a[contains(@class,'nav-control') and contains(@class,'left')]";
 
-        public string NextExperienceButton = "//aside[contains(@class,'next')]//a[contains(@class,'next-btn')]";
-        public string PreviousExperienceButton = "//aside[contains(@class,'previous')]//a[contains(@class,'prev-btn')]";
+        public string NextExperienceButton = ".//section[contains(@class,'experience')]//header[contains(@class,'view-header')]//a[contains(@class,'view-header-nav-btn next')]";
+        public string PreviousExperienceButton = ".//section[contains(@class,'experience')]//header[contains(@class,'view-header')]//a[contains(@class,'view-header-nav-btn previous')]";
 
         //public string BuildButton = "//div[contains(@class,'experience-build-progress-status-item')]";
         public string BuildButton = "//div[contains(@data-bind,'click: buildExperience')]";
