@@ -6,7 +6,8 @@
         router = require('plugins/router'),
         objectiveRepository = require('repositories/objectiveRepository'),
         questionRepository = require('repositories/questionRepository'),
-        notify = require('notify');
+        notify = require('notify'),
+        utils = require('utils');
 
     var eventsCategory = 'Create Question';
 

@@ -112,7 +112,7 @@
             status(constants.buildingStatuses.inProgress);
 
             var that = this;
-            return service.build(this.id)
+            service.build(this.id)
                 .then(function (response) {
                     if (response.Success) {
                         that.status(constants.buildingStatuses.succeed);

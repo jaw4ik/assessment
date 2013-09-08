@@ -4,13 +4,7 @@
     <title>Jasmine Spec Runner</title>
 
     <link rel="stylesheet" type="text/css" href="../Content/jasmine.css">
-
-    <!-- Testing tool scripts -->
-    <script type="text/javascript" src="../Scripts/jasmine-1.3.1.js"></script>
-    <script type="text/javascript" src="../Scripts/jasmine-1.3.1-html.js"></script>
-    <script type="text/javascript" src="../Scripts/jasmine-1.3.1-console.js"></script>
-    <script type="text/javascript" src="../Scripts/jasmine-matchers.js"></script>
-
+    
     <!-- Libraries -->
     <script type="text/javascript" src="../Scripts/jquery-2.0.3.js"></script>
     <script type="text/javascript" src="../Scripts/knockout-2.3.0.debug.js"></script>
@@ -19,6 +13,13 @@
     <script type="text/javascript" src="../Scripts/underscore.js"></script>
     <script type="text/javascript" src="../Scripts/underscore.extensions.js"></script>
 
+    <!-- Testing tool scripts -->
+    <script type="text/javascript" src="../Scripts/jasmine/jasmine-1.3.1.js"></script>
+    <script type="text/javascript" src="../Scripts/jasmine/jasmine-1.3.1-html.js"></script>
+    <script type="text/javascript" src="../Scripts/jasmine/jasmine-1.3.1-console.js"></script>
+    <script type="text/javascript" src="../Scripts/jasmine/jasmine-matchers.js"></script>
+    <script type="text/javascript" src="../Scripts/jasmine/utils.js"></script>
+
     <!-- Source scripts -->
     <script type="text/javascript" src="../Scripts/require.js"></script>
 
@@ -26,28 +27,19 @@
 
         (function () {
 
-            this.utils = {
-                createString: function (length) {
-                    return new Array(length + 1).join("*");
-                },
-                getDateFromString: function(str) {
-                    return new Date(parseInt(str.substr(6), 10));
-                }
-            };
-
-
             require.config({
                 paths: {
                     'text': '../Scripts/text',
                     'durandal': '../Scripts/durandal',
                     'plugins': '../Scripts/durandal/plugins',
-                    'transitions': '../Scripts/durandal/transitions'
+                    'transitions': '../Scripts/durandal/transitions',
+                    'utils': '../Scripts/jasmine/utils'
                 },
                 urlArgs: 'v=' + Math.random()
             });
 
             define('jquery', function () { return jQuery; });
-            define('knockout', ko);
+            define('knockout', function () { return ko; });
 
             require(['plugins/router'], function (router) {
                 router.replace = function () { };

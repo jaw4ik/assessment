@@ -4,7 +4,8 @@
 
         var
            constants = require('constants'),
-           http = require('plugins/http');
+           http = require('plugins/http'),
+           utils = require('utils');
 
         describe('repository [experienceRepository]', function () {
 
@@ -232,7 +233,7 @@
                                                     objectives: []
                                                 });
                                             });
-                                            
+
                                         });
 
                                     });

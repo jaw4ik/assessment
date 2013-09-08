@@ -4,7 +4,8 @@
 
         var router = require('plugins/router'),
             eventTracker = require('eventTracker'),
-            repository = require('repositories/experienceRepository')
+            repository = require('repositories/experienceRepository'),
+            utils = require('utils');
         ;
 
         var eventsCategory = 'Create Experience';

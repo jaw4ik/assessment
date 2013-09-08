@@ -352,11 +352,6 @@
                     expect(viewModel.buildExperience).toBeFunction();
                 });
 
-                it('should return promise', function () {
-                    var promise = viewModel.buildExperience();
-                    expect(promise).toBePromise();
-                });
-
                 it('should send event \'Build experience\'', function () {
                     viewModel.buildExperience();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Build experience', eventsCategory);
@@ -379,7 +374,8 @@
                         build.resolve({ Success: true, PackageUrl: "packageUrl" });
 
                         viewModel.id = 1;
-                        var promise = viewModel.buildExperience();
+                        viewModel.buildExperience();
+                        var promise = build.promise.fin(function () { });
 
                         waitsFor(function () {
                             return promise.isFulfilled();
@@ -394,7 +390,8 @@
                         build.resolve({ Success: true, PackageUrl: "packageUrl" });
 
                         viewModel.id = 1;
-                        var promise = viewModel.buildExperience();
+                        viewModel.buildExperience();
+                        var promise = build.promise.fin(function () { });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -405,12 +402,12 @@
 
                     });
 
-
                     it('should be set isFirstBuild to false', function () {
                         build.resolve({ Success: true, PackageUrl: "packageUrl" });
 
                         viewModel.id = 1;
-                        var promise = viewModel.buildExperience();
+                        viewModel.buildExperience();
+                        var promise = build.promise.fin(function () { });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -440,7 +437,8 @@
                     it('should be called getById', function () {
                         build.resolve({ Success: true, PackageUrl: "packageUrl" });
 
-                        var promise = viewModel.buildExperience();
+                        viewModel.buildExperience();
+                        var promise = build.promise.fin(function () { });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -454,7 +452,8 @@
                         build.resolve({ Success: true, PackageUrl: "packageUrl" });
 
                         viewModel.id = 1;
-                        var promise = viewModel.buildExperience();
+                        viewModel.buildExperience();
+                        var promise = build.promise.fin(function () { });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -470,7 +469,9 @@
                         var builtOn = experience.builtOn;
 
                         viewModel.id = 1;
-                        var promise = viewModel.buildExperience();
+                        viewModel.buildExperience();
+                        var promise = build.promise.fin(function () { });
+                        
                         waitsFor(function () {
                             return !promise.isPending();
                         });
@@ -508,7 +509,9 @@
                         build.resolve({ Success: false, PackageUrl: "" });
 
                         viewModel.id = 1;
-                        var promise = viewModel.buildExperience();
+                        viewModel.buildExperience();
+                        
+                        var promise = build.promise.fin(function () { });
 
                         waitsFor(function () {
                             return promise.isFulfilled();
@@ -523,7 +526,9 @@
                         build.resolve({ Success: false, PackageUrl: "" });
 
                         viewModel.id = 1;
-                        var promise = viewModel.buildExperience();
+                        viewModel.buildExperience();
+                        
+                        var promise = build.promise.fin(function () { });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -538,7 +543,9 @@
                         build.resolve({ Success: false, packageUrl: "" });
 
                         viewModel.id = 1;
-                        var promise = viewModel.buildExperience();
+                        viewModel.buildExperience();
+                        
+                        var promise = build.promise.fin(function () { });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -555,7 +562,9 @@
                         experiencerepositorygetByIdDefer.resolve(experience);
 
                         viewModel.id = 1;
-                        var promise = viewModel.buildExperience();
+                        viewModel.buildExperience();
+                        var promise = build.promise.fin(function () { });
+                        
                         experiencerepositorygetByIdPromise.fin(function () {
                             experience.packageUrl = '';
                         });
@@ -574,7 +583,9 @@
                         viewModel.builtOn(experience.builtOn);
 
                         viewModel.id = 1;
-                        var promise = viewModel.buildExperience();
+                        viewModel.buildExperience();
+                        
+                        var promise = build.promise.fin(function () { });
 
                         waitsFor(function () {
                             return !promise.isPending();
