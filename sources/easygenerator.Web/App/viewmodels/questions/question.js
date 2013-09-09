@@ -316,18 +316,17 @@
                         var contextExplanation = _.find(question.explanations, function (obj) {
                             return obj.id === explanation.id;
                         });
-
-                        if (_.isObject(contextExplanation)) {
+                        debugger;
+                        if (!_.isObject(contextExplanation) || (contextExplanation.text != explanation.text()))
+                            notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
+                        
+                        if (_.isObject(contextExplanation))
                             contextExplanation.text = explanation.text();
-                        }
-                        else {
+                        else
                             question.explanations.push({
                                 id: explanation.id,
                                 text: explanation.text()
                             });
-                        }
-
-                        notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
                     });
             },
 

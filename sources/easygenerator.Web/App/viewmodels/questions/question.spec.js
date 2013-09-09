@@ -1088,7 +1088,7 @@ define(function (require) {
                     var explanation = {
                         text: ko.observable('Some text'),
                         isEditing: ko.observable(true),
-                        id: '0'
+                        id: '1'
                     };
                     viewModel.explanations([explanation]);
 
@@ -1107,6 +1107,44 @@ define(function (require) {
                     });
                 });
 
+
+                describe('when old text != current text', function () {
+                    
+                    it('should not update notfication', function() {
+                        spyOn(notify, 'info');
+
+                        var explanation = {
+                            text: ko.observable('Some text'),
+                            isEditing: ko.observable(true),
+                            id: '2'
+                        };
+                        var testQuestion = {
+                            id: '1',
+                            title: 'lalala',
+                            answerOptions: [],
+                            explanations: [{
+                                text: 'Some text',
+                                isEditing: ko.observable(true),
+                                id: '2'
+                            }]
+                        };
+                        
+                        viewModel.explanations([explanation]);
+                        
+                        viewModel.saveExplanation(explanation);
+
+                        var promise = getQuestionByIdDeferredPromise.fin(function () { });
+                        getQuestionByIdDeferred.resolve(testQuestion);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(notify.info).wasNotCalled();
+                        });
+                    });
+                    
+                });
             });
 
         });
