@@ -48,6 +48,7 @@
 
                         router.on('router:navigation:composition-complete').then(function () {
                             isViewReady(true);
+                            $("[data-autofocus='true']").focus();
                         });
 
                         return router.map(routes)

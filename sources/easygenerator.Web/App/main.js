@@ -19,16 +19,12 @@ define('knockout', function () {
     return ko;
 });
 
-define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'durandal/binder'],
-    function (system, app, viewLocator, binder) {
+define(['durandal/system', 'durandal/app', 'durandal/viewLocator'],
+    function (system, app, viewLocator) {
 
         if (!has('release')) {
             system.debug(true);
         }
-
-        binder.bindingComplete = function () {
-            $("[data-autofocus='true']").focus();
-        };
 
         app.title = "easygenerator";
 

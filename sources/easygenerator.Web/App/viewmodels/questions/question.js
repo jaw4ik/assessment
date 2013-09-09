@@ -316,7 +316,7 @@
                         var contextExplanation = _.find(question.explanations, function (obj) {
                             return obj.id === explanation.id;
                         });
-                        debugger;
+                        
                         if (!_.isObject(contextExplanation) || (contextExplanation.text != explanation.text()))
                             notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
                         
