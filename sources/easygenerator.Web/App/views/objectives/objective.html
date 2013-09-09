@@ -19,8 +19,8 @@
                     }
                 } -->
             <!-- /ko -->
-            <div class="view-header-title" data-bind="css: { 'active': title.isEditing(), 'error': !title.isValid() }">
-                <div class="view-header-title-text selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditTitle, blur: endEditTitle }"></div>
+            <div class="view-header-title">
+                <div class="view-header-title-text selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() }"></div>
                 <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
                     <span data-bind="text: title().length + '/' + titleMaxLength"></span>
                 </div>
