@@ -1,11 +1,13 @@
-﻿.notification-container {
+﻿.notification-container
+{
     position: absolute;
     right: 10px;
     top: 50px;
 }
 
 
-.notification {
+.notification
+{
     font-family: Arial,sans-serif;
     font-size: 12px;
     border-radius: 4px 4px 4px 4px;
@@ -14,7 +16,8 @@
     border: 1px solid transparent;
 }
 
-.notification-icon {
+.notification-icon
+{
     background-image: url("images/icons.png");
     background-position: 0 0;
     display: inline-block;
@@ -24,7 +27,8 @@
     width: 16px;
 }
 
-.notification-close {
+.notification-close
+{
     background: none;
     border: 0;
     float: right;
@@ -37,24 +41,36 @@
     cursor: default;
 }
 
-    .notification-close:hover {
+    .notification-close:hover
+    {
         opacity: 1;
         cursor: default;
     }
 
-.notification.info {
+.notification.info
+{
     background-color: #D4E6F2;
     border-color: #4DC0F8;
     color: #23485A;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
-.notification.error {
+.notification.error
+{
     border-color: #F38971;
     background-color: #f26c4f;
+    color: #FFFFFF;
+    text-shadow: none;
 }
 
-    .notification.error .notification-icon {
+    .notification.error .notification-close
+    {
+        color: #FFFFFF;
+        text-shadow: none;
+    }
+
+    .notification.error .notification-icon
+    {
         background-image: url(images/warning.png);
         height: 20px;
         width: 19px;
