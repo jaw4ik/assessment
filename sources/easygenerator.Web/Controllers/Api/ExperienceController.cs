@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web;
+﻿using System.Net;
 using System.Web.Mvc;
-using easygenerator.Infrastructure;
+using easygenerator.DomainModel;
+using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.BuildExperience.BuildModel;
 using easygenerator.Web.Components;
@@ -15,20 +12,28 @@ namespace easygenerator.Web.Controllers.Api
     {
         private readonly IExperienceBuilder _builder;
         private readonly PackageModelMapper _packageModelMapper;
+        private readonly IEntityFactory _entityFactory;
+        private readonly IExperienceRepository _repository;
 
-        public ExperienceController(IExperienceBuilder experienceBuilder, PackageModelMapper packageModelMapper)
+        public ExperienceController(IExperienceBuilder experienceBuilder, PackageModelMapper packageModelMapper, IExperienceRepository repository, IEntityFactory entityFactory)
         {
             _builder = experienceBuilder;
             _packageModelMapper = packageModelMapper;
+            _repository = repository;
+            _entityFactory = entityFactory;
         }
 
         [HttpPost]
-        public ActionResult Create()
+        public ActionResult Create(string title)
         {
+            var experience = _entityFactory.Experience(title);
+
+            _repository.Add(experience);
+
             return JsonSuccess(new
             {
-                Id = Guid.NewGuid().ToString().Replace("-", ""),
-                CreatedOn = DateTimeWrapper.Now()
+                Id = experience.Id.ToString("N"),
+                CreatedOn = experience.CreatedOn
             });
         }
 
@@ -40,6 +45,14 @@ namespace easygenerator.Web.Controllers.Api
 
             var buildingResult = _builder.Build(_packageModelMapper.MapExperienceBuildModel(model));
             return Json(buildingResult);
+        }
+
+        [HttpPost]
+        public ActionResult GetCollection()
+        {
+            var experiences = _repository.GetCollection();
+
+            return JsonSuccess(experiences);
         }
     }
 }

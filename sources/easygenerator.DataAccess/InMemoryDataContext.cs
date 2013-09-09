@@ -13,8 +13,10 @@ namespace easygenerator.DataAccess
         public InMemoryDataContext()
         {
             Objectives = new Collection<Objective>();
+            Experiences = new Collection<Experience>();
         }
 
         public ICollection<Objective> Objectives { get; set; }
+        public ICollection<Experience> Experiences { get; set; }
     }
 }

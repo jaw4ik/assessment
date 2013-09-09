@@ -71,6 +71,26 @@
                             }));
                         });
                     });
+                }).then(function () {
+                    return $.ajax({
+                        url: 'api/experiences',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        dataType: 'json'
+                    }).then(function (response) {
+                        _.each(response.data, function (item) {
+                            experiences.push(new ExperienceModel({
+                                id: item.Id.split('-').join(''),
+                                title: item.Title,
+                                createdOn: parseDateString(item.CreatedOn),
+                                modifiedOn: parseDateString(item.ModifiedOn),
+                                objectives: [],
+                                buildingStatus: constants.buildingStatuses.notStarted,
+                                builtOn: _.isNullOrUndefined(item.builtOn) ? null : parseDateString(item.builtOn),
+                                packageUrl: item.packageUrl
+                            }));
+                        });
+                    });
                 }).fail(function () {
                     app.showMessage("Failed to initialize datacontext.");
                 });

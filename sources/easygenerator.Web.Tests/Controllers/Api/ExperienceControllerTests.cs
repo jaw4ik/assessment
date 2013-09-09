@@ -1,32 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Web.Mvc;
+using easygenerator.DomainModel;
+using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Repositories;
+using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.BuildExperience.BuildModel;
 using easygenerator.Web.BuildExperience.PackageModel;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using NSubstitute;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
     [TestClass]
     public class ExperienceControllerTests
     {
-        private ExperienceController _controller;
-        private Mock<IExperienceBuilder> _builder;
-        private Mock<PackageModelMapper> _packageModelMapperMock;
+        ExperienceController _controller;
+        IExperienceBuilder _builder;
+        PackageModelMapper _packageModelMapper;
+        IEntityFactory _entityFactory;
+        IExperienceRepository _repository;
 
         [TestInitialize]
         public void InitializeContext()
         {
-            _builder = new Mock<IExperienceBuilder>();
-            _packageModelMapperMock = new Mock<PackageModelMapper>();
-            _controller = new ExperienceController(_builder.Object, _packageModelMapperMock.Object);
+            _entityFactory = Substitute.For<IEntityFactory>();
+            _repository = Substitute.For<IExperienceRepository>();
+            _builder = Substitute.For<IExperienceBuilder>();
+            _packageModelMapper = Substitute.For<PackageModelMapper>();
+            _controller = new ExperienceController(_builder, _packageModelMapper, _repository, _entityFactory);
         }
 
 
@@ -36,12 +42,30 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Create_ShouldReturnJsonSuccessResult()
         {
             //Arrange
+            const string title = "title";
+            var experience = ExperienceObjectMother.CreateWithTitle(title);
+            _entityFactory.Experience(title).Returns(experience);
 
             //Act
-            var result = _controller.Create();
+            var result = _controller.Create(title);
 
             //Assert
             ActionResultAssert.IsJsonSuccessResult(result);
+        }
+
+        [TestMethod]
+        public void Create_ShouldAddExperience()
+        {
+            //Arrange
+            const string title = "title";
+            var experience = ExperienceObjectMother.CreateWithTitle(title);
+            _entityFactory.Experience(title).Returns(experience);
+
+            //Act
+            _controller.Create(title);
+
+            //Assert
+            _repository.Received().Add(Arg.Is<Experience>(exp => exp.Title == title));
         }
 
         #endregion
@@ -92,13 +116,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var viewModel = new ExperienceBuildModel();
-            _packageModelMapperMock.Setup(item => item.MapExperienceBuildModel(It.IsAny<ExperienceBuildModel>()));
 
             //Act
             _controller.Build(viewModel);
 
             //Assert
-            _packageModelMapperMock.Verify(item => item.MapExperienceBuildModel(viewModel));
+            _packageModelMapper.Received().MapExperienceBuildModel(Arg.Any<ExperienceBuildModel>());
         }
 
         [TestMethod]
@@ -107,8 +130,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var viewModel = new ExperienceBuildModel();
             var packageModel = new ExperiencePackageModel();
-            _packageModelMapperMock.Setup(item => item.MapExperienceBuildModel(It.IsAny<ExperienceBuildModel>())).Returns(packageModel);
-            _builder.Setup(item => item.Build(It.IsAny<ExperiencePackageModel>())).Returns(new BuildResult() { Success = true, PackageUrl = "" });
+
+            _packageModelMapper.MapExperienceBuildModel(Arg.Any<ExperienceBuildModel>())
+                .Returns(packageModel);
+
+            _builder.Build(Arg.Any<ExperiencePackageModel>())
+                .Returns(new BuildResult() { Success = true, PackageUrl = "" });
 
             //Act
             var result = _controller.Build(viewModel);
@@ -127,8 +154,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var viewModel = new ExperienceBuildModel();
             var packageModel = new ExperiencePackageModel();
-            _packageModelMapperMock.Setup(item => item.MapExperienceBuildModel(It.IsAny<ExperienceBuildModel>())).Returns(packageModel);
-            _builder.Setup(item => item.Build(It.IsAny<ExperiencePackageModel>())).Returns(new BuildResult() { Success = false, PackageUrl = "" });
+
+            _packageModelMapper.MapExperienceBuildModel(Arg.Any<ExperienceBuildModel>())
+                .Returns(packageModel);
+
+            _builder.Build(Arg.Any<ExperiencePackageModel>())
+                .Returns(new BuildResult() { Success = false, PackageUrl = "" });
 
             //Act
             var result = _controller.Build(viewModel);
@@ -139,6 +170,23 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var buildResult = json.Data as BuildResult;
             Assert.IsNotNull(buildResult);
             Assert.IsFalse(buildResult.Success);
+        }
+
+        #endregion
+
+
+        #region GetCollection
+
+        [TestMethod]
+        public void GetCollection_ShouldReturnJsonSuccessResult()
+        {
+            var collection = new Collection<Experience>(new List<Experience>() { ExperienceObjectMother.Create() });
+
+            _repository.GetCollection().Returns(collection);
+
+            var result = _controller.GetCollection();
+
+            result.Should().BeJsonSuccessResult().And.Data.Should().Be(collection);
         }
 
         #endregion

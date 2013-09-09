@@ -36,11 +36,11 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<InMemoryDataContext>().As<IDataContext>().SingleInstance();
             builder.RegisterType<ObjectiveRepository>().As<IObjectiveRepository>();
 
-            builder.RegisterType<ObjectiveRepository>().As<IObjectiveRepository>();
+            builder.RegisterType<ExperienceRepository>().As<IExperienceRepository>();
 
             builder.RegisterType<EntityFactory>().As<IEntityFactory>();
 
-            var container = builder.Build();  
+            var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
     }

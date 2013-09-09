@@ -59,7 +59,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Entities\ObjectiveTests.cs" />
+    <Compile Include="Entities\ExperienceTests.cs" />
     <Compile Include="Entities\UserTests.cs" />
+    <Compile Include="ObjectMothers\ExperienceObjectMother.cs" />
     <Compile Include="ObjectMothers\ObjectiveObjectMother.cs" />
     <Compile Include="ObjectMothers\UserObjectMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
