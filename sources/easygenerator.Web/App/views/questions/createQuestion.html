@@ -1,5 +1,5 @@
 ﻿<section id="createQuestion" class="create-question container unselectable">
-    <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: ' \'' + objectiveTitle + '\'', isGoBackTextLocalizable: false, goBackAction: navigateToObjective } }">
+    <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: ' \'' + objectiveTitle + '\'', isGoBackTextLocalizable: false, goBackAction: navigateToObjective.bind($data) } }">
     </div>
     <form class="create-form">
         <div class="white-framing pull-left">
