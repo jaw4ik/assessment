@@ -38,7 +38,9 @@
                         };
 
                         router.download = function (url) {
-                            var downloadUrl = window.location.href.replace(window.location.hash, url);
+                            var hash = window.location.hash,
+                                href = window.location.href;
+                            var downloadUrl = hash == '' ? href + '/' + url : href.replace(hash, url);
                             window.location.assign(downloadUrl);
                         };
 
