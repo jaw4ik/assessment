@@ -7,6 +7,7 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
+using easygenerator.Web.Components.ModelBinding;
 
 namespace easygenerator.Web.Configuration
 {
@@ -18,12 +19,10 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
-            builder.RegisterType<ObjectiveRepository>()
-                   .As<IObjectiveRepository>()
-                   .As<IRepository<Objective>>().SingleInstance();
-
             builder.RegisterType<ExperienceBuilder>()
                    .As<IExperienceBuilder>();
+
+            builder.RegisterGeneric(typeof(EntityModelBinder<>)).As(typeof(IEntityModelBinder<>));
 
             builder.RegisterType<BuildPathProvider>();
             builder.RegisterType<PhysicalFileManager>();
@@ -34,9 +33,9 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<BuildPackageCreator>();
 
             builder.RegisterType<InMemoryDataContext>().As<IDataContext>().SingleInstance();
-            builder.RegisterType<ObjectiveRepository>().As<IObjectiveRepository>();
 
-            builder.RegisterType<ExperienceRepository>().As<IExperienceRepository>();
+            builder.RegisterType<ObjectiveRepository>().As<IObjectiveRepository>().As<IRepository<Objective>>();
+            builder.RegisterType<ExperienceRepository>().As<IExperienceRepository>().As<IRepository<Experience>>(); ;
 
             builder.RegisterType<EntityFactory>().As<IEntityFactory>();
 

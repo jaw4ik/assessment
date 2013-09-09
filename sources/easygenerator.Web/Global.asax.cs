@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using easygenerator.Web.Components.ModelBinding;
 using easygenerator.Web.Configuration;
 
 namespace easygenerator.Web
@@ -9,6 +10,8 @@ namespace easygenerator.Web
     {
         protected void Application_Start()
         {
+            ModelBinderProviders.BinderProviders.Add(new EntityModelBinderProvider());
+
             AreaRegistration.RegisterAllAreas();
 
             BundleConfiguration.Configure();

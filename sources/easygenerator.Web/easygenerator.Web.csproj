@@ -157,6 +157,8 @@
     <Compile Include="BuildExperience\PackageModel\QuestionPackageModel.cs" />
     <Compile Include="Components\ActionResults\JsonErrorResult.cs" />
     <Compile Include="Components\ActionResults\JsonSuccessResult.cs" />
+    <Compile Include="Components\ModelBinding\EntityModelBinder.cs" />
+    <Compile Include="Components\ModelBinding\EntityModelBinderProvider.cs" />
     <Compile Include="Configuration\BundleConfiguration.cs" />
     <Compile Include="Configuration\ContainerConfiguration.cs" />
     <Compile Include="Configuration\FilterConfiguration.cs" />

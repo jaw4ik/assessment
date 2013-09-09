@@ -70,6 +70,36 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
+        #region Delete experience
+
+        [TestMethod]
+        public void Delete_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+
+            //Act
+            var result = _controller.Delete(experience);
+
+            //Assert
+            ActionResultAssert.IsJsonSuccessResult(result);
+        }
+
+        [TestMethod]
+        public void Delete_ShouldRemoveExperience()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+
+            //Act
+            _controller.Delete(experience);
+
+            //Assert
+            _repository.Received().Remove(experience);
+        }
+
+        #endregion
+
         #region Build experience
 
         [TestMethod]

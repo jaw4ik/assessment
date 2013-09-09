@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.BuildExperience.BuildModel;
@@ -38,8 +39,10 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        public ActionResult Delete()
+        public ActionResult Delete(Experience experience)
         {
+            _repository.Remove(experience);
+
             return JsonSuccess();
         }
 
