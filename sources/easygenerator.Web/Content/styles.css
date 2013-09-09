@@ -285,6 +285,7 @@ body
     padding: 10px 15px 25px 15px;
     border: 1px solid rgba(68, 192, 252, 0);
     font-size: 14px;
+    color: #555;
 }
 
     .view-header-title-text:hover
@@ -309,6 +310,7 @@ body
         -webkit-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
         -moz-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
         box-shadow: 0 0 3px rgba(68, 192, 252, 1);
+        color: #767676;
     }
 
         .view-header-title-text.active + .chars-counter
