@@ -204,6 +204,7 @@ body
         transform: rotate(352deg);
         white-space: nowrap;
         color: #666;
+        letter-spacing: 0;
     }
 
     .create-tip .create-tip-arrow
