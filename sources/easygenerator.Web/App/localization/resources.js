@@ -215,6 +215,16 @@
         nl: 'Ervaringenlijst is leeg',
         de: 'Liste der Umgebungen ist leer'
     },
+    experienceCannotBeDeleted: {
+        en: 'Experience cannot be deleted while it has related Learning Objective(s)',
+        nl: 'Experience cannot be deleted while it has related Learning Objective(s)[nl]',
+        de: 'Experience cannot be deleted while it has related Learning Objective(s)[de]'
+    },
+    clickToAddExperience: {
+        en: 'Click to add experience',
+        nl: 'Click to add experience[nl]',
+        de: 'Click to add experience[de]'
+    },
     /* End resource section for model Experiences */
     
     /* Resource section for model CreateObjective */
@@ -581,7 +591,7 @@
     buildExperience: {
         en: 'Build experience',
         nl: 'Ervaring samenstellen',
-        de: 'Erfahrung aufbauen'
+        de: 'Erfahrung entwickeln'
     },
     noRelatedLearningObjectives: {
         en: 'No related learning objectives',
