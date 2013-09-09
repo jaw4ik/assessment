@@ -409,19 +409,20 @@ body
 .entity-info-popup-item
 {
     height: 40px;
+    margin-top: 3px;
 }
 
 .entity-info-popup-item-title
 {
     display: inline-block;
-    width: 80px;
+    width: 98px;
     float: left;
-    padding: 4px 4px;
     vertical-align: top;
     color: #666666;
     font-family: Tahoma,sans-serif;
     font-size: 12px;
-    margin-left: 5px;
+    margin-left: 3px;
+    margin-top: 2px;
 }
 
     .entity-info-popup-item-title:after
@@ -432,12 +433,11 @@ body
 .entity-info-popup-item-data
 {
     display: inline-block;
-    float: left;
-    padding: 2px 2px;
+    float: right;
+    width: 97px;
     color: #666;
     font-family: Tahoma,sans-serif;
     font-size: 12px;
-    margin-left: 15px;
 }
 
 .entity-info-popup-item-date-text

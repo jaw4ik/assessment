@@ -386,9 +386,13 @@
 }
 
 .experience .entity-info-popup {
-    height: 132px;
+    height: 124px;
 }
 
 .experience .entity-info-popup-triangle-wrapper {
     margin-top: -26px;
+}
+
+.experience .entity-info-popup-item {
+    margin-top: 0;
 }
