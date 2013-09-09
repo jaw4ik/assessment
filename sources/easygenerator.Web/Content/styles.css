@@ -245,12 +245,17 @@ body
 {
     height: 32px;
     width: 22px;
-    opacity: 1;
+    opacity: 0.6;
     cursor: pointer;
     top: 50%;
     position: absolute;
     margin-top: -16px;
 }
+
+    .view-header-nav-btn:hover
+    {
+        opacity: 1;
+    }
 
     .view-header-nav-btn.disabled
     {
@@ -280,6 +285,14 @@ body
     padding: 10px 15px 25px 15px;
     border: 1px solid rgba(68, 192, 252, 0);
 }
+
+    .view-header-title:hover
+    {
+        border: 1px solid #e1e1e1;
+        -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    }
 
 
     .view-header-title .chars-counter
@@ -317,9 +330,10 @@ body
         box-shadow: 0 0 3px rgba(242, 108, 79, 1);
     }
 
-    .view-header-title-text {
-        font-size: 14px;
-    }
+.view-header-title-text
+{
+    font-size: 14px;
+}
 /*#endregion View header*/
 
 /*#region Entity info*/
