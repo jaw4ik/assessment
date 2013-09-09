@@ -378,6 +378,7 @@ body
 
 .entity-info-popup
 {
+    padding-top: 2px;
     display: none;
     height: 94px;
     width: 202px;
