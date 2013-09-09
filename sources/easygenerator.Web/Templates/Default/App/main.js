@@ -15,25 +15,12 @@ ko.bindingHandlers.context = {
     }
 };
 
-define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'browserSupport', 'context', 'eventsManager', 'xAPI/requestManager'],
-    function (app, viewLocator, system, getRootView, courseContext, eventsManager, xAPIRequestManager) {
+define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'browserSupport'],
+    function (app, viewLocator, system, getRootView) {
 
         //>>excludeStart("build", true);
         system.debug(true);
         //>>excludeEnd("build");
-
-        courseContext.initialize().then(function () {
-            
-            app.title = courseContext.experience.title;
-
-            var url = window.location.toString();
-            if (!_.isEmpty(window.location.hash))
-                url = url.substring(0, url.indexOf("#"));
-                
-            url += '?experience_id=' + courseContext.experience.id;
-
-            xAPIRequestManager.init(eventsManager, "Anonymous user", "anonymous@easygenerator.com", app.title, url);
-        });
 
         app.start().then(function () {
 

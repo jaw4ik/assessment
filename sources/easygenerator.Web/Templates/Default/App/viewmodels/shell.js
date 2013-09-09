@@ -1,4 +1,4 @@
-﻿define(['durandal/plugins/router', 'context', 'eventsManager'], function (router, context, eventsManager) {
+﻿define(['durandal/plugins/router', 'context', 'eventsManager', 'xAPI/requestManager'], function (router, context, eventsManager, xApiRequestManager) {
     
 
     return {
@@ -69,6 +69,16 @@
             return context.initialize()
                 .then(function () {
                     window.location.hash = '#/';
+
+                    var title = context.experience.title;
+
+                    var url = window.location.toString();
+                    if (!_.isEmpty(window.location.hash))
+                        url = url.substring(0, url.indexOf("#"));
+
+                    url += '?experience_id=' + context.experience.id;
+
+                    xApiRequestManager.init(eventsManager, "Anonymous user", "anonymous@easygenerator.com", title, url);
 
                     return router.activate().then(function() {
                         eventsManager.fireEvent(eventsManager.eventsList.courseStarted);
