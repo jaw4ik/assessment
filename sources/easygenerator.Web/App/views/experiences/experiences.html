@@ -6,7 +6,7 @@
     <div class="experiences-header">
         <div class="experiences-header-title" data-bind="css: { 'alone': !enableSorting() }">
             <a class="experiences-header-create-link" href="/#/404" data-bind="click: navigateToCreation, localize: { title: 'addNewExperience' }"></a>
-            <span style="padding-right: 25px;" data-bind="localize: { text: 'experience' }">Experience</span>
+            <span class="experiences-header-title-text" data-bind="localize: { text: 'experience' }">Experience</span>
             <!-- ko if: canDeleteExperiences -->
             <span class="header-toolbar-item-wrapper" data-bind="click: deleteSelectedExperiences, localize: { title: 'delete' }">
                 <span class="toolbar-remove"></span>
@@ -30,6 +30,7 @@
             </div>
         </div>
     </div>
+    <!-- ko if: experiences().length -->
     <div class="experiences-content-wrapper">
         <div class="experiences-content">
             <div class="experiences-list-wrapper">
@@ -90,10 +91,10 @@
                                     <div class="experience-brief-title" data-bind="attr: { title: title }">
                                         <span class="selectable" data-bind="text: title"></span>
                                     </div><!--
-                                 --><div class="experience-brief-toolbar-objective-count" data-bind="localize: { title: 'numberOfRelatedObjectives' }">
-                                        <span class="experience-brief-toolbar-icon-objective"></span>
-                                        <div class="selectable" data-bind="text: objectives.length"></div>
-                                    </div>
+                                        --><div class="experience-brief-toolbar-objective-count" data-bind="localize: { title: 'numberOfRelatedObjectives' }">
+                                               <span class="experience-brief-toolbar-icon-objective"></span>
+                                               <div class="selectable" data-bind="text: objectives.length"></div>
+                                           </div>
                                 </div>
                                 <div class="experience-brief-option">
                                     <!-- ko if: !showBuildingStatus() || buildingStatus() == $parent.buildingStatuses.notStarted -->
@@ -148,4 +149,16 @@
             </div>
         </div>
     </div>
+    <!-- /ko -->
+    <!-- ko ifnot: experiences().length -->
+    <div class="add-new-item-tip hand-writing">
+        <div class="add-new-item-tip-arrow"></div>
+        <div class="add-new-item-tip-text rotate-right" data-bind="localize: { text: 'clickToAddExperience' }"></div>
+    </div>
+    <div class="empty-list-wrapper">
+        <div class="empty-list">
+            <div class="empty-list-text" data-bind="localize: { text: 'experiencesListIsEmpty' }"></div>
+        </div>
+    </div>
+    <!-- /ko -->
 </div>

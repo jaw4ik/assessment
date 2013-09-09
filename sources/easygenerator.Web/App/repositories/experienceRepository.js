@@ -81,7 +81,45 @@
 
 
                 return deferred.promise;
-            };
+            },
+
+            removeExperience = function (experienceId) {
+                var deferred = Q.defer();
+
+                if (!_.isString(experienceId)) {
+
+                    deferred.reject('Experience id (string) was expected');
+
+                } else {
+
+                    http.post('api/experience/delete', { experienceId: experienceId })
+                        .done(function (response) {
+                            if (!_.isObject(response)) {
+                                deferred.reject('Response is not an object');
+                                return;
+                            }
+
+                            if (!response.success) {
+                                deferred.reject('Response is not successful');
+                                return;
+                            }
+
+                            dataContext.experiences = _.reject(dataContext.experiences, function (experience) {
+                                return experience.id == experienceId;
+                            });
+
+                            deferred.resolve();
+                        })
+                        .fail(function (reason) {
+                            deferred.reject(reason);
+                        });
+
+                }
+
+                return deferred.promise;
+            }
+        ;
+
 
 
         return {
@@ -89,20 +127,7 @@
             getCollection: self.getCollection,
 
             addExperience: addExperience,
-            removeExperience: function (experienceId) {
-                var deferred = Q.defer();
-
-                this.getById(experienceId).then(function (experience) {
-
-                    dataContext.experiences = _.without(dataContext.experiences, experience);
-
-                    deferred.resolve();
-                });
-
-                deferred.resolve();
-
-                return deferred.promise;
-            }
+            removeExperience: removeExperience
         };
     }
 );

@@ -48,6 +48,13 @@ namespace easygenerator.Web.Configuration
                 defaults: new { controller = "Objective", action = "GetCollection" }
             );
 
+            #region Experiences
+
+            routes.MapRoute(
+                name: "GetExperiences",
+                url: "api/experiences",
+                defaults: new { controller = "Experience", action = "GetCollection" }
+            );
 
             routes.MapRoute(
                 name: "CreateExperience",
@@ -56,16 +63,18 @@ namespace easygenerator.Web.Configuration
             );
 
             routes.MapRoute(
+                name: "DeleteExperience",
+                url: "api/experience/delete",
+                defaults: new { controller = "Experience", action = "Delete" }
+            );
+
+            routes.MapRoute(
                 name: "BuildExperience",
                 url: "experience/build",
                 defaults: new { controller = "Experience", action = "Build" }
             );
 
-            routes.MapRoute(
-                name: "GetExperiences",
-                url: "api/experiences",
-                defaults: new { controller = "Experience", action = "GetCollection" }
-            );
+            #endregion
 
             routes.MapRoute(
                 name: "Default",

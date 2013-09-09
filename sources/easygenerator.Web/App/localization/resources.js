@@ -210,20 +210,15 @@
         nl: 'Aantal aanverwante doelstellingen',
         de: 'Anzahl der verwandten Ziele'
     },
-    experienceListIsEmpty: {
-        en: 'Experience list is empty',
-        nl: 'Ervaringenlijst is leeg',
-        de: 'Liste der Umgebungen ist leer'
+    experiencesListIsEmpty: {
+        en: 'Experiences list is empty',
+        nl: 'Experiences list is empty[nl]',
+        de: 'Experiences list is empty[de]'
     },
     experienceCannotBeDeleted: {
         en: 'Experience cannot be deleted while it has related Learning Objective(s)',
         nl: 'Experience cannot be deleted while it has related Learning Objective(s)[nl]',
         de: 'Experience cannot be deleted while it has related Learning Objective(s)[de]'
-    },
-    clickToAddExperience: {
-        en: 'Click to add experience',
-        nl: 'Click to add experience[nl]',
-        de: 'Click to add experience[de]'
     },
     /* End resource section for model Experiences */
     

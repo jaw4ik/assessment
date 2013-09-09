@@ -249,6 +249,164 @@
 
             });
 
+            describe('removeExperience:', function () {
+
+                it('should be function', function () {
+                    expect(experienceRepository.removeExperience).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(experienceRepository.removeExperience()).toBePromise();
+                });
+
+                describe('when experience id is not a string', function () {
+
+                    it('should reject promise', function () {
+                        var promise = experienceRepository.removeExperience();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejected();
+                        });
+                    });
+
+                    it('should not send request to server to api/experience/delete', function () {
+                        var promise = experienceRepository.removeExperience();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(http.post).not.toHaveBeenCalled();
+                        });
+                    });
+
+                });
+
+                describe('when experience id is a string', function () {
+
+                    it('should send request to server to api/experience/delete', function () {
+                        var experienceId = 'id';
+                        var promise = experienceRepository.removeExperience(experienceId);
+
+                        post.reject();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(http.post).toHaveBeenCalledWith('api/experience/delete', {
+                                experienceId: experienceId
+                            });
+                        });
+                    });
+
+                    describe('and send request to server', function () {
+
+                        describe('and request failed', function () {
+
+                            it('should reject promise', function () {
+                                var reason = 'reason';
+                                var promise = experienceRepository.removeExperience('id');
+
+                                post.reject(reason);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith(reason);
+                                });
+                            });
+
+                        });
+
+                        describe('and request succeed', function () {
+
+                            describe('and response is not an object', function () {
+
+                                it('should reject promise', function () {
+                                    var promise = experienceRepository.removeExperience('id');
+
+                                    post.resolve();
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(promise).toBeRejected();
+                                    });
+                                });
+
+                            });
+
+                            describe('and response is an object', function () {
+
+                                describe('and response is not successful', function () {
+
+                                    beforeEach(function () {
+                                        post.resolve({});
+                                    });
+
+                                    it('should reject promise', function () {
+                                        var promise = experienceRepository.removeExperience('id');
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(promise).toBeRejected();
+                                        });
+                                    });
+
+                                });
+
+                                describe('and response is successful', function () {
+
+                                    beforeEach(function () {
+                                        post.resolve({ success: true });
+                                    });
+
+                                    it('should resolve promise', function () {
+                                        var promise = experienceRepository.removeExperience('id');
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(promise).toBeResolved();
+                                        });
+                                    });
+
+                                    it('should remove experience from dataContext', function () {
+                                        var experienceId = 'id';
+                                        var dataContext = require('dataContext');
+                                        dataContext.experiences = [{ id: 'id' }];
+
+                                        var promise = experienceRepository.removeExperience(experienceId);
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(dataContext.experiences.length).toEqual(0);
+                                        });
+                                    });
+
+                                });
+
+                            });
+
+                        });
+
+                    });
+
+                });
+
+            });
+
         });
 
     }

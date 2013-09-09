@@ -38,6 +38,12 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        public ActionResult Delete()
+        {
+            return JsonSuccess();
+        }
+
+        [HttpPost]
         public ActionResult Build(ExperienceBuildModel model)
         {
             if (model == null || !ModelState.IsValid)

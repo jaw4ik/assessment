@@ -67,6 +67,7 @@
     display: table-cell;
     white-space: nowrap;
 }
+
     .objectives-header-title.alone,
     .experiences-header-title.alone,
     .questions-header-title.alone {
@@ -83,22 +84,23 @@
     cursor: default;
 }
 
-.objectives-header-title-text {
+.objectives-header-title-text,
+.experiences-header-title-text {
     padding-right: 25px;
 }
 
-    .objectives-header-title > *,
-    .experiences-header-title > *,
-    .questions-header-title > * {
-        display: inline-block;
-        vertical-align: middle;
-    }
+.objectives-header-title > *,
+.experiences-header-title > *,
+.questions-header-title > * {
+    display: inline-block;
+    vertical-align: middle;
+}
 
-    .objectives-header-title hr,
-    .experiences-header-title hr,
-    .questions-header-title hr {
-        width: 100%;
-    }
+.objectives-header-title hr,
+.experiences-header-title hr,
+.questions-header-title hr {
+    width: 100%;
+}
 
 .objectives-header-create-link,
 .experiences-header-create-link,
@@ -125,15 +127,15 @@
     text-align: center;
 }
 
-.objectives-header-delete-link span {
-    display: inline-block;
-    background-image: url(images/middle-sized-icons-pack.png);
-    background-position: 0 -368px;
-    background-repeat: no-repeat;
-    width: 26px;
-    height: 20px;
-    vertical-align: middle;
-}
+    .objectives-header-delete-link span {
+        display: inline-block;
+        background-image: url(images/middle-sized-icons-pack.png);
+        background-position: 0 -368px;
+        background-repeat: no-repeat;
+        width: 26px;
+        height: 20px;
+        vertical-align: middle;
+    }
 
     .objectives-header-delete-link:hover {
         background-color: #4E4E4E;
@@ -448,31 +450,36 @@
 
 /*#region EMPTY LIST*/
 
-.objectives .add-new-item-tip .add-new-item-tip-arrow {
+.objectives .add-new-item-tip .add-new-item-tip-arrow,
+.experiences .add-new-item-tip .add-new-item-tip-arrow {
     top: 0;
     left: 50px;
 }
 
-.objectives .add-new-item-tip .add-new-item-tip-text {
+.objectives .add-new-item-tip .add-new-item-tip-text,
+.experiences .add-new-item-tip .add-new-item-tip-text {
     left: 110px;
     top: 23px;
 }
 
-.objectives .empty-list-wrapper {
+.objectives .empty-list-wrapper,
+.experiences .empty-list-wrapper {
     width: 100%;
     text-align: center;
     margin-top: 30px;
 }
 
-.objectives .empty-list-wrapper .empty-list {
-    line-height: 75px;
-    background-size: 75px;
-    margin-top: 70px;
-}
+    .objectives .empty-list-wrapper .empty-list,
+    .experiences .empty-list-wrapper .empty-list {
+        line-height: 75px;
+        background-size: 75px;
+        margin-top: 70px;
+    }
 
-.objectives  .empty-list-wrapper .empty-list-text {
-    font-size: 26px;
-}
+    .objectives .empty-list-wrapper .empty-list-text,
+    .experiences .empty-list-wrapper .empty-list-text {
+        font-size: 26px;
+    }
 
 /*#endregion EMPTY LIST*/
 
@@ -483,18 +490,17 @@
     background-color: #f26c4f;
 }
 
-.objectives .alert
-{
+.objectives .alert {
     color: #FFFFFF;
     text-shadow: none;
 }
 
-.objectives .alert .close {
-    color: #FFFFFF;
-    opacity: 0.8;
-    filter: alpha(opacity=80);
-    line-height: 18px;
-}
+    .objectives .alert .close {
+        color: #FFFFFF;
+        opacity: 0.8;
+        filter: alpha(opacity=80);
+        line-height: 18px;
+    }
 
 .objectives .alert-info .info-icon {
     background-image: url(images/warning.png);
