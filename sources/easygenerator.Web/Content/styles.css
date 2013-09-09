@@ -332,6 +332,7 @@ body
 
 .view-header-title-text
 {
+    min-height: 63px;
     font-size: 14px;
 }
 /*#endregion View header*/
