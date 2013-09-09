@@ -381,8 +381,7 @@ body
     padding-top: 2px;
     display: none;
     height: 94px;
-    width: 202px;
-    z-index: 30;
+    width: 202px;  
     position: absolute;
     margin-left: -26px;
     top: 0;
@@ -483,7 +482,7 @@ body
     height: 16px;
     top: 50%;
     right: -8px;
-    margin-top: -8px;
+    margin-top: -14px;
     overflow: hidden;
 }
 
