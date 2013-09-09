@@ -1,27 +1,31 @@
 ﻿define(['dataContext', 'constants', 'plugins/http', 'models/experience'],
     function (dataContext, constants, http, experienceModel) {
 
-        var self = {};
-
-        self.getCollection = function () {
-            var deferred = Q.defer();
-
-            deferred.resolve(dataContext.experiences);
-
-            return deferred.promise;
-        };
-
-        self.getById = function (id) {
-            var deferred = Q.defer();
-
-            deferred.resolve(_.find(dataContext.experiences, function (item) {
-                return item.id === id;
-            }));
-
-            return deferred.promise;
-        };
-
         var
+            getCollection = function () {
+                var deferred = Q.defer();
+
+                deferred.resolve(dataContext.experiences);
+
+                return deferred.promise;
+            },
+
+            getById = function (id) {
+                var deferred = Q.defer();
+
+                var result = _.find(dataContext.experiences, function (item) {
+                    return item.id === id;
+                });
+
+                if (typeof result !== "undefined") {
+                    deferred.resolve(result);
+                } else {
+                    deferred.reject('Experience not exist');
+                }
+
+                return deferred.promise;
+            },
+
             addExperience = function (experience) {
                 var deferred = Q.defer();
 
@@ -83,6 +87,48 @@
                 return deferred.promise;
             },
 
+            relateObjectives = function (experienceId, objectivesToRelate) {
+
+                if (_.isNullOrUndefined(experienceId)) {
+                    throw 'Experience Id not valid';
+                }
+
+                if (_.isNullOrUndefined(objectivesToRelate)) {
+                    throw 'Objectives to relate are not valid';
+                }
+
+                if (!_.isArray(objectivesToRelate)) {
+                    throw 'Objectives to relate are not array';
+                }
+
+                var deferred = Q.defer();
+
+                this.getById(experienceId)
+                    .then(function (experince) {
+                        if (_.isUndefined(experince.objectives)) {
+                            deferred.reject('Objectives not exist');
+                            return;
+                        }
+
+                        _.each(objectivesToRelate, function (objective) {
+                            var isRelated = _.any(experince.objectives, function (item) {
+                                return item.id == objective.id;
+                            });
+
+                            if (!isRelated) {
+                                experince.objectives.push(objective);
+                            }
+                        });
+                        
+                        deferred.resolve();
+                    })
+                    .fail(function (reason) {
+                        deferred.reject(reason);
+                    });
+
+                return deferred.promise;
+            },
+
             removeExperience = function (experienceId) {
                 var deferred = Q.defer();
 
@@ -117,16 +163,14 @@
                 }
 
                 return deferred.promise;
-            }
-        ;
-
-
+            };
 
         return {
-            getById: self.getById,
-            getCollection: self.getCollection,
+            getById: getById,
+            getCollection: getCollection,
 
             addExperience: addExperience,
+            relateObjectives: relateObjectives,
             removeExperience: removeExperience
         };
     }

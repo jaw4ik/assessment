@@ -1,10 +1,11 @@
 ﻿define(['repositories/experienceRepository'],
-    function (experienceRepository) {
+    function (repository) {
         "use strict";
 
         var
-           constants = require('constants'),
-           http = require('plugins/http');
+            constants = require('constants'),
+            http = require('plugins/http'),
+            context = require('dataContext');
 
         describe('repository [experienceRepository]', function () {
 
@@ -16,23 +17,23 @@
             });
 
             it('should be object', function () {
-                expect(experienceRepository).toBeObject();
+                expect(repository).toBeObject();
             });
 
             describe('addExperience:', function () {
 
                 it('should be function', function () {
-                    expect(experienceRepository.addExperience).toBeFunction();
+                    expect(repository.addExperience).toBeFunction();
                 });
 
                 it('should return promise', function () {
-                    expect(experienceRepository.addExperience()).toBePromise();
+                    expect(repository.addExperience()).toBePromise();
                 });
 
                 describe('when experience data is undefined', function () {
 
                     it('should reject promise', function () {
-                        var promise = experienceRepository.addExperience();
+                        var promise = repository.addExperience();
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -47,7 +48,7 @@
                 describe('when experience data is null', function () {
 
                     it('should reject promise', function () {
-                        var promise = experienceRepository.addExperience(null);
+                        var promise = repository.addExperience(null);
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -63,7 +64,7 @@
 
                     it('should send request to server to api/experience/create', function () {
                         var experience = {};
-                        var promise = experienceRepository.addExperience(experience);
+                        var promise = repository.addExperience(experience);
 
                         post.reject();
 
@@ -80,7 +81,7 @@
                         describe('and request failed', function () {
 
                             it('should reject promise', function () {
-                                var promise = experienceRepository.addExperience({});
+                                var promise = repository.addExperience({});
 
                                 post.reject();
 
@@ -99,7 +100,7 @@
                             describe('and response is undefined', function () {
 
                                 it('should reject promise', function () {
-                                    var promise = experienceRepository.addExperience({});
+                                    var promise = repository.addExperience({});
 
                                     post.resolve();
 
@@ -116,7 +117,7 @@
                             describe('and response is null', function () {
 
                                 it('should reject promise', function () {
-                                    var promise = experienceRepository.addExperience({});
+                                    var promise = repository.addExperience({});
 
                                     post.resolve(null);
 
@@ -139,7 +140,7 @@
                                     });
 
                                     it('should reject promise', function () {
-                                        var promise = experienceRepository.addExperience({});
+                                        var promise = repository.addExperience({});
 
                                         waitsFor(function () {
                                             return !promise.isPending();
@@ -160,7 +161,7 @@
                                         });
 
                                         it('should reject promise', function () {
-                                            var promise = experienceRepository.addExperience({});
+                                            var promise = repository.addExperience({});
 
                                             waitsFor(function () {
                                                 return !promise.isPending();
@@ -179,7 +180,7 @@
                                         });
 
                                         it('should reject promise', function () {
-                                            var promise = experienceRepository.addExperience({});
+                                            var promise = repository.addExperience({});
 
                                             waitsFor(function () {
                                                 return !promise.isPending();
@@ -202,7 +203,7 @@
                                         });
 
                                         it('should resolve promise with experience id', function () {
-                                            var promise = experienceRepository.addExperience({});
+                                            var promise = repository.addExperience({});
 
                                             waitsFor(function () {
                                                 return !promise.isPending();
@@ -216,7 +217,7 @@
                                             var dataContext = require('dataContext');
                                             dataContext.experiences = [];
 
-                                            var promise = experienceRepository.addExperience({ title: experienceTitle });
+                                            var promise = repository.addExperience({ title: experienceTitle });
 
                                             waitsFor(function () {
                                                 return !promise.isPending();
@@ -252,17 +253,17 @@
             describe('removeExperience:', function () {
 
                 it('should be function', function () {
-                    expect(experienceRepository.removeExperience).toBeFunction();
+                    expect(repository.removeExperience).toBeFunction();
                 });
 
                 it('should return promise', function () {
-                    expect(experienceRepository.removeExperience()).toBePromise();
+                    expect(repository.removeExperience()).toBePromise();
                 });
 
                 describe('when experience id is not a string', function () {
 
                     it('should reject promise', function () {
-                        var promise = experienceRepository.removeExperience();
+                        var promise = repository.removeExperience();
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -273,7 +274,7 @@
                     });
 
                     it('should not send request to server to api/experience/delete', function () {
-                        var promise = experienceRepository.removeExperience();
+                        var promise = repository.removeExperience();
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -289,7 +290,7 @@
 
                     it('should send request to server to api/experience/delete', function () {
                         var experienceId = 'id';
-                        var promise = experienceRepository.removeExperience(experienceId);
+                        var promise = repository.removeExperience(experienceId);
 
                         post.reject();
 
@@ -309,7 +310,7 @@
 
                             it('should reject promise', function () {
                                 var reason = 'reason';
-                                var promise = experienceRepository.removeExperience('id');
+                                var promise = repository.removeExperience('id');
 
                                 post.reject(reason);
 
@@ -328,7 +329,7 @@
                             describe('and response is not an object', function () {
 
                                 it('should reject promise', function () {
-                                    var promise = experienceRepository.removeExperience('id');
+                                    var promise = repository.removeExperience('id');
 
                                     post.resolve();
 
@@ -351,7 +352,7 @@
                                     });
 
                                     it('should reject promise', function () {
-                                        var promise = experienceRepository.removeExperience('id');
+                                        var promise = repository.removeExperience('id');
 
                                         waitsFor(function () {
                                             return !promise.isPending();
@@ -370,7 +371,7 @@
                                     });
 
                                     it('should resolve promise', function () {
-                                        var promise = experienceRepository.removeExperience('id');
+                                        var promise = repository.removeExperience('id');
 
                                         waitsFor(function () {
                                             return !promise.isPending();
@@ -385,13 +386,159 @@
                                         var dataContext = require('dataContext');
                                         dataContext.experiences = [{ id: 'id' }];
 
-                                        var promise = experienceRepository.removeExperience(experienceId);
+                                        var promise = repository.removeExperience(experienceId);
 
                                         waitsFor(function () {
                                             return !promise.isPending();
                                         });
                                         runs(function () {
                                             expect(dataContext.experiences.length).toEqual(0);
+                                        });
+                                    });
+
+                                });
+
+                            });
+
+                        });
+
+                    });
+
+                });
+
+            });
+
+            describe('relateObjectives:', function () {
+
+                it('should be function', function () {
+                    expect(repository.relateObjectives).toBeFunction();
+                });
+
+                describe('when invalid arguments', function () {
+
+                    describe('when experienceId undefined', function () {
+
+                        it('should throw exception', function () {
+                            var f = function () { repository.relateObjectives(); };
+                            expect(f).toThrow();
+                        });
+
+                    });
+
+                    describe('when experienceId is null', function () {
+
+                        it('should throw exception', function () {
+                            var f = function () { repository.relateObjectives(null); };
+                            expect(f).toThrow();
+                        });
+
+                    });
+
+                    describe('when input objectives is undefined', function() {
+
+                        it('should throw exception', function() {
+                            var f = function () { repository.relateObjectives('0'); };
+                            expect(f).toThrow();
+                        });
+
+                    });
+                    
+                    describe('when input objectives is null', function () {
+
+                        it('should throw exception', function () {
+                            var f = function () { repository.relateObjectives('0', null); };
+                            expect(f).toThrow();
+                        });
+
+                    });
+                    
+                    describe('when input objectives are not array', function () {
+
+                        it('should throw exception', function () {
+                            var f = function () { repository.relateObjectives('0', {}); };
+                            expect(f).toThrow();
+                        });
+
+                    });
+
+                });
+
+                describe('when valid arguments', function () {
+
+                    it('should return promise', function () {
+                        var result = repository.relateObjectives('0', []);
+                        expect(result).toBePromise();
+                    });
+
+                    describe('when get experience', function () {
+
+                        describe('and experience not exist', function () {
+
+                            it('should reject promise', function () {
+                                context.experiences = [];
+
+                                var promise = repository.relateObjectives('0', []);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Experience not exist');
+                                });
+                            });
+
+                        });
+
+                        describe('and experience exists', function () {
+
+                            describe('and objectives not exist', function () {
+
+                                it('should reject promise', function () {
+                                    context.experiences = [{ id: '0' }];
+
+                                    var promise = repository.relateObjectives('0', []);
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(promise).toBeRejectedWith('Objectives not exist');
+                                    });
+                                });
+
+                            });
+
+                            describe('and objectives are exists', function () {
+
+                                describe('when objectives have been related', function() {
+
+                                    it('should not be related', function() {
+                                        context.experiences = [{ id: '1', objectives: [{ id: '0' }] }];
+
+                                        var promise = repository.relateObjectives('1', [{ id: '0' }]);
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(context.experiences[0].objectives.length).toBe(1);
+                                        });
+                                    });
+
+                                });
+
+                                describe('when objectives are not related', function() {
+                                    
+                                    it('should append list of objectives to experience', function () {
+                                        context.experiences = [{ id: '1', objectives: [] }];
+
+                                        var promise = repository.relateObjectives('1', [{ id: '0' }, { id: '1' }]);
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(context.experiences[0].objectives.length).toBe(2);
                                         });
                                     });
 
