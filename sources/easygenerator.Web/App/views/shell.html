@@ -8,9 +8,9 @@
         <!-- /ko -->
     </div>
 </div>
-<div class="icon-spinner-wrapper" data-bind="visible: router.isNavigating()">
+<div class="icon-spinner-wrapper" data-bind="visible: !isViewReady()">
     <img src="/Content/images/loader.gif" alt="" />
 </div>
-<section id="content" class="main" data-bind="style: { visibility: router.isNavigating() ? 'hidden' : 'visible'}">
+<section id="content" class="main" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden'}">
     <div data-bind="router: { cacheViews: false }"></div>
 </section>

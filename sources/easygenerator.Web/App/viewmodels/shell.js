@@ -2,6 +2,8 @@
     function (app, router, routes, datacontext, localizationManager) {
         var
             startModule = 'experiences',
+            isViewReady = ko.observable(false),
+
             activeModule = ko.computed(function () {
                 var activeItem = router.activeItem();
                 if (_.isObject(activeItem)) {
@@ -11,6 +13,7 @@
                 }
                 return '';
             }),
+
             activate = function () {
                 return datacontext.initialize()
                     .then(function () {
@@ -39,6 +42,14 @@
                             window.location.assign(downloadUrl);
                         };
 
+                        router.on('router:route:activating').then(function () {
+                            isViewReady(false);
+                        });
+
+                        router.on('router:navigation:composition-complete').then(function () {
+                            isViewReady(true);
+                        });
+
                         return router.map(routes)
                             .buildNavigationModel()
                             .mapUnknownRoutes('viewmodels/errors/404', '404')
@@ -51,7 +62,9 @@
             activate: activate,
             activeModuleName: activeModule,
             router: router,
-            homeModuleName: startModule
+            homeModuleName: startModule,
+
+            isViewReady: isViewReady
         };
     }
 );
