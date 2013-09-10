@@ -51,6 +51,15 @@
                     });
 
                 });
+                
+                describe('when title is longer than 255 but after trimming is not longer than 255', function () {
+
+                    it('should be valid', function () {
+                        viewModel.title(' ' + utils.createString(254) + ' ');
+                        expect(viewModel.title.isValid()).toBeTruthy();
+                    });
+
+                });
 
                 describe('when title is whitespace', function () {
 

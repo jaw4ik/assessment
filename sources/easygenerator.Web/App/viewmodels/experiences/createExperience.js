@@ -13,19 +13,14 @@
                 eventTracker.publish(eventName, events.category);
             };
 
-        var
-            title = (function () {
-                var val = ko.observable();
-                val.maxLength = 255;
-                val.extend({
-                    required: true,
-                    maxLength: val.maxLength
-                });
-                val.isEditing = ko.observable(false);
-                return val;
-            })(),
+        var title = ko.observable('');
+        title.isValid = ko.computed(function () {
+            var length = title().trim().length;
+            return length > 0 && length <= constants.validation.experienceTitleMaxLength;
+        });
+        title.isEditing = ko.observable();
 
-            navigateToExperiences = function () {
+        var navigateToExperiences = function () {
                 sendEvent(events.navigateToExperiences);
                 router.navigate('experiences');
             },
