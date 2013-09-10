@@ -35,7 +35,6 @@
             objectiveTitle = '',
             createdOn = null,
             modifiedOn = ko.observable(),
-            questionTitleMaxLength = 255,
             answerOptions = ko.observableArray([]),
             explanations = ko.observableArray([]),
             hasPrevious = false,
@@ -45,7 +44,7 @@
             isExplanationsBlockExpanded = ko.observable(true),
             title = ko.observable('').extend({
                 required: true,
-                maxLength: questionTitleMaxLength
+                maxLength: constants.validation.questionTitleMaxLength
             }),
             language = ko.observable();
 
@@ -422,7 +421,7 @@
             title: title,
             createdOn: createdOn,
             modifiedOn: modifiedOn,
-            questionTitleMaxLength: questionTitleMaxLength,
+            questionTitleMaxLength: constants.validation.questionTitleMaxLength,
             answerOptions: answerOptions,
             explanations: explanations,
             hasPrevious: hasPrevious,

@@ -75,6 +75,47 @@
 
             });
 
+            describe('title:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.title).toBeObservable();
+                });
+
+                describe('isValid', function () {
+
+                    it('should be observable', function () {
+                        expect(viewModel.title.isValid).toBeObservable();
+                    });
+
+                    describe('when title is empty', function () {
+
+                        it('should be false', function () {
+                            viewModel.title('');
+                            expect(viewModel.title.isValid()).toBeFalsy();
+                        });
+
+                    });
+
+                    describe('when title is longer than 255', function () {
+
+                        it('should be false', function () {
+                            viewModel.title(utils.createString(viewModel.experienceTitleMaxLength + 1));
+                            expect(viewModel.title.isValid()).toBeFalsy();
+                        });
+
+                    });
+
+                    describe('when title is not empty and not longer than 255', function () {
+
+                        it('should be true', function () {
+                            viewModel.title(utils.createString(viewModel.experienceTitleMaxLength - 1));
+                            expect(viewModel.title.isValid()).toBeTruthy();
+                        });
+
+                    });
+                });
+            });
+
             it('should expose allowed build statuses', function () {
                 expect(viewModel.statuses).toEqual(constants.buildingStatuses);
             });
@@ -656,8 +697,16 @@
 
             describe('saveChanges:', function () {
 
+                var experienceRepositoryGetById, getPromise;
+
                 beforeEach(function () {
+                    experienceRepositoryGetById = Q.defer();
+
                     spyOn(notify, 'info');
+                    spyOn(repository, 'getById').andReturn(experienceRepositoryGetById.promise);
+
+                    experienceRepositoryGetById.resolve(experience);
+                    getPromise = experienceRepositoryGetById.promise.fin(function () { });
                 });
 
                 it('should be function', function () {
@@ -671,11 +720,17 @@
                 });
 
                 describe('when title is not valid', function () {
-
+                    
                     it('should clear title', function () {
-                        viewModel.title('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.');
+                        viewModel.title(utils.createString(viewModel.experienceTitleMaxLength + 1));
                         viewModel.saveChanges();
-                        expect(viewModel.title()).toBe('');
+                        
+                        waitsFor(function () {
+                            return !getPromise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.title()).toBe(experience.title);
+                        });
                     });
 
                     it('should not show notification', function () {
@@ -686,9 +741,15 @@
                     describe('when title contains only spaces', function () {
 
                         it('should trim title', function () {
-                            viewModel.title('                                      ');
+                            viewModel.title('              ');
                             viewModel.saveChanges();
-                            expect(viewModel.title()).toBe('');
+
+                            waitsFor(function () {
+                                return !getPromise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.title()).toBe(experience.title);
+                            });
                         });
 
                     });
@@ -697,11 +758,7 @@
 
                 describe('when title is valid', function () {
 
-                    var experienceRepositoryGetById;
-
                     beforeEach(function () {
-                        experienceRepositoryGetById = Q.defer();
-                        spyOn(repository, 'getById').andReturn(experienceRepositoryGetById.promise);
                         viewModel.title('Valid title');
                     });
 

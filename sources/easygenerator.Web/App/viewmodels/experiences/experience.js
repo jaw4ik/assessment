@@ -22,7 +22,7 @@
 
         var id = '',
             title = ko.observable('').extend({
-                require: true,
+                required: true,
                 maxLength: constants.validation.experienceTitleMaxLength
             }),
             objectives = [],
@@ -147,7 +147,7 @@
 
         saveChanges = function () {
             this.title(title().trim());
-            if (title.isValid() && title().length != 0 && title() != previousTitle) {
+            if (title.isValid() && title() != previousTitle) {
                 sendEvent(events.updateExperienceTitle);
                 experience.title = title();
                 var modified = new Date();

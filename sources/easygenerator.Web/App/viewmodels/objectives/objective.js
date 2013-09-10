@@ -25,12 +25,11 @@
             previousObjectiveId = null,
             createdOn = null,
             modifiedOn = ko.observable(),
-            titleMaxLength = 255,
-
             title = ko.observable('').extend({
                 required: true,
-                maxLength: titleMaxLength
+                maxLength: constants.validation.objectiveTitleMaxLength
             }),
+            
             language = ko.observable();
 
         title.isEditing = ko.observable();
@@ -214,7 +213,6 @@
                         that.questions(currentSortingOption() == constants.sortingOptions.byTitleAsc ? array : array.reverse());
                     });
             },
-
             getSelectedQuestions = function () {
                 return _.reject(questions(), function (item) {
                     return !item.isSelected();
@@ -231,7 +229,7 @@
             previousObjectiveId: previousObjectiveId,
 
             title: title,
-            titleMaxLength: titleMaxLength,
+            titleMaxLength: constants.validation.objectiveTitleMaxLength,
             language: language,
             createdOn: createdOn,
             modifiedOn: modifiedOn,

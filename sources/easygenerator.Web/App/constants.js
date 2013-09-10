@@ -22,7 +22,8 @@
             
             validation: {
                 objectiveTitleMaxLength: 255,
-                experienceTitleMaxLength: 255
+                experienceTitleMaxLength: 255,
+                questionTitleMaxLength: 255
             },
             
             defaultObjectiveImage: '/Content/images/objective.png'
