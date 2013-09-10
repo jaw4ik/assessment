@@ -1,14 +1,24 @@
 ﻿<section>
-    <h2 class="text-center eg-experience-title" data-bind="text: titleOfExperience"></h2>
-    <div data-bind="foreach: itemsQuestion">
-        <div class="panel" data-bind="attr: { id: '' + objectiveId + id }">
-            <div class="panel-heading  eg-question-title">
-                <div class="title pull-left">
-                    <span data-bind="text: title"></span>
-                    <span data-bind="text: ' (Question ' + number + ' of ' + $parent.countOfQuestions() + ')'"></span>
+    <div class="page-title-holder">
+        <h1 class="page-title" data-bind="text: titleOfExperience"></h1>
+    </div>
+
+    <ul class="block-list unstyled">
+        <!-- ko foreach: itemsQuestion -->
+        <li class="block-list-item" data-bind="attr: { id: '' + objectiveId + id }">
+            <header class="header-panel question-title">
+                <div class="header-panel-inner">
+                    <div class="question-counter">
+                        <span data-bind="text: number + ' of ' + $parent.countOfQuestions()"></span>
+                    </div>
+                    <div class="question-text" data-bind="text: title">
+                    </div>
+                    <div class="question-explanation" data-bind="click: $parent.showExplanations">
+                        <span class="question-explanation-icon"></span>
+                    </div>
                 </div>
-                <img src="img/explanation.png" alt="" class="img-circle pull-right explanation-icon" title="Show explanation" data-bind=" click: $parent.showExplanations"  />
-            </div>
+            </header>
+
             <ul class="list-unstyled" data-bind="foreach: answers">
                 <li class="eg-answer eg-cursor-pointer" data-bind="click: toggleCheck">
                     <div>
@@ -17,8 +27,9 @@
                     <div data-bind="text: text"></div>
                 </li>
             </ul>
-        </div>
-    </div>
+        </li>
+        <!-- /ko -->
+    </ul>
     <div class="btn-group btn-group-justified" data-bind="visible: isEndScroll()">
         <a class="btn btn-default" data-bind="click: submit">Submit</a>
     </div>

@@ -1,5 +1,5 @@
 ﻿{
-    "title": "The new generation of e-Learning",
+    "title": "The new generation of E-Learning",
      "objectives": [
         {
             "id": 0,

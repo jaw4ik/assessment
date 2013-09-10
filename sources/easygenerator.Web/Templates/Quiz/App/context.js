@@ -20,7 +20,7 @@
                         return {
                             id: objective.id,
                             title: objective.title,
-                            image: 'img/objective.png',
+                            image: objective.image,
                             questions: _.map(objective.questions, function (question) {
                                 return {
                                     id: question.id,

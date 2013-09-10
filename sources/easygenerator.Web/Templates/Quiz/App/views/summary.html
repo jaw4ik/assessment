@@ -7,6 +7,8 @@
             <div class="progress-bar " data-bind="style: { width: overallScore + '%' }, css: overallScore > 33 ? overallScore <= 67 ? 'progress-bar-warning' : 'progress-bar-success' : 'progress-bar-danger'"></div>
             <span class="badge eg-badge " data-bind="text: overallScore + '%'"></span>
         </div>
+        <canvas width="90" height="90" data-bind="circleProgress: { progress: overallScore }"></canvas>
+        <div data-bind="text: overallScore"></div>
     </div>
     <div class="panel">
         <div class="panel-heading">
