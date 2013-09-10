@@ -187,7 +187,7 @@ body
     .create-tip .create-tip-text-wrapper
     {
         position: absolute;
-        right: 10px;
+        right: -15px;
         top: 54px;
     }
 
@@ -214,6 +214,7 @@ body
         height: 54px;
         position: absolute;
         top: 10px;
+        right: -75px;
         transform-origin: 100% 0;
         -webkit-transform: rotate(352deg);
         -moz-transform: rotate(352deg);

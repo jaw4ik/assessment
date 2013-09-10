@@ -620,7 +620,7 @@ src: url('./font/alphamacaoe.woff') format('woff'), /* Modern Browsers */
     color: #656565;
     min-width: 100px;
     height: 55px;
-    padding: 0 35px;
+    padding: 0 20px;
     line-height: 52px;
     margin: 0;
     border: 1px solid #DEDFE3;
