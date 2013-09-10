@@ -16,10 +16,9 @@
 
         var objectiveId = null,
          objectiveTitle = null,
-         titleMaxLength = 255,
          title = ko.observable('').extend({
              required: true,
-             maxLength: titleMaxLength
+             maxLength: constants.validation.questionTitleMaxLength
          });
         title.isEditing = ko.observable();
 
@@ -89,7 +88,7 @@
 
         return {
             activate: activate,
-            titleMaxLength: titleMaxLength,
+            titleMaxLength: constants.validation.questionTitleMaxLength,
             title: title,
             objectiveTitle: objectiveTitle,
 
