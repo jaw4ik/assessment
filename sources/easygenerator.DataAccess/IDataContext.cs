@@ -5,7 +5,9 @@ namespace easygenerator.DataAccess
 {
     public interface IDataContext
     {
-        ICollection<Objective> Objectives { get; set; }
-        ICollection<Experience> Experiences { get; set; }
+        ICollection<Objective> Objectives { get; }
+        ICollection<Experience> Experiences { get; }
+
+        void Save();
     }
 }

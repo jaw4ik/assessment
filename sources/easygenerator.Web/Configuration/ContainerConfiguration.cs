@@ -7,6 +7,7 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
+using easygenerator.Web.Components;
 using easygenerator.Web.Components.ModelBinding;
 
 namespace easygenerator.Web.Configuration
@@ -32,7 +33,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PackageModelSerializer>();
             builder.RegisterType<BuildPackageCreator>();
 
-            builder.RegisterType<InMemoryDataContext>().As<IDataContext>().SingleInstance();
+            builder.RegisterType<SessionDataContext>().As<IDataContext>();
 
             builder.RegisterType<ObjectiveRepository>().As<IObjectiveRepository>().As<IRepository<Objective>>();
             builder.RegisterType<ExperienceRepository>().As<IExperienceRepository>().As<IRepository<Experience>>(); ;

@@ -18,5 +18,10 @@ namespace easygenerator.DataAccess
 
         public ICollection<Objective> Objectives { get; set; }
         public ICollection<Experience> Experiences { get; set; }
+        
+        public void Save()
+        {
+            
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
+using easygenerator.DataAccess;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components.ActionResults;
 
@@ -8,6 +9,11 @@ namespace easygenerator.Web.Components
 {
     public abstract class DefaultController : Controller
     {
+        protected override void OnResultExecuted(ResultExecutedContext filterContext)
+        {
+            DependencyResolver.Current.GetService<IDataContext>().Save();
+        }
+
         protected ActionResult JsonSuccess()
         {
             return new JsonSuccessResult();
