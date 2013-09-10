@@ -41,7 +41,7 @@
                 
                 describe('when longer than 255 but after trimming - not longer than 255', function () {
 
-                    it('should be false', function () {
+                    it('should be true', function () {
                         viewModel.title('   ' + utils.createString(viewModel.objectiveTitleMaxLength - 1) + '   ');
                         expect(viewModel.title.isValid()).toBeTruthy();
                     });
