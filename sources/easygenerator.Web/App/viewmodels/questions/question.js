@@ -42,14 +42,14 @@
             lastAddedExplanation = ko.observable(null),
             isAnswersBlockExpanded = ko.observable(true),
             isExplanationsBlockExpanded = ko.observable(true),
-            title = ko.observable('').extend({
-                required: true,
-                maxLength: constants.validation.questionTitleMaxLength
-            }),
+            title = ko.observable(''),
             language = ko.observable();
 
         title.isEditing = ko.observable();
-
+        title.isValid = ko.computed(function () {
+            var length = title().trim().length;
+            return length > 0 && length <= constants.validation.questionTitleMaxLength;
+        });
         //#region Question
 
         var

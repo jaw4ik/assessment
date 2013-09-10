@@ -101,6 +101,15 @@ define(function (require) {
 
                 });
 
+                describe('when title is longer than 255 but after trimming is not longer than 255', function () {
+
+                    it('should be false', function () {
+                        viewModel.title('   ' + utils.createString(viewModel.questionTitleMaxLength - 1) + '   ');
+                        expect(viewModel.title.isValid()).toBeTruthy();
+                    });
+
+                });
+
                 describe('when title is not empty and not longer than 255', function () {
 
                     it('should be true', function () {
