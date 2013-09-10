@@ -25,14 +25,14 @@
             previousObjectiveId = null,
             createdOn = null,
             modifiedOn = ko.observable(),
-            title = ko.observable('').extend({
-                required: true,
-                maxLength: constants.validation.objectiveTitleMaxLength
-            }),
-            
+            title = ko.observable(''),
             language = ko.observable();
 
         title.isEditing = ko.observable();
+        title.isValid = ko.computed(function () {
+            var length = title().trim().length;
+            return length > 0 && length <= constants.validation.objectiveTitleMaxLength;
+        });
 
         var
             startEditTitle = function () {
