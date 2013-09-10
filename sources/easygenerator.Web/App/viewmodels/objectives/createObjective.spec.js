@@ -59,6 +59,18 @@
 
             });
 
+            describe('objectiveTitleMaxLength:', function () {
+
+                it('should be defined', function () {
+                    expect(viewModel.objectiveTitleMaxLength).toBeDefined();
+                });
+
+                it('should be 255', function () {
+                    expect(viewModel.objectiveTitleMaxLength).toBe(255);
+                });
+
+            });
+
             describe('createAndNew:', function () {
 
                 var addObjective;

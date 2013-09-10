@@ -20,6 +20,18 @@
                 expect(viewModel).toBeObject();
             });
 
+            describe('experienceTitleMaxLength:', function() {
+
+                it('should be defined', function () {
+                    expect(viewModel.experienceTitleMaxLength).toBeDefined();
+                });
+
+                it('should be 255', function () {
+                    expect(viewModel.experienceTitleMaxLength).toBe(255);
+                });
+                
+            });
+
             describe('title:', function () {
 
                 it('should be observable', function () {
@@ -71,7 +83,7 @@
                 });
 
             });
-
+            
             describe('createAndNew:', function () {
 
                 var addExperience;

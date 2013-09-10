@@ -61,6 +61,7 @@
         return {
             activate: activate,
             title: title,
+            experienceTitleMaxLength: constants.validation.experienceTitleMaxLength,
 
             navigateToExperiences: navigateToExperiences,
             createAndNew: createAndNew,
