@@ -15,9 +15,9 @@
 <div class="loader" data-bind="visible: router.isNavigating()">
     <div class="loader-image"></div>
 </div>
-<div class="content-wrapper" data-bind="visible: !router.isNavigating()">
+<section class="content-wrapper" data-bind="visible: !router.isNavigating()">
     <!--ko compose: {
         model: router.activeItem, 
         afterCompose: router.afterCompose } -->
     <!--/ko-->
-</div>
+</section>
