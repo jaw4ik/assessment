@@ -87,21 +87,16 @@
                 return deferred.promise;
             },
 
-            relateObjectives = function (experienceId, objectivesToRelate) {
-
-                if (_.isNullOrUndefined(experienceId)) {
-                    throw 'Experience Id not valid';
-                }
-
-                if (_.isNullOrUndefined(objectivesToRelate)) {
-                    throw 'Objectives to relate are not valid';
-                }
-
-                if (!_.isArray(objectivesToRelate)) {
-                    throw 'Objectives to relate are not array';
-                }
-
+            relateObjectives = function (experienceId, objectives) {
                 var deferred = Q.defer();
+                
+                if (!_.isString(experienceId)) {
+                    deferred.reject('Experience id is not valid');
+                }
+
+                if (!_.isArray(objectives)) {
+                    deferred.reject('Objectives to relate are not array');
+                }
 
                 this.getById(experienceId)
                     .then(function (experince) {
@@ -110,8 +105,8 @@
                             return;
                         }
 
-                        _.each(objectivesToRelate, function (objective) {
-                            var isRelated = _.any(experince.objectives, function (item) {
+                        _.each(objectives, function (objective) {
+                            var isRelated = _.any(experince.objectives, function(item) {
                                 return item.id == objective.id;
                             });
 
@@ -150,7 +145,7 @@
                                 return;
                             }
 
-                            dataContext.experiences = _.reject(dataContext.experiences, function (experience) {
+                            dataContext.experiences = _.reject(dataContext.experiences, function(experience) {
                                 return experience.id == experienceId;
                             });
 
@@ -163,6 +158,32 @@
                 }
 
                 return deferred.promise;
+            },
+
+            unrelateObjectives = function (experienceId, objectives) {
+                var deferred = Q.defer();
+
+                if (!_.isString(experienceId)) {
+                    deferred.reject('Experience id should be a string');
+                }
+
+                if (!_.isArray(objectives)) {
+                    deferred.reject('objectives should be an array');
+                }
+
+                this.getById(experienceId)
+                    .then(function (experience) {
+                        experience.objectives = _.reject(experience.objectives, function(item) {
+                            return _.contains(objectives, item.id);
+                        });
+
+                        deferred.resolve();
+                    })
+                    .fail(function (reason) {
+                        deferred.reject(reason);
+                    });
+
+                return deferred.promise;
             };
 
         return {
@@ -171,6 +192,7 @@
 
             addExperience: addExperience,
             relateObjectives: relateObjectives,
+            unrelateObjectives: unrelateObjectives,
             removeExperience: removeExperience
         };
     }

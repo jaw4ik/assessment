@@ -4,8 +4,7 @@
 
         var
             constants = require('constants'),
-            http = require('plugins/http'),
-            context = require('dataContext');
+            http = require('plugins/http');
 
         describe('repository [experienceRepository]', function () {
 
@@ -414,68 +413,131 @@
                     expect(repository.relateObjectives).toBeFunction();
                 });
 
-                describe('when invalid arguments', function () {
+                it('should return promise', function () {
+                    var result = repository.relateObjectives('0', []);
+                    expect(result).toBePromise();
+                });
 
-                    describe('when experienceId undefined', function () {
+                describe('when argument \"experienceId\" is undefined', function () {
 
-                        it('should throw exception', function () {
-                            var f = function () { repository.relateObjectives(); };
-                            expect(f).toThrow();
+                    it('should reject pomise', function () {
+                        var promise = repository.relateObjectives();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
                         });
-
-                    });
-
-                    describe('when experienceId is null', function () {
-
-                        it('should throw exception', function () {
-                            var f = function () { repository.relateObjectives(null); };
-                            expect(f).toThrow();
+                        runs(function () {
+                            expect(promise).toBeRejected();
                         });
-
-                    });
-
-                    describe('when input objectives is undefined', function() {
-
-                        it('should throw exception', function() {
-                            var f = function () { repository.relateObjectives('0'); };
-                            expect(f).toThrow();
-                        });
-
-                    });
-                    
-                    describe('when input objectives is null', function () {
-
-                        it('should throw exception', function () {
-                            var f = function () { repository.relateObjectives('0', null); };
-                            expect(f).toThrow();
-                        });
-
-                    });
-                    
-                    describe('when input objectives are not array', function () {
-
-                        it('should throw exception', function () {
-                            var f = function () { repository.relateObjectives('0', {}); };
-                            expect(f).toThrow();
-                        });
-
                     });
 
                 });
 
-                describe('when valid arguments', function () {
+                describe('when argument \"experienceId\" is null', function () {
 
-                    it('should return promise', function () {
-                        var result = repository.relateObjectives('0', []);
-                        expect(result).toBePromise();
+                    it('should reject promise', function () {
+                        var promise = repository.relateObjectives(null);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejected();
+                        });
                     });
 
-                    describe('when get experience', function () {
+                });
 
-                        describe('and experience not exist', function () {
+                describe('when argument \"experienceId\" is not a string', function () {
+
+                    it('should reject promise', function () {
+                        var promise = repository.relateObjectives({});
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejected();
+                        });
+                    });
+
+                });
+
+                describe('when argument \"objectives\" is undefined', function () {
+
+                    it('should reject promise', function () {
+                        var promise = repository.relateObjectives('some experience Id');
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejected();
+                        });
+                    });
+
+                });
+
+                describe('when argument \"objectives\" is null', function () {
+
+                    it('should reject promise', function () {
+                        var promise = repository.relateObjectives('some experience Id', null);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejected();
+                        });
+                    });
+
+                });
+
+                describe('when argument \"objectives\" is not an array', function () {
+
+                    it('should reject promise', function () {
+                        var promise = repository.relateObjectives('some experience Id', {});
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejected();
+                        });
+                    });
+
+                });
+
+                describe('when arguments are valid', function () {
+                    var getById;
+                    
+                    beforeEach(function() {
+                        getById = Q.defer();
+                        spyOn(repository, 'getById').andReturn(getById.promise);
+                    });
+
+                    describe('and experience not exist', function () {
+
+                        it('should reject promise', function () {
+                            getById.reject('reject reason');
+                            var promise = repository.relateObjectives('0', []);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeRejectedWith('reject reason');
+                            });
+                        });
+
+                    });
+
+                    describe('and experience exists', function () {
+
+                        describe('and objectives not exist', function () {
 
                             it('should reject promise', function () {
-                                context.experiences = [];
+                                getById.resolve({ id: '0' });
 
                                 var promise = repository.relateObjectives('0', []);
 
@@ -483,69 +545,199 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(promise).toBeRejectedWith('Experience not exist');
+                                    expect(promise).toBeRejectedWith('Objectives not exist');
                                 });
                             });
 
                         });
 
-                        describe('and experience exists', function () {
+                        describe('and objectives are exists', function () {
 
-                            describe('and objectives not exist', function () {
+                            describe('when objectives have been related', function () {
 
-                                it('should reject promise', function () {
-                                    context.experiences = [{ id: '0' }];
+                                it('should not be related', function () {
+                                    var experience = { id: '1', objectives: [{ id: '0' }] };
+                                    getById.resolve(experience);
 
-                                    var promise = repository.relateObjectives('0', []);
+                                    var promise = repository.relateObjectives('1', [{ id: '0' }]);
 
                                     waitsFor(function () {
                                         return !promise.isPending();
                                     });
                                     runs(function () {
-                                        expect(promise).toBeRejectedWith('Objectives not exist');
+                                        expect(experience.objectives.length).toBe(1);
                                     });
                                 });
 
                             });
 
-                            describe('and objectives are exists', function () {
+                            describe('when objectives are not related', function () {
 
-                                describe('when objectives have been related', function() {
+                                it('should append list of objectives to experience', function () {
+                                    var experience = { id: '1', objectives: [] };
+                                    getById.resolve(experience);
 
-                                    it('should not be related', function() {
-                                        context.experiences = [{ id: '1', objectives: [{ id: '0' }] }];
+                                    var promise = repository.relateObjectives('1', [{ id: '0' }, { id: '1' }]);
 
-                                        var promise = repository.relateObjectives('1', [{ id: '0' }]);
-
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(context.experiences[0].objectives.length).toBe(1);
-                                        });
+                                    waitsFor(function () {
+                                        return !promise.isPending();
                                     });
-
-                                });
-
-                                describe('when objectives are not related', function() {
-                                    
-                                    it('should append list of objectives to experience', function () {
-                                        context.experiences = [{ id: '1', objectives: [] }];
-
-                                        var promise = repository.relateObjectives('1', [{ id: '0' }, { id: '1' }]);
-
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(context.experiences[0].objectives.length).toBe(2);
-                                        });
+                                    runs(function () {
+                                        expect(experience.objectives.length).toBe(2);
                                     });
-
                                 });
 
                             });
 
+                        });
+
+                    });
+
+                });
+
+            });
+
+            describe('unrelateObjectives', function () {
+
+                it('should be a function', function () {
+                    expect(repository.unrelateObjectives).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    var result = repository.unrelateObjectives('0', []);
+                    expect(result).toBePromise();
+                });
+
+                describe('when argument \"experienceId\" is undefined', function () {
+
+                    it('should reject pomise', function () {
+                        var promise = repository.unrelateObjectives();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejected();
+                        });
+                    });
+
+                });
+
+                describe('when argument \"experienceId\" is null', function () {
+
+                    it('should reject promise', function () {
+                        var promise = repository.unrelateObjectives(null);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejected();
+                        });
+                    });
+
+                });
+
+                describe('when argument \"experienceId\" is not a string', function () {
+
+                    it('should reject promise', function () {
+                        var promise = repository.unrelateObjectives({});
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejected();
+                        });
+                    });
+
+                });
+
+                describe('when argument \"objectives\" is undefined', function () {
+
+                    it('should reject promise', function () {
+                        var promise = repository.unrelateObjectives('some experience Id');
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejected();
+                        });
+                    });
+
+                });
+
+                describe('when argument \"objectives\" is null', function () {
+
+                    it('should reject promise', function () {
+                        var promise = repository.unrelateObjectives('some experience Id', null);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejected();
+                        });
+                    });
+
+                });
+
+                describe('when argument \"objectives\" is not an array', function () {
+
+                    it('should reject promise', function () {
+                        var promise = repository.unrelateObjectives('some experience Id', {});
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejected();
+                        });
+                    });
+
+                });
+
+                describe('when all arguments are valid', function () {
+                    var getById;
+
+                    beforeEach(function () {
+                        getById = Q.defer();
+                        spyOn(repository, 'getById').andReturn(getById.promise);
+                    });
+
+                    describe('and experience doesn\'t exist', function () {
+
+                        it('should reject promise', function () {
+                            getById.reject('Experience doesn\'t exist');
+                            var promise = repository.unrelateObjectives('some experience Id', []);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeRejected();
+                            });
+                        });
+
+                    });
+
+                    describe('and experience exists', function () {
+
+                        it('should remove objectives', function () {
+                            var objectives = ['2', '6'],
+                                experience = { objectives: [{ id: '2' }, { id: '4' }, { id: '6' }] };
+                            getById.resolve(experience);
+                            var promise = repository.unrelateObjectives('some Id', objectives);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeResolved();
+                                expect(experience.objectives.length).toBe(1);
+                                expect(experience.objectives[0].id).toBe('4');
+                            });
                         });
 
                     });
