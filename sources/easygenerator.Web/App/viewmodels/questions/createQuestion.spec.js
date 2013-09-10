@@ -43,13 +43,13 @@
             });
 
             it('should have \'isEditing\' observable', function () {
-                expect(viewModel.title.isModified).toBeObservable();
+                expect(viewModel.title.isEditing).toBeObservable();
             });
 
             describe('isValid:', function () {
 
-                it('should be observable', function () {
-                    expect(viewModel.title.isValid).toBeObservable();
+                it('should be computed', function () {
+                    expect(viewModel.title.isValid).toBeComputed();
                 });
 
                 describe('when title is empty', function () {
@@ -64,6 +64,15 @@
                         viewModel.title(utils.createString(viewModel.titleMaxLength + 1));
                         expect(viewModel.title.isValid()).toBeFalsy();
                     });
+                });
+                
+                describe('when title is longer than 255 but after trimming is not longer than 255', function () {
+
+                    it('should be true', function () {
+                        viewModel.title('   ' + utils.createString(viewModel.titleMaxLength - 1) + '   ');
+                        expect(viewModel.title.isValid()).toBeTruthy();
+                    });
+
                 });
 
                 describe('when title is not empty and not longer than 255', function () {

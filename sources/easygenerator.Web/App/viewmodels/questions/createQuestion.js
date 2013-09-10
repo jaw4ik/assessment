@@ -16,10 +16,13 @@
 
         var objectiveId = null,
          objectiveTitle = null,
-         title = ko.observable('').extend({
-             required: true,
-             maxLength: constants.validation.questionTitleMaxLength
-         });
+         title = ko.observable('');
+        
+        title.isValid = ko.computed(function () {
+            var length = title().trim().length;
+            return length > 0 && length <= constants.validation.questionTitleMaxLength;
+        });
+        title.isModified = ko.observable();
         title.isEditing = ko.observable();
 
         var navigateToObjective = function () {
