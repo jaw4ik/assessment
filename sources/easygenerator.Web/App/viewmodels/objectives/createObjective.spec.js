@@ -26,8 +26,8 @@
                     expect(viewModel.title).toBeObservable();
                 });
 
-                it('should have isValid observable', function () {
-                    expect(viewModel.title.isValid).toBeObservable();
+                it('should have isValid computed', function () {
+                    expect(viewModel.title.isValid).toBeComputed();
                 });
 
                 describe('when longer than 255 symbols', function () {
@@ -35,6 +35,15 @@
                     it('should be not valid', function () {
                         viewModel.title(new Array(257).join('a'));
                         expect(viewModel.title.isValid()).toBeFalsy();
+                    });
+
+                });
+                
+                describe('when longer than 255 but after trimming - not longer than 255', function () {
+
+                    it('should be false', function () {
+                        viewModel.title('   ' + utils.createString(viewModel.objectiveTitleMaxLength - 1) + '   ');
+                        expect(viewModel.title.isValid()).toBeTruthy();
                     });
 
                 });

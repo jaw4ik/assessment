@@ -13,12 +13,13 @@
                 eventTracker.publish(eventName, events.category);
             };
 
-        var
-            title = ko.observable('').extend({
-                required: true,
-                maxLength: constants.validation.objectiveTitleMaxLength
-            }),
-            isTitleEditing = ko.observable(false),
+        var title = ko.observable('');
+        title.isValid = ko.computed(function () {
+            var length = title().trim().length;
+            return length > 0 && length <= constants.validation.objectiveTitleMaxLength;
+        });
+
+        var isTitleEditing = ko.observable(false),
 
             navigateToObjectives = function () {
                 sendEvent(events.navigateToObjectives);

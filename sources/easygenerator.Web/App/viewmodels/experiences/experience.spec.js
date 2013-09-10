@@ -83,8 +83,8 @@
 
                 describe('isValid', function () {
 
-                    it('should be observable', function () {
-                        expect(viewModel.title.isValid).toBeObservable();
+                    it('should be computed', function () {
+                        expect(viewModel.title.isValid).toBeComputed();
                     });
 
                     describe('when title is empty', function () {

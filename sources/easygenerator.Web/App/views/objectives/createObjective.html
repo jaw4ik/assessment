@@ -12,7 +12,7 @@
                 <div class="text-block bordered" data-bind="css: { error: !title.isValid() && title().length > objectiveTitleMaxLength, active: isTitleEditing }">
                     <div data-autofocus="true" class="editarea editarea-editable-text" data-bind="editableText: { text: title, multiline: false }, hasFocus: isTitleEditing"></div>
                     <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > objectiveTitleMaxLength }">
-                        <span data-bind="text: title().length"></span>/<span data-bind="text: objectiveTitleMaxLength"></span>
+                        <span data-bind="text: title().trim().length"></span>/<span data-bind="text: objectiveTitleMaxLength"></span>
                     </div>
                 </div>
             </div>
