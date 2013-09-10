@@ -21,10 +21,7 @@
             };
 
         var id = '',
-            title = ko.observable('').extend({
-                required: true,
-                maxLength: constants.validation.experienceTitleMaxLength
-            }),
+            title = ko.observable(''),
             objectives = [],
             status = ko.observable(),
             isFirstBuild = ko.observable(true),
@@ -38,6 +35,10 @@
             language = ko.observable(),
 
         isEditing = ko.observable();
+        title.isValid = ko.computed(function () {
+            var length = title().trim().length;
+            return length > 0 && length <= constants.validation.experienceTitleMaxLength;
+        });
 
         var navigateToExperiences = function () {
             sendEvent(events.navigateToExperiences);

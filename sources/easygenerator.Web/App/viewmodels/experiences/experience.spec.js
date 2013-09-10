@@ -104,6 +104,15 @@
                         });
 
                     });
+                    
+                    describe('when title is longer than 255 but after trimming is not longer than 255', function () {
+
+                        it('should be false', function () {
+                            viewModel.title('   ' + utils.createString(viewModel.experienceTitleMaxLength - 1) + '   ');
+                            expect(viewModel.title.isValid()).toBeTruthy();
+                        });
+
+                    });
 
                     describe('when title is not empty and not longer than 255', function () {
 
@@ -886,7 +895,7 @@
                 });
 
                 it('should set current experience title', function () {
-                    viewModel.title(null);
+                    viewModel.title('');
 
                     var promise = viewModel.activate(experience.id);
                     deferred.resolve([experience]);
