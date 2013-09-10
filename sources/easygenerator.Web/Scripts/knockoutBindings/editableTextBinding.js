@@ -23,7 +23,7 @@
             }
 
             if (multiline) {
-                pasteTextAtCaret('\r\n', false);
+                pasteTextAtCaret('\n', false);
             } else {
                 $element.blur();
             }
