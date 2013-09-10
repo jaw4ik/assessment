@@ -19,13 +19,15 @@
                 </div>
             </header>
 
-            <ul class="list-unstyled" data-bind="foreach: answers">
-                <li class="eg-answer eg-cursor-pointer" data-bind="click: toggleCheck">
+            <ul class="content-block list-unstyled">
+                <!-- ko foreach: answers -->
+                <li class="question-answer eg-cursor-pointer" data-bind="click: toggleCheck">
                     <div>
                         <a class="eg-answer-checkbox" data-bind="css: { checked: isChecked() }"></a>
                     </div>
                     <div data-bind="text: text"></div>
                 </li>
+                <!-- /ko -->
             </ul>
         </li>
         <!-- /ko -->
