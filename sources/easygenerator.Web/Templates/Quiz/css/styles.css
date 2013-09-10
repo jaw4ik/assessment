@@ -356,7 +356,7 @@ html, body, .application-wrapper {
     }
 
     .question-answer:hover {
-        background-color: #f7f7f7;
+        background-color: rgba(247,247,247, 0.75);
         -webkit-border-radius: 10px;
         -moz-border-radius: 10px;
         border-radius: 10px;
