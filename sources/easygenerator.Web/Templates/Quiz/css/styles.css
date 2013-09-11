@@ -284,23 +284,15 @@ html, body, .application-wrapper {
     background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 61%,rgba(247,248,249,1) 100%); /* W3C */
 }
 
-.question-header {
-    border-bottom: 1px solid #c1c5ca;
-}
-
-
 .ie9 .content-header {
     filter: none;
 }
 
 .content-header-inner {
     width: 100%;
+    border-bottom: 1px solid white;
     display: table;
     font-size: 22px;
-}
-
-.question-header .content-header-inner {
-    border-bottom: 1px solid white;
 }
 
 .question-counter,
@@ -326,6 +318,8 @@ html, body, .application-wrapper {
 .content-title {
     line-height: 1.2;
     padding: 10px;
+    font-size: 22px;
+    font-weight: normal;
 }
 
 .question-explanation {
@@ -362,6 +356,7 @@ html, body, .application-wrapper {
 
 .content-block {
     padding: 15px 10px;
+    background-color: white;
 }
 
 .question-answer {
@@ -414,20 +409,36 @@ html, body, .application-wrapper {
     padding: 25px 0 0;
 }
 
-.explanation-title {
-    padding: 15px 30px 12px;
-    font-size: 22px;
-    font-weight: normal;
+.explanation-title,
+.summary-title {
     vertical-align: middle;
 }
 
-    .explanation-title:before {
-        content: url(../img/explanation.png);
+.explanation-title {
+    padding: 15px 30px 12px;
+}
+
+.summary-title {
+    padding: 16px 20px 12px;
+}
+
+    .explanation-title:before,
+    .summary-title:before {
         display: block;
         float: left;
         margin-top: -1px;
-        padding-right: 20px;
     }
+
+.explanation-title:before {
+    content: url(../img/explanation.png);
+    padding-right: 20px;
+}
+
+.summary-title:before {
+    content: url(../img/progress.png);
+    padding-right: 15px;
+    margin-top: -3px;
+}
 
 .btn-back-to {
     padding: 25px 0 30px;
@@ -435,6 +446,112 @@ html, body, .application-wrapper {
 
 .explanations-list {
     padding: 20px;
+    background-color: white;
+    font-size: 14px;
+}
+
+.explanations-list-item {
+    overflow: hidden;
+}
+
+.divided + .divided:before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    margin: 30px 0;
+    background-image: url(../img/divider.png);
+    -moz-background-size: contain;
+    -webkit-background-size: contain;
+    background-size: contain;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+}
+
+.explanations-list-item h1 {
+    font-size: 20px;
+}
+
+.explanations-list-item h2 {
+    font-size: 18px;
+}
+
+.explanations-list-item h3,
+.explanations-list-item h4,
+.explanations-list-item h5,
+.explanations-list-item h6 {
+    font-size: 14px;
+}
+
+.summary-header {
+    padding: 10px;
+    text-align: center;
+}
+
+.summary-progress .page-title {
+    line-height: 90px;
+    padding-left: 20px;
+}
+
+.circle-progressbar-wrapper {
+    float: left;
+    position: relative;
+}
+
+.circle-progressbar {
+    vertical-align: top;
+}
+
+.progress-score {
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    margin-top: -9px;
+    vertical-align: top;
+    text-align: center;
+    color: #a79a90;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+}
+
+.summary-list {
+    padding: 40px 20px;
+    color: #333;
+    font-size: 16px;
+}
+
+.objective-progress-title {
+    padding-right: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.objective-progressbar {
+    float: right;
+    width: 440px;
+}
+
+.progressbar-holder {
+    height: 10px;
+    width:  378px;
+    position: relative;
+}
+
+.progressbar-line {
+    position: absolute;
+    height: 10px;
+    width: 100%;
+    top: 0;
+    background-color: #ccc;
+}
+
+.progressbar-full {
+    position: absolute;
+    height: 10px;
+    top: 0;
+    background-color: green;
 }
 
 .loader {
@@ -443,10 +560,6 @@ html, body, .application-wrapper {
     left: 50%;
     margin-top: -16px;
     margin-left: -16px;
-}
-
-.eg-objective-item-image {
-    margin: 0 10px 10px 0;
 }
 
 .not-supported-browser {
@@ -459,19 +572,6 @@ html, body, .application-wrapper {
         zoom: 1;
         list-style: none;
     }
-
-.eg-progress {
-    position: relative;
-}
-
-    .eg-progress .eg-badge {
-        font-size: 14px !important;
-        position: absolute;
-        right: 0;
-        border-radius: 0;
-        background-color: #474949;
-    }
-
 
 /*#region BUTTONS */
 .btn.default {

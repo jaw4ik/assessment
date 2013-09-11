@@ -1,28 +1,31 @@
 ﻿<section id="summary">
-    <div class="panel">
-        <div class="panel-heading">
-            <h3 class="text-center">Overall progress on "<span data-bind="text: titleOfExperience"></span>"</h3>
+    <div class="summary-header">
+        <div class="clearfix summary-progress inline">
+            <div class="circle-progressbar-wrapper">
+                <canvas class="circle-progressbar" width="90" height="90" data-bind="circleProgress: { progress: overallScore }"></canvas>
+                <span class="progress-score" data-bind="text: overallScore + '%'"></span>
+            </div>
+            <div class="page-title">Overall progress</div>
         </div>
-        <div class="progress eg-progress">
-            <div class="progress-bar " data-bind="style: { width: overallScore + '%' }, css: overallScore > 33 ? overallScore <= 67 ? 'progress-bar-warning' : 'progress-bar-success' : 'progress-bar-danger'"></div>
-            <span class="badge eg-badge " data-bind="text: overallScore + '%'"></span>
-        </div>
-        <canvas width="90" height="90" data-bind="circleProgress: { progress: overallScore }"></canvas>
-        <div data-bind="text: overallScore"></div>
     </div>
-    <div class="panel">
-        <div class="panel-heading">
-            <h4>Progress objectives</h4>
-        </div>
-        <ul class="unstyled" data-bind="foreach: objectives">
-            <li class="list-group-item">
-                <img src="" alt="" class="img-thumbnail pull-left eg-objective-item-image" data-bind="attr: { src: image }" />
-                <p data-bind="text: title" class="text-left"></p>
-                <div class="clearfix"></div>
-                <div class="progress eg-progress">
-                    <div class="progress-bar " data-bind="style: { width: score + '%' }, css: score > 33 ? score <= 67 ? 'progress-bar-warning' : 'progress-bar-success' : 'progress-bar-danger'"></div>
-                    <span class="badge eg-badge " data-bind="text: score + '%'"></span>
+
+    <div class="content-holder">
+        <header class="content-header">
+            <div class="content-header-inner">
+                <h3 class="content-title summary-title">
+                    <span class="selectable">Objectives progress </span>
+                </h3>
+            </div>
+        </header>
+        <ul class="unstyled summary-list" data-bind="foreach: objectives">
+            <li class="summary-list-item divided">
+                <div class="objective-progressbar">
+                    <div class="progressbar-holder">
+                        <div class="progressbar-line"></div>
+                        <div class="progressbar-full" data-bind="style: { width: score + '%' }"></div>
+                    </div>
                 </div>
+                <p data-bind="text: title" class="objective-progress-title"></p>
             </li>
         </ul>
     </div>

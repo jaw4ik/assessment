@@ -6,12 +6,14 @@
     <div class="content-holder">
         <div class="content-header">
             <div class="content-header-inner">
-                <h3 class="content-title explanation-title">Explanations</h3>
+                <h3 class="content-title explanation-title">
+                    <span class="selectable">Explanations</span>
+                </h3>
             </div>
         </div>
         <ul class="unstyled explanations-list">
             <!-- ko foreach: explanations -->
-            <li class="explanations-list-item" data-bind="html: explanation"></li>
+            <li class="explanations-list-item divided selectable" data-bind="html: explanation"></li>
             <!-- /ko -->
         </ul>
     </div>
