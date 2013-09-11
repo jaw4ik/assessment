@@ -141,7 +141,6 @@
                                         spyOn(http, 'post').andReturn(post.promise());
 
                                         post.resolve();
-                                        debugger;
                                         var promise = service.build();
 
                                         waitsFor(function () {
