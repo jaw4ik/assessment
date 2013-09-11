@@ -9,7 +9,7 @@
 
                 return deferred.promise;
             },
-            
+
             getById = function (id) {
                 var deferred = Q.defer();
 
@@ -30,8 +30,8 @@
 
                 return deferred.promise;
             },
-            
-            addObjective = function(objective) {
+
+            addObjective = function (objective) {
                 var deferred = Q.defer();
 
                 if (_.isUndefined(objective)) {
@@ -43,7 +43,7 @@
                 }
 
                 http.post('api/objective/create', objective)
-                    .done(function(response) {
+                    .done(function (response) {
 
                         if (_.isUndefined(response)) {
                             deferred.reject('Response is undefined');
@@ -83,7 +83,7 @@
                         }));
                         deferred.resolve(objectiveId);
                     })
-                    .fail(function(reason) {
+                    .fail(function (reason) {
                         deferred.reject(reason);
                     });
 
@@ -92,31 +92,58 @@
             },
 
             updateObjective = function (obj) {
-                if (_.isNullOrUndefined(obj))
-                    throw 'Invalid arguments';
-
                 var deferred = Q.defer();
-                
-                this.getById(obj.id).then(function (objective) {
 
-                    objective.title = obj.title;
-                    objective.modifiedOn = new Date();
+                if (_.isObject(obj) && _.isString(obj.id) && _.isString(obj.title)) {
 
-                    deferred.resolve(objective);
-                }).fail(function (reason) {
-                    deferred.reject(reason);
-                });
+                    http.post('api/objective/update', { id: obj.id, title: obj.title }).then(function (response) {
+
+                        if (!_.isObject(response)) {
+                            deferred.reject('Response is not an object');
+                            return;
+                        }
+
+                        if (!_.isObject(response.data)) {
+                            deferred.reject('Response data is not an object');
+                            return;
+                        }
+
+                        if (!_.isString(response.data.ModifiedOn)) {
+                            deferred.reject('Response does not have modification date');
+                            return;
+                        }
+
+                        var objective = _.find(dataContext.objectives, function (item) {
+                            return item.id === obj.id;
+                        });
+
+                        if (!_.isObject(objective)) {
+                            deferred.reject('Objective does not exist in dataContext');
+                            return;
+                        }
+
+                        objective.title = obj.title;
+                        objective.modifiedOn = new Date(parseInt(response.data.ModifiedOn.substr(6), 10));
+                        deferred.resolve(objective.modifiedOn);
+
+                    }).fail(function (reason) {
+                        deferred.reject(reason);
+                    });
+
+                } else {
+                    deferred.reject('Objective data has invalid format');
+                }
 
                 return deferred.promise;
             },
 
-            removeObjective = function(id) {
+            removeObjective = function (id) {
                 if (_.isNullOrUndefined(id)) {
                     throw 'Invalid arguments';
                 }
 
                 var deferred = Q.defer();
-                
+
                 this.getById(id).then(function (objective) {
 
                     dataContext.objectives = _.without(dataContext.objectives, objective);
@@ -134,8 +161,9 @@
             getCollection: getCollection,
 
             addObjective: addObjective,
+            removeObjective: removeObjective,
+
             updateObjective: updateObjective,
-            removeObjective: removeObjective
         };
     }
 );

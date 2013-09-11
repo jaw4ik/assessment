@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
@@ -37,6 +38,15 @@ namespace easygenerator.Web.Controllers.Api
             {
                 Id = objective.Id.ToString("N"),
                 CreatedOn = objective.CreatedOn
+            });
+        }
+
+        [HttpPost]
+        public ActionResult Update(string title)
+        {
+            return JsonSuccess(new
+            {
+                ModifiedOn = DateTime.Now
             });
         }
 

@@ -487,7 +487,7 @@
                                 viewModel.endEditTitle();
 
                                 var promise = updateDeferred.promise.finally(function () { });
-                                updateDeferred.resolve(objective);
+                                updateDeferred.resolve(new Date());
 
                                 waitsFor(function () {
                                     return !getPromise.isPending() && !promise.isPending();
@@ -502,17 +502,16 @@
                                 viewModel.endEditTitle();
 
                                 var modificationDate = new Date();
-                                objective.modifiedOn = modificationDate;
 
                                 var promise = updateDeferred.promise.finally(function () { });
-                                updateDeferred.resolve(objective);
+                                updateDeferred.resolve(modificationDate);
 
                                 waitsFor(function () {
                                     return !getPromise.isPending() && !promise.isPending();
                                 });
                                 runs(function () {
                                     expect(promise).toBeResolved();
-                                    expect(viewModel.modifiedOn()).toEqual(objective.modifiedOn);
+                                    expect(viewModel.modifiedOn()).toEqual(modificationDate);
                                 });
                             });
                         });

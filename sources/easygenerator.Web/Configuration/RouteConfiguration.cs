@@ -36,6 +36,8 @@ namespace easygenerator.Web.Configuration
             //    defaults: new { controller = "Objective", action = "Index" }
             //);
 
+            #region Objectives
+
             routes.MapRoute(
                 name: "CreateObjective",
                 url: "api/objective/create",
@@ -43,10 +45,18 @@ namespace easygenerator.Web.Configuration
             );
 
             routes.MapRoute(
+                name: "UpdateObjective",
+                url: "api/objective/update",
+                defaults: new { controller = "Objective", action = "Update" }
+            );
+
+            routes.MapRoute(
                 name: "GetObjectives",
                 url: "api/objectives",
                 defaults: new { controller = "Objective", action = "GetCollection" }
             );
+
+            #endregion
 
             #region Experiences
 

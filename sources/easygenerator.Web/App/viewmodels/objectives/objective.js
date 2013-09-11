@@ -53,8 +53,8 @@
                     sendEvent(events.updateObjectiveTitle);
 
                     if (title.isValid()) {
-                        repository.updateObjective({ id: that.objectiveId, title: that.title() }).then(function (objective) {
-                            modifiedOn(objective.modifiedOn);
+                        repository.updateObjective({ id: that.objectiveId, title: that.title() }).then(function (objectiveModificationOn) {
+                            modifiedOn(objectiveModificationOn);
                             notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
                         });
                     } else {
