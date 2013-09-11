@@ -182,12 +182,15 @@ img:hover {
 
 /*#endregion common css-styles  */
 
+/*#region mainframe css-styles  */
 html, body, .application-wrapper {
     width: 100%;
     height: 100%;
     color: #666;
     font-family: Arial, sans-serif;
 }
+
+/*#endregion mainframe css-styles  */
 
 /*#region header css-styles  */
 
@@ -221,9 +224,9 @@ html, body, .application-wrapper {
     width: 90%;
     min-width: 500px;
     max-width: 1200px;
-    line-height: 1;
     margin: 0 auto;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
+    line-height: 1;
     font-size: 125%;
     letter-spacing: 0.04em;
     -webkit-font-smoothing: subpixel-antialiased !important;
@@ -244,21 +247,32 @@ html, body, .application-wrapper {
     height: 100px;
 }
 
-.block-list {
+.page-title {
+    display: table-cell;
+    width: 100%;
+    vertical-align: middle;
+    color: #666;
+    font-size: 25px;
+    font-family: Tahoma, sans-serif;
+    font-weight: normal;
+    text-align: center;
+}
+
+.content-list-wrapper {
     width: 100%;
 }
 
-.block-list-item {
+.content-holder {
     width: 100%;
     border: 1px solid #dddddd;
     border-radius: 4px;
 }
 
-    .block-list-item + .block-list-item {
+    .content-holder + .content-holder {
         margin-top: 45px;
     }
 
-.header-panel {
+.content-header {
     border-radius: 4px 4px 0 0;
     border-bottom: 1px solid #c1c5ca;
     background: rgb(255,255,255);
@@ -268,40 +282,54 @@ html, body, .application-wrapper {
     background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 61%,rgba(247,248,249,1) 100%); /* Chrome10+,Safari5.1+ */
     background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 61%,rgba(247,248,249,1) 100%); /* IE10+ */
     background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 61%,rgba(247,248,249,1) 100%); /* W3C */
-    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
-.ie9 .header-panel {
+.question-header {
+    border-bottom: 1px solid #c1c5ca;
+}
+
+
+.ie9 .content-header {
     filter: none;
 }
 
-.header-panel-inner {
+.content-header-inner {
     width: 100%;
     display: table;
-    border-bottom: 1px solid white;
-    font-size: 20px;
+    font-size: 22px;
 }
 
-.question-counter, .question-text, .question-explanation {
+.question-header .content-header-inner {
+    border-bottom: 1px solid white;
+}
+
+.question-counter,
+.question-text,
+.question-explanation {
     display: table-cell;
     vertical-align: middle;
 }
 
 .question-counter {
-    width: 90px;
+    width: 91px;
     padding: 15px 5px;
     border-right: 1px solid white;
     text-align: center;
+    font-size: 16px;
+    white-space: nowrap;
 }
 
 .question-text {
-    padding: 10px;
     border-left: 1px solid #cfcfcf;
 }
 
+.content-title {
+    line-height: 1.2;
+    padding: 10px;
+}
+
 .question-explanation {
-    width: 60px;
+    width: 61px;
     height: 100%;
     border-left: 1px solid #cfcfcf;
     text-align: center;
@@ -336,19 +364,10 @@ html, body, .application-wrapper {
     padding: 15px 10px;
 }
 
-.page-title {
-    display: table-cell;
-    width: 100%;
-    vertical-align: middle;
-    color: #666;
-    font-size: 28px;
-    font-family: Tahoma, sans-serif;
-    font-weight: normal;
-    text-align: center;
-}
-
 .question-answer {
     padding: 10px;
+    font-size: 17px;
+    cursor: default;
 }
 
     .question-answer + .question-answer {
@@ -391,6 +410,33 @@ html, body, .application-wrapper {
             background: url("../img/checkbox-fail.png") no-repeat scroll center center transparent;
         }
 
+.question-submit {
+    padding: 25px 0 0;
+}
+
+.explanation-title {
+    padding: 15px 30px 12px;
+    font-size: 22px;
+    font-weight: normal;
+    vertical-align: middle;
+}
+
+    .explanation-title:before {
+        content: url(../img/explanation.png);
+        display: block;
+        float: left;
+        margin-top: -1px;
+        padding-right: 20px;
+    }
+
+.btn-back-to {
+    padding: 25px 0 30px;
+}
+
+.explanations-list {
+    padding: 20px;
+}
+
 .loader {
     position: absolute;
     top: 50%;
@@ -426,11 +472,53 @@ html, body, .application-wrapper {
         background-color: #474949;
     }
 
-.eg-btn-questions {
-    margin: -10px 0 10px !important;
+
+/*#region BUTTONS */
+.btn.default {
+    display: block;
+    height: 58px;
+    line-height: 58px;
+    border: 1px solid #bbbbbb;
+    border-radius: 4px;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ5JSIgc3RvcC1jb2xvcj0iI2VhZWFlYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUyJSIgc3RvcC1jb2xvcj0iI2UwZTBlMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjN2M3YzciIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(234,234,234,1) 49%, rgba(224,224,224,1) 52%, rgba(199,199,199,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(49%,rgba(234,234,234,1)), color-stop(52%,rgba(224,224,224,1)), color-stop(100%,rgba(199,199,199,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(234,234,234,1) 49%,rgba(224,224,224,1) 52%,rgba(199,199,199,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(234,234,234,1) 49%,rgba(224,224,224,1) 52%,rgba(199,199,199,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(234,234,234,1) 49%,rgba(224,224,224,1) 52%,rgba(199,199,199,1) 100%); /* W3C */
     cursor: pointer;
 }
 
-.eg-cursor-pointer {
-    cursor: pointer;
+    .btn.default:hover {
+        background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2M3YzdjNyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ5JSIgc3RvcC1jb2xvcj0iI2VhZWFlYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUyJSIgc3RvcC1jb2xvcj0iI2UyZTJlMiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNjN2M3YzciIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+        background: -moz-linear-gradient(top, rgba(199,199,199,1) 0%, rgba(234,234,234,1) 49%, rgba(226,226,226,1) 52%, rgba(199,199,199,1) 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(199,199,199,1)), color-stop(49%,rgba(234,234,234,1)), color-stop(52%,rgba(226,226,226,1)), color-stop(100%,rgba(199,199,199,1))); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, rgba(199,199,199,1) 0%,rgba(234,234,234,1) 49%,rgba(226,226,226,1) 52%,rgba(199,199,199,1) 100%); /* Chrome10+,Safari5.1+ */
+        background: -ms-linear-gradient(top, rgba(199,199,199,1) 0%,rgba(234,234,234,1) 49%,rgba(226,226,226,1) 52%,rgba(199,199,199,1) 100%); /* IE10+ */
+        background: linear-gradient(to bottom, rgba(199,199,199,1) 0%,rgba(234,234,234,1) 49%,rgba(226,226,226,1) 52%,rgba(199,199,199,1) 100%); /* W3C */
+    }
+
+.ie9 .btn.default {
+    filter: none;
 }
+
+.btn.justified {
+    width: 100%;
+}
+
+.question-submit .btn {
+    color: #5c6572;
+    font-size: 26px;
+    -webkit-text-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
+    text-align: center;
+}
+
+.btn-back-to .btn {
+    border: none;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+    color: #666;
+    font-size: 20px;
+    text-align: center;
+}
+/*#endregion BUTTONS */

@@ -1,9 +1,9 @@
-﻿<div class="header clearfix unselectable unselectable">
+﻿<div class="header clearfix unselectable" data-bind="css: 'module-' + cssName()">
     <div class="brand">
         <a href="#/" class="inline logo">&nbsp;</a>
     </div>
 </div>
-<section id="content" class="container">
+<section id="content" class="container unselectable">
     <!--ko compose: {
         model: router.activeItem, 
         afterCompose: router.afterCompose } -->

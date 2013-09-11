@@ -1,17 +1,18 @@
 ﻿<section id="homePage">
     <div class="page-title-holder">
-        <h1 class="page-title" data-bind="text: titleOfExperience"></h1>
+        <h1 class="page-title selectable" data-bind="text: titleOfExperience"></h1>
     </div>
 
-    <ul class="block-list unstyled">
+    <ul class="content-list-wrapper unstyled">
         <!-- ko foreach: itemsQuestion -->
-        <li class="block-list-item" data-bind="attr: { id: '' + objectiveId + id }">
-            <header class="header-panel question-title">
-                <div class="header-panel-inner">
+        <li class="content-holder" data-bind="attr: { id: '' + objectiveId + id }">
+            <header class="content-header question-header">
+                <div class="content-header-inner">
                     <div class="question-counter">
                         <span data-bind="text: number + ' of ' + $parent.countOfQuestions()"></span>
                     </div>
-                    <div class="question-text" data-bind="text: title">
+                    <div class="content-title question-text">
+                        <span class="selectable" data-bind="text: title"></span>
                     </div>
                     <div class="question-explanation" data-bind="click: $parent.showExplanations">
                         <span class="question-explanation-icon"></span>
@@ -19,21 +20,23 @@
                 </div>
             </header>
 
-            <ul class="content-block list-unstyled">
+            <ul class="content-block unstyled">
                 <!-- ko foreach: answers -->
-                <li class="question-answer eg-cursor-pointer" data-bind="click: toggleCheck">
+                <li class="question-answer" data-bind="click: toggleCheck">
                     <div>
                         <a class="eg-answer-checkbox" data-bind="css: { checked: isChecked() }"></a>
                     </div>
-                    <div data-bind="text: text"></div>
+                    <div>
+                        <span class="selectable" data-bind="text: text"></span>
+                    </div>
                 </li>
                 <!-- /ko -->
             </ul>
         </li>
         <!-- /ko -->
     </ul>
-    <div class="btn-group btn-group-justified" data-bind="visible: isEndScroll()">
-        <a class="btn btn-default" data-bind="click: submit">Submit</a>
+    <div class="question-submit" data-bind="visible: isEndScroll()">
+        <a class="btn default justified" data-bind="click: submit">Submit</a>
     </div>
     <div data-bind="scroll: !(itemsQuestion().length == questions.length), scrollOptions: { loadFunc: getItems, offset: 5 }"></div>
 </section>

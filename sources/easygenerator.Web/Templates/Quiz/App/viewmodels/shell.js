@@ -2,6 +2,15 @@
 
     return {
         router: router,
+        cssName: ko.computed(function () {
+            var activeItem = router.activeItem();
+            if (_.isObject(activeItem)) {
+                var moduleId = activeItem.__moduleId__;
+                moduleId = moduleId.slice(moduleId.lastIndexOf('/') + 1);
+                return moduleId;
+            }
+            return '';
+        }),
         activate: function () {
 
             router.useConvention();
@@ -34,7 +43,7 @@
                 }
             ]);
 
-            return context.initialize().then(function () {                
+            return context.initialize().then(function () {
                 return router.activate('#/');
             });
         }

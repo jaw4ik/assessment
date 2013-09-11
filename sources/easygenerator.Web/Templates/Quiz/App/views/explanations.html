@@ -1,13 +1,18 @@
 ﻿<section id="explanations">
-    <ul class="pager eg-btn-questions unstyled">
-        <li class="previous"><a data-bind="click: backToQuestions">&larr; Back to questions</a></li>
-    </ul>
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <h3>Explanations</h3>
+    <div class="btn-back-to">
+        <a class="btn default justified" data-bind="click: backToQuestions">Back to questions
+        </a>
+    </div>
+    <div class="content-holder">
+        <div class="content-header">
+            <div class="content-header-inner">
+                <h3 class="content-title explanation-title">Explanations</h3>
+            </div>
         </div>
-        <ul class="unstyled" data-bind="foreach: explanations">
-            <li class="list-group-item" data-bind="html: explanation"></li>
+        <ul class="unstyled explanations-list">
+            <!-- ko foreach: explanations -->
+            <li class="explanations-list-item" data-bind="html: explanation"></li>
+            <!-- /ko -->
         </ul>
     </div>
 </section>
