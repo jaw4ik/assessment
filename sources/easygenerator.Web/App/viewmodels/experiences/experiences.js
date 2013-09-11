@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/experienceRepository', 'services/buildExperience', 'notify'],
-    function (dataContext, constants, eventTracker, router, experienceRepository, experienceService, notify) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/experienceRepository', 'services/buildExperience', 'notify', 'localization/localizationManager'],
+    function (dataContext, constants, eventTracker, router, experienceRepository, experienceService, notify, localizationManager) {
         "use strict";
 
         var
@@ -131,7 +131,7 @@
 
                 var selectedExperience = selectedExperiences[0];
                 if (selectedExperience.objectives.length > 0) {
-                    notify.error('Learning experience can not be deleted');
+                    notify.error(localizationManager.localize('experienceCannotBeDeleted'));
                     return;
                 }
 
