@@ -137,21 +137,39 @@
                 return deferred.promise;
             },
 
-            removeObjective = function (id) {
-                if (_.isNullOrUndefined(id)) {
-                    throw 'Invalid arguments';
-                }
+            removeObjective = function (objectiveId) {
 
                 var deferred = Q.defer();
 
-                this.getById(id).then(function (objective) {
+                if (!_.isString(objectiveId)) {
 
-                    dataContext.objectives = _.without(dataContext.objectives, objective);
+                    deferred.reject('Objective id was expected');
 
-                    deferred.resolve();
-                }).fail(function (reason) {
-                    deferred.reject(reason);
-                });
+                } else {
+
+                    http.post('api/objective/delete', { objectiveId: objectiveId })
+                        .done(function (response) {
+                            if (!_.isObject(response)) {
+                                deferred.reject('Response is not an object');
+                                return;
+                            }
+
+                            if (!response.success) {
+                                deferred.reject('Response is not successful');
+                                return;
+                            }
+
+                            dataContext.objectives = _.reject(dataContext.experiences, function (objective) {
+                                return objective.id == objectiveId;
+                            });
+
+                            deferred.resolve();
+                        })
+                        .fail(function (reason) {
+                            deferred.reject(reason);
+                        });
+
+                }
 
                 return deferred.promise;
             };

@@ -226,10 +226,6 @@
     <Content Include="apple-touch-icon.png" />
     <Content Include="App\models\explanation.js" />
     <Content Include="App\repositories\experienceRepository.js" />
-    <Content Include="App\repositories\objectiveBriefRepository.js" />
-    <Content Include="App\repositories\objectiveBriefRepository.spec.js">
-      <DependentUpon>objectiveBriefRepository.js</DependentUpon>
-    </Content>
     <Content Include="App\repositories\questionRepository.js" />
     <Content Include="App\repositories\questionRepository.spec.js">
       <DependentUpon>questionRepository.js</DependentUpon>

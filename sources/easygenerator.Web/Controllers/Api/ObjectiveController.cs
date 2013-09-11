@@ -55,5 +55,10 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
         }
 
+        [HttpPost]
+        public ActionResult Delete()
+        {
+            return JsonSuccess();
+        }
     }
 }

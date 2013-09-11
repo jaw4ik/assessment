@@ -51,6 +51,12 @@ namespace easygenerator.Web.Configuration
             );
 
             routes.MapRoute(
+                name: "DeleteObjective",
+                url: "api/objective/delete",
+                defaults: new { controller = "Objective", action = "Delete" }
+            );
+
+            routes.MapRoute(
                 name: "GetObjectives",
                 url: "api/objectives",
                 defaults: new { controller = "Objective", action = "GetCollection" }

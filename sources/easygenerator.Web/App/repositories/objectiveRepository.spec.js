@@ -405,10 +405,10 @@
 
                     it('should send request to server to api/objective/update', function () {
                         var objective = { id: '', title: '', createdOn: '' };
-                        
+
                         http.post.reset();
                         var promise = objectiveRepository.updateObjective(objective);
-                        
+
                         post.reject();
 
                         waitsFor(function () {
@@ -580,7 +580,7 @@
 
                         });
 
-                    });                    
+                    });
 
                 });
             });
@@ -591,76 +591,151 @@
                     expect(objectiveRepository.removeObjective).toBeFunction();
                 });
 
-                describe('when invalid arguments', function () {
+                it('should return promise', function () {
+                    var result = objectiveRepository.removeObjective();
+                    expect(result).toBePromise();
+                });
 
-                    describe('and when id is undefined', function () {
-                        it('should throw exception', function () {
-                            var f = function () {
-                                objectiveRepository.removeObjective(undefined);
-                            };
-                            expect(f).toThrow();
+                describe('when objective id is not a string', function () {
+
+                    it('should reject promise', function () {
+                        var promise = objectiveRepository.removeObjective();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejected();
                         });
                     });
 
-                    describe('and when id is null', function () {
-                        it('should throw exception', function () {
-                            var f = function () {
-                                objectiveRepository.removeObjective(null);
-                            };
-                            expect(f).toThrow();
+                    it('should not send request to server to api/objective/delete', function () {
+                        var promise = objectiveRepository.removeObjective();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(http.post).not.toHaveBeenCalled();
                         });
                     });
 
                 });
 
-                describe('when valid arguments', function () {
+                describe('when objective id is a string', function () {
 
-                    it('should return promise', function () {
-                        var result = objectiveRepository.removeObjective(-1);
-                        expect(result).toBePromise();
+                    it('should send request to server to api/objective/delete', function () {
+                        var objectiveId = 'id';
+                        var promise = objectiveRepository.removeObjective(objectiveId);
+
+                        post.reject();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(http.post).toHaveBeenCalledWith('api/objective/delete', {
+                                objectiveId: objectiveId
+                            });
+                        });
                     });
 
-                    describe('when get objective', function () {
+                    describe('and send request to server', function () {
 
-                        beforeEach(function () {
-                            context.objectives = [{ id: 0 }];
-                        });
+                        describe('and request failed', function () {
 
-                        describe('and when objective does not exist', function () {
                             it('should reject promise', function () {
-                                var promise = objectiveRepository.removeObjective(-1);
+                                var reason = 'reason';
+                                var promise = objectiveRepository.removeObjective('id');
+
+                                post.reject(reason);
 
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(promise).toBeRejectedWith('Objective does not exist');
+                                    expect(promise).toBeRejectedWith(reason);
                                 });
                             });
+
                         });
 
-                        describe('and when objective exists', function () {
-                            it('should be resolved', function () {
-                                var promise = objectiveRepository.removeObjective(0);
+                        describe('and request succeed', function () {
 
-                                waitsFor(function () {
-                                    return !promise.isPending();
+                            describe('and response is not an object', function () {
+
+                                it('should reject promise', function () {
+                                    var promise = objectiveRepository.removeObjective('id');
+
+                                    post.resolve();
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(promise).toBeRejected();
+                                    });
                                 });
-                                runs(function () {
-                                    expect(promise).toBeResolved();
-                                });
+
                             });
 
-                            it('should remove objective from dataContext', function () {
-                                var promise = objectiveRepository.removeObjective(0);
+                            describe('and response is an object', function () {
 
-                                waitsFor(function () {
-                                    return !promise.isPending();
+                                describe('and response is not successful', function () {
+
+                                    beforeEach(function () {
+                                        post.resolve({});
+                                    });
+
+                                    it('should reject promise', function () {
+                                        var promise = objectiveRepository.removeObjective('id');
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(promise).toBeRejected();
+                                        });
+                                    });
+
                                 });
-                                runs(function () {
-                                    expect(context.objectives.length).toBe(0);
+
+                                describe('and response is successful', function () {
+
+                                    beforeEach(function () {
+                                        post.resolve({ success: true });
+                                    });
+
+                                    it('should resolve promise', function () {
+                                        var promise = objectiveRepository.removeObjective('id');
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(promise).toBeResolved();
+                                        });
+                                    });
+
+                                    it('should remove objective from dataContext', function () {
+                                        var objectiveId = 'id';
+                                        var dataContext = require('dataContext');
+                                        dataContext.objectives = [{ id: 'id' }];
+
+                                        var promise = objectiveRepository.removeObjective(objectiveId);
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(dataContext.objectives.length).toEqual(0);
+                                        });
+                                    });
+
                                 });
+
                             });
+
                         });
 
                     });
