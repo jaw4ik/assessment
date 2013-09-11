@@ -27,6 +27,9 @@
                         </div>
                     </div>
                     <div class="progressbar-holder">
+                        <div class="progressbar-informer">
+                            <span data-bind="text: score + '%'"></span>
+                        </div>
                         <div class="progressbar-block">
                             <div class="progressbar-bg-line"></div>
                             <div class="progressbar-score-line" data-bind="style: { width: score + '%' }"></div>
@@ -37,8 +40,8 @@
             <!-- /ko -->
         </ul>
     </div>
-    <div class="btn-group btn-group-justified">
-        <a class="btn btn-default" data-bind="click: tryAgain">Try again</a>
-        <a class="btn btn-default" data-bind="click: finish">Finish</a>
+    <div class="summary-btn-holder">
+        <a class="btn default pull-left" data-bind="click: tryAgain">Try again</a>
+        <a class="btn default pull-right" data-bind="click: finish">Finish</a>
     </div>
 </section>

@@ -136,11 +136,11 @@ img:hover {
     display: inline-block;
 }
 
-.left {
+.pull-left {
     float: left;
 }
 
-.right {
+.pull-right {
     float: right;
 }
 
@@ -565,6 +565,7 @@ html, body, .application-wrapper {
     position: absolute;
     top: 0;
     left: 0;
+    border-radius: 3px;
 }
 
 .progressbar-bg-line {
@@ -575,6 +576,15 @@ html, body, .application-wrapper {
 .progressbar-score-line {
     background-color: green;
 }
+
+.summary-btn-holder {
+    width: 100%;
+    padding: 25px 0;
+}
+
+    .summary-btn-holder > .btn {
+        width: 49%;
+    }
 
 .loader {
     position: absolute;
@@ -628,9 +638,10 @@ html, body, .application-wrapper {
     width: 100%;
 }
 
-.question-submit .btn {
+.question-submit .btn,
+.summary-btn-holder .btn {
     color: #5c6572;
-    font-size: 26px;
+    font-size: 24px;
     -webkit-text-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 1);
     text-align: center;
