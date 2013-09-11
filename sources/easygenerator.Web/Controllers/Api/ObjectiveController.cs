@@ -56,8 +56,10 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        public ActionResult Delete()
+        public ActionResult Delete(Objective objective)
         {
+            _repository.Remove(objective);
+
             return JsonSuccess();
         }
     }

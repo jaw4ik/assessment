@@ -41,30 +41,24 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Create_ShouldReturnJsonSuccessResult()
         {
-            //Arrange
             const string title = "title";
             var experience = ExperienceObjectMother.CreateWithTitle(title);
             _entityFactory.Experience(title).Returns(experience);
 
-            //Act
             var result = _controller.Create(title);
 
-            //Assert
             ActionResultAssert.IsJsonSuccessResult(result);
         }
 
         [TestMethod]
         public void Create_ShouldAddExperience()
         {
-            //Arrange
             const string title = "title";
             var experience = ExperienceObjectMother.CreateWithTitle(title);
             _entityFactory.Experience(title).Returns(experience);
 
-            //Act
             _controller.Create(title);
 
-            //Assert
             _repository.Received().Add(Arg.Is<Experience>(exp => exp.Title == title));
         }
 
@@ -75,26 +69,20 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Delete_ShouldReturnJsonSuccessResult()
         {
-            //Arrange
             var experience = ExperienceObjectMother.Create();
 
-            //Act
             var result = _controller.Delete(experience);
 
-            //Assert
-            ActionResultAssert.IsJsonSuccessResult(result);
+            result.Should().BeJsonSuccessResult();
         }
 
         [TestMethod]
         public void Delete_ShouldRemoveExperience()
         {
-            //Arrange
             var experience = ExperienceObjectMother.Create();
 
-            //Act
             _controller.Delete(experience);
 
-            //Assert
             _repository.Received().Remove(experience);
         }
 

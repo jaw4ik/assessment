@@ -71,15 +71,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Create_ShouldAddObjective()
         {
-            //Arrange
             const string title = "title";
             var objective = ObjectiveObjectMother.CreateWithTitle(title);
             _entityFactory.Objective(title).Returns(objective);
 
-            //Act
             _controller.Create(title);
 
-            //Assert
             _repository.Received().Add(Arg.Is<Objective>(obj => obj.Title == title));
         }
 
@@ -91,13 +88,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Update_ShouldReturnJsonSuccessResult_WhenObjectiveIsNull()
         {
-            //Arrange
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            //Act
             var result = _controller.Update(null, String.Empty);
 
-            //Assert
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = DateTime.MaxValue });
         }
 
@@ -105,31 +99,50 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Update_ShouldUpdateObjectiveTitle()
         {
-            //Arrange
             const string title = "updated title";
             var objective = Substitute.For<Objective>();
 
-            //Act
             _controller.Update(objective, title);
 
-            //Assert
             objective.Received().UpdateTitle(title);
         }
 
         [TestMethod]
         public void Update_ShouldReturnJsonSuccessResult()
         {
-            //Arrange
             var objective = Substitute.For<Objective>();
 
-            //Act
             var result = _controller.Update(objective, String.Empty);
 
-            //Assert
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = objective.ModifiedOn });
         }
 
         #endregion
 
+
+        #region Delete objective
+
+        [TestMethod]
+        public void Delete_ShouldReturnJsonSuccessResult()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            var result = _controller.Delete(objective);
+
+            result.Should().BeJsonSuccessResult();
+        }
+
+        [TestMethod]
+        public void Delete_ShouldRemoveObjective()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            _controller.Delete(objective);
+
+            _repository.Received().Remove(objective);
+        }
+
+
+        #endregion
     }
 }
