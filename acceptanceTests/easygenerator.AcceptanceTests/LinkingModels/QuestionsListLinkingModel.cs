@@ -14,5 +14,10 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string OrderDesc = "//div[contains(@class,'questions-sort-by-title-desc')]";
         public string ObjectivesTabLink = "//a[contains(@class,'nav-control') and contains(@class,'left')]";
         public string IsTitelSortingActiveClass = "active";
+
+        //CUD Question
+
+        public string AddNewQuestionButton = ".//a[contains(@class, 'questions-header-create-link')]";
+
     }
 }

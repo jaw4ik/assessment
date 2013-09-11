@@ -67,5 +67,10 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             var link = GetByXPath(model.ObjectivesTabLink);
             link.Click();
         }
+
+        internal void ClickAddNewExperienceButton()
+        {
+            GetByXPath(model.AddNewExperienceButton).Click();
+        }
     }
 }

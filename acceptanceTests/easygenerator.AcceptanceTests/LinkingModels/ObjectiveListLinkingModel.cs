@@ -16,5 +16,10 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string SortingByTitleDesc = "//div[contains(@class,'objectives-sort-by-title-desc')]";
         public string TabPublicationsLink = ".//a[@href='#/experiences']";
         public string IsTitelSortingActiveClass = "active";
+
+        //CUD Objective
+
+        public string AddNewObjectiveButton = ".//a[contains(@class,'objectives-header-create-link')]";
+
     }
 }

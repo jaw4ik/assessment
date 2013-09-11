@@ -15,5 +15,9 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string SortingByTitleDesc = "//div[contains(@class,'experiences-sort-by-title-desc')]";
         public string IsTitelSortingActiveClass = "active";
         public string ObjectivesTabLink = "//a[@href='#/objectives']";
+
+        //CUD Experiences
+
+        public string AddNewExperienceButton = ".//a[contains(@class,'experiences-header-create-link')]";
     }
 }

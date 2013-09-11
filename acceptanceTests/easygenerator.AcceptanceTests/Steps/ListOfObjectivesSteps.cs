@@ -24,6 +24,19 @@ namespace easygenerator.AcceptanceTests.Steps
             this.objectivesPage = objectivesPage;
         }
 
+        private Objective BuildObjective(ObjectiveData obj)
+        {
+            return new Objective()
+            {
+                Id = obj.Id,
+                Title = obj.Title,
+                ImageSource = @"Content/images/logo.png",
+                CreatedOn = @"\/Date(1377172218190)\/",
+                ModifiedOn = @"\/Date(1377172218190)\/",
+                Questions = new List<Question>()
+            };
+        }
+
         [Given(@"objectives are present in database")]
         public void GivenObjectivesArePresentInDatabase(Table table)
         {
@@ -172,18 +185,16 @@ namespace easygenerator.AcceptanceTests.Steps
             objectivesPage.ItemByTitle(title).Open();
         }
 
+        //CUD Objective
 
-        private Objective BuildObjective(ObjectiveData obj)
+        [When(@"press add new objective button on objective list page")]
+        public void WhenPressAddNewObjectiveButtonOnObjectiveListPage()
         {
-            return new Objective()
-            {
-                Id = obj.Id,
-                Title = obj.Title,
-                ImageSource = @"Content/images/logo.png",
-                CreatedOn = @"\/Date(1377172218190)\/",
-                ModifiedOn = @"\/Date(1377172218190)\/",
-                Questions = new List<Question>()
-            };
+            objectivesPage.ClickAddNewObjectiveButton();
         }
+
+
+
+        
     }
 }

@@ -74,5 +74,11 @@ namespace easygenerator.AcceptanceTests.ElementObjects
                 return GetByXPath(model.Header).Text;
             }
         }
+
+        internal void ClickAddNewObjectiveButton()
+        {
+            GetByXPath(model.AddNewObjectiveButton).Click();
+        }
+
     }
 }

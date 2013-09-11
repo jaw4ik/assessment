@@ -23,13 +23,7 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             this.questionListPage = questionListPage;
         }
-        [Given(@"questions related to '(.*)' are present in database")]
-        public void GivenQuestionsRelatedToArePresentInDatabase(string objTitle, Table table)
-        {
-            var questions = table.CreateSet<QuestionData>().ToArray();
-            var dataSetter = new DataSetter();
-            dataSetter.AddQuestionsToDatabase(objTitle, questions.Select(quest => BuildQuestion(quest)).ToArray());
-        }
+
         Question BuildQuestion(QuestionData data)
         {
             return new Question()
@@ -42,6 +36,15 @@ namespace easygenerator.AcceptanceTests.Steps
                 Explanations = new List<Helpers.Explanation>()
             };
         }
+
+        [Given(@"questions related to '(.*)' are present in database")]
+        public void GivenQuestionsRelatedToArePresentInDatabase(string objTitle, Table table)
+        {
+            var questions = table.CreateSet<QuestionData>().ToArray();
+            var dataSetter = new DataSetter();
+            dataSetter.AddQuestionsToDatabase(objTitle, questions.Select(quest => BuildQuestion(quest)).ToArray());
+        }
+        
         [Then(@"questions list contains items with data")]
         public void ThenQuestionsListContainsItemsWithData(Table table)
         {
@@ -187,6 +190,15 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             questionListPage.Items.First(it => it.Title == title).ClickSelect();
         }
+
+        //CUD Question
+
+        [When(@"press add new question button on objective page")]
+        public void WhenPressAddNewQuestionButtonOnObjectivePage()
+        {
+            questionListPage.ClickAddNewQuestionButton();
+        }
+
 
 
     }

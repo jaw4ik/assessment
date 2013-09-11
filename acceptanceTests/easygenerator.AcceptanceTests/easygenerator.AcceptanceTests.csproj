@@ -87,10 +87,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="ElementObjects\AnswerOption.cs" />
     <Compile Include="ElementObjects\ContainerElement.cs" />
+    <Compile Include="ElementObjects\CreatePage.cs" />
     <Compile Include="ElementObjects\ExperiencePage.cs" />
-    <Compile Include="ElementObjects\Explanation.cs" />
     <Compile Include="ElementObjects\ExpObjectivesListItem.cs" />
     <Compile Include="ElementObjects\ObjectivesListItem.cs" />
     <Compile Include="ElementObjects\ObjectivesListPage.cs" />
@@ -115,6 +114,7 @@
     <Compile Include="Helpers\FsHelper.cs" />
     <Compile Include="Helpers\TestExperienceBuilder.cs" />
     <Compile Include="Helpers\TestUtils.cs" />
+    <Compile Include="LinkingModels\CreatePageLinkingModel.cs" />
     <Compile Include="LinkingModels\ExperiencePageLinkingModel.cs" />
     <Compile Include="LinkingModels\ExpObjectiveListItemLinkingModel.cs" />
     <Compile Include="LinkingModels\ILinkingModel.cs" />
@@ -131,6 +131,7 @@
     <Compile Include="LinkingModels\UserSettingsLinkingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\BuildExperienceSteps.cs" />
+    <Compile Include="Steps\CreateSteps.cs" />
     <Compile Include="Steps\ExperienceSteps.cs" />
     <Compile Include="Steps\ListOfPublicationsSteps.cs" />
     <Compile Include="Steps\ComonSteps.cs" />
@@ -149,6 +150,21 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BuildExperience.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Tests\CUDExperience.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CUDExperience.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Tests\CUDObjective.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CUDObjective.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Tests\CUDQuestion.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CUDQuestion.feature</DependentUpon>
     </Compile>
     <Compile Include="Tests\Errors.feature.cs">
       <AutoGen>True</AutoGen>
@@ -208,6 +224,18 @@
     <None Include="Tests\BuildExperience.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>BuildExperience.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Tests\CUDExperience.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CUDExperience.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Tests\CUDObjective.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CUDObjective.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Tests\CUDQuestion.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CUDQuestion.feature.cs</LastGenOutput>
     </None>
     <None Include="Tests\Errors.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

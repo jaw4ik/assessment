@@ -43,5 +43,10 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             GetByXPath(model.ObjectivesTabLink).Click();
         }
+
+        internal void ClickAddNewQuestionButton()
+        {
+            GetByXPath(model.AddNewQuestionButton).Click();
+        }
     }
 }

@@ -30,6 +30,25 @@ namespace easygenerator.AcceptanceTests.Steps
             this.Question = Question;
         }
 
+        private AnswerOption BuildAnswerOption(AnswerData data)
+        {
+            return new Helpers.AnswerOption()
+            {
+                IsCorrect = data.IsCorrect,
+                Text = data.Text,
+                Id = data.Id
+            };
+        }
+
+        private Explanation BuildExplanation(ExplanationData data)
+        {
+            return new Helpers.Explanation()
+            {
+                Id = data.Id,
+                Text = data.Explanation
+            };
+        }
+
         [Given(@"answer options related to '(.*)' of '(.*)' are present in database")]
         public void GivenAnswerOptionsRelatedToOfArePresentInDatabase(string questionTitle, string objTitle, Table table)
         {
@@ -294,26 +313,7 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Element should be visible");
         }
 
-      
-
-
-        private easygenerator.AcceptanceTests.Helpers.AnswerOption BuildAnswerOption(AnswerData data)
-        {
-            return new Helpers.AnswerOption()
-            {
-                IsCorrect = data.IsCorrect,
-                Text = data.Text,
-                Id = data.Id
-            };
-        }
-        Helpers.Explanation BuildExplanation(ExplanationData data)
-        {
-            return new Helpers.Explanation()
-            {
-                Id = data.Id,
-                Text = data.Explanation
-            };
-        }
+             
 
     }
 }

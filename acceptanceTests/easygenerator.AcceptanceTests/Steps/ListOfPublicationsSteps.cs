@@ -24,6 +24,20 @@ namespace easygenerator.AcceptanceTests.Steps
             this.publicationsPage = publicationsPage;
         }
 
+        Experience BuildExperience(ExperienceData data)
+        {
+            return new Experience()
+            {
+                Id = data.Id,
+                Title = data.Title,
+                CreatedOn = @"\/Date(1377172218190)\/",
+                ModifiedOn = @"\/Date(1377172218190)\/",
+                BuiltOn = "",
+                Objectives = new List<string>(),
+                PackageUrl = ""
+            };
+        }
+
         [Given(@"publications are present in database")]
         public void GivenPublicationsArePresentInDatabase(Table table)
         {
@@ -280,19 +294,18 @@ namespace easygenerator.AcceptanceTests.Steps
         }
 
 
-        Experience BuildExperience(ExperienceData data)
+        //CUD Experience
+
+        [When(@"press add new experience button on experiences list page")]
+        public void WhenPressAddNewExperienceButtonOnExperiencesListPage()
         {
-            return new Experience()
-            {
-                Id = data.Id,
-                Title = data.Title,
-                CreatedOn = @"\/Date(1377172218190)\/",
-                ModifiedOn = @"\/Date(1377172218190)\/",
-                BuiltOn = "",
-                Objectives = new List<string>(),
-                PackageUrl = ""
-            };
+            publicationsPage.ClickAddNewExperienceButton();
         }
+
+
+
+
+        
 
     }
 }
