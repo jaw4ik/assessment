@@ -145,9 +145,9 @@
         de: 'Klicken, um Lernziel hinzuzufügen'
     },
     objectiveCannnotBeDeleted: {
-        en: 'Learning Objective cannot be deleted, while it is related to experience(s) or contains questions.',
-        nl: 'Een leerdoel kan niet worden verwijderd als het is gerelateerd aan een of meer ervaringen of als het vragen bevat.',
-        de: 'Lernziel kann nicht gelöscht werden, da es mit (einer) Umgebung(en) verbunden ist oder Fragen enthält'
+        en: 'Learning Objective cannot be deleted, while it is related to learning experience(s) or contains questions.',
+        nl: 'Learning Objective cannot be deleted, while it is related to learning experience(s) or contains questions.[nl]',
+        de: 'Learning Objective cannot be deleted, while it is related to learning experience(s) or contains questions.[de]'
     },
     /* End resource section for model Objectives */
     
@@ -161,14 +161,14 @@
     
     /* Resource section for model Experiences */
     experiences: {
-        en: 'Experiences',
-        nl: 'Ervaringen',
-        de: 'Erfahrungen'
+        en: 'Learning experiences',
+        nl: 'Learning experiences[nl]',
+        de: 'Learning experiences[de]'
     },
     experience: {
-        en: 'Experience',
-        nl: 'Ervaring',
-        de: 'Erfahrung'
+        en: 'Learning experience',
+        nl: 'Learning experience[nl]',
+        de: 'Learning experience[de]'
     },
     experienceBuildAction: {
         en: 'Build',
@@ -201,9 +201,9 @@
         de: 'Neu aufbauen'
     },
     addNewExperience: {
-        en: 'Add new experience',
-        nl: 'Nieuwe ervaring toevoegen',
-        de: 'Neue Umgebung hinzufügen'
+        en: 'Add new learning experience',
+        nl: 'Add new learning experience[nl]',
+        de: 'Add new learning experience[de]'
     },
     numberOfRelatedObjectives: {
         en: 'Number of related objectives',
@@ -211,14 +211,14 @@
         de: 'Anzahl der verwandten Ziele'
     },
     experiencesListIsEmpty: {
-        en: 'Experiences list is empty',
-        nl: 'Experiences list is empty[nl]',
-        de: 'Experiences list is empty[de]'
+        en: 'Learning experiences list is empty',
+        nl: 'Learning experiences list is empty[nl]',
+        de: 'Learning experiences list is empty[de]'
     },
     experienceCannotBeDeleted: {
-        en: 'Experience cannot be deleted while it has related Learning Objective(s)',
-        nl: 'Experience cannot be deleted while it has related Learning Objective(s)[nl]',
-        de: 'Experience cannot be deleted while it has related Learning Objective(s)[de]'
+        en: 'Learning experience cannot be deleted while it has related Learning Objective(s)',
+        nl: 'Learning experience cannot be deleted while it has related Learning Objective(s)[nl]',
+        de: 'Learning experience cannot be deleted while it has related Learning Objective(s)[de]'
     },
     /* End resource section for model Experiences */
     
@@ -237,39 +237,44 @@
     
     /* Resource section for model CreateExperience */
     newExperience: {
-        en: 'New Experience',
-        nl: 'New Experience[nl]',
-        de: 'New Experience[de]'
+        en: 'New Learning experience',
+        nl: 'New Learning experience[nl]',
+        de: 'New Learning experience[de]'
     },
     experienceTitle: {
-        en: 'Experience title',
-        nl: 'Experience title[nl]',
-        de: 'Experience title[de]'
+        en: 'Learning experience title',
+        nl: 'Learning experience title[nl]',
+        de: 'Learning experience title[de]'
     },
     experienceTitlePlaceholder: {
-        en: 'Experience title...',
-        nl: 'Experience title...[nl]',
-        de: 'Experience title...[de]'
+        en: 'Learning experience title...',
+        nl: 'Learning experience title...[nl]',
+        de: 'Learning experience title...[de]'
     },
     objectivesInExperience: {
-        en: 'Objectives in experience',
-        nl: 'Objectives in experience[nl]',
-        de: 'Objectives in experience[de]'
+        en: 'Learning objectives in learning experience',
+        nl: 'Learning objectives in learning experience[nl]',
+        de: 'Learning objectives in learning experience[de]'
     },
     typeExperienceTitleHere: {
-        en: 'Type experience title here',
-        nl: 'Typ hier de titel van de ervaring',
-        de: 'Titel der Umgebung hier eingeben'
+        en: 'Type learning experience title here',
+        nl: 'Type learning experience title here[nl]',
+        de: 'Type learning experience title here[de]'
     },
     clickToAddExperience: {
-        en: 'Click to add experience',
-        nl: 'Klik om ervaring toe te voegen',
-        de: 'Klicken, um Umgebung hinzuzufügen'
+        en: 'Click to add learning experience',
+        nl: 'Click to add learning experience[nl]',
+        de: 'Click to add learning experience[de]'
     },
     createNewExperience: {
-        en: 'Create New Experience',
-        nl: 'Nieuwe ervaring aanmaken',
-        de: 'Neue Umgebung erstellen'
+        en: 'Create New Learning experience',
+        nl: 'Create New Learning experience[nl]',
+        de: 'Create New Learning experience[de]'
+    },
+    chooseTemplate: {
+        en: 'Choose template',
+        nl: 'Choose template[nl]',
+        de: 'Choose template[de]'
     },
     /* End resource section for model CreateExperience */
     
@@ -584,14 +589,64 @@
         de: 'Verwandte Lernziele'
     },
     buildExperience: {
-        en: 'Build experience',
-        nl: 'Ervaring samenstellen',
-        de: 'Erfahrung entwickeln'
+        en: 'Build learning experience',
+        nl: 'Build learning experience[nl]',
+        de: 'Build learning experience[de]'
     },
     noRelatedLearningObjectives: {
         en: 'No related learning objectives',
         nl: 'Geen verwante leerdoelen',
         de: 'Keine verbundenen Lernziele'
+    },
+    clickToAddObjectivesIntoExperience: {
+        en: 'Click to add learning objective(s) into learning experience',
+        nl: 'Click to add learning objective(s) into learning experience[nl]',
+        de: 'Click to add learning objective(s) into learning experience[de]'
+    },
+    relateObjectivesHelpHint: {
+        en: 'Hover on learning objective and click relate for include it to learning experience',
+        nl: 'Hover on learning objective and click relate for include it to learning experience[nl]',
+        de: 'Hover on learning objective and click relate for include it to learning experience[de]'
+    },
+    clickToCreateNewObjective: {
+        en: 'For create new learning objective click here',
+        nl: 'For create new learning objective click here[nl]',
+        de: 'For create new learning objective click here[de]'
+    },
+    noObjectivesForRelating: {
+        en: 'No learning objectives for relating',
+        nl: 'No learning objectives for relating[nl]',
+        de: 'No learning objectives for relating[de]'
+    },
+    finish: {
+        en: 'Finish',
+        nl: 'Finish[nl]',
+        de: 'Finish[de]'
+    },
+    relate: {
+        en: 'Relate',
+        nl: 'Relate[nl]',
+        de: 'Relate[de]'
+    },
+    unrelate: {
+        en: 'Unrelate',
+        nl: 'Unrelate[nl]',
+        de: 'Unrelate[de]'
+    },
+    relateObjectiveToolTip: {
+        en: 'Relate objective(s)',
+        nl: 'Relate objective(s)[nl]',
+        de: 'Relate objective(s)[de]'
+    },
+    unrelateObjectiveToolTip: {
+        en: 'Unrelate objective(s)',
+        nl: 'Unrelate objective(s)[nl]',
+        de: 'Unrelate objective(s)[de]'
+    },
+    finishRelatingToolTip: {
+        en: 'Finish relating',
+        nl: 'Finish relating[nl]',
+        de: 'Finish relating[de]'
     },
     /* End resource section for model Display experience */
     
@@ -633,14 +688,14 @@
     
     /* Resource section for model Not supported browsers */
     browserNotSupport: {
-        en: 'Your browser is currently not supported.Don’t worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.',
-        nl: 'Your browser is currently not supported.Don’t worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.[nl]',
-        de: 'Your browser is currently not supported.Don’t worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.[de]'
+        en: 'Your browser is currently not supported. Do not worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.',
+        nl: 'Your browser is currently not supported. Do not worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.[nl]',
+        de: 'Your browser is currently not supported. Do not worry, there is an easy fix. All you have to do is click one of the icons below and follow the instructions.[de]'
     },
     mobileDeviceNotSupport: {
-        en: 'Unfortunately, mobile devices are not supported yet.Please, use desktop or laptop computer with modern web browser to enjoy easygenerator capabilities.',
-        nl: 'Unfortunately, mobile devices are not supported yet.Please, use desktop or laptop computer with modern web browser to enjoy easygenerator capabilities.[nl]',
-        de: 'Unfortunately, mobile devices are not supported yet.Please, use desktop or laptop computer with modern web browser to enjoy easygenerator capabilities.[de]'
+        en: 'Unfortunately, mobile devices are not supported yet. Please, use desktop or laptop computer with modern web browser to enjoy easygenerator capabilities.',
+        nl: 'Unfortunately, mobile devices are not supported yet. Please, use desktop or laptop computer with modern web browser to enjoy easygenerator capabilities.[nl]',
+        de: 'Unfortunately, mobile devices are not supported yet. Please, use desktop or laptop computer with modern web browser to enjoy easygenerator capabilities.[de]'
     }
     /* End resource section for model Not supported browsers */
            

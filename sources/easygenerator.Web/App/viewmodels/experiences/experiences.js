@@ -131,7 +131,7 @@
 
                 var selectedExperience = selectedExperiences[0];
                 if (selectedExperience.objectives.length > 0) {
-                    notify.error('Experience can not be deleted');
+                    notify.error('Learning experience can not be deleted');
                     return;
                 }
 
