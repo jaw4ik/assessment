@@ -72,6 +72,8 @@
         background-position: 0 -114px;
     }
 
+/*#region Experience statuses*/
+
 .experience-build-progress-status {
     float: right;
     width: auto;
@@ -167,6 +169,8 @@
     display: inline-block;
 }
 
+/*#endregion Experience statuses*/
+
 .experience-image {
     width: 200px;
     height: 115px;
@@ -261,9 +265,9 @@
     margin-top: 1px;
 }
 
-.experience-date-block-text.not-built {
-    line-height: 16px;
-}
+    .experience-date-block-text.not-built {
+        line-height: 16px;
+    }
 
 /*#region Info button*/
 
@@ -351,9 +355,9 @@
     margin-top: 2px;
 }
 
-.experience-info-table.not-built {
-    margin-top: 10px;
-}
+    .experience-info-table.not-built {
+        margin-top: 10px;
+    }
 
 .experience-info-popup-triangle-wrapper {
     position: absolute;
@@ -396,3 +400,17 @@
 .experience .entity-info-popup-item {
     margin-top: 0;
 }
+
+/*#region Template selector*/
+
+.entity-additional-actions {
+    width: 173px;
+    margin-left: 55px;
+    position: absolute;
+}
+
+.experience-template-selector {
+    width: 100%;
+}
+
+/*#endregion Template selector*/

@@ -10,6 +10,7 @@
             obj.buildingStatus = spec.buildingStatus;
             obj.builtOn = spec.builtOn;
             obj.packageUrl = spec.packageUrl;
+            obj.templateId = spec.templateId;
 
             return obj;
         };

@@ -89,7 +89,7 @@
 
             relateObjectives = function (experienceId, objectives) {
                 var deferred = Q.defer();
-                
+
                 if (!_.isString(experienceId)) {
                     deferred.reject('Experience id is not valid');
                 }
@@ -106,7 +106,7 @@
                         }
 
                         _.each(objectives, function (objective) {
-                            var isRelated = _.any(experince.objectives, function(item) {
+                            var isRelated = _.any(experince.objectives, function (item) {
                                 return item.id == objective.id;
                             });
 
@@ -114,7 +114,7 @@
                                 experince.objectives.push(objective);
                             }
                         });
-                        
+
                         deferred.resolve();
                     })
                     .fail(function (reason) {
@@ -145,7 +145,7 @@
                                 return;
                             }
 
-                            dataContext.experiences = _.reject(dataContext.experiences, function(experience) {
+                            dataContext.experiences = _.reject(dataContext.experiences, function (experience) {
                                 return experience.id == experienceId;
                             });
 
@@ -173,7 +173,7 @@
 
                 this.getById(experienceId)
                     .then(function (experience) {
-                        experience.objectives = _.reject(experience.objectives, function(item) {
+                        experience.objectives = _.reject(experience.objectives, function (item) {
                             return _.contains(objectives, item.id);
                         });
 
@@ -184,6 +184,26 @@
                     });
 
                 return deferred.promise;
+            },
+
+            updateExperience = function (obj) {
+                if (_.isNullOrUndefined(obj))
+                    throw 'Invalid arguments';
+
+                var deferred = Q.defer();
+
+                this.getById(obj.id).then(function (experience) {
+
+                    experience.title = obj.title;
+                    experience.templateId = obj.templateId;
+                    experience.modifiedOn = new Date();
+
+                    deferred.resolve(experience);
+                }).fail(function (reason) {
+                    deferred.reject(reason);
+                });
+
+                return deferred.promise;
             };
 
         return {
@@ -191,6 +211,7 @@
             getCollection: getCollection,
 
             addExperience: addExperience,
+            updateExperience: updateExperience,
             relateObjectives: relateObjectives,
             unrelateObjectives: unrelateObjectives,
             removeExperience: removeExperience

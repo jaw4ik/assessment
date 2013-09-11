@@ -138,6 +138,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\models\template.js" />
     <Content Include="App\notify.js" />
     <Content Include="App\repositories\experienceRepository.spec.js">
       <DependentUpon>experienceRepository.js</DependentUpon>
@@ -179,6 +180,10 @@
     <Compile Include="BuildExperience\BuildModel\ObjectiveBuildModel.cs" />
     <Compile Include="BuildExperience\BuildModel\QuestionBuildModel.cs" />
     <Compile Include="ViewModels\Objective\CreateObjectiveViewModel.cs" />
+    <Content Include="App\repositories\templateRepository.js" />
+    <Content Include="App\repositories\templateRepository.spec.js">
+      <DependentUpon>templateRepository.js</DependentUpon>
+    </Content>
     <Content Include="App\views\common\createtip.html" />
     <Content Include="App\views\common\formactions.html" />
     <Content Include="App\views\common\entityinfo.html" />

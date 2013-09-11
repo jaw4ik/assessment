@@ -510,8 +510,8 @@
 
                 describe('when arguments are valid', function () {
                     var getById;
-                    
-                    beforeEach(function() {
+
+                    beforeEach(function () {
                         getById = Q.defer();
                         spyOn(repository, 'getById').andReturn(getById.promise);
                     });
@@ -744,6 +744,118 @@
 
                 });
 
+            });
+
+            describe("updateExperience:", function () {
+
+                it('should be function', function () {
+                    expect(repository.updateExperience).toBeFunction();
+                });
+
+                describe('when arguments not valid', function () {
+
+                    describe('and when experience data is undefined', function () {
+
+                        it('should throw exception', function () {
+                            var f = function () { repository.updateExperience(undefined); };
+                            expect(f).toThrow();
+                        });
+
+                    });
+
+                    describe('and when experience data is null', function () {
+
+                        it('should throw exception', function () {
+                            var f = function () { repository.updateExperience(null); };
+                            expect(f).toThrow();
+                        });
+
+                    });
+
+                });
+
+                describe('when arguments are valid', function () {
+
+                    it('should return promise', function () {
+                        var promise = repository.updateExperience({ id: "0", title: "test title" });
+                        expect(promise).toBePromise();
+                    });
+
+                    describe('when get experience to update', function () {
+
+                        describe('and when experience does not exist', function () {
+
+                            it('should be rejected', function () {
+                                var promise = repository.updateExperience({ id: "-1" });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejected();
+                                });
+                            });
+
+                        });
+
+                        describe('and when experience exists', function () {
+
+                            var experience = {};
+                            beforeEach(function () {
+                                experience = { id: '0', title: 'some title', modifiedOn: '' };
+                                var getExperienceDeferred = $.Deferred();
+                                spyOn(repository, 'getById').andReturn(getExperienceDeferred.promise());
+                                getExperienceDeferred.resolve(experience);
+                            });
+
+                            it('should be resolved', function () {
+                                var promise = repository.updateExperience(experience);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolved();
+                                });
+                            });
+
+                            it('should update title', function () {
+                                var newTitle = 'new title';
+                                var promise = repository.updateExperience({ id: '0', title: newTitle });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(experience.title).toBe(newTitle);
+                                });
+                            });
+
+                            it('should update templateId', function () {
+                                var templateId = "1";
+                                var promise = repository.updateExperience({ id: '0', templateId: templateId, title: "lala" });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(experience.templateId).toBe(templateId);
+                                });
+                            });
+
+                            it('should update modifiedOn', function () {
+                                var promise = repository.updateExperience({ id: '0', title: "lala" });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(experience.modifiedOn).toNotBe('');
+                                });
+                            });
+                        });
+                    });
+                });
             });
 
         });

@@ -1,4 +1,4 @@
-﻿define(['plugins/http', 'repositories/experienceRepository', 'constants'], function (http, repository, constants) {
+﻿define(['plugins/http', 'repositories/experienceRepository', 'repositories/templateRepository', 'constants'], function (http, repository, templateRepository, constants) {
 
     var build = function (experienceId) {
 
@@ -15,28 +15,36 @@
                 deferred.reject('Experience is already building');
                 return;
             }
-            
-            experience.buildingStatus = constants.buildingStatuses.inProgress;
 
-            http.post('experience/build', experience)
-                .done(function (response) {
-                    if (_.isUndefined(response) || _.isUndefined(response.Success)) {
-                        deferred.reject('Response has invalid format');
-                    }
-                    if (response.Success) {
-                        experience.buildingStatus = constants.buildingStatuses.succeed;
-                        experience.packageUrl = response.PackageUrl;
-                        deferred.resolve(response);
-                    } else {
+            templateRepository.getById(experience.templateId).then(function (template) {
+                if (_.isNullOrUndefined(template)) {
+                    deferred.reject('Experience template not found');
+                    return;
+                }
+
+                experience.templateName = template.name;
+                experience.buildingStatus = constants.buildingStatuses.inProgress;
+
+                http.post('experience/build', experience)
+                    .done(function (response) {
+                        if (_.isUndefined(response) || _.isUndefined(response.Success)) {
+                            deferred.reject('Response has invalid format');
+                        }
+                        if (response.Success) {
+                            experience.buildingStatus = constants.buildingStatuses.succeed;
+                            experience.packageUrl = response.PackageUrl;
+                            deferred.resolve(response);
+                        } else {
+                            experience.buildingStatus = constants.buildingStatuses.failed;
+                            experience.packageUrl = '';
+                            deferred.resolve({ Success: false, PackageUrl: '' });
+                        }
+                    })
+                    .fail(function () {
                         experience.buildingStatus = constants.buildingStatuses.failed;
-                        experience.packageUrl = '';
                         deferred.resolve({ Success: false, PackageUrl: '' });
-                    }
-                })
-                .fail(function () {
-                    experience.buildingStatus = constants.buildingStatuses.failed;
-                    deferred.resolve({Success: false, PackageUrl: ''});
-                });
+                    });
+            });
         });
 
         return deferred.promise;

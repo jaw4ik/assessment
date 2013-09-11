@@ -537,7 +537,8 @@
             "modifiedOn" : "\/Date(1377172218190)\/",
             "builtOn" : "",
             "objectives": ["2135000f1e504478831d5a9d2c5daa56", "22b2b46153ad4db3a0ec1931b297c692", "0339b51ce2514e9d8179b3549fcdccee", "863c21dee3994b3da270230f8dfab22c"],
-            "packageUrl": ""
+            "packageUrl": "",
+            "templateId": "0593CC4DD1934ACCBE91DCE7ECE969AE"
         },
         {
             "id": "b32ef9cb86944d928aad89a1f55b743d",
@@ -546,7 +547,8 @@
             "modifiedOn" : "\/Date(1377172218190)\/",
             "builtOn" : "",
             "objectives": ["22b2b46153ad4db3a0ec1931b297c692", "0339b51ce2514e9d8179b3549fcdccee", "863c21dee3994b3da270230f8dfab22c"],
-            "packageUrl": ""
+            "packageUrl": "",
+            "templateId": "0593CC4DD1934ACCBE91DCE7ECE969AE"
         },
         {
             "id": "c3ceab7ff61f449db7873139dbc32b1a",
@@ -555,7 +557,8 @@
             "modifiedOn" : "\/Date(1377172218190)\/",
             "builtOn" : "",
             "objectives": ["2135000f1e504478831d5a9d2c5daa56", "22b2b46153ad4db3a0ec1931b297c692", "863c21dee3994b3da270230f8dfab22c"],
-            "packageUrl": ""
+            "packageUrl": "",
+            "templateId": "0593CC4DD1934ACCBE91DCE7ECE969AE"
         },
         {
             "id": "cc4746fae78b4bb898152f207f0bd442",
@@ -564,7 +567,8 @@
             "modifiedOn" : "\/Date(1377172218190)\/",
             "builtOn" : "",
             "objectives": ["22b2b46153ad4db3a0ec1931b297c692", "0339b51ce2514e9d8179b3549fcdccee", "863c21dee3994b3da270230f8dfab22c"],
-            "packageUrl": ""
+            "packageUrl": "",
+            "templateId": "0593CC4DD1934ACCBE91DCE7ECE969AE"
         },
         {
             "id": "1b158bf3486942718c0d029d07769abf",
@@ -573,7 +577,18 @@
             "modifiedOn" : "\/Date(1377172218190)\/",
             "builtOn" : "",
             "objectives": [],
-            "packageUrl": ""
+            "packageUrl": "",
+            "templateId": "0593CC4DD1934ACCBE91DCE7ECE969AE"
+        }
+    ],
+    "templates": [
+        {
+            "id":"0593CC4DD1934ACCBE91DCE7ECE969AE",
+            "name": "Default"
+        },
+        {
+            "id":"DE880B6EDAF047ECB8CE8F24052116B5",
+            "name": "Quiz"
         }
     ]
 }

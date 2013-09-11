@@ -9,6 +9,9 @@ namespace easygenerator.Web.BuildExperience.BuildModel
         public string Id { get; set; }
 
         [Required(AllowEmptyStrings = false)]
+        public string TemplateName { get; set; }
+
+        [Required(AllowEmptyStrings = false)]
         [StringLength(255)]
         public string Title { get; set; }
 

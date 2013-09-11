@@ -6,15 +6,14 @@
             eventTracker = require('eventTracker'),
             constants = require('constants'),
             repository = require('repositories/experienceRepository'),
+            templateRepository = require('repositories/templateRepository'),
             notify = require('notify');
 
         var eventsCategory = 'Experience';
 
 
         describe('viewModel [experience]', function () {
-
-            var
-                previousExperienceId = '0',
+            var previousExperienceId = '0',
                 experience = {
                     id: '1',
                     title: 'experience',
@@ -28,15 +27,16 @@
                     packageUrl: '',
                     createdOn: 'createdOn',
                     modifiedOn: 'modifiedOn',
-                    builtOn: 'builtOn'
+                    builtOn: 'builtOn',
+                    templateId: '1'
                 },
-                nextExperienceId = '2'
-            ;
+                nextExperienceId = '2';
 
             beforeEach(function () {
                 spyOn(eventTracker, 'publish');
                 spyOn(router, 'navigate');
                 spyOn(router, 'replace');
+                spyOn(notify, 'info');
             });
 
             it('should be object', function () {
@@ -49,6 +49,18 @@
                     expect(viewModel.isFirstBuild()).toBeDefined();
                 });
 
+            });
+
+            describe('templates', function () {
+                it('should be defined', function () {
+                    expect(viewModel.templates).toBeDefined();
+                });
+            });
+
+            describe('templateId', function () {
+                it('should be observable', function () {
+                    expect(viewModel.templateId).toBeObservable();
+                });
             });
 
             describe('isEditing', function () {
@@ -425,7 +437,8 @@
 
                         viewModel.id = 1;
                         viewModel.buildExperience();
-                        var promise = build.promise.fin(function () { });
+                        var promise = build.promise.fin(function () {
+                        });
 
                         waitsFor(function () {
                             return promise.isFulfilled();
@@ -441,7 +454,8 @@
 
                         viewModel.id = 1;
                         viewModel.buildExperience();
-                        var promise = build.promise.fin(function () { });
+                        var promise = build.promise.fin(function () {
+                        });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -457,7 +471,8 @@
 
                         viewModel.id = 1;
                         viewModel.buildExperience();
-                        var promise = build.promise.fin(function () { });
+                        var promise = build.promise.fin(function () {
+                        });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -473,7 +488,8 @@
                         experiencerepositorygetByIdDefer.resolve(experience);
 
                         viewModel.id = 1;
-                        var promise = experiencerepositorygetByIdPromise.fin(function () { });
+                        var promise = experiencerepositorygetByIdPromise.fin(function () {
+                        });
                         viewModel.buildExperience();
 
                         waitsFor(function () {
@@ -488,7 +504,8 @@
                         build.resolve({ Success: true, PackageUrl: "packageUrl" });
 
                         viewModel.buildExperience();
-                        var promise = build.promise.fin(function () { });
+                        var promise = build.promise.fin(function () {
+                        });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -503,7 +520,8 @@
 
                         viewModel.id = 1;
                         viewModel.buildExperience();
-                        var promise = build.promise.fin(function () { });
+                        var promise = build.promise.fin(function () {
+                        });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -520,8 +538,9 @@
 
                         viewModel.id = 1;
                         viewModel.buildExperience();
-                        var promise = build.promise.fin(function () { });
-                        
+                        var promise = build.promise.fin(function () {
+                        });
+
                         waitsFor(function () {
                             return !promise.isPending();
                         });
@@ -535,7 +554,8 @@
                         var builtOn = experience.builtOn = 'builtOn';
 
                         viewModel.id = 1;
-                        var promise = experiencerepositorygetByIdPromise.fin(function () { });
+                        var promise = experiencerepositorygetByIdPromise.fin(function () {
+                        });
                         experiencerepositorygetByIdDefer.resolve(experience);
                         viewModel.buildExperience();
 
@@ -560,8 +580,9 @@
 
                         viewModel.id = 1;
                         viewModel.buildExperience();
-                        
-                        var promise = build.promise.fin(function () { });
+
+                        var promise = build.promise.fin(function () {
+                        });
 
                         waitsFor(function () {
                             return promise.isFulfilled();
@@ -577,8 +598,9 @@
 
                         viewModel.id = 1;
                         viewModel.buildExperience();
-                        
-                        var promise = build.promise.fin(function () { });
+
+                        var promise = build.promise.fin(function () {
+                        });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -594,8 +616,9 @@
 
                         viewModel.id = 1;
                         viewModel.buildExperience();
-                        
-                        var promise = build.promise.fin(function () { });
+
+                        var promise = build.promise.fin(function () {
+                        });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -613,8 +636,9 @@
 
                         viewModel.id = 1;
                         viewModel.buildExperience();
-                        var promise = build.promise.fin(function () { });
-                        
+                        var promise = build.promise.fin(function () {
+                        });
+
                         experiencerepositorygetByIdPromise.fin(function () {
                             experience.packageUrl = '';
                         });
@@ -634,8 +658,9 @@
 
                         viewModel.id = 1;
                         viewModel.buildExperience();
-                        
-                        var promise = build.promise.fin(function () { });
+
+                        var promise = build.promise.fin(function () {
+                        });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -690,60 +715,48 @@
 
             });
 
-            describe('startEditing:', function () {
+            describe('startEditTitle:', function () {
 
                 it('should be function', function () {
-                    expect(viewModel.startEditing).toBeFunction();
+                    expect(viewModel.startEditTitle).toBeFunction();
                 });
 
                 it('should be set isEditing to true', function () {
                     viewModel.isEditing(false);
-                    viewModel.startEditing();
+                    viewModel.startEditTitle();
                     expect(viewModel.isEditing()).toBeTruthy();
                 });
 
             });
 
-            describe('saveChanges:', function () {
-
-                var experienceRepositoryGetById, getPromise;
+            describe('endEditTitle:', function () {
 
                 beforeEach(function () {
-                    experienceRepositoryGetById = Q.defer();
-
-                    spyOn(notify, 'info');
-                    spyOn(repository, 'getById').andReturn(experienceRepositoryGetById.promise);
-
-                    experienceRepositoryGetById.resolve(experience);
-                    getPromise = experienceRepositoryGetById.promise.fin(function () { });
+                    viewModel.title(experience.title);
+                    viewModel.startEditTitle();
                 });
 
                 it('should be function', function () {
-                    expect(viewModel.saveChanges).toBeFunction();
+                    expect(viewModel.endEditTitle).toBeFunction();
                 });
 
-                it('should trim title', function() {
+                it('should trim title', function () {
                     viewModel.title('    Some title          ');
-                    viewModel.saveChanges();
+                    viewModel.endEditTitle();
                     expect(viewModel.title()).toEqual('Some title');
                 });
 
                 describe('when title is not valid', function () {
-                    
+
                     it('should clear title', function () {
                         viewModel.title(utils.createString(viewModel.experienceTitleMaxLength + 1));
-                        viewModel.saveChanges();
-                        
-                        waitsFor(function () {
-                            return !getPromise.isPending();
-                        });
-                        runs(function () {
-                            expect(viewModel.title()).toBe(experience.title);
-                        });
+                        viewModel.endEditTitle();
+
+                        expect(viewModel.title()).toBe(experience.title);
                     });
 
                     it('should not show notification', function () {
-                        viewModel.saveChanges();
+                        viewModel.endEditTitle();
                         expect(notify.info).not.toHaveBeenCalled();
                     });
 
@@ -751,77 +764,137 @@
 
                         it('should trim title', function () {
                             viewModel.title('              ');
-                            viewModel.saveChanges();
+                            viewModel.endEditTitle();
 
-                            waitsFor(function () {
-                                return !getPromise.isPending();
-                            });
-                            runs(function () {
-                                expect(viewModel.title()).toBe(experience.title);
-                            });
+                            expect(viewModel.title()).toBe(experience.title);
                         });
-
                     });
 
                 });
 
                 describe('when title is valid', function () {
 
+                    var updateExperienceDeferred, updateExperiencePromise;
+                    var newTitle = 'Valid title';
+
                     beforeEach(function () {
-                        viewModel.title('Valid title');
+                        updateExperienceDeferred = Q.defer();
+
+                        spyOn(repository, 'updateExperience').andReturn(updateExperienceDeferred.promise);
+                        updateExperiencePromise = updateExperienceDeferred.promise.fin(function () { });
+
+                        viewModel.title(newTitle);
                     });
 
-                    it('should be change field modifiedOn', function () {
-                        viewModel.saveChanges();
-                        expect(viewModel.modifiedOn()).toNotEqual(experience.modifiedOn);
+                    it('should update experience in repository', function () {
+                        viewModel.endEditTitle();
+                        expect(repository.updateExperience).toHaveBeenCalled();
                     });
 
-                    it('should be change field modifiedOn in dataContext', function () {
-                        var modifiedOn = experience.modifiedOn;
-                        viewModel.saveChanges();
-                        var promise = experienceRepositoryGetById.promise.fin(function () { });
-                        experienceRepositoryGetById.resolve(experience);
+                    describe('and when experience updated successfully', function () {
+
+                        var updatedExperience = { title: newTitle, templateId: "0", modifiedOn: new Date() };
+                        beforeEach(function () {
+                            updateExperienceDeferred.resolve(updatedExperience);
+                        });
+
+                        it('should update notificaion', function () {
+                            viewModel.endEditTitle();
+
+                            waitsFor(function () {
+                                return !updateExperiencePromise.isPending();
+                            });
+                            runs(function () {
+                                expect(updateExperiencePromise).toBeResolved();
+                                expect(notify.info).toHaveBeenCalled();
+                            });
+                        });
+
+                        it('should update modifiedOn', function () {
+                            viewModel.endEditTitle();
+
+                            waitsFor(function () {
+                                return !updateExperiencePromise.isPending();
+                            });
+                            runs(function () {
+                                expect(updateExperiencePromise).toBeResolved();
+                                expect(viewModel.modifiedOn()).toEqual(updatedExperience.modifiedOn);
+                            });
+                        });
+
+                        it('should send event \'Update experience title\'', function () {
+                            viewModel.endEditTitle();
+                            expect(eventTracker.publish).toHaveBeenCalledWith('Update experience title', eventsCategory);
+                        });
+
+                    });
+
+                    it('should set isEditing to false', function () {
+                        viewModel.isEditing(true);
+                        viewModel.endEditTitle();
+                        expect(viewModel.isEditing()).toBeFalsy();
+                    });
+                });
+            });
+
+            describe('updateExperienceTemplate:', function () {
+                it('should be function', function () {
+                    expect(viewModel.updateExperienceTemplate).toBeFunction();
+                });
+
+                var updateExperienceDeferred, updateExperiencePromise;
+                beforeEach(function () {
+                    updateExperienceDeferred = Q.defer();
+
+                    spyOn(repository, 'updateExperience').andReturn(updateExperienceDeferred.promise);
+                    updateExperiencePromise = updateExperienceDeferred.promise.fin(function () { });
+                });
+
+                it('should update experience in repository', function () {
+                    viewModel.endEditTitle();
+                    expect(repository.updateExperience).toHaveBeenCalled();
+                });
+
+                describe('and when experience updated successfully', function () {
+                    var templateItem = { id: '0', name: 'template' };
+                    var updatedExperience = { title: 'some title', templateId: '0', modifiedOn: new Date() };
+                    beforeEach(function () {
+                        viewModel.templates.splice(0, viewModel.templates.length);
+                        viewModel.templates.push(templateItem, { id: '1', name: 'tmpl' });
+                        viewModel.templateId(templateItem.id);
+                        updateExperienceDeferred.resolve(updatedExperience);
+                    });
+
+                    it('should update notificaion', function () {
+                        viewModel.updateExperienceTemplate(templateItem);
 
                         waitsFor(function () {
-                            return !promise.isPending();
+                            return !updateExperiencePromise.isPending();
                         });
                         runs(function () {
-                            expect(experience.modifiedOn).toNotEqual(modifiedOn);
+                            expect(updateExperiencePromise).toBeResolved();
+                            expect(notify.info).toHaveBeenCalled();
                         });
                     });
 
-                    it('should be change field modifiedOn in dataContext', function () {
-                        viewModel.title('expected title');
-                        viewModel.saveChanges();
-                        var promise = experienceRepositoryGetById.promise.fin(function () { });
-                        experienceRepositoryGetById.resolve(experience);
+                    it('should update modifiedOn', function () {
+                        viewModel.updateExperienceTemplate(templateItem);
 
                         waitsFor(function () {
-                            return !promise.isPending();
+                            return !updateExperiencePromise.isPending();
                         });
                         runs(function () {
-                            expect(experience.title).toEqual(viewModel.title());
+                            expect(updateExperiencePromise).toBeResolved();
+                            expect(viewModel.modifiedOn()).toEqual(updatedExperience.modifiedOn);
                         });
                     });
 
-                    it('should show notification', function () {
-                        viewModel.saveChanges();
-                        expect(notify.info).toHaveBeenCalled();
-                    });
-
-                    it('should send event \'Update experience title\'', function () {
-                        viewModel.saveChanges();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Update experience title', eventsCategory);
+                    it('should send event \'Change experience template to \'<templateName>\'\'', function () {
+                        viewModel.updateExperienceTemplate(templateItem);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Change experience template to \'' + templateItem.name + '\'', eventsCategory);
                     });
 
                 });
-
-                it('should set isEditing to false', function () {
-                    viewModel.isEditing(true);
-                    viewModel.saveChanges();
-                    expect(viewModel.isEditing()).toBeFalsy();
-                });
-
             });
 
             describe('activate:', function () {
@@ -965,6 +1038,34 @@
                     });
                 });
 
+                it('should set current experience builtOn', function () {
+                    viewModel.builtOn('');
+
+                    var promise = viewModel.activate(experience.id);
+                    deferred.resolve([experience]);
+
+                    waitsFor(function () {
+                        return promise.isFulfilled();
+                    });
+                    runs(function () {
+                        expect(viewModel.builtOn()).toEqual(experience.builtOn);
+                    });
+                });
+
+                it('should set current experience templateId', function () {
+                    viewModel.templateId('');
+
+                    var promise = viewModel.activate(experience.id);
+                    deferred.resolve([experience]);
+
+                    waitsFor(function () {
+                        return promise.isFulfilled();
+                    });
+                    runs(function () {
+                        expect(viewModel.templateId()).toEqual(experience.templateId);
+                    });
+                });
+
                 describe('when expierense build status equals \'notStarted\'', function () {
 
                     it('should set isFirstBuild to true', function () {
@@ -1075,6 +1176,60 @@
 
                 });
 
+                describe('when get templates from repository', function () {
+                    var getTemplatesDeferred, getTemplatesPromise;
+
+                    beforeEach(function () {
+                        getTemplatesDeferred = Q.defer();
+
+                        spyOn(templateRepository, 'getCollection').andReturn(getTemplatesDeferred.promise);
+                        getTemplatesPromise = getTemplatesDeferred.promise.fin(function () { });
+
+                        deferred.resolve([{ id: experience.id, title: 'z' }]);
+                    });
+
+                    it('should get templates from repository', function () {
+                        var promise = viewModel.activate(experience.id);
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeResolved();
+                            expect(templateRepository.getCollection).toHaveBeenCalled();
+                        });
+                    });
+
+                    describe('when received templates successfully', function () {
+                        beforeEach(function () {
+                            viewModel.templates.splice(0, viewModel.templates.length);
+                            getTemplatesDeferred.resolve([{ id: "0", name: "Default" }, { id: "1", name: "Quizz" }]);
+                        });
+
+                        it('should initialize templates collection', function () {
+                            var promise = viewModel.activate(experience.id);
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeResolved();
+                                expect(viewModel.templates.length).toBe(2);
+                            });
+                        });
+
+                        it('should initialize templates collection sorted by name asc', function () {
+                            var promise = viewModel.activate(experience.id);
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeResolved();
+                                expect(viewModel.templates).toBeSortedAsc('name');
+                            });
+                        });
+                    });
+
+                });
+
                 it('should resolve promise with undefined', function () {
                     var promise = viewModel.activate(experience.id);
                     deferred.resolve([experience]);
@@ -1088,8 +1243,6 @@
                 });
 
             });
-
         });
 
-    }
-);
+    });

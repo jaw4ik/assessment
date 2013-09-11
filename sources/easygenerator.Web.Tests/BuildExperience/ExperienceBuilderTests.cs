@@ -16,7 +16,7 @@ namespace easygenerator.Web.Tests.BuildExperience
         private Mock<HttpRuntimeWrapper> _httpRuntimeWrapperMock;
         private Mock<BuildPathProvider> _buildPathProviderMock;
         private Mock<BuildPackageCreator> _buildPackageCreatorMock;
-        
+
         private Mock<PackageModelSerializer> _packageModelSerializerMock;
 
         [TestInitialize]
@@ -41,7 +41,7 @@ namespace easygenerator.Web.Tests.BuildExperience
 
         private static ExperiencePackageModel CreateDefaultPackageModel()
         {
-            return new ExperiencePackageModel() { Id = "0", Objectives = new List<ObjectivePackageModel>() };
+            return new ExperiencePackageModel() { Id = "0", TemplateName = "Default", Objectives = new List<ObjectivePackageModel>() };
         }
 
         [TestMethod]
@@ -111,7 +111,7 @@ namespace easygenerator.Web.Tests.BuildExperience
         }
 
         [TestMethod]
-        public void Build_ShouldCopyDefaultTemplate()
+        public void Build_ShouldCopyTemplate()
         {
             //Arrange
             var buildModel = CreateDefaultPackageModel();
@@ -120,7 +120,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             var packageUrl = String.Format(buildModel.Id + " {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now().ToUniversalTime());
 
             _buildPathProviderMock.Setup(instance => instance.GetBuildDirectoryName(packageUrl)).Returns(buildPath);
-            _buildPathProviderMock.Setup(instance => instance.GetTemplateDirectoryName(It.IsAny<string>())).Returns(templatePath);
+            _buildPathProviderMock.Setup(instance => instance.GetTemplateDirectoryName(buildModel.TemplateName)).Returns(templatePath);
             _fileManager.Setup(instance => instance.CopyDirectory(templatePath, buildPath));
 
             //Act

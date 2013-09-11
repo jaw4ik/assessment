@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'plugins/router', 'constants', 'eventTracker', 'repositories/experienceRepository', 'services/buildExperience', 'viewmodels/objectives/objectiveBrief', 'localization/localizationManager', 'notify'],
-    function (dataContext, router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify) {
+﻿define(['dataContext', 'plugins/router', 'constants', 'eventTracker', 'repositories/experienceRepository', 'repositories/templateRepository', 'services/buildExperience', 'viewmodels/objectives/objectiveBrief', 'localization/localizationManager', 'notify'],
+    function (dataContext, router, constants, eventTracker, repository, templateRepository, service, objectiveBrief, localizationManager, notify) {
         "use strict";
 
         var
@@ -13,7 +13,8 @@
                 navigateToObjectiveDetails: 'Navigate to Objective details',
                 selectObjective: 'Select Objective',
                 unselectObjective: 'Unselect Objective',
-                updateExperienceTitle: 'Update experience title'
+                updateExperienceTitle: 'Update experience title',
+                updateExperienceTemplate: 'Change experience template to'
             },
 
             sendEvent = function (eventName) {
@@ -23,6 +24,7 @@
         var id = '',
             title = ko.observable(''),
             objectives = [],
+            templates = [],
             status = ko.observable(),
             isFirstBuild = ko.observable(true),
             nextExperienceId = null,
@@ -33,7 +35,7 @@
             modifiedOn = ko.observable(),
             builtOn = ko.observable(),
             language = ko.observable(),
-
+            templateId = ko.observable(),
         isEditing = ko.observable();
         title.isValid = ko.computed(function () {
             var length = title().trim().length;
@@ -141,27 +143,37 @@
             this.isFirstBuild(true);
         },
 
-        startEditing = function () {
+        startEditTitle = function () {
             previousTitle = title();
             isEditing(true);
         },
 
-        saveChanges = function () {
+        endEditTitle = function () {
             this.title(title().trim());
             if (title.isValid() && title() != previousTitle) {
                 sendEvent(events.updateExperienceTitle);
-                experience.title = title();
-                var modified = new Date();
-                this.modifiedOn(modified);
-                repository.getById(this.id).then(function (item) {
-                    item.title = title();
-                    item.modifiedOn = modified;
-                });
-                notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
+                updateExperience.call(this);
             } else {
                 title(previousTitle);
             }
             this.isEditing(false);
+        },
+
+        updateExperienceTemplate = function () {
+            var selectedTemplate = _.find(this.templates, function(item) {
+                return item.id === templateId();
+            });
+
+            sendEvent(events.updateExperienceTemplate + ' \'' + selectedTemplate.name + '\'');
+            updateExperience.call(this);
+        },
+
+        updateExperience = function () {
+            var that = this;
+            repository.updateExperience({ id: that.id, title: title(), templateId: templateId() }).then(function (updatedExperience) {
+                that.modifiedOn(updatedExperience.modifiedOn);
+                notify.info(localizationManager.localize('lastSaving') + ': ' + updatedExperience.modifiedOn.toLocaleTimeString());
+            });
         },
 
         activate = function (experienceId) {
@@ -207,6 +219,19 @@
                 var index = _.indexOf(experiences, that.experience);
                 that.previousExperienceId = index != 0 ? experiences[index - 1].id : null;
                 that.nextExperienceId = index != experiences.length - 1 ? experiences[index + 1].id : null;
+                that.templateId(that.experience.templateId);
+
+                templateRepository.getCollection().then(function (templatesResponse) {
+                    that.templates = _.chain(templatesResponse)
+                       .map(function (template) {
+                           return {
+                               id: template.id,
+                               name: template.name
+                           };
+                       })
+                       .sortBy(function (template) { return template.name.toLowerCase(); })
+                       .value();
+                });
             });
         };
 
@@ -216,8 +241,9 @@
             id: id,
             title: title,
             isFirstBuild: isFirstBuild,
-            //template: 'Default',
+            templateId: templateId,
             objectives: objectives,
+            templates: templates,
             status: status,
             statuses: constants.buildingStatuses,
             experience: experience,
@@ -233,8 +259,9 @@
 
             buildExperience: buildExperience,
             downloadExperience: downloadExperience,
-            startEditing: startEditing,
-            saveChanges: saveChanges,
+            startEditTitle: startEditTitle,
+            endEditTitle: endEditTitle,
+            updateExperienceTemplate: updateExperienceTemplate,
 
             resetBuildStatus: resetBuildStatus,
             language: language,

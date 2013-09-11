@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/http', 'models/objective', 'models/objective', 'models/question', 'models/experience', 'models/answerOption', 'models/explanation', 'constants'],
-    function (app, http, objectiveModel, ObjectiveModel, QuestionModel, ExperienceModel, AnswerOptionModel, ExplanationModel, constants) {
+﻿define(['durandal/app', 'plugins/http', 'models/objective', 'models/objective', 'models/question', 'models/experience', 'models/answerOption', 'models/explanation', 'models/template', 'constants'],
+    function (app, http, objectiveModel, ObjectiveModel, QuestionModel, ExperienceModel, AnswerOptionModel, ExplanationModel, TemplateModel, constants) {
 
         function parseDateString(str) {
             return new Date(parseInt(str.substr(6), 10));
@@ -8,6 +8,7 @@
         var
             objectives = [],
             experiences = [],
+            templates = [],
             initialize = function () {
                 return $.ajax({
                     url: 'data.js?v=' + Math.random(),
@@ -41,6 +42,7 @@
                         return new ExperienceModel({
                             id: experience.id,
                             title: experience.title,
+                            templateId: experience.templateId,
                             createdOn: parseDateString(experience.createdOn),
                             modifiedOn: parseDateString(experience.modifiedOn),
                             objectives: _.map(experience.objectives, function (objectiveId) {
@@ -53,6 +55,14 @@
                             packageUrl: experience.packageUrl
                         });
                     }));
+                    templates.push.apply(templates, _.map(response.templates, function (template) {
+                        return new TemplateModel(
+                        {
+                            id: template.id,
+                            name: template.name
+                        });
+                    }));
+
                 }).then(function () {
                     return $.ajax({
                         url: 'api/objectives',
@@ -99,6 +109,7 @@
         return {
             initialize: initialize,
             objectives: objectives,
-            experiences: experiences
+            experiences: experiences,
+            templates: templates
         };
     });
