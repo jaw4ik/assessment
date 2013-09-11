@@ -781,7 +781,6 @@
     <Content Include="Templates\Quiz\content\3\1\0.html" />
     <Content Include="Templates\Quiz\content\3\1\1.html" />
     <Content Include="Templates\Quiz\content\data.js" />
-    <Content Include="Templates\Quiz\css\bootstrap.min.css" />
     <Content Include="Templates\Quiz\css\durandal.css" />
     <Content Include="Templates\Quiz\css\ie10mobile.css" />
     <Content Include="Templates\Quiz\css\images\glyphicons-halflings-white.png" />
