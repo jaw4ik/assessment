@@ -15,8 +15,6 @@
         var centerY = element.height / 2;
         var radius = (centerX < centerY ? centerX : centerY - lineWidth / 2) - 1;
 
-        console.log(radius);
-
         var progress = score / 100;
 
         var cnxt = element.getContext('2d');
