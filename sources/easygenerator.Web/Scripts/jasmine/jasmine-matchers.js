@@ -160,11 +160,14 @@ function toBeResolvedWith(actual, value) {
         return false;
     }
 
+    var valueJSON = JSON.stringify(value);
+    var actualJSON = JSON.stringify(actual.inspect().value);
+
     this.message = function () {
-        return "Expected promise to be resolved with value '" + JSON.stringify(value) + "', but it was resolved with value '" + actual.inspect().value + "'";
+        return "Expected promise to be resolved with value '" + valueJSON + "', but it was resolved with value '" + actualJSON + "'";
     };
 
-    return actual.inspect().value == value;
+    return actualJSON == valueJSON;
 }
 
 function toBeRejected(actual) {
@@ -187,7 +190,7 @@ function toBeRejectedWith(actual, reason) {
     var isRejected = toBeRejected.call(this, actual);
     if (!isRejected) {
         return false;
-    }    
+    }
 
     this.message = function () {
         return "Expected promise to be rejected with reason '" + reason + "', but it was rejected with reason '" + actual.inspect().reason + "'";
