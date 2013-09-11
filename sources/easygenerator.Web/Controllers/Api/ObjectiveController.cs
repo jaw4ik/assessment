@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Controllers.Api
@@ -42,12 +43,16 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        public ActionResult Update(string title)
+        public ActionResult Update(Objective objective, string title)
         {
-            return JsonSuccess(new
+            if (objective == null)
             {
-                ModifiedOn = DateTime.Now
-            });
+                return JsonSuccess(new { ModifiedOn = DateTimeWrapper.Now() });
+            }
+
+            objective.UpdateTitle(title);
+
+            return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
         }
 
     }

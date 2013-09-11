@@ -19,6 +19,14 @@ namespace easygenerator.DomainModel.Entities
 
         public string Title { get; private set; }
 
+        public virtual void UpdateTitle(string title)
+        {
+            ThrowIfTitleIsInvalid(title);
+
+            Title = title;
+            MarkAsModified();
+        }
+
         private void ThrowIfTitleIsInvalid(string title)
         {
             ArgumentValidation.ThrowIfNullOrEmpty(title, "title");

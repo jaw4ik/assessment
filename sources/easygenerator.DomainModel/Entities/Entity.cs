@@ -16,30 +16,13 @@ namespace easygenerator.DomainModel.Entities
             ModifiedOn = DateTimeWrapper.Now();
         }
 
-        //protected internal Entity(string createdBy)
-        //    : this()
-        //{
-        //    ArgumentValidation.ThrowIfNullOrEmpty(createdBy, "createdBy");
-
-        //    CreatedBy = createdBy;
-        //    ModifiedBy = createdBy;
-        //}
-
         public Guid Id { get; protected set; }
         public DateTime CreatedOn { get; protected set; }
         public DateTime ModifiedOn { get; protected set; }
-        //public string CreatedBy { get; protected set; }
-        //public string ModifiedBy { get; protected set; }
 
-        //protected virtual void MarkAsModified(string modifiedBy)
-        //{
-        //    ModifiedBy = modifiedBy;
-        //    ModifiedOn = DateTimeWrapper.Now();
-        //}
-
-        //public override string ToString()
-        //{
-        //    return String.Format("Id: {0}; CreatedBy: {1}; CreatedOn: {2}", Id, CreatedBy, CreatedOn);
-        //}
+        protected virtual void MarkAsModified()
+        {
+            ModifiedOn = DateTimeWrapper.Now();
+        }
     }
 }

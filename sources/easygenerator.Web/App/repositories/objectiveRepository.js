@@ -96,7 +96,7 @@
 
                 if (_.isObject(obj) && _.isString(obj.id) && _.isString(obj.title)) {
 
-                    http.post('api/objective/update', { id: obj.id, title: obj.title }).then(function (response) {
+                    http.post('api/objective/update', { objectiveId: obj.id, title: obj.title }).then(function (response) {
 
                         if (!_.isObject(response)) {
                             deferred.reject('Response is not an object');

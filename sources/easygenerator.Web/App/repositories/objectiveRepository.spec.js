@@ -416,7 +416,7 @@
                         });
                         runs(function () {
                             expect(http.post).toHaveBeenCalledWith('api/objective/update', {
-                                id: objective.id,
+                                objectiveId: objective.id,
                                 title: objective.title
                             });
                         });

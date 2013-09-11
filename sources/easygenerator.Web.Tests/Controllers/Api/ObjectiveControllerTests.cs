@@ -8,6 +8,7 @@ using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
 using easygenerator.Web.ViewModels.Objective;
@@ -35,6 +36,22 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _repository = Substitute.For<IObjectiveRepository>();
             _controller = new ObjectiveController(_repository, _entityFactory);
         }
+
+        #region GetCollection
+
+        [TestMethod]
+        public void GetCollection_ShouldReturnJsonSuccessResult()
+        {
+            var collection = new Collection<Objective>(new List<Objective>() { ObjectiveObjectMother.Create() });
+
+            _repository.GetCollection().Returns(collection);
+
+            var result = _controller.GetCollection();
+
+            result.Should().BeJsonSuccessResult().And.Data.Should().Be(collection);
+        }
+
+        #endregion
 
         #region Create objective
 
@@ -69,19 +86,47 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-
-        #region GetCollection
+        #region Update objective
 
         [TestMethod]
-        public void GetCollection_ShouldReturnJsonSuccessResult()
+        public void Update_ShouldReturnJsonSuccessResult_WhenObjectiveIsNull()
         {
-            var collection = new Collection<Objective>(new List<Objective>() { ObjectiveObjectMother.Create() });
+            //Arrange
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            _repository.GetCollection().Returns(collection);
+            //Act
+            var result = _controller.Update(null, String.Empty);
 
-            var result = _controller.GetCollection();
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = DateTime.MaxValue });
+        }
 
-            result.Should().BeJsonSuccessResult().And.Data.Should().Be(collection);
+
+        [TestMethod]
+        public void Update_ShouldUpdateObjectiveTitle()
+        {
+            //Arrange
+            const string title = "updated title";
+            var objective = Substitute.For<Objective>();
+
+            //Act
+            _controller.Update(objective, title);
+
+            //Assert
+            objective.Received().UpdateTitle(title);
+        }
+
+        [TestMethod]
+        public void Update_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var objective = Substitute.For<Objective>();
+
+            //Act
+            var result = _controller.Update(objective, String.Empty);
+
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = objective.ModifiedOn });
         }
 
         #endregion
