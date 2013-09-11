@@ -14,7 +14,8 @@
                 selectObjective: 'Select Objective',
                 unselectObjective: 'Unselect Objective',
                 updateExperienceTitle: 'Update experience title',
-                updateExperienceTemplate: 'Change experience template to'
+                updateExperienceTemplate: 'Change experience template to',
+                unrelateObjectivesFromExperience: 'Unrelate objectives from experience'
             },
 
             sendEvent = function (eventName) {
@@ -23,7 +24,7 @@
 
         var id = '',
             title = ko.observable(''),
-            objectives = [],
+            objectives = ko.observableArray([]),
             templates = [],
             status = ko.observable(),
             isFirstBuild = ko.observable(true),
@@ -36,7 +37,13 @@
             builtOn = ko.observable(),
             language = ko.observable(),
             templateId = ko.observable(),
-        isEditing = ko.observable();
+            isEditing = ko.observable(),
+            canUnrelateObjectives = ko.computed(function () {
+                return _.some(objectives(), function (item) {
+                    return item.isSelected();
+                });
+            });
+
         title.isValid = ko.computed(function () {
             var length = title().trim().length;
             return length > 0 && length <= constants.validation.experienceTitleMaxLength;
@@ -170,10 +177,11 @@
 
         updateExperience = function () {
             var that = this;
-            repository.updateExperience({ id: that.id, title: title(), templateId: templateId() }).then(function (updatedExperience) {
-                that.modifiedOn(updatedExperience.modifiedOn);
-                notify.info(localizationManager.localize('lastSaving') + ': ' + updatedExperience.modifiedOn.toLocaleTimeString());
-            });
+            repository.updateExperience({ id: that.id, title: title(), templateId: templateId() })
+                .then(function (updatedExperience) {
+                    that.modifiedOn(updatedExperience.modifiedOn);
+                    notify.info(localizationManager.localize('lastSaving') + ': ' + updatedExperience.modifiedOn.toLocaleTimeString());
+                });
         },
 
         activate = function (experienceId) {
@@ -209,12 +217,12 @@
 
                 that.id = that.experience.id;
                 that.title(that.experience.title);
-                that.objectives = _.chain(that.experience.objectives)
+                that.objectives(_.chain(that.experience.objectives)
                         .map(function (objective) {
                             return objectiveBrief(objective);
                         })
                         .sortBy(function (objective) { return objective.title.toLowerCase(); })
-                        .value();
+                        .value());
 
                 var index = _.indexOf(experiences, that.experience);
                 that.previousExperienceId = index != 0 ? experiences[index - 1].id : null;
@@ -233,6 +241,19 @@
                        .value();
                 });
             });
+        },
+
+        unrelateSelectedObjectives = function () {
+            sendEvent(events.unrelateObjectivesFromExperience);
+            var that = this,
+                selectedObjectives = _.filter(this.objectives(), function (item) {
+                    return item.isSelected();
+                });
+
+            repository.unrelateObjectives(this.id, _.map(selectedObjectives, function (item) { return item.id; }))
+                .then(function () {
+                    that.objectives(_.difference(that.objectives(), selectedObjectives));
+                });
         };
 
         return {
@@ -249,6 +270,7 @@
             experience: experience,
             nextExperienceId: nextExperienceId,
             previousExperienceId: previousExperienceId,
+            canUnrelateObjectives: canUnrelateObjectives,
 
             navigateToExperiences: navigateToExperiences,
             navigateToNextExperience: navigateToNextExperience,
@@ -256,6 +278,7 @@
             navigateToObjectiveDetails: navigateToObjectiveDetails,
 
             toggleObjectiveSelection: toggleObjectiveSelection,
+            unrelateSelectedObjectives: unrelateSelectedObjectives,
 
             buildExperience: buildExperience,
             downloadExperience: downloadExperience,

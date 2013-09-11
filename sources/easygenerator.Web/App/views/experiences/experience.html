@@ -93,13 +93,19 @@
         <!-- /ko -->
     </header>
     <div class="experience-related-objectives-header">
+        <a class="experiences-header-create-link" href="/#"></a>
         <span data-bind="localize: { text: 'relatedLearningObjectives' }">Related learning objectives</span>
+        <!-- ko if: canUnrelateObjectives() -->
+        <span class="header-toolbar-item-wrapper" data-bind="click: unrelateSelectedObjectives">
+            <span class="toolbar-unrelate"></span>
+        </span>
+        <!-- /ko -->
         <hr />
     </div>
-    <!-- ko if: objectives.length != 0-->
+    <!-- ko if: objectives().length != 0-->
     <div class="content-list-wrapper">
         <ul class="content-list">
-            <!-- ko foreach: objectives -->
+            <!-- ko foreach: objectives() -->
             <li class="content-list-item" data-bind="css: { 'selected': isSelected }">
                 <div class="hover-indicator"></div>
                 <div class="logo-wrapper white-framing">
@@ -139,7 +145,7 @@
         </ul>
     </div>
     <!-- /ko -->
-    <!-- ko if: objectives.length == 0-->
+    <!-- ko if: objectives().length == 0-->
     <div class="empty-list-wrapper">
         <div class="empty-list">
             <div class="empty-list-text" data-bind="localize: { text: 'noRelatedLearningObjectives' }"></div>

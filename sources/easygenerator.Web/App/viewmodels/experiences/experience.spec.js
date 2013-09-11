@@ -116,7 +116,7 @@
                         });
 
                     });
-                    
+
                     describe('when title is longer than 255 but after trimming is not longer than 255', function () {
 
                         it('should be true', function () {
@@ -538,8 +538,7 @@
 
                         viewModel.id = 1;
                         viewModel.buildExperience();
-                        var promise = build.promise.fin(function () {
-                        });
+                        var promise = build.promise.fin(function () { });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -581,8 +580,7 @@
                         viewModel.id = 1;
                         viewModel.buildExperience();
 
-                        var promise = build.promise.fin(function () {
-                        });
+                        var promise = build.promise.fin(function () { });
 
                         waitsFor(function () {
                             return promise.isFulfilled();
@@ -599,8 +597,7 @@
                         viewModel.id = 1;
                         viewModel.buildExperience();
 
-                        var promise = build.promise.fin(function () {
-                        });
+                        var promise = build.promise.fin(function () { });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -617,8 +614,7 @@
                         viewModel.id = 1;
                         viewModel.buildExperience();
 
-                        var promise = build.promise.fin(function () {
-                        });
+                        var promise = build.promise.fin(function () { });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -636,8 +632,7 @@
 
                         viewModel.id = 1;
                         viewModel.buildExperience();
-                        var promise = build.promise.fin(function () {
-                        });
+                        var promise = build.promise.fin(function () { });
 
                         experiencerepositorygetByIdPromise.fin(function () {
                             experience.packageUrl = '';
@@ -659,8 +654,7 @@
                         viewModel.id = 1;
                         viewModel.buildExperience();
 
-                        var promise = build.promise.fin(function () {
-                        });
+                        var promise = build.promise.fin(function () { });
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -982,7 +976,7 @@
                 });
 
                 it('should set current experience objectives sorted by title ascending', function () {
-                    viewModel.objectives = null;
+                    viewModel.objectives([]);
 
                     var promise = viewModel.activate(experience.id);
                     deferred.resolve([experience]);
@@ -991,8 +985,8 @@
                         return promise.isFulfilled();
                     });
                     runs(function () {
-                        expect(viewModel.objectives.length).toEqual(4);
-                        expect(viewModel.objectives).toBeSortedAsc('title');
+                        expect(viewModel.objectives().length).toEqual(4);
+                        expect(viewModel.objectives()).toBeSortedAsc('title');
                     });
                 });
 
@@ -1243,6 +1237,129 @@
                 });
 
             });
+
+            describe('objectives:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.objectives).toBeObservable();
+                });
+
+            });
+
+            describe('canUnrelateObjectives:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.canUnrelateObjectives).toBeObservable();
+                });
+
+                describe('when all objectives is unselected', function () {
+
+                    it('should be false', function () {
+                        viewModel.objectives([
+                            { id: '0', isSelected: ko.observable(false) },
+                            { id: '1', isSelected: ko.observable(false) },
+                            { id: '2', isSelected: ko.observable(false) }
+                        ]);
+
+                        expect(viewModel.canUnrelateObjectives()).toBeFalsy();
+                    });
+
+                });
+
+                describe('when one of objectives is selected', function () {
+
+                    it('should be true', function () {
+                        viewModel.objectives([
+                            { id: '0', isSelected: ko.observable(true) },
+                            { id: '1', isSelected: ko.observable(false) },
+                            { id: '2', isSelected: ko.observable(false) }
+                        ]);
+
+                        expect(viewModel.canUnrelateObjectives()).toBeTruthy();
+                    });
+
+                });
+
+                describe('when several objectives are selected', function () {
+
+                    it('should be true', function () {
+                        viewModel.objectives([
+                            { id: '0', isSelected: ko.observable(false) },
+                            { id: '1', isSelected: ko.observable(true) },
+                            { id: '2', isSelected: ko.observable(true) }
+                        ]);
+
+                        expect(viewModel.canUnrelateObjectives()).toBeTruthy();
+                    });
+
+                });
+
+            });
+
+            describe('unrelateSelectedObjectives', function () {
+
+                beforeEach(function() {
+                    viewModel.id = 'experienceId';
+                });
+
+                it('should be a function', function () {
+                    expect(viewModel.unrelateSelectedObjectives).toBeFunction();
+                });
+
+                describe('when some of objectives is selected', function () {
+                    var relatedObjectives,
+                        unrelateObjectives,
+                        unrelateObjectivesPromise;
+
+                    beforeEach(function () {
+                        relatedObjectives = [
+                            { id: '0', isSelected: ko.observable(true) },
+                            { id: '1', isSelected: ko.observable(false) },
+                            { id: '2', isSelected: ko.observable(true) }
+                        ];
+
+                        viewModel.objectives(relatedObjectives);
+
+                        unrelateObjectives = Q.defer();
+                        unrelateObjectivesPromise = unrelateObjectives.promise.finally(function () { });
+                        spyOn(repository, 'unrelateObjectives').andReturn(unrelateObjectives.promise);
+                    });
+
+                    it('should send event \'Unrelate objectives from experience\'', function () {
+                        viewModel.unrelateSelectedObjectives();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Unrelate objectives from experience', eventsCategory);
+                    });
+
+                    it('should call repository \"unrelateObjectives\" method', function() {
+                        viewModel.unrelateSelectedObjectives();
+                        
+                        expect(repository.unrelateObjectives).toHaveBeenCalledWith('experienceId', ['0', '2']);
+                    });
+
+                    describe('and unrelate objectives succeed', function() {
+
+                        it('should update related objectives', function () {
+                            unrelateObjectives.resolve();
+                            
+                            viewModel.unrelateSelectedObjectives();
+
+                            waitsFor(function () {
+                                return !unrelateObjectivesPromise.isPending();
+                            });
+                            
+                            runs(function () {
+                                expect(viewModel.objectives().length).toBe(1);
+                                expect(viewModel.objectives()[0].id).toBe('1');
+                            });
+
+                        });
+
+                    });
+
+                });
+
+            });
+
         });
 
     });
