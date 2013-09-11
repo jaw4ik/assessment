@@ -17,16 +17,24 @@
                 </h3>
             </div>
         </header>
-        <ul class="unstyled summary-list" data-bind="foreach: objectives">
+        <ul class="unstyled summary-list">
+            <!-- ko foreach: objectives -->
             <li class="summary-list-item divided">
-                <div class="objective-progressbar">
+                <div class="summary-list-item-inner">
+                    <div class="summary-objective-title">
+                        <div class="objective-progress-title">
+                            <span data-bind="text: title"></span>
+                        </div>
+                    </div>
                     <div class="progressbar-holder">
-                        <div class="progressbar-line"></div>
-                        <div class="progressbar-full" data-bind="style: { width: score + '%' }"></div>
+                        <div class="progressbar-block">
+                            <div class="progressbar-bg-line"></div>
+                            <div class="progressbar-score-line" data-bind="style: { width: score + '%' }"></div>
+                        </div>
                     </div>
                 </div>
-                <p data-bind="text: title" class="objective-progress-title"></p>
             </li>
+            <!-- /ko -->
         </ul>
     </div>
     <div class="btn-group btn-group-justified">
