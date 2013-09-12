@@ -201,6 +201,16 @@
         width: 100%;
     }
 
+.experiences-header-finish-link {
+    width: 64px;
+    height: 64px;
+    background: url('images/finish.png') 0 0;
+}
+
+    .experiences-header-finish-link:hover {
+        background-position: 0 64px;
+    }
+
 .experience .content-list-item .text-block {
     margin-right: 37px;
 }
@@ -265,9 +275,9 @@
     margin-top: 1px;
 }
 
-    .experience-date-block-text.not-built {
-        line-height: 16px;
-    }
+.experience-date-block-text.not-built {
+    line-height: 16px;
+}
 
 /*#region Info button*/
 
@@ -355,9 +365,9 @@
     margin-top: 2px;
 }
 
-    .experience-info-table.not-built {
-        margin-top: 10px;
-    }
+.experience-info-table.not-built {
+    margin-top: 10px;
+}
 
 .experience-info-popup-triangle-wrapper {
     position: absolute;
@@ -400,6 +410,85 @@
 .experience .entity-info-popup-item {
     margin-top: 0;
 }
+
+/*#region Hint popup*/
+
+.experience .hint-popup
+{
+    position: relative;
+    width: 270px;
+    border: 1px solid #bdbebf;
+    border-radius: 3px;
+    background-color: #fefefe;
+    padding: 15px 13px;
+    -webkit-box-shadow: 0 0 3px 2px #f1f1f1;
+    box-shadow: 0 0 3px 2px #f1f1f1;
+    z-index: 10;
+}
+
+    .experience .hint-popup-close {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 6px;
+        height: 6px;
+        background: url(images/hint-popup.png) 0 -31px no-repeat;
+    }
+
+    .experience .hint-popup-light-image
+    {
+        position: absolute;
+        width: 17px;
+        height: 27px;
+        background: url(images/hint-popup.png) 0 0 no-repeat;
+    }
+
+    .experience .hint-popup-text {
+        font-family: Arial;
+        font-size: 13px;
+        color: #666666;
+        margin-left: 30px;
+        line-height: 15px;
+        display: inline-block;
+        text-shadow: 0px 0px #bebebe;
+    }
+
+    .experience .hint-popup-triangle-wrapper {
+        position: absolute;
+        left: 13px;
+        bottom: -8px;
+        width: 15px;
+        height: 8px;
+        overflow: hidden;
+    }
+
+    .experience .hint-popup-triangle
+    {
+        width: 16px;
+        height: 16px;
+        margin-top: -11px;
+        background-color: #fefefe;
+        border: 1px solid #bdbebf;
+        -webkit-box-shadow: 0 0 3px 1px #f1f1f1;
+        box-shadow: 0 0 3px 1px #f1f1f1;
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+.experience .hint-popup-holder {
+    position: relative;
+}
+
+.experience .hint-popup-holder .hint-popup {
+    position: absolute;
+    bottom: 0;
+    left: 93px;
+}
+
+/*#endregion Hint popup*/
 
 /*#region Template selector*/
 

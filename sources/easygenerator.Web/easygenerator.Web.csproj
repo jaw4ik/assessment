@@ -190,10 +190,13 @@
     <Content Include="App\views\common\createtip.html" />
     <Content Include="App\views\common\formactions.html" />
     <Content Include="App\views\common\entityinfo.html" />
+    <Content Include="App\views\common\hintpopup.html" />
     <Content Include="Content\durandal.css" />
     <Content Include="Content\font\alphamacaoe.svg" />
     <Content Include="Content\images\build-sprite.png" />
     <Content Include="Content\images\emptyBox.png" />
+    <Content Include="Content\images\finish.png" />
+    <Content Include="Content\images\hint-popup.png" />
     <Content Include="Content\images\info-icon.png" />
     <Content Include="Content\images\nav-icons.png" />
     <Content Include="Content\images\small-size-icons-pack.png" />

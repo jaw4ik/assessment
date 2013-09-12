@@ -41,6 +41,12 @@
                             })
                         };
                     });
+
+                    return {
+                        experience: experience,
+
+                        objectives: objectives
+                    };
                 });
             };
 

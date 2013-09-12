@@ -6,6 +6,7 @@
             eventTracker = require('eventTracker'),
             constants = require('constants'),
             repository = require('repositories/experienceRepository'),
+            objectiveRepository = require('repositories/objectiveRepository'),
             templateRepository = require('repositories/templateRepository'),
             notify = require('notify');
 
@@ -889,6 +890,230 @@
                     });
 
                 });
+
+            });
+
+            describe('objectivesMode:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.objectivesMode).toBeObservable();
+                });
+
+            });
+
+            describe('startAppendingObjectives:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.startAppendingObjectives).toBeFunction();
+                });
+
+                describe('when called', function () {
+
+                    it('should send event \'Start appending related objectives\'', function () {
+                        viewModel.startAppendingObjectives();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Start appending related objectives', eventsCategory);
+                    });
+
+                    var getObjectivesDefer,
+                        getObjectivesPromise;
+
+                    beforeEach(function () {
+                        getObjectivesDefer = Q.defer();
+                        getObjectivesPromise = getObjectivesDefer.promise.fin(function () { });
+                        spyOn(objectiveRepository, 'getCollection').andReturn(getObjectivesDefer.promise);
+                    });
+
+                    describe('when get objectives collection', function () {
+
+                        beforeEach(function () {
+                            viewModel.objectives([]);
+                            getObjectivesDefer.resolve([{ id: '0', title: 'B' }, { id: '1', title: 'A' }]);
+                        });
+
+                        it('should fill objectives list', function () {
+                            viewModel.startAppendingObjectives();
+
+                            waitsFor(function () {
+                                return !getObjectivesPromise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.objectives().length).toBe(2);
+                            });
+                        });
+
+                        it('should sort available objectives by title', function () {
+                            viewModel.startAppendingObjectives();
+
+                            waitsFor(function () {
+                                return !getObjectivesPromise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.objectives()).toBeSortedAsc('title');
+                            });
+                        });
+
+                        it('should set objectivesMode to \'appending\'', function () {
+                            viewModel.startAppendingObjectives();
+
+                            waitsFor(function () {
+                                return !getObjectivesPromise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.objectivesMode()).toBe('appending');
+                            });
+                        });
+
+                        describe('and experience has related objectives', function () {
+
+                            it('should show only not related objectives', function () {
+                                viewModel.objectives([{ id: '0', title: 'B', isSelected: ko.observable(false) }]);
+
+                                viewModel.startAppendingObjectives();
+
+                                waitsFor(function () {
+                                    return !getObjectivesPromise.isPending();
+                                });
+                                runs(function () {
+                                    expect(viewModel.objectives().length).toBe(1);
+                                    expect(viewModel.objectives()[0].id).toBe('1');
+                                });
+                            });
+
+                        });
+
+                    });
+
+                });
+
+            });
+
+            describe('finishAppendingObjectives:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.finishAppendingObjectives).toBeFunction();
+                });
+
+                describe('when called', function () {
+
+                    var relateObjectivesDefer,
+                        relateObjectivesPromise;
+
+                    beforeEach(function () {
+                        relateObjectivesDefer = Q.defer();
+                        relateObjectivesPromise = relateObjectivesDefer.promise.fin(function () { });
+                        spyOn(repository, 'relateObjectives').andReturn(relateObjectivesDefer.promise);
+                    });
+
+                    it('should send event \'Finish appending related objectives\'', function () {
+                        viewModel.finishAppendingObjectives();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Finish appending related objectives', eventsCategory);
+                    });
+
+                    it('should call relateObjectives repository function with selected objectives', function () {
+                        viewModel.id = '2';
+                        var objectivesList = [
+                            { isSelected: ko.observable(false), _original: { id: '0' } },
+                            { isSelected: ko.observable(true), _original: { id: '1' } }
+                        ];
+                        viewModel.objectives(objectivesList);
+
+                        viewModel.finishAppendingObjectives();
+
+                        expect(repository.relateObjectives).toHaveBeenCalledWith(viewModel.id, [objectivesList[1]._original]);
+                    });
+
+                    it('should set objectivesMode to \'display\'', function () {
+                        viewModel.objectives([]);
+                        viewModel.relatedObjectives = [];
+                        relateObjectivesDefer.resolve([]);
+                        viewModel.finishAppendingObjectives();
+
+                        waitsFor(function () {
+                            return !relateObjectivesPromise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.objectivesMode()).toBe('display');
+                        });
+                    });
+
+                    describe('and when experience has related objectives', function () {
+
+                        beforeEach(function () {
+                            viewModel.objectives([
+                                { id: '0', title: 'C', isSelected: ko.observable(false) },
+                                { id: '1', title: 'A', isSelected: ko.observable(false) }]);
+
+                            var deferred = Q.defer();
+                            deferred.resolve([]);
+                            spyOn(objectiveRepository, 'getCollection').andReturn(deferred.promise);
+
+                            viewModel.startAppendingObjectives();
+                        });
+
+                        describe('and new objectives are included', function () {
+
+                            beforeEach(function () {
+                                relateObjectivesDefer.resolve([{ id: '2', title: 'B' }]);
+                            });
+
+                            it('should call \'notify.info\' function', function() {
+                                viewModel.finishAppendingObjectives();
+
+                                waitsFor(function () {
+                                    return !relateObjectivesPromise.isPending();
+                                });
+                                runs(function () {
+                                    expect(notify.info).toHaveBeenCalled();
+                                });
+                            });
+
+                            it('should update objectives', function () {
+                                viewModel.finishAppendingObjectives();
+
+                                waitsFor(function () {
+                                    return !relateObjectivesPromise.isPending();
+                                });
+                                runs(function () {
+                                    expect(viewModel.objectives().length).toBe(3);
+                                });
+                            });
+
+                            it('should sort objectives by title', function () {
+                                viewModel.finishAppendingObjectives();
+
+                                waitsFor(function () {
+                                    return !relateObjectivesPromise.isPending();
+                                });
+                                runs(function () {
+                                    expect(viewModel.objectives()).toBeSortedAsc('title');
+                                });
+                            });
+
+                        });
+
+                        describe('and new objectives not included', function() {
+                            
+                            beforeEach(function () {
+                                relateObjectivesDefer.resolve([]);
+                            });
+
+                            it('should not call \'notify.info\' function', function () {
+                                viewModel.finishAppendingObjectives();
+
+                                waitsFor(function () {
+                                    return !relateObjectivesPromise.isPending();
+                                });
+                                runs(function () {
+                                    expect(notify.info).not.toHaveBeenCalled();
+                                });
+                            });
+
+                        });
+
+                    });
+
+                });
+
             });
 
             describe('activate:', function () {
@@ -899,7 +1124,6 @@
                     deferred = Q.defer();
                     spyOn(repository, 'getCollection').andReturn(deferred.promise);
                 });
-
 
                 describe('when experienceId is not a string', function () {
 
@@ -976,7 +1200,7 @@
                 });
 
                 it('should set current experience objectives sorted by title ascending', function () {
-                    viewModel.objectives([]);
+                    viewModel.objectives(null);
 
                     var promise = viewModel.activate(experience.id);
                     deferred.resolve([experience]);
@@ -987,6 +1211,18 @@
                     runs(function () {
                         expect(viewModel.objectives().length).toEqual(4);
                         expect(viewModel.objectives()).toBeSortedAsc('title');
+                    });
+                });
+
+                it('should set objectivesMode to \'display\'', function () {
+                    var promise = viewModel.activate(experience.id);
+                    deferred.resolve([experience]);
+
+                    waitsFor(function () {
+                        return promise.isFulfilled();
+                    });
+                    runs(function () {
+                        expect(viewModel.objectivesMode()).toBe('display');
                     });
                 });
 
@@ -1298,7 +1534,7 @@
 
             describe('unrelateSelectedObjectives', function () {
 
-                beforeEach(function() {
+                beforeEach(function () {
                     viewModel.id = 'experienceId';
                 });
 
@@ -1330,28 +1566,41 @@
                         expect(eventTracker.publish).toHaveBeenCalledWith('Unrelate objectives from experience');
                     });
 
-                    it('should call repository \"unrelateObjectives\" method', function() {
+                    it('should call repository \"unrelateObjectives\" method', function () {
                         viewModel.unrelateSelectedObjectives();
-                        
+
                         expect(repository.unrelateObjectives).toHaveBeenCalledWith('experienceId', ['0', '2']);
                     });
 
-                    describe('and unrelate objectives succeed', function() {
+                    describe('and unrelate objectives succeed', function () {
 
-                        it('should update related objectives', function () {
+                        it('should call \'notify.info\' function', function() {
                             unrelateObjectives.resolve();
-                            
+
                             viewModel.unrelateSelectedObjectives();
 
                             waitsFor(function () {
                                 return !unrelateObjectivesPromise.isPending();
                             });
-                            
+
+                            runs(function () {
+                                expect(notify.info).toHaveBeenCalled();
+                            });
+                        });
+
+                        it('should update related objectives', function () {
+                            unrelateObjectives.resolve();
+
+                            viewModel.unrelateSelectedObjectives();
+
+                            waitsFor(function () {
+                                return !unrelateObjectivesPromise.isPending();
+                            });
+
                             runs(function () {
                                 expect(viewModel.objectives().length).toBe(1);
                                 expect(viewModel.objectives()[0].id).toBe('1');
                             });
-
                         });
 
                     });

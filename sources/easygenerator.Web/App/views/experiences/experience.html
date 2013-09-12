@@ -65,13 +65,14 @@
         <!-- /ko -->
 
         <div>
-            <!-- ko compose: { view: 'views/common/entityinfo', 
-                        model: {
-                        info: [ { text: 'createdOn', emptyText: '', date: createdOn }, { text: 'modifiedOn', emptyText: '', date: modifiedOn() }, { text: 'builtOn', emptyText: 'notBuilt', date: builtOn() } ],
-                        image: '/Content/images/experience.png',
-                        language: language
-                    }
-                } -->
+            <!-- ko compose: { 
+                view: 'views/common/entityinfo', 
+                model: {
+                    info: [ { text: 'createdOn', emptyText: '', date: createdOn }, { text: 'modifiedOn', emptyText: '', date: modifiedOn() }, { text: 'builtOn', emptyText: 'notBuilt', date: builtOn() } ],
+                    image: '/Content/images/experience.png',
+                    language: language
+                }
+            } -->
             <!-- /ko -->
 
             <div class="view-header-title">
@@ -92,18 +93,32 @@
         <div class="view-header-nav-btn next disabled" title="Next" data-bind="localize: { title: 'next' }"></div>
         <!-- /ko -->
     </header>
-    <div class="experience-related-objectives-header">
-        <a class="experiences-header-create-link" href="/#"></a>
-        <span data-bind="localize: { text: 'relatedLearningObjectives' }">Related learning objectives</span>
+
+
+    <!-- ko if: objectivesMode() == objectivesListModes.display -->
+        <div class="experience-related-objectives-header">
+            <a class="experiences-header-create-link" data-bind="click: startAppendingObjectives"></a>
+            <span data-bind="localize: { text: 'relatedLearningObjectives' }">Related learning objectives</span>
         <!-- ko if: canUnrelateObjectives() -->
         <span class="header-toolbar-item-wrapper" data-bind="click: unrelateSelectedObjectives">
             <span class="toolbar-unrelate"></span>
         </span>
         <!-- /ko -->
-        <hr />
-    </div>
+            <hr />
+        </div>
+    <!-- /ko -->
+    
+    <!-- ko if: objectivesMode() == objectivesListModes.appending -->
+        <div class="experience-related-objectives-header">
+            <a class="experiences-header-finish-link" data-bind="click: finishAppendingObjectives"></a>
+            <span data-bind="localize: { text: 'finish' }">Finish</span>
+            <hr />
+        </div>
+    <!-- /ko -->
+
     <!-- ko if: objectives().length != 0-->
     <div class="content-list-wrapper">
+
         <ul class="content-list">
             <!-- ko foreach: objectives() -->
             <li class="content-list-item" data-bind="css: { 'selected': isSelected }">
@@ -113,16 +128,26 @@
                     <div class="item-options">
                         <div class="item-option select" data-bind="click: $parent.toggleObjectiveSelection">
                             <!-- ko ifnot: isSelected() -->
-                            <div class="nowrap" data-bind="localize: { text: 'select' }">Select</div>
-                            <div class="action-img unchecked inline">
-                                <input type="checkbox" class="custom-checkbox">
-                            </div>
+                                <!-- ko if: $parent.objectivesMode() == $parent.objectivesListModes.display -->
+                                <div class="nowrap" data-bind="localize: { text: 'select' }">Select</div>
+                                <!-- /ko -->
+                                <!-- ko if: $parent.objectivesMode() == $parent.objectivesListModes.appending -->
+                                <div class="nowrap" data-bind="localize: { text: 'relate' }">Relate</div>
+                                <!-- /ko -->
+                                <div class="action-img unchecked inline">
+                                    <input type="checkbox" class="custom-checkbox">
+                                </div>
                             <!-- /ko -->
                             <!-- ko if: isSelected() -->
-                            <div class="nowrap" data-bind="localize: { text: 'unselect' }">Unselect</div>
-                            <div class="action-img checked inline">
-                                <input class="custom-checkbox" type="checkbox">
-                            </div>
+                                <!-- ko if: $parent.objectivesMode() == $parent.objectivesListModes.display -->
+                                <div class="nowrap" data-bind="localize: { text: 'unselect' }">Unselect</div>
+                                <!-- /ko -->
+                                <!-- ko if: $parent.objectivesMode() == $parent.objectivesListModes.appending -->
+                                <div class="nowrap" data-bind="localize: { text: 'unrelate' }">Unrelate</div>
+                                <!-- /ko -->
+                                <div class="action-img checked inline">
+                                    <input class="custom-checkbox" type="checkbox">
+                                </div>
                             <!-- /ko -->
                         </div>
                         <div class="separator"></div>
@@ -145,11 +170,21 @@
         </ul>
     </div>
     <!-- /ko -->
-    <!-- ko if: objectives().length == 0-->
-    <div class="empty-list-wrapper">
-        <div class="empty-list">
-            <div class="empty-list-text" data-bind="localize: { text: 'noRelatedLearningObjectives' }"></div>
+
+    <!-- ko if: objectives().length == 0 -->
+        <!-- ko if: objectivesMode() == objectivesListModes.display -->
+        <div class="empty-list-wrapper">
+            <div class="empty-list">
+                <div class="empty-list-text" data-bind="localize: { text: 'noRelatedLearningObjectives' }"></div>
+            </div>
         </div>
-    </div>
+        <!-- /ko -->
+        <!-- ko if: objectivesMode() == objectivesListModes.appending -->
+        <div class="empty-list-wrapper">
+            <div class="empty-list">
+                <div class="empty-list-text" data-bind="localize: { text: 'noObjectivesForRelating' }"></div>
+            </div>
+        </div>
+        <!-- /ko -->
     <!-- /ko -->
 </section>

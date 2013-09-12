@@ -569,6 +569,20 @@
                                     });
                                 });
 
+                                it('should be resolved without inputed objectives', function() {
+                                    var experience = { id: '1', objectives: [{ id: '0' }] };
+                                    getById.resolve(experience);
+
+                                    var promise = repository.relateObjectives('1', [{ id: '0' }]);
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(promise).toBeResolvedWith([]);
+                                    });
+                                });
+
                             });
 
                             describe('when objectives are not related', function () {
@@ -584,6 +598,20 @@
                                     });
                                     runs(function () {
                                         expect(experience.objectives.length).toBe(2);
+                                    });
+                                });
+
+                                it('should be resolved with appended objectives', function() {
+                                    var experience = { id: '1', objectives: [] };
+                                    getById.resolve(experience);
+
+                                    var promise = repository.relateObjectives('1', [{ id: '0' }, { id: '1' }]);
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(promise).toBeResolvedWith([{ id: '0' }, { id: '1' }]);
                                     });
                                 });
 

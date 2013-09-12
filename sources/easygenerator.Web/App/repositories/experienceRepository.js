@@ -112,10 +112,12 @@
 
                             if (!isRelated) {
                                 experince.objectives.push(objective);
+                            } else {
+                                objectives = _.without(objectives, objective);
                             }
                         });
 
-                        deferred.resolve();
+                        deferred.resolve(objectives);
                     })
                     .fail(function (reason) {
                         deferred.reject(reason);

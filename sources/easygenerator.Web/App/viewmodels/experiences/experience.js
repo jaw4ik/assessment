@@ -1,6 +1,8 @@
-﻿define(['dataContext', 'plugins/router', 'constants', 'eventTracker', 'repositories/experienceRepository', 'repositories/templateRepository', 'services/buildExperience', 'viewmodels/objectives/objectiveBrief', 'localization/localizationManager', 'notify'],
-    function (dataContext, router, constants, eventTracker, repository, templateRepository, service, objectiveBrief, localizationManager, notify) {
+﻿define(['dataContext', 'plugins/router', 'constants', 'eventTracker', 'repositories/experienceRepository', 'services/buildExperience', 'viewmodels/objectives/objectiveBrief', 'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'repositories/templateRepository'],
+    function (dataContext, router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, templateRepository) {
         "use strict";
+
+        //#region Events
 
         var
             events = {
@@ -13,6 +15,8 @@
                 selectObjective: 'Select Objective',
                 unselectObjective: 'Unselect Objective',
                 updateExperienceTitle: 'Update experience title',
+                startAppendingRelatedObjectives: 'Start appending related objectives',
+                finishAppendingRelatedObjectives: 'Finish appending related objectives',
                 updateExperienceTemplate: 'Change experience template to',
                 unrelateObjectivesFromExperience: 'Unrelate objectives from experience'
             },
@@ -21,7 +25,12 @@
                 eventTracker.publish(eventName);
             };
 
-        var id = '',
+        //#endregion Events
+
+        //#region Properties
+
+        var
+            id = '',
             title = ko.observable(''),
             objectives = ko.observableArray([]),
             templates = [],
@@ -35,18 +44,32 @@
             modifiedOn = ko.observable(),
             builtOn = ko.observable(),
             language = ko.observable(),
+            isEditing = ko.observable(),
+            objectivesMode = ko.observable(''),
+            relatedObjectives = [],
             templateId = ko.observable(),
             isEditing = ko.observable(),
+
+            objectivesListModes = {
+                appending: 'appending',
+                display: 'display'
+            },
+
             canUnrelateObjectives = ko.computed(function () {
                 return _.some(objectives(), function (item) {
                     return item.isSelected();
                 });
             });
 
+
         title.isValid = ko.computed(function () {
             var length = title().trim().length;
             return length > 0 && length <= constants.validation.experienceTitleMaxLength;
         });
+
+        //#endregion Properties
+
+        //#region Navigation
 
         var navigateToExperiences = function () {
             sendEvent(events.navigateToExperiences);
@@ -92,29 +115,9 @@
             router.navigate('objective/' + objective.id);
         },
 
+        //#endregion Navigation
 
-        toggleObjectiveSelection = function (objective) {
-
-            if (_.isUndefined(objective)) {
-                throw 'Objective is undefined';
-            }
-
-            if (_.isNull(objective)) {
-                throw 'Objective is null';
-            }
-
-            if (!ko.isObservable(objective.isSelected)) {
-                throw 'Objective does not have isSelected observable';
-            }
-
-            if (objective.isSelected()) {
-                sendEvent(events.unselectObjective);
-                objective.isSelected(false);
-            } else {
-                sendEvent(events.selectObjective);
-                objective.isSelected(true);
-            }
-        },
+        //#region Built & Download
 
         buildExperience = function () {
             sendEvent(events.buildExperience);
@@ -149,6 +152,31 @@
             this.isFirstBuild(true);
         },
 
+        //#endregion Built & Download
+
+        toggleObjectiveSelection = function (objective) {
+
+            if (_.isUndefined(objective)) {
+                throw 'Objective is undefined';
+            }
+
+            if (_.isNull(objective)) {
+                throw 'Objective is null';
+            }
+
+            if (!ko.isObservable(objective.isSelected)) {
+                throw 'Objective does not have isSelected observable';
+            }
+
+            if (objective.isSelected()) {
+                sendEvent(events.unselectObjective);
+                objective.isSelected(false);
+            } else {
+                sendEvent(events.selectObjective);
+                objective.isSelected(true);
+            }
+        },
+
         startEditTitle = function () {
             previousTitle = title();
             isEditing(true);
@@ -165,8 +193,75 @@
             this.isEditing(false);
         },
 
+        //#region Relate/Unrelate
+
+        startAppendingObjectives = function () {
+            sendEvent(events.startAppendingRelatedObjectives);
+
+            var that = this;
+
+            objectiveRepository.getCollection().then(function (objectivesList) {
+                var relatedIds = _.pluck(that.objectives(), 'id');
+
+                var availableObjectives = _.chain(objectivesList)
+                    .filter(function (item) {
+                        return !_.include(relatedIds, item.id);
+                    })
+                    .map(function (item) {
+                        var mappedObjective = objectiveBrief(item);
+                        mappedObjective._original = item;
+
+                        return mappedObjective;
+                    })
+                    .sortBy(function (item) {
+                        return item.title.toLowerCase();
+                    }).value();
+
+                that.relatedObjectives = that.objectives();
+                that.objectives(availableObjectives);
+                that.objectivesMode(objectivesListModes.appending);
+            });
+        },
+
+        finishAppendingObjectives = function () {
+            sendEvent(events.finishAppendingRelatedObjectives);
+
+            var objectivesToAdd = _.chain(this.objectives())
+                .filter(function (item) {
+                    return item.isSelected();
+                })
+                .map(function (item) {
+                    return item._original;
+                })
+                .value();
+
+            var that = this;
+
+            repository.relateObjectives(that.id, objectivesToAdd)
+                .then(function (relatedObjectivesList) {
+
+                    if (relatedObjectivesList.length > 0) {
+                        notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
+                    }
+
+                    that.relatedObjectives = _.chain(relatedObjectivesList)
+                        .map(function (objective) {
+                            return objectiveBrief(objective);
+                        })
+                        .union(that.relatedObjectives)
+                        .sortBy(function (item) {
+                            return item.title.toLowerCase();
+                        }).value();
+
+                    that.objectives(that.relatedObjectives);
+                    that.objectivesMode(objectivesListModes.display);
+                });
+        },
+
+        //#endregion Relate/Unrelate
+
         updateExperienceTemplate = function () {
-            var selectedTemplate = _.find(this.templates, function(item) {
+            var selectedTemplate = _.find(this.templates, function (item) {
                 return item.id === templateId();
             });
 
@@ -188,10 +283,11 @@
                 router.replace('400');
                 return undefined;
             }
-            this.isEditing(false);
-            this.language(localizationManager.currentLanguage);
+            isEditing(false);
+            language(localizationManager.currentLanguage);
 
             var that = this;
+
             return repository.getCollection().then(function (response) {
                 var experiences = _.sortBy(response, function (item) {
                     return item.title;
@@ -223,6 +319,8 @@
                         .sortBy(function (objective) { return objective.title.toLowerCase(); })
                         .value());
 
+                that.objectivesMode(that.objectivesListModes.display);
+
                 var index = _.indexOf(experiences, that.experience);
                 that.previousExperienceId = index != 0 ? experiences[index - 1].id : null;
                 that.nextExperienceId = index != experiences.length - 1 ? experiences[index + 1].id : null;
@@ -244,7 +342,9 @@
 
         unrelateSelectedObjectives = function () {
             sendEvent(events.unrelateObjectivesFromExperience);
-            var that = this,
+
+            var
+                that = this,
                 selectedObjectives = _.filter(this.objectives(), function (item) {
                     return item.isSelected();
                 });
@@ -252,6 +352,7 @@
             repository.unrelateObjectives(this.id, _.map(selectedObjectives, function (item) { return item.id; }))
                 .then(function () {
                     that.objectives(_.difference(that.objectives(), selectedObjectives));
+                    notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
                 });
         };
 
@@ -269,6 +370,8 @@
             experience: experience,
             nextExperienceId: nextExperienceId,
             previousExperienceId: previousExperienceId,
+            objectivesMode: objectivesMode,
+            objectivesListModes: objectivesListModes,
             canUnrelateObjectives: canUnrelateObjectives,
 
             navigateToExperiences: navigateToExperiences,
@@ -291,7 +394,10 @@
             modifiedOn: modifiedOn,
             builtOn: builtOn,
             experienceTitleMaxLength: constants.validation.experienceTitleMaxLength,
-            isEditing: isEditing
+            isEditing: isEditing,
+
+            startAppendingObjectives: startAppendingObjectives,
+            finishAppendingObjectives: finishAppendingObjectives
         };
     }
 );

@@ -145,9 +145,9 @@
         de: 'Klicken, um Lernziel hinzuzufügen'
     },
     objectiveCannnotBeDeleted: {
-        en: 'Learning Objective cannot be deleted, while it is related to learning experience(s) or contains questions.',
-        nl: 'Learning Objective cannot be deleted, while it is related to learning experience(s) or contains questions.[nl]',
-        de: 'Learning Objective cannot be deleted, while it is related to learning experience(s) or contains questions.[de]'
+        en: 'Learning objective cannot be deleted, while it is included into learning experience(s) or contains questions.',
+        nl: 'Learning objective cannot be deleted, while it is included into learning experience(s) or contains questions.[nl]',
+        de: 'Learning objective cannot be deleted, while it is included into learning experience(s) or contains questions.[de]'
     },
     /* End resource section for model Objectives */
     
@@ -216,9 +216,9 @@
         de: 'Learning experiences list is empty[de]'
     },
     experienceCannotBeDeleted: {
-        en: 'Learning experience cannot be deleted while it has related Learning Objective(s)',
-        nl: 'Learning experience cannot be deleted while it has related Learning Objective(s)[nl]',
-        de: 'Learning experience cannot be deleted while it has related Learning Objective(s)[de]'
+        en: 'Learning experience cannot be deleted while it has included learning objective(s)',
+        nl: 'Learning experience cannot be deleted while it has included learning objective(s)[nl]',
+        de: 'Learning experience cannot be deleted while it has included learning objective(s)[de]'
     },
     /* End resource section for model Experiences */
     
@@ -237,9 +237,9 @@
     
     /* Resource section for model CreateExperience */
     newExperience: {
-        en: 'New Learning experience',
-        nl: 'New Learning experience[nl]',
-        de: 'New Learning experience[de]'
+        en: 'New learning experience',
+        nl: 'New learning experience[nl]',
+        de: 'New learning experience[de]'
     },
     experienceTitle: {
         en: 'Learning experience title',
@@ -267,9 +267,9 @@
         de: 'Click to add learning experience[de]'
     },
     createNewExperience: {
-        en: 'Create New Learning experience',
-        nl: 'Create New Learning experience[nl]',
-        de: 'Create New Learning experience[de]'
+        en: 'Create new learning experience',
+        nl: 'Create new learning experience[nl]',
+        de: 'Create new learning experience[de]'
     },
     chooseTemplate: {
         en: 'Choose template',
@@ -584,7 +584,7 @@
     
     /* Resource section for model Display experience */
     relatedLearningObjectives: {
-        en: 'Related learning objectives',
+        en: 'Included learning objectives',
         nl: 'Gerelateerde leerdoelen',
         de: 'Verwandte Lernziele'
     },
@@ -594,29 +594,29 @@
         de: 'Build learning experience[de]'
     },
     noRelatedLearningObjectives: {
-        en: 'No related learning objectives',
+        en: 'No included learning objectives',
         nl: 'Geen verwante leerdoelen',
         de: 'Keine verbundenen Lernziele'
     },
     clickToAddObjectivesIntoExperience: {
-        en: 'Click to add learning objective(s) into learning experience',
-        nl: 'Click to add learning objective(s) into learning experience[nl]',
-        de: 'Click to add learning objective(s) into learning experience[de]'
+        en: 'Click to add learning objective(s) into this learning experience',
+        nl: 'Click to add learning objective(s) into this learning experience[nl]',
+        de: 'Click to add learning objective(s) into this learning experience[de]'
     },
     relateObjectivesHelpHint: {
-        en: 'Hover on learning objective and click relate for include it to learning experience',
-        nl: 'Hover on learning objective and click relate for include it to learning experience[nl]',
-        de: 'Hover on learning objective and click relate for include it to learning experience[de]'
+        en: 'Move cursor over learning objective and select to include it into learning experience. Use Finish button when done',
+        nl: 'Move cursor over learning objective and select to include it into learning experience. Use Finish button when done[nl]',
+        de: 'Move cursor over learning objective and select to include it into learning experience. Use Finish button when done[de]'
     },
     clickToCreateNewObjective: {
-        en: 'For create new learning objective click here',
-        nl: 'For create new learning objective click here[nl]',
-        de: 'For create new learning objective click here[de]'
+        en: 'To create new learning objective click \"+\" button',
+        nl: 'To create new learning objective click \"+\" button[nl]',
+        de: 'To create new learning objective click \"+\" button[de]'
     },
     noObjectivesForRelating: {
-        en: 'No learning objectives for relating',
-        nl: 'No learning objectives for relating[nl]',
-        de: 'No learning objectives for relating[de]'
+        en: 'No learning objectives to include',
+        nl: 'No learning objectives to include[nl]',
+        de: 'No learning objectives to include[de]'
     },
     finish: {
         en: 'Finish',
@@ -624,29 +624,29 @@
         de: 'Finish[de]'
     },
     relate: {
-        en: 'Relate',
-        nl: 'Relate[nl]',
-        de: 'Relate[de]'
+        en: 'Include',
+        nl: 'Include[nl]',
+        de: 'Include[de]'
     },
     unrelate: {
-        en: 'Unrelate',
-        nl: 'Unrelate[nl]',
-        de: 'Unrelate[de]'
+        en: 'Exclude',
+        nl: 'Exclude[nl]',
+        de: 'Exclude[de]'
     },
-    relateObjectiveToolTip: {
-        en: 'Relate objective(s)',
-        nl: 'Relate objective(s)[nl]',
-        de: 'Relate objective(s)[de]'
+    relateObjectives: {
+        en: 'Include learning objective(s)',
+        nl: 'Include learning objective(s)[nl]',
+        de: 'Include learning objective(s)[de]'
     },
-    unrelateObjectiveToolTip: {
-        en: 'Unrelate objective(s)',
-        nl: 'Unrelate objective(s)[nl]',
-        de: 'Unrelate objective(s)[de]'
+    unrelateObjectives: {
+        en: 'Exclude selected learning objective(s)',
+        nl: 'Exclude selected learning objective(s)[nl]',
+        de: 'Exclude selected learning objective(s)[de]'
     },
-    finishRelatingToolTip: {
-        en: 'Finish relating',
-        nl: 'Finish relating[nl]',
-        de: 'Finish relating[de]'
+    finishRelating: {
+        en: 'Include selected learning objective(s)',
+        nl: 'Include selected learning objective(s)[nl]',
+        de: 'Include selected learning objective(s)[de]'
     },
     /* End resource section for model Display experience */
     
