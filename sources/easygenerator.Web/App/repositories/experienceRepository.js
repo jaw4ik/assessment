@@ -68,10 +68,10 @@
                         var
                             experienceId = response.data.Id,
                             createdOn = response.data.CreatedOn;
-
                         dataContext.experiences.push(experienceModel({
                             id: experienceId,
                             title: experience.title,
+                            templateId: experience.templateId,
                             objectives: [],
                             buildingStatus: constants.buildingStatuses.notStarted,
                             createdOn: new Date(parseInt(createdOn.substr(6), 10)),

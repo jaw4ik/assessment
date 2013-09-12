@@ -1,5 +1,5 @@
-﻿define(['repositories/experienceRepository', 'plugins/router', 'constants', 'eventTracker', 'notify', 'localization/localizationManager'],
-    function (repository, router, constants, eventTracker, notify, localizationManager) {
+﻿define(['repositories/experienceRepository', 'repositories/templateRepository', 'plugins/router', 'constants', 'eventTracker', 'notify', 'localization/localizationManager'],
+    function (repository, templateRepository, router, constants, eventTracker, notify, localizationManager) {
 
         var
             events = {
@@ -12,7 +12,9 @@
                 eventTracker.publish(eventName);
             };
 
-        var title = ko.observable('');
+        var templateId = ko.observable(),
+            templates = [],
+            title = ko.observable('');
         title.isValid = ko.computed(function () {
             var length = title().trim().length;
             return length > 0 && length <= constants.validation.experienceTitleMaxLength;
@@ -20,9 +22,9 @@
         title.isEditing = ko.observable();
 
         var navigateToExperiences = function () {
-                sendEvent(events.navigateToExperiences);
-                router.navigate('experiences');
-            },
+            sendEvent(events.navigateToExperiences);
+            router.navigate('experiences');
+        },
 
             createAndNew = function () {
                 sendEvent(events.createAndNew);
@@ -40,18 +42,29 @@
             },
 
             activate = function () {
-                return Q.fcall(function () {
-                    title('');
+                var that = this;
+                return templateRepository.getCollection().then(function (templatesResponse) {
+                    that.templates = _.chain(templatesResponse)
+                       .map(function (template) {
+                           return {
+                               id: template.id,
+                               name: template.name
+                           };
+                       })
+                       .sortBy(function (template) { return template.name.toLowerCase(); })
+                       .value();
+
+                    that.title('');
+                    that.templateId(null);
                 });
-            }
-        ;
+            };
 
         function createExperience(callback) {
-            if (!title.isValid()) {
+            if (!title.isValid() || !_.isString(templateId())) {
                 return;
             }
 
-            repository.addExperience({ title: title().trim() }).then(function (experienceId) {
+            repository.addExperience({ title: title().trim(), templateId: templateId() }).then(function (experienceId) {
                 title('');
                 callback(experienceId);
             });
@@ -60,6 +73,8 @@
         return {
             activate: activate,
             title: title,
+            templates: templates,
+            templateId: templateId,
             experienceTitleMaxLength: constants.validation.experienceTitleMaxLength,
 
             navigateToExperiences: navigateToExperiences,

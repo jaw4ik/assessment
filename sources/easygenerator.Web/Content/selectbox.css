@@ -7,6 +7,11 @@
 
 .selectbox-options-list {
     list-style-type: none;
+    border: 1px solid #C4C4C4;
+    border-radius: 2px;
+    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, .1) inset;
+    -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, .1) inset;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, .1) inset;
 }
 
 .selectbox-current-item {
@@ -44,11 +49,6 @@
     padding: 0 10px;
     line-height: 30px;
     background: white;
-    border: 1px solid #C4C4C4;
-    border-radius: 2px;
-    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, .1) inset;
-    -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, .1) inset;
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, .1) inset;
 }
 
     .selectbox-options-list .selectbox-option-item:hover {

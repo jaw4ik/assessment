@@ -19,12 +19,12 @@
 			.appendTo($element);
 
         $('<div />')
-		    .addClass(cssClasses.currentItemText)
-		    .appendTo($currentItemElement);
+			.addClass(cssClasses.currentItemText)
+			.appendTo($currentItemElement);
 
         $('<div />')
-		    .addClass(cssClasses.caret)
-		    .appendTo($currentItemElement);
+			.addClass(cssClasses.caret)
+			.appendTo($currentItemElement);
 
         var $optionsListElement = $('<ul />')
 			.addClass(cssClasses.optionsList)
@@ -50,15 +50,16 @@
 
         function fillInOptionsList() {
             var options = valueAccessor().options,
-            optionsText = valueAccessor().optionsText,
-            value = valueAccessor().value,
-            optionsValue = valueAccessor().optionsValue,
-            defaultText = valueAccessor().defautText,
-            selectedOption = null;
+			optionsText = valueAccessor().optionsText,
+			value = valueAccessor().value,
+			optionsValue = valueAccessor().optionsValue,
+			defaultTextLocalizationKey = valueAccessor().defaultTextLocalizationKey,
+			selectedOption = null;
 
             var currentValue = ko.unwrap(value);
             if (_.isNullOrUndefined(currentValue)) {
-                $currentItemTextElement.text(defaultText);
+                var localizationManager = require("localization/localizationManager");
+                $currentItemTextElement.text(localizationManager.localize(defaultTextLocalizationKey));
             }
             else {
                 selectedOption = _.find(options, function (item) {
@@ -69,20 +70,20 @@
             }
 
             $optionsListElement.empty();
-
+            
             _.each(options, function (option) {
-                if (option[optionsValue] === selectedOption[optionsValue])
+                if (!_.isNullOrUndefined(selectedOption) && option[optionsValue] === selectedOption[optionsValue])
                     return;
 
                 $('<li />')
-                   .addClass(cssClasses.optionItem)
-                   .appendTo($optionsListElement)
-                   .text(option[optionsText])
-                   .data('value', option[optionsValue])
-                   .on('click', function (e) {
-                       value($(e.target).data('value'));
-                       $element.trigger('change');
-                   });
+				   .addClass(cssClasses.optionItem)
+				   .appendTo($optionsListElement)
+				   .text(option[optionsText])
+				   .data('value', option[optionsValue])
+				   .on('click', function (e) {
+				       value($(e.target).data('value'));
+				       $element.trigger('change');
+				   });
             });
         }
     },

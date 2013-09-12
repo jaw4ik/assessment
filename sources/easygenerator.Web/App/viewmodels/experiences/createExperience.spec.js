@@ -4,8 +4,8 @@
 
         var router = require('plugins/router'),
             eventTracker = require('eventTracker'),
-            repository = require('repositories/experienceRepository')
-        ;
+            repository = require('repositories/experienceRepository'),
+            templateRepository = require('repositories/templateRepository');
 
         var eventsCategory = 'Create Experience';
 
@@ -20,7 +20,7 @@
                 expect(viewModel).toBeObject();
             });
 
-            describe('experienceTitleMaxLength:', function() {
+            describe('experienceTitleMaxLength:', function () {
 
                 it('should be defined', function () {
                     expect(viewModel.experienceTitleMaxLength).toBeDefined();
@@ -29,7 +29,7 @@
                 it('should be 255', function () {
                     expect(viewModel.experienceTitleMaxLength).toBe(255);
                 });
-                
+
             });
 
             describe('title:', function () {
@@ -63,7 +63,7 @@
                     });
 
                 });
-                
+
                 describe('when title is longer than 255 but after trimming is not longer than 255', function () {
 
                     it('should be valid', function () {
@@ -83,7 +83,7 @@
                 });
 
             });
-            
+
             describe('createAndNew:', function () {
 
                 var addExperience;
@@ -116,10 +116,21 @@
 
                 });
 
+                describe('and templateId is not set', function () {
 
-                describe('and title is valid', function () {
+                    it('should not add experience to repository', function () {
+                        viewModel.templateId(null);
+
+                        viewModel.createAndNew();
+                        expect(repository.addExperience).not.toHaveBeenCalled();
+                    });
+
+                });
+
+                describe('and title is valid and templateId is set', function () {
 
                     beforeEach(function () {
+                        viewModel.templateId('id');
                         viewModel.title.isValid = function () {
                             return true;
                         };
@@ -128,13 +139,13 @@
                     it('should trim experience title', function () {
                         viewModel.title('           title           ');
                         viewModel.createAndNew();
-                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title' });
+                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title', templateId: 'id' });
                     });
 
                     it('should add experience to repository', function () {
                         viewModel.title('title');
                         viewModel.createAndNew();
-                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title' });
+                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title', templateId: 'id' });
                     });
 
                     describe('and experience was added successfully', function () {
@@ -228,10 +239,21 @@
 
                 });
 
+                describe('and template is not set', function () {
 
-                describe('and title is valid', function () {
+                    it('should not add experience to repository', function () {
+                        viewModel.templateId(null);
+
+                        viewModel.createAndEdit();
+                        expect(repository.addExperience).not.toHaveBeenCalled();
+                    });
+
+                });
+
+                describe('and title is valid and template is set', function () {
 
                     beforeEach(function () {
+                        viewModel.templateId('id');
                         viewModel.title.isValid = function () {
                             return true;
                         };
@@ -240,13 +262,13 @@
                     it('should trim experience title', function () {
                         viewModel.title('           title           ');
                         viewModel.createAndEdit();
-                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title' });
+                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title', templateId: 'id' });
                     });
 
                     it('should add experience to repository', function () {
                         viewModel.title('title');
                         viewModel.createAndEdit();
-                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title' });
+                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title', templateId: 'id' });
                     });
 
                     describe('and experience was added successfully', function () {
@@ -312,23 +334,69 @@
                     expect(result).toBePromise();
                 });
 
-                describe('when promise is resolved', function () {
+                describe('when get templates from repository', function () {
+                    var getTemplatesDeferred, getTemplatesPromise;
 
-                    it('should clear title', function () {
-                        viewModel.title('text');
+                    beforeEach(function () {
+                        getTemplatesDeferred = Q.defer();
 
+                        spyOn(templateRepository, 'getCollection').andReturn(getTemplatesDeferred.promise);
+                        getTemplatesPromise = getTemplatesDeferred.promise.fin(function () { });
+                    });
+
+                    it('should get templates from repository', function () {
+                        getTemplatesDeferred.resolve([]);
                         var promise = viewModel.activate();
-
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(viewModel.title()).toEqual("");
+                            expect(promise).toBeResolved();
+                            expect(templateRepository.getCollection).toHaveBeenCalled();
                         });
                     });
 
-                });
+                    describe('when received templates successfully', function () {
+                        beforeEach(function () {
+                            viewModel.templates.splice(0, viewModel.templates.length);
+                            getTemplatesDeferred.resolve([{ id: "0", name: "Default" }, { id: "1", name: "Quizz" }]);
+                        });
 
+                        it('should initialize templates collection', function () {
+                            var promise = viewModel.activate();
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeResolved();
+                                expect(viewModel.templates.length).toBe(2);
+                            });
+                        });
+
+                        it('should initialize templates collection sorted by name asc', function () {
+                            var promise = viewModel.activate();
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeResolved();
+                                expect(viewModel.templates).toBeSortedAsc('name');
+                            });
+                        });
+
+                        it('should clear title', function () {
+                            var promise = viewModel.activate();
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeResolved();
+                                expect(viewModel.title()).toEqual("");
+                            });
+                        });
+
+                    });
+                });
             });
         });
     }

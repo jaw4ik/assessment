@@ -195,6 +195,7 @@
 
                                         var experienceId = 'experienceId';
                                         var experienceTitle = 'experienceTitle';
+                                        var templateId = '123';
                                         var experienceCreatedOn = '/Date(1378106938845)/';
 
                                         beforeEach(function () {
@@ -216,7 +217,7 @@
                                             var dataContext = require('dataContext');
                                             dataContext.experiences = [];
 
-                                            var promise = repository.addExperience({ title: experienceTitle });
+                                            var promise = repository.addExperience({ title: experienceTitle, templateId: templateId });
 
                                             waitsFor(function () {
                                                 return !promise.isPending();
@@ -226,6 +227,7 @@
                                                 expect(dataContext.experiences[0]).toEqual({
                                                     id: experienceId,
                                                     title: experienceTitle,
+                                                    templateId: templateId,
                                                     createdOn: utils.getDateFromString(experienceCreatedOn),
                                                     modifiedOn: utils.getDateFromString(experienceCreatedOn),
                                                     buildingStatus: constants.buildingStatuses.notStarted,
