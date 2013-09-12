@@ -76,7 +76,7 @@
                                 },
                                 title: 'experiences',
                                 isActive: ko.computed(function () {
-                                    return that.activeModuleName() == experiencesModule;
+                                    return that.activeModuleName() == experiencesModule || router.isNavigating();
                                 })
                             },
                             {
@@ -86,7 +86,7 @@
                                 },
                                 title: 'learningObjectives',
                                 isActive: ko.computed(function () {
-                                    return that.activeModuleName() == objectivesModule;
+                                    return that.activeModuleName() == objectivesModule || router.isNavigating();
                                 })
                             }
                         ]);
