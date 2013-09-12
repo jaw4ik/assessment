@@ -178,6 +178,122 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1/q
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Edit question title text block is active when open create question view")]
+        public virtual void EditQuestionTitleTextBlockIsActiveWhenOpenCreateQuestionView()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit question title text block is active when open create question view", ((string[])(null)));
+#line 42
+this.ScenarioSetup(scenarioInfo);
+#line 8
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table6.AddRow(new string[] {
+                        "Objective1",
+                        "1"});
+#line 43
+testRunner.Given("objectives are present in database", ((string)(null)), table6, "Given ");
+#line 46
+testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 47
+testRunner.Then("edit title text block is active on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Edit question title text block is empty when open create question view")]
+        public virtual void EditQuestionTitleTextBlockIsEmptyWhenOpenCreateQuestionView()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit question title text block is empty when open create question view", ((string[])(null)));
+#line 49
+this.ScenarioSetup(scenarioInfo);
+#line 8
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table7.AddRow(new string[] {
+                        "Objective1",
+                        "1"});
+#line 50
+testRunner.Given("objectives are present in database", ((string)(null)), table7, "Given ");
+#line 53
+testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 54
+testRunner.Then("edit title text block is empty on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Buttons CreateAndEdit and CreateAndNew are disabled if title text is empty on cre" +
+            "ate question view")]
+        public virtual void ButtonsCreateAndEditAndCreateAndNewAreDisabledIfTitleTextIsEmptyOnCreateQuestionView()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Buttons CreateAndEdit and CreateAndNew are disabled if title text is empty on cre" +
+                    "ate question view", ((string[])(null)));
+#line 56
+this.ScenarioSetup(scenarioInfo);
+#line 8
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table8.AddRow(new string[] {
+                        "Objective1",
+                        "1"});
+#line 57
+testRunner.Given("objectives are present in database", ((string)(null)), table8, "Given ");
+#line 60
+testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 61
+testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 62
+testRunner.When("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 63
+testRunner.And("clear edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 64
+testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Buttons CreateAndEdit and CreateAndNew are enabled if title text is not empty on " +
+            "create question view")]
+        public virtual void ButtonsCreateAndEditAndCreateAndNewAreEnabledIfTitleTextIsNotEmptyOnCreateQuestionView()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Buttons CreateAndEdit and CreateAndNew are enabled if title text is not empty on " +
+                    "create question view", ((string[])(null)));
+#line 66
+this.ScenarioSetup(scenarioInfo);
+#line 8
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table9.AddRow(new string[] {
+                        "Objective1",
+                        "1"});
+#line 67
+testRunner.Given("objectives are present in database", ((string)(null)), table9, "Given ");
+#line 70
+testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 71
+testRunner.And("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 72
+testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled true on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

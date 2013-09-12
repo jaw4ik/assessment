@@ -39,5 +39,40 @@ When open page by url 'http://localhost:5656/#objective/1/question/1'
 And click on create new question text on question page
 Then browser navigates to url 'http://localhost:5656/#objective/1/question/create'
 
+Scenario: Edit question title text block is active when open create question view
+Given objectives are present in database
+| Title      | Id |
+| Objective1 | 1  |
+When open page by url 'http://localhost:5656/#objective/1/question/create'
+Then edit title text block is active on create view
+
+Scenario: Edit question title text block is empty when open create question view
+Given objectives are present in database
+| Title      | Id |
+| Objective1 | 1  |
+When open page by url 'http://localhost:5656/#objective/1/question/create'
+Then edit title text block is empty on create view
+
+Scenario: Buttons CreateAndEdit and CreateAndNew are disabled if title text is empty on create question view
+Given objectives are present in database
+| Title      | Id |
+| Objective1 | 1  |
+When open page by url 'http://localhost:5656/#objective/1/question/create'
+Then buttons CreateAndEdit and CreateAndNew are enabled false on create view
+When input 'text' into title edit area on create view
+And clear edit area on create view
+Then buttons CreateAndEdit and CreateAndNew are enabled false on create view
+
+Scenario: Buttons CreateAndEdit and CreateAndNew are enabled if title text is not empty on create question view
+Given objectives are present in database
+| Title      | Id |
+| Objective1 | 1  |
+When open page by url 'http://localhost:5656/#objective/1/question/create'
+And input 'text' into title edit area on create view
+Then buttons CreateAndEdit and CreateAndNew are enabled true on create view
+
+
+
+
 
 
