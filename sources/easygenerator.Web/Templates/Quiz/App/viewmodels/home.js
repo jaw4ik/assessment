@@ -107,14 +107,13 @@
         },
 
         viewAttached = function () {
-           // if (scrollId != '0') {
-             //   var targetTop = $('div[id="' + scrollId + '"]').offset().top || 0;
-                
-            //    $('html, body').animate({
-              //      scrollTop: targetTop - 5
-              //  });
-              //  scrollId = '0';
-           // }
+            if (scrollId != '0') {
+                var targetTop = $('#' + scrollId).offset().top || 0;
+                $('html, body').animate({
+                    scrollTop: targetTop - 5
+                });
+                scrollId = '0';
+            }
         };
 
     return {
