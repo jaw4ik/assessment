@@ -74,4 +74,10 @@
         background-image: url(images/warning.png);
         height: 20px;
         width: 19px;
+        float: left;
+    }
+
+    .notification.error .notification-text
+    {
+        float: left;
     }

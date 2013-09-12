@@ -3,6 +3,7 @@
     var
         targetSelector = "#content > *:first",
         containerSelector = "notification-container",
+        clearfixClass = "clearfix",
 
         notificationClass = "notification",
         notificationTextClass = "notification-text",
@@ -38,6 +39,7 @@
 
         $("<div />")
             .addClass(notificationClass)
+            .addClass(clearfixClass)
             .addClass(messageClass)
             .append($("<span />").addClass(notificationIconClass))
             .append($("<span />").addClass(notificationTextClass).text(message))
