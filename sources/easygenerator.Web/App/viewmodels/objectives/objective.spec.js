@@ -831,6 +831,7 @@
                         });
 
                         it('should update modifiedOn', function () {
+                            viewModel.modifiedOn(new Date(1));
                             viewModel.questions([{ id: '0', isSelected: ko.observable(true) }]);
 
                             var modificationDate = new Date();
@@ -840,7 +841,7 @@
                             
                             var promise = getDeferred.promise.finally(function () { });
                             getDeferred.resolve({ id: '0', questions: [{ id: '0' }] });
-                            updateDeferred.resolve(objective);
+                            updateDeferred.resolve(objective.modifiedOn);
                             
                             waitsFor(function () {
                                 return !promise.isPending();

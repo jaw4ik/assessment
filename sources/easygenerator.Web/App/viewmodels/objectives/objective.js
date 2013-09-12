@@ -134,12 +134,12 @@
                         });
                     });
 
-                    return repository.updateObjective(objective).then(function (updatedObjective) {
+                    return repository.updateObjective(objective).then(function (updatedDate) {
                         _.each(selectedQuestions, function (question) {
                             questions.remove(question);
                         });
 
-                        modifiedOn(updatedObjective.modifiedOn);
+                        modifiedOn(updatedDate);
                         notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
                     });
                 });
