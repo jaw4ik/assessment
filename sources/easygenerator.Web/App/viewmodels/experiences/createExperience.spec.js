@@ -5,7 +5,8 @@
         var router = require('plugins/router'),
             eventTracker = require('eventTracker'),
             repository = require('repositories/experienceRepository'),
-            templateRepository = require('repositories/templateRepository');
+            templateRepository = require('repositories/templateRepository'),
+            localizationManager = require('localization/localizationManager');
 
         var eventsCategory = 'Create Experience';
 
@@ -82,6 +83,12 @@
 
                 });
 
+            });
+
+            describe('chooseTemplateText:', function() {
+                it('should be defined', function() {
+                    expect(viewModel.chooseTemplateText).toBeDefined();
+                });
             });
 
             describe('createAndNew:', function () {
@@ -392,6 +399,18 @@
                             runs(function () {
                                 expect(promise).toBeResolved();
                                 expect(viewModel.title()).toEqual("");
+                            });
+                        });
+                        
+                        it('should set chooseTemplateText', function () {
+                            var promise = viewModel.activate();
+                            spyOn(localizationManager, 'localize').andReturn('text');
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeResolved();
+                                expect(viewModel.chooseTemplateText).toEqual('text');
                             });
                         });
 

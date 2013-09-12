@@ -14,7 +14,9 @@
 
         var templateId = ko.observable(),
             templates = [],
-            title = ko.observable('');
+            title = ko.observable(''),
+            chooseTemplateText = '';
+
         title.isValid = ko.computed(function () {
             var length = title().trim().length;
             return length > 0 && length <= constants.validation.experienceTitleMaxLength;
@@ -56,6 +58,8 @@
 
                     that.title('');
                     that.templateId(null);
+                    debugger;
+                    that.chooseTemplateText = localizationManager.localize('chooseTemplate');
                 });
             };
 
@@ -75,6 +79,7 @@
             title: title,
             templates: templates,
             templateId: templateId,
+            chooseTemplateText: chooseTemplateText,
             experienceTitleMaxLength: constants.validation.experienceTitleMaxLength,
 
             navigateToExperiences: navigateToExperiences,
