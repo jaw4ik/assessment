@@ -11,6 +11,7 @@
             }
             return '';
         }),
+        homeModule: 'home',
         activate: function () {
 
             router.useConvention();

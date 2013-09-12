@@ -1,6 +1,11 @@
 ﻿<div class="header clearfix unselectable" data-bind="css: 'module-' + cssName()">
     <div class="brand">
+        <!-- ko if: cssName() == homeModule -->
+        <span class="inline logo"></span>
+        <!-- /ko -->
+        <!-- ko ifnot:cssName() == homeModule -->
         <a href="#/" class="inline logo">&nbsp;</a>
+        <!-- /ko -->
     </div>
 </div>
 <section id="content" class="container unselectable">

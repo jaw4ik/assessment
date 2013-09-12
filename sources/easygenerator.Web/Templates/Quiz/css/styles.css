@@ -223,7 +223,7 @@ body {
         cursor: default;
     }
 
-.brand a.inline {
+.brand a.inline, .brand span.inline{
     margin-top: 5px;
 }
 
