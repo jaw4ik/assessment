@@ -45,5 +45,10 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 
         //      <div class="cke_editable cke_editable_inline cke_contents_ltr"
         public string Ckeditor = ".//div[contains(@class,'cke_contents_ltr')]";
+
+        //CUD Question
+
+        public string CreateNewQuestionButton = ".//div[contains(@class,'create-question-image')]";
+        public string CreateNewQuestionText = ".//div[contains(@class,'pull-right')]//span";
     }
 }

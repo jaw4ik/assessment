@@ -104,6 +104,80 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1/q
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Create new question button on question page navigates to create question view")]
+        public virtual void CreateNewQuestionButtonOnQuestionPageNavigatesToCreateQuestionView()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create new question button on question page navigates to create question view", ((string[])(null)));
+#line 20
+this.ScenarioSetup(scenarioInfo);
+#line 8
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table2.AddRow(new string[] {
+                        "Objective1",
+                        "1"});
+#line 21
+testRunner.Given("objectives are present in database", ((string)(null)), table2, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table3.AddRow(new string[] {
+                        "Question1",
+                        "1"});
+#line 24
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table3, "Given ");
+#line 27
+testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 28
+testRunner.And("press create new question button on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 29
+testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Create new question text on question page navigates to create question view")]
+        public virtual void CreateNewQuestionTextOnQuestionPageNavigatesToCreateQuestionView()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create new question text on question page navigates to create question view", ((string[])(null)));
+#line 31
+this.ScenarioSetup(scenarioInfo);
+#line 8
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table4.AddRow(new string[] {
+                        "Objective1",
+                        "1"});
+#line 32
+testRunner.Given("objectives are present in database", ((string)(null)), table4, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table5.AddRow(new string[] {
+                        "Question1",
+                        "1"});
+#line 35
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table5, "Given ");
+#line 38
+testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 39
+testRunner.And("click on create new question text on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 40
+testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

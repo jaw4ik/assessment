@@ -17,3 +17,27 @@ When open page by url 'http://localhost:5656/#objective/1'
 And press add new question button on objective page
 Then browser navigates to url 'http://localhost:5656/#objective/1/question/create'
 
+Scenario: Create new question button on question page navigates to create question view
+Given objectives are present in database
+| Title      | Id |
+| Objective1 | 1  |
+Given questions related to 'Objective1' are present in database
+| Title     | Id |
+| Question1 | 1  |
+When open page by url 'http://localhost:5656/#objective/1/question/1'
+And press create new question button on question page
+Then browser navigates to url 'http://localhost:5656/#objective/1/question/create'
+
+Scenario: Create new question text on question page navigates to create question view
+Given objectives are present in database
+| Title      | Id |
+| Objective1 | 1  |
+Given questions related to 'Objective1' are present in database
+| Title     | Id |
+| Question1 | 1  |
+When open page by url 'http://localhost:5656/#objective/1/question/1'
+And click on create new question text on question page
+Then browser navigates to url 'http://localhost:5656/#objective/1/question/create'
+
+
+

@@ -239,6 +239,21 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             return NewExplanationButton.IsVisisble();
         }
 
+
+        //CUD Question
+
+
+        internal void CreateNewQuestionButtonClick()
+        {
+            var button = GetByXPath(model.CreateNewQuestionButton);
+            button.Click();
+        }
+
+        internal void CreateNewQuestionTextClick()
+        {
+            var button = GetByXPath(model.CreateNewQuestionText);
+            button.Click();
+        }
     }
 
 

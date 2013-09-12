@@ -313,6 +313,21 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Element should be visible");
         }
 
+        //CUD Question
+
+        [When(@"press create new question button on question page")]
+        public void WhenPressCreateNewQuestionButtonOnQuestionPage()
+        {
+            Question.CreateNewQuestionButtonClick();
+        }
+
+        [When(@"click on create new question text on question page")]
+        public void WhenClickOnCreateNewQuestionTextOnQuestionPage()
+        {
+            Question.CreateNewQuestionTextClick();
+        }
+
+
              
 
     }
