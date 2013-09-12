@@ -97,10 +97,10 @@
 
     <!-- ko if: objectivesMode() == objectivesListModes.display -->
         <div class="experience-related-objectives-header">
-            <a class="experiences-header-create-link" data-bind="click: startAppendingObjectives"></a>
+            <a class="experiences-header-create-link" data-bind="click: startAppendingObjectives, localize: { title: 'relateObjectives' }"></a>
             <span class="experience-header-title-text" data-bind="localize: { text: 'relatedLearningObjectives' }">Related learning objectives</span>
         <!-- ko if: canUnrelateObjectives() -->
-        <span class="header-toolbar-item-wrapper" data-bind="click: unrelateSelectedObjectives">
+        <span class="header-toolbar-item-wrapper" data-bind="click: unrelateSelectedObjectives, localize: { title: 'unrelateObjectives' }">
             <span class="toolbar-unrelate"></span>
         </span>
         <!-- /ko -->
@@ -110,7 +110,7 @@
     
     <!-- ko if: objectivesMode() == objectivesListModes.appending -->
         <div class="experience-related-objectives-header">
-            <a class="experiences-header-finish-link" data-bind="click: finishAppendingObjectives"></a>
+            <a class="experiences-header-finish-link" data-bind="click: finishAppendingObjectives, localize: { title: 'finishRelating' }"></a>
             <span data-bind="localize: { text: 'finish' }">Finish</span>
             <hr />
         </div>
