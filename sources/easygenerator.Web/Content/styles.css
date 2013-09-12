@@ -638,3 +638,246 @@ body {
 }
 
 /*#endregion HEADER TOOLBAR*/
+
+/*#region OBJECTIVES-EXPERIENCES-QUESTIONS*/
+
+.objectives-body,
+.experiences {
+    position: relative;
+}
+
+.objectives,
+.experiences {
+    margin: auto;
+    max-width: 1158px;
+    height: 100%;
+    color: #999999;
+    font-size: 13px;
+}
+
+    .objectives a:hover, .objectives a:focus, .objectives a:active, .objectives a:visited, .objectives a:link,
+    .experiences a:hover, .experiences a:focus, .experiences a:active, .experiences a:visited, .experiences a:link {
+        color: #999999;
+        text-decoration: none;
+    }
+
+.objectives-header,
+.experiences-header {
+    padding: 20px 20px 0;
+    height: 96px;
+}
+
+.objectives-header-title, .objectives-header-sort-label,
+.experiences-header-title, .experiences-header-sort-label,
+.questions-header-title, .questions-header-sort-label {
+    display: table-cell;
+    white-space: nowrap;
+}
+
+    .objectives-header-title.alone,
+    .experiences-header-title.alone,
+    .questions-header-title.alone {
+        display: block;
+    }
+
+.objectives-header-title,
+.experiences-header-title,
+.questions-header-title {
+    overflow: hidden;
+    width: 100%;
+    color: #666;
+    font-size: 18px;
+    cursor: default;
+}
+
+.objectives-header-title-text,
+.experiences-header-title-text {
+    padding-right: 25px;
+}
+
+.objectives-header-title > *,
+.experiences-header-title > *,
+.questions-header-title > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.objectives-header-title hr,
+.experiences-header-title hr,
+.questions-header-title hr {
+    width: 100%;
+}
+
+.objectives-header-create-link,
+.experiences-header-create-link,
+.questions-header-create-link {
+    width: 64px;
+    height: 64px;
+    background: url('images/objexp-sprite.png') 0 0;
+}
+
+    .objectives-header-create-link:hover,
+    .experiences-header-create-link:hover,
+    .questions-header-create-link:hover {
+        background-position: 0 -74px;
+    }
+
+
+.objectives-header-sort-label span,
+.experiences-header-sort-label span,
+.questions-header-sort-label span {
+    padding-left: 10px;
+}
+
+.objectives-header-sort-label, .objectives-sort-by-title-asc, .objectives-sort-by-title-desc,
+.experiences-header-sort-label, .experiences-sort-by-title-asc, .experiences-sort-by-title-desc,
+.questions-header-sort-label, .questions-sort-by-title-asc, .questions-sort-by-title-desc {
+    color: #666;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+}
+
+.objectives-header-sort-container,
+.experiences-header-sort-container,
+.questions-header-sort-container {
+    float: right;
+    margin-top: -20px;
+}
+
+.objectives-sort-by-title-asc, .objectives-sort-by-title-desc,
+.experiences-sort-by-title-asc, .experiences-sort-by-title-desc,
+.questions-sort-by-title-asc, .questions-sort-by-title-desc {
+    display: inline-block;
+    margin-left: 5px;
+    padding: 1px 5px;
+    border: 1px solid #acacac;
+}
+
+    .objectives-sort-by-title-asc:hover, .objectives-sort-by-title-desc:hover,
+    .experiences-sort-by-title-asc:hover, .experiences-sort-by-title-desc:hover,
+    .questions-sort-by-title-asc:hover, .questions-sort-by-title-desc:hover {
+        cursor: default;
+        -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.3) inset;
+        -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.3) inset;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.3) inset;
+    }
+
+.active.objectives-sort-by-title-asc:hover, .active.objectives-sort-by-title-desc:hover,
+.active.experiences-sort-by-title-asc:hover, .active.experiences-sort-by-title-desc:hover,
+.active.questions-sort-by-title-asc:hover, .active.questions-sort-by-title-desc:hover {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    cursor: default;
+}
+
+.objectives-sort-by-title-asc.active, .objectives-sort-by-title-desc.active,
+.experiences-sort-by-title-asc.active, .experiences-sort-by-title-desc.active,
+.questions-sort-by-title-asc.active, .questions-sort-by-title-desc.active {
+    border-color: black;
+    color: #666;
+    opacity: 1;
+}
+
+.objectives-navigation, .experiences-navigation,
+.objectives-header, .experiences-header, .questions-header {
+    text-transform: uppercase;
+}
+
+
+.objectives-content-wrapper,
+.experiences-content-wrapper {
+    width: 100%;
+}
+
+.objectives-content,
+.experiences-content {
+    height: 100%;
+    padding-top: 8px;
+}
+
+.objectives-list-wrapper,
+.experiences-list-wrapper {
+    margin: auto;
+    max-width: 1200px;
+}
+
+.objectives-list,
+.experiences-list {
+    margin: 0;
+}
+
+@media (min-width: 1220px) {
+
+    .objectives,
+    .experiences {
+        max-width: 1202px;
+    }
+
+    .objectives-list-wrapper,
+    .experiences-list-wrapper {
+        max-width: 1202px;
+    }
+}
+
+@media (min-width: 767px) and (max-width: 1166px) {
+
+    .objectives,
+    .experiences {
+        max-width: 765px;
+    }
+
+    .objectives-list-wrapper,
+    .experiences-list-wrapper {
+        max-width: 765px;
+    }
+}
+
+@media (max-width: 766px) {
+
+    .objectives,
+    .experiences {
+        max-width: 620px;
+    }
+
+    .objectives-list-wrapper,
+    .experiences-list-wrapper {
+        max-width: 400px;
+    }
+}
+/*#endregion OBJECTIVES-EXPERIENCES-QUESTIONS*/
+
+/*#region EMPTY LIST*/
+
+.objectives .add-new-item-tip .add-new-item-tip-arrow,
+.experiences .add-new-item-tip .add-new-item-tip-arrow {
+    top: 0;
+    left: 50px;
+}
+
+.objectives .add-new-item-tip .add-new-item-tip-text,
+.experiences .add-new-item-tip .add-new-item-tip-text {
+    left: 110px;
+    top: 23px;
+}
+
+.objectives .empty-list-wrapper,
+.experiences .empty-list-wrapper {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+    .objectives .empty-list-wrapper .empty-list,
+    .experiences .empty-list-wrapper .empty-list {
+        line-height: 75px;
+        background-size: 75px;
+        margin-top: 70px;
+    }
+
+    .objectives .empty-list-wrapper .empty-list-text,
+    .experiences .empty-list-wrapper .empty-list-text {
+        font-size: 26px;
+    }
+
+/*#endregion EMPTY LIST*/
