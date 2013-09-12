@@ -50,6 +50,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: left;
+    letter-spacing: 0;
+    vertical-align: top;
 }
 
     .nav-title.inline {
