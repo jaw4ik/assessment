@@ -1,9 +1,17 @@
-﻿define(['durandal/app', 'plugins/router', 'configuration/routes', 'dataContext', 'localization/localizationManager'],
-    function (app, router, routes, datacontext, localizationManager) {
+﻿define(['durandal/app', 'plugins/router', 'configuration/routes', 'dataContext', 'localization/localizationManager', 'eventTracker'],
+    function (app, router, routes, datacontext, localizationManager, eventTracker) {
         var
-            startModule = 'experiences',
+            events = {
+                navigateToExperiences: "Navigate to Experiences",
+                navigateToObjectives: 'Navigate to objectives'
+            },
+            sendEvent = function (eventName) {
+                eventTracker.publish(eventName);
+            };
+        var
+            experiencesModule = 'experiences',
+            objectivesModule = 'objectives',
             isViewReady = ko.observable(false),
-
             activeModule = ko.computed(function () {
                 var activeItem = router.activeItem();
                 if (_.isObject(activeItem)) {
@@ -14,7 +22,14 @@
                 return '';
             }),
 
+            navigation = ko.observableArray([]),
+
+            showNavigation = function () {
+                return _.contains(['404', '400'], this.activeModuleName());
+            },
+
             activate = function () {
+                var that = this;
                 return datacontext.initialize()
                     .then(function () {
 
@@ -53,10 +68,33 @@
                             $("[data-autofocus='true']").focus();
                         });
 
+                        that.navigation([
+                            {
+                                navigate: function () {
+                                    sendEvent(events.navigateToExperiences);
+                                    router.navigate('experiences');
+                                },
+                                title: 'experiences',
+                                isActive: ko.computed(function () {
+                                    return that.activeModuleName() == experiencesModule;
+                                })
+                            },
+                            {
+                                navigate: function () {
+                                    sendEvent(events.navigateToObjectives);
+                                    router.navigate('objectives');
+                                },
+                                title: 'learningObjectives',
+                                isActive: ko.computed(function () {
+                                    return that.activeModuleName() == objectivesModule;
+                                })
+                            }
+                        ]);
+                        
                         return router.map(routes)
                             .buildNavigationModel()
                             .mapUnknownRoutes('viewmodels/errors/404', '404')
-                            .activate(startModule);
+                            .activate(experiencesModule);
 
                     });
             };
@@ -65,9 +103,12 @@
             activate: activate,
             activeModuleName: activeModule,
             router: router,
-            homeModuleName: startModule,
+            homeModuleName: experiencesModule,
 
-            isViewReady: isViewReady
+            isViewReady: isViewReady,
+
+            showNavigation: showNavigation,
+            navigation: navigation
         };
     }
 );

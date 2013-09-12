@@ -180,7 +180,7 @@
 
                     it('should send event \'Create learning objective and create new\'', function () {
                         viewModel.createAndNew();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and create new', eventsCategory);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and create new');
                     });
 
                 });
@@ -249,7 +249,7 @@
 
                         it('should send event \'Create learning objective and open it properties\'', function () {
                             viewModel.createAndEdit();
-                            expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and open it properties', eventsCategory);
+                            expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and open it properties');
                         });
 
                     });
@@ -280,7 +280,7 @@
 
                 it('should send event \'Navigate to objectives\'', function () {
                     viewModel.navigateToObjectives();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objectives', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objectives');
                 });
 
                 it('should navigate to #objectives', function () {

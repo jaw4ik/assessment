@@ -353,7 +353,7 @@
 
                 it('should send event \"Navigate to create experience\"', function () {
                     viewModel.navigateToCreation();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to create experience', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to create experience');
                 });
 
                 it('should navigate to #experience/create', function () {
@@ -372,7 +372,7 @@
                 it('should send event \"Navigate to details\"', function () {
                     dataContext.experiences = experiences;
                     viewModel.navigateToDetails(experiences[0]);
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to details', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to details');
                 });
 
                 it('should navigate to #experience/id', function () {
@@ -391,7 +391,7 @@
 
                 it('should send event \"Navigate to objectives\"', function () {
                     viewModel.navigateToObjectives();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objectives', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objectives');
                 });
 
                 it('should navigate to #objectives', function () {
@@ -423,13 +423,13 @@
                 it('should send event \"Experience unselected\" when was selected', function () {
                     experience.isSelected(true);
                     viewModel.toggleSelection(experience);
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Experience unselected', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Experience unselected');
                 });
 
                 it('should send event \"Experience selected\" when was not selected', function () {
                     experience.isSelected(false);
                     viewModel.toggleSelection(experience);
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Experience selected', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Experience selected');
                 });
 
             });
@@ -477,7 +477,7 @@
                 it('should send event \'Delete selected experiences\'', function () {
                     viewModel.experiences([{ isSelected: ko.observable(true), objectives: [] }]);
                     viewModel.deleteSelectedExperiences();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete selected experiences', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete selected experiences');
                 });
 
                 describe('when no experiences are selected', function () {
@@ -606,7 +606,7 @@
                 it('should send event \"Sort by title ascending\"', function () {
                     viewModel.currentSortingOption(constants.sortingOptions.byTitleDesc);
                     viewModel.sortByTitleAsc();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Sort by title ascending', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Sort by title ascending');
                 });
 
             });
@@ -639,7 +639,7 @@
                 it('should send event \"Sort by title descending\"', function () {
                     viewModel.currentSortingOption(constants.sortingOptions.byTitleAsc);
                     viewModel.sortByTitleDesc();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Sort by title descending', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Sort by title descending');
                 });
 
             });
@@ -671,7 +671,7 @@
                 it('should send event \"Build experience\"', function () {
                     viewModel.buildExperience(experience);
 
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Build experience', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Build experience');
                 });
 
                 it('should reset item selection', function () {
@@ -809,7 +809,7 @@
                             });
 
                             runs(function () {
-                                expect(eventTracker.publish).toHaveBeenCalledWith('Experience build is failed', eventsCategory);
+                                expect(eventTracker.publish).toHaveBeenCalledWith('Experience build is failed');
                             });
                         });
 
@@ -847,7 +847,7 @@
 
                 it('should send event \"Download experience\"', function () {
                     viewModel.downloadExperience(experience);
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Download experience', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Download experience');
                 });
 
                 it('should download experience package', function () {

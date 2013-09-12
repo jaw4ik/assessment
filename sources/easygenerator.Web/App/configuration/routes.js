@@ -28,12 +28,15 @@
             {
                 route: 'objective/create',
                 moduleId: 'viewmodels/objectives/createObjective',
-                title: 'Create New Objective',
+                title: 'Create learning objective',
+                settings: {
+                    localizationKey: 'createNewObjective'
+                }
             },
             {
                 route: 'objective/:id',
                 moduleId: 'viewmodels/objectives/objective',
-                title: 'Objective Properties',
+                title: 'Learning Objective',
                 settings: {
                     localizationKey: 'objectiveProperties'
                 }
@@ -41,7 +44,7 @@
             {
                 route: 'experience/create',
                 moduleId: 'viewmodels/experiences/createExperience',
-                title: 'Create New Experience',
+                title: 'Create Experience',
                 settings: {
                     localizationKey: 'createNewExperience'
                 }
@@ -49,12 +52,15 @@
             {
                 route: 'objective/:objectiveId/question/create',
                 moduleId: 'viewmodels/questions/createQuestion',
-                title: 'Create New Question',
+                title: 'Create Question',
+                settings: {
+                    localizationKey: 'createNewQuestion'
+                }
             },
             {
                 route: 'objective/:objectiveId/question/:id',
                 moduleId: 'viewmodels/questions/question',
-                title: 'Question Properties',
+                title: 'Question',
                 settings: {
                     localizationKey: 'questionProperties'
                 }
@@ -71,6 +77,9 @@
                 route: 'experience/:id',
                 moduleId: 'viewmodels/experiences/experience',
                 title: 'Experience',
+                settings: {
+                    localizationKey: 'experience'
+                }
             }
         ];
     }

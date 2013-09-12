@@ -105,7 +105,7 @@
 
             it('should send event \'Navigate to objective\'', function () {
                 viewModel.navigateToObjective();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objective', eventsCategory);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objective');
             });
 
             it('should navigate to #/objective/{objectiveId}', function () {
@@ -156,7 +156,7 @@
                 it('should send event \'Save and edit question\'', function () {
                     viewModel.title('lala');
                     viewModel.saveAndOpen();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Save and edit question', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Save and edit question');
                 });
 
                 describe('and when question is updated successfully', function () {
@@ -235,7 +235,7 @@
                 it('should send event \'Save and create question\'', function () {
                     viewModel.title('lala');
                     viewModel.saveAndNew();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Save and create question', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Save and create question');
                 });
 
                 it('should add question to repository', function () {

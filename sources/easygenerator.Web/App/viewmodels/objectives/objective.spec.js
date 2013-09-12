@@ -463,7 +463,7 @@
                         });
                         runs(function () {
                             expect(getPromise).toBeResolved();
-                            expect(eventTracker.publish).toHaveBeenCalledWith('Update objective title', eventsCategory);
+                            expect(eventTracker.publish).toHaveBeenCalledWith('Update objective title');
                         });
                     });
 
@@ -545,7 +545,7 @@
 
                 it('should send event \"Navigate to Learning Objectives\"', function () {
                     viewModel.navigateToObjectives();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Learning Objectives', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Learning Objectives');
                 });
 
             });
@@ -602,7 +602,7 @@
 
                     viewModel.navigateToEditQuestion(objective.questions[0]);
 
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to edit question', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to edit question');
                 });
 
             });
@@ -616,7 +616,7 @@
 
                 it('should send event \'Navigate to next objective\'', function () {
                     viewModel.navigateToNextObjective();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to next objective', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to next objective');
                 });
 
                 describe('when nextObjectiveId is undefined', function () {
@@ -659,7 +659,7 @@
                 it('should send event \'Navigate to create question\'', function () {
                     viewModel.navigateToCreateQuestion();
 
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to create question', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to create question');
                 });
 
                 it('should navigate to #objective/{objectiveId}/question/create', function () {
@@ -681,7 +681,7 @@
 
                 it('should send event \'Navigate to previous objective\'', function () {
                     viewModel.navigateToPreviousObjective();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to previous objective', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to previous objective');
                 });
 
                 describe('when previousObjectiveId is null', function () {
@@ -720,7 +720,7 @@
 
                 it('should send event \"Sort questions by title ascending\"', function () {
                     viewModel.sortByTitleAsc();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Sort questions by title ascending', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Sort questions by title ascending');
                 });
 
                 it('should change sorting option to constants.sortingOptions.byTitleAcs', function () {
@@ -740,7 +740,7 @@
 
                 it('should send event \"Sort questions by title descending\"', function () {
                     viewModel.sortByTitleDesc();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Sort questions by title descending', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Sort questions by title descending');
                 });
 
                 it('should change sorting option to constants.sortingOptions.byTitleDecs', function () {
@@ -777,7 +777,7 @@
                 it('should send event \'Delete question\'', function () {
                     viewModel.questions([{ isSelected: ko.observable(true) }]);
                     viewModel.deleteSelectedQuestions();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete question', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete question');
                 });
 
                 describe('when no selected questions', function () {
@@ -933,7 +933,7 @@
 
                     it('should send event \'Select question\'', function () {
                         viewModel.toggleQuestionSelection({ isSelected: ko.observable(false) });
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Select question', eventsCategory);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Select question');
                     });
 
                     it('should set question.isSelected to true', function () {
@@ -948,7 +948,7 @@
 
                     it('should send event \'Unselect question\'', function () {
                         viewModel.toggleQuestionSelection({ isSelected: ko.observable(true) });
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Unselect question', eventsCategory);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Unselect question');
                     });
 
                     it('should set question.isSelected to false', function () {

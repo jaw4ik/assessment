@@ -18,40 +18,6 @@
         text-decoration: none;
     }
 
-.objectives-navigation,
-.experiences-navigation {
-    height: 37px;
-    position: absolute;
-    top: -40px;
-    left: 50%;
-    margin-left: -203px;
-    font-size: 14px;
-    text-align: center;
-    letter-spacing: -4px;
-}
-
-    .objectives-navigation .learning-objectives-btn, .objectives-navigation a.experiences-btn,
-    .experiences-navigation a.learning-objectives-btn, .experiences-navigation .experiences-btn {
-        display: inline-block;
-        height: 100%;
-        line-height: 37px;
-        width: 203px;
-        color: #fff;
-        letter-spacing: 1px;
-    }
-
-    .objectives-navigation .current,
-    .experiences-navigation .current {
-        background-color: rgba(0, 0, 0, 0.4);
-        cursor: default;
-    }
-
-    .objectives-navigation .learning-objectives-btn:hover, .objectives-navigation a.experiences-btn:hover,
-    .experiences-navigation > a:hover, .experiences-navigation > span:hover {
-        background-color: rgba(0, 0, 0, 0.2);
-    }
-
-
 .objectives-header,
 .experiences-header {
     padding: 20px 20px 0;
@@ -395,13 +361,6 @@
 
     .objective-brief {
         margin: 0 20px 40px;
-    }
-}
-
-@media (max-width: 960px) {
-    .module-objectives .logo,
-    .module-experiences .logo {
-        width: 33px;
     }
 }
 

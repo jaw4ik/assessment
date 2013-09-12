@@ -235,7 +235,7 @@ define(function (require) {
                     });
                     runs(function () {
                         expect(getPromise).toBeResolved();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Update question title', eventsCategory);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Update question title');
                     });
                 });
 
@@ -490,7 +490,7 @@ define(function (require) {
 
             it('should track event \"Navigate to create question\"', function () {
                 viewModel.goToCreateQuestion();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to create question', eventsCategory);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to create question');
             });
 
             it('should navigate to #objective/{objectiveId}', function () {
@@ -508,7 +508,7 @@ define(function (require) {
 
             it('should track event \"Navigate to related objective\"', function () {
                 viewModel.goToRelatedObjective();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to related objective', eventsCategory);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to related objective');
             });
 
             it('should navigate to #objective/{objectiveId}', function () {
@@ -526,7 +526,7 @@ define(function (require) {
 
             it('should track event \"Navigate to previous question\"', function () {
                 viewModel.goToPreviousQuestion();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to previous question', eventsCategory);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to previous question');
             });
 
             it('should navigate to previous question', function () {
@@ -554,7 +554,7 @@ define(function (require) {
 
             it('should track event \'Navigate to next question\'', function () {
                 viewModel.goToNextQuestion();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to next question', eventsCategory);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to next question');
             });
 
             it('should navigate to next question', function () {
@@ -678,7 +678,7 @@ define(function (require) {
 
                     it('should send event \"Start editing explanation\"', function () {
                         viewModel.explanations()[0].isEditing(true);
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Start editing explanation', eventsCategory);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Start editing explanation');
                     });
 
                 });
@@ -691,7 +691,7 @@ define(function (require) {
 
                         viewModel.explanations()[0].isEditing(false);
 
-                        expect(eventTracker.publish).toHaveBeenCalledWith('End editing explanation', eventsCategory);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('End editing explanation');
                     });
 
                 });
@@ -727,7 +727,7 @@ define(function (require) {
                 it('should send event \'Add explanation\'', function () {
                     viewModel.addExplanation();
 
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Add explanation', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Add explanation');
                 });
 
                 it('should add explanation to viewModel', function () {
@@ -885,7 +885,7 @@ define(function (require) {
 
                 it('should send event \'Delete explanation\'', function () {
                     viewModel.deleteExplanation(viewModel.explanations()[0]);
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete explanation', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete explanation');
                 });
 
                 it('should delete explanation form viewModel', function () {
@@ -1200,7 +1200,7 @@ define(function (require) {
 
             it('should send event \'Add answer option\'', function () {
                 viewModel.addAnswerOption();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Add answer option', eventsCategory);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Add answer option');
             });
 
             it('should get question from repository', function () {
@@ -1321,7 +1321,7 @@ define(function (require) {
 
             it('should send event \'Change answer option correctness\'', function () {
                 viewModel.toggleAnswerCorrectness();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Change answer option correctness', eventsCategory);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Change answer option correctness');
             });
 
             it('should get question from repository', function () {
@@ -1539,7 +1539,7 @@ define(function (require) {
 
             it('should send event \'Save the answer option text\'', function () {
                 viewModel.saveAnswerOption();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Save the answer option text', eventsCategory);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Save the answer option text');
             });
 
             it('should get question from repository', function () {
@@ -1644,7 +1644,7 @@ define(function (require) {
 
             it('should send event \'Delete answer option\'', function () {
                 viewModel.deleteAnswerOption();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Delete answer option', eventsCategory);
+                expect(eventTracker.publish).toHaveBeenCalledWith('Delete answer option');
             });
 
             it('should get question from repository', function () {

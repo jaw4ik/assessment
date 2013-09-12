@@ -3,7 +3,6 @@
         "use strict";
 
         var events = {
-            category: 'Learning Objective',
             updateObjectiveTitle: "Update objective title",
             navigateToEditQuestion: "Navigate to edit question",
             navigateToObjectives: "Navigate to Learning Objectives",
@@ -17,7 +16,7 @@
             navigateToPreviousObjective: "Navigate to previous objective"
         },
             sendEvent = function (eventName) {
-                eventTracker.publish(eventName, events.category);
+                eventTracker.publish(eventName);
             };
 
         var objectiveId = null,

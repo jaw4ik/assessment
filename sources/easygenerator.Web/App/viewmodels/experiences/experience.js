@@ -4,7 +4,6 @@
 
         var
             events = {
-                category: 'Experience',
                 buildExperience: 'Build experience',
                 downloadExperience: 'Download experience',
                 navigateToExperiences: 'Navigate to experiences',
@@ -19,7 +18,7 @@
             },
 
             sendEvent = function (eventName) {
-                eventTracker.publish(eventName, events.category);
+                eventTracker.publish(eventName);
             };
 
         var id = '',

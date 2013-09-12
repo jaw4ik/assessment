@@ -4,7 +4,6 @@
 
         var
             events = {
-                category: 'Experiences',
                 navigateToObjectives: 'Navigate to objectives',
                 sortByTitleAsc: 'Sort by title ascending',
                 sortByTitleDesc: 'Sort by title descending',
@@ -19,7 +18,7 @@
             },
 
             sendEvent = function (eventName) {
-                eventTracker.publish(eventName, events.category);
+                eventTracker.publish(eventName);
             },
 
             storage = [];

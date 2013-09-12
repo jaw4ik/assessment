@@ -4,14 +4,13 @@
 
         var
            events = {
-               category: 'Create Question',
                navigateToObjective: 'Navigate to objective',
                saveAndOpen: 'Save and edit question',
                saveAndNew: 'Save and create question'
            },
 
            sendEvent = function (eventName) {
-               eventTracker.publish(eventName, events.category);
+               eventTracker.publish(eventName);
            };
 
         var objectiveId = null,

@@ -161,7 +161,7 @@
 
                 it('should send event \'Navigate to experiences\'', function () {
                     viewModel.navigateToExperiences();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to experiences', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to experiences');
                 });
 
                 it('should navigate to #experiences', function () {
@@ -179,7 +179,7 @@
 
                 it('should send event \'Navigate to next experience\'', function () {
                     viewModel.navigateToNextExperience();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to next experience', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to next experience');
                 });
 
                 describe('when nextExperience is undefined', function () {
@@ -222,7 +222,7 @@
 
                 it('should send event \'Navigate to previous experience\'', function () {
                     viewModel.navigateToPreviousExperience();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to previous experience', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to previous experience');
                 });
 
                 describe('when previousExperienceId is null', function () {
@@ -310,7 +310,7 @@
 
                 it('should send event \'Navigate to Objective details\'', function () {
                     viewModel.navigateToObjectiveDetails({ id: 1 });
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Objective details', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Objective details');
                 });
 
 
@@ -365,7 +365,7 @@
 
                     it('should send event \'Unselect Objective\'', function () {
                         viewModel.toggleObjectiveSelection({ isSelected: ko.observable(true) });
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Unselect Objective', eventsCategory);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Unselect Objective');
                     });
 
                     it('should set objective.isSelected to false', function () {
@@ -380,7 +380,7 @@
 
                     it('should send event \'Select Objective\'', function () {
                         viewModel.toggleObjectiveSelection({ isSelected: ko.observable(false) });
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Select Objective', eventsCategory);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Select Objective');
                     });
 
                     it('should set objective.isSelected to true', function () {
@@ -416,7 +416,7 @@
 
                 it('should send event \'Build experience\'', function () {
                     viewModel.buildExperience();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Build experience', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Build experience');
                 });
 
                 it('should change status to \'inProgress\'', function () {
@@ -679,7 +679,7 @@
 
                 it('should send event \"Download experience\"', function () {
                     viewModel.downloadExperience();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Download experience', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Download experience');
                 });
 
                 it('should download experience package', function () {
@@ -818,7 +818,7 @@
 
                         it('should send event \'Update experience title\'', function () {
                             viewModel.endEditTitle();
-                            expect(eventTracker.publish).toHaveBeenCalledWith('Update experience title', eventsCategory);
+                            expect(eventTracker.publish).toHaveBeenCalledWith('Update experience title');
                         });
 
                     });
@@ -885,7 +885,7 @@
 
                     it('should send event \'Change experience template to \'<templateName>\'\'', function () {
                         viewModel.updateExperienceTemplate(templateItem);
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Change experience template to \'' + templateItem.name + '\'', eventsCategory);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Change experience template to \'' + templateItem.name + '\'');
                     });
 
                 });
@@ -1327,7 +1327,7 @@
 
                     it('should send event \'Unrelate objectives from experience\'', function () {
                         viewModel.unrelateSelectedObjectives();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Unrelate objectives from experience', eventsCategory);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Unrelate objectives from experience');
                     });
 
                     it('should call repository \"unrelateObjectives\" method', function() {

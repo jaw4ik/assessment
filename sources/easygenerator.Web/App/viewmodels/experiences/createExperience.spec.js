@@ -100,7 +100,7 @@
                 it('should send event \'Create learning experience and create new\'', function () {
                     viewModel.title.isValid = function () { };
                     viewModel.createAndNew();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Create learning experience and create new', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Create learning experience and create new');
                 });
 
                 describe('and title is not valid', function () {
@@ -212,7 +212,7 @@
                 it('should send event \'Create learning experience and create new\'', function () {
                     viewModel.title.isValid = function () { };
                     viewModel.createAndEdit();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Create learning experience and open its properties', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Create learning experience and open its properties');
                 });
 
                 describe('and title is not valid', function () {
@@ -291,7 +291,7 @@
 
                 it('should send event \'Navigate to experiences\'', function () {
                     viewModel.navigateToExperiences();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to experiences', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to experiences');
                 });
 
                 it('should navigate to #experiences', function () {

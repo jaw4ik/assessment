@@ -7,10 +7,24 @@
         <a href="#/" class="inline logo">&nbsp;</a>
         <!-- /ko -->
     </div>
+    <!-- ko ifnot: showNavigation() -->
+    <div class="top-navigation">
+        <div class="seperator"></div>
+        <!-- ko foreach: navigation -->
+        <!-- ko ifnot: isActive -->
+        <a class="top-navigation-btn" data-bind="click: navigate, localize: { text: title }"></a>
+        <!-- /ko -->
+        <!-- ko if: isActive -->
+        <span class="top-navigation-btn current" data-bind="localize: { text: title }"></span>
+        <!-- /ko -->
+        <div class="seperator"></div>
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
 </div>
 <div class="icon-spinner-wrapper" data-bind="visible: !isViewReady()">
     <img src="/Content/images/loader.gif" alt="" />
 </div>
-<section id="content" class="main" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden'}">
+<section id="content" class="main" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }">
     <div data-bind="router: { cacheViews: false }"></div>
 </section>

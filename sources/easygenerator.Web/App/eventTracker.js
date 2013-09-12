@@ -1,5 +1,5 @@
-﻿define(['durandal/system'],
-    function (system) {
+﻿define(['durandal/system', 'plugins/router'],
+    function (system, router) {
 
         var providers = [];
 
@@ -35,8 +35,10 @@
         providers.push(new googleAnalyticsProvider());
         providers.push(new consoleProvider());
 
-        function publish(eventName, eventCategory) {
-            eventCategory = eventCategory || 'Default category';
+        function publish(eventName) {
+            var activeInstruction = router.activeInstruction();
+            var eventCategory = _.isObject(activeInstruction) ? activeInstruction.config.title: 'Default category' ;
+
             _.each(providers, function (provider) {
                 provider.trackEvent(eventName, eventCategory);
             });

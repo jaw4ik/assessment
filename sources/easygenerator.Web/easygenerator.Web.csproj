@@ -184,6 +184,9 @@
     <Content Include="App\repositories\templateRepository.spec.js">
       <DependentUpon>templateRepository.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\shell.spec.js">
+      <DependentUpon>shell.js</DependentUpon>
+    </Content>
     <Content Include="App\views\common\createtip.html" />
     <Content Include="App\views\common\formactions.html" />
     <Content Include="App\views\common\entityinfo.html" />

@@ -3,14 +3,13 @@
 
         var
             events = {
-                category: 'Create Experience',
                 navigateToExperiences: 'Navigate to experiences',
                 createAndNew: "Create learning experience and create new",
                 createAndEdit: "Create learning experience and open its properties",
             },
 
             sendEvent = function (eventName) {
-                eventTracker.publish(eventName, events.category);
+                eventTracker.publish(eventName);
             };
 
         var title = ko.observable('');

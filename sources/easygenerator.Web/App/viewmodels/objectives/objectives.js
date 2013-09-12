@@ -3,7 +3,6 @@
         "use strict";
 
         var events = {
-            category: 'Objectives',
             navigateToCreation: "Navigate to Objective creation",
             navigateToDetails: "Navigate to Objective details",
             navigateToExperiences: "Navigate to Experiences",
@@ -14,7 +13,7 @@
             deleteObjectives: "Delete selected objectives"
         },
             sendEvent = function (eventName) {
-                eventTracker.publish(eventName, events.category);
+                eventTracker.publish(eventName);
             };
 
         var objectives = ko.observableArray([]),

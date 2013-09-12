@@ -3,7 +3,6 @@
         "use strict";
         var
             events = {
-                category: 'Question',
                 navigateToRelatedObjective: 'Navigate to related objective',
                 navigateToNextQuestion: 'Navigate to next question',
                 navigateToPreviousQuestion: 'Navigate to previous question',
@@ -24,7 +23,7 @@
             },
 
             sendEvent = function (eventName) {
-                eventTracker.publish(eventName, events.category);
+                eventTracker.publish(eventName);
             };
 
         var

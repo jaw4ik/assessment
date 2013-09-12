@@ -45,7 +45,7 @@
 
                 it('should send event \'Navigate to Objective creation\'', function () {
                     viewModel.navigateToCreation();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Objective creation', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Objective creation');
                 });
 
                 it('should navigate to 404', function () {
@@ -63,7 +63,7 @@
 
                 it('should send event \'Navigate to Objective details\'', function () {
                     viewModel.navigateToDetails({ id: 1 });
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Objective details', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Objective details');
                 });
 
                 it('should navigate to #/objective/{id}', function () {
@@ -82,7 +82,7 @@
 
                 it('should send event \'Navigate to Experiences\'', function () {
                     viewModel.navigateToExperiences();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Experiences', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Experiences');
                 });
 
                 it('should navigate to #/experiences', function () {
@@ -100,7 +100,7 @@
 
                 it('should send event \'Sort by title ascending\'', function () {
                     viewModel.sortByTitleAsc();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Sort by title ascending', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Sort by title ascending');
                 });
 
                 it('should set currentSortingOption observable', function () {
@@ -132,7 +132,7 @@
 
                 it('should send event \'Sort by title descending\'', function () {
                     viewModel.sortByTitleDesc();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Sort by title descending', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Sort by title descending');
                 });
 
                 it('should set currentSortingOption observable', function () {
@@ -187,7 +187,7 @@
 
                     it('should send event \'Select Objective\'', function () {
                         viewModel.toggleObjectiveSelection({ isSelected: ko.observable(false) });
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Select Objective', eventsCategory);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Select Objective');
                     });
 
                     it('should set objective.isSelected to true', function () {
@@ -201,7 +201,7 @@
 
                     it('should send event \'Unselect Objective\'', function () {
                         viewModel.toggleObjectiveSelection({ isSelected: ko.observable(true) });
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Unselect Objective', eventsCategory);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Unselect Objective');
                     });
 
                     it('should set objective.isSelected to false', function () {
@@ -497,7 +497,7 @@
                 it('should send event \'Delete selected objectives\'', function () {
                     viewModel.objectives([{ isSelected: ko.observable(true) }]);
                     viewModel.deleteSelectedObjectives();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete selected objectives', eventsCategory);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete selected objectives');
                 });
 
                 describe('when no selected objectives', function () {
@@ -532,7 +532,7 @@
 
                         it('should send event \'Delete selected objectives\'', function () {
                             viewModel.deleteSelectedObjectives();
-                            expect(eventTracker.publish).toHaveBeenCalledWith('Delete selected objectives', eventsCategory);
+                            expect(eventTracker.publish).toHaveBeenCalledWith('Delete selected objectives');
                         });
 
                         it('should return undefined', function () {

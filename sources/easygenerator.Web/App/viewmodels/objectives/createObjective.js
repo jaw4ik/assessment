@@ -3,14 +3,13 @@
 
         var
             events = {
-                category: 'Create learning objective',
                 navigateToObjectives: 'Navigate to objectives',
                 createAndNew: "Create learning objective and create new",
                 createAndEdit: "Create learning objective and open it properties",
             },
 
             sendEvent = function (eventName) {
-                eventTracker.publish(eventName, events.category);
+                eventTracker.publish(eventName);
             };
 
         var title = ko.observable('');
