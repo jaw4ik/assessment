@@ -201,6 +201,11 @@
         width: 100%;
     }
 
+.experience-header-title-text {
+    margin-right: 15px;
+    margin-left: 5px;
+}
+
 .experiences-header-finish-link {
     width: 64px;
     height: 64px;
@@ -506,27 +511,3 @@
 /*#endregion Template selector*/
 
 /*#endregion NOTIFICATION*/
-
-/*#region HEADER TOOLBAR*/
-.experience-related-objectives-header .header-toolbar-item-wrapper {
-    width: 41px;
-    height: 29px;
-    margin-right: 10px;
-    margin-left: 9px;
-}
-
-/************* Toolbar buttons***************/
-.toolbar-unrelate {
-    display: inline-block;
-    height: 22px;
-    width: 30px;
-    margin-top: 2px;
-    margin-left: 3px;
-    vertical-align: middle;
-    background-image: url(images/middle-sized-icons-pack.png);
-    background-position: 0 -395px;
-    background-repeat: no-repeat;
-}
-
-
-/*#endregion HEADER TOOLBAR*/

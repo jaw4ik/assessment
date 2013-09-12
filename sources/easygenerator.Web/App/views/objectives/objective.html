@@ -38,7 +38,7 @@
     <div class="questions-header clearfix">
         <div class="questions-header-title" data-bind="css: { 'alone': questions().length <= 1 }">
             <a class="questions-header-create-link" href="/#" data-bind="click: navigateToCreateQuestion, localize: { title: 'addNewQuestion' }"></a>
-            <span class="header-title-text" data-bind="localize: { text: 'relatedQuestion' }"></span>
+            <span class="questions-header-title-text" data-bind="localize: { text: 'relatedQuestion' }"></span>
             <!-- ko if: canDeleteQuestions() -->
             <span class="header-toolbar-item-wrapper" data-bind="click: deleteSelectedQuestions, localize: { title: 'delete' }">
                 <span class="toolbar-remove"></span>
