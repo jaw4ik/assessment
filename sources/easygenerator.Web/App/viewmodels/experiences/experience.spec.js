@@ -911,7 +911,7 @@
 
                     it('should send event \'Start appending related objectives\'', function () {
                         viewModel.startAppendingObjectives();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Start appending related objectives', eventsCategory);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Start appending related objectives');
                     });
 
                     var getObjectivesDefer,
@@ -1006,7 +1006,7 @@
 
                     it('should send event \'Finish appending related objectives\'', function () {
                         viewModel.finishAppendingObjectives();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Finish appending related objectives', eventsCategory);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Finish appending related objectives');
                     });
 
                     it('should call relateObjectives repository function with selected objectives', function () {

@@ -44,7 +44,6 @@
             modifiedOn = ko.observable(),
             builtOn = ko.observable(),
             language = ko.observable(),
-            isEditing = ko.observable(),
             objectivesMode = ko.observable(''),
             relatedObjectives = [],
             templateId = ko.observable(),
