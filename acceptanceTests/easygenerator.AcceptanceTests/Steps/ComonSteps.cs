@@ -36,7 +36,7 @@ namespace easygenerator.AcceptanceTests.Steps
             if (!TestUtils.WaitForCondition(() =>
                 (DriverProvider.Current().Driver.FindElementsByXPath(".//section[contains(@id,'content')]//section").Count != 0), 20000))
                 throw new TimeoutException("Content data is not reachable");
-            //System.Threading.Thread.Sleep(5000);
+            System.Threading.Thread.Sleep(500);
 
         }
 
