@@ -160,7 +160,7 @@ runs(function() {&#xD;
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E3ECDD1C104BC342897C22BC6B125CAB/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E3ECDD1C104BC342897C22BC6B125CAB/Text/@EntryValue">it('should send event \'$EVENT_NAME$\'', function () {&#xD;
     viewModel.$METHOD_NAME$();&#xD;
-    expect(eventTracker.publish).toHaveBeenCalledWith('$EVENT_NAME$', eventsCategory);&#xD;
+    expect(eventTracker.publish).toHaveBeenCalledWith('$EVENT_NAME$');&#xD;
 });</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E411B7E353A96A43B002F0B4D30DF033/@KeyIndexDefined">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=E411B7E353A96A43B002F0B4D30DF033/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
