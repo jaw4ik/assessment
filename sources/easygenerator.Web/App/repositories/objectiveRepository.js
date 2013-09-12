@@ -159,7 +159,7 @@
                                 return;
                             }
 
-                            dataContext.objectives = _.reject(dataContext.experiences, function (objective) {
+                            dataContext.objectives = _.reject(dataContext.objectives, function (objective) {
                                 return objective.id == objectiveId;
                             });
 
