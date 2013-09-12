@@ -80,8 +80,8 @@
                     <span data-bind="text: title().trim().length + '/' + experienceTitleMaxLength"></span>
                 </div>
             </div>
-            <div class="entity-additional-actions">
-                <select class="experience-template-selector" data-bind="options: templates, optionsText: 'name', optionsValue: 'id', value: templateId, event: {change: updateExperienceTemplate }"></select>
+            <div class="entity-actions">
+                <div class="experience-template-selector" data-bind="selectBox: { options: templates, optionsText: 'name', optionsValue: 'id', value: templateId }, event: {change: updateExperienceTemplate }"></div>
             </div>
         </div>
 

@@ -1,0 +1,56 @@
+﻿.selectbox {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #666666;
+    position: relative;
+}
+
+.selectbox-options-list {
+    list-style-type: none;
+}
+
+.selectbox-current-item {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZlZmVmZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmMGYwZjAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #fefefe 0%, #f0f0f0 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefefe), color-stop(100%,#f0f0f0)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #fefefe 0%,#f0f0f0 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #fefefe 0%,#f0f0f0 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #fefefe 0%,#f0f0f0 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #fefefe 0%,#f0f0f0 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#f0f0f0',GradientType=0 ); /* IE6-8 */
+    border: 1px solid #E5E5E5;
+    border-radius: 2px;
+    -moz-box-shadow: 0 0 4px rgba(0, 0, 0, .1);
+    -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, .1);
+    box-shadow: 0 0 4px rgba(0, 0, 0, .1);
+}
+
+    .selectbox-current-item .selectbox-caret {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        background-image: url("images/small-size-icons-pack.png");
+        background-position: 0;
+        content: "↕";
+        width: 6px;
+        height: 16px;
+    }
+
+.selectbox-options-list .selectbox-option-item {
+    height: 30px;
+    padding: 0 10px;
+    line-height: 30px;
+    background: white;
+    border: 1px solid #C4C4C4;
+    border-radius: 2px;
+    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, .1) inset;
+    -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, .1) inset;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, .1) inset;
+}
+
+    .selectbox-options-list .selectbox-option-item:hover {
+        background: #EFF4FA;
+    }

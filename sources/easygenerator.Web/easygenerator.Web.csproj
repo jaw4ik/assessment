@@ -196,9 +196,11 @@
     <Content Include="Content\images\emptyBox.png" />
     <Content Include="Content\images\info-icon.png" />
     <Content Include="Content\images\nav-icons.png" />
+    <Content Include="Content\images\small-size-icons-pack.png" />
     <Content Include="Content\images\warning.png" />
     <Content Include="Content\images\objective.png" />
     <Content Include="Content\notify.css" />
+    <Content Include="Content\selectbox.css" />
     <Content Include="Scripts\almond-custom.js" />
     <Content Include="Scripts\durandal\activator.js" />
     <Content Include="Scripts\durandal\app.js" />
@@ -569,6 +571,7 @@
     <Content Include="Scripts\knockoutBindings\keyPressBinding.js" />
     <Content Include="Scripts\knockout.validation.debug.js" />
     <None Include="Scripts\knockout.validation.js" />
+    <Content Include="Scripts\knockoutBindings\selectBoxBinding.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />

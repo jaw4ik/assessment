@@ -42,6 +42,7 @@ namespace easygenerator.Web.Configuration
                     .Include("~/Scripts/ckeditor/Content.css")
                     .Include("~/Content/ckeditor.css")
                     .Include("~/Content/notify.css")
+                    .Include("~/Content/selectbox.css")
                 );
         }
     }

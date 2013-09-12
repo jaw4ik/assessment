@@ -403,11 +403,11 @@
 
 /*#region Template selector*/
 
-.experience .entity-additional-actions {
-    width: 173px;
-    margin-left: 57px;
+.experience .entity-actions {
+    width: 174px;
+    margin-left: 56px;
     position: absolute;
-    top: 95px;
+    top: 97px;
 }
 
 .experience-template-selector {
