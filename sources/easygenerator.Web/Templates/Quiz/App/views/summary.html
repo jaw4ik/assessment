@@ -23,12 +23,16 @@
                 <div class="summary-list-item-inner">
                     <div class="summary-objective-title">
                         <div class="objective-progress-title">
-                            <span data-bind="text: title"></span>
+                            <span class="selectable" data-bind="text: title"></span>
                         </div>
                     </div>
                     <div class="progressbar-holder">
-                        <div class="progressbar-informer">
-                            <span data-bind="text: score + '%'"></span>
+                        <div class="progressbar-informer-wrapper">
+                            <div class="progressbar-informer" data-bind="text: score + '%'"></div>
+                            <div class="progressbar-triangle-border">
+                                <div class="progressbar-triangle">
+                                </div>
+                            </div>
                         </div>
                         <div class="progressbar-block">
                             <div class="progressbar-bg-line"></div>

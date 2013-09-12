@@ -7,9 +7,7 @@
         var lineWidth = valueAccessor().lineWidth || 13;
         var circleColor = valueAccessor().basicColor || '#d2c8bf',
             strokeColor = valueAccessor().strokeColor || 'white';
-
         var progressColor = valueAccessor().progressColor || '#92ae46';
-
 
         var centerX = element.width / 2;
         var centerY = element.height / 2;
@@ -18,7 +16,6 @@
         var progress = score / 100;
 
         var cnxt = element.getContext('2d');
-
 
         cnxt.beginPath();
         cnxt.arc(centerX, centerY, radius, 0, 2 * Math.PI);
@@ -70,7 +67,5 @@
             cnxt.lineTo(ex + 45, ey + 45);
             cnxt.stroke();
         }
-
-
     }
 };

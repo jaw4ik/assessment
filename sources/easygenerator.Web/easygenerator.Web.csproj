@@ -222,6 +222,9 @@
     <Content Include="Content\font\alphamacaoe.eot" />
     <Content Include="Content\font\alphamacaoe.ttf" />
     <Content Include="Content\font\alphamacaoe.woff" />
+    <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.eot" />
+    <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.ttf" />
+    <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.woff" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
@@ -786,6 +789,7 @@
     <Content Include="Templates\Quiz\content\3\1\1.html" />
     <Content Include="Templates\Quiz\content\data.js" />
     <Content Include="Templates\Quiz\css\durandal.css" />
+    <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.svg" />
     <Content Include="Templates\Quiz\css\ie10mobile.css" />
     <Content Include="Templates\Quiz\css\images\glyphicons-halflings-white.png" />
     <Content Include="Templates\Quiz\css\images\glyphicons-halflings.png" />
@@ -801,12 +805,16 @@
     <Content Include="Templates\Quiz\img\checkbox.png" />
     <Content Include="Templates\Quiz\img\checkbox1.png" />
     <Content Include="Templates\Quiz\img\chrome.png" />
+    <Content Include="Templates\Quiz\img\divider.png" />
     <Content Include="Templates\Quiz\img\explanation.png" />
     <Content Include="Templates\Quiz\img\firefox.png" />
     <Content Include="Templates\Quiz\img\ie10.png" />
     <Content Include="Templates\Quiz\img\loader.gif" />
     <Content Include="Templates\Quiz\img\objective.png" />
+    <Content Include="Templates\Quiz\img\previous.png" />
+    <Content Include="Templates\Quiz\img\progress.png" />
     <Content Include="Templates\Quiz\img\safari.png" />
+    <Content Include="Templates\Quiz\img\tooltip.png" />
     <Content Include="Templates\Quiz\index.html" />
     <Content Include="Templates\Quiz\js\bootstrap.min.js" />
     <Content Include="Templates\Quiz\js\circleProgressBinding.js" />

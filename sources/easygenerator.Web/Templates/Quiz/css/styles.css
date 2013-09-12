@@ -2,6 +2,12 @@
  * easygenerator | Copyright 2013
  */
 
+@font-face {
+    font-family: 'UbuntuRegular';
+    src: url('fonts/ubuntu-regular.eot');
+    src: url('fonts/ubuntu-regular.eot') format('embedded-opentype'), url('fonts/ubuntu-regular.woff') format('woff'), url('fonts/ubuntu-regular.ttf') format('truetype'), url('fonts/ubuntu-regular.svg#MyriadProRegular') format('svg');
+}
+
 /*===================================
 RESET CSS-STYLES IN FOREIGN BROWSERS 
 ===================================*/
@@ -144,16 +150,6 @@ img:hover {
     float: right;
 }
 
-.absolute-left {
-    position: absolute;
-    left: 0;
-}
-
-.absolute-right {
-    position: absolute;
-    right: 0;
-}
-
 .hidden {
     visibility: hidden;
 }
@@ -183,12 +179,28 @@ img:hover {
 /*#endregion common css-styles  */
 
 /*#region mainframe css-styles  */
+
 html, body, .application-wrapper {
     width: 100%;
     height: 100%;
     color: #666;
     font-family: Arial, sans-serif;
 }
+
+body {
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPHJhZGlhbEdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNzUlIj4KICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI2NiUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSI5NyUiIHN0b3AtY29sb3I9IiNlZGVkZWQiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZGFkYWRhIiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHg9Ii01MCIgeT0iLTUwIiB3aWR0aD0iMTAxIiBoZWlnaHQ9IjEwMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 66%, rgba(237,237,237,1) 97%, rgba(218,218,218,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,255,255,1)), color-stop(66%,rgba(255,255,255,1)), color-stop(97%,rgba(237,237,237,1)), color-stop(100%,rgba(218,218,218,1))); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 66%,rgba(237,237,237,1) 97%,rgba(218,218,218,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -ms-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 66%,rgba(237,237,237,1) 97%,rgba(218,218,218,1) 100%); /* IE10+ */
+    background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 66%,rgba(237,237,237,1) 97%,rgba(218,218,218,1) 100%); /* W3C */
+    background-attachment: fixed;
+}
+
+    body.ie9 {
+        filter: none;
+        overflow-x: hidden;
+    }
 
 /*#endregion mainframe css-styles  */
 
@@ -205,6 +217,10 @@ html, body, .application-wrapper {
         height: 100%;
         float: left;
         padding: 0 30px;
+    }
+
+    .header.module-home .brand a {
+        cursor: default;
     }
 
 .brand a.inline {
@@ -283,6 +299,8 @@ html, body, .application-wrapper {
     background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 61%,rgba(247,248,249,1) 100%); /* Chrome10+,Safari5.1+ */
     background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 61%,rgba(247,248,249,1) 100%); /* IE10+ */
     background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 61%,rgba(247,248,249,1) 100%); /* W3C */
+    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
 .ie9 .content-header {
@@ -332,7 +350,6 @@ html, body, .application-wrapper {
 }
 
     .question-explanation:hover {
-        background: rgb(249,249,249);
         background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y5ZjlmOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlZGVmZjAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
         background: -moz-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(237,239,240,1) 100%); /* FF3.6+ */
         background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(249,249,249,1)), color-stop(100%,rgba(237,239,240,1))); /* Chrome,Safari4+ */
@@ -381,26 +398,26 @@ html, body, .application-wrapper {
         vertical-align: middle;
     }
 
-    .question-answer .eg-answer-checkbox {
+    .question-answer .question-answer-checkbox {
         width: 35px;
         height: 35px;
+        position: relative;
         border: 1px dashed #DADADA;
         display: block;
         margin-right: 20px;
-        cursor: pointer;
     }
 
-        .question-answer .eg-answer-checkbox.checked {
+        .question-answer .question-answer-checkbox.checked {
             border: 2px solid #666;
             background: url("../img/checkbox.png") no-repeat scroll center center transparent;
         }
 
-        .question-answer .eg-answer-checkbox.checked-ok {
+        .question-answer .question-answer-checkbox.checked-ok {
             border: 2px solid #eee;
             background: url("../img/checkbox-ok.png") no-repeat scroll center center transparent;
         }
 
-        .question-answer .eg-answer-checkbox.checked-fail {
+        .question-answer .question-answer-checkbox.checked-fail {
             border: 2px solid #eee;
             background: url("../img/checkbox-fail.png") no-repeat scroll center center transparent;
         }
@@ -435,8 +452,10 @@ html, body, .application-wrapper {
 }
 
 .summary-title:before {
+    width: 32px;
+    height: 35px;
     content: url(../img/progress.png);
-    padding-right: 15px;
+    margin-right: 15px;
     margin-top: -3px;
 }
 
@@ -490,14 +509,21 @@ html, body, .application-wrapper {
     text-align: center;
 }
 
-.summary-progress .page-title {
-    line-height: 90px;
-    padding-left: 20px;
+.summary-progress {
+    white-space: nowrap;
 }
 
+    .summary-progress .page-title {
+        display: inline-block;
+        width: auto;
+        line-height: 90px;
+        padding-left: 20px;
+    }
+
 .circle-progressbar-wrapper {
-    float: left;
+    display: inline-block;
     position: relative;
+    vertical-align: top;
 }
 
 .circle-progressbar {
@@ -532,16 +558,12 @@ html, body, .application-wrapper {
 .summary-objective-title,
 .progressbar-holder {
     display: table-cell;
-    height: 80px;
+    height: 100px;
     vertical-align: middle;
 }
 
-
 .objective-progress-title {
     padding-right: 20px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .objective-progressbar {
@@ -549,8 +571,67 @@ html, body, .application-wrapper {
     width: 440px;
 }
 
+.progressbar-informer-wrapper {
+    width: 44px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.progressbar-informer {
+    width: 44px;
+    height: 28px;
+    line-height: 26px;
+    vertical-align: middle;
+    margin-bottom: 19px;
+    border: 1px solid #829d37;
+    border-bottom-color: #98ac61;
+    border-radius: 4px;
+    background: rgb(164,202,52); /* Old browsers */
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2E0Y2EzNCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4YWFkMjciIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, rgba(164,202,52,1) 0%, rgba(138,173,39,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(164,202,52,1)), color-stop(100%,rgba(138,173,39,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(164,202,52,1) 0%,rgba(138,173,39,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -ms-linear-gradient(top, rgba(164,202,52,1) 0%,rgba(138,173,39,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(164,202,52,1) 0%,rgba(138,173,39,1) 100%); /* W3C */
+    text-align: center;
+    color: white;
+    letter-spacing: 0.04em;
+    -webkit-font-smoothing: subpixel-antialiased !important;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    font-size: 15px;
+    -webkit-text-shadow: 1px 1px 2px rgba(130, 157, 55, 1);
+    text-shadow: 1px 1px 2px rgba(130, 157, 55, 1);
+    -webkit-box-shadow: 0 1px 2px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px 0px rgba(0,0,0,0.2);
+}
+
+.progressbar-triangle-border {
+    width: 8px;
+    position: absolute;
+    top: 27px;
+    left: 50%;
+    margin-left: -4px;
+    border-top: 8px solid #98ac61;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+}
+
+.progressbar-triangle {
+    width: 6px;
+    position: absolute;
+    bottom: 2px;
+    left: -3px;
+    border-top: 6px solid #8aad27;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+}
+
 .progressbar-holder {
     width: 378px;
+    padding-bottom: 25px;
 }
 
 .progressbar-block {
@@ -678,3 +759,27 @@ html, body, .application-wrapper {
     text-align: center;
 }
 /*#endregion BUTTONS */
+
+@media (max-width: 800px) {
+    .summary-list-item-inner {
+        padding: 15px 0 20px;
+    }
+
+    .summary-objective-title,
+    .progressbar-holder {
+        display: block;
+        vertical-align: middle;
+        height: auto;
+    }
+
+    .progressbar-holder {
+        height: auto;
+        padding-top: 5px;
+        padding-bottom: 0;
+        margin: 0 auto;
+    }
+
+    .objective-progress-title {
+        vertical-align: middle;
+    }
+}

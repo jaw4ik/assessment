@@ -24,7 +24,9 @@
                 <!-- ko foreach: answers -->
                 <li class="question-answer" data-bind="click: toggleCheck">
                     <div>
-                        <a class="eg-answer-checkbox" data-bind="css: { checked: isChecked() }"></a>
+                        <a class="question-answer-checkbox" data-bind="css: { checked: isChecked() }">
+                            <input class="custom-checkbox" type="checkbox"/>
+                        </a>
                     </div>
                     <div>
                         <span class="selectable" data-bind="text: text"></span>
