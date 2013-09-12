@@ -162,7 +162,7 @@ namespace easygenerator.AcceptanceTests.Steps
         public void ThenBuildActionOnExperiancePageIsAvailable()
         {
             TestUtils.Assert_IsTrue_WithWait(() =>
-                experiencePage.BuildButtonText == "Build experience",
+                experiencePage.BuildButtonText == "Build learning experience",
                 "Element should be visible");
         }
 
