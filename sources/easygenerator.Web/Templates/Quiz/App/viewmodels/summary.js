@@ -19,11 +19,11 @@
             if (context.testResult().length == 0)
                 return router.navigateTo('#/');
             else {
-                that.objectives = [];
-                score = [];
-                that.overallScore = 0;
+                this.objectives = [];
+                scores = [];
+                this.overallScore = 0;
 
-                that.objectives = _.map(context.objectives, function (objective) {
+                this.objectives = _.map(context.objectives, function (objective) {
                     return {
                         id: objective.id,
                         title: objective.title,
@@ -58,11 +58,11 @@
                     that.overallScore = that.overallScore + score.value;
                 });
 
-                that.overallScore = Math.round(that.overallScore / scores.length);
+                this.overallScore = Math.round(this.overallScore / scores.length);
 
                 window.scroll(0, 0);
 
-                return _.each(that.objectives, function (objective) {
+                return _.each(this.objectives, function (objective) {
                     objective.score = Math.round(objective.score / objective.count);
                 });
             }
