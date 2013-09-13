@@ -38,7 +38,7 @@
     },
     select: {
         en: 'Select',
-        nl: 'Selecteer',
+        nl: 'Selecteren',
         de: 'Auswählen'
     },
     unselect: {
@@ -88,7 +88,7 @@
     },
     createdOn: {
         en: 'Created on',
-        nl: 'Aangemaakt op',
+        nl: 'Gemaakt op',
         de: 'Erstellt am'
     },
     modifiedOn: {
@@ -146,8 +146,8 @@
     },
     objectiveCannnotBeDeleted: {
         en: 'Learning objective cannot be deleted, while it is included into learning experience(s) or contains questions.',
-        nl: 'Learning objective cannot be deleted, while it is included into learning experience(s) or contains questions.[nl]',
-        de: 'Learning objective cannot be deleted, while it is included into learning experience(s) or contains questions.[de]'
+        nl: 'Leerdoel kan niet worden verwijderd als het is opgenomen in een of meer leerervaringen of als het vragen bevat.',
+        de: 'Ein Lernziel kann nicht gelöscht werden, wenn es in eine oder mehrere Lernerfahrungen eingeschlossen ist oder Fragen enthält.'
     },
     /* End resource section for model Objectives */
     
@@ -162,18 +162,18 @@
     /* Resource section for model Experiences */
     experiences: {
         en: 'Learning experiences',
-        nl: 'Learning experiences[nl]',
-        de: 'Learning experiences[de]'
+        nl: 'Leerervaringen',
+        de: 'Lernerfahrungen'
     },
     experience: {
         en: 'Learning experience',
-        nl: 'Learning experience[nl]',
-        de: 'Learning experience[de]'
+        nl: 'Leerervaring',
+        de: 'Lernerfahrung'
     },
     experienceBuildAction: {
         en: 'Build',
         nl: 'Samenstellen…',
-        de: 'Erstellen'
+        de: 'Zusammenstellen'
     },
     experienceDownloadAction: {
         en: 'Download',
@@ -183,7 +183,7 @@
     experienceBuildingStatus: {
         en: 'building...',
         nl: 'samenstellen…',
-        de: 'aufbau...'
+        de: 'Wird zusammengestellt...'
     },
     experienceFailedStatus: {
         en: 'failed',
@@ -197,13 +197,13 @@
     },
     experienceRebuildAction: {
         en: 'Rebuild',
-        nl: 'Opnieuw maken',
-        de: 'Neu aufbauen'
+        nl: 'Opnieuw samenstellen',
+        de: 'Neu zusammenstellen'
     },
     addNewExperience: {
         en: 'Add new learning experience',
-        nl: 'Add new learning experience[nl]',
-        de: 'Add new learning experience[de]'
+        nl: 'Nieuwe leerervaring toevoegen',
+        de: 'Neue Lernerfahrung hinzufügen'
     },
     numberOfRelatedObjectives: {
         en: 'Number of related objectives',
@@ -212,20 +212,20 @@
     },
     experiencesListIsEmpty: {
         en: 'Learning experiences list is empty',
-        nl: 'Learning experiences list is empty[nl]',
-        de: 'Learning experiences list is empty[de]'
+        nl: 'Lijst met leerervaringen is leeg',
+        de: 'Liste der Lernerfahrungen ist leer'
     },
     experienceCannotBeDeleted: {
         en: 'Learning experience cannot be deleted while it has included learning objective(s)',
-        nl: 'Learning experience cannot be deleted while it has included learning objective(s)[nl]',
-        de: 'Learning experience cannot be deleted while it has included learning objective(s)[de]'
+        nl: 'Leerervaring kan niet worden verwijderd als de ervaring een of meer leerdoelen bevat',
+        de: 'Eine Lernerfahrung kann nicht gelöscht werden, wenn sie ein oder mehrere Lernziele enthält'
     },
     /* End resource section for model Experiences */
     
     /* Resource section for model CreateObjective */
     createNewObjective: {
         en: 'Create New Objective',
-        nl: 'Nieuwe doelstelling aanmaken',
+        nl: 'Nieuwe doelstelling maken',
         de: 'Neues Lernziel erstellen'
     },
     createObjectiveTip: {
@@ -258,23 +258,23 @@
     },
     typeExperienceTitleHere: {
         en: 'Type learning experience title here',
-        nl: 'Type learning experience title here[nl]',
-        de: 'Type learning experience title here[de]'
+        nl: 'Typ hier de titel van de leerervaring',
+        de: 'Titel der Lernerfahrung hier eingeben'
     },
     clickToAddExperience: {
         en: 'Click to add learning experience',
-        nl: 'Click to add learning experience[nl]',
-        de: 'Click to add learning experience[de]'
+        nl: 'Klik om leerervaring toe te voegen',
+        de: 'Klicken, um neue Lernerfahrung hinzuzufügen'
     },
     createNewExperience: {
         en: 'Create new learning experience',
-        nl: 'Create new learning experience[nl]',
-        de: 'Create new learning experience[de]'
+        nl: 'Nieuwe leerervaring maken',
+        de: 'Neue Lernerfahrung erstellen'
     },
     chooseTemplate: {
         en: 'Choose template',
-        nl: 'Choose template[nl]',
-        de: 'Choose template[de]'
+        nl: 'Sjabloon kiezen',
+        de: 'Vorlage wählen'
     },
     /* End resource section for model CreateExperience */
     
@@ -282,7 +282,7 @@
     previous: {
         en: 'Previous',
         nl: 'Vorige',
-        de: 'Zurück'
+        de: 'Vorheriges'
     },
     next: {
         en: 'Next',
@@ -394,7 +394,7 @@
     },
     createNewQuestion: {
         en: 'Create new question',
-        nl: 'Nieuwe vraag aanmaken',
+        nl: 'Nieuwe vraag maken',
         de: 'Neue Frage erstellen'
     },
     /* End resource section for model Questions */
@@ -590,8 +590,8 @@
     },
     buildExperience: {
         en: 'Build learning experience',
-        nl: 'Build learning experience[nl]',
-        de: 'Build learning experience[de]'
+        nl: 'Leerervaring samenstellen',
+        de: 'Lernerfahrung zusammenstellen'
     },
     noRelatedLearningObjectives: {
         en: 'No included learning objectives',
@@ -600,53 +600,53 @@
     },
     clickToAddObjectivesIntoExperience: {
         en: 'Click to add learning objective(s) into this learning experience',
-        nl: 'Click to add learning objective(s) into this learning experience[nl]',
-        de: 'Click to add learning objective(s) into this learning experience[de]'
+        nl: 'Klik om leerdoelen toe te voegen aan deze leerervaring',
+        de: 'Klicken, um dieser Lernerfahrung ein oder mehrere Lernziele hinzuzufügen'
     },
     relateObjectivesHelpHint: {
         en: 'Move cursor over learning objective and select to include it into learning experience. Use Finish button when done',
-        nl: 'Move cursor over learning objective and select to include it into learning experience. Use Finish button when done[nl]',
-        de: 'Move cursor over learning objective and select to include it into learning experience. Use Finish button when done[de]'
+        nl: 'Verplaats de cursor over het leerdoel en selecteer het voor opname in de leeromgeving. Klik na afloop op de knop Afsluiten',
+        de: 'Bewegen Sie den Mauszeiger über ein Lernziel und wählen Sie es aus, um es in die Lernerfahrung einzuschließen. Klicken Sie auf die Schaltfläche \"Fertig stellen\", wenn Sie fertig sind.'
     },
     clickToCreateNewObjective: {
         en: 'To create new learning objective click \"+\" button',
-        nl: 'To create new learning objective click \"+\" button[nl]',
-        de: 'To create new learning objective click \"+\" button[de]'
+        nl: 'Klik op \"+\" om een nieuw leerdoel te maken',
+        de: 'Um ein neues Lernziel zu erstellen, klicken Sie auf die Schaltfläche \"+\".'
     },
     noObjectivesForRelating: {
         en: 'No learning objectives to include',
-        nl: 'No learning objectives to include[nl]',
-        de: 'No learning objectives to include[de]'
+        nl: 'Geen leerdoelen om op te nemen',
+        de: 'Keine einzuschließenden Lernziele'
     },
     finish: {
         en: 'Finish',
-        nl: 'Finish[nl]',
-        de: 'Finish[de]'
+        nl: 'Afsluiten',
+        de: 'Fertig stellen'
     },
     relate: {
         en: 'Include',
-        nl: 'Include[nl]',
-        de: 'Include[de]'
+        nl: 'Opnemen',
+        de: 'Einschließen'
     },
     unrelate: {
         en: 'Exclude',
-        nl: 'Exclude[nl]',
-        de: 'Exclude[de]'
+        nl: 'Uitsluiten',
+        de: 'Ausschließen'
     },
     relateObjectives: {
         en: 'Include learning objective(s)',
-        nl: 'Include learning objective(s)[nl]',
-        de: 'Include learning objective(s)[de]'
+        nl: 'Leerdoel(en) opnemen',
+        de: 'Ein oder mehrere Lernziele einschließen'
     },
     unrelateObjectives: {
         en: 'Exclude selected learning objective(s)',
-        nl: 'Exclude selected learning objective(s)[nl]',
-        de: 'Exclude selected learning objective(s)[de]'
+        nl: 'Geselecteerde leerdoelen uitsluiten',
+        de: 'Ausgewählte Lernziele ausschließen'
     },
     finishRelating: {
         en: 'Include selected learning objective(s)',
-        nl: 'Include selected learning objective(s)[nl]',
-        de: 'Include selected learning objective(s)[de]'
+        nl: 'Geselecteerde leerdoelen opnemen',
+        de: 'Ausgewählte Lernziele einschließen'
     },
     /* End resource section for model Display experience */
     
