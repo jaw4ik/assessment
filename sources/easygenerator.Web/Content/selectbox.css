@@ -3,6 +3,7 @@
     font-size: 14px;
     color: #666666;
     position: relative;
+    cursor: default;
 }
 
 .selectbox-options-list {
