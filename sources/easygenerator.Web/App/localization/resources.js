@@ -140,8 +140,8 @@
         de: 'Liste der Lernziele ist leer'
     },
     clickToAddObjective: {
-        en: 'Click to add objective',
-        nl: 'Klik om de doelstelling toe te voegen',
+        en: 'Click to add learning objective',
+        nl: 'Klik om de leerdoelstelling toe te voegen',
         de: 'Klicken, um Lernziel hinzuzufügen'
     },
     objectiveCannnotBeDeleted: {
@@ -206,9 +206,9 @@
         de: 'Neue Lernerfahrung hinzufügen'
     },
     numberOfRelatedObjectives: {
-        en: 'Number of related objectives',
-        nl: 'Aantal aanverwante doelstellingen',
-        de: 'Anzahl der verwandten Ziele'
+        en: 'Number of related learning objectives',
+        nl: 'Aantal aanverwante leerdoelstellingen',
+        de: 'Anzahl der verwandten Lernziele'
     },
     experiencesListIsEmpty: {
         en: 'Learning experiences list is empty',
@@ -224,13 +224,13 @@
     
     /* Resource section for model CreateObjective */
     createNewObjective: {
-        en: 'Create New Objective',
-        nl: 'Nieuwe doelstelling maken',
+        en: 'Create new learning objective',
+        nl: 'Nieuwe leerdoelstelling maken',
         de: 'Neues Lernziel erstellen'
     },
     createObjectiveTip: {
-        en: 'Type objective title here',
-        nl: 'Typ hier de titel van de doelstelling',
+        en: 'Type learning objective title here',
+        nl: 'Typ hier de titel van de leerdoelstelling',
         de: 'Titel des Lernziels hier eingeben'
     },
     /* End resource section for model CreateObjective */
