@@ -32,7 +32,8 @@
         var
             id = '',
             title = ko.observable(''),
-            objectives = ko.observableArray([]),
+            relatedObjectives = ko.observableArray([]),
+            availableObjectives = ko.observableArray([]),
             templates = [],
             status = ko.observable(),
             isFirstBuild = ko.observable(true),
@@ -45,7 +46,6 @@
             builtOn = ko.observable(),
             language = ko.observable(),
             objectivesMode = ko.observable(''),
-            relatedObjectives = [],
             templateId = ko.observable(),
             isEditing = ko.observable(),
 
@@ -55,7 +55,7 @@
             },
 
             canUnrelateObjectives = ko.computed(function () {
-                return _.some(objectives(), function (item) {
+                return _.some(relatedObjectives(), function (item) {
                     return item.isSelected();
                 });
             });
@@ -200,9 +200,9 @@
             var that = this;
 
             objectiveRepository.getCollection().then(function (objectivesList) {
-                var relatedIds = _.pluck(that.objectives(), 'id');
+                var relatedIds = _.pluck(that.relatedObjectives(), 'id');
 
-                var availableObjectives = _.chain(objectivesList)
+                availableObjectives(_.chain(objectivesList)
                     .filter(function (item) {
                         return !_.include(relatedIds, item.id);
                     })
@@ -214,10 +214,8 @@
                     })
                     .sortBy(function (item) {
                         return item.title.toLowerCase();
-                    }).value();
+                    }).value());
 
-                that.relatedObjectives = that.objectives();
-                that.objectives(availableObjectives);
                 that.objectivesMode(objectivesListModes.appending);
             });
         },
@@ -225,34 +223,34 @@
         finishAppendingObjectives = function () {
             sendEvent(events.finishAppendingRelatedObjectives);
 
-            var objectivesToAdd = _.chain(this.objectives())
+            var that = this;
+
+            var addingObjectives = _.chain(that.availableObjectives())
                 .filter(function (item) {
                     return item.isSelected();
                 })
-                .map(function (item) {
-                    return item._original;
-                })
+                .pluck('_original')
                 .value();
 
-            var that = this;
+            if (addingObjectives.length == 0) {
+                that.objectivesMode(that.objectivesListModes.display);
+                return;
+            }
 
-            repository.relateObjectives(that.id, objectivesToAdd)
-                .then(function (relatedObjectivesList) {
+            repository.relateObjectives(that.id, addingObjectives)
+                .then(function (modifiedDate) {
 
-                    if (relatedObjectivesList.length > 0) {
-                        notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
-                    }
-
-                    that.relatedObjectives = _.chain(relatedObjectivesList)
-                        .map(function (objective) {
-                            return objectiveBrief(objective);
+                    that.relatedObjectives(_.chain(addingObjectives)
+                        .map(function (item) {
+                            return objectiveBrief(item);
                         })
-                        .union(that.relatedObjectives)
+                        .union(that.relatedObjectives())
                         .sortBy(function (item) {
                             return item.title.toLowerCase();
-                        }).value();
+                        }).value());
 
-                    that.objectives(that.relatedObjectives);
+                    that.modifiedOn(modifiedDate);
+                    notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
                     that.objectivesMode(objectivesListModes.display);
                 });
         },
@@ -311,7 +309,7 @@
 
                 that.id = that.experience.id;
                 that.title(that.experience.title);
-                that.objectives(_.chain(that.experience.objectives)
+                that.relatedObjectives(_.chain(that.experience.objectives)
                         .map(function (objective) {
                             return objectiveBrief(objective);
                         })
@@ -344,13 +342,14 @@
 
             var
                 that = this,
-                selectedObjectives = _.filter(this.objectives(), function (item) {
+                selectedObjectives = _.filter(this.relatedObjectives(), function (item) {
                     return item.isSelected();
                 });
 
             repository.unrelateObjectives(this.id, _.map(selectedObjectives, function (item) { return item.id; }))
-                .then(function () {
-                    that.objectives(_.difference(that.objectives(), selectedObjectives));
+                .then(function (modifiedDate) {
+                    that.relatedObjectives(_.difference(that.relatedObjectives(), selectedObjectives));
+                    that.modifiedOn(modifiedDate);
                     notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
                 });
         };
@@ -362,7 +361,8 @@
             title: title,
             isFirstBuild: isFirstBuild,
             templateId: templateId,
-            objectives: objectives,
+            relatedObjectives: relatedObjectives,
+            availableObjectives: availableObjectives,
             templates: templates,
             status: status,
             statuses: constants.buildingStatuses,

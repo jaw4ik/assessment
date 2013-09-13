@@ -420,70 +420,10 @@
                     expect(result).toBePromise();
                 });
 
-                describe('when argument \"experienceId\" is undefined', function () {
-
-                    it('should reject pomise', function () {
-                        var promise = repository.relateObjectives();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejected();
-                        });
-                    });
-
-                });
-
-                describe('when argument \"experienceId\" is null', function () {
-
-                    it('should reject promise', function () {
-                        var promise = repository.relateObjectives(null);
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejected();
-                        });
-                    });
-
-                });
-
                 describe('when argument \"experienceId\" is not a string', function () {
 
                     it('should reject promise', function () {
                         var promise = repository.relateObjectives({});
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejected();
-                        });
-                    });
-
-                });
-
-                describe('when argument \"objectives\" is undefined', function () {
-
-                    it('should reject promise', function () {
-                        var promise = repository.relateObjectives('some experience Id');
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejected();
-                        });
-                    });
-
-                });
-
-                describe('when argument \"objectives\" is null', function () {
-
-                    it('should reject promise', function () {
-                        var promise = repository.relateObjectives('some experience Id', null);
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -535,90 +475,44 @@
                     });
 
                     describe('and experience exists', function () {
+                        var experience;
 
-                        describe('and objectives not exist', function () {
-
-                            it('should reject promise', function () {
-                                getById.resolve({ id: '0' });
-
-                                var promise = repository.relateObjectives('0', []);
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeRejectedWith('Objectives not exist');
-                                });
-                            });
-
+                        beforeEach(function () {
+                            experience = { id: '1', objectives: [] };
+                            getById.resolve(experience);
                         });
 
-                        describe('and objectives are exists', function () {
+                        it('should append list of objectives to experience', function () {
+                            var promise = repository.relateObjectives('1', [{ id: '0' }, { id: '1' }]);
 
-                            describe('when objectives have been related', function () {
-
-                                it('should not be related', function () {
-                                    var experience = { id: '1', objectives: [{ id: '0' }] };
-                                    getById.resolve(experience);
-
-                                    var promise = repository.relateObjectives('1', [{ id: '0' }]);
-
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
-                                        expect(experience.objectives.length).toBe(1);
-                                    });
-                                });
-
-                                it('should be resolved without inputed objectives', function() {
-                                    var experience = { id: '1', objectives: [{ id: '0' }] };
-                                    getById.resolve(experience);
-
-                                    var promise = repository.relateObjectives('1', [{ id: '0' }]);
-
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
-                                        expect(promise).toBeResolvedWith([]);
-                                    });
-                                });
-
+                            waitsFor(function () {
+                                return !promise.isPending();
                             });
-
-                            describe('when objectives are not related', function () {
-
-                                it('should append list of objectives to experience', function () {
-                                    var experience = { id: '1', objectives: [] };
-                                    getById.resolve(experience);
-
-                                    var promise = repository.relateObjectives('1', [{ id: '0' }, { id: '1' }]);
-
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
-                                        expect(experience.objectives.length).toBe(2);
-                                    });
-                                });
-
-                                it('should be resolved with appended objectives', function() {
-                                    var experience = { id: '1', objectives: [] };
-                                    getById.resolve(experience);
-
-                                    var promise = repository.relateObjectives('1', [{ id: '0' }, { id: '1' }]);
-
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
-                                        expect(promise).toBeResolvedWith([{ id: '0' }, { id: '1' }]);
-                                    });
-                                });
-
+                            runs(function () {
+                                expect(experience.objectives.length).toBe(2);
                             });
+                        });
 
+                        it('should update modified date', function () {
+                            var promise = repository.relateObjectives('1', [{ id: '0' }]);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(experience.modifiedOn).toBeDefined();
+                            });
+                        });
+
+                        it('should be resolved with modified date', function () {
+                            var promise = repository.relateObjectives('1', []);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeResolvedWith(experience.modifiedOn);
+                            });
                         });
 
                     });
@@ -753,20 +647,46 @@
                     });
 
                     describe('and experience exists', function () {
+                        var objectives,
+                            experience;
+
+                        beforeEach(function () {
+                            objectives = ['2', '6'],
+                            experience = { objectives: [{ id: '2' }, { id: '4' }, { id: '6' }] };
+                            getById.resolve(experience);
+                        });
 
                         it('should remove objectives', function () {
-                            var objectives = ['2', '6'],
-                                experience = { objectives: [{ id: '2' }, { id: '4' }, { id: '6' }] };
-                            getById.resolve(experience);
                             var promise = repository.unrelateObjectives('some Id', objectives);
 
                             waitsFor(function () {
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(promise).toBeResolved();
                                 expect(experience.objectives.length).toBe(1);
                                 expect(experience.objectives[0].id).toBe('4');
+                            });
+                        });
+
+                        it('should update modified date', function () {
+                            var promise = repository.unrelateObjectives('some Id', objectives);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(experience.modifiedOn).toBeDefined();
+                            });
+                        });
+
+                        it('should resolve promise with modified date', function () {
+                            var promise = repository.unrelateObjectives('some Id', objectives);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeResolvedWith(experience.modifiedOn);
                             });
                         });
 

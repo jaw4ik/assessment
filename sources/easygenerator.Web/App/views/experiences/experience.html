@@ -111,16 +111,15 @@
     <!-- ko if: objectivesMode() == objectivesListModes.appending -->
         <div class="experience-related-objectives-header">
             <a class="experiences-header-finish-link" data-bind="click: finishAppendingObjectives, localize: { title: 'finishRelating' }"></a>
-            <span data-bind="localize: { text: 'finish' }">Finish</span>
+            <span class="experience-header-title-text" data-bind="localize: { text: 'finish' }">Finish</span>
             <hr />
         </div>
     <!-- /ko -->
 
-    <!-- ko if: objectives().length != 0-->
+    <!-- ko if: (objectivesMode() == objectivesListModes.display && relatedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->
     <div class="content-list-wrapper">
-
         <ul class="content-list">
-            <!-- ko foreach: objectives() -->
+            <!-- ko foreach: objectivesMode() == objectivesListModes.display ? relatedObjectives() : availableObjectives() -->
             <li class="content-list-item" data-bind="css: { 'selected': isSelected }">
                 <div class="hover-indicator"></div>
                 <div class="logo-wrapper white-framing">
@@ -128,23 +127,13 @@
                     <div class="item-options">
                         <div class="item-option select" data-bind="click: $parent.toggleObjectiveSelection">
                             <!-- ko ifnot: isSelected() -->
-                                <!-- ko if: $parent.objectivesMode() == $parent.objectivesListModes.display -->
                                 <div class="nowrap" data-bind="localize: { text: 'select' }">Select</div>
-                                <!-- /ko -->
-                                <!-- ko if: $parent.objectivesMode() == $parent.objectivesListModes.appending -->
-                                <div class="nowrap" data-bind="localize: { text: 'relate' }">Relate</div>
-                                <!-- /ko -->
                                 <div class="action-img unchecked inline">
                                     <input type="checkbox" class="custom-checkbox">
                                 </div>
                             <!-- /ko -->
                             <!-- ko if: isSelected() -->
-                                <!-- ko if: $parent.objectivesMode() == $parent.objectivesListModes.display -->
                                 <div class="nowrap" data-bind="localize: { text: 'unselect' }">Unselect</div>
-                                <!-- /ko -->
-                                <!-- ko if: $parent.objectivesMode() == $parent.objectivesListModes.appending -->
-                                <div class="nowrap" data-bind="localize: { text: 'unrelate' }">Unrelate</div>
-                                <!-- /ko -->
                                 <div class="action-img checked inline">
                                     <input class="custom-checkbox" type="checkbox">
                                 </div>
@@ -171,20 +160,18 @@
     </div>
     <!-- /ko -->
 
-    <!-- ko if: objectives().length == 0 -->
-        <!-- ko if: objectivesMode() == objectivesListModes.display -->
-        <div class="empty-list-wrapper">
-            <div class="empty-list">
-                <div class="empty-list-text" data-bind="localize: { text: 'noRelatedLearningObjectives' }"></div>
-            </div>
+    <!-- ko if: objectivesMode() == objectivesListModes.display && relatedObjectives().length == 0 -->
+    <div class="empty-list-wrapper">
+        <div class="empty-list">
+            <div class="empty-list-text" data-bind="localize: { text: 'noRelatedLearningObjectives' }"></div>
         </div>
-        <!-- /ko -->
-        <!-- ko if: objectivesMode() == objectivesListModes.appending -->
-        <div class="empty-list-wrapper">
-            <div class="empty-list">
-                <div class="empty-list-text" data-bind="localize: { text: 'noObjectivesForRelating' }"></div>
-            </div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
+    <div class="empty-list-wrapper">
+        <div class="empty-list">
+            <div class="empty-list-text" data-bind="localize: { text: 'noObjectivesForRelating' }"></div>
         </div>
-        <!-- /ko -->
+    </div>
     <!-- /ko -->
 </section>

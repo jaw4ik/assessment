@@ -83,7 +83,6 @@
                         deferred.reject(reason);
                     });
 
-
                 return deferred.promise;
             },
 
@@ -100,24 +99,12 @@
 
                 this.getById(experienceId)
                     .then(function (experince) {
-                        if (_.isUndefined(experince.objectives)) {
-                            deferred.reject('Objectives not exist');
-                            return;
-                        }
-
                         _.each(objectives, function (objective) {
-                            var isRelated = _.any(experince.objectives, function (item) {
-                                return item.id == objective.id;
-                            });
-
-                            if (!isRelated) {
-                                experince.objectives.push(objective);
-                            } else {
-                                objectives = _.without(objectives, objective);
-                            }
+                            experince.objectives.push(objective);
                         });
 
-                        deferred.resolve(objectives);
+                        experince.modifiedOn = new Date();
+                        deferred.resolve(experince.modifiedOn);
                     })
                     .fail(function (reason) {
                         deferred.reject(reason);
@@ -178,8 +165,8 @@
                         experience.objectives = _.reject(experience.objectives, function (item) {
                             return _.contains(objectives, item.id);
                         });
-
-                        deferred.resolve();
+                        experience.modifiedOn = new Date();
+                        deferred.resolve(experience.modifiedOn);
                     })
                     .fail(function (reason) {
                         deferred.reject(reason);
