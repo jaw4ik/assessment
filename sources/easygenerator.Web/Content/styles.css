@@ -537,7 +537,7 @@ body {
     position: absolute;
     top: 2px;
     left: 50%;
-    margin-left: -231px;
+    margin-left: -211px;
     font-size: 14px;
     text-align: center;
     letter-spacing: -4px;
@@ -548,7 +548,7 @@ body {
         display: inline-block;
         height: 100%;
         line-height: 37px;
-        width: 230px;
+        width: 210px;
         color: #fff;
         letter-spacing: 1px;
         cursor: pointer;
