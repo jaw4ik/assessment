@@ -57,5 +57,57 @@ namespace easygenerator.AcceptanceTests.ElementObjects
                 return GetByXPath(model.ButtonCreateAndNew).CssContains("enabled");
             }
         }
+
+        internal void BackButtonClick()
+        {
+            var link = GetByXPath(model.BackButton);
+            link.Click();
+        }
+
+        public string MaxCharsCount
+        {
+            get
+            {
+                return GetByXPath(model.MaxCharsCount).GetTextContent();
+            }
+        }
+
+        public string CharsCount
+        {
+            get
+            {
+                return GetByXPath(model.CharsCount).GetTextContent();
+            }
+        }
+
+        public bool CharsCounterErrorIsShown
+        {
+            get
+            {
+                return GetByXPath(model.CharsCounter).CssContains("error");
+            }
+        }
+
+        public bool TextBlockErrorIsShown
+        {
+            get
+            {
+                return GetByXPath(model.EditTitleTextBlock).CssContains("error");
+            }
+        }
+
+
+        internal void CreateAndEditButtonClick()
+        {
+            var link = GetByXPath(model.ButtonCreateAndEdit);
+            link.Click();
+        }
+
+        internal void CreateAndNewButtonClick()
+        {
+            var link = GetByXPath(model.ButtonCreateAndNew);
+            link.Click();
+        }
+
     }
 }

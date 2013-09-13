@@ -315,8 +315,8 @@ namespace easygenerator.AcceptanceTests.Steps
 
         //CUD Question
 
-        [When(@"press create new question button on question page")]
-        public void WhenPressCreateNewQuestionButtonOnQuestionPage()
+        [When(@"click create new question button on question page")]
+        public void WhenClickCreateNewQuestionButtonOnQuestionPage()
         {
             Question.CreateNewQuestionButtonClick();
         }

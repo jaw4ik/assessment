@@ -42,7 +42,7 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             TestUtils.Assert_IsTrue_WithWait(() =>
                 (createPage.ButtonCreateAndEditIsEnabled == isEnabled) && (createPage.ButtonCreateAndNewIsEnabled == isEnabled),
-                "edit title text block is not active");
+                "incorrect CreateAndEdit and CreateAndNew status");
         }
 
         [When(@"input '(.*)' into title edit area on create view")]
@@ -56,6 +56,58 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             createPage.ClearEditArea();
         }
+
+        [When(@"click back button on create view")]
+        public void WhenClickBackButtonOnCreateView()
+        {
+            createPage.BackButtonClick();
+        }
+
+        [Then(@"max chars count '(.*)' is shown in chars counter on create view")]
+        public void ThenMaxCharsCountIsShownInCharsCounterOnCreateView(string maxCharsCount)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                createPage.MaxCharsCount == maxCharsCount,
+                "incorrect max chars count");
+        }
+
+        [Then(@"chars count '(.*)' is shown in chars counter on create view")]
+        public void ThenCharsCountIsShownInCharsCounterOnCreateView(string charsCount)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                createPage.CharsCount == charsCount,
+                "incorrect chars count");
+        }
+
+        [Then(@"title text block marked with error on create view")]
+        public void ThenTitleTextBlockMarkedWithErrorOnCreateView()
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                createPage.TextBlockErrorIsShown == true,
+                "title text block is not marked with error");
+        }
+
+        [Then(@"chars counter marked with error on create view")]
+        public void ThenCharsCounterMarkedWithErrorOnCreateView()
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                createPage.CharsCounterErrorIsShown == true,
+                "chars counter is not marked with error");
+        }
+
+        [When(@"click on create and edit button on create view")]
+        public void WhenClickOnCreateAndEditButtonOnCreateView()
+        {
+            createPage.CreateAndEditButtonClick();
+        }
+
+        [When(@"click on create and new button on create view")]
+        public void WhenClickOnCreateAndNewButtonOnCreateView()
+        {
+            createPage.CreateAndNewButtonClick();
+        }
+
+        
 
     }
 }

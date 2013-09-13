@@ -10,11 +10,18 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 {
     public class CreatePageLinkingModel : ILinkingModel
     {
-        public string TextBlockEditArea = ".//div[contains(@class,'text-block')]//div[contains(@class,'editarea')]";
         public string EditTitleTextBlock = ".//div[contains(@class,'text-block')]";
+        public string TextBlockEditArea = ".//div[contains(@class,'text-block')]//div[contains(@class,'editarea')]";
+        
         public string ButtonCreateAndEdit = ".//*[contains(@class,'saveAndOpen')]";
         public string ButtonCreateAndNew = ".//*[contains(@class,'saveAndNew')]";
 
+        public string BackButton = ".//a[contains(@class,'inline nav-control left')]";
+
+        public string CharsCounter = ".//div[contains(@class,'text-block')]//div[contains(@class,'chars-counter')]";
+        public string CharsCount = ".//div[contains(@class,'text-block')]//div[contains(@class,'chars-counter')]//span[1]";
+        public string MaxCharsCount = ".//div[contains(@class,'text-block')]//div[contains(@class,'chars-counter')]//span[2]";
+        
 
     }
 }

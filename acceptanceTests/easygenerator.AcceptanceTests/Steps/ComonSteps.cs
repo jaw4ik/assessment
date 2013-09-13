@@ -52,6 +52,15 @@ namespace easygenerator.AcceptanceTests.Steps
             TestUtils.Assert_IsTrue_WithWait(() => expectedUrl == DriverProvider.Current().Driver.Url,
                 "Incorrect url, real is " + DriverProvider.Current().Driver.Url);
         }
+
+        [Then(@"browser navigates to url that contains '(.*)'")]
+        public void ThenBrowserNavigatesToUrlThatContains(string expectedUrl)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() => DriverProvider.Current().Driver.Url.Contains(expectedUrl),
+                "Incorrect url, real is " + DriverProvider.Current().Driver.Url);
+        }
+
+
         [Then(@"page contains element with text '(.*)'")]
         public void ThenPageContainsElementWithText(string text)
         {
