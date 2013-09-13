@@ -154,14 +154,6 @@
 
         });
 
-        describe('viewAttached:', function () {
-
-            it('should be function', function () {
-                expect(viewModel.viewAttached).toBeFunction();
-            });
-
-        });
-
         describe('backToQuestions:', function () {
 
             it('should be function', function () {
