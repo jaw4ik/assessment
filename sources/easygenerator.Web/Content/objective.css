@@ -201,10 +201,10 @@
 /*#region ROTATION*/
 
 .rotate-right {
-    -webkit-transform: rotate(345deg);
-    -moz-transform: rotate(345deg);
-    -ms-transform: rotate(345deg);
-    transform: rotate(345deg);
+    -webkit-transform: rotate(348deg);
+    -moz-transform: rotate(348deg);
+    -ms-transform: rotate(348deg);
+    transform: rotate(348deg);
     -webkit-transform-origin: 80px 20px;
     -moz-transform-origin: 80px 20px;
     -ms-transform-origin: 80px 20px;
