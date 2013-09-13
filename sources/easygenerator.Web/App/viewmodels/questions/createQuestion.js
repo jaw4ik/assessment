@@ -39,7 +39,7 @@
                 sendEvent(events.saveAndOpen);
 
                 var that = this;
-                questionRepository.add(that.objectiveId, { title: that.title() }).then(function (newQuestionId) {
+                questionRepository.addQuestion(that.objectiveId, { title: that.title() }).then(function (newQuestionId) {
                     router.navigate('objective/' + that.objectiveId + '/question/' + newQuestionId);
                 });
             },
@@ -54,7 +54,7 @@
                 sendEvent(events.saveAndNew);
 
                 var that = this;
-                questionRepository.add(that.objectiveId, { title: that.title() }).then(function () {
+                questionRepository.addQuestion(that.objectiveId, { title: that.title() }).then(function () {
                     that.title('');
                     that.title.isModified(false);
                     that.title.isEditing(true);

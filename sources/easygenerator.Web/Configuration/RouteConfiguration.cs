@@ -64,6 +64,16 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
+            #region Questions
+
+            routes.MapRoute(
+                name: "CreateQuestion",
+                url: "api/question/create",
+                defaults: new { controller = "Question", action = "Create" }
+            );
+
+            #endregion
+
             #region Experiences
 
             routes.MapRoute(

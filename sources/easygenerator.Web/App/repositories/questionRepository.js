@@ -1,32 +1,44 @@
-﻿define(['dataContext', 'repositories/objectiveRepository', 'durandal/system'], function (dataContext, objectiveRepository, system) {
+﻿define(['dataContext', 'httpWrapper', 'guard', 'repositories/objectiveRepository', 'durandal/system'], function (dataContext, httpWrapper, guard, objectiveRepository, system) {
 
-    var add = function (objectiveId, obj) {
-        if (_.isNullOrUndefined(objectiveId) || _.isNullOrUndefined(obj))
-            throw 'Invalid arguments';
+    var
+        addQuestion = function (objectiveId, obj) {
+            return Q.fcall(function () {
 
-        var deferred = Q.defer();
+                guard.throwIfNotString(objectiveId, 'Objective id is not a string');
+                guard.throwIfNotAnObject(obj, 'Question data is not an object');
 
-        objectiveRepository.getById(objectiveId).then(function (objective) {
-            if (!_.isObject(objective))
-                deferred.reject('Objective does not exist');
+                return httpWrapper.post('api/question/create', { objectiveId: objectiveId, title: obj.title })
+                    .then(function (response) {
 
-            var question = {
-                id: generateNewEntryId(),
-                title: obj.title,
-                explanations: [],
-                answerOptions: [],
-                createdOn: new Date(),
-                modifiedOn: new Date()
-            };
+                        guard.throwIfNotAnObject(response, 'Response is not an object');
+                        guard.throwIfNotString(response.Id, 'Question Id is not a string');
+                        guard.throwIfNotString(response.CreatedOn, 'Question creation date is not a string');
 
-            objective.questions.push(question);
-            objective.modifiedOn = new Date();
 
-            deferred.resolve(question.id);
-        });
+                        var objective = _.find(dataContext.objectives, function (item) {
+                            return item.id === objectiveId;
+                        });
 
-        return deferred.promise;
-    },
+                        guard.throwIfNotAnObject(objective, 'Objective does not exist in dataContext');
+
+                        var createdOn = new Date(parseInt(response.CreatedOn.substr(6), 10));
+
+                        objective.modifiedOn = createdOn;
+
+                        objective.questions.push({
+                            id: response.Id,
+                            title: obj.title,
+                            explanations: [],
+                            answerOptions: [],
+                            createdOn: createdOn,
+                            modifiedOn: createdOn
+                        });
+
+                        return response.Id;
+                    });
+            });
+
+        },
 
     update = function (objectiveId, obj) {
         if (_.isNullOrUndefined(objectiveId) || _.isNullOrUndefined(obj))
@@ -76,14 +88,10 @@
         });
 
         return deferred.promise;
-    },
-
-    generateNewEntryId = function () {
-        return system.guid().replace(/[-]/g, '');
-    };
-
+    }
+    ;
     return {
-        add: add,
+        addQuestion: addQuestion,
         update: update,
         getById: getById
     };

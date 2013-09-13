@@ -172,6 +172,7 @@
     <Compile Include="Configuration\RouteConfiguration.cs" />
     <Compile Include="Controllers\Api\ExperienceController.cs" />
     <Compile Include="Controllers\Api\ObjectiveController.cs" />
+    <Compile Include="Controllers\Api\QuestionController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="BuildExperience\BuildResult.cs" />
     <Compile Include="Components\DefaultController.cs" />

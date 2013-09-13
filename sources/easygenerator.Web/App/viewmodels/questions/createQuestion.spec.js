@@ -9,8 +9,6 @@
         questionRepository = require('repositories/questionRepository'),
         notify = require('notify');
 
-    var eventsCategory = 'Create Question';
-
     describe('viewModel [createQuestion]', function () {
 
         var objective = {
@@ -25,7 +23,7 @@
             spyOn(router, 'navigate');
             spyOn(router, 'replace');
             deferred = Q.defer();
-            spyOn(questionRepository, 'add').andReturn(deferred.promise);
+            spyOn(questionRepository, 'addQuestion').andReturn(deferred.promise);
         });
 
         it('should be defined', function () {
@@ -65,7 +63,7 @@
                         expect(viewModel.title.isValid()).toBeFalsy();
                     });
                 });
-                
+
                 describe('when title is longer than 255 but after trimming is not longer than 255', function () {
 
                     it('should be true', function () {
@@ -169,7 +167,7 @@
                     it('should add question to repository', function () {
                         viewModel.title(question.title);
                         viewModel.saveAndOpen();
-                        expect(questionRepository.add).toHaveBeenCalled();
+                        expect(questionRepository.addQuestion).toHaveBeenCalled();
                     });
 
                     describe('and when question added successfully', function () {
@@ -241,7 +239,7 @@
                 it('should add question to repository', function () {
                     viewModel.title(question.title);
                     viewModel.saveAndOpen();
-                    expect(questionRepository.add).toHaveBeenCalled();
+                    expect(questionRepository.addQuestion).toHaveBeenCalled();
                 });
 
                 describe('and when question is updated successfully', function () {

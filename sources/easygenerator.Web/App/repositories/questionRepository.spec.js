@@ -2,119 +2,243 @@
     function (questionRepository, objectiveRepository, system) {
         "use strict";
 
+        var
+            httpWrapper = require('httpWrapper');
+
         describe('[questionRepository]', function () {
 
-            describe('add:', function () {
-                var getObjectiveDeferred;
-                beforeEach(function () {
-                    getObjectiveDeferred = Q.defer();
-                    spyOn(objectiveRepository, 'getById').andReturn(getObjectiveDeferred.promise);
-                });
+            var post;
 
-                describe('when objectiveId is undefined', function () {
-                    it('should throw exception', function () {
-                        var f = function () {
-                            questionRepository.add();
-                        };
-                        expect(f).toThrow();
-                    });
-                });
+            beforeEach(function () {
+                post = Q.defer();
+                spyOn(httpWrapper, 'post').andReturn(post.promise);
+            });
 
-                describe('when objectiveId is null', function () {
-                    it('should throw exception', function () {
-                        var f = function () {
-                            questionRepository.add(null);
-                        };
-                        expect(f).toThrow();
-                    });
-                });
+            describe('addQuestion:', function () {
 
-                describe('when question is null', function () {
-                    it('should throw exception', function () {
-                        var f = function () {
-                            questionRepository.add(1, null);
-                        };
-                        expect(f).toThrow();
-                    });
-                });
-
-                describe('when question is undefined', function () {
-                    it('should throw exception', function () {
-                        var f = function () {
-                            questionRepository.add(1);
-                        };
-                        expect(f).toThrow();
-                    });
+                it('should be function', function () {
+                    expect(questionRepository.addQuestion).toBeFunction();
                 });
 
                 it('should return promise', function () {
-                    var promise = questionRepository.add(1, { title: 'lalala' });
-                    expect(promise).toBePromise();
+                    expect(questionRepository.addQuestion()).toBePromise();
                 });
 
-                describe('when objective does not exist', function () {
+                describe('when objectiveId is not a string', function () {
+
                     it('should reject promise', function () {
-                        var promise = questionRepository.add(-1, { title: 'lalala' });
-                        getObjectiveDeferred.resolve(null);
+                        var promise = questionRepository.addQuestion(undefined, {});
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise.inspect().state).toEqual('rejected');
+                            expect(promise).toBeRejectedWith('Objective id is not a string');
                         });
                     });
+
                 });
 
-                describe('when objective exists', function () {
-                    var objective = { id: 1, questions: [] };
-                    var question = { title: 'lalal' };
+                describe('when question data is not an object', function () {
 
-                    it('should resolve promise with new question id value', function () {
-                        var promise = questionRepository.add(objective.id, question);
-                        getObjectiveDeferred.resolve(objective);
-                        
-                        spyOn(system, 'guid').andReturn('some guid id');
-                        
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise.inspect().state).toEqual('fulfilled');
-                            expect(promise.inspect().value).toEqual('some guid id');
-                        });
-                    });
-                    
-                    it('should resolve promise with new question id value without \'-\'', function () {
-                        var promise = questionRepository.add(objective.id, question);
-                        getObjectiveDeferred.resolve(objective);
-
-                        spyOn(system, 'guid').andReturn('Some-Guid-Id');
+                    it('should reject promise', function () {
+                        var promise = questionRepository.addQuestion('', undefined);
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise.inspect().state).toEqual('fulfilled');
-                            expect(promise.inspect().value).toEqual('Some-Guid-Id'.replace(/[-]/g, ''));
+                            expect(promise).toBeRejectedWith('Question data is not an object');
                         });
                     });
 
-                    it('should update modified date of objective', function() {
-                        objective.modifiedOn = null;
-                        
-                        var promise = questionRepository.add(objective.id, question);
-                        getObjectiveDeferred.resolve(objective);
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeResolved();
-                            expect(objective.modifiedOn).not.toBeNull();
-                        });
-                    });
                 });
+
+                describe('when objective id is a string and question data is an object', function () {
+
+                    it('should send request to server to api/question/create', function () {
+                        var objectiveId = 'objectiveId';
+                        var question = { title: 'title', description: 'description' };
+                        httpWrapper.post.reset();
+                        post.reject();
+
+                        var promise = questionRepository.addQuestion(objectiveId, question);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/question/create', {
+                                objectiveId: objectiveId,
+                                title: question.title
+                            });
+                        });
+                    });
+
+
+                    describe('and request to server was not successful', function () {
+
+                        it('should reject promise', function () {
+                            var reason = 'reason';
+                            var promise = questionRepository.addQuestion('', {});
+
+                            post.reject(reason);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeRejectedWith(reason);
+                            });
+                        });
+
+                    });
+
+                    describe('and request to server was successful', function () {
+
+                        describe('and response is not an object', function () {
+
+                            it('should reject promise', function () {
+                                var promise = questionRepository.addQuestion('', {});
+
+                                post.resolve();
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Response is not an object');
+                                });
+                            });
+
+                        });
+
+                        describe('and response does not have an id of created question', function () {
+
+                            it('should reject promise', function () {
+                                var promise = questionRepository.addQuestion('', {});
+
+                                post.resolve({ CreatedOn: '' });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Question Id is not a string');
+                                });
+                            });
+
+                        });
+
+                        describe('and response does not have a question creation date', function () {
+
+                            it('should reject promise', function () {
+                                var promise = questionRepository.addQuestion('', {});
+
+                                post.resolve({ Id: '' });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Question creation date is not a string');
+                                });
+                            });
+
+                        });
+
+                        describe('and response has id and creation date', function () {
+
+                            var dataContext = require('dataContext');
+
+                            var response = {
+                                Id: 'questionId',
+                                CreatedOn: "/Date(1378106938845)/"
+                            };
+
+                            beforeEach(function () {
+                                post.resolve(response);
+                            });
+
+                            describe('and objective does not exist in dataContext', function () {
+
+                                it('should reject promise', function () {
+                                    dataContext.objectives = [];
+
+                                    var promise = questionRepository.addQuestion('', {});
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(promise).toBeRejectedWith('Objective does not exist in dataContext');
+                                    });
+                                });
+
+                            });
+
+                            describe('and objective exists in dataContext', function () {
+
+                                var objective = {
+                                    id: 'objectiveId',
+                                    questions: []
+                                };
+
+                                beforeEach(function () {
+                                    objective.questions = [];
+                                    dataContext.objectives = [objective];
+                                });
+
+                                it('should add question to objective', function () {
+                                    var question = { title: 'title' };
+                                    var promise = questionRepository.addQuestion(objective.id, question);
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(objective.questions.length).toEqual(1);
+                                        expect(objective.questions[0]).toEqual({
+                                            id: response.Id,
+                                            title: question.title,
+                                            createdOn: utils.getDateFromString(response.CreatedOn),
+                                            modifiedOn: utils.getDateFromString(response.CreatedOn),
+                                            explanations: [],
+                                            answerOptions: []
+                                        });
+                                    });
+                                });
+
+                                it('should update objective modification date', function () {
+                                    var promise = questionRepository.addQuestion(objective.id, {});
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(objective.modifiedOn).toEqual(utils.getDateFromString(response.CreatedOn));
+                                    });
+                                });
+
+                                it('should resolve promise with question id', function () {
+                                    var promise = questionRepository.addQuestion(objective.id, {});
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(promise).toBeResolvedWith(response.Id);
+                                    });
+                                });
+
+                            });
+
+                        });
+
+                    });
+
+                });
+
             });
 
             describe('update:', function () {
