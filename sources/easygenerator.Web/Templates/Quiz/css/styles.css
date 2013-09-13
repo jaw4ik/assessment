@@ -223,7 +223,7 @@ body {
         cursor: default;
     }
 
-.brand a.inline, .brand span.inline{
+.brand a.inline, .brand span.inline {
     margin-top: 5px;
 }
 
@@ -758,6 +758,18 @@ body {
     font-size: 20px;
     text-align: center;
 }
+
+.btn-back-to-text:before {
+    content: '';
+    display: inline-block;
+    height: 34px;
+    width: 30px;
+    margin-right: 15px;
+    background-image: url(../img/previous.png);
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+
 /*#endregion BUTTONS */
 
 @media (max-width: 800px) {
