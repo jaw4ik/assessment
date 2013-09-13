@@ -11,20 +11,13 @@ namespace easygenerator.Web.Components.ActionResults
             Message = message;
         }
 
-        public JsonErrorResult(string message, List<BrokenRule> brokenRules)
-        {
-            Message = message;
-            BrokenRules = brokenRules;
-        }
-
         public string Message { get; set; }
-        public List<BrokenRule> BrokenRules { get; set; }
 
         public override void ExecuteResult(ControllerContext context)
         {
             var jsonResult = new JsonResult
             {
-                Data = new { success = false, message = Message, brokenRules = BrokenRules },
+                Data = new { success = false, message = Message },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
 

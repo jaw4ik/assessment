@@ -1,178 +1,98 @@
-﻿define(['dataContext', 'constants', 'plugins/http', 'models/objective'],
-    function (dataContext, constants, http, objectiveModel) {
+﻿define(['dataContext', 'constants', 'httpWrapper', 'guard', 'models/objective'],
+    function (dataContext, constants, httpWrapper, guard, objectiveModel) {
+
 
         var
             getCollection = function () {
-                var deferred = Q.defer();
-
-                deferred.resolve(dataContext.objectives);
-
-                return deferred.promise;
+                return Q.fcall(function () {
+                    return dataContext.objectives;
+                });
             },
 
             getById = function (id) {
-                var deferred = Q.defer();
+                return Q.fcall(function () {
+                    guard.throwIfNotString(id, 'Invalid argument');
 
-                if (_.isNullOrUndefined(id)) {
-                    throw 'Invalid argument';
-                }
+                    var result = _.find(dataContext.objectives, function (item) {
+                        return item.id === id;
+                    });
 
-                var result = _.find(dataContext.objectives, function (item) {
-                    return item.id === id;
+                    guard.throwIfNotAnObject(result, 'Objective does not exist');
+
+                    return result;
                 });
 
-                if (_.isUndefined(result)) {
-                    deferred.reject('Objective does not exist');
-                }
-                else {
-                    deferred.resolve(result);
-                }
-
-                return deferred.promise;
             },
 
             addObjective = function (objective) {
-                var deferred = Q.defer();
+                return Q.fcall(function () {
 
-                if (_.isUndefined(objective)) {
-                    deferred.reject('Objective data is undefined');
-                }
+                    guard.throwIfNotAnObject(objective, 'Objective data is not an object');
 
-                if (_.isNull(objective)) {
-                    deferred.reject('Objective data is null');
-                }
+                    return httpWrapper.post('api/objective/create', objective)
+                        .then(function (response) {
 
-                http.post('api/objective/create', objective)
-                    .done(function (response) {
+                            guard.throwIfNotAnObject(response, 'Response is not an object');
+                            guard.throwIfNotString(response.Id, 'Objective Id is not a string');
+                            guard.throwIfNotString(response.CreatedOn, 'Objective creation date is not a string');
 
-                        if (_.isUndefined(response)) {
-                            deferred.reject('Response is undefined');
-                            return;
-                        }
+                            var objectiveId = response.Id,
+                                createdOn = response.CreatedOn;
 
-                        if (_.isNull(response)) {
-                            deferred.reject('Response is null');
-                            return;
-                        }
+                            dataContext.objectives.push(objectiveModel({
+                                id: objectiveId,
+                                title: objective.title,
+                                image: constants.defaultObjectiveImage,
+                                questions: [],
+                                createdOn: new Date(parseInt(createdOn.substr(6), 10)),
+                                modifiedOn: new Date(parseInt(createdOn.substr(6), 10))
+                            }));
 
-                        if (!response.success) {
-                            deferred.reject('Response is not successful');
-                            return;
-                        }
-
-                        if (_.isUndefined(response.data)) {
-                            deferred.reject('Response data is undefined');
-                            return;
-                        }
-
-                        if (_.isNull(response.data)) {
-                            deferred.reject('Response data is null');
-                            return;
-                        }
-
-                        var objectiveId = response.data.Id,
-                            createdOn = response.data.CreatedOn;
-
-                        dataContext.objectives.push(objectiveModel({
-                            id: objectiveId,
-                            title: objective.title,
-                            image: constants.defaultObjectiveImage,
-                            questions: [],
-                            createdOn: new Date(parseInt(createdOn.substr(6), 10)),
-                            modifiedOn: new Date(parseInt(createdOn.substr(6), 10))
-                        }));
-                        deferred.resolve(objectiveId);
-                    })
-                    .fail(function (reason) {
-                        deferred.reject(reason);
-                    });
-
-
-                return deferred.promise;
+                            return objectiveId;
+                        });
+                });
             },
 
             updateObjective = function (obj) {
-                var deferred = Q.defer();
+                return Q.fcall(function () {
 
-                if (_.isObject(obj) && _.isString(obj.id) && _.isString(obj.title)) {
+                    guard.throwIfNotAnObject(obj, 'Objective data has invalid format');
+                    guard.throwIfNotString(obj.id, 'Objective data has invalid format');
+                    guard.throwIfNotString(obj.title, 'Objective data has invalid format');
 
-                    http.post('api/objective/update', { objectiveId: obj.id, title: obj.title }).then(function (response) {
+                    return httpWrapper.post('api/objective/update', { objectiveId: obj.id, title: obj.title }).then(function (response) {
 
-                        if (!_.isObject(response)) {
-                            deferred.reject('Response is not an object');
-                            return;
-                        }
-
-                        if (!_.isObject(response.data)) {
-                            deferred.reject('Response data is not an object');
-                            return;
-                        }
-
-                        if (!_.isString(response.data.ModifiedOn)) {
-                            deferred.reject('Response does not have modification date');
-                            return;
-                        }
+                        guard.throwIfNotAnObject(response, 'Response is not an object');
+                        guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
                         var objective = _.find(dataContext.objectives, function (item) {
                             return item.id === obj.id;
                         });
 
-                        if (!_.isObject(objective)) {
-                            deferred.reject('Objective does not exist in dataContext');
-                            return;
-                        }
+                        guard.throwIfNotAnObject(objective, 'Objective does not exist in dataContext');
 
                         objective.title = obj.title;
-                        objective.modifiedOn = new Date(parseInt(response.data.ModifiedOn.substr(6), 10));
-                        deferred.resolve(objective.modifiedOn);
+                        objective.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
 
-                    }).fail(function (reason) {
-                        deferred.reject(reason);
+                        return objective.modifiedOn;
                     });
-
-                } else {
-                    deferred.reject('Objective data has invalid format');
-                }
-
-                return deferred.promise;
+                });
             },
 
             removeObjective = function (objectiveId) {
+                return Q.fcall(function () {
 
-                var deferred = Q.defer();
+                    guard.throwIfNotString(objectiveId, 'Objective id was expected');
 
-                if (!_.isString(objectiveId)) {
-
-                    deferred.reject('Objective id was expected');
-
-                } else {
-
-                    http.post('api/objective/delete', { objectiveId: objectiveId })
-                        .done(function (response) {
-                            if (!_.isObject(response)) {
-                                deferred.reject('Response is not an object');
-                                return;
-                            }
-
-                            if (!response.success) {
-                                deferred.reject('Response is not successful');
-                                return;
-                            }
-
+                    return httpWrapper.post('api/objective/delete', { objectiveId: objectiveId })
+                        .then(function () {
                             dataContext.objectives = _.reject(dataContext.objectives, function (objective) {
                                 return objective.id == objectiveId;
                             });
-
-                            deferred.resolve();
-                        })
-                        .fail(function (reason) {
-                            deferred.reject(reason);
                         });
-
-                }
-
-                return deferred.promise;
-            };
+                });
+            }
+        ;
 
         return {
             getById: getById,

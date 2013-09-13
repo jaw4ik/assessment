@@ -106,14 +106,6 @@ namespace easygenerator.Web.Tests.Utils
             Assert.IsInstanceOfType(result, typeof(JsonErrorResult));
         }
 
-        internal static void IsJsonErrorResult(object result, object brokenRules)
-        {
-            Assert.IsInstanceOfType(result, typeof(JsonErrorResult));
-
-            var jsonErrorResult = result as JsonErrorResult;
-            Assert.AreEqual(brokenRules, jsonErrorResult.BrokenRules);
-        }
-
         internal static void IsJsonSuccessResult(object result)
         {
             Assert.IsInstanceOfType(result, typeof(JsonSuccessResult));

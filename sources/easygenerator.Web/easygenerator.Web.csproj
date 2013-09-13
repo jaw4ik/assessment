@@ -138,6 +138,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\guard.js" />
+    <Content Include="App\httpWrapper.spec.js">
+      <DependentUpon>httpWrapper.js</DependentUpon>
+    </Content>
+    <Content Include="App\httpWrapper.js" />
     <Content Include="App\models\template.js" />
     <Content Include="App\notify.js" />
     <Content Include="App\repositories\experienceRepository.spec.js">
@@ -190,6 +195,9 @@
     <Content Include="App\views\common\createtip.html" />
     <Content Include="App\views\common\formactions.html" />
     <Content Include="App\views\common\entityinfo.html" />
+    <Content Include="App\guard.spec.js">
+      <DependentUpon>guard.js</DependentUpon>
+    </Content>
     <Content Include="Content\durandal.css" />
     <Content Include="Content\font\alphamacaoe.svg" />
     <Content Include="Content\images\build-sprite.png" />

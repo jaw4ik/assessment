@@ -29,11 +29,6 @@ namespace easygenerator.Web.Components
             return new JsonErrorResult(message);
         }
 
-        protected ActionResult JsonError(string message, List<BrokenRule> brokenRules)
-        {
-            return new JsonErrorResult(message, brokenRules);
-        }
-
         protected ActionResult BadRequest()
         {
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
