@@ -565,6 +565,10 @@ body {
     .top-navigation > a:hover {
         background-color: rgba(0, 0, 0, 0.1);
     }
+    
+    .top-navigation .cursor {
+        cursor: default;
+    }
 
     .top-navigation .seperator {
         background-color: #565656;

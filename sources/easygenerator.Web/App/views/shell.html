@@ -15,7 +15,7 @@
         <a class="top-navigation-btn" data-bind="click: navigate, localize: { text: title }"></a>
         <!-- /ko -->
         <!-- ko if: isActive -->
-        <span class="top-navigation-btn" data-bind="localize: { text: title }, css: {current: !$parent.router.isNavigating() }"></span>
+        <span class="top-navigation-btn" data-bind="localize: { text: title }, css: { current: !$parent.router.isNavigating(), cursor: $parent.router.isNavigating() }"></span>
         <!-- /ko -->
         <div class="seperator"></div>
         <!-- /ko -->
