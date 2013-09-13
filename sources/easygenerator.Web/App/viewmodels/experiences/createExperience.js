@@ -58,7 +58,6 @@
 
                     that.title('');
                     that.templateId(null);
-                    debugger;
                     that.chooseTemplateText = localizationManager.localize('chooseTemplate');
                 });
             };
