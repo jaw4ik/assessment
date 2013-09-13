@@ -108,7 +108,7 @@
 
         viewAttached = function () {
             if (scrollId != '0') {
-                var targetTop = $('#' + scrollId).offset().top || 0;
+                var targetTop = $('#' + scrollId).offset().top;
                 $('html, body').animate({
                     scrollTop: targetTop - 5
                 });
