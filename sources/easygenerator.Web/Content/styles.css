@@ -873,6 +873,18 @@ body {
     top: 23px;
 }
 
+.experience .add-new-item-tip .add-new-item-tip-arrow {
+    top: 0px;
+    left: 30px;
+}
+
+.experience .add-new-item-tip .add-new-item-tip-text {
+    top: 25px;
+    left: 95px;
+    width: 300px;
+    white-space: normal;
+}
+
 .objectives .empty-list-wrapper,
 .experiences .empty-list-wrapper {
     width: 100%;
@@ -891,5 +903,9 @@ body {
     .experiences .empty-list-wrapper .empty-list-text {
         font-size: 26px;
     }
+
+.experience .empty-list-wrapper {
+    margin-top: 80px;    
+}
 
 /*#endregion EMPTY LIST*/

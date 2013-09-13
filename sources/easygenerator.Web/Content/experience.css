@@ -184,7 +184,8 @@
 .experience-related-objectives-header {
     display: inline-block;
     overflow: hidden;
-    margin: 20px 0;
+    margin-top: 20px;
+    margin-bottom: 10px;
     width: 100%;
     color: #666;
     text-transform: uppercase;

@@ -161,6 +161,10 @@
     <!-- /ko -->
 
     <!-- ko if: objectivesMode() == objectivesListModes.display && relatedObjectives().length == 0 -->
+    <div class="add-new-item-tip hand-writing">
+        <div class="add-new-item-tip-arrow"></div>
+        <div class="add-new-item-tip-text rotate-right" data-bind="localize: { text: 'clickToAddObjectivesIntoExperience' }"></div>
+    </div>
     <div class="empty-list-wrapper">
         <div class="empty-list">
             <div class="empty-list-text" data-bind="localize: { text: 'noRelatedLearningObjectives' }"></div>
