@@ -3,21 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using easygenerator.DomainModel.Entities;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Controllers.Api
 {
     public class QuestionController : DefaultController
     {
-
         [HttpPost]
-        public ActionResult Create()
+        public ActionResult Create(Objective objective, string title)
         {
-            return JsonSuccess(new
+            if (objective == null)
             {
-                Id = Guid.NewGuid().ToString("N"),
-                CreatedOn = DateTime.Now
-            });
+                return JsonSuccess(new { Id = Guid.NewGuid().ToString("N"), CreatedOn = DateTimeWrapper.Now });
+            }
+
+            var question = objective.AddQuestion(title);
+
+            return JsonSuccess(new { Id = question.Id.ToString("N"), CreatedOn = question.CreatedOn });
         }
 
     }

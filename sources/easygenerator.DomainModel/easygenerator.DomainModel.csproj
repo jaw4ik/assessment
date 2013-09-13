@@ -45,6 +45,7 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Experience.cs" />
     <Compile Include="Entities\Objective.cs" />
+    <Compile Include="Entities\Question.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="EntityFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

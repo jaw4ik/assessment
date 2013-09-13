@@ -46,6 +46,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             objective.Id.Should().NotBeEmpty();
             objective.Title.Should().Be(title);
+            objective.Questions.Should().BeEmpty();
             objective.CreatedOn.Should().Be(DateTime.MaxValue);
             objective.ModifiedOn.Should().Be(DateTime.MaxValue);
         }
@@ -53,7 +54,6 @@ namespace easygenerator.DomainModel.Tests.Entities
         #endregion
 
         #region Update title
-
 
         [TestMethod]
         public void UpdateTitle_ShouldThrowArgumentNullException_WhenTitleIsNull()
@@ -104,8 +104,48 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
-            
+
             objective.UpdateTitle("title");
+
+            objective.ModifiedOn.Should().Be(dateTime);
+        }
+
+        #endregion
+
+        #region Add question
+
+        [TestMethod]
+        public void AddQuestion_ShouldAddQuestion()
+        {
+            const string title = "title";
+            var objective = ObjectiveObjectMother.Create();
+
+            objective.AddQuestion(title);
+
+            objective.Questions.Should().NotBeEmpty().And.HaveCount(1).And.Contain(q => q.Title == title);
+        }
+
+        [TestMethod]
+        public void AddQuestion_ShouldReturnQuestion()
+        {
+            const string title = "title";
+            var objective = ObjectiveObjectMother.Create();
+
+            var question = objective.AddQuestion(title);
+
+            question.Title.Should().Be(title);
+        }
+
+        [TestMethod]
+        public void AddQuestion_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var objective = ObjectiveObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            objective.AddQuestion("title");
 
             objective.ModifiedOn.Should().Be(dateTime);
         }

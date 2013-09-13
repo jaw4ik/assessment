@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace easygenerator.DomainModel.Entities
         {
             ThrowIfTitleIsInvalid(title);
             Title = title;
+
+            _questions = new Collection<Question>();
         }
 
         public string Title { get; private set; }
@@ -25,6 +28,26 @@ namespace easygenerator.DomainModel.Entities
 
             Title = title;
             MarkAsModified();
+        }
+
+        private readonly ICollection<Question> _questions;
+
+        public IEnumerable<Question> Questions
+        {
+            get
+            {
+                return _questions.AsEnumerable();
+            }
+        }
+
+        public virtual Question AddQuestion(string title)
+        {
+            var question = new Question(title);
+
+            _questions.Add(question);
+            MarkAsModified();
+
+            return question;
         }
 
         private void ThrowIfTitleIsInvalid(string title)

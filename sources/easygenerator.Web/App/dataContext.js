@@ -77,7 +77,16 @@
                                 createdOn: parseDateString(item.CreatedOn),
                                 modifiedOn: parseDateString(item.ModifiedOn),
                                 image: constants.defaultObjectiveImage,
-                                questions: []
+                                questions: _.map(item.Questions, function (question) {
+                                    return new QuestionModel({
+                                        id: question.Id,
+                                        title: question.Title,
+                                        createdOn: parseDateString(question.CreatedOn),
+                                        modifiedOn: parseDateString(question.ModifiedOn),
+                                        answerOptions: [],
+                                        explanations: []
+                                    });
+                                })
                             }));
                         });
                     });
