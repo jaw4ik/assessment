@@ -196,3 +196,20 @@ And click on create and edit button on create view
 Then browser navigates to url that contains 'http://localhost:5656/#objective/1/question/'
 And '~`!@#$%^&*()_+-={[]}:;"'|\<,.>/?№ё' title is shown in question page header
 
+Scenario: It is possible to edit question title on question page
+Given objectives are present in database
+| Title      | Id |
+| Objective1 | 1  |
+Given questions related to 'Objective1' are present in database
+| Title     | Id |
+| Question1 | 1  |
+When open page by url 'http://localhost:5656/#objective/1/question/1'
+And edit question title with new text 'Question2' on question page
+And click on back to objective on question page
+Then questions list consists of ordered items
+| Title     |
+| Question2 |
+
+
+
+

@@ -254,6 +254,27 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             var button = GetByXPath(model.CreateNewQuestionText);
             button.Click();
         }
+
+        internal void HeaderTitleTextFieldClick()
+        {
+            var link = GetByXPath(model.QuestionTitle);
+            link.Click();
+        }
+
+        internal void HeaderTitleTextFieldClear()
+        {
+            var link = GetByXPath(model.QuestionTitle);
+            link.Click();
+            link.Clear();
+        }
+
+        internal void EditQuestionTitleText(string newQuestionTitle)
+        {
+            var questionTitle = GetByXPath(model.QuestionTitle);
+            questionTitle.Click();
+            questionTitle.Clear();
+            questionTitle.SendKeys(newQuestionTitle);
+        }
     }
 
 

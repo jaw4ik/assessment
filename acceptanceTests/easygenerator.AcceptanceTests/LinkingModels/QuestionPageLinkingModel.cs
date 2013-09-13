@@ -50,5 +50,6 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 
         public string CreateNewQuestionButton = ".//div[contains(@class,'create-question-image')]";
         public string CreateNewQuestionText = ".//div[contains(@class,'pull-right')]//span";
+        
     }
 }

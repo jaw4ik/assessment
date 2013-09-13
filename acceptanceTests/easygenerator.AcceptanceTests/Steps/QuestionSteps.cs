@@ -327,6 +327,23 @@ namespace easygenerator.AcceptanceTests.Steps
             Question.CreateNewQuestionTextClick();
         }
 
+        [When(@"click on header title text field on question page")]
+        public void WhenClickOnHeaderTitleTextFieldOnQuestionPage()
+        {
+            Question.HeaderTitleTextFieldClick();
+        }
+
+        [When(@"clear header title text field on question page")]
+        public void WhenClearHeaderTitleTextFieldOnQuestionPage()
+        {
+            Question.HeaderTitleTextFieldClear();
+        }
+
+        [When(@"edit question title with new text '(.*)' on question page")]
+        public void EditQuestionTitleWithNewTextOnQuestionPage(string questionTitle)
+        {
+            Question.EditQuestionTitleText(questionTitle);
+        }
 
              
 

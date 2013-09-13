@@ -688,6 +688,50 @@ testRunner.And("\'~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё\' title is shown in q
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("It is possible to edit question title on question page")]
+        public virtual void ItIsPossibleToEditQuestionTitleOnQuestionPage()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("It is possible to edit question title on question page", ((string[])(null)));
+#line 199
+this.ScenarioSetup(scenarioInfo);
+#line 8
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table25.AddRow(new string[] {
+                        "Objective1",
+                        "1"});
+#line 200
+testRunner.Given("objectives are present in database", ((string)(null)), table25, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table26.AddRow(new string[] {
+                        "Question1",
+                        "1"});
+#line 203
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table26, "Given ");
+#line 206
+testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 207
+testRunner.And("edit question title with new text \'Question2\' on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 208
+testRunner.And("click on back to objective on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table27.AddRow(new string[] {
+                        "Question2"});
+#line 209
+testRunner.Then("questions list consists of ordered items", ((string)(null)), table27, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
