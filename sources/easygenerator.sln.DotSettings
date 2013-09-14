@@ -18,6 +18,17 @@
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=074F588037550F48BDBC09B04728308E/Text/@EntryValue">it('should be defined', function () {    &#xD;
     expect($OBJECT$.$PROPERTY_NAME$).toBeDefined();&#xD;
 });</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=6AD020A43033B9499DA63D096FBDBD2C/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=6AD020A43033B9499DA63D096FBDBD2C/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=6AD020A43033B9499DA63D096FBDBD2C/Field/=variable/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=6AD020A43033B9499DA63D096FBDBD2C/Field/=variable/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=6AD020A43033B9499DA63D096FBDBD2C/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=6AD020A43033B9499DA63D096FBDBD2C/Scope/=FFA15E6CFCBE90499C572A859225B012/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=6AD020A43033B9499DA63D096FBDBD2C/Scope/=FFA15E6CFCBE90499C572A859225B012/Type/@EntryValue">InJavaScriptFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=6AD020A43033B9499DA63D096FBDBD2C/Shortcut/@EntryValue">tvar</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=6AD020A43033B9499DA63D096FBDBD2C/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=6AD020A43033B9499DA63D096FBDBD2C/Text/@EntryValue">var $variable$ = '$variable$'; &#xD;
+$END$</s:String>
 	
 	
 	
