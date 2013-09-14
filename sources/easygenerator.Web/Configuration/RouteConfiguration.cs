@@ -101,6 +101,12 @@ namespace easygenerator.Web.Configuration
             );
 
             routes.MapRoute(
+                name: "UpdateExperienceTitle",
+                url: "api/experience/updateTitle",
+                defaults: new { controller = "Experience", action = "UpdateTitle" }
+            );
+
+            routes.MapRoute(
                 name: "BuildExperience",
                 url: "experience/build",
                 defaults: new { controller = "Experience", action = "Build" }

@@ -769,50 +769,51 @@
 
                 describe('when title is valid', function () {
 
-                    var updateExperienceDeferred, updateExperiencePromise;
+                    var updateExperienceTitleDeferred;
                     var newTitle = 'Valid title';
 
                     beforeEach(function () {
-                        updateExperienceDeferred = Q.defer();
+                        updateExperienceTitleDeferred = Q.defer();
 
-                        spyOn(repository, 'updateExperience').andReturn(updateExperienceDeferred.promise);
-                        updateExperiencePromise = updateExperienceDeferred.promise.fin(function () { });
+                        spyOn(repository, 'updateExperienceTitle').andReturn(updateExperienceTitleDeferred.promise);
 
                         viewModel.title(newTitle);
                     });
 
                     it('should update experience in repository', function () {
                         viewModel.endEditTitle();
-                        expect(repository.updateExperience).toHaveBeenCalled();
+                        expect(repository.updateExperienceTitle).toHaveBeenCalled();
                     });
 
                     describe('and when experience updated successfully', function () {
 
                         var updatedExperience = { title: newTitle, templateId: "0", modifiedOn: new Date() };
                         beforeEach(function () {
-                            updateExperienceDeferred.resolve(updatedExperience);
+                            updateExperienceTitleDeferred.resolve(updatedExperience.modifiedOn);
                         });
 
                         it('should update notificaion', function () {
                             viewModel.endEditTitle();
 
+                            var promise = updateExperienceTitleDeferred.promise.fin(function() {});
+
                             waitsFor(function () {
-                                return !updateExperiencePromise.isPending();
+                                return !promise.isPending();
                             });
                             runs(function () {
-                                expect(updateExperiencePromise).toBeResolved();
                                 expect(notify.info).toHaveBeenCalled();
                             });
                         });
 
                         it('should update modifiedOn', function () {
                             viewModel.endEditTitle();
+                            
+                            var promise = updateExperienceTitleDeferred.promise.fin(function () { });
 
                             waitsFor(function () {
-                                return !updateExperiencePromise.isPending();
+                                return !promise.isPending();
                             });
                             runs(function () {
-                                expect(updateExperiencePromise).toBeResolved();
                                 expect(viewModel.modifiedOn()).toEqual(updatedExperience.modifiedOn);
                             });
                         });
@@ -843,11 +844,6 @@
 
                     spyOn(repository, 'updateExperience').andReturn(updateExperienceDeferred.promise);
                     updateExperiencePromise = updateExperienceDeferred.promise.fin(function () { });
-                });
-
-                it('should update experience in repository', function () {
-                    viewModel.endEditTitle();
-                    expect(repository.updateExperience).toHaveBeenCalled();
                 });
 
                 describe('and when experience updated successfully', function () {

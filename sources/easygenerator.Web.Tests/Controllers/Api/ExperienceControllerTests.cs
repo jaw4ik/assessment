@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
@@ -192,7 +193,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-
         #region GetCollection
 
         [TestMethod]
@@ -205,6 +205,23 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.GetCollection();
 
             result.Should().BeJsonSuccessResult().And.Data.Should().Be(collection);
+        }
+
+        #endregion
+
+        #region Update Title
+
+        [TestMethod]
+        public void UpdateTitle_ShouldReturnJson()
+        {
+            //Arrange
+            var viewModel = new ExperienceBuildModel();
+
+            //Act
+            var result = _controller.UpdateTitle(Guid.NewGuid(), "Some title");
+
+            //Assert
+            ActionResultAssert.IsJsonSuccessResult(result);
         }
 
         #endregion

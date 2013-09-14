@@ -185,7 +185,10 @@
             this.title(title().trim());
             if (title.isValid() && title() != previousTitle) {
                 sendEvent(events.updateExperienceTitle);
-                updateExperience.call(this);
+                repository.updateExperienceTitle(this.id, title()).then(function (updatedOn) {
+                    modifiedOn(updatedOn);
+                    notify.info(localizationManager.localize('lastSaving') + ': ' + updatedOn.toLocaleTimeString());
+                });
             } else {
                 title(previousTitle);
             }

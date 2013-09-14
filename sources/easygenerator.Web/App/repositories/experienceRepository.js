@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'plugins/http', 'models/experience'],
-    function (dataContext, constants, http, experienceModel) {
+﻿define(['dataContext', 'constants', 'plugins/http', 'models/experience', 'guard', 'httpWrapper'],
+    function (dataContext, constants, http, ExperienceModel, guard, httpWrapper) {
 
         var
             getCollection = function () {
@@ -68,7 +68,7 @@
                         var
                             experienceId = response.data.Id,
                             createdOn = response.data.CreatedOn;
-                        dataContext.experiences.push(experienceModel({
+                        dataContext.experiences.push(new ExperienceModel({
                             id: experienceId,
                             title: experience.title,
                             templateId: experience.templateId,
@@ -78,33 +78,6 @@
                             modifiedOn: new Date(parseInt(createdOn.substr(6), 10))
                         }));
                         deferred.resolve(experienceId);
-                    })
-                    .fail(function (reason) {
-                        deferred.reject(reason);
-                    });
-
-                return deferred.promise;
-            },
-
-            relateObjectives = function (experienceId, objectives) {
-                var deferred = Q.defer();
-
-                if (!_.isString(experienceId)) {
-                    deferred.reject('Experience id is not valid');
-                }
-
-                if (!_.isArray(objectives)) {
-                    deferred.reject('Objectives to relate are not array');
-                }
-
-                this.getById(experienceId)
-                    .then(function (experince) {
-                        _.each(objectives, function (objective) {
-                            experince.objectives.push(objective);
-                        });
-
-                        experince.modifiedOn = new Date();
-                        deferred.resolve(experince.modifiedOn);
                     })
                     .fail(function (reason) {
                         deferred.reject(reason);
@@ -149,6 +122,33 @@
                 return deferred.promise;
             },
 
+            relateObjectives = function (experienceId, objectives) {
+                var deferred = Q.defer();
+
+                if (!_.isString(experienceId)) {
+                    deferred.reject('Experience id is not valid');
+                }
+
+                if (!_.isArray(objectives)) {
+                    deferred.reject('Objectives to relate are not array');
+                }
+
+                this.getById(experienceId)
+                    .then(function (experince) {
+                        _.each(objectives, function (objective) {
+                            experince.objectives.push(objective);
+                        });
+
+                        experince.modifiedOn = new Date();
+                        deferred.resolve(experince.modifiedOn);
+                    })
+                    .fail(function (reason) {
+                        deferred.reject(reason);
+                    });
+
+                return deferred.promise;
+            },
+
             unrelateObjectives = function (experienceId, objectives) {
                 var deferred = Q.defer();
 
@@ -173,6 +173,35 @@
                     });
 
                 return deferred.promise;
+            },
+            
+            updateExperienceTitle = function(experienceId, experienceTitle) {
+                return Q.fcall(function() {
+                    guard.throwIfNotString(experienceId, 'Experience id is not a string');
+                    guard.throwIfNotString(experienceTitle, 'Experience title is not a string');
+
+                    var requestArgs = {
+                        experienceId: experienceId, 
+                        experienceTitle: experienceTitle
+                    };
+
+                    return httpWrapper.post('api/experience/updateTitle', requestArgs).then(function(response) {
+                        guard.throwIfNotAnObject(response, 'Response is not an object');
+                        guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
+
+                        var experience = _.find(dataContext.experiences, function (item) {
+                            return item.id === experienceId;
+                        });
+                        
+                        guard.throwIfNotAnObject(experience, 'Experience does not exist in dataContext');
+
+                        experience.title = experienceTitle;
+                        experience.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+
+                        return experience.modifiedOn;
+                    });
+
+                });
             },
 
             updateExperience = function (obj) {
@@ -201,9 +230,13 @@
 
             addExperience: addExperience,
             updateExperience: updateExperience,
+            
+            updateExperienceTitle: updateExperienceTitle,
+
+
+            removeExperience: removeExperience,
             relateObjectives: relateObjectives,
-            unrelateObjectives: unrelateObjectives,
-            removeExperience: removeExperience
+            unrelateObjectives: unrelateObjectives
         };
     }
 );

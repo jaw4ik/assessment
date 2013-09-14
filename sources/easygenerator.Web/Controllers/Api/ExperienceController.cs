@@ -1,8 +1,10 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.BuildExperience.BuildModel;
 using easygenerator.Web.Components;
@@ -62,6 +64,16 @@ namespace easygenerator.Web.Controllers.Api
             var experiences = _repository.GetCollection();
 
             return JsonSuccess(experiences);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateTitle(Guid experienceId, String experienceTitle)
+        {
+
+            return JsonSuccess(new
+            {
+                ModifiedOn = DateTimeWrapper.Now()
+            });
         }
     }
 }

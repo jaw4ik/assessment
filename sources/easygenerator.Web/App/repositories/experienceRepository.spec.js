@@ -2,9 +2,10 @@
     function (repository) {
         "use strict";
 
-        var
-            constants = require('constants'),
-            http = require('plugins/http');
+        var constants = require('constants'),
+            http = require('plugins/http'),
+            httpWrapper = require('httpWrapper'),
+            dataContext = require('dataContext');
 
         describe('repository [experienceRepository]', function () {
 
@@ -13,6 +14,7 @@
             beforeEach(function () {
                 post = $.Deferred();
                 spyOn(http, 'post').andReturn(post.promise());
+                spyOn(httpWrapper, 'post').andReturn(post.promise());
             });
 
             it('should be object', function () {
@@ -806,6 +808,215 @@
                         });
                     });
                 });
+            });
+
+            describe('updateExperienceTitle:', function () {
+
+                it('should be function', function() {
+                    expect(repository.updateExperienceTitle).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(repository.updateExperienceTitle()).toBePromise();
+                });
+
+                describe('when experienceId is not a string', function () {
+
+                    it('should reject promise with reason \'Experience id is not a string\'', function () {
+                        var promise = repository.updateExperienceTitle({}, 'Some title');
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith('Experience id is not a string');
+                        });
+                    });
+
+                });
+
+                describe('when experienceTitle is not a string', function () {
+
+                    it('should reject promise with reason \'Experience title is not a string\'', function () {
+                        var promise = repository.updateExperienceTitle('Some id', {});
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith('Experience title is not a string');
+                        });
+                    });
+
+                });
+
+                describe('when experienceId and experienceTitle are strings', function () {
+
+                    it('should send request to /api/experience/updateTitle', function () {
+                        var experienceId = 'Some id',
+                            experienceTitle = 'Some title';
+                        var promise = repository.updateExperienceTitle(experienceId, experienceTitle);
+                        post.resolve();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/experience/updateTitle', jasmine.any(Object));
+                            expect(httpWrapper.post.mostRecentCall.args[1].experienceId).toEqual(experienceId);
+                            expect(httpWrapper.post.mostRecentCall.args[1].experienceTitle).toEqual(experienceTitle);
+                        });
+                    });
+
+                    describe('and request fails', function () {
+
+                        it('should reject promise', function () {
+                            var reason = 'Some reason';
+                            var promise = repository.updateExperienceTitle('Some id', 'Some title');
+                            post.reject(reason);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeRejectedWith(reason);
+                            });
+                        });
+
+                    });
+
+                    describe('and request successful', function () {
+
+                        describe('and response is not an object', function () {
+
+                            it('should reject promise with \'Response is not an object\'', function () {
+                                var promise = repository.updateExperienceTitle('Some id', 'Some title');
+                                post.resolve('Not an object');
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Response is not an object');
+                                });
+                            });
+
+                        });
+
+                        describe('and response is an object', function () {
+
+                            describe('and doesn`t have ModifiedOn date', function () {
+
+                                it('should reject promise with \'Response does not have modification date\'', function () {
+                                    var promise = repository.updateExperienceTitle('Some id', 'Some title');
+                                    post.resolve({});
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(promise).toBeRejectedWith('Response does not have modification date');
+                                    });
+                                });
+
+                            });
+
+                            describe('and have ModifiedOn date', function () {
+
+                                describe('and experience not found in dataContext', function () {
+
+                                    it('should reject promise with \'Experience does not exist in dataContext\'', function () {
+                                        dataContext.experiences = [];
+                                        var promise = repository.updateExperienceTitle('Some id', 'Some title');
+                                        post.resolve({ ModifiedOn: "/Date(1378106938845)/" });
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(promise).toBeRejectedWith('Experience does not exist in dataContext');
+                                        });
+                                    });
+
+                                });
+
+                                describe('and experience found in dataContext', function () {
+
+                                    it('should update experience title', function () {
+                                        var newTitle = 'Some new title',
+                                            newModifiedOnDate = "/Date(1378106938845)/",
+                                            experience = {
+                                                id: 'Some id',
+                                                title: 'Original title',
+                                                modifiedOn: 'Some date'
+                                            };
+
+                                        dataContext.experiences = [experience];
+                                        var promise = repository.updateExperienceTitle(experience.id, newTitle);
+                                        post.resolve({ ModifiedOn: newModifiedOnDate });
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(experience.title).toEqual(newTitle);
+                                        });
+                                    });
+
+                                    it('should update experience modifiedOn date', function () {
+                                        var newTitle = 'Some new title',
+                                            newModifiedOnDate = "/Date(1378106938845)/",
+                                            parsedNewModifiedOnDate = new Date(parseInt(newModifiedOnDate.substr(6), 10)),
+                                            experience = {
+                                                id: 'Some id',
+                                                title: 'Original title',
+                                                modifiedOn: 'Some date'
+                                            };
+
+                                        dataContext.experiences = [experience];
+                                        var promise = repository.updateExperienceTitle(experience.id, newTitle);
+                                        post.resolve({ ModifiedOn: newModifiedOnDate });
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(experience.modifiedOn).toEqual(parsedNewModifiedOnDate);
+                                        });
+                                    });
+
+                                    it('should resolve promise with modifiedOn date', function () {
+                                        var newTitle = 'Some new title',
+                                            newModifiedOnDate = "/Date(1378106938845)/",
+                                            parsedNewModifiedOnDate = new Date(parseInt(newModifiedOnDate.substr(6), 10)),
+                                            experience = {
+                                                id: 'Some id',
+                                                title: 'Original title',
+                                                modifiedOn: 'Some date'
+                                            };
+
+                                        dataContext.experiences = [experience];
+                                        var promise = repository.updateExperienceTitle(experience.id, newTitle);
+                                        post.resolve({ ModifiedOn: newModifiedOnDate });
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(promise).toBeResolvedWith(parsedNewModifiedOnDate);
+                                        });
+                                    });
+
+                                });
+
+                            });
+
+                        });
+
+                    });
+
+                });
+
             });
 
         });
