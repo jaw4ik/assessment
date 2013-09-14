@@ -79,7 +79,7 @@
                                 image: constants.defaultObjectiveImage,
                                 questions: _.map(item.Questions, function (question) {
                                     return new QuestionModel({
-                                        id: question.Id,
+                                        id: question.Id.split('-').join(''),
                                         title: question.Title,
                                         createdOn: parseDateString(question.CreatedOn),
                                         modifiedOn: parseDateString(question.ModifiedOn),

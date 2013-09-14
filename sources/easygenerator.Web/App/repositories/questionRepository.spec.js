@@ -338,6 +338,191 @@
                 });
             });
 
+            describe('updateTitle:', function () {
+
+                it('should be function', function () {
+                    expect(questionRepository.updateTitle).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(questionRepository.updateTitle()).toBePromise();
+                });
+
+                describe('when question id is not a string', function () {
+
+                    it('should reject promise', function () {
+                        var promise = questionRepository.updateTitle(undefined, '');
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith('Question id is not a string');
+                        });
+                    });
+
+                });
+
+                describe('when title is not a string', function () {
+
+                    it('should reject promise', function () {
+                        var promise = questionRepository.updateTitle('', undefined);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith('Question title not a string');
+                        });
+                    });
+
+                });
+
+                it('should send request to server to api/question/updateTitle', function () {
+                    var questionId = 'questionId';
+                    var questionTitle = 'questionTitle';
+
+                    httpWrapper.post.reset();
+                    post.reject();
+
+                    var promise = questionRepository.updateTitle(questionId, questionTitle);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(httpWrapper.post).toHaveBeenCalledWith('api/question/updateTitle', {
+                            questionId: questionId,
+                            title: questionTitle
+                        });
+                    });
+                });
+
+                describe('and request to server was not successful', function () {
+
+                    it('should reject promise', function () {
+                        var reason = 'reason';
+                        var promise = questionRepository.updateTitle('', '');
+
+                        post.reject(reason);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith(reason);
+                        });
+                    });
+
+                });
+
+                describe('and request to server was successful', function () {
+
+                    describe('and response is not an object', function () {
+
+                        it('should reject promise', function () {
+                            var promise = questionRepository.updateTitle('', '');
+
+                            post.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeRejectedWith('Response is not an object');
+                            });
+                        });
+
+                    });
+
+                    describe('and response does not have question modification date', function () {
+
+                        it('should reject promise', function () {
+                            var promise = questionRepository.updateTitle('', '');
+
+                            post.resolve({});
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeRejectedWith('Response does not have modification date');
+                            });
+                        });
+
+                    });
+
+                    describe('and response has modification date', function () {
+
+                        var dataContext = require('dataContext');
+
+                        var response = { ModifiedOn: "/Date(1378106938845)/" };
+
+                        beforeEach(function () {
+                            post.resolve(response);
+                        });
+
+                        describe('and question does not exist in dataContext', function () {
+
+                            beforeEach(function () {
+                                dataContext.objectives = [];
+                            });
+
+                            it('should reject promise', function () {
+                                var promise = questionRepository.updateTitle('', '');
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Question does not exist in dataContext');
+                                });
+                            });
+
+                        });
+
+                        describe('and question exists in dataContext', function () {
+
+                            var questionId = 'questionId';
+                            var questionTitle = 'questionTitle';
+
+                            beforeEach(function () {
+                                dataContext.objectives = [{ id: '', questions: [{ id: questionId }] }];
+                            });
+
+                            it('should update title and modification date', function () {
+
+                                var promise = questionRepository.updateTitle(questionId, questionTitle);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(dataContext.objectives[0].questions[0].title).toEqual(questionTitle);
+                                    expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
+                                });
+                            });
+
+                            it('should resolve promise with modification date', function () {
+                                var promise = questionRepository.updateTitle(questionId, questionTitle);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolvedWith(utils.getDateFromString(response.ModifiedOn));
+                                });
+                            });
+
+                        });
+
+                    });
+
+                });
+
+
+            });
+
             describe('getById:', function () {
                 var getObjectiveDeferred;
                 beforeEach(function () {

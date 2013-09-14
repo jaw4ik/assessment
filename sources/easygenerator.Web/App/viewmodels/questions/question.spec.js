@@ -9,8 +9,6 @@ define(function (require) {
         objectiveRepository = require('repositories/objectiveRepository'),
         notify = require('notify');
 
-    var eventsCategory = 'Question';
-
     var question = {
         id: '1',
         title: 'lalala',
@@ -155,7 +153,7 @@ define(function (require) {
                 updateDeferred = Q.defer();
                 getByIdDeferred = Q.defer();
 
-                spyOn(questionRepository, 'update').andReturn(updateDeferred.promise);
+                spyOn(questionRepository, 'updateTitle').andReturn(updateDeferred.promise);
                 spyOn(questionRepository, 'getById').andReturn(getByIdDeferred.promise);
             });
 
@@ -213,7 +211,7 @@ define(function (require) {
                     });
                     runs(function () {
                         expect(promise).toBeResolved();
-                        expect(questionRepository.update).not.toHaveBeenCalled();
+                        expect(questionRepository.updateTitle).not.toHaveBeenCalled();
                     });
                 });
             });
@@ -248,8 +246,8 @@ define(function (require) {
                         });
                         runs(function () {
                             expect(getPromise).toBeResolved();
-                            expect(questionRepository.update).toHaveBeenCalled();
-                            expect(questionRepository.update.mostRecentCall.args[1].title).toEqual(newTitle);
+                            expect(questionRepository.updateTitle).toHaveBeenCalled();
+                            expect(questionRepository.updateTitle.mostRecentCall.args[1]).toEqual(newTitle);
                         });
                     });
 
@@ -279,7 +277,7 @@ define(function (require) {
                             question.modifiedOn = modificationDate;
 
                             var promise = updateDeferred.promise.finally(function () { });
-                            updateDeferred.resolve(question);
+                            updateDeferred.resolve(modificationDate);
 
                             waitsFor(function () {
                                 return !getPromise.isPending() && !promise.isPending();

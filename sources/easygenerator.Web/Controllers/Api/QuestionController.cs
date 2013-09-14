@@ -16,12 +16,25 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (objective == null)
             {
-                return JsonSuccess(new { Id = Guid.NewGuid().ToString("N"), CreatedOn = DateTimeWrapper.Now });
+                return JsonSuccess(new { Id = Guid.NewGuid().ToString("N"), CreatedOn = DateTimeWrapper.Now() });
             }
 
             var question = objective.AddQuestion(title);
 
             return JsonSuccess(new { Id = question.Id.ToString("N"), CreatedOn = question.CreatedOn });
+        }
+
+        [HttpPost]
+        public ActionResult UpdateTitle(Question question, string title)
+        {
+            if (question == null)
+            {
+                return JsonSuccess(new { ModifiedOn = DateTimeWrapper.Now() });
+            }
+
+            question.UpdateTitle(title);
+
+            return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }
 
     }

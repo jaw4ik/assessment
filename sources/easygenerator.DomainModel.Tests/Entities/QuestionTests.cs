@@ -54,5 +54,64 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
+
+        #region Update title
+
+        [TestMethod]
+        public void UpdateTitle_ShouldThrowArgumentNullException_WhenTitleIsNull()
+        {
+            var question = QuestionObjectMother.Create();
+
+            Action action = () => question.UpdateTitle(null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("title");
+        }
+
+        [TestMethod]
+        public void UpdateTitle_ShouldThrowArgumentException_WhenTitleIsEmpty()
+        {
+            var question = QuestionObjectMother.Create();
+
+            Action action = () => question.UpdateTitle(String.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("title");
+        }
+
+        [TestMethod]
+        public void UpdateTitle_ShouldThrowArgumentOutOfRangeException_WhenTitleIsLongerThan255()
+        {
+            var question = QuestionObjectMother.Create();
+
+            Action action = () => question.UpdateTitle(new string('*', 256));
+
+            action.ShouldThrow<ArgumentOutOfRangeException>().And.ParamName.Should().Be("title");
+        }
+
+        [TestMethod]
+        public void UpdateTitle_ShouldUpdateTitle()
+        {
+            const string title = "title";
+            var question = QuestionObjectMother.Create();
+
+            question.UpdateTitle(title);
+
+            question.Title.Should().Be(title);
+        }
+
+        [TestMethod]
+        public void UpdateTitle_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var question = QuestionObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            question.UpdateTitle("title");
+
+            question.ModifiedOn.Should().Be(dateTime);
+        }
+
+        #endregion
     }
 }

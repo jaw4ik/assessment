@@ -36,7 +36,8 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<SessionDataContext>().As<IDataContext>();
 
             builder.RegisterType<ObjectiveRepository>().As<IObjectiveRepository>().As<IRepository<Objective>>();
-            builder.RegisterType<ExperienceRepository>().As<IExperienceRepository>().As<IRepository<Experience>>(); ;
+            builder.RegisterType<ExperienceRepository>().As<IExperienceRepository>().As<IRepository<Experience>>();
+            builder.RegisterType<QuestionRepository>().As<IRepository<Question>>();
 
             builder.RegisterType<EntityFactory>().As<IEntityFactory>();
 

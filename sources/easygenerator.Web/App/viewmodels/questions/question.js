@@ -97,8 +97,8 @@
                     sendEvent(events.updateQuestionTitle);
 
                     if (title.isValid()) {
-                        questionRepository.update(objectiveId, { id: questionId, title: title() }).then(function (updatedQuestion) {
-                            that.modifiedOn(updatedQuestion.modifiedOn);
+                        questionRepository.updateTitle(questionId, title()).then(function (modifiedOn) {
+                            that.modifiedOn(modifiedOn);
                             notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
                         });
                     } else {
@@ -362,7 +362,7 @@
                 objectiveId = objId;
                 questionId = quesId;
                 this.language(localizationManager.currentLanguage);
-
+                
                 var that = this;
                 return objectiveRepository.getById(objId).then(function (objective) {
                     questionRepository.getById(objectiveId, questionId).then(function (question) {

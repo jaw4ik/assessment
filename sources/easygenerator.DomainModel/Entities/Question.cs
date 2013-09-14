@@ -9,6 +9,8 @@ namespace easygenerator.DomainModel.Entities
 {
     public class Question : Entity
     {
+        protected internal Question() { }
+
         protected internal Question(string title)
         {
             ThrowIfTitleIsInvalid(title);
@@ -22,6 +24,14 @@ namespace easygenerator.DomainModel.Entities
         {
             ArgumentValidation.ThrowIfNullOrEmpty(title, "title");
             ArgumentValidation.ThrowIfLongerThan255(title, "title");
+        }
+
+        public virtual void UpdateTitle(string title)
+        {
+            ThrowIfTitleIsInvalid(title);
+
+            Title = title;
+            MarkAsModified();
         }
     }
 }
