@@ -22,6 +22,8 @@
                 return '';
             }),
 
+            browserCulture = ko.observable(),
+
             navigation = ko.observableArray([]),
 
             showNavigation = function () {
@@ -34,6 +36,8 @@
                     .then(function () {
 
                         localizationManager.initialize(window.top.userCultures);
+
+                        browserCulture(localizationManager.currentLanguage);
 
                         router.updateDocumentTitle = function (instance, instruction) {
                             var title = null;
@@ -90,7 +94,7 @@
                                 })
                             }
                         ]);
-                        
+
                         return router.map(routes)
                             .buildNavigationModel()
                             .mapUnknownRoutes('viewmodels/errors/404', '404')
@@ -102,6 +106,7 @@
         return {
             activate: activate,
             activeModuleName: activeModule,
+            browserCulture: browserCulture,
             router: router,
             homeModuleName: experiencesModule,
 
