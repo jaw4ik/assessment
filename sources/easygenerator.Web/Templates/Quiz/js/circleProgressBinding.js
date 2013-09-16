@@ -55,7 +55,7 @@
             sinAng = Math.sin(ang);
             cosAng = Math.cos(ang);
 
-            cnxt.lineWidth = 2;
+            cnxt.lineWidth = 1;
             sx = sinAng * 30;
             sy = cosAng * -30;
             ex = sinAng * 45;

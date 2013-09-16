@@ -243,20 +243,12 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding-bottom: 20px;
-    line-height: 1;
-    font-size: 125%;
-    letter-spacing: 0.04em;
     -webkit-font-smoothing: subpixel-antialiased !important;
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     -ms-backface-visibility: hidden;
     backface-visibility: hidden;
 }
-
-    .container > * {
-        font-size: 85%;
-        line-height: 1.3em;
-    }
 
 .page-title-holder {
     display: table;
@@ -269,7 +261,7 @@ body {
     width: 100%;
     vertical-align: middle;
     color: #666;
-    font-size: 25px;
+    font-size: 28px;
     font-family: Tahoma, sans-serif;
     font-weight: normal;
     text-align: center;
@@ -295,11 +287,11 @@ body {
     border-bottom: 1px solid #c1c5ca;
     background: rgb(247,248,249);
     background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjYxJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmN2Y4ZjkiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 61%, rgba(247,248,249,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(61%,rgba(255,255,255,1)), color-stop(100%,rgba(247,248,249,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 61%,rgba(247,248,249,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 61%,rgba(247,248,249,1) 100%); /* IE10+ */
-    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 61%,rgba(247,248,249,1) 100%); /* W3C */
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 55%, rgba(247,248,249,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(55%,rgba(255,255,255,1)), color-stop(100%,rgba(247,248,249,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 55%,rgba(247,248,249,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 55%,rgba(247,248,249,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 55%,rgba(247,248,249,1) 100%); /* W3C */
     -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
 }
@@ -444,12 +436,23 @@ body {
     .summary-title:before {
         display: block;
         float: left;
-        margin-top: -1px;
+        margin-top: -4px;
+        opacity: 0.85;
     }
 
 .explanation-title:before {
-    content: url(../img/explanation.png);
-    padding-right: 20px;
+    content: '';
+    display: block;
+    height: 32px;
+    width: 29px;
+    margin-right: 20px;
+    background-image: url(../img/explanation.png);
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    -webkit-background-size: 100%;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    opacity: 0.7;
 }
 
 .summary-title:before {
@@ -560,6 +563,7 @@ body {
 .progressbar-holder {
     display: table-cell;
     height: 100px;
+    width: 100%;
     vertical-align: middle;
 }
 
@@ -686,7 +690,7 @@ body {
 
 .summary-btn-holder {
     width: 100%;
-    padding: 25px 0;
+    padding-top: 25px;
 }
 
     .summary-btn-holder > .btn {
