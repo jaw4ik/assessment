@@ -609,6 +609,8 @@ h2.page-header-title {
     -ms-word-break: break-all;
     word-break: break-all;
     min-height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
     .content-list-item .text-block .editarea-editable-text {

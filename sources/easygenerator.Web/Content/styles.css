@@ -576,7 +576,7 @@ body {
     .top-navigation > a:hover {
         background-color: rgba(0, 0, 0, 0.1);
     }
-
+    
     .top-navigation .cursor {
         cursor: default;
     }
@@ -917,7 +917,7 @@ body {
     }
 
 .experience .empty-list-wrapper {
-    margin-top: 80px;
+    margin-top: 120px;    
 }
 
 /*#endregion EMPTY LIST*/
