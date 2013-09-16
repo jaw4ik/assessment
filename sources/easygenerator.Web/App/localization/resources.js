@@ -172,7 +172,7 @@
     },
     experienceBuildAction: {
         en: 'Build',
-        nl: 'Samenstellen…',
+        nl: 'Samenstellen',
         de: 'Zusammenstellen'
     },
     experienceDownloadAction: {
