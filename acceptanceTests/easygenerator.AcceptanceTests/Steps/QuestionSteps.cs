@@ -345,6 +345,23 @@ namespace easygenerator.AcceptanceTests.Steps
             Question.EditQuestionTitleText(questionTitle);
         }
 
+        [Then(@"title text block marked with error on question page")]
+        public void ThenTitleTextBlockMarkedWithErrorOnQuestionPage()
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                Question.TitleTextBlockErrorIsShown == true,
+                "title text block is not marked with error");
+        }
+
+        [Then(@"chars counter marked with error on question page")]
+        public void ThenCharsCounterMarkedWithErrorOnQuestionPage()
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                Question.TitleCharsCounterErrorIsShown == true,
+                "chars counter is not marked with error");
+        }
+
+
              
 
     }

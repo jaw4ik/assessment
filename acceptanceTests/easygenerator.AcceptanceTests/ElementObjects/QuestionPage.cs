@@ -275,6 +275,24 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             questionTitle.Clear();
             questionTitle.SendKeys(newQuestionTitle);
         }
+
+        public bool TitleCharsCounterErrorIsShown
+        {
+            get
+            {
+                return GetByXPath(model.CharsCounter).CssContains("error");
+            }
+        }
+
+        public bool TitleTextBlockErrorIsShown
+        {
+            get
+            {
+                return GetByXPath(model.QuestionTitle).CssContains("error");
+            }
+        }
+
+
     }
 
 

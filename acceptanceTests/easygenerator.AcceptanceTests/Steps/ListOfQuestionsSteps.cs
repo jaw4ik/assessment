@@ -199,6 +199,20 @@ namespace easygenerator.AcceptanceTests.Steps
             questionListPage.ClickAddNewQuestionButton();
         }
 
+        [When(@"click on delete button on question list page")]
+        public void WhenClickOnDeleteButtonOnQuestionListPage()
+        {
+            questionListPage.DeleteButtonClick();
+        }
+
+        [Then(@"delete button is displayed (.*) on question list page")]
+        public void ThenDeleteButtonIsDisplayedOnQuestionListPage(bool isDisplayed)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                questionListPage.DeleteButtonIsDisplayed == isDisplayed,
+                "incorrect delete button visibility");
+        }
+
 
 
     }

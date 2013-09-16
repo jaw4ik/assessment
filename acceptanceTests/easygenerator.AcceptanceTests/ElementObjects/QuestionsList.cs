@@ -44,9 +44,25 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             GetByXPath(model.ObjectivesTabLink).Click();
         }
 
+        //QUD Question
+
         internal void ClickAddNewQuestionButton()
         {
             GetByXPath(model.AddNewQuestionButton).Click();
         }
+
+        internal void DeleteButtonClick()
+        {
+            GetByXPath(model.DeleteButton).Click();
+        }
+
+        public bool DeleteButtonIsDisplayed
+        {
+            get
+            {
+                return ExistsOnPage(model.DeleteButton);
+            }
+        }
+
     }
 }

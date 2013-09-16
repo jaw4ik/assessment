@@ -732,6 +732,211 @@ testRunner.Then("questions list consists of ordered items", ((string)(null)), ta
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Not possible to make existing question title empty")]
+        public virtual void NotPossibleToMakeExistingQuestionTitleEmpty()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Not possible to make existing question title empty", ((string[])(null)));
+#line 213
+this.ScenarioSetup(scenarioInfo);
+#line 8
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table28 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table28.AddRow(new string[] {
+                        "Objective1",
+                        "1"});
+#line 214
+testRunner.Given("objectives are present in database", ((string)(null)), table28, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table29 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table29.AddRow(new string[] {
+                        "Question1",
+                        "1"});
+#line 217
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table29, "Given ");
+#line 220
+testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 221
+testRunner.And("clear header title text field on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 222
+testRunner.Then("title text block marked with error on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 223
+testRunner.And("chars counter marked with error on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 224
+testRunner.When("click on back to objective on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table30 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table30.AddRow(new string[] {
+                        "Question1"});
+#line 225
+testRunner.Then("questions list consists of ordered items", ((string)(null)), table30, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Delete question button becomes available after question was selected")]
+        public virtual void DeleteQuestionButtonBecomesAvailableAfterQuestionWasSelected()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete question button becomes available after question was selected", ((string[])(null)));
+#line 229
+this.ScenarioSetup(scenarioInfo);
+#line 8
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table31 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table31.AddRow(new string[] {
+                        "Objective1",
+                        "1"});
+#line 230
+testRunner.Given("objectives are present in database", ((string)(null)), table31, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table32 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table32.AddRow(new string[] {
+                        "Question1",
+                        "1"});
+            table32.AddRow(new string[] {
+                        "Question2",
+                        "2"});
+#line 233
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table32, "Given ");
+#line 237
+testRunner.When("open page by url \'http://localhost:5656/#objective/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 238
+testRunner.And("mouse hover element of questions list with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 239
+testRunner.And("click on select questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 240
+testRunner.Then("delete button is displayed true on question list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Delete question button is not available if there is no selected questions")]
+        public virtual void DeleteQuestionButtonIsNotAvailableIfThereIsNoSelectedQuestions()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete question button is not available if there is no selected questions", ((string[])(null)));
+#line 242
+this.ScenarioSetup(scenarioInfo);
+#line 8
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table33 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table33.AddRow(new string[] {
+                        "Objective1",
+                        "1"});
+#line 243
+testRunner.Given("objectives are present in database", ((string)(null)), table33, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table34 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table34.AddRow(new string[] {
+                        "Question1",
+                        "1"});
+            table34.AddRow(new string[] {
+                        "Question2",
+                        "2"});
+#line 246
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table34, "Given ");
+#line 250
+testRunner.When("open page by url \'http://localhost:5656/#objective/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 251
+testRunner.Then("delete button is displayed false on question list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 252
+testRunner.When("mouse hover element of questions list with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 253
+testRunner.And("click on select questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 254
+testRunner.And("click on select questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 255
+testRunner.Then("delete button is displayed false on question list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Selected question can be deleted")]
+        public virtual void SelectedQuestionCanBeDeleted()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Selected question can be deleted", ((string[])(null)));
+#line 257
+this.ScenarioSetup(scenarioInfo);
+#line 8
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table35 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table35.AddRow(new string[] {
+                        "Objective1",
+                        "1"});
+#line 258
+testRunner.Given("objectives are present in database", ((string)(null)), table35, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table36 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table36.AddRow(new string[] {
+                        "Question1",
+                        "1"});
+            table36.AddRow(new string[] {
+                        "Question2",
+                        "2"});
+            table36.AddRow(new string[] {
+                        "Question3",
+                        "3"});
+#line 261
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table36, "Given ");
+#line 266
+testRunner.When("open page by url \'http://localhost:5656/#objective/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 267
+testRunner.And("mouse hover element of questions list with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 268
+testRunner.And("click on select questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 269
+testRunner.And("click on delete button on question list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table37 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table37.AddRow(new string[] {
+                        "Question1"});
+            table37.AddRow(new string[] {
+                        "Question3"});
+#line 270
+testRunner.Then("questions list consists of ordered items", ((string)(null)), table37, "Then ");
+#line 274
+testRunner.When("click on back from questions list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 275
+testRunner.And("mouse hover element of objectives list with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 276
+testRunner.And("click open objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table38 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table38.AddRow(new string[] {
+                        "Question1"});
+            table38.AddRow(new string[] {
+                        "Question3"});
+#line 277
+testRunner.Then("questions list consists of ordered items", ((string)(null)), table38, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

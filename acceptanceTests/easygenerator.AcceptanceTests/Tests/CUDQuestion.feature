@@ -210,6 +210,73 @@ Then questions list consists of ordered items
 | Title     |
 | Question2 |
 
+Scenario: Not possible to make existing question title empty
+Given objectives are present in database
+| Title      | Id |
+| Objective1 | 1  |
+Given questions related to 'Objective1' are present in database
+| Title     | Id |
+| Question1 | 1  |
+When open page by url 'http://localhost:5656/#objective/1/question/1'
+And clear header title text field on question page
+Then title text block marked with error on question page
+And chars counter marked with error on question page
+When click on back to objective on question page
+Then questions list consists of ordered items
+| Title     |
+| Question1 |
 
+Scenario: Delete question button becomes available after question was selected
+Given objectives are present in database
+| Title      | Id |
+| Objective1 | 1  |
+Given questions related to 'Objective1' are present in database
+| Title     | Id |
+| Question1 | 1  |
+| Question2 | 2  |
+When open page by url 'http://localhost:5656/#objective/1'
+And mouse hover element of questions list with title 'Question2'
+And click on select questions list item with title 'Question2'
+Then delete button is displayed true on question list page
+
+Scenario: Delete question button is not available if there is no selected questions
+Given objectives are present in database
+| Title      | Id |
+| Objective1 | 1  |
+Given questions related to 'Objective1' are present in database
+| Title     | Id |
+| Question1 | 1  |
+| Question2 | 2  |
+When open page by url 'http://localhost:5656/#objective/1'
+Then delete button is displayed false on question list page
+When mouse hover element of questions list with title 'Question2'
+And click on select questions list item with title 'Question2'
+And click on select questions list item with title 'Question2'
+Then delete button is displayed false on question list page
+
+Scenario: Selected question can be deleted
+Given objectives are present in database
+| Title      | Id |
+| Objective1 | 1  |
+Given questions related to 'Objective1' are present in database
+| Title     | Id |
+| Question1 | 1  |
+| Question2 | 2  |
+| Question3 | 3  |
+When open page by url 'http://localhost:5656/#objective/1'
+And mouse hover element of questions list with title 'Question2'
+And click on select questions list item with title 'Question2'
+And click on delete button on question list page
+Then questions list consists of ordered items
+| Title     |
+| Question1 |
+| Question3 |
+When click on back from questions list
+And mouse hover element of objectives list with title 'Objective1'
+And click open objective list item with title 'Objective1'
+Then questions list consists of ordered items
+| Title     |
+| Question1 |
+| Question3 |
 
 

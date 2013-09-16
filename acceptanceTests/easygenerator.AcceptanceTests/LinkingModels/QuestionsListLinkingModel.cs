@@ -18,6 +18,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         //CUD Question
 
         public string AddNewQuestionButton = ".//a[contains(@class, 'questions-header-create-link')]";
+        public string DeleteButton = ".//span[contains(@class, 'header-toolbar-item-wrapper')]";
 
     }
 }
