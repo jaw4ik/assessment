@@ -305,6 +305,7 @@
             }
             isEditing(false);
             language(localizationManager.currentLanguage);
+            hintPopup.displayed(false);
 
             var that = this;
 

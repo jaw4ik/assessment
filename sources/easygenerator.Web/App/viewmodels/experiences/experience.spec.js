@@ -1335,6 +1335,12 @@
                     });
                 });
 
+                it('should set hintPopup.displayed to false', function() {
+                    viewModel.hintPopup.displayed(true);
+                    viewModel.activate('');
+                    expect(viewModel.hintPopup.displayed()).toBeFalsy();
+                });
+
                 describe('when expierense build status equals \'notStarted\'', function () {
 
                     it('should set isFirstBuild to true', function () {
