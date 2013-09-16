@@ -21,6 +21,7 @@ GENERAL CSS-STYLES
 
 html, body {
     height: 100%;
+    min-width: 640px;
 }
 
 body {
