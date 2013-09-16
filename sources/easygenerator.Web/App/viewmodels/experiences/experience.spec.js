@@ -8,7 +8,8 @@
             repository = require('repositories/experienceRepository'),
             objectiveRepository = require('repositories/objectiveRepository'),
             templateRepository = require('repositories/templateRepository'),
-            notify = require('notify');
+            notify = require('notify'),
+            clientContext = require('clientContext');
 
         describe('viewModel [experience]', function () {
             var previousExperienceId = '0',
@@ -49,19 +50,19 @@
 
             });
 
-            describe('templates', function () {
+            describe('templates:', function () {
                 it('should be defined', function () {
                     expect(viewModel.templates).toBeDefined();
                 });
             });
 
-            describe('templateId', function () {
+            describe('templateId:', function () {
                 it('should be observable', function () {
                     expect(viewModel.templateId).toBeObservable();
                 });
             });
 
-            describe('isEditing', function () {
+            describe('isEditing:', function () {
 
                 it('should be isEditing defined', function () {
                     expect(viewModel.isEditing).toBeDefined();
@@ -320,7 +321,7 @@
 
             });
 
-            describe('toggleObjectiveSelection', function () {
+            describe('toggleObjectiveSelection:', function () {
 
                 it('should be a function', function () {
                     expect(viewModel.toggleObjectiveSelection).toBeFunction();
@@ -981,6 +982,19 @@
                         });
                     });
 
+                    it('should show hint popup', function () {
+                        spyOn(viewModel.hintPopup, 'show');
+
+                        viewModel.startAppendingObjectives();
+
+                        waitsFor(function () {
+                            return !getObjectivesPromise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.hintPopup.show).toHaveBeenCalled();
+                        });
+                    });
+
                 });
 
             });
@@ -1009,7 +1023,7 @@
 
                         beforeEach(function () {
                             var objectivesList = [
-                                { isSelected: ko.observable(false) }
+                                    { isSelected: ko.observable(false) }
                             ];
                             viewModel.availableObjectives(objectivesList);
                         });
@@ -1029,6 +1043,12 @@
                         it('should set related objectives', function () {
                             viewModel.finishAppendingObjectives();
                             expect(viewModel.relatedObjectives().length).toBe(2);
+                        });
+
+                        it('should hide hint popup', function () {
+                            spyOn(viewModel.hintPopup, 'hide');
+                            viewModel.finishAppendingObjectives();
+                            expect(viewModel.hintPopup.hide).toHaveBeenCalled();
                         });
 
                     });
@@ -1113,6 +1133,18 @@
                                 });
                                 runs(function () {
                                     expect(viewModel.objectivesMode()).toBe('display');
+                                });
+                            });
+
+                            it('should hide hint popup', function () {
+                                spyOn(viewModel.hintPopup, 'hide');
+                                viewModel.finishAppendingObjectives();
+
+                                waitsFor(function () {
+                                    return !relateObjectivesPromise.isPending();
+                                });
+                                runs(function () {
+                                    expect(viewModel.hintPopup.hide).toHaveBeenCalled();
                                 });
                             });
 
@@ -1547,7 +1579,7 @@
 
             });
 
-            describe('unrelateSelectedObjectives', function () {
+            describe('unrelateSelectedObjectives:', function () {
 
                 beforeEach(function () {
                     viewModel.id = 'experienceId';
@@ -1629,6 +1661,110 @@
                             });
                         });
 
+                    });
+
+                });
+
+            });
+
+            describe('hintPopup:', function () {
+
+                it('should be object', function () {
+                    expect(viewModel.hintPopup).toBeObject();
+                });
+
+                describe('displayed:', function () {
+
+                    it('should be observable', function () {
+                        expect(viewModel.hintPopup.displayed).toBeObservable();
+                    });
+
+                });
+
+                describe('show:', function () {
+
+                    it('should be function', function () {
+                        expect(viewModel.hintPopup.show).toBeFunction();
+                    });
+
+                    var clientContextGetSpy;
+
+                    beforeEach(function () {
+                        clientContextGetSpy = spyOn(clientContext, 'get');
+                    });
+
+                    it('should call clientContext.get function', function () {
+                        viewModel.hintPopup.show();
+                        expect(clientContext.get).toHaveBeenCalledWith('showRelateObjectivesHintPopup');
+                    });
+
+                    beforeEach(function () {
+                        viewModel.hintPopup.displayed(false);
+                    });
+
+                    describe('when \'showRelateObjectivesHintPopup\' value from clientContext is false', function () {
+
+                        it('should not set \'displayed\' property to true', function () {
+                            clientContextGetSpy.andReturn(false);
+                            viewModel.hintPopup.show();
+                            expect(viewModel.hintPopup.displayed()).toBeFalsy();
+                        });
+
+                    });
+
+                    describe('when \'showRelateObjectivesHintPopup\' value from clientContext is null', function () {
+
+                        it('should set \'displayed\' property to true', function () {
+                            clientContextGetSpy.andReturn(null);
+                            viewModel.hintPopup.show();
+                            expect(viewModel.hintPopup.displayed()).toBeTruthy();
+                        });
+
+                    });
+
+                    describe('when \'showRelateObjectivesHintPopup\' value from clientContext is true', function () {
+
+                        it('should set \'displayed\' property to true', function () {
+                            clientContextGetSpy.andReturn(true);
+                            viewModel.hintPopup.show();
+                            expect(viewModel.hintPopup.displayed()).toBeTruthy();
+                        });
+
+                    });
+
+                });
+
+                describe('hide:', function () {
+
+                    it('should be function', function () {
+                        expect(viewModel.hintPopup.hide).toBeFunction();
+                    });
+
+                    it('should set \'displayed\' to false', function () {
+                        viewModel.hintPopup.displayed(true);
+                        viewModel.hintPopup.hide();
+                        expect(viewModel.hintPopup.displayed()).toBeFalsy();
+                    });
+
+                });
+
+                describe('close:', function () {
+
+                    it('should be function', function () {
+                        expect(viewModel.hintPopup.close).toBeFunction();
+                    });
+
+                    it('should set \'displayed\' property to false', function () {
+                        viewModel.hintPopup.displayed(true);
+                        viewModel.hintPopup.close();
+
+                        expect(viewModel.hintPopup.displayed()).toBeFalsy();
+                    });
+
+                    it('should set \'showRelateObjectivesHintPopup\' value from clientContext to false', function () {
+                        spyOn(clientContext, 'set');
+                        viewModel.hintPopup.close();
+                        expect(clientContext.set).toHaveBeenCalledWith('showRelateObjectivesHintPopup', false);
                     });
 
                 });

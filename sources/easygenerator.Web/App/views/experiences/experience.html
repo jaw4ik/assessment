@@ -99,11 +99,11 @@
         <div class="experience-related-objectives-header">
             <a class="experiences-header-create-link" data-bind="click: startAppendingObjectives, localize: { title: 'relateObjectives' }"></a>
             <span class="experience-header-title-text" data-bind="localize: { text: 'relatedLearningObjectives' }">Related learning objectives</span>
-        <!-- ko if: canUnrelateObjectives() -->
-        <span class="header-toolbar-item-wrapper" data-bind="click: unrelateSelectedObjectives, localize: { title: 'unrelateObjectives' }">
-            <span class="toolbar-unrelate"></span>
-        </span>
-        <!-- /ko -->
+            <!-- ko if: canUnrelateObjectives() -->
+            <span class="header-toolbar-item-wrapper" data-bind="click: unrelateSelectedObjectives, localize: { title: 'unrelateObjectives' }">
+                <span class="toolbar-unrelate"></span>
+            </span>
+            <!-- /ko -->
             <hr />
         </div>
     <!-- /ko -->
@@ -118,6 +118,18 @@
 
     <!-- ko if: (objectivesMode() == objectivesListModes.display && relatedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->
     <div class="content-list-wrapper">
+        
+        <div class="hint-popup-holder" data-bind="visible: hintPopup.displayed">
+            <!-- ko compose: {
+                view: 'views/common/hintpopup',
+                model: {
+                text: 'relateObjectivesHelpHint',
+                close: hintPopup.close.bind(hintPopup)
+                }
+                } -->
+            <!-- /ko -->
+        </div>
+
         <ul class="content-list">
             <!-- ko foreach: objectivesMode() == objectivesListModes.display ? relatedObjectives() : availableObjectives() -->
             <li class="content-list-item" data-bind="css: { 'selected': isSelected }">
@@ -125,26 +137,28 @@
                 <div class="logo-wrapper white-framing">
                     <img class="logo" alt="" data-bind="attr: { src: image }">
                     <div class="item-options">
-                        <div class="item-option select" data-bind="click: $parent.toggleObjectiveSelection">
+                        <div class="item-option select" data-bind="click: $parent.toggleObjectiveSelection, css: { 'alone': $parent.objectivesMode() == $parent.objectivesListModes.appending }">
                             <!-- ko ifnot: isSelected() -->
-                                <div class="nowrap" data-bind="localize: { text: 'select' }">Select</div>
-                                <div class="action-img unchecked inline">
-                                    <input type="checkbox" class="custom-checkbox">
-                                </div>
+                            <div class="nowrap" data-bind="localize: { text: 'select' }">Select</div>
+                            <div class="action-img unchecked inline">
+                                <input type="checkbox" class="custom-checkbox">
+                            </div>
                             <!-- /ko -->
                             <!-- ko if: isSelected() -->
-                                <div class="nowrap" data-bind="localize: { text: 'unselect' }">Unselect</div>
-                                <div class="action-img checked inline">
-                                    <input class="custom-checkbox" type="checkbox">
-                                </div>
+                            <div class="nowrap" data-bind="localize: { text: 'unselect' }">Unselect</div>
+                            <div class="action-img checked inline">
+                                <input class="custom-checkbox" type="checkbox">
+                            </div>
                             <!-- /ko -->
                         </div>
+                        <!-- ko if: $parent.objectivesMode() == $parent.objectivesListModes.display -->
                         <div class="separator"></div>
                         <div class="item-option edit" data-bind="click: $parent.navigateToObjectiveDetails">
                             <div class="nowrap" data-bind="localize: { text: 'edit' }">Open</div>
                             <div class="action-img inline">
                             </div>
                         </div>
+                        <!-- /ko -->
                     </div>
                 </div>
                 <div class="li-related-objective-question-count-wrapper" data-bind="localize: { title: 'numberOfRelatedQuestions' }">
@@ -171,6 +185,7 @@
         </div>
     </div>
     <!-- /ko -->
+
     <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
     <div class="empty-list-wrapper">
         <div class="empty-list">
@@ -178,4 +193,5 @@
         </div>
     </div>
     <!-- /ko -->
+
 </section>

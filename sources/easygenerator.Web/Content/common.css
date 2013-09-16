@@ -554,6 +554,10 @@ h2.page-header-title {
         background-color: rgba(0, 0, 0, 0.5);
     }
 
+    .item-options .item-option.alone {
+        width: 100%;
+    }
+
 .item-option.select .action-img.unchecked {
     background-position: 0 0;
 }

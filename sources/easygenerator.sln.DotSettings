@@ -29,6 +29,36 @@
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=6AD020A43033B9499DA63D096FBDBD2C/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=6AD020A43033B9499DA63D096FBDBD2C/Text/@EntryValue">var $variable$ = '$variable$'; &#xD;
 $END$</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0B4A1F4DCBE5FF4991A5712A87CD1B83/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0B4A1F4DCBE5FF4991A5712A87CD1B83/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0B4A1F4DCBE5FF4991A5712A87CD1B83/Field/=PROMISE_005FPROPERTY_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0B4A1F4DCBE5FF4991A5712A87CD1B83/Field/=PROMISE_005FPROPERTY_005FNAME/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0B4A1F4DCBE5FF4991A5712A87CD1B83/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0B4A1F4DCBE5FF4991A5712A87CD1B83/Scope/=FFA15E6CFCBE90499C572A859225B012/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0B4A1F4DCBE5FF4991A5712A87CD1B83/Scope/=FFA15E6CFCBE90499C572A859225B012/Type/@EntryValue">InJavaScriptFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0B4A1F4DCBE5FF4991A5712A87CD1B83/Shortcut/@EntryValue">wfrfulfilled</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0B4A1F4DCBE5FF4991A5712A87CD1B83/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0B4A1F4DCBE5FF4991A5712A87CD1B83/Text/@EntryValue">waitsFor(function () {&#xD;
+    return $PROMISE_PROPERTY_NAME$.isFulfilled();&#xD;
+});&#xD;
+runs(function () {&#xD;
+	$END$&#xD;
+});</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0E518C4BACFFEE4D974399DD2F2B327B/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0E518C4BACFFEE4D974399DD2F2B327B/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0E518C4BACFFEE4D974399DD2F2B327B/Field/=PROMISE_005FPROPERTY_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0E518C4BACFFEE4D974399DD2F2B327B/Field/=PROMISE_005FPROPERTY_005FNAME/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0E518C4BACFFEE4D974399DD2F2B327B/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0E518C4BACFFEE4D974399DD2F2B327B/Scope/=FFA15E6CFCBE90499C572A859225B012/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0E518C4BACFFEE4D974399DD2F2B327B/Scope/=FFA15E6CFCBE90499C572A859225B012/Type/@EntryValue">InJavaScriptFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0E518C4BACFFEE4D974399DD2F2B327B/Shortcut/@EntryValue">wfrpending</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0E518C4BACFFEE4D974399DD2F2B327B/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0E518C4BACFFEE4D974399DD2F2B327B/Text/@EntryValue">waitsFor(function () {&#xD;
+    return !$PROMISE_PROPERTY_NAME$.isPending();&#xD;
+});&#xD;
+runs(function () {&#xD;
+	$END$&#xD;
+});</s:String>
 	
 	
 	

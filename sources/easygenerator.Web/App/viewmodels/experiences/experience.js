@@ -1,5 +1,6 @@
-﻿define(['dataContext', 'plugins/router', 'constants', 'eventTracker', 'repositories/experienceRepository', 'services/buildExperience', 'viewmodels/objectives/objectiveBrief', 'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'repositories/templateRepository'],
-    function (dataContext, router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, templateRepository) {
+﻿define(['dataContext', 'plugins/router', 'constants', 'eventTracker', 'repositories/experienceRepository', 'services/buildExperience', 'viewmodels/objectives/objectiveBrief',
+        'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'repositories/templateRepository', 'clientContext'],
+    function (dataContext, router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, templateRepository, clientContext) {
         "use strict";
 
         //#region Events
@@ -58,8 +59,24 @@
                 return _.some(relatedObjectives(), function (item) {
                     return item.isSelected();
                 });
-            });
+            }),
 
+            hintPopup = {
+                displayed: ko.observable(false),
+                
+                show: function () {
+                    if (clientContext.get('showRelateObjectivesHintPopup') !== false){
+                        this.displayed(true);
+                    }
+                },
+                hide: function() {
+                     this.displayed(false);
+                },
+                close: function () {
+                    this.displayed(false);
+                    clientContext.set('showRelateObjectivesHintPopup', false);
+                }
+            };
 
         title.isValid = ko.computed(function () {
             var length = title().trim().length;
@@ -220,6 +237,7 @@
                     }).value());
 
                 that.objectivesMode(objectivesListModes.appending);
+                that.hintPopup.show();
             });
         },
 
@@ -237,6 +255,7 @@
 
             if (addingObjectives.length == 0) {
                 that.objectivesMode(that.objectivesListModes.display);
+                that.hintPopup.hide();
                 return;
             }
 
@@ -255,6 +274,7 @@
                     that.modifiedOn(modifiedDate);
                     notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
                     that.objectivesMode(objectivesListModes.display);
+                    that.hintPopup.hide();
                 });
         },
 
@@ -375,6 +395,7 @@
             objectivesMode: objectivesMode,
             objectivesListModes: objectivesListModes,
             canUnrelateObjectives: canUnrelateObjectives,
+            hintPopup: hintPopup,
 
             navigateToExperiences: navigateToExperiences,
             navigateToNextExperience: navigateToNextExperience,

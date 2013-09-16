@@ -138,6 +138,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\clientContext.js" />
+    <Content Include="App\clientContext.spec.js">
+      <DependentUpon>clientContext.js</DependentUpon>
+    </Content>
     <Content Include="App\guard.js" />
     <Content Include="App\httpWrapper.spec.js">
       <DependentUpon>httpWrapper.js</DependentUpon>
@@ -196,6 +200,7 @@
     <Content Include="App\views\common\createtip.html" />
     <Content Include="App\views\common\formactions.html" />
     <Content Include="App\views\common\entityinfo.html" />
+    <Content Include="App\views\common\hintpopup.html" />
     <Content Include="App\guard.spec.js">
       <DependentUpon>guard.js</DependentUpon>
     </Content>
@@ -204,7 +209,7 @@
     <Content Include="Content\images\build-sprite.png" />
     <Content Include="Content\images\emptyBox.png" />
     <Content Include="Content\images\finish.png" />
-    <Content Include="Content\images\hint-popup.png" />
+    <Content Include="Content\images\hint-popup-sprite.png" />
     <Content Include="Content\images\info-icon.png" />
     <Content Include="Content\images\nav-icons.png" />
     <Content Include="Content\images\small-size-icons-pack.png" />
