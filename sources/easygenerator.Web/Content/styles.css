@@ -197,7 +197,7 @@ body {
         height: 54px;
         position: absolute;
         top: 10px;
-        right: -75px;
+        right: -70px;
         transform-origin: 100% 0;
         -webkit-transform: rotate(352deg);
         -moz-transform: rotate(352deg);
@@ -207,7 +207,9 @@ body {
 
 @media (max-width: 1260px) {
         .create-tip .create-tip-text-wrapper {
-            min-width: 278px;
+            max-width: 278px;
+            min-width: 198px;
+
         }
 
         .create-tip .create-tip-text {
