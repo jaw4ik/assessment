@@ -613,6 +613,12 @@ h2.page-header-title {
     text-overflow: ellipsis;
 }
 
+    .content-list-item .text-block p {
+        height: 95%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     .content-list-item .text-block .editarea-editable-text {
         width: 100%;
         height: 100%;
