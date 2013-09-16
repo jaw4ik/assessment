@@ -59,7 +59,7 @@ COMMON TAGS CSS-STYLES
 ===================================*/
 html, body {
     width: 100%;
-    min-width: 640px;
+    min-width: 620px;
 }
 
 /**
