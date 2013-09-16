@@ -12,6 +12,7 @@
             clientContext = require('clientContext');
 
         describe('viewModel [experience]', function () {
+            var template = { id: 'template id', name: 'template name', image: 'template image' };
             var previousExperienceId = '0',
                 experience = {
                     id: '1',
@@ -27,7 +28,7 @@
                     createdOn: 'createdOn',
                     modifiedOn: 'modifiedOn',
                     builtOn: 'builtOn',
-                    templateId: '1'
+                    template: template
                 },
                 nextExperienceId = '2';
 
@@ -56,10 +57,24 @@
                 });
             });
 
-            describe('templateId:', function () {
-                it('should be observable', function () {
-                    expect(viewModel.templateId).toBeObservable();
+            describe('template:', function () {
+
+                it('should be defined', function () {
+                    expect(viewModel.template).toBeDefined();
                 });
+
+                describe('id:', function () {
+                    it('should be observable', function () {
+                        expect(viewModel.template.id).toBeObservable();
+                    });
+                });
+
+                describe('image:', function () {
+                    it('should be observable', function () {
+                        expect(viewModel.template.image).toBeObservable();
+                    });
+                });
+
             });
 
             describe('isEditing:', function () {
@@ -840,22 +855,20 @@
                 beforeEach(function () {
                     updateExperienceDeferred = Q.defer();
 
-                    spyOn(repository, 'updateExperience').andReturn(updateExperienceDeferred.promise);
+                    spyOn(repository, 'updateExperienceTemplate').andReturn(updateExperienceDeferred.promise);
                     updateExperiencePromise = updateExperienceDeferred.promise.fin(function () { });
                 });
 
                 describe('and when experience updated successfully', function () {
-                    var templateItem = { id: '0', name: 'template' };
-                    var updatedExperience = { title: 'some title', templateId: '0', modifiedOn: new Date() };
+                    var updatedOn = new Date();
                     beforeEach(function () {
-                        viewModel.templates.splice(0, viewModel.templates.length);
-                        viewModel.templates.push(templateItem, { id: '1', name: 'tmpl' });
-                        viewModel.templateId(templateItem.id);
-                        updateExperienceDeferred.resolve(updatedExperience);
+                        viewModel.templates = [template];
+                        viewModel.template.id(template.id);
+                        updateExperienceDeferred.resolve(updatedOn);
                     });
 
                     it('should update notificaion', function () {
-                        viewModel.updateExperienceTemplate(templateItem);
+                        viewModel.updateExperienceTemplate();
 
                         waitsFor(function () {
                             return !updateExperiencePromise.isPending();
@@ -867,20 +880,20 @@
                     });
 
                     it('should update modifiedOn', function () {
-                        viewModel.updateExperienceTemplate(templateItem);
+                        viewModel.updateExperienceTemplate();
 
                         waitsFor(function () {
                             return !updateExperiencePromise.isPending();
                         });
                         runs(function () {
                             expect(updateExperiencePromise).toBeResolved();
-                            expect(viewModel.modifiedOn()).toEqual(updatedExperience.modifiedOn);
+                            expect(viewModel.modifiedOn()).toEqual(updatedOn);
                         });
                     });
 
                     it('should send event \'Change experience template to \'<templateName>\'\'', function () {
-                        viewModel.updateExperienceTemplate(templateItem);
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Change experience template to \'' + templateItem.name + '\'');
+                        viewModel.updateExperienceTemplate();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Change experience template to \'' + template.name + '\'');
                     });
 
                 });
@@ -1321,8 +1334,9 @@
                     });
                 });
 
-                it('should set current experience templateId', function () {
-                    viewModel.templateId('');
+                it('should set current experience template', function () {
+                    viewModel.template.id('');
+                    viewModel.template.image('');
 
                     var promise = viewModel.activate(experience.id);
                     deferred.resolve([experience]);
@@ -1331,7 +1345,8 @@
                         return promise.isFulfilled();
                     });
                     runs(function () {
-                        expect(viewModel.templateId()).toEqual(experience.templateId);
+                        expect(viewModel.template.id()).toEqual(template.id);
+                        expect(viewModel.template.image()).toEqual(template.image);
                     });
                 });
 
@@ -1385,7 +1400,8 @@
                         viewModel.previousExperienceId = null;
 
                         var promise = viewModel.activate(experience.id);
-                        deferred.resolve([{ id: previousExperienceId, title: 'a' }, { id: experience.id, title: 'b' }]);
+                        deferred.resolve([{ id: previousExperienceId, title: 'a', template: { id: 'id', name: 'name', image: 'img' } },
+                            { id: experience.id, title: 'b', template: { id: 'id', name: 'name', image: 'img' } }]);
 
                         waitsFor(function () {
                             return promise.isFulfilled();
@@ -1403,7 +1419,8 @@
                         viewModel.previousExperienceId = null;
 
                         var promise = viewModel.activate(experience.id);
-                        deferred.resolve([{ id: previousExperienceId, title: 'z' }, { id: experience.id, title: 'b' }]);
+                        deferred.resolve([{ id: previousExperienceId, title: 'z', template: { id: 'id', name: 'name', image: 'img' } },
+                            { id: experience.id, title: 'b', template: { id: 'id', name: 'name', image: 'img' } }]);
 
                         waitsFor(function () {
                             return promise.isFulfilled();
@@ -1421,7 +1438,8 @@
                         viewModel.nextExperienceId = null;
 
                         var promise = viewModel.activate(experience.id);
-                        deferred.resolve([{ id: experience.id, title: 'a' }, { id: nextExperienceId, title: 'b' }]);
+                        deferred.resolve([{ id: experience.id, title: 'a', template: { id: 'id', name: 'name', image: 'img' } },
+                            { id: nextExperienceId, title: 'b', template: { id: 'id', name: 'name', image: 'img' } }]);
 
                         waitsFor(function () {
                             return promise.isFulfilled();
@@ -1439,7 +1457,8 @@
                         viewModel.nextExperienceId = null;
 
                         var promise = viewModel.activate(experience.id);
-                        deferred.resolve([{ id: experience.id, title: 'z' }, { id: nextExperienceId, title: 'b' }]);
+                        deferred.resolve([{ id: experience.id, title: 'z', template: { id: 'id', name: 'name', image: 'img' } },
+                            { id: nextExperienceId, title: 'b', template: { id: 'id', name: 'name', image: 'img' } }]);
 
                         waitsFor(function () {
                             return promise.isFulfilled();
@@ -1460,7 +1479,7 @@
                         spyOn(templateRepository, 'getCollection').andReturn(getTemplatesDeferred.promise);
                         getTemplatesPromise = getTemplatesDeferred.promise.fin(function () { });
 
-                        deferred.resolve([{ id: experience.id, title: 'z' }]);
+                        deferred.resolve([{ id: experience.id, title: 'z', template: { id: 'id', name: 'name', image: 'img' } }]);
                     });
 
                     it('should get templates from repository', function () {
@@ -1476,7 +1495,7 @@
 
                     describe('when received templates successfully', function () {
                         beforeEach(function () {
-                            viewModel.templates.splice(0, viewModel.templates.length);
+                            viewModel.templates = [];
                             getTemplatesDeferred.resolve([{ id: "0", name: "Default" }, { id: "1", name: "Quizz" }]);
                         });
 

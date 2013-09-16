@@ -69,13 +69,13 @@
                         var experience = {};
                         var promise = repository.addExperience(experience);
 
-                        post.reject();
+                        httpWrapperPost.reject();
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(http.post).toHaveBeenCalledWith('api/experience/create', experience);
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/experience/create', experience);
                         });
                     });
 
@@ -86,7 +86,7 @@
                             it('should reject promise', function () {
                                 var promise = repository.addExperience({});
 
-                                post.reject();
+                                httpWrapperPost.reject();
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -102,16 +102,16 @@
 
                             describe('and response is undefined', function () {
 
-                                it('should reject promise', function () {
+                                it('should reject promise with \'Response is not an object\'', function () {
                                     var promise = repository.addExperience({});
 
-                                    post.resolve();
+                                    httpWrapperPost.resolve();
 
                                     waitsFor(function () {
                                         return !promise.isPending();
                                     });
                                     runs(function () {
-                                        expect(promise).toBeRejected();
+                                        expect(promise).toBeRejectedWith('Response is not an object');
                                     });
                                 });
 
@@ -119,16 +119,16 @@
 
                             describe('and response is null', function () {
 
-                                it('should reject promise', function () {
+                                it('should reject promise with \'Response is not an object\'', function () {
                                     var promise = repository.addExperience({});
 
-                                    post.resolve(null);
+                                    httpWrapperPost.resolve(null);
 
                                     waitsFor(function () {
                                         return !promise.isPending();
                                     });
                                     runs(function () {
-                                        expect(promise).toBeRejected();
+                                        expect(promise).toBeRejectedWith('Response is not an object');
                                     });
                                 });
 
@@ -136,113 +136,155 @@
 
                             describe('and response is an object', function () {
 
-                                describe('and response is not successful', function () {
+                                describe('and response Id is undefined', function () {
 
                                     beforeEach(function () {
-                                        post.resolve({});
+                                        httpWrapperPost.resolve({});
                                     });
 
-                                    it('should reject promise', function () {
+                                    it('should reject promise with \'Response Id is not a string\'', function () {
                                         var promise = repository.addExperience({});
 
                                         waitsFor(function () {
                                             return !promise.isPending();
                                         });
                                         runs(function () {
-                                            expect(promise).toBeRejected();
+                                            expect(promise).toBeRejectedWith('Response Id is not a string');
                                         });
                                     });
 
                                 });
 
-                                describe('and response is successful', function () {
+                                describe('and response Id is null', function () {
 
-                                    describe('and response data is undefined', function () {
+                                    beforeEach(function () {
+                                        httpWrapperPost.resolve({ Id: null });
+                                    });
+
+                                    it('should reject promise with \'Response Id is not a string\'', function () {
+                                        var promise = repository.addExperience({});
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(promise).toBeRejectedWith('Response Id is not a string');
+                                        });
+                                    });
+
+                                });
+
+                                describe('and response Id is object', function () {
+
+                                    describe('and response CreatedOn is null', function () {
 
                                         beforeEach(function () {
-                                            post.resolve({ success: true });
+                                            httpWrapperPost.resolve({ Id: '0', CreatedOn: null });
                                         });
 
-                                        it('should reject promise', function () {
+                                        it('should reject promise \'Response CreatedOn is not a string\'', function () {
                                             var promise = repository.addExperience({});
 
                                             waitsFor(function () {
                                                 return !promise.isPending();
                                             });
                                             runs(function () {
-                                                expect(promise).toBeRejected();
+                                                expect(promise).toBeRejectedWith('Response CreatedOn is not a string');
                                             });
                                         });
 
                                     });
 
-                                    describe('and response data is null', function () {
+                                    describe('and response CreatedOn is undefined', function () {
 
                                         beforeEach(function () {
-                                            post.resolve({ success: true, data: null });
+                                            httpWrapperPost.resolve({ Id: 'id' });
                                         });
 
-                                        it('should reject promise', function () {
+                                        it('should reject promise with \'Response CreatedOn is not a string\'', function () {
                                             var promise = repository.addExperience({});
 
                                             waitsFor(function () {
                                                 return !promise.isPending();
                                             });
                                             runs(function () {
-                                                expect(promise).toBeRejected();
+                                                expect(promise).toBeRejectedWith('Response CreatedOn is not a string');
                                             });
                                         });
-
                                     });
 
-                                    describe('and response data is an object', function () {
-
+                                    describe('and response CreatedOn is object', function () {
                                         var experienceId = 'experienceId';
                                         var experienceTitle = 'experienceTitle';
-                                        var templateId = '123';
                                         var experienceCreatedOn = '/Date(1378106938845)/';
-
                                         beforeEach(function () {
-                                            post.resolve({ success: true, data: { Id: experienceId, CreatedOn: experienceCreatedOn } });
+                                            httpWrapperPost.resolve({ Id: experienceId, CreatedOn: experienceCreatedOn });
                                         });
 
-                                        it('should resolve promise with experience id', function () {
-                                            var promise = repository.addExperience({});
+                                        describe('and template not found in dataContext', function () {
 
-                                            waitsFor(function () {
-                                                return !promise.isPending();
+                                            beforeEach(function () {
+                                                dataContext.templates = [];
                                             });
-                                            runs(function () {
-                                                expect(promise).toBeResolvedWith(experienceId);
-                                            });
-                                        });
 
-                                        it('should add experience to dataContext', function () {
-                                            var dataContext = require('dataContext');
-                                            dataContext.experiences = [];
+                                            it('should reject promise with \'Template does not exist in dataContext\'', function () {
+                                                var promise = repository.addExperience({ template: { id: '0' } });
 
-                                            var promise = repository.addExperience({ title: experienceTitle, templateId: templateId });
-
-                                            waitsFor(function () {
-                                                return !promise.isPending();
-                                            });
-                                            runs(function () {
-                                                expect(dataContext.experiences.length).toEqual(1);
-                                                expect(dataContext.experiences[0]).toEqual({
-                                                    id: experienceId,
-                                                    title: experienceTitle,
-                                                    templateId: templateId,
-                                                    createdOn: utils.getDateFromString(experienceCreatedOn),
-                                                    modifiedOn: utils.getDateFromString(experienceCreatedOn),
-                                                    buildingStatus: constants.buildingStatuses.notStarted,
-                                                    objectives: []
+                                                waitsFor(function () {
+                                                    return !promise.isPending();
+                                                });
+                                                runs(function () {
+                                                    expect(promise).toBeRejectedWith('Template does not exist in dataContext');
                                                 });
                                             });
 
                                         });
 
-                                    });
+                                        describe('and template found in dataContext', function () {
+                                            var template;
+                                            beforeEach(function () {
+                                                template = { id: 'template id', name: 'template name', image: 'template image' };
+                                                dataContext.templates = [template];
+                                            });
 
+                                            it('should resolve promise with experience id', function () {
+                                                var promise = repository.addExperience({ title: experienceTitle, template: { id: template.id } });
+
+                                                waitsFor(function () {
+                                                    return !promise.isPending();
+                                                });
+                                                runs(function () {
+                                                    expect(promise).toBeResolvedWith(experienceId);
+                                                });
+                                            });
+
+                                            it('should add experience to dataContext', function () {
+
+                                                dataContext.experiences = [];
+
+                                                var promise = repository.addExperience({ title: experienceTitle, template: { id: template.id } });
+
+                                                waitsFor(function () {
+                                                    return !promise.isPending();
+                                                });
+                                                runs(function () {
+                                                    expect(dataContext.experiences.length).toEqual(1);
+                                                    expect(dataContext.experiences[0]).toEqual({
+                                                        id: experienceId,
+                                                        title: experienceTitle,
+                                                        template: template,
+                                                        createdOn: utils.getDateFromString(experienceCreatedOn),
+                                                        modifiedOn: utils.getDateFromString(experienceCreatedOn),
+                                                        buildingStatus: constants.buildingStatuses.notStarted,
+                                                        objectives: []
+                                                    });
+                                                });
+
+                                            });
+
+                                        });
+
+                                    });
                                 });
 
                             });
@@ -700,121 +742,9 @@
 
             });
 
-            describe("updateExperience:", function () {
-
-                it('should be function', function () {
-                    expect(repository.updateExperience).toBeFunction();
-                });
-
-                describe('when arguments not valid', function () {
-
-                    describe('and when experience data is undefined', function () {
-
-                        it('should throw exception', function () {
-                            var f = function () { repository.updateExperience(undefined); };
-                            expect(f).toThrow();
-                        });
-
-                    });
-
-                    describe('and when experience data is null', function () {
-
-                        it('should throw exception', function () {
-                            var f = function () { repository.updateExperience(null); };
-                            expect(f).toThrow();
-                        });
-
-                    });
-
-                });
-
-                describe('when arguments are valid', function () {
-
-                    it('should return promise', function () {
-                        var promise = repository.updateExperience({ id: "0", title: "test title" });
-                        expect(promise).toBePromise();
-                    });
-
-                    describe('when get experience to update', function () {
-
-                        describe('and when experience does not exist', function () {
-
-                            it('should be rejected', function () {
-                                var promise = repository.updateExperience({ id: "-1" });
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeRejected();
-                                });
-                            });
-
-                        });
-
-                        describe('and when experience exists', function () {
-
-                            var experience = {};
-                            beforeEach(function () {
-                                experience = { id: '0', title: 'some title', modifiedOn: '' };
-                                var getExperienceDeferred = $.Deferred();
-                                spyOn(repository, 'getById').andReturn(getExperienceDeferred.promise());
-                                getExperienceDeferred.resolve(experience);
-                            });
-
-                            it('should be resolved', function () {
-                                var promise = repository.updateExperience(experience);
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeResolved();
-                                });
-                            });
-
-                            it('should update title', function () {
-                                var newTitle = 'new title';
-                                var promise = repository.updateExperience({ id: '0', title: newTitle });
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(experience.title).toBe(newTitle);
-                                });
-                            });
-
-                            it('should update templateId', function () {
-                                var templateId = "1";
-                                var promise = repository.updateExperience({ id: '0', templateId: templateId, title: "lala" });
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(experience.templateId).toBe(templateId);
-                                });
-                            });
-
-                            it('should update modifiedOn', function () {
-                                var promise = repository.updateExperience({ id: '0', title: "lala" });
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(experience.modifiedOn).toNotBe('');
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-
             describe('updateExperienceTitle:', function () {
 
-                it('should be function', function() {
+                it('should be function', function () {
                     expect(repository.updateExperienceTitle).toBeFunction();
                 });
 
@@ -859,7 +789,7 @@
                             experienceTitle = 'Some title';
                         var promise = repository.updateExperienceTitle(experienceId, experienceTitle);
                         httpWrapperPost.resolve();
-                        
+
                         waitsFor(function () {
                             return !promise.isPending();
                         });
@@ -1021,7 +951,228 @@
 
             });
 
+            describe('updateExperienceTemplate:', function () {
+
+                it('should be function', function () {
+                    expect(repository.updateExperienceTemplate).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(repository.updateExperienceTemplate()).toBePromise();
+                });
+
+                describe('when experienceId is not a string', function () {
+
+                    it('should reject promise with reason \'Experience id is not a string\'', function () {
+                        var promise = repository.updateExperienceTemplate({}, 'Some title');
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith('Experience id is not a string');
+                        });
+                    });
+
+                });
+
+                describe('when templateId is not a string', function () {
+
+                    it('should reject promise with reason \'Template id is not a string\'', function () {
+                        var promise = repository.updateExperienceTemplate('Some id', {});
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith('Template id is not a string');
+                        });
+                    });
+
+                });
+
+                describe('when experienceId and templateId are strings', function () {
+
+                    it('should send request to /api/experience/updateTemplate', function () {
+                        var experienceId = 'Some id',
+                            templateId = 'Some template id';
+                        var promise = repository.updateExperienceTemplate(experienceId, templateId);
+                        httpWrapperPost.resolve();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/experience/updateTemplate', jasmine.any(Object));
+                            expect(httpWrapper.post.mostRecentCall.args[1].experienceId).toEqual(experienceId);
+                            expect(httpWrapper.post.mostRecentCall.args[1].templateId).toEqual(templateId);
+                        });
+                    });
+
+                    describe('and request fails', function () {
+
+                        it('should reject promise', function () {
+                            var reason = 'Some reason';
+                            var promise = repository.updateExperienceTemplate('Some id', 'Some template id');
+                            httpWrapperPost.reject(reason);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeRejectedWith(reason);
+                            });
+                        });
+
+                    });
+
+                    describe('and request successful', function () {
+
+                        describe('and response is not an object', function () {
+
+                            it('should reject promise with \'Response is not an object\'', function () {
+                                var promise = repository.updateExperienceTemplate('Some id', 'Some template id');
+                                httpWrapperPost.resolve('Not an object');
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Response is not an object');
+                                });
+                            });
+
+                        });
+
+                        describe('and response is an object', function () {
+
+                            describe('and doesn`t have ModifiedOn date', function () {
+
+                                it('should reject promise with \'Response does not have modification date\'', function () {
+                                    var promise = repository.updateExperienceTemplate('Some id', 'Some template id');
+                                    httpWrapperPost.resolve({});
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(promise).toBeRejectedWith('Response does not have modification date');
+                                    });
+                                });
+
+                            });
+
+                            describe('and have ModifiedOn date', function () {
+
+                                var newModifiedOnDate;
+                                beforeEach(function () {
+                                    newModifiedOnDate = "/Date(1378106938845)/";
+                                    httpWrapperPost.resolve({ ModifiedOn: newModifiedOnDate });
+                                });
+
+                                describe('and experience not found in dataContext', function () {
+
+                                    beforeEach(function () {
+                                        dataContext.experiences = [];
+                                    });
+
+                                    it('should reject promise with \'Experience does not exist in dataContext\'', function () {
+                                        var promise = repository.updateExperienceTemplate('Some id', 'Some template id');
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(promise).toBeRejectedWith('Experience does not exist in dataContext');
+                                        });
+                                    });
+
+                                });
+
+                                describe('and experience found in dataContext', function () {
+                                    var experience;
+                                    beforeEach(function () {
+                                        experience = {
+                                            id: 'Some id',
+                                            title: 'Original title',
+                                            modifiedOn: 'Some date'
+                                        };
+
+                                        dataContext.experiences = [experience];
+                                    });
+
+                                    describe('and template not found in dataContext', function () {
+
+                                        beforeEach(function () {
+                                            dataContext.templates = [];
+                                        });
+
+                                        it('should reject promise with \'Template does not exist in dataContext\'', function () {
+                                            var promise = repository.updateExperienceTemplate('Some id', 'Some template id');
+
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                expect(promise).toBeRejectedWith('Template does not exist in dataContext');
+                                            });
+                                        });
+
+                                    });
+
+                                    describe('and template found in dataContext', function () {
+                                        var template;
+                                        beforeEach(function () {
+                                            template = { id: 'template id', name: 'template name', image: 'template image' };
+                                            dataContext.templates = [template];
+                                        });
+
+                                        it('should update experience template', function () {
+                                            var promise = repository.updateExperienceTemplate(experience.id, template.id);
+
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                expect(experience.template).toEqual(template);
+                                            });
+                                        });
+
+                                        it('should update experience modifiedOn date', function () {
+                                            var promise = repository.updateExperienceTemplate(experience.id, template.id);
+
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                expect(experience.modifiedOn).toEqual(utils.getDateFromString(newModifiedOnDate));
+                                            });
+                                        });
+
+                                        it('should resolve promise with modifiedOn date', function () {
+                                            var promise = repository.updateExperienceTemplate(experience.id, template.id);
+                                            httpWrapperPost.resolve({ ModifiedOn: newModifiedOnDate });
+
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                expect(promise).toBeResolvedWith(utils.getDateFromString(newModifiedOnDate));
+                                            });
+                                        });
+                                    });
+
+                                });
+
+                            });
+
+                        });
+
+                    });
+
+                });
+
+            });
         });
 
-    }
-);
+    });

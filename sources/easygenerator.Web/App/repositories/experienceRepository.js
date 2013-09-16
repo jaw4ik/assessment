@@ -1,15 +1,13 @@
 ﻿define(['dataContext', 'constants', 'plugins/http', 'models/experience', 'guard', 'httpWrapper'],
     function (dataContext, constants, http, ExperienceModel, guard, httpWrapper) {
 
-        var
-            getCollection = function () {
-                var deferred = Q.defer();
+        var getCollection = function () {
+            var deferred = Q.defer();
 
-                deferred.resolve(dataContext.experiences);
+            deferred.resolve(dataContext.experiences);
 
-                return deferred.promise;
-            },
-
+            return deferred.promise;
+        },
             getById = function (id) {
                 var deferred = Q.defer();
 
@@ -25,67 +23,37 @@
 
                 return deferred.promise;
             },
-
             addExperience = function (experience) {
-                var deferred = Q.defer();
+                return Q.fcall(function () {
+                    guard.throwIfNotAnObject(experience, 'Experience id is not an object');
 
-                if (_.isUndefined(experience)) {
-                    deferred.reject('Experience data is undefined');
-                }
+                    return httpWrapper.post('api/experience/create', experience)
+                        .then(function (response) {
+                            guard.throwIfNotAnObject(response, 'Response is not an object');
+                            guard.throwIfNotString(response.Id, 'Response Id is not a string');
+                            guard.throwIfNotString(response.CreatedOn, 'Response CreatedOn is not a string');
 
-                if (_.isNull(experience)) {
-                    deferred.reject('Experience data is null');
-                }
+                            var template = _.find(dataContext.templates, function (item) {
+                                return item.id === experience.template.id;
+                            });
 
-                http.post('api/experience/create', experience)
-                    .done(function (response) {
+                            guard.throwIfNotAnObject(template, 'Template does not exist in dataContext');
 
-                        if (_.isUndefined(response)) {
-                            deferred.reject('Response is undefined');
-                            return;
-                        }
-
-                        if (_.isNull(response)) {
-                            deferred.reject('Response is null');
-                            return;
-                        }
-
-                        if (!response.success) {
-                            deferred.reject('Response is not successful');
-                            return;
-                        }
-
-                        if (_.isUndefined(response.data)) {
-                            deferred.reject('Response data is undefined');
-                            return;
-                        }
-
-                        if (_.isNull(response.data)) {
-                            deferred.reject('Response data is null');
-                            return;
-                        }
-
-                        var
-                            experienceId = response.data.Id,
-                            createdOn = response.data.CreatedOn;
-                        dataContext.experiences.push(new ExperienceModel({
-                            id: experienceId,
-                            title: experience.title,
-                            templateId: experience.templateId,
-                            objectives: [],
-                            buildingStatus: constants.buildingStatuses.notStarted,
-                            createdOn: new Date(parseInt(createdOn.substr(6), 10)),
-                            modifiedOn: new Date(parseInt(createdOn.substr(6), 10))
-                        }));
-                        deferred.resolve(experienceId);
-                    })
-                    .fail(function (reason) {
-                        deferred.reject(reason);
-                    });
-
-                return deferred.promise;
+                            var experienceId = response.Id,
+                                createdOn = response.CreatedOn;
+                            dataContext.experiences.push(new ExperienceModel({
+                                id: experienceId,
+                                title: experience.title,
+                                template: { id: template.id, name: template.name, image: template.image },
+                                objectives: [],
+                                buildingStatus: constants.buildingStatuses.notStarted,
+                                createdOn: new Date(parseInt(createdOn.substr(6), 10)),
+                                modifiedOn: new Date(parseInt(createdOn.substr(6), 10))
+                            }));
+                            return experienceId;
+                        });
+                });
             },
-
             removeExperience = function (experienceId) {
                 var deferred = Q.defer();
 
@@ -121,7 +89,6 @@
 
                 return deferred.promise;
             },
-
             relateObjectives = function (experienceId, objectives) {
                 var deferred = Q.defer();
 
@@ -148,7 +115,6 @@
 
                 return deferred.promise;
             },
-
             unrelateObjectives = function (experienceId, objectives) {
                 var deferred = Q.defer();
 
@@ -174,25 +140,24 @@
 
                 return deferred.promise;
             },
-            
-            updateExperienceTitle = function(experienceId, experienceTitle) {
-                return Q.fcall(function() {
+            updateExperienceTitle = function (experienceId, experienceTitle) {
+                return Q.fcall(function () {
                     guard.throwIfNotString(experienceId, 'Experience id is not a string');
                     guard.throwIfNotString(experienceTitle, 'Experience title is not a string');
 
                     var requestArgs = {
-                        experienceId: experienceId, 
+                        experienceId: experienceId,
                         experienceTitle: experienceTitle
                     };
 
-                    return httpWrapper.post('api/experience/updateTitle', requestArgs).then(function(response) {
+                    return httpWrapper.post('api/experience/updateTitle', requestArgs).then(function (response) {
                         guard.throwIfNotAnObject(response, 'Response is not an object');
                         guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
                         var experience = _.find(dataContext.experiences, function (item) {
                             return item.id === experienceId;
                         });
-                        
+
                         guard.throwIfNotAnObject(experience, 'Experience does not exist in dataContext');
 
                         experience.title = experienceTitle;
@@ -203,25 +168,39 @@
 
                 });
             },
+            updateExperienceTemplate = function (experienceId, templateId) {
+                return Q.fcall(function () {
+                    guard.throwIfNotString(experienceId, 'Experience id is not a string');
+                    guard.throwIfNotString(templateId, 'Template id is not a string');
 
-            updateExperience = function (obj) {
-                if (_.isNullOrUndefined(obj))
-                    throw 'Invalid arguments';
+                    var requestArgs = {
+                        experienceId: experienceId,
+                        templateId: templateId
+                    };
 
-                var deferred = Q.defer();
+                    return httpWrapper.post('api/experience/updateTemplate', requestArgs).then(function (response) {
+                        guard.throwIfNotAnObject(response, 'Response is not an object');
+                        guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
-                this.getById(obj.id).then(function (experience) {
+                        var experience = _.find(dataContext.experiences, function (item) {
+                            return item.id === experienceId;
+                        });
 
-                    experience.title = obj.title;
-                    experience.templateId = obj.templateId;
-                    experience.modifiedOn = new Date();
+                        guard.throwIfNotAnObject(experience, 'Experience does not exist in dataContext');
 
-                    deferred.resolve(experience);
-                }).fail(function (reason) {
-                    deferred.reject(reason);
+                        var template = _.find(dataContext.templates, function (item) {
+                            return item.id === templateId;
+                        });
+
+                        guard.throwIfNotAnObject(template, 'Template does not exist in dataContext');
+
+                        experience.template = { id: template.id, name: template.name, image: template.image };
+                        experience.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+
+                        return experience.modifiedOn;
+                    });
+
                 });
-
-                return deferred.promise;
             };
 
         return {
@@ -229,10 +208,8 @@
             getCollection: getCollection,
 
             addExperience: addExperience,
-            updateExperience: updateExperience,
-            
             updateExperienceTitle: updateExperienceTitle,
-
+            updateExperienceTemplate: updateExperienceTemplate,
 
             removeExperience: removeExperience,
             relateObjectives: relateObjectives,

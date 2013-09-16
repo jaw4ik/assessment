@@ -75,5 +75,15 @@ namespace easygenerator.Web.Controllers.Api
                 ModifiedOn = DateTimeWrapper.Now()
             });
         }
+
+        [HttpPost]
+        public ActionResult UpdateTemplate(Guid experienceId, Guid templateId)
+        {
+
+            return JsonSuccess(new
+            {
+                ModifiedOn = DateTimeWrapper.Now()
+            });
+        }
     }
 }

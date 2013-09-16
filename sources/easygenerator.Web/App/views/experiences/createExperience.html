@@ -6,10 +6,10 @@
     <form class="create-form">
         <div class="pull-left">
             <div class="white-framing">
-                <img class="create-form-image" src="/Content/images/experience.png" alt="" />
+                <img class="create-form-image" src="#" data-bind="attr:{ src: template.image }" />
             </div>
             <div class="create-entity-actions">
-                <div class="experience-template-selector" data-bind="selectBox: { options: templates, optionsText: 'name', optionsValue: 'id', value: templateId, defaultText: chooseTemplateText }"></div>
+                <div class="experience-template-selector" data-bind="selectBox: { options: templates(), optionsText: 'name', optionsValue: 'id', value: template.id, defaultText: chooseTemplateText }"></div>
             </div>
         </div>
 
@@ -26,7 +26,7 @@
             <!-- /ko -->
         </div>
 
-        <!-- ko compose: { view: 'views/common/formactions', model: { isValid: title.isValid() && _.isString(templateId()), saveAndNew: createAndNew, saveAndOpen: createAndEdit } } -->
+        <!-- ko compose: { view: 'views/common/formactions', model: { isValid: title.isValid() && _.isString(template.id()), saveAndNew: createAndNew, saveAndOpen: createAndEdit } } -->
         <!-- /ko -->
     </form>
 

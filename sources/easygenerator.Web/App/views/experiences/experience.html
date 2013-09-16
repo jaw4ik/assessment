@@ -69,7 +69,7 @@
                 view: 'views/common/entityinfo', 
                 model: {
                     info: [ { text: 'createdOn', emptyText: '', date: createdOn }, { text: 'modifiedOn', emptyText: '', date: modifiedOn() }, { text: 'builtOn', emptyText: 'notBuilt', date: builtOn() } ],
-                    image: '/Content/images/experience.png',
+                    image: template.image,
                     language: language
                 }
             } -->
@@ -82,7 +82,7 @@
                 </div>
             </div>
             <div class="entity-actions">
-                <div class="experience-template-selector" data-bind="selectBox: { options: templates, optionsText: 'name', optionsValue: 'id', value: templateId }, event: {change: updateExperienceTemplate }"></div>
+                <div class="experience-template-selector" data-bind="selectBox: { options: templates, optionsText: 'name', optionsValue: 'id', value: template.id }, event: {change: updateExperienceTemplate }"></div>
             </div>
         </div>
 

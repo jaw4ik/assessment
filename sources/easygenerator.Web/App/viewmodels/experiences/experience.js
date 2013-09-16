@@ -47,8 +47,8 @@
             builtOn = ko.observable(),
             language = ko.observable(),
             objectivesMode = ko.observable(''),
-            templateId = ko.observable(),
             isEditing = ko.observable(),
+            template = {},
 
             objectivesListModes = {
                 appending: 'appending',
@@ -77,6 +77,9 @@
                     clientContext.set('showRelateObjectivesHintPopup', false);
                 }
             };
+
+        template.id = ko.observable();
+        template.image = ko.observable();
 
         title.isValid = ko.computed(function () {
             var length = title().trim().length;
@@ -282,19 +285,15 @@
 
         updateExperienceTemplate = function () {
             var selectedTemplate = _.find(this.templates, function (item) {
-                return item.id === templateId();
+                return item.id === template.id();
             });
 
             sendEvent(events.updateExperienceTemplate + ' \'' + selectedTemplate.name + '\'');
-            updateExperience.call(this);
-        },
-
-        updateExperience = function () {
-            var that = this;
-            repository.updateExperience({ id: that.id, title: title(), templateId: templateId() })
-                .then(function (updatedExperience) {
-                    that.modifiedOn(updatedExperience.modifiedOn);
-                    notify.info(localizationManager.localize('lastSaving') + ': ' + updatedExperience.modifiedOn.toLocaleTimeString());
+            repository.updateExperienceTemplate(this.id, selectedTemplate.id)
+                .then(function (updatedOn) {
+                    template.image(selectedTemplate.image);
+                    modifiedOn(updatedOn);
+                    notify.info(localizationManager.localize('lastSaving') + ': ' + updatedOn.toLocaleTimeString());
                 });
         },
 
@@ -345,17 +344,20 @@
                 var index = _.indexOf(experiences, that.experience);
                 that.previousExperienceId = index != 0 ? experiences[index - 1].id : null;
                 that.nextExperienceId = index != experiences.length - 1 ? experiences[index + 1].id : null;
-                that.templateId(that.experience.templateId);
+
+                that.template.id(that.experience.template.id);
+                that.template.image(that.experience.template.image);
 
                 templateRepository.getCollection().then(function (templatesResponse) {
                     that.templates = _.chain(templatesResponse)
-                       .map(function (template) {
+                       .map(function (item) {
                            return {
-                               id: template.id,
-                               name: template.name
+                               id: item.id,
+                               name: item.name,
+                               image: item.image
                            };
                        })
-                       .sortBy(function (template) { return template.name.toLowerCase(); })
+                       .sortBy(function (item) { return item.name.toLowerCase(); })
                        .value();
                 });
             });
@@ -384,7 +386,7 @@
             id: id,
             title: title,
             isFirstBuild: isFirstBuild,
-            templateId: templateId,
+            template: template,
             relatedObjectives: relatedObjectives,
             availableObjectives: availableObjectives,
             templates: templates,

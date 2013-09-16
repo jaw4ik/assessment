@@ -8,8 +8,6 @@
             templateRepository = require('repositories/templateRepository'),
             localizationManager = require('localization/localizationManager');
 
-        var eventsCategory = 'Create Experience';
-
         describe('viewModel [createExperience]', function () {
 
             beforeEach(function () {
@@ -31,6 +29,79 @@
                     expect(viewModel.experienceTitleMaxLength).toBe(255);
                 });
 
+            });
+
+            describe('template:', function () {
+
+                it('should be defined', function () {
+                    expect(viewModel.template).toBeDefined();
+                });
+
+                describe('id:', function () {
+                    it('should be observable', function () {
+                        expect(viewModel.template.id).toBeObservable();
+                    });
+                });
+                
+                describe('image:', function () {
+                    var defaultTemplateImage = '/Content/images/undefinedTemplate.png';
+                    it('should be computed', function () {
+                        expect(viewModel.template.image).toBeComputed();
+                    });
+
+                    describe('when template.id is null', function () {
+                        it('should return null', function () {
+                            var template = { id: '0', image: 'img', name: 'name' };
+                            viewModel.templates([template]);
+                            viewModel.template.id(null);
+
+                            expect(viewModel.template.image()).toBe(defaultTemplateImage);
+                        });
+                    });
+
+                    describe('when template.id is undefined', function () {
+                        it('should return null', function () {
+                            var template = { id: '0', image: 'img', name: 'name' };
+                            viewModel.templates([template]);
+                            viewModel.template.id();
+
+                            expect(viewModel.template.image()).toBe(defaultTemplateImage);
+                        });
+                    });
+
+                    describe('when template.id is set', function () {
+
+                        describe('when template doesnt exist in templates collection', function () {
+                            it('should return null', function () {
+                                var template = { id: '0', image: 'img', name: 'name' };
+                                viewModel.templates([]);
+                                viewModel.template.id();
+
+                                expect(viewModel.template.image()).toBe(defaultTemplateImage);
+                            });
+                        });
+                        
+                        describe('when template exists in templates collection', function () {
+                            it('should return image', function () {
+                                var template = { id: '0', image: 'img', name: 'name' };
+
+                                viewModel.templates([template]);
+                                viewModel.template.id(template.id);
+
+                                expect(viewModel.template.image()).toBe(template.image);
+                            });
+                        });
+
+                       
+                    });
+                });
+
+            });
+
+            describe('templates:', function () {
+                it('should be observable', function () {
+                    expect(viewModel.templates).toBeObservable();
+                });
             });
 
             describe('title:', function () {
@@ -85,8 +156,8 @@
 
             });
 
-            describe('chooseTemplateText:', function() {
-                it('should be defined', function() {
+            describe('chooseTemplateText:', function () {
+                it('should be defined', function () {
                     expect(viewModel.chooseTemplateText).toBeDefined();
                 });
             });
@@ -94,8 +165,9 @@
             describe('createAndNew:', function () {
 
                 var addExperience;
-
+                var template = { id: 'id', name: 'lala', image: 'img' };
                 beforeEach(function () {
+                    viewModel.templates([template]);
                     addExperience = Q.defer();
                     spyOn(repository, 'addExperience').andReturn(addExperience.promise);
                 });
@@ -123,21 +195,20 @@
 
                 });
 
-                describe('and templateId is not set', function () {
+                describe('and template.id is not set', function () {
 
                     it('should not add experience to repository', function () {
-                        viewModel.templateId(null);
-
+                        viewModel.template.id(null);
                         viewModel.createAndNew();
                         expect(repository.addExperience).not.toHaveBeenCalled();
                     });
 
                 });
 
-                describe('and title is valid and templateId is set', function () {
+                describe('and title is valid and template.id is set', function () {
 
                     beforeEach(function () {
-                        viewModel.templateId('id');
+                        viewModel.template.id(template.id);
                         viewModel.title.isValid = function () {
                             return true;
                         };
@@ -146,13 +217,13 @@
                     it('should trim experience title', function () {
                         viewModel.title('           title           ');
                         viewModel.createAndNew();
-                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title', templateId: 'id' });
+                        expect(repository.addExperience).toHaveBeenCalled();
                     });
 
                     it('should add experience to repository', function () {
                         viewModel.title('title');
                         viewModel.createAndNew();
-                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title', templateId: 'id' });
+                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title', template: { id: template.id } });
                     });
 
                     describe('and experience was added successfully', function () {
@@ -216,12 +287,12 @@
             describe('createAndEdit:', function () {
 
                 var addExperience;
-
+                var template = { id: 'id', name: 'lala', image: 'img' };
                 beforeEach(function () {
                     addExperience = Q.defer();
                     spyOn(repository, 'addExperience').andReturn(addExperience.promise);
+                    viewModel.templates([template]);
                 });
-
 
                 it('should be function', function () {
                     expect(viewModel.createAndEdit).toBeFunction();
@@ -249,7 +320,7 @@
                 describe('and template is not set', function () {
 
                     it('should not add experience to repository', function () {
-                        viewModel.templateId(null);
+                        viewModel.template.id(null);
 
                         viewModel.createAndEdit();
                         expect(repository.addExperience).not.toHaveBeenCalled();
@@ -260,7 +331,7 @@
                 describe('and title is valid and template is set', function () {
 
                     beforeEach(function () {
-                        viewModel.templateId('id');
+                        viewModel.template.id(template.id);
                         viewModel.title.isValid = function () {
                             return true;
                         };
@@ -269,13 +340,13 @@
                     it('should trim experience title', function () {
                         viewModel.title('           title           ');
                         viewModel.createAndEdit();
-                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title', templateId: 'id' });
+                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title', template: { id: template.id } });
                     });
 
                     it('should add experience to repository', function () {
                         viewModel.title('title');
                         viewModel.createAndEdit();
-                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title', templateId: 'id' });
+                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title', template: { id: template.id } });
                     });
 
                     describe('and experience was added successfully', function () {
@@ -365,7 +436,7 @@
 
                     describe('when received templates successfully', function () {
                         beforeEach(function () {
-                            viewModel.templates.splice(0, viewModel.templates.length);
+                            viewModel.templates([]);
                             getTemplatesDeferred.resolve([{ id: "0", name: "Default" }, { id: "1", name: "Quizz" }]);
                         });
 
@@ -376,7 +447,7 @@
                             });
                             runs(function () {
                                 expect(promise).toBeResolved();
-                                expect(viewModel.templates.length).toBe(2);
+                                expect(viewModel.templates().length).toBe(2);
                             });
                         });
 
@@ -387,7 +458,7 @@
                             });
                             runs(function () {
                                 expect(promise).toBeResolved();
-                                expect(viewModel.templates).toBeSortedAsc('name');
+                                expect(viewModel.templates()).toBeSortedAsc('name');
                             });
                         });
 
@@ -401,7 +472,7 @@
                                 expect(viewModel.title()).toEqual("");
                             });
                         });
-                        
+
                         it('should set chooseTemplateText', function () {
                             var promise = viewModel.activate();
                             spyOn(localizationManager, 'localize').andReturn('text');

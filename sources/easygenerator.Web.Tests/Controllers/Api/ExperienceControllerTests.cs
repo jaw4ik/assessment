@@ -225,5 +225,22 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         #endregion
+
+        #region Update Template
+
+        [TestMethod]
+        public void UpdateTemplate_ShouldReturnJson()
+        {
+            //Arrange
+            var viewModel = new ExperienceBuildModel();
+
+            //Act
+            var result = _controller.UpdateTemplate(Guid.NewGuid(), Guid.NewGuid());
+
+            //Assert
+            ActionResultAssert.IsJsonSuccessResult(result);
+        }
+
+        #endregion
     }
 }

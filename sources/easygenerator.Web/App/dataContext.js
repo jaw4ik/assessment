@@ -38,11 +38,21 @@
                             })
                         });
                     }));
+                    templates.push.apply(templates, _.map(response.templates, function (template) {
+                        return new TemplateModel(
+                        {
+                            id: template.id,
+                            name: template.name,
+                            image: template.image
+                        });
+                    }));
                     experiences.push.apply(experiences, _.map(response.experiences, function (experience) {
                         return new ExperienceModel({
                             id: experience.id,
                             title: experience.title,
-                            templateId: experience.templateId,
+                            template: _.find(templates, function (item) {
+                                return item.id === experience.templateId;
+                            }),
                             createdOn: parseDateString(experience.createdOn),
                             modifiedOn: parseDateString(experience.modifiedOn),
                             objectives: _.map(experience.objectives, function (objectiveId) {
@@ -55,14 +65,6 @@
                             packageUrl: experience.packageUrl
                         });
                     }));
-                    templates.push.apply(templates, _.map(response.templates, function (template) {
-                        return new TemplateModel(
-                        {
-                            id: template.id,
-                            name: template.name
-                        });
-                    }));
-
                 }).then(function () {
                     return $.ajax({
                         url: 'api/objectives',
@@ -106,7 +108,10 @@
                                 objectives: [],
                                 buildingStatus: constants.buildingStatuses.notStarted,
                                 builtOn: _.isNullOrUndefined(item.builtOn) ? null : parseDateString(item.builtOn),
-                                packageUrl: item.packageUrl
+                                packageUrl: item.packageUrl,
+                                template: _.find(templates, function (tItem) {
+                                    return tItem.name === 'Default';
+                                })
                             }));
                         });
                     });

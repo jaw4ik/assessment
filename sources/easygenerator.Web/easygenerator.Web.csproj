@@ -207,12 +207,15 @@
     <Content Include="Content\durandal.css" />
     <Content Include="Content\font\alphamacaoe.svg" />
     <Content Include="Content\images\build-sprite.png" />
+    <Content Include="Content\images\defaultTemplate.png" />
     <Content Include="Content\images\emptyBox.png" />
     <Content Include="Content\images\finish.png" />
     <Content Include="Content\images\hint-popup-sprite.png" />
     <Content Include="Content\images\info-icon.png" />
     <Content Include="Content\images\nav-icons.png" />
+    <Content Include="Content\images\quizTemplate.png" />
     <Content Include="Content\images\small-size-icons-pack.png" />
+    <Content Include="Content\images\undefinedTemplate.png" />
     <Content Include="Content\images\warning.png" />
     <Content Include="Content\images\objective.png" />
     <Content Include="Content\notify.css" />

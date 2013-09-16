@@ -584,11 +584,13 @@
     "templates": [
         {
             "id":"0593CC4DD1934ACCBE91DCE7ECE969AE",
-            "name": "Default"
+            "name": "Default",
+            "image": "/Content/images/quizTemplate.png"
         },
         {
             "id":"DE880B6EDAF047ECB8CE8F24052116B5",
-            "name": "Quiz"
+            "name": "Quiz",
+            "image": "/Content/images/defaultTemplate.png"
         }
     ]
 }
