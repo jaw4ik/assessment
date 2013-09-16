@@ -137,8 +137,7 @@ body {
     margin-left: 0;
 }
 
-.create-entity-actions 
-{
+.create-entity-actions {
     width: 203px;
     position: absolute;
     top: 203px;
@@ -205,6 +204,16 @@ body {
         -ms-transform: rotate(352deg);
         transform: rotate(352deg);
     }
+
+@media (max-width: 1260px) {
+        .create-tip .create-tip-text-wrapper {
+            min-width: 278px;
+        }
+
+        .create-tip .create-tip-text {
+            white-space: normal;
+        }
+}
 
 /*#endregion Create entity tooltip*/
 
@@ -565,7 +574,7 @@ body {
     .top-navigation > a:hover {
         background-color: rgba(0, 0, 0, 0.1);
     }
-    
+
     .top-navigation .cursor {
         cursor: default;
     }
@@ -906,7 +915,7 @@ body {
     }
 
 .experience .empty-list-wrapper {
-    margin-top: 80px;    
+    margin-top: 80px;
 }
 
 /*#endregion EMPTY LIST*/
