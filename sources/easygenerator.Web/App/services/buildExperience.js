@@ -5,7 +5,6 @@
         var deferred = Q.defer();
 
         repository.getById(experienceId).then(function (experience) {
-
             if (_.isNull(experience)) {
                 deferred.reject('Experience was not found');
                 return;
@@ -16,7 +15,7 @@
                 return;
             }
 
-            templateRepository.getById(experience.templateId).then(function (template) {
+            templateRepository.getById(experience.template.id).then(function (template) {
                 if (_.isNullOrUndefined(template)) {
                     deferred.reject('Experience template not found');
                     return;

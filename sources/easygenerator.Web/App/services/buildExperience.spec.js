@@ -72,7 +72,7 @@
 
                             var experience;
                             beforeEach(function () {
-                                experience = { buildingStatus: '', templateId: '0' };
+                                experience = { buildingStatus: '', template: { id: '0' } };
                                 getById.resolve(experience);
                             });
 
