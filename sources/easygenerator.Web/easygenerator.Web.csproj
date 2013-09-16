@@ -809,6 +809,7 @@
     <Content Include="Templates\Quiz\css\normalize.css" />
     <Content Include="Templates\Quiz\css\styles.css" />
     <Content Include="Templates\Quiz\img\arrow_up.png" />
+    <Content Include="Templates\Quiz\img\bg.png" />
     <Content Include="Templates\Quiz\img\checkbox-fail.png" />
     <Content Include="Templates\Quiz\img\checkbox-ok.png" />
     <Content Include="Templates\Quiz\img\checkbox.png" />
