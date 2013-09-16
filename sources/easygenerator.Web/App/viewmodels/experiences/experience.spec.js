@@ -10,9 +10,6 @@
             templateRepository = require('repositories/templateRepository'),
             notify = require('notify');
 
-        var eventsCategory = 'Experience';
-
-
         describe('viewModel [experience]', function () {
             var previousExperienceId = '0',
                 experience = {
@@ -795,7 +792,7 @@
                         it('should update notificaion', function () {
                             viewModel.endEditTitle();
 
-                            var promise = updateExperienceTitleDeferred.promise.fin(function() {});
+                            var promise = updateExperienceTitleDeferred.promise.fin(function () { });
 
                             waitsFor(function () {
                                 return !promise.isPending();
@@ -807,7 +804,7 @@
 
                         it('should update modifiedOn', function () {
                             viewModel.endEditTitle();
-                            
+
                             var promise = updateExperienceTitleDeferred.promise.fin(function () { });
 
                             waitsFor(function () {
@@ -910,12 +907,12 @@
 
                 it('should get objectives from repository', function () {
                     spyOn(objectiveRepository, 'getCollection').andReturn(Q.defer().promise);
-                    
+
                     viewModel.startAppendingObjectives();
                     expect(objectiveRepository.getCollection).toHaveBeenCalled();
                 });
 
-                describe('when get objectives', function() {
+                describe('when get objectives', function () {
                     var getObjectivesDefer,
                         getObjectivesPromise;
 
@@ -923,15 +920,15 @@
                         getObjectivesDefer = Q.defer();
                         getObjectivesPromise = getObjectivesDefer.promise.fin(function () { });
                         spyOn(objectiveRepository, 'getCollection').andReturn(getObjectivesDefer.promise);
-                        
+
                         getObjectivesDefer.resolve([{ id: '0', title: 'B' }, { id: '1', title: 'A' }]);
                     });
 
                     describe('and experience does not have related objectives', function () {
-                        
+
                         it('should set all objectives as available', function () {
                             viewModel.relatedObjectives([]);
-                            
+
                             viewModel.startAppendingObjectives();
 
                             waitsFor(function () {

@@ -9,12 +9,14 @@
 
         describe('repository [experienceRepository]', function () {
 
-            var post;
+            var post,
+                httpWrapperPost;
 
             beforeEach(function () {
                 post = $.Deferred();
+                httpWrapperPost = Q.defer();
                 spyOn(http, 'post').andReturn(post.promise());
-                spyOn(httpWrapper, 'post').andReturn(post.promise());
+                spyOn(httpWrapper, 'post').andReturn(httpWrapperPost.promise);
             });
 
             it('should be object', function () {
@@ -856,8 +858,8 @@
                         var experienceId = 'Some id',
                             experienceTitle = 'Some title';
                         var promise = repository.updateExperienceTitle(experienceId, experienceTitle);
-                        post.resolve();
-
+                        httpWrapperPost.resolve();
+                        
                         waitsFor(function () {
                             return !promise.isPending();
                         });
@@ -873,7 +875,7 @@
                         it('should reject promise', function () {
                             var reason = 'Some reason';
                             var promise = repository.updateExperienceTitle('Some id', 'Some title');
-                            post.reject(reason);
+                            httpWrapperPost.reject(reason);
 
                             waitsFor(function () {
                                 return !promise.isPending();
@@ -891,7 +893,7 @@
 
                             it('should reject promise with \'Response is not an object\'', function () {
                                 var promise = repository.updateExperienceTitle('Some id', 'Some title');
-                                post.resolve('Not an object');
+                                httpWrapperPost.resolve('Not an object');
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -909,7 +911,7 @@
 
                                 it('should reject promise with \'Response does not have modification date\'', function () {
                                     var promise = repository.updateExperienceTitle('Some id', 'Some title');
-                                    post.resolve({});
+                                    httpWrapperPost.resolve({});
 
                                     waitsFor(function () {
                                         return !promise.isPending();
@@ -928,7 +930,7 @@
                                     it('should reject promise with \'Experience does not exist in dataContext\'', function () {
                                         dataContext.experiences = [];
                                         var promise = repository.updateExperienceTitle('Some id', 'Some title');
-                                        post.resolve({ ModifiedOn: "/Date(1378106938845)/" });
+                                        httpWrapperPost.resolve({ ModifiedOn: "/Date(1378106938845)/" });
 
                                         waitsFor(function () {
                                             return !promise.isPending();
@@ -953,7 +955,7 @@
 
                                         dataContext.experiences = [experience];
                                         var promise = repository.updateExperienceTitle(experience.id, newTitle);
-                                        post.resolve({ ModifiedOn: newModifiedOnDate });
+                                        httpWrapperPost.resolve({ ModifiedOn: newModifiedOnDate });
 
                                         waitsFor(function () {
                                             return !promise.isPending();
@@ -975,7 +977,7 @@
 
                                         dataContext.experiences = [experience];
                                         var promise = repository.updateExperienceTitle(experience.id, newTitle);
-                                        post.resolve({ ModifiedOn: newModifiedOnDate });
+                                        httpWrapperPost.resolve({ ModifiedOn: newModifiedOnDate });
 
                                         waitsFor(function () {
                                             return !promise.isPending();
@@ -997,7 +999,7 @@
 
                                         dataContext.experiences = [experience];
                                         var promise = repository.updateExperienceTitle(experience.id, newTitle);
-                                        post.resolve({ ModifiedOn: newModifiedOnDate });
+                                        httpWrapperPost.resolve({ ModifiedOn: newModifiedOnDate });
 
                                         waitsFor(function () {
                                             return !promise.isPending();
