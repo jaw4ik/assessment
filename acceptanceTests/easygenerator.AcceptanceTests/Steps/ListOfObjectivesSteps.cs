@@ -193,7 +193,19 @@ namespace easygenerator.AcceptanceTests.Steps
             objectivesPage.ClickAddNewObjectiveButton();
         }
 
+        [Then(@"delete button is displayed (.*) on objectives list page")]
+        public void ThenDeleteButtonIsDisplayedOnObjectivesListPage(bool isDisplayed)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                objectivesPage.DeleteButtonIsDisplayed == isDisplayed,
+                "incorrect delete button visibility");
+        }
 
+        [When(@"click on delete button on objectives list page")]
+        public void WhenClickOnDeleteButtonOnObjectivesListPage()
+        {
+            objectivesPage.DeleteButtonClick();
+        }
 
         
     }

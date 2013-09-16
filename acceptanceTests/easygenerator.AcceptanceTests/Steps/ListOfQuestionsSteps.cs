@@ -213,6 +213,56 @@ namespace easygenerator.AcceptanceTests.Steps
                 "incorrect delete button visibility");
         }
 
+        //CUD Objective
+
+        [Then(@"'(.*)' title is shown in objective page header")]
+        public void ThenTitleIsShownInObjectivePageHeader(string Title)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() => questionListPage.ObjectiveTitle == Title,
+                "Incorrect objective title, shown title is " + questionListPage.ObjectiveTitle);
+        }
+
+        [Then(@"'(.*)' text is shown in back to objectives list link")]
+        public void ThenTextIsShownInBackToObjectivesListLink(string text)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() => questionListPage.BackToObjectivesListLinkText.Contains(text),
+                "Incorrect text in back link");
+        }
+
+        [When(@"edit objective title with new text '(.*)' on objective page")]
+        public void WhenEditObjectiveTitleWithNewTextOnObjectivePage(string objectiveTitle)
+        {
+            questionListPage.EditObjectiveTitleText(objectiveTitle);
+        }
+
+        [When(@"click on back to objectives list link")]
+        public void WhenClickOnBackToObjectivesListLink()
+        {
+            questionListPage.BackToObjectivesListLinkClick();
+        }
+
+        [When(@"clear header title text field on objective page")]
+        public void WhenClearHeaderTitleTextFieldOnObjectivePage()
+        {
+            questionListPage.ClearObjectiveTitleText();
+        }
+
+        [Then(@"title text block marked with error on objective page")]
+        public void ThenTitleTextBlockMarkedWithErrorOnObjectivePage()
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                questionListPage.HeaderTitleTextBlockErrorIsShown == true,
+                "header title text block is not marked with error");
+        }
+
+        [Then(@"chars counter marked with error on objective page")]
+        public void ThenCharsCounterMarkedWithErrorOnObjectivePage()
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                questionListPage.CharsCounterErrorIsShown == true,
+                "chars counter is not marked with error");
+        }
+
 
 
     }

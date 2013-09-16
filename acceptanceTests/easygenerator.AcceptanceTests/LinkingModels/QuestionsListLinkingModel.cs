@@ -19,6 +19,13 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 
         public string AddNewQuestionButton = ".//a[contains(@class, 'questions-header-create-link')]";
         public string DeleteButton = ".//span[contains(@class, 'header-toolbar-item-wrapper')]";
+        
+        //CUD Objective
+
+        public string ObjectiveTitle = ".//div[contains(@class, 'view-header-title-text')]";
+        public string BackToObjectivesListLink = ".//a[contains(@class, 'inline nav-control left')]";
+        public string CharsCounter = ".//div[contains(@class, 'view-header-title')]//div[contains(@class, 'chars-counter')]";
+
 
     }
 }

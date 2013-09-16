@@ -64,5 +64,62 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
+        //CUD Objective
+
+
+        public string ObjectiveTitle
+        {
+            get
+            {
+                return GetByXPath(model.ObjectiveTitle).GetTextContent();
+            }
+        }
+
+        public string BackToObjectivesListLinkText
+        {
+            get
+            {
+                return GetByXPath(model.BackToObjectivesListLink).GetTextContent();
+            }
+        }
+                
+        internal void EditObjectiveTitleText(string newObjectiveTitle)
+        {
+            var objectiveTitle = GetByXPath(model.ObjectiveTitle);
+            objectiveTitle.Click();
+            objectiveTitle.Clear();
+            objectiveTitle.SendKeys(newObjectiveTitle);
+        }
+        
+        internal void BackToObjectivesListLinkClick()
+        {
+            GetByXPath(model.BackToObjectivesListLink).Click();
+        }
+        
+        internal void ClearObjectiveTitleText()
+        {
+            var objectiveTitle = GetByXPath(model.ObjectiveTitle);
+            objectiveTitle.Click();
+            objectiveTitle.Clear();
+        }
+
+
+        public bool HeaderTitleTextBlockErrorIsShown
+        {
+            get
+            {
+                return GetByXPath(model.ObjectiveTitle).CssContains("error");
+            }
+        }
+        
+        public bool CharsCounterErrorIsShown
+        {
+            get
+            {
+                return GetByXPath(model.CharsCounter).CssContains("error");
+            }
+        }
+
+
     }
 }

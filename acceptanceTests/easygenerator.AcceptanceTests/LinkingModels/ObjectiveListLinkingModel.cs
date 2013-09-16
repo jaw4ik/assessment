@@ -20,6 +20,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         //CUD Objective
 
         public string AddNewObjectiveButton = ".//a[contains(@class,'objectives-header-create-link')]";
+        public string DeleteButton = ".//div[contains(@class,'objectives-header-title')]//span[contains(@class,'header-toolbar-item-wrapper')]";
 
     }
 }
