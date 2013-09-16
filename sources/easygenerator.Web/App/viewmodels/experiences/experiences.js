@@ -153,6 +153,7 @@
 
                     experience.id = item.id;
                     experience.title = item.title;
+                    experience.image = item.template.image;
                     experience.objectives = item.objectives;
                     experience.buildingStatus = ko.observable(item.buildingStatus);
                     experience.packageUrl = item.packageUrl;

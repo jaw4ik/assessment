@@ -11,24 +11,28 @@
 
         var
             eventsCategory = 'Experiences',
+            template = { id: '0', name: 'name', image: 'img' },
             experiences = [
                 new experienceModel({
                     id: 'testId3',
                     title: 'Test Experience 3',
                     objectives: [],
-                    buildingStatus: constants.buildingStatuses.notStarted
+                    buildingStatus: constants.buildingStatuses.notStarted,
+                    template: template
                 }),
                 new experienceModel({
                     id: 'testId2',
                     title: 'Test Experience 2',
                     objectives: [],
-                    buildingStatus: constants.buildingStatuses.notStarted
+                    buildingStatus: constants.buildingStatuses.notStarted,
+                    template: template
                 }),
                 new experienceModel({
                     id: 'testId1',
                     title: 'Test Experience 1',
                     objectives: [],
-                    buildingStatus: constants.buildingStatuses.notStarted
+                    buildingStatus: constants.buildingStatuses.notStarted,
+                    template: template
                 })
             ];
 
