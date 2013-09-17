@@ -190,6 +190,28 @@ namespace easygenerator.AcceptanceTests.Steps
             experiencePage.EditExperienceTitleText(experienceTitle);
         }
 
+        [When(@"clear header title text field on experience page")]
+        public void WhenClearHeaderTitleTextFieldOnExperiencePage()
+        {
+            experiencePage.ClearExperienceTitleText();
+        }
+
+        [Then(@"title text block marked with error on experience page")]
+        public void ThenTitleTextBlockMarkedWithErrorOnExperiencePage()
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                experiencePage.HeaderTitleTextBlockErrorIsShown == true,
+                "header title text block is not marked with error");
+        }
+
+        [Then(@"chars counter marked with error on experience page")]
+        public void ThenCharsCounterMarkedWithErrorOnExperiencePage()
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                experiencePage.CharsCounterErrorIsShown == true,
+                "chars counter is not marked with error");
+        }
+
 
 
 

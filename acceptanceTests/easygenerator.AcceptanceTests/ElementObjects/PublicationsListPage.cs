@@ -72,5 +72,18 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             GetByXPath(model.AddNewExperienceButton).Click();
         }
+
+        public bool DeleteButtonIsDisplayed
+        {
+            get
+            {
+                return ExistsOnPage(model.DeleteButton);
+            }
+        }
+
+        internal void DeleteButtonClick()
+        {
+            GetByXPath(model.DeleteButton).Click();
+        }
     }
 }

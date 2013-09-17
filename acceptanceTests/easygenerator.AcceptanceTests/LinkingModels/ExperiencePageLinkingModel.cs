@@ -21,5 +21,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         //public string BuildButton = "//div[contains(@class,'experience-build-progress-status-item')]";
         public string BuildButton = "//div[contains(@data-bind,'click: buildExperience')]";
         public string DownloadButton = "//div[contains(@data-bind,'click: downloadExperience')]";
+
+        public string CharsCounter = ".//div[contains(@class, 'view-header-title')]//div[contains(@class, 'chars-counter')]";
     }
 }

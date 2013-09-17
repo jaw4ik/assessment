@@ -303,7 +303,19 @@ namespace easygenerator.AcceptanceTests.Steps
             publicationsPage.ClickAddNewExperienceButton();
         }
 
+        [Then(@"delete button is displayed (.*) on experiences list page")]
+        public void ThenDeleteButtonIsDisplayedTrueOnExperiencesListPage(bool isDisplayed)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                publicationsPage.DeleteButtonIsDisplayed == isDisplayed,
+                "incorrect delete button visibility");
+        }
 
+        [When(@"click on delete button on experiences list page")]
+        public void WhenClickOnDeleteButtonOnExperiencesListPage()
+        {
+            publicationsPage.DeleteButtonClick();
+        }
 
 
         

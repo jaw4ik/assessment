@@ -19,5 +19,6 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         //CUD Experiences
 
         public string AddNewExperienceButton = ".//a[contains(@class,'experiences-header-create-link')]";
+        public string DeleteButton = ".//span[contains(@class, 'header-toolbar-item-wrapper')]";
     }
 }

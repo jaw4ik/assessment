@@ -145,4 +145,61 @@ Then publications tiles list consists of ordered items
 | Title       |
 | Experience2 |
 
+Scenario: Not possible to make existing experience title empty
+Given publications are present in database
+| Title       | Id |
+| Experience1 | 1  |
+When open page by url 'http://localhost:5656/#experience/1'
+And clear header title text field on experience page
+Then title text block marked with error on experience page
+And chars counter marked with error on experience page
+When click on back to experiences
+Then publications tiles list consists of ordered items
+| Title       |
+| Experience1 |
+
+Scenario: Delete experience button becomes available after experience was selected
+Given publications are present in database
+| Title       | Id |
+| Experience1 | 1  |
+| Experience2 | 2  |
+When open page by url 'http://localhost:5656/#experiences'
+And mouse hover element of publications list with title 'Experience2'
+And select publication list item with title 'Experience2'
+Then delete button is displayed true on experiences list page
+
+Scenario: Delete experience button is not available if there is no selected experiences
+Given publications are present in database
+| Title       | Id |
+| Experience1 | 1  |
+| Experience2 | 2  |
+When open page by url 'http://localhost:5656/#experiences'
+Then delete button is displayed false on experiences list page
+When mouse hover element of publications list with title 'Experience2'
+And select publication list item with title 'Experience2'
+And select publication list item with title 'Experience2'
+Then delete button is displayed false on experiences list page
+
+Scenario: Selected experience can be deleted
+Given publications are present in database
+| Title       | Id |
+| Experience1 | 1  |
+| Experience2 | 2  |
+| Experience3 | 3  |
+When open page by url 'http://localhost:5656/#experiences'
+And mouse hover element of publications list with title 'Experience2'
+And select publication list item with title 'Experience2'
+And click on delete button on experiences list page
+Then publications tiles list consists of ordered items
+| Title       |
+| Experience1 |
+| Experience3 |
+When mouse hover element of publications list with title 'Experience1'
+And click open publication list item with title 'Experience1'
+And click on back to experiences
+Then publications tiles list consists of ordered items
+| Title       |
+| Experience1 |
+| Experience3 |
+
 

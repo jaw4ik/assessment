@@ -121,8 +121,21 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             experienceTitle.Click();
             experienceTitle.Clear();
         }
+                
+        public bool HeaderTitleTextBlockErrorIsShown
+        {
+            get
+            {
+                return GetByXPath(model.ExperienceTitle).CssContains("error");
+            }
+        }
 
-
-
+        public bool CharsCounterErrorIsShown
+        {
+            get
+            {
+                return GetByXPath(model.CharsCounter).CssContains("error");
+            }
+        }
     }
 }

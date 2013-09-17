@@ -518,6 +518,175 @@ testRunner.Then("publications tiles list consists of ordered items", ((string)(n
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Not possible to make existing experience title empty")]
+        public virtual void NotPossibleToMakeExistingExperienceTitleEmpty()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Not possible to make existing experience title empty", ((string[])(null)));
+#line 148
+this.ScenarioSetup(scenarioInfo);
+#line 10
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table8.AddRow(new string[] {
+                        "Experience1",
+                        "1"});
+#line 149
+testRunner.Given("publications are present in database", ((string)(null)), table8, "Given ");
+#line 152
+testRunner.When("open page by url \'http://localhost:5656/#experience/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 153
+testRunner.And("clear header title text field on experience page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 154
+testRunner.Then("title text block marked with error on experience page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 155
+testRunner.And("chars counter marked with error on experience page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 156
+testRunner.When("click on back to experiences", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table9.AddRow(new string[] {
+                        "Experience1"});
+#line 157
+testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table9, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Delete experience button becomes available after experience was selected")]
+        public virtual void DeleteExperienceButtonBecomesAvailableAfterExperienceWasSelected()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete experience button becomes available after experience was selected", ((string[])(null)));
+#line 161
+this.ScenarioSetup(scenarioInfo);
+#line 10
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table10.AddRow(new string[] {
+                        "Experience1",
+                        "1"});
+            table10.AddRow(new string[] {
+                        "Experience2",
+                        "2"});
+#line 162
+testRunner.Given("publications are present in database", ((string)(null)), table10, "Given ");
+#line 166
+testRunner.When("open page by url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 167
+testRunner.And("mouse hover element of publications list with title \'Experience2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 168
+testRunner.And("select publication list item with title \'Experience2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 169
+testRunner.Then("delete button is displayed true on experiences list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Delete experience button is not available if there is no selected experiences")]
+        public virtual void DeleteExperienceButtonIsNotAvailableIfThereIsNoSelectedExperiences()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete experience button is not available if there is no selected experiences", ((string[])(null)));
+#line 171
+this.ScenarioSetup(scenarioInfo);
+#line 10
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table11.AddRow(new string[] {
+                        "Experience1",
+                        "1"});
+            table11.AddRow(new string[] {
+                        "Experience2",
+                        "2"});
+#line 172
+testRunner.Given("publications are present in database", ((string)(null)), table11, "Given ");
+#line 176
+testRunner.When("open page by url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 177
+testRunner.Then("delete button is displayed false on experiences list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 178
+testRunner.When("mouse hover element of publications list with title \'Experience2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 179
+testRunner.And("select publication list item with title \'Experience2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 180
+testRunner.And("select publication list item with title \'Experience2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 181
+testRunner.Then("delete button is displayed false on experiences list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Selected experience can be deleted")]
+        public virtual void SelectedExperienceCanBeDeleted()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Selected experience can be deleted", ((string[])(null)));
+#line 183
+this.ScenarioSetup(scenarioInfo);
+#line 10
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table12.AddRow(new string[] {
+                        "Experience1",
+                        "1"});
+            table12.AddRow(new string[] {
+                        "Experience2",
+                        "2"});
+            table12.AddRow(new string[] {
+                        "Experience3",
+                        "3"});
+#line 184
+testRunner.Given("publications are present in database", ((string)(null)), table12, "Given ");
+#line 189
+testRunner.When("open page by url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 190
+testRunner.And("mouse hover element of publications list with title \'Experience2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 191
+testRunner.And("select publication list item with title \'Experience2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 192
+testRunner.And("click on delete button on experiences list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table13.AddRow(new string[] {
+                        "Experience1"});
+            table13.AddRow(new string[] {
+                        "Experience3"});
+#line 193
+testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table13, "Then ");
+#line 197
+testRunner.When("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 198
+testRunner.And("click open publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 199
+testRunner.And("click on back to experiences", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table14.AddRow(new string[] {
+                        "Experience1"});
+            table14.AddRow(new string[] {
+                        "Experience3"});
+#line 200
+testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table14, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
