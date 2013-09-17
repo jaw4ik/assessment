@@ -24,15 +24,23 @@ Scenario: Edit experience title text block is empty when open create experience 
 When open page by url 'http://localhost:5656/#experience/create'
 Then edit title text block is empty on create view
 
-Scenario: Buttons CreateAndEdit and CreateAndNew are disabled if title text is empty on create experience view
+Scenario: Buttons CreateAndEdit and CreateAndNew are disabled if template is choosen but title text is empty on create experience view
 When open page by url 'http://localhost:5656/#experience/create'
+And choose default template on create experience view
 Then buttons CreateAndEdit and CreateAndNew are enabled false on create view
 When input 'text' into title edit area on create view
 And clear edit area on create view
 Then buttons CreateAndEdit and CreateAndNew are enabled false on create view
 
-Scenario: Buttons CreateAndEdit and CreateAndNew are enabled if title text is not empty on create experience view
+Scenario: Buttons CreateAndEdit and CreateAndNew are disabled if title text is not empty but template is not choosen on create experience view
 When open page by url 'http://localhost:5656/#experience/create'
+Then buttons CreateAndEdit and CreateAndNew are enabled false on create view
+When input 'text' into title edit area on create view
+Then buttons CreateAndEdit and CreateAndNew are enabled false on create view
+
+Scenario: Buttons CreateAndEdit and CreateAndNew are enabled if template is choosen and title text is not empty on create experience view
+When open page by url 'http://localhost:5656/#experience/create'
+And choose default template on create experience view
 And input 'text' into title edit area on create view
 Then buttons CreateAndEdit and CreateAndNew are enabled true on create view
 
@@ -53,6 +61,7 @@ And max chars count '255' is shown in chars counter on create view
 
 Scenario: Not possible to save more than 255 charracters in title text on create view
 When open page by url 'http://localhost:5656/#experience/create'
+And choose default template on create experience view
 And input 'WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW WWW' into title edit area on create view
 Then chars count '256' is shown in chars counter on create view
 And buttons CreateAndEdit and CreateAndNew are enabled false on create view
@@ -64,6 +73,7 @@ Given publications are present in database
 | Title       | Id |
 | Experience1 | 1  |
 When open page by url 'http://localhost:5656/#experience/create'
+And choose default template on create experience view
 And input 'text' into title edit area on create view
 And click back button on create view
 Then browser navigates to url 'http://localhost:5656/#experiences'

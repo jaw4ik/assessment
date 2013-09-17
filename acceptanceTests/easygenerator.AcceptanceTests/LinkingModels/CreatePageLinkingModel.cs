@@ -22,6 +22,10 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string CharsCount = ".//div[contains(@class,'text-block')]//div[contains(@class,'chars-counter')]//span[1]";
         public string MaxCharsCount = ".//div[contains(@class,'text-block')]//div[contains(@class,'chars-counter')]//span[2]";
         
+        //CUD Experience
 
+        public string TemplateSelector = ".//div[contains(@class,'experience-template-selector')]";
+        public string DefaultTemplateSelector = ".//div[contains(@class,'experience-template-selector')]//ul//li[1]";
+        public string QuizTemplateSelector = ".//div[contains(@class,'experience-template-selector')]//ul//li[2]";
     }
 }

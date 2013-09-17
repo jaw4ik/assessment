@@ -134,12 +134,12 @@ testRunner.Then("edit title text block is empty on create view", ((string)(null)
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Buttons CreateAndEdit and CreateAndNew are disabled if title text is empty on cre" +
-            "ate experience view")]
-        public virtual void ButtonsCreateAndEditAndCreateAndNewAreDisabledIfTitleTextIsEmptyOnCreateExperienceView()
+        [NUnit.Framework.DescriptionAttribute("Buttons CreateAndEdit and CreateAndNew are disabled if template is choosen but ti" +
+            "tle text is empty on create experience view")]
+        public virtual void ButtonsCreateAndEditAndCreateAndNewAreDisabledIfTemplateIsChoosenButTitleTextIsEmptyOnCreateExperienceView()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Buttons CreateAndEdit and CreateAndNew are disabled if title text is empty on cre" +
-                    "ate experience view", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Buttons CreateAndEdit and CreateAndNew are disabled if template is choosen but ti" +
+                    "tle text is empty on create experience view", ((string[])(null)));
 #line 27
 this.ScenarioSetup(scenarioInfo);
 #line 10
@@ -147,33 +147,60 @@ this.FeatureBackground();
 #line 28
 testRunner.When("open page by url \'http://localhost:5656/#experience/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 29
-testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("choose default template on create experience view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 30
-testRunner.When("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 31
-testRunner.And("clear edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 32
+testRunner.And("clear edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 33
 testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Buttons CreateAndEdit and CreateAndNew are enabled if title text is not empty on " +
-            "create experience view")]
-        public virtual void ButtonsCreateAndEditAndCreateAndNewAreEnabledIfTitleTextIsNotEmptyOnCreateExperienceView()
+        [NUnit.Framework.DescriptionAttribute("Buttons CreateAndEdit and CreateAndNew are disabled if title text is not empty bu" +
+            "t template is not choosen on create experience view")]
+        public virtual void ButtonsCreateAndEditAndCreateAndNewAreDisabledIfTitleTextIsNotEmptyButTemplateIsNotChoosenOnCreateExperienceView()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Buttons CreateAndEdit and CreateAndNew are enabled if title text is not empty on " +
-                    "create experience view", ((string[])(null)));
-#line 34
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Buttons CreateAndEdit and CreateAndNew are disabled if title text is not empty bu" +
+                    "t template is not choosen on create experience view", ((string[])(null)));
+#line 35
 this.ScenarioSetup(scenarioInfo);
 #line 10
 this.FeatureBackground();
-#line 35
-testRunner.When("open page by url \'http://localhost:5656/#experience/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 36
-testRunner.And("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#experience/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 37
+testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 38
+testRunner.When("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 39
+testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Buttons CreateAndEdit and CreateAndNew are enabled if template is choosen and tit" +
+            "le text is not empty on create experience view")]
+        public virtual void ButtonsCreateAndEditAndCreateAndNewAreEnabledIfTemplateIsChoosenAndTitleTextIsNotEmptyOnCreateExperienceView()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Buttons CreateAndEdit and CreateAndNew are enabled if template is choosen and tit" +
+                    "le text is not empty on create experience view", ((string[])(null)));
+#line 41
+this.ScenarioSetup(scenarioInfo);
+#line 10
+this.FeatureBackground();
+#line 42
+testRunner.When("open page by url \'http://localhost:5656/#experience/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 43
+testRunner.And("choose default template on create experience view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 44
+testRunner.And("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 45
 testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled true on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -184,15 +211,15 @@ testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled true on crea
         public virtual void BackActionOnCreateExperienceViewNavigatesBackToExperiencesListPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Back action on create experience view navigates back to experiences list page", ((string[])(null)));
-#line 39
+#line 47
 this.ScenarioSetup(scenarioInfo);
 #line 10
 this.FeatureBackground();
-#line 40
+#line 48
 testRunner.When("open page by url \'http://localhost:5656/#experience/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 41
+#line 49
 testRunner.And("click back button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 42
+#line 50
 testRunner.Then("browser navigates to url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -205,13 +232,13 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#experiences\'
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Max allowed chars count is shown in edit title text block on create view from the" +
                     " beginning", ((string[])(null)));
-#line 44
+#line 52
 this.ScenarioSetup(scenarioInfo);
 #line 10
 this.FeatureBackground();
-#line 45
+#line 53
 testRunner.When("open page by url \'http://localhost:5656/#experience/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 46
+#line 54
 testRunner.Then("max chars count \'255\' is shown in chars counter on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -224,17 +251,17 @@ testRunner.Then("max chars count \'255\' is shown in chars counter on create vie
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("correct input chars count and max chars count are shown in edit title text block " +
                     "on create view", ((string[])(null)));
-#line 48
+#line 56
 this.ScenarioSetup(scenarioInfo);
 #line 10
 this.FeatureBackground();
-#line 49
+#line 57
 testRunner.When("open page by url \'http://localhost:5656/#experience/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 50
+#line 58
 testRunner.And("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 51
+#line 59
 testRunner.Then("chars count \'4\' is shown in chars counter on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 52
+#line 60
 testRunner.And("max chars count \'255\' is shown in chars counter on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -245,21 +272,23 @@ testRunner.And("max chars count \'255\' is shown in chars counter on create view
         public virtual void NotPossibleToSaveMoreThan255CharractersInTitleTextOnCreateView()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Not possible to save more than 255 charracters in title text on create view", ((string[])(null)));
-#line 54
+#line 62
 this.ScenarioSetup(scenarioInfo);
 #line 10
 this.FeatureBackground();
-#line 55
+#line 63
 testRunner.When("open page by url \'http://localhost:5656/#experience/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 56
+#line 64
+testRunner.And("choose default template on create experience view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 65
 testRunner.And(@"input 'WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW WWW' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 57
+#line 66
 testRunner.Then("chars count \'256\' is shown in chars counter on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 58
+#line 67
 testRunner.And("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 59
+#line 68
 testRunner.And("title text block marked with error on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 60
+#line 69
 testRunner.And("chars counter marked with error on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -270,7 +299,7 @@ testRunner.And("chars counter marked with error on create view", ((string)(null)
         public virtual void ChangesAreNotSavedIfGoBackFromCreateView()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Changes are not saved if go back from create view", ((string[])(null)));
-#line 62
+#line 71
 this.ScenarioSetup(scenarioInfo);
 #line 10
 this.FeatureBackground();
@@ -281,22 +310,24 @@ this.FeatureBackground();
             table1.AddRow(new string[] {
                         "Experience1",
                         "1"});
-#line 63
+#line 72
 testRunner.Given("publications are present in database", ((string)(null)), table1, "Given ");
-#line 66
+#line 75
 testRunner.When("open page by url \'http://localhost:5656/#experience/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 67
+#line 76
+testRunner.And("choose default template on create experience view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 77
 testRunner.And("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 68
+#line 78
 testRunner.And("click back button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 69
+#line 79
 testRunner.Then("browser navigates to url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table2.AddRow(new string[] {
                         "Experience1"});
-#line 70
+#line 80
 testRunner.And("publications tiles list consists of ordered items", ((string)(null)), table2, "And ");
 #line hidden
             this.ScenarioCleanup();

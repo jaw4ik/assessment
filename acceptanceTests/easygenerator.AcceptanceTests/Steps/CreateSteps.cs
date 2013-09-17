@@ -107,7 +107,14 @@ namespace easygenerator.AcceptanceTests.Steps
             createPage.CreateAndNewButtonClick();
         }
 
-        
+        //CUD Experience
+
+        [When(@"choose default template on create experience view")]
+        public void WhenChooseDefaultTemplateOnCreateExperienceView()
+        {
+            createPage.DefaultTemplateSelectorClick();
+        }
+
 
     }
 }

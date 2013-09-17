@@ -109,5 +109,27 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             link.Click();
         }
 
+        internal void TemplateSelectorClick()
+        {
+            var link = GetByXPath(model.TemplateSelector);
+            link.Click();
+        }
+
+        internal void DefaultTemplateSelectorClick()
+        {
+            var link = GetByXPath(model.TemplateSelector);
+            link.Click();
+            var defaultLink = GetByXPath(model.DefaultTemplateSelector);
+            defaultLink.Click();
+        }
+
+        internal void QuizTemplateSelectorClick()
+        {
+            var link = GetByXPath(model.TemplateSelector);
+            link.Click();
+            var quizLink = GetByXPath(model.QuizTemplateSelector);
+            quizLink.Click();
+        }
+
     }
 }
