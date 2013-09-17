@@ -105,6 +105,24 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             var buildButton = GetByXPath(model.DownloadButton);
             buildButton.Click();
         }
-        
+
+
+        internal void EditExperienceTitleText(string newExperienceTitle)
+        {
+            var experienceTitle = GetByXPath(model.ExperienceTitle);
+            experienceTitle.Click();
+            experienceTitle.Clear();
+            experienceTitle.SendKeys(newExperienceTitle);
+        }
+
+        internal void ClearExperienceTitleText()
+        {
+            var experienceTitle = GetByXPath(model.ExperienceTitle);
+            experienceTitle.Click();
+            experienceTitle.Clear();
+        }
+
+
+
     }
 }

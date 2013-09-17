@@ -21,8 +21,8 @@ namespace easygenerator.AcceptanceTests.Steps
             this.experiencePage = experiencePage;
         }
 
-        [Then(@"'(.*)' title is shown in experiance page header")]
-        public void ThenTitleIsShownInExperiancePageHeader(string title)
+        [Then(@"'(.*)' title is shown in experience page header")]
+        public void ThenTitleIsShownInExperiencePageHeader(string title)
         {
             TestUtils.Assert_IsTrue_WithWait(() => experiencePage.ExperienceTitle == title, "Incorrect question title, shown title is " + experiencePage.ExperienceTitle);
         }
@@ -175,8 +175,21 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Element should be visible");
         }
 
+        //CUD Experience
 
-        
+        [Then(@"'(.*)' text is shown in back to experiences list link")]
+        public void ThenTextIsShownInBackToExperiencesListLink(string text)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() => experiencePage.BackToExperiencesLinkText.Contains(text),
+                "Incorrect text in back link");
+        }
+
+        [When(@"edit experience title with new text '(.*)' on experience page")]
+        public void WhenEditExperienceTitleWithNewTextOnExperiencePage(string experienceTitle)
+        {
+            experiencePage.EditExperienceTitleText(experienceTitle);
+        }
+
 
 
 

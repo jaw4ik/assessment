@@ -81,6 +81,68 @@ And publications tiles list consists of ordered items
 | Title       |
 | Experience1 |
 
+Scenario: Action CreateAndEdit navigates to newly created experience
+Given publications are present in database
+| Title       | Id |
+| Experience1 | 1  |
+| Experience2 | 2  |
+| Experience3 | 3  |
+When open page by url 'http://localhost:5656/#experience/create'
+And choose default template on create experience view
+And input 'Experience4' into title edit area on create view
+And click on create and edit button on create view
+Then browser navigates to url that contains 'http://localhost:5656/#experience/'
+And 'Experience4' title is shown in experience page header
+And 'Learning experiences' text is shown in back to experiences list link
 
+Scenario: Action CreateAndNew saves changes to newly created experience and navigates to new create experience view
+When open page by url 'http://localhost:5656/#experience/create'
+And choose default template on create experience view
+And input 'Experience1' into title edit area on create view
+And click on create and new button on create view
+Then browser navigates to url 'http://localhost:5656/#experience/create'
+When click back button on create view
+Then browser navigates to url 'http://localhost:5656/#experiences'
+And publications tiles list consists of ordered items
+| Title       |
+| Experience1 |
+
+Scenario: Several experiences can be created via CreateAndNew action
+When open page by url 'http://localhost:5656/#experience/create'
+And choose default template on create experience view
+And input 'Experience3' into title edit area on create view
+And click on create and new button on create view
+And choose default template on create experience view
+And input 'Experience1' into title edit area on create view
+And click on create and new button on create view
+And choose default template on create experience view
+And input 'Experience2' into title edit area on create view
+And click on create and new button on create view
+And click back button on create view
+Then browser navigates to url 'http://localhost:5656/#experiences'
+And publications tiles list consists of ordered items
+| Title       |
+| Experience1 |
+| Experience2 |
+| Experience3 |
+
+Scenario: Special symbols could be entered into title edit area on create view and saved
+When open page by url 'http://localhost:5656/#experience/create'
+And choose default template on create experience view
+And input '~`!@#$%^&*()_+-={[]}:;"'|\<,.>/?№ё' into title edit area on create view
+And click on create and edit button on create view
+Then browser navigates to url that contains 'http://localhost:5656/#experience/'
+And '~`!@#$%^&*()_+-={[]}:;"'|\<,.>/?№ё' title is shown in experience page header
+
+Scenario: It is possible to edit experience title on experience page
+Given publications are present in database
+| Title       | Id |
+| Experience1 | 1  |
+When open page by url 'http://localhost:5656/#experience/1'
+And edit experience title with new text 'Experience2' on experience page
+And click on back to experiences
+Then publications tiles list consists of ordered items
+| Title       |
+| Experience2 |
 
 

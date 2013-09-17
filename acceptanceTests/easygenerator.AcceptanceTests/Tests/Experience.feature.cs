@@ -103,7 +103,7 @@ this.FeatureBackground();
 #line 15
 testRunner.When("open page by url \'http://localhost:5656/#/experience/2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 16
-testRunner.Then("\'Experience2\' title is shown in experiance page header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("\'Experience2\' title is shown in experience page header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

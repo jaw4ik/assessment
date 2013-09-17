@@ -13,7 +13,7 @@ Given publications are present in database
 
 Scenario: Experience title is shown in experiance page header
 When open page by url 'http://localhost:5656/#/experience/2'
-Then 'Experience2' title is shown in experiance page header
+Then 'Experience2' title is shown in experience page header
 
 Scenario: All related objectives should be present in list
 Given objectives are present in database

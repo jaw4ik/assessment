@@ -332,6 +332,192 @@ testRunner.And("publications tiles list consists of ordered items", ((string)(nu
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Action CreateAndEdit navigates to newly created experience")]
+        public virtual void ActionCreateAndEditNavigatesToNewlyCreatedExperience()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Action CreateAndEdit navigates to newly created experience", ((string[])(null)));
+#line 84
+this.ScenarioSetup(scenarioInfo);
+#line 10
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table3.AddRow(new string[] {
+                        "Experience1",
+                        "1"});
+            table3.AddRow(new string[] {
+                        "Experience2",
+                        "2"});
+            table3.AddRow(new string[] {
+                        "Experience3",
+                        "3"});
+#line 85
+testRunner.Given("publications are present in database", ((string)(null)), table3, "Given ");
+#line 90
+testRunner.When("open page by url \'http://localhost:5656/#experience/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 91
+testRunner.And("choose default template on create experience view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 92
+testRunner.And("input \'Experience4\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 93
+testRunner.And("click on create and edit button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 94
+testRunner.Then("browser navigates to url that contains \'http://localhost:5656/#experience/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 95
+testRunner.And("\'Experience4\' title is shown in experience page header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 96
+testRunner.And("\'Learning experiences\' text is shown in back to experiences list link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Action CreateAndNew saves changes to newly created experience and navigates to ne" +
+            "w create experience view")]
+        public virtual void ActionCreateAndNewSavesChangesToNewlyCreatedExperienceAndNavigatesToNewCreateExperienceView()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Action CreateAndNew saves changes to newly created experience and navigates to ne" +
+                    "w create experience view", ((string[])(null)));
+#line 98
+this.ScenarioSetup(scenarioInfo);
+#line 10
+this.FeatureBackground();
+#line 99
+testRunner.When("open page by url \'http://localhost:5656/#experience/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 100
+testRunner.And("choose default template on create experience view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 101
+testRunner.And("input \'Experience1\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 102
+testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 103
+testRunner.Then("browser navigates to url \'http://localhost:5656/#experience/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 104
+testRunner.When("click back button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 105
+testRunner.Then("browser navigates to url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table4.AddRow(new string[] {
+                        "Experience1"});
+#line 106
+testRunner.And("publications tiles list consists of ordered items", ((string)(null)), table4, "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Several experiences can be created via CreateAndNew action")]
+        public virtual void SeveralExperiencesCanBeCreatedViaCreateAndNewAction()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Several experiences can be created via CreateAndNew action", ((string[])(null)));
+#line 110
+this.ScenarioSetup(scenarioInfo);
+#line 10
+this.FeatureBackground();
+#line 111
+testRunner.When("open page by url \'http://localhost:5656/#experience/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 112
+testRunner.And("choose default template on create experience view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 113
+testRunner.And("input \'Experience3\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 114
+testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 115
+testRunner.And("choose default template on create experience view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 116
+testRunner.And("input \'Experience1\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 117
+testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 118
+testRunner.And("choose default template on create experience view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 119
+testRunner.And("input \'Experience2\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 120
+testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 121
+testRunner.And("click back button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 122
+testRunner.Then("browser navigates to url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table5.AddRow(new string[] {
+                        "Experience1"});
+            table5.AddRow(new string[] {
+                        "Experience2"});
+            table5.AddRow(new string[] {
+                        "Experience3"});
+#line 123
+testRunner.And("publications tiles list consists of ordered items", ((string)(null)), table5, "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Special symbols could be entered into title edit area on create view and saved")]
+        public virtual void SpecialSymbolsCouldBeEnteredIntoTitleEditAreaOnCreateViewAndSaved()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Special symbols could be entered into title edit area on create view and saved", ((string[])(null)));
+#line 129
+this.ScenarioSetup(scenarioInfo);
+#line 10
+this.FeatureBackground();
+#line 130
+testRunner.When("open page by url \'http://localhost:5656/#experience/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 131
+testRunner.And("choose default template on create experience view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 132
+testRunner.And("input \'~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 133
+testRunner.And("click on create and edit button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 134
+testRunner.Then("browser navigates to url that contains \'http://localhost:5656/#experience/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 135
+testRunner.And("\'~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё\' title is shown in experience page header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("It is possible to edit experience title on experience page")]
+        public virtual void ItIsPossibleToEditExperienceTitleOnExperiencePage()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("It is possible to edit experience title on experience page", ((string[])(null)));
+#line 137
+this.ScenarioSetup(scenarioInfo);
+#line 10
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table6.AddRow(new string[] {
+                        "Experience1",
+                        "1"});
+#line 138
+testRunner.Given("publications are present in database", ((string)(null)), table6, "Given ");
+#line 141
+testRunner.When("open page by url \'http://localhost:5656/#experience/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 142
+testRunner.And("edit experience title with new text \'Experience2\' on experience page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 143
+testRunner.And("click on back to experiences", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table7.AddRow(new string[] {
+                        "Experience2"});
+#line 144
+testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table7, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
