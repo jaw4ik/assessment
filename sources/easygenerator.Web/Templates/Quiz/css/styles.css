@@ -188,7 +188,7 @@ html, body, .application-wrapper {
 }
 
 body {
-    min-width: 620px;
+    min-width: 500px;
     background-image: url(../img/bg.png);
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -210,6 +210,7 @@ body {
 .header {
     height: 40px;
     width: 100%;
+    min-width: 620px;
     background-color: #353c3e;
     border-bottom: 3px solid #000000;
 }
