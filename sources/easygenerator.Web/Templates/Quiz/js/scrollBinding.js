@@ -12,6 +12,7 @@
 
     update: function (element, valueAccessor, allBindingsAccessor) {
         var props = allBindingsAccessor().scrollOptions;
+        console.log(allBindingsAccessor().scrollOptions);
         var offset = props.offset ? props.offset : "0";
         var loadFunc = props.loadFunc;
         var load = ko.utils.unwrapObservable(valueAccessor());
@@ -19,9 +20,8 @@
         if (load) {
             element.style.display = "";
             $(window).on("scroll.ko.scrollHandler", function() {
-                if (($(document).height() - offset <= $(window).height() + $(window).scrollTop())) {
+                if (($(document).height() - 100 <= $(window).height() + $(window).scrollTop())) {
                     if (self.updating) {
-                        alert('end');
                         loadFunc();
                         self.updating = false;
                     }
