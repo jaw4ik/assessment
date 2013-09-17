@@ -212,6 +212,11 @@ namespace easygenerator.AcceptanceTests.Steps
                 "chars counter is not marked with error");
         }
 
+        [When(@"click on experience header title text on experience page")]
+        public void WhenClickOnExperienceHeaderTitleTextOnExperiencePage()
+        {
+            experiencePage.ExperienceHeaderTitleTextClick();
+        }
 
 
 

@@ -137,5 +137,10 @@ namespace easygenerator.AcceptanceTests.ElementObjects
                 return GetByXPath(model.CharsCounter).CssContains("error");
             }
         }
+
+        internal void ExperienceHeaderTitleTextClick()
+        {
+            GetByXPath(model.ExperienceHeaderTitleText).Click();
+        }
     }
 }

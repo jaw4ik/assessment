@@ -140,6 +140,8 @@ Given publications are present in database
 | Experience1 | 1  |
 When open page by url 'http://localhost:5656/#experience/1'
 And edit experience title with new text 'Experience2' on experience page
+And click on experience header title text on experience page
+And sleep 1000 milliseconds
 And click on back to experiences
 Then publications tiles list consists of ordered items
 | Title       |

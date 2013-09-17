@@ -23,5 +23,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string DownloadButton = "//div[contains(@data-bind,'click: downloadExperience')]";
 
         public string CharsCounter = ".//div[contains(@class, 'view-header-title')]//div[contains(@class, 'chars-counter')]";
+
+        public string ExperienceHeaderTitleText = ".//span[contains(@class,'experience-header-title-text')]";
     }
 }
