@@ -2,43 +2,44 @@
     <div class="page-title-holder">
         <h1 class="page-title selectable" data-bind="text: titleOfExperience"></h1>
     </div>
+    <div data-bind="scroll: !(itemsQuestion().length == questions.length), scrollOptions: { loadFunc: getItems, offset: 100 }">
+        <ul class="content-list-wrapper unstyled">
+            <!-- ko foreach: itemsQuestion -->
+            <li class="content-holder" data-bind="attr: { id: '' + objectiveId + id }">
+                <header class="content-header question-header">
+                    <div class="content-header-inner">
+                        <div class="question-counter">
+                            <span data-bind="text: number + ' of ' + $parent.countOfQuestions()"></span>
+                        </div>
+                        <div class="content-title question-text">
+                            <span class="selectable" data-bind="text: title"></span>
+                        </div>
+                        <div class="question-explanation" data-bind="click: $parent.showExplanations">
+                            <span class="question-explanation-icon"></span>
+                        </div>
+                    </div>
+                </header>
 
-    <ul class="content-list-wrapper unstyled">
-        <!-- ko foreach: itemsQuestion -->
-        <li class="content-holder" data-bind="attr: { id: '' + objectiveId + id }">
-            <header class="content-header question-header">
-                <div class="content-header-inner">
-                    <div class="question-counter">
-                        <span data-bind="text: number + ' of ' + $parent.countOfQuestions()"></span>
-                    </div>
-                    <div class="content-title question-text">
-                        <span class="selectable" data-bind="text: title"></span>
-                    </div>
-                    <div class="question-explanation" data-bind="click: $parent.showExplanations">
-                        <span class="question-explanation-icon"></span>
-                    </div>
-                </div>
-            </header>
-
-            <ul class="content-block unstyled">
-                <!-- ko foreach: answers -->
-                <li class="question-answer" data-bind="click: toggleCheck">
-                    <div>
-                        <a class="question-answer-checkbox" data-bind="css: { checked: isChecked() }">
-                            <input class="custom-checkbox" type="checkbox"/>
-                        </a>
-                    </div>
-                    <div>
-                        <span class="selectable" data-bind="text: text"></span>
-                    </div>
-                </li>
-                <!-- /ko -->
-            </ul>
-        </li>
-        <!-- /ko -->
-    </ul>
+                <ul class="content-block unstyled">
+                    <!-- ko foreach: answers -->
+                    <li class="question-answer" data-bind="click: toggleCheck">
+                        <div>
+                            <a class="question-answer-checkbox" data-bind="css: { checked: isChecked() }">
+                                <input class="custom-checkbox" type="checkbox" />
+                            </a>
+                        </div>
+                        <div>
+                            <span class="selectable" data-bind="text: text"></span>
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+            </li>
+            <!-- /ko -->
+        </ul>
+    </div>
     <div class="question-submit" data-bind="visible: isEndScroll()">
         <a class="btn default justified" data-bind="click: submit">Submit</a>
     </div>
-    <div data-bind="scroll: !(itemsQuestion().length == questions.length), scrollOptions: { loadFunc: getItems, offset: 50 }"></div>
+
 </section>
