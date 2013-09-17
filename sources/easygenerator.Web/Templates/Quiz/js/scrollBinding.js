@@ -20,8 +20,8 @@
             element.style.display = "";
             $(window).on("scroll.ko.scrollHandler", function() {
                 if (($(document).height() - offset <= $(window).height() + $(window).scrollTop())) {
-                    alert(end);
                     if (self.updating) {
+                        alert('end');
                         loadFunc();
                         self.updating = false;
                     }
