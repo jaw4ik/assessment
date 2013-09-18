@@ -2,12 +2,13 @@
     function (app, router, routes, datacontext, localizationManager, eventTracker) {
         var
             events = {
-                navigateToExperiences: "Navigate to Experiences",
+                navigateToExperiences: "Navigate to experiences",
                 navigateToObjectives: 'Navigate to objectives'
             },
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName);
             };
+        
         var
             experiencesModule = 'experiences',
             objectivesModule = 'objectives',
