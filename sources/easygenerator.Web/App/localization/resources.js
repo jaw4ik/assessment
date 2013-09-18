@@ -104,7 +104,7 @@
     notBuilt: {
         en: 'Not built',
         nl: 'Niet samengesteld',
-        de: 'Nicht erstellt'
+        de: 'Nicht zusammengestellt'
     },
     delete: {
         en: 'Delete',
@@ -647,6 +647,16 @@
         en: 'Include selected learning objective(s)',
         nl: 'Geselecteerde leerdoelen opnemen',
         de: 'Ausgewählte Lernziele einschließen'
+    },
+    createObjectiveFromExperience: {
+        en: 'Create objective',
+        nl: 'Create objective[nl]',
+        de: 'Create objective[de]'
+    },
+    createObjectiveTipFromexperience: {
+        en: 'Click to add learning objective',
+        nl: 'Click to add learning objective[nl]',
+        de: 'Click to add learning objective[de]'
     },
     /* End resource section for model Display experience */
     
