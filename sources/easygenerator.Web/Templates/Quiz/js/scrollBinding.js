@@ -20,9 +20,7 @@
             element.style.display = "";
             $(window).on("scroll.ko.scrollHandler", function() {
                 if (($(document).height() - offset <= $(window).height() + $(window).scrollTop())) {
-                    alert('scrollEnd');
                     if (self.updating) {
-                        alert('scrollReset');
                         loadFunc();
                         self.updating = false;
                     }
