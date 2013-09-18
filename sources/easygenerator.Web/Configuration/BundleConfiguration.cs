@@ -9,8 +9,6 @@ namespace easygenerator.Web.Configuration
             var bundles = BundleTable.Bundles;
             bundles.IgnoreList.Clear();
 
-            bundles.IgnoreList.Ignore("~/scripts/jquery.autosize.js", OptimizationMode.WhenDisabled);
-
             bundles.Add(new ScriptBundle("~/scripts/modernizr")
                  .Include("~/scripts/modernizr-{version}.js"));
 
