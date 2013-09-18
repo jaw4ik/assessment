@@ -317,6 +317,13 @@ namespace easygenerator.AcceptanceTests.Steps
             publicationsPage.DeleteButtonClick();
         }
 
+        [Then(@"error notification is displayed (.*) on experiences list page")]
+        public void ThenErrorNotificationIsDisplayedOnExperiencesListPage(bool isDisplayed)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                publicationsPage.ErrorNotificationIsShown == isDisplayed,
+                "error notification is not shown");
+        }
 
         
 

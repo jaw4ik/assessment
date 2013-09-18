@@ -142,5 +142,28 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             GetByXPath(model.ExperienceHeaderTitleText).Click();
         }
+
+        internal void IncludeButtonClick()
+        {
+            GetByXPath(model.IncludeButton).Click();
+        }
+
+        internal void FinishButtonClick()
+        {
+            GetByXPath(model.FinishButton).Click();
+        }
+        
+        internal void ExcludeButtonClick()
+        {
+            GetByXPath(model.ExcludeButton).Click();
+        }
+
+        public bool ExcludeButtonIsEnabled
+        {
+            get
+            {
+                return ExistsOnPage(model.ExcludeButton);
+            }
+        }
     }
 }

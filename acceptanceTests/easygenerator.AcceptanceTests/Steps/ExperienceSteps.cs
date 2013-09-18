@@ -218,6 +218,33 @@ namespace easygenerator.AcceptanceTests.Steps
             experiencePage.ExperienceHeaderTitleTextClick();
         }
 
+        //include objectives
+
+        [When(@"click on include button on experience page")]
+        public void WhenClickOnIncludeButtonOnExperiencePage()
+        {
+            experiencePage.IncludeButtonClick();
+        }
+
+        [When(@"click on finish button on experience page")]
+        public void WhenClickOnFinishButtonOnExperiencePage()
+        {
+            experiencePage.FinishButtonClick();
+        }
+
+        [When(@"click on exclude button on experience page")]
+        public void WhenClickOnExcludeButtonOnExperiencePage()
+        {
+            experiencePage.ExcludeButtonClick();
+        }
+
+        [Then(@"exclude button is enabled (.*) on experience page")]
+        public void ThenExcludeButtonIsEnabledOnExperiencePage(bool isEnabled)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                experiencePage.ExcludeButtonIsEnabled == isEnabled,
+                "incorrect exclude button visibility");
+        }
 
 
     }

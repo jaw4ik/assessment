@@ -20,5 +20,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 
         public string AddNewExperienceButton = ".//a[contains(@class,'experiences-header-create-link')]";
         public string DeleteButton = ".//span[contains(@class, 'header-toolbar-item-wrapper')]";
+
+        public string Notification = ".//div[contains(@class,'notification-container')]//div[contains(@class,'notification')]";
     }
 }

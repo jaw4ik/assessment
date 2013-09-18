@@ -93,5 +93,18 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             GetByXPath(model.DeleteButton).Click();
         }
+
+        public bool ErrorNotificationIsShown
+        {
+            get
+            {
+                if (ExistsOnPage(model.Notification))
+                {
+                    var tmp = GetByXPath(model.Notification).CssContains("error");
+                    return tmp;
+                }
+                return false;
+            }
+        }
     }
 }

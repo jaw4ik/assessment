@@ -207,6 +207,14 @@ namespace easygenerator.AcceptanceTests.Steps
             objectivesPage.DeleteButtonClick();
         }
 
+        [Then(@"error notification is displayed (.*) on objectives list page")]
+        public void ThenErrorNotificationIsDisplayedOnObjectivesListPage(bool isDisplayed)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                objectivesPage.ErrorNotificationIsShown == isDisplayed,
+                "error notification is not shown");
+        }
+
         
     }
 }

@@ -21,6 +21,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 
         public string AddNewObjectiveButton = ".//a[contains(@class,'objectives-header-create-link')]";
         public string DeleteButton = ".//div[contains(@class,'objectives-header-title')]//span[contains(@class,'header-toolbar-item-wrapper')]";
+        public string Notification = ".//div[contains(@class,'notification-container')]//div[contains(@class,'notification')]";
 
     }
 }
