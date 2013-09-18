@@ -324,7 +324,7 @@
 
                 it('should send event \'Navigate to Objective details\'', function () {
                     viewModel.navigateToObjectiveDetails({ id: 1 });
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Objective details');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objective details');
                 });
 
 
@@ -403,6 +403,24 @@
                         expect(objective.isSelected()).toBeTruthy();
                     });
 
+                });
+
+            });
+
+            describe('navigateToCreateObjective', function() {
+
+                it('should be function', function() {
+                    expect(viewModel.navigateToCreateObjective).toBeFunction();
+                });
+
+                it('should send event \'Navigate to create objective\'', function () {
+                    viewModel.navigateToCreateObjective();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to create objective');
+                });
+
+                it('should navigate to objective/create', function () {
+                    viewModel.navigateToCreateObjective();
+                    expect(router.navigate).toHaveBeenCalledWith('objective/create');
                 });
 
             });

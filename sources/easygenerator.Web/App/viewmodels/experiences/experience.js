@@ -12,7 +12,8 @@
                 navigateToExperiences: 'Navigate to experiences',
                 navigateToNextExperience: 'Navigate to next experience',
                 navigateToPreviousExperience: 'Navigate to previous experience',
-                navigateToObjectiveDetails: 'Navigate to Objective details',
+                navigateToObjectiveDetails: 'Navigate to objective details',
+                navigateToCreateObjective: 'Navigate to create objective',
                 selectObjective: 'Select Objective',
                 unselectObjective: 'Unselect Objective',
                 updateExperienceTitle: 'Update experience title',
@@ -132,6 +133,11 @@
             }
 
             router.navigate('objective/' + objective.id);
+        },
+
+        navigateToCreateObjective = function() {
+            sendEvent(events.navigateToCreateObjective);
+            router.navigate('objective/create');
         },
 
         //#endregion Navigation
@@ -404,6 +410,7 @@
             navigateToNextExperience: navigateToNextExperience,
             navigateToPreviousExperience: navigateToPreviousExperience,
             navigateToObjectiveDetails: navigateToObjectiveDetails,
+            navigateToCreateObjective: navigateToCreateObjective,
 
             toggleObjectiveSelection: toggleObjectiveSelection,
             unrelateSelectedObjectives: unrelateSelectedObjectives,

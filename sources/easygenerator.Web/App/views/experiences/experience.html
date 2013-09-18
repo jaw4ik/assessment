@@ -82,7 +82,7 @@
                 </div>
             </div>
             <div class="entity-actions">
-                <div class="experience-template-selector" data-bind="selectBox: { options: templates, optionsText: 'name', optionsValue: 'id', value: template.id }, event: {change: updateExperienceTemplate }"></div>
+                <div class="experience-template-selector" data-bind="selectBox: { options: templates, optionsText: 'name', optionsValue: 'id', value: template.id }, event: { change: updateExperienceTemplate }"></div>
             </div>
         </div>
 
@@ -96,29 +96,36 @@
 
 
     <!-- ko if: objectivesMode() == objectivesListModes.display -->
-        <div class="experience-related-objectives-header">
-            <a class="experiences-header-create-link" data-bind="click: startAppendingObjectives, localize: { title: 'relateObjectives' }"></a>
-            <span class="experience-header-title-text" data-bind="localize: { text: 'relatedLearningObjectives' }">Related learning objectives</span>
-            <!-- ko if: canUnrelateObjectives() -->
-            <span class="header-toolbar-item-wrapper" data-bind="click: unrelateSelectedObjectives, localize: { title: 'unrelateObjectives' }">
-                <span class="toolbar-unrelate"></span>
-            </span>
-            <!-- /ko -->
-            <hr />
-        </div>
+    <div class="experience-related-objectives-header">
+        <a class="experiences-header-create-link" data-bind="click: startAppendingObjectives, localize: { title: 'relateObjectives' }"></a>
+        <span class="experience-header-title-text" data-bind="localize: { text: 'relatedLearningObjectives' }">Related learning objectives</span>
+        <!-- ko if: canUnrelateObjectives() -->
+        <span class="header-toolbar-item-wrapper" data-bind="click: unrelateSelectedObjectives, localize: { title: 'unrelateObjectives' }">
+            <span class="toolbar-unrelate"></span>
+        </span>
+        <!-- /ko -->
+        <hr />
+    </div>
     <!-- /ko -->
-    
+
     <!-- ko if: objectivesMode() == objectivesListModes.appending -->
-        <div class="experience-related-objectives-header">
+    <div class="experience-header clearfix">
+        <div class="experiences-header-title">
             <a class="experiences-header-finish-link" data-bind="click: finishAppendingObjectives, localize: { title: 'finishRelating' }"></a>
-            <span class="experience-header-title-text" data-bind="localize: { text: 'finish' }">Finish</span>
+            <span class="experiences-header-title-text" data-bind="localize: { text: 'finish' }"></span>
             <hr />
         </div>
+        <div class="experiences-header-create-objective-wrapper">
+            <span class="experience-create-objective" data-bind="localize: { text: 'createObjectiveFromExperience' }"></span>
+            <span class="experience-create-objective-image" data-bind="click: navigateToCreateObjective"></span>
+        </div>
+    </div>
+
     <!-- /ko -->
 
     <!-- ko if: (objectivesMode() == objectivesListModes.display && relatedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->
     <div class="content-list-wrapper">
-        
+
         <div class="hint-popup-holder" data-bind="visible: hintPopup.displayed">
             <!-- ko compose: {
                 view: 'views/common/hintpopup',
@@ -187,6 +194,8 @@
     <!-- /ko -->
 
     <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
+    <!-- ko compose: { view: 'views/common/createtip', model: { text: 'createObjectiveTipFromexperience' } } -->
+    <!-- /ko -->
     <div class="empty-list-wrapper">
         <div class="empty-list">
             <div class="empty-list-text" data-bind="localize: { text: 'noObjectivesForRelating' }"></div>

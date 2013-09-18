@@ -210,14 +210,48 @@
         display: inline-block;
         vertical-align: middle;
     }
+    .experience-related-objectives-header .experience-header-title-text {
+        padding-right: 14px;
+    }
 
     .experience-related-objectives-header hr {
         width: 100%;
     }
+.experience-create-objective
+{
+    font-size: 14px;
+    padding-right: 40px;
+    cursor: default;
+}
+.experience-create-objective-image
+{
+    width: 32px;
+    height: 32px;
+    background: url('images/small_icons.png') -1px 32px;
+    position: absolute;
+    top: 15px;
+    right: 0px;
+}
 
-.experience-header-title-text {
-    margin-right: 15px;
-    margin-left: 5px;
+.experiences-header-create-objective-wrapper {
+    color: #666;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    padding-left: 10px;
+    position: relative;
+    display: table-cell;
+    white-space: nowrap;
+}
+.experience .experience-header {
+    margin-top: 35px;
+    margin-bottom: 10px;
+    padding: 0;
+    height: auto;
+    text-transform: uppercase;
+}
+
+.experience .experiences-header-title-text {
+    padding-right: 15px;
 }
 
 .experiences-header-finish-link {
@@ -565,4 +599,11 @@
 
 /*#endregion Template selector*/
 
+/*#region tip for add new learning objective*/
 
+.experience .create-tip {
+    right: 100px;
+    top: 250px;
+}
+
+/*#endregion tip for add new learning objective*/

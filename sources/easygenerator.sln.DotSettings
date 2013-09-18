@@ -120,9 +120,9 @@ runs(function () {&#xD;
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=9A4560FDAD15C74AB6702DB9EC2A8882/Scope/=FFA15E6CFCBE90499C572A859225B012/Type/@EntryValue">InJavaScriptFile</s:String>
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=9A4560FDAD15C74AB6702DB9EC2A8882/Shortcut/@EntryValue">itnavigate</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=9A4560FDAD15C74AB6702DB9EC2A8882/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
-	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=9A4560FDAD15C74AB6702DB9EC2A8882/Text/@EntryValue">it('should navigate to #/$URL$', function () {&#xD;
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=9A4560FDAD15C74AB6702DB9EC2A8882/Text/@EntryValue">it('should navigate to $URL$', function () {&#xD;
     viewModel.$METHOD_NAME$();&#xD;
-    expect(router.navigateTo).toHaveBeenCalledWith('#/$URL$');&#xD;
+    expect(router.navigate).toHaveBeenCalledWith('$URL$');&#xD;
 });</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADE0B39FE551014B8EFC116C9E2223D3/@KeyIndexDefined">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=ADE0B39FE551014B8EFC116C9E2223D3/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
