@@ -2,7 +2,7 @@
     <div class="page-title-holder">
         <h1 class="page-title selectable" data-bind="text: titleOfExperience"></h1>
     </div>
-    <div data-bind="scroll: !(itemsQuestion().length == questions.length), scrollOptions: { loadFunc: getItems, offset: 100 }">
+    <div data-bind="scroll: !(itemsQuestion().length == questions.length), scrollOptions: { loadFunc: getItems, offset: 200 }">
         <ul class="content-list-wrapper unstyled">
             <!-- ko foreach: itemsQuestion -->
             <li class="content-holder" data-bind="attr: { id: '' + objectiveId + id }">
