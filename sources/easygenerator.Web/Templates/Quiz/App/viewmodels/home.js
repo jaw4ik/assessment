@@ -2,7 +2,7 @@
 
     var objectives = [],
         questions = [],
-        step = 3,
+        step = 5,
         maxId = 0,
         countQuestionsLoaded = step,
         scrollId = '0',
