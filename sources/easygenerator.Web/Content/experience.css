@@ -222,6 +222,7 @@
     font-size: 14px;
     padding-right: 40px;
     cursor: default;
+    display: inline-block
 }
 .experience-create-objective-image
 {
@@ -229,7 +230,7 @@
     height: 32px;
     background: url('images/small_icons.png') -1px 32px;
     position: absolute;
-    top: 15px;
+    top: -6px;
     right: 0px;
 }
 
@@ -238,9 +239,11 @@
     font-size: 12px;
     font-family: Arial, sans-serif;
     padding-left: 10px;
-    position: relative;
     display: table-cell;
     white-space: nowrap;
+}
+.experiences-header-create-objective-wrapper .experiences-header-create-objective-block {
+    position: relative;
 }
 .experience .experience-header {
     margin-top: 35px;
