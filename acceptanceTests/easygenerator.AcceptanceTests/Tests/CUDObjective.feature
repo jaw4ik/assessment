@@ -184,3 +184,19 @@ Then objectives tiles list consists of ordered items
 | Objective1 |
 | Objective3 |
 
+Scenario: Objective can not be deleted if it contains questions
+Given objectives are present in database
+| Title      | Id |
+| Objective1 | 1  |
+Given questions related to 'Objective1' are present in database
+| Title     | Id |
+| Question1 | 1  |
+When open page by url 'http://localhost:5656/#objectives'
+And mouse hover element of objectives list with title 'Objective1'
+And select objective list item with title 'Objective1'
+And click on delete button on objectives list page
+Then error notification is displayed true on objectives list page
+And objectives tiles list consists of ordered items
+| Title      |
+| Objective1 |
+

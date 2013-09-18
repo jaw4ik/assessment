@@ -641,6 +641,54 @@ testRunner.Then("objectives tiles list consists of ordered items", ((string)(nul
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Objective can not be deleted if it contains questions")]
+        public virtual void ObjectiveCanNotBeDeletedIfItContainsQuestions()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Objective can not be deleted if it contains questions", ((string[])(null)));
+#line 187
+this.ScenarioSetup(scenarioInfo);
+#line 8
+this.FeatureBackground();
+#line hidden
+            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table15.AddRow(new string[] {
+                        "Objective1",
+                        "1"});
+#line 188
+testRunner.Given("objectives are present in database", ((string)(null)), table15, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table16.AddRow(new string[] {
+                        "Question1",
+                        "1"});
+#line 191
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table16, "Given ");
+#line 194
+testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 195
+testRunner.And("mouse hover element of objectives list with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 196
+testRunner.And("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 197
+testRunner.And("click on delete button on objectives list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 198
+testRunner.Then("error notification is displayed true on objectives list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title"});
+            table17.AddRow(new string[] {
+                        "Objective1"});
+#line 199
+testRunner.And("objectives tiles list consists of ordered items", ((string)(null)), table17, "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
