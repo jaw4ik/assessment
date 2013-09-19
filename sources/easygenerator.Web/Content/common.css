@@ -212,6 +212,7 @@ COMMON CLASSES CSS-STYLES
 .image-preloader {
     height: 1px;
     width: 1px;
+    position: absolute;
     overflow: hidden;
     visibility: hidden;
 }
