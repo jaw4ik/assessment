@@ -295,7 +295,7 @@
     margin-top: 10px;
     width: 58px;
     height: 58px;
-    background-image: url('images/options_icons.png');
+    background-image: url('images/objexp-sprite.png');
     opacity: 0.75;
 }
 
@@ -304,11 +304,11 @@
 }
 
 .experience-brief-options-complete-image {
-    background-position: 0 -61px;
+    background-position: -5px -485px;
 }
 
 .experience-brief-options-failed-image {
-    background-position: 0 -121px;
+    background-position: -5px -545px;
 }
 
 .experience-brief-title {

@@ -209,6 +209,10 @@ COMMON CLASSES CSS-STYLES
     user-select: text;
 }
 
+.image-preloader {
+    display: none;
+}
+
 /**
  *  Framing for images
  */
