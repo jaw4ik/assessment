@@ -38,8 +38,6 @@
 
                         localizationManager.initialize(window.top.userCultures);
 
-                        browserCulture(localizationManager.currentLanguage);
-
                         router.updateDocumentTitle = function (instance, instruction) {
                             var title = null;
 
@@ -51,6 +49,8 @@
                             }
 
                             document.title = title ? app.title + ' | ' + title : app.title;
+                            
+                            browserCulture(localizationManager.currentLanguage);
                         };
 
                         router.replace = function (url) {
