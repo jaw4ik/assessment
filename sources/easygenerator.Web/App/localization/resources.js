@@ -649,9 +649,9 @@
         de: 'Ausgewählte Lernziele einschließen'
     },
     createObjectiveFromExperience: {
-        en: 'Create objective',
-        nl: 'Create objective[nl]',
-        de: 'Create objective[de]'
+        en: 'Create learning objective',
+        nl: 'Create learning objective[nl]',
+        de: 'Create learning objective[de]'
     },
     /* End resource section for model Display experience */
     
