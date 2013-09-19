@@ -19,9 +19,13 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string PreviousExperienceButton = ".//section[contains(@class,'experience')]//header[contains(@class,'view-header')]//a[contains(@class,'view-header-nav-btn previous')]";
 
         //public string BuildButton = "//div[contains(@class,'experience-build-progress-status-item')]";
-        public string BuildButton = "//div[contains(@data-bind,'click: buildExperience')]";
-        public string DownloadButton = "//div[contains(@data-bind,'click: downloadExperience')]";
+        public string BuildButton = "//div[contains(@class,'build') and contains(@data-bind,'click: buildExperience')]";
+        public string DownloadButton = "//div[contains(@class,'experience-build-progress-status-item') and contains(@data-bind,'click: downloadExperience')]";
+        public string RebuildButton = "//div[contains(@class,'rebuild') and contains(@data-bind,'click: buildExperience')]";
 
+        public string BuildingStatus = ".//div[contains(@class,'experience-build-progress-status-item')]";
+        public string FailedStatus = ".//div[contains(@class,'experience-build-progress-status-item failed')]";
+        
         public string CharsCounter = ".//div[contains(@class, 'view-header-title')]//div[contains(@class, 'chars-counter')]";
 
         public string ExperienceHeaderTitleText = ".//span[contains(@class,'experience-header-title-text')]";

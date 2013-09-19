@@ -33,6 +33,23 @@ namespace easygenerator.AcceptanceTests.Steps
                 item.IsBuildingStatusDisplayed,
                 "Building status should be displayed");
         }
+
+        [Then(@"status building is shown for publication list item with title '(.*)' on click rebuild")]
+        public void ThenStatusBuildingIsShownForPublicationListItemWithTitleOnClickRebuild(string title)
+        {
+            var item = publicationsPage.ItemByTitle(title);
+            item.Hover();
+            if (TestUtils.WaitForCondition((() => item.IsRebuildEnabled), 500))
+            {
+                item.Rebuild();
+            }
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                item.IsBuildingStatusDisplayed,
+                "Building status should be displayed");
+
+        }
+
+
         [Then(@"status complete is shown (.*) for publication list item with title '(.*)' after build finished")]
         public void ThenStatusCompleteIsShownForPublicationListItemWithTitleAfterBuildFinished(bool isDisplayed, string title)
         {

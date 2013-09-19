@@ -64,6 +64,15 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
+        public string RebuildButtonText
+        {
+            get
+            {
+                var el = GetByXPath(model.RebuildButton);
+                return el.GetTextContent();
+            }
+        }
+
 
         internal void NavigateBackToExperiences()
         {
@@ -97,6 +106,12 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         internal void Build()
         {
             var buildButton = GetByXPath(model.BuildButton);
+            buildButton.Click();
+        }
+
+        internal void Rebuild()
+        {
+            var buildButton = GetByXPath(model.RebuildButton);
             buildButton.Click();
         }
 
@@ -165,5 +180,27 @@ namespace easygenerator.AcceptanceTests.ElementObjects
                 return ExistsOnPage(model.ExcludeButton);
             }
         }
+
+        public bool IsBuildingStatusDisplayed
+        {
+            get
+            {
+                return GetByXPath(model.BuildingStatus).Displayed;
+            }
+        }
+
+        public bool IsFailedStatusDisplayed
+        {
+            get
+            {
+                return GetByXPath(model.FailedStatus).Displayed;
+            }
+        }
+
+        internal void FailedStatusHover()
+        {
+            GetByXPath(model.FailedStatus).HoverElement();
+        }
+
     }
 }

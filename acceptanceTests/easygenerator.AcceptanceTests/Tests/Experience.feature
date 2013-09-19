@@ -83,7 +83,7 @@ Scenario: Build action is available by default
 When open page by url 'http://localhost:5656/#/experience/1'
 Then build action on experiance page is available
 
-Scenario: Download action becomes available after build
+Scenario: Download and Rebuild actions becomes available after build
 Given objectives are present in database
 | Title       | Id |
 | Objective11 | 1  |
@@ -104,6 +104,7 @@ Given explanations related to 'Question11' of 'Objective11' are present in datab
 When open page by url 'http://localhost:5656/#/experience/1'
 And click on build button
 Then download action on experiance page is available
+And rebuild action on experiance page is available
 
 Scenario: Selected objective should be highlited after selecting
 Given objectives are present in database
@@ -225,4 +226,44 @@ Then previous experience action is not available
 Scenario: Next experience action is not available for last experience
 When open page by url 'http://localhost:5656/#/experience/3'
 Then next experience action is not available
+
+Scenario: Building status is shown after click on build button on experience page
+When open page by url 'http://localhost:5656/#/experience/1'
+And click on build button
+Then status building is shown on experience page
+
+Scenario: Building status is shown after click on rebuild button on experience page
+When open page by url 'http://localhost:5656/#/experience/1'
+And click on build button
+Then download action on experiance page is available
+And rebuild action on experiance page is available
+When click on rebuild button
+Then status building is shown on experience page
+
+Scenario: Failed status is shown on experience page after build failed
+Given objectives are present in database
+| Title       | Id |
+| Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11 | 1  |
+Given objectives are linked to experiance 'Experience1'
+| Title       | Id |
+| Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11 | 1  |
+When open page by url 'http://localhost:5656/#/experience/1'
+And click on build button
+Then status failed is shown on experience page
+
+Scenario: Build action becomes available on experience page after Failed status mouse hover
+Given objectives are present in database
+| Title       | Id |
+| Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11 | 1  |
+Given objectives are linked to experiance 'Experience1'
+| Title       | Id |
+| Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11 | 1  |
+When open page by url 'http://localhost:5656/#/experience/1'
+And click on build button
+Then status failed is shown on experience page
+When mouse hover failed status element on experience page
+Then build action on experiance page is available
+
+
+
 

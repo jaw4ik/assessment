@@ -79,6 +79,17 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
+        public bool IsRebuildEnabled
+        {
+            get
+            {
+                var selectEl = Container.FindElementByXPath(model.RebuildElement);
+                return selectEl.Displayed;
+            }
+        }
+
+        
+
         public bool IsBuildingStatusDisplayed
         {
             get
@@ -118,12 +129,17 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             GetByXPathInside(model.BuildElement).Click();
         }
 
+        internal void Rebuild()
+        {
+            GetByXPathInside(model.RebuildElement).Click();
+        }
+
+
         internal void Download()
         {
             var el = GetByXPathInside(model.DownloadElement);
             el.Click();
             System.Threading.Thread.Sleep(3000);
         }
-        
     }
 }

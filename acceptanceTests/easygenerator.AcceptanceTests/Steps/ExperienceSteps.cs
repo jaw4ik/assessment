@@ -158,6 +158,20 @@ namespace easygenerator.AcceptanceTests.Steps
             experiencePage.Build();
         }
 
+        [When(@"click on rebuild button")]
+        public void WhenClickOnRebuildButton()
+        {
+            experiencePage.Rebuild();
+        }
+
+        [When(@"mouse hover failed status element on experience page")]
+        public void WhenMouseHoverFailedStatusElementOnExperiencePage()
+        {
+            experiencePage.FailedStatusHover();
+        }
+
+
+
         [Then(@"build action on experiance page is available")]
         public void ThenBuildActionOnExperiancePageIsAvailable()
         {
@@ -174,6 +188,33 @@ namespace easygenerator.AcceptanceTests.Steps
                 experiencePage.DownloadButtonText == "Download",
                 "Element should be visible");
         }
+
+        [Then(@"rebuild action on experiance page is available")]
+        public void ThenRebuildActionOnExperiancePageIsAvailable()
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                experiencePage.RebuildButtonText == "Rebuild",
+                "Element should be visible");
+        }
+
+        [Then(@"status building is shown on experience page")]
+        public void ThenStatusBuildingIsShownOnExperiencePage()
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                experiencePage.IsBuildingStatusDisplayed,
+                "Building status should be displayed");
+        }
+
+        [Then(@"status failed is shown on experience page")]
+        public void ThenStatusFailedIsShownOnExperiencePage()
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                experiencePage.IsFailedStatusDisplayed,
+                "Failed status should be displayed");
+        }
+
+
+
 
         //CUD Experience
 
@@ -245,7 +286,7 @@ namespace easygenerator.AcceptanceTests.Steps
                 experiencePage.ExcludeButtonIsEnabled == isEnabled,
                 "incorrect exclude button visibility");
         }
-
-
+          
+        
     }
 }

@@ -181,8 +181,18 @@ namespace easygenerator.AcceptanceTests.Steps
             var item = publicationsPage.Items.First(it => it.Title == title);
             TestUtils.Assert_IsTrue_WithWait(() =>
                 isEnabled = item.IsDownloadEnabled,
-                "Build should be enabled");
+                "Download should be enabled");
         }
+
+        [Then(@"Action rebuild is enabled (.*) for publications list item with title '(.*)'")]
+        public void ThenActionRebuildIsEnabledForPublicationsListItemWithTitle(bool isEnabled, string title)
+        {
+            var item = publicationsPage.Items.First(it => it.Title == title);
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                isEnabled = item.IsRebuildEnabled,
+                "Rebuild should be enabled");
+        }
+
 
 
         [Given(@"unzip '(.*)' package to '(.*)'")]
@@ -265,6 +275,17 @@ namespace easygenerator.AcceptanceTests.Steps
                 item.Build();
             }
         }
+
+        [When(@"click rebuild publication list item with title '(.*)'")]
+        public void WhenClickRebuildPublicationListItemWithTitle(string title)
+        {
+            var item = publicationsPage.Items.First(it => it.Title == title);
+            if (TestUtils.WaitForCondition((() => item.IsRebuildEnabled), 1000))
+            {
+                item.Rebuild();
+            }
+        }
+
 
 
         [Given(@"click download publication list item with title '(.*)'")]
