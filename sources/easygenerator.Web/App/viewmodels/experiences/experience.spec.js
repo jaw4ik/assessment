@@ -327,11 +327,10 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objective details');
                 });
 
-
-                it('should navigate to #objective/{id}', function () {
+                it('should navigate', function () {
                     var objectiveId = 1;
                     viewModel.navigateToObjectiveDetails({ id: objectiveId });
-                    expect(router.navigate).toHaveBeenCalledWith('objective/' + objectiveId);
+                    expect(router.navigate).toHaveBeenCalled();
                 });
 
             });
@@ -1195,24 +1194,6 @@
                     spyOn(repository, 'getCollection').andReturn(deferred.promise);
                 });
 
-                describe('when experienceId is not a string', function () {
-
-                    it('should navigate to #400', function () {
-                        viewModel.activate();
-                        expect(router.replace).toHaveBeenCalledWith('400');
-                    });
-
-                    it('should return undefined', function () {
-                        expect(viewModel.activate()).toBeUndefined();
-                    });
-
-                });
-
-                it('should return promise', function () {
-                    var promise = viewModel.activate('experienceId');
-                    expect(promise).toBePromise();
-                });
-
                 describe('when experience does not exist', function () {
 
                     it('should navigate to #404 ', function () {
@@ -1338,20 +1319,6 @@
                     });
                 });
 
-                it('should set current experience builtOn', function () {
-                    viewModel.builtOn('');
-
-                    var promise = viewModel.activate(experience.id);
-                    deferred.resolve([experience]);
-
-                    waitsFor(function () {
-                        return promise.isFulfilled();
-                    });
-                    runs(function () {
-                        expect(viewModel.builtOn()).toEqual(experience.builtOn);
-                    });
-                });
-
                 it('should set current experience template', function () {
                     viewModel.template.id('');
                     viewModel.template.image('');
@@ -1368,7 +1335,7 @@
                     });
                 });
 
-                it('should set hintPopup.displayed to false', function() {
+                it('should set hintPopup.displayed to false', function () {
                     viewModel.hintPopup.displayed(true);
                     viewModel.activate('');
                     expect(viewModel.hintPopup.displayed()).toBeFalsy();

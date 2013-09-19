@@ -64,14 +64,14 @@
 
             hintPopup = {
                 displayed: ko.observable(false),
-                
+
                 show: function () {
-                    if (clientContext.get('showRelateObjectivesHintPopup') !== false){
+                    if (clientContext.get('showRelateObjectivesHintPopup') !== false) {
                         this.displayed(true);
                     }
                 },
-                hide: function() {
-                     this.displayed(false);
+                hide: function () {
+                    this.displayed(false);
                 },
                 close: function () {
                     this.displayed(false);
@@ -132,7 +132,7 @@
                 throw 'Objective id property is null';
             }
 
-            router.navigate('objective/' + objective.id);
+            router.navigate('objective/' + objective.id + '?experienceId=' + this.id);
         },
 
         navigateToCreateObjective = function() {

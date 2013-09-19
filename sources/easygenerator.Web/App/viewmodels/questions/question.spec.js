@@ -48,6 +48,7 @@ define(function (require) {
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
             spyOn(router, 'navigate');
+            spyOn(router, 'navigateWithQueryString');
             spyOn(router, 'replace');
         });
 
@@ -493,7 +494,7 @@ define(function (require) {
 
             it('should navigate to #objective/{objectiveId}', function () {
                 viewModel.goToCreateQuestion();
-                expect(router.navigate).toHaveBeenCalled();
+                expect(router.navigateWithQueryString).toHaveBeenCalled();
             });
 
         });
@@ -511,7 +512,7 @@ define(function (require) {
 
             it('should navigate to #objective/{objectiveId}', function () {
                 viewModel.goToRelatedObjective();
-                expect(router.navigate).toHaveBeenCalled();
+                expect(router.navigateWithQueryString).toHaveBeenCalled();
             });
 
         });
@@ -529,7 +530,7 @@ define(function (require) {
 
             it('should navigate to previous question', function () {
                 viewModel.goToPreviousQuestion();
-                expect(router.navigate).toHaveBeenCalled();
+                expect(router.navigateWithQueryString).toHaveBeenCalled();
             });
 
             describe('when previous question doesnt exist', function () {
@@ -558,7 +559,7 @@ define(function (require) {
             it('should navigate to next question', function () {
                 viewModel.hasNext = true;
                 viewModel.goToNextQuestion();
-                expect(router.navigate).toHaveBeenCalled();
+                expect(router.navigateWithQueryString).toHaveBeenCalled();
             });
 
             describe('when next question doesnt exist', function () {

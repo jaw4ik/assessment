@@ -54,7 +54,7 @@
         var
             goToRelatedObjective = function () {
                 sendEvent(events.navigateToRelatedObjective);
-                router.navigate('objective/' + objectiveId);
+                router.navigateWithQueryString('objective/' + objectiveId);
             },
 
             goToPreviousQuestion = function () {
@@ -62,7 +62,7 @@
                     router.replace('404');
 
                 sendEvent(events.navigateToPreviousQuestion);
-                router.navigate('objective/' + objectiveId + '/question/' + previousId);
+                router.navigateWithQueryString('objective/' + objectiveId + '/question/' + previousId);
             },
 
             goToNextQuestion = function () {
@@ -70,12 +70,12 @@
                     router.replace('404');
 
                 sendEvent(events.navigateToNextQuestion);
-                router.navigate('objective/' + objectiveId + '/question/' + nextId);
+                router.navigateWithQueryString('objective/' + objectiveId + '/question/' + nextId);
             },
 
             goToCreateQuestion = function () {
                 sendEvent(events.navigateToCreateQuestion);
-                router.navigate('objective/' + objectiveId + '/question/create');
+                router.navigateWithQueryString('objective/' + objectiveId + '/question/create');
             },
 
             startEditQuestionTitle = function () {

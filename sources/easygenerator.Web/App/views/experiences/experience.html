@@ -162,7 +162,7 @@
                         </div>
                         <!-- ko if: $parent.objectivesMode() == $parent.objectivesListModes.display -->
                         <div class="separator"></div>
-                        <div class="item-option edit" data-bind="click: $parent.navigateToObjectiveDetails">
+                        <div class="item-option edit" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent)">
                             <div class="nowrap" data-bind="localize: { text: 'edit' }">Open</div>
                             <div class="action-img inline">
                             </div>

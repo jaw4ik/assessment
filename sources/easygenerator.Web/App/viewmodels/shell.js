@@ -8,7 +8,7 @@
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName);
             };
-        
+
         var
             experiencesModule = 'experiences',
             objectivesModule = 'objectives',
@@ -55,6 +55,11 @@
 
                         router.replace = function (url) {
                             router.navigate(url, { replace: true, trigger: true });
+                        };
+
+                        router.navigateWithQueryString = function (url) {
+                            var queryString = router.activeInstruction().queryString;
+                            router.navigate(_.isNullOrUndefined(queryString) ? url : url + '?' + queryString);
                         };
 
                         router.download = function (url) {

@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'notify'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository, notify) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/experienceRepository', 'notify'],
+    function (dataContext, constants, eventTracker, localizationManager, router, repository, experienceRepository, notify) {
         "use strict";
 
         var events = {
@@ -13,7 +13,8 @@
             unselectQuestion: "Unselect question",
             deleteSelectedQuestions: "Delete question",
             navigateToNextObjective: "Navigate to next objective",
-            navigateToPreviousObjective: "Navigate to previous objective"
+            navigateToPreviousObjective: "Navigate to previous objective",
+            navigateToExperience: "Navigate to experience"
         },
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName);
@@ -25,6 +26,8 @@
             createdOn = null,
             modifiedOn = ko.observable(),
             title = ko.observable(''),
+            contextExperienceTitle = null,
+            contextExperienceId = null,
             language = ko.observable();
 
         title.isEditing = ko.observable();
@@ -80,9 +83,14 @@
                 questions(_.sortBy(questions(), function (question) { return question.title.toLowerCase(); }).reverse());
             },
 
-            navigateToObjectives = function () {
-                sendEvent(events.navigateToObjectives);
-                router.navigate('objectives');
+            navigateBack = function () {
+                if (_.isNull(this.contextExperienceId)) {
+                    sendEvent(events.navigateToObjectives);
+                    router.navigate('objectives');
+                } else {
+                    sendEvent(events.navigateToExperience);
+                    router.navigate('experience/' + this.contextExperienceId);
+                }
             },
 
             navigateToEditQuestion = function (question) {
@@ -95,12 +103,12 @@
                     throw 'Question id is null or undefined';
                 }
 
-                router.navigate('objective/' + this.objectiveId + '/question/' + question.id);
+                router.navigateWithQueryString('objective/' + this.objectiveId + '/question/' + question.id);
             },
 
             navigateToCreateQuestion = function () {
                 sendEvent(events.navigateToCreateQuestion);
-                router.navigate('objective/' + this.objectiveId + '/question/create');
+                router.navigateWithQueryString('objective/' + this.objectiveId + '/question/create');
             },
 
             navigateToNextObjective = function () {
@@ -108,7 +116,7 @@
                 if (_.isNullOrUndefined(this.nextObjectiveId)) {
                     router.replace('404');
                 } else {
-                    router.navigate('objective/' + this.nextObjectiveId);
+                    router.navigateWithQueryString('objective/' + this.nextObjectiveId);
                 }
             },
 
@@ -117,7 +125,7 @@
                 if (_.isNullOrUndefined(this.previousObjectiveId)) {
                     router.replace('404');
                 } else {
-                    router.navigate('objective/' + this.previousObjectiveId);
+                    router.navigateWithQueryString('objective/' + this.previousObjectiveId);
                 }
             },
 
@@ -169,49 +177,64 @@
                 return mappedQuestion;
             },
 
-            activate = function (objId) {
-                if (!_.isString(objId)) {
-                    router.replace('400');
-                    return undefined;
-                }
-                this.language(localizationManager.currentLanguage);
+            activate = function (objId, queryParams) {
                 var that = this;
 
-                return repository.getCollection().then(
-                    function (response) {
-                        var objectives = _.sortBy(response, function (item) {
-                            return item.title.toLowerCase();
-                        });
-
-                        var objective = _.find(objectives, function (item) {
-                            return item.id === objId;
-                        });
-
-                        if (!_.isObject(objective)) {
+                that.language(localizationManager.currentLanguage);
+                if (_.isNullOrUndefined(queryParams) || _.isNullOrUndefined(queryParams.experienceId)) {
+                    that.contextExperienceId = null;
+                    that.contextExperienceTitle = null;
+                    return repository.getCollection().then(function (response) {
+                        initializeObjectiveInfo(response);
+                    });
+                } else {
+                    return experienceRepository.getById(queryParams.experienceId).then(function (experience) {
+                        if (_.isNull(experience)) {
                             router.replace('404');
                             return;
                         }
 
-                        that.objectiveId = objId;
-                        that.title(objective.title);
-                        that.createdOn = objective.createdOn;
-                        that.modifiedOn(objective.modifiedOn);
-                        that.image(objective.image);
-
-                        var index = _.indexOf(objectives, objective);
-                        that.previousObjectiveId = index != 0 ? objectives[index - 1].id : null;
-                        that.nextObjectiveId = index != objectives.length - 1 ? objectives[index + 1].id : null;
-
-                        var array = _.chain(objective.questions)
-                            .map(function (item) {
-                                return mapQuestion(item);
-                            })
-                            .sortBy(function (question) { return question.title.toLowerCase(); })
-                            .value();
-
-                        that.questions(currentSortingOption() == constants.sortingOptions.byTitleAsc ? array : array.reverse());
+                        that.contextExperienceId = queryParams.experienceId;
+                        that.contextExperienceTitle = '\'' + experience.title + '\'';
+                        initializeObjectiveInfo(experience.objectives);
                     });
+                }
+
+                function initializeObjectiveInfo(objectivesList) {
+                    var objectives = _.sortBy(objectivesList, function (item) {
+                        return item.title.toLowerCase();
+                    });
+
+                    var objective = _.find(objectives, function (item) {
+                        return item.id === objId;
+                    });
+
+                    if (!_.isObject(objective)) {
+                        router.replace('404');
+                        return;
+                    }
+
+                    that.objectiveId = objId;
+                    that.title(objective.title);
+                    that.createdOn = objective.createdOn;
+                    that.modifiedOn(objective.modifiedOn);
+                    that.image(objective.image);
+
+                    var index = _.indexOf(objectives, objective);
+                    that.previousObjectiveId = index != 0 ? objectives[index - 1].id : null;
+                    that.nextObjectiveId = index != objectives.length - 1 ? objectives[index + 1].id : null;
+
+                    var array = _.chain(objective.questions)
+                        .map(function (item) {
+                            return mapQuestion(item);
+                        })
+                        .sortBy(function (question) { return question.title.toLowerCase(); })
+                        .value();
+
+                    that.questions(currentSortingOption() == constants.sortingOptions.byTitleAsc ? array : array.reverse());
+                };
             },
+
             getSelectedQuestions = function () {
                 return _.reject(questions(), function (item) {
                     return !item.isSelected();
@@ -228,6 +251,8 @@
             previousObjectiveId: previousObjectiveId,
 
             title: title,
+            contextExperienceId: contextExperienceId,
+            contextExperienceTitle: contextExperienceTitle,
             titleMaxLength: constants.validation.objectiveTitleMaxLength,
             language: language,
             createdOn: createdOn,
@@ -246,7 +271,7 @@
             sortingOptions: constants.sortingOptions,
 
             navigateToEditQuestion: navigateToEditQuestion,
-            navigateToObjectives: navigateToObjectives,
+            navigateBack: navigateBack,
             navigateToNextObjective: navigateToNextObjective,
             navigateToPreviousObjective: navigateToPreviousObjective,
             navigateToCreateQuestion: navigateToCreateQuestion,
