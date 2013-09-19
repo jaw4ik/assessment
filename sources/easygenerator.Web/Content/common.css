@@ -210,7 +210,10 @@ COMMON CLASSES CSS-STYLES
 }
 
 .image-preloader {
-    display: none;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    visibility: hidden;
 }
 
 /**
