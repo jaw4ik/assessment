@@ -20,8 +20,8 @@
         var deferred;
         beforeEach(function () {
             spyOn(eventTracker, 'publish');
-            spyOn(router, 'navigate');
             spyOn(router, 'replace');
+            spyOn(router, 'navigateWithQueryString');
             deferred = Q.defer();
             spyOn(questionRepository, 'addQuestion').andReturn(deferred.promise);
         });
@@ -108,7 +108,7 @@
 
             it('should navigate to #/objective/{objectiveId}', function () {
                 viewModel.navigateToObjective();
-                expect(router.navigate).toHaveBeenCalled();
+                expect(router.navigateWithQueryString).toHaveBeenCalled();
             });
 
         });
@@ -183,7 +183,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(router.navigate).toHaveBeenCalled();
+                                expect(router.navigateWithQueryString).toHaveBeenCalled();
                             });
                         });
                     });

@@ -515,7 +515,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(viewModel.contextExperienceTitle).toBe('\'' + contextExperienceTitle + '\'');
+                                    expect(viewModel.contextExperienceTitle).toBe(contextExperienceTitle);
                                 });
                             });
 
@@ -1014,7 +1014,7 @@
 
             describe('navigateBack', function () {
 
-                describe('when contextExperienceId is null', function () {
+                describe('when contextExperienceId is not string', function () {
 
                     beforeEach(function () {
                         viewModel.contextExperienceId = null;
@@ -1032,7 +1032,7 @@
 
                 });
 
-                describe('when contextExperienceId is set', function () {
+                describe('when contextExperienceId is string', function () {
 
                     var contextExperienceId = 'id';
                     beforeEach(function () {

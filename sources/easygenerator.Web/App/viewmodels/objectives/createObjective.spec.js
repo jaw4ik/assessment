@@ -3,9 +3,8 @@
         "use strict";
 
         var router = require('plugins/router'),
+            experienceRepository = require('repositories/experienceRepository'),
             eventTracker = require('eventTracker');
-
-        var eventsCategory = 'Create learning objective';
 
         describe('viewModel [createObjective]', function () {
 
@@ -14,6 +13,8 @@
             beforeEach(function () {
                 spyOn(eventTracker, 'publish');
                 spyOn(router, 'navigate');
+                spyOn(router, 'navigateWithQueryString');
+                spyOn(router, 'replace');
             });
 
             it('should be object', function () {
@@ -38,7 +39,7 @@
                     });
 
                 });
-                
+
                 describe('when longer than 255 but after trimming - not longer than 255', function () {
 
                     it('should be true', function () {
@@ -73,169 +74,229 @@
 
             describe('createAndNew:', function () {
 
-                var addObjective;
+                var addObjective, relateObjectiveDefer, getObjectiveDefer;;
 
                 beforeEach(function () {
                     addObjective = Q.defer();
+                    relateObjectiveDefer = Q.defer();
+                    getObjectiveDefer = Q.defer();
                     spyOn(repository, 'addObjective').andReturn(addObjective.promise);
+                    spyOn(repository, 'getById').andReturn(getObjectiveDefer.promise);
+                    spyOn(experienceRepository, 'relateObjectives').andReturn(relateObjectiveDefer.promise);
                 });
 
                 it('should be function', function () {
                     expect(viewModel.createAndNew).toBeFunction();
                 });
 
-                describe('when triggered', function () {
+                it('should trim title', function () {
+                    viewModel.title('   abc   ');
+                    viewModel.createAndNew();
+                    expect(viewModel.title()).toEqual('abc');
+                    addObjective.resolve();
+                });
 
-                    describe('and title is valid', function () {
+                it('should send event \'Create learning objective and create new\'', function () {
+                    viewModel.createAndNew();
 
-                        var notify = require('notify');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and create new');
+                });
+
+                describe('when title is valid', function () {
+
+                    var notify = require('notify');
+                    var id = '0';
+                    var objective = { id: id };
+
+                    beforeEach(function () {
+                        viewModel.title('Some valid text');
+                        spyOn(notify, 'info');
+                    });
+
+                    it('should create new objective in repository', function () {
+                        var title = viewModel.title();
+
+                        viewModel.createAndNew();
+
+                        var promise = addObjective.promise.fin(function () {
+                        });
+                        addObjective.resolve();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(repository.addObjective).toHaveBeenCalledWith({
+                                title: title
+                            });
+                        });
+                    });
+
+                    describe('when objective created', function () {
 
                         beforeEach(function () {
-                            viewModel.title('Some valid text');
-                            spyOn(notify, 'info');
+                            addObjective.resolve(id);
                         });
 
-                        it('should create new objective in repository', function () {
-                            var title = viewModel.title();
+                        describe('and when contextExperiencId is not string', function () {
 
-                            viewModel.createAndNew();
-
-                            var promise = addObjective.promise.fin(function () {
+                            beforeEach(function () {
+                                viewModel.contextExperienceId = null;
                             });
-                            addObjective.resolve();
 
-                            waitsFor(function () {
-                                return !promise.isPending();
+                            it('should clear title', function () {
+                                viewModel.createAndNew();
+
+                                var promise = addObjective.promise.fin(function () { });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(viewModel.title().length).toEqual(0);
+                                });
                             });
-                            runs(function () {
-                                expect(repository.addObjective).toHaveBeenCalledWith({
-                                    title: title
+
+                            it('should show notification', function () {
+                                viewModel.createAndNew();
+
+                                var promise = addObjective.promise.finally(function () { });
+                                getObjectiveDefer.resolve(objective);
+                                relateObjectiveDefer.resolve();
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(notify.info).toHaveBeenCalled();
                                 });
                             });
                         });
 
-                        it('should clear title', function () {
-                            viewModel.createAndNew();
+                        describe('and when contextExperienceId is string', function () {
 
-                            var promise = addObjective.promise.fin(function () {
+                            beforeEach(function () {
+                                viewModel.contextExperienceId = 'id';
+                                getObjectiveDefer.resolve(objective);
+                                relateObjectiveDefer.resolve();
                             });
-                            addObjective.resolve();
 
-                            waitsFor(function () {
-                                return !promise.isPending();
+                            it('should relate created objective to experience', function () {
+                                viewModel.createAndNew();
+
+                                var promise = addObjective.promise.fin(function () { });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(experienceRepository.relateObjectives).toHaveBeenCalledWith(viewModel.contextExperienceId, [objective]);
+                                });
                             });
-                            runs(function () {
-                                expect(viewModel.title().length).toEqual(0);
+
+                            it('should clear title', function () {
+                                viewModel.createAndNew();
+
+                                var promise = addObjective.promise.fin(function () { });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(viewModel.title().length).toEqual(0);
+                                });
+                            });
+
+                            it('should show notification', function () {
+                                viewModel.createAndNew();
+
+                                var promise = addObjective.promise.finally(function () { });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(notify.info).toHaveBeenCalled();
+                                });
                             });
                         });
-
-                        it('should hide validation', function () {
-                            viewModel.createAndNew();
-
-                            var promise = addObjective.promise.fin(function () {
-                            });
-                            addObjective.resolve();
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(router.validationVisible).toBeFalsy();
-                            });
-                        });
-
-                        it('should show notification', function () {
-                            viewModel.createAndNew();
-
-                            var promise = addObjective.promise.finally(function () { });
-                            addObjective.resolve();
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(notify.info).toHaveBeenCalled();
-                            });
-                        });
-
                     });
-
-                    describe('and title has spaces only', function () {
-
-                        it('should set title to invalid', function () {
-                            viewModel.title('   ');
-                            viewModel.createAndNew();
-                            expect(viewModel.title.isValid()).toBeFalsy();
-                            addObjective.resolve();
-                        });
-
-                    });
-
-                    it('should trim title', function () {
-                        viewModel.title('   abc   ');
-                        viewModel.createAndNew();
-                        expect(viewModel.title()).toEqual('abc');
-                        addObjective.resolve();
-                    });
-
-                    it('should send event \'Create learning objective and create new\'', function () {
-                        viewModel.createAndNew();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and create new');
-                    });
-
                 });
 
             });
 
             describe('createAndEdit:', function () {
 
-                var addObjective;
+                var addObjective, relateObjectiveDefer, getObjectiveDefer;
 
                 beforeEach(function () {
                     addObjective = Q.defer();
+                    relateObjectiveDefer = Q.defer();
+                    getObjectiveDefer = Q.defer();
                     spyOn(repository, 'addObjective').andReturn(addObjective.promise);
+                    spyOn(repository, 'getById').andReturn(getObjectiveDefer.promise);
+                    spyOn(experienceRepository, 'relateObjectives').andReturn(relateObjectiveDefer.promise);
                 });
 
                 it('should be function', function () {
                     expect(viewModel.createAndEdit).toBeFunction();
                 });
+                
+                it('should send event \'Create learning objective and open it properties\'', function () {
+                    viewModel.createAndEdit();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and open it properties');
+                });
 
-                describe('when triggered', function () {
+                it('should trim title', function () {
+                    viewModel.title('   abc   ');
+                    viewModel.createAndEdit();
+                    expect(viewModel.title()).toEqual('abc');
+                    addObjective.resolve();
+                });
 
-                    describe('and title is emty', function () {
-                        describe('and title is valid', function () {
+                describe('when title is valid', function () {
+
+                    beforeEach(function () {
+                        viewModel.title('Some valid text');
+                    });
+
+                    it('should create new objective in repository', function () {
+                        var title = viewModel.title();
+
+                        viewModel.createAndEdit();
+
+                        var promise = addObjective.promise.fin(function () {
+                        });
+                        addObjective.resolve();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(repository.addObjective).toHaveBeenCalledWith({
+                                title: title
+                            });
+                        });
+                    });
+
+                    describe('when objective created', function () {
+                        var id = '0';
+                        var objective = { id: id };
+
+                        beforeEach(function () {
+                            addObjective.resolve(id);
+                        });
+
+                        describe('and when contextExperiencId is not string', function () {
 
                             beforeEach(function () {
-                                viewModel.title('Some valid text');
-                            });
-
-                            it('should create new objective in repository', function () {
-                                var title = viewModel.title();
-
-                                viewModel.createAndEdit();
-
-                                var promise = addObjective.promise.fin(function () {
-                                });
-                                addObjective.resolve();
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(repository.addObjective).toHaveBeenCalledWith({
-                                        title: title
-                                    });
-                                });
+                                viewModel.contextExperienceId = null;
                             });
 
                             it('should navigate to created objective', function () {
-                                var id = '0';
-
                                 viewModel.createAndEdit();
 
-                                var promise = addObjective.promise.fin(function () {
-                                });
-                                addObjective.resolve(id);
+                                var promise = addObjective.promise.fin(function () { });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -244,53 +305,95 @@
                                     expect(router.navigate).toHaveBeenCalledWith('objective/' + id);
                                 });
                             });
-
                         });
 
-                        it('should send event \'Create learning objective and open it properties\'', function () {
-                            viewModel.createAndEdit();
-                            expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and open it properties');
+                        describe('and when contextExperiencId is string', function () {
+
+                            beforeEach(function () {
+                                viewModel.contextExperienceId = 'id';
+                                getObjectiveDefer.resolve(objective);
+                                relateObjectiveDefer.resolve();
+                            });
+
+                            it('should relate created objective to experience', function () {
+                                viewModel.createAndEdit();
+
+                                var promise = addObjective.promise.fin(function () { });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(experienceRepository.relateObjectives).toHaveBeenCalledWith(viewModel.contextExperienceId, [objective]);
+                                });
+                            });
+
+                            it('should navigate to created objective', function () {
+                                viewModel.createAndEdit();
+
+                                var promise = addObjective.promise.fin(function () {
+                                });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(router.navigateWithQueryString).toHaveBeenCalledWith('objective/' + id);
+                                });
+                            });
                         });
 
                     });
-
-                    describe('and title has spaces only', function () {
-
-                        it('should set title to invalid', function () {
-                            viewModel.title('   ');
-                            viewModel.createAndEdit();
-                            expect(viewModel.title.isValid()).toBeFalsy();
-                            addObjective.resolve();
-                        });
-
-                    });
-
-                    it('should trim title', function () {
-                        viewModel.title('   abc   ');
-                        viewModel.createAndEdit();
-                        expect(viewModel.title()).toEqual('abc');
-                        addObjective.resolve();
-                    });
-
                 });
-
             });
 
-            describe('navigateToObjectives:', function () {
+            describe('navigateBack:', function () {
 
-                it('should send event \'Navigate to objectives\'', function () {
-                    viewModel.navigateToObjectives();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objectives');
+                describe('when contextExperinceId is not string', function () {
+
+                    beforeEach(function () {
+                        viewModel.contextExperienceId = null;
+                    });
+
+                    it('should send event \'Navigate to objectives\'', function () {
+                        viewModel.navigateBack();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objectives');
+                    });
+
+                    it('should navigate to #objectives', function () {
+                        viewModel.navigateBack();
+                        expect(router.navigate).toHaveBeenCalledWith('objectives');
+                    });
+
                 });
 
-                it('should navigate to #objectives', function () {
-                    viewModel.navigateToObjectives();
-                    expect(router.navigate).toHaveBeenCalledWith('objectives');
+                describe('when contextExperinceId is string', function () {
+
+                    beforeEach(function () {
+                        viewModel.contextExperienceId = 'id';
+                    });
+
+                    it('should send event \'Navigate to experience\'', function () {
+                        viewModel.navigateBack();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to experience');
+                    });
+
+                    it('should navigate to #experience/id', function () {
+                        viewModel.navigateBack();
+                        expect(router.navigate).toHaveBeenCalledWith('experience/' + viewModel.contextExperienceId);
+                    });
+
                 });
 
             });
 
             describe('activate:', function () {
+
+                var getExperienceDeferred;
+                beforeEach(function () {
+                    getExperienceDeferred = Q.defer();
+                    spyOn(experienceRepository, 'getById').andReturn(getExperienceDeferred.promise);
+                });
 
                 it('should be function', function () {
                     expect(viewModel.activate).toBeFunction();
@@ -303,7 +406,7 @@
 
                 it('should clear title', function () {
                     viewModel.title('Some text');
-                    
+
                     var promise = viewModel.activate();
 
                     waitsFor(function () {
@@ -311,6 +414,113 @@
                     });
                     runs(function () {
                         expect(viewModel.title().length).toEqual(0);
+                    });
+                });
+
+                describe('when query params not null', function () {
+
+                    describe('when experienceId is string', function () {
+
+                        var queryParams = { experienceId: 'id' };
+
+                        describe('when experience not found', function () {
+
+                            beforeEach(function () {
+                                getExperienceDeferred.resolve(null);
+                            });
+
+                            it('should replace url to 404', function () {
+                                var promise = viewModel.activate(queryParams);
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(router.replace).toHaveBeenCalledWith('404');
+                                });
+                            });
+
+                            it('should set contextExperienceId to null', function () {
+                                var promise = viewModel.activate(queryParams);
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(viewModel.contextExperienceId).toBeNull();
+                                });
+                            });
+
+                            it('should set contextExperienceTitle to null', function () {
+                                var promise = viewModel.activate(queryParams);
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(viewModel.contextExperienceTitle).toBeNull();
+                                });
+                            });
+
+                            it('should resolve promise with undefined', function () {
+                                var promise = viewModel.activate(queryParams);
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolvedWith(undefined);
+                                });
+                            });
+
+                        });
+
+                        describe('when experience found', function () {
+                            var experience = { id: 'id', title: 'title' };
+                            beforeEach(function () {
+                                getExperienceDeferred.resolve(experience);
+                            });
+
+                            it('should set contextExpperienceId', function () {
+                                var promise = viewModel.activate(queryParams);
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(viewModel.contextExperienceId).toBe(experience.id);
+                                });
+                            });
+
+                            it('should set contextExpperienceTitle', function () {
+                                var promise = viewModel.activate(queryParams);
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(viewModel.contextExperienceTitle).toBe(experience.title);
+                                });
+                            });
+                        });
+                    });
+
+                    describe('when experienceId is not string', function () {
+                        var queryParams = { experienceId: null };
+
+                        it('should set contextExpperienceId to null', function () {
+                            var promise = viewModel.activate(queryParams);
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.contextExperienceId).toBeNull();
+                            });
+                        });
+
+                        it('should set contextExpperienceTitle to null', function () {
+                            var promise = viewModel.activate(queryParams);
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.contextExperienceTitle).toBeNull();
+                            });
+                        });
                     });
                 });
 
@@ -322,6 +532,18 @@
                     expect(viewModel.isTitleEditing).toBeObservable();
                 });
 
+            });
+
+            describe('contextExperienceTitle:', function () {
+                it('should be defined', function () {
+                    expect(viewModel.contextExperienceTitle).toBeDefined();
+                });
+            });
+
+            describe('contextExperienceId:', function () {
+                it('should be defined', function () {
+                    expect(viewModel.contextExperienceId).toBeDefined();
+                });
             });
 
         });

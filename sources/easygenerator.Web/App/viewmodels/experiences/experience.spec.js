@@ -417,9 +417,9 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to create objective');
                 });
 
-                it('should navigate to objective/create', function () {
+                it('should navigate', function () {
                     viewModel.navigateToCreateObjective();
-                    expect(router.navigate).toHaveBeenCalledWith('objective/create');
+                    expect(router.navigate).toHaveBeenCalled();
                 });
 
             });

@@ -26,7 +26,7 @@
 
         var navigateToObjective = function () {
             sendEvent(events.navigateToObjective);
-            router.navigate('objective/' + this.objectiveId);
+            router.navigateWithQueryString('objective/' + this.objectiveId);
         },
             saveAndOpen = function () {
                 this.title(this.title().trim());
@@ -40,7 +40,7 @@
 
                 var that = this;
                 questionRepository.addQuestion(that.objectiveId, { title: that.title() }).then(function (newQuestionId) {
-                    router.navigate('objective/' + that.objectiveId + '/question/' + newQuestionId);
+                    router.navigateWithQueryString('objective/' + that.objectiveId + '/question/' + newQuestionId);
                 });
             },
             saveAndNew = function () {

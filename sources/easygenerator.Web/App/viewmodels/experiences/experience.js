@@ -137,7 +137,7 @@
 
         navigateToCreateObjective = function() {
             sendEvent(events.navigateToCreateObjective);
-            router.navigate('objective/create');
+            router.navigate('objective/create?experienceId=' + this.id);
         },
 
         //#endregion Navigation

@@ -84,12 +84,12 @@
             },
 
             navigateBack = function () {
-                if (_.isNull(this.contextExperienceId)) {
-                    sendEvent(events.navigateToObjectives);
-                    router.navigate('objectives');
-                } else {
+                if (_.isString(this.contextExperienceId)) {
                     sendEvent(events.navigateToExperience);
                     router.navigate('experience/' + this.contextExperienceId);
+                } else {
+                    sendEvent(events.navigateToObjectives);
+                    router.navigate('objectives');
                 }
             },
 
@@ -181,7 +181,7 @@
                 var that = this;
 
                 that.language(localizationManager.currentLanguage);
-                if (_.isNullOrUndefined(queryParams) || _.isNullOrUndefined(queryParams.experienceId)) {
+                if (_.isNullOrUndefined(queryParams) || !_.isString(queryParams.experienceId)) {
                     that.contextExperienceId = null;
                     that.contextExperienceTitle = null;
                     return repository.getCollection().then(function (response) {
@@ -195,7 +195,7 @@
                         }
 
                         that.contextExperienceId = queryParams.experienceId;
-                        that.contextExperienceTitle = '\'' + experience.title + '\'';
+                        that.contextExperienceTitle = experience.title;
                         initializeObjectiveInfo(experience.objectives);
                     });
                 }

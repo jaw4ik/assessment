@@ -1,9 +1,9 @@
 ﻿<section class="container list-of-questions unselectable">
-    <!-- ko if: _.isNull(contextExperienceId) -->
-    <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'learningObjectives', isGoBackTextLocalizable: true, goBackAction: navigateBack.bind($data) } }"></div>
+    <!-- ko if: _.isString(contextExperienceId) -->
+    <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: '\'' + contextExperienceTitle + '\'', isGoBackTextLocalizable: false, goBackAction: navigateBack.bind($data) } }"></div>
     <!-- /ko -->
-    <!-- ko ifnot: _.isNull(contextExperienceId) -->
-    <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: contextExperienceTitle, isGoBackTextLocalizable: false, goBackAction: navigateBack.bind($data) } }"></div>
+    <!-- ko ifnot: _.isString(contextExperienceId) -->
+    <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'learningObjectives', isGoBackTextLocalizable: true, goBackAction: navigateBack.bind($data) } }"></div>
     <!-- /ko -->
 
     <header class="view-header">
