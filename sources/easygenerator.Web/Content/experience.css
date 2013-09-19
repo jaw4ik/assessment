@@ -243,7 +243,6 @@
 .experiences-header-create-objective-wrapper {
     color: #666;
     font-size: 12px;
-    font-family: Arial, sans-serif;
     padding-left: 10px;
     display: table-cell;
     white-space: nowrap;
@@ -612,8 +611,8 @@
 /*#region tip for add new learning objective*/
 
 .experience .create-tip {
-    right: 100px;
-    top: 250px;
+    right: 85px;
+    top: 30px;
+    text-transform: none;
 }
-
 /*#endregion tip for add new learning objective*/
