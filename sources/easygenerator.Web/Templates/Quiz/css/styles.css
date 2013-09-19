@@ -249,15 +249,19 @@ body {
     }
 
     .top .middle {
-        background-image: url(../img/bg-top.png)
+        background-image: url(../img/bg-top.png);
+        background-repeat: repeat-x;
     }
 
     .top .right {
         background-position: -185px 0;
+        background-repeat: no-repeat;
     }
 
     .middle .left {
         background-image: url(../img/bg-left.png);
+        background-repeat: repeat-y;
+
     }
 
     .middle .middle {
@@ -266,19 +270,23 @@ body {
 
     .middle .right {
         background-image: url(../img/bg-right.png);
+        background-repeat: repeat-y;
     }
 
     .bottom .left {
         background-position: 0 -145px;
+        background-repeat: no-repeat;
     }
 
     .bottom .middle {
         background-image: url(../img/bg-bottom.png);
+        background-repeat: repeat-x;
     }
 
 
     .bottom .right {
         background-position: -185px -145px;
+        background-repeat: no-repeat;
     }
 
 
