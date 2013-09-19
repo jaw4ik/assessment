@@ -611,7 +611,7 @@
     clickToCreateNewObjective: {
         en: 'To create new learning objective click \"+\" button',
         nl: 'Klik op \"+\" om een nieuw leerdoel te maken',
-        de: 'Um ein neues Lernziel zu erstellen, klicken Sie auf die Schaltfläche \"+\".'
+        de: 'Um ein neues Lernziel zu erstellen, klicken Sie auf die Schaltfläche \"+\"'
     },
     noObjectivesForRelating: {
         en: 'No learning objectives to include',
@@ -652,11 +652,6 @@
         en: 'Create objective',
         nl: 'Create objective[nl]',
         de: 'Create objective[de]'
-    },
-    createObjectiveTipFromexperience: {
-        en: 'Click to add learning objective',
-        nl: 'Click to add learning objective[nl]',
-        de: 'Click to add learning objective[de]'
     },
     /* End resource section for model Display experience */
     
