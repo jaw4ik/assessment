@@ -261,6 +261,7 @@
         font-family: Tahoma;
         font-size: 28px;
         color: #DCDCDC;
+        letter-spacing: 0;
     }
 
 @media (max-width: 1130px) {
