@@ -817,7 +817,11 @@
     <Content Include="Templates\Quiz\css\normalize.css" />
     <Content Include="Templates\Quiz\css\styles.css" />
     <Content Include="Templates\Quiz\img\arrow_up.png" />
-    <Content Include="Templates\Quiz\img\bg.png" />
+    <Content Include="Templates\Quiz\img\bg-bottom.png" />
+    <Content Include="Templates\Quiz\img\bg-corners.png" />
+    <Content Include="Templates\Quiz\img\bg-left.png" />
+    <Content Include="Templates\Quiz\img\bg-right.png" />
+    <Content Include="Templates\Quiz\img\bg-top.png" />
     <Content Include="Templates\Quiz\img\checkbox-fail.png" />
     <Content Include="Templates\Quiz\img\checkbox-ok.png" />
     <Content Include="Templates\Quiz\img\checkbox.png" />

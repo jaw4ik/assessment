@@ -189,13 +189,9 @@ html, body, .application-wrapper {
 
 body {
     min-width: 600px;
-    background-image: url(../img/bg.png);
     -moz-background-size: cover;
     -o-background-size: cover;
     -webkit-background-size: cover;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
 }
 
     body.ie9 {
@@ -204,6 +200,90 @@ body {
     }
 
 /*#endregion mainframe css-styles  */
+
+/*#region background css-styles  */
+.application-wrapper {
+    position: relative;
+}
+
+.bg-holder {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: orange;
+}
+
+.bg-map {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.bg-row {
+    display: table-row;
+}
+
+    .bg-row.top,
+    .bg-row.bottom {
+        height: 145px;
+    }
+
+.bg-cell {
+    display: table-cell;
+}
+    
+    .bg-cell.left,
+    .bg-cell.right {
+        width: 185px;
+    }
+
+    .top .left, .top .right,
+    .bottom .left, .bottom .right {
+        background-image: url(../img/bg-corners.png);
+    }
+
+    .top .left {
+        background-position: 0 0;
+        background-repeat: no-repeat;
+    }
+
+    .top .middle {
+        background-image: url(../img/bg-top.png)
+    }
+
+    .top .right {
+        background-position: -185px 0;
+    }
+
+    .middle .left {
+        background-image: url(../img/bg-left.png);
+    }
+
+    .middle .middle {
+        background: white;
+    }
+
+    .middle .right {
+        background-image: url(../img/bg-right.png);
+    }
+
+    .bottom .left {
+        background-position: 0 -145px;
+    }
+
+    .bottom .middle {
+        background-image: url(../img/bg-bottom.png);
+    }
+
+
+    .bottom .right {
+        background-position: -185px -145px;
+    }
+
+
+/*#endregion background css-styles  */
 
 /*#region header css-styles  */
 
@@ -333,6 +413,7 @@ body {
     padding: 10px;
     font-size: 22px;
     font-weight: normal;
+    word-break: break-all;
 }
 
 .question-explanation {
@@ -415,6 +496,10 @@ body {
             border: 2px solid #eee;
             background: url("../img/checkbox-fail.png") no-repeat scroll center center transparent;
         }
+
+    .question-answer .question-answer-text {
+        word-break: break-all;
+    }
 
 .question-submit {
     padding: 25px 0 0;
@@ -730,6 +815,7 @@ body {
     background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(247,247,247,1) 25%,rgba(236,236,236,1) 51%,rgba(230,230,230,1) 51%,rgba(215,215,215,1) 78%,rgba(204,204,204,1) 100%); /* IE10+ */
     background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(247,247,247,1) 25%,rgba(236,236,236,1) 51%,rgba(230,230,230,1) 51%,rgba(215,215,215,1) 78%,rgba(204,204,204,1) 100%); /* W3C */
     cursor: pointer;
+    word-break: break-all;
 }
 
     .btn.default:hover {
@@ -750,6 +836,11 @@ body {
         background: linear-gradient(to bottom, rgba(229,229,229,1) 0%,rgba(237,237,237,1) 23%,rgba(247,247,247,1) 48%,rgba(255,255,255,1) 100%); /* W3C */
         -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1) inset;
         box-shadow: 0 0 5px rgba(0, 0, 0, 0.1) inset;
+    }
+
+    .btn.default.pull-left,
+    .btn.default.pull-right {
+        height: 100%;
     }
 
 .ie9 .btn.default {
