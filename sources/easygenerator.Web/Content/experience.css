@@ -221,8 +221,8 @@
 {
     font-size: 14px;
     padding-right: 40px;
+    display: inline-block;
     cursor: default;
-    display: inline-block
 }
 .experience-create-objective-image
 {
@@ -232,6 +232,12 @@
     position: absolute;
     top: -6px;
     right: 0px;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.experience-create-objective-image:hover {
+    opacity: 1;
 }
 
 .experiences-header-create-objective-wrapper {
@@ -244,6 +250,7 @@
 }
 .experiences-header-create-objective-wrapper .experiences-header-create-objective-block {
     position: relative;
+    
 }
 .experience .experience-header {
     margin-top: 35px;

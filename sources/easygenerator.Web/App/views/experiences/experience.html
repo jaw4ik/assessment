@@ -116,9 +116,9 @@
             <hr />
         </div>
         <div class="experiences-header-create-objective-wrapper">
-            <div class="experiences-header-create-objective-block" style="position: relative">
+            <div class="experiences-header-create-objective-block">
                 <span class="experience-create-objective" data-bind="localize: { text: 'createObjectiveFromExperience' }"></span>
-                <span class="experience-create-objective-image" data-bind="click: navigateToCreateObjective"></span>    
+                <span class="experience-create-objective-image" data-bind="click: navigateToCreateObjective, localize: { title: 'addNewObjective' }"></span>    
             </div>
         </div>
     </div>
@@ -196,7 +196,7 @@
     <!-- /ko -->
 
     <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
-    <!-- ko compose: { view: 'views/common/createtip', model: { text: 'createObjectiveTipFromexperience' } } -->
+    <!-- ko compose: { view: 'views/common/createtip', model: { text: 'clickToCreateNewObjective' } } -->
     <!-- /ko -->
     <div class="empty-list-wrapper">
         <div class="empty-list">
