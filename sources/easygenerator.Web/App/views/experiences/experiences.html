@@ -34,11 +34,11 @@
                     <!-- ko foreach: experiences -->
                     <li class="experience-brief"
                         data-bind="css: {
-                            'experience-brief-selected': isSelected,
-                            'experience-building': showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.inProgress,
-                            'experience-success': showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.succeed,
-                            'experience-failed': showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.failed
-                        }">
+    'experience-brief-selected': isSelected,
+    'experience-building': showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.inProgress,
+    'experience-success': showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.succeed,
+    'experience-failed': showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.failed
+}">
                         <!-- ko if: buildingStatus() != $parent.buildingStatuses.inProgress -->
                         <div class="build-experience-tooltip-wrapper">
                             <div class="build-experience-tooltip-triangle-wrapper">
@@ -81,16 +81,18 @@
                         <div class="white-framing experience-brief-inner">
                             <div>
                                 <div class="experience-brief-image-wrapper">
-                                    <img class="experience-brief-image" alt="" data-bind="attr:{ src: image }" />
+                                    <img class="experience-brief-image" alt="" data-bind="attr: { src: image }" />
                                 </div>
                                 <div class="experience-brief-toolbar">
                                     <div class="experience-brief-title" data-bind="attr: { title: title }">
                                         <span class="selectable" data-bind="text: title"></span>
-                                    </div><!--
-                                        --><div class="experience-brief-toolbar-objective-count" data-bind="localize: { title: 'numberOfRelatedObjectives' }">
-                                               <span class="experience-brief-toolbar-icon-objective"></span>
-                                               <div class="selectable" data-bind="text: objectives.length"></div>
-                                           </div>
+                                    </div>
+                                    <!--
+                                        -->
+                                    <div class="experience-brief-toolbar-objective-count" data-bind="localize: { title: 'numberOfRelatedObjectives' }">
+                                        <span class="experience-brief-toolbar-icon-objective"></span>
+                                        <div class="selectable" data-bind="text: objectives.length"></div>
+                                    </div>
                                 </div>
                                 <div class="experience-brief-option">
                                     <!-- ko if: !showBuildingStatus() || buildingStatus() == $parent.buildingStatuses.notStarted -->
@@ -129,9 +131,6 @@
                                         <div class="experience-brief-options-failed-image"></div>
                                     </div>
                                     <!-- /ko -->
-                                    <div class="image-preloader">
-                                        <div class="experience-brief-options-building-image"></div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -160,4 +159,8 @@
         </div>
     </div>
     <!-- /ko -->
+    <!-- preloading images in mozilla browser in case their appearing by knockout bindings-->
+    <div class="image-preloader">
+        <div class="experience-brief-options-building-image"></div>
+    </div>
 </section>
