@@ -111,6 +111,11 @@
         nl: 'Wissen',
         de: 'Löschen'
     },
+    materialDevelopment: {
+        en: 'Material development',
+        nl: 'Material development[nl]',
+        de: 'Material development[de]'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
