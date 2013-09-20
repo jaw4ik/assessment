@@ -650,8 +650,8 @@
     },
     createObjectiveFromExperience: {
         en: 'Create learning objective',
-        nl: 'Create learning objective[nl]',
-        de: 'Create learning objective[de]'
+        nl: 'Leerdoel maken',
+        de: 'Lernziel erstellen'
     },
     /* End resource section for model Display experience */
     
