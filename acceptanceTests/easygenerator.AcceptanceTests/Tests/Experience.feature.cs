@@ -633,7 +633,7 @@ testRunner.When("mouse hover element of related objectives list with title \'Obj
 #line 185
 testRunner.And("click open related objective list item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 186
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1?experienceId=1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

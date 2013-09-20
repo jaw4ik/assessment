@@ -183,7 +183,7 @@ Given objectives are linked to experiance 'Experience1'
 When open page by url 'http://localhost:5656/#/experience/1'
 When mouse hover element of related objectives list with title 'Objective11'
 And click open related objective list item with title 'Objective11'
-Then browser navigates to url 'http://localhost:5656/#objective/1'
+Then browser navigates to url 'http://localhost:5656/#objective/1?experienceId=1'
 
 Scenario: Question count is shown for each related objective list item
 Given objectives are present in database
