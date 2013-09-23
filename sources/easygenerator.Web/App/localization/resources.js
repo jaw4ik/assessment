@@ -116,6 +116,16 @@
         nl: 'Material development[nl]',
         de: 'Material development[de]'
     },
+    packageCreatedOn: {
+        en: 'Last package created on',
+        nl: 'Last package created on[nl]',
+        de: 'Last package created on[de]'
+    },
+    packageNotCreatedStatus: {
+        en: 'Not created',
+        nl: 'Not created[nl]',
+        de: 'Not created[de]'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -225,6 +235,26 @@
         nl: 'Leerervaring kan niet worden verwijderd als de ervaring een of meer leerdoelen bevat',
         de: 'Eine Lernerfahrung kann nicht gelöscht werden, wenn sie ein oder mehrere Lernziele enthält'
     },
+    createPackage: {
+        en: 'Create package',
+        nl: 'Create package[nl]',
+        de: 'Create package[de]'
+    },
+    updatePackage: {
+        en: 'Update package',
+        nl: 'Update package[nl]',
+        de: 'Update package[de]'
+    },
+    creatingStatus: {
+        en: 'creating...',
+        nl: 'creating...[nl]',
+        de: 'creating...[de]'
+    },
+    updatingStatus: {
+        en: 'updating...',
+        nl: 'updating...[nl]',
+        de: 'updating...[de]'
+    },
     /* End resource section for model Experiences */
     
     /* Resource section for model CreateObjective */
@@ -281,6 +311,11 @@
         nl: 'Sjabloon kiezen',
         de: 'Vorlage wählen'
     },
+    chooseLearningExperinceTemplate: {
+        en: 'Choose learning experience template',
+        nl: 'Choose learning experience template[nl]',
+        de: 'Choose learning experience template[de]'
+    },
     /* End resource section for model CreateExperience */
     
     /* Resource section for model Question */
@@ -328,6 +363,16 @@
         en: 'Delete answer',
         nl: 'Antwoord verwijderen',
         de: 'Antwort löschen'
+    },
+    learningObjects: {
+        en: 'Learning objects',
+        nl: 'Learning objects[nl]',
+        de: 'Learning objects[de]'
+    },
+    clickToAddLearningObject: {
+        en: 'Click here to add learning object',
+        nl: 'Click here to add learning object[nl]',
+        de: 'Click here to add learning object[de]'
     },
     /* End resource section for model Question */
     
@@ -657,6 +702,41 @@
         en: 'Create learning objective',
         nl: 'Leerdoel maken',
         de: 'Lernziel erstellen'
+    },
+    connectedLearningObjectives: {
+        en: 'Connected learning objectives',
+        nl: 'Connected learning objectives[nl]',
+        de: 'Connected learning objectives[de]'
+    },
+    noConnectedLearningObjectives: {
+        en: 'No connected learning objectives',
+        nl: 'No connected learning objectives[nl]',
+        de: 'No connected learning objectives[de]'
+    },
+    connectObjectivesHelpHint: {
+        en: 'Move cursor over learning objective and select to connect it to learning experience. Use Finish button when done',
+        nl: 'Move cursor over learning objective and select to connect it to learning experience. Use Finish button when done[nl]',
+        de: 'Move cursor over learning objective and select to connect it to learning experience. Use Finish button when done[de]'
+    },
+    noObjectivesForConnect: {
+        en: 'No learning objectives to connect',
+        nl: 'No learning objectives to connect[nl]',
+        de: 'No learning objectives to connect[de]'
+    },
+    connectObjectives: {
+        en: 'Connect learning objective(s)',
+        nl: 'Connect learning objective(s)[nl]',
+        de: 'Connect learning objective(s)[de]'
+    },
+    connectSelectedObjectives: {
+        en: 'Connect selected learning objective(s)',
+        nl: 'Connect selected learning objective(s)[nl]',
+        de: 'Connect selected learning objective(s)[de]'
+    },
+    disconnectSelectedObjectives: {
+        en: 'Disconnect selected learning objective(s)',
+        nl: 'Disconnect selected learning objective(s)[nl]',
+        de: 'Disconnect selected learning objective(s)[de]'
     },
     /* End resource section for model Display experience */
     
