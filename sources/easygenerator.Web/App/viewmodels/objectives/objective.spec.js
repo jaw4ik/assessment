@@ -7,6 +7,7 @@
             constants = require('constants'),
             repository = require('repositories/objectiveRepository'),
             experienceRepository = require('repositories/experienceRepository'),
+            questionRepository = require('repositories/questionRepository'),
             localizationManager = require('localization/localizationManager'),
             notify = require('notify');
 
@@ -1260,17 +1261,6 @@
 
             describe('deleteSelectedQuestions', function () {
 
-                var getDeferred;
-                var updateDeferred;
-
-                beforeEach(function () {
-                    getDeferred = Q.defer();
-                    updateDeferred = Q.defer();
-
-                    spyOn(repository, 'getById').andReturn(getDeferred.promise);
-                    spyOn(repository, 'updateObjective').andReturn(updateDeferred.promise);
-                    spyOn(notify, 'info');
-                });
 
                 it('should be a function', function () {
                     expect(viewModel.deleteSelectedQuestions).toBeFunction();
@@ -1294,40 +1284,58 @@
 
                 describe('when there are selected questions', function () {
 
-                    it('should delete selected question from viewModel', function () {
-                        viewModel.questions([{ id: '0', isSelected: ko.observable(true) }]);
-                        var promise = getDeferred.promise.finally(function () { });
+                    var removeQuestion;
+
+                    beforeEach(function () {
+                        removeQuestion = Q.defer();
+
+                        spyOn(questionRepository, 'removeQuestion').andReturn(removeQuestion.promise);
+                        spyOn(notify, 'info');
+                    });
+
+
+                    it('should delete selected question', function () {
+                        var objectiveId = 'objectiveId';
+                        var questionId = 'questionId';
+
+                        viewModel.objectiveId = objectiveId;
+                        viewModel.questions([{ id: questionId, isSelected: ko.observable(true) }]);
 
                         viewModel.deleteSelectedQuestions();
 
-                        getDeferred.resolve({ id: '0', qurstions: [{ id: '0' }] });
-                        updateDeferred.resolve(true);
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeResolved();
-                            expect(viewModel.questions().length).toBe(0);
-                        });
+                        expect(questionRepository.removeQuestion).toHaveBeenCalledWith(objectiveId, questionId);
                     });
+
 
                     describe('and when question deleted successfully', function () {
 
-                        it('should update notificaion', function () {
+                        it('should delete selected question from viewModel', function () {
                             viewModel.questions([{ id: '0', isSelected: ko.observable(true) }]);
+                            var promise = removeQuestion.promise.finally(function () { });
+                            removeQuestion.resolve();
 
                             viewModel.deleteSelectedQuestions();
-
-                            var promise = getDeferred.promise.finally(function () { });
-                            getDeferred.resolve({ id: '0', questions: [{ id: '0' }] });
-                            updateDeferred.resolve(objective);
 
                             waitsFor(function () {
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(promise).toBeResolved();
+                                expect(viewModel.questions().length).toBe(0);
+                            });
+                        });
+
+                        it('should update notificaion', function () {
+                            viewModel.questions([{ id: '0', isSelected: ko.observable(true) }]);
+
+                            var promise = removeQuestion.promise.finally(function () { });
+                            removeQuestion.resolve();
+
+                            viewModel.deleteSelectedQuestions();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
                                 expect(notify.info).toHaveBeenCalled();
                             });
                         });
@@ -1336,21 +1344,18 @@
                             viewModel.modifiedOn(new Date(1));
                             viewModel.questions([{ id: '0', isSelected: ko.observable(true) }]);
 
+                            var promise = removeQuestion.promise.finally(function () { });
                             var modificationDate = new Date();
-                            objective.modifiedOn = modificationDate;
+                            removeQuestion.resolve(modificationDate);
 
                             viewModel.deleteSelectedQuestions();
 
-                            var promise = getDeferred.promise.finally(function () { });
-                            getDeferred.resolve({ id: '0', questions: [{ id: '0' }] });
-                            updateDeferred.resolve(objective.modifiedOn);
 
                             waitsFor(function () {
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(promise).toBeResolved();
-                                expect(viewModel.modifiedOn()).toEqual(objective.modifiedOn);
+                                expect(viewModel.modifiedOn()).toEqual(modificationDate);
                             });
                         });
                     });

@@ -73,6 +73,12 @@ namespace easygenerator.Web.Configuration
             );
 
             routes.MapRoute(
+                name: "DeleteQuestion",
+                url: "api/question/delete",
+                defaults: new { controller = "Question", action = "Delete" }
+            );
+
+            routes.MapRoute(
                 name: "UpdateQuestionTitle",
                 url: "api/question/updateTitle",
                 defaults: new { controller = "Question", action = "UpdateTitle" }

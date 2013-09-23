@@ -241,6 +241,249 @@
 
             });
 
+            describe('removeQuestion:', function () {
+
+                it('should be function', function () {
+                    expect(questionRepository.removeQuestion).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(questionRepository.removeQuestion()).toBePromise();
+                });
+
+                describe('when objective id is not a string', function () {
+
+                    it('should reject promise', function () {
+                        var promise = questionRepository.removeQuestion(undefined, '');
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith('Objective id is not a string');
+                        });
+                    });
+
+                });
+
+                describe('when question id is not a string', function () {
+
+                    it('should reject promise', function () {
+                        var promise = questionRepository.removeQuestion('', undefined);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith('Question id is not a string');
+                        });
+                    });
+
+                });
+
+                it('should send request to server to api/question/delete', function () {
+                    var objectiveId = 'objectiveId';
+                    var questionId = 'questionId';
+
+                    httpWrapper.post.reset();
+                    post.reject();
+
+                    var promise = questionRepository.removeQuestion(objectiveId, questionId);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(httpWrapper.post).toHaveBeenCalledWith('api/question/delete', {
+                            objectiveId: objectiveId,
+                            questionId: questionId
+                        });
+                    });
+                });
+
+                describe('and request to server was not successful', function () {
+
+                    it('should reject promise', function () {
+                        var reason = 'reason';
+                        var promise = questionRepository.removeQuestion('', '');
+
+                        post.reject(reason);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith(reason);
+                        });
+                    });
+
+                });
+
+                describe('and request to server was successful', function () {
+
+                    describe('and response is not an object', function () {
+
+                        it('should reject promise', function () {
+                            var promise = questionRepository.removeQuestion('', '');
+
+                            post.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeRejectedWith('Response is not an object');
+                            });
+                        });
+
+                    });
+
+                    describe('and response does not have modification date', function () {
+
+                        it('should reject promise', function () {
+                            var promise = questionRepository.removeQuestion('', '');
+
+                            post.resolve({});
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeRejectedWith('Response does not have modification date');
+                            });
+                        });
+
+                    });
+
+                    describe('and response has modification date', function () {
+
+                        var dataContext = require('dataContext');
+                        var response = { ModifiedOn: "/Date(1378106938845)/" };
+
+
+                        beforeEach(function () {
+                            post.resolve(response);
+                        });
+
+                        describe('and objective does not exist in dataContext', function () {
+
+                            beforeEach(function () {
+                                dataContext.objectives = [];
+                            });
+
+                            it('should reject promise', function () {
+                                var promise = questionRepository.removeQuestion('', '');
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Objective does not exist in dataContext');
+                                });
+                            });
+
+                        });
+
+                        describe('and objective exists in dataContext', function () {
+
+                            var objectiveId = 'objectiveId';
+                            var questionId = 'questionId';
+
+                            beforeEach(function () {
+                                dataContext.objectives = [{ id: objectiveId, questions: [{ id: questionId }] }];
+                            });
+
+                            it('should remove question from objective', function() {
+                                var promise = questionRepository.removeQuestion(objectiveId, questionId);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(dataContext.objectives[0].questions.length).toEqual(0);
+                                });
+                            });
+
+                            it('should update objective modification date', function () {
+                                var promise = questionRepository.removeQuestion(objectiveId, questionId);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(dataContext.objectives[0].modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
+                                });
+                            });
+
+                            it('should resolve promise with modification date', function () {
+                                var promise = questionRepository.removeQuestion(objectiveId, questionId);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolvedWith(utils.getDateFromString(response.ModifiedOn));
+                                });
+                            });
+
+                        });
+
+
+                    });
+                    //describe('and response has modification date', function () {
+
+
+
+
+                    //    describe('and question does not exist in dataContext', function () {
+
+
+
+
+
+                    //    });
+
+                    //    describe('and question exists in dataContext', function () {
+
+                    //        var questionId = 'questionId';
+                    //        var questionTitle = 'questionTitle';
+
+                    //        beforeEach(function () {
+                    //            dataContext.objectives = [{ id: '', questions: [{ id: questionId }] }];
+                    //        });
+
+                    //        it('should update title and modification date', function () {
+
+                    //            var promise = questionRepository.updateTitle(questionId, questionTitle);
+
+                    //            waitsFor(function () {
+                    //                return !promise.isPending();
+                    //            });
+                    //            runs(function () {
+                    //                expect(dataContext.objectives[0].questions[0].title).toEqual(questionTitle);
+                    //                expect(dataContext.objectives[0].questions[0].modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
+                    //            });
+                    //        });
+
+                    //        it('should resolve promise with modification date', function () {
+                    //            var promise = questionRepository.updateTitle(questionId, questionTitle);
+
+                    //            waitsFor(function () {
+                    //                return !promise.isPending();
+                    //            });
+                    //            runs(function () {
+                    //                expect(promise).toBeResolvedWith(utils.getDateFromString(response.ModifiedOn));
+                    //            });
+                    //        });
+
+                    //    });
+
+                    //});
+
+                });
+
+            });
+
             describe('update:', function () {
                 var getObjectiveDeferred;
                 beforeEach(function () {

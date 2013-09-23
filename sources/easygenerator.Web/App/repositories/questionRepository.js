@@ -39,6 +39,36 @@
             });
         },
 
+        removeQuestion = function (objectiveId, questionId) {
+
+            return Q.fcall(function () {
+                guard.throwIfNotString(objectiveId, 'Objective id is not a string');
+                guard.throwIfNotString(questionId, 'Question id is not a string');
+
+                return httpWrapper.post('api/question/delete', { objectiveId: objectiveId, questionId: questionId })
+                    .then(function (response) {
+                        guard.throwIfNotAnObject(response, 'Response is not an object');
+                        guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
+
+                        var modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+
+                        var objective = _.find(dataContext.objectives, function (item) {
+                            return item.id == objectiveId;
+                        });
+
+                        guard.throwIfNotAnObject(objective, 'Objective does not exist in dataContext');
+
+                        objective.modifiedOn = modifiedOn;
+                        objective.questions = _.reject(objective.questions, function (item) {
+                            return item.id == questionId;
+                        });
+
+                        return modifiedOn;
+                    });
+            });
+
+        },
+
         updateTitle = function (questionId, title) {
             return Q.fcall(function () {
                 guard.throwIfNotString(questionId, 'Question id is not a string');
@@ -125,7 +155,7 @@
 
     return {
         addQuestion: addQuestion,
-
+        removeQuestion: removeQuestion,
         updateTitle: updateTitle,
 
         update: update,

@@ -25,6 +25,14 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        public ActionResult Delete(Objective objective, string title)
+        {
+
+
+            return JsonSuccess(new { ModifiedOn = DateTime.Now });
+        }
+
+        [HttpPost]
         public ActionResult UpdateTitle(Question question, string title)
         {
             if (question == null)

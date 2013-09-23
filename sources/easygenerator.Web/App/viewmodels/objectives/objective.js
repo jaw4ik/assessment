@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/experienceRepository', 'notify'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository, experienceRepository, notify) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/experienceRepository', 'repositories/questionRepository', 'notify'],
+    function (dataContext, constants, eventTracker, localizationManager, router, repository, experienceRepository, questionRepository, notify) {
         "use strict";
 
         var events = {
@@ -135,22 +135,12 @@
                 if (selectedQuestions.length == 0)
                     throw 'No selected questions to delete';
 
-                repository.getById(this.objectiveId).then(function (objective) {
-                    _.each(selectedQuestions, function (question) {
-                        objective.questions = _.reject(objective.questions, function (item) {
-                            return item.id === question.id;
-                        });
-                    });
-
-                    return repository.updateObjective(objective).then(function (updatedDate) {
-                        _.each(selectedQuestions, function (question) {
-                            questions.remove(question);
-                        });
-
-                        modifiedOn(updatedDate);
-                        notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
-                    });
+                questionRepository.removeQuestion(this.objectiveId, selectedQuestions[0].id).then(function (objectiveModificationDate) {
+                    questions(_.reject(questions(), function (item) { return item.id == selectedQuestions[0].id; }));
+                    modifiedOn(objectiveModificationDate);
+                    notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
                 });
+
             },
 
             toggleQuestionSelection = function (question) {
