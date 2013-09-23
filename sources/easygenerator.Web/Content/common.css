@@ -269,9 +269,7 @@ COMMON CLASSES CSS-STYLES
     content: ':';
 }
 
-/**
- * messages
- */
+/*#region Messages*/
 
 .alert {
     min-width: 328px;
@@ -330,6 +328,9 @@ COMMON CLASSES CSS-STYLES
         opacity: 1.0;
         filter: alpha(opacity=100);
     }
+
+
+/*#endregion Messages*/
 
 /**
   * info-header (image, title, navigation)
