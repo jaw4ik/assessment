@@ -312,9 +312,14 @@
         de: 'Vorlage wählen'
     },
     chooseLearningExperinceTemplate: {
-        en: 'Choose learning experience template',
-        nl: 'Choose learning experience template[nl]',
-        de: 'Choose learning experience template[de]'
+        en: 'Choose learning experience template:',
+        nl: 'Choose learning experience template:[nl]',
+        de: 'Choose learning experience template:[de]'
+    },
+    learningExperienceTemplate: {
+        en: 'Learning experience template:',
+        nl: 'Learning experience template:[nl]',
+        de: 'Learning experience template:[de]'
     },
     /* End resource section for model CreateExperience */
     
