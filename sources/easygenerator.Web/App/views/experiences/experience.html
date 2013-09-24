@@ -97,10 +97,10 @@
 
     <!-- ko if: objectivesMode() == objectivesListModes.display -->
     <div class="experience-related-objectives-header">
-        <a class="experiences-header-create-link" data-bind="click: startAppendingObjectives, localize: { title: 'relateObjectives' }"></a>
-        <span class="experience-header-title-text" data-bind="localize: { text: 'relatedLearningObjectives' }">Related learning objectives</span>
+        <a class="experiences-header-create-link" data-bind="click: startAppendingObjectives, localize: { title: 'connectObjectives' }"></a>
+        <span class="experience-header-title-text" data-bind="localize: { text: 'connectedLearningObjectives' }">Related learning objectives</span>
         <!-- ko if: canUnrelateObjectives() -->
-        <span class="header-toolbar-item-wrapper" data-bind="click: unrelateSelectedObjectives, localize: { title: 'unrelateObjectives' }">
+        <span class="header-toolbar-item-wrapper" data-bind="click: unrelateSelectedObjectives, localize: { title: 'disconnectSelectedObjectives' }">
             <span class="toolbar-unrelate"></span>
         </span>
         <!-- /ko -->
@@ -111,7 +111,7 @@
     <!-- ko if: objectivesMode() == objectivesListModes.appending -->
     <div class="experience-header clearfix">
         <div class="experiences-header-title">
-            <a class="experiences-header-finish-link" data-bind="click: finishAppendingObjectives, localize: { title: 'finishRelating' }"></a>
+            <a class="experiences-header-finish-link" data-bind="click: finishAppendingObjectives, localize: { title: 'connectSelectedObjectives' }"></a>
             <span class="experiences-header-title-text" data-bind="localize: { text: 'finish' }"></span>
             <hr />
         </div>
@@ -136,7 +136,7 @@
             <!-- ko compose: {
                 view: 'views/common/hintpopup',
                 model: {
-                text: 'relateObjectivesHelpHint',
+                text: 'connectObjectivesHelpHint',
                 close: hintPopup.close.bind(hintPopup)
                 }
                 } -->
@@ -194,7 +194,7 @@
     </div>
     <div class="empty-list-wrapper">
         <div class="empty-list">
-            <div class="empty-list-text" data-bind="localize: { text: 'noRelatedLearningObjectives' }"></div>
+            <div class="empty-list-text" data-bind="localize: { text: 'noConnectedLearningObjectives' }"></div>
         </div>
     </div>
     <!-- /ko -->
@@ -202,7 +202,7 @@
     <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
     <div class="empty-list-wrapper">
         <div class="empty-list">
-            <div class="empty-list-text" data-bind="localize: { text: 'noObjectivesForRelating' }"></div>
+            <div class="empty-list-text" data-bind="localize: { text: 'noObjectivesForConnect' }"></div>
         </div>
     </div>
     <!-- /ko -->

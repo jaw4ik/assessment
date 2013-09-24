@@ -344,20 +344,10 @@
         nl: 'Antwoordopties',
         de: 'Antwortoptionen'
     },
-    explanations: {
-        en: 'Explanations',
-        nl: 'Uitleg',
-        de: 'Erläuterungen'
-    },
     questionProperties: {
         en: 'Question Properties',
         nl: 'Eigenschappen vraag',
         de: 'Frageneigenschaften'
-    },
-    clickToAddNewExplanation: {
-        en: 'Click here to add explanation',
-        nl: 'Klik hier als u uitleg wilt toevoegen',
-        de: 'Hier klicken, um Erläuterung hinzuzufügen'
     },
     clickToAddNewAnswerOption: {
         en: 'Click here to add answer option',
