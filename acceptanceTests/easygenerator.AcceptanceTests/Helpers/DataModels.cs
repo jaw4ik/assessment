@@ -44,7 +44,7 @@ namespace easygenerator.AcceptanceTests.Helpers
         public string ModifiedOn { get; set; }
         [JsonProperty("answerOptions")]
         public List<AnswerOption> AnswerOptions { get; set; }
-        [JsonProperty("explanations")]
+        [JsonProperty("learningObjects")]
         public List<Explanation> Explanations { get; set; }
     }
     public class AnswerOption
