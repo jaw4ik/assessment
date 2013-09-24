@@ -1,7 +1,7 @@
 ﻿.main-nav {
     display: table;
     width: 100%;
-    margin: 19px 0 7px;
+    margin: 20px 0 7px;
 }
 
 .main-nav-list {
@@ -51,12 +51,9 @@
     width: auto;
 }
 
-.nl-lang .nav-control.right {
-    width: 203px;
-}
-
+.nl-lang .nav-control.right,
 .de-lang .nav-control.right {
-    width: 260px;
+    width: 230px;
 }
 
 .nav-control.build-experience {
@@ -210,6 +207,7 @@
         display: inline-block;
         vertical-align: middle;
     }
+
     .experience-related-objectives-header .experience-header-title-text {
         padding-right: 14px;
     }
@@ -217,15 +215,15 @@
     .experience-related-objectives-header hr {
         width: 100%;
     }
-.experience-create-objective
-{
+
+.experience-create-objective {
     font-size: 14px;
     padding-right: 40px;
     display: inline-block;
     cursor: default;
 }
-.experience-create-objective-image
-{
+
+.experience-create-objective-image {
     width: 32px;
     height: 32px;
     background: url('images/small_icons.png') -1px 32px;
@@ -236,9 +234,9 @@
     cursor: pointer;
 }
 
-.experience-create-objective-image:hover {
-    opacity: 1;
-}
+    .experience-create-objective-image:hover {
+        opacity: 1;
+    }
 
 .experiences-header-create-objective-wrapper {
     color: #666;
@@ -247,10 +245,11 @@
     display: table-cell;
     white-space: nowrap;
 }
-.experiences-header-create-objective-wrapper .experiences-header-create-objective-block {
-    position: relative;
-    
-}
+
+    .experiences-header-create-objective-wrapper .experiences-header-create-objective-block {
+        position: relative;
+    }
+
 .experience .experience-header {
     margin-top: 35px;
     margin-bottom: 10px;
@@ -372,9 +371,9 @@
     margin-top: 1px;
 }
 
-.experience-date-block-text.not-built {
-    line-height: 16px;
-}
+    .experience-date-block-text.not-built {
+        line-height: 16px;
+    }
 
 /*#region Info button*/
 
@@ -462,9 +461,9 @@
     margin-top: 2px;
 }
 
-.experience-info-table.not-built {
-    margin-top: 10px;
-}
+    .experience-info-table.not-built {
+        margin-top: 10px;
+    }
 
 .experience-info-popup-triangle-wrapper {
     position: absolute;
@@ -497,11 +496,11 @@
 }
 
 .experience .entity-info-popup {
-    height: 124px;
+    height: 133px;
 }
 
 .experience .entity-info-popup-triangle-wrapper {
-    margin-top: -26px;
+    margin-top: -34px;
 }
 
 .experience .entity-info-popup-item {
@@ -513,91 +512,95 @@
 .experience .hint-popup {
     border: 1px solid #bdbebf;
     border-radius: 3px;
-    
     -webkit-box-shadow: 0 0 3px 2px #f1f1f1;
     box-shadow: 0 0 3px 2px #f1f1f1;
     z-index: 31;
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top, #ffffff 0%, #fdfdfd 11%, #f7f7f7 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(11%,#fdfdfd), color-stop(100%,#f7f7f7)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%,#fdfdfd 11%,#f7f7f7 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%,#fdfdfd 11%,#f7f7f7 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%,#fdfdfd 11%,#f7f7f7 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ffffff 0%,#fdfdfd 11%,#f7f7f7 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f7f7f7',GradientType=0 ); /* IE6-9 */
 }
 
-    .experience .hint-popup-wrapper {
-        position: relative;
-        width: 270px;
-        padding: 15px 13px;
+.experience .hint-popup-wrapper {
+    position: relative;
+    width: 270px;
+    padding: 15px 13px;
+    border-radius: 3px;
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top, #ffffff 0%, #fdfdfd 11%, #f7f7f7 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(11%,#fdfdfd), color-stop(100%,#f7f7f7)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%,#fdfdfd 11%,#f7f7f7 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%,#fdfdfd 11%,#f7f7f7 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%,#fdfdfd 11%,#f7f7f7 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ffffff 0%,#fdfdfd 11%,#f7f7f7 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f7f7f7',GradientType=0 ); /* IE6-9 */
+    z-index: 32;
+}
 
-        border-radius: 3px;
+.experience .hint-popup-close {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 6px;
+    height: 6px;
+    background: url(images/hint-popup-sprite.png) 0 -31px no-repeat;
+}
 
-        background: #ffffff; /* Old browsers */
-        background: -moz-linear-gradient(top,  #ffffff 0%, #fdfdfd 11%, #f7f7f7 100%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(11%,#fdfdfd), color-stop(100%,#f7f7f7)); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(top,  #ffffff 0%,#fdfdfd 11%,#f7f7f7 100%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(top,  #ffffff 0%,#fdfdfd 11%,#f7f7f7 100%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(top,  #ffffff 0%,#fdfdfd 11%,#f7f7f7 100%); /* IE10+ */
-        background: linear-gradient(to bottom,  #ffffff 0%,#fdfdfd 11%,#f7f7f7 100%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f7f7f7',GradientType=0 ); /* IE6-9 */
+.experience .hint-popup-light-image {
+    position: absolute;
+    width: 17px;
+    height: 27px;
+    background: url(images/hint-popup-sprite.png) 0 0 no-repeat;
+}
 
-        z-index: 32;
-    }
+.experience .hint-popup-text {
+    font-family: Arial;
+    font-size: 13px;
+    color: #666666;
+    margin-left: 30px;
+    line-height: 15px;
+    display: inline-block;
+    text-shadow: 0 0 #bebebe;
+}
 
-    .experience .hint-popup-close {
-        position: absolute;
-        top: 4px;
-        right: 4px;
-        width: 6px;
-        height: 6px;
-        background: url(images/hint-popup-sprite.png) 0 -31px no-repeat;
-    }
+.experience .hint-popup-triangle-wrapper {
+    position: absolute;
+    left: 13px;
+    bottom: -8px;
+    width: 15px;
+    height: 8px;
+    *overflow: hidden;
+    z-index: 30;
+}
 
-    .experience .hint-popup-light-image {
-        position: absolute;
-        width: 17px;
-        height: 27px;
-        background: url(images/hint-popup-sprite.png) 0 0 no-repeat;
-    }
-
-    .experience .hint-popup-text {
-        font-family: Arial;
-        font-size: 13px;
-        color: #666666;
-        margin-left: 30px;
-        line-height: 15px;
-        display: inline-block;
-        text-shadow: 0px 0px #bebebe;
-    }
-
-    .experience .hint-popup-triangle-wrapper {
-        position: absolute;
-        left: 13px;
-        bottom: -8px;
-        width: 15px;
-        height: 8px;
-        *overflow: hidden;
-        z-index: 30;
-    }
-
-    .experience .hint-popup-triangle {
-        width: 16px;
-        height: 16px;
-        margin-top: -11px;
-        background-color: #f7f7f7;
-        border: 1px solid #bdbebf;
-        -webkit-box-shadow: 0 0 3px 1px #f1f1f1;
-        box-shadow: 0 0 3px 1px #f1f1f1;
-        -moz-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        -webkit-transform: rotate(45deg);
-        transform: rotate(45deg);
-        z-index: 32;
-    }
+.experience .hint-popup-triangle {
+    width: 16px;
+    height: 16px;
+    margin-top: -11px;
+    background-color: #f7f7f7;
+    border: 1px solid #bdbebf;
+    -webkit-box-shadow: 0 0 3px 1px #f1f1f1;
+    box-shadow: 0 0 3px 1px #f1f1f1;
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    z-index: 32;
+}
 
 .experience .hint-popup-holder {
     position: relative;
 }
 
-.experience .hint-popup-holder .hint-popup {
-    position: absolute;
-    bottom: 0;
-    left: 93px;
-}
+    .experience .hint-popup-holder .hint-popup {
+        position: absolute;
+        bottom: 0;
+        left: 93px;
+    }
 
 /*#endregion Hint popup*/
 

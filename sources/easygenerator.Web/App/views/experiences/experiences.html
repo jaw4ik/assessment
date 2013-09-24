@@ -52,7 +52,7 @@
                                         <div class="experience-brief-options-build-image inline" data-bind="css: { selected: isSelected() }">
                                             &nbsp;
                                         </div>
-                                        <div class="experience-brief-options-build-text inline" data-bind="localize: { text: 'buildExperience' }"></div>
+                                        <div class="experience-brief-options-build-text inline" data-bind="localize: { text: 'createPackage' }"></div>
                                     </div>
                                 </div>
                                 <!-- /ko -->
@@ -62,7 +62,7 @@
                                         <div class="experience-brief-options-rebuild-image inline">
                                             <input class="custom-checkbox" type="checkbox" />
                                         </div>
-                                        <div class="experience-brief-options-rebuild-text inline" data-bind="localize: { text: 'experienceRebuildAction' }"></div>
+                                        <div class="experience-brief-options-rebuild-text inline" data-bind="localize: { text: 'updatePackage' }"></div>
                                     </div>
                                 </div>
                                 <div class="separator"></div>
@@ -115,7 +115,12 @@
                                     <!-- /ko -->
                                     <!-- ko if: showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.inProgress -->
                                     <div class="experience-brief-option-inner experience-brief-options-building">
-                                        <div data-bind="localize: { text: 'experienceBuildingStatus' }"></div>
+                                        <!-- ko if: isFirstBuild -->
+                                        <div data-bind="localize: { text: 'creatingStatus' }"></div>
+                                        <!-- /ko -->
+                                        <!-- ko ifnot: isFirstBuild -->
+                                        <div data-bind="localize: { text: 'updatingStatus' }"></div>
+                                        <!-- /ko -->
                                         <div class="experience-brief-options-building-image"></div>
                                     </div>
                                     <!-- /ko -->

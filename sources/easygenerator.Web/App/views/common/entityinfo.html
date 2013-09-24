@@ -6,12 +6,12 @@
             <!-- ko foreach: info -->
             <div class="entity-info-popup-item">
                 <div class="entity-info-popup-item-title" data-bind="localize: { text: text }"></div>
-                <div class="entity-info-popup-item-data">
+                <div class="entity-info-popup-item-data clearfix">
                     <!-- ko if: _.isDate(date) -->
-                    <div>
+                    <div class="entity-info-popup-item-date-text-wrapper left">
                         <span class="entity-info-popup-item-date-text" data-bind="date: { value: date, formatString: 'L', language: $parent.language }"></span>
                     </div>
-                    <div>
+                    <div class="entity-info-popup-item-date-text-wrapper right">
                         <span class="entity-info-popup-item-time-text" data-bind="date: { value: date, formatString: 'LT', language: $parent.language }"></span>
                     </div>
                     <!-- /ko -->

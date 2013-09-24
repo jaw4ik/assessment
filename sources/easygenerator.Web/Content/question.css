@@ -1,9 +1,10 @@
 ﻿@font-face {
-    font-family: 'AlphaMackAOERegular';
-    src: url('./font/alphamacaoe.eot'); /* IE9 Compat Modes */
-    src: url('./font/alphamacaoe.woff') format('woff'), /* Modern Browsers */
-    url('./font/alphamacaoe.ttf') format('truetype'), /* Safari, Android, iOS */
-    url('./font/alphamacaoe.svg#AlphaMackAOERegular') format('svg'); /* Legacy iOS */
+font-family: 'BuxtonSketchRegular';
+    src: url('font/buxtonsketch.eot');
+    src: url('font/buxtonsketch.eot') format('embedded-opentype'), 
+         url('font/buxtonsketch.woff') format('woff'), 
+         url('font/buxtonsketch.ttf') format('truetype'), 
+         url('font/buxtonsketch.svg#BuxtonSketchRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 }

@@ -8,7 +8,7 @@
                     <!-- ko if: status() == statuses.notStarted -->
                     <div class="experience-build-progress-status-item build" data-bind="click: buildExperience">
                         <span class="experience-build-status-image experience-build-status-image-not-started pull-right"></span>
-                        <span class="nav-title" data-bind="localize: { text: 'experienceBuildAction' }">Build experience</span>
+                        <span class="nav-title" data-bind="localize: { text: 'createPackage' }">Create package</span>
                     </div>
                     <!-- /ko -->
 
@@ -16,7 +16,12 @@
                     <!-- ko if: status() == statuses.inProgress && status() != statuses.notStarted -->
                     <div class="experience-build-progress-status-item not-transparent">
                         <span class="experience-build-status-image experience-build-status-image-in-progress pull-right"></span>
-                        <span class="nav-title" data-bind="localize: { text: 'experienceBuildingStatus' }">Building...</span>
+                        <!-- ko if: isFirstBuild() -->
+                        <span class="nav-title" data-bind="localize: { text: 'creatingStatus' }">Creating...</span>
+                        <!-- /ko -->
+                        <!-- ko if: !isFirstBuild() -->
+                        <span class="nav-title" data-bind="localize: { text: 'updatingStatus' }">Updating...</span>
+                        <!-- /ko -->
                     </div>
                     <!-- /ko -->
 
@@ -43,12 +48,12 @@
                 <div class="nav-control rebuild left">
                     <!-- ko if: status() == statuses.inProgress -->
                     <div class="disabled nav-control-inner rebuild">
-                        <span class="nav-title" data-bind="localize: { text: 'experienceRebuildAction' }"></span>
+                        <span class="nav-title" data-bind="localize: { text: 'updatePackage' }"></span>
                     </div>
                     <!-- /ko -->
                     <!-- ko ifnot: status() == statuses.inProgress -->
                     <div class="nav-control-inner rebuild" data-bind=" click: buildExperience">
-                        <span class="nav-title" data-bind="localize: { text: 'experienceRebuildAction' }"></span>
+                        <span class="nav-title" data-bind="localize: { text: 'updatePackage' }"></span>
                     </div>
                     <!-- /ko -->
                 </div>
@@ -68,7 +73,7 @@
             <!-- ko compose: { 
                 view: 'views/common/entityinfo', 
                 model: {
-                    info: [ { text: 'createdOn', emptyText: '', date: createdOn }, { text: 'modifiedOn', emptyText: '', date: modifiedOn() }, { text: 'builtOn', emptyText: 'notBuilt', date: builtOn() } ],
+                    info: [ { text: 'createdOn', emptyText: '', date: createdOn }, { text: 'modifiedOn', emptyText: '', date: modifiedOn() }, { text: 'packageCreatedOn', emptyText: 'packageNotCreatedStatus', date: builtOn() } ],
                     image: template.image,
                     language: language
                 }

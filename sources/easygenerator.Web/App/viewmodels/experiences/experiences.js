@@ -89,6 +89,7 @@
                             sendEvent(events.experienceBuildFailed);
                             experience.buildingStatus(constants.buildingStatuses.failed);
                         }
+                        experience.isFirstBuild(false);
                         experience.packageUrl = response.PackageUrl;
                         var experienceFromDataContext = _.find(dataContext.experiences, function (item) {
                             return item.id == experience.id;
@@ -102,6 +103,11 @@
             downloadExperience = function (experience) {
                 sendEvent(events.downloadExperience);
                 router.download('download/' + experience.packageUrl);
+            },
+
+            resetBuildStatus = function () {
+                this.status(constants.buildingStatuses.notStarted);
+                experience.isFirstBuild(true);
             },
 
             enableOpenExperience = function (experience) {
@@ -158,6 +164,7 @@
                     experience.buildingStatus = ko.observable(item.buildingStatus);
                     experience.packageUrl = item.packageUrl;
 
+                    experience.isFirstBuild = ko.observable(true);
                     experience.isSelected = ko.observable(false);
                     experience.showBuildingStatus = ko.observable();
 
@@ -202,6 +209,7 @@
             buildExperience: buildExperience,
             downloadExperience: downloadExperience,
             enableOpenExperience: enableOpenExperience,
+            resetBuildStatus: resetBuildStatus,
 
             canDeleteExperiences: canDeleteExperiences,
             deleteSelectedExperiences: deleteSelectedExperiences,
