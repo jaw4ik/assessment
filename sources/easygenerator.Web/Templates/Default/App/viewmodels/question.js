@@ -25,8 +25,8 @@
         backToObjectives = function () {
             router.navigateTo('#/');
         },
-        showExplanations = function () {
-            router.navigateTo('#/objective/' + objective.id + '/question/' + question.id + '/explanations');
+        showLearningObjects = function () {
+            router.navigateTo('#/objective/' + objective.id + '/question/' + question.id + '/learningObjects');
         },
         showFeedback = function () {
             router.navigateTo('#/objective/' + objective.id + '/question/' + question.id + '/feedback');
@@ -64,6 +64,6 @@
         submit: submit,
 
         backToObjectives: backToObjectives,
-        showExplanations: showExplanations
+        showLearningObjects: showLearningObjects
     };
 });

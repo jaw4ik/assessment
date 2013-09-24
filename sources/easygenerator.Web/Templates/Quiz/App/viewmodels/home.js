@@ -33,8 +33,8 @@
             router.navigateTo('#/summary');
         },
 
-        showExplanations = function (item) {
-            router.navigateTo('#/objective/' + item.objectiveId + '/question/' + item.id + '/explanations');
+        showLearningObjects = function (item) {
+            router.navigateTo('#/objective/' + item.objectiveId + '/question/' + item.id + '/learningObjects');
             scrollId = '' + item.objectiveId + item.id;
         },
 
@@ -63,7 +63,7 @@
                                 }
                             };
                         }),
-                        explanations: question.explanations,
+                        learningObjects: question.learningObjects,
                         title: question.title,
                         number: 0
                     };
@@ -124,7 +124,7 @@
         itemsQuestion: context.testResult,
         getItems: getItems,
         submit: submit,
-        showExplanations: showExplanations,
+        showLearningObjects: showLearningObjects,
         viewAttached: viewAttached,
         isEndTest: isEndTest,
         titleOfExperience: context.title,

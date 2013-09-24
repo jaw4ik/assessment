@@ -345,7 +345,7 @@ input[type="checkbox"] {
 .question .navigation-link-left-image,
 .feedback .navigation-link-left-image,
 .summary .navigation-link-left-image,
-.explanations .navigation-link-left-image {
+.learning-objects .navigation-link-left-image {
     background-position: 0 0;
 }
 
@@ -630,40 +630,40 @@ input[type="checkbox"] {
 /* -------------- end of feedback view ------------- */
 
 
-/* -------------- explanation view ------------- */
-.explanations {
+/* -------------- learning object view ------------- */
+.learning-objects {
     padding-bottom: 10px;
 }
 
-    .explanations .navigation-link-right-image {
+    .learning-objects .navigation-link-right-image {
         background-position: 0 -114px;
     }
 
-    .explanations .caption-icon-image {
+    .learning-objects .caption-icon-image {
         background-position: 0 -28px;
     }
 
-    .explanations .caption-text {
+    .learning-objects .caption-text {
         text-transform: uppercase;
     }
 
-.explanation-items {
+.learning-object-items {
     padding: 0 10px;
     margin: 0;
 }
 
-    .explanation-items .explanation-item {
+    .learning-object-items .learning-object-item {
         padding: 20px 0;
         -ms-word-wrap: break-word;
         word-wrap: break-word;
         overflow: hidden;
     }
 
-        .explanation-items .explanation-item + .explanation-item {
+        .learning-object-items .learning-object-item + .learning-object-item {
             border-top: solid 2px #e0e0e0;
         }
 
-/* -------------- end of explanations view ------------- */
+/* -------------- end of learning object view ------------- */
 
 
 /* -------------- not supported browser view ------------- */

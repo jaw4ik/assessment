@@ -25,7 +25,7 @@
                         "isCorrect": true,
                         "text": "You always will see the direct effect of your actions in the editing screen of easygenerator."
                     }],
-                    "explanations": [{
+                    "learningObjects": [{
                         "id": 0
                     }, {
                         "id": 1
@@ -68,8 +68,8 @@
             expect(viewModel.submit).toBeDefined();
         });
         
-        it('should be defined showExplanations', function () {
-            expect(viewModel.showExplanations).toBeDefined();
+        it('should be defined showLearningObjects', function () {
+            expect(viewModel.showLearningObjects).toBeDefined();
         });
         
         it('should be defined viewAttached', function () {
@@ -175,19 +175,19 @@
             });
         });
 
-        describe('showExplanations:', function() {
+        describe('showLearningObjects:', function () {
             beforeEach(function () {
                 spyOn(router, 'navigateTo');
             });
             
             it('should be function', function () {
-                expect(viewModel.showExplanations).toBeFunction();
+                expect(viewModel.showLearningObjects).toBeFunction();
             });
             
-            it('should navigate to #/objective/:objectiveId/question/:questionid/explanations', function () {
-                var explanation = { objectiveId: 'obj1', id: 'ques1' };
-                viewModel.showExplanations(explanation);
-                expect(router.navigateTo).toHaveBeenCalledWith('#/objective/obj1/question/ques1/explanations');
+            it('should navigate to #/objective/:objectiveId/question/:questionid/learningObjects', function () {
+                var learningObject = { objectiveId: 'obj1', id: 'ques1' };
+                viewModel.showLearningObjects(learningObject);
+                expect(router.navigateTo).toHaveBeenCalledWith('#/objective/obj1/question/ques1/learningObjects');
             });
         });
     });

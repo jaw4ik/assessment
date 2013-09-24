@@ -2,7 +2,7 @@
 
     var objectiveId = '',
         questionId = '',
-        explanations = [],
+        learningObjects = [],
         backToQuestions = function () {
             router.navigateTo('#/');
         },
@@ -37,19 +37,19 @@
             }
 
 
-            this.explanations = [];
+            this.learningObjects = [];
             var requests = [];
 
-            _.each(question.explanations, function (item, index) {
+            _.each(question.learningObjects, function (item, index) {
                 requests.push(http.get('content/' + objectiveId + '/' + questionId + '/' + item.id + '.html').done(function (response) {
-                    that.explanations.push({ index: index, explanation: response });
+                    that.learningObjects.push({ index: index, learningObject: response });
                 }));
             });
 
             window.scroll(0, 0);
 
             return $.when.apply($, requests).done(function () {
-                that.explanations = _.sortBy(that.explanations, function (item) {
+                that.learningObjects = _.sortBy(that.learningObjects, function (item) {
                     return item.index;
                 });
             });
@@ -57,7 +57,7 @@
 
     return {
         activate: activate,
-        explanations: explanations,
+        learningObjects: learningObjects,
         backToQuestions: backToQuestions,
     };
 });

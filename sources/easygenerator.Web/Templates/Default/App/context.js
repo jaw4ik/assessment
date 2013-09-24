@@ -33,7 +33,7 @@
                                             text: answer.text
                                         };
                                     }),
-                                    explanations: _.map(question.learningObjects, function (learningObject) {
+                                    learningObjects: _.map(question.learningObjects, function (learningObject) {
                                         return { id: learningObject.id };
                                     }),
                                     score: 0

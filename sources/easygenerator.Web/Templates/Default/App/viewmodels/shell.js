@@ -42,9 +42,9 @@
                     name: 'Feedback'
                 },
                 {
-                    url: '#/objective/:objectiveId/question/:questionId/explanations',
-                    moduleId: 'viewmodels/explanations',
-                    name: 'Explanation'
+                    url: '#/objective/:objectiveId/question/:questionId/learningObjects',
+                    moduleId: 'viewmodels/learningObjects',
+                    name: 'Learning objects'
                 },
                 {
                     url: '#/summary',

@@ -236,6 +236,9 @@
     <Content Include="Scripts\durandal\system.js" />
     <Content Include="Scripts\durandal\viewEngine.js" />
     <Content Include="Scripts\durandal\viewLocator.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\learningObjects.spec.js">
+      <DependentUpon>learningObjects.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.eot" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.ttf" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.woff" />
@@ -634,7 +637,7 @@
     <Content Include="Templates\Default\App\main.js" />
     <Content Include="Templates\Default\App\viewmodels\404.js" />
     <Content Include="Templates\Default\App\viewmodels\notsupportedbrowserMobile.js" />
-    <Content Include="Templates\Default\App\viewmodels\explanations.js" />
+    <Content Include="Templates\Default\App\viewmodels\learningObjects.js" />
     <Content Include="Templates\Default\App\viewmodels\feedback.js" />
     <Content Include="Templates\Default\App\viewmodels\home.js" />
     <Content Include="Templates\Default\App\viewmodels\notsupportedbrowser.js" />
@@ -645,7 +648,7 @@
     <Content Include="Templates\Default\App\views\404.html" />
     <Content Include="Templates\Default\App\views\notsupportedbrowserMobile.html" />
     <Content Include="Templates\Default\App\views\notsupportedbrowser.html" />
-    <Content Include="Templates\Default\App\views\explanations.html" />
+    <Content Include="Templates\Default\App\views\learningObjects.html" />
     <Content Include="Templates\Default\App\views\feedback.html" />
     <Content Include="Templates\Default\App\views\home.html" />
     <Content Include="Templates\Default\App\views\question.html" />
@@ -740,10 +743,7 @@
     <Content Include="Templates\Quiz\App\viewmodels\404.spec.js">
       <DependentUpon>404.js</DependentUpon>
     </Content>
-    <Content Include="Templates\Quiz\App\viewmodels\explanations.js" />
-    <Content Include="Templates\Quiz\App\viewmodels\explanations.spec.js">
-      <DependentUpon>explanations.js</DependentUpon>
-    </Content>
+    <Content Include="Templates\Quiz\App\viewmodels\learningObjects.js" />
     <Content Include="Templates\Quiz\App\viewmodels\home.js" />
     <Content Include="Templates\Quiz\App\viewmodels\home.spec.js">
       <DependentUpon>home.js</DependentUpon>
@@ -762,7 +762,7 @@
     </Content>
     <Content Include="Templates\Quiz\App\views\400.html" />
     <Content Include="Templates\Quiz\App\views\404.html" />
-    <Content Include="Templates\Quiz\App\views\explanations.html" />
+    <Content Include="Templates\Quiz\App\views\learningObjects.html" />
     <Content Include="Templates\Quiz\App\views\home.html" />
     <Content Include="Templates\Quiz\App\views\notsupportedbrowser.html" />
     <Content Include="Templates\Quiz\App\views\shell.html" />

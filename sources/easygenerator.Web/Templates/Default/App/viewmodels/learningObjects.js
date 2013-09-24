@@ -3,7 +3,7 @@
     var
         objectiveId = '',
         questionId = '',
-        explanations = [],
+        learningObjects = [],
 
         backToObjectives = function () {
             router.navigateTo('#/');
@@ -17,7 +17,7 @@
             objectiveId = routeData.objectiveId;
             questionId = routeData.questionId;
 
-            this.explanations = [];
+            this.learningObjects = [];
 
             var objective = _.find(context.objectives, function (item) {
                 return item.id == objectiveId;
@@ -30,14 +30,14 @@
             var that = this;
 
             var requests = [];
-            _.each(question.explanations, function (item, index) {
+            _.each(question.learningObjects, function (item, index) {
                 requests.push(http.get('content/' + objectiveId + '/' + questionId + '/' + item.id + '.html').done(function (response) {
-                    that.explanations.push({ index: index, explanation: response });
+                    that.learningObjects.push({ index: index, learningObject: response });
                 }));
             });
 
             return $.when.apply($, requests).done(function () {
-                that.explanations = _.sortBy(that.explanations, function (item) {
+                that.learningObjects = _.sortBy(that.learningObjects, function (item) {
                     return item.index;
                 });
             });
@@ -48,7 +48,7 @@
 
     return {
         activate: activate,
-        explanations: explanations,
+        learningObjects: learningObjects,
         backToObjectives: backToObjectives,
         backToQuestion: backToQuestion
     };

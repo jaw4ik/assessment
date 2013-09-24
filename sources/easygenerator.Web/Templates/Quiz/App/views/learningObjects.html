@@ -1,4 +1,4 @@
-﻿<section id="explanations">
+﻿<section id="learningObjects">
     <div class="btn-back-to">
         <a class="btn default justified" data-bind="click: backToQuestions">
             <span class="btn-text-back-to">
@@ -9,14 +9,14 @@
     <div class="content-holder">
         <div class="content-header">
             <div class="content-header-inner">
-                <h3 class="content-title explanation-title">
+                <h3 class="content-title learning-object-title">
                     <span class="selectable">Explanations</span>
                 </h3>
             </div>
         </div>
-        <ul class="unstyled explanations-list">
-            <!-- ko foreach: explanations -->
-            <li class="explanations-list-item divided selectable" data-bind="html: explanation"></li>
+        <ul class="unstyled learning-object-list">
+            <!-- ko foreach: learningObjects -->
+            <li class="learning-objects-list-item divided selectable" data-bind="html: learningObject"></li>
             <!-- /ko -->
         </ul>
     </div>

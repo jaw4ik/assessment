@@ -2,12 +2,12 @@
     "use strict";
 
     var
-        viewModel = require('viewModels/explanations'),
+        viewModel = require('viewModels/learningObjects'),
         router = require('durandal/plugins/router'),
         context = require('context'),
         http = require('durandal/http');
 
-    describe('viewModel [explanations]', function () {
+    describe('viewModel [learningObjects]', function () {
 
         it('should be defined', function () {
             expect(viewModel).toBeDefined();
@@ -30,7 +30,7 @@
                         "isCorrect": true,
                         "text": "You always will see the direct effect of your actions in the editing screen of easygenerator."
                     }],
-                    "explanations": [{
+                    "learningObjects": [{
                         "id": 0
                     }]
                 }]
@@ -53,9 +53,9 @@
                 expect(viewModel.activate).toBeFunction();
             });
 
-            it('should be set explanations', function () {
+            it('should be set learning objects', function () {
                 viewModel.activate({ objectiveId: 0, questionId: 0 });
-                expect(viewModel.explanations).toNotBe([]);
+                expect(viewModel.learningObjects).toNotBe([]);
             });
 
             describe('when routeData incorrect', function () {
@@ -124,18 +124,18 @@
                 expect(window.scroll).toHaveBeenCalledWith(0, 0);
             });
 
-            it('should load explanations', function () {
+            it('should load learning objects', function () {
                 var objectiveId = '0';
                 var questionId = '0';
                 var itemId = '0';
-                var explanationUrl = 'content/' + objectiveId + '/' + questionId + '/' + itemId + '.html';
+                var learningObjectUrl = 'content/' + objectiveId + '/' + questionId + '/' + itemId + '.html';
 
                 viewModel.activate({ objectiveId: objectiveId, questionId: questionId });
 
-                expect(http.get).toHaveBeenCalledWith(explanationUrl);
+                expect(http.get).toHaveBeenCalledWith(learningObjectUrl);
             });
             
-            it('should push loaded explanations to viewmodel', function () {
+            it('should push loaded learning objects to viewmodel', function () {
                 var objectiveId = '0';
                 var questionId = '0';
                 var responseText = 'some response text';
@@ -148,7 +148,7 @@
                     return promise.state() == 'resolved';
                 });
                 runs(function () {
-                    expect(viewModel.explanations[0].explanation).toEqual(responseText);
+                    expect(viewModel.learningObjects[0].learningObject).toEqual(responseText);
                 });
             });
 

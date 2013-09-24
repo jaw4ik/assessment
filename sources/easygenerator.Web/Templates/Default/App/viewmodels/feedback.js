@@ -7,8 +7,8 @@
         backToObjectives = function () {
             router.navigateTo('#/');
         },
-        showExplanations = function () {
-            router.navigateTo('#/objective/' + objective.id + '/question/' + question.id + '/explanations');
+        showLearningObjects = function () {
+            router.navigateTo('#/objective/' + objective.id + '/question/' + question.id + '/learningObjects');
         },
         isShowNextQuestionButton = function () {
             return this.score == 100;
@@ -38,7 +38,7 @@
         score: score,
 
         backToObjectives: backToObjectives,
-        showExplanations: showExplanations,
+        showLearningObjects: showLearningObjects,
         isShowNextQuestionButton: isShowNextQuestionButton,
         isShowTryAgainButton: isShowTryAgainButton,
         chooseNextQuestion: chooseNextQuestion,

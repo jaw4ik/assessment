@@ -28,9 +28,9 @@
                     name: 'Summary'
                 },
                 {
-                    url: '#/objective/:objectiveId/question/:questionId/explanations',
-                    moduleId: 'viewmodels/explanations',
-                    name: 'Explanations'
+                    url: '#/objective/:objectiveId/question/:questionId/learningObjects',
+                    moduleId: 'viewmodels/learningObjects',
+                    name: 'Learning objects'
                 },
                 {
                     url: '#/404',
