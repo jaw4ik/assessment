@@ -193,6 +193,7 @@
 
 .experience-related-objectives-header {
     display: inline-block;
+    vertical-align: top;
     overflow: hidden;
     margin-top: 20px;
     margin-bottom: 10px;
