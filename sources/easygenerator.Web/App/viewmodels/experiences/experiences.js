@@ -89,13 +89,12 @@
                             sendEvent(events.experienceBuildFailed);
                             experience.buildingStatus(constants.buildingStatuses.failed);
                         }
-                        experience.isFirstBuild(false);
                         experience.packageUrl = response.PackageUrl;
                         var experienceFromDataContext = _.find(dataContext.experiences, function (item) {
                             return item.id == experience.id;
                         });
-
                         experienceFromDataContext.packageUrl = response.PackageUrl;
+                        experience.isFirstBuild(false);
                         experienceFromDataContext.builtOn = new Date();
                     });
             },
