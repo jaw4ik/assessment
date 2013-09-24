@@ -64,6 +64,12 @@ namespace easygenerator.AcceptanceTests.Steps
             packageObjectivesPage.ProgressSummaryButtonClick();
         }
 
+        [When(@"click package question list item '(.*)' of '(.*)'")]
+        public void WhenClickPackageQuestionListItemOf(string questionTitle, string objectiveTitle)
+        {
+            packageObjectivesPage.ObjectiveQuestionItems(objectiveTitle).First(question => question.Title == questionTitle).PackageQuestionListItemClick();
+        }
+
 
 
     }

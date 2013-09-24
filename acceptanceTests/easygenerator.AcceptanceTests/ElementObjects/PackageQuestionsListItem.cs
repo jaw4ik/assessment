@@ -23,6 +23,10 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
+        internal void PackageQuestionListItemClick()
+        {
+            GetByXPathInside(model.QuestionTitle).Click();
+        }
 
     }
 }

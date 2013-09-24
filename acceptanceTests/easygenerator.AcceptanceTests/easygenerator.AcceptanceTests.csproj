@@ -95,6 +95,7 @@
     <Compile Include="ElementObjects\ObjectivesListPage.cs" />
     <Compile Include="ElementObjects\PackageObjectivesListItem.cs" />
     <Compile Include="ElementObjects\PackageObjectivesListPage.cs" />
+    <Compile Include="ElementObjects\PackageQuestionPage.cs" />
     <Compile Include="ElementObjects\PackageQuestionsListItem.cs" />
     <Compile Include="ElementObjects\QuestionPage.cs" />
     <Compile Include="ElementObjects\QuestionsList.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="LinkingModels\ObjectiveListLinkingModel.cs" />
     <Compile Include="LinkingModels\PackageObjectiveListItemLinkingModel.cs" />
     <Compile Include="LinkingModels\PackageObjectiveListLinkingModel.cs" />
+    <Compile Include="LinkingModels\PackageQuestionPageLinkingModel.cs" />
     <Compile Include="LinkingModels\QuestionListItemLinkingModel.cs" />
     <Compile Include="LinkingModels\QuestionPageLinkingModel.cs" />
     <Compile Include="LinkingModels\QuestionsListLinkingModel.cs" />
@@ -139,6 +141,7 @@
     <Compile Include="Steps\ListOfObjectivesSteps.cs" />
     <Compile Include="Steps\ListOfQuestionsSteps.cs" />
     <Compile Include="Steps\PackageListOfObjectivesSteps.cs" />
+    <Compile Include="Steps\PackageQuestionSteps.cs" />
     <Compile Include="Steps\QuestionSteps.cs" />
     <Compile Include="Steps\UserSettingsSteps.cs" />
     <Compile Include="Tests\AnswerOptions.feature.cs">
@@ -205,6 +208,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PackageListOfObjectives.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Tests\PackageQuestionPage.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PackageQuestionPage.feature</DependentUpon>
     </Compile>
     <Compile Include="Tests\Question.feature.cs">
       <AutoGen>True</AutoGen>
@@ -273,6 +281,10 @@
     <None Include="Tests\PackageListOfObjectives.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PackageListOfObjectives.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Tests\PackageQuestionPage.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PackageQuestionPage.feature.cs</LastGenOutput>
     </None>
     <None Include="Tests\Question.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

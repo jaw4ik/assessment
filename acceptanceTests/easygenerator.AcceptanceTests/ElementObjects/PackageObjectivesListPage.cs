@@ -55,5 +55,11 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             var btn = GetByXPath(model.ProgressSummaryButton);
             btn.Click();
         }
+
+        internal void PackageQuestionListItemClick(string questionTitle, string objectiveTitle)
+        {
+
+        }
+
     }
 }
