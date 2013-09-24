@@ -142,3 +142,7 @@ And package questions list of objective item with title 'Objective12' containes 
 | Question21 | 1  |
 | Question22 | 2  |
 
+Scenario: Progress summary button navigates to progress summary page
+When open page by url 'http://localhost:5656/Templates/tmp'
+And click on progress summary button on package list of objective page
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/summary'

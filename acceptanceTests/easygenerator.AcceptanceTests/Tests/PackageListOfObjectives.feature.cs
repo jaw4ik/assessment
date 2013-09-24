@@ -447,6 +447,25 @@ testRunner.And("package questions list of objective item with title \'Objective1
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Progress summary button navigates to progress summary page")]
+        public virtual void ProgressSummaryButtonNavigatesToProgressSummaryPage()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Progress summary button navigates to progress summary page", ((string[])(null)));
+#line 145
+this.ScenarioSetup(scenarioInfo);
+#line 7
+this.FeatureBackground();
+#line 146
+testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 147
+testRunner.And("click on progress summary button on package list of objective page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 148
+testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#/summary\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

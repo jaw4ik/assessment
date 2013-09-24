@@ -58,6 +58,13 @@ namespace easygenerator.AcceptanceTests.Steps
                 "package questions are displayed");            
         }
 
+        [When(@"click on progress summary button on package list of objective page")]
+        public void WhenClickOnProgressSummaryButtonOnPackageListOfObjectivePage()
+        {
+            packageObjectivesPage.ProgressSummaryButtonClick();
+        }
+
+
 
     }
 }

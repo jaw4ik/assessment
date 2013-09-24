@@ -11,6 +11,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
     {
         public string ObjectiveItem = ".//li[contains(@class,'objective-brief-list-item')]";
         public string QuestionItem = ".//li[contains(@class,'question-brief')]";
+        public string ProgressSummaryButton = ".//ul[contains(@class,'navigation-menu')]//a[contains(@class,'navigation-menu-item-link')]";
         
         
         
