@@ -113,18 +113,18 @@
     },
     materialDevelopment: {
         en: 'Material development',
-        nl: 'Material development[nl]',
-        de: 'Material development[de]'
+        nl: 'Materiaalontwikkeling',
+        de: 'Materialentwicklung'
     },
     packageCreatedOn: {
         en: 'Last package created on',
-        nl: 'Last package created on[nl]',
-        de: 'Last package created on[de]'
+        nl: 'Laatste pakket gemaakt op',
+        de: 'Letztes Paket erstellt am'
     },
     packageNotCreatedStatus: {
         en: 'Not created',
-        nl: 'Not created[nl]',
-        de: 'Not created[de]'
+        nl: 'Niet gemaakt',
+        de: 'Nicht erstellt'
     },
     /* End resource section for model General */
     
@@ -237,23 +237,23 @@
     },
     createPackage: {
         en: 'Create package',
-        nl: 'Create package[nl]',
-        de: 'Create package[de]'
+        nl: 'Pakket maken',
+        de: 'Paket erstellen'
     },
     updatePackage: {
         en: 'Update package',
-        nl: 'Update package[nl]',
-        de: 'Update package[de]'
+        nl: 'Pakket bijwerken',
+        de: 'Paket aktualisieren'
     },
     creatingStatus: {
         en: 'creating...',
-        nl: 'creating...[nl]',
-        de: 'creating...[de]'
+        nl: 'bezig met maken...',
+        de: 'wird erstellt...'
     },
     updatingStatus: {
         en: 'updating...',
-        nl: 'updating...[nl]',
-        de: 'updating...[de]'
+        nl: 'bezig met bijwerken...',
+        de: 'wird aktualisiert...'
     },
     /* End resource section for model Experiences */
     
@@ -313,13 +313,13 @@
     },
     chooseLearningExperinceTemplate: {
         en: 'Choose learning experience template:',
-        nl: 'Choose learning experience template:[nl]',
-        de: 'Choose learning experience template:[de]'
+        nl: 'Leerervaringssjabloon kiezen:',
+        de: 'Lernerfahrungsvorlage wählen'
     },
     learningExperienceTemplate: {
         en: 'Learning experience template:',
-        nl: 'Learning experience template:[nl]',
-        de: 'Learning experience template:[de]'
+        nl: 'Leerervaringssjabloon:',
+        de: 'Lernerfahrungsvorlage:'
     },
     /* End resource section for model CreateExperience */
     
@@ -650,7 +650,7 @@
     },
     relateObjectivesHelpHint: {
         en: 'Move cursor over learning objective and select to include it into learning experience. Use Finish button when done',
-        nl: 'Verplaats de cursor over het leerdoel en selecteer het voor opname in de leeromgeving. Klik na afloop op de knop Afsluiten',
+        nl: 'Verplaats de cursor over het leerdoel en selecteer het om het in de leeromgeving op te nemen. Klik na afloop op de knop Afsluiten',
         de: 'Bewegen Sie den Mauszeiger über ein Lernziel und wählen Sie es aus, um es in die Lernerfahrung einzuschließen. Klicken Sie auf die Schaltfläche \"Fertig stellen\", wenn Sie fertig sind.'
     },
     clickToCreateNewObjective: {
@@ -700,38 +700,38 @@
     },
     connectedLearningObjectives: {
         en: 'Connected learning objectives',
-        nl: 'Connected learning objectives[nl]',
-        de: 'Connected learning objectives[de]'
+        nl: 'Gekoppelde leerdoelen',
+        de: 'Verbundene Lernziele'
     },
     noConnectedLearningObjectives: {
         en: 'No connected learning objectives',
-        nl: 'No connected learning objectives[nl]',
-        de: 'No connected learning objectives[de]'
+        nl: 'Geen gekoppelde leerdoelen',
+        de: 'Keine verbundenen Lernziele'
     },
     connectObjectivesHelpHint: {
         en: 'Move cursor over learning objective and select to connect it to learning experience. Use Finish button when done',
-        nl: 'Move cursor over learning objective and select to connect it to learning experience. Use Finish button when done[nl]',
-        de: 'Move cursor over learning objective and select to connect it to learning experience. Use Finish button when done[de]'
+        nl: 'Verplaats de cursor over het leerdoel en selecteer het om het aan de leeromgeving te koppelen. Klik na afloop op de knop Afsluiten',
+        de: 'Bewegen Sie den Mauszeiger über ein Lernziel und wählen Sie es aus, um es mit der Lernerfahrung zu verbinden. Klicken Sie auf die Schaltfläche \"Fertig stellen\", wenn Sie fertig sind.'
     },
     noObjectivesForConnect: {
         en: 'No learning objectives to connect',
-        nl: 'No learning objectives to connect[nl]',
-        de: 'No learning objectives to connect[de]'
+        nl: 'Geen leerdoelen om te koppelen',
+        de: 'Keine zu verbindenden Lernziele'
     },
     connectObjectives: {
         en: 'Connect learning objective(s)',
-        nl: 'Connect learning objective(s)[nl]',
-        de: 'Connect learning objective(s)[de]'
+        nl: 'Leerdoel(en) koppelen',
+        de: 'Lernziel(e) verbinden'
     },
     connectSelectedObjectives: {
         en: 'Connect selected learning objective(s)',
-        nl: 'Connect selected learning objective(s)[nl]',
-        de: 'Connect selected learning objective(s)[de]'
+        nl: 'Geselecteerd(e) leerdoel(en) koppelen',
+        de: 'Ausgewählte(s) Lernziel(e) verbinden'
     },
     disconnectSelectedObjectives: {
         en: 'Disconnect selected learning objective(s)',
-        nl: 'Disconnect selected learning objective(s)[nl]',
-        de: 'Disconnect selected learning objective(s)[de]'
+        nl: 'Geselecteerd(e) leerdoel(en) loskoppelen',
+        de: 'Ausgewählte(s) Lernziel(e) trennen'
     },
     /* End resource section for model Display experience */
     
