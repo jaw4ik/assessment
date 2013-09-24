@@ -111,11 +111,11 @@
             <!-- /ko -->
         </div>
         <div>
-            <div class="question-content-block question-explanations">
+            <div class="question-content-block question-learning-objects">
                 <div class="question-content-block-header-wrapper" data-bind="click: toggleLearningObjects">
                     <div class="question-content-block-header" data-bind="css: { 'shadow-bottom-curve': isLearningObjectsBlockExpanded() }">
                         <div class="question-content-block-header-icon">
-                            <i class="explanation-icon"></i>
+                            <i class="learning-object-icon"></i>
                         </div>
                         <div class="question-content-block-header-title" data-bind="localize: { text: 'learningObjects' }"></div>
                         <div class="question-content-block-size-element-wrapper pull-right">
@@ -134,26 +134,26 @@
                 <div class="question-content-items-list">
                     <ul class="unstyled">
                         <!-- ko foreach: learningObjects -->
-                        <li class="question-explanation-item" data-bind="css: { active: isEditing }">
-                            <div class="question-explanation-list-item">
-                                <div class="question-explanation-wrapper">
-                                    <div class="question-explanation selectable" data-bind="ckeditor: { data: text, language: $parent.language(), eventTracker: $parent.eventTracker, isEditing: isEditing, save: $parent.saveLearningObject, autosaveInterval: $parent.learningObjectAutosaveInterval }">
+                        <li class="question-learning-object-item" data-bind="css: { active: isEditing }">
+                            <div class="question-learning-object-list-item">
+                                <div class="question-learning-object-wrapper">
+                                    <div class="question-learning-object selectable" data-bind="ckeditor: { data: text, language: $parent.language(), eventTracker: $parent.eventTracker, isEditing: isEditing, save: $parent.saveLearningObject, autosaveInterval: $parent.learningObjectAutosaveInterval }">
                                     </div>
                                 </div>
-                                <div class="question-explanation-delete-wrapper" data-bind="click: $parent.deleteLearningObject.bind($parent), localize: { title: 'remove' }">
-                                    <span class="question-explanation-delete-icon"></span>
+                                <div class="question-learning-object-delete-wrapper" data-bind="click: $parent.deleteLearningObject.bind($parent), localize: { title: 'remove' }">
+                                    <span class="question-learning-object-delete-icon"></span>
                                 </div>
                             </div>
                         </li>
                         <!-- /ko -->
                         <li class="add-button">
-                            <div class="question-explanation-list-item">
-                                <div class="question-explanation-wrapper" data-bind="css: { 'enabled': canAddLearningObject }">
+                            <div class="question-learning-object-list-item">
+                                <div class="question-learning-object-wrapper" data-bind="css: { 'enabled': canAddLearningObject }">
                                     <!-- ko if: canAddLearningObject -->
-                                    <div class="question-explanation selectable" data-bind="click: addLearningObject, localize: { text: 'clickToAddLearningObject' }"></div>
+                                    <div class="question-learning-object selectable" data-bind="click: addLearningObject, localize: { text: 'clickToAddLearningObject' }"></div>
                                     <!-- /ko -->
                                     <!-- ko ifnot: canAddLearningObject -->
-                                    <div class="question-explanation selectable disabled" data-bind="localize: { text: 'clickToAddLearningObject' }"></div>
+                                    <div class="question-learning-object selectable disabled" data-bind="localize: { text: 'clickToAddLearningObject' }"></div>
                                     <!-- /ko -->
                                 </div>
                             </div>
