@@ -314,7 +314,7 @@
     chooseLearningExperinceTemplate: {
         en: 'Choose learning experience template:',
         nl: 'Leerervaringssjabloon kiezen:',
-        de: 'Lernerfahrungsvorlage wählen'
+        de: 'Lernerfahrungsvorlage wählen:'
     },
     learningExperienceTemplate: {
         en: 'Learning experience template:',
