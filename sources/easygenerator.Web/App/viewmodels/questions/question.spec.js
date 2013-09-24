@@ -15,7 +15,7 @@ define(function (require) {
         createdOn: new Date(),
         modifiedOn: new Date(),
         answerOptions: [],
-        explanations: []
+        learningObjects: []
     };
 
     var objective = {
@@ -31,14 +31,14 @@ define(function (require) {
                 id: '0',
                 title: 'Question 1',
                 answerOptions: [],
-                explanations: []
+                learningObjects: []
             },
             question,
             {
                 id: '2',
                 title: 'Question 3',
                 answerOptions: [],
-                explanations: []
+                learningObjects: []
             }
         ]
     };
@@ -411,7 +411,7 @@ define(function (require) {
                     });
                 });
 
-            });
+            }); 
 
             it('should initialize fields', function () {
                 var promise = viewModel.activate(objective.id, question.id);
@@ -428,8 +428,8 @@ define(function (require) {
                     expect(viewModel.createdOn).toBe(question.createdOn);
                     expect(viewModel.modifiedOn()).toBe(question.modifiedOn);
 
-                    expect(viewModel.answerOptions().lenght).toBe(question.answerOptions.lenght);
-                    expect(viewModel.explanations().lenght).toBe(question.explanations.lenght);
+                    expect(viewModel.answerOptions().length).toBe(question.answerOptions.length);
+                    expect(viewModel.learningObjects().length).toBe(question.learningObjects.length);
                     expect(viewModel.hasPrevious).toBe(true);
                     expect(viewModel.hasNext).toBe(true);
                 });
@@ -442,23 +442,23 @@ define(function (require) {
                 expect(viewModel.deactivate).toBeFunction();
             });
 
-            it('should finish editing explanation', function () {
-                viewModel.explanations([{ isEditing: ko.observable(false) }]);
+            it('should finish editing learning object', function () {
+                viewModel.learningObjects([{ isEditing: ko.observable(false) }]);
                 viewModel.deactivate();
 
-                expect(viewModel.explanations()[0].isEditing()).toBe(false);
+                expect(viewModel.learningObjects()[0].isEditing()).toBe(false);
             });
 
-            it('should remove subscribers from explanation', function () {
-                var explanation = {
+            it('should remove subscribers from learning object', function () {
+                var learningObject = {
                     isEditing: ko.observable(true),
                     editingSubscription: jasmine.createSpyObj('disposeSpy', ['dispose'])
                 };
-                viewModel.explanations([explanation]);
+                viewModel.learningObjects([learningObject]);
 
                 viewModel.deactivate();
 
-                expect(explanation.editingSubscription.dispose).toHaveBeenCalled();
+                expect(learningObject.editingSubscription.dispose).toHaveBeenCalled();
             });
 
             it('should finish editing answer options', function() {
@@ -606,63 +606,63 @@ define(function (require) {
 
         });
 
-        describe('toggleExplanations:', function () {
+        describe('toggleLearningObjects:', function () {
 
             it('should be a function', function () {
-                expect(viewModel.toggleExplanations).toBeFunction();
+                expect(viewModel.toggleLearningObjects).toBeFunction();
             });
 
-            describe('when called while explanations block is expanded', function () {
+            describe('when called while learning objects block is expanded', function () {
 
-                it('should collapse explanations block', function () {
-                    viewModel.isExplanationsBlockExpanded(true);
-                    viewModel.toggleExplanations();
-                    expect(viewModel.isExplanationsBlockExpanded()).toBe(false);
+                it('should collapse learning objects block', function () {
+                    viewModel.isLearningObjectsBlockExpanded(true);
+                    viewModel.toggleLearningObjects();
+                    expect(viewModel.isLearningObjectsBlockExpanded()).toBe(false);
                 });
 
                 it('should finish editing', function () {
-                    viewModel.isExplanationsBlockExpanded(true);
+                    viewModel.isLearningObjectsBlockExpanded(true);
 
-                    var explanation = {
+                    var learningObject = {
                         text: ko.observable('Some text'),
                         isEditing: ko.observable(true),
                         id: '0'
                     };
-                    viewModel.explanations([explanation]);
+                    viewModel.learningObjects([learningObject]);
 
-                    explanation.isEditing(true);
+                    learningObject.isEditing(true);
 
-                    viewModel.toggleExplanations();
+                    viewModel.toggleLearningObjects();
 
-                    expect(explanation.isEditing()).toBeFalsy();
+                    expect(learningObject.isEditing()).toBeFalsy();
                 });
 
             });
 
-            describe('when called while explanations block is collapsed', function () {
+            describe('when called while learning objects block is collapsed', function () {
 
-                it('should expand explanations block', function () {
-                    viewModel.isExplanationsBlockExpanded(false);
+                it('should expand learning objects block', function () {
+                    viewModel.isLearningObjectsBlockExpanded(false);
 
-                    viewModel.toggleExplanations();
+                    viewModel.toggleLearningObjects();
 
-                    expect(viewModel.isExplanationsBlockExpanded()).toBe(true);
+                    expect(viewModel.isLearningObjectsBlockExpanded()).toBe(true);
                 });
 
             });
 
         });
 
-        xdescribe('explanations:', function () {
+        xdescribe('learningObjects:', function () {
 
             it('should be observable', function () {
-                expect(viewModel.explanations).toBeObservable();
+                expect(viewModel.learningObjects).toBeObservable();
             });
 
             describe('text:', function () {
 
                 it('should be observable', function () {
-                    expect(viewModel.explanations()[0].text).toBeObservable();
+                    expect(viewModel.learningObjects()[0].text).toBeObservable();
                 });
 
             });
@@ -670,27 +670,27 @@ define(function (require) {
             describe('isEditing', function () {
 
                 it('should be observable', function () {
-                    expect(viewModel.explanations()[0].isEditing).toBeObservable();
+                    expect(viewModel.learningObjects()[0].isEditing).toBeObservable();
                 });
 
                 describe('when start editing', function () {
 
-                    it('should send event \"Start editing explanation\"', function () {
-                        viewModel.explanations()[0].isEditing(true);
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Start editing explanation');
+                    it('should send event \"Start editing learning object\"', function () {
+                        viewModel.learningObjects()[0].isEditing(true);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Start editing learning object');
                     });
 
                 });
 
                 describe('when finish editing', function () {
 
-                    it('should send event \"End editing explanation\"', function () {
-                        viewModel.explanations()[0].isEditing(true);
+                    it('should send event \"End editing learning object\"', function () {
+                        viewModel.learningObjects()[0].isEditing(true);
                         eventTracker.publish.reset();
 
-                        viewModel.explanations()[0].isEditing(false);
+                        viewModel.learningObjects()[0].isEditing(false);
 
-                        expect(eventTracker.publish).toHaveBeenCalledWith('End editing explanation');
+                        expect(eventTracker.publish).toHaveBeenCalledWith('End editing learning object');
                     });
 
                 });
@@ -700,92 +700,92 @@ define(function (require) {
             describe('editingSubscription', function () {
 
                 it('should be object', function () {
-                    expect(viewModel.explanations()[0].editingSubscription).toBeObject();
+                    expect(viewModel.learningObjects()[0].editingSubscription).toBeObject();
                 });
 
                 it('should have dispose function', function () {
-                    expect(viewModel.explanations()[0].editingSubscription.dispose).toBeFunction();
+                    expect(viewModel.learningObjects()[0].editingSubscription.dispose).toBeFunction();
                 });
 
             });
 
         });
 
-        describe('addExplanation:', function () {
+        describe('addLearningObject:', function () {
 
             beforeEach(function () {
-                viewModel.explanations([]);
+                viewModel.learningObjects([]);
             });
 
             it('should be a function', function () {
-                expect(viewModel.addExplanation).toBeFunction();
+                expect(viewModel.addLearningObject).toBeFunction();
             });
 
             describe('when called', function () {
 
-                it('should send event \'Add explanation\'', function () {
-                    viewModel.addExplanation();
+                it('should send event \'Add learning object\'', function () {
+                    viewModel.addLearningObject();
 
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Add explanation');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Add learning object');
                 });
 
-                it('should add explanation to viewModel', function () {
-                    viewModel.explanations([]);
-                    viewModel.addExplanation();
+                it('should add learning object to viewModel', function () {
+                    viewModel.learningObjects([]);
+                    viewModel.addLearningObject();
 
-                    expect(viewModel.explanations().length).toBe(1);
-                    expect(viewModel.explanations()[0].text).toBeDefined();
-                    expect(viewModel.explanations()[0].id).toBeDefined();
+                    expect(viewModel.learningObjects().length).toBe(1);
+                    expect(viewModel.learningObjects()[0].text).toBeDefined();
+                    expect(viewModel.learningObjects()[0].id).toBeDefined();
                 });
 
-                it('should start editing new explanation', function () {
-                    viewModel.addExplanation();
+                it('should start editing new learning object', function () {
+                    viewModel.addLearningObject();
 
-                    expect(viewModel.explanations()[0].isEditing()).toBe(true);
+                    expect(viewModel.learningObjects()[0].isEditing()).toBe(true);
                 });
 
                 it('should have empty text', function () {
-                    viewModel.addExplanation();
+                    viewModel.addLearningObject();
 
-                    expect(viewModel.explanations()[0].text()).toBe('');
+                    expect(viewModel.learningObjects()[0].text()).toBe('');
                 });
 
             });
 
         });
 
-        describe('canAddExplanation:', function () {
+        describe('canAddLearningObject:', function () {
 
             it('should be computed', function () {
-                expect(viewModel.canAddExplanation).toBeComputed();
+                expect(viewModel.canAddLearningObject).toBeComputed();
             });
 
-            describe('when explanation is just added', function () {
+            describe('when learning object is just added', function () {
 
                 it('should be false', function () {
-                    viewModel.addExplanation();
+                    viewModel.addLearningObject();
 
-                    expect(viewModel.canAddExplanation()).toBe(false);
+                    expect(viewModel.canAddLearningObject()).toBe(false);
                 });
 
             });
 
-            describe('when text of just added explanation is empty', function () {
+            describe('when text of just added learning object is empty', function () {
 
                 it('should be false', function () {
-                    viewModel.explanations([]);
-                    viewModel.addExplanation();
-                    var explanation = viewModel.explanations()[0];
+                    viewModel.learningObjects([]);
+                    viewModel.addLearningObject();
+                    var learningObject = viewModel.learningObjects()[0];
 
-                    explanation.text('Some text');
-                    explanation.text('');
+                    learningObject.text('Some text');
+                    learningObject.text('');
 
-                    expect(viewModel.canAddExplanation()).toBe(false);
+                    expect(viewModel.canAddLearningObject()).toBe(false);
                 });
 
             });
 
-            describe('when last added explanation was removed', function () {
+            describe('when last added learning object was removed', function () {
 
                 var getQuestionByIdDeferred;
                 var getQuestionByIdDeferredPromise;
@@ -798,9 +798,9 @@ define(function (require) {
                 });
 
                 it('should be true', function () {
-                    viewModel.explanations([]);
-                    viewModel.addExplanation();
-                    viewModel.deleteExplanation(viewModel.explanations()[0]);
+                    viewModel.learningObjects([]);
+                    viewModel.addLearningObject();
+                    viewModel.deleteLearningObject(viewModel.learningObjects()[0]);
                     var promise = getQuestionByIdDeferredPromise.fin(function () { });
                     getQuestionByIdDeferred.resolve(question);
 
@@ -808,39 +808,39 @@ define(function (require) {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(viewModel.canAddExplanation()).toBe(true);
+                        expect(viewModel.canAddLearningObject()).toBe(true);
                     });
                 });
 
             });
 
-            describe('when text from any explanation except last is empty', function () {
+            describe('when text from any learning object except last is empty', function () {
 
                 it('should be true', function () {
-                    viewModel.explanations([]);
-                    viewModel.addExplanation();
-                    var explanation = viewModel.explanations()[0];
+                    viewModel.learningObjects([]);
+                    viewModel.addLearningObject();
+                    var learningObject = viewModel.learningObjects()[0];
 
-                    viewModel.addExplanation();
-                    viewModel.explanations()[1].text('Some text');
+                    viewModel.addLearningObject();
+                    viewModel.learningObjects()[1].text('Some text');
 
-                    explanation.text('');
+                    learningObject.text('');
 
-                    expect(viewModel.canAddExplanation()).toBe(true);
+                    expect(viewModel.canAddLearningObject()).toBe(true);
                 });
 
             });
 
-            describe('when text of last added explanation not empty', function () {
+            describe('when text of last added learning object not empty', function () {
 
                 it('should be true', function () {
-                    viewModel.explanations([]);
-                    viewModel.addExplanation();
-                    var explanation = viewModel.explanations()[0];
+                    viewModel.learningObjects([]);
+                    viewModel.addLearningObject();
+                    var learningObject = viewModel.learningObjects()[0];
 
-                    explanation.text('Some text');
+                    learningObject.text('Some text');
 
-                    expect(viewModel.canAddExplanation()).toBe(true);
+                    expect(viewModel.canAddLearningObject()).toBe(true);
                 });
 
             });
@@ -848,26 +848,26 @@ define(function (require) {
             describe('when text is empty after end editing', function () {
 
                 it('should be true', function () {
-                    viewModel.explanations([]);
-                    viewModel.addExplanation();
+                    viewModel.learningObjects([]);
+                    viewModel.addLearningObject();
 
-                    var explanation = viewModel.explanations()[0];
-                    explanation.text('Some text');
-                    explanation.isEditing(false);
-                    viewModel.saveExplanation(explanation);
+                    var learningObject = viewModel.learningObjects()[0];
+                    learningObject.text('Some text');
+                    learningObject.isEditing(false);
+                    viewModel.saveLearningObject(learningObject);
 
-                    explanation.text('');
-                    expect(viewModel.canAddExplanation()).toBe(true);
+                    learningObject.text('');
+                    expect(viewModel.canAddLearningObject()).toBe(true);
                 });
 
             });
 
         });
 
-        describe('deleteExplanation:', function () {
+        describe('deleteLearningObject:', function () {
 
             it('should be a function', function () {
-                expect(viewModel.deleteExplanation).toBeFunction();
+                expect(viewModel.deleteLearningObject).toBeFunction();
             });
 
             describe('when called', function () {
@@ -882,19 +882,19 @@ define(function (require) {
                     spyOn(questionRepository, 'getById').andReturn(getQuestionByIdDeferredPromise);
                 });
 
-                it('should send event \'Delete explanation\'', function () {
-                    viewModel.deleteExplanation(viewModel.explanations()[0]);
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete explanation');
+                it('should send event \'Delete learning object\'', function () {
+                    viewModel.deleteLearningObject(viewModel.learningObjects()[0]);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Delete learning object');
                 });
 
-                it('should delete explanation form viewModel', function () {
-                    var explanation = {
+                it('should delete learning object form viewModel', function () {
+                    var learningObject = {
                         text: ko.observable('Some text'),
                         isEditing: ko.observable(true),
                         id: '0'
                     };
-                    viewModel.explanations([explanation]);
-                    viewModel.deleteExplanation(explanation);
+                    viewModel.learningObjects([learningObject]);
+                    viewModel.deleteLearningObject(learningObject);
 
                     var promise = getQuestionByIdDeferredPromise.fin(function () { });
                     getQuestionByIdDeferred.resolve(question);
@@ -903,7 +903,7 @@ define(function (require) {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(viewModel.explanations().indexOf(explanation)).toBe(-1);
+                        expect(viewModel.learningObjects().indexOf(learningObject)).toBe(-1);
                     });
                 });
 
@@ -923,7 +923,7 @@ define(function (require) {
 
         });
 
-        describe('saveExplanation:', function () {
+        describe('saveLearningObject:', function () {
 
             var getQuestionByIdDeferred;
             var getQuestionByIdDeferredPromise;
@@ -936,23 +936,23 @@ define(function (require) {
             });
 
             it('should be a function', function () {
-                expect(viewModel.saveExplanation).toBeFunction();
+                expect(viewModel.saveLearningObject).toBeFunction();
             });
 
             describe('when called with empty text', function () {
 
                 describe('and finished editing', function () {
 
-                    it('should remove explanation from viewmodel', function () {
-                        var explanation = {
+                    it('should remove learning object from viewmodel', function () {
+                        var learningObject = {
                             text: ko.observable('Some text'),
                             isEditing: ko.observable(true),
                             id: '0'
                         };
-                        viewModel.explanations([explanation]);
-                        explanation.text(' ');
-                        explanation.isEditing(false);
-                        viewModel.saveExplanation(explanation);
+                        viewModel.learningObjects([learningObject]);
+                        learningObject.text(' ');
+                        learningObject.isEditing(false);
+                        viewModel.saveLearningObject(learningObject);
 
                         var promise = getQuestionByIdDeferredPromise.fin(function () { });
                         getQuestionByIdDeferred.resolve(question);
@@ -961,13 +961,13 @@ define(function (require) {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(viewModel.explanations().indexOf(explanation)).toBe(-1);
+                            expect(viewModel.learningObjects().indexOf(learningObject)).toBe(-1);
                         });
 
                     });
 
-                    it('should remove explanation from repository', function () {
-                        var explanation = {
+                    it('should remove learning object from repository', function () {
+                        var learningObject = {
                             text: ko.observable('Some text'),
                             isEditing: ko.observable(true),
                             id: '0'
@@ -977,13 +977,13 @@ define(function (require) {
                             id: '1',
                             title: 'lalala',
                             answerOptions: [],
-                            explanations: [explanation]
+                            learningObjects: [learningObject]
                         };
 
-                        viewModel.explanations([explanation]);
-                        explanation.text(' ');
-                        explanation.isEditing(false);
-                        viewModel.saveExplanation(explanation);
+                        viewModel.learningObjects([learningObject]);
+                        learningObject.text(' ');
+                        learningObject.isEditing(false);
+                        viewModel.saveLearningObject(learningObject);
 
                         var promise = getQuestionByIdDeferredPromise.fin(function () { });
                         getQuestionByIdDeferred.resolve(testQuestion);
@@ -992,25 +992,25 @@ define(function (require) {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(testQuestion.explanations.length).toEqual(0);
+                            expect(testQuestion.learningObjects.length).toEqual(0);
                         });
                     });
 
-                    it('should remove subscriptions from explanation', function () {
-                        var explanation = {
+                    it('should remove subscriptions from learning object', function () {
+                        var learningObject = {
                             text: ko.observable('Some text'),
                             isEditing: ko.observable(true),
                             id: '0'
                         };
-                        viewModel.explanations([explanation]);
+                        viewModel.learningObjects([learningObject]);
 
-                        explanation.text(' ');
-                        explanation.isEditing(false);
+                        learningObject.text(' ');
+                        learningObject.isEditing(false);
 
                         var disposeSpy = jasmine.createSpyObj('disposeSpy', ['dispose']);
-                        explanation.editingSubscription = disposeSpy;
+                        learningObject.editingSubscription = disposeSpy;
 
-                        viewModel.saveExplanation(explanation);
+                        viewModel.saveLearningObject(learningObject);
 
                         var promise = getQuestionByIdDeferredPromise.fin(function () { });
                         getQuestionByIdDeferred.resolve(question);
@@ -1029,19 +1029,19 @@ define(function (require) {
 
             describe('when called with not empty text', function () {
 
-                describe('and explanation exists in data context', function () {
+                describe('and learning object exists in data context', function () {
 
                     it('should save text', function () {
-                        var explanation = {
+                        var learningObject = {
                             text: ko.observable('Some text'),
                             isEditing: ko.observable(true),
                             id: '0'
                         };
-                        viewModel.explanations([explanation]);
+                        viewModel.learningObjects([learningObject]);
 
-                        viewModel.explanations()[0].text('Some text');
+                        viewModel.learningObjects()[0].text('Some text');
 
-                        viewModel.saveExplanation(explanation);
+                        viewModel.saveLearningObject(learningObject);
 
                         var promise = getQuestionByIdDeferredPromise.fin(function () { });
                         getQuestionByIdDeferred.resolve(question);
@@ -1050,16 +1050,16 @@ define(function (require) {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(viewModel.explanations()[0].text()).toBe(explanation.text());
+                            expect(viewModel.learningObjects()[0].text()).toBe(learningObject.text());
                         });
                     });
 
                 });
 
-                describe('and explanation does not exist in data context', function () {
+                describe('and learning object does not exist in data context', function () {
 
-                    it('should create explanation and save text', function () {
-                        var explanation = {
+                    it('should create learning object and save text', function () {
+                        var learningObject = {
                             text: ko.observable('Some text'),
                             isEditing: ko.observable(true),
                             id: '0'
@@ -1069,12 +1069,12 @@ define(function (require) {
                             id: '1',
                             title: 'lalala',
                             answerOptions: [],
-                            explanations: []
+                            learningObjects: []
                         };
 
-                        viewModel.explanations([explanation]);
+                        viewModel.learningObjects([learningObject]);
 
-                        viewModel.saveExplanation(explanation);
+                        viewModel.saveLearningObject(learningObject);
 
                         var promise = getQuestionByIdDeferredPromise.fin(function () { });
                         getQuestionByIdDeferred.resolve(testQuestion);
@@ -1083,8 +1083,8 @@ define(function (require) {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(testQuestion.explanations[0]).toBeDefined();
-                            expect(testQuestion.explanations[0].text).toBe(explanation.text());
+                            expect(testQuestion.learningObjects[0]).toBeDefined();
+                            expect(testQuestion.learningObjects[0].text).toBe(learningObject.text());
                         });
                     });
 
@@ -1093,16 +1093,16 @@ define(function (require) {
                 it('should update notification', function () {
                     spyOn(notify, 'info');
 
-                    var explanation = {
+                    var learningObject = {
                         text: ko.observable('Some text'),
                         isEditing: ko.observable(true),
                         id: '1'
                     };
-                    viewModel.explanations([explanation]);
+                    viewModel.learningObjects([learningObject]);
 
-                    explanation.text('Some text');
+                    learningObject.text('Some text');
 
-                    viewModel.saveExplanation(explanation);
+                    viewModel.saveLearningObject(learningObject);
 
                     var promise = getQuestionByIdDeferredPromise.fin(function () { });
                     getQuestionByIdDeferred.resolve(question);
@@ -1115,13 +1115,12 @@ define(function (require) {
                     });
                 });
 
-
                 describe('when old text != current text', function () {
                     
                     it('should not update notfication', function() {
                         spyOn(notify, 'info');
 
-                        var explanation = {
+                        var learningObject = {
                             text: ko.observable('Some text'),
                             isEditing: ko.observable(true),
                             id: '2'
@@ -1130,16 +1129,16 @@ define(function (require) {
                             id: '1',
                             title: 'lalala',
                             answerOptions: [],
-                            explanations: [{
+                            learningObjects: [{
                                 text: 'Some text',
                                 isEditing: ko.observable(true),
                                 id: '2'
                             }]
                         };
                         
-                        viewModel.explanations([explanation]);
+                        viewModel.learningObjects([learningObject]);
                         
-                        viewModel.saveExplanation(explanation);
+                        viewModel.saveLearningObject(learningObject);
 
                         var promise = getQuestionByIdDeferredPromise.fin(function () { });
                         getQuestionByIdDeferred.resolve(testQuestion);
@@ -1165,10 +1164,10 @@ define(function (require) {
 
         });
 
-        describe('explanationAutosaveInterval:', function () {
+        describe('learningObjectAutosaveInterval:', function () {
 
             it('should be number', function () {
-                expect(viewModel.explanationAutosaveInterval).toEqual(jasmine.any(Number));
+                expect(viewModel.learningObjectAutosaveInterval).toEqual(jasmine.any(Number));
             });
 
         });
@@ -1213,7 +1212,7 @@ define(function (require) {
                     id: '2',
                     title: 'Some text',
                     answerOptions: [],
-                    explanations: []
+                    learningObjects: []
                 };
 
                 viewModel.addAnswerOption();
@@ -1234,7 +1233,7 @@ define(function (require) {
                     id: '2',
                     title: 'Some text',
                     answerOptions: [],
-                    explanations: []
+                    learningObjects: []
                 };
 
                 viewModel.answerOptions([]);
@@ -1265,7 +1264,7 @@ define(function (require) {
                         id: '1',
                         title: 'lalala',
                         answerOptions: [],
-                        explanations: []
+                        learningObjects: []
                     });
                 });
 
@@ -1340,7 +1339,7 @@ define(function (require) {
                     id: '1',
                     title: 'lalala',
                     answerOptions: [answerOption],
-                    explanations: []
+                    learningObjects: []
                 };
 
                 var mappedAnswerOption = {
@@ -1378,7 +1377,7 @@ define(function (require) {
                         id: '1',
                         title: 'lalala',
                         answerOptions: [answerOption],
-                        explanations: []
+                        learningObjects: []
                     };
 
                     var mappedAnswerOption = {
@@ -1414,7 +1413,7 @@ define(function (require) {
                         id: '1',
                         title: 'lalala',
                         answerOptions: [answerOption],
-                        explanations: []
+                        learningObjects: []
                     };
 
                     var mappedAnswerOption = {
@@ -1454,7 +1453,7 @@ define(function (require) {
                         id: '1',
                         title: 'lalala',
                         answerOptions: [answerOption],
-                        explanations: []
+                        learningObjects: []
                     };
 
                     var mappedAnswerOption = {
@@ -1490,7 +1489,7 @@ define(function (require) {
                         id: '1',
                         title: 'lalala',
                         answerOptions: [answerOption],
-                        explanations: []
+                        learningObjects: []
                     };
 
                     var mappedAnswerOption = {
@@ -1557,7 +1556,7 @@ define(function (require) {
                     id: '1',
                     title: 'lalala',
                     answerOptions: [answerOption],
-                    explanations: []
+                    learningObjects: []
                 };
 
                 var mappedAnswerOption = {
@@ -1595,7 +1594,7 @@ define(function (require) {
                     id: '1',
                     title: 'lalala',
                     answerOptions: [answerOption],
-                    explanations: []
+                    learningObjects: []
                 };
 
                 var mappedAnswerOption = {
@@ -1662,7 +1661,7 @@ define(function (require) {
                     id: '1',
                     title: 'lalala',
                     answerOptions: [answerOption],
-                    explanations: []
+                    learningObjects: []
                 };
 
                 var mappedAnswerOption = {
@@ -1698,7 +1697,7 @@ define(function (require) {
                     id: '1',
                     title: 'lalala',
                     answerOptions: [answerOption],
-                    explanations: []
+                    learningObjects: []
                 };
 
                 var mappedAnswerOption = {
@@ -1734,7 +1733,7 @@ define(function (require) {
                     id: '1',
                     title: 'lalala',
                     answerOptions: [answerOption],
-                    explanations: []
+                    learningObjects: []
                 };
 
                 var mappedAnswerOption = {

@@ -28,7 +28,7 @@
                         objective.questions.push({
                             id: response.Id,
                             title: obj.title,
-                            explanations: [],
+                            learningObjects: [],
                             answerOptions: [],
                             createdOn: createdOn,
                             modifiedOn: createdOn

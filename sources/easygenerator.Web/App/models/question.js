@@ -7,7 +7,7 @@
 
             obj.title = spec.title;
             obj.answerOptions = spec.answerOptions;
-            obj.explanations = spec.explanations;
+            obj.learningObjects = spec.learningObjects;
 
             return obj;
         };

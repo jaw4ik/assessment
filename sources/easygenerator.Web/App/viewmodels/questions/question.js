@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'eventTracker', 'models/answerOption', 'models/explanation', 'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify'],
-    function (router, eventTracker, answerOptionModel, expalantionModel, localizationManager, constants, questionRepository, objectiveRepository, system, notify) {
+﻿define(['plugins/router', 'eventTracker', 'models/answerOption', 'models/learningObject', 'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify'],
+    function (router, eventTracker, answerOptionModel, learningObjectModel, localizationManager, constants, questionRepository, objectiveRepository, system, notify) {
         "use strict";
         var
             events = {
@@ -16,10 +16,10 @@
                 startEditingAnswerOption: 'Start editing answer option',
                 endEditingAnswerOption: 'End editing answer option',
 
-                addExplanation: 'Add explanation',
-                deleteExplanation: 'Delete explanation',
-                startEditingExplanation: 'Start editing explanation',
-                endEditingExplanation: 'End editing explanation'
+                addLearningObject: 'Add learning object',
+                deleteLearningObject: 'Delete learning object',
+                startEditingLearningObject: 'Start editing learning object',
+                EndEditingLearningObject: 'End editing learning object'
             },
 
             sendEvent = function (eventName) {
@@ -35,12 +35,12 @@
             createdOn = null,
             modifiedOn = ko.observable(),
             answerOptions = ko.observableArray([]),
-            explanations = ko.observableArray([]),
+            learningObjects = ko.observableArray([]),
             hasPrevious = false,
             hasNext = false,
-            lastAddedExplanation = ko.observable(null),
+            lastAddedLearningObject = ko.observable(null),
             isAnswersBlockExpanded = ko.observable(true),
-            isExplanationsBlockExpanded = ko.observable(true),
+            isLearningObjectsBlockExpanded = ko.observable(true),
             title = ko.observable(''),
             language = ko.observable();
 
@@ -231,127 +231,127 @@
 
         //#endregion Answer options
 
-        //#region Explanations
+        //#region Learning objects
 
-            toggleExplanations = function () {
-                isExplanationsBlockExpanded(!isExplanationsBlockExpanded());
+            toggleLearningObjects = function () {
+                isLearningObjectsBlockExpanded(!isLearningObjectsBlockExpanded());
 
-                if (!isExplanationsBlockExpanded()) {
-                    finishEditingExplanations.apply(this);
+                if (!isLearningObjectsBlockExpanded()) {
+                    finishEditingLearningObjects.apply(this);
                 }
             },
 
-            addExplanation = function () {
-                var explanation = mapExplanation(new expalantionModel({
+            addLearningObject = function () {
+                var learningObject = mapLearningObject(new learningObjectModel({
                     id: generateNewEntryId(),
                     text: ''
                 }));
 
-                explanation.isEditing(true);
+                learningObject.isEditing(true);
 
-                lastAddedExplanation(explanation);
-                explanations.push(explanation);
-                sendEvent(events.addExplanation);
+                lastAddedLearningObject(learningObject);
+                learningObjects.push(learningObject);
+                sendEvent(events.addLearningObject);
             },
 
-            deleteExplanation = function (explanation) {
-                sendEvent(events.deleteExplanation);
+            deleteLearningObject = function (learningObject) {
+                sendEvent(events.deleteLearningObject);
 
                 questionRepository.getById(objectiveId, questionId)
                     .then(function (question) {
-                        if (!!lastAddedExplanation() && explanation.id === lastAddedExplanation().id) {
-                            lastAddedExplanation(null);
+                        if (!!lastAddedLearningObject() && learningObject.id === lastAddedLearningObject().id) {
+                            lastAddedLearningObject(null);
                         }
 
-                        explanations(_.reject(explanations(), function (item) {
-                            return item.id === explanation.id;
+                        learningObjects(_.reject(learningObjects(), function (item) {
+                            return item.id === learningObject.id;
                         }));
 
-                        question.explanations = _.reject(question.explanations, function (item) {
-                            return item.id === explanation.id;
+                        question.learningObjects = _.reject(question.learningObjects, function (item) {
+                            return item.id === learningObject.id;
                         });
 
-                        removeSubscribersFromExplanation(explanation);
+                        removeSubscribersFromLearningObject(learningObject);
                     });
             },
 
-            mapExplanation = function (explanation) {
-                var mappedExplanation = {
-                    text: ko.observable(explanation.text),
+            mapLearningObject = function (learningObject) {
+                var mappedLearningObject = {
+                    text: ko.observable(learningObject.text),
                     isEditing: ko.observable(false),
-                    id: explanation.id
+                    id: learningObject.id
                 };
 
-                mappedExplanation.editingSubscription = mappedExplanation.isEditing.subscribe(function (value) {
+                mappedLearningObject.editingSubscription = mappedLearningObject.isEditing.subscribe(function (value) {
                     if (value) {
-                        sendEvent(events.startEditingExplanation);
+                        sendEvent(events.startEditingLearningObject);
                     } else {
-                        sendEvent(events.endEditingExplanation);
+                        sendEvent(events.endEditingLearingObject);
                     }
                 });
 
-                return mappedExplanation;
+                return mappedLearningObject;
             },
 
-            saveExplanation = function (explanation) {
-                if (!explanation.isEditing() && !!lastAddedExplanation() && explanation.id === lastAddedExplanation().id)
-                    lastAddedExplanation(null);
+            saveLearningObject = function (learningObject) {
+                if (!learningObject.isEditing() && !!lastAddedLearningObject() && learningObject.id === lastAddedLearningObject().id)
+                    lastAddedLearningObject(null);
 
                 questionRepository.getById(objectiveId, questionId)
                     .then(function (question) {
-                        if (_.isEmptyOrWhitespace(explanation.text())) {
-                            if (!explanation.isEditing()) {
-                                removeSubscribersFromExplanation(explanation);
+                        if (_.isEmptyOrWhitespace(learningObject.text())) {
+                            if (!learningObject.isEditing()) {
+                                removeSubscribersFromLearningObject(learningObject);
 
-                                explanations.remove(explanation);
-                                question.explanations = _.reject(question.explanations, function (item) {
-                                    return item.id === explanation.id;
+                                learningObjects.remove(learningObject);
+                                question.learningObjects = _.reject(question.learningObjects, function (item) {
+                                    return item.id === learningObject.id;
                                 });
                             }
                             return;
                         }
 
-                        var contextExplanation = _.find(question.explanations, function (obj) {
-                            return obj.id === explanation.id;
+                        var contextLearningObject = _.find(question.learningObjects, function (obj) {
+                            return obj.id === learningObject.id;
                         });
                         
-                        if (!_.isObject(contextExplanation) || (contextExplanation.text != explanation.text()))
+                        if (!_.isObject(contextLearningObject) || (contextLearningObject.text != learningObject.text()))
                             notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
                         
-                        if (_.isObject(contextExplanation))
-                            contextExplanation.text = explanation.text();
+                        if (_.isObject(contextLearningObject))
+                            contextLearningObject.text = learningObject.text();
                         else
-                            question.explanations.push({
-                                id: explanation.id,
-                                text: explanation.text()
+                            question.learningObjects.push({
+                                id: learningObject.id,
+                                text: learningObject.text()
                             });
                     });
             },
 
-            finishEditingExplanations = function () {
+            finishEditingLearningObjects = function () {
                 var that = this;
-                _.each(explanations(), function (item) {
+                _.each(learningObjects(), function (item) {
                     if (item.isEditing()) {
                         item.isEditing(false);
-                        saveExplanation.call(that, item);
+                        saveLearningObject.call(that, item);
                     }
                 });
             },
 
-            canAddExplanation = ko.computed(function () {
-                if (lastAddedExplanation() != null) {
-                    return lastAddedExplanation().text().length != 0;
+            canAddLearningObject = ko.computed(function () {
+                if (lastAddedLearningObject() != null) {
+                    return lastAddedLearningObject().text().length != 0;
                 } else {
                     return true;
                 }
             }),
 
-            removeSubscribersFromExplanation = function (explanation) {
-                if (!!explanation.editingSubscription)
-                    explanation.editingSubscription.dispose();
+            removeSubscribersFromLearningObject = function (learningObject) {
+                if (!!learningObject.editingSubscription)
+                    learningObject.editingSubscription.dispose();
             },
 
-        //#endregion Explanations
+        //#endregion Learning objects
 
             activate = function (objId, quesId) {
                 if (!_.isString(objId) || !_.isString(quesId)) {
@@ -376,10 +376,10 @@
                         });
                         that.answerOptions(mappedAnswerOptions);
 
-                        var mappedExplanations = _.map(question.explanations, function (item) {
-                            return mapExplanation.call(that, item);
+                        var mappedLearningObjects = _.map(question.learningObjects, function (item) {
+                            return mapLearningObject.call(that, item);
                         });
-                        that.explanations(mappedExplanations);
+                        that.learningObjects(mappedLearningObjects);
 
                         var questionIndex = objective.questions.indexOf(question);
                         nextId = (objective.questions.length > questionIndex + 1) ? objective.questions[questionIndex + 1].id : null;
@@ -399,10 +399,10 @@
             },
 
             deactivate = function () {
-                finishEditingExplanations();
+                finishEditingLearningObjects();
 
-                _.each(explanations(), function (item) {
-                    removeSubscribersFromExplanation(item);
+                _.each(learningObjects(), function (item) {
+                    removeSubscribersFromLearningObject(item);
                 });
 
                 _.each(answerOptions(), function (item) {
@@ -422,12 +422,12 @@
             modifiedOn: modifiedOn,
             questionTitleMaxLength: constants.validation.questionTitleMaxLength,
             answerOptions: answerOptions,
-            explanations: explanations,
+            learningObjects: learningObjects,
             hasPrevious: hasPrevious,
             hasNext: hasNext,
             language: language,
             isAnswersBlockExpanded: isAnswersBlockExpanded,
-            isExplanationsBlockExpanded: isExplanationsBlockExpanded,
+            isLearningObjectsBlockExpanded: isLearningObjectsBlockExpanded,
             eventTracker: eventTracker,
             //#endregion Properties
 
@@ -448,12 +448,12 @@
             saveAnswerOption: saveAnswerOption,
             deleteAnswerOption: deleteAnswerOption,
 
-            toggleExplanations: toggleExplanations,
-            canAddExplanation: canAddExplanation,
-            addExplanation: addExplanation,
-            deleteExplanation: deleteExplanation,
-            saveExplanation: saveExplanation,
-            explanationAutosaveInterval: constants.autosaveTimersInterval.explanation
+            toggleLearningObjects: toggleLearningObjects,
+            canAddLearningObject: canAddLearningObject,
+            addLearningObject: addLearningObject,
+            deleteLearningObject: deleteLearningObject,
+            saveLearningObject: saveLearningObject,
+            learningObjectAutosaveInterval: constants.autosaveTimersInterval.learningObject
             //#endregion Methods
         };
     }

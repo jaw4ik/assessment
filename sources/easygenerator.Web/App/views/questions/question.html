@@ -112,35 +112,35 @@
         </div>
         <div>
             <div class="question-content-block question-explanations">
-                <div class="question-content-block-header-wrapper" data-bind="click: toggleExplanations">
-                    <div class="question-content-block-header" data-bind="css: { 'shadow-bottom-curve': isExplanationsBlockExpanded() }">
+                <div class="question-content-block-header-wrapper" data-bind="click: toggleLearningObjects">
+                    <div class="question-content-block-header" data-bind="css: { 'shadow-bottom-curve': isLearningObjectsBlockExpanded() }">
                         <div class="question-content-block-header-icon">
                             <i class="explanation-icon"></i>
                         </div>
-                        <div class="question-content-block-header-title" data-bind="localize: { text: 'explanations' }">Explanations</div>
+                        <div class="question-content-block-header-title" data-bind="localize: { text: 'learningObjects' }"></div>
                         <div class="question-content-block-size-element-wrapper pull-right">
                             <span class="nav-element">
-                                <!-- ko if:isExplanationsBlockExpanded -->
+                                <!-- ko if:isLearningObjectsBlockExpanded -->
                                 <span class="inline question-content-block-size-btn collapse-btn" data-bind="localize: { title: 'collapse' }"></span>
                                 <!-- /ko -->
-                                <!-- ko ifnot:isExplanationsBlockExpanded -->
+                                <!-- ko ifnot:isLearningObjectsBlockExpanded -->
                                 <span class="inline question-content-block-size-btn expand-btn" data-bind="localize: { title: 'expand' }"></span>
                                 <!-- /ko -->
                             </span>
                         </div>
                     </div>
                 </div>
-                <!-- ko if: isExplanationsBlockExpanded -->
+                <!-- ko if: isLearningObjectsBlockExpanded -->
                 <div class="question-content-items-list">
                     <ul class="unstyled">
-                        <!-- ko foreach: explanations -->
+                        <!-- ko foreach: learningObjects -->
                         <li class="question-explanation-item" data-bind="css: { active: isEditing }">
                             <div class="question-explanation-list-item">
                                 <div class="question-explanation-wrapper">
-                                    <div class="question-explanation selectable" data-bind="ckeditor: { data: text, language: $parent.language(), eventTracker: $parent.eventTracker, isEditing: isEditing, save: $parent.saveExplanation, autosaveInterval: $parent.explanationAutosaveInterval }">
+                                    <div class="question-explanation selectable" data-bind="ckeditor: { data: text, language: $parent.language(), eventTracker: $parent.eventTracker, isEditing: isEditing, save: $parent.saveLearningObject, autosaveInterval: $parent.learningObjectAutosaveInterval }">
                                     </div>
                                 </div>
-                                <div class="question-explanation-delete-wrapper" data-bind="click: $parent.deleteExplanation.bind($parent), localize: { title: 'remove' }">
+                                <div class="question-explanation-delete-wrapper" data-bind="click: $parent.deleteLearningObject.bind($parent), localize: { title: 'remove' }">
                                     <span class="question-explanation-delete-icon"></span>
                                 </div>
                             </div>
@@ -148,12 +148,12 @@
                         <!-- /ko -->
                         <li class="add-button">
                             <div class="question-explanation-list-item">
-                                <div class="question-explanation-wrapper" data-bind="css: { 'enabled': canAddExplanation }">
-                                    <!-- ko if: canAddExplanation -->
-                                    <div class="question-explanation selectable" data-bind="click: addExplanation, localize: { text: 'clickToAddNewExplanation' }"></div>
+                                <div class="question-explanation-wrapper" data-bind="css: { 'enabled': canAddLearningObject }">
+                                    <!-- ko if: canAddLearningObject -->
+                                    <div class="question-explanation selectable" data-bind="click: addLearningObject, localize: { text: 'clickToAddLearningObject' }"></div>
                                     <!-- /ko -->
-                                    <!-- ko ifnot: canAddExplanation -->
-                                    <div class="question-explanation selectable disabled" data-bind="localize: { text: 'clickToAddNewExplanation' }"></div>
+                                    <!-- ko ifnot: canAddLearningObject -->
+                                    <div class="question-explanation selectable disabled" data-bind="localize: { text: 'clickToAddLearningObject' }"></div>
                                     <!-- /ko -->
                                 </div>
                             </div>

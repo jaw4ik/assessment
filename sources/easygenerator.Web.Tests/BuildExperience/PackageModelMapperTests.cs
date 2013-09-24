@@ -37,7 +37,7 @@ namespace easygenerator.Web.Tests.BuildExperience
                                 Id = "0",
                                 Title = "Some text",
                                 AnswerOptions = new List<AnswerOptionBuildModel>() { new AnswerOptionBuildModel() {Id = "0", Text = "Some text" , IsCorrect = false}},
-                                Explanations = new List<ExplanationBuildModel>() {new ExplanationBuildModel() { Id = "0", Text = "Some explanaion text"}}
+                                LearningObjects = new List<LearningObjectBuildModel>() {new LearningObjectBuildModel() { Id = "0", Text = "Some explanaion text"}}
                             }
                         }
                     }
@@ -62,7 +62,7 @@ namespace easygenerator.Web.Tests.BuildExperience
         }
 
         [TestMethod]
-        public void MapExperienceBuildModel_ShouldReturnMappedExplanationPackageModel()
+        public void MapExperienceBuildModel_ShouldReturnMappedLearningObjectPackageModel()
         {
             //Arrange
             var experienceBuildModel = GetExperienceBuildModel();
@@ -71,7 +71,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
 
             //Assert
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].Explanations[0].Id, result.Objectives[0].Questions[0].Explanations[0].Id);
+            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].LearningObjects[0].Id, result.Objectives[0].Questions[0].LearningObjects[0].Id);
 
         }
 
@@ -103,7 +103,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].Id, result.Objectives[0].Questions[0].Id);
             Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].Title, result.Objectives[0].Questions[0].Title);
             Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].AnswerOptions.Count, result.Objectives[0].Questions[0].Answers.Count);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].Explanations.Count, result.Objectives[0].Questions[0].Explanations.Count);
+            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].LearningObjects.Count, result.Objectives[0].Questions[0].LearningObjects.Count);
         }
 
         [TestMethod]
@@ -138,7 +138,7 @@ namespace easygenerator.Web.Tests.BuildExperience
         }
 
         [TestMethod]
-        public void MapExperienceBuildModel_ShouldIgnoreQuestionsWithoutAnswerOptionsAndExplanations()
+        public void MapExperienceBuildModel_ShouldIgnoreQuestionsWithoutAnswerOptionsAndLearningObjects()
         {
             //Arrange
             var experienceBuildModel = GetExperienceBuildModel();
@@ -147,7 +147,7 @@ namespace easygenerator.Web.Tests.BuildExperience
                 Id = "1",
                 Title = "Some text1",
                 AnswerOptions = null,
-                Explanations = null
+                LearningObjects = null
             });
 
             //Act
@@ -196,7 +196,7 @@ namespace easygenerator.Web.Tests.BuildExperience
                         {
                             Id = "Some Id",
                             AnswerOptions = null,
-                            Explanations = null
+                            LearningObjects = null
                         }   
                     }
                 });
@@ -218,7 +218,7 @@ namespace easygenerator.Web.Tests.BuildExperience
                 Id = "1",
                 Title = "Some text1",
                 AnswerOptions = null,
-                Explanations = new List<ExplanationBuildModel>() { new ExplanationBuildModel() { Id = "Some Id", Text = "Some Text" } }
+                LearningObjects = new List<LearningObjectBuildModel>() { new LearningObjectBuildModel() { Id = "Some Id", Text = "Some Text" } }
             });
             //Act
             var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
@@ -228,7 +228,7 @@ namespace easygenerator.Web.Tests.BuildExperience
         }
 
         [TestMethod]
-        public void MapExperienceBuildModel_ShouldReturnEmptyListOfExplanations_WhenSourceExplanationsIsNull()
+        public void MapExperienceBuildModel_ShouldReturnEmptyListOfLearningObjects_WhenSourceLearningObjectIsNull()
         {
             //Arrange
             var experienceBuildModel = GetExperienceBuildModel();
@@ -237,13 +237,13 @@ namespace easygenerator.Web.Tests.BuildExperience
                 Id = "1",
                 Title = "Some text1",
                 AnswerOptions = new List<AnswerOptionBuildModel>() { new AnswerOptionBuildModel() { Id = "Some Id", IsCorrect = true, Text = "Some text" } },
-                Explanations = null
+                LearningObjects = null
             });
             //Act
             var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
 
             //Assert
-            Assert.IsNotNull(result.Objectives[0].Questions[1].Explanations);
+            Assert.IsNotNull(result.Objectives[0].Questions[1].LearningObjects);
         }
 
         [TestMethod]

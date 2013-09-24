@@ -189,7 +189,7 @@ namespace easygenerator.Web.Tests.BuildExperience
                     Id = "1",
                     Questions = new List<QuestionPackageModel>()
                      {
-                         new QuestionPackageModel() { Id = "1", Explanations = new List<ExplanationPackageModel>()}
+                         new QuestionPackageModel() { Id = "1", LearningObjects = new List<LearningObjectPackageModel>()}
                      }
                 }
             );
@@ -208,7 +208,7 @@ namespace easygenerator.Web.Tests.BuildExperience
         }
 
         [TestMethod]
-        public void Build_ShouldCreateExplanationFiles()
+        public void Build_ShouldCreateLearningObjectsFiles()
         {
             //Arrange
             var buildModel = CreateDefaultPackageModel();
@@ -221,26 +221,26 @@ namespace easygenerator.Web.Tests.BuildExperience
                          new QuestionPackageModel()
                          { 
                              Id = "1", 
-                             Explanations = new List<ExplanationPackageModel>()
+                             LearningObjects = new List<LearningObjectPackageModel>()
                              {
-                                 new ExplanationPackageModel() { Id = "1", Text = "Some text 1" }
+                                 new LearningObjectPackageModel() { Id = "1", Text = "Some text 1" }
                              }
                          }
                      }
                 }
             );
-            var explanationFileName = "Some explanation file name";
+            var learningObjectFileName = "Some learning object file name";
 
-            _buildPathProviderMock.Setup(instance => instance.GetExplanationFileName(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(explanationFileName);
-            _fileManager.Setup(instance => instance.WriteToFile(explanationFileName, It.IsAny<string>()));
+            _buildPathProviderMock.Setup(instance => instance.GetLearningObjectFileName(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(learningObjectFileName);
+            _fileManager.Setup(instance => instance.WriteToFile(learningObjectFileName, It.IsAny<string>()));
 
             //Act
             _builder.Build(buildModel);
 
             //Assert
             _buildPathProviderMock.VerifyAll();
-            _fileManager.Verify(instance => instance.WriteToFile(explanationFileName, It.IsAny<string>()));
+            _fileManager.Verify(instance => instance.WriteToFile(learningObjectFileName, It.IsAny<string>()));
         }
 
         [TestMethod]

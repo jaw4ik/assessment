@@ -13,10 +13,10 @@ namespace easygenerator.Web.BuildExperience
         {
             Mapper.CreateMap<AnswerOptionBuildModel, AnswerOptionPackageModel>();
 
-            Mapper.CreateMap<ExplanationBuildModel, ExplanationPackageModel>();
+            Mapper.CreateMap<LearningObjectBuildModel, LearningObjectPackageModel>();
 
             Mapper.CreateMap<QuestionBuildModel, QuestionPackageModel>()
-                .ForMember(dest => dest.Explanations, opt => opt.NullSubstitute(new List<ExplanationPackageModel>()))
+                .ForMember(dest => dest.LearningObjects, opt => opt.NullSubstitute(new List<LearningObjectPackageModel>()))
                 .AfterMap((buildModel, packageModel) =>
                 {
                     packageModel.Answers = buildModel.AnswerOptions != null
@@ -28,13 +28,13 @@ namespace easygenerator.Web.BuildExperience
                 .ForMember(dest => dest.Questions, opt => opt.MapFrom(
                     src => src.Questions == null
                         ? new List<QuestionBuildModel>()
-                        : src.Questions.Where(item => item.Explanations != null || item.AnswerOptions != null)));
+                        : src.Questions.Where(item => item.LearningObjects != null || item.AnswerOptions != null)));
 
             Mapper.CreateMap<ExperienceBuildModel, ExperiencePackageModel>()
                 .ForMember(dest => dest.Objectives, opt => opt.MapFrom(src =>
                     src.Objectives == null
                         ? new List<ObjectiveBuildModel>()
-                        : src.Objectives.Where(item => item.Questions != null && item.Questions.Count(q => q.Explanations != null || q.AnswerOptions != null) > 0)));
+                        : src.Objectives.Where(item => item.Questions != null && item.Questions.Count(q => q.LearningObjects != null || q.AnswerOptions != null) > 0)));
         }
 
         public virtual ExperiencePackageModel MapExperienceBuildModel(ExperienceBuildModel experienceBuildModel)

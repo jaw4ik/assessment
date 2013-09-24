@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/http', 'models/objective', 'models/objective', 'models/question', 'models/experience', 'models/answerOption', 'models/explanation', 'models/template', 'constants'],
-    function (app, http, objectiveModel, ObjectiveModel, QuestionModel, ExperienceModel, AnswerOptionModel, ExplanationModel, TemplateModel, constants) {
+﻿define(['durandal/app', 'plugins/http', 'models/objective', 'models/objective', 'models/question', 'models/experience', 'models/answerOption', 'models/learningObject', 'models/template', 'constants'],
+    function (app, http, objectiveModel, ObjectiveModel, QuestionModel, ExperienceModel, AnswerOptionModel, LearningObjectModel, TemplateModel, constants) {
 
         function parseDateString(str) {
             return new Date(parseInt(str.substr(6), 10));
@@ -31,8 +31,8 @@
                                     answerOptions: _.map(question.answerOptions, function (answerOption) {
                                         return new AnswerOptionModel(answerOption);
                                     }),
-                                    explanations: _.map(question.explanations, function (explanation) {
-                                        return new ExplanationModel(explanation);
+                                    learningObjects: _.map(question.learningObjects, function (learningObject) {
+                                        return new LearningObjectModel(learningObject);
                                     })
                                 });
                             })
@@ -86,7 +86,7 @@
                                         createdOn: parseDateString(question.CreatedOn),
                                         modifiedOn: parseDateString(question.ModifiedOn),
                                         answerOptions: [],
-                                        explanations: []
+                                        learningObjects: []
                                     });
                                 })
                             }));

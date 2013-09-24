@@ -2,7 +2,7 @@
 
 namespace easygenerator.Web.BuildExperience.BuildModel
 {
-    public class ExplanationBuildModel
+    public class LearningObjectBuildModel
     {
         [Required(AllowEmptyStrings = false)]
         public string Id { get; set; }

@@ -1,7 +1,7 @@
 ﻿define(['models/entity'],
     function (entityModel) {
 
-        var explanation = function (spec) {
+        var learningObject = function (spec) {
 
             var obj = new entityModel(spec);
 
@@ -11,6 +11,6 @@
             return obj;
         };
 
-        return explanation;
+        return learningObject;
     }
 );

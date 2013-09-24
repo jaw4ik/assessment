@@ -105,20 +105,20 @@ namespace easygenerator.Web.Tests.BuildExperience
 
         #endregion
 
-        #region GetExplanationFileName
+        #region GetLearningObjectFileName
 
         [TestMethod]
-        public void GetExplanationFileName_ShouldReturnExplanationFileName()
+        public void GetLearningObjectFileName_ShouldReturnLearningObjectFileName()
         {
             //Arrange
             var buildId = "BuildId";
             var objectiveId = "ObjectiveId";
             var questionId = "QuestionId";
-            var explanationId = "ExplanationId";
-            var expectedPath = Path.Combine(_buildPathProvider.GetQuestionDirectoryName(buildId, objectiveId, questionId), explanationId + ".html");
+            var learningObjectId = "LearningObjectId";
+            var expectedPath = Path.Combine(_buildPathProvider.GetQuestionDirectoryName(buildId, objectiveId, questionId), learningObjectId + ".html");
 
             //Act
-            var result = _buildPathProvider.GetExplanationFileName(buildId, objectiveId, questionId, explanationId);
+            var result = _buildPathProvider.GetLearningObjectFileName(buildId, objectiveId, questionId, learningObjectId);
 
             //Assert
             Assert.AreEqual(expectedPath, result);

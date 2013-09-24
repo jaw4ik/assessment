@@ -32,8 +32,8 @@
                                             text: answer.text
                                         };
                                     }),
-                                    explanations: _.map(question.explanations, function (explanation) {
-                                        return { id: explanation.id };
+                                    explanations: _.map(question.learningObjects, function (learningObject) {
+                                        return { id: learningObject.id };
                                     }),
                                     score: 0
                                 };

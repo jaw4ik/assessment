@@ -24,7 +24,7 @@
                             "text": "You always will see the direct effect of your actions in the editing screen of easygenerator."
                         }
                     ],
-                    "explanations": [
+                    "learningObjects": [
                         {
                             "id": "0a3287cc63d04e7c9963084a333dadb0",
                             "text": "<div>WYSIWYG is one of the&nbsp;most important features of easygenerator.<\/div>\r\n<div>&nbsp;<\/div>\r\n<div>Easygenerator is a&nbsp;real &#39;What You See Is What You Get&#39; environment.&nbsp;<\/div>\r\n<div>&nbsp;<\/div>"
@@ -107,7 +107,7 @@
                             "text": "Question templates available"
                         }
                     ],
-                    "explanations": [
+                    "learningObjects": [
                         {
                             "id": "44143c83cead4e0d9ffd249ce434e3c2",
                             "text": "<div>Ease of use is very important for an authoring tool; this becomes even more important since subject matter experts participate more and more in the development process.<\/div>\r\n<div>&nbsp;<\/div>\r\n<div>For easygenerator this is one of our main focal points. That makes sense when your name is easygenerator.<\/div>\r\n<div>&nbsp;<\/div>"
@@ -157,7 +157,7 @@
                             "text": "Image, flash, video, hotspot."
                         }
                     ],
-                    "explanations": [
+                    "learningObjects": [
                         {
                             "id": "b1aa7b77bd9c4d6581ed314ff18b2edf",
                             "text": "<div>Easygenerator is a very powerful tool. You can embed audio, video, animations, YouTube videos and external media with ease. You can create complex branching scenarios (based on learning outcomes) without programming and develop custom functionality with easygenerator&#39;s open API.<\/div>\r\n<div>&nbsp;<\/div>"
@@ -204,7 +204,7 @@
                             "text": "All of the above."
                         }
                     ],
-                    "explanations": [
+                    "learningObjects": [
                         {
                             "id": "24054ce071c440b996030688bfdd18da",
                             "text": "<div>Today&#39;s learners expect e-Learning to respond and adapt to their learning needs.</div>"
@@ -250,7 +250,7 @@
                             "text": "Content pages are tied to quiz questions and assessments and the course navigation will automatically change, based on the progress in the course."
                         }
                     ],
-                    "explanations": [
+                    "learningObjects": [
                         {
                             "id": "a9813c1d2fe9459ab7f0d2a375056766",
                             "text": "<p>You create more effecitive e-Learning as follows:<\/p>\r\n<p>&nbsp;<\/p>\r\n<ul>\r\n\t<li><span dir=\"ltr\"><span style=\"FONT-FAMILY: Arial; COLOR: #342010; FONT-SIZE: 9pt\">The author starts by creating a course outline and the <strong><span style=\"FONT-FAMILY: Arial\">learning objectives<\/span><\/strong>.<\/span><\/span><\/li>\r\n\t<li><span dir=\"ltr\"><span style=\"FONT-FAMILY: Arial; COLOR: #342010; FONT-SIZE: 9pt\">Next to the actual content you create assessments that are tied to the learning objectives.<\/span><\/span><\/li>\r\n\t<li><span dir=\"ltr\"><span style=\"FONT-FAMILY: Arial; COLOR: #342010; FONT-SIZE: 9pt\">In the assessments you can create navigation rules like: &#39;when the learner scores 60% or more&nbsp;on this objective, navigate to that page or chapter next&#39;.&nbsp;<\/span><\/span><\/li>\r\n\t<li><span dir=\"ltr\"><span style=\"FONT-FAMILY: Arial; COLOR: #342010; FONT-SIZE: 9pt\">A combination of rules organizes the navigation.<\/span><\/span><\/li>\r\n\t<li><span dir=\"ltr\"><span style=\"FONT-FAMILY: Arial; COLOR: #342010; FONT-SIZE: 9pt\">You can set different percentages a learner should score on different objectives. When the established percentages have been reached for all objectives the course is complete.&nbsp;<\/span><\/span><\/li>\r\n<\/ul>"
@@ -288,7 +288,7 @@
                             "text": "Learning objective weight, a question pool or question page, a content page."
                         }
                     ],
-                    "explanations": [
+                    "learningObjects": [
                         {
                             "id": "75c07c3bb70d47d8802b853f54c083a2",
                             "text": "<div>Regular e-Learning already sees learners as individuals, but every learner still has to go from A to Z through the course. With easygenerator it is easy to customize the course automatically to each learner&#39;s needs.<\/div>\r\n<div>&nbsp;<\/div>\r\n<div>By setting score categories on questions you can&nbsp;create specific navigation rules. The result is&nbsp;a custom made study advice.<\/div>"
@@ -352,7 +352,7 @@
                             "text": "With versioning, online collaboration and use of workflow."
                         }
                     ],
-                    "explanations": [
+                    "learningObjects": [
                         {
                             "id": "8dc6a8a60d34426bb8eb5bf4ae55ff0e",
                             "text": "<div>e-Learning is changing and the way e-Learning is developed changes alongside with it.<\/div>\r\n<div>&nbsp;<\/div>\r\n<div>In the old&nbsp;times you would give an order to an external company to create a course for you. Then companies started to develop more and more content of their own with internal resources.<\/div>\r\n<div>&nbsp;<\/div>\r\n<div>The latest development is that subject matter experts from companies themselves are getting more and more involved in the process. Easygenerator facilitates the collaboration between these participants.<\/div>"
@@ -406,7 +406,7 @@
                             "text": "All of the above."
                         }
                     ],
-                    "explanations": [
+                    "learningObjects": [
                         {
                             "id": "ab3fa5f8fa0b47fc88ce2e51a5d12188",
                             "text": "<div>When you&nbsp;are&nbsp;developing an e-Learning&nbsp;it is useful that&nbsp;for instance a test group can&nbsp;review the course while you are developing.</div>"
@@ -465,7 +465,7 @@
                             "text": "When you paste a page as a 'Page Link' the page is placed in the new selected location. If you change anything in the content this will happen in both places. When you add or remove an object it will only affect the 'page linked' page."
                         }
                     ],
-                    "explanations": [
+                    "learningObjects": [
                         {
                             "id": "462ca0129a134e088483ace6419f4bd9",
                             "text": "<div>You don&#39;t want to duplicate any content if that is not necessary. The more copies you make the more complex your maintenance will be.<\/div>\r\n<div>&nbsp;<\/div>\r\n<div>In order to solve this, easygenerator offers you the &#39;page link&#39; and the &#39;content link&#39;.<\/div>"
@@ -507,7 +507,7 @@
                             "text": "A page link creates a copy of a certain page that can be used in another course. The copy will automatically take on the look and feel of the course it is played in now."
                         }
                     ],
-                    "explanations": [
+                    "learningObjects": [
                         {
                             "id": "28e3b8cf670e465892302238a9431a63",
                             "text": "<div>With easygenerator it is easy to reuse content without the problem of version management in case of changes. Easygenerator offers you the &#39;page link&#39; and the &#39;content link&#39;.</div>"
