@@ -6,6 +6,9 @@ namespace easygenerator.DomainModel
     {
         Objective Objective(string title);
         Experience Experience(string title);
+        Question Question(string title);
+        Answer Answer(string text, bool isCorrect);
+        Explanation Explanation(string text);
     }
 
     public class EntityFactory : IEntityFactory
@@ -18,6 +21,21 @@ namespace easygenerator.DomainModel
         public Experience Experience(string title)
         {
             return new Experience(title);
+        }
+
+        public Question Question(string title)
+        {
+            return new Question(title);
+        }
+
+        public Answer Answer(string text, bool isCorrect)
+        {
+            return new Answer(text, isCorrect);
+        }
+
+        public Explanation Explanation(string text)
+        {
+            return new Explanation(text);
         }
     }
 }

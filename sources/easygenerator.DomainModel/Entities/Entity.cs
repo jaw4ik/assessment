@@ -20,7 +20,7 @@ namespace easygenerator.DomainModel.Entities
         public DateTime CreatedOn { get; protected set; }
         public DateTime ModifiedOn { get; protected set; }
 
-        protected virtual void MarkAsModified()
+        internal virtual void MarkAsModified()
         {
             ModifiedOn = DateTimeWrapper.Now();
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
@@ -11,6 +12,13 @@ namespace easygenerator.Web.Controllers.Api
 {
     public class QuestionController : DefaultController
     {
+        private readonly IEntityFactory _entityFactory;
+
+        public QuestionController(IEntityFactory entityFactory)
+        {
+            _entityFactory = entityFactory;
+        }
+
         [HttpPost]
         public ActionResult Create(Objective objective, string title)
         {
@@ -19,17 +27,24 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonSuccess(new { Id = Guid.NewGuid().ToString("N"), CreatedOn = DateTimeWrapper.Now() });
             }
 
-            var question = objective.AddQuestion(title);
+            var question = _entityFactory.Question(title);
+
+            objective.AddQuestion(question);
 
             return JsonSuccess(new { Id = question.Id.ToString("N"), CreatedOn = question.CreatedOn });
         }
 
         [HttpPost]
-        public ActionResult Delete(Objective objective, string title)
+        public ActionResult Delete(Objective objective, Question question)
         {
+            if (objective == null)
+            {
+                return JsonSuccess(new { ModifiedOn = DateTimeWrapper.Now() });
+            }
 
+            objective.RemoveQuestion(question);
 
-            return JsonSuccess(new { ModifiedOn = DateTime.Now });
+            return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
         }
 
         [HttpPost]

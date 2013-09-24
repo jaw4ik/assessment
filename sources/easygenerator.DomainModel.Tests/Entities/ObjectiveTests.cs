@@ -1,9 +1,11 @@
 ﻿using System;
+using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Tests;
+using NSubstitute;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
@@ -115,25 +117,35 @@ namespace easygenerator.DomainModel.Tests.Entities
         #region Add question
 
         [TestMethod]
-        public void AddQuestion_ShouldAddQuestion()
+        public void AddQuestion_ShouldThrowArgumentNullException_WhenQuestionIsNull()
         {
-            const string title = "title";
             var objective = ObjectiveObjectMother.Create();
 
-            objective.AddQuestion(title);
+            Action action = () => objective.AddQuestion(null);
 
-            objective.Questions.Should().NotBeEmpty().And.HaveCount(1).And.Contain(q => q.Title == title);
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("question");
         }
 
         [TestMethod]
-        public void AddQuestion_ShouldReturnQuestion()
+        public void AddQuestion_ShouldAddQuestion()
         {
-            const string title = "title";
             var objective = ObjectiveObjectMother.Create();
+            var question = QuestionObjectMother.Create();
 
-            var question = objective.AddQuestion(title);
+            objective.AddQuestion(question);
 
-            question.Title.Should().Be(title);
+            objective.Questions.Should().NotBeEmpty().And.HaveCount(1).And.Contain(question);
+        }
+
+        [TestMethod]
+        public void AddQuestion_ShouldSetObjectiveToQuestion()
+        {
+            var objective = ObjectiveObjectMother.Create();
+            var question = QuestionObjectMother.Create();
+
+            objective.AddQuestion(question);
+
+            question.Objective.Should().Be(objective);
         }
 
         [TestMethod]
@@ -145,7 +157,59 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            objective.AddQuestion("title");
+            objective.AddQuestion(QuestionObjectMother.Create());
+
+            objective.ModifiedOn.Should().Be(dateTime);
+        }
+
+        #endregion
+
+        #region Remove question
+
+        [TestMethod]
+        public void RemoveQuestion_ShouldThrowArgumentNullException_WhenQuestionIsNull()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            Action action = () => objective.RemoveQuestion(null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("question");
+        }
+
+        [TestMethod]
+        public void RemoveQuestion_ShouldRemoveQuestion()
+        {
+            var objective = ObjectiveObjectMother.Create();
+            var question = QuestionObjectMother.Create();
+
+            objective.AddQuestion(question);
+
+            objective.RemoveQuestion(question);
+            objective.Questions.Should().BeEmpty();
+        }
+
+        [TestMethod]
+        public void RemoveQuestion_ShouldUnsetObjectiveFromQuestion()
+        {
+            var objective = ObjectiveObjectMother.Create();
+            var question = QuestionObjectMother.Create();
+            question.Objective = objective;
+
+            objective.RemoveQuestion(question);
+
+            question.Objective.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void RemoveQuestion_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var objective = ObjectiveObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            objective.RemoveQuestion(QuestionObjectMother.Create());
 
             objective.ModifiedOn.Should().Be(dateTime);
         }

@@ -49,6 +49,7 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             question.Id.Should().NotBeEmpty();
             question.Title.Should().Be(title);
+            question.Answers.Should().BeEmpty();
             question.CreatedOn.Should().Be(DateTime.MaxValue);
             question.ModifiedOn.Should().Be(DateTime.MaxValue);
         }
@@ -108,6 +109,208 @@ namespace easygenerator.DomainModel.Tests.Entities
             DateTimeWrapper.Now = () => dateTime;
 
             question.UpdateTitle("title");
+
+            question.ModifiedOn.Should().Be(dateTime);
+        }
+
+        #endregion
+
+        #region Add answer
+
+        [TestMethod]
+        public void AddAnswer_ShouldThrowArgumentNullException_WhenAnswerIsNull()
+        {
+            var question = QuestionObjectMother.Create();
+
+            Action action = () => question.AddAnswer(null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("answer");
+        }
+
+        [TestMethod]
+        public void AddAnswer_ShouldAddAnswer()
+        {
+            var question = QuestionObjectMother.Create();
+            var answer = AnswerObjectMother.Create();
+
+            question.AddAnswer(answer);
+
+            question.Answers.Should().NotBeNull().And.HaveCount(1).And.Contain(answer);
+        }
+
+        [TestMethod]
+        public void AddAnswer_ShouldSetQuestionToAnswer()
+        {
+            var question = QuestionObjectMother.Create();
+            var answer = AnswerObjectMother.Create();
+
+            question.AddAnswer(answer);
+
+            answer.Question.Should().Be(question);
+        }
+
+        [TestMethod]
+        public void AddAnswer_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var question = QuestionObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            question.AddAnswer(AnswerObjectMother.Create());
+
+            question.ModifiedOn.Should().Be(dateTime);
+        }
+
+        #endregion
+
+        #region Remove answer
+
+        [TestMethod]
+        public void RemoveAnswer_ShouldThrowArgumentNullException_WhenAnswerIsNull()
+        {
+            var question = QuestionObjectMother.Create();
+
+            Action action = () => question.RemoveAnswer(null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("answer");
+        }
+
+        [TestMethod]
+        public void RemoveAnswer_ShouldRemoveAnswer()
+        {
+            var question = QuestionObjectMother.Create();
+            var answer = AnswerObjectMother.Create();
+            question.AddAnswer(answer);
+
+            question.RemoveAnswer(answer);
+            question.Answers.Should().BeEmpty();
+        }
+
+        [TestMethod]
+        public void RemoveAnswer_ShouldUnsetQuestionFromAnswer()
+        {
+            var question = QuestionObjectMother.Create();
+            var answer = AnswerObjectMother.Create();
+            answer.Question = question;
+
+            question.RemoveAnswer(answer);
+
+            answer.Question.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void RemoveAnswer_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var question = QuestionObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            question.RemoveAnswer(AnswerObjectMother.Create());
+
+            question.ModifiedOn.Should().Be(dateTime);
+        }
+
+        #endregion
+
+        #region Add explanation
+
+        [TestMethod]
+        public void AddExplanation_ShouldThrowArgumentNullException_WhenExplanationIsNull()
+        {
+            var question = QuestionObjectMother.Create();
+
+            Action action = () => question.AddExplanation(null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("explanation");
+        }
+
+        [TestMethod]
+        public void AddExplanation_ShouldAddExplanation()
+        {
+            var question = QuestionObjectMother.Create();
+            var explanation = ExplanationObjectMother.Create();
+
+            question.AddExplanation(explanation);
+
+            question.Explanations.Should().NotBeNull().And.HaveCount(1).And.Contain(explanation);
+        }
+
+        [TestMethod]
+        public void AddExplanation_ShouldSetQuestionToExplanation()
+        {
+            var question = QuestionObjectMother.Create();
+            var explanation = ExplanationObjectMother.Create();
+
+            question.AddExplanation(explanation);
+
+            explanation.Question.Should().Be(question);
+        }
+
+        [TestMethod]
+        public void AddExplanation_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var question = QuestionObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            question.AddExplanation(ExplanationObjectMother.Create());
+
+            question.ModifiedOn.Should().Be(dateTime);
+        }
+
+        #endregion
+
+        #region Remove explanation
+
+        [TestMethod]
+        public void RemoveExplanation_ShouldThrowArgumentNullException_WhenExplanationIsNull()
+        {
+            var question = QuestionObjectMother.Create();
+
+            Action action = () => question.RemoveExplanation(null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("explanation");
+        }
+
+        [TestMethod]
+        public void RemoveExplanation_ShouldRemoveExplanation()
+        {
+            var question = QuestionObjectMother.Create();
+            var explanation = ExplanationObjectMother.Create();
+            question.AddExplanation(explanation);
+
+            question.RemoveExplanation(explanation);
+            question.Explanations.Should().BeEmpty();
+        }
+
+        [TestMethod]
+        public void RemoveExplanation_ShouldUnsetQuestionFromExplanation()
+        {
+            var question = QuestionObjectMother.Create();
+            var explanation = ExplanationObjectMother.Create();
+            explanation.Question = question;
+
+            question.RemoveExplanation(explanation);
+
+            explanation.Question.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void RemoveExplanation_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var question = QuestionObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            question.RemoveExplanation(ExplanationObjectMother.Create());
 
             question.ModifiedOn.Should().Be(dateTime);
         }

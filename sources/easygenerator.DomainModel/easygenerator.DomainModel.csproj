@@ -42,8 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Experience.cs" />
+    <Compile Include="Entities\Explanation.cs" />
     <Compile Include="Entities\Objective.cs" />
     <Compile Include="Entities\Question.cs" />
     <Compile Include="Entities\User.cs" />

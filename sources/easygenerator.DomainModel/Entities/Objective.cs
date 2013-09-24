@@ -12,7 +12,7 @@ namespace easygenerator.DomainModel.Entities
     {
         protected internal Objective() { }
 
-        protected internal Objective(string title)
+        protected internal Objective(string title )
         {
             ThrowIfTitleIsInvalid(title);
             Title = title;
@@ -32,7 +32,7 @@ namespace easygenerator.DomainModel.Entities
 
         private readonly ICollection<Question> _questions;
 
-        public IEnumerable<Question> Questions
+        public virtual IEnumerable<Question> Questions
         {
             get
             {
@@ -40,14 +40,22 @@ namespace easygenerator.DomainModel.Entities
             }
         }
 
-        public virtual Question AddQuestion(string title)
+        public virtual void AddQuestion(Question question)
         {
-            var question = new Question(title);
+            ThrowIfQuestionIsInvalid(question);
 
             _questions.Add(question);
+            question.Objective = this;
             MarkAsModified();
+        }
 
-            return question;
+        public virtual void RemoveQuestion(Question question)
+        {
+            ThrowIfQuestionIsInvalid(question);
+
+            _questions.Remove(question);
+            question.Objective = null;
+            MarkAsModified();
         }
 
         private void ThrowIfTitleIsInvalid(string title)
@@ -55,5 +63,11 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfNullOrEmpty(title, "title");
             ArgumentValidation.ThrowIfLongerThan255(title, "title");
         }
+
+        private void ThrowIfQuestionIsInvalid(Question question)
+        {
+            ArgumentValidation.ThrowIfNull(question, "question");
+        }
+
     }
 }
