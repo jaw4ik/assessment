@@ -361,13 +361,13 @@
     },
     learningObjects: {
         en: 'Learning objects',
-        nl: 'Learning objects[nl]',
-        de: 'Learning objects[de]'
+        nl: 'Leerstof',
+        de: 'Lerngegenstand'
     },
     clickToAddLearningObject: {
         en: 'Click here to add learning object',
-        nl: 'Click here to add learning object[nl]',
-        de: 'Click here to add learning object[de]'
+        nl: 'Klik hier om leerstof toe te voegen',
+        de: 'Klicken Sie hier, um einen Lerngegenstand hinzuzufügen'
     },
     /* End resource section for model Question */
     
