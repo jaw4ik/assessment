@@ -286,7 +286,7 @@
                     if (value) {
                         sendEvent(events.startEditingLearningObject);
                     } else {
-                        sendEvent(events.endEditingLearingObject);
+                        sendEvent(events.EndEditingLearningObject);
                     }
                 });
 
