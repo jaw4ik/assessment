@@ -517,7 +517,7 @@ h2.page-header-title {
         background-color: #f26c4f;
     }
 
-    .content-list-item .logo-wrapper {
+    .content-list-item .content-list-logo-wrapper {
         float: left;
         height: 100px;
         width: 190px;
@@ -525,7 +525,7 @@ h2.page-header-title {
         position: relative;
     }
 
-.logo-wrapper .logo {
+.content-list-logo-wrapper .content-list-logo {
     height: 100%;
     width: 100%;
 }

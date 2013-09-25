@@ -85,7 +85,7 @@ body {
     margin-right: 20px;
 }
 
-.logo {
+.main-logo {
     width: 165px;
     height: 28px;
     vertical-align: middle;
@@ -582,12 +582,12 @@ body {
     }
 
 @media (max-width: 960px) {
-    .logo {
+    .main-logo {
         width: 33px;
     }
 
-    .module-400 .logo,
-    .module-404 .logo {
+    .module-400 .main-logo,
+    .module-404 .main-logo {
         width: 165px;
     }
 }
