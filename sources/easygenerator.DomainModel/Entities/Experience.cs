@@ -28,7 +28,7 @@ namespace easygenerator.DomainModel.Entities
             }
         }
 
-        public void RelateObjective(Objective objective)
+        public virtual void RelateObjective(Objective objective)
         {
             ThrowIfObjectiveIsInvalid(objective);
 
@@ -40,7 +40,7 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified();
         }
 
-        public void UnrelateObjective(Objective objective)
+        public virtual void UnrelateObjective(Objective objective)
         {
             ThrowIfObjectiveIsInvalid(objective);
 
