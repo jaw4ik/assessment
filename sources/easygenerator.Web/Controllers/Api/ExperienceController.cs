@@ -67,7 +67,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        public ActionResult UpdateTitle(Guid experienceId, String experienceTitle)
+        public ActionResult UpdateTitle(Experience experience, string experienceTitle)
         {
 
             return JsonSuccess(new
@@ -77,7 +77,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        public ActionResult UpdateTemplate(Guid experienceId, Guid templateId)
+        public ActionResult UpdateTemplate(Experience experience, Guid templateId)
         {
 
             return JsonSuccess(new

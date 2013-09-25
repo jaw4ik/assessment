@@ -218,7 +218,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var viewModel = new ExperienceBuildModel();
 
             //Act
-            var result = _controller.UpdateTitle(Guid.NewGuid(), "Some title");
+            var result = _controller.UpdateTitle(null, "Some title");
 
             //Assert
             ActionResultAssert.IsJsonSuccessResult(result);
@@ -235,7 +235,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var viewModel = new ExperienceBuildModel();
 
             //Act
-            var result = _controller.UpdateTemplate(Guid.NewGuid(), Guid.NewGuid());
+            var result = _controller.UpdateTemplate(null, Guid.NewGuid());
 
             //Assert
             ActionResultAssert.IsJsonSuccessResult(result);
