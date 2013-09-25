@@ -280,21 +280,21 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void RelateObjectives_ShouldCallRelateObjectiveInExperience()
+        public void RelateObjectives_ShouldRelateObjectiveToExperience()
         {
             //Arrange
-            var experience = ExperienceObjectMother.Create();
+            var experience = Substitute.For<Experience>("Some title");
             var objective = ObjectiveObjectMother.Create();
-
+            
             //Act
             _controller.RelateObjectives(experience, new List<Objective>() { objective });
 
             //Assert
-            experience.RelatedObjectives.Should().Contain(objective);
+            experience.Received().RelateObjective(objective);
         }
 
         [TestMethod]
-        public void RelateObjectives_ShouldReturnBadRequest_WhenExperienceIsNull()
+        public void RelateObjectives_ShouldReturnJsonSuccessResult_WhenExperienceIsNull()
         {
             //Arrange
             var experience = ExperienceObjectMother.Create();
@@ -340,21 +340,21 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void UnrelateObjectives_ShouldCallRelateObjectiveInExperience()
+        public void UnrelateObjectives_ShouldUnrelateObjectiveFromExperience()
         {
             //Arrange
             var objective = ObjectiveObjectMother.Create();
-            var experience = ExperienceObjectMother.Create();
+            var experience = Substitute.For<Experience>("Some title");
 
             //Act
             _controller.UnrelateObjectives(experience, new List<Objective>() { objective });
 
             //Assert
-            experience.RelatedObjectives.Should().NotContain(objective);
+            experience.Received().UnrelateObjective(objective);
         }
 
         [TestMethod]
-        public void UnrelateObjectives_ShouldReturnBadRequest_WhenExperienceIsNull()
+        public void UnrelateObjectives_ShouldReturnJsonSuccessResult_WhenExperienceIsNull()
         {
             //Arrange
             var objective = ObjectiveObjectMother.Create();
