@@ -145,5 +145,64 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
+
+        #region Update title
+
+        [TestMethod]
+        public void UpdateTitle_ShouldThrowArgumentNullException_WhenTitleIsNull()
+        {
+            var experience = ExperienceObjectMother.Create();
+
+            Action action = () => experience.UpdateTitle(null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("title");
+        }
+
+        [TestMethod]
+        public void UpdateTitle_ShouldThrowArgumentException_WhenTitleIsEmpty()
+        {
+            var experience = ExperienceObjectMother.Create();
+
+            Action action = () => experience.UpdateTitle(String.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("title");
+        }
+
+        [TestMethod]
+        public void UpdateTitle_ShouldThrowArgumentOutOfRangeException_WhenTitleIsLongerThan255()
+        {
+            var experience = ExperienceObjectMother.Create();
+
+            Action action = () => experience.UpdateTitle(new string('*', 256));
+
+            action.ShouldThrow<ArgumentOutOfRangeException>().And.ParamName.Should().Be("title");
+        }
+
+        [TestMethod]
+        public void UpdateTitle_ShouldUpdateTitle()
+        {
+            const string title = "title";
+            var experience = ExperienceObjectMother.Create();
+
+            experience.UpdateTitle(title);
+
+            experience.Title.Should().Be(title);
+        }
+
+        [TestMethod]
+        public void UpdateTitle_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var experience = ExperienceObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            experience.UpdateTitle("title");
+
+            experience.ModifiedOn.Should().Be(dateTime);
+        }
+
+        #endregion
     }
 }

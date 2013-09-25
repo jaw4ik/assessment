@@ -70,11 +70,14 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         public ActionResult UpdateTitle(Experience experience, string experienceTitle)
         {
-
-            return JsonSuccess(new
+            if (experience == null)
             {
-                ModifiedOn = DateTimeWrapper.Now()
-            });
+                return JsonSuccess(new { ModifiedOn = DateTimeWrapper.Now() });
+            }
+
+            experience.UpdateTitle(experienceTitle);
+
+            return JsonSuccess(new { ModifiedOn = experience.ModifiedOn });
         }
 
         [HttpPost]

@@ -6,6 +6,7 @@ using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.BuildExperience.BuildModel;
 using easygenerator.Web.BuildExperience.PackageModel;
@@ -212,17 +213,36 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Update Title
 
         [TestMethod]
-        public void UpdateTitle_ShouldReturnJson()
+        public void Update_ShouldReturnJsonSuccessResult_WhenExperienceIsNull()
         {
-            //Arrange
-            var viewModel = new ExperienceBuildModel();
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            //Act
-            var result = _controller.UpdateTitle(null, "Some title");
+            var result = _controller.UpdateTitle(null, String.Empty);
 
-            //Assert
-            ActionResultAssert.IsJsonSuccessResult(result);
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = DateTime.MaxValue });
         }
+
+        [TestMethod]
+        public void Update_ShouldUpdateExperienceTitle()
+        {
+            const string title = "updated title";
+            var experience = Substitute.For<Experience>();
+
+            _controller.UpdateTitle(experience, title);
+
+            experience.Received().UpdateTitle(title);
+        }
+
+        [TestMethod]
+        public void Update_ShouldReturnJsonSuccessResult()
+        {
+            var experience = Substitute.For<Experience>();
+
+            var result = _controller.UpdateTitle(experience, String.Empty);
+
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = experience.ModifiedOn });
+        }
+
 
         #endregion
 
