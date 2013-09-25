@@ -11,6 +11,7 @@ namespace easygenerator.Web
         protected void Application_Start()
         {
             ModelBinderProviders.BinderProviders.Add(new EntityModelBinderProvider());
+            ModelBinderProviders.BinderProviders.Add(new EntityCollectionModelBinderProvider());
 
             AreaRegistration.RegisterAllAreas();
 

@@ -242,5 +242,123 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         #endregion
+
+        #region Relate Objectives
+
+        [TestMethod]
+        public void RelateObjectives_ShouldReturnJson()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+            var relatedObjectives = new List<Objective>() { ObjectiveObjectMother.Create() };
+
+            //Act
+            var result = _controller.RelateObjectives(experience, relatedObjectives);
+
+            //Assert
+            ActionResultAssert.IsJsonSuccessResult(result);
+        }
+
+        [TestMethod]
+        public void RelateObjectives_ShouldCallRelateObjectiveInExperience()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+            var objective = ObjectiveObjectMother.Create();
+
+            //Act
+            _controller.RelateObjectives(experience, new List<Objective>() { objective });
+
+            //Assert
+            experience.RelatedObjectives.Should().Contain(objective);
+        }
+
+        [TestMethod]
+        public void RelateObjectives_ShouldReturnBadRequest_WhenExperienceIsNull()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+            var objective = ObjectiveObjectMother.Create();
+
+            //Act
+            var result = _controller.RelateObjectives(null, new List<Objective>() { objective });
+
+            //Assert
+            ActionResultAssert.IsBadRequestStatusCodeResult(result);
+        }
+
+        [TestMethod]
+        public void RelateObjectives_ShouldReturnBadRequest_WhenObjectiveListIsEmpty()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+            var objective = ObjectiveObjectMother.Create();
+
+            //Act
+            var result = _controller.RelateObjectives(experience, new List<Objective>() { });
+
+            //Assert
+            ActionResultAssert.IsBadRequestStatusCodeResult(result);
+        }
+
+        #endregion
+
+        #region Unrelate Objectives
+
+        [TestMethod]
+        public void UnrelateObjectives_ShouldReturnJson()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+            var relatedObjectives = new List<Objective>() { ObjectiveObjectMother.Create() };
+
+            //Act
+            var result = _controller.UnrelateObjectives(experience, relatedObjectives);
+
+            //Assert
+            ActionResultAssert.IsJsonSuccessResult(result);
+        }
+
+        [TestMethod]
+        public void UnrelateObjectives_ShouldCallRelateObjectiveInExperience()
+        {
+            //Arrange
+            var objective = ObjectiveObjectMother.Create();
+            var experience = ExperienceObjectMother.Create();
+
+            //Act
+            _controller.UnrelateObjectives(experience, new List<Objective>() { objective });
+
+            //Assert
+            experience.RelatedObjectives.Should().NotContain(objective);
+        }
+
+        [TestMethod]
+        public void UnrelateObjectives_ShouldReturnBadRequest_WhenExperienceIsNull()
+        {
+            //Arrange
+            var objective = ObjectiveObjectMother.Create();
+
+            //Act
+            var result = _controller.UnrelateObjectives(null, new List<Objective>() { objective });
+
+            //Assert
+            ActionResultAssert.IsBadRequestStatusCodeResult(result);
+        }
+
+        [TestMethod]
+        public void UnrelateObjectives_ShouldReturnBadRequest_WhenObjectiveListIsEmpty()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+
+            //Act
+            var result = _controller.UnrelateObjectives(experience, new List<Objective>() { });
+
+            //Assert
+            ActionResultAssert.IsBadRequestStatusCodeResult(result);
+        }
+
+        #endregion
     }
 }

@@ -4,14 +4,14 @@ using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.Web.Components.ModelBinding
 {
-    public class EntityModelBinderProvider : IModelBinderProvider
+    public class EntityCollectionModelBinderProvider : IModelBinderProvider
     {
         public IModelBinder GetBinder(Type modelType)
         {
-            if (!typeof(Entity).IsAssignableFrom(modelType))
+            if (!modelType.IsGenericType || !typeof(Entity).IsAssignableFrom(modelType.GetGenericArguments()[0]))
                 return null;
 
-            Type modelBinderType = typeof(IEntityModelBinder<>).MakeGenericType(modelType);
+            Type modelBinderType = typeof(IEntityCollectionModelBinder<>).MakeGenericType(modelType.GetGenericArguments()[0]);
             return (IModelBinder)DependencyResolver.Current.GetService(modelBinderType);
         }
     }

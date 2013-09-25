@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
@@ -83,6 +84,43 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess(new
             {
                 ModifiedOn = DateTimeWrapper.Now()
+            });
+        }
+
+        [HttpPost]
+        public ActionResult RelateObjectives(Experience experience, ICollection<Objective> objectives)
+        {
+            if (experience == null || objectives.Count == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            foreach (Objective objective in objectives)
+            {
+                experience.RelateObjective(objective);
+            }
+
+            return JsonSuccess(new
+            {
+                ModifiedOn = experience.ModifiedOn
+            });
+        }
+
+        public ActionResult UnrelateObjectives(Experience experience, ICollection<Objective> objectives)
+        {
+            if (experience == null || objectives.Count == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            foreach (Objective objective in objectives)
+            {
+                experience.UnrelateObjective(objective);
+            }
+
+            return JsonSuccess(new
+            {
+                ModifiedOn = experience.ModifiedOn
             });
         }
     }

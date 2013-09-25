@@ -24,6 +24,7 @@ namespace easygenerator.Web.Configuration
                    .As<IExperienceBuilder>();
 
             builder.RegisterGeneric(typeof(EntityModelBinder<>)).As(typeof(IEntityModelBinder<>));
+            builder.RegisterGeneric(typeof(EntityCollectionModelBinder<>)).As(typeof(IEntityCollectionModelBinder<>));
 
             builder.RegisterType<BuildPathProvider>();
             builder.RegisterType<PhysicalFileManager>();

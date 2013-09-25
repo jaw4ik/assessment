@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Entities;
+﻿using System.Collections.Generic;
+using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DomainModel.Tests.ObjectMothers
 {
@@ -12,7 +13,7 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return Create(title: title);
         }
 
-        public static Experience Create(string title = Title)
+        public static Experience Create(string title = Title, List<Objective> relatedObjectives = null)
         {
             return new Experience(title);
         }

@@ -113,10 +113,22 @@ namespace easygenerator.Web.Configuration
             );
 
             routes.MapRoute(
-              name: "UpdateExperienceTemplate",
-              url: "api/experience/updateTemplate",
-              defaults: new { controller = "Experience", action = "UpdateTemplate" }
-          );
+                name: "UpdateExperienceTemplate",
+                url: "api/experience/updateTemplate",
+                defaults: new { controller = "Experience", action = "UpdateTemplate" }
+            );
+
+            routes.MapRoute(
+                name: "ExperienceRelateObjectives",
+                url: "api/experience/relateObjectives",
+                defaults: new { controller = "Experience", action = "RelateObjectives" }
+            );
+
+            routes.MapRoute(
+                name: "ExperienceUnrelateObjectives",
+                url: "api/experience/unrelateObjectives",
+                defaults: new { controller = "Experience", action = "UnrelateObjectives" }
+            );
 
             routes.MapRoute(
                 name: "BuildExperience",

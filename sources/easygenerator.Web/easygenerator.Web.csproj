@@ -167,8 +167,10 @@
     <Compile Include="BuildExperience\PackageModel\QuestionPackageModel.cs" />
     <Compile Include="Components\ActionResults\JsonErrorResult.cs" />
     <Compile Include="Components\ActionResults\JsonSuccessResult.cs" />
+    <Compile Include="Components\ModelBinding\EntityCollectionModelBinderProvider.cs" />
     <Compile Include="Components\ModelBinding\EntityModelBinder.cs" />
     <Compile Include="Components\ModelBinding\EntityModelBinderProvider.cs" />
+    <Compile Include="Components\ModelBinding\EntityCollectionModelBinder.cs" />
     <Compile Include="Components\SessionDataContext.cs" />
     <Compile Include="Configuration\BundleConfiguration.cs" />
     <Compile Include="Configuration\ContainerConfiguration.cs" />
@@ -205,7 +207,7 @@
       <DependentUpon>guard.js</DependentUpon>
     </Content>
     <Content Include="Content\durandal.css" />
-    <Content Include="Content\font\buxtonsketch.svg" />
+    <Content Include="Content\font\alphamacaoe.svg" />
     <Content Include="Content\images\build-sprite.png" />
     <Content Include="Content\images\quizTemplate.png" />
     <Content Include="Content\images\emptyBox.png" />
@@ -242,9 +244,6 @@
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.eot" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.ttf" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.woff" />
-    <Content Include="Content\font\buxtonsketch.eot" />
-    <Content Include="Content\font\buxtonsketch.ttf" />
-    <Content Include="Content\font\buxtonsketch.woff" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
