@@ -105,7 +105,7 @@
             },
 
             resetBuildStatus = function () {
-                this.status(constants.buildingStatuses.notStarted);
+                experience.buildingStatus(constants.buildingStatuses.notStarted);
                 experience.isFirstBuild(true);
             },
 
@@ -163,7 +163,7 @@
                     experience.buildingStatus = ko.observable(item.buildingStatus);
                     experience.packageUrl = item.packageUrl;
 
-                    experience.isFirstBuild = ko.observable(true);
+                    experience.isFirstBuild = ko.observable(item.buildingStatus == constants.buildingStatuses.notStarted);
                     experience.isSelected = ko.observable(false);
                     experience.showBuildingStatus = ko.observable();
 
