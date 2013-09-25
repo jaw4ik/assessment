@@ -207,6 +207,7 @@
       <DependentUpon>guard.js</DependentUpon>
     </Content>
     <Content Include="Content\durandal.css" />
+    <Content Include="Content\font\buxtonsketch.svg" />
     <Content Include="Content\font\opensans-italic.svg" />
     <Content Include="Content\images\build-sprite.png" />
     <Content Include="Content\images\quizTemplate.png" />
@@ -247,6 +248,9 @@
     <Content Include="Content\font\opensans-italic.eot" />
     <Content Include="Content\font\opensans-italic.ttf" />
     <Content Include="Content\font\opensans-italic.woff" />
+    <Content Include="Content\font\buxtonsketch.eot" />
+    <Content Include="Content\font\buxtonsketch.ttf" />
+    <Content Include="Content\font\buxtonsketch.woff" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
