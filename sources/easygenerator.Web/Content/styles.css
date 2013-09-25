@@ -432,7 +432,7 @@ body {
 }
 
 .entity-info-popup-item-date-text-wrapper.right {
-    float: right;
+    margin-left: 103px;
 }
 
 .entity-info-popup-item-date-text:before,
