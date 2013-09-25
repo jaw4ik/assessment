@@ -219,6 +219,7 @@ body {
         right: 375px;
     }
 }
+
 @media (max-width: 1260px) {
     .create-tip .create-tip-text-wrapper {
         max-width: 278px;
@@ -572,13 +573,28 @@ body {
         cursor: pointer;
         position: relative;
         top: -13px;
+        background: #555;
+        background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…EiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+        background: -moz-linear-gradient(top,#555 0%,#333 100%);
+        background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#555),color-stop(100%,#333));
+        background: -webkit-linear-gradient(top,#555 0%,#333 100%);
+        background: -o-linear-gradient(top,#555 0%,#333 100%);
+        background: -ms-linear-gradient(top,#555 0%,#333 100%);
+        background: linear-gradient(to bottom,#555 0%,#333 100%);
+        filter: none;
     }
 
-    .top-navigation .current {
-        background-color: rgba(51, 51, 51, 1);
-        box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
-        cursor: default;
-    }
+        .top-navigation .top-navigation-btn.current {
+            background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzBiMGIwYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ3JSIgc3RvcC1jb2xvcj0iIzIzMjMyMyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzMjMyMzIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+            background: -moz-linear-gradient(top, rgba(11,11,11,1) 0%, rgba(35,35,35,1) 47%, rgba(50,50,50,1) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(11,11,11,1)), color-stop(47%,rgba(35,35,35,1)), color-stop(100%,rgba(50,50,50,1))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top, rgba(11,11,11,1) 0%,rgba(35,35,35,1) 47%,rgba(50,50,50,1) 100%); /* Chrome10+,Safari5.1+ */
+            background: -ms-linear-gradient(top, rgba(11,11,11,1) 0%,rgba(35,35,35,1) 47%,rgba(50,50,50,1) 100%); /* IE10+ */
+            background: linear-gradient(to bottom, rgba(11,11,11,1) 0%,rgba(35,35,35,1) 47%,rgba(50,50,50,1) 100%); /* W3C */
+            filter: none;
+            box-shadow: inset 0px 0px 2px rgba(0,0,0,0.5);
+            cursor: default;
+        }
 
     .top-navigation > a:hover {
         background-color: rgba(0, 0, 0, 0.1);

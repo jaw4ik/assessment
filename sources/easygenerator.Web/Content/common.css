@@ -62,9 +62,7 @@ html, body {
     min-width: 600px;
 }
 
-/**
- * Default font styles. Font smoothing in Chrome.
- */
+/*#region Default font styles. Font smoothing in Chrome */
 .wrapper {
     line-height: 1;
     font-family: Tahoma, sans-serif;
@@ -82,18 +80,18 @@ html, body {
         line-height: 1.3em;
     }
 
-/**
- * Table
- */
+/*#endregion Default font styles. Font smoothing in Chrome */
+
+/*#region Table */
 
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
 
-/**
- * Forms
- */
+/*#endregion Table */
+
+/*#region Forms */
 input[type="radio"],
 input[type="checkbox"] {
     margin: 0;
@@ -109,9 +107,9 @@ input[type="checkbox"] {
     filter: alpha(opacity=0);
 }
 
-/**
- * Links.
- */
+/*#endregion Forms */
+
+/*#region Links */
 
 a {
     outline: 0;
@@ -127,9 +125,9 @@ a {
         text-decoration: none;
     }
 
-/**
- * Lists.
- */
+/*#endregion Links */
+
+/*#region Lists */
 
 ul.unstyled,
 ol.unstyled  {
@@ -137,9 +135,9 @@ ol.unstyled  {
     list-style: none;
 }
 
-/**
- * Images.
- */
+/*#endregion Lists */
+
+/*#region Images */
 
 img:hover {
     -ms-opacity: 1;
@@ -147,9 +145,9 @@ img:hover {
     filter: alpha(opacity = 100);
 }
 
-/*===================================
-COMMON CLASSES CSS-STYLES
-===================================*/
+/*#endregion Images */
+
+/*#region COMMON CLASSES CSS-STYLES*/
 
 .clear {
     clear: both;
@@ -217,9 +215,9 @@ COMMON CLASSES CSS-STYLES
     visibility: hidden;
 }
 
-/**
- *  Framing for images
- */
+/*#endregion COMMON CLASSES CSS-STYLES*/
+
+/*#region Framing for images */
 
 .white-framing {
     display: inline-block;
@@ -236,9 +234,10 @@ COMMON CLASSES CSS-STYLES
         border: 1px solid #f8f8f8;
         vertical-align: top;
     }
-/**
- * curved shadow
- */
+
+/*#endregion Framing of images */
+
+/*#region curved shadow */
 
 .shadow-bottom-curve {
     position: relative;
@@ -261,13 +260,15 @@ COMMON CLASSES CSS-STYLES
         border-radius: 250px / 10px;
     }
 
-/**
- * after-colon
- */
+/*#endregion curved shadow */
+
+/*#region after-colon */
 
 .after-colon:after {
     content: ':';
 }
+
+/*#endregion after-colon */
 
 /*#region Messages*/
 
@@ -332,18 +333,16 @@ COMMON CLASSES CSS-STYLES
 
 /*#endregion Messages*/
 
-/**
-  * info-header (image, title, navigation)
-  */
+/*#region info-header (image, title, navigation)  */
 
 .page-header-wrapper {
     width: 100%;
     margin: 11px 0 15px;
 }
 
-/**
-  * Page navigation elements
-  */
+/*#endregion info-header (image, title, navigation)  */
+
+/*#region Page navigation elements */
 
 .nav-element-wrapper {
     display: table-cell;
@@ -402,9 +401,9 @@ COMMON CLASSES CSS-STYLES
         background-position: 0 -136px;
     }
 
-/**
-  *  Page info block
-  */
+/*#endregion Page navigation elements */
+
+/*#region Page info block */
 
 .page-header {
     display: table-cell;
@@ -435,9 +434,9 @@ h2.page-header-title {
     word-wrap: break-word;
 }
 
-/**
-  *    List of page items
-  */
+/*#endregion Page info block */
+
+/*#region List of page items */
 
 .content-list-wrapper {
     width: 100%;
@@ -656,7 +655,9 @@ h2.page-header-title {
         box-shadow: 0 0 3px rgba(242, 108, 79, 1);
     }
 
-/* edit field */
+/*#endregion List of page items */
+
+/*#region edit field */
 
 .edit-field {
     position: relative;
@@ -733,8 +734,9 @@ h2.page-header-title {
     text-align: center;
 }
 
+/*#endregion edit field */
 
-/*----------Error pages------------*/
+/*#region Error pages */
 
 .error-page {
     margin: 100px auto;
@@ -743,9 +745,7 @@ h2.page-header-title {
     padding: 15px;
 }
 
-/*----------End Error pages--------*/
-
-
+/*#endregion Error pages */
 
 /*#region Form actions*/
 
