@@ -207,6 +207,7 @@
       <DependentUpon>guard.js</DependentUpon>
     </Content>
     <Content Include="Content\durandal.css" />
+    <Content Include="Content\font\opensans-italic.svg" />
     <Content Include="Content\images\build-sprite.png" />
     <Content Include="Content\images\quizTemplate.png" />
     <Content Include="Content\images\emptyBox.png" />
@@ -243,6 +244,9 @@
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.eot" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.ttf" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.woff" />
+    <Content Include="Content\font\opensans-italic.eot" />
+    <Content Include="Content\font\opensans-italic.ttf" />
+    <Content Include="Content\font\opensans-italic.woff" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
