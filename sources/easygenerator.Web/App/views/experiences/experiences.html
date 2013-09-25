@@ -83,13 +83,11 @@
                                 <div class="experience-brief-image-wrapper">
                                     <img class="experience-brief-image" alt="" data-bind="attr: { src: image }" />
                                 </div>
-                                <div class="experience-brief-toolbar">
-                                    <div class="experience-brief-title" data-bind="attr: { title: title }">
+                                <div class="experience-brief-toolbar clearfix">
+                                    <div class="experience-brief-title pull-left" data-bind="attr: { title: title }">
                                         <span class="selectable" data-bind="text: title"></span>
                                     </div>
-                                    <!--
-                                        -->
-                                    <div class="experience-brief-toolbar-objective-count" data-bind="localize: { title: 'numberOfRelatedObjectives' }">
+                                    <div class="experience-brief-toolbar-objective-count pull-right" data-bind="localize: { title: 'numberOfRelatedObjectives' }">
                                         <span class="experience-brief-toolbar-icon-objective"></span>
                                         <div class="selectable" data-bind="text: objectives.length"></div>
                                     </div>
