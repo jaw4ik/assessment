@@ -733,6 +733,11 @@
         nl: 'Geselecteerd(e) leerdoel(en) loskoppelen',
         de: 'Ausgewählte(s) Lernziel(e) trennen'
     },
+    learningExperienceEditor: {
+        en: 'Learning experience editor',
+        nl: 'Editor leerervaringen',
+        de: 'Lernerfahrungs-Editor'
+    },
     /* End resource section for model Display experience */
     
     /* Resource section for model Error pages */
