@@ -284,7 +284,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.RelateObjectives(null, new List<Objective>() { objective });
 
             //Assert
-            ActionResultAssert.IsBadRequestStatusCodeResult(result);
+            ActionResultAssert.IsJsonSuccessResult(result);
         }
 
         [TestMethod]
@@ -343,7 +343,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.UnrelateObjectives(null, new List<Objective>() { objective });
 
             //Assert
-            ActionResultAssert.IsBadRequestStatusCodeResult(result);
+            ActionResultAssert.IsJsonSuccessResult(result);
         }
 
         [TestMethod]

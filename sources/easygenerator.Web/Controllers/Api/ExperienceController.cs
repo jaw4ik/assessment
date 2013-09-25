@@ -90,7 +90,15 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         public ActionResult RelateObjectives(Experience experience, ICollection<Objective> objectives)
         {
-            if (experience == null || objectives.Count == 0)
+            if (experience == null)
+            {
+                return JsonSuccess(new
+                {
+                    ModifiedOn = DateTimeWrapper.Now()
+                });
+            }
+
+            if (objectives.Count == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -108,7 +116,16 @@ namespace easygenerator.Web.Controllers.Api
 
         public ActionResult UnrelateObjectives(Experience experience, ICollection<Objective> objectives)
         {
-            if (experience == null || objectives.Count == 0)
+
+            if (experience == null)
+            {
+                return JsonSuccess(new
+                {
+                    ModifiedOn = DateTimeWrapper.Now()
+                });
+            }
+
+            if (objectives.Count == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
