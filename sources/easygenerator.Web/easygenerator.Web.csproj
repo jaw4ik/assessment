@@ -207,7 +207,6 @@
       <DependentUpon>guard.js</DependentUpon>
     </Content>
     <Content Include="Content\durandal.css" />
-    <Content Include="Content\font\alphamacaoe.svg" />
     <Content Include="Content\images\build-sprite.png" />
     <Content Include="Content\images\quizTemplate.png" />
     <Content Include="Content\images\emptyBox.png" />
