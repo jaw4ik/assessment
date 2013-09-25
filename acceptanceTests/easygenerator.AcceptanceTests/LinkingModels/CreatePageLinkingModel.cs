@@ -24,7 +24,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         
         //CUD Experience
 
-        public string TemplateSelector = ".//div[contains(@class,'experience-template-selector')]";
+        public string TemplateSelector = ".//div[contains(@class,'experience-template-selector selectbox')]";
         public string DefaultTemplateSelector = ".//div[contains(@class,'experience-template-selector')]//ul//li[1]";
         public string QuizTemplateSelector = ".//div[contains(@class,'experience-template-selector')]//ul//li[2]";
     }
