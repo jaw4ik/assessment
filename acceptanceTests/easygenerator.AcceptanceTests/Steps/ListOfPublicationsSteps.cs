@@ -213,6 +213,7 @@ namespace easygenerator.AcceptanceTests.Steps
             
             if (System.IO.Directory.Exists(extractPath))
             {
+                System.Threading.Thread.Sleep(1000);
                 System.IO.Directory.Delete(extractPath, true);
             }
 
