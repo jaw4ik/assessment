@@ -138,10 +138,19 @@ body {
 }
 
 .create-entity-actions {
-    width: 203px;
     position: absolute;
-    top: 203px;
+    top: 215px;
+    right: 20px;
     z-index: 2;
+}
+
+@media (max-width: 800px) {
+    .create-entity-actions {
+        position: absolute;
+        top: 215px;
+        right: 20px;
+        z-index: 2;
+    }
 }
 
 .create-form-tip {
@@ -205,6 +214,11 @@ body {
         transform: rotate(352deg);
     }
 
+@media (max-width: 640px) {
+    .create-tip {
+        right: 375px;
+    }
+}
 @media (max-width: 1260px) {
     .create-tip .create-tip-text-wrapper {
         max-width: 278px;

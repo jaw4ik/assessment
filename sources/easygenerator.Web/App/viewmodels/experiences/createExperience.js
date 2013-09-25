@@ -72,6 +72,22 @@
 
                     that.chooseTemplateText = localizationManager.localize('chooseTemplate');
                 });
+            },
+            compositionComplete = function() {
+                setWidthSelector();
+
+                $(window).resize(function () {
+                    setWidthSelector();
+                });
+
+                function setWidthSelector() {
+                    var selector = $(".create-experience .experience-template-selector");
+                    var button = $(".saveAndNew");
+                    var totalWidth = button.width();
+                    totalWidth += parseInt(button.css("padding-left"), 10) + parseInt(button.css("padding-right"), 10);
+                    totalWidth += parseInt(button.css("borderRightWidth"), 10) + parseInt(button.css("borderLeftWidth"), 10);
+                    selector.width(totalWidth);
+                }
             };
 
         function createExperience(callback) {
@@ -87,6 +103,7 @@
 
         return {
             activate: activate,
+            compositionComplete: compositionComplete,
             title: title,
             templates: templates,
             template: template,

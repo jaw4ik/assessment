@@ -488,6 +488,14 @@
                     });
                 });
             });
+
+            describe('compositionComplete:', function () {
+
+                it('should be function', function() {
+                    expect(viewModel.compositionComplete).toBeFunction();
+                });
+
+            });
         });
     }
 );

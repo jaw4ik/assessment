@@ -585,12 +585,12 @@
         {
             "id":"0593CC4DD1934ACCBE91DCE7ECE969AE",
             "name": "Default",
-            "image": "/Content/images/quizTemplate.png"
+            "image": "/Content/images/defaultTemplate.png"
         },
         {
             "id":"DE880B6EDAF047ECB8CE8F24052116B5",
             "name": "Quiz",
-            "image": "/Content/images/defaultTemplate.png"
+            "image": "/Content/images/quizTemplate.png"
         }
     ]
 }

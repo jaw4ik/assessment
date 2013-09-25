@@ -195,7 +195,7 @@
     display: inline-block;
     vertical-align: top;
     overflow: hidden;
-    margin-top: 20px;
+    margin-top: 40px;
     margin-bottom: 10px;
     width: 100%;
     color: #666;
@@ -252,7 +252,7 @@
     }
 
 .experience .experience-header {
-    margin-top: 35px;
+    margin-top: 55px;
     margin-bottom: 10px;
     padding: 0;
     height: auto;
@@ -618,6 +618,48 @@
     width: 100%;
 }
 
+.experience-template-selector-text {
+    font-size: 12px;
+    color: #666;
+    letter-spacing: 0;
+}
+
+.create-experience .experience-template-selector {
+    display: inline-block;
+}
+
+.create-experience .experience-template-selector-text {
+    font-size: 14px;
+    color: #666;
+    letter-spacing: 0;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 4px;
+    margin-right: 5px;
+}
+
+.create-experience .form-actions {
+    padding-top: 70px;
+}
+
+@media (max-width: 890px) {
+    .create-experience .experience-template-selector {
+        float: right;
+    }
+
+    .create-experience .experience-template-selector-text {
+        font-size: 14px;
+        color: #666;
+        display: block;
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+
+    .create-experience .form-actions {
+        padding-top: 100px;
+    }
+}
+
 /*#endregion Template selector*/
 
 /*#region tip for add new learning objective*/
@@ -627,4 +669,5 @@
     top: 30px;
     text-transform: none;
 }
+
 /*#endregion tip for add new learning objective*/

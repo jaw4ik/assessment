@@ -36,20 +36,30 @@
 
     .selectbox-current-item .selectbox-caret {
         position: absolute;
-        top: 8px;
+        top: 13px;
         right: 10px;
         background-image: url("images/small-size-icons-pack.png");
-        background-position: 0;
+        background-position: 0 5px;
         content: "↕";
         width: 6px;
-        height: 16px;
+        height: 5px;
     }
+
+.selectbox-current-item-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 5px;
+}
 
 .selectbox-options-list .selectbox-option-item {
     height: 30px;
     padding: 0 10px;
     line-height: 30px;
     background: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
     .selectbox-options-list .selectbox-option-item:hover {

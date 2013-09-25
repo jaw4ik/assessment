@@ -94,7 +94,7 @@
                                     sendEvent(events.navigateToObjectives);
                                     router.navigate('objectives');
                                 },
-                                title: 'learningObjectives',
+                                title: 'materialDevelopment',
                                 isActive: ko.computed(function () {
                                     return that.activeModuleName() == objectivesModule || router.isNavigating();
                                 })
