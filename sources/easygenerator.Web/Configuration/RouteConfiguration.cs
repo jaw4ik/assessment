@@ -138,6 +138,16 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
+            #region Templates
+
+            routes.MapRoute(
+                name: "GetTemplates",
+                url: "api/templates",
+                defaults: new { controller = "Template", action = "GetCollection" }
+            );
+
+            #endregion
+
             routes.MapRoute(
                 name: "Default",
                 url: "",

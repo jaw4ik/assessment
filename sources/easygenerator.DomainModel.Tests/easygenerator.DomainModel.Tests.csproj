@@ -66,6 +66,7 @@
     <Compile Include="Entities\ObjectiveTests.cs" />
     <Compile Include="Entities\ExperienceTests.cs" />
     <Compile Include="Entities\QuestionTests.cs" />
+    <Compile Include="Entities\TemplateTests.cs" />
     <Compile Include="Entities\UserTests.cs" />
     <Compile Include="EntityFactoryTests.cs" />
     <Compile Include="ObjectMothers\AnswerObjectMother.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="ObjectMothers\ExplanationObjectMother.cs" />
     <Compile Include="ObjectMothers\ObjectiveObjectMother.cs" />
     <Compile Include="ObjectMothers\QuestionObjectMother.cs" />
+    <Compile Include="ObjectMothers\TemplateObjectMother.cs" />
     <Compile Include="ObjectMothers\UserObjectMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

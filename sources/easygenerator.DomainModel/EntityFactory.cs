@@ -5,7 +5,7 @@ namespace easygenerator.DomainModel
     public interface IEntityFactory
     {
         Objective Objective(string title);
-        Experience Experience(string title);
+        Experience Experience(string title, Template template);
         Question Question(string title);
         Answer Answer(string text, bool isCorrect);
         Explanation Explanation(string text);
@@ -18,9 +18,9 @@ namespace easygenerator.DomainModel
             return new Objective(title);
         }
 
-        public Experience Experience(string title)
+        public Experience Experience(string title, Template template)
         {
-            return new Experience(title);
+            return new Experience(title, template);
         }
 
         public Question Question(string title)

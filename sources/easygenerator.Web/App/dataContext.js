@@ -10,61 +10,71 @@
             experiences = [],
             templates = [],
             initialize = function () {
+
                 return $.ajax({
-                    url: 'data.js?v=' + Math.random(),
+                    url: 'api/templates',
+                    type: 'POST',
                     contentType: 'application/json',
                     dataType: 'json'
                 }).then(function (response) {
-                    objectives.push.apply(objectives, _.map(response.objectives, function (objective) {
-                        return new ObjectiveModel({
-                            id: objective.id,
-                            title: objective.title,
-                            createdOn: parseDateString(objective.createdOn),
-                            modifiedOn: parseDateString(objective.modifiedOn),
-                            image: constants.defaultObjectiveImage,
-                            questions: _.map(objective.questions, function (question) {
-                                return new QuestionModel({
-                                    id: question.id,
-                                    title: question.title,
-                                    createdOn: parseDateString(question.createdOn),
-                                    modifiedOn: parseDateString(question.modifiedOn),
-                                    answerOptions: _.map(question.answerOptions, function (answerOption) {
-                                        return new AnswerOptionModel(answerOption);
-                                    }),
-                                    learningObjects: _.map(question.learningObjects, function (learningObject) {
-                                        return new LearningObjectModel(learningObject);
-                                    })
-                                });
-                            })
-                        });
-                    }));
-                    templates.push.apply(templates, _.map(response.templates, function (template) {
-                        return new TemplateModel(
-                        {
-                            id: template.id,
-                            name: template.name,
-                            image: template.image
-                        });
-                    }));
-                    experiences.push.apply(experiences, _.map(response.experiences, function (experience) {
-                        return new ExperienceModel({
-                            id: experience.id,
-                            title: experience.title,
-                            template: _.find(templates, function (item) {
-                                return item.id === experience.templateId;
-                            }),
-                            createdOn: parseDateString(experience.createdOn),
-                            modifiedOn: parseDateString(experience.modifiedOn),
-                            objectives: _.map(experience.objectives, function (objectiveId) {
-                                return _.find(objectives, function (objective) {
-                                    return objective.id === objectiveId;
-                                });
-                            }),
-                            buildingStatus: 'notStarted',
-                            builtOn: experience.builtOn,
-                            packageUrl: experience.packageUrl
-                        });
-                    }));
+                    _.each(response.data, function (template) {
+                        templates.push(
+                            new TemplateModel(
+                            {
+                                id: template.Id,
+                                name: template.Name,
+                                image: template.Image
+                            }));
+                    });
+                }).then(function () {
+                    return $.ajax({
+                        url: 'data.js?v=' + Math.random(),
+                        contentType: 'application/json',
+                        dataType: 'json'
+                    }).then(function (response) {
+                        objectives.push.apply(objectives, _.map(response.objectives, function (objective) {
+                            return new ObjectiveModel({
+                                id: objective.id,
+                                title: objective.title,
+                                createdOn: parseDateString(objective.createdOn),
+                                modifiedOn: parseDateString(objective.modifiedOn),
+                                image: constants.defaultObjectiveImage,
+                                questions: _.map(objective.questions, function (question) {
+                                    return new QuestionModel({
+                                        id: question.id,
+                                        title: question.title,
+                                        createdOn: parseDateString(question.createdOn),
+                                        modifiedOn: parseDateString(question.modifiedOn),
+                                        answerOptions: _.map(question.answerOptions, function (answerOption) {
+                                            return new AnswerOptionModel(answerOption);
+                                        }),
+                                        learningObjects: _.map(question.learningObjects, function (learningObject) {
+                                            return new LearningObjectModel(learningObject);
+                                        })
+                                    });
+                                })
+                            });
+                        }));
+                        experiences.push.apply(experiences, _.map(response.experiences, function (experience) {
+                            return new ExperienceModel({
+                                id: experience.id,
+                                title: experience.title,
+                                template: _.find(templates, function (tItem) {
+                                    return tItem.name === 'Default';
+                                }),
+                                createdOn: parseDateString(experience.createdOn),
+                                modifiedOn: parseDateString(experience.modifiedOn),
+                                objectives: _.map(experience.objectives, function (objectiveId) {
+                                    return _.find(objectives, function (objective) {
+                                        return objective.id === objectiveId;
+                                    });
+                                }),
+                                buildingStatus: 'notStarted',
+                                builtOn: experience.builtOn,
+                                packageUrl: experience.packageUrl
+                            });
+                        }));
+                    })
                 }).then(function () {
                     return $.ajax({
                         url: 'api/objectives',

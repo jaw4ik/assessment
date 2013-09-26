@@ -37,7 +37,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller = new ExperienceController(_builder, _packageModelMapper, _repository, _entityFactory);
         }
 
-
         #region Create experience
 
         [TestMethod]
@@ -45,9 +44,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             const string title = "title";
             var experience = ExperienceObjectMother.CreateWithTitle(title);
-            _entityFactory.Experience(title).Returns(experience);
+            var template = TemplateObjectMother.Create();
+            _entityFactory.Experience(title, template).Returns(experience);
 
-            var result = _controller.Create(title);
+            var result = _controller.Create(title, template);
 
             ActionResultAssert.IsJsonSuccessResult(result);
         }
@@ -57,9 +57,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             const string title = "title";
             var experience = ExperienceObjectMother.CreateWithTitle(title);
-            _entityFactory.Experience(title).Returns(experience);
+            var template = TemplateObjectMother.Create();
+            _entityFactory.Experience(title, template).Returns(experience);
 
-            _controller.Create(title);
+            _controller.Create(title, template);
 
             _repository.Received().Add(Arg.Is<Experience>(exp => exp.Title == title));
         }
@@ -249,16 +250,46 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Update Template
 
         [TestMethod]
-        public void UpdateTemplate_ShouldReturnJson()
+        public void UpdateTemplate_ShouldReturnJsonSuccessResult_WhenQuestionIsNull()
         {
             //Arrange
-            var viewModel = new ExperienceBuildModel();
+            var template = Substitute.For<Template>();
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             //Act
-            var result = _controller.UpdateTemplate(null, Guid.NewGuid());
+            var result = _controller.UpdateTemplate(null, template);
 
             //Assert
-            ActionResultAssert.IsJsonSuccessResult(result);
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = DateTime.MaxValue });
+        }
+
+
+        [TestMethod]
+        public void UpdateTemplate_ShouldUpdateExperienceTemplate()
+        {
+            //Arrange
+            var experience = Substitute.For<Experience>();
+            var template = Substitute.For<Template>();
+
+            //Act
+            _controller.UpdateTemplate(experience, template);
+
+            //Assert
+            experience.Received().UpdateTemplate(template);
+        }
+
+        [TestMethod]
+        public void UpdateTemplate_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var experience = Substitute.For<Experience>();
+            var template = Substitute.For<Template>();
+
+            //Act
+            var result = _controller.UpdateTemplate(experience, template);
+
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = experience.ModifiedOn });
         }
 
         #endregion
@@ -283,9 +314,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void RelateObjectives_ShouldRelateObjectiveToExperience()
         {
             //Arrange
-            var experience = Substitute.For<Experience>("Some title");
+            var experience = Substitute.For<Experience>("title", TemplateObjectMother.Create());
             var objective = ObjectiveObjectMother.Create();
-            
+
             //Act
             _controller.RelateObjectives(experience, new List<Objective>() { objective });
 
@@ -344,7 +375,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var objective = ObjectiveObjectMother.Create();
-            var experience = Substitute.For<Experience>("Some title");
+            var experience = Substitute.For<Experience>("title", TemplateObjectMother.Create());
 
             //Act
             _controller.UnrelateObjectives(experience, new List<Objective>() { objective });

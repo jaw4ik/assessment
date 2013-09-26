@@ -3,6 +3,8 @@ using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSubstitute;
+using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
@@ -25,6 +27,14 @@ namespace easygenerator.DomainModel.Tests.Entities
             Action action = () => ExperienceObjectMother.CreateWithTitle(String.Empty);
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("title");
+        }
+
+        [TestMethod]
+        public void Experience_ShouldThrowArgumentException_WhenTemplateIsNull()
+        {
+            Action action = () => ExperienceObjectMother.CreateWithTemplate(null);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("template");
         }
 
         [TestMethod]
@@ -200,6 +210,56 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             experience.UpdateTitle("title");
 
+            experience.ModifiedOn.Should().Be(dateTime);
+        }
+
+        #endregion
+
+        #region UpdateTemplate
+
+        [TestMethod]
+        public void UpdateTemplate_ShouldThrowArgumentNullException_WhenTemplateIsNull()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+
+            //Act
+            Action action = () => experience.UpdateTemplate(null);
+
+            //Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("template");
+        }
+
+        [TestMethod]
+        public void UpdateTemplate_ShouldUpdateTemplate()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+            var template = Substitute.For<Template>();
+
+            //Act
+            experience.UpdateTemplate(template);
+
+            //Assert
+            experience.Template.Should().Be(template);
+        }
+
+        [TestMethod]
+        public void UpdateTemplate_ShouldUpdateModificationDate()
+        {
+            //Arrange
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var experience = ExperienceObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            var template = Substitute.For<Template>();
+
+            //Act
+            experience.UpdateTemplate(template);
+
+            //Assert
             experience.ModifiedOn.Should().Be(dateTime);
         }
 

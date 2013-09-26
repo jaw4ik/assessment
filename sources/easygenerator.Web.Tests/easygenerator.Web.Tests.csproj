@@ -124,6 +124,7 @@
     <Compile Include="Controllers\Api\ExperienceControllerTests.cs" />
     <Compile Include="Controllers\Api\ObjectiveControllerTests.cs" />
     <Compile Include="Controllers\Api\QuestionControllerTests.cs" />
+    <Compile Include="Controllers\Api\TemplateControllerTests.cs" />
     <Compile Include="Controllers\ApplicationControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ActionResultAssert.cs" />

@@ -7,17 +7,29 @@ namespace easygenerator.DomainModel.Entities
 {
     public class Experience : Entity
     {
+        public string Title { get; private set; }
+        public Template Template { get; private set; }
+
         protected internal Experience() { }
 
-        protected internal Experience(string title)
+        protected internal Experience(string title, Template template)
         {
             ThrowIfTitleIsInvalid(title);
+            ThrowIfTemplateIsInvaid(template);
 
             Title = title;
+            Template = template;
             _relatedObjectives = new Collection<Objective>();
         }
 
-        public string Title { get; private set; }
+        public virtual void UpdateTemplate(Template template)
+        {
+            ThrowIfTemplateIsInvaid(template);
+
+            Template = template;
+            MarkAsModified();
+        }
+
         private ICollection<Objective> _relatedObjectives { get; set; }
 
         public IEnumerable<Objective> RelatedObjectives
@@ -54,6 +66,11 @@ namespace easygenerator.DomainModel.Entities
 
             Title = title;
             MarkAsModified();
+        }
+        
+        private void ThrowIfTemplateIsInvaid(Template template)
+        {
+            ArgumentValidation.ThrowIfNull(template, "template");
         }
 
         private void ThrowIfTitleIsInvalid(string title)

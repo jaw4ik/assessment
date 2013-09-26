@@ -23,18 +23,24 @@
 
                 return deferred.promise;
             },
-            addExperience = function (experience) {
+            addExperience = function (title, templateId) {
                 return Q.fcall(function () {
-                    guard.throwIfNotAnObject(experience, 'Experience id is not an object');
+                    guard.throwIfNotString(title, 'Title is not a string');
+                    guard.throwIfNotString(templateId, 'TemplateId is not a string');
 
-                    return httpWrapper.post('api/experience/create', experience)
+                    var requestArgs = {
+                        title: title,
+                        templateId: templateId
+                    };
+
+                    return httpWrapper.post('api/experience/create', requestArgs)
                         .then(function (response) {
                             guard.throwIfNotAnObject(response, 'Response is not an object');
                             guard.throwIfNotString(response.Id, 'Response Id is not a string');
                             guard.throwIfNotString(response.CreatedOn, 'Response CreatedOn is not a string');
 
                             var template = _.find(dataContext.templates, function (item) {
-                                return item.id === experience.template.id;
+                                return item.id === templateId;
                             });
 
                             guard.throwIfNotAnObject(template, 'Template does not exist in dataContext');
@@ -43,7 +49,7 @@
                                 createdOn = response.CreatedOn;
                             dataContext.experiences.push(new ExperienceModel({
                                 id: experienceId,
-                                title: experience.title,
+                                title: title,
                                 template: { id: template.id, name: template.name, image: template.image },
                                 objectives: [],
                                 buildingStatus: constants.buildingStatuses.notStarted,

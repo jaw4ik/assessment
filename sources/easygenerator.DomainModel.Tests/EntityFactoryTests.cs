@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using easygenerator.DomainModel.Tests.ObjectMothers;
 
 namespace easygenerator.DomainModel.Tests
 {
@@ -36,11 +38,13 @@ namespace easygenerator.DomainModel.Tests
         public void Experience_ShouldCreateExperience()
         {
             const string title = "title";
+            var template = TemplateObjectMother.Create();
 
-            var experience = _entityFactory.Experience(title);
+            var experience = _entityFactory.Experience(title, template);
 
             experience.Should().NotBeNull();
             experience.Title.Should().Be(title);
+            experience.Template.Should().Be(template);
         }
 
         [TestMethod]

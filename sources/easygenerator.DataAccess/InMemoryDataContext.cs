@@ -14,14 +14,16 @@ namespace easygenerator.DataAccess
         {
             Objectives = new Collection<Objective>();
             Experiences = new Collection<Experience>();
+            Templates = new Collection<Template>();
         }
 
         public ICollection<Objective> Objectives { get; set; }
         public ICollection<Experience> Experiences { get; set; }
-        
+        public ICollection<Template> Templates { get; set; }
+
         public void Save()
         {
-            
+
         }
     }
 }

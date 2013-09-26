@@ -28,9 +28,9 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        public ActionResult Create(string title)
+        public ActionResult Create(string title, Template template)
         {
-            var experience = _entityFactory.Experience(title);
+            var experience = _entityFactory.Experience(title, template);
 
             _repository.Add(experience);
 
@@ -81,13 +81,16 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        public ActionResult UpdateTemplate(Experience experience, Guid templateId)
+        public ActionResult UpdateTemplate(Experience experience, Template template)
         {
-
-            return JsonSuccess(new
+            if (experience == null)
             {
-                ModifiedOn = DateTimeWrapper.Now()
-            });
+                return JsonSuccess(new { ModifiedOn = DateTimeWrapper.Now() });
+            }
+
+            experience.UpdateTemplate(template);
+
+            return JsonSuccess(new { ModifiedOn = experience.ModifiedOn });
         }
 
         [HttpPost]
@@ -117,9 +120,9 @@ namespace easygenerator.Web.Controllers.Api
             });
         }
 
+        [HttpPost]
         public ActionResult UnrelateObjectives(Experience experience, ICollection<Objective> objectives)
         {
-
             if (experience == null)
             {
                 return JsonSuccess(new

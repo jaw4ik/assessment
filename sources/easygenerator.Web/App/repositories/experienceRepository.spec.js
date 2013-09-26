@@ -33,22 +33,7 @@
                     expect(repository.addExperience()).toBePromise();
                 });
 
-                describe('when experience data is undefined', function () {
-
-                    it('should reject promise', function () {
-                        var promise = repository.addExperience();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejected();
-                        });
-                    });
-
-                });
-
-                describe('when experience data is null', function () {
+                describe('when experience title is not a string', function () {
 
                     it('should reject promise', function () {
                         var promise = repository.addExperience(null);
@@ -57,17 +42,56 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise).toBeRejected();
+                            expect(promise).toBeRejectedWith('Title is not a string');
+                        });
+                    });
+
+                    it('should not send request to server', function () {
+                        var promise = repository.addExperience(null);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(http.post).not.toHaveBeenCalled();
                         });
                     });
 
                 });
 
-                describe('when experience data is an object', function () {
+                describe('when experience templateId is not a string', function () {
+                    var title = "title";
+
+                    it('should reject promise', function () {
+                        var promise = repository.addExperience(title, null);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith('TemplateId is not a string');
+                        });
+                    });
+
+                    it('should not send request to server', function () {
+                        var promise = repository.addExperience(title, null);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(http.post).not.toHaveBeenCalled();
+                        });
+                    });
+
+                });
+
+                describe('when experience title and templateId are strings', function () {
+                    var title = 'title';
+                    var templateId = 'templateId';
 
                     it('should send request to server to api/experience/create', function () {
-                        var experience = {};
-                        var promise = repository.addExperience(experience);
+                        var promise = repository.addExperience(title, templateId);
 
                         httpWrapperPost.reject();
 
@@ -75,7 +99,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/experience/create', experience);
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/experience/create', { title: title, templateId: templateId });
                         });
                     });
 
@@ -84,7 +108,7 @@
                         describe('and request failed', function () {
 
                             it('should reject promise', function () {
-                                var promise = repository.addExperience({});
+                                var promise = repository.addExperience(title, templateId);
 
                                 httpWrapperPost.reject();
 
@@ -103,7 +127,7 @@
                             describe('and response is undefined', function () {
 
                                 it('should reject promise with \'Response is not an object\'', function () {
-                                    var promise = repository.addExperience({});
+                                    var promise = repository.addExperience(title, templateId);
 
                                     httpWrapperPost.resolve();
 
@@ -120,7 +144,7 @@
                             describe('and response is null', function () {
 
                                 it('should reject promise with \'Response is not an object\'', function () {
-                                    var promise = repository.addExperience({});
+                                    var promise = repository.addExperience(title, templateId);
 
                                     httpWrapperPost.resolve(null);
 
@@ -143,7 +167,7 @@
                                     });
 
                                     it('should reject promise with \'Response Id is not a string\'', function () {
-                                        var promise = repository.addExperience({});
+                                        var promise = repository.addExperience(title, templateId);
 
                                         waitsFor(function () {
                                             return !promise.isPending();
@@ -162,7 +186,7 @@
                                     });
 
                                     it('should reject promise with \'Response Id is not a string\'', function () {
-                                        var promise = repository.addExperience({});
+                                        var promise = repository.addExperience(title, templateId);
 
                                         waitsFor(function () {
                                             return !promise.isPending();
@@ -183,7 +207,7 @@
                                         });
 
                                         it('should reject promise \'Response CreatedOn is not a string\'', function () {
-                                            var promise = repository.addExperience({});
+                                            var promise = repository.addExperience(title, templateId);
 
                                             waitsFor(function () {
                                                 return !promise.isPending();
@@ -202,7 +226,7 @@
                                         });
 
                                         it('should reject promise with \'Response CreatedOn is not a string\'', function () {
-                                            var promise = repository.addExperience({});
+                                            var promise = repository.addExperience(title, templateId);
 
                                             waitsFor(function () {
                                                 return !promise.isPending();
@@ -215,7 +239,6 @@
 
                                     describe('and response CreatedOn is object', function () {
                                         var experienceId = 'experienceId';
-                                        var experienceTitle = 'experienceTitle';
                                         var experienceCreatedOn = '/Date(1378106938845)/';
                                         beforeEach(function () {
                                             httpWrapperPost.resolve({ Id: experienceId, CreatedOn: experienceCreatedOn });
@@ -228,7 +251,7 @@
                                             });
 
                                             it('should reject promise with \'Template does not exist in dataContext\'', function () {
-                                                var promise = repository.addExperience({ template: { id: '0' } });
+                                                var promise = repository.addExperience(title, templateId);
 
                                                 waitsFor(function () {
                                                     return !promise.isPending();
@@ -243,12 +266,12 @@
                                         describe('and template found in dataContext', function () {
                                             var template;
                                             beforeEach(function () {
-                                                template = { id: 'template id', name: 'template name', image: 'template image' };
+                                                template = { id: templateId, name: 'template name', image: 'template image' };
                                                 dataContext.templates = [template];
                                             });
 
                                             it('should resolve promise with experience id', function () {
-                                                var promise = repository.addExperience({ title: experienceTitle, template: { id: template.id } });
+                                                var promise = repository.addExperience(title, templateId);
 
                                                 waitsFor(function () {
                                                     return !promise.isPending();
@@ -262,7 +285,7 @@
 
                                                 dataContext.experiences = [];
 
-                                                var promise = repository.addExperience({ title: experienceTitle, template: { id: template.id } });
+                                                var promise = repository.addExperience(title, templateId);
 
                                                 waitsFor(function () {
                                                     return !promise.isPending();
@@ -271,7 +294,7 @@
                                                     expect(dataContext.experiences.length).toEqual(1);
                                                     expect(dataContext.experiences[0]).toEqual({
                                                         id: experienceId,
-                                                        title: experienceTitle,
+                                                        title: title,
                                                         template: template,
                                                         createdOn: utils.getDateFromString(experienceCreatedOn),
                                                         modifiedOn: utils.getDateFromString(experienceCreatedOn),

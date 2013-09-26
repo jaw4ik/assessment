@@ -42,7 +42,7 @@
                         expect(viewModel.template.id).toBeObservable();
                     });
                 });
-                
+
                 describe('image:', function () {
                     var defaultTemplateImage = '/Content/images/undefinedTemplate.png';
                     it('should be computed', function () {
@@ -80,7 +80,7 @@
                                 expect(viewModel.template.image()).toBe(defaultTemplateImage);
                             });
                         });
-                        
+
                         describe('when template exists in templates collection', function () {
                             it('should return image', function () {
                                 var template = { id: '0', image: 'img', name: 'name' };
@@ -92,7 +92,7 @@
                             });
                         });
 
-                       
+
                     });
                 });
 
@@ -223,7 +223,7 @@
                     it('should add experience to repository', function () {
                         viewModel.title('title');
                         viewModel.createAndNew();
-                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title', template: { id: template.id } });
+                        expect(repository.addExperience).toHaveBeenCalledWith('title', template.id);
                     });
 
                     describe('and experience was added successfully', function () {
@@ -340,13 +340,13 @@
                     it('should trim experience title', function () {
                         viewModel.title('           title           ');
                         viewModel.createAndEdit();
-                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title', template: { id: template.id } });
+                        expect(repository.addExperience).toHaveBeenCalledWith('title', template.id);
                     });
 
                     it('should add experience to repository', function () {
                         viewModel.title('title');
                         viewModel.createAndEdit();
-                        expect(repository.addExperience).toHaveBeenCalledWith({ title: 'title', template: { id: template.id } });
+                        expect(repository.addExperience).toHaveBeenCalledWith('title', template.id);
                     });
 
                     describe('and experience was added successfully', function () {
@@ -491,7 +491,7 @@
 
             describe('compositionComplete:', function () {
 
-                it('should be function', function() {
+                it('should be function', function () {
                     expect(viewModel.compositionComplete).toBeFunction();
                 });
 

@@ -95,7 +95,7 @@
                 return;
             }
 
-            repository.addExperience({ title: title().trim(), template: { id: template.id() } }).then(function (experienceId) {
+            repository.addExperience(title().trim(), template.id()).then(function (experienceId) {
                 title('');
                 callback(experienceId);
             });
