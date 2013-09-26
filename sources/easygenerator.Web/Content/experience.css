@@ -1,15 +1,4 @@
-﻿@font-face {
-    font-family: 'OpenSansItalic';
-    src: url('./font/opensans-italic.eot');
-    src: url('./font/opensans-italic.eot') format('embedded-opentype'),
-         url('./font/opensans-italic.woff') format('woff'),
-         url('./font/opensans-italic.ttf') format('truetype'),
-         url('./font/opensans-italic.svg#OpenSansItalic') format('svg');
-    font-weight: normal;
-    font-style: normal;
-} 
-
-.main-nav {
+﻿.main-nav {
     display: table;
     width: 100%;
     margin: 20px 0 7px;

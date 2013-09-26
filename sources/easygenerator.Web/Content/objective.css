@@ -213,67 +213,6 @@
 
 /*#endregion ROTATION*/
 
-/*#region EMPTY LIST */
-
-.add-new-item-tip {
-    position: absolute;
-}
-
-    .add-new-item-tip .add-new-item-tip-text {
-        position: absolute;
-        left: 90px;
-        top: 30px;
-        white-space: nowrap;
-        color: #666;
-    }
-
-    .add-new-item-tip .add-new-item-tip-arrow {
-        background-image: url(images/typeQuestionTitleArrow.png);
-        -moz-transform: scaleX(-1);
-        -o-transform: scaleX(-1);
-        -webkit-transform: scaleX(-1);
-        -ms-transform: scaleX(-1);
-        transform: scaleX(-1);
-        width: 53px;
-        height: 54px;
-        position: absolute;
-        top: 10px;
-        left: 30px;
-    }
-
-.empty-list-wrapper {
-    width: 100%;
-    text-align: center;
-    margin-top: 40px;
-}
-
-    .empty-list-wrapper .empty-list {
-        display: inline-block;
-        line-height: 90px;
-        background-image: url(images/emptyBox.png);
-        background-position: left top;
-        background-repeat: no-repeat;
-    }
-
-    .empty-list-wrapper .empty-list-text {
-        margin-left: 100px;
-        display: inline-block;
-        font-family: Tahoma;
-        font-size: 28px;
-        color: #DCDCDC;
-        letter-spacing: 0;
-    }
-
-@media (max-width: 1130px) {
-
-    .empty-list-wrapper {
-        margin-top: 120px;
-    }
-}
-
-/*#endregion EMPTY LIST */
-
-
 /*#region Create objective*/
 
 
@@ -288,7 +227,7 @@
     padding-bottom: 10px;
 }
 
-    .create-objective-form .edit-field .text-block .editarea-editable-text{
+    .create-objective-form .edit-field .text-block .editarea-editable-text {
         min-height: 140px;
     }
 

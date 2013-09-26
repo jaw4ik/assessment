@@ -400,7 +400,6 @@
     <None Include="Content\jasmine.css" />
     <Content Include="Content\objective.css" />
     <Content Include="Content\question.css" />
-    <Content Include="Content\styles.css" />
     <Content Include="Content\objectives.css" />
     <Content Include="data.js" />
     <Content Include="favicon.ico" />
