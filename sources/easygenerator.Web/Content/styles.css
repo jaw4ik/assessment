@@ -135,23 +135,16 @@ body {
 
 .create-form .form-actions {
     margin-left: 0;
+    clear: both;
 }
 
 .create-entity-actions {
     position: absolute;
-    top: 215px;
     right: 20px;
+    margin-top: 20px;
     z-index: 2;
 }
 
-@media (max-width: 800px) {
-    .create-entity-actions {
-        position: absolute;
-        top: 215px;
-        right: 20px;
-        z-index: 2;
-    }
-}
 
 .create-form-tip {
     margin: 50px 0;

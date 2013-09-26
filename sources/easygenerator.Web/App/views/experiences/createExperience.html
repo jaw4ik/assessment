@@ -8,10 +8,6 @@
             <div class="white-framing">
                 <img class="create-form-image" src="#" data-bind="attr: { src: template.image }" />
             </div>
-            <div class="create-entity-actions">
-                <div class="experience-template-selector-text" data-bind="localize: { text: 'chooseLearningExperinceTemplate' } ">Choose learning experience template:</div>
-                <div class="experience-template-selector" data-bind="selectBox: { options: templates(), optionsText: 'name', optionsValue: 'id', value: template.id, defaultText: '&nbsp;' }"></div>
-            </div>
         </div>
 
         <div class="create-form-field">
@@ -25,6 +21,11 @@
             </div>
             <!-- ko compose: { view: 'views/common/createtip', model: { text: 'typeExperienceTitleHere' } } -->
             <!-- /ko -->
+        </div>
+
+        <div class="create-entity-actions">
+            <div class="experience-template-selector-text" data-bind="localize: { text: 'chooseLearningExperinceTemplate' } ">Choose learning experience template:</div>
+            <div class="experience-template-selector" data-bind="selectBox: { options: templates(), optionsText: 'name', optionsValue: 'id', value: template.id, defaultText: '&nbsp;' }"></div>
         </div>
 
         <!-- ko compose: { view: 'views/common/formactions', model: { isValid: title.isValid() && _.isString(template.id()), saveAndNew: createAndNew, saveAndOpen: createAndEdit } } -->
