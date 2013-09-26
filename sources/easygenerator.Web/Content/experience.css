@@ -635,8 +635,9 @@
     letter-spacing: 0;
     display: inline-block;
     vertical-align: top;
-    margin-top: 4px;
+    margin-top: 6px;
     margin-right: 5px;
+    padding-bottom: 0;
 }
 
 .create-experience .form-actions {
