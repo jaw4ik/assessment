@@ -94,6 +94,7 @@
     <Compile Include="ElementObjects\ObjectivesListItem.cs" />
     <Compile Include="ElementObjects\ObjectivesListPage.cs" />
     <Compile Include="ElementObjects\PackageExplanationsPage.cs" />
+    <Compile Include="ElementObjects\PackageFeedbackPage.cs" />
     <Compile Include="ElementObjects\PackageObjectivesListItem.cs" />
     <Compile Include="ElementObjects\PackageObjectivesListPage.cs" />
     <Compile Include="ElementObjects\PackageQuestionPage.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="LinkingModels\ObjectiveListItemLinkingModel.cs" />
     <Compile Include="LinkingModels\ObjectiveListLinkingModel.cs" />
     <Compile Include="LinkingModels\PackageExplanationsPageLinkingModel.cs" />
+    <Compile Include="LinkingModels\PackageFeedbackPageLinkingModel.cs" />
     <Compile Include="LinkingModels\PackageObjectiveListItemLinkingModel.cs" />
     <Compile Include="LinkingModels\PackageObjectiveListLinkingModel.cs" />
     <Compile Include="LinkingModels\PackageQuestionPageLinkingModel.cs" />
@@ -143,6 +145,7 @@
     <Compile Include="Steps\ListOfObjectivesSteps.cs" />
     <Compile Include="Steps\ListOfQuestionsSteps.cs" />
     <Compile Include="Steps\PackageExplanationsSteps.cs" />
+    <Compile Include="Steps\PackageFeedbackPageSteps.cs" />
     <Compile Include="Steps\PackageListOfObjectivesSteps.cs" />
     <Compile Include="Steps\PackageQuestionSteps.cs" />
     <Compile Include="Steps\QuestionSteps.cs" />
@@ -211,6 +214,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PackageExplanationsPage.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Tests\PackageFeedbackPage.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PackageFeedbackPage.feature</DependentUpon>
     </Compile>
     <Compile Include="Tests\PackageListOfObjectives.feature.cs">
       <AutoGen>True</AutoGen>
@@ -289,6 +297,10 @@
     <None Include="Tests\PackageExplanationsPage.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PackageExplanationsPage.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Tests\PackageFeedbackPage.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PackageFeedbackPage.feature.cs</LastGenOutput>
     </None>
     <None Include="Tests\PackageListOfObjectives.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
