@@ -38,11 +38,11 @@
         position: absolute;
         top: 13px;
         right: 10px;
-        background-image: url("images/small-size-icons-pack.png");
-        background-position: 0 5px;
+        background-image: url("images/arrow-for-select-box.png");
+        background-position: 0 4px;
         content: "↕";
-        width: 6px;
-        height: 5px;
+        width: 8px;
+        height: 4px;
     }
 
 .selectbox-current-item-text {

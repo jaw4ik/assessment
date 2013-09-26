@@ -210,6 +210,7 @@
     <Content Include="Content\durandal.css" />
     <Content Include="Content\font\buxtonsketch.svg" />
     <Content Include="Content\font\opensans-italic.svg" />
+    <Content Include="Content\images\arrow-for-select-box.png" />
     <Content Include="Content\images\build-sprite.png" />
     <Content Include="Content\images\quizTemplate.png" />
     <Content Include="Content\images\emptyBox.png" />

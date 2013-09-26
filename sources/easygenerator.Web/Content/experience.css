@@ -622,6 +622,7 @@
     font-size: 12px;
     color: #666;
     letter-spacing: 0;
+    padding-bottom: 3px;
 }
 
 .create-experience .experience-template-selector {
