@@ -31,7 +31,6 @@
                 if (!isEditing())
                     isEditing(true);
 
-                updateToolbarPosition();
                 saveIntervalId = setInterval(saveData, autosaveInterval);
             });
 
@@ -179,13 +178,6 @@
             var range = editor.createRange();
             range.moveToPosition(range.root, CKEDITOR.POSITION_BEFORE_END);
             editor.getSelection().selectRanges([range]);
-        }
-
-        function updateToolbarPosition() {
-            var screenTop = document.documentElement.scrollTop || document.body.scrollTop;
-            var editorTop = editor.container.getDocumentPosition().y - $toolbarElement.height();
-            var toolbarTopPosition = screenTop > editorTop ? 0 : editorTop;
-            $toolbarElement.css('top', toolbarTopPosition);
         }
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
