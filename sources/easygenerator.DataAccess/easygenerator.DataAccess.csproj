@@ -49,6 +49,7 @@
     <Compile Include="ObjectiveRepository.cs" />
     <Compile Include="QuestionRepository.cs" />
     <Compile Include="TemplateRepository.cs" />
+    <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\easygenerator.DomainModel\easygenerator.DomainModel.csproj">

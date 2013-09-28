@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using easygenerator.Web.Components.ActionResults;
-using FluentAssertions.Equivalency;
+﻿using easygenerator.Web.Components.ActionResults;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
 
@@ -29,6 +21,23 @@ namespace easygenerator.Web.Tests.Utils
         }
     }
 
+    public class JsonErrorResultAssertions : ObjectAssertions
+    {
+
+        public JsonErrorResultAssertions(JsonErrorResult subject)
+            : base(subject)
+        {
+        }
+
+        public JsonErrorResult And
+        {
+            get
+            {
+                return Subject as JsonErrorResult;
+            }
+        }
+    }
+
     public static class ActionResultFluentAssertions
     {
         public static JsonSuccessResultAssertions BeJsonSuccessResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
@@ -39,6 +48,16 @@ namespace easygenerator.Web.Tests.Utils
                 .FailWith("Expected \"JsonSuccessResult\", but got {0}", value.Subject.GetType().Name);
 
             return new JsonSuccessResultAssertions(value.Subject as JsonSuccessResult);
+        }
+
+        public static JsonErrorResultAssertions BeJsonErrorResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is JsonErrorResult)
+                .FailWith("Expected \"JsonErrorResult\", but got {0}", value.Subject.GetType().Name);
+
+            return new JsonErrorResultAssertions(value.Subject as JsonErrorResult);
         }
     }
 

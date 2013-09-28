@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Text.RegularExpressions;
+using easygenerator.Infrastructure;
+
 
 namespace easygenerator.DomainModel.Entities
 {
@@ -6,25 +9,53 @@ namespace easygenerator.DomainModel.Entities
     {
         protected internal User() { }
 
-        protected internal User(string username, string email, string password)
+        protected internal User(string email, string password)
         {
-            Username = username;
+            ThrowIfEmailIsNotValid(email);
+            ThrowIfPasswordIsNotValid(password);
 
             Email = email;
-            PasswordHash = password;
+            PasswordHash = Cryptography.GetHash(password);
         }
 
-        public string Username { get; protected set; }
         public string Email { get; protected set; }
         private string PasswordHash { get; set; }
 
-        
-        //private void ThrowIfPasswordIsNotValid(string password)
-        //{
-        //    ArgumentValidation.ThrowIfNullOrEmpty(password, "password");
+        public bool VerifyPassword(string password)
+        {
+            return Cryptography.VerifyHash(password, PasswordHash);
+        }
 
-        //    if (password.Length < 6 || password.Length > 50)
-        //        throw new ArgumentException("Password length should be between 6 and 50 symbols", "password");
-        //}     
+
+        private void ThrowIfEmailIsNotValid(string email)
+        {
+            ArgumentValidation.ThrowIfNullOrEmpty(email, "email");
+
+            if (!Regex.IsMatch(email, Constants.EmailValidationRegexp))
+                throw new ArgumentException("Invalid email format", "email");
+        }
+
+        private void ThrowIfPasswordIsNotValid(string password)
+        {
+            ArgumentValidation.ThrowIfNullOrEmpty(password, "password");
+
+            if (password.Length < 7)
+                throw new ArgumentException("Password should be longer then 7 symbols", "password");
+
+            if (!Regex.IsMatch(password, @"\d"))
+                throw new ArgumentException("Password should contain at least one digit symbol", "password");
+
+            if (!Regex.IsMatch(password, @"[A-Z]"))
+                throw new ArgumentException("Password should contain at least one upper case symbol", "password");
+
+            if (!Regex.IsMatch(password, @"[a-z]"))
+                throw new ArgumentException("Password should contain at least one lower case symbol", "password");
+
+            if (!Regex.IsMatch(password, @"\W"))
+                throw new ArgumentException("Password should contain at least one special symbol", "password");
+
+            if (password.Contains(" "))
+                throw new ArgumentException("Password should not contain whitespace symbols", "password");
+        }     
     }
 }

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DataAccess
@@ -15,11 +11,13 @@ namespace easygenerator.DataAccess
             Objectives = new Collection<Objective>();
             Experiences = new Collection<Experience>();
             Templates = new Collection<Template>();
+            Users = new Collection<User>();
         }
 
         public ICollection<Objective> Objectives { get; set; }
         public ICollection<Experience> Experiences { get; set; }
         public ICollection<Template> Templates { get; set; }
+        public ICollection<User> Users { get; set; }
 
         public void Save()
         {

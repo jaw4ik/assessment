@@ -148,6 +148,16 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
+            #region Users
+
+            routes.MapRoute(
+                name: "SignupUser",
+                url: "api/user/signup",
+                defaults: new { controller = "User", action = "Signup" }
+            );
+
+            #endregion
+
             routes.MapRoute(
                 name: "Default",
                 url: "",

@@ -1,35 +1,159 @@
 ﻿using System;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using easygenerator.DomainModel.Tests.ObjectMothers;
-using easygenerator.Tests;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
-    //[TestClass]
+    [TestClass]
     public class UserTests
     {
-        //[TestMethod]
+        #region User
+
+        [TestMethod]
         public void User_ShouldThrowArgumentNullException_WhenEmailIsNull()
         {
-            AssertException.ExpectArgumentNullException(() => UserObjectMother.CreateWithEmail(null), "email");
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithEmail(null);
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("email");
         }
 
-        //[TestMethod]
+        [TestMethod]
+        public void User_ShouldThrowArgumentException_WhenEmailIsEmpty()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithEmail(String.Empty);
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("email");
+        }
+
+        [TestMethod]
         public void User_ShouldThrowArgumentException_WhenEmailIsInvalid()
         {
-            AssertException.ExpectArgumentException(() => UserObjectMother.CreateWithEmail(String.Empty), "email");
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithEmail("sdasdasdasdads");
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("email");
         }
 
-        //[TestMethod]
+        [TestMethod]
         public void User_ShouldThrowArgumentNullException_WhenPasswordIsNull()
         {
-            AssertException.ExpectArgumentNullException(() => UserObjectMother.CreateWithPassword(null), "password");
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithPassword(null);
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("password");
         }
 
-        //[TestMethod]
-        public void User_ShouldThrowArgumentException_WhenPasswordIsInvalid()
+        [TestMethod]
+        public void User_ShouldThrowArgumentException_WhenPasswordIsEmpty()
         {
-            AssertException.ExpectArgumentException(() => UserObjectMother.CreateWithPassword(String.Empty), "password");
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithPassword(String.Empty);
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
         }
+
+        [TestMethod]
+        public void User_ShouldThrowArgumentException_WhenPasswordShorterThanSevenSymbols()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithPassword("OLOLO");
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void User_ShouldThrowArgumentException_WhenPasswordHasNoDigitSymbol()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithPassword("OLOLOLOLO");
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void User_ShouldThrowArgumentException_WhenPasswordHasNoUpperCaseSymbol()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithPassword("ololololo1");
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void User_ShouldThrowArgumentException_WhenPasswordHasNoLowerCaseSymbol()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithPassword("OLOLOLOLO1");
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void User_ShouldThrowArgumentException_WhenPasswordHasNoSpecialSymbol()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithPassword("Olololo1");
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void User_ShouldThrowArgumentException_WhenPasswordHasWhitespaceSymbol()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithPassword("Olol olo1!");
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        #endregion
+
+        #region VerifyPassword
+
+        [TestMethod]
+        public void VerifyPassword_ShouldReturnTrue_WhenPasswordIsCorrect()
+        {
+            //Arrange
+            var password = "Easy123!";
+            var user = UserObjectMother.CreateWithPassword(password);
+
+
+            //Act
+            var result = user.VerifyPassword(password);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void VerifyPassword_ShouldReturnFalse_WhenPasswordIsNotCorrect()
+        {
+            //Arrange
+            var password = "Easy123!";
+            var user = UserObjectMother.CreateWithPassword(password);
+
+
+            //Act
+            var result = user.VerifyPassword(password + "2");
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        #endregion
     }
 }

@@ -8,6 +8,7 @@ namespace easygenerator.DataAccess
         ICollection<Objective> Objectives { get; }
         ICollection<Experience> Experiences { get; }
         ICollection<Template> Templates { get; }
+        ICollection<User> Users { get; }
 
         void Save();
     }

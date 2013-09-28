@@ -9,6 +9,7 @@ namespace easygenerator.DomainModel
         Question Question(string title);
         Answer Answer(string text, bool isCorrect);
         Explanation Explanation(string text);
+        User User(string email, string password);
     }
 
     public class EntityFactory : IEntityFactory
@@ -36,6 +37,11 @@ namespace easygenerator.DomainModel
         public Explanation Explanation(string text)
         {
             return new Explanation(text);
+        }
+
+        public User User(string email, string password)
+        {
+            return new User(email, password);
         }
     }
 }

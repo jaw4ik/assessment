@@ -45,7 +45,9 @@
   <ItemGroup>
     <Compile Include="ArgumentValidation.cs" />
     <Compile Include="BrokenRule.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="DateTimeWrapper.cs" />
+    <Compile Include="Cryptography.cs" />
     <Compile Include="PhysicalFileManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

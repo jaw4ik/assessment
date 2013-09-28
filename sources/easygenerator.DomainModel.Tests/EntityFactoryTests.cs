@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Repositories;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 
 namespace easygenerator.DomainModel.Tests
@@ -78,5 +70,18 @@ namespace easygenerator.DomainModel.Tests
             explanation.Should().NotBeNull();
             explanation.Text.Should().Be(text);
         }
+
+        [TestMethod]
+        public void User_ShouldCreateUser()
+        {
+            const string email = "easygenerator@easygenerator.com";
+            const string password = "Easy123!";
+
+            var user = _entityFactory.User(email, password);
+            user.Should().NotBeNull();
+            user.Email.Should().Be(email);
+            user.VerifyPassword(password).Should().BeTrue();
+        }
     }
 }
+

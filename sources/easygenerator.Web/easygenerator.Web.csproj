@@ -180,6 +180,7 @@
     <Compile Include="Controllers\Api\ObjectiveController.cs" />
     <Compile Include="Controllers\Api\QuestionController.cs" />
     <Compile Include="Controllers\Api\TemplateController.cs" />
+    <Compile Include="Controllers\Api\UserController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="BuildExperience\BuildResult.cs" />
     <Compile Include="Components\DefaultController.cs" />

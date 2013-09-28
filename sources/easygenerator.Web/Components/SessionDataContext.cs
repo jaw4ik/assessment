@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Web;
 using System.Web.SessionState;
@@ -34,6 +35,11 @@ namespace easygenerator.Web.Components
         public ICollection<Template> Templates
         {
             get { return GetDataCollectionFromSession<Template>("templates"); }
+        }
+
+        public ICollection<User> Users
+        {
+            get { throw new InvalidOperationException(); }
         }
 
         public void Save()
