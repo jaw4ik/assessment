@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Security.Principal;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
@@ -11,7 +14,6 @@ using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MvcContrib.TestHelper;
 using NSubstitute;
 
 namespace easygenerator.Web.Tests.Controllers.Api
@@ -26,6 +28,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         IEntityFactory _entityFactory;
         IObjectiveRepository _repository;
         IPrincipal _user;
+        HttpContextBase _context;
 
         [TestInitialize]
         public void InitializeContext()
@@ -34,11 +37,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _repository = Substitute.For<IObjectiveRepository>();
             _controller = new ObjectiveController(_repository, _entityFactory);
 
-            // http://mvccontrib.codeplex.com/documentation >> Test Helper
-            _controller = new TestControllerBuilder().CreateController<ObjectiveController>(_repository, _entityFactory);
-
             _user = Substitute.For<IPrincipal>();
-            _controller.HttpContext.User = _user;
+            _context = Substitute.For<HttpContextBase>();
+            _context.User.Returns(_user);
+
+            _controller = new ObjectiveController(_repository, _entityFactory);
+            _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
         #region GetCollection
