@@ -228,6 +228,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PackageListOfObjectives.feature</DependentUpon>
     </Compile>
+    <Compile Include="Tests\PackageProgressScore.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PackageProgressScore.feature</DependentUpon>
+    </Compile>
     <Compile Include="Tests\PackageQuestionPage.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -313,6 +318,10 @@
     <None Include="Tests\PackageListOfObjectives.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PackageListOfObjectives.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Tests\PackageProgressScore.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PackageProgressScore.feature.cs</LastGenOutput>
     </None>
     <None Include="Tests\PackageQuestionPage.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
