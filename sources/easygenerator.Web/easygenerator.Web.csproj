@@ -176,6 +176,7 @@
     <Compile Include="Configuration\ContainerConfiguration.cs" />
     <Compile Include="Configuration\FilterConfiguration.cs" />
     <Compile Include="Configuration\RouteConfiguration.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\ExperienceController.cs" />
     <Compile Include="Controllers\Api\ObjectiveController.cs" />
     <Compile Include="Controllers\Api\QuestionController.cs" />
@@ -263,6 +264,8 @@
     <Content Include="Content\font\buxtonsketch.ttf" />
     <Content Include="Content\font\buxtonsketch.woff" />
     <Content Include="Scripts\underscore.min.map" />
+    <Content Include="Views\Account\PrivacyPolicy.cshtml" />
+    <Content Include="Views\Account\TermsOfUse.cshtml" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>

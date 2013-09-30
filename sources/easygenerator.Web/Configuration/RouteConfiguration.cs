@@ -158,6 +158,20 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
+            #region Account
+
+            routes.MapRoute(
+                name: "PrivacyPolicy",
+                url: "account/privacypolicy",
+                defaults: new { controller = "Account", action = "PrivacyPolicy" });
+
+            routes.MapRoute(
+                name: "TermOfUse",
+                url: "account/termsofuse",
+                defaults: new { controller = "Account", action = "TermsOfUse" });
+
+            #endregion;
+
             routes.MapRoute(
                 name: "Default",
                 url: "",
