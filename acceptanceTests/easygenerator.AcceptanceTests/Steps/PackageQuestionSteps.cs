@@ -67,6 +67,20 @@ namespace easygenerator.AcceptanceTests.Steps
             PackageQuestion.HomeLinkClick();
         }
 
+        [When(@"toggle package answer option '(.*)' checkbox")]
+        public void WhenTogglePackageAnswerOptionCheckbox(string answerTitle)
+        {
+            PackageQuestion.PackageAnswerItems.First(item => item.Text == answerTitle).ToggleCheck();
+        }
+
+        [Then(@"package answer option '(.*)' is checked (.*)")]
+        public void ThenPackageAnswerOptionIsChecked(string answerTitle, bool isChecked)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                (PackageQuestion.PackageAnswerItems.First(item => item.Text == answerTitle).IsChecked == isChecked),
+                "incorrect package answer item checkbox status");
+        }
+
 
     }
 }

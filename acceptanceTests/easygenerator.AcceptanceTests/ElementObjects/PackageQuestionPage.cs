@@ -73,6 +73,19 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             }
         }
 
+        internal void ToggleCheck()
+        {
+            GetByXPathInside(model.PackageAnswerItemCheckBox).Click();
+        }
+
+        public bool IsChecked
+        {
+            get
+            {
+                return GetByXPathInside(model.PackageAnswerItemCheckBox).CssContains("checked");
+            }
+        }
+
         
     }
 }

@@ -168,3 +168,12 @@ And click package question list item 'Question11' of 'Objective11'
 And click home link on package question page
 Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/'
 
+Scenario: Package answer option checkbox status can be toggled
+When open page by url 'http://localhost:5656/Templates/tmp'
+And toggle expand package objective item with title 'Objective11'
+And click package question list item 'Question11' of 'Objective11'
+And toggle package answer option 'AnswerOption11' checkbox
+And toggle package answer option 'AnswerOption12' checkbox
+And toggle package answer option 'AnswerOption11' checkbox
+Then package answer option 'AnswerOption11' is checked false
+And package answer option 'AnswerOption12' is checked true

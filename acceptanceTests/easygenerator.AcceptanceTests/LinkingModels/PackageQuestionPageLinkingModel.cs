@@ -14,6 +14,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 
         public string PackageAnswerItem = ".//ul[contains(@class,'question-answers')]//li[contains(@class,'question-answer')]";
         public string PackageAnswerItemText = ".//div[contains(@class,'question-answer-text')]";
+        public string PackageAnswerItemCheckBox = ".//a[contains(@class,'question-answer-checkbox')]";
 
         public string SubmitButton = ".//button[contains(@class,'btn-submit')]";
 
