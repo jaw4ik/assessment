@@ -274,6 +274,7 @@
     <Content Include="Content\font\opensans-regular.eot" />
     <Content Include="Content\font\opensans-regular.ttf" />
     <Content Include="Content\font\opensans-regular.woff" />
+    <Content Include="Views\Account\_Layout.cshtml" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>

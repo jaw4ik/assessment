@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="../../Content/common.css" />
+    <link rel="stylesheet" href="../../Content/styles.css" />
+    <link rel="stylesheet" href="../../Content/membership.css" />
+</head>
+<body>
+    <div class="main-container">
+        <header class="page-header try">
+            <div class="content-wrapper try">
+                <a href="#" class="logo">Logo</a>
+            </div>
+        </header>
+        <div class="content-wrapper try eg-bg-image">
+            <div class="membership-nav">
+                <ul class="membership-nav-list">
+                    <li class="membership-nav-item">
+                        <a href="#" class="membership-nav-link">Try now</a>
+                    </li>
+                    <li class="membership-nav-item">
+                        <a href="#" class="membership-nav-link">Sign up</a>
+                    </li>
+                    <li class="membership-nav-item">
+                        <a href="#" class="membership-nav-link">Log in</a>
+                    </li>
+                </ul>
+            </div>
+            <section>
+                @RenderBody()
+            </section>
+        </div>
+    </div>
+
+    <footer class="footer try">
+        <div class="content-wrapper try clearfix">
+            <div class="footer-item pull-left">
+                <span class="selectable">Copyright © 2013  Easygenerator. All rights reserved.</span>
+            </div>
+            <div class="footer-item pull-right">
+                <ul class="footer-menu-list">
+                    <li class="footer-menu-item">
+                        <a href="#" class="footer-menu-link">Terms of use</a>
+                    </li>
+                    <li class="footer-menu-item">
+                        <a href="#" class="footer-menu-link">Privacy policy</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
