@@ -125,5 +125,39 @@ And objective progress list contains items with data
 | Objective12 | 100%  | width: 100%; |
 
 
+Scenario: All scores are 0% if all incorrect answers were checked and submited
+When open page by url 'http://localhost:5656/Templates/tmp'
+And toggle expand package objective item with title 'Objective11'
+And click package question list item 'Question11' of 'Objective11'
+And toggle package answer option 'AnswerOption12' checkbox
+And toggle package answer option 'AnswerOption13' checkbox
+And click on submit button on package question page
+Then question progress score '0%' is shown on package feedback page
 
+When click on back to objectives link on package feedback page
+And click package question list item 'Question12' of 'Objective11'
+And toggle package answer option 'AnswerOption22' checkbox
+And click on submit button on package question page
+Then question progress score '0%' is shown on package feedback page
+
+When click on back to objectives link on package feedback page
+And toggle expand package objective item with title 'Objective12'
+And click package question list item 'Question21' of 'Objective12'
+And toggle package answer option 'AnswerOption212' checkbox
+And click on submit button on package question page
+Then question progress score '0%' is shown on package feedback page
+
+When click on back to objectives link on package feedback page
+And click package question list item 'Question22' of 'Objective12'
+And toggle package answer option 'AnswerOption222' checkbox
+And toggle package answer option 'AnswerOption223' checkbox
+And click on submit button on package question page
+Then question progress score '0%' is shown on package feedback page
+
+When click on progress summary link on package feedback page
+Then overall progress score '0%' is shown on package summary page
+And objective progress list contains items with data
+| Title       | Value | MeterValue |
+| Objective11 | 0%    | width: 0%; |
+| Objective12 | 0%    | width: 0%; |
 
