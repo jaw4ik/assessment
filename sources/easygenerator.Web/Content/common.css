@@ -126,3 +126,9 @@ ol.unstyled  {
     user-select: text;
 }
 /*#endregion COMMON CLASSES CSS-STYLES*/
+
+/*#region CURSOR*/
+.cursor-default {
+    cursor: default;
+}
+/*#endregion CURSOR*/

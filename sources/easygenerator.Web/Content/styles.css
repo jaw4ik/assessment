@@ -74,8 +74,12 @@
         content: "|";
     }
 
-    .footer-menu-item a {
+    .footer-menu-link {
         color: white;
+    }
+
+    .footer-menu-link:hover {
+        text-decoration: underline;
     }
 
 /*#endregion Footer*/
