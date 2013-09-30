@@ -209,10 +209,13 @@
     <Content Include="App\guard.spec.js">
       <DependentUpon>guard.js</DependentUpon>
     </Content>
+    <Content Include="Content\common_old.css" />
     <Content Include="Content\durandal.css" />
     <Content Include="Content\font\buxtonsketch.svg" />
     <Content Include="Content\font\opensans-italic.svg" />
+    <Content Include="Content\font\opensans-regular.svg" />
     <Content Include="Content\images\arrow-for-select-box.png" />
+    <Content Include="Content\images\bg-logo.png" />
     <Content Include="Content\images\build-sprite.png" />
     <Content Include="Content\images\quizTemplate.png" />
     <Content Include="Content\images\emptyBox.png" />
@@ -227,6 +230,7 @@
     <Content Include="Content\images\objective.png" />
     <Content Include="Content\notify.css" />
     <Content Include="Content\selectbox.css" />
+    <Content Include="Content\styles.css" />
     <Content Include="Scripts\almond-custom.js" />
     <Content Include="Scripts\durandal\activator.js" />
     <Content Include="Scripts\durandal\app.js" />
@@ -266,6 +270,9 @@
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Account\PrivacyPolicy.cshtml" />
     <Content Include="Views\Account\TermsOfUse.cshtml" />
+    <Content Include="Content\font\opensans-regular.eot" />
+    <Content Include="Content\font\opensans-regular.ttf" />
+    <Content Include="Content\font\opensans-regular.woff" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
