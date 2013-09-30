@@ -2,7 +2,6 @@
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
-using easygenerator.Web.Components.ActionResults;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -22,10 +21,10 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (_repository.GetUserByEmail(email) != null)
             {
-                return new JsonErrorResult("Account with this email already exists");
+                return JsonError("Account with this email already exists");
             }
 
-            _repository.Add(_entityFactory.User(email, password));
+            _repository.Add(_entityFactory.User(email, password, User.Identity.Name));
 
             return JsonSuccess();
         }

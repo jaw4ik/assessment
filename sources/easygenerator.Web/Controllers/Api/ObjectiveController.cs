@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
@@ -31,7 +30,7 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         public ActionResult Create(string title)
         {
-            var objective = _entityFactory.Objective(title);
+            var objective = _entityFactory.Objective(title, User.Identity.Name);
 
             _repository.Add(objective);
 
@@ -50,7 +49,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonSuccess(new { ModifiedOn = DateTimeWrapper.Now() });
             }
 
-            objective.UpdateTitle(title);
+            objective.UpdateTitle(title, User.Identity.Name);
 
             return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
         }

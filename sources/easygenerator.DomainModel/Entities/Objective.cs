@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
 {
     public class Objective : Entity
     {
-        protected internal Objective() { }
-
-        protected internal Objective(string title )
+        protected internal Objective(string title, string createdBy)
+            : base(createdBy)
         {
             ThrowIfTitleIsInvalid(title);
             Title = title;
@@ -22,12 +18,13 @@ namespace easygenerator.DomainModel.Entities
 
         public string Title { get; private set; }
 
-        public virtual void UpdateTitle(string title)
+        public virtual void UpdateTitle(string title, string modifiedBy)
         {
             ThrowIfTitleIsInvalid(title);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
 
             Title = title;
-            MarkAsModified();
+            MarkAsModified(modifiedBy);
         }
 
         private readonly ICollection<Question> _questions;
@@ -40,22 +37,24 @@ namespace easygenerator.DomainModel.Entities
             }
         }
 
-        public virtual void AddQuestion(Question question)
+        public virtual void AddQuestion(Question question, string modifiedBy)
         {
             ThrowIfQuestionIsInvalid(question);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
 
             _questions.Add(question);
             question.Objective = this;
-            MarkAsModified();
+            MarkAsModified(modifiedBy);
         }
 
-        public virtual void RemoveQuestion(Question question)
+        public virtual void RemoveQuestion(Question question, string modifiedBy)
         {
             ThrowIfQuestionIsInvalid(question);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
 
             _questions.Remove(question);
             question.Objective = null;
-            MarkAsModified();
+            MarkAsModified(modifiedBy);
         }
 
         private void ThrowIfTitleIsInvalid(string title)
@@ -69,5 +68,9 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfNull(question, "question");
         }
 
+        private void ThrowIfModifiedByIsInvalid(string modifiedBy)
+        {
+            ArgumentValidation.ThrowIfNullOrEmpty(modifiedBy, "modifiedBy");
+        }
     }
 }

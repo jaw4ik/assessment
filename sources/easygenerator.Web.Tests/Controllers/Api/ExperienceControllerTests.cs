@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Security.Principal;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
@@ -14,6 +15,7 @@ using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvcContrib.TestHelper;
 using NSubstitute;
 
 namespace easygenerator.Web.Tests.Controllers.Api
@@ -21,11 +23,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
     [TestClass]
     public class ExperienceControllerTests
     {
+        private const string CreatedBy = "easygenerator@easygenerator.com";
+
         ExperienceController _controller;
         IExperienceBuilder _builder;
         PackageModelMapper _packageModelMapper;
         IEntityFactory _entityFactory;
         IExperienceRepository _repository;
+        IPrincipal _user;
 
         [TestInitialize]
         public void InitializeContext()
@@ -34,7 +39,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _repository = Substitute.For<IExperienceRepository>();
             _builder = Substitute.For<IExperienceBuilder>();
             _packageModelMapper = Substitute.For<PackageModelMapper>();
-            _controller = new ExperienceController(_builder, _packageModelMapper, _repository, _entityFactory);
+
+            // http://mvccontrib.codeplex.com/documentation >> Test Helper
+            _controller = new TestControllerBuilder().CreateController<ExperienceController>(_builder, _packageModelMapper, _repository, _entityFactory);
+
+            _user = Substitute.For<IPrincipal>();
+            _controller.HttpContext.User = _user;
         }
 
         #region Create experience
@@ -43,9 +53,11 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Create_ShouldReturnJsonSuccessResult()
         {
             const string title = "title";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
             var experience = ExperienceObjectMother.CreateWithTitle(title);
             var template = TemplateObjectMother.Create();
-            _entityFactory.Experience(title, template).Returns(experience);
+            _entityFactory.Experience(title, template, user).Returns(experience);
 
             var result = _controller.Create(title, template);
 
@@ -56,9 +68,11 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Create_ShouldAddExperience()
         {
             const string title = "title";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
             var experience = ExperienceObjectMother.CreateWithTitle(title);
             var template = TemplateObjectMother.Create();
-            _entityFactory.Experience(title, template).Returns(experience);
+            _entityFactory.Experience(title, template, user).Returns(experience);
 
             _controller.Create(title, template);
 
@@ -227,17 +241,19 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Update_ShouldUpdateExperienceTitle()
         {
             const string title = "updated title";
-            var experience = Substitute.For<Experience>();
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var experience = Substitute.For<Experience>("Some title", TemplateObjectMother.Create(), CreatedBy);
 
             _controller.UpdateTitle(experience, title);
 
-            experience.Received().UpdateTitle(title);
+            experience.Received().UpdateTitle(title, user);
         }
 
         [TestMethod]
         public void Update_ShouldReturnJsonSuccessResult()
         {
-            var experience = Substitute.For<Experience>();
+            var experience = Substitute.For<Experience>("Some title", TemplateObjectMother.Create(), CreatedBy);
 
             var result = _controller.UpdateTitle(experience, String.Empty);
 
@@ -253,7 +269,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void UpdateTemplate_ShouldReturnJsonSuccessResult_WhenQuestionIsNull()
         {
             //Arrange
-            var template = Substitute.For<Template>();
+            var template = TemplateObjectMother.Create();
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             //Act
@@ -268,22 +284,24 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void UpdateTemplate_ShouldUpdateExperienceTemplate()
         {
             //Arrange
-            var experience = Substitute.For<Experience>();
-            var template = Substitute.For<Template>();
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var experience = Substitute.For<Experience>("Some title", TemplateObjectMother.Create(), CreatedBy);
+            var template = TemplateObjectMother.Create();
 
             //Act
             _controller.UpdateTemplate(experience, template);
 
             //Assert
-            experience.Received().UpdateTemplate(template);
+            experience.Received().UpdateTemplate(template, user);
         }
 
         [TestMethod]
         public void UpdateTemplate_ShouldReturnJsonSuccessResult()
         {
             //Arrange
-            var experience = Substitute.For<Experience>();
-            var template = Substitute.For<Template>();
+            var experience = Substitute.For<Experience>("Some title", TemplateObjectMother.Create(), CreatedBy);
+            var template = TemplateObjectMother.Create();
 
             //Act
             var result = _controller.UpdateTemplate(experience, template);
@@ -300,6 +318,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void RelateObjectives_ShouldReturnJson()
         {
             //Arrange
+            _user.Identity.Name.Returns("Test user");
             var experience = ExperienceObjectMother.Create();
             var relatedObjectives = new List<Objective>() { ObjectiveObjectMother.Create() };
 
@@ -314,14 +333,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void RelateObjectives_ShouldRelateObjectiveToExperience()
         {
             //Arrange
-            var experience = Substitute.For<Experience>("title", TemplateObjectMother.Create());
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var experience = Substitute.For<Experience>("title", TemplateObjectMother.Create(), CreatedBy);
             var objective = ObjectiveObjectMother.Create();
 
             //Act
             _controller.RelateObjectives(experience, new List<Objective>() { objective });
 
             //Assert
-            experience.Received().RelateObjective(objective);
+            experience.Received().RelateObjective(objective, user);
         }
 
         [TestMethod]
@@ -360,6 +381,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void UnrelateObjectives_ShouldReturnJson()
         {
             //Arrange
+            _user.Identity.Name.Returns("Test user");
             var experience = ExperienceObjectMother.Create();
             var relatedObjectives = new List<Objective>() { ObjectiveObjectMother.Create() };
 
@@ -374,14 +396,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void UnrelateObjectives_ShouldUnrelateObjectiveFromExperience()
         {
             //Arrange
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
             var objective = ObjectiveObjectMother.Create();
-            var experience = Substitute.For<Experience>("title", TemplateObjectMother.Create());
+            var experience = Substitute.For<Experience>("title", TemplateObjectMother.Create(), CreatedBy);
 
             //Act
             _controller.UnrelateObjectives(experience, new List<Objective>() { objective });
 
             //Assert
-            experience.Received().UnrelateObjective(objective);
+            experience.Received().UnrelateObjective(objective, user);
         }
 
         [TestMethod]

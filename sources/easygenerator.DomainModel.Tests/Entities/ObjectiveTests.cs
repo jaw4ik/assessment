@@ -1,17 +1,17 @@
 ﻿using System;
-using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using easygenerator.DomainModel.Tests.ObjectMothers;
-using easygenerator.Tests;
-using NSubstitute;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
     [TestClass]
     public class ObjectiveTests
     {
+        private const string ModifiedBy = "easygenerator@easygenerator.com";
+        private const string CreatedBy = "easygenerator2@easygenerator.com";
+
         #region Constructor
 
         [TestMethod]
@@ -44,13 +44,15 @@ namespace easygenerator.DomainModel.Tests.Entities
             const string title = "title";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var objective = ObjectiveObjectMother.Create(title);
+            var objective = ObjectiveObjectMother.Create(title, CreatedBy);
 
             objective.Id.Should().NotBeEmpty();
             objective.Title.Should().Be(title);
             objective.Questions.Should().BeEmpty();
             objective.CreatedOn.Should().Be(DateTime.MaxValue);
             objective.ModifiedOn.Should().Be(DateTime.MaxValue);
+            objective.CreatedBy.Should().Be(CreatedBy);
+            objective.ModifiedBy.Should().Be(CreatedBy);
         }
 
         #endregion
@@ -62,7 +64,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var objective = ObjectiveObjectMother.Create();
 
-            Action action = () => objective.UpdateTitle(null);
+            Action action = () => objective.UpdateTitle(null, ModifiedBy);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("title");
         }
@@ -72,7 +74,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var objective = ObjectiveObjectMother.Create();
 
-            Action action = () => objective.UpdateTitle(String.Empty);
+            Action action = () => objective.UpdateTitle(String.Empty, ModifiedBy);
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("title");
         }
@@ -82,7 +84,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var objective = ObjectiveObjectMother.Create();
 
-            Action action = () => objective.UpdateTitle(new string('*', 256));
+            Action action = () => objective.UpdateTitle(new string('*', 256), ModifiedBy);
 
             action.ShouldThrow<ArgumentOutOfRangeException>().And.ParamName.Should().Be("title");
         }
@@ -93,7 +95,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             const string title = "title";
             var objective = ObjectiveObjectMother.Create();
 
-            objective.UpdateTitle(title);
+            objective.UpdateTitle(title, ModifiedBy);
 
             objective.Title.Should().Be(title);
         }
@@ -107,9 +109,40 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            objective.UpdateTitle("title");
+            objective.UpdateTitle("title", ModifiedBy);
 
             objective.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void UpdateTitle_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            Action action = () => objective.UpdateTitle("Some title", null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateTitle_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            Action action = () => objective.UpdateTitle("Some title", string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateTitle_ShouldUpdateMoidifiedBy()
+        {
+            var objective = ObjectiveObjectMother.Create();
+            var user = "Some user";
+
+            objective.UpdateTitle("Some title", user);
+
+            objective.ModifiedBy.Should().Be(user);
         }
 
         #endregion
@@ -121,7 +154,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var objective = ObjectiveObjectMother.Create();
 
-            Action action = () => objective.AddQuestion(null);
+            Action action = () => objective.AddQuestion(null, ModifiedBy);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("question");
         }
@@ -132,7 +165,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var objective = ObjectiveObjectMother.Create();
             var question = QuestionObjectMother.Create();
 
-            objective.AddQuestion(question);
+            objective.AddQuestion(question, ModifiedBy);
 
             objective.Questions.Should().NotBeEmpty().And.HaveCount(1).And.Contain(question);
         }
@@ -143,7 +176,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var objective = ObjectiveObjectMother.Create();
             var question = QuestionObjectMother.Create();
 
-            objective.AddQuestion(question);
+            objective.AddQuestion(question, ModifiedBy);
 
             question.Objective.Should().Be(objective);
         }
@@ -157,9 +190,43 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            objective.AddQuestion(QuestionObjectMother.Create());
+            objective.AddQuestion(QuestionObjectMother.Create(), ModifiedBy);
 
             objective.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void AddQuestion_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var question = QuestionObjectMother.Create();
+            var objective = ObjectiveObjectMother.Create();
+
+            Action action = () => objective.AddQuestion(question, null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void AddQuestion_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var question = QuestionObjectMother.Create();
+            var objective = ObjectiveObjectMother.Create();
+
+            Action action = () => objective.AddQuestion(question, string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void AddQuestion_ShouldUpdateMoidifiedBy()
+        {
+            var question = QuestionObjectMother.Create();
+            var objective = ObjectiveObjectMother.Create();
+            var user = "Some user";
+
+            objective.AddQuestion(question, user);
+
+            objective.ModifiedBy.Should().Be(user);
         }
 
         #endregion
@@ -171,7 +238,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var objective = ObjectiveObjectMother.Create();
 
-            Action action = () => objective.RemoveQuestion(null);
+            Action action = () => objective.RemoveQuestion(null, ModifiedBy);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("question");
         }
@@ -182,9 +249,9 @@ namespace easygenerator.DomainModel.Tests.Entities
             var objective = ObjectiveObjectMother.Create();
             var question = QuestionObjectMother.Create();
 
-            objective.AddQuestion(question);
+            objective.AddQuestion(question, ModifiedBy);
 
-            objective.RemoveQuestion(question);
+            objective.RemoveQuestion(question, ModifiedBy);
             objective.Questions.Should().BeEmpty();
         }
 
@@ -195,7 +262,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var question = QuestionObjectMother.Create();
             question.Objective = objective;
 
-            objective.RemoveQuestion(question);
+            objective.RemoveQuestion(question, ModifiedBy);
 
             question.Objective.Should().BeNull();
         }
@@ -209,9 +276,44 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            objective.RemoveQuestion(QuestionObjectMother.Create());
+            objective.RemoveQuestion(QuestionObjectMother.Create(), ModifiedBy);
 
             objective.ModifiedOn.Should().Be(dateTime);
+        }
+
+
+        [TestMethod]
+        public void RemoveQuestion_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var question = QuestionObjectMother.Create();
+            var objective = ObjectiveObjectMother.Create();
+
+            Action action = () => objective.RemoveQuestion(question, null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void RemoveQuestion_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var question = QuestionObjectMother.Create();
+            var objective = ObjectiveObjectMother.Create();
+
+            Action action = () => objective.RemoveQuestion(question, string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void RemoveQuestion_ShouldUpdateMoidifiedBy()
+        {
+            var question = QuestionObjectMother.Create();
+            var objective = ObjectiveObjectMother.Create();
+            var user = "Some user";
+
+            objective.RemoveQuestion(question, user);
+
+            objective.ModifiedBy.Should().Be(user);
         }
 
         #endregion

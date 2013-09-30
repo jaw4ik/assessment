@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using easygenerator.Infrastructure;
+﻿using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
 {
     public class Answer : Entity
     {
-        public Answer(string text, bool isCorrect)
+        public Answer(string text, bool isCorrect, string createdBy) 
+            : base(createdBy)
         {
             ThrowIfTextIsInvalid(text);
 
@@ -19,19 +15,23 @@ namespace easygenerator.DomainModel.Entities
 
         public string Text { get; private set; }
 
-        public void UpdateText(string text)
+        public void UpdateText(string text, string modifiedBy)
         {
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
             ThrowIfTextIsInvalid(text);
             Text = text;
-            MarkAsModified();
+            MarkAsModified(modifiedBy);
         }
 
         public bool IsCorrect { get; private set; }
 
-        public void UpdateCorrectness(bool isCorrect)
+        public void UpdateCorrectness(bool isCorrect, string modifiedBy)
         {
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
             IsCorrect = isCorrect;
-            MarkAsModified();
+            MarkAsModified(modifiedBy);
         }
 
         public Question Question { get; internal set; }
@@ -40,6 +40,11 @@ namespace easygenerator.DomainModel.Entities
         {
             ArgumentValidation.ThrowIfNullOrEmpty(text, "text");
             ArgumentValidation.ThrowIfLongerThan255(text, "text");
+        }
+
+        private void ThrowIfModifiedByIsInvalid(string modifiedBy)
+        {
+            ArgumentValidation.ThrowIfNullOrEmpty(modifiedBy, "modifiedBy");
         }
     }
 }

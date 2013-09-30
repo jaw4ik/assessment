@@ -9,7 +9,9 @@ namespace easygenerator.DomainModel.Tests.Entities
     [TestClass]
     public class TemplateTests
     {
-        #region Ctor
+        private const string CreatedBy = "easygenerator2@easygenerator.com";
+
+        #region Constructor
 
         [TestMethod]
         public void Template_ShouldThrowArgumentNullException_WhenNameIsNull()
@@ -34,13 +36,15 @@ namespace easygenerator.DomainModel.Tests.Entities
             const string image = "image";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var experience = TemplateObjectMother.Create(name, image);
+            var experience = TemplateObjectMother.Create(name, image, CreatedBy);
 
             experience.Id.Should().NotBeEmpty();
             experience.Name.Should().Be(name);
             experience.Image.Should().Be(image);
             experience.CreatedOn.Should().Be(DateTime.MaxValue);
             experience.ModifiedOn.Should().Be(DateTime.MaxValue);
+            experience.CreatedBy.Should().Be(CreatedBy);
+            experience.ModifiedBy.Should().Be(CreatedBy);
         }
 
         #endregion

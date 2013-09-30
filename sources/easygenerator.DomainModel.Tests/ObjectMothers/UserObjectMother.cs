@@ -6,6 +6,7 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
     {
         private const string Email = "username@easygenerator.com";
         private const string Password = "Easy123!";
+        private const string CreatedBy = "easygenerator@easygenerator.com";
 
         public static User CreateWithPassword(string password)
         {
@@ -17,9 +18,9 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return Create(email: email);
         }
 
-        public static User Create(string email = Email, string password = Password)
+        public static User Create(string email = Email, string password = Password, string createdBy = CreatedBy)
         {
-            return new User(email, password);
+            return new User(email, password, createdBy);
         }
     }
 }

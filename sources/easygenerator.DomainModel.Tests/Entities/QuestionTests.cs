@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
@@ -13,6 +9,9 @@ namespace easygenerator.DomainModel.Tests.Entities
     [TestClass]
     public class QuestionTests
     {
+        private const string ModifiedBy = "easygenerator@easygenerator.com";
+        private const string CreatedBy = "easygenerator2@easygenerator.com";
+
         #region Constructor
 
         [TestMethod]
@@ -45,13 +44,15 @@ namespace easygenerator.DomainModel.Tests.Entities
             const string title = "title";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var question = QuestionObjectMother.Create(title);
+            var question = QuestionObjectMother.Create(title, CreatedBy);
 
             question.Id.Should().NotBeEmpty();
             question.Title.Should().Be(title);
             question.Answers.Should().BeEmpty();
             question.CreatedOn.Should().Be(DateTime.MaxValue);
             question.ModifiedOn.Should().Be(DateTime.MaxValue);
+            question.CreatedBy.Should().Be(CreatedBy);
+            question.ModifiedBy.Should().Be(CreatedBy);
         }
 
         #endregion
@@ -63,7 +64,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var question = QuestionObjectMother.Create();
 
-            Action action = () => question.UpdateTitle(null);
+            Action action = () => question.UpdateTitle(null, ModifiedBy);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("title");
         }
@@ -73,7 +74,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var question = QuestionObjectMother.Create();
 
-            Action action = () => question.UpdateTitle(String.Empty);
+            Action action = () => question.UpdateTitle(String.Empty, ModifiedBy);
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("title");
         }
@@ -83,7 +84,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var question = QuestionObjectMother.Create();
 
-            Action action = () => question.UpdateTitle(new string('*', 256));
+            Action action = () => question.UpdateTitle(new string('*', 256), ModifiedBy);
 
             action.ShouldThrow<ArgumentOutOfRangeException>().And.ParamName.Should().Be("title");
         }
@@ -94,7 +95,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             const string title = "title";
             var question = QuestionObjectMother.Create();
 
-            question.UpdateTitle(title);
+            question.UpdateTitle(title, ModifiedBy);
 
             question.Title.Should().Be(title);
         }
@@ -108,9 +109,40 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            question.UpdateTitle("title");
+            question.UpdateTitle("title", ModifiedBy);
 
             question.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void UpdateTitle_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var question = QuestionObjectMother.Create();
+
+            Action action = () => question.UpdateTitle("Some title", null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateTitle_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var question = QuestionObjectMother.Create();
+
+            Action action = () => question.UpdateTitle("Some title", string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateTitle_ShouldUpdateMoidifiedBy()
+        {
+            var question = QuestionObjectMother.Create();
+            var user = "Some user";
+
+            question.UpdateTitle("Some title", user);
+
+            question.ModifiedBy.Should().Be(user);
         }
 
         #endregion
@@ -122,7 +154,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var question = QuestionObjectMother.Create();
 
-            Action action = () => question.AddAnswer(null);
+            Action action = () => question.AddAnswer(null, ModifiedBy);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("answer");
         }
@@ -133,7 +165,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var question = QuestionObjectMother.Create();
             var answer = AnswerObjectMother.Create();
 
-            question.AddAnswer(answer);
+            question.AddAnswer(answer, ModifiedBy);
 
             question.Answers.Should().NotBeNull().And.HaveCount(1).And.Contain(answer);
         }
@@ -144,7 +176,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var question = QuestionObjectMother.Create();
             var answer = AnswerObjectMother.Create();
 
-            question.AddAnswer(answer);
+            question.AddAnswer(answer, ModifiedBy);
 
             answer.Question.Should().Be(question);
         }
@@ -158,9 +190,43 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            question.AddAnswer(AnswerObjectMother.Create());
+            question.AddAnswer(AnswerObjectMother.Create(), ModifiedBy);
 
             question.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void AddAnswer_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var question = QuestionObjectMother.Create();
+            var answer = AnswerObjectMother.Create();
+
+            Action action = () => question.AddAnswer(answer, null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void AddAnswer_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var question = QuestionObjectMother.Create();
+            var answer = AnswerObjectMother.Create();
+
+            Action action = () => question.AddAnswer(answer, string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void AddAnswer_ShouldUpdateMoidifiedBy()
+        {
+            var question = QuestionObjectMother.Create();
+            var answer = AnswerObjectMother.Create();
+            var user = "Some user";
+
+            question.AddAnswer(answer, user);
+
+            question.ModifiedBy.Should().Be(user);
         }
 
         #endregion
@@ -172,7 +238,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var question = QuestionObjectMother.Create();
 
-            Action action = () => question.RemoveAnswer(null);
+            Action action = () => question.RemoveAnswer(null, ModifiedBy);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("answer");
         }
@@ -182,9 +248,9 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var question = QuestionObjectMother.Create();
             var answer = AnswerObjectMother.Create();
-            question.AddAnswer(answer);
+            question.AddAnswer(answer, ModifiedBy);
 
-            question.RemoveAnswer(answer);
+            question.RemoveAnswer(answer, ModifiedBy);
             question.Answers.Should().BeEmpty();
         }
 
@@ -195,7 +261,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var answer = AnswerObjectMother.Create();
             answer.Question = question;
 
-            question.RemoveAnswer(answer);
+            question.RemoveAnswer(answer, ModifiedBy);
 
             answer.Question.Should().BeNull();
         }
@@ -209,9 +275,43 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            question.RemoveAnswer(AnswerObjectMother.Create());
+            question.RemoveAnswer(AnswerObjectMother.Create(), ModifiedBy);
 
             question.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void RemoveAnswer_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var question = QuestionObjectMother.Create();
+            var answer = AnswerObjectMother.Create();
+
+            Action action = () => question.RemoveAnswer(answer, null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void RemoveAnswer_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var question = QuestionObjectMother.Create();
+            var answer = AnswerObjectMother.Create();
+
+            Action action = () => question.RemoveAnswer(answer, string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void RemoveAnswer_ShouldUpdateMoidifiedBy()
+        {
+            var question = QuestionObjectMother.Create();
+            var answer = AnswerObjectMother.Create();
+            var user = "Some user";
+
+            question.RemoveAnswer(answer, user);
+
+            question.ModifiedBy.Should().Be(user);
         }
 
         #endregion
@@ -223,7 +323,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var question = QuestionObjectMother.Create();
 
-            Action action = () => question.AddExplanation(null);
+            Action action = () => question.AddExplanation(null, ModifiedBy);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("explanation");
         }
@@ -234,7 +334,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var question = QuestionObjectMother.Create();
             var explanation = ExplanationObjectMother.Create();
 
-            question.AddExplanation(explanation);
+            question.AddExplanation(explanation, ModifiedBy);
 
             question.Explanations.Should().NotBeNull().And.HaveCount(1).And.Contain(explanation);
         }
@@ -245,7 +345,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var question = QuestionObjectMother.Create();
             var explanation = ExplanationObjectMother.Create();
 
-            question.AddExplanation(explanation);
+            question.AddExplanation(explanation, ModifiedBy);
 
             explanation.Question.Should().Be(question);
         }
@@ -259,9 +359,43 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            question.AddExplanation(ExplanationObjectMother.Create());
+            question.AddExplanation(ExplanationObjectMother.Create(), ModifiedBy);
 
             question.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void AddExplanation_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var question = QuestionObjectMother.Create();
+            var explanation = ExplanationObjectMother.Create();
+
+            Action action = () => question.AddExplanation(explanation, null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void AddExplanation_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var question = QuestionObjectMother.Create();
+            var explanation = ExplanationObjectMother.Create();
+
+            Action action = () => question.AddExplanation(explanation, string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void AddExplanation_ShouldUpdateMoidifiedBy()
+        {
+            var question = QuestionObjectMother.Create();
+            var explanation = ExplanationObjectMother.Create();
+            var user = "Some user";
+
+            question.AddExplanation(explanation, user);
+
+            question.ModifiedBy.Should().Be(user);
         }
 
         #endregion
@@ -273,7 +407,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var question = QuestionObjectMother.Create();
 
-            Action action = () => question.RemoveExplanation(null);
+            Action action = () => question.RemoveExplanation(null, ModifiedBy);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("explanation");
         }
@@ -283,9 +417,9 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var question = QuestionObjectMother.Create();
             var explanation = ExplanationObjectMother.Create();
-            question.AddExplanation(explanation);
+            question.AddExplanation(explanation, ModifiedBy);
 
-            question.RemoveExplanation(explanation);
+            question.RemoveExplanation(explanation, ModifiedBy);
             question.Explanations.Should().BeEmpty();
         }
 
@@ -296,7 +430,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var explanation = ExplanationObjectMother.Create();
             explanation.Question = question;
 
-            question.RemoveExplanation(explanation);
+            question.RemoveExplanation(explanation, ModifiedBy);
 
             explanation.Question.Should().BeNull();
         }
@@ -310,9 +444,43 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            question.RemoveExplanation(ExplanationObjectMother.Create());
+            question.RemoveExplanation(ExplanationObjectMother.Create(), ModifiedBy);
 
             question.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void RemoveExplanation_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var question = QuestionObjectMother.Create();
+            var explanation = ExplanationObjectMother.Create();
+
+            Action action = () => question.RemoveExplanation(explanation, null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void RemoveExplanation_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var question = QuestionObjectMother.Create();
+            var explanation = ExplanationObjectMother.Create();
+
+            Action action = () => question.RemoveExplanation(explanation, string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void RemoveExplanation_ShouldUpdateMoidifiedBy()
+        {
+            var question = QuestionObjectMother.Create();
+            var explanation = ExplanationObjectMother.Create();
+            var user = "Some user";
+
+            question.RemoveExplanation(explanation, user);
+
+            question.ModifiedBy.Should().Be(user);
         }
 
         #endregion

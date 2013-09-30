@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
@@ -13,6 +9,9 @@ namespace easygenerator.DomainModel.Tests.Entities
     [TestClass]
     public class ExplanationTests
     {
+        private const string ModifiedBy = "easygenerator@easygenerator.com";
+        private const string CreatedBy = "easygenerator2@easygenerator.com";
+
         #region Constructor
 
         [TestMethod]
@@ -38,13 +37,15 @@ namespace easygenerator.DomainModel.Tests.Entities
             const string text = "text";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var answer = ExplanationObjectMother.Create(text);
+            var answer = ExplanationObjectMother.Create(text, CreatedBy);
 
             answer.Id.Should().NotBeEmpty();
             answer.Text.Should().Be(text);
             answer.Question.Should().BeNull();
             answer.CreatedOn.Should().Be(DateTime.MaxValue);
             answer.ModifiedOn.Should().Be(DateTime.MaxValue);
+            answer.CreatedBy.Should().Be(CreatedBy);
+            answer.ModifiedBy.Should().Be(CreatedBy);
         }
 
         #endregion
@@ -56,7 +57,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var explanation = ExplanationObjectMother.Create();
 
-            Action action = () => explanation.UpdateText(null);
+            Action action = () => explanation.UpdateText(null, ModifiedBy);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("text");
         }
@@ -66,7 +67,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var explanation = ExplanationObjectMother.Create();
 
-            Action action = () => explanation.UpdateText(String.Empty);
+            Action action = () => explanation.UpdateText(String.Empty, ModifiedBy);
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("text");
         }
@@ -77,7 +78,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             const string text = "text";
             var explanation = ExplanationObjectMother.Create();
 
-            explanation.UpdateText(text);
+            explanation.UpdateText(text, ModifiedBy);
 
             explanation.Text.Should().Be(text);
         }
@@ -91,9 +92,40 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            explanation.UpdateText("text");
+            explanation.UpdateText("text", ModifiedBy);
 
             explanation.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void UpdateText_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var explanation = ExplanationObjectMother.Create();
+
+            Action action = () => explanation.UpdateText("Some text", null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateText_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var explanation = ExplanationObjectMother.Create();
+
+            Action action = () => explanation.UpdateText("Some text", string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateText_ShouldUpdateMoidifiedBy()
+        {
+            var explanation = ExplanationObjectMother.Create();
+            var user = "Some user";
+
+            explanation.UpdateText("Some text", user);
+
+            explanation.ModifiedBy.Should().Be(user);
         }
 
         #endregion

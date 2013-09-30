@@ -3,14 +3,15 @@ using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
-using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
     [TestClass]
     public class ExperienceTests
     {
+        private const string ModifiedBy = "easygenerator@easygenerator.com";
+        private const string CreatedBy = "easygenerator2@easygenerator.com";
+
         #region Constructor
 
         [TestMethod]
@@ -51,13 +52,15 @@ namespace easygenerator.DomainModel.Tests.Entities
             const string title = "title";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var experience = ExperienceObjectMother.Create(title);
+            var experience = ExperienceObjectMother.Create(title, CreatedBy);
 
             experience.Id.Should().NotBeEmpty();
             experience.Title.Should().Be(title);
             experience.CreatedOn.Should().Be(DateTime.MaxValue);
             experience.ModifiedOn.Should().Be(DateTime.MaxValue);
             experience.RelatedObjectives.Should().BeEmpty();
+            experience.CreatedBy.Should().Be(CreatedBy);
+            experience.ModifiedBy.Should().Be(CreatedBy);
         }
 
         #endregion
@@ -71,7 +74,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var experience = ExperienceObjectMother.Create();
 
             //Act
-            Action action = () => experience.RelateObjective(null);
+            Action action = () => experience.RelateObjective(null, ModifiedBy);
 
             //Assert
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("objective");
@@ -86,7 +89,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             //Act
-            experience.RelateObjective(objective);
+            experience.RelateObjective(objective, ModifiedBy);
 
             //Assert
             experience.ModifiedOn.Should().Be(DateTime.MaxValue);
@@ -100,10 +103,44 @@ namespace easygenerator.DomainModel.Tests.Entities
             var experience = ExperienceObjectMother.Create();
 
             //Act
-            experience.RelateObjective(objective);
+            experience.RelateObjective(objective, ModifiedBy);
 
             //Assert
             experience.RelatedObjectives.Should().Contain(objective);
+        }
+
+        [TestMethod]
+        public void RelateObjective_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var objective = ObjectiveObjectMother.Create();
+            var experience = ExperienceObjectMother.Create();
+
+            Action action = () => experience.RelateObjective(objective, null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void RelateObjective_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var objective = ObjectiveObjectMother.Create();
+            var experience = ExperienceObjectMother.Create();
+
+            Action action = () => experience.RelateObjective(objective, string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void RelateObjective_ShouldUpdateMoidifiedBy()
+        {
+            var objective = ObjectiveObjectMother.Create();
+            var experience = ExperienceObjectMother.Create();
+            var user = "Some user";
+
+            experience.RelateObjective(objective, user);
+
+            experience.ModifiedBy.Should().Be(user);
         }
 
         #endregion
@@ -117,7 +154,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var experience = ExperienceObjectMother.Create();
 
             //Act
-            Action action = () => experience.UnrelateObjective(null);
+            Action action = () => experience.UnrelateObjective(null, ModifiedBy);
 
             //Assert
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("objective");
@@ -129,11 +166,11 @@ namespace easygenerator.DomainModel.Tests.Entities
             //Arrange
             var objective = ObjectiveObjectMother.Create();
             var experience = ExperienceObjectMother.Create();
-            experience.RelateObjective(objective);
+            experience.RelateObjective(objective, ModifiedBy);
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             //Act
-            experience.UnrelateObjective(objective);
+            experience.UnrelateObjective(objective, ModifiedBy);
 
             //Assert
             experience.ModifiedOn.Should().Be(DateTime.MaxValue);
@@ -145,13 +182,50 @@ namespace easygenerator.DomainModel.Tests.Entities
             //Arrange
             var objective = ObjectiveObjectMother.Create();
             var experience = ExperienceObjectMother.Create();
-            experience.RelateObjective(objective);
+            experience.RelateObjective(objective, ModifiedBy);
 
             //Act
-            experience.UnrelateObjective(objective);
+            experience.UnrelateObjective(objective, ModifiedBy);
 
             //Assert
             experience.RelatedObjectives.Should().NotContain(objective);
+        }
+
+        [TestMethod]
+        public void UnrelateObjective_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var objective = ObjectiveObjectMother.Create();
+            var experience = ExperienceObjectMother.Create();
+            experience.RelateObjective(objective, ModifiedBy);
+
+            Action action = () => experience.UnrelateObjective(objective, null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UnrelateObjective_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var objective = ObjectiveObjectMother.Create();
+            var experience = ExperienceObjectMother.Create();
+            experience.RelateObjective(objective, ModifiedBy);
+
+            Action action = () => experience.UnrelateObjective(objective, string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UnrelateObjective_ShouldUpdateMoidifiedBy()
+        {
+            var objective = ObjectiveObjectMother.Create();
+            var experience = ExperienceObjectMother.Create();
+            experience.RelateObjective(objective, ModifiedBy);
+            var user = "Some user";
+
+            experience.UnrelateObjective(objective, user);
+
+            experience.ModifiedBy.Should().Be(user);
         }
 
         #endregion
@@ -163,7 +237,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var experience = ExperienceObjectMother.Create();
 
-            Action action = () => experience.UpdateTitle(null);
+            Action action = () => experience.UpdateTitle(null, ModifiedBy);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("title");
         }
@@ -173,7 +247,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var experience = ExperienceObjectMother.Create();
 
-            Action action = () => experience.UpdateTitle(String.Empty);
+            Action action = () => experience.UpdateTitle(String.Empty, ModifiedBy);
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("title");
         }
@@ -183,7 +257,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var experience = ExperienceObjectMother.Create();
 
-            Action action = () => experience.UpdateTitle(new string('*', 256));
+            Action action = () => experience.UpdateTitle(new string('*', 256), ModifiedBy);
 
             action.ShouldThrow<ArgumentOutOfRangeException>().And.ParamName.Should().Be("title");
         }
@@ -194,7 +268,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             const string title = "title";
             var experience = ExperienceObjectMother.Create();
 
-            experience.UpdateTitle(title);
+            experience.UpdateTitle(title, ModifiedBy);
 
             experience.Title.Should().Be(title);
         }
@@ -208,9 +282,40 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            experience.UpdateTitle("title");
+            experience.UpdateTitle("title", ModifiedBy);
 
             experience.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void UpdateTitle_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var experience = ExperienceObjectMother.Create();
+
+            Action action = () => experience.UpdateTitle("Some title", null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateTitle_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var experience = ExperienceObjectMother.Create();
+
+            Action action = () => experience.UpdateTitle("Some title", string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateTitle_ShouldUpdateMoidifiedBy()
+        {
+            var experience = ExperienceObjectMother.Create();
+            var user = "Some user";
+
+            experience.UpdateTitle("Some title", user);
+
+            experience.ModifiedBy.Should().Be(user);
         }
 
         #endregion
@@ -224,7 +329,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var experience = ExperienceObjectMother.Create();
 
             //Act
-            Action action = () => experience.UpdateTemplate(null);
+            Action action = () => experience.UpdateTemplate(null, ModifiedBy);
 
             //Assert
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("template");
@@ -235,10 +340,10 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             //Arrange
             var experience = ExperienceObjectMother.Create();
-            var template = Substitute.For<Template>();
+            var template = TemplateObjectMother.Create();
 
             //Act
-            experience.UpdateTemplate(template);
+            experience.UpdateTemplate(template, ModifiedBy);
 
             //Assert
             experience.Template.Should().Be(template);
@@ -254,13 +359,47 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            var template = Substitute.For<Template>();
+            var template = TemplateObjectMother.Create();
 
             //Act
-            experience.UpdateTemplate(template);
+            experience.UpdateTemplate(template, ModifiedBy);
 
             //Assert
             experience.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void UpdateTemplate_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var template = TemplateObjectMother.Create();
+            var experience = ExperienceObjectMother.Create();
+
+            Action action = () => experience.UpdateTemplate(template, null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateTemplate_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var template = TemplateObjectMother.Create();
+            var experience = ExperienceObjectMother.Create();
+
+            Action action = () => experience.UpdateTemplate(template, string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateTemplate_ShouldUpdateMoidifiedBy()
+        {
+            var template = TemplateObjectMother.Create();
+            var experience = ExperienceObjectMother.Create();
+            var user = "Some user";
+
+            experience.UpdateTemplate(template, user);
+
+            experience.ModifiedBy.Should().Be(user);
         }
 
         #endregion

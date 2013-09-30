@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Web.Mvc;
 using easygenerator.DataAccess;
-using easygenerator.Infrastructure;
 using easygenerator.Web.Components.ActionResults;
 
 namespace easygenerator.Web.Components

@@ -1,4 +1,5 @@
 ﻿using System;
+using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using easygenerator.DomainModel.Tests.ObjectMothers;
@@ -8,7 +9,9 @@ namespace easygenerator.DomainModel.Tests.Entities
     [TestClass]
     public class UserTests
     {
-        #region User
+        private const string CreatedBy = "easygenerator2@easygenerator.com";
+
+        #region Constructor
 
         [TestMethod]
         public void User_ShouldThrowArgumentNullException_WhenEmailIsNull()
@@ -118,6 +121,27 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Act & Assert
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void User_ShouldCreateUser()
+        {
+            //Arrange
+            var email = "easygenerator3@easygenerator.com";
+            var password = "Easy123!";
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+            
+            //Act
+            var user = UserObjectMother.Create(email, password, CreatedBy);
+
+            //Assert
+            user.Id.Should().NotBeEmpty();
+            user.Email.Should().Be(email);
+            user.VerifyPassword(password).Should().BeTrue();
+            user.CreatedOn.Should().Be(DateTime.MaxValue);
+            user.ModifiedOn.Should().Be(DateTime.MaxValue);
+            user.CreatedBy.Should().Be(CreatedBy);
+            user.ModifiedBy.Should().Be(CreatedBy);
         }
 
         #endregion

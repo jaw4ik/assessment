@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Runtime.InteropServices;
-using System.ServiceModel.Configuration;
-using System.Web.Razor.Parser.SyntaxTree;
+using System.Security.Principal;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
@@ -11,11 +9,9 @@ using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
-using easygenerator.Web.ViewModels.Objective;
 using FluentAssertions;
-using FluentAssertions.Primitives;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using MvcContrib.TestHelper;
 using NSubstitute;
 
 namespace easygenerator.Web.Tests.Controllers.Api
@@ -23,11 +19,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
     [TestClass]
     public class ObjectiveControllerTests
     {
+        private const string CreatedBy = "easygenerator@easygenerator.com";
+
         private ObjectiveController _controller;
 
         IEntityFactory _entityFactory;
         IObjectiveRepository _repository;
-
+        IPrincipal _user;
 
         [TestInitialize]
         public void InitializeContext()
@@ -35,6 +33,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory = Substitute.For<IEntityFactory>();
             _repository = Substitute.For<IObjectiveRepository>();
             _controller = new ObjectiveController(_repository, _entityFactory);
+
+            // http://mvccontrib.codeplex.com/documentation >> Test Helper
+            _controller = new TestControllerBuilder().CreateController<ObjectiveController>(_repository, _entityFactory);
+
+            _user = Substitute.For<IPrincipal>();
+            _controller.HttpContext.User = _user;
         }
 
         #region GetCollection
@@ -59,7 +63,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Create_ShouldReturnJsonSuccessResult()
         {
             var objective = ObjectiveObjectMother.Create();
-            _entityFactory.Objective(null).ReturnsForAnyArgs(objective);
+            _entityFactory.Objective(null, CreatedBy).ReturnsForAnyArgs(objective);
 
             var result = _controller.Create(null);
 
@@ -72,8 +76,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Create_ShouldAddObjective()
         {
             const string title = "title";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
             var objective = ObjectiveObjectMother.CreateWithTitle(title);
-            _entityFactory.Objective(title).Returns(objective);
+            _entityFactory.Objective(title, user).Returns(objective);
 
             _controller.Create(title);
 
@@ -100,17 +106,19 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Update_ShouldUpdateObjectiveTitle()
         {
             const string title = "updated title";
-            var objective = Substitute.For<Objective>();
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var objective = Substitute.For<Objective>("Some title", CreatedBy);
 
             _controller.Update(objective, title);
 
-            objective.Received().UpdateTitle(title);
+            objective.Received().UpdateTitle(title, user);
         }
 
         [TestMethod]
         public void Update_ShouldReturnJsonSuccessResult()
         {
-            var objective = Substitute.For<Objective>();
+            var objective = Substitute.For<Objective>("Some title", CreatedBy);
 
             var result = _controller.Update(objective, String.Empty);
 

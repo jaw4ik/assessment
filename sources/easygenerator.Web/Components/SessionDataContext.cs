@@ -17,8 +17,8 @@ namespace easygenerator.Web.Components
             _session = HttpContext.Current.Session;
             SetDataCollectionToSessionIfNotSetYet("templates", new Collection<Template>()
                     {
-                        new Template("Default", "/Content/images/defaultTemplate.png"),
-                        new Template("Quiz", "/Content/images/quizTemplate.png")
+                        new Template("Default", "/Content/images/defaultTemplate.png", "Some user"),
+                        new Template("Quiz", "/Content/images/quizTemplate.png", "Some user")
                     });
         }
 

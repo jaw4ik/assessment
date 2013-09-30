@@ -9,10 +9,9 @@ namespace easygenerator.DomainModel.Entities
     {
         public string Title { get; private set; }
         public Template Template { get; private set; }
-
-        protected internal Experience() { }
-
-        protected internal Experience(string title, Template template)
+        
+        protected internal Experience(string title, Template template, string createdBy)
+            : base(createdBy)
         {
             ThrowIfTitleIsInvalid(title);
             ThrowIfTemplateIsInvaid(template);
@@ -22,12 +21,13 @@ namespace easygenerator.DomainModel.Entities
             _relatedObjectives = new Collection<Objective>();
         }
 
-        public virtual void UpdateTemplate(Template template)
+        public virtual void UpdateTemplate(Template template, string modifiedBy)
         {
             ThrowIfTemplateIsInvaid(template);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
 
             Template = template;
-            MarkAsModified();
+            MarkAsModified(modifiedBy);
         }
 
         private ICollection<Objective> _relatedObjectives { get; set; }
@@ -40,32 +40,35 @@ namespace easygenerator.DomainModel.Entities
             }
         }
 
-        public virtual void RelateObjective(Objective objective)
+        public virtual void RelateObjective(Objective objective, string modifiedBy)
         {
             ThrowIfObjectiveIsInvalid(objective);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
 
             if (!_relatedObjectives.Contains(objective))
             {
                 _relatedObjectives.Add(objective);
             }
 
-            MarkAsModified();
+            MarkAsModified(modifiedBy);
         }
 
-        public virtual void UnrelateObjective(Objective objective)
+        public virtual void UnrelateObjective(Objective objective, string modifiedBy)
         {
             ThrowIfObjectiveIsInvalid(objective);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
 
             _relatedObjectives.Remove(objective);
-            MarkAsModified();
+            MarkAsModified(modifiedBy);
         }
 
-        public virtual void UpdateTitle(string title)
+        public virtual void UpdateTitle(string title, string modifiedBy)
         {
             ThrowIfTitleIsInvalid(title);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
 
             Title = title;
-            MarkAsModified();
+            MarkAsModified(modifiedBy);
         }
         
         private void ThrowIfTemplateIsInvaid(Template template)
@@ -82,6 +85,11 @@ namespace easygenerator.DomainModel.Entities
         private void ThrowIfObjectiveIsInvalid(Objective objective)
         {
             ArgumentValidation.ThrowIfNull(objective, "objective");
+        }
+
+        private void ThrowIfModifiedByIsInvalid(string modifiedBy)
+        {
+            ArgumentValidation.ThrowIfNullOrEmpty(modifiedBy, "modifiedBy");
         }
     }
 }

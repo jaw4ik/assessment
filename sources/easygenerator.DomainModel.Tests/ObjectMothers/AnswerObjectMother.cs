@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DomainModel.Tests.ObjectMothers
 {
     public class AnswerObjectMother
     {
         private const string Text = "Answer text";
+        private const string CreatedBy = "easygenerator@easygenerator.com";
 
         public static Answer CreateWithText(string text)
         {
@@ -21,9 +17,9 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
             return Create(isCorrect: isCorrect);
         }
 
-        public static Answer Create(string text = Text, bool isCorrect = true)
+        public static Answer Create(string text = Text, bool isCorrect = true, string createdBy = CreatedBy)
         {
-            return new Answer(text, isCorrect);
+            return new Answer(text, isCorrect, createdBy);
         }
     }
 }

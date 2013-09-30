@@ -7,9 +7,8 @@ namespace easygenerator.DomainModel.Entities
 {
     public class User : Entity
     {
-        protected internal User() { }
-
-        protected internal User(string email, string password)
+        protected internal User(string email, string password, string createdBy)
+            : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
             ThrowIfPasswordIsNotValid(password);

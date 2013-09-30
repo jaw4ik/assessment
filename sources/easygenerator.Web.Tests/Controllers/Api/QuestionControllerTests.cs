@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Principal;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
-using easygenerator.DomainModel.Repositories;
-using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvcContrib.TestHelper;
 using NSubstitute;
 
 namespace easygenerator.Web.Tests.Controllers.Api
@@ -19,15 +15,24 @@ namespace easygenerator.Web.Tests.Controllers.Api
     [TestClass]
     public class QuestionControllerTests
     {
+        private const string CreatedBy = "easygenerator@easygenerator.com";
+
         private QuestionController _controller;
 
         IEntityFactory _entityFactory;
+        IPrincipal _user;
 
         [TestInitialize]
         public void InitializeContext()
         {
             _entityFactory = Substitute.For<IEntityFactory>();
             _controller = new QuestionController(_entityFactory);
+
+            // http://mvccontrib.codeplex.com/documentation >> Test Helper
+            _controller = new TestControllerBuilder().CreateController<QuestionController>(_entityFactory);
+
+            _user = Substitute.For<IPrincipal>();
+            _controller.HttpContext.User = _user;
         }
 
         #region Create question
@@ -45,25 +50,29 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Create_ShouldAddQuestionToObjective()
         {
             const string title = "title";
-            var objective = Substitute.For<Objective>();
-            var question = Substitute.For<Question>();
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
 
-            _entityFactory.Question(title).Returns(question);
+            _entityFactory.Question(title, user).Returns(question);
 
             _controller.Create(objective, title);
 
-            objective.Received().AddQuestion(question);
+            objective.Received().AddQuestion(question, user);
         }
 
         [TestMethod]
         public void Create_ShouldReturnJsonSuccessResult()
         {
             const string title = "title";
-            var question = Substitute.For<Question>();
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
 
-            _entityFactory.Question(title).Returns(question);
+            _entityFactory.Question(title, user).Returns(question);
 
-            var result = _controller.Create(Substitute.For<Objective>(), title);
+            var result = _controller.Create(Substitute.For<Objective>("Objective title", CreatedBy), title);
 
             result.Should()
                 .BeJsonSuccessResult()
@@ -86,19 +95,22 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Delete_ShouldRemoveQuestionFromObjective()
         {
-            var objective = Substitute.For<Objective>();
-            var question = Substitute.For<Question>();
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+
+            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
 
             _controller.Delete(objective, question);
 
-            objective.Received().RemoveQuestion(question);
+            objective.Received().RemoveQuestion(question, user);
         }
 
         [TestMethod]
         public void Delete_ShouldReturnJsonSuccessResult()
         {
-            var objective = Substitute.For<Objective>();
-            var question = Substitute.For<Question>();
+            var objective = Substitute.For<Objective>("Objective title", CreatedBy);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
 
             var result = _controller.Delete(objective, question);
 
@@ -126,17 +138,19 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Update_ShouldUpdateQuestionTitle()
         {
             const string title = "updated title";
-            var question = Substitute.For<Question>();
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
 
             _controller.UpdateTitle(question, title);
 
-            question.Received().UpdateTitle(title);
+            question.Received().UpdateTitle(title, user);
         }
 
         [TestMethod]
         public void Update_ShouldReturnJsonSuccessResult()
         {
-            var question = Substitute.For<Question>();
+            var question = Substitute.For<Question>("Question title", CreatedBy);
 
             var result = _controller.UpdateTitle(question, String.Empty);
 

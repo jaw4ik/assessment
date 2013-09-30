@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using easygenerator.Infrastructure;
+﻿using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
 {
     public class Explanation : Entity
     {
-        public Explanation(string text)
+        public Explanation(string text, string createdBy)
+            : base(createdBy)
         {
             ThrowIfTextIsInvalid(text);
 
@@ -20,12 +16,13 @@ namespace easygenerator.DomainModel.Entities
 
         public Question Question { get; internal set; }
 
-        public void UpdateText(string text)
+        public void UpdateText(string text, string modifiedBy)
         {
             ThrowIfTextIsInvalid(text);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
 
             Text = text;
-            MarkAsModified();
+            MarkAsModified(modifiedBy);
         }
 
         private void ThrowIfTextIsInvalid(string text)
@@ -34,5 +31,9 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfLongerThan255(text, "text");
         }
 
+        private void ThrowIfModifiedByIsInvalid(string modifiedBy)
+        {
+            ArgumentValidation.ThrowIfNullOrEmpty(modifiedBy, "modifiedBy");
+        }
     }
 }

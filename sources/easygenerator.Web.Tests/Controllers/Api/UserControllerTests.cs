@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Principal;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
@@ -6,6 +7,7 @@ using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvcContrib.TestHelper;
 using NSubstitute;
 
 namespace easygenerator.Web.Tests.Controllers.Api
@@ -17,6 +19,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IUserRepository _repository;
         private UserController _controller;
         private IEntityFactory _entityFactory;
+        IPrincipal _user;
 
         [TestInitialize]
         public void InitializeContext()
@@ -24,6 +27,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _repository = Substitute.For<IUserRepository>();
             _entityFactory = Substitute.For<IEntityFactory>();
             _controller = new UserController(_repository, _entityFactory);
+
+            // http://mvccontrib.codeplex.com/documentation >> Test Helper
+            _controller = new TestControllerBuilder().CreateController<UserController>(_repository, _entityFactory);
+
+            _user = Substitute.For<IPrincipal>();
+            _controller.HttpContext.User = _user;
         }
 
         #region Signup
@@ -48,9 +57,11 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var email = "easygenerator@easygenerator.com";
             var password = "Easy123!";
+            var creator = "Test user";
+            _user.Identity.Name.Returns(creator);
             var user = UserObjectMother.Create(email, password);
 
-            _entityFactory.User(email, password).Returns(user);
+            _entityFactory.User(email, password, creator).Returns(user);
 
             //Act
             _controller.Signup(email, password);

@@ -1,9 +1,4 @@
 ﻿using easygenerator.DomainModel.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace easygenerator.DomainModel.Tests.ObjectMothers
 {
@@ -11,15 +6,16 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
     {
         private const string Name = "Default";
         private const string Image = "imageUrl";
+        private const string CreatedBy = "easygenerator@easygenerator.com";
 
-        public static Template Create(string name = Name, string image = Image)
+        public static Template Create(string name = Name, string image = Image, string createdBy = CreatedBy)
         {
-            return new Template(name, image);
+            return new Template(name, image, createdBy);
         }
 
-        public static Template CreateWithImage(string image = Image)
+        public static Template CreateWithImage(string image)
         {
-            return new Template(Name, image);
+            return Create(image: image);
         }
     }
 }

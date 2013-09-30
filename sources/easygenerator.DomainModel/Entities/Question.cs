@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using easygenerator.Infrastructure;
 
 namespace easygenerator.DomainModel.Entities
 {
     public class Question : Entity
     {
-        protected internal Question() { }
-
-        protected internal Question(string title)
+        protected internal Question(string title, string createdBy)
+            : base(createdBy)
         {
             ThrowIfTitleIsInvalid(title);
 
@@ -26,12 +22,13 @@ namespace easygenerator.DomainModel.Entities
 
         public Objective Objective { get; internal set; }
 
-        public virtual void UpdateTitle(string title)
+        public virtual void UpdateTitle(string title, string modifiedBy)
         {
             ThrowIfTitleIsInvalid(title);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
 
             Title = title;
-            MarkAsModified();
+            MarkAsModified(modifiedBy);
         }
 
         private readonly ICollection<Answer> _answers;
@@ -41,22 +38,24 @@ namespace easygenerator.DomainModel.Entities
             get { return _answers.AsEnumerable(); }
         }
 
-        public void AddAnswer(Answer answer)
+        public void AddAnswer(Answer answer, string modifiedBy)
         {
             ThrowIfAnswerIsInvalid(answer);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
 
             _answers.Add(answer);
             answer.Question = this;
-            MarkAsModified();
+            MarkAsModified(modifiedBy);
         }
 
-        public void RemoveAnswer(Answer answer)
+        public void RemoveAnswer(Answer answer, string modifiedBy)
         {
             ThrowIfAnswerIsInvalid(answer);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
 
             _answers.Remove(answer);
             answer.Question = null;
-            MarkAsModified();
+            MarkAsModified(modifiedBy);
         }
 
         private readonly ICollection<Explanation> _explanations;
@@ -66,22 +65,24 @@ namespace easygenerator.DomainModel.Entities
             get { return _explanations.AsEnumerable(); }
         }
 
-        public void AddExplanation(Explanation explanation)
+        public void AddExplanation(Explanation explanation, string modifiedBy)
         {
             ThrowIfExplanationIsInvalid(explanation);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
 
             _explanations.Add(explanation);
             explanation.Question = this;
-            MarkAsModified();
+            MarkAsModified(modifiedBy);
         }
 
-        public void RemoveExplanation(Explanation explanation)
+        public void RemoveExplanation(Explanation explanation, string modifiedBy)
         {
             ThrowIfExplanationIsInvalid(explanation);
+            ThrowIfModifiedByIsInvalid(modifiedBy);
 
             _explanations.Remove(explanation);
             explanation.Question = null;
-            MarkAsModified();
+            MarkAsModified(modifiedBy);
         }
 
         private void ThrowIfTitleIsInvalid(string title)
@@ -98,6 +99,11 @@ namespace easygenerator.DomainModel.Entities
         private void ThrowIfExplanationIsInvalid(Explanation explanation)
         {
             ArgumentValidation.ThrowIfNull(explanation, "explanation");
+        }
+
+        private void ThrowIfModifiedByIsInvalid(string modifiedBy)
+        {
+            ArgumentValidation.ThrowIfNullOrEmpty(modifiedBy, "modifiedBy");
         }
     }
 }
