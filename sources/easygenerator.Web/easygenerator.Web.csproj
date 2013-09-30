@@ -228,7 +228,7 @@
     <Content Include="Content\images\undefinedTemplate.png" />
     <Content Include="Content\images\warning.png" />
     <Content Include="Content\images\objective.png" />
-    <Content Include="Content\membership.css" />
+    <Content Include="Content\account.css" />
     <Content Include="Content\notify.css" />
     <Content Include="Content\selectbox.css" />
     <Content Include="Content\styles.css" />
