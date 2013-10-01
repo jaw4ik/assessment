@@ -214,6 +214,7 @@
     <Content Include="Content\font\buxtonsketch.svg" />
     <Content Include="Content\font\opensans-italic.svg" />
     <Content Include="Content\font\opensans-regular.svg" />
+    <Content Include="Content\font\opensans-semibold.svg" />
     <Content Include="Content\images\arrow-for-select-box.png" />
     <Content Include="Content\images\bg-logo.png" />
     <Content Include="Content\images\build-sprite.png" />
@@ -278,6 +279,9 @@
     <Content Include="Content\font\opensans-regular.woff" />
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Account\_Layout.cshtml" />
+    <Content Include="Content\font\opensans-semibold.eot" />
+    <Content Include="Content\font\opensans-semibold.ttf" />
+    <Content Include="Content\font\opensans-semibold.woff" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>

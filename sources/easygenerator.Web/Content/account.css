@@ -1,6 +1,9 @@
 ﻿/*#region Layout*/
 .content-wrapper.try {
     width: 85%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
     max-width: 1280px;
     font-size: 14px;
     font-family: 'OpenSans', Arial, sans-serif;
@@ -87,7 +90,7 @@
 }
 
 .user-form-row {
-    min-height: 142px;
+    min-height: 137px;
 }
 
 .user-form-label {
@@ -100,7 +103,7 @@
 .user-form-label:after {
     content: '';
     position: absolute;
-    left: 4px;
+    left: 2px;
     top: 1px;
     display: block;
     width: 26px;
@@ -113,7 +116,7 @@
 }
 
 .user-form-label.password:after {
-    background-position: -242px 4px;
+    background-position: -249px 5px;
 }
 
 .user-form-input-holder {
@@ -121,23 +124,25 @@
 }
 
 .user-form-input {
-    display: inline-block;
     width: 100%;
+    display: inline-block;
     margin: 9px 0 6px 0;
     padding: 12px 20px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    font: 16px/1 'OpenSans';
-    color: #000;
     background: #fff;
     border: solid 1px #ccc;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+    color: #333;
+    font-size: 16px;
+    font-family: 'OpenSans';
 }
 
 .user-form-input:focus {
+    outline: none;
     border: solid 1px #00a8ff;
     -webkit-box-shadow: 0 0 2px #00a8ff;
     -moz-box-shadow: 0 0 2px #00a8ff;
@@ -209,7 +214,7 @@
 }
 
 .user-form-row.submit {
-    padding-top: 35px;
+    padding-top: 40px;
 }
 
 .user-form-row.submit .formBtn {
@@ -278,7 +283,7 @@
     z-index: 1;
 }
 
-.uft-title {
+.user-form-tooltip-title {
     position: relative;
     display: block;
     width: 100%;
@@ -288,7 +293,7 @@
     margin-bottom: 10px;
 }
 
-.uft-title:after {
+.user-form-tooltip-title:after {
     content: '';
     position: absolute;
     top: 100%;
@@ -303,13 +308,13 @@
     background: linear-gradient(to right, #fff 0%, #a5a5a5 40%, #a5a5a5 60%, #fff 100%);
 }
 
-.uft-list {
+.user-form-tooltip-list {
     width: 100%;
     padding: 10px 20px 0 33px;
 }
 
-.uft-list-item {
-    padding-left: 8px;
+.user-form-tooltip-list-item {
+    padding-left: 5px;
     padding-bottom: 22px;
     line-height: 1;
 }
@@ -337,6 +342,7 @@
     position: absolute;
     bottom: 3%;
     left: 0;
+    min-width: 640px;
     width: 100%;
     margin-bottom: 35px;
     text-align: center;
@@ -417,7 +423,10 @@
 }
 
 .formBtn input {
+    line-height: 41px;
+    display: inline-block;
     -moz-box-sizing: border-box;
+    padding: 0 30px 2px;
     background: none repeat scroll 0 0 #B0C93E;
     border-color: #B0C93E #9BB136 #9BB136 #B0C93E;
     border-radius: 5px 5px 5px 5px;
@@ -425,13 +434,11 @@
     border-style: solid;
     border-width: 1px;
     color: #FFFFFF;
-    cursor: pointer;
-    display: inline-block;
-    font: 24px/45px 'OpenSans';
-    height: 45px;
-    padding: 0 30px 2px;
+    font-size: 24px;
+    font-family: 'OpenSans';
     text-align: center;
-    text-shadow: 0 -1px 1px #444444;
+    text-shadow: 0 -1px 1px rgba(141,177,35,0.9);
+    cursor: pointer;
 }
 
 .formBtn input:hover {
@@ -441,7 +448,163 @@
 .formBtn input:active {
     background: none repeat scroll 0 0 #9DB23B;
     border-color: #9DB23B;
-    text-shadow: none;
 }
 
 /*#endregion Form Button*/
+
+@media (max-width: 1020px) {
+    /*#region Layout*/
+    .content-wrapper.try {
+        width: 100%;
+        max-width: 1280px;
+        font-size: 14px;
+        font-family: 'OpenSans', Arial, sans-serif;
+        letter-spacing: 0;
+    }
+    /*#endregion Layout*/
+}
+
+@media (max-width: 780px) {
+
+
+    .account-nav-list {
+        padding-bottom: 16px;
+    }
+
+    .user-title {
+        padding-bottom: 3px;
+        font-size: 40px;
+        text-align: center;
+    }
+
+    .user-columns {
+        width: 390px;
+        margin: 0 auto;
+    }
+
+    .user-column.form {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .user-form {
+        padding-top: 12%;
+    }
+
+    .user-column.image {
+        display: none;
+    }
+
+
+    .user-form-tooltip {
+        top: auto;
+        bottom: 100%;
+        left: 0;
+        margin-left: 0;
+        padding: 10px 0 0 0;
+        color: #333;
+        font-size: 12px;
+    }
+
+    .user-form-tooltip:after {
+        top: 100%;
+        right: 50%;
+        width: 16px;
+        height: 8px;
+        background: url(images/sprites.png) -66px -52px no-repeat;
+    }
+
+    .user-form-tooltip-title {
+        font-size: 14px;
+    }
+
+    .user-form-tooltip-list {
+        padding-top: 0;
+        padding-bottom: 5px;
+    }
+
+    .user-form-tooltip-list-item {
+        padding-bottom: 11px;
+    }
+
+
+    .try-subtitle {
+        padding-bottom: 31px;
+        font-size: 20px;
+    }
+
+    a.try-btn {
+        margin-bottom: 10px;
+    }
+
+    /* Try Images */
+
+    .try-images {
+        display: block;
+        width: 100%;
+    }
+
+    .try-small-row {
+        display: table;
+        width: 100%;
+    }
+
+    .try-image-left {
+        display: table-cell;
+        width: 70%;
+        text-align: left;
+    }
+
+    .try-image-left-holder:after {
+        right: -8%;
+    }
+
+    .try-image-top-text {
+        top: 0;
+        left: 98%;
+    }
+
+    .try-image-center {
+        display: table-cell;
+        vertical-align: middle;
+        width: 25%;
+        margin-top: 0;
+        padding-bottom: 11%;
+        padding-right: 6%;
+    }
+
+    .try-image-center-img {
+        width: 75%;
+    }
+
+    .try-image-bottom-text {
+        right: -27%;
+        font-size: 24px;
+    }
+
+    .try-image-right {
+        float: right;
+        display: block;
+        width: 41%;
+        padding-left: 0;
+        vertical-align: top;
+        text-align: left;
+    }
+
+    .try-image-right-holder:after {
+        bottom: 105%;
+        left: 22%;
+        width: 154px;
+        height: 36px;
+        background: url(images/right-small.png) 0 0 no-repeat;
+    }
+
+    .try-image-right-img {
+        margin-top: -28%;
+        display: inline-block;
+        width: 100%;
+        max-width: 239px;
+        height: auto;
+    }
+}
