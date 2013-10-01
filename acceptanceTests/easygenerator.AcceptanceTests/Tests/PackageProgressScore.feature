@@ -54,7 +54,7 @@ Given answer options related to 'Question21' of 'Objective12' are present in dat
 Given answer options related to 'Question22' of 'Objective12' are present in database
 | Text            | isCorrect |
 | AnswerOption221 | true      |
-| AnswerOption222 | false     |
+| AnswerOption222 | true     |
 | AnswerOption223 | false     |
 Given explanations related to 'Question21' of 'Objective12' are present in database
 | Explanation    |
@@ -114,6 +114,7 @@ Then question progress score '100%' is shown on package feedback page
 When click on back to objectives link on package feedback page
 And click package question list item 'Question22' of 'Objective12'
 And toggle package answer option 'AnswerOption221' checkbox
+And toggle package answer option 'AnswerOption222' checkbox
 And click on submit button on package question page
 Then question progress score '100%' is shown on package feedback page
 
@@ -149,7 +150,6 @@ Then question progress score '0%' is shown on package feedback page
 
 When click on back to objectives link on package feedback page
 And click package question list item 'Question22' of 'Objective12'
-And toggle package answer option 'AnswerOption222' checkbox
 And toggle package answer option 'AnswerOption223' checkbox
 And click on submit button on package question page
 Then question progress score '0%' is shown on package feedback page
@@ -160,4 +160,59 @@ And objective progress list contains items with data
 | Title       | Value | MeterValue |
 | Objective11 | 0%    | width: 0%; |
 | Objective12 | 0%    | width: 0%; |
+
+Scenario: Not checked incorrect options are equal to checked correct options in score calculation and vice versa
+When open page by url 'http://localhost:5656/Templates/tmp'
+And toggle expand package objective item with title 'Objective11'
+And click package question list item 'Question11' of 'Objective11'
+And toggle package answer option 'AnswerOption11' checkbox
+And toggle package answer option 'AnswerOption13' checkbox
+And click on submit button on package question page
+Then question progress score '67%' is shown on package feedback page
+
+When click on back to objectives link on package feedback page
+And toggle expand package objective item with title 'Objective12'
+And click package question list item 'Question22' of 'Objective12'
+And toggle package answer option 'AnswerOption221' checkbox
+And toggle package answer option 'AnswerOption223' checkbox
+And click on submit button on package question page
+Then question progress score '33%' is shown on package feedback page
+
+Scenario: Overall experience progress value is arithmetical mean of all progress values of objectives
+When open page by url 'http://localhost:5656/Templates/tmp'
+And toggle expand package objective item with title 'Objective11'
+And click package question list item 'Question11' of 'Objective11'
+And toggle package answer option 'AnswerOption11' checkbox
+And toggle package answer option 'AnswerOption13' checkbox
+And click on submit button on package question page
+Then question progress score '67%' is shown on package feedback page
+
+When click on back to objectives link on package feedback page
+And click package question list item 'Question12' of 'Objective11'
+And toggle package answer option 'AnswerOption21' checkbox
+And click on submit button on package question page
+Then question progress score '100%' is shown on package feedback page
+
+When click on back to objectives link on package feedback page
+And toggle expand package objective item with title 'Objective12'
+And click package question list item 'Question21' of 'Objective12'
+And toggle package answer option 'AnswerOption211' checkbox
+And toggle package answer option 'AnswerOption212' checkbox
+And click on submit button on package question page
+Then question progress score '50%' is shown on package feedback page
+
+When click on back to objectives link on package feedback page
+And click package question list item 'Question22' of 'Objective12'
+And toggle package answer option 'AnswerOption221' checkbox
+And toggle package answer option 'AnswerOption223' checkbox
+And click on submit button on package question page
+Then question progress score '33%' is shown on package feedback page
+
+When click on progress summary link on package feedback page
+Then overall progress score '63%' is shown on package summary page
+And objective progress list contains items with data
+| Title       | Value | MeterValue  |
+| Objective11 | 84%   | width: 84%; |
+| Objective12 | 42%   | width: 42%; |
+
 
