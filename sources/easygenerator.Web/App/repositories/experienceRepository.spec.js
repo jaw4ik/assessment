@@ -240,6 +240,7 @@
                                     describe('and response CreatedOn is object', function () {
                                         var experienceId = 'experienceId';
                                         var experienceCreatedOn = '/Date(1378106938845)/';
+                                        
                                         beforeEach(function () {
                                             httpWrapperPost.resolve({ Id: experienceId, CreatedOn: experienceCreatedOn });
                                         });
@@ -270,14 +271,16 @@
                                                 dataContext.templates = [template];
                                             });
 
-                                            it('should resolve promise with experience id', function () {
+                                            it('should resolve promise with experience', function () {
                                                 var promise = repository.addExperience(title, templateId);
 
                                                 waitsFor(function () {
                                                     return !promise.isPending();
                                                 });
                                                 runs(function () {
-                                                    expect(promise).toBeResolvedWith(experienceId);
+                                                    var experience = promise.inspect().value;
+                                                    expect(experience.id).toBe(experienceId);
+                                                    expect(experience.createdOn).toEqual(utils.getDateFromString(experienceCreatedOn));
                                                 });
                                             });
 

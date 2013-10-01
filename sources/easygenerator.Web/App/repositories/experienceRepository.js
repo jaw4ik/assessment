@@ -1,13 +1,15 @@
 ﻿define(['dataContext', 'constants', 'plugins/http', 'models/experience', 'guard', 'httpWrapper'],
     function (dataContext, constants, http, ExperienceModel, guard, httpWrapper) {
 
-        var getCollection = function () {
-            var deferred = Q.defer();
+        var
+            getCollection = function () {
+                var deferred = Q.defer();
 
-            deferred.resolve(dataContext.experiences);
+                deferred.resolve(dataContext.experiences);
 
-            return deferred.promise;
-        },
+                return deferred.promise;
+            },
+
             getById = function (id) {
                 var deferred = Q.defer();
 
@@ -23,6 +25,7 @@
 
                 return deferred.promise;
             },
+
             addExperience = function (title, templateId) {
                 return Q.fcall(function () {
                     guard.throwIfNotString(title, 'Title is not a string');
@@ -46,20 +49,27 @@
                             guard.throwIfNotAnObject(template, 'Template does not exist in dataContext');
 
                             var experienceId = response.Id,
-                                createdOn = response.CreatedOn;
-                            dataContext.experiences.push(new ExperienceModel({
-                                id: experienceId,
-                                title: title,
-                                template: { id: template.id, name: template.name, image: template.image },
-                                objectives: [],
-                                buildingStatus: constants.buildingStatuses.notStarted,
-                                createdOn: new Date(parseInt(createdOn.substr(6), 10)),
-                                modifiedOn: new Date(parseInt(createdOn.substr(6), 10))
-                            }));
-                            return experienceId;
+                                createdOn = new Date(parseInt(response.CreatedOn.substr(6), 10)),
+                                createdExperience = new ExperienceModel({
+                                    id: experienceId,
+                                    title: title,
+                                    template: {
+                                        id: template.id,
+                                        name: template.name,
+                                        image: template.image
+                                    },
+                                    objectives: [],
+                                    buildingStatus: constants.buildingStatuses.notStarted,
+                                    createdOn: createdOn,
+                                    modifiedOn: createdOn
+                                });
+
+                            dataContext.experiences.push(createdExperience);
+                            return createdExperience;
                         });
                 });
             },
+
             removeExperience = function (experienceId) {
                 var deferred = Q.defer();
 
@@ -95,6 +105,7 @@
 
                 return deferred.promise;
             },
+
             relateObjectives = function (experienceId, objectives) {
                 var deferred = Q.defer();
 
@@ -121,6 +132,7 @@
 
                 return deferred.promise;
             },
+
             unrelateObjectives = function (experienceId, objectives) {
                 var deferred = Q.defer();
 
@@ -146,6 +158,7 @@
 
                 return deferred.promise;
             },
+
             updateExperienceTitle = function (experienceId, experienceTitle) {
                 return Q.fcall(function () {
                     guard.throwIfNotString(experienceId, 'Experience id is not a string');
@@ -174,6 +187,7 @@
 
                 });
             },
+
             updateExperienceTemplate = function (experienceId, templateId) {
                 return Q.fcall(function () {
                     guard.throwIfNotString(experienceId, 'Experience id is not a string');

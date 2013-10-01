@@ -268,7 +268,7 @@
                             viewModel.createAndNew();
 
                             var promise = addExperience.promise.fin(function () { });
-                            addExperience.resolve();
+                            addExperience.resolve({ createdOn: new Date() });
 
                             waitsFor(function () {
                                 return !promise.isPending();
@@ -371,7 +371,7 @@
                             viewModel.createAndEdit();
 
                             var promise = addExperience.promise.fin(function () { });
-                            addExperience.resolve(id);
+                            addExperience.resolve({ id: id });
 
                             waitsFor(function () {
                                 return !promise.isPending();
