@@ -1,4 +1,5 @@
-﻿@{
+﻿@using easygenerator.Web.Components
+@{
     Layout = null;
 }
 
@@ -23,20 +24,20 @@
             <div class="account-nav">
                 <ul class="account-nav-list">
                     <li class="account-nav-item">
-                        <a href="#" class="account-nav-link">Try now</a>
+                        @Html.NavigationLink("Try now", "TryNow", "Account", "account-nav-link")
                     </li>
                     <li class="account-nav-item">
-                        <a href="#" class="account-nav-link">Sign up</a>
+                        @Html.NavigationLink("Sign up", "SignUp", "Account", "account-nav-link")
                     </li>
                     <li class="account-nav-item">
-                        <a href="#" class="account-nav-link">Log in</a>
+                        @Html.NavigationLink("Log in", "LogIn", "Account", "account-nav-link")
                     </li>
                 </ul>
             </div>
-            <section>
-                @RenderBody()
-            </section>
-        </div>
+        <section>
+            @RenderBody()
+        </section>
+    </div>
     </div>
 
     <footer class="footer try">

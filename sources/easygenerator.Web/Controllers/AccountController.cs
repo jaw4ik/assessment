@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers
 {
@@ -20,7 +14,17 @@ namespace easygenerator.Web.Controllers
             return View();
         }
 
-        public object SignUp()
+        public ActionResult SignUp()
+        {
+            return View();
+        }
+
+        public ActionResult LogIn()
+        {
+            return View();
+        }
+
+        public ActionResult TryNow()
         {
             return View();
         }

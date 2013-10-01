@@ -175,6 +175,16 @@ namespace easygenerator.Web.Configuration
                 url: "account/signup",
                 defaults: new { controller = "Account", action = "SignUp" });
 
+            routes.MapRoute(
+                name: "LogIn",
+                url: "account/login",
+                defaults: new { controller = "Account", action = "LogIn" });
+
+            routes.MapRoute(
+                name: "TryNow",
+                url: "account/trynow",
+                defaults: new { controller = "Account", action = "TryNow" });
+
             #endregion;
 
             routes.MapRoute(

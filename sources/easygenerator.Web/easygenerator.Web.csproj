@@ -171,6 +171,7 @@
     <Compile Include="Components\ModelBinding\EntityModelBinder.cs" />
     <Compile Include="Components\ModelBinding\EntityModelBinderProvider.cs" />
     <Compile Include="Components\ModelBinding\EntityCollectionModelBinder.cs" />
+    <Compile Include="Components\NavigationLink.cs" />
     <Compile Include="Components\SessionDataContext.cs" />
     <Compile Include="Configuration\BundleConfiguration.cs" />
     <Compile Include="Configuration\ContainerConfiguration.cs" />
@@ -282,6 +283,8 @@
     <Content Include="Content\font\opensans-semibold.eot" />
     <Content Include="Content\font\opensans-semibold.ttf" />
     <Content Include="Content\font\opensans-semibold.woff" />
+    <Content Include="Views\Account\LogIn.cshtml" />
+    <Content Include="Views\Account\TryNow.cshtml" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
