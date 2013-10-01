@@ -38,6 +38,7 @@
 /*#region Main Container*/
 
 .main-container {
+    position: relative;
     height: auto;
     min-height: 100%;
     padding-bottom: 35px;
