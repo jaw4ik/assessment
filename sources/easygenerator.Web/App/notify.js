@@ -9,6 +9,8 @@
         notificationTextClass = "notification-text",
         notificationIconClass = "notification-icon",
         notificationCloseClass = "notification-close",
+        modalFadeSelector = "modalFade",
+        modalFadeLoaderSelector = "modalFade-loader",
 
         infoClass = "info",
         successClass = "success",
@@ -52,9 +54,32 @@
         $("." + containerSelector).empty();
     }
 
+    function lockContent() {
+        unlockContent();
+        showModalFade();
+    }
+
+    function showModalFade() {
+        var cnt = $("." + modalFadeSelector);
+        if (!cnt.length) {
+            $("<div />")
+                .addClass(modalFadeSelector)
+                .append($("<span />").addClass(modalFadeLoaderSelector))
+                .appendTo(targetSelector);
+        }
+    }
+
+    function unlockContent() {
+        $("." + modalFadeSelector).remove();
+    }
+
+
     return {
         info: info,
         error: error,
+        
+        lockContent: lockContent,
+        unlockContent: unlockContent,
 
         hide: hideMessage
     };

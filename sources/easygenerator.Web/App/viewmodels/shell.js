@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/router', 'configuration/routes', 'dataContext', 'localization/localizationManager', 'eventTracker'],
-    function (app, router, routes, datacontext, localizationManager, eventTracker) {
+﻿define(['durandal/app', 'plugins/router', 'configuration/routes', 'dataContext', 'localization/localizationManager', 'eventTracker', 'httpWrapper', 'notify'],
+    function (app, router, routes, datacontext, localizationManager, eventTracker, httpWrapper, notify) {
         var
             events = {
                 navigateToExperiences: "Navigate to experiences",
@@ -9,8 +9,17 @@
                 eventTracker.publish(eventName);
             };
 
-        var
-            experiencesModule = 'experiences',
+        var requestsCounter = ko.observable(0);
+        
+        app.on('httpWrapper:post-begin').then(function () {
+            requestsCounter(requestsCounter() + 1);
+        });
+        
+        app.on('httpWrapper:post-end').then(function () {
+            requestsCounter(requestsCounter() - 1);
+        });
+
+        var experiencesModule = 'experiences',
             objectivesModule = 'objectives',
             isViewReady = ko.observable(false),
             activeModule = ko.computed(function () {
@@ -49,7 +58,7 @@
                             }
 
                             document.title = title ? app.title + ' | ' + title : app.title;
-                            
+
                             browserCulture(localizationManager.currentLanguage);
                         };
 
@@ -67,6 +76,21 @@
                                 href = window.location.href;
                             var downloadUrl = hash == '' ? href + '/' + url : href.replace(hash, url);
                             window.location.assign(downloadUrl);
+                        };
+
+                        router.guardRoute = function (routeInfo, params) {
+                            if (requestsCounter() > 0) {
+                                notify.lockContent();
+                                var subscription = requestsCounter.subscribe(function (newValue) {
+                                    if (newValue == 0) {
+                                        notify.unlockContent();
+                                        router.navigate(params.fragment);
+                                        subscription.dispose();
+                                    }
+                                });
+                                return false;
+                            }
+                            return true;
                         };
 
                         router.on('router:route:activating').then(function () {
