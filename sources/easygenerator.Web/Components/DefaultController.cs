@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Web.Mvc;
 using easygenerator.DataAccess;
 using easygenerator.Web.Components.ActionResults;
@@ -30,6 +31,11 @@ namespace easygenerator.Web.Components
         protected ActionResult BadRequest()
         {
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+        protected string GetCurrentUsername()
+        {
+            return String.IsNullOrEmpty(User.Identity.Name) ? "Anonymous" : User.Identity.Name;
         }
     }
 }

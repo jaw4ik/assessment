@@ -24,7 +24,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonError("Account with this email already exists");
             }
 
-            _repository.Add(_entityFactory.User(email, password, User.Identity.Name));
+            _repository.Add(_entityFactory.User(email, password, GetCurrentUsername()));
 
             return JsonSuccess();
         }

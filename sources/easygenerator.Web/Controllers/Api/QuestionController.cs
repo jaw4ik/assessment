@@ -24,9 +24,9 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonSuccess(new { Id = Guid.NewGuid().ToString("N"), CreatedOn = DateTimeWrapper.Now() });
             }
 
-            var question = _entityFactory.Question(title, User.Identity.Name);
+            var question = _entityFactory.Question(title, GetCurrentUsername());
 
-            objective.AddQuestion(question, User.Identity.Name);
+            objective.AddQuestion(question, GetCurrentUsername());
 
             return JsonSuccess(new { Id = question.Id.ToString("N"), CreatedOn = question.CreatedOn });
         }
@@ -39,7 +39,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonSuccess(new { ModifiedOn = DateTimeWrapper.Now() });
             }
 
-            objective.RemoveQuestion(question, User.Identity.Name);
+            objective.RemoveQuestion(question, GetCurrentUsername());
 
             return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
         }
@@ -52,7 +52,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonSuccess(new { ModifiedOn = DateTimeWrapper.Now() });
             }
 
-            question.UpdateTitle(title, User.Identity.Name);
+            question.UpdateTitle(title, GetCurrentUsername());
 
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }

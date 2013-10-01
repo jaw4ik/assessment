@@ -30,7 +30,7 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         public ActionResult Create(string title)
         {
-            var objective = _entityFactory.Objective(title, User.Identity.Name);
+            var objective = _entityFactory.Objective(title, GetCurrentUsername());
 
             _repository.Add(objective);
 
@@ -49,7 +49,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonSuccess(new { ModifiedOn = DateTimeWrapper.Now() });
             }
 
-            objective.UpdateTitle(title, User.Identity.Name);
+            objective.UpdateTitle(title, GetCurrentUsername());
 
             return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
         }
