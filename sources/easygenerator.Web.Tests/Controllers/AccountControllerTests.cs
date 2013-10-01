@@ -54,5 +54,22 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         #endregion
+
+        #region SignUp
+
+        [TestMethod]
+        public void SignUp_ShouldReturnViewResult()
+        {
+            //Arrange
+
+
+            //Act
+            var result = _controller.SignUp();
+
+            //Assert
+            ActionResultAssert.IsViewResult(result);
+        }
+
+        #endregion
     }
 }

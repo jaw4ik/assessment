@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "SignUp";
+    Layout = "~/Views/Account/_Layout.cshtml";
+}
+
+<div class="user-columns">
+    <div class="user-column form">
+        <div class="user-title">Create account</div>
+        <form class="user-form" id="signUpForm" action="#" method="post">
+            <div class="uf-row" data-bind="">
+                <label class="uf-label email">E-mail</label>
+                <div class="uf-input-holder">
+                    <input class="uf-input" type="text" name="email" />
+                </div>
+                <span class="uf-message">Enter a valid e-mail</span>
+            </div>
+            <div class="uf-row" data-bind="">
+                <label class="uf-label password">Password</label>
+                <div class="uf-input-holder show-tooltip">
+                    <input class="uf-input" type="password" name="email" />
+                    <a href="#" class="tooltip-link" data-bind=""></a>
+                    <div class="uf-tooltip" data-bind="">
+                        <div class="uft-title">The password requirements:</div>
+                        <ul class="uft-list">
+                            <li class="uft-list-item">has to be at least 7 characters long;</li>
+                            <li class="uft-list-item">have at least one lowercase letter;</li>
+                            <li class="uft-list-item">at least one upper case letter;</li>
+                            <li class="uft-list-item">at least one digit;</li>
+                            <li class="uft-list-item">one special character;</li>
+                            <li class="uft-list-item">cannot contain whitespace(s).</li>
+                        </ul>
+                    </div>
+
+                </div>
+                <span class="uf-message">Password is strong enough</span>
+            </div>
+            <div class="uf-row submit">
+                <div class="formBtn">
+                    <input type="submit" value="Sign up">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="user-column image">
+        <img class="user-column-image" src="~/Content/images/sign-up.jpg" alt="#" />
+    </div>
+</div>
+
+<div class="social-block">
+    <ul class="social-block-list">
+        <li class="social-block-item">
+            <a href="#" class="social-block-link facebook">
+                <span class="social-block-link-text">facebook</span>
+            </a>
+        </li>
+        <li class="social-block-item">
+            <a href="#" class="social-block-link youtube">
+                <span class="social-block-link-text">youtube</span>
+            </a>
+        </li>
+        <li class="social-block-item">
+            <a href="#" class="social-block-link linkedin">
+                <span class="social-block-link-text">linkedin</span>
+            </a>
+        </li>
+        <li class="social-block-item">
+            <a href="#" class="social-block-link twitter">
+                <span class="social-block-link-text">twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>

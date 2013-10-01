@@ -19,5 +19,10 @@ namespace easygenerator.Web.Controllers
         {
             return View();
         }
+
+        public object SignUp()
+        {
+            return View();
+        }
     }
 }

@@ -224,7 +224,9 @@
     <Content Include="Content\images\info-icon.png" />
     <Content Include="Content\images\nav-icons.png" />
     <Content Include="Content\images\defaultTemplate.png" />
+    <Content Include="Content\images\sign-up.jpg" />
     <Content Include="Content\images\small-size-icons-pack.png" />
+    <Content Include="Content\images\sprites.png" />
     <Content Include="Content\images\undefinedTemplate.png" />
     <Content Include="Content\images\warning.png" />
     <Content Include="Content\images\objective.png" />
@@ -274,6 +276,7 @@
     <Content Include="Content\font\opensans-regular.eot" />
     <Content Include="Content\font\opensans-regular.ttf" />
     <Content Include="Content\font\opensans-regular.woff" />
+    <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Account\_Layout.cshtml" />
     <None Include="weyland-config.js" />
   </ItemGroup>
