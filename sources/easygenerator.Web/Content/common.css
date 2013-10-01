@@ -73,6 +73,14 @@ input[type="checkbox"] {
     margin: 0;
 }
 
+input[type="password"]::-ms-reveal {
+    visibility: hidden;
+   }
+
+input::-ms-clear {
+    visibility: hidden;
+}
+
 a {
     outline: 0;
     text-decoration: none;

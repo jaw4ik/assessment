@@ -157,7 +157,7 @@
 }
 
 .user-form-checkbox-holder {
-    min-height: 37px;
+    min-height: 40px;
     padding-bottom: 20px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -197,7 +197,7 @@
 
 .checkbox-label-link {
     color: #222;
-    border-bottom: 1px solid #8f8f8f;
+    text-decoration: underline;
 }
 
 .user-form-row.success .user-form-input {
@@ -479,30 +479,62 @@
     display: inline-block;
     -moz-box-sizing: border-box;
     padding: 0 30px 2px;
-    background: none repeat scroll 0 0 #B0C93E;
-    border-color: #B0C93E #9BB136 #9BB136 #B0C93E;
-    border-radius: 5px 5px 5px 5px;
-    border-right: 1px solid #9BB136;
     border-style: solid;
     border-width: 1px;
+    border-radius: 5px 5px 5px 5px;
     color: #FFFFFF;
     font-size: 24px;
     font-family: 'OpenSans';
     text-align: center;
-    text-shadow: 0 -1px 1px rgba(141,177,35,0.9);
     cursor: pointer;
 }
 
-.formBtn input:hover {
+/* green button*/
+.formBtn input.green {
+    background: none repeat scroll 0 0 #B0C93E;
+    border-color: #B0C93E #9BB136 #9BB136 #B0C93E;
+    border-right: 1px solid #9BB136;
+    -webkit-text-shadow: 0 -1px 1px rgb(141,177,35);
+    text-shadow: 0 -1px 1px rgb(141,177,35);
+}
+
+.formBtn input.green:hover {
     background: none repeat scroll 0 0 #BDD93D;
 }
 
-.formBtn input:active {
-    background: none repeat scroll 0 0 #9DB23B;
+.formBtn input.green:active {
+    background: none repeat scroll 0 0 #B0C93E;
     border-color: #9DB23B;
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.2) inset;
+}
+
+/*orange button*/
+.formBtn input.orange {
+    background: none repeat scroll 0 0 #f59957;
+    border-color: #f59957 #d7864c #d7864c #f59957;
+    border-right: 1px solid #d7864c;
+    -webkit-text-shadow: 0 -1px 1px rgb(240,103,45);
+    text-shadow: 0 -1px 1px rgb(240,103,45);
+}
+
+.formBtn input.orange:hover {
+    background: none repeat scroll 0 0 #f2893e;
+}
+
+.formBtn input.orange:active {
+    background: #f59957;
+    border-color: #b16e3f;
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.2) inset;
 }
 
 /*#endregion Form Button*/
+
+/*#region LOGIN*/
+
+.view-module.log-in .user-form-row.submit {
+    padding-top: 40px;
+}
+/*#endregion Login*/
 
 @media (max-width: 1020px) {
 

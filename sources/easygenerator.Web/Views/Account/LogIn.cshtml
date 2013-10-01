@@ -2,5 +2,61 @@
     ViewBag.Title = "LogIn";
     Layout = "~/Views/Account/_Layout.cshtml";
 }
+<section class="view-module log-in">
+<div class="user-columns">
+    <div class="user-column form">
+        <div class="user-title">Log in</div>
+        <form class="user-form" id="signUpForm" action="#" method="post">
+            <div class="user-form-row" data-bind="">
+                <label class="user-form-label email">E-mail</label>
+                <div class="user-form-input-holder">
+                    <input class="user-form-input" type="text" name="email" />
+                </div>
+                <span class="user-form-message">Enter a valid e-mail</span>
+            </div>
+            <div class="user-form-row" data-bind="">
+                <label class="user-form-label password">Password</label>
+                <div class="user-form-input-holder show-tooltip">
+                    <input class="user-form-input" type="password" name="email" />
+                    <a href="#" class="tooltip-link" data-bind=""></a>
 
-<h2>LogIn</h2>
+                </div>
+                <span class="user-form-message">Password is strong enough</span>
+            </div>
+            <div class="user-form-row submit">
+                <div class="formBtn">
+                    <input class="orange" type="submit" value="Log in">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="user-column image">
+        <img class="user-column-image" src="~/Content/images/log-in.jpg" alt="#" />
+    </div>
+</div>
+
+<div class="social-block">
+    <ul class="social-block-list">
+        <li class="social-block-item">
+            <a href="#" class="social-block-link facebook">
+                <span class="social-block-link-text">facebook</span>
+            </a>
+        </li>
+        <li class="social-block-item">
+            <a href="#" class="social-block-link youtube">
+                <span class="social-block-link-text">youtube</span>
+            </a>
+        </li>
+        <li class="social-block-item">
+            <a href="#" class="social-block-link linkedin">
+                <span class="social-block-link-text">linkedin</span>
+            </a>
+        </li>
+        <li class="social-block-item">
+            <a href="#" class="social-block-link twitter">
+                <span class="social-block-link-text">twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+</section>
