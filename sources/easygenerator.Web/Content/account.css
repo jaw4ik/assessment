@@ -11,7 +11,7 @@
 }
 /*#endregion Layout*/
 
-/*#region Membership navigation*/
+/*#region Account navigation*/
 
 .account-nav {
     text-align: right;
@@ -52,7 +52,7 @@
     cursor: default;
 }
 
-/*#endregion Membership navigation*/
+/*#endregion Account navigation*/
 
 /*#region User Title*/
 
@@ -333,7 +333,6 @@
     background-position: 0 -52px;
 }
 
-
 /*#endregion Form Tooltip*/
 
 /*#region Social Block*/
@@ -453,6 +452,7 @@
 /*#endregion Form Button*/
 
 @media (max-width: 1020px) {
+
     /*#region Layout*/
     .content-wrapper.try {
         width: 100%;
@@ -462,21 +462,26 @@
         letter-spacing: 0;
     }
     /*#endregion Layout*/
+
 }
 
 @media (max-width: 780px) {
 
-
+    /*#region Account navigation*/
     .account-nav-list {
         padding-bottom: 16px;
     }
+    /*#endregion Account navigation*/
 
+    /*#region User Title*/
     .user-title {
         padding-bottom: 3px;
         font-size: 40px;
         text-align: center;
     }
+    /*#endregion User Title*/
 
+    /*#region User Columns*/
     .user-columns {
         width: 390px;
         margin: 0 auto;
@@ -527,84 +532,6 @@
     .user-form-tooltip-list-item {
         padding-bottom: 11px;
     }
+    /*#endregion User Columns*/
 
-
-    .try-subtitle {
-        padding-bottom: 31px;
-        font-size: 20px;
-    }
-
-    a.try-btn {
-        margin-bottom: 10px;
-    }
-
-    /* Try Images */
-
-    .try-images {
-        display: block;
-        width: 100%;
-    }
-
-    .try-small-row {
-        display: table;
-        width: 100%;
-    }
-
-    .try-image-left {
-        display: table-cell;
-        width: 70%;
-        text-align: left;
-    }
-
-    .try-image-left-holder:after {
-        right: -8%;
-    }
-
-    .try-image-top-text {
-        top: 0;
-        left: 98%;
-    }
-
-    .try-image-center {
-        display: table-cell;
-        vertical-align: middle;
-        width: 25%;
-        margin-top: 0;
-        padding-bottom: 11%;
-        padding-right: 6%;
-    }
-
-    .try-image-center-img {
-        width: 75%;
-    }
-
-    .try-image-bottom-text {
-        right: -27%;
-        font-size: 24px;
-    }
-
-    .try-image-right {
-        float: right;
-        display: block;
-        width: 41%;
-        padding-left: 0;
-        vertical-align: top;
-        text-align: left;
-    }
-
-    .try-image-right-holder:after {
-        bottom: 105%;
-        left: 22%;
-        width: 154px;
-        height: 36px;
-        background: url(images/right-small.png) 0 0 no-repeat;
-    }
-
-    .try-image-right-img {
-        margin-top: -28%;
-        display: inline-block;
-        width: 100%;
-        max-width: 239px;
-        height: auto;
-    }
 }
