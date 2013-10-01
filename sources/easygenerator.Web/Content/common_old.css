@@ -746,8 +746,12 @@ ol.unstyled  {
     position: absolute;
     left: 50%;
     top: 50%;
-    margin-left: -12px;
-    margin-top: -15px;
+    margin-left: -16px;
+    margin-top: -16px;
+}
+
+.icon-spinner-wrapper img {
+    vertical-align: top;   
 }
 
 /*#endregion Page-loader icon*/

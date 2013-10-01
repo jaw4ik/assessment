@@ -10,7 +10,7 @@
         notificationIconClass = "notification-icon",
         notificationCloseClass = "notification-close",
         modalFadeSelector = "modalFade",
-        modalFadeLoaderSelector = "modalFade-loader",
+        modalFadeLoaderSelector = "modalFade-loader icon-spinner-wrapper",
 
         infoClass = "info",
         successClass = "success",
