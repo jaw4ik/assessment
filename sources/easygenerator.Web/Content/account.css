@@ -1,6 +1,6 @@
 ﻿/*#region Layout*/
 .content-wrapper.try {
-    width: 85%;
+    width: 90%;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -141,12 +141,63 @@
     font-family: 'OpenSans';
 }
 
+.user-form-input[type="password"] {
+    -webkit-text-security: disc;
+    font: large Verdana,sans-serif;
+    letter-spacing: 1px;
+    color: #444444;
+}
+
 .user-form-input:focus {
     outline: none;
     border: solid 1px #00a8ff;
     -webkit-box-shadow: 0 0 2px #00a8ff;
     -moz-box-shadow: 0 0 2px #00a8ff;
     box-shadow: 0 0 2px #00a8ff;
+}
+
+.user-form-checkbox-holder {
+    min-height: 37px;
+    padding-bottom: 20px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.user-form-checkbox {
+    position: relative;
+    float: left;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #e6e6e6;
+    vertical-align: middle;
+}
+
+.user-form-checkbox.checked {
+    background: url(images/sprites.png) 2px -22px;
+}
+
+.custom-checkbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.user-form-checkbox-label {
+    margin-left: 24px;
+    vertical-align: top;
+    color: #222;
+    font-family: 'OpenSans-Semibold';
+    font-size: 12px;
+}
+
+.checkbox-label-link {
+    color: #222;
+    border-bottom: 1px solid #8f8f8f;
 }
 
 .user-form-row.success .user-form-input {
@@ -186,7 +237,7 @@
 .user-form-message:after {
     content: '';
     position: absolute;
-    top: 4px;
+    top: 6px;
     left: 2px;
     display: block;
     width: 11px;
@@ -211,10 +262,6 @@
 
 .user-form-row.error .user-form-message:after {
     background-position: -16px -25px;
-}
-
-.user-form-row.submit {
-    padding-top: 40px;
 }
 
 .user-form-row.submit .formBtn {
@@ -261,9 +308,9 @@
     -khtml-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    -webkit-box-shadow: -1px 0 1px #cfcfcf;
-    -moz-box-shadow: -1px 0 1px #cfcfcf;
-    box-shadow: -1px 0 1px #cfcfcf;
+    -webkit-box-shadow: -1px 0 1px rgba(207,207,207,0.3);
+    -moz-box-shadow: -1px 0 1px rgba(207,207,207,0.3);
+    box-shadow: -1px 0 1px rgba(207,207,207,0.3);
     z-index: 1;
 }
 
