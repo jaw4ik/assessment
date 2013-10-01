@@ -220,14 +220,16 @@
                                     });
                                 });
 
-                                it('should resolve promise with question id', function () {
+                                it('should resolve promise with question', function () {
                                     var promise = questionRepository.addQuestion(objective.id, {});
 
                                     waitsFor(function () {
                                         return !promise.isPending();
                                     });
                                     runs(function () {
-                                        expect(promise).toBeResolvedWith(response.Id);
+                                        var createdQuestion = promise.inspect().value;
+                                        expect(createdQuestion.id).toEqual(response.Id);
+                                        expect(createdQuestion.createdOn).toEqual(utils.getDateFromString(response.CreatedOn));
                                     });
                                 });
 

@@ -59,17 +59,17 @@
             createAndNew = function () {
                 sendEvent(events.createAndNew);
                 var that = this;
-                createObjective.call(that, function () {
+                createObjective.call(that, function (createdObjective) {
                     isTitleEditing(true);
-                    notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
+                    notify.info(localizationManager.localize('lastSaving') + ': ' + createdObjective.createdOn.toLocaleTimeString());
                 });
             },
 
             createAndEdit = function () {
                 sendEvent(events.createAndEdit);
                 var that = this;
-                createObjective.call(that, function (objectiveId) {
-                    var navigateUrl = 'objective/' + objectiveId;
+                createObjective.call(that, function (createdObjective) {
+                    var navigateUrl = 'objective/' + createdObjective.id;
                     if (_.isString(that.contextExperienceId)) {
                         router.navigateWithQueryString(navigateUrl);
                     } else {
@@ -86,17 +86,17 @@
             }
             
             var that = this;
-            objectiveRepository.addObjective({ title: title() }).then(function (objectiveId) {
+            objectiveRepository.addObjective({ title: title() }).then(function (createdObjective) {
                 title('');
 
                 if (_.isString(that.contextExperienceId)) {
-                    objectiveRepository.getById(objectiveId).then(function (objective) {
+                    objectiveRepository.getById(createdObjective.id).then(function (objective) {
                         experienceRepository.relateObjectives(that.contextExperienceId, [objective]).then(function () {
-                            callback(objectiveId);
+                            callback(createdObjective);
                         });
                     });
                 } else {
-                    callback(objectiveId);
+                    callback(createdObjective);
                 }
             });
         }

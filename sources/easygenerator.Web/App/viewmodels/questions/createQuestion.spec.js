@@ -228,7 +228,7 @@
             });
 
             describe('when title is valid', function () {
-                var question = { id: 0, title: 'lala' };
+                var question = { id: 0, title: 'lala', createdOn: new Date() };
 
                 it('should send event \'Save and create question\'', function () {
                     viewModel.title('lala');
@@ -299,7 +299,7 @@
                         viewModel.saveAndNew();
 
                         var promise = deferred.promise.finally(function () { });
-                        deferred.resolve(question.id);
+                        deferred.resolve(question);
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -336,20 +336,6 @@
 
             it('should be a function', function () {
                 expect(viewModel.activate).toBeFunction();
-            });
-
-            describe('when objectiveId is not a string', function () {
-
-                it('should navigate to #400', function () {
-                    viewModel.activate();
-                    expect(router.replace).toHaveBeenCalledWith('400');
-                });
-
-                it('should return undefined', function () {
-                    var result = viewModel.activate({});
-                    expect(result).toBeUndefined();
-                });
-
             });
 
             it('should return promise', function () {

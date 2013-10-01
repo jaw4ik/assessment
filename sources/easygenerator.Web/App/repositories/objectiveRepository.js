@@ -36,19 +36,22 @@
                             guard.throwIfNotString(response.Id, 'Objective Id is not a string');
                             guard.throwIfNotString(response.CreatedOn, 'Objective creation date is not a string');
 
-                            var objectiveId = response.Id,
-                                createdOn = response.CreatedOn;
+                            var 
+                                createdObjective = objectiveModel({
+                                    id: response.Id,
+                                    title: objective.title,
+                                    image: constants.defaultObjectiveImage,
+                                    questions: [],
+                                    createdOn: new Date(parseInt(response.CreatedOn.substr(6), 10)),
+                                    modifiedOn: new Date(parseInt(response.CreatedOn.substr(6), 10))
+                                });
 
-                            dataContext.objectives.push(objectiveModel({
-                                id: objectiveId,
-                                title: objective.title,
-                                image: constants.defaultObjectiveImage,
-                                questions: [],
-                                createdOn: new Date(parseInt(createdOn.substr(6), 10)),
-                                modifiedOn: new Date(parseInt(createdOn.substr(6), 10))
-                            }));
+                            dataContext.objectives.push(createdObjective);
 
-                            return objectiveId;
+                            return {
+                                id: createdObjective.id,
+                                createdOn: createdObjective.createdOn
+                            };
                         });
                 });
             },

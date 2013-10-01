@@ -7,16 +7,13 @@
                navigateToObjective: 'Navigate to objective',
                saveAndOpen: 'Save and edit question',
                saveAndNew: 'Save and create question'
-           },
-
-           sendEvent = function (eventName) {
-               eventTracker.publish(eventName);
            };
 
-        var objectiveId = null,
-         objectiveTitle = null,
-         title = ko.observable('');
-        
+        var
+            objectiveId = null,
+            objectiveTitle = null,
+            title = ko.observable('');
+
         title.isValid = ko.computed(function () {
             var length = title().trim().length;
             return length > 0 && length <= constants.validation.questionTitleMaxLength;
@@ -24,10 +21,12 @@
         title.isModified = ko.observable();
         title.isEditing = ko.observable();
 
-        var navigateToObjective = function () {
-            sendEvent(events.navigateToObjective);
-            router.navigateWithQueryString('objective/' + this.objectiveId);
-        },
+        var
+            navigateToObjective = function () {
+                eventTracker.publish(events.navigateToObjective);
+                router.navigateWithQueryString('objective/' + this.objectiveId);
+            },
+
             saveAndOpen = function () {
                 this.title(this.title().trim());
                 if (!this.title.isValid()) {
@@ -36,13 +35,14 @@
                     return;
                 }
 
-                sendEvent(events.saveAndOpen);
+                eventTracker.publish(events.saveAndOpen);
 
                 var that = this;
-                questionRepository.addQuestion(that.objectiveId, { title: that.title() }).then(function (newQuestionId) {
-                    router.navigateWithQueryString('objective/' + that.objectiveId + '/question/' + newQuestionId);
+                questionRepository.addQuestion(that.objectiveId, { title: that.title() }).then(function (newQuestion) {
+                    router.navigateWithQueryString('objective/' + that.objectiveId + '/question/' + newQuestion.id);
                 });
             },
+            
             saveAndNew = function () {
                 this.title(this.title().trim());
                 if (!this.title.isValid()) {
@@ -51,26 +51,23 @@
                     return;
                 }
 
-                sendEvent(events.saveAndNew);
+                eventTracker.publish(events.saveAndNew);
 
                 var that = this;
-                questionRepository.addQuestion(that.objectiveId, { title: that.title() }).then(function () {
+                questionRepository.addQuestion(that.objectiveId, { title: that.title() }).then(function (newQuestion) {
                     that.title('');
                     that.title.isModified(false);
                     that.title.isEditing(true);
-
-                    notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
+                    
+                    notify.info(localizationManager.localize('lastSaving') + ': ' + newQuestion.createdOn.toLocaleTimeString());
                 });
             },
+            
             endEditTitle = function () {
                 this.title.isEditing(false);
             },
+            
             activate = function (objId) {
-                if (!_.isString(objId)) {
-                    router.replace('400');
-                    return undefined;
-                }
-
                 var that = this;
                 return objectiveRepository.getById(objId).then(
                     function (objective) {
@@ -85,8 +82,7 @@
                         that.title.isModified(false);
                         that.title.isEditing(false);
                     });
-            }
-        ;
+            };
 
         return {
             activate: activate,

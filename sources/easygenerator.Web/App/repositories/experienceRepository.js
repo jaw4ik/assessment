@@ -65,7 +65,11 @@
                                 });
 
                             dataContext.experiences.push(createdExperience);
-                            return createdExperience;
+                            
+                            return {
+                                id: createdExperience.id,
+                                createdOn: createdExperience.createdOn
+                            };
                         });
                 });
             },

@@ -174,7 +174,6 @@
 
                     });
 
-
                     describe('and request to server was successful', function () {
 
                         describe('and response is not an object', function () {
@@ -243,14 +242,16 @@
                                 post.resolve(response);
                             });
 
-                            it('should resolve promise with objective id', function () {
+                            it('should resolve promise with objective', function () {
                                 var promise = objectiveRepository.addObjective({});
 
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(promise).toBeResolvedWith(response.Id);
+                                    var createdObjective = promise.inspect().value;
+                                    expect(createdObjective.id).toEqual(response.Id);
+                                    expect(createdObjective.createdOn).toEqual(utils.getDateFromString(response.CreatedOn));
                                 });
                             });
 

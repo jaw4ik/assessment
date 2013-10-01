@@ -21,20 +21,24 @@
 
                         guard.throwIfNotAnObject(objective, 'Objective does not exist in dataContext');
 
-                        var createdOn = new Date(parseInt(response.CreatedOn.substr(6), 10));
+                        var
+                            createdOn = new Date(parseInt(response.CreatedOn.substr(6), 10)),
+                            createdQuestion = {
+                                id: response.Id,
+                                title: obj.title,
+                                learningObjects: [],
+                                answerOptions: [],
+                                createdOn: createdOn,
+                                modifiedOn: createdOn
+                            };
 
                         objective.modifiedOn = createdOn;
+                        objective.questions.push(createdQuestion);
 
-                        objective.questions.push({
-                            id: response.Id,
-                            title: obj.title,
-                            learningObjects: [],
-                            answerOptions: [],
-                            createdOn: createdOn,
-                            modifiedOn: createdOn
-                        });
-
-                        return response.Id;
+                        return {
+                            id: createdQuestion.id,
+                            createdOn: createdQuestion.createdOn
+                        };
                     });
             });
         },

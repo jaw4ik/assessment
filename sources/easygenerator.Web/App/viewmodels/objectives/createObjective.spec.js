@@ -106,7 +106,7 @@
 
                     var notify = require('notify');
                     var id = '0';
-                    var objective = { id: id };
+                    var objective = { id: id, createdOn: new Date() };
 
                     beforeEach(function () {
                         viewModel.title('Some valid text');
@@ -135,7 +135,7 @@
                     describe('when objective created', function () {
 
                         beforeEach(function () {
-                            addObjective.resolve(id);
+                            addObjective.resolve(objective);
                         });
 
                         describe('and when contextExperiencId is not string', function () {
@@ -241,7 +241,7 @@
                 it('should be function', function () {
                     expect(viewModel.createAndEdit).toBeFunction();
                 });
-                
+
                 it('should send event \'Create learning objective and open it properties\'', function () {
                     viewModel.createAndEdit();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and open it properties');
@@ -279,12 +279,12 @@
                         });
                     });
 
-                    describe('when objective created', function () {
+                    describe('and objective created', function () {
                         var id = '0';
                         var objective = { id: id };
 
                         beforeEach(function () {
-                            addObjective.resolve(id);
+                            addObjective.resolve(objective);
                         });
 
                         describe('and when contextExperiencId is not string', function () {
