@@ -358,6 +358,9 @@
 .user-form-tooltip-list {
     width: 100%;
     padding: 10px 20px 0 33px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .user-form-tooltip-list-item {
@@ -402,7 +405,10 @@
     list-style: none;
     display: inline-block;
     vertical-align: bottom;
-    margin: 0 8px;
+    padding: 0 8px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
     -webkit-transition: padding-bottom 0.3s ease 0s;
     -moz-transition: padding-bottom 0.3s ease 0s;
     -ms-transition: padding-bottom 0.3s ease 0s;
