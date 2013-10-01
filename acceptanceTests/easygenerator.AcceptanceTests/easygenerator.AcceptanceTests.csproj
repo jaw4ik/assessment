@@ -253,6 +253,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RelateObjectiveToExperience.feature</DependentUpon>
     </Compile>
+    <Compile Include="Tests\ScoreRounding.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScoreRounding.feature</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -338,6 +343,10 @@
     <None Include="Tests\RelateObjectiveToExperience.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>RelateObjectiveToExperience.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Tests\ScoreRounding.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ScoreRounding.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <Choose>
