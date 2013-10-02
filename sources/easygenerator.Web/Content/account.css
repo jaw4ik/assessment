@@ -847,12 +847,12 @@
     }
 
     .try-image-left-holder:after {
-        right: -8%;
+        right: 13%;
     }
 
     .try-image-top-text {
         top: 0;
-        left: 98%;
+        left: 87%;
     }
 
     .try-image-center {
@@ -883,7 +883,7 @@
     }
 
     .try-image-right-holder:after {
-        bottom: 105%;
+        bottom: 113%;
         left: 22%;
         width: 154px;
         height: 36px;
