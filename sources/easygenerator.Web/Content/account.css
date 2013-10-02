@@ -21,6 +21,18 @@
     letter-spacing: 0;
 }
 
+.account-nav-link.try-now.active {
+    border-color:  #00a8ff;
+}
+
+.account-nav-link.sign-up.active {
+    border-color: #f59957;
+}
+
+.account-nav-link.sign-in.active {
+    border-color: #B0C93E;
+}
+
 /*#endregion Layout*/
 
 /*#region Account navigation*/
