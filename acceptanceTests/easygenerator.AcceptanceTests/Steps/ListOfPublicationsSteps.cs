@@ -276,6 +276,7 @@ namespace easygenerator.AcceptanceTests.Steps
             {
                 item.Build();
             }
+            System.Threading.Thread.Sleep(2000);
         
         }
 
