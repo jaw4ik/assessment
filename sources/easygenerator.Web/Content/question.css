@@ -676,3 +676,10 @@
 }
 
 /*#endregion Create new question navigation button*/
+
+.nav-control.create-question-from-question-view {
+    cursor: pointer;
+}
+.nav-control.create-question-from-question-view .nav-title {
+    padding-left: 0;
+}
