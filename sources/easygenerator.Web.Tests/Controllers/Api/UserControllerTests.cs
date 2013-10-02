@@ -89,5 +89,36 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         #endregion
+
+        #region Exists
+
+        [TestMethod]
+        public void Exists_ShouldReturnJsonTrueResult_WhenUserWithSuchEmailExists()
+        {
+            //Arrange
+            var email = "easygenerator@easygenerator.com";
+            _repository.GetUserByEmail(email).Returns(UserObjectMother.CreateWithEmail(email));
+
+            //Act
+            var result = _controller.Exists(email);
+
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.Should().Be(true);
+        }
+
+        [TestMethod]
+        public void Exists_ShouldReturnJsonFalseResult_WhenUserWithSuchEmailNotExists()
+        {
+            //Arrange
+            var email = "easygenerator@easygenerator.com";
+
+            //Act
+            var result = _controller.Exists(email);
+
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.Should().Be(false);
+        }
+
+        #endregion
     }
 }

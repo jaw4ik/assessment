@@ -156,6 +156,12 @@ namespace easygenerator.Web.Configuration
                 defaults: new { controller = "User", action = "Signup" }
             );
 
+            routes.MapRoute(
+                name: "CheckUserExists",
+                url: "api/user/exists",
+                defaults: new { controller = "User", action = "Exists" }
+            );
+
             #endregion
 
             #region Account

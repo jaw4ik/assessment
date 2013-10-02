@@ -10,9 +10,9 @@
                 <div class="user-form-row" data-bind="css : { error: !userName.isValid() && userName().length > 0, success: userName.isValid() }">
                     <label class="user-form-label email">E-mail</label>
                     <div class="user-form-input-holder">
-                        <input class="user-form-input" type="text" name="email" data-bind="value: userName, valueUpdate: 'afterkeydown'" />
+                        <input class="user-form-input" type="text" name="email" data-bind="value: userName, valueUpdate: 'afterkeydown', event: { blur: checkUserExists  }" />
                     </div>
-                    <span class="user-form-message" data-bind="visible: !userName.isValid() && userName().length > 0">Enter a valid e-mail</span>
+                    <span class="user-form-message" data-bind="visible: !userName.isValid() && userName().length > 0, text: userExists() ? 'This account already exists' : 'Enter a valid e-mail'"></span>
                 </div>
                 <div class="user-form-row" data-bind="css : { error: !password.isValid() && password().length > 0, success: password.isValid() }">
                     <label class="user-form-label password">Password</label>
@@ -41,7 +41,7 @@
                         <div class="user-form-checkbox-label">I have read and agreed to the following <a class="checkbox-label-link" href="@Url.Action("TermsOfUse", "Account")">terms</a> and <a class="checkbox-label-link" href="@Url.Action("PrivacyPolicy", "Account")">conditions</a></div>
                     </div>
                     <div class="formBtn" data-bind="css: { disabled: !(isLicenseAgreed() && userName.isValid() && password.isValid()) }">
-                        <input class="orange btn" type="submit" value="Sign up" data-bind="enable: isLicenseAgreed() && userName.isValid() && password.isValid()">
+                        <input class="green btn" type="submit" value="Sign up" data-bind="enable: isLicenseAgreed() && userName.isValid() && password.isValid(), click: signUp">
                     </div>
                 </div>
             </form>
