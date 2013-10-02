@@ -216,3 +216,29 @@ And objective progress list contains items with data
 | Objective12 | 42%   | width: 42%; |
 
 
+Scenario: Effective score for each question is score of the last attempt for this question
+When open page by url 'http://localhost:5656/Templates/tmp'
+And toggle expand package objective item with title 'Objective11'
+And click package question list item 'Question12' of 'Objective11'
+And toggle package answer option 'AnswerOption21' checkbox
+And click on submit button on package question page
+Then question progress score '100%' is shown on package feedback page
+When click on progress summary link on package feedback page
+Then overall progress score '25%' is shown on package summary page
+And objective progress list contains items with data
+| Title       | Value | MeterValue  |
+| Objective11 | 50%   | width: 50%; |
+| Objective12 | 0%    | width: 0%;  |
+
+When click on home link on progress summary page
+And click package question list item 'Question12' of 'Objective11'
+And toggle package answer option 'AnswerOption21' checkbox
+And toggle package answer option 'AnswerOption22' checkbox
+And click on submit button on package question page
+Then question progress score '50%' is shown on package feedback page
+When click on progress summary link on package feedback page
+Then overall progress score '13%' is shown on package summary page
+And objective progress list contains items with data
+| Title       | Value | MeterValue  |
+| Objective11 | 25%   | width: 25%; |
+| Objective12 | 0%    | width: 0%;  |

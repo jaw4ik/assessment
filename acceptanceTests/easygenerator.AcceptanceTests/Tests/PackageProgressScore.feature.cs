@@ -568,6 +568,81 @@ testRunner.And("objective progress list contains items with data", ((string)(nul
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Effective score for each question is score of the last attempt for this question")]
+        public virtual void EffectiveScoreForEachQuestionIsScoreOfTheLastAttemptForThisQuestion()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Effective score for each question is score of the last attempt for this question", ((string[])(null)));
+#line 219
+this.ScenarioSetup(scenarioInfo);
+#line 10
+this.FeatureBackground();
+#line 220
+testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 221
+testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 222
+testRunner.And("click package question list item \'Question12\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 223
+testRunner.And("toggle package answer option \'AnswerOption21\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 224
+testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 225
+testRunner.Then("question progress score \'100%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 226
+testRunner.When("click on progress summary link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 227
+testRunner.Then("overall progress score \'25%\' is shown on package summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Value",
+                        "MeterValue"});
+            table18.AddRow(new string[] {
+                        "Objective11",
+                        "50%",
+                        "width: 50%;"});
+            table18.AddRow(new string[] {
+                        "Objective12",
+                        "0%",
+                        "width: 0%;"});
+#line 228
+testRunner.And("objective progress list contains items with data", ((string)(null)), table18, "And ");
+#line 233
+testRunner.When("click on home link on progress summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 234
+testRunner.And("click package question list item \'Question12\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 235
+testRunner.And("toggle package answer option \'AnswerOption21\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 236
+testRunner.And("toggle package answer option \'AnswerOption22\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 237
+testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 238
+testRunner.Then("question progress score \'50%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 239
+testRunner.When("click on progress summary link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 240
+testRunner.Then("overall progress score \'13%\' is shown on package summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Value",
+                        "MeterValue"});
+            table19.AddRow(new string[] {
+                        "Objective11",
+                        "25%",
+                        "width: 25%;"});
+            table19.AddRow(new string[] {
+                        "Objective12",
+                        "0%",
+                        "width: 0%;"});
+#line 241
+testRunner.And("objective progress list contains items with data", ((string)(null)), table19, "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
