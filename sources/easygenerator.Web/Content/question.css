@@ -572,10 +572,6 @@
         min-height: 140px;
     }
 
-.create-question-image {
-    float: left;
-}
-
 .create-question-text-wrapper {
     position: relative;
     margin-left: 225px;
