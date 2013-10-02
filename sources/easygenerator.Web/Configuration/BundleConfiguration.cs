@@ -28,6 +28,12 @@ namespace easygenerator.Web.Configuration
                     .IncludeDirectory("~/scripts/knockoutBindings", "*Binding.js")
                 );
 
+            bundles.Add(new ScriptBundle("~/scripts/accounts")
+                    .Include("~/scripts/jquery-{version}.js")
+                    .Include("~/scripts/knockout-{version}.js")
+                    .IncludeDirectory("~/scripts/account", "*.js")
+                );
+
             bundles.Add(new StyleBundle("~/Content/css")
                     .Include("~/Content/font-awesome.css")
                     .Include("~/Content/durandal.css")
@@ -44,12 +50,6 @@ namespace easygenerator.Web.Configuration
                     .Include("~/Content/selectbox.css")
                     .Include("~/Content/common.css")
                     .Include("~/Content/account.css")
-                );
-
-            bundles.Add(new ScriptBundle("~/scripts/account")
-                    .Include("~/scripts/jquery-{version}.js")
-                    .Include("~/scripts/knockout-{version}.js")
-                    .IncludeDirectory("~/scripts/account", "*.js")
                 );
         }
     }

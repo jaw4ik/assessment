@@ -37,3 +37,7 @@
         showHidePassword: showHidePassword
     };
 }
+
+$(function () {
+    ko.applyBindings(signupModel(), $(".sign-up")[0]);
+});
