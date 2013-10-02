@@ -119,6 +119,19 @@
     background-position: -249px 5px;
 }
 
+.user-form-sublabel {
+    color: #333;
+    font-size: 16px;
+}
+
+.user-form-sublabel:before {
+    content: '(';
+}
+
+.user-form-sublabel:after {
+    content: ')';
+}
+
 .user-form-input-holder {
     position: relative;
 }
@@ -475,6 +488,7 @@
 }
 
 .formBtn .btn {
+    height: 49px;
     line-height: 41px;
     display: inline-block;
     -moz-box-sizing: border-box;
