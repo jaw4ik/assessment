@@ -216,10 +216,17 @@
     <Content Include="Content\font\opensans-italic.svg" />
     <Content Include="Content\font\opensans-regular.svg" />
     <Content Include="Content\font\opensans-semibold.svg" />
+    <Content Include="Content\images\account\log-in.jpg" />
+    <Content Include="Content\images\account\pointer-left-big.png" />
+    <Content Include="Content\images\account\pointer-right-big.png" />
+    <Content Include="Content\images\account\pointer-right-small.png" />
+    <Content Include="Content\images\account\sign-up.jpg" />
+    <Content Include="Content\images\account\try-center.png" />
+    <Content Include="Content\images\account\try-left.png" />
+    <Content Include="Content\images\account\try-right.png" />
     <Content Include="Content\images\arrow-for-select-box.png" />
     <Content Include="Content\images\bg-logo.png" />
     <Content Include="Content\images\build-sprite.png" />
-    <Content Include="Content\images\log-in.jpg" />
     <Content Include="Content\images\quizTemplate.png" />
     <Content Include="Content\images\emptyBox.png" />
     <Content Include="Content\images\finish.png" />
@@ -227,7 +234,6 @@
     <Content Include="Content\images\info-icon.png" />
     <Content Include="Content\images\nav-icons.png" />
     <Content Include="Content\images\defaultTemplate.png" />
-    <Content Include="Content\images\sign-up.jpg" />
     <Content Include="Content\images\small-size-icons-pack.png" />
     <Content Include="Content\images\sprites.png" />
     <Content Include="Content\images\undefinedTemplate.png" />
