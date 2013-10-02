@@ -45,10 +45,25 @@
             <div class="footer-item pull-right">
                 <ul class="footer-menu-list">
                     <li class="footer-menu-item">
-                        @Html.ActionLink("Terms of use", "TermsOfUse", "Account", null, new {@class = "footer-menu-link"})
+                        @if (this.ViewContext.RouteData.GetRequiredString("action") == "TermsOfUse")
+                        {
+                            @Html.Label("Terms of use",null, new {@class = "footer-menu-link active"})
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Terms of use", "TermsOfUse", "Account", null, new {@class = "footer-menu-link"})
+                        }
                     </li>
                     <li class="footer-menu-item">
-                        @Html.ActionLink("Privacy policy", "PrivacyPolicy", "Account", null, new { @class = "footer-menu-link" })
+                        @if (this.ViewContext.RouteData.GetRequiredString("action") == "PrivacyPolicy")
+                        {
+                            @Html.Label("Privacy policy",null, new {@class = "footer-menu-link active"})
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Privacy policy", "PrivacyPolicy", "Account", null, new { @class = "footer-menu-link" })
+                        }
+                        
                     </li>
                 </ul>
             </div>

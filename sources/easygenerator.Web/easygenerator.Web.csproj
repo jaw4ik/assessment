@@ -296,6 +296,7 @@
     <Content Include="Content\font\opensans-semibold.woff" />
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Account\TryNow.cshtml" />
+    <Content Include="Content\eula\easygenerator_EULA.pdf" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>

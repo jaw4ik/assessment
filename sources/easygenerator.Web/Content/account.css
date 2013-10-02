@@ -787,9 +787,29 @@
 /*#region Terms of use and Privacy Polycy*/
 
 .view-module.terms-of-use,  .view-module.privacy-policy {
-    padding: 0 0 20px 200px;
+    padding: 0 0 20px 150px;
+    line-height: 2;
 }
 
+.view-module.terms-of-use h1,  .view-module.privacy-policy h1 {
+    font-size: 40px;
+}
+
+.view-module.terms-of-use ul>li,  .view-module.privacy-policy ul>li {
+    line-height: 2;
+}
+
+.view-module.terms-of-use .numeric-list,  .view-module.privacy-policy .numeric-list {
+    padding: 0 50px;
+}
+
+.numeric-list .typeA {
+    list-style-type: lower-alpha;
+}
+
+.view-module.terms-of-use .user-form-tooltip-list-item, .view-module.privacy-policy .user-form-tooltip-list-item {
+    padding-bottom: 10px;
+}
 /*#endregion Terms of use and Privacy Polycy*/
 
 @media (max-width: 1020px) {
