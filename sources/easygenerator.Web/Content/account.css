@@ -21,18 +21,6 @@
     letter-spacing: 0;
 }
 
-.account-nav-link.try-now.active {
-    border-color:  #00a8ff;
-}
-
-.account-nav-link.sign-up.active {
-    border-color: #f59957;
-}
-
-.account-nav-link.sign-in.active {
-    border-color: #B0C93E;
-}
-
 /*#endregion Layout*/
 
 /*#region Account navigation*/
@@ -56,7 +44,9 @@
     color: #999;
 }
 
-.account-nav-link {
+.account-link-try-now,
+.account-link-sign-up,
+.account-link-sign-in {
     display: inline-block;
     color: #999;
     min-width: 74px;
@@ -64,16 +54,31 @@
     border-bottom: 2px solid transparent;
 }
 
-.account-nav-link:hover {
+.account-link-try-now:hover,
+.account-link-sign-up:hover,
+.account-link-sign-in:hover {
     border-bottom: solid 2px #999;
 }
 
-.account-nav-link.active {
+.account-link-try-now.active,
+.account-link-sign-up.active,
+.account-link-sign-in.active {
     margin-top: -1px;
     font-weight: bold;
     color: #000;
-    border-bottom: solid 2px #f59957;
     cursor: default;
+}
+
+.account-link-try-now.active {
+    border-color:  #00a8ff;
+}
+
+.account-link-sign-up.active {
+    border-color: #f59957;
+}
+
+.account-link-sign-in.active {
+    border-color: #B0C93E;
 }
 
 /*#endregion Account navigation*/
