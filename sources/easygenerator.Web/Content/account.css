@@ -1,4 +1,15 @@
 ﻿/*#region Layout*/
+
+.main-container.try {
+    position: relative;
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 80px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 .content-wrapper.try {
     width: 90%;
     -moz-box-sizing: border-box;
@@ -9,6 +20,7 @@
     font-family: 'OpenSans', Arial, sans-serif;
     letter-spacing: 0;
 }
+
 /*#endregion Layout*/
 
 /*#region Account navigation*/
@@ -469,7 +481,8 @@
     position: relative;
     top: -30px;
     margin-left: 20px;
-    font: 18px Buxton Sketch, 'BuxtonSketch';
+    font-size: 18px;
+    font-family: 'BuxtonSketch';
     color: #1b6fd0;
     opacity: 0;
     -webkit-transition: opacity 0.3s ease 0s;

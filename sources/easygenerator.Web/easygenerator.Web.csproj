@@ -217,7 +217,7 @@
     <Content Include="Content\font\opensans-italic.svg" />
     <Content Include="Content\font\opensans-regular.svg" />
     <Content Include="Content\font\opensans-semibold.svg" />
-    <Content Include="Content\images\account\log-in.jpg" />
+    <Content Include="Content\images\account\log-in.png" />
     <Content Include="Content\images\account\pointer-left-big.png" />
     <Content Include="Content\images\account\pointer-right-big.png" />
     <Content Include="Content\images\account\pointer-right-small.png" />

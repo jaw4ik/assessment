@@ -19,6 +19,14 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'BuxtonSketch';
+    src: url('./font/buxtonsketch.eot');
+    src: url('./font/buxtonsketch.svg#OpenSansRegular') format('svg'), url('./font/buxtonsketch.eot?#iefix') format('embedded-opentype'), url('./font/buxtonsketch.woff') format('woff'), url('./font/buxtonsketch.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /*#endregion FONTS CONNECTIONS*/
 
 /*#region RESET CSS-STYLES IN FOREIGN BROWSERS */
@@ -75,7 +83,7 @@ input[type="checkbox"] {
 
 input[type="password"]::-ms-reveal {
     visibility: hidden;
-   }
+}
 
 input::-ms-clear {
     visibility: hidden;
@@ -143,6 +151,36 @@ ol.unstyled  {
     user-select: text;
 }
 /*#endregion COMMON CLASSES CSS-STYLES*/
+
+/*#region CHECKBOX */
+
+.eg-checkbox {
+    position: relative;
+    float: left;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #e6e6e6;
+    vertical-align: middle;
+}
+
+    .eg-checkbox.checked {
+        background: url(images/sprites.png) 2px -22px;
+    }
+
+.input-checkbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+
+/*#endregion CHECKBOX*/
+
+
 
 /*#region CURSOR*/
 .cursor-default {

@@ -18,7 +18,7 @@
                     <label class="user-form-label password">Password</label>
                     <div class="user-form-input-holder show-tooltip">
                         <input class="user-form-input" name="password" data-bind="attr: { type: isPasswordVisible() ? 'text' : 'password' }, value: password, valueUpdate: 'afterkeydown', hasFocus: isPasswordEditing" />
-                        <a href="#" class="tooltip-link" data-bind="css: { visible: isPasswordVisible }, click: showHidePassword "></a>
+                        <a href="#" class="tooltip-link" data-bind="css:{ visible: isPasswordVisible }, click: showHidePassword "></a>
                         <div class="user-form-tooltip" data-bind="visible: isPasswordEditing()">
                             <div class="user-form-tooltip-title">The password requirements:</div>
                             <ul class="user-form-tooltip-list">
@@ -33,13 +33,13 @@
                     </div>
                     <span class="user-form-message" data-bind="visible: password().length > 0, text: password.isValid() ?'Password is strong enough' : 'Password does not meet requirements'"></span>
                 </div>
-                <div class="user-form-checkbox-holder clearfix">
-                    <div class="user-form-checkbox" data-bind="css: {checked: isLicenseAgreed}">
-                        <input class="custom-checkbox" type="checkbox" data-bind="checked: isLicenseAgreed" />
-                    </div>
-                    <div class="user-form-checkbox-label">I have read and agreed to the following <a class="checkbox-label-link" href="@Url.Action("TermsOfUse", "Account")">terms</a> and <a class="checkbox-label-link" href="@Url.Action("PrivacyPolicy", "Account")">conditions</a></div>
-                </div>
                 <div class="user-form-row submit">
+                    <div class="user-form-checkbox-holder clearfix">
+                        <div class="user-form-checkbox" data-bind="css: {checked: isLicenseAgreed}">
+                            <input class="custom-checkbox" type="checkbox" data-bind="checked: isLicenseAgreed" />
+                        </div>
+                        <div class="user-form-checkbox-label">I have read and agreed to the following <a class="checkbox-label-link" href="@Url.Action("TermsOfUse", "Account")">terms</a> and <a class="checkbox-label-link" href="@Url.Action("PrivacyPolicy", "Account")">conditions</a></div>
+                    </div>
                     <div class="formBtn" data-bind="css: { disabled: !(isLicenseAgreed() && userName.isValid() && password.isValid()) }">
                         <input class="green btn" type="submit" value="Sign up" data-bind="enable: isLicenseAgreed() && userName.isValid() && password.isValid()">
                     </div>
