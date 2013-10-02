@@ -58,6 +58,8 @@
     position: relative;
     background-color: rgb(48, 49, 51);
     color: white;
+    position: fixed;
+    bottom: 0;
 }
 
 .footer-item {
@@ -79,8 +81,8 @@
         color: white;
     }
 
-    .footer-menu-link:hover {
-        text-decoration: underline;
-    }
+.footer-menu-link:hover {
+    border-bottom: solid 1px #bebebe;
+}
 
 /*#endregion Footer*/

@@ -34,9 +34,7 @@
                     </li>
                 </ul>
             </div>
-        <section>
             @RenderBody()
-        </section>
     </div>
     </div>
 
@@ -48,10 +46,10 @@
             <div class="footer-item pull-right">
                 <ul class="footer-menu-list">
                     <li class="footer-menu-item">
-                        <a href="#" class="footer-menu-link">Terms of use</a>
+                        @Html.ActionLink("Terms of use", "TermsOfUse", "Account", null, new {@class = "footer-menu-link"})
                     </li>
                     <li class="footer-menu-item">
-                        <a href="#" class="footer-menu-link">Privacy policy</a>
+                        @Html.ActionLink("Privacy policy", "PrivacyPolicy", "Account", null, new { @class = "footer-menu-link" })
                     </li>
                 </ul>
             </div>

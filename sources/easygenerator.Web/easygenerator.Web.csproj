@@ -210,6 +210,7 @@
     <Content Include="App\guard.spec.js">
       <DependentUpon>guard.js</DependentUpon>
     </Content>
+    <Content Include="Content\account.css" />
     <Content Include="Content\common_old.css" />
     <Content Include="Content\durandal.css" />
     <Content Include="Content\font\buxtonsketch.svg" />
@@ -239,7 +240,6 @@
     <Content Include="Content\images\undefinedTemplate.png" />
     <Content Include="Content\images\warning.png" />
     <Content Include="Content\images\objective.png" />
-    <Content Include="Content\account.css" />
     <Content Include="Content\notify.css" />
     <Content Include="Content\selectbox.css" />
     <Content Include="Content\styles.css" />

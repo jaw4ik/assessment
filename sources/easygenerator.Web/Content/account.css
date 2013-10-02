@@ -737,6 +737,14 @@
 
 /*#endregion TRY NOW*/
 
+/*#region Terms of use and Privacy Polycy*/
+
+.view-module.terms-of-use,  .view-module.privacy-policy {
+    padding: 0 0 20px 200px;
+}
+
+/*#endregion Terms of use and Privacy Polycy*/
+
 @media (max-width: 1020px) {
 
     /*#region Layout*/
