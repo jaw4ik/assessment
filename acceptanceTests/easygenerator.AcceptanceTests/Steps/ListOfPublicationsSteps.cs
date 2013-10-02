@@ -213,25 +213,43 @@ namespace easygenerator.AcceptanceTests.Steps
             
             if (System.IO.Directory.Exists(extractPath))
             {
-                int loop = 0;
-                while (loop < 20)
-                {
-                    try
-                    {
-                        System.Threading.Thread.Sleep(3000);
-                        System.IO.Directory.Delete(extractPath, true);
-                        break;
-                    }
-                    catch (UnauthorizedAccessException)
-                    {
-                        loop++;
-                    }
-                }
+                //int loop1 = 0;
+                //while (loop1 < 60)
+                //{
+                //    try
+                //    {
+                //        System.Threading.Thread.Sleep(1000);
+                //        System.IO.Directory.Delete(extractPath, true);
+                //        break;
+                //    }
+                //    catch (UnauthorizedAccessException)
+                //    {
+                //        loop1++;
+                //    }
+                //}
+                System.Threading.Thread.Sleep(1000);
+                System.IO.Directory.Delete(extractPath, true);
+
             }
 
             System.IO.DirectoryInfo downloadDir = new System.IO.DirectoryInfo(downloadDirPath);
             string zipFilePath = downloadDir.GetFiles().ToList().First(f => (f.Name.Contains(zipFileName + " ") && f.Name.Contains("-UTC"))).FullName;
-            System.IO.Compression.ZipFile.ExtractToDirectory(zipFilePath, extractPath);
+            int loop2 = 0;
+            while (loop2 < 60)
+            {
+                try
+                {
+                    System.Threading.Thread.Sleep(1000);
+                    System.IO.Compression.ZipFile.ExtractToDirectory(zipFilePath, extractPath);
+                    break;
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    loop2++;
+                }
+            }
+            //System.IO.Compression.ZipFile.ExtractToDirectory(zipFilePath, extractPath);
+            
             System.Threading.Thread.Sleep(2000);
 
             //System.IO.File.Delete(zipFilePath);
@@ -305,12 +323,13 @@ namespace easygenerator.AcceptanceTests.Steps
         [Given(@"click download publication list item with title '(.*)'")]
         public void GivenClickDownloadPublicationListItemWithTitle(string title)
         {
+            System.Threading.Thread.Sleep(1000);
             var item = publicationsPage.Items.First(it => it.Title == title);
             if (TestUtils.WaitForCondition((() => item.IsDownloadEnabled), 1000))
             {
                 item.Download();
             }
-            System.Threading.Thread.Sleep(1000);
+            
         }
 
 
