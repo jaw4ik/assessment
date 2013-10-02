@@ -213,8 +213,20 @@ namespace easygenerator.AcceptanceTests.Steps
             
             if (System.IO.Directory.Exists(extractPath))
             {
-                System.Threading.Thread.Sleep(1000);
-                System.IO.Directory.Delete(extractPath, true);
+                int loop = 0;
+                while (loop < 20)
+                {
+                    try
+                    {
+                        System.Threading.Thread.Sleep(1000);
+                        System.IO.Directory.Delete(extractPath, true);
+                        break;
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+                        loop++;
+                    }
+                }
             }
 
             System.IO.DirectoryInfo downloadDir = new System.IO.DirectoryInfo(downloadDirPath);
@@ -297,7 +309,7 @@ namespace easygenerator.AcceptanceTests.Steps
             {
                 item.Download();
             }
-            System.Threading.Thread.Sleep(4000);
+            System.Threading.Thread.Sleep(1000);
         }
 
 
