@@ -21,6 +21,18 @@
     letter-spacing: 0;
 }
 
+.try-now .account-nav-link.active {
+    border-color:  #00a8ff;
+}
+
+.sign-up .account-nav-link.active {
+    border-color: #f59957;
+}
+
+.sign-in .account-nav-link.active {
+    border-color: #B0C93E;
+}
+
 /*#endregion Layout*/
 
 /*#region Account navigation*/
@@ -199,7 +211,7 @@
 }
 
 .user-form-checkbox.checked {
-    background: url(images/sprites.png) 2px -22px;
+    background: url(images/sprites.png) 1px -22px;
 }
 
 .custom-checkbox {
@@ -394,17 +406,19 @@
     line-height: 1;
 }
 
-.tooltip-link {
+.user-form-password-eye {
     position: absolute;
     top: 26px;
     right: 10px;
     display: block;
     width: 24px;
     height: 20px;
-    background: url(images/sprites.png) -28px -52px no-repeat;
+    background: url(images/sprites.png);
+    background-position: -28px -52px;
+    background-repeat: no-repeat;
 }
 
-.show-tooltip .tooltip-link {
+.user-form-password-eye.revealed {
     background-position: 0 -52px;
 }
 
