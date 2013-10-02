@@ -3,23 +3,29 @@
     Layout = "~/Views/Account/_Layout.cshtml";
 }
 <section class="view-module sign-up">
+<script type="text/javascript">
+    $(function() {
+        ko.applyBindings(signupModel(), $(".user-columns")[0]);
+    });
+</script>
+
 <div class="user-columns">
     <div class="user-column form">
         <div class="user-title">Create account</div>
         <form class="user-form" id="signUpForm" action="#" method="post">
-            <div class="user-form-row" data-bind="">
+            <div class="user-form-row" data-bind="css : { error: !userName.isValid() && userName().length > 0, success: userName.isValid() }">
                 <label class="user-form-label email">E-mail</label>
                 <div class="user-form-input-holder">
-                    <input class="user-form-input" type="text" name="email" />
+                    <input class="user-form-input" type="text" name="email" data-bind="value: userName, valueUpdate: 'afterkeydown'" />
                 </div>
-                <span class="user-form-message">Enter a valid e-mail</span>
+                <span class="user-form-message" data-bind="visible: !userName.isValid() && userName().length > 0">Enter a valid e-mail</span>
             </div>
-            <div class="user-form-row" data-bind="">
+            <div class="user-form-row" data-bind="css : { error: !password.isValid() && password().length > 0, success: password.isValid() }">
                 <label class="user-form-label password">Password</label>
                 <div class="user-form-input-holder show-tooltip">
-                    <input class="user-form-input" type="password" name="email" />
-                    <a href="#" class="tooltip-link" data-bind=""></a>
-                    <div class="user-form-tooltip" data-bind="">
+                    <input class="user-form-input" name="password" data-bind="attr: { type: isPasswordVisible() ? 'text' : 'password' }, value: password, valueUpdate: 'afterkeydown', hasFocus: isPasswordEditing" />
+                    <a href="#" class="tooltip-link" data-bind="css:{ visible: isPasswordVisible }, click: showHidePassword "></a>
+                    <div class="user-form-tooltip" data-bind="visible: isPasswordEditing()">
                         <div class="user-form-tooltip-title">The password requirements:</div>
                         <ul class="user-form-tooltip-list">
                             <li class="user-form-tooltip-list-item">has to be at least 7 characters long;</li>
@@ -30,19 +36,18 @@
                             <li class="user-form-tooltip-list-item">cannot contain whitespace(s).</li>
                         </ul>
                     </div>
-
                 </div>
-                <span class="user-form-message">Password is strong enough</span>
+                <span class="user-form-message" data-bind="visible: password().length > 0, text: password.isValid() ?'Password is strong enough' : 'Password does not meet requirements'"></span>
             </div>
             <div class="user-form-checkbox-holder clearfix">
-                <div class="user-form-checkbox checked">
-                    <input class="custom-checkbox" type="checkbox"/>    
+                <div class="user-form-checkbox" data-bind="css: {checked: isLicenseAgreed}">
+                    <input class="custom-checkbox" type="checkbox" data-bind="checked: isLicenseAgreed" />
                 </div>
-                <div class="user-form-checkbox-label">I have read and agreed to the following <a class="checkbox-label-link" href="#">terms</a> and <a class="checkbox-label-link" href="#">conditions</a></div>
+                <div class="user-form-checkbox-label">I have read and agreed to the following <a class="checkbox-label-link" href="@Url.Action("TermsOfUse", "Account")">terms</a> and <a class="checkbox-label-link" href="@Url.Action("PrivacyPolicy", "Account")">conditions</a></div>
             </div>
             <div class="user-form-row submit">
-                <div class="formBtn">
-                    <input class="green btn" type="submit" value="Sign up">
+                <div class="formBtn" data-bind="css: { disabled: !(isLicenseAgreed() && userName.isValid() && password.isValid()) }">
+                    <input class="green btn" type="submit" value="Sign up" data-bind="enable: isLicenseAgreed() && userName.isValid() && password.isValid()">
                 </div>
             </div>
         </form>

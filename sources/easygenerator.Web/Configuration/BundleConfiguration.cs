@@ -8,6 +8,7 @@ namespace easygenerator.Web.Configuration
         {
             var bundles = BundleTable.Bundles;
             bundles.IgnoreList.Clear();
+            bundles.IgnoreList.Ignore("*.spec.js");
 
             bundles.Add(new ScriptBundle("~/scripts/modernizr")
                  .Include("~/scripts/modernizr-{version}.js"));
@@ -41,6 +42,14 @@ namespace easygenerator.Web.Configuration
                     .Include("~/Content/ckeditor.css")
                     .Include("~/Content/notify.css")
                     .Include("~/Content/selectbox.css")
+                    .Include("~/Content/common.css")
+                    .Include("~/Content/account.css")
+                );
+
+            bundles.Add(new ScriptBundle("~/scripts/account")
+                    .Include("~/scripts/jquery-{version}.js")
+                    .Include("~/scripts/knockout-{version}.js")
+                    .IncludeDirectory("~/scripts/account", "*.js")
                 );
         }
     }

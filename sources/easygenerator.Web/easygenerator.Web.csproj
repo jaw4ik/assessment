@@ -243,6 +243,10 @@
     <Content Include="Content\notify.css" />
     <Content Include="Content\selectbox.css" />
     <Content Include="Content\styles.css" />
+    <Content Include="Scripts\account\signup.js" />
+    <Content Include="Scripts\account\signup.spec.js">
+      <DependentUpon>signup.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\almond-custom.js" />
     <Content Include="Scripts\durandal\activator.js" />
     <Content Include="Scripts\durandal\app.js" />

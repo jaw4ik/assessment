@@ -496,6 +496,7 @@
     border-style: solid;
     border-width: 1px;
     border-radius: 5px 5px 5px 5px;
+    box-shadow: none;
     color: #FFFFFF;
     font-size: 24px;
     font-family: 'OpenSans';
@@ -516,7 +517,10 @@
     background: none repeat scroll 0 0 #BDD93D;
 }
 
-.formBtn .btn.green:active {
+.formBtn .btn.green:active,
+.formBtn.disabled .btn.green,
+.formBtn.disabled .btn.green:active,
+.formBtn.disabled .btn.green:hover {
     background: none repeat scroll 0 0 #B0C93E;
     border-color: #9DB23B;
     box-shadow: 0px 1px 2px rgba(0,0,0,0.2) inset;
@@ -535,10 +539,21 @@
     background: none repeat scroll 0 0 #f2893e;
 }
 
-.formBtn .btn.orange:active {
+.formBtn .btn.orange:active,
+.formBtn.disabled .btn.orange,
+.formBtn.disabled .btn.orange:active,
+.formBtn.disabled .btn.orange:hover {
     background: #f59957;
     border-color: #b16e3f;
     box-shadow: 0px 1px 2px rgba(0,0,0,0.2) inset;
+}
+
+.formBtn.disabled .btn,
+.formBtn.disabled .btn:active,
+.formBtn.disabled .btn:hover {
+    opacity: 0.6;
+    box-shadow: none;
+    cursor: default;
 }
 
 /*#endregion Form Button*/
