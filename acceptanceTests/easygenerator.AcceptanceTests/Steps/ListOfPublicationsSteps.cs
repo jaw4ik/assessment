@@ -218,7 +218,7 @@ namespace easygenerator.AcceptanceTests.Steps
                 {
                     try
                     {
-                        System.Threading.Thread.Sleep(1000);
+                        System.Threading.Thread.Sleep(3000);
                         System.IO.Directory.Delete(extractPath, true);
                         break;
                     }
