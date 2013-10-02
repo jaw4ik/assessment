@@ -1,4 +1,8 @@
-﻿ko.bindingHandlers.editableText = {
+﻿$(window).on("hashchange", function () {
+    $(".editable-text-binding:focus").blur();
+});
+
+ko.bindingHandlers.editableText = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var $element = $(element),
             text = valueAccessor().text,
