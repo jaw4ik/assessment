@@ -2,9 +2,14 @@
     var userName = ko.observable(''),
         password = ko.observable(''),
         isLicenseAgreed = ko.observable(false),
+        isUserNameEditing = ko.observable(false),
         isPasswordEditing = ko.observable(false),
         isPasswordVisible = ko.observable(false),
         userExists = ko.observable(false),
+        lastValidatedUserName = null,
+        userPreciselyExists = ko.computed(function () {
+            return userExists() && userName() === lastValidatedUserName;
+        }),
         
         showHidePassword = function () {
             isPasswordVisible(!isPasswordVisible());
@@ -22,11 +27,15 @@
         },
 
         checkUserExists = function () {
+            if (userPreciselyExists()) {
+                return;
+            }
+
             if (userName().trim() == '') {
                 userExists(false);
                 return;
             }
-
+            lastValidatedUserName = userName();
             $.ajax({
                 url: '/api/user/exists',
                 data: { email: userName() },
@@ -35,14 +44,10 @@
             .done(function(response) {
                 userExists(response.data);
             });
-        },
-
-        resetUserExists = function () {
-            userExists(false);
         };
 
     userName.isValid = ko.computed(function () {
-        var mailRegex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$/;
+        var mailRegex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/;
         return userName().trim().length > 0 && mailRegex.test(userName()) && !userExists();
     });
 
@@ -59,17 +64,23 @@
             && !whitespaceRegex.test(password());
     });
 
+    userName.subscribe(function (newValue) {
+        if (userName() != newValue)
+            userExists(false);
+    });
+
     return {
         userName: userName,
         password: password,
         isLicenseAgreed: isLicenseAgreed,
+        isUserNameEditing: isUserNameEditing,
         isPasswordEditing: isPasswordEditing,
         isPasswordVisible: isPasswordVisible,
         userExists: userExists,
+        userPreciselyExists: userPreciselyExists,
 
         showHidePassword: showHidePassword,
         checkUserExists: checkUserExists,
-        resetUserExists: resetUserExists,
         signUp: signUp
     };
 }

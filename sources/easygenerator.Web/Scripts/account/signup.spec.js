@@ -4,17 +4,17 @@
     var viewModel = signupModel();
 
     describe('viewModel [signUp]', function () {
-        
+
         it('should be object', function () {
             expect(viewModel).toBeObject();
         });
 
         describe('userName:', function () {
-            
-            it('should be observable', function() {
+
+            it('should be observable', function () {
                 expect(viewModel.userName).toBeObservable();
             });
-            
+
             it('should have isValid computed', function () {
                 expect(viewModel.userName.isValid).toBeComputed();
             });
@@ -28,16 +28,16 @@
 
             });
 
-            describe('when not e-mail', function() {
+            describe('when not e-mail', function () {
 
-                it('should be not valid', function() {
+                it('should be not valid', function () {
                     viewModel.userName('Username');
                     expect(viewModel.userName.isValid()).toBeFalsy();
                 });
 
             });
 
-            describe('when user with such e-mail exists', function() {
+            describe('when user with such e-mail exists', function () {
 
                 it('should be not valid', function () {
                     viewModel.userName('test@mail.com');
@@ -50,7 +50,7 @@
 
             describe('when meet all requirements', function () {
 
-                it('should be valid', function() {
+                it('should be valid', function () {
                     viewModel.userName('test@mail.com');
                     viewModel.userExists(false);
 
@@ -61,27 +61,35 @@
 
         });
 
-        describe('password:', function() {
+        describe('isUserNameEditing:', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
+                expect(viewModel.isUserNameEditing).toBeObservable();
+            });
+
+        });
+
+        describe('password:', function () {
+
+            it('should be observable', function () {
                 expect(viewModel.password).toBeObservable();
             });
 
-            it('should have isValid computed', function() {
+            it('should have isValid computed', function () {
                 expect(viewModel.password.isValid).toBeComputed();
             });
 
-            describe('when is empty', function() {
+            describe('when is empty', function () {
 
-                it('should be not valid', function() {
+                it('should be not valid', function () {
                     viewModel.password('');
                     expect(viewModel.password.isValid()).toBeFalsy();
                 });
 
             });
 
-            describe('when less than 7 characters', function() {
-                
+            describe('when less than 7 characters', function () {
+
                 it('should be not valid', function () {
                     viewModel.password('some');
                     expect(viewModel.password.isValid()).toBeFalsy();
@@ -90,30 +98,30 @@
             });
 
             describe('when not contain upper case letter', function () {
-                
+
                 it('should be not valid', function () {
                     viewModel.password('password');
                     expect(viewModel.password.isValid()).toBeFalsy();
                 });
-                
+
             });
 
             describe('when not contain lower case letter', function () {
-                
+
                 it('should be not valid', function () {
                     viewModel.password('PASSWORD');
                     expect(viewModel.password.isValid()).toBeFalsy();
                 });
-                
+
             });
 
             describe('when not contain digit', function () {
-                
-                it('should be not valid', function() {
+
+                it('should be not valid', function () {
                     viewModel.password('Password');
                     expect(viewModel.password.isValid()).toBeFalsy();
                 });
-                
+
             });
 
             describe('when not contain special character', function () {
@@ -124,7 +132,7 @@
                 });
 
             });
-            
+
             describe('when contain whitespace', function () {
 
                 it('should be not valid', function () {
@@ -135,35 +143,35 @@
             });
 
             describe('when meet all requirements', function () {
-                
-                it('should be valid', function() {
+
+                it('should be valid', function () {
                     viewModel.password('Password1!');
                     expect(viewModel.password.isValid()).toBeTruthy();
                 });
-                
+
             });
 
         });
 
-        describe('isPasswordEditing:', function() {
+        describe('isPasswordEditing:', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.isPasswordEditing).toBeObservable();
             });
 
         });
 
-        describe('isPasswordVisible:', function() {
+        describe('isPasswordVisible:', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.isPasswordVisible).toBeObservable();
             });
 
         });
 
-        describe('showHidePassword:', function() {
+        describe('showHidePassword:', function () {
 
-            it('should be a function', function() {
+            it('should be a function', function () {
                 expect(viewModel.showHidePassword).toBeFunction();
             });
 
@@ -177,7 +185,7 @@
 
             });
 
-            describe('when password is visible', function() {
+            describe('when password is visible', function () {
 
                 it('should hide password', function () {
                     viewModel.isPasswordVisible(true);
@@ -189,29 +197,37 @@
 
         });
 
-        describe('isLicenseAgreed:', function() {
+        describe('isLicenseAgreed:', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.isLicenseAgreed).toBeObservable();
             });
 
         });
 
         describe('userExists:', function () {
-            
-            it('should be observable', function() {
+
+            it('should be observable', function () {
                 expect(viewModel.userExists).toBeObservable();
             });
 
         });
 
+        describe('userPreciselyExists:', function () {
+
+            it('should be computed', function () {
+                expect(viewModel.userPreciselyExists).toBeComputed();
+            });
+
+        });
+
         describe('checkUserExists:', function () {
-            
+
             it('should be a function', function () {
                 expect(viewModel.checkUserExists).toBeFunction();
             });
 
-            describe('when userName is empty', function() {
+            describe('when userName is empty', function () {
 
                 it('should set userExists false', function () {
                     spyOn($, 'ajax').andReturn($.Deferred().promise());
@@ -225,7 +241,6 @@
                 it('should not send request to server', function () {
                     spyOn($, 'ajax').andReturn($.Deferred().promise());
                     viewModel.userName('');
-                    viewModel.userExists(null);
                     viewModel.checkUserExists();
 
                     expect($.ajax).not.toHaveBeenCalled();
@@ -260,9 +275,9 @@
                     spyOn($, 'ajax').andReturn(deferred.promise());
                 });
 
-                describe('and user exists', function() {
+                describe('and user exists', function () {
 
-                    it('should set userExists true', function() {
+                    it('should set userExists true', function () {
                         viewModel.userName('mail');
                         viewModel.userExists(null);
                         deferred.resolve({ data: true });
@@ -278,8 +293,46 @@
                         });
                     });
 
+                    it('should change userPreciselyExists in true', function () {
+                        viewModel.userName('mail');
+                        viewModel.userExists(null);
+                        deferred.resolve({ data: true });
+
+                        viewModel.checkUserExists();
+
+                        waitsFor(function () {
+                            return promise.state() != "pending";
+                        });
+
+                        runs(function () {
+                            expect(viewModel.userPreciselyExists()).toBeTruthy();
+                        });
+                    });
+
+                    describe('and userName is changed', function () {
+
+                        it('should change userPreciselyExists in false', function () {
+                            viewModel.userName('mail');
+                            viewModel.userExists(null);
+                            deferred.resolve({ data: true });
+
+                            viewModel.checkUserExists();
+
+                            waitsFor(function () {
+                                return promise.state() != "pending";
+                            });
+
+                            runs(function () {
+                                viewModel.userName('newMail');
+                                expect(viewModel.userPreciselyExists()).toBeFalsy();
+                            });
+
+                        });
+
+                    });
+
                 });
-                
+
                 describe('and user not exists', function () {
 
                     it('should set userExists false', function () {
@@ -304,22 +357,7 @@
 
         });
 
-        describe('resetUserExists:', function() {
-
-            it('should be a function', function() {
-                expect(viewModel.resetUserExists).toBeFunction();
-            });
-
-            it('should set userExists false', function () {
-                viewModel.userExists(null);
-                viewModel.resetUserExists();
-                
-                expect(viewModel.userExists()).toBeFalsy();
-            });
-
-        });
-
-        describe('signUp:', function() {
+        describe('signUp:', function () {
 
             it('should be a function', function () {
                 expect(viewModel.signUp).toBeFunction();
