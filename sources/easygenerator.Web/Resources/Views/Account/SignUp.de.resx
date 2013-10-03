@@ -145,7 +145,7 @@
     <value>Geben Sie eine gültige E-Mail-Adresse ein</value>
   </data>
   <data name="LicenseAgreeCheckBoxTitle" xml:space="preserve">
-    <value>Ich habe die folgenden Nutzungsbedingungen gelesen und stimme ihnen zu</value>
+    <value>Ich habe die folgenden &lt;a href="{0}"&gt;Nutzungsbedingungen&lt;/a&gt; und &lt;a href="{1}"&gt;Datenschutz&lt;/a&gt; gelesen und stimme ihnen zu</value>
   </data>
   <data name="NotContainWhitespaceCharacters" xml:space="preserve">
     <value>darf kein(e) Leerzeichen enthalten.</value>
