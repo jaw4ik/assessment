@@ -242,7 +242,7 @@ body.try {
     font-size: 12px;
 }
 
-.checkbox-label-link {
+.user-form-checkbox-label a{
     color: #222;
     text-decoration: underline;
 }

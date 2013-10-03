@@ -199,6 +199,16 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Views\Account\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Views\Account\SignUp.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SignUp.resx</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\Objective\CreateObjectiveViewModel.cs" />
     <Content Include="App\repositories\templateRepository.js" />
     <Content Include="App\repositories\templateRepository.spec.js">
@@ -929,7 +939,22 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Views\Account\Resources.de.resx" />
+    <EmbeddedResource Include="Resources\Views\Account\Resources.nl.resx" />
+    <EmbeddedResource Include="Resources\Views\Account\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>AccountRes</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Account\SignUp.de.resx" />
+    <EmbeddedResource Include="Resources\Views\Account\SignUp.nl.resx" />
+    <EmbeddedResource Include="Resources\Views\Account\SignUp.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SignUp.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>AccountRes</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
