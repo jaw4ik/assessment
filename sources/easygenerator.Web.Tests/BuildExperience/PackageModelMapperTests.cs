@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.BuildExperience;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace easygenerator.Web.Tests.BuildExperience
 {
- /*   [TestClass]
+    [TestClass]
     public class PackageModelMapperTests
     {
         private PackageModelMapper _packageModelMapper;
@@ -16,248 +20,174 @@ namespace easygenerator.Web.Tests.BuildExperience
             _packageModelMapper = new PackageModelMapper();
         }
 
-        private ExperienceBuildModel GetExperienceBuildModel()
+        private Experience GetExperience()
         {
-            return new ExperienceBuildModel()
-            {
-                Id = "0",
-                Title = "Some experience title",
-                Objectives = new List<ObjectiveBuildModel>() 
-                { 
-                    new ObjectiveBuildModel()
-                    {
-                        Id = "0",
-                        Title = "Some text",
-                        Image = "Some image url",
-                        Questions = new List<QuestionBuildModel>() 
-                        { 
-                            new QuestionBuildModel() 
-                            {
-                                Id = "0",
-                                Title = "Some text",
-                                AnswerOptions = new List<AnswerOptionBuildModel>() { new AnswerOptionBuildModel() {Id = "0", Text = "Some text" , IsCorrect = false}},
-                                LearningObjects = new List<LearningObjectBuildModel>() {new LearningObjectBuildModel() { Id = "0", Text = "Some explanaion text"}}
-                            }
-                        }
-                    }
-                }
-            };
+            var answer = AnswerObjectMother.Create("AnswerText", true);
+            var explanation = LearningObjectObjectMother.Create("Text");
+
+            var question = QuestionObjectMother.Create("QuestionTitle");
+            question.AddAnswer(answer, "SomeUser");
+            question.AddLearningObject(explanation, "SomeUser");
+
+            var objective = ObjectiveObjectMother.Create("ObjectiveTitle");
+            objective.AddQuestion(question, "SomeUser");
+
+            var experience = ExperienceObjectMother.Create("ExperienceTitle");
+            experience.UpdateTemplate(TemplateObjectMother.Create(name: "Default"), "SomeUser");
+            experience.RelateObjective(objective, "SomeUser");
+
+            return experience;
         }
 
-        #region MapExperienceBuildModel
+        #region Mapexperience
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
-        public void MapExperienceBuildModel_ShouldThrowArgumentNullAxception_WhenExperienceBuildModelIsNull()
+        public void Mapexperience_ShouldThrowArgumentNullAxception_WhenexperienceIsNull()
         {
             //Arrange
 
-
             //Act
-            _packageModelMapper.MapExperienceBuildModel(null);
+            Action action = () => _packageModelMapper.MapExperience(null);
 
             //Assert
-
+            action.ShouldThrow<ArgumentNullException>();
         }
 
         [TestMethod]
-        public void MapExperienceBuildModel_ShouldReturnMappedLearningObjectPackageModel()
+        public void Mapexperience_ShouldReturnMappedLearningObjectPackageModel()
         {
             //Arrange
-            var experienceBuildModel = GetExperienceBuildModel();
+            var experience = GetExperience();
 
             //Act
-            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
+            var result = _packageModelMapper.MapExperience(experience);
 
             //Assert
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].LearningObjects[0].Id, result.Objectives[0].Questions[0].LearningObjects[0].Id);
+            var expectedModel = experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].LearningObjects.ToArray()[0];
+            var actualModel = result.Objectives[0].Questions[0].LearningObjects[0];
 
+            expectedModel.Id.ToString("N").Should().Be(actualModel.Id);
         }
-
+        
         [TestMethod]
-        public void MapExperienceBuildModel_ShouldReturnMappedAnswerOptionPackageModel()
+        public void Mapexperience_ShouldReturnMappedAnswerOptionPackageModel()
         {
             //Arrange
-            var experienceBuildModel = GetExperienceBuildModel();
+            var experience = GetExperience();
 
             //Act
-            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
+            var result = _packageModelMapper.MapExperience(experience);
 
             //Assert
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].AnswerOptions[0].Id, result.Objectives[0].Questions[0].Answers[0].Id);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].AnswerOptions[0].Text, result.Objectives[0].Questions[0].Answers[0].Text);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].AnswerOptions[0].IsCorrect, result.Objectives[0].Questions[0].Answers[0].IsCorrect);
+            var expectedModel = experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Answers.ToArray()[0];
+            var actualModel = result.Objectives[0].Questions[0].Answers[0];
+
+            expectedModel.Id.ToString("N").Should().Be(actualModel.Id);
+            expectedModel.Text.Should().Be(actualModel.Text);
+            expectedModel.IsCorrect.Should().Be(actualModel.IsCorrect);
         }
 
+        
         [TestMethod]
-        public void MapExperienceBuildModel_ShouldReturnMappedQuestionPackageModel()
+        public void Mapexperience_ShouldReturnMappedQuestionPackageModel()
         {
             //Arrange
-            var experienceBuildModel = GetExperienceBuildModel();
+            var experience = GetExperience();
 
             //Act
-            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
+            var result = _packageModelMapper.MapExperience(experience);
 
             //Assert
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].Id, result.Objectives[0].Questions[0].Id);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].Title, result.Objectives[0].Questions[0].Title);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].AnswerOptions.Count, result.Objectives[0].Questions[0].Answers.Count);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].LearningObjects.Count, result.Objectives[0].Questions[0].LearningObjects.Count);
-        }
+            var expectedModel = experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0];
+            var actualModel = result.Objectives[0].Questions[0];
 
+            expectedModel.Id.ToString("N").Should().Be(actualModel.Id);
+            expectedModel.Title.Should().Be(actualModel.Title);
+            expectedModel.Answers.Count().Should().Be(actualModel.Answers.Count);
+            expectedModel.LearningObjects.Count().Should().Be(actualModel.LearningObjects.Count);
+        }
+        
         [TestMethod]
-        public void MapExperienceBuildModel_ShouldReturnMappedObjectivePackageModel()
+        public void Mapexperience_ShouldReturnMappedObjectivePackageModel()
         {
             //Arrange
-            var experienceBuildModel = GetExperienceBuildModel();
+            var experience = GetExperience();
 
             //Act
-            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
+            var result = _packageModelMapper.MapExperience(experience);
 
             //Assert
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Id, result.Objectives[0].Id);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Title, result.Objectives[0].Title);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Image, result.Objectives[0].Image);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions.Count, result.Objectives[0].Questions.Count);
-        }
+            var expectedModel = experience.RelatedObjectives.ToArray()[0];
+            var actualModel = result.Objectives[0];
 
+            expectedModel.Id.ToString("N").Should().Be(actualModel.Id);
+            expectedModel.Title.Should().Be(actualModel.Title);
+            expectedModel.Questions.Count().Should().Be(actualModel.Questions.Count);
+        }
+        
         [TestMethod]
-        public void MapExperienceBuildModel_ShouldReturnMappedExperiencePackageModel()
+        public void Mapexperience_ShouldReturnMappedExperiencePackageModel()
         {
             //Arrange
-            var experienceBuildModel = GetExperienceBuildModel();
+            var experience = GetExperience();
 
             //Act
-            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
+            var result = _packageModelMapper.MapExperience(experience);
 
             //Assert
-            Assert.AreEqual(experienceBuildModel.Id, result.Id);
-            Assert.AreEqual(experienceBuildModel.Title, result.Title);
-            Assert.AreEqual(experienceBuildModel.Objectives.Count, result.Objectives.Count);
-        }
+            var expectedModel = experience;
+            var actualModel = result;
 
+            expectedModel.Id.ToString("N").Should().Be(actualModel.Id);
+            expectedModel.Title.Should().Be(actualModel.Title);
+            expectedModel.RelatedObjectives.Count().Should().Be(actualModel.Objectives.Count);
+        }
+        
         [TestMethod]
-        public void MapExperienceBuildModel_ShouldIgnoreQuestionsWithoutAnswerOptionsAndLearningObjects()
+        public void Mapexperience_ShouldIgnoreQuestionsWithoutAnswers()
         {
             //Arrange
-            var experienceBuildModel = GetExperienceBuildModel();
-            experienceBuildModel.Objectives[0].Questions.Add(new QuestionBuildModel()
-            {
-                Id = "1",
-                Title = "Some text1",
-                AnswerOptions = null,
-                LearningObjects = null
-            });
+            var experience = GetExperience();
+            var question = experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0];
+            question.RemoveAnswer(question.Answers.ToArray()[0], "Me");
 
             //Act
-            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
+            var result = _packageModelMapper.MapExperience(experience);
 
             //Assert
-            Assert.AreEqual(1, result.Objectives[0].Questions.Count);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Questions[0].Id, result.Objectives[0].Questions[0].Id);
+            Assert.AreEqual(0, result.Objectives.Count);
         }
-
+        
         [TestMethod]
-        public void MapExperienceBuildModel_ShouldIgnoreObjectivesWithoutQuestions()
+        public void Mapexperience_ShouldIgnoreObjectivesWithoutQuestions()
         {
             //Arrange
-            var experienceBuildModel = GetExperienceBuildModel();
-            experienceBuildModel.Objectives.Add(
-                new ObjectiveBuildModel()
-                    {
-                        Id = "1",
-                        Title = "Some text",
-                        Image = "Some image url",
-                        Questions = null
-                    });
+            var experience = GetExperience();
+            var objective = experience.RelatedObjectives.ToArray()[0];
+            objective.RemoveQuestion(objective.Questions.ToArray()[0], "Me");
+
             //Act
-            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
+            var result = _packageModelMapper.MapExperience(experience);
 
             //Assert
-            Assert.AreEqual(1, result.Objectives.Count);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Id, result.Objectives[0].Id);
+            Assert.AreEqual(0, result.Objectives.Count);
         }
-
+        
         [TestMethod]
-        public void MapExperienceBuildModel_ShouldIgnoreObjectivesWithFilteredQuestions()
+        public void Mapexperience_ShouldIgnoreObjectivesWithFilteredQuestions()
         {
             //Arrange
-            var experienceBuildModel = GetExperienceBuildModel();
-            experienceBuildModel.Objectives.Add(
-                new ObjectiveBuildModel()
-                {
-                    Id = "1",
-                    Title = "Some text",
-                    Image = "Some image url",
-                    Questions = new List<QuestionBuildModel>()
-                    {
-                        new QuestionBuildModel()
-                        {
-                            Id = "Some Id",
-                            AnswerOptions = null,
-                            LearningObjects = null
-                        }   
-                    }
-                });
+            var experience = GetExperience();
+            var objective = experience.RelatedObjectives.ToArray()[0];
+            objective.Questions.ToArray()[0].RemoveAnswer(objective.Questions.ToArray()[0].Answers.ToArray()[0], "Me");
+
             //Act
-            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
+            var result = _packageModelMapper.MapExperience(experience);
 
             //Assert
-            Assert.AreEqual(1, result.Objectives.Count);
-            Assert.AreEqual(experienceBuildModel.Objectives[0].Id, result.Objectives[0].Id);
+            Assert.AreEqual(0, result.Objectives.Count);
         }
-
-        [TestMethod]
-        public void MapExperienceBuildModel_ShouldReturnEmptyListOfAswers_WhenAswerOptionsIsNull()
-        {
-            //Arrange
-            var experienceBuildModel = GetExperienceBuildModel();
-            experienceBuildModel.Objectives[0].Questions.Add(new QuestionBuildModel()
-            {
-                Id = "1",
-                Title = "Some text1",
-                AnswerOptions = null,
-                LearningObjects = new List<LearningObjectBuildModel>() { new LearningObjectBuildModel() { Id = "Some Id", Text = "Some Text" } }
-            });
-            //Act
-            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
-
-            //Assert
-            Assert.IsNotNull(result.Objectives[0].Questions[1].Answers);
-        }
-
-        [TestMethod]
-        public void MapExperienceBuildModel_ShouldReturnEmptyListOfLearningObjects_WhenSourceLearningObjectIsNull()
-        {
-            //Arrange
-            var experienceBuildModel = GetExperienceBuildModel();
-            experienceBuildModel.Objectives[0].Questions.Add(new QuestionBuildModel()
-            {
-                Id = "1",
-                Title = "Some text1",
-                AnswerOptions = new List<AnswerOptionBuildModel>() { new AnswerOptionBuildModel() { Id = "Some Id", IsCorrect = true, Text = "Some text" } },
-                LearningObjects = null
-            });
-            //Act
-            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
-
-            //Assert
-            Assert.IsNotNull(result.Objectives[0].Questions[1].LearningObjects);
-        }
-
-        [TestMethod]
-        public void MapExperienceBuildModel_ShouldReturnEmptyListOfObjectives_WhenSourceObjectivesIsNull()
-        {
-            //Arrange
-            var experienceBuildModel = GetExperienceBuildModel();
-            experienceBuildModel.Objectives = null;
-            //Act
-            var result = _packageModelMapper.MapExperienceBuildModel(experienceBuildModel);
-
-            //Assert
-            Assert.IsNotNull(result.Objectives);
-        }
-
+        
         #endregion
-    }*/
+    }
 }
