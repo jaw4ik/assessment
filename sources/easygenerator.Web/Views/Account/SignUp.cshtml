@@ -14,7 +14,7 @@
                     <div class="user-form-input-holder">
                         <input class="user-form-input" type="text" name="email" data-bind="value: userName, valueUpdate: 'afterkeydown', event: { blur: checkUserExists  }" />
                     </div>
-                    <span class="user-form-message" data-bind="visible: !userName.isValid() && userName().length > 0, text: userExists() ? '@SignUp.AccountAlreadyExists' : '@SignUp.EnterValidEmailMessage'"></span>
+                    <span class="user-form-message" data-bind="visible: !userName.isValid() && userName().length > 0, text: userExists() ? '@SignUp.AccountAlreadyExists    ' : '@SignUp.EnterValidEmailMessage    '"></span>
                 </div>
                 <div class="user-form-row" data-bind="css : { error: !password.isValid() && password().length > 0, success: password.isValid() }">
                     <label class="user-form-label password">@SignUp.PasswordCaption</label>
@@ -33,14 +33,18 @@
                             </ul>
                         </div>
                     </div>
-                    <span class="user-form-message" data-bind="visible: password().length > 0, text: password.isValid() ? '@SignUp.PasswordIsStrongEnough' : '@AccountRes.SignUp.PasswordDoesNotMeetRequirements'"></span>
+                    <span class="user-form-message" data-bind="visible: password().length > 0, text: password.isValid() ? '@SignUp.PasswordIsStrongEnough    ' : '@AccountRes.SignUp.PasswordDoesNotMeetRequirements    '"></span>
                 </div>
                 <div class="user-form-row submit">
                     <div class="user-form-checkbox-holder clearfix">
                         <div class="user-form-checkbox" data-bind="css: {checked: isLicenseAgreed}">
-                            <input class="custom-checkbox" type="checkbox" data-bind="checked: isLicenseAgreed" />
+                            <input id="uf-checkbox" class="custom-checkbox" type="checkbox" data-bind="checked: isLicenseAgreed" />
                         </div>
-                        <div class="user-form-checkbox-label">@Html.Raw(String.Format(SignUp.LicenseAgreeCheckBoxTitle, Url.Action("TermsOfUse", "Account"), Url.Action("PrivacyPolicy", "Account")))</div>
+                        <div class="user-form-checkbox-label">
+                            <label for="uf-checkbox">
+                                @Html.Raw(String.Format(SignUp.LicenseAgreeCheckBoxTitle, Url.Action("TermsOfUse", "Account"), Url.Action("PrivacyPolicy", "Account")))
+                            </label>
+                        </div>
                     </div>
                     <div class="formBtn" data-bind="css: { disabled: !(isLicenseAgreed() && userName.isValid() && password.isValid()) }">
                         <input class="orange btn" type="submit" value="@SignUp.SignUpButton" data-bind="enable: isLicenseAgreed() && userName.isValid() && password.isValid(), click: signUp">

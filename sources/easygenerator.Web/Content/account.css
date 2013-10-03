@@ -214,14 +214,15 @@ body.try {
 .user-form-checkbox {
     position: relative;
     float: left;
-    width: 19px;
-    height: 19px;
-    border: 1px solid #e6e6e6;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #a5a5a5;
+    border-radius: 4px;
     vertical-align: middle;
 }
 
 .user-form-checkbox.checked {
-    background: url(images/sprites.png) 3px -21px;
+    background: url(images/sprites.png) -88px -50px;
 }
 
 .custom-checkbox {
@@ -235,7 +236,8 @@ body.try {
 }
 
 .user-form-checkbox-label {
-    margin-left: 24px;
+    line-height: 24px;
+    margin-left: 35px;
     vertical-align: top;
     color: #222;
     font-family: 'OpenSans-Semibold';
@@ -462,7 +464,6 @@ body.try {
     -webkit-transition: padding-bottom 0.3s ease 0s;
     -moz-transition: padding-bottom 0.3s ease 0s;
     -ms-transition: padding-bottom 0.3s ease 0s;
-    -o-transition: padding-bottom 0.3s ease 0s;
     transition: padding-bottom 0.3s ease 0s;
 }
 
