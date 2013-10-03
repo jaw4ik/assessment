@@ -686,6 +686,10 @@ ol.unstyled  {
     background: linear-gradient(to bottom, #f6f7f9 1%,#ffffff 37%,#ffffff 61%,#f6f7f9 100%);
 }
 
+.btn.enabled:focus {
+    outline: none;
+}
+
 .ie9 .btn:hover {
     filter: none;
 }
