@@ -34,7 +34,7 @@
                 </ul>
             </div>
             @RenderBody()
-    </div>
+        </div>
     </div>
 
     <footer class="footer try">
@@ -47,23 +47,23 @@
                     <li class="footer-menu-item">
                         @if (this.ViewContext.RouteData.GetRequiredString("action") == "TermsOfUse")
                         {
-                            @Html.Label("Terms of use",null, new {@class = "footer-menu-link active"})
+                            @Html.Label("Terms of use", null, new { @class = "footer-menu-link active" })
                         }
                         else
                         {
-                            @Html.ActionLink("Terms of use", "TermsOfUse", "Account", null, new {@class = "footer-menu-link"})
+                            @Html.ActionLink("Terms of use", "TermsOfUse", "Account", null, new { @class = "footer-menu-link" })
                         }
                     </li>
                     <li class="footer-menu-item">
                         @if (this.ViewContext.RouteData.GetRequiredString("action") == "PrivacyPolicy")
                         {
-                            @Html.Label("Privacy policy",null, new {@class = "footer-menu-link active"})
+                            @Html.Label("Privacy policy", null, new { @class = "footer-menu-link active" })
                         }
                         else
                         {
                             @Html.ActionLink("Privacy policy", "PrivacyPolicy", "Account", null, new { @class = "footer-menu-link" })
                         }
-                        
+
                     </li>
                 </ul>
             </div>

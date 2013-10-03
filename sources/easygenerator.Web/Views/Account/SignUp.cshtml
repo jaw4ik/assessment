@@ -7,18 +7,18 @@
         <div class="user-column form">
             <div class="user-title">Create account</div>
             <form class="user-form" id="signUpForm" action="#" method="post">
-                <div class="user-form-row" data-bind="css : { error: !userName.isValid() && userName().length > 0, success: userName.isValid() }">
+                <div class="user-form-row" data-bind="css: { error: !userName.isValid() && userName().length > 0, success: userName.isValid() }">
                     <label class="user-form-label email">E-mail</label>
                     <div class="user-form-input-holder">
-                        <input class="user-form-input" type="text" name="email" data-bind="value: userName, valueUpdate: 'afterkeydown', event: { blur: checkUserExists  }" />
+                        <input class="user-form-input" type="text" name="email" data-bind="value: userName, valueUpdate: 'afterkeydown', event: { blur: checkUserExists }" />
                     </div>
                     <span class="user-form-message" data-bind="visible: !userName.isValid() && userName().length > 0, text: userExists() ? 'This account already exists' : 'Enter a valid e-mail'"></span>
                 </div>
-                <div class="user-form-row" data-bind="css : { error: !password.isValid() && password().length > 0, success: password.isValid() }">
+                <div class="user-form-row" data-bind="css: { error: !password.isValid() && password().length > 0, success: password.isValid() }">
                     <label class="user-form-label password">Password</label>
                     <div class="user-form-input-holder show-tooltip">
                         <input class="user-form-input" name="password" data-bind="attr: { type: isPasswordVisible() ? 'text' : 'password' }, value: password, valueUpdate: 'afterkeydown', hasFocus: isPasswordEditing" />
-                        <a href="#" class="user-form-password-eye" data-bind="css:{ revealed: isPasswordVisible }, click: showHidePassword "></a>
+                        <a href="#" class="user-form-password-eye" data-bind="css: { revealed: isPasswordVisible }, click: showHidePassword "></a>
                         <div class="user-form-tooltip" data-bind="visible: isPasswordEditing()">
                             <div class="user-form-tooltip-title">The password requirements:</div>
                             <ul class="user-form-tooltip-list">
@@ -31,11 +31,11 @@
                             </ul>
                         </div>
                     </div>
-                    <span class="user-form-message" data-bind="visible: password().length > 0, text: password.isValid() ?'Password is strong enough' : 'Password does not meet requirements'"></span>
+                    <span class="user-form-message" data-bind="visible: password().length > 0, text: password.isValid() ? 'Password is strong enough' : 'Password does not meet requirements'"></span>
                 </div>
                 <div class="user-form-row submit">
                     <div class="user-form-checkbox-holder clearfix">
-                        <div class="user-form-checkbox" data-bind="css: {checked: isLicenseAgreed}">
+                        <div class="user-form-checkbox" data-bind="css: { checked: isLicenseAgreed }">
                             <input class="custom-checkbox" type="checkbox" data-bind="checked: isLicenseAgreed" />
                         </div>
                         <div class="user-form-checkbox-label">I have read and agreed to the following <a class="checkbox-label-link" href="@Url.Action("TermsOfUse", "Account")">terms</a> and <a class="checkbox-label-link" href="@Url.Action("PrivacyPolicy", "Account")">conditions</a></div>
