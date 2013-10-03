@@ -214,14 +214,14 @@ body.try {
 .user-form-checkbox {
     position: relative;
     float: left;
-    width: 15px;
-    height: 15px;
+    width: 19px;
+    height: 19px;
     border: 1px solid #e6e6e6;
     vertical-align: middle;
 }
 
 .user-form-checkbox.checked {
-    background: url(images/sprites.png) 1px -22px;
+    background: url(images/sprites.png) 3px -21px;
 }
 
 .custom-checkbox {
@@ -345,11 +345,11 @@ body.try {
     top: 9px;
     left: 100%;
     background: #fff;
-    width: 300px;
+    width: 293px;
     margin-left: 8px;
     padding: 10px 0 0 0;
     color: #333;
-    font-size: 14px;
+    font-size: 13px;
     border: solid 1px #cfcfcf;
     -webkit-border-radius: 3px;
     -khtml-border-radius: 3px;
