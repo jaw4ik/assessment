@@ -41,7 +41,7 @@
                         <div class="user-form-checkbox-label">I have read and agreed to the following <a class="checkbox-label-link" href="@Url.Action("TermsOfUse", "Account")">terms</a> and <a class="checkbox-label-link" href="@Url.Action("PrivacyPolicy", "Account")">conditions</a></div>
                     </div>
                     <div class="formBtn" data-bind="css: { disabled: !(isLicenseAgreed() && userName.isValid() && password.isValid()) }">
-                        <input class="green btn" type="submit" value="Sign up" data-bind="enable: isLicenseAgreed() && userName.isValid() && password.isValid(), click: signUp">
+                        <input class="orange btn" type="submit" value="Sign up" data-bind="enable: isLicenseAgreed() && userName.isValid() && password.isValid(), click: signUp">
                     </div>
                 </div>
             </form>
