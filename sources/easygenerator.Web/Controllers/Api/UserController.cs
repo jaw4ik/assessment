@@ -5,6 +5,7 @@ using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Controllers.Api
 {
+    [AllowAnonymous]
     public class UserController : DefaultController
     {
         private readonly IEntityFactory _entityFactory;
