@@ -801,12 +801,23 @@ body.try {
     font-size: 40px;
 }
 
+.view-module.terms-of-use .line-for-title,  .view-module.privacy-policy .line-for-title {
+    width: 400px;
+    background-color: #989898;
+    height: 1px;
+    margin: -10px 0 10px;
+}
+
 .view-module.terms-of-use ul>li,  .view-module.privacy-policy ul>li {
     line-height: 2;
 }
 
 .view-module.terms-of-use .numeric-list,  .view-module.privacy-policy .numeric-list {
     padding: 0 50px;
+    font-weight: bold;
+}
+.numeric-list .weigth-normal {
+    font-weight: normal;
 }
 
 .numeric-list .typeA {
@@ -815,7 +826,13 @@ body.try {
 
 .view-module.terms-of-use .user-form-tooltip-list-item, .view-module.privacy-policy .user-form-tooltip-list-item {
     padding-bottom: 10px;
+    list-style-type: disc;
+    font-weight: normal;
 }
+.view-module.terms-of-use .italic-text,  .view-module.privacy-policy .italic-text {
+    font-style: italic;
+}
+
 /*#endregion Terms of use and Privacy Polycy*/
 
 @media (max-width: 1020px) {
