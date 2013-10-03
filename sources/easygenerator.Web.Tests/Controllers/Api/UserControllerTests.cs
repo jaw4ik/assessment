@@ -6,6 +6,7 @@ using System.Web.Routing;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.Web.Components;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
@@ -21,6 +22,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IUserRepository _repository;
         private UserController _controller;
         private IEntityFactory _entityFactory;
+        private IAuthenticationProvider _authenticationProvider;
         IPrincipal _user;
         HttpContextBase _context;
 
@@ -29,13 +31,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             _repository = Substitute.For<IUserRepository>();
             _entityFactory = Substitute.For<IEntityFactory>();
-            _controller = new UserController(_repository, _entityFactory);
+            _authenticationProvider = Substitute.For<IAuthenticationProvider>();
+            _controller = new UserController(_repository, _entityFactory, _authenticationProvider);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
 
-            _controller = new UserController(_repository, _entityFactory);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -61,17 +63,29 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var email = "easygenerator@easygenerator.com";
             var password = "Easy123!";
-            var creator = "Test user";
-            _user.Identity.Name.Returns(creator);
             var user = UserObjectMother.Create(email, password);
 
-            _entityFactory.User(email, password, creator).Returns(user);
+            _entityFactory.User(email, password, email).Returns(user);
 
             //Act
             _controller.Signup(email, password);
 
             //Assert
             _repository.Received().Add(user);
+        }
+
+        [TestMethod]
+        public void Signup_ShouldSignInNewUser()
+        {
+            //Arrange
+            var email = "easygenerator@easygenerator.com";
+            var password = "Easy123!";
+
+            //Act
+            _controller.Signup(email, password);
+
+            //Assert
+            _authenticationProvider.Received().SignIn(email, true);
         }
 
         [TestMethod]

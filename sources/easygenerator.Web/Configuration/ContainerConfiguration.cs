@@ -47,6 +47,8 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<EntityFactory>().As<IEntityFactory>();
 
+            builder.RegisterType<AuthenticationProvider>().As<IAuthenticationProvider>();
+
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }

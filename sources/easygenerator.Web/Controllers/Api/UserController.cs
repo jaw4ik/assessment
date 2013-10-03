@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using System.Web.Security;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
@@ -10,11 +11,13 @@ namespace easygenerator.Web.Controllers.Api
     {
         private readonly IEntityFactory _entityFactory;
         private readonly IUserRepository _repository;
+        private readonly IAuthenticationProvider _authenticationProvider;
 
-        public UserController(IUserRepository repository, IEntityFactory entityFactory)
+        public UserController(IUserRepository repository, IEntityFactory entityFactory, IAuthenticationProvider authenticationProvider)
         {
             _repository = repository;
             _entityFactory = entityFactory;
+            _authenticationProvider = authenticationProvider;
         }
 
         [HttpPost]
@@ -25,7 +28,8 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonError("Account with this email already exists");
             }
 
-            _repository.Add(_entityFactory.User(email, password, GetCurrentUsername()));
+            _repository.Add(_entityFactory.User(email, password, email));
+            _authenticationProvider.SignIn(email, true);
 
             return JsonSuccess();
         }
