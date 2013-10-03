@@ -4,12 +4,8 @@ using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DomainModel.Repositories
 {
-    public interface IRepository<T> where T : Entity
+    public interface IRepository<T> : IQuerableRepository<T> where T : Entity
     {
-        T Get(Guid id);
-
-        ICollection<T> GetCollection();
-
         void Add(T entity);
         void Remove(T entity);
     }

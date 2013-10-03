@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
@@ -23,8 +24,35 @@ namespace easygenerator.Web.Controllers.Api
         public ActionResult GetCollection()
         {
             var objectives = _repository.GetCollection();
+            
+            var result = objectives.Select(obj => new
+            {
+                Id = obj.Id,
+                Title = obj.Title,
+                CreatedOn = obj.CreatedOn,
+                ModifiedOn = obj.ModifiedOn,
+                Questions = obj.Questions.Select(q => new
+                {
+                    Id = q.Id,
+                    Title = q.Title,
+                    CreatedOn = q.CreatedOn,
+                    ModifiedOn = q.ModifiedOn,
+                    Answers = q.Answers.Select(a => new
+                    {
+                        Id = a.Id,
+                        Text = a.Text,
+                        IsCorrect = a.IsCorrect
+                    }),
+                    LearningObjects = q.LearningObjects.Select(lo => new
+                    {
+                        Id = lo.Id,
+                        Text = lo.Text,
+                    })
+                })
+            });
 
-            return JsonSuccess(objectives);
+
+            return JsonSuccess(result);
         }
 
         [HttpPost]

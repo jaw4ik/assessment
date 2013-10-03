@@ -4,7 +4,9 @@ namespace easygenerator.DomainModel.Entities
 {
     public class Answer : Entity
     {
-        public Answer(string text, bool isCorrect, string createdBy) 
+        protected internal Answer() { }
+
+        public Answer(string text, bool isCorrect, string createdBy)
             : base(createdBy)
         {
             ThrowIfTextIsInvalid(text);
@@ -15,7 +17,7 @@ namespace easygenerator.DomainModel.Entities
 
         public string Text { get; private set; }
 
-        public void UpdateText(string text, string modifiedBy)
+        public virtual void UpdateText(string text, string modifiedBy)
         {
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
@@ -26,7 +28,7 @@ namespace easygenerator.DomainModel.Entities
 
         public bool IsCorrect { get; private set; }
 
-        public void UpdateCorrectness(bool isCorrect, string modifiedBy)
+        public virtual void UpdateCorrectness(bool isCorrect, string modifiedBy)
         {
             ThrowIfModifiedByIsInvalid(modifiedBy);
 

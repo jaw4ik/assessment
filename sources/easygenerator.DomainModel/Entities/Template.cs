@@ -4,6 +4,8 @@ namespace easygenerator.DomainModel.Entities
 {
     public class Template : Entity
     {
+        protected internal Template() { }
+
         public string Name { get; private set; }
         public string Image { get; private set; }
 

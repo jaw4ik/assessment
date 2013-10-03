@@ -25,14 +25,5 @@ namespace easygenerator.DataAccess
             return _dataContext.Templates;
         }
 
-        public void Add(Template entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(Template entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

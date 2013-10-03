@@ -67,7 +67,7 @@ namespace easygenerator.DomainModel.Tests
         {
             const string text = "text";
 
-            var explanation = _entityFactory.Explanation(text, ModifiedBy);
+            var explanation = _entityFactory.LearningObject(text, ModifiedBy);
             explanation.Should().NotBeNull();
             explanation.Text.Should().Be(text);
         }

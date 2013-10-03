@@ -86,6 +86,56 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
+            #region Answers
+
+            routes.MapRoute(
+                name: "CreateAnswer",
+                url: "api/answer/create",
+                defaults: new { controller = "Answer", action = "Create" }
+            );
+
+            routes.MapRoute(
+                name: "DeleteAnswer",
+                url: "api/answer/delete",
+                defaults: new { controller = "Answer", action = "Delete" }
+            );
+
+            routes.MapRoute(
+                name: "UpdateAnswerText",
+                url: "api/answer/updateText",
+                defaults: new { controller = "Answer", action = "UpdateText" }
+            );
+
+            routes.MapRoute(
+                name: "UpdateAnswerCorrectness",
+                url: "api/answer/updateCorrectness",
+                defaults: new { controller = "Answer", action = "UpdateCorrectness" }
+            );
+
+            #endregion
+
+            #region Learning objects
+
+            routes.MapRoute(
+                name: "CreateLearningObject",
+                url: "api/learningObject/create",
+                defaults: new { controller = "LearningObject", action = "Create" }
+            );
+
+            routes.MapRoute(
+                name: "DeleteLearningObject",
+                url: "api/learningObject/delete",
+                defaults: new { controller = "LearningObject", action = "Delete" }
+            );
+
+            routes.MapRoute(
+                name: "UpdateLearningObjectText",
+                url: "api/learningObject/updateText",
+                defaults: new { controller = "LearningObject", action = "UpdateText" }
+            );
+
+            #endregion
+
             #region Experiences
 
             routes.MapRoute(

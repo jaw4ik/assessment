@@ -62,7 +62,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Entities\AnswerTests.cs" />
-    <Compile Include="Entities\ExplanationTests.cs" />
+    <Compile Include="Entities\LearningObjectTests.cs" />
     <Compile Include="Entities\ObjectiveTests.cs" />
     <Compile Include="Entities\ExperienceTests.cs" />
     <Compile Include="Entities\QuestionTests.cs" />
@@ -71,7 +71,7 @@
     <Compile Include="EntityFactoryTests.cs" />
     <Compile Include="ObjectMothers\AnswerObjectMother.cs" />
     <Compile Include="ObjectMothers\ExperienceObjectMother.cs" />
-    <Compile Include="ObjectMothers\ExplanationObjectMother.cs" />
+    <Compile Include="ObjectMothers\LearningObjectObjectMother.cs" />
     <Compile Include="ObjectMothers\ObjectiveObjectMother.cs" />
     <Compile Include="ObjectMothers\QuestionObjectMother.cs" />
     <Compile Include="ObjectMothers\TemplateObjectMother.cs" />

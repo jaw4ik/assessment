@@ -149,8 +149,16 @@
     <Content Include="App\httpWrapper.js" />
     <Content Include="App\models\template.js" />
     <Content Include="App\notify.js" />
+    <Content Include="App\repositories\answerRepository.js" />
+    <Content Include="App\repositories\answerRepository.spec.js">
+      <DependentUpon>answerRepository.js</DependentUpon>
+    </Content>
     <Content Include="App\repositories\experienceRepository.spec.js">
       <DependentUpon>experienceRepository.js</DependentUpon>
+    </Content>
+    <Content Include="App\repositories\learningObjectRepository.js" />
+    <Content Include="App\repositories\learningObjectRepository.spec.js">
+      <DependentUpon>learningObjectRepository.js</DependentUpon>
     </Content>
     <Content Include="App\repositories\objectiveRepository.js" />
     <Compile Include="BuildExperience\BuildPackageCreator.cs" />
@@ -178,7 +186,9 @@
     <Compile Include="Configuration\FilterConfiguration.cs" />
     <Compile Include="Configuration\RouteConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\AnswerController.cs" />
     <Compile Include="Controllers\Api\ExperienceController.cs" />
+    <Compile Include="Controllers\Api\LearningObjectController.cs" />
     <Compile Include="Controllers\Api\ObjectiveController.cs" />
     <Compile Include="Controllers\Api\QuestionController.cs" />
     <Compile Include="Controllers\Api\TemplateController.cs" />
@@ -193,6 +203,14 @@
     <Content Include="App\repositories\templateRepository.js" />
     <Content Include="App\repositories\templateRepository.spec.js">
       <DependentUpon>templateRepository.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\answers.js" />
+    <Content Include="App\viewmodels\questions\answers.spec.js">
+      <DependentUpon>answers.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\learningObjects.js" />
+    <Content Include="App\viewmodels\questions\learningObjects.spec.js">
+      <DependentUpon>learningObjects.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\shell.spec.js">
       <DependentUpon>shell.js</DependentUpon>

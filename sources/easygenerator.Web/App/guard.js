@@ -10,6 +10,11 @@
             if (!_.isString(str)) {
                 throw message;
             }
+        },
+        throwIfNotBoolean: function(bool, message) {
+            if (!_.isBoolean(bool)) {
+                throw message;
+            }
         }
     };
     

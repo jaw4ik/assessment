@@ -7,6 +7,8 @@ namespace easygenerator.DomainModel.Entities
 {
     public class User : Entity
     {
+        protected internal User() { }
+
         protected internal User(string email, string password, string createdBy)
             : base(createdBy)
         {
@@ -55,6 +57,6 @@ namespace easygenerator.DomainModel.Entities
 
             if (password.Contains(" "))
                 throw new ArgumentException("Password should not contain whitespace symbols", "password");
-        }     
+        }
     }
 }

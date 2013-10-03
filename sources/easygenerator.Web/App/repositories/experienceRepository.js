@@ -96,7 +96,7 @@
                             }
 
                             dataContext.experiences = _.reject(dataContext.experiences, function (experience) {
-                                return experience.id == experienceId;
+                                return experience.id === experienceId;
                             });
 
                             deferred.resolve();

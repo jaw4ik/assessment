@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnswerRepository.cs" />
+    <Compile Include="LearningObjectRepository.cs" />
     <Compile Include="ExperienceRepository.cs" />
     <Compile Include="InMemoryDataContext.cs" />
     <Compile Include="IDataContext.cs" />

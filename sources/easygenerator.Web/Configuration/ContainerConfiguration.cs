@@ -37,11 +37,13 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<SessionDataContext>().As<IDataContext>();
             builder.RegisterType<InMemoryDataContext>().As<InMemoryDataContext>().SingleInstance();
 
-            builder.RegisterType<ObjectiveRepository>().As<IObjectiveRepository>().As<IRepository<Objective>>();
-            builder.RegisterType<ExperienceRepository>().As<IExperienceRepository>().As<IRepository<Experience>>();
-            builder.RegisterType<TemplateRepository>().As<ITemplateRepository>().As<IRepository<Template>>();
-            builder.RegisterType<QuestionRepository>().As<IRepository<Question>>();
-            builder.RegisterType<UserRepository>().As<IUserRepository>().As<IRepository<User>>();
+            builder.RegisterType<ObjectiveRepository>().As<IObjectiveRepository>().As<IQuerableRepository<Objective>>();
+            builder.RegisterType<ExperienceRepository>().As<IExperienceRepository>().As<IQuerableRepository<Experience>>();
+            builder.RegisterType<TemplateRepository>().As<ITemplateRepository>().As<IQuerableRepository<Template>>();
+            builder.RegisterType<QuestionRepository>().As<IQuerableRepository<Question>>();
+            builder.RegisterType<AnswerRepository>().As<IQuerableRepository<Answer>>();
+            builder.RegisterType<LearningObjectRepository>().As<IQuerableRepository<LearningObject>>();
+            builder.RegisterType<UserRepository>().As<IUserRepository>().As<IQuerableRepository<User>>();
 
             builder.RegisterType<EntityFactory>().As<IEntityFactory>();
 

@@ -74,7 +74,7 @@
                                 packageUrl: experience.packageUrl
                             });
                         }));
-                    })
+                    });
                 }).then(function () {
                     return $.ajax({
                         url: 'api/objectives',
@@ -95,8 +95,19 @@
                                         title: question.Title,
                                         createdOn: parseDateString(question.CreatedOn),
                                         modifiedOn: parseDateString(question.ModifiedOn),
-                                        answerOptions: [],
-                                        learningObjects: []
+                                        answerOptions: _.map(question.Answers, function (answer) {
+                                            return new AnswerOptionModel({
+                                                id: answer.Id,
+                                                text: answer.Text,
+                                                isCorrect: answer.IsCorrect
+                                            });
+                                        }),
+                                        learningObjects: _.map(question.LearningObjects, function (learningObject) {
+                                            return new LearningObjectModel({
+                                                id: learningObject.Id,
+                                                text: learningObject.Text,
+                                            });
+                                        })
                                     });
                                 })
                             }));
@@ -130,6 +141,7 @@
                 });
 
             };
+
         return {
             initialize: initialize,
             objectives: objectives,

@@ -8,20 +8,8 @@ namespace easygenerator.DomainModel.Entities
 {
     public class Experience : Entity
     {
-        public string Title { get; private set; }
-        public Template Template { get; private set; }
-        public DateTime? BuildOn { get; private set; }
-        public string PackageUrl { get; private set; }
+        protected internal Experience() { }
 
-        private ICollection<Objective> _relatedObjectives { get; set; }
-        public IEnumerable<Objective> RelatedObjectives
-        {
-            get
-            {
-                return _relatedObjectives.AsEnumerable();
-            }
-        }
-        
         protected internal Experience(string title, Template template, string createdBy)
             : base(createdBy)
         {
@@ -34,6 +22,8 @@ namespace easygenerator.DomainModel.Entities
             BuildOn = null;
         }
 
+        public Template Template { get; private set; }
+
         public virtual void UpdateTemplate(Template template, string modifiedBy)
         {
             ThrowIfTemplateIsInvaid(template);
@@ -41,6 +31,13 @@ namespace easygenerator.DomainModel.Entities
 
             Template = template;
             MarkAsModified(modifiedBy);
+        }
+
+        private ICollection<Objective> _relatedObjectives { get; set; }
+
+        public IEnumerable<Objective> RelatedObjectives
+        {
+            get { return _relatedObjectives.AsEnumerable(); }
         }
 
         public virtual void RelateObjective(Objective objective, string modifiedBy)
@@ -65,6 +62,8 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
+        public string Title { get; private set; }
+
         public virtual void UpdateTitle(string title, string modifiedBy)
         {
             ThrowIfTitleIsInvalid(title);
@@ -74,6 +73,10 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
+        public DateTime? BuildOn { get; private set; }
+
+        public string PackageUrl { get; private set; }
+
         public virtual void UpdatePackageUrl(string packageUrl)
         {
             ThrowIfPackageUrlIsInvalid(packageUrl);
@@ -81,7 +84,7 @@ namespace easygenerator.DomainModel.Entities
             PackageUrl = packageUrl;
             BuildOn = DateTimeWrapper.Now();
         }
-        
+
         private void ThrowIfTemplateIsInvaid(Template template)
         {
             ArgumentValidation.ThrowIfNull(template, "template");

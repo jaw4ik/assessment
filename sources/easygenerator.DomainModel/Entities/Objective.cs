@@ -7,6 +7,8 @@ namespace easygenerator.DomainModel.Entities
 {
     public class Objective : Entity
     {
+        protected internal Objective() { }
+
         protected internal Objective(string title, string createdBy)
             : base(createdBy)
         {

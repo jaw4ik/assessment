@@ -57,5 +57,32 @@
             
         });
 
+        describe('throwIfNotBoolean', function () {
+
+            describe('when argument is not a boolean', function () {
+
+                it('should throw exception with message', function () {
+                    var message = 'message';
+                    var f = function () {
+                        guard.throwIfNotBoolean(undefined, message);
+                    };
+                    expect(f).toThrow(message);
+                });
+
+            });
+
+            describe('when argument is a boolean', function () {
+
+                it('should not throw exception', function () {
+                    var f = function () {
+                        guard.throwIfNotBoolean(true, '');
+                    };
+                    expect(f).not.toThrow();
+                });
+
+            });
+
+        });
+
     });
 });

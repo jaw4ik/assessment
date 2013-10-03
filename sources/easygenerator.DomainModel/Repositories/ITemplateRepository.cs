@@ -2,7 +2,7 @@
 
 namespace easygenerator.DomainModel.Repositories
 {
-    public interface ITemplateRepository : IRepository<Template>
+    public interface ITemplateRepository : IQuerableRepository<Template>
     {
     }
 }

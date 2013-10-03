@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- ko if: hasNext -->
         <a class="view-header-nav-btn next" href="" title="Next" data-bind="click: goToNextQuestion, localize: { title: 'next' }"></a>
         <!-- /ko -->
@@ -52,42 +52,50 @@
     </header>
 
     <div class="question-content clearfix">
-        <div class="question-content-block question-answers">
-            <div class="question-content-block-header-wrapper" data-bind="click: toggleAnswers">
-                <div class="question-content-block-header" data-bind="css: { 'shadow-bottom-curve': isAnswersBlockExpanded() }">
+        <div class="question-content-block question-answers" data-bind="with: answers">
+            <div class="question-content-block-header-wrapper" data-bind="click: toggleExpand">
+                <div class="question-content-block-header" data-bind="css: { 'shadow-bottom-curve': isExpanded }">
                     <div class="question-content-block-header-icon">
                         <i class="answer-option-icon"></i>
                     </div>
                     <div class="question-content-block-header-title" data-bind="localize: { text: 'answerOptions' }">Answer options</div>
                     <div class="question-content-block-size-element-wrapper pull-right">
                         <span class="nav-element">
-                            <!-- ko if: isAnswersBlockExpanded -->
+                            <!-- ko if: isExpanded -->
                             <span class="inline question-content-block-size-btn collapse-btn" data-bind="localize: { title: 'collapse' }"></span>
                             <!-- /ko -->
-                            <!-- ko ifnot: isAnswersBlockExpanded -->
+                            <!-- ko ifnot: isExpanded -->
                             <span class="inline question-content-block-size-btn expand-btn" data-bind="localize: { title: 'expand' }"></span>
                             <!-- /ko -->
                         </span>
                     </div>
                 </div>
             </div>
-            <!-- ko if: isAnswersBlockExpanded -->
+            <!-- ko if: isExpanded -->
             <div class="question-content-items-list">
                 <ul class="unstyled">
-                    <!-- ko foreach: answerOptions() -->
-                    <li class="answer-option-item" data-bind="css: { active: isInEdit }">
+                    <!-- ko foreach: answers -->
+                    <li class="answer-option-item" data-bind="css: { active: hasFocus }">
                         <div class="answer-options-list-item">
-                            <div class="question-answer-value-wrapper unselectable" data-bind="css: { hidden: isEmpty() }">
-                                <div class="question-answer-value" data-bind="click: $parent.toggleAnswerCorrectness, css: { 'correct': isCorrect }, attr: { title: correctnessTooltip() }">
+                            <div class="question-answer-value-wrapper unselectable" data-bind="css: { hidden: _.isEmpty(id()) }">
+                                <!-- ko if: isCorrect -->
+                                <div class="question-answer-value correct" data-bind="click: $parent.toggleCorrectness, localize: { title: 'correctAnswer' }">
                                     <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
                                 </div>
+                                <!-- /ko -->
+                                <!-- ko ifnot: isCorrect -->
+                                <div class="question-answer-value" data-bind="click: $parent.toggleCorrectness, localize: { title: 'incorrectAnswer' }">
+                                    <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
+                                </div>
+                                <!-- /ko -->
                             </div>
                             <div class="question-answer-text-wrapper">
                                 <div class="question-answer-text selectable">
-                                    <div class="editarea-editable-text" data-bind="editableText: { text: text, multiline: true }, hasFocus: isInEdit"></div>
+                                    <div class="editarea-editable-text" data-bind="editableText: { text: text, multiline: true, autosave: { interval: $parent.autosaveInterval, handler: $parent.updateText } }, event: { focus: $parent.beginEditText, blur: function (data, event) { $parent.updateText(data, event); $parent.endEditText(data, event) } }, hasFocus: hasFocus">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="question-answer-delete-wrapper" data-bind="click: $parent.deleteAnswerOption, localize: { title: 'deleteAnswerOption' }">
+                            <div class="question-answer-delete-wrapper" data-bind="click: $parent.removeAnswer, localize: { title: 'deleteAnswerOption' }">
                                 <span class="question-answer-delete-icon"></span>
                             </div>
                         </div>
@@ -99,7 +107,7 @@
                                 <div class="question-answer-value">
                                 </div>
                             </div>
-                            <div class="question-answer-text-wrapper" data-bind="click: addAnswerOption">
+                            <div class="question-answer-text-wrapper" data-bind="click: addAnswer">
                                 <div class="question-answer-text">
                                     <p data-bind="localize: { text: 'clickToAddNewAnswerOption' }"></p>
                                 </div>
@@ -111,36 +119,36 @@
             <!-- /ko -->
         </div>
         <div>
-            <div class="question-content-block question-learning-objects">
-                <div class="question-content-block-header-wrapper" data-bind="click: toggleLearningObjects">
-                    <div class="question-content-block-header" data-bind="css: { 'shadow-bottom-curve': isLearningObjectsBlockExpanded() }">
+            <div class="question-content-block question-learning-objects" data-bind="with: learningObjects">
+                <div class="question-content-block-header-wrapper" data-bind="click: toggleExpand">
+                    <div class="question-content-block-header" data-bind="css: { 'shadow-bottom-curve': isExpanded }">
                         <div class="question-content-block-header-icon">
                             <i class="learning-object-icon"></i>
                         </div>
                         <div class="question-content-block-header-title" data-bind="localize: { text: 'learningObjects' }"></div>
                         <div class="question-content-block-size-element-wrapper pull-right">
                             <span class="nav-element">
-                                <!-- ko if:isLearningObjectsBlockExpanded -->
+                                <!-- ko if: isExpanded -->
                                 <span class="inline question-content-block-size-btn collapse-btn" data-bind="localize: { title: 'collapse' }"></span>
                                 <!-- /ko -->
-                                <!-- ko ifnot:isLearningObjectsBlockExpanded -->
+                                <!-- ko ifnot: isExpanded -->
                                 <span class="inline question-content-block-size-btn expand-btn" data-bind="localize: { title: 'expand' }"></span>
                                 <!-- /ko -->
                             </span>
                         </div>
                     </div>
                 </div>
-                <!-- ko if: isLearningObjectsBlockExpanded -->
+                <!-- ko if: isExpanded -->
                 <div class="question-content-items-list">
                     <ul class="unstyled">
                         <!-- ko foreach: learningObjects -->
-                        <li class="question-learning-object-item" data-bind="css: { active: isEditing }">
+                        <li class="question-learning-object-item" data-bind="css: { active: hasFocus }">
                             <div class="question-learning-object-list-item">
                                 <div class="question-learning-object-wrapper">
-                                    <div class="question-learning-object selectable" data-bind="ckeditor: { data: text, language: $parent.language(), eventTracker: $parent.eventTracker, isEditing: isEditing, save: $parent.saveLearningObject, autosaveInterval: $parent.learningObjectAutosaveInterval }">
+                                    <div class="question-learning-object selectable" data-bind="event: { focus: $parent.beginEditText, blur: function (data, event) { $parent.updateText(data, event), $parent.endEditText(data, event); } }, ckeditor: { data: text, language: $root.language(), eventTracker: $root.eventTracker, isEditing: hasFocus, save: $parent.updateText, autosaveInterval: $parent.autosaveInterval }">
                                     </div>
                                 </div>
-                                <div class="question-learning-object-delete-wrapper" data-bind="click: $parent.deleteLearningObject.bind($parent), localize: { title: 'delete' }">
+                                <div class="question-learning-object-delete-wrapper" data-bind="click: $parent.removeLearningObject, localize: { title: 'delete' }">
                                     <span class="question-learning-object-delete-icon"></span>
                                 </div>
                             </div>
@@ -148,7 +156,7 @@
                         <!-- /ko -->
                         <li class="add-button">
                             <div class="question-learning-object-list-item">
-                                <div class="question-learning-object-wrapper" data-bind="css: { 'enabled': canAddLearningObject }">
+                                <div class="question-learning-object-wrapper" data-bind="css: { 'enabled': true }">
                                     <!-- ko if: canAddLearningObject -->
                                     <div class="question-learning-object selectable" data-bind="click: addLearningObject, localize: { text: 'clickToAddLearningObject' }"></div>
                                     <!-- /ko -->

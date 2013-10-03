@@ -45,13 +45,14 @@
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Experience.cs" />
-    <Compile Include="Entities\Explanation.cs" />
+    <Compile Include="Entities\LearningObject.cs" />
     <Compile Include="Entities\Objective.cs" />
     <Compile Include="Entities\Question.cs" />
     <Compile Include="Entities\Template.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="EntityFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IQueryableRepository.cs" />
     <Compile Include="Repositories\IExperienceRepository.cs" />
     <Compile Include="Repositories\IObjectiveRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />

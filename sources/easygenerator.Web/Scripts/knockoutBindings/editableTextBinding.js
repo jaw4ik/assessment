@@ -4,9 +4,13 @@
 
 ko.bindingHandlers.editableText = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        var $element = $(element),
+        var
+            $element = $(element),
             text = valueAccessor().text,
-            multiline = valueAccessor().multiline;
+            multiline = valueAccessor().multiline,
+            autosave = valueAccessor().autosave,
+            root = bindingContext.$root
+        ;
 
         $element.attr('contenteditable', 'true');
         $element.toggleClass('editable-text-binding', true);
@@ -35,6 +39,17 @@ ko.bindingHandlers.editableText = {
             event.preventDefault();
             event.stopPropagation();
         });
+
+        if (autosave && $.isFunction(autosave.handler)) {
+            var autosaveIntervalId;
+            $element.on('focus', function () {
+                autosaveIntervalId = setInterval(function () {
+                    autosave.handler.call(root, viewModel);
+                }, autosave.interval);
+            }).on('blur', function () {
+                clearInterval(autosaveIntervalId);
+            });
+        }
 
         var saveIntervalId = setInterval(function () {
             if (ko.unwrap(text) != $element.text()) {

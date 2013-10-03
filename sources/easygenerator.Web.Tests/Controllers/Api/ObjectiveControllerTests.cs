@@ -56,7 +56,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var result = _controller.GetCollection();
 
-            result.Should().BeJsonSuccessResult().And.Data.Should().Be(collection);
+            result.Should().BeJsonSuccessResult();
         }
 
         #endregion

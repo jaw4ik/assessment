@@ -2,7 +2,7 @@
 
 namespace easygenerator.DomainModel.Repositories
 {
-    public interface IUserRepository: IRepository<User>
+    public interface IUserRepository : IRepository<User>
     {
         User GetUserByEmail(string email);
     }

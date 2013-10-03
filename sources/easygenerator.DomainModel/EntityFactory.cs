@@ -8,7 +8,7 @@ namespace easygenerator.DomainModel
         Experience Experience(string title, Template template, string createdBy);
         Question Question(string title, string createdBy);
         Answer Answer(string text, bool isCorrect, string createdBy);
-        Explanation Explanation(string text, string createdBy);
+        LearningObject LearningObject(string text, string createdBy);
         User User(string email, string password, string createdBy);
     }
 
@@ -34,9 +34,9 @@ namespace easygenerator.DomainModel
             return new Answer(text, isCorrect, createdBy);
         }
 
-        public Explanation Explanation(string text, string createdBy)
+        public LearningObject LearningObject(string text, string createdBy)
         {
-            return new Explanation(text, createdBy);
+            return new LearningObject(text, createdBy);
         }
 
         public User User(string email, string password, string createdBy)

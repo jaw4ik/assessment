@@ -5,15 +5,20 @@ namespace easygenerator.DomainModel.Entities
 {
     public abstract class Entity
     {
+        protected internal Entity()
+        {
+            Id = Guid.NewGuid();
+            CreatedOn = DateTimeWrapper.Now();
+            ModifiedOn = DateTimeWrapper.Now();
+        }
+
         protected internal Entity(string createdBy)
+            : this()
         {
             ThrowIfCreatedByIsInvalid(createdBy);
 
-            Id = Guid.NewGuid();
             CreatedBy = createdBy;
             ModifiedBy = createdBy;
-            CreatedOn = DateTimeWrapper.Now();
-            ModifiedOn = DateTimeWrapper.Now();
         }
 
         public Guid Id { get; protected set; }

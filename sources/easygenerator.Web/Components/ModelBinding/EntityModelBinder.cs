@@ -9,11 +9,11 @@ namespace easygenerator.Web.Components.ModelBinding
 
     public class EntityModelBinder<T> : IEntityModelBinder<T> where T : Entity
     {
-        private readonly IRepository<T> _repository;
+        private readonly IQuerableRepository<T> _repository;
 
         public EntityModelBinder()
         {
-            _repository = DependencyResolver.Current.GetService<IRepository<T>>();
+            _repository = DependencyResolver.Current.GetService<IQuerableRepository<T>>();
         }
 
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)

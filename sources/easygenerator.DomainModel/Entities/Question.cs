@@ -7,6 +7,8 @@ namespace easygenerator.DomainModel.Entities
 {
     public class Question : Entity
     {
+        protected internal Question() { }
+
         protected internal Question(string title, string createdBy)
             : base(createdBy)
         {
@@ -15,7 +17,7 @@ namespace easygenerator.DomainModel.Entities
             Title = title;
 
             _answers = new Collection<Answer>();
-            _explanations = new Collection<Explanation>();
+            _learningObjects = new Collection<LearningObject>();
         }
 
         public string Title { get; private set; }
@@ -38,7 +40,7 @@ namespace easygenerator.DomainModel.Entities
             get { return _answers.AsEnumerable(); }
         }
 
-        public void AddAnswer(Answer answer, string modifiedBy)
+        public virtual void AddAnswer(Answer answer, string modifiedBy)
         {
             ThrowIfAnswerIsInvalid(answer);
             ThrowIfModifiedByIsInvalid(modifiedBy);
@@ -48,7 +50,7 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        public void RemoveAnswer(Answer answer, string modifiedBy)
+        public virtual void RemoveAnswer(Answer answer, string modifiedBy)
         {
             ThrowIfAnswerIsInvalid(answer);
             ThrowIfModifiedByIsInvalid(modifiedBy);
@@ -58,30 +60,30 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        private readonly ICollection<Explanation> _explanations;
+        private readonly ICollection<LearningObject> _learningObjects;
 
-        public IEnumerable<Explanation> Explanations
+        public IEnumerable<LearningObject> LearningObjects
         {
-            get { return _explanations.AsEnumerable(); }
+            get { return _learningObjects.AsEnumerable(); }
         }
 
-        public void AddExplanation(Explanation explanation, string modifiedBy)
+        public virtual void AddLearningObject(LearningObject learningObject, string modifiedBy)
         {
-            ThrowIfExplanationIsInvalid(explanation);
+            ThrowIfLearningObjectIsInvalid(learningObject);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            _explanations.Add(explanation);
-            explanation.Question = this;
+            _learningObjects.Add(learningObject);
+            learningObject.Question = this;
             MarkAsModified(modifiedBy);
         }
 
-        public void RemoveExplanation(Explanation explanation, string modifiedBy)
+        public virtual void RemoveLearningObject(LearningObject learningObject, string modifiedBy)
         {
-            ThrowIfExplanationIsInvalid(explanation);
+            ThrowIfLearningObjectIsInvalid(learningObject);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            _explanations.Remove(explanation);
-            explanation.Question = null;
+            _learningObjects.Remove(learningObject);
+            learningObject.Question = null;
             MarkAsModified(modifiedBy);
         }
 
@@ -96,9 +98,9 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfNull(answer, "answer");
         }
 
-        private void ThrowIfExplanationIsInvalid(Explanation explanation)
+        private void ThrowIfLearningObjectIsInvalid(LearningObject learningObject)
         {
-            ArgumentValidation.ThrowIfNull(explanation, "explanation");
+            ArgumentValidation.ThrowIfNull(learningObject, "explanation");
         }
 
         private void ThrowIfModifiedByIsInvalid(string modifiedBy)
