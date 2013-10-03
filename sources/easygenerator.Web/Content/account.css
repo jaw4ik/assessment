@@ -1,5 +1,10 @@
 ﻿/*#region Layout*/
 
+body.try {
+    background-image: none;
+    background-color: white;
+}
+
 .main-container.try {
     position: relative;
     height: auto;
@@ -432,6 +437,7 @@
 /*#region Social Block*/
 
 .social-block {
+    display: none;
     position: absolute;
     bottom: 3%;
     left: 0;
