@@ -2,7 +2,8 @@
     "use strict";
 
     var
-        http = require('plugins/http');
+        http = require('plugins/http'),
+        app = require('durandal/app');
 
     describe('[httpWrapper]', function () {
 
@@ -17,6 +18,7 @@
             beforeEach(function () {
                 post = $.Deferred();
                 spyOn(http, 'post').andReturn(post.promise());
+                spyOn(app, 'trigger');
             });
 
             it('should be function', function () {
@@ -36,6 +38,12 @@
                 expect(http.post).toHaveBeenCalledWith(url, data);
             });
 
+            it('should trigger \'httpWrapper:post-begin\' event', function () {
+                httpWrapper.post();
+
+                expect(app.trigger).toHaveBeenCalledWith('httpWrapper:post-begin');
+            });
+
             describe('when post request failed', function () {
 
                 it('should reject promise', function () {
@@ -52,10 +60,33 @@
                     });
 
                 });
+                
+                it('should trigger \'httpWrapper:post-end\' event', function () {
+                    var promise = httpWrapper.post();
+                    post.reject();
 
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(app.trigger).toHaveBeenCalledWith('httpWrapper:post-end');
+                    });
+                });
             });
 
             describe('when post request succeed', function () {
+
+                it('should trigger \'httpWrapper:post-end\' event', function () {
+                    var promise = httpWrapper.post();
+                    post.resolve();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(app.trigger).toHaveBeenCalledWith('httpWrapper:post-end');
+                    });
+                });
 
                 describe('and response data is not an object', function () {
 
