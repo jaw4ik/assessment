@@ -1487,7 +1487,7 @@ ol.unstyled  {
     .empty-list-wrapper .empty-list-text {
         margin-left: 100px;
         display: inline-block;
-        font-family: Tahoma;
+        font-family: Tahoma, sans-serif;
         font-size: 28px;
         color: #DCDCDC;
         letter-spacing: 0;
