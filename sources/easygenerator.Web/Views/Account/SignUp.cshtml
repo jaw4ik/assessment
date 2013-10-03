@@ -37,9 +37,7 @@
                 </div>
                 <div class="user-form-row submit">
                     <div class="user-form-checkbox-holder clearfix">
-                        <div class="user-form-checkbox" data-bind="css: {checked: isLicenseAgreed}">
-                            <input id="uf-checkbox" class="custom-checkbox" type="checkbox" data-bind="checked: isLicenseAgreed" />
-                        </div>
+                        <div class="user-form-checkbox" data-bind="css: {checked: isLicenseAgreed}"></div>
                         <div class="user-form-checkbox-label">
                             <label for="uf-checkbox">
                                 @Html.Raw(String.Format(SignUp.LicenseAgreeCheckBoxTitle, Url.Action("TermsOfUse", "Account"), Url.Action("PrivacyPolicy", "Account")))
