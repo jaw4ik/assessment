@@ -7,7 +7,6 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
-using easygenerator.Web.BuildExperience.BuildModel;
 using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Controllers.Api
@@ -15,14 +14,12 @@ namespace easygenerator.Web.Controllers.Api
     public class ExperienceController : DefaultController
     {
         private readonly IExperienceBuilder _builder;
-        private readonly PackageModelMapper _packageModelMapper;
         private readonly IEntityFactory _entityFactory;
         private readonly IExperienceRepository _repository;
 
-        public ExperienceController(IExperienceBuilder experienceBuilder, PackageModelMapper packageModelMapper, IExperienceRepository repository, IEntityFactory entityFactory)
+        public ExperienceController(IExperienceBuilder experienceBuilder, IExperienceRepository repository, IEntityFactory entityFactory)
         {
             _builder = experienceBuilder;
-            _packageModelMapper = packageModelMapper;
             _repository = repository;
             _entityFactory = entityFactory;
         }
@@ -50,13 +47,25 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        public ActionResult Build(ExperienceBuildModel model)
+        public ActionResult Build(Experience experience)
         {
-            if (model == null || !ModelState.IsValid)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (experience == null)
+                return JsonError("Experience not found");
 
-            var buildingResult = _builder.Build(_packageModelMapper.MapExperienceBuildModel(model));
-            return Json(buildingResult);
+            var result = _builder.Build(experience);
+
+            if (!result)
+            {
+                return JsonError("Build failed");
+            }
+            else
+            {
+                return JsonSuccess(new
+                {
+                    PackageUrl = experience.PackageUrl,
+                    BuildOn = experience.BuildOn
+                });
+            }
         }
 
         [HttpPost]

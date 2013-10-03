@@ -15,35 +15,29 @@
                 return;
             }
 
-            templateRepository.getById(experience.template.id).then(function (template) {
-                if (_.isNullOrUndefined(template)) {
-                    deferred.reject('Experience template not found');
-                    return;
-                }
+            experience.buildingStatus = constants.buildingStatuses.inProgress;
 
-                experience.templateName = template.name;
-                experience.buildingStatus = constants.buildingStatuses.inProgress;
-
-                http.post('experience/build', experience)
-                    .done(function (response) {
-                        if (_.isUndefined(response) || _.isUndefined(response.Success)) {
-                            deferred.reject('Response has invalid format');
-                        }
-                        if (response.Success) {
-                            experience.buildingStatus = constants.buildingStatuses.succeed;
-                            experience.packageUrl = response.PackageUrl;
-                            deferred.resolve(response);
-                        } else {
-                            experience.buildingStatus = constants.buildingStatuses.failed;
-                            experience.packageUrl = '';
-                            deferred.resolve({ Success: false, PackageUrl: '' });
-                        }
-                    })
-                    .fail(function () {
+            http.post('experience/build', { experienceId: experience.id })
+                .done(function (response) {
+                    if (_.isUndefined(response) || _.isUndefined(response.success)) {
+                        deferred.reject('Response has invalid format');
+                    }
+                    if (response.success && response.data != undefined) {
+                        experience.buildingStatus = constants.buildingStatuses.succeed;
+                        experience.packageUrl = response.data.PackageUrl;
+                        experience.builtOn = new Date(parseInt(response.data.BuildOn.substr(6), 10));
+                        deferred.resolve(experience);
+                    } else {
                         experience.buildingStatus = constants.buildingStatuses.failed;
-                        deferred.resolve({ Success: false, PackageUrl: '' });
-                    });
-            });
+                        experience.packageUrl = '';
+                        deferred.reject("Build failed");
+                    }
+                })
+                .fail(function () {
+                    experience.buildingStatus = constants.buildingStatuses.failed;
+                    experience.packageUrl = '';
+                    deferred.reject("Build failed");
+                });
         });
 
         return deferred.promise;

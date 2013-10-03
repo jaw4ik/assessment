@@ -6,7 +6,6 @@ namespace easygenerator.Web.BuildExperience.PackageModel
     {
         public string Id { get; set; }
         public string Title { get; set; }
-        public string TemplateName { get; set; }
         public List<ObjectivePackageModel> Objectives { get; set; }
     }
 }

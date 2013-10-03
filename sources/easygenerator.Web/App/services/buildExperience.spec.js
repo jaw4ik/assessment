@@ -72,244 +72,205 @@
 
                             var experience;
                             beforeEach(function () {
-                                experience = { buildingStatus: '', template: { id: '0' } };
+                                experience = { buildingStatus: '', id: 'someId' };
                                 getById.resolve(experience);
                             });
 
-                            describe('and when get template from repository', function () {
+                            it('should change building status to \'inProgress\'', function () {
 
-                                var getTemplateByIdDeferred;
+                                spyOn(http, 'post').andReturn($.Deferred().promise());
+
+                                service.build(experience.id);
+
+                                waitsFor(function () {
+                                    return getById.promise.isFulfilled() && http.post.calls.length == 1;
+                                });
+                                runs(function () {
+                                    expect(experience.buildingStatus).toEqual(constants.buildingStatuses.inProgress);
+                                });
+                            });
+
+                            it('should send request', function () {
+                                var post = $.Deferred();
+                                spyOn(http, 'post').andReturn(post.promise());
+
+                                post.resolve();
+                                var promise = service.build().fin(function () { });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(http.post).toHaveBeenCalledWith('experience/build', { experienceId: experience.id });
+                                });
+                            });
+
+                            describe('and send request to server', function () {
+
+                                var post;
 
                                 beforeEach(function () {
-                                    getTemplateByIdDeferred = Q.defer();
-                                    spyOn(templateRepository, 'getById').andReturn(getTemplateByIdDeferred.promise);
+                                    post = $.Deferred();
+                                    spyOn(http, 'post').andReturn(post.promise());
                                 });
 
-                                describe('and when template doesnt exist', function () {
-                                    beforeEach(function () {
-                                        getTemplateByIdDeferred.resolve(null);
+                                describe('and request succeed', function () {
+
+                                    describe('and response is undefined', function () {
+
+                                        it('should reject promise', function () {
+                                            var promise = service.build();
+
+                                            post.resolve();
+
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                expect(promise.inspect().state).toEqual("rejected");
+                                            });
+                                        });
+
+                                    });
+
+                                    describe('and response.success is undefined', function () {
+
+                                        it('should reject promise', function () {
+                                            var promise = service.build();
+
+                                            post.resolve({});
+
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                expect(promise.inspect().state).toEqual("rejected");
+                                            });
+                                        });
+
+                                    });
+
+                                    describe('and response.success is true', function () {
+
+                                        it('should set experience buildingStatus to \'succeed\'', function () {
+                                            var promise = service.build();
+
+                                            post.resolve({ success: true, data: { PackageUrl: 'SomeUrl', BuildOn: '/Date(1378106938845)/' } });
+
+                                            waitsFor(function () {
+                                                return promise.isFulfilled();
+                                            });
+                                            runs(function () {
+                                                expect(experience.buildingStatus).toEqual(constants.buildingStatuses.succeed);
+                                            });
+                                        });
+
+                                        it('should resolve promise with true', function () {
+                                            var promise = service.build();
+
+                                            var buildResuslt = { success: true, data: { PackageUrl: 'SomeUrl', BuildOn: '/Date(1378106938845)/' } };
+
+                                            post.resolve(buildResuslt);
+
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                expect(promise).toBeResolvedWith(experience);
+                                            });
+                                        });
+
+                                    });
+
+                                    describe('and response.success is false', function () {
+
+                                        it('should set experience buildingStatus to \'failed\'', function () {
+                                            var promise = service.build();
+
+                                            post.resolve({ success: false });
+
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                expect(experience.buildingStatus).toEqual(constants.buildingStatuses.failed);
+                                            });
+                                        });
+
+                                        it('should set experience packageUrl to \'\'', function () {
+                                            var promise = service.build();
+
+                                            post.resolve({ success: false });
+
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                expect(experience.packageUrl).toEqual('');
+                                            });
+                                        });
+
+                                        it('should reject promise ', function () {
+                                            var promise = service.build();
+
+                                            var buildResuslt = { success: false };
+
+                                            post.resolve(buildResuslt);
+
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                expect(promise).toBeRejectedWith("Build failed");
+                                            });
+                                        });
+
+                                    });
+                                });
+
+                                describe('and request failed', function () {
+
+                                    it('should set experience buildingStatus to \'failed\'', function () {
+                                        var promise = service.build();
+
+                                        post.reject();
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(experience.buildingStatus).toEqual(constants.buildingStatuses.failed);
+                                        });
                                     });
 
                                     it('should reject promise', function () {
-                                        var promise = service.build(experience.id);
-
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(promise).toBeRejected();
-                                        });
-                                    });
-                                });
-
-                                describe('and when template exists', function () {
-                                    var template = { id: '0', name: 'Quizzz' };
-                                    beforeEach(function () {
-                                        getTemplateByIdDeferred.resolve(template);
-                                    });
-
-                                    it('should set templateName', function () {
-
-                                        spyOn(http, 'post').andReturn($.Deferred().promise());
-
-                                        service.build(experience.id);
-
-                                        waitsFor(function () {
-                                            return getById.promise.isFulfilled() && http.post.calls.length == 1;
-                                        });
-                                        runs(function () {
-                                            expect(experience.templateName).toEqual(template.name);
-                                        });
-                                    });
-
-                                    it('should change building status to \'inProgress\'', function () {
-
-                                        spyOn(http, 'post').andReturn($.Deferred().promise());
-
-                                        service.build(experience.id);
-
-                                        waitsFor(function () {
-                                            return getById.promise.isFulfilled() && http.post.calls.length == 1;
-                                        });
-                                        runs(function () {
-                                            expect(experience.buildingStatus).toEqual(constants.buildingStatuses.inProgress);
-                                        });
-                                    });
-
-                                    it('should send request', function () {
-                                        var post = $.Deferred();
-                                        spyOn(http, 'post').andReturn(post.promise());
-
-                                        post.resolve();
                                         var promise = service.build();
 
+                                        post.reject();
+
                                         waitsFor(function () {
                                             return !promise.isPending();
                                         });
                                         runs(function () {
-                                            expect(http.post).toHaveBeenCalledWith('experience/build', experience);
+                                            expect(promise).toBeRejectedWith("Build failed");
                                         });
                                     });
 
-                                    describe('and send request to server', function () {
+                                    it('should set experience packageUrl to \'\'', function () {
+                                        var promise = service.build();
 
-                                        var post;
+                                        post.reject();
 
-                                        beforeEach(function () {
-                                            post = $.Deferred();
-                                            spyOn(http, 'post').andReturn(post.promise());
+                                        waitsFor(function () {
+                                            return !promise.isPending();
                                         });
-
-                                        describe('and request succeed', function () {
-
-                                            describe('and response is undefined', function () {
-
-                                                it('should reject promise', function () {
-                                                    var promise = service.build();
-
-                                                    post.resolve();
-
-                                                    waitsFor(function () {
-                                                        return !promise.isPending();
-                                                    });
-                                                    runs(function () {
-                                                        expect(promise.inspect().state).toEqual("rejected");
-                                                    });
-                                                });
-
-                                            });
-
-                                            describe('and response.Success is undefined', function () {
-
-                                                it('should reject promise', function () {
-                                                    var promise = service.build();
-
-                                                    post.resolve({});
-
-                                                    waitsFor(function () {
-                                                        return !promise.isPending();
-                                                    });
-                                                    runs(function () {
-                                                        expect(promise.inspect().state).toEqual("rejected");
-                                                    });
-                                                });
-
-                                            });
-
-                                            describe('and response.Success is true', function () {
-
-                                                it('should set experience buildingStatus to \'succeed\'', function () {
-                                                    var promise = service.build();
-
-                                                    post.resolve({ Success: true });
-
-                                                    waitsFor(function () {
-                                                        return promise.isFulfilled();
-                                                    });
-                                                    runs(function () {
-                                                        expect(experience.buildingStatus).toEqual(constants.buildingStatuses.succeed);
-                                                    });
-                                                });
-
-                                                it('should resolve promise with true', function () {
-                                                    var promise = service.build();
-
-                                                    var buildResuslt = { Success: true, PackageUrl: "20130818-09-59-16" };
-
-                                                    post.resolve(buildResuslt);
-
-                                                    waitsFor(function () {
-                                                        return !promise.isPending();
-                                                    });
-                                                    runs(function () {
-                                                        expect(promise).toBeResolved();
-                                                        expect(promise.inspect().value).toEqual(buildResuslt);
-                                                    });
-                                                });
-
-                                            });
-
-                                            describe('and response.Success is false', function () {
-
-                                                it('should set experience buildingStatus to \'failed\'', function () {
-                                                    var promise = service.build();
-
-                                                    post.resolve({ Success: false, PackageUrl: '' });
-
-                                                    waitsFor(function () {
-                                                        return promise.isFulfilled();
-                                                    });
-                                                    runs(function () {
-                                                        expect(experience.buildingStatus).toEqual(constants.buildingStatuses.failed);
-                                                    });
-                                                });
-
-                                                it('should set experience packageUrl to \'\'', function () {
-                                                    var promise = service.build();
-
-                                                    post.resolve({ Success: false, PackageUrl: '' });
-
-                                                    waitsFor(function () {
-                                                        return promise.isFulfilled();
-                                                    });
-                                                    runs(function () {
-                                                        expect(experience.packageUrl).toEqual('');
-                                                    });
-                                                });
-
-                                                it('should be resolve promise ', function () {
-                                                    var promise = service.build();
-
-                                                    var buildResuslt = { Success: false, PackageUrl: '' };
-
-                                                    post.resolve(buildResuslt);
-
-                                                    waitsFor(function () {
-                                                        return !promise.isPending();
-                                                    });
-                                                    runs(function () {
-                                                        expect(promise).toBeResolved();
-                                                        expect(promise.inspect().value).toEqual(buildResuslt);
-                                                    });
-                                                });
-
-                                            });
+                                        runs(function () {
+                                            expect(experience.packageUrl).toEqual('');
                                         });
-
-                                        describe('and request failed', function () {
-
-                                            it('should set experience buildingStatus to \'failed\'', function () {
-                                                var promise = service.build();
-
-                                                post.reject();
-
-                                                waitsFor(function () {
-                                                    return promise.isFulfilled();
-                                                });
-                                                runs(function () {
-                                                    expect(experience.buildingStatus).toEqual(constants.buildingStatuses.failed);
-                                                });
-                                            });
-
-                                            it('should resolve promise with false', function () {
-                                                var promise = service.build();
-
-                                                post.reject();
-
-                                                waitsFor(function () {
-                                                    return !promise.isPending();
-                                                });
-                                                runs(function () {
-                                                    expect(promise).toBeResolved();
-                                                    expect(promise.inspect().value.Success).toEqual(false);
-                                                });
-                                            });
-
-                                        });
-
                                     });
 
                                 });
+
                             });
 
                         });

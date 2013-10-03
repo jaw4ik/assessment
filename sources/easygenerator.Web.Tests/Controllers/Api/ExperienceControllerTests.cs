@@ -11,8 +11,6 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
-using easygenerator.Web.BuildExperience.BuildModel;
-using easygenerator.Web.BuildExperience.PackageModel;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
@@ -28,7 +26,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         ExperienceController _controller;
         IExperienceBuilder _builder;
-        PackageModelMapper _packageModelMapper;
         IEntityFactory _entityFactory;
         IExperienceRepository _repository;
         IPrincipal _user;
@@ -40,13 +37,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory = Substitute.For<IEntityFactory>();
             _repository = Substitute.For<IExperienceRepository>();
             _builder = Substitute.For<IExperienceBuilder>();
-            _packageModelMapper = Substitute.For<PackageModelMapper>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
 
-            _controller = new ExperienceController(_builder, _packageModelMapper, _repository, _entityFactory);
+            _controller = new ExperienceController(_builder, _repository, _entityFactory);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -111,103 +107,44 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Build experience
 
         [TestMethod]
-        public void Build_ShouldReturnJson()
+        public void Build_ShouldReturnJsonErrorResult_WhenExperienceNotFound()
         {
             //Arrange
-            var viewModel = new ExperienceBuildModel();
 
-            //Act
-            var result = _controller.Build(viewModel);
-
-            //Assert
-            ActionResultAssert.IsJsonResult(result);
-        }
-
-        [TestMethod]
-        public void Build_ShouldReturnBadRequest_WhenViewModelIsNull()
-        {
-            //Arrange
 
             //Act
             var result = _controller.Build(null);
 
             //Assert
-            ActionResultAssert.IsBadRequestStatusCodeResult(result);
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Experience not found");
         }
 
         [TestMethod]
-        public void Build_ShouldReturnBadRequest_WhenModelIsNotValid()
+        public void Build_ShouldReturnJsonErrorResult_WhenBuildFails()
         {
             //Arrange
-            var viewModel = new ExperienceBuildModel();
+            _builder.Build(Arg.Any<Experience>()).Returns(false);
 
             //Act
-            _controller.AddRandomModelStateError();
-            var result = _controller.Build(viewModel);
+            var result = _controller.Build(ExperienceObjectMother.Create());
 
             //Assert
-            ActionResultAssert.IsBadRequestStatusCodeResult(result);
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Build failed");
         }
 
         [TestMethod]
-        public void Build_ShouldCreatePackageModel()
+        public void Build_ShouldReturnJsonSuccessResult()
         {
             //Arrange
-            var viewModel = new ExperienceBuildModel();
+            var experience = ExperienceObjectMother.Create();
+            _builder.Build(experience).Returns(true);
+            _builder.When(x => x.Build(experience)).Do(x => ((Experience)x.Args()[0]).UpdatePackageUrl("Some url"));
 
             //Act
-            _controller.Build(viewModel);
+            var result = _controller.Build(experience);
 
             //Assert
-            _packageModelMapper.Received().MapExperienceBuildModel(Arg.Any<ExperienceBuildModel>());
-        }
-
-        [TestMethod]
-        public void Build_ShouldReturnSuccessBuildResultWhenBuildSucceed()
-        {
-            //Arrange
-            var viewModel = new ExperienceBuildModel();
-            var packageModel = new ExperiencePackageModel();
-
-            _packageModelMapper.MapExperienceBuildModel(Arg.Any<ExperienceBuildModel>())
-                .Returns(packageModel);
-
-            _builder.Build(Arg.Any<ExperiencePackageModel>())
-                .Returns(new BuildResult() { Success = true, PackageUrl = "" });
-
-            //Act
-            var result = _controller.Build(viewModel);
-
-            //Assert
-            var json = result as JsonResult;
-            Assert.IsNotNull(json);
-            var buildResult = json.Data as BuildResult;
-            Assert.IsNotNull(buildResult);
-            Assert.IsTrue(buildResult.Success);
-        }
-
-        [TestMethod]
-        public void Build_ShouldReturnFailedBuildResultWhenBuildIsNotSucceed()
-        {
-            //Arrange
-            var viewModel = new ExperienceBuildModel();
-            var packageModel = new ExperiencePackageModel();
-
-            _packageModelMapper.MapExperienceBuildModel(Arg.Any<ExperienceBuildModel>())
-                .Returns(packageModel);
-
-            _builder.Build(Arg.Any<ExperiencePackageModel>())
-                .Returns(new BuildResult() { Success = false, PackageUrl = "" });
-
-            //Act
-            var result = _controller.Build(viewModel);
-
-            //Assert
-            var json = result as JsonResult;
-            Assert.IsNotNull(json);
-            var buildResult = json.Data as BuildResult;
-            Assert.IsNotNull(buildResult);
-            Assert.IsFalse(buildResult.Success);
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { PackageUrl = experience.PackageUrl, BuildOn = experience.BuildOn });
         }
 
         #endregion

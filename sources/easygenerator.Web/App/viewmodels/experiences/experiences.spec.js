@@ -10,7 +10,6 @@
             constants = require('constants');
 
         var
-            eventsCategory = 'Experiences',
             template = { id: '0', name: 'name', image: 'img' },
             experiences = [
                 new experienceModel({
@@ -660,7 +659,8 @@
                         id: 'testId3',
                         buildingStatus: ko.observable(),
                         showBuildingStatus: ko.observable(),
-                        isSelected: ko.observable()
+                        isSelected: ko.observable(),
+                        isFirstBuild: ko.observable()
                     };
                     buildDeferred = Q.defer();
 
@@ -712,123 +712,77 @@
 
                 describe('when build is finished', function () {
 
-                    describe('and buildExperience service return \"true\"', function () {
+                    describe('and build failed', function () {
 
-                        beforeEach(function () {
-                            buildDeferred.resolve({ Success: true, PackageUrl: 'packageUrl' });
-                        });
-
-                        it('should change experience building status to \"succeed\"', function () {
+                        it('should send event \'Experience build is failed\'', function () {
                             viewModel.buildExperience(experience);
+                            
+                            eventTracker.publish.reset();
+                            buildDeferred.reject();
 
-                            waitsFor(function () {
+                            waitsFor(function() {
                                 return !buildPromise.isPending();
                             });
-
-                            runs(function () {
-                                expect(experience.buildingStatus()).toEqual(constants.buildingStatuses.succeed);
-                            });
-                        });
-
-                        it('should change packageUrl in dataContext', function () {
-
-                            viewModel.buildExperience(experience);
-
-                            waitsFor(function () {
-                                return !buildPromise.isPending();
-                            });
-
-                            runs(function () {
-                                var expectExperience = _.find(dataContext.experiences, function (item) {
-                                    return item.id == experience.id;
-                                });
-                                expect(expectExperience.packageUrl).toEqual('packageUrl');
-                            });
-                        });
-
-                        it('should change builtOn in dataContext', function () {
-
-                            viewModel.buildExperience(experience);
-                            var expectExperience = _.find(dataContext.experiences, function (item) {
-                                return item.id == experience.id;
-                            });
-
-                            expectExperience.builtOn = '';
-
-                            waitsFor(function () {
-                                return !buildPromise.isPending();
-                            });
-
-                            runs(function () {
-                                var expectExperience = _.find(dataContext.experiences, function (item) {
-                                    return item.id == experience.id;
-                                });
-                                expect(expectExperience.packageUrl).toNotEqual('');
-                            });
-                        });
-
-                    });
-
-                    describe('and buildExperince service return packageUrl', function () {
-                        beforeEach(function () {
-                            buildDeferred.resolve({ Success: true, PackageUrl: '20131218' });
-                        });
-
-                        it('should change package Url to \'20131218\'', function () {
-                            viewModel.buildExperience(experience);
-
-                            waitsFor(function () {
-                                return !buildPromise.isPending();
-                            });
-
-                            runs(function () {
-                                expect(experience.packageUrl).toEqual('20131218');
-                            });
-                        });
-                    });
-
-                    describe('and buildExperience service return \"false\"', function () {
-
-                        beforeEach(function () {
-                            buildDeferred.resolve({ Success: false, PackageUrl: '' });
-                        });
-
-                        it('should change experience building status to \"failed\"', function () {
-                            viewModel.buildExperience(experience);
-
-                            waitsFor(function () {
-                                return !buildPromise.isPending();
-                            });
-
-                            runs(function () {
-                                expect(experience.buildingStatus()).toEqual(constants.buildingStatuses.failed);
-                            });
-                        });
-
-                        it('should send event \"Experience build is failed\"', function () {
-                            viewModel.buildExperience(experience);
-
-                            waitsFor(function () {
-                                return !buildPromise.isPending();
-                            });
-
                             runs(function () {
                                 expect(eventTracker.publish).toHaveBeenCalledWith('Experience build is failed');
                             });
                         });
 
-                        it('should be change package Url to \'\'', function () {
+                        it('should set experience building status to failed', function() {
+                            viewModel.buildExperience(experience);
+
+                            buildDeferred.reject();
+
+                            waitsFor(function () {
+                                return !buildPromise.isPending();
+                            });
+                            runs(function () {
+                                expect(experience.buildingStatus()).toEqual(constants.buildingStatuses.failed);
+                            });
+                        });
+                        
+                    });
+
+                    describe('and build successful', function () {
+                        
+                        it('should set experience building status to succeed', function () {
+                            buildDeferred.resolve({ buildingStatus: constants.buildingStatuses.succeed, packageUrl: 'SomeUrl' });
+
                             viewModel.buildExperience(experience);
 
                             waitsFor(function () {
                                 return !buildPromise.isPending();
                             });
-
                             runs(function () {
-                                expect(experience.packageUrl).toEqual('');
+                                expect(experience.buildingStatus()).toEqual(constants.buildingStatuses.succeed);
                             });
                         });
+                        
+                        it('should set experience packageUrl', function () {
+                            viewModel.buildExperience(experience);
 
+                            buildDeferred.resolve({ buildingStatus: constants.buildingStatuses.succeed, packageUrl: 'SomeUrl' });
+
+                            waitsFor(function () {
+                                return !buildPromise.isPending();
+                            });
+                            runs(function () {
+                                expect(experience.packageUrl).toEqual('SomeUrl');
+                            });
+                        });
+                        
+                        it('should set experience isFirstBuild to false', function () {
+                            viewModel.buildExperience(experience);
+
+                            buildDeferred.resolve({ buildingStatus: constants.buildingStatuses.succeed, packageUrl: 'SomeUrl' });
+
+                            waitsFor(function () {
+                                return !buildPromise.isPending();
+                            });
+                            runs(function () {
+                                expect(experience.isFirstBuild()).toBeFalsy();
+                            });
+                        });
                     });
 
                 });

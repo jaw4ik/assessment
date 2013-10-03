@@ -41,10 +41,6 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -116,8 +112,8 @@
     <Compile Include="BuildExperience\ExperienceBuilderTests.cs" />
     <Compile Include="BuildExperience\BuildPathProviderTests.cs" />
     <Compile Include="BuildExperience\BuildPackageCreatorTests.cs" />
-    <Compile Include="BuildExperience\PhysicalFileManagerTests.cs" />
     <Compile Include="BuildExperience\PackageModelMapperTests.cs" />
+    <Compile Include="BuildExperience\PhysicalFileManagerTests.cs" />
     <Compile Include="Controllers\Api\ExperienceControllerTests.cs" />
     <Compile Include="Controllers\Api\ObjectiveControllerTests.cs" />
     <Compile Include="Controllers\Api\QuestionControllerTests.cs" />

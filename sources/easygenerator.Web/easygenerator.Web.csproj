@@ -184,17 +184,11 @@
     <Compile Include="Controllers\Api\TemplateController.cs" />
     <Compile Include="Controllers\Api\UserController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
-    <Compile Include="BuildExperience\BuildResult.cs" />
     <Compile Include="Components\DefaultController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BuildExperience\BuildModel\AnswerOptionBuildModel.cs" />
-    <Compile Include="BuildExperience\BuildModel\ExperienceBuildModel.cs" />
-    <Compile Include="BuildExperience\BuildModel\LearningObjectBuildModel.cs" />
-    <Compile Include="BuildExperience\BuildModel\ObjectiveBuildModel.cs" />
-    <Compile Include="BuildExperience\BuildModel\QuestionBuildModel.cs" />
     <Compile Include="ViewModels\Objective\CreateObjectiveViewModel.cs" />
     <Content Include="App\repositories\templateRepository.js" />
     <Content Include="App\repositories\templateRepository.spec.js">

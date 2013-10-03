@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using easygenerator.Web.BuildExperience;
-using easygenerator.Web.BuildExperience.BuildModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace easygenerator.Web.Tests.BuildExperience
 {
-    [TestClass]
+ /*   [TestClass]
     public class PackageModelMapperTests
     {
         private PackageModelMapper _packageModelMapper;
@@ -260,5 +259,5 @@ namespace easygenerator.Web.Tests.BuildExperience
         }
 
         #endregion
-    }
+    }*/
 }

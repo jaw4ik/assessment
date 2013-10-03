@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using AutoMapper;
-using easygenerator.Web.BuildExperience.BuildModel;
+using easygenerator.DomainModel.Entities;
 using easygenerator.Web.BuildExperience.PackageModel;
 
 namespace easygenerator.Web.BuildExperience
@@ -11,38 +11,46 @@ namespace easygenerator.Web.BuildExperience
     {
         public PackageModelMapper()
         {
-            Mapper.CreateMap<AnswerOptionBuildModel, AnswerOptionPackageModel>();
+            Mapper.CreateMap<Answer, AnswerOptionPackageModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString("N")));
 
-            Mapper.CreateMap<LearningObjectBuildModel, LearningObjectPackageModel>();
+            Mapper.CreateMap<Explanation, LearningObjectPackageModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString("N")));
 
-            Mapper.CreateMap<QuestionBuildModel, QuestionPackageModel>()
-                .ForMember(dest => dest.LearningObjects, opt => opt.NullSubstitute(new List<LearningObjectPackageModel>()))
+            Mapper.CreateMap<Question, QuestionPackageModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString("N")))
                 .AfterMap((buildModel, packageModel) =>
                 {
-                    packageModel.Answers = buildModel.AnswerOptions != null
-                        ? Mapper.Map<List<AnswerOptionPackageModel>>(buildModel.AnswerOptions)
+                    packageModel.Answers = buildModel.Answers != null
+                        ? Mapper.Map<List<AnswerOptionPackageModel>>(buildModel.Answers)
                         : new List<AnswerOptionPackageModel>();
+
+                    packageModel.LearningObjects = buildModel.Explanations != null
+                        ? Mapper.Map<List<LearningObjectPackageModel>>(buildModel.Explanations)
+                        : new List<LearningObjectPackageModel>();
                 });
 
-            Mapper.CreateMap<ObjectiveBuildModel, ObjectivePackageModel>()
+            Mapper.CreateMap<Objective, ObjectivePackageModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString("N")))
                 .ForMember(dest => dest.Questions, opt => opt.MapFrom(
                     src => src.Questions == null
-                        ? new List<QuestionBuildModel>()
-                        : src.Questions.Where(item => item.LearningObjects != null || item.AnswerOptions != null)));
+                        ? new List<Question>()
+                        : src.Questions.Where(item => item.Explanations != null || item.Answers != null)));
 
-            Mapper.CreateMap<ExperienceBuildModel, ExperiencePackageModel>()
+            Mapper.CreateMap<Experience, ExperiencePackageModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString("N")))
                 .ForMember(dest => dest.Objectives, opt => opt.MapFrom(src =>
-                    src.Objectives == null
-                        ? new List<ObjectiveBuildModel>()
-                        : src.Objectives.Where(item => item.Questions != null && item.Questions.Count(q => q.LearningObjects != null || q.AnswerOptions != null) > 0)));
+                    src.RelatedObjectives == null
+                        ? new List<ObjectivePackageModel>()
+                        : Mapper.Map<List<ObjectivePackageModel>>(src.RelatedObjectives.Where(item => item.Questions != null && item.Questions.Count(q => q.Explanations != null || q.Answers != null) > 0))));
         }
 
-        public virtual ExperiencePackageModel MapExperienceBuildModel(ExperienceBuildModel experienceBuildModel)
+        public virtual ExperiencePackageModel MapExperience(Experience experience)
         {
-            if (experienceBuildModel == null)
+            if (experience == null)
                 throw new ArgumentNullException();
 
-            return Mapper.Map<ExperiencePackageModel>(experienceBuildModel);
+            return Mapper.Map<ExperiencePackageModel>(experience);
         }
     }
 }

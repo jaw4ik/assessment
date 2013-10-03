@@ -10,8 +10,12 @@ namespace easygenerator.DataAccess
         {
             Objectives = new Collection<Objective>();
             Experiences = new Collection<Experience>();
-            Templates = new Collection<Template>();
             Users = new Collection<User>();
+            Templates = new Collection<Template>()
+            {
+                new Template("Default", "/Content/images/defaultTemplate.png", "Some user"),
+                new Template("Quiz", "/Content/images/quizTemplate.png", "Some user")
+            };
         }
 
         public ICollection<Objective> Objectives { get; set; }

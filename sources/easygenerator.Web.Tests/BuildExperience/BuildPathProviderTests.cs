@@ -1,14 +1,15 @@
 ﻿using System.IO;
 using easygenerator.Web.BuildExperience;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using NSubstitute;
 
 namespace easygenerator.Web.Tests.BuildExperience
 {
     [TestClass]
     public class BuildPathProviderTests
     {
-        private Mock<HttpRuntimeWrapper> _httpRuntimeWrapperMock;
+        private HttpRuntimeWrapper _httpRuntimeWrapper;
         private BuildPathProvider _buildPathProvider;
 
         private string BuildPath { get; set; }
@@ -19,13 +20,13 @@ namespace easygenerator.Web.Tests.BuildExperience
         [TestInitialize]
         public void InitializeContext()
         {
-            _httpRuntimeWrapperMock = new Mock<HttpRuntimeWrapper>();
-            _httpRuntimeWrapperMock.Setup(instance => instance.GetDomainAppPath()).Returns("Some app path");
+            _httpRuntimeWrapper = Substitute.For<HttpRuntimeWrapper>();
+            _httpRuntimeWrapper.GetDomainAppPath().Returns("Some app path");
 
-            _buildPathProvider = new BuildPathProvider(_httpRuntimeWrapperMock.Object);
+            _buildPathProvider = new BuildPathProvider(_httpRuntimeWrapper);
 
             BuildPath = Path.Combine(Path.GetTempPath(), "eg", "build");
-            WebsitePath = _httpRuntimeWrapperMock.Object.GetDomainAppPath();
+            WebsitePath = _httpRuntimeWrapper.GetDomainAppPath();
             TemplatesPath = Path.Combine(WebsitePath, "Templates");
             DownloadPath = Path.Combine(WebsitePath, "Download");
         }
@@ -43,7 +44,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             var result = _buildPathProvider.GetBuildDirectoryName(buildId);
 
             //Assert
-            Assert.AreEqual(expectedPath, result);
+            result.Should().Be(expectedPath);
         }
 
         #endregion
@@ -61,7 +62,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             var result = _buildPathProvider.GetTemplateDirectoryName(templateName);
 
             //Assert
-            Assert.AreEqual(expectedPath, result);
+            result.Should().Be(expectedPath);
         }
 
         #endregion
@@ -80,7 +81,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             var result = _buildPathProvider.GetObjectiveDirectoryName(buildId, objectiveId);
 
             //Assert
-            Assert.AreEqual(expectedPath, result);
+            result.Should().Be(expectedPath);
         }
 
         #endregion
@@ -100,7 +101,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             var result = _buildPathProvider.GetQuestionDirectoryName(buildId, objectiveId, questionId);
 
             //Assert
-            Assert.AreEqual(expectedPath, result);
+            result.Should().Be(expectedPath);
         }
 
         #endregion
@@ -121,7 +122,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             var result = _buildPathProvider.GetLearningObjectFileName(buildId, objectiveId, questionId, learningObjectId);
 
             //Assert
-            Assert.AreEqual(expectedPath, result);
+            result.Should().Be(expectedPath);
         }
 
         #endregion
@@ -139,7 +140,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             var result = _buildPathProvider.GetDataFileName(buildId);
 
             //Assert
-            Assert.AreEqual(expectedPath, result);
+            result.Should().Be(expectedPath);
         }
 
         #endregion
@@ -157,7 +158,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             var result = _buildPathProvider.GetBuildPackageFileName(buildId);
 
             //Assert
-            Assert.AreEqual(expectedPath, result);
+            result.Should().Be(expectedPath);
         }
 
         #endregion
@@ -175,7 +176,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             var result = _buildPathProvider.GetContentDirectoryName(buildId);
 
             //Assert
-            Assert.AreEqual(expectedPath, result);
+            result.Should().Be(expectedPath);
         }
 
         #endregion
@@ -192,7 +193,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             var result = _buildPathProvider.GetDownloadPath();
 
             //Assert
-            Assert.AreEqual(expectedPath, result);
+            result.Should().Be(expectedPath);
         }
 
         #endregion

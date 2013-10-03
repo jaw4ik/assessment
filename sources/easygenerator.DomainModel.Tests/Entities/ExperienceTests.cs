@@ -403,5 +403,52 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
+
+        #region UpdatePackageUrl
+
+        [TestMethod]
+        public void UpdatePackageUrl_ShouldThrowArgumentNullException_WhenPackageUrlIsNull()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+
+            //Act
+            Action action = () => experience.UpdatePackageUrl(null);
+
+            //Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("packageUrl");
+        }
+
+        [TestMethod]
+        public void UpdatePackageUrl_ShouldThrowArgumentException_WhenPackageUrlIsEmpty()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+
+            //Act
+            Action action = () => experience.UpdatePackageUrl(string.Empty);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("packageUrl");
+        }
+
+        [TestMethod]
+        public void UpdatePackageUrl_ShouldUpdatePackageUrlAndBuildOnDate()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+            var packageUrl = "SomeUrl";
+
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            //Act
+            experience.UpdatePackageUrl(packageUrl);
+
+            //Assert
+            experience.PackageUrl.Should().Be(packageUrl);
+            experience.BuildOn.Should().Be(DateTime.MaxValue);
+        }
+
+        #endregion
     }
 }

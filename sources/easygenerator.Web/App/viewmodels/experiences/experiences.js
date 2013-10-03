@@ -81,22 +81,15 @@
                     experience.isSelected(false);
 
                 experienceService.build(experience.id)
-                    .then(function (response) {
-                        if (response.Success) {
-                            experience.buildingStatus(constants.buildingStatuses.succeed);
-                        }
-                        else {
-                            sendEvent(events.experienceBuildFailed);
-                            experience.buildingStatus(constants.buildingStatuses.failed);
-                        }
-                        experience.packageUrl = response.PackageUrl;
-                        var experienceFromDataContext = _.find(dataContext.experiences, function (item) {
-                            return item.id == experience.id;
-                        });
-                        experienceFromDataContext.packageUrl = response.PackageUrl;
+                    .then(function (updatedExperience) {
+                        experience.buildingStatus(updatedExperience.buildingStatus);
+                        experience.packageUrl = updatedExperience.packageUrl;
                         experience.isFirstBuild(false);
-                        experienceFromDataContext.builtOn = new Date();
-                    });
+                     })
+                     .fail(function () {
+                        sendEvent(events.experienceBuildFailed);
+                        experience.buildingStatus(constants.buildingStatuses.failed);
+                     });
             },
 
             downloadExperience = function (experience) {

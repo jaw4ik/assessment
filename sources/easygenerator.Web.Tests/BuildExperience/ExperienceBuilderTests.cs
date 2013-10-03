@@ -1,10 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
+using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.BuildExperience.PackageModel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using NSubstitute;
+using FluentAssertions;
 
 namespace easygenerator.Web.Tests.BuildExperience
 {
@@ -12,249 +15,282 @@ namespace easygenerator.Web.Tests.BuildExperience
     public class ExperienceBuilderTests
     {
         private ExperienceBuilder _builder;
-        private Mock<PhysicalFileManager> _fileManager;
-        private Mock<HttpRuntimeWrapper> _httpRuntimeWrapperMock;
-        private Mock<BuildPathProvider> _buildPathProviderMock;
-        private Mock<BuildPackageCreator> _buildPackageCreatorMock;
+        private PhysicalFileManager _fileManager;
+        private HttpRuntimeWrapper _httpRuntimeWrapper;
+        private BuildPathProvider _buildPathProvider;
+        private BuildPackageCreator _buildPackageCreator;
 
-        private Mock<PackageModelSerializer> _packageModelSerializerMock;
+        private PackageModelSerializer _packageModelSerializer;
+        private PackageModelMapper _packageModelMapper;
+
+        private Experience _experience;
+        private ExperiencePackageModel _experiencePackageModel;
 
         [TestInitialize]
         public void InitializeContext()
         {
-            _fileManager = new Mock<PhysicalFileManager>();
+            _experience = GetExperienceToBuild();
+            _experiencePackageModel = new PackageModelMapper().MapExperience(_experience);
 
-            _httpRuntimeWrapperMock = new Mock<HttpRuntimeWrapper>();
-            _httpRuntimeWrapperMock.Setup(instance => instance.GetDomainAppPath()).Returns(String.Empty);
+            _fileManager = Substitute.For<PhysicalFileManager>();
 
-            _buildPathProviderMock = new Mock<BuildPathProvider>(_httpRuntimeWrapperMock.Object);
+            _httpRuntimeWrapper = Substitute.For<HttpRuntimeWrapper>();
+            _httpRuntimeWrapper.GetDomainAppPath().Returns(string.Empty);
 
-            _buildPackageCreatorMock = new Mock<BuildPackageCreator>(_fileManager.Object);
-
+            _buildPathProvider = Substitute.For<BuildPathProvider>(_httpRuntimeWrapper);
+            _buildPackageCreator = Substitute.For<BuildPackageCreator>(_fileManager);
             DateTimeWrapper.Now = () => new DateTime(2013, 10, 12);
 
-            _packageModelSerializerMock = new Mock<PackageModelSerializer>();
+            _packageModelMapper = Substitute.For<PackageModelMapper>();
+            _packageModelMapper.MapExperience(_experience).Returns(_experiencePackageModel);
 
-            _builder = new ExperienceBuilder(_fileManager.Object, _buildPathProviderMock.Object, _buildPackageCreatorMock.Object,
-                _packageModelSerializerMock.Object);
+            _packageModelSerializer = Substitute.For<PackageModelSerializer>();
+
+            _builder = new ExperienceBuilder(_fileManager, _buildPathProvider, _buildPackageCreator, _packageModelSerializer, _packageModelMapper);
         }
 
-        private static ExperiencePackageModel CreateDefaultPackageModel()
+        private Experience GetExperienceToBuild()
         {
-            return new ExperiencePackageModel() { Id = "0", TemplateName = "Default", Objectives = new List<ObjectivePackageModel>() };
+            var answer = AnswerObjectMother.Create("AnswerText", true);
+            var explanation = ExplanationObjectMother.Create("Text");
+
+            var question = QuestionObjectMother.Create("QuestionTitle");
+            question.AddAnswer(answer, "SomeUser");
+            question.AddExplanation(explanation, "SomeUser");
+
+            var objective = ObjectiveObjectMother.Create("ObjectiveTitle");
+            objective.AddQuestion(question, "SomeUser");
+
+            var experience = ExperienceObjectMother.Create("ExperienceTitle");
+            experience.UpdateTemplate(TemplateObjectMother.Create(name: "Default"), "SomeUser");
+            experience.RelateObjective(objective, "SomeUser");
+
+            return experience;
+        }
+
+        #region Build
+
+        [TestMethod]
+        public void Build_ShouldCreateBuildDirectory()
+        {
+            //Arrange
+            var buildDirectory = "SomeDirectoryPath";
+            var buildId = _experiencePackageModel.Id + String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now());
+            _buildPathProvider.GetBuildDirectoryName(buildId).Returns(buildDirectory);
+
+            //Act
+            _builder.Build(_experience);
+
+            //Assert
+            _fileManager.Received().CreateDirectory(buildDirectory);
+        }
+
+
+        [TestMethod]
+        public void Build_ShouldTemplateToBuildDirectory()
+        {
+            //Arrange
+            var buildDirectory = "SomeDirectoryPath";
+            var templateDirectory = "SomeTemplatePath";
+            var buildId = _experiencePackageModel.Id + String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now());
+
+            _buildPathProvider.GetTemplateDirectoryName(_experience.Template.Name).Returns(templateDirectory);
+            _buildPathProvider.GetBuildDirectoryName(buildId).Returns(buildDirectory);
+
+            //Act
+            _builder.Build(_experience);
+
+            //Assert
+            _fileManager.Received().CopyDirectory(templateDirectory, buildDirectory);
         }
 
         [TestMethod]
-        public void Build_ShouldReturnSuccess()
+        public void Build_ShouldDeleteContentDirectory()
         {
             //Arrange
-            var buildModel = CreateDefaultPackageModel();
+            var contentDirectory = "SomeContentPath";
+            var buildId = _experiencePackageModel.Id + String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now());
+
+            _buildPathProvider.GetContentDirectoryName(buildId).Returns(contentDirectory);
 
             //Act
-            var result = _builder.Build(buildModel);
+            _builder.Build(_experience);
 
             //Assert
-            Assert.IsTrue(result.Success);
+            _fileManager.Received().DeleteDirectory(contentDirectory);
         }
 
         [TestMethod]
-        public void Build_ShouldReturnPackageUrl()
+        public void Build_ShouldCreateContentDirectory()
         {
             //Arrange
-            var buildModel = CreateDefaultPackageModel();
-            var packageUrl = String.Format(buildModel.Id + " {0:yyyyMMdd-HH-mm-ss}-UTC.zip", DateTimeWrapper.Now().ToUniversalTime());
+            var contentDirectory = "SomeContentPath";
+            var buildId = _experiencePackageModel.Id + String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now());
+
+            _buildPathProvider.GetContentDirectoryName(buildId).Returns(contentDirectory);
 
             //Act
-            var result = _builder.Build(buildModel);
+            _builder.Build(_experience);
 
             //Assert
-            Assert.AreEqual(result.PackageUrl, packageUrl);
+            _fileManager.Received().CreateDirectory(contentDirectory);
+        }
+
+
+        [TestMethod]
+        public void Build_ShouldCreateObjectiveDirectory()
+        {
+            //Arrange
+            var objectiveDirectory = "SomeObjectivePath";
+            var buildId = _experiencePackageModel.Id + String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now());
+
+            _buildPathProvider.GetObjectiveDirectoryName(buildId, _experience.RelatedObjectives.ToArray()[0].Id.ToString("N")).Returns(objectiveDirectory);
+
+            //Act
+            _builder.Build(_experience);
+
+            //Assert
+            _fileManager.Received().CreateDirectory(objectiveDirectory);
         }
 
         [TestMethod]
-        public void Build_ShouldCreateBuildFolder()
+        public void Build_ShouldCreateQuestionDirectory()
         {
             //Arrange
-            var buildModel = CreateDefaultPackageModel();
-            string buildPath = "Some path";
-            var packageUrl = String.Format(buildModel.Id + " {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now().ToUniversalTime());
+            var questionDirectory = "SomeQuestionPath";
+            var buildId = _experiencePackageModel.Id + String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now());
 
-            _buildPathProviderMock.Setup(instance => instance.GetBuildDirectoryName(packageUrl)).Returns(buildPath);
-            _fileManager.Setup(instance => instance.CreateDirectory(buildPath));
+            _buildPathProvider.GetQuestionDirectoryName(buildId,
+                _experience.RelatedObjectives.ToArray()[0].Id.ToString("N"), 
+                _experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToString("N"))
+                .Returns(questionDirectory);
 
             //Act
-            _builder.Build(buildModel);
+            _builder.Build(_experience);
 
             //Assert
-            _buildPathProviderMock.Verify(instance => instance.GetBuildDirectoryName(packageUrl));
-            _fileManager.Verify(instance => instance.CreateDirectory(buildPath));
+            _fileManager.Received().CreateDirectory(questionDirectory);
         }
 
         [TestMethod]
-        public void Build_ShouldDeleteBuildFolder()
+        public void Build_ShouldWriteExplanationsToFile()
         {
             //Arrange
-            var buildModel = CreateDefaultPackageModel();
+            var explanationFilePath = "SomeExplanationPath";
+            var buildId = _experiencePackageModel.Id + String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now());
 
-            var packageUrl = String.Format(buildModel.Id + " {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now().ToUniversalTime());
-            string buildPath = "Some path";
-
-            _buildPathProviderMock.Setup(instance => instance.GetBuildDirectoryName(packageUrl)).Returns(buildPath);
-            _fileManager.Setup(instance => instance.DeleteDirectory(buildPath));
+            _buildPathProvider.GetLearningObjectFileName(buildId,
+                _experience.RelatedObjectives.ToArray()[0].Id.ToString("N"),
+                _experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToString("N"),
+                _experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Explanations.ToArray()[0].Id.ToString("N"))
+                .Returns(explanationFilePath);
 
             //Act
-            _builder.Build(buildModel);
+            _builder.Build(_experience);
 
             //Assert
-            _buildPathProviderMock.Verify(instance => instance.GetBuildDirectoryName(packageUrl));
-            _fileManager.Verify(instance => instance.DeleteDirectory(buildPath));
+            _fileManager.Received().WriteToFile(explanationFilePath, _experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Explanations.ToArray()[0].Text);
         }
 
         [TestMethod]
-        public void Build_ShouldCopyTemplate()
+        public void Build_ShouldWriteSerializedPackageModelToFile()
         {
             //Arrange
-            var buildModel = CreateDefaultPackageModel();
-            string buildPath = "Some path";
-            string templatePath = "Some template path";
-            var packageUrl = String.Format(buildModel.Id + " {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now().ToUniversalTime());
+            var packageModelFilePath = "SomePackageModelPath";
+            var serializedPackageModel = "SomePackageModelData";
 
-            _buildPathProviderMock.Setup(instance => instance.GetBuildDirectoryName(packageUrl)).Returns(buildPath);
-            _buildPathProviderMock.Setup(instance => instance.GetTemplateDirectoryName(buildModel.TemplateName)).Returns(templatePath);
-            _fileManager.Setup(instance => instance.CopyDirectory(templatePath, buildPath));
+            var buildId = _experiencePackageModel.Id + String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now());
+
+            _buildPathProvider.GetDataFileName(buildId).Returns(packageModelFilePath);
+            _packageModelSerializer.Serialize(_experiencePackageModel).Returns(serializedPackageModel);
 
             //Act
-            _builder.Build(buildModel);
+            _builder.Build(_experience);
 
             //Assert
-            _buildPathProviderMock.VerifyAll();
-            _fileManager.Verify(instance => instance.CopyDirectory(templatePath, buildPath));
+            _packageModelSerializer.Received().Serialize(_experiencePackageModel);
+            _fileManager.Received().WriteToFile(packageModelFilePath, serializedPackageModel);
+        }
+
+
+        [TestMethod]
+        public void Build_ShouldCreatePackage()
+        {
+            //Arrange
+            var buildDirectory = "SomeBuildPath";
+            var buildPackageFileName = "SomePackageFileName";
+            var buildId = _experiencePackageModel.Id + String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now());
+
+            _buildPathProvider.GetBuildDirectoryName(buildId).Returns(buildDirectory);
+            _buildPathProvider.GetBuildPackageFileName(buildId).Returns(buildPackageFileName);
+
+            //Act
+            _builder.Build(_experience);
+
+            //Assert
+            _buildPackageCreator.Received().CreatePackageFromFolder(buildDirectory, buildPackageFileName);
+        }
+
+
+        [TestMethod]
+        public void Build_ShouldUpdateExperienceBuildPath()
+        {
+            //Arrange
+            var buildId = _experiencePackageModel.Id + String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now());
+
+            //Act
+            _builder.Build(_experience);
+
+            //Assert
+            _experience.PackageUrl.Should().Be(buildId + ".zip");
+            _experience.BuildOn.Should().Be(DateTimeWrapper.Now());
         }
 
         [TestMethod]
-        public void Build_ShouldRecreateContentFolder()
+        public void Build_ShouldDeletePreviousBuildFiles()
         {
             //Arrange
-            var buildModel = CreateDefaultPackageModel();
-            string contentPath = "Some path";
-            var packageUrl = String.Format(buildModel.Id + " {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now().ToUniversalTime());
+            var downloadPath = "SomeDownloadPath";
+            var buildId = _experiencePackageModel.Id + String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now());
 
-            int callOrder = 0;
-            _buildPathProviderMock.Setup(instance => instance.GetContentDirectoryName(packageUrl)).Returns(contentPath);
-            _fileManager.Setup(instance => instance.DeleteDirectory(contentPath)).Callback(() => Assert.AreEqual(0, callOrder++));
-            _fileManager.Setup(instance => instance.CreateDirectory(contentPath)).Callback(() => Assert.AreEqual(1, callOrder++));
+            _buildPathProvider.GetDownloadPath().Returns(downloadPath);
 
             //Act
-            _builder.Build(buildModel);
+            _builder.Build(_experience);
 
             //Assert
-            _buildPathProviderMock.VerifyAll();
-            _fileManager.VerifyAll();
+            _fileManager.Received().DeletePreviousFiles(downloadPath, buildId, _experience.Id.ToString("N"));
         }
 
         [TestMethod]
-        public void Build_ShouldCreateFolderForObjectives()
+        public void Build_ShouldDeleteBuildDirectory()
         {
             //Arrange
-            var buildModel = CreateDefaultPackageModel();
-            buildModel.Objectives.Add(
-                 new ObjectivePackageModel()
-                 {
-                     Id = "0",
-                     Questions = new List<QuestionPackageModel>()
-                 }
-             );
+            var buildDirectory = "SomeBuildDirectory";
+            var buildId = _experiencePackageModel.Id + String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now());
 
-            var objectivePath = "Some objective path";
-
-            _buildPathProviderMock.Setup(instance => instance.GetObjectiveDirectoryName(It.IsAny<string>(), It.IsAny<string>())).Returns(objectivePath);
-            _fileManager.Setup(instance => instance.CreateDirectory(objectivePath));
+            _buildPathProvider.GetBuildDirectoryName(buildId).Returns(buildDirectory);
 
             //Act
-            _builder.Build(buildModel);
+            _builder.Build(_experience);
 
             //Assert
-            _buildPathProviderMock.VerifyAll();
-            _fileManager.Verify(instance => instance.CreateDirectory(objectivePath));
+            _fileManager.Received().DeleteDirectory(buildDirectory);
         }
 
         [TestMethod]
-        public void Build_ShouldCreateFolderForQuestions()
+        public void Build_ShouldReturnTrue()
         {
             //Arrange
-            var buildModel = CreateDefaultPackageModel();
-            buildModel.Objectives.Add(
-                new ObjectivePackageModel()
-                {
-                    Id = "1",
-                    Questions = new List<QuestionPackageModel>()
-                     {
-                         new QuestionPackageModel() { Id = "1", LearningObjects = new List<LearningObjectPackageModel>()}
-                     }
-                }
-            );
-            var questionPath = "Some question path";
-
-            _buildPathProviderMock.Setup(instance => instance.GetQuestionDirectoryName(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(questionPath);
-            _fileManager.Setup(instance => instance.CreateDirectory(questionPath));
-
+            
             //Act
-            _builder.Build(buildModel);
+            var result = _builder.Build(_experience);
 
             //Assert
-            _buildPathProviderMock.VerifyAll();
-            _fileManager.Verify(instance => instance.CreateDirectory(questionPath));
+            result.Should().BeTrue();
         }
 
-        [TestMethod]
-        public void Build_ShouldCreateLearningObjectsFiles()
-        {
-            //Arrange
-            var buildModel = CreateDefaultPackageModel();
-            buildModel.Objectives.Add(
-                new ObjectivePackageModel()
-                {
-                    Id = "1",
-                    Questions = new List<QuestionPackageModel>()
-                     {
-                         new QuestionPackageModel()
-                         { 
-                             Id = "1", 
-                             LearningObjects = new List<LearningObjectPackageModel>()
-                             {
-                                 new LearningObjectPackageModel() { Id = "1", Text = "Some text 1" }
-                             }
-                         }
-                     }
-                }
-            );
-            var learningObjectFileName = "Some learning object file name";
+        #endregion
 
-            _buildPathProviderMock.Setup(instance => instance.GetLearningObjectFileName(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
-                .Returns(learningObjectFileName);
-            _fileManager.Setup(instance => instance.WriteToFile(learningObjectFileName, It.IsAny<string>()));
-
-            //Act
-            _builder.Build(buildModel);
-
-            //Assert
-            _buildPathProviderMock.VerifyAll();
-            _fileManager.Verify(instance => instance.WriteToFile(learningObjectFileName, It.IsAny<string>()));
-        }
-
-        [TestMethod]
-        public void Build_ShouldSerializePackageModel()
-        {
-            //Arrange
-            var buildModel = CreateDefaultPackageModel();
-            _packageModelSerializerMock.Setup(instance => instance.Serialize(buildModel));
-
-            //Act
-            _builder.Build(buildModel);
-
-            //Assert
-            _packageModelSerializerMock.VerifyAll();
-        }
     }
 }

@@ -15,11 +15,6 @@ namespace easygenerator.Web.Components
         public SessionDataContext()
         {
             _session = HttpContext.Current.Session;
-            SetDataCollectionToSessionIfNotSetYet("templates", new Collection<Template>()
-                    {
-                        new Template("Default", "/Content/images/defaultTemplate.png", "Some user"),
-                        new Template("Quiz", "/Content/images/quizTemplate.png", "Some user")
-                    });
         }
 
         public ICollection<Objective> Objectives
@@ -34,7 +29,7 @@ namespace easygenerator.Web.Components
 
         public ICollection<Template> Templates
         {
-            get { return GetDataCollectionFromSession<Template>("templates"); }
+            get { throw new InvalidOperationException(); }
         }
 
         public ICollection<User> Users

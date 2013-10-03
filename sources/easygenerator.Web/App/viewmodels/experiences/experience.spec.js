@@ -406,9 +406,9 @@
 
             });
 
-            describe('navigateToCreateObjective', function() {
+            describe('navigateToCreateObjective', function () {
 
-                it('should be function', function() {
+                it('should be function', function () {
                     expect(viewModel.navigateToCreateObjective).toBeFunction();
                 });
 
@@ -464,12 +464,11 @@
                 describe('when build is finished successfully', function () {
 
                     it('should change status to \'succeed\'', function () {
-                        build.resolve({ Success: true, PackageUrl: "packageUrl" });
-
+                        build.resolve({ buildingStatus: constants.buildingStatuses.succeed, buildOn: new Date(), packageUrl: 'SomeUrl' });
+                        
                         viewModel.id = 1;
                         viewModel.buildExperience();
-                        var promise = build.promise.fin(function () {
-                        });
+                        var promise = build.promise.fin(function () { });
 
                         waitsFor(function () {
                             return promise.isFulfilled();
@@ -513,55 +512,6 @@
                         });
                     });
 
-                    it('should change packageUrl in repository to \'packageUrl\'', function () {
-                        build.resolve({ Success: true, PackageUrl: "packageUrl" });
-
-                        experiencerepositorygetByIdDefer.resolve(experience);
-
-                        viewModel.id = 1;
-                        var promise = experiencerepositorygetByIdPromise.fin(function () {
-                        });
-                        viewModel.buildExperience();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(experience.packageUrl).toEqual("packageUrl");
-                        });
-                    });
-
-                    it('should be called getById', function () {
-                        build.resolve({ Success: true, PackageUrl: "packageUrl" });
-
-                        viewModel.buildExperience();
-                        var promise = build.promise.fin(function () {
-                        });
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(repository.getById).toHaveBeenCalled();
-                        });
-                    });
-
-                    it('should be called getById with argument 1', function () {
-                        build.resolve({ Success: true, PackageUrl: "packageUrl" });
-
-                        viewModel.id = 1;
-                        viewModel.buildExperience();
-                        var promise = build.promise.fin(function () {
-                        });
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(repository.getById).toHaveBeenCalledWith(viewModel.id);
-                        });
-                    });
-
                     it('should change field builtOn', function () {
                         build.resolve({ Success: true, PackageUrl: "packageUrl" });
 
@@ -579,24 +529,6 @@
                         });
                     });
 
-                    it('should change field builtOn in dataContext', function () {
-                        build.resolve({ Success: true, PackageUrl: "packageUrl" });
-                        var builtOn = experience.builtOn = 'builtOn';
-
-                        viewModel.id = 1;
-                        var promise = experiencerepositorygetByIdPromise.fin(function () {
-                        });
-                        experiencerepositorygetByIdDefer.resolve(experience);
-                        viewModel.buildExperience();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(experience.builtOn).toNotEqual(builtOn);
-                        });
-                    });
-
                     afterEach(function () {
                         experience.packageUrl = '';
                     });
@@ -606,7 +538,7 @@
                 describe('when build is failed', function () {
 
                     it('should change status to \'failed\'', function () {
-                        build.resolve({ Success: false, PackageUrl: "" });
+                        build.reject();
 
                         viewModel.id = 1;
                         viewModel.buildExperience();
@@ -614,7 +546,7 @@
                         var promise = build.promise.fin(function () { });
 
                         waitsFor(function () {
-                            return promise.isFulfilled();
+                            return !promise.isPending();
                         });
                         runs(function () {
                             expect(viewModel.status()).toEqual(constants.buildingStatuses.failed);
@@ -623,7 +555,7 @@
                     });
 
                     it('should resolve promise', function () {
-                        build.resolve({ Success: false, PackageUrl: "" });
+                        build.reject("Build failed");
 
                         viewModel.id = 1;
                         viewModel.buildExperience();
@@ -634,51 +566,13 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise).toBeResolved();
+                            expect(promise).toBeRejectedWith("Build failed");
                         });
 
-                    });
-
-                    it('should be change experinceUrl', function () {
-                        build.resolve({ Success: false, packageUrl: "" });
-
-                        viewModel.id = 1;
-                        viewModel.buildExperience();
-
-                        var promise = build.promise.fin(function () { });
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(experience.packageUrl).toEqual("");
-                        });
-
-                    });
-
-                    it('should be change packageUrl in repository to \'\'', function () {
-                        build.resolve({ Success: false, PackageUrl: "" });
-
-                        experiencerepositorygetByIdDefer.resolve(experience);
-
-                        viewModel.id = 1;
-                        viewModel.buildExperience();
-                        var promise = build.promise.fin(function () { });
-
-                        experiencerepositorygetByIdPromise.fin(function () {
-                            experience.packageUrl = '';
-                        });
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(experience.packageUrl).toEqual("");
-                        });
                     });
 
                     it('should clear buildOn', function () {
-                        build.resolve({ Success: false, PackageUrl: "packageUrl" });
+                        build.reject();
 
                         viewModel.builtOn(experience.builtOn);
 

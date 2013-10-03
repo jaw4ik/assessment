@@ -1,6 +1,6 @@
-﻿define(['dataContext', 'plugins/router', 'constants', 'eventTracker', 'repositories/experienceRepository', 'services/buildExperience', 'viewmodels/objectives/objectiveBrief',
+﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/experienceRepository', 'services/buildExperience', 'viewmodels/objectives/objectiveBrief',
         'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'repositories/templateRepository', 'clientContext'],
-    function (dataContext, router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, templateRepository, clientContext) {
+    function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, templateRepository, clientContext) {
         "use strict";
 
         //#region Events
@@ -135,7 +135,7 @@
             router.navigate('objective/' + objective.id + '?experienceId=' + this.id);
         },
 
-        navigateToCreateObjective = function() {
+        navigateToCreateObjective = function () {
             sendEvent(events.navigateToCreateObjective);
             router.navigate('objective/create?experienceId=' + this.id);
         },
@@ -149,22 +149,15 @@
             status(constants.buildingStatuses.inProgress);
 
             var that = this;
-            service.build(this.id)
-                .then(function (response) {
-                    if (response.Success) {
-                        that.status(constants.buildingStatuses.succeed);
-                        that.builtOn(new Date());
-                    } else {
-                        that.status(constants.buildingStatuses.failed);
-                        that.builtOn('');
-                    }
-                    that.experience.packageUrl = response.PackageUrl;
-                    that.isFirstBuild(false);
-                    repository.getById(that.id).then(function (item) {
-                        item.packageUrl = response.PackageUrl;
-                        item.builtOn = that.builtOn();
-                    });
-                });
+            service.build(this.id).then(function (updatedExperience) {
+                that.status(updatedExperience.buildingStatus);
+                that.builtOn(updatedExperience.builtOn);
+                that.experience.packageUrl = updatedExperience.packageUrl;
+                that.isFirstBuild(false);
+            }).fail(function () {
+                that.status(constants.buildingStatuses.failed);
+                that.builtOn('');
+            });
         },
 
         downloadExperience = function () {

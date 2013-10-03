@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using easygenerator.DomainModel.Entities;
+﻿using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,7 +10,7 @@ namespace easygenerator.DataAccess
     {
         private readonly IDataContext _dataContext;
 
-        public TemplateRepository(IDataContext dataContext)
+        public TemplateRepository(InMemoryDataContext dataContext)
         {
             _dataContext = dataContext;
         }

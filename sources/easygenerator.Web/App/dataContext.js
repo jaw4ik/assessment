@@ -21,7 +21,7 @@
                         templates.push(
                             new TemplateModel(
                             {
-                                id: template.Id,
+                                id: template.Id.split('-').join(''),
                                 name: template.Name,
                                 image: template.Image
                             }));
@@ -120,7 +120,7 @@
                                 builtOn: _.isNullOrUndefined(item.builtOn) ? null : parseDateString(item.builtOn),
                                 packageUrl: item.packageUrl,
                                 template: _.find(templates, function (tItem) {
-                                    return tItem.name === 'Default';
+                                    return tItem.id === item.Template.Id.split('-').join('');
                                 })
                             }));
                         });
