@@ -9,6 +9,7 @@ namespace easygenerator.Web.Configuration
             var filters = GlobalFilters.Filters;
 
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new AuthorizeAttribute());
         }
     }
 }

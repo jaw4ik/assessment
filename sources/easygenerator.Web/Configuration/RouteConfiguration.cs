@@ -12,11 +12,11 @@ namespace easygenerator.Web.Configuration
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 
-            routes.MapRoute(
-                name: "ApiObjectives",
-                url: "api/data",
-                defaults: new { controller = "Application", action = "ApplicationData" }
-            );
+            //routes.MapRoute(
+            //    name: "ApiObjectives",
+            //    url: "api/data",
+            //    defaults: new { controller = "Application", action = "ApplicationData" }
+            //);
 
             //routes.MapRoute(
             //    name: "CreateObjective",
@@ -237,9 +237,9 @@ namespace easygenerator.Web.Configuration
                 defaults: new { controller = "Account", action = "LogIn" });
 
             routes.MapRoute(
-                name: "TryNow",
-                url: "account/trynow",
-                defaults: new { controller = "Account", action = "TryNow" });
+                name: "TryWithoutSignup",
+                url: "try",
+                defaults: new { controller = "Account", action = "TryWithoutSignup" });
 
             #endregion;
 

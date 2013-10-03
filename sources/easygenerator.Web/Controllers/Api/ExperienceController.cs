@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
@@ -71,7 +72,7 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         public ActionResult GetCollection()
         {
-            var experiences = _repository.GetCollection();
+            var experiences = _repository.GetCollection().Where(exp => exp.CreatedBy == User.Identity.Name);
 
             return JsonSuccess(experiences);
         }

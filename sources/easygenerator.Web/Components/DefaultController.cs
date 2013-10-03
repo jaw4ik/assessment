@@ -35,6 +35,7 @@ namespace easygenerator.Web.Components
 
         protected string GetCurrentUsername()
         {
+
             return String.IsNullOrEmpty(User.Identity.Name) ? "Anonymous" : User.Identity.Name;
         }
     }

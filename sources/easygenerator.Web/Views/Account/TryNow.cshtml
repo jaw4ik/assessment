@@ -6,13 +6,17 @@
     <div class="user-title">Introducing <b>easygenerator</b></div>
     <div class="user-try">
         <div class="try-subtitle">A revolutionary e-learning platform</div>
-        <a href="http://ci.easygenerator.com/" class="try-btn">Try it now
+        @using (Html.BeginForm("TryWithoutSignup", "Account", FormMethod.Post))
+        {
+            <button type="submit" class="try-btn">
+                Try it now
                 <i class="try-btn-icon"></i>
-        </a>
-        <div class="clear"></div>
-        <div class="try-note">
-            If you use try mode your data will not be saved
-        </div>
+            </button>
+            <div class="clear"></div>
+            <div class="try-note">
+                If you use try mode your data will not be saved
+            </div>
+        }
     </div>
     <div class="try-images">
         <div class="try-small-row">

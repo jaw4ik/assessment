@@ -34,7 +34,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PackageModelSerializer>();
             builder.RegisterType<BuildPackageCreator>();
 
-            builder.RegisterType<SessionDataContext>().As<IDataContext>();
+            builder.RegisterType<InMemoryDataContext>().As<IDataContext>().SingleInstance();
             builder.RegisterType<InMemoryDataContext>().As<InMemoryDataContext>().SingleInstance();
 
             builder.RegisterType<ObjectiveRepository>().As<IObjectiveRepository>().As<IQuerableRepository<Objective>>();
