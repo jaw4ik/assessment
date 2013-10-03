@@ -793,7 +793,7 @@ body.try {
 /*#region Terms of use and Privacy Polycy*/
 
 .view-module.terms-of-use,  .view-module.privacy-policy {
-    padding: 0 0 20px 150px;
+    padding-left: 150px;
     line-height: 2;
 }
 
