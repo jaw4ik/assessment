@@ -798,41 +798,44 @@ body.try {
     line-height: 2;
 }
 
-    .document-title {
-        font-size: 50px;
-        font-weight: normal;
-    }
+.document-title {
+    font-size: 50px;
+    font-weight: normal;
+}
 
-    .document-subtitle {
-        font-size: 14px;
-        font-weight: normal;
-    }
+.document-subtitle {
+    font-size: 14px;
+    font-weight: normal;
+}
 
-    .view-module.terms-of-use .line-for-title,
-    .view-module.privacy-policy .line-for-title {
-        width: 400px;
-        background-color: #999999;
-        height: 1px;
-        margin: 0 0 10px;
-    }
+.view-module.terms-of-use .line-for-title,
+.view-module.privacy-policy .line-for-title {
+    width: 400px;
+    background-color: #999999;
+    height: 1px;
+    margin: 0 0 10px;
+}
 
-    .document-numeric-list-item {
-        line-height: 40px;
-        margin: 20px 0px;
-        list-style-position: inside;
-        font-family: 'OpenSans-Semibold';
-    }
+.document-numeric-list-item {
+    line-height: 40px;
+    margin: 20px 0px;
+    list-style-position: inside;
+    font-family: 'OpenSans-Semibold';
+    text-transform: uppercase;
+}
 
-    .document-marked-list {
-        font-family: 'OpenSans';
-        font-weight: normal;
-        list-style-type: disc;
-        list-style-position: inside;
-    }
+.document-marked-list {
+    font-family: 'OpenSans';
+    font-weight: normal;
+    list-style-type: disc;
+    list-style-position: inside;
+    text-transform: none;
+}
 
 .document-list-item-content {
     font-weight: normal !important;
     font-family: 'OpenSans';
+    text-transform: none;
 }
 
 .numeric-list .typeA {
