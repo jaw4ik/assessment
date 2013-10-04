@@ -15,6 +15,11 @@
             if (!_.isBoolean(bool)) {
                 throw message;
             }
+        },
+        throwIfNotArray: function (array, message) {
+            if (!_.isArray(array)) {
+                throw message;
+            }
         }
     };
     

@@ -65,7 +65,7 @@
                                 });
 
                             dataContext.experiences.push(createdExperience);
-                            
+
                             return {
                                 id: createdExperience.id,
                                 createdOn: createdExperience.createdOn
@@ -111,56 +111,66 @@
             },
 
             relateObjectives = function (experienceId, objectives) {
-                var deferred = Q.defer();
+                return Q.fcall(function () {
+                    guard.throwIfNotString(experienceId, 'Experience id is not valid');
+                    guard.throwIfNotArray(objectives, 'Objectives to relate are not array');
 
-                if (!_.isString(experienceId)) {
-                    deferred.reject('Experience id is not valid');
-                }
+                    var requestArgs = {
+                        experienceId: experienceId,
+                        objectives: _.map(objectives, function (item) {
+                            return item.id;
+                        })
+                    };
 
-                if (!_.isArray(objectives)) {
-                    deferred.reject('Objectives to relate are not array');
-                }
+                    return httpWrapper.post('api/experience/relateObjectives', requestArgs).then(function (response) {
+                        guard.throwIfNotAnObject(response, 'Response is not an object');
+                        guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
-                this.getById(experienceId)
-                    .then(function (experince) {
-                        _.each(objectives, function (objective) {
-                            experince.objectives.push(objective);
+                        var experience = _.find(dataContext.experiences, function (exp) {
+                            return exp.id == experienceId;
                         });
 
-                        experince.modifiedOn = new Date();
-                        deferred.resolve(experince.modifiedOn);
-                    })
-                    .fail(function (reason) {
-                        deferred.reject(reason);
-                    });
+                        guard.throwIfNotAnObject(experience, "Experience doesn`t exist");
 
-                return deferred.promise;
+                        _.each(objectives, function (objective) {
+                            experience.objectives.push(objective);
+                        });
+
+                        experience.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                        return experience.modifiedOn;
+                    });
+                });
             },
 
             unrelateObjectives = function (experienceId, objectives) {
-                var deferred = Q.defer();
+                return Q.fcall(function () {
+                    guard.throwIfNotString(experienceId, 'Experience id is not valid');
+                    guard.throwIfNotArray(objectives, 'Objectives to relate are not array');
 
-                if (!_.isString(experienceId)) {
-                    deferred.reject('Experience id should be a string');
-                }
+                    var requestArgs = {
+                        experienceId: experienceId,
+                        objectives: _.map(objectives, function (item) {
+                            return item.id;
+                        })
+                    };
 
-                if (!_.isArray(objectives)) {
-                    deferred.reject('objectives should be an array');
-                }
+                    return httpWrapper.post('api/experience/unrelateObjectives', requestArgs).then(function (response) {
+                        guard.throwIfNotAnObject(response, 'Response is not an object');
+                        guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
-                this.getById(experienceId)
-                    .then(function (experience) {
-                        experience.objectives = _.reject(experience.objectives, function (item) {
-                            return _.contains(objectives, item.id);
+                        var experience = _.find(dataContext.experiences, function (exp) {
+                            return exp.id == experienceId;
                         });
-                        experience.modifiedOn = new Date();
-                        deferred.resolve(experience.modifiedOn);
-                    })
-                    .fail(function (reason) {
-                        deferred.reject(reason);
-                    });
+                        guard.throwIfNotAnObject(experience, "Experience doesn`t exist");
 
-                return deferred.promise;
+                        experience.objectives = _.reject(experience.objectives, function (objective) {
+                            return _.contains(objectives, objective);
+                        });
+
+                        experience.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                        return experience.modifiedOn;
+                    });
+                });
             },
 
             updateExperienceTitle = function (experienceId, experienceTitle) {

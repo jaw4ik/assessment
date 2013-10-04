@@ -126,7 +126,11 @@
                                 title: item.Title,
                                 createdOn: parseDateString(item.CreatedOn),
                                 modifiedOn: parseDateString(item.ModifiedOn),
-                                objectives: [],
+                                objectives: _.map(item.RelatedObjectives, function (relatedObjective) {
+                                    return _.find(objectives, function(objective) {
+                                        return objective.id == relatedObjective.Id.split('-').join('');
+                                    });
+                                }),
                                 buildingStatus: constants.buildingStatuses.notStarted,
                                 builtOn: _.isNullOrUndefined(item.builtOn) ? null : parseDateString(item.builtOn),
                                 packageUrl: item.packageUrl,

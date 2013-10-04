@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Web.Mvc;
 using easygenerator.DomainModel.Entities;
@@ -22,10 +21,10 @@ namespace easygenerator.Web.Components.ModelBinding
         {
             var result = new Collection<T>();
 
-            ValueProviderResult id;
-            int enumerator;
+            int enumerator = 0;
+            ValueProviderResult id = bindingContext.ValueProvider.GetValue(bindingContext.ModelName + "[" + enumerator + "]");
 
-            for (enumerator = 0, id = bindingContext.ValueProvider.GetValue(bindingContext.ModelName + "[" + enumerator + "]"); id != null; enumerator++)
+            for (; id != null; enumerator++, id = bindingContext.ValueProvider.GetValue(bindingContext.ModelName + "[" + enumerator + "]"))
             {
                 Guid entityId;
                 if (!Guid.TryParse(id.AttemptedValue, out entityId))

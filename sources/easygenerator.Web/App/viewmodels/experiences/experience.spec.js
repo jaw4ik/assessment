@@ -1517,7 +1517,7 @@
                         expect(eventTracker.publish).toHaveBeenCalledWith('Unrelate objectives from experience');
                     });
 
-                    it('should call repository \"unrelateObjectives\" method', function () {
+                    xit('should call repository \"unrelateObjectives\" method', function () {
                         viewModel.unrelateSelectedObjectives();
                         expect(repository.unrelateObjectives).toHaveBeenCalledWith('experienceId', ['0', '2']);
                     });

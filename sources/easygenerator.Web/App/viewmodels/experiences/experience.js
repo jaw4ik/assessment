@@ -263,7 +263,6 @@
 
             repository.relateObjectives(that.id, addingObjectives)
                 .then(function (modifiedDate) {
-
                     that.relatedObjectives(_.chain(addingObjectives)
                         .map(function (item) {
                             return objectiveBrief(item);
@@ -371,7 +370,7 @@
                     return item.isSelected();
                 });
 
-            repository.unrelateObjectives(this.id, _.map(selectedObjectives, function (item) { return item.id; }))
+            repository.unrelateObjectives(this.id, _.map(selectedObjectives, function (item) { return item; }))
                 .then(function (modifiedDate) {
                     that.relatedObjectives(_.difference(that.relatedObjectives(), selectedObjectives));
                     that.modifiedOn(modifiedDate);
