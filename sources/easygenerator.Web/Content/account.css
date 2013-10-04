@@ -798,28 +798,41 @@ body.try {
     line-height: 2;
 }
 
-    .view-module.terms-of-use h1, .view-module.privacy-policy h1 {
-        font-size: 40px;
+    .document-title {
+        font-size: 50px;
+        font-weight: normal;
     }
 
-    .view-module.terms-of-use .line-for-title, .view-module.privacy-policy .line-for-title {
+    .document-subtitle {
+        font-size: 14px;
+        font-weight: normal;
+    }
+
+    .view-module.terms-of-use .line-for-title,
+    .view-module.privacy-policy .line-for-title {
         width: 400px;
-        background-color: #989898;
+        background-color: #999999;
         height: 1px;
-        margin: -10px 0 10px;
+        margin: 0 0 10px;
     }
 
-    .view-module.terms-of-use ul > li, .view-module.privacy-policy ul > li {
-        line-height: 2;
+    .document-numeric-list-item {
+        line-height: 40px;
+        margin: 20px 0px;
+        list-style-position: inside;
+        font-family: 'OpenSans-Semibold';
     }
 
-    .view-module.terms-of-use .numeric-list, .view-module.privacy-policy .numeric-list {
-        padding: 0 50px;
-        font-weight: bold;
+    .document-marked-list {
+        font-family: 'OpenSans';
+        font-weight: normal;
+        list-style-type: disc;
+        list-style-position: inside;
     }
 
-.numeric-list .weigth-normal {
-    font-weight: normal;
+.document-list-item-content {
+    font-weight: normal !important;
+    font-family: 'OpenSans';
 }
 
 .numeric-list .typeA {
