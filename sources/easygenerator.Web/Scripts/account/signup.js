@@ -8,7 +8,7 @@
         userExists = ko.observable(false),
         lastValidatedUserName = null,
         userPreciselyExists = ko.computed(function () {
-            return userExists() && userName() === lastValidatedUserName;
+            return userExists() && userName().trim().toLowerCase() === lastValidatedUserName;
         }),
         
         showHidePassword = function () {
@@ -18,11 +18,11 @@
         signUp = function() {
             $.ajax({
                 url: '/api/user/signup',
-                data: { email: userName(), password: password() },
+                data: { email: userName().trim().toLowerCase(), password: password() },
                 type: 'POST'
             })
             .done(function () {
-                window.location.href = '/';
+                window.location.replace('/');
             });
         },
 
@@ -35,10 +35,11 @@
                 userExists(false);
                 return;
             }
-            lastValidatedUserName = userName();
+            userExists(false);
+            lastValidatedUserName = userName().trim().toLowerCase();
             $.ajax({
                 url: '/api/user/exists',
-                data: { email: userName() },
+                data: { email: userName().trim().toLowerCase() },
                 type: 'POST'
             })
             .done(function(response) {

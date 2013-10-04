@@ -357,6 +357,20 @@ ol.unstyled  {
         vertical-align: top;
     }
 
+    .signout-block {
+        line-height: 40px;
+        margin-right: 20px;
+        font-size: 14px;
+    }
+
+        .signout-block a {
+            color: white;
+        }
+
+        .signout-block a:hover {
+            text-decoration: underline;
+        }
+
 /*#endregion HEADER CSS-STYLES*/
 
 /*#region Page navigation elements */
