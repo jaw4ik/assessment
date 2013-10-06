@@ -10,7 +10,6 @@
             experiences = [],
             templates = [],
             initialize = function () {
-
                 return $.ajax({
                     url: 'api/templates',
                     type: 'POST',
@@ -25,55 +24,6 @@
                                 name: template.Name,
                                 image: template.Image
                             }));
-                    });
-                }).then(function () {
-                    return $.ajax({
-                        url: 'data.js?v=' + Math.random(),
-                        contentType: 'application/json',
-                        dataType: 'json'
-                    }).then(function (response) {
-                        objectives.push.apply(objectives, _.map(response.objectives, function (objective) {
-                            return new ObjectiveModel({
-                                id: objective.id,
-                                title: objective.title,
-                                createdOn: parseDateString(objective.createdOn),
-                                modifiedOn: parseDateString(objective.modifiedOn),
-                                image: constants.defaultObjectiveImage,
-                                questions: _.map(objective.questions, function (question) {
-                                    return new QuestionModel({
-                                        id: question.id,
-                                        title: question.title,
-                                        createdOn: parseDateString(question.createdOn),
-                                        modifiedOn: parseDateString(question.modifiedOn),
-                                        answerOptions: _.map(question.answerOptions, function (answerOption) {
-                                            return new AnswerOptionModel(answerOption);
-                                        }),
-                                        learningObjects: _.map(question.learningObjects, function (learningObject) {
-                                            return new LearningObjectModel(learningObject);
-                                        })
-                                    });
-                                })
-                            });
-                        }));
-                        experiences.push.apply(experiences, _.map(response.experiences, function (experience) {
-                            return new ExperienceModel({
-                                id: experience.id,
-                                title: experience.title,
-                                template: _.find(templates, function (tItem) {
-                                    return tItem.name === 'Default';
-                                }),
-                                createdOn: parseDateString(experience.createdOn),
-                                modifiedOn: parseDateString(experience.modifiedOn),
-                                objectives: _.map(experience.objectives, function (objectiveId) {
-                                    return _.find(objectives, function (objective) {
-                                        return objective.id === objectiveId;
-                                    });
-                                }),
-                                buildingStatus: 'notStarted',
-                                builtOn: experience.builtOn,
-                                packageUrl: experience.packageUrl
-                            });
-                        }));
                     });
                 }).then(function () {
                     return $.ajax({
@@ -127,7 +77,7 @@
                                 createdOn: parseDateString(item.CreatedOn),
                                 modifiedOn: parseDateString(item.ModifiedOn),
                                 objectives: _.map(item.RelatedObjectives, function (relatedObjective) {
-                                    return _.find(objectives, function(objective) {
+                                    return _.find(objectives, function (objective) {
                                         return objective.id == relatedObjective.Id.split('-').join('');
                                     });
                                 }),

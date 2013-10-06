@@ -27,25 +27,25 @@ namespace easygenerator.Web.Controllers.Api
 
             var result = objectives.Where(obj => obj.CreatedBy == User.Identity.Name).Select(obj => new
             {
-                Id = obj.Id,
+                Id = obj.Id.ToString("N"),
                 Title = obj.Title,
                 CreatedOn = obj.CreatedOn,
                 ModifiedOn = obj.ModifiedOn,
                 Questions = obj.Questions.Select(q => new
                 {
-                    Id = q.Id,
+                    Id = q.Id.ToString("N"),
                     Title = q.Title,
                     CreatedOn = q.CreatedOn,
                     ModifiedOn = q.ModifiedOn,
                     Answers = q.Answers.Select(a => new
                     {
-                        Id = a.Id,
+                        Id = a.Id.ToString("N"),
                         Text = a.Text,
                         IsCorrect = a.IsCorrect
                     }),
                     LearningObjects = q.LearningObjects.Select(lo => new
                     {
-                        Id = lo.Id,
+                        Id = lo.Id.ToString("N"),
                         Text = lo.Text,
                     })
                 })

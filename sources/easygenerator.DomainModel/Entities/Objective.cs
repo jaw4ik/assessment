@@ -15,7 +15,7 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfTitleIsInvalid(title);
             Title = title;
 
-            _questions = new Collection<Question>();
+            QuestionsCollection = new Collection<Question>();
         }
 
         public string Title { get; private set; }
@@ -29,13 +29,13 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        private readonly ICollection<Question> _questions;
+        protected virtual ICollection<Question> QuestionsCollection { get; set; }
 
         public virtual IEnumerable<Question> Questions
         {
             get
             {
-                return _questions.AsEnumerable();
+                return QuestionsCollection.AsEnumerable();
             }
         }
 
@@ -44,7 +44,7 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfQuestionIsInvalid(question);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            _questions.Add(question);
+            QuestionsCollection.Add(question);
             question.Objective = this;
             MarkAsModified(modifiedBy);
         }
@@ -54,7 +54,7 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfQuestionIsInvalid(question);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            _questions.Remove(question);
+            QuestionsCollection.Remove(question);
             question.Objective = null;
             MarkAsModified(modifiedBy);
         }

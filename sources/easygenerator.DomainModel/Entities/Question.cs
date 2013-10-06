@@ -16,13 +16,13 @@ namespace easygenerator.DomainModel.Entities
 
             Title = title;
 
-            _answers = new Collection<Answer>();
-            _learningObjects = new Collection<LearningObject>();
+            AnswersCollection = new Collection<Answer>();
+            LearningObjectsCollection = new Collection<LearningObject>();
         }
 
         public string Title { get; private set; }
 
-        public Objective Objective { get; internal set; }
+        public virtual Objective Objective { get; internal set; }
 
         public virtual void UpdateTitle(string title, string modifiedBy)
         {
@@ -33,11 +33,11 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        private readonly ICollection<Answer> _answers;
+        protected virtual ICollection<Answer> AnswersCollection { get; set; }
 
         public IEnumerable<Answer> Answers
         {
-            get { return _answers.AsEnumerable(); }
+            get { return AnswersCollection.AsEnumerable(); }
         }
 
         public virtual void AddAnswer(Answer answer, string modifiedBy)
@@ -45,7 +45,7 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfAnswerIsInvalid(answer);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            _answers.Add(answer);
+            AnswersCollection.Add(answer);
             answer.Question = this;
             MarkAsModified(modifiedBy);
         }
@@ -55,16 +55,16 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfAnswerIsInvalid(answer);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            _answers.Remove(answer);
+            AnswersCollection.Remove(answer);
             answer.Question = null;
             MarkAsModified(modifiedBy);
         }
 
-        private readonly ICollection<LearningObject> _learningObjects;
+        protected virtual ICollection<LearningObject> LearningObjectsCollection { get; set; }
 
         public IEnumerable<LearningObject> LearningObjects
         {
-            get { return _learningObjects.AsEnumerable(); }
+            get { return LearningObjectsCollection.AsEnumerable(); }
         }
 
         public virtual void AddLearningObject(LearningObject learningObject, string modifiedBy)
@@ -72,7 +72,7 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfLearningObjectIsInvalid(learningObject);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            _learningObjects.Add(learningObject);
+            LearningObjectsCollection.Add(learningObject);
             learningObject.Question = this;
             MarkAsModified(modifiedBy);
         }
@@ -82,7 +82,7 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfLearningObjectIsInvalid(learningObject);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            _learningObjects.Remove(learningObject);
+            LearningObjectsCollection.Remove(learningObject);
             learningObject.Question = null;
             MarkAsModified(modifiedBy);
         }

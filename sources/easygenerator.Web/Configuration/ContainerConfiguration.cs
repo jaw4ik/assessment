@@ -34,16 +34,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PackageModelSerializer>();
             builder.RegisterType<BuildPackageCreator>();
 
-            builder.RegisterType<InMemoryDataContext>().As<IDataContext>().SingleInstance();
-            builder.RegisterType<InMemoryDataContext>().As<InMemoryDataContext>().SingleInstance();
-
-            builder.RegisterType<ObjectiveRepository>().As<IObjectiveRepository>().As<IQuerableRepository<Objective>>();
-            builder.RegisterType<ExperienceRepository>().As<IExperienceRepository>().As<IQuerableRepository<Experience>>();
-            builder.RegisterType<TemplateRepository>().As<ITemplateRepository>().As<IQuerableRepository<Template>>();
-            builder.RegisterType<QuestionRepository>().As<IQuerableRepository<Question>>();
-            builder.RegisterType<AnswerRepository>().As<IQuerableRepository<Answer>>();
-            builder.RegisterType<LearningObjectRepository>().As<IQuerableRepository<LearningObject>>();
-            builder.RegisterType<UserRepository>().As<IUserRepository>().As<IQuerableRepository<User>>();
+            builder.RegisterModule(new DataAccessModule());            
 
             builder.RegisterType<EntityFactory>().As<IEntityFactory>();
 

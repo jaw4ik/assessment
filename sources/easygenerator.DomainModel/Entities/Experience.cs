@@ -18,11 +18,11 @@ namespace easygenerator.DomainModel.Entities
 
             Title = title;
             Template = template;
-            _relatedObjectives = new Collection<Objective>();
+            RelatedObjectivesCollection = new Collection<Objective>();
             BuildOn = null;
         }
 
-        public Template Template { get; private set; }
+        public virtual Template Template { get; private set; }
 
         public virtual void UpdateTemplate(Template template, string modifiedBy)
         {
@@ -33,11 +33,11 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        private ICollection<Objective> _relatedObjectives { get; set; }
+        protected virtual ICollection<Objective> RelatedObjectivesCollection { get; set; }
 
         public IEnumerable<Objective> RelatedObjectives
         {
-            get { return _relatedObjectives.AsEnumerable(); }
+            get { return RelatedObjectivesCollection.AsEnumerable(); }
         }
 
         public virtual void RelateObjective(Objective objective, string modifiedBy)
@@ -45,9 +45,9 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfObjectiveIsInvalid(objective);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            if (!_relatedObjectives.Contains(objective))
+            if (!RelatedObjectivesCollection.Contains(objective))
             {
-                _relatedObjectives.Add(objective);
+                RelatedObjectivesCollection.Add(objective);
             }
 
             MarkAsModified(modifiedBy);
@@ -58,7 +58,7 @@ namespace easygenerator.DomainModel.Entities
             ThrowIfObjectiveIsInvalid(objective);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            _relatedObjectives.Remove(objective);
+            RelatedObjectivesCollection.Remove(objective);
             MarkAsModified(modifiedBy);
         }
 

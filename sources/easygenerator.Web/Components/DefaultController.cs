@@ -10,7 +10,7 @@ namespace easygenerator.Web.Components
     {
         protected override void OnResultExecuted(ResultExecutedContext filterContext)
         {
-            DependencyResolver.Current.GetService<IDataContext>().Save();
+            DependencyResolver.Current.GetService<IUnitOfWork>().Save();
         }
 
         protected ActionResult JsonSuccess()
@@ -35,7 +35,6 @@ namespace easygenerator.Web.Components
 
         protected string GetCurrentUsername()
         {
-
             return String.IsNullOrEmpty(User.Identity.Name) ? "Anonymous" : User.Identity.Name;
         }
     }

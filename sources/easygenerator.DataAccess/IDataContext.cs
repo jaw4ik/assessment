@@ -1,15 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DataAccess
 {
     public interface IDataContext
     {
-        ICollection<Objective> Objectives { get; }
-        ICollection<Experience> Experiences { get; }
-        ICollection<Template> Templates { get; }
-        ICollection<User> Users { get; }
-
-        void Save();
+        IDbSet<T> GetSet<T>() where T : Entity;
     }
 }

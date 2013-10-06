@@ -74,7 +74,20 @@ namespace easygenerator.Web.Controllers.Api
         {
             var experiences = _repository.GetCollection().Where(exp => exp.CreatedBy == User.Identity.Name);
 
-            return JsonSuccess(experiences);
+            var result = experiences.Select(exp => new
+            {
+                Id = exp.Id.ToString("N"),
+                Title = exp.Title,
+                CreatedOn = exp.CreatedOn,
+                ModifiedOn = exp.ModifiedOn,
+                Template = new { Id = exp.Template.Id },
+                RelatedObjectives = exp.RelatedObjectives.Select(obj => new
+                {
+                    Id = obj.Id.ToString("N")
+                })
+            });
+
+            return JsonSuccess(result);
         }
 
         [HttpPost]

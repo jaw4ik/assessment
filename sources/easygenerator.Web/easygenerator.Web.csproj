@@ -181,7 +181,6 @@
     <Compile Include="Components\ModelBinding\EntityModelBinderProvider.cs" />
     <Compile Include="Components\ModelBinding\EntityCollectionModelBinder.cs" />
     <Compile Include="Components\NavigationLink.cs" />
-    <Compile Include="Components\SessionDataContext.cs" />
     <Compile Include="Configuration\BundleConfiguration.cs" />
     <Compile Include="Configuration\ContainerConfiguration.cs" />
     <Compile Include="Configuration\FilterConfiguration.cs" />
@@ -469,7 +468,6 @@
     <Content Include="Content\objective.css" />
     <Content Include="Content\question.css" />
     <Content Include="Content\objectives.css" />
-    <Content Include="data.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="humans.txt" />
