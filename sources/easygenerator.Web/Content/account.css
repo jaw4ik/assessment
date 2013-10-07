@@ -989,8 +989,9 @@ body.try {
     .user-form-tooltip {
         top: auto;
         bottom: 100%;
-        left: 0;
+        left: 25%;
         margin-left: 0;
+        margin-bottom: -10px;
         padding: 10px 0 0 0;
         color: #333;
         font-size: 12px;
