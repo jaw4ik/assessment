@@ -11,6 +11,7 @@
     height: 100%;
     /*min-height: 100%;*/
 }
+
 .durandal-wrapper {
     position: relative;
     height: 100%;
@@ -125,6 +126,7 @@
 
 .header-menu-list-item.profile {
     position: relative;
+    max-width: 280px;
     padding: 20px 10px;
     border-radius: 2px 2px 0 0;
     border-bottom: 1px solid black;
@@ -132,9 +134,11 @@
 }
 
 .header-username {
-    float: left;
     position: relative;
     padding-left: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
     .header-username:after {
@@ -160,6 +164,7 @@
     z-index: 3;
     top: 100%;
     right: 0;
+    list-style-type: none;
     border: 1px solid #303134;
     border-radius: 0 0 3px 1px;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
@@ -240,6 +245,5 @@ a.top-navigation-item:hover {
 /*#endregion TOP-NAVIGATION*/
 
 /*#region FOOTER*/
-
 
 /*#endregion FOOTER*/
