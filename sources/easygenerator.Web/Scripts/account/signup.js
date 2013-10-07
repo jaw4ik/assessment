@@ -3,6 +3,7 @@
         password = ko.observable(''),
         isLicenseAgreed = ko.observable(false),
         isUserNameEditing = ko.observable(false),
+        isUserNameValidating = ko.observable(false),
         isPasswordEditing = ko.observable(false),
         isPasswordVisible = ko.observable(false),
         userExists = ko.observable(false),
@@ -10,7 +11,7 @@
         userPreciselyExists = ko.computed(function () {
             return userExists() && userName().trim().toLowerCase() === lastValidatedUserName;
         }),
-        
+
         showHidePassword = function () {
             isPasswordVisible(!isPasswordVisible());
         },
@@ -27,16 +28,18 @@
         },
 
         checkUserExists = function () {
-            if (userPreciselyExists()) {
+            if (this.userPreciselyExists()) {
                 return;
             }
 
+            userExists(false);
             if (userName().trim() == '') {
-                userExists(false);
                 return;
             }
-            userExists(false);
+
             lastValidatedUserName = userName().trim().toLowerCase();
+            isUserNameValidating(true);
+
             $.ajax({
                 url: '/api/user/exists',
                 data: { email: userName().trim().toLowerCase() },
@@ -44,6 +47,7 @@
             })
             .done(function(response) {
                 userExists(response.data);
+                isUserNameValidating(false);
             });
         };
 
@@ -75,6 +79,7 @@
         password: password,
         isLicenseAgreed: isLicenseAgreed,
         isUserNameEditing: isUserNameEditing,
+        isUserNameValidating: isUserNameValidating,
         isPasswordEditing: isPasswordEditing,
         isPasswordVisible: isPasswordVisible,
         userExists: userExists,

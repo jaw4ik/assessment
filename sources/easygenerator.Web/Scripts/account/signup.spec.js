@@ -1,9 +1,13 @@
 ﻿define([], function () {
     "use strict";
 
-    var viewModel = signupModel();
+    var viewModel;
 
     describe('viewModel [signUp]', function () {
+
+        beforeEach(function() {
+            viewModel = signupModel();
+        });
 
         it('should be object', function () {
             expect(viewModel).toBeObject();
@@ -15,8 +19,12 @@
                 expect(viewModel.userName).toBeObservable();
             });
 
-            it('should have isValid computed', function () {
-                expect(viewModel.userName.isValid).toBeComputed();
+            describe('isValid:', function () {
+
+                it('should be computed', function () {
+                    expect(viewModel.userName.isValid).toBeComputed();
+                });
+
             });
 
             describe('when empty', function () {
@@ -75,8 +83,12 @@
                 expect(viewModel.password).toBeObservable();
             });
 
-            it('should have isValid computed', function () {
-                expect(viewModel.password.isValid).toBeComputed();
+            describe('isValid:', function () {
+
+                it('should be computed', function () {
+                    expect(viewModel.password.isValid).toBeComputed();
+                });
+
             });
 
             describe('when is empty', function () {
@@ -221,15 +233,43 @@
 
         });
 
+        describe('isUserNameValidating:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.isUserNameValidating).toBeObservable();
+            });
+
+        });
+
         describe('checkUserExists:', function () {
 
             it('should be a function', function () {
                 expect(viewModel.checkUserExists).toBeFunction();
             });
 
-            describe('when userName is empty', function () {
+            describe('when user precisely exists', function() {
 
-                it('should set userExists false', function () {
+                it('should not set \"userExists\"', function () {
+                    viewModel.userExists(null);
+                    spyOn(viewModel, "userPreciselyExists").andReturn(true);
+
+                    viewModel.checkUserExists();
+                    expect(viewModel.userExists()).toBeNull();
+                });
+                
+                it('should not send request to server', function () {
+                    spyOn($, 'ajax').andReturn($.Deferred().promise());
+                    spyOn(viewModel, "userPreciselyExists").andReturn(true);
+
+                    viewModel.checkUserExists();
+                    expect($.ajax).not.toHaveBeenCalled();
+                });
+
+            });
+
+            describe('when user name is empty', function () {
+
+                it('should set \"userExists\" false', function () {
                     spyOn($, 'ajax').andReturn($.Deferred().promise());
                     viewModel.userName('');
                     viewModel.userExists(null);
@@ -262,6 +302,16 @@
                     });
                 });
 
+                it('should set \"isUserValidating\" true', function() {
+                    spyOn($, 'ajax').andReturn($.Deferred().promise());
+                    viewModel.userName('mail');
+                    viewModel.isUserNameValidating(null);
+
+                    viewModel.checkUserExists();
+
+                    expect(viewModel.isUserNameValidating()).toBeTruthy();
+                });
+
             });
 
             describe('when request succeed', function () {
@@ -277,7 +327,7 @@
 
                 describe('and user exists', function () {
 
-                    it('should set userExists true', function () {
+                    it('should set \"userExists\" true', function () {
                         viewModel.userName('mail');
                         viewModel.userExists(null);
                         deferred.resolve({ data: true });
@@ -293,7 +343,7 @@
                         });
                     });
 
-                    it('should change userPreciselyExists in true', function () {
+                    it('should change \"userPreciselyExists\" in true', function () {
                         viewModel.userName('mail');
                         viewModel.userExists(null);
                         deferred.resolve({ data: true });
@@ -311,7 +361,7 @@
 
                     describe('and userName is changed', function () {
 
-                        it('should change userPreciselyExists in false', function () {
+                        it('should change \"userPreciselyExists\" in false', function () {
                             viewModel.userName('mail');
                             viewModel.userExists(null);
                             deferred.resolve({ data: true });
@@ -331,11 +381,28 @@
 
                     });
 
+                    it('should set \"isUserNameValidating\" false', function() {
+                        viewModel.userName('mail');
+                        viewModel.isUserNameValidating(null);
+                        viewModel.userExists(null);
+                        deferred.resolve({ data: true });
+
+                        viewModel.checkUserExists();
+
+                        waitsFor(function () {
+                            return promise.state() != "pending";
+                        });
+
+                        runs(function () {
+                            expect(viewModel.isUserNameValidating()).toBeFalsy();
+                        });
+                    });
+
                 });
 
                 describe('and user not exists', function () {
 
-                    it('should set userExists false', function () {
+                    it('should set \"userExists\" false', function () {
                         viewModel.userName('mail');
                         viewModel.userExists(null);
                         deferred.resolve({ data: false });
@@ -348,6 +415,22 @@
 
                         runs(function () {
                             expect(viewModel.userExists()).toBeFalsy();
+                        });
+                    });
+
+                    it('should set \"isUserNameValidating\" false', function () {
+                        viewModel.userName('mail');
+                        viewModel.isUserNameValidating(null);
+                        deferred.resolve({ data: false });
+
+                        viewModel.checkUserExists();
+
+                        waitsFor(function () {
+                            return promise.state() != "pending";
+                        });
+
+                        runs(function () {
+                            expect(viewModel.isUserNameValidating()).toBeFalsy();
                         });
                     });
 

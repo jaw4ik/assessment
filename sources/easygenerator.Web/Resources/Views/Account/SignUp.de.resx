@@ -165,4 +165,7 @@
   <data name="SignUpButton" xml:space="preserve">
     <value>Anmelden</value>
   </data>
+  <data name="Validating" xml:space="preserve">
+    <value>Validating...</value>
+  </data>
 </root>

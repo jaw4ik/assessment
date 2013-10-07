@@ -203,5 +203,14 @@ namespace AccountRes {
                 return ResourceManager.GetString("SignUpButton", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validating....
+        /// </summary>
+        public static string Validating {
+            get {
+                return ResourceManager.GetString("Validating", resourceCulture);
+            }
+        }
     }
 }
