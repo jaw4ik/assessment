@@ -247,6 +247,7 @@
     <Content Include="Content\images\account\try-center.png" />
     <Content Include="Content\images\account\try-left.png" />
     <Content Include="Content\images\account\try-right.png" />
+    <Content Include="Content\images\app-sprite.png" />
     <Content Include="Content\images\arrow-for-select-box.png" />
     <Content Include="Content\images\bg-logo.png" />
     <Content Include="Content\images\build-sprite.png" />
