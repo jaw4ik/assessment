@@ -357,7 +357,7 @@ body.try {
     }
 
 .form-validation-message {
-    display: тщту;
+    display: none;
     position: relative;
     padding-left: 20px;
     color: #434343;
