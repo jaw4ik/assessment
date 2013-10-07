@@ -886,25 +886,23 @@ body.try {
 }
 
 .document-subtitle {
-    font-size: 14px;
-    font-weight: normal;
-}
-
-.line-for-title {
     width: 670px;
     border-top: 1px solid #999;
-    font-size: 13px;
+    font-size: 12px;
     padding-top: 10px;
     margin-top: -5px;
+    font-family: 'OpenSansItalic';
 }
 
 .view-module.terms-of-use a,
 .view-module.privacy-policy a {
     color: #414141;
+    font-family: 'OpenSans-Semibold';
 }
 
-.download-eula {
-    font-weight: bold;
+.view-module.terms-of-use a:hover,
+.view-module.privacy-policy a:hover {
+    border-bottom: 1px solid #414141;
 }
 
 .document-numeric-list-item {
@@ -943,8 +941,12 @@ body.try {
     font-weight: normal;
 }
 
-.view-module.terms-of-use .italic-text, .view-module.privacy-policy .italic-text {
-    font-style: italic;
+.document-subtitle .italic {
+    font-family: 'OpenSansItalic';
+}
+
+.document-subtitle .italic a {
+    font-family: 'OpenSans-SemiboldItalic';
 }
 
 /*#endregion Terms of use and Privacy Polycy*/
@@ -962,7 +964,7 @@ body.try {
     /*#endregion Layout*/
 
     /*#region Terms of use and Privacy Polycy*/
-    .line-for-title {
+    .document-subtitle {
         width: 600px;
     }
     /*#endregion Terms of use and Privacy Polycy*/
@@ -1127,7 +1129,7 @@ body.try {
     /*#endregion TRY NOW*/
 
     /*#region Terms of use and Privacy Polycy*/
-    .line-for-title {
+    .document-subtitle {
         width: 500px;
     }
     /*#endregion Terms of use and Privacy Polycy*/
@@ -1136,7 +1138,7 @@ body.try {
 
 @media (max-width: 700px) {
     /*#region Terms of use and Privacy Polycy*/
-    .line-for-title {
+    .document-subtitle {
         width: 400px;
     }
     /*#endregion Terms of use and Privacy Polycy*/

@@ -239,6 +239,7 @@
     <Content Include="Content\font\opensans-italic.svg" />
     <Content Include="Content\font\opensans-regular.svg" />
     <Content Include="Content\font\opensans-semibold.svg" />
+    <Content Include="Content\font\opensans-semibolditalic.svg" />
     <Content Include="Content\images\account\log-in.png" />
     <Content Include="Content\images\account\pointer-left-big.png" />
     <Content Include="Content\images\account\pointer-right-big.png" />
@@ -321,6 +322,9 @@
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Account\TryNow.cshtml" />
     <Content Include="Content\eula\easygenerator_EULA.pdf" />
+    <Content Include="Content\font\opensans-semibolditalic.eot" />
+    <Content Include="Content\font\opensans-semibolditalic.ttf" />
+    <Content Include="Content\font\opensans-semibolditalic.woff" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>

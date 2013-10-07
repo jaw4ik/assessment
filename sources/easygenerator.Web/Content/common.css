@@ -20,6 +20,23 @@
 }
 
 @font-face {
+    font-family: 'OpenSansItalic';
+    src: url('./font/opensans-italic.eot');
+    src: url('./font/opensans-italic.svg#OpenSansItalic') format('svg'), url('./font/opensans-italic.eot?#iefix') format('embedded-opentype'), url('./font/opensans-italic.woff') format('woff'), url('./font/opensans-italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'OpenSans-SemiboldItalic';
+    src: url('./font/opensans-semibolditalic.eot');
+    src: url('./font/opensans-semibolditalic.svg#OpenSansSemiboldItalic') format('svg'), url('./font/opensans-semibolditalic.eot?#iefix') format('embedded-opentype'), url('./font/opensans-semibolditalic.woff') format('woff'), url('./font/opensans-semibolditalic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
     font-family: 'BuxtonSketch';
     src: url('./font/buxtonsketch.eot');
     src: url('./font/buxtonsketch.svg#OpenSansRegular') format('svg'), url('./font/buxtonsketch.eot?#iefix') format('embedded-opentype'), url('./font/buxtonsketch.woff') format('woff'), url('./font/buxtonsketch.ttf') format('truetype');
