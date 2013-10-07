@@ -154,6 +154,7 @@ body.try {
 .user-title {
     padding-bottom: 6px;
     font-size: 50px;
+    white-space: nowrap;
 }
 
     .user-title b {
@@ -895,10 +896,10 @@ body.try {
     font-family: 'OpenSans-Semibold';
 }
 
-.view-module.terms-of-use a:hover,
-.view-module.privacy-policy a:hover {
-    border-bottom: 1px solid #414141;
-}
+    .view-module.terms-of-use a:hover,
+    .view-module.privacy-policy a:hover {
+        border-bottom: 1px solid #414141;
+    }
 
 .document-numeric-list-item {
     line-height: 40px;
@@ -940,9 +941,9 @@ body.try {
     font-family: 'OpenSansItalic';
 }
 
-.document-subtitle .italic a {
-    font-family: 'OpenSans-SemiboldItalic';
-}
+    .document-subtitle .italic a {
+        font-family: 'OpenSans-SemiboldItalic';
+    }
 
 /*#endregion Terms of use and Privacy Polycy*/
 
@@ -958,11 +959,17 @@ body.try {
     }
     /*#endregion Layout*/
 
+    /*#region User Title*/
+    .user-title {
+        white-space: normal;
+    }
+    /*#endregion User Title*/
+
     /*#region Terms of use and Privacy Polycy*/
     .document-subtitle {
         width: 600px;
     }
-    /*#endregion Terms of use and Privacy Polycy*/
+    /*#endregion Terms of use and Privacy Policy*/
 }
 
 @media (max-width: 780px) {
@@ -978,6 +985,7 @@ body.try {
         padding-bottom: 3px;
         font-size: 40px;
         text-align: center;
+        white-space: normal;
     }
     /*#endregion User Title*/
 
