@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccountAlreadyExistsMessage" xml:space="preserve">
+  <data name="AccountAlreadyExists" xml:space="preserve">
     <value>Dit account bestaat al</value>
   </data>
   <data name="BeAtLeast7CharactersLong" xml:space="preserve">
@@ -153,7 +153,7 @@
   <data name="PasswordCaption" xml:space="preserve">
     <value>Wachtwoord</value>
   </data>
-  <data name="PasswordDoesNotMeetRequirementsMessage" xml:space="preserve">
+  <data name="PasswordDoesNotMeetRequirements" xml:space="preserve">
     <value>Wachtwoord voldoet niet aan de eisen</value>
   </data>
   <data name="PasswordIsStrongEnough" xml:space="preserve">
