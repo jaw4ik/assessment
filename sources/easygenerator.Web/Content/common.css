@@ -61,7 +61,7 @@ input::-moz-focus-inner {
 /*#endregion RESET CSS-STYLES IN FOREIGN BROWSERS */
 
 /*#region COMMON TAGS CSS-STYLES*/
-html, body, .main-container {
+html, body {
     height: 100%;
     width: 100%;
     -moz-user-select: none;

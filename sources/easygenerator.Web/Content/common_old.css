@@ -112,10 +112,6 @@ ol.unstyled  {
 
 /*#region COMMON CLASSES CSS-STYLES*/
 
-#applicationHost, #content, .durandal-wrapper {
-    height: 100%;
-}
-
 #content {
     min-width: 600px;
 }

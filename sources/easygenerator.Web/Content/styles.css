@@ -1,5 +1,30 @@
 ﻿/*#region LAYOUT*/
 
+.content-container {
+    position: relative;
+    height: 100%;
+    /*min-height: 100%;*/
+}
+
+#applicationHost {
+    position: relative;
+    height: 100%;
+    /*min-height: 100%;*/
+}
+.durandal-wrapper {
+    position: relative;
+    height: 100%;
+    /*min-height: 100%;*/
+}
+
+
+.main-container {
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 35px;
+    position: relative;
+}
+
 .content-holder {
     max-width: 1000px;
     width: 80%;
@@ -215,5 +240,6 @@ a.top-navigation-item:hover {
 /*#endregion TOP-NAVIGATION*/
 
 /*#region FOOTER*/
+
 
 /*#endregion FOOTER*/
