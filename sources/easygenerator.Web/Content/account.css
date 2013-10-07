@@ -857,11 +857,13 @@ body.try {
 .view-module.terms-of-use, .view-module.privacy-policy {
     padding-left: 150px;
     line-height: 2;
+    color: #414141;
 }
 
 .document-title {
     font-size: 50px;
     font-weight: normal;
+    color: #212322;
 }
 
 .document-subtitle {
@@ -869,12 +871,21 @@ body.try {
     font-weight: normal;
 }
 
-.view-module.terms-of-use .line-for-title,
-.view-module.privacy-policy .line-for-title {
-    width: 400px;
-    background-color: #999999;
-    height: 1px;
-    margin: 0 0 10px;
+.line-for-title {
+    width: 670px;
+    border-top: 1px solid #999;
+    font-size: 13px;
+    padding-top: 10px;
+    margin-top: -5px;
+}
+
+.view-module.terms-of-use a,
+.view-module.privacy-policy a {
+    color: #414141;
+}
+
+.download-eula {
+    font-weight: bold;
 }
 
 .document-numeric-list-item {
@@ -883,6 +894,7 @@ body.try {
     list-style-position: inside;
     font-family: 'OpenSans-Semibold';
     text-transform: uppercase;
+    color: #222;
 }
 
 .document-marked-list {
@@ -891,12 +903,15 @@ body.try {
     list-style-type: disc;
     list-style-position: inside;
     text-transform: none;
+    margin-left: 20px;
+    color: #414141;
 }
 
 .document-list-item-content {
     font-weight: normal !important;
     font-family: 'OpenSans';
     text-transform: none;
+    color: #414141;
 }
 
 .numeric-list .typeA {
@@ -927,6 +942,11 @@ body.try {
     }
     /*#endregion Layout*/
 
+     /*#region Terms of use and Privacy Polycy*/
+	.line-for-title {
+        width: 600px;
+    }
+    /*#endregion Terms of use and Privacy Polycy*/
 }
 
 @media (max-width: 780px) {
@@ -1086,4 +1106,18 @@ body.try {
 
     /*#endregion TRY NOW*/
 
+    /*#region Terms of use and Privacy Polycy*/
+    .line-for-title {
+        width: 500px;
+    }
+    /*#endregion Terms of use and Privacy Polycy*/
+
+}
+
+@media (max-width: 700px) {
+    /*#region Terms of use and Privacy Polycy*/
+    .line-for-title {
+        width: 400px;
+    }
+    /*#endregion Terms of use and Privacy Polycy*/
 }
