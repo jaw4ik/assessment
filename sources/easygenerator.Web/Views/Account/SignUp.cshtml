@@ -22,7 +22,7 @@
                     <div class="user-form-input-holder show-tooltip">
                         <input class="user-form-input" name="password" data-bind="attr: { type: isPasswordVisible() ? 'text' : 'password' }, value: password, valueUpdate: 'afterkeydown', hasFocus: isPasswordEditing" />
                         <a href="#" class="user-form-password-eye" data-bind="css:{ revealed: isPasswordVisible }, click: showHidePassword "></a>
-                        <div class="user-form-tooltip" data-bind="visible: isPasswordEditing()">
+                        <div class="user-form-tooltip" data-bind="visible: isPasswordEditing(), css: { top : userName.isValid(), bottom : !userName.isValid() }">
                             <div class="user-form-tooltip-title">@SignUp.PasswordRequirementsTitle</div>
                             <ul class="user-form-tooltip-list">
                                 <li class="user-form-tooltip-list-item">@SignUp.BeAtLeast7CharactersLong</li>

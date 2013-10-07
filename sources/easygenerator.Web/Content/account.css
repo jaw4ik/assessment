@@ -422,7 +422,6 @@ body.try {
 /*#region Form Tooltip*/
 
 .user-form-tooltip {
-    display: none;
     position: absolute;
     top: 9px;
     left: 100%;
@@ -443,21 +442,17 @@ body.try {
     z-index: 1;
 }
 
-.show-tooltip .user-form-tooltip {
-    display: block;
-}
-
-.user-form-tooltip:after {
-    content: '';
-    position: absolute;
-    top: 15px;
-    right: 100%;
-    display: block;
-    width: 8px;
-    height: 16px;
-    background: url(images/sprites.png) -54px -52px no-repeat;
-    z-index: 1;
-}
+    .user-form-tooltip:after {
+        content: '';
+        position: absolute;
+        top: 15px;
+        right: 100%;
+        display: block;
+        width: 8px;
+        height: 16px;
+        background: url(images/sprites.png) -54px -52px no-repeat;
+        z-index: 1;
+    }
 
 .user-form-tooltip-title {
     position: relative;
@@ -1006,11 +1001,10 @@ body.try {
         display: none;
     }
 
-
-    .user-form-tooltip {
+    .user-form-tooltip.top {
         top: auto;
         bottom: 100%;
-        left: 25%;
+        left: 50%;
         margin-left: 0;
         margin-bottom: -10px;
         padding: 10px 0 0 0;
@@ -1018,12 +1012,30 @@ body.try {
         font-size: 12px;
     }
 
-        .user-form-tooltip:after {
+        .user-form-tooltip.top:after {
             top: 100%;
-            right: 50%;
+            left: 12px;
             width: 16px;
             height: 8px;
             background: url(images/sprites.png) -66px -52px no-repeat;
+        }
+
+    .user-form-tooltip.bottom {
+        top: auto;
+        left: 50%;
+        margin-left: 0;
+        margin-top: -6px;
+        padding: 10px 0 0 0;
+        color: #333;
+        font-size: 12px;
+    }
+
+        .user-form-tooltip.bottom:after {
+            top: -8px;
+            left: 12px;
+            width: 16px;
+            height: 8px;
+            background: url(images/sprites.png) -66px -64px no-repeat;
         }
 
     .user-form-tooltip-title {
