@@ -356,6 +356,25 @@ body.try {
         background: url(images/sprites.png) 0 -25px;
     }
 
+.form-validation-message {
+    display: тщту;
+    position: relative;
+    padding-left: 20px;
+    color: #434343;
+    font-size: 12px;
+}
+
+    .form-validation-message:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 3px;
+        left: 2px;
+        height: 12px;
+        width: 12px;
+        background: url(../Content/images/loader_12x12.gif);
+    }
+
 .user-form-row.success .user-form-message {
     display: block;
     color: #62a426;
@@ -942,8 +961,8 @@ body.try {
     }
     /*#endregion Layout*/
 
-     /*#region Terms of use and Privacy Polycy*/
-	.line-for-title {
+    /*#region Terms of use and Privacy Polycy*/
+    .line-for-title {
         width: 600px;
     }
     /*#endregion Terms of use and Privacy Polycy*/

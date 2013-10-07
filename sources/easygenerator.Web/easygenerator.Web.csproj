@@ -251,6 +251,7 @@
     <Content Include="Content\images\arrow-for-select-box.png" />
     <Content Include="Content\images\bg-logo.png" />
     <Content Include="Content\images\build-sprite.png" />
+    <Content Include="Content\images\loader_12x12.GIF" />
     <Content Include="Content\images\quizTemplate.png" />
     <Content Include="Content\images\emptyBox.png" />
     <Content Include="Content\images\finish.png" />

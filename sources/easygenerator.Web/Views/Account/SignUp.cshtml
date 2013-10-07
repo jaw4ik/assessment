@@ -14,6 +14,7 @@
                     <div class="user-form-input-holder">
                         <input class="user-form-input" type="text" name="email" data-bind="value: userName, valueUpdate: 'afterkeydown', event: { blur: checkUserExists }, hasFocus: isUserNameEditing" />
                     </div>
+                    <span class="form-validation-message">Validating...</span>
                     <span class="user-form-message" data-bind="visible: !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), text: userExists() ? '@SignUp.AccountAlreadyExists' : '@SignUp.EnterValidEmailMessage'"></span>
                 </div>
                 <div class="user-form-row" data-bind="css : { error: !password.isValid() && password().length > 0, success: password.isValid() }">

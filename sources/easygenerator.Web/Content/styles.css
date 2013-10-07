@@ -180,6 +180,7 @@
     padding: 8px 17px 8px 45px;
     background: #454649;
     color: white;
+    white-space: nowrap;
 }
 
     .header-submenu-link:hover {
