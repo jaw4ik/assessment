@@ -533,64 +533,125 @@
                     });
 
                     it('should send request to server', function () {
-                        repository.relateObjectives(experience.id, objectives);
+                        var promise = repository.relateObjectives(experience.id, objectives);
+                        httpWrapperPost.resolve();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(httpWrapper.post).toHaveBeenCalled();
+                        });
                     });
 
-                    xdescribe('and experience not exist', function () {
+                    describe('and request to server failed', function () {
 
                         it('should reject promise', function () {
-                            getById.reject('reject reason');
-                            var promise = repository.relateObjectives('0', []);
+                            var promise = repository.relateObjectives(experience.id, objectives);
+                            httpWrapperPost.reject('Some reason');
 
                             waitsFor(function () {
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(promise).toBeRejectedWith('reject reason');
+                                expect(promise).toBeRejectedWith('Some reason');
                             });
                         });
 
                     });
 
-                    xdescribe('and experience exists', function () {
-                        var experience;
+                    describe('and request to server succeed', function () {
 
-                        beforeEach(function () {
-                            experience = { id: '1', objectives: [] };
-                            getById.resolve(experience);
+                        describe('and response is not an object', function () {
+
+                            it('should reject promise', function () {
+                                var promise = repository.relateObjectives(experience.id, objectives);
+                                httpWrapperPost.resolve();
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Response is not an object');
+                                });
+                            });
+
                         });
 
-                        it('should append list of objectives to experience', function () {
-                            var promise = repository.relateObjectives('1', [{ id: '0' }, { id: '1' }]);
+                        describe('and response has no midifiedOn date', function () {
 
-                            waitsFor(function () {
-                                return !promise.isPending();
+                            it('should reject promise', function () {
+                                var promise = repository.relateObjectives(experience.id, objectives);
+                                httpWrapperPost.resolve({});
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Response does not have modification date');
+                                });
                             });
-                            runs(function () {
-                                expect(experience.objectives.length).toBe(2);
-                            });
+
                         });
 
-                        it('should update modified date', function () {
-                            var promise = repository.relateObjectives('1', [{ id: '0' }]);
+                        describe('and experience doesn`t exist in dataContext', function () {
 
-                            waitsFor(function () {
-                                return !promise.isPending();
+                            it('should reject promise', function () {
+                                dataContext.experiences = [];
+                                var promise = repository.relateObjectives(experience.id, objectives);
+                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Experience doesn`t exist');
+                                });
                             });
-                            runs(function () {
-                                expect(experience.modifiedOn).toBeDefined();
-                            });
+
                         });
 
-                        it('should be resolved with modified date', function () {
-                            var promise = repository.relateObjectives('1', []);
+                        describe('and experience exists in dataContext', function () {
 
-                            waitsFor(function () {
-                                return !promise.isPending();
+                            it('should update expereince modifiedOn date', function () {
+                                dataContext.experiences = [{ id: experience.id, modifiedOn: new Date(), objectives: [] }];
+                                var promise = repository.relateObjectives(experience.id, objectives);
+                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(dataContext.experiences[0].modifiedOn).toEqual(utils.getDateFromString('/Date(1378106938845)/'));
+                                });
                             });
-                            runs(function () {
-                                expect(promise).toBeResolvedWith(experience.modifiedOn);
+                            
+                            it('should relate objectives to experience', function () {
+                                dataContext.experiences = [{ id: experience.id, modifiedOn: new Date(), objectives: [] }];
+                                var promise = repository.relateObjectives(experience.id, objectives);
+                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(dataContext.experiences[0].objectives).toEqual(objectives);
+                                });
                             });
+                            
+                            it('should resolve promise with modification date', function () {
+                                dataContext.experiences = [{ id: experience.id, modifiedOn: new Date(), objectives: [] }];
+                                var promise = repository.relateObjectives(experience.id, objectives);
+                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolvedWith(utils.getDateFromString('/Date(1378106938845)/'));
+                                });
+                            });
+
                         });
 
                     });
@@ -701,71 +762,134 @@
                 });
 
                 describe('when all arguments are valid', function () {
-                    var getById;
+                    var experience;
+                    var objectives;
 
                     beforeEach(function () {
-                        getById = Q.defer();
-                        spyOn(repository, 'getById').andReturn(getById.promise);
+                        experience = { id: "SomeExperienceId" };
+                        objectives = [{ id: "SomeObjectiveId1" }, { id: "SomeObjectiveId2" }];
                     });
+                    
+                    it('should send request to server', function () {
+                        var promise = repository.unrelateObjectives(experience.id, objectives);
+                        httpWrapperPost.resolve();
 
-                    xdescribe('and experience doesn\'t exist', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(httpWrapper.post).toHaveBeenCalled();
+                        });
+                    });
+                    
+                    describe('and request to server failed', function () {
 
                         it('should reject promise', function () {
-                            getById.reject('Experience doesn\'t exist');
-                            var promise = repository.unrelateObjectives('some experience Id', []);
+                            var promise = repository.unrelateObjectives(experience.id, objectives);
+                            httpWrapperPost.reject('Some reason');
 
                             waitsFor(function () {
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(promise).toBeRejected();
+                                expect(promise).toBeRejectedWith('Some reason');
                             });
                         });
 
                     });
 
-                    xdescribe('and experience exists', function () {
-                        var objectives,
-                            experience;
+                    describe('and request to server succeed', function () {
 
-                        beforeEach(function () {
-                            objectives = ['2', '6'],
-                            experience = { objectives: [{ id: '2' }, { id: '4' }, { id: '6' }] };
-                            getById.resolve(experience);
+                        describe('and response is not an object', function () {
+
+                            it('should reject promise', function () {
+                                var promise = repository.unrelateObjectives(experience.id, objectives);
+                                httpWrapperPost.resolve();
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Response is not an object');
+                                });
+                            });
+
                         });
 
-                        it('should remove objectives', function () {
-                            var promise = repository.unrelateObjectives('some Id', objectives);
+                        describe('and response has no midifiedOn date', function () {
 
-                            waitsFor(function () {
-                                return !promise.isPending();
+                            it('should reject promise', function () {
+                                var promise = repository.unrelateObjectives(experience.id, objectives);
+                                httpWrapperPost.resolve({});
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Response does not have modification date');
+                                });
                             });
-                            runs(function () {
-                                expect(experience.objectives.length).toBe(1);
-                                expect(experience.objectives[0].id).toBe('4');
-                            });
+
                         });
 
-                        it('should update modified date', function () {
-                            var promise = repository.unrelateObjectives('some Id', objectives);
+                        describe('and experience doesn`t exist in dataContext', function () {
 
-                            waitsFor(function () {
-                                return !promise.isPending();
+                            it('should reject promise', function () {
+                                dataContext.experiences = [];
+                                var promise = repository.unrelateObjectives(experience.id, objectives);
+                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Experience doesn`t exist');
+                                });
                             });
-                            runs(function () {
-                                expect(experience.modifiedOn).toBeDefined();
-                            });
+
                         });
 
-                        it('should resolve promise with modified date', function () {
-                            var promise = repository.unrelateObjectives('some Id', objectives);
+                        describe('and experience exists in dataContext', function () {
 
-                            waitsFor(function () {
-                                return !promise.isPending();
+                            it('should update expereince modifiedOn date', function () {
+                                dataContext.experiences = [{ id: experience.id, modifiedOn: new Date(), objectives: [] }];
+                                var promise = repository.unrelateObjectives(experience.id, objectives);
+                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(dataContext.experiences[0].modifiedOn).toEqual(utils.getDateFromString('/Date(1378106938845)/'));
+                                });
                             });
-                            runs(function () {
-                                expect(promise).toBeResolvedWith(experience.modifiedOn);
+
+                            it('should unrelate objectives from experience', function () {
+                                dataContext.experiences = [{ id: experience.id, modifiedOn: new Date(), objectives: objectives }];
+                                var promise = repository.unrelateObjectives(experience.id, objectives);
+                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(dataContext.experiences[0].objectives).toEqual([]);
+                                });
                             });
+
+                            it('should resolve promise with modification date', function () {
+                                dataContext.experiences = [{ id: experience.id, modifiedOn: new Date(), objectives: [] }];
+                                var promise = repository.unrelateObjectives(experience.id, objectives);
+                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolvedWith(utils.getDateFromString('/Date(1378106938845)/'));
+                                });
+                            });
+
                         });
 
                     });

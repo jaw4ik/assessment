@@ -1,5 +1,5 @@
 ﻿define(['dataContext', 'constants', 'plugins/http', 'models/experience', 'guard', 'httpWrapper'],
-    function (dataContext, constants, http, ExperienceModel, guard, httpWrapper) {
+    function (dataContext, constants, http, experienceModel, guard, httpWrapper) {
 
         var
             getCollection = function () {
@@ -50,7 +50,7 @@
 
                             var experienceId = response.Id,
                                 createdOn = new Date(parseInt(response.CreatedOn.substr(6), 10)),
-                                createdExperience = new ExperienceModel({
+                                createdExperience = new experienceModel({
                                     id: experienceId,
                                     title: title,
                                     template: {
@@ -166,7 +166,7 @@
                         experience.objectives = _.reject(experience.objectives, function (objective) {
                             return _.contains(objectives, objective);
                         });
-
+                        
                         experience.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
                         return experience.modifiedOn;
                     });
