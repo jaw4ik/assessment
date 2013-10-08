@@ -133,6 +133,15 @@
     cursor: default;
 }
 
+    .header-menu-list-item.profile .click-area {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        height: 100%;
+        left: 0;
+        z-index: 10;
+    }
+
 .header-username {
     position: relative;
     padding-left: 30px;

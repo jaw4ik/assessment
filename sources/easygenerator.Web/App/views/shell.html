@@ -1,53 +1,54 @@
 ﻿<div class="main-container">
     <header class="header" data-bind="css: 'module-' + activeModuleName()">
-    <div class="content-holder clearfix">
-        <div class="pull-left header-logo-holder">
-            <!-- ko if: activeModuleName() == homeModuleName || router.isNavigating() -->
-            <span class="header-logo"></span>
-            <!-- /ko -->
-            <!-- ko ifnot: activeModuleName() == homeModuleName || router.isNavigating() -->
-            <a href="#/" class="header-logo">&nbsp;</a>
-            <!-- /ko -->
-        </div>
-        <div class="pull-right ">
-            <ul class="header-menu-list clearfix">
-                <li class="header-menu-list-item mode sign-up">
-                    <span>In Try It Now mode your content is not safe!</span>
-                    <a class="orange button" href="/account/signup">Sign up
-                    </a>
-                </li>
-                <li class="header-menu-list-item help">Help</li>
-                <li class="header-menu-list-item mode profile" data-bind="click: $root.toggleExpansion, css: { active : isExpanded }">
-                    <div class="header-submenu-holder">
-                        <span class="header-submenu-expand-icon"></span>
+        <div class="content-holder clearfix">
+            <div class="pull-left header-logo-holder">
+                <!-- ko if: activeModuleName() == homeModuleName || router.isNavigating() -->
+                <span class="header-logo"></span>
+                <!-- /ko -->
+                <!-- ko ifnot: activeModuleName() == homeModuleName || router.isNavigating() -->
+                <a href="#/" class="header-logo">&nbsp;</a>
+                <!-- /ko -->
+            </div>
+            <div class="pull-right ">
+                <ul class="header-menu-list clearfix">
+                    <li class="header-menu-list-item mode sign-up">
+                        <span>In Try It Now mode your content is not safe!</span>
+                        <a class="orange button" href="/account/signup">Sign up
+                        </a>
+                    </li>
+                    <li class="header-menu-list-item help">Help</li>
+                    <li class="header-menu-list-item mode profile" data-bind="css: { active: isExpanded }">
+                        <div class="click-area" data-bind="click: $root.toggleExpansion"></div>
+                        <div class="header-submenu-holder">
+                            <span class="header-submenu-expand-icon"></span>
+                        </div>
+                        <div class="header-username">1</div>
                         <ul class="header-submenu-list">
                             <li class="header-submenu-item sign-out">
                                 <a class="header-submenu-link" href="\account\logout">Sign out</a>
                             </li>
                         </ul>
-                    </div>
-                    <div class="header-username">1</div>
-                </li>
-            </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</header>
-<nav class="top-navigation">
-    <div class="content-holder">
-        <!-- ko foreach: navigation -->
-        <!-- ko ifnot: isActive -->
-        <a href="#" class="top-navigation-item" data-bind="click: navigate">
-            <span data-bind="localize: { text: title }"></span>
-        </a>
-        <!-- /ko -->
-        <!-- ko if: isActive -->
-        <span class="top-navigation-item" data-bind="css: { current: !$parent.router.isNavigating(), cursor: $parent.router.isNavigating() }">
-            <span data-bind="localize: { text: title }"></span>
-        </span>
-        <!-- /ko -->
-        <!-- /ko -->
-    </div>
-</nav>
+    </header>
+    <nav class="top-navigation">
+        <div class="content-holder">
+            <!-- ko foreach: navigation -->
+            <!-- ko ifnot: isActive -->
+            <a href="#" class="top-navigation-item" data-bind="click: navigate">
+                <span data-bind="localize: { text: title }"></span>
+            </a>
+            <!-- /ko -->
+            <!-- ko if: isActive -->
+            <span class="top-navigation-item" data-bind="css: { current: !$parent.router.isNavigating(), cursor: $parent.router.isNavigating() }">
+                <span data-bind="localize: { text: title }"></span>
+            </span>
+            <!-- /ko -->
+            <!-- /ko -->
+        </div>
+    </nav>
 
     <div class="icon-spinner-wrapper" data-bind="visible: !isViewReady()">
         <img src="/Content/images/loader.gif" alt="" />
@@ -60,8 +61,7 @@
 <footer class="footer try">
     <div class="content-wrapper try clearfix">
         <div class="footer-item pull-left">
-            <span class="selectable cursor-default">
-                Copyright © 2013  Easygenerator. All rights reserved.
+            <span class="selectable cursor-default">Copyright © 2013  Easygenerator. All rights reserved.
             </span>
         </div>
     </div>
