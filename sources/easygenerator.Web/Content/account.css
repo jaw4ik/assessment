@@ -30,7 +30,6 @@ body.try {
     position: relative;
     height: auto;
     min-height: 100%;
-    padding-bottom: 80px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
