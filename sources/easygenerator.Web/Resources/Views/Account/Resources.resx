@@ -150,6 +150,9 @@
   <data name="EnterValidEmailMessage" xml:space="preserve">
     <value>Enter a valid e-mail</value>
   </data>
+  <data name="IncorrectEmailOrPassword" xml:space="preserve">
+    <value>Such e-mail and password combination not found</value>
+  </data>
   <data name="LicenseAgreeCheckBoxTitle" xml:space="preserve">
     <value>I have read and I agree to the &lt;a href="{0}"&gt;Terms&lt;/a&gt; and &lt;a href="{1}"&gt;Privacy&lt;/a&gt;</value>
   </data>

@@ -1,20 +1,24 @@
-﻿@{
-    ViewBag.Title = "SignIn";
+﻿@using AccountRes
+@{
+    ViewBag.Title = Resources.SignIn;
     Layout = "~/Views/Account/_Layout.cshtml";
 }
 <section class="view-module log-in">
     <div class="user-columns">
         <div class="user-column form">
-            <div class="user-title">Sign in</div>
+            <div class="user-title">@Resources.SignIn </div>
             <form class="user-form" id="signinForm" action="#" method="post" data-bind="submit: submit">
-                <div class="user-form-row" data-bind="css: { error: hasError }">
-                    <label class="user-form-label email">E-mail</label>
+                <div class="user-form-row" data-bind="css: { error: hasError() || (!username.isValid() && username.isModified()) }">
+                    <label class="user-form-label email">@Resources.EmailCaption</label>
                     <div class="user-form-input-holder">
-                        <input class="user-form-input" type="text" name="email" data-bind="value: username, valueUpdate: 'afterkeydown'" />
+                        <input class="user-form-input" type="text" name="email" data-bind="value: username, valueUpdate: 'afterkeydown', event: { blur: username.markAsModified }" />
                     </div>
+                    <!-- ko if: !username.isValid() && username.isModified() -->
+                    <span class="user-form-message">@Resources.EnterValidEmailMessage</span>
+                    <!-- /ko -->
                 </div>
                 <div class="user-form-row" data-bind="css: { error: hasError }">
-                    <label class="user-form-label password">Password</label>
+                    <label class="user-form-label password">@Resources.PasswordCaption</label>
                     <div class="user-form-input-holder">
                         <input class="user-form-input" type="password" name="password" data-bind="value: password, valueUpdate: 'afterkeydown', attr: { type: isPasswordVisible() ? 'text' : 'password' }" />
                         <a href="#" class="user-form-password-eye" data-bind="css: { revealed: isPasswordVisible }, click: togglePasswordVisibility"></a>
@@ -27,7 +31,7 @@
                 <!-- /ko -->
                 <div class="user-form-row submit">
                     <div class="formBtn">
-                        <input class="green btn" type="submit" value="Sign in" data-bind="css: { disabled: !canSubmit() }">
+                        <input class="green btn" type="submit" value="@Resources.SignIn " data-bind="css: { disabled: !canSubmit() }">
                     </div>
                 </div>
             </form>

@@ -1,8 +1,10 @@
 ﻿var app = app || {};
 
-app.openHomePage = function() {
+app.openHomePage = function () {
     window.location.replace('/');
 };
+
+app.emailPattern = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/;
 
 $(function () {
     if ($(".sign-up").length) {

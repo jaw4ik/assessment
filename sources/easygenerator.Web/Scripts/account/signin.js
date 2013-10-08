@@ -3,7 +3,17 @@
 app.signinViewModel = function () {
 
     var
-        username = ko.observable(),
+        username = (function () {
+            var value = ko.observable();
+            value.isValid = ko.computed(function () {
+                return !!(value() && app.emailPattern.test(value().trim()));
+            });
+            value.isModified = ko.observable(false);
+            value.markAsModified = function () {
+                value.isModified(true);
+            };
+            return value;
+        })(),
         password = ko.observable(),
 
         isPasswordVisible = ko.observable(),
@@ -17,7 +27,7 @@ app.signinViewModel = function () {
         }),
 
         canSubmit = ko.computed(function () {
-            return !!(username() && password() && username().trim().length && password().trim().length);
+            return !!(username.isValid() && password() && password().trim().length);
         }),
 
         submit = function () {
@@ -58,6 +68,8 @@ app.signinViewModel = function () {
                 that.errorMessage(reason);
             });
         };
+
+
 
     return {
         username: username,

@@ -17,6 +17,77 @@
                 expect(viewModel.username).toBeObservable();
             });
 
+
+            describe('isModified', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.username).toBeObservable();
+                });
+
+                it('should be false by default', function () {
+                    expect(viewModel.username.isModified()).toBeFalsy();
+                });
+
+            });
+
+            describe('markAsModified', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.username.markAsModified).toBeFunction();
+                });
+
+                it('should mark question as modified', function () {
+                    viewModel.username.isModified(false);
+                    viewModel.username.markAsModified();
+                    expect(viewModel.username.isModified()).toBeTruthy();
+                });
+
+            });
+
+            describe('isValid:', function () {
+
+                it('should be computed', function () {
+                    expect(viewModel.username.isValid).toBeComputed();
+                });
+
+                describe('when username is not a string', function () {
+
+                    it('should be false', function () {
+                        viewModel.username(null);
+                        expect(viewModel.username.isValid()).toBeFalsy();
+                    });
+
+                });
+
+                describe('when username is an empty string', function () {
+
+                    it('should be true', function () {
+                        viewModel.username('');
+                        expect(viewModel.username.isValid()).toBeFalsy();
+                    });
+
+                });
+
+                describe('when username is a not-e-mail string', function () {
+
+                    it('should be true', function () {
+                        viewModel.username('Username');
+                        expect(viewModel.username.isValid()).toBeFalsy();
+                    });
+
+                });
+
+                describe('when username is an email string', function () {
+
+                    it('should be true', function () {
+                        viewModel.username('username@easygenerator.com');
+                        expect(viewModel.username.isValid()).toBeTruthy();
+                    });
+
+                });
+
+            });
+
         });
 
         describe('password:', function () {
@@ -124,22 +195,33 @@
 
             });
 
-            describe('when password is empty', function () {
+            describe('when username is whitespace', function () {
 
                 it('should be false', function () {
-                    viewModel.username("username@easygenerator.com");
-                    viewModel.password("");
+                    viewModel.username("            ");
+                    viewModel.password("abc123");
 
                     expect(viewModel.canSubmit()).toBeFalsy();
                 });
 
             });
 
-            describe('when username is whitespace', function () {
+            describe('when username is not an email string', function () {
 
                 it('should be false', function () {
-                    viewModel.username("            ");
+                    viewModel.username("username");
                     viewModel.password("abc123");
+
+                    expect(viewModel.canSubmit()).toBeFalsy();
+                });
+
+            });
+
+            describe('when password is empty', function () {
+
+                it('should be false', function () {
+                    viewModel.username("username@easygenerator.com");
+                    viewModel.password("");
 
                     expect(viewModel.canSubmit()).toBeFalsy();
                 });
@@ -157,7 +239,7 @@
 
             });
 
-            describe('when username and password are not empty or whitespace', function () {
+            describe('when username is an email string and password is empty or whitespace', function () {
 
                 it('should be true', function () {
                     viewModel.username("username@easygenerator.com");
@@ -196,11 +278,11 @@
 
             });
 
-            describe('when password is empty', function () {
+            describe('when username is whitespace', function () {
 
                 it('should not send request to /api/user/signin', function () {
-                    viewModel.username("username@easygenerator.com");
-                    viewModel.password("");
+                    viewModel.username("            ");
+                    viewModel.password("abc123");
 
                     viewModel.submit();
 
@@ -209,11 +291,23 @@
 
             });
 
-            describe('when username is whitespace', function () {
+            describe('when username is not an email string', function () {
 
                 it('should not send request to /api/user/signin', function () {
-                    viewModel.username("            ");
+                    viewModel.username("username");
                     viewModel.password("abc123");
+
+                    viewModel.submit();
+
+                    expect($.ajax).not.toHaveBeenCalled();
+                });
+            });
+
+            describe('when password is empty', function () {
+
+                it('should not send request to /api/user/signin', function () {
+                    viewModel.username("username@easygenerator.com");
+                    viewModel.password("");
 
                     viewModel.submit();
 
@@ -235,7 +329,7 @@
 
             });
 
-            describe('when username and password are not empty or whitespace', function () {
+            describe('when username is an email string and password is not empty or whitespace', function () {
 
                 var username = "username@easygenerator.com";
                 var password = "Abc123! ";

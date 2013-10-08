@@ -150,6 +150,9 @@
   <data name="EnterValidEmailMessage" xml:space="preserve">
     <value>Voer een geldig e-mailadres in</value>
   </data>
+  <data name="IncorrectEmailOrPassword" xml:space="preserve">
+    <value>Deze combinatie van e-mailadres en wachtwoord is niet gevonden.</value>
+  </data>
   <data name="LicenseAgreeCheckBoxTitle" xml:space="preserve">
     <value>Ik heb de volgende &lt;a href="{0}"&gt;Voorwaarden&lt;/a&gt; en &lt;a href="{1}"&gt;Privacy&lt;/a&gt; gelezen en ga ermee akkoord</value>
   </data>
@@ -170,6 +173,9 @@
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Privacybeleid</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Aanmelden</value>
   </data>
   <data name="SignUp" xml:space="preserve">
     <value>Inschrijven</value>

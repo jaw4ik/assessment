@@ -160,6 +160,15 @@ namespace AccountRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Such e-mail and password combination not found.
+        /// </summary>
+        public static string IncorrectEmailOrPassword {
+            get {
+                return ResourceManager.GetString("IncorrectEmailOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I have read and I agree to the &lt;a href=&quot;{0}&quot;&gt;Terms&lt;/a&gt; and &lt;a href=&quot;{1}&quot;&gt;Privacy&lt;/a&gt;.
         /// </summary>
         public static string LicenseAgreeCheckBoxTitle {

@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Security;
+using AccountRes;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
@@ -26,7 +27,7 @@ namespace easygenerator.Web.Controllers.Api
             var user = _repository.GetUserByEmail(username);
             if (user == null || !user.VerifyPassword(password))
             {
-                return JsonError("Incorrect username and password combination");
+                return JsonError(Resources.IncorrectEmailOrPassword);
             }
 
             _authenticationProvider.SignIn(username, true);
