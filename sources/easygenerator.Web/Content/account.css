@@ -875,6 +875,7 @@ body.try {
     text-align: right;
     font: 21px Buxton Sketch, 'BuxtonSketch';
     color: #333333;
+    white-space: nowrap;
 }
 
 .try-image-right {

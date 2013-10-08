@@ -129,4 +129,25 @@
   <data name="TermsOfUse" xml:space="preserve">
     <value>Nutzungsbedingungen</value>
   </data>
+  <data name="TryImageDevelopOn" xml:space="preserve">
+    <value>Entwickeln in</value>
+  </data>
+  <data name="TryImagePublishTo" xml:space="preserve">
+    <value>Veröffentlichen in</value>
+  </data>
+  <data name="TryNow" xml:space="preserve">
+    <value>Jetzt ausprobieren</value>
+  </data>
+  <data name="TrySubmitCaption" xml:space="preserve">
+    <value>Probieren Sie es jetzt aus.</value>
+  </data>
+  <data name="TrySubtitle" xml:space="preserve">
+    <value>Eine revolutionäre eLearning-Plattform</value>
+  </data>
+  <data name="TryTitle" xml:space="preserve">
+    <value>&lt;b&gt;easygenerator&lt;/b&gt; - Einführung</value>
+  </data>
+  <data name="TryWarningMessage" xml:space="preserve">
+    <value>Im Jetzt ausprobieren-Modus sind Ihre Inhalte nicht sicher!</value>
+  </data>
 </root>
