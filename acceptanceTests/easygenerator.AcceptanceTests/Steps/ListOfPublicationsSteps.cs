@@ -3,6 +3,7 @@ using easygenerator.AcceptanceTests.Helpers;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,14 +31,19 @@ namespace easygenerator.AcceptanceTests.Steps
             {
                 Id = data.Id,
                 Title = data.Title,
-                CreatedOn = @"\/Date(1377172218190)\/",
-                ModifiedOn = @"\/Date(1377172218190)\/",
-                BuiltOn = "",
-                Objectives = new List<string>(),
+                CreatedOn = DateTime.Now,
+                ModifiedOn = DateTime.Now,
+                BuildOn = null,
+                Objectives = new Collection<Objective>(),
                 PackageUrl = "",
-                TemplateId = "0593CC4DD1934ACCBE91DCE7ECE969AE"
+                Template_Id = new Collection<Template>().First(it => it.Name == "Default").Id,
+                CreatedBy = "vr.danylchuk@ism-ukraine.com",
+                ModifiedBy = "vr.danylchuk@ism-ukraine.com"
+
             };
         }
+
+        
 
         [Given(@"publications are present in database")]
         public void GivenPublicationsArePresentInDatabase(Table table)

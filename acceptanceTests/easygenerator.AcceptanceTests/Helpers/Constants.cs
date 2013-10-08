@@ -21,8 +21,8 @@ namespace easygenerator.AcceptanceTests.Helpers
     {
         public UniqueData()
         {
-            Id = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid();
         }
-        public string Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

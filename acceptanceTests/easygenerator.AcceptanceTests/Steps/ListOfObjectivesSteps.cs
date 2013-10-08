@@ -3,6 +3,7 @@ using easygenerator.AcceptanceTests.Helpers;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,10 +31,13 @@ namespace easygenerator.AcceptanceTests.Steps
             {
                 Id = obj.Id,
                 Title = obj.Title,
-                ImageSource = @"Content/images/logo.png",
-                CreatedOn = @"\/Date(1377172218190)\/",
-                ModifiedOn = @"\/Date(1377172218190)\/",
-                Questions = new List<Question>()
+                //ImageSource = @"Content/images/logo.png",
+                CreatedOn = DateTime.Now,
+                ModifiedOn = DateTime.Now,
+                CreatedBy = "vr.danylchuk@ism-ukraine.com",
+                ModifiedBy = "vr.danylchuk@ism-ukraine.com",
+                Questions = new Collection<Question>(),
+                Experiences = new Collection<Experience>()
             };
         }
 

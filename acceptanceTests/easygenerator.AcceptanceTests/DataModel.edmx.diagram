@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="06e42fae71a34112a23b1ca156204dd4" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Answer" Width="1.5" PointX="9.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Experience" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LearningObject" Width="1.5" PointX="9.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Objective" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Question" Width="1.5" PointX="7.5" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Template" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.User" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_dbo_Answers_dbo_Questions_Question_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Experiences_dbo_Templates_Template_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_LearningObjects_dbo_Questions_Question_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Questions_dbo_Objectives_Objective_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.ExperienceObjectives" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

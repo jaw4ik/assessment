@@ -30,22 +30,30 @@ namespace easygenerator.AcceptanceTests.Steps
             this.Question = Question;
         }
 
-        private AnswerOption BuildAnswerOption(AnswerData data)
+        private Answer BuildAnswerOption(AnswerData data)
         {
-            return new Helpers.AnswerOption()
+            return new Answer()
             {
                 IsCorrect = data.IsCorrect,
                 Text = data.Text,
-                Id = data.Id
+                Id = data.Id,
+                CreatedOn = DateTime.Now,
+                ModifiedOn = DateTime.Now,
+                CreatedBy = "vr.danylchuk@ism-ukraine.com",
+                ModifiedBy = "vr.danylchuk@ism-ukraine.com"
             };
         }
 
-        private Explanation BuildExplanation(ExplanationData data)
+        private LearningObject BuildExplanation(ExplanationData data)
         {
-            return new Helpers.Explanation()
+            return new LearningObject()
             {
                 Id = data.Id,
-                Text = data.Explanation
+                Text = data.Explanation,
+                CreatedOn = DateTime.Now,
+                ModifiedOn = DateTime.Now,
+                CreatedBy = "vr.danylchuk@ism-ukraine.com",
+                ModifiedBy = "vr.danylchuk@ism-ukraine.com"
             };
         }
 
