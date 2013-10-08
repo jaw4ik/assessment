@@ -5,7 +5,7 @@
 
             function getObjectiveScore(objective) {
                 var result = _.reduce(objective.questions, function (memo, question) { return memo + question.score; }, 0);
-                return Math.round(result / objective.questions.length);
+                return result / objective.questions.length;
             }
 
             this.objectives = _.map(context.objectives, function (item) {
@@ -13,7 +13,7 @@
             });
 
             var result = _.reduce(this.objectives, function (memo, objective) { return memo + objective.score; }, 0);
-            this.score = Math.round(result / this.objectives.length);
+            this.score = result / this.objectives.length;
         },
 
         navigateBack = function () {

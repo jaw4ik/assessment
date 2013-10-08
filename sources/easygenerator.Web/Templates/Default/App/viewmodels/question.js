@@ -15,7 +15,7 @@
                         result++;
                     }
                 });
-                result = Math.round((result / this.answers.length) * 100);
+                result = (result / this.answers.length) * 100;
             }
 
             question.score = result;

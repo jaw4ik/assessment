@@ -58,12 +58,12 @@
                     that.overallScore = that.overallScore + score.value;
                 });
 
-                this.overallScore = Math.round(this.overallScore / scores.length);
+                this.overallScore = this.overallScore / scores.length;
 
                 window.scroll(0, 0);
 
                 return _.each(this.objectives, function (objective) {
-                    objective.score = Math.round(objective.score / objective.count);
+                    objective.score = objective.score / objective.count;
                 });
             }
         };
