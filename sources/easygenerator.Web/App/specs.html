@@ -4,7 +4,7 @@
     <title>Jasmine Spec Runner</title>
 
     <link rel="stylesheet" type="text/css" href="../Content/jasmine.css">
-    
+
     <!-- Libraries -->
     <script type="text/javascript" src="../Scripts/jquery-2.0.3.js"></script>
     <script type="text/javascript" src="../Scripts/knockout-2.3.0.debug.js"></script>
@@ -22,7 +22,10 @@
 
     <!-- Source scripts -->
     <script type="text/javascript" src="../Scripts/require.js"></script>
+    
+    <script type="text/javascript" src="../Scripts/account/common.js"></script>
     <script type="text/javascript" src="../Scripts/account/signup.js"></script>
+    <script type="text/javascript" src="../Scripts/account/signin.js"></script>
 
     <script type="text/javascript">
 
@@ -72,7 +75,8 @@
                 'viewmodels/experiences/experience.spec',
                 'viewmodels/experiences/createExperience.spec',
                 'viewmodels/shell.spec',
-                '../Scripts/account/signup.spec'
+                '../Scripts/account/signup.spec',
+                '../Scripts/account/signin.spec'
             ];
 
             require(specs, function () {

@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using easygenerator.DomainModel;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.Components;
@@ -18,7 +19,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
     [TestClass]
     public class UserControllerTests
     {
-
         private IUserRepository _repository;
         private UserController _controller;
         private IEntityFactory _entityFactory;
@@ -40,6 +40,63 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
+
+        #region Signin
+
+        [TestMethod]
+        public void Signin_ShouldReturnJsonErrorResult_WhenUserDoesNotExist()
+        {
+            var result = _controller.Signin(null, null);
+
+            result.Should().BeJsonErrorResult();
+        }
+
+        [TestMethod]
+        public void Signin_ShouldReturnJsonErrorResult_WhenPasswordIsWrong()
+        {
+            const string username = "username@easygenerator.com";
+            const string password = "Abc123!";
+
+            var user = Substitute.For<User>();
+            _repository.GetUserByEmail(username).Returns(user);
+            user.VerifyPassword(password).Returns(false);
+
+            var result = _controller.Signin(username, password);
+
+            result.Should().BeJsonErrorResult();
+        }
+
+        [TestMethod]
+        public void Signin_ShouldAuthenticateUser()
+        {
+            const string username = "username@easygenerator.com";
+            const string password = "Abc123!";
+
+            var user = Substitute.For<User>();
+            _repository.GetUserByEmail(username).Returns(user);
+            user.VerifyPassword(password).Returns(true);
+
+            _controller.Signin(username, password);
+
+            _authenticationProvider.Received().SignIn(username, true);
+        }
+
+        [TestMethod]
+        public void Signin_ShouldReturnJsonSuccessResult()
+        {
+            const string username = "username@easygenerator.com";
+            const string password = "Abc123!";
+
+            var user = Substitute.For<User>();
+            user.VerifyPassword(password).Returns(true);
+            _repository.GetUserByEmail(username).Returns(user);
+
+            var result = _controller.Signin(username, password);
+
+            result.Should().BeJsonSuccessResult();
+        }
+
+        #endregion
 
         #region Signup
 

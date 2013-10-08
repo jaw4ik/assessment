@@ -16,7 +16,7 @@ namespace easygenerator.DomainModel.Entities
 
         public string Text { get; private set; }
 
-        public Question Question { get; internal set; }
+        public virtual Question Question { get; internal set; }
 
         public virtual void UpdateText(string text, string modifiedBy)
         {

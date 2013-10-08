@@ -6,28 +6,28 @@
     <div class="user-columns">
         <div class="user-column form">
             <div class="user-title">Sign in</div>
-            <form class="user-form" id="signUpForm" action="#" method="post">
-                <div class="user-form-row" data-bind="">
+            <form class="user-form" id="signinForm" action="#" method="post" data-bind="submit: submit">
+                <div class="user-form-row" data-bind="css: { error: hasError }">
                     <label class="user-form-label email">E-mail</label>
                     <div class="user-form-input-holder">
-                        <input class="user-form-input" type="text" name="email" />
+                        <input class="user-form-input" type="text" name="email" data-bind="value: username, valueUpdate: 'afterkeydown'" />
                     </div>
-                    <span class="user-form-message">Enter a valid e-mail</span>
                 </div>
-                <div class="user-form-row">
-                    <label class="user-form-label password">Password <a class="user-form-sublabel" href="#">forgot password</a></label>
+                <div class="user-form-row" data-bind="css: { error: hasError }">
+                    <label class="user-form-label password">Password</label>
                     <div class="user-form-input-holder">
-                        <input class="user-form-input" type="password" name="email" />
-                        <a href="#" class="user-form-password-eye" data-bind=""></a>
+                        <input class="user-form-input" type="password" name="password" data-bind="value: password, valueUpdate: 'afterkeydown', attr: { type: isPasswordVisible() ? 'text' : 'password' }" />
+                        <a href="#" class="user-form-password-eye" data-bind="css: { revealed: isPasswordVisible }, click: togglePasswordVisibility"></a>
                     </div>
-                    <span class="user-form-message">Password is strong enough</span>
                 </div>
+                <!-- ko if: hasError -->
                 <div class="user-form-notification warning">
-                    <span class="user-form-notification-text">Incorrect e-mail and password combination</span>
+                    <span class="user-form-notification-text" data-bind="text: errorMessage"></span>
                 </div>
+                <!-- /ko -->
                 <div class="user-form-row submit">
                     <div class="formBtn">
-                        <input class="green btn" type="submit" value="Sign in">
+                        <input class="green btn" type="submit" value="Sign in" data-bind="css: { disabled: !canSubmit() }">
                     </div>
                 </div>
             </form>

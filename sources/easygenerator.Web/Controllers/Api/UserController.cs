@@ -21,6 +21,19 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        public ActionResult Signin(string username, string password)
+        {
+            var user = _repository.GetUserByEmail(username);
+            if (user == null || !user.VerifyPassword(password))
+            {
+                return JsonError("Incorrect username and password combination");
+            }
+
+            _authenticationProvider.SignIn(username, true);
+            return JsonSuccess();
+        }
+
+        [HttpPost]
         public ActionResult Signup(string email, string password)
         {
             if (_repository.GetUserByEmail(email) != null)

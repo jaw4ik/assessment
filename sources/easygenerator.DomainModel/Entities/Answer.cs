@@ -36,7 +36,7 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        public Question Question { get; internal set; }
+        public virtual Question Question { get; internal set; }
 
         private void ThrowIfTextIsInvalid(string text)
         {

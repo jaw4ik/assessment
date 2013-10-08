@@ -22,7 +22,7 @@ namespace easygenerator.DomainModel.Entities
         public string Email { get; protected set; }
         public string PasswordHash { get; private set; }
 
-        public bool VerifyPassword(string password)
+        public virtual bool VerifyPassword(string password)
         {
             return Cryptography.VerifyHash(password, PasswordHash);
         }

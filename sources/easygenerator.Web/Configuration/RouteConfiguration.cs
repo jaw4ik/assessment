@@ -201,6 +201,12 @@ namespace easygenerator.Web.Configuration
             #region Users
 
             routes.MapRoute(
+                name: "SigninUser",
+                url: "api/user/signin",
+                defaults: new { controller = "User", action = "Signin" }
+            );
+
+            routes.MapRoute(
                 name: "SignupUser",
                 url: "api/user/signup",
                 defaults: new { controller = "User", action = "Signup" }

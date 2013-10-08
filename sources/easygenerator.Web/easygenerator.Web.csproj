@@ -271,6 +271,11 @@
     <Content Include="Content\notify.css" />
     <Content Include="Content\selectbox.css" />
     <Content Include="Content\styles.css" />
+    <Content Include="Scripts\account\common.js" />
+    <Content Include="Scripts\account\signin.js" />
+    <Content Include="Scripts\account\signin.spec.js">
+      <DependentUpon>signin.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\account\signup.js" />
     <Content Include="Scripts\account\signup.spec.js">
       <DependentUpon>signup.js</DependentUpon>
