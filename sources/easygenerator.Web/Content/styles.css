@@ -80,7 +80,6 @@
         }
 
     .header-menu-list-item.sign-up {
-        display: none;
         height: 51px;
         margin-top: 1px;
         padding: 16px 20px;
@@ -125,6 +124,7 @@
 }
 
 .header-menu-list-item.profile {
+    display: none;
     position: relative;
     max-width: 280px;
     padding: 20px 10px;
