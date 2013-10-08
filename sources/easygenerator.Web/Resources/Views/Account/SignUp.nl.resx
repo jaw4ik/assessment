@@ -145,7 +145,7 @@
     <value>Voer een geldig e-mailadres in</value>
   </data>
   <data name="LicenseAgreeCheckBoxTitle" xml:space="preserve">
-    <value>Ik heb de volgende &lt;a href="{0}"&gt;voorwaarden&lt;/a&gt; en &lt;a href="{1}"&gt;Privacy&lt;/a&gt; gelezen en ga ermee akkoord</value>
+    <value>Ik heb de volgende &lt;a href="{0}"&gt;Voorwaarden&lt;/a&gt; en &lt;a href="{1}"&gt;Privacy&lt;/a&gt; gelezen en ga ermee akkoord</value>
   </data>
   <data name="NotContainWhitespaceCharacters" xml:space="preserve">
     <value>GEEN spatie(s) bevatten.</value>

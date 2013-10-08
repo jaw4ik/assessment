@@ -310,6 +310,10 @@ body.try {
         color: #222;
         text-decoration: underline;
     }
+    .user-form-checkbox-label a:hover {
+        color: #555;
+        text-decoration: underline;
+    }
 
 .user-form-row.success .user-form-input {
     border: solid 1px #62a426;
@@ -872,13 +876,13 @@ body.try {
 .view-module.terms-of-use, .view-module.privacy-policy {
     padding-left: 150px;
     line-height: 2;
-    color: #414141;
+    color: #222;
 }
 
 .document-title {
     font-size: 50px;
     font-weight: normal;
-    color: #212322;
+    color: #222;
 }
 
 .document-subtitle {
@@ -892,39 +896,37 @@ body.try {
 
 .view-module.terms-of-use a,
 .view-module.privacy-policy a {
-    color: #414141;
+    color: #222;
     font-family: 'OpenSans-Semibold';
+    text-decoration: underline;
 }
 
-    .view-module.terms-of-use a:hover,
-    .view-module.privacy-policy a:hover {
-        border-bottom: 1px solid #414141;
-    }
+.view-module.terms-of-use a:hover,
+.view-module.privacy-policy a:hover {
+    color: #555;
+    font-family: 'OpenSans-Semibold';
+    text-decoration: underline;
+}
 
 .document-numeric-list-item {
     line-height: 40px;
     margin: 20px 0px;
-    list-style-position: inside;
     font-family: 'OpenSans-Semibold';
     text-transform: uppercase;
-    color: #222;
 }
 
 .document-marked-list {
     font-family: 'OpenSans';
     font-weight: normal;
     list-style-type: disc;
-    list-style-position: inside;
     text-transform: none;
     margin-left: 20px;
-    color: #414141;
 }
 
 .document-list-item-content {
     font-weight: normal !important;
     font-family: 'OpenSans';
     text-transform: none;
-    color: #414141;
 }
 
 .numeric-list .typeA {
@@ -943,6 +945,10 @@ body.try {
 
     .document-subtitle .italic a {
         font-family: 'OpenSans-SemiboldItalic';
+    }
+    .document-subtitle .italic a:hover {
+        font-family: 'OpenSans-SemiboldItalic';
+        color: #555;
     }
 
 /*#endregion Terms of use and Privacy Polycy*/
