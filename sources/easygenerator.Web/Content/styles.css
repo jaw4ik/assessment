@@ -204,6 +204,7 @@
     background: url(../Content/images/app-sprite.png) -23px -12px;
     height: 5px;
     width: 11px;
+    margin-top: -3px;
 }
 
 .header-menu-list-item.active .header-submenu-expand-icon {

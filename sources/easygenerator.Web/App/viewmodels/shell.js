@@ -22,6 +22,7 @@
         var experiencesModule = 'experiences',
             objectivesModule = 'objectives',
             isViewReady = ko.observable(false),
+            isExpanded = ko.observable(false),
             activeModule = ko.computed(function () {
                 var activeItem = router.activeItem();
                 if (_.isObject(activeItem)) {
@@ -39,8 +40,12 @@
             showNavigation = function () {
                 return _.contains(['404', '400'], this.activeModuleName());
             },
+            
+            toggleExpansion = function () {
+                isExpanded(!isExpanded());
+            },
 
-            activate = function () {
+        activate = function () {
                 var that = this;
                 return datacontext.initialize()
                     .then(function () {
@@ -143,6 +148,9 @@
             homeModuleName: experiencesModule,
 
             isViewReady: isViewReady,
+            
+            isExpanded: isExpanded,
+            toggleExpansion: toggleExpansion,
 
             showNavigation: showNavigation,
             navigation: navigation

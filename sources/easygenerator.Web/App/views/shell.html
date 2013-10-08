@@ -17,9 +17,9 @@
                     </a>
                 </li>
                 <li class="header-menu-list-item help">Help</li>
-                <li class="header-menu-list-item mode profile active">
+                <li class="header-menu-list-item mode profile" data-bind="css: { active : isExpanded }">
                     <div class="header-submenu-holder">
-                        <span class="header-submenu-expand-icon"></span>
+                        <span class="header-submenu-expand-icon" data-bind="click: $root.toggleExpansion"></span>
                         <ul class="header-submenu-list">
                             <li class="header-submenu-item sign-out">
                                 <a class="header-submenu-link" href="\account\logout">Sign out</a>
