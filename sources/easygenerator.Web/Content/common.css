@@ -106,8 +106,8 @@ input::-ms-clear {
     visibility: hidden;
 }
 
-input:focus,
-input:active {
+:focus,
+:active {
     outline: none;
 }
 

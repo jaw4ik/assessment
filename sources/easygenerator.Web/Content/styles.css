@@ -72,11 +72,10 @@
 
     .header-menu-list-item.mode {
         border-bottom: 1px solid #37383b;
-        background: #37383b;
     }
 
         .header-menu-list-item.mode:hover {
-            background: #343537;
+            background: #37383b;
         }
 
     .header-menu-list-item.sign-up {
@@ -127,6 +126,7 @@
 .header-menu-list-item.profile {
     position: relative;
     max-width: 280px;
+    min-width: 75px;
     padding: 19px 10px;
     border-radius: 2px 2px 0 0;
     border-bottom: 1px solid black;
