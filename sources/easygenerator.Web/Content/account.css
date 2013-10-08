@@ -182,6 +182,7 @@ body.try {
     }
 
 .user-form {
+    position: relative;
     padding-top: 16%;
 }
 
@@ -342,6 +343,43 @@ body.try {
         -moz-box-shadow: 0 0 2px #953b39;
         box-shadow: 0 0 2px #953b39;
     }
+
+.user-form-notification {
+    /*display: none;*/
+    position: absolute;
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+    margin-top: -20px;
+    text-align: center;
+    cursor: default;
+}
+
+    .user-form-notification.warning {
+        background: #fbf8e7;
+        color: #953b39;
+    }
+
+.user-form-notification-text {
+    display: inline-block;
+    position: relative;
+    padding-left: 20px;
+}
+
+    .user-form-notification-text:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 5px;
+        left: 2px;
+        width: 11px;
+        height: 9px;
+        background: url(images/sprites.png);
+    }
+
+.user-form-notification.warning .user-form-notification-text:after {
+    background-position: -16px -25px;
+}
 
 .user-form-message {
     display: none;
@@ -680,7 +718,7 @@ body.try {
 /*#region LOGIN*/
 
 .view-module.log-in .user-form-row.submit {
-    padding-top: 40px;
+    padding-top: 45px;
 }
 /*#endregion Login*/
 
