@@ -117,8 +117,56 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountAlreadyExists" xml:space="preserve">
+    <value>This account already exists</value>
+  </data>
+  <data name="BeAtLeast7CharactersLong" xml:space="preserve">
+    <value>be at least 7 characters long;</value>
+  </data>
+  <data name="Checking" xml:space="preserve">
+    <value>Checking...</value>
+  </data>
+  <data name="ContainAtLeastOneDigit" xml:space="preserve">
+    <value>contain at least one digit;</value>
+  </data>
+  <data name="ContainAtLeastOneLowerCaseLetter" xml:space="preserve">
+    <value>contain at least one lower case letter;</value>
+  </data>
+  <data name="ContainAtLeastOneSpecialCharacter" xml:space="preserve">
+    <value>contain at least one special character;</value>
+  </data>
+  <data name="ContainAtLeastOneUpperCaseLetter" xml:space="preserve">
+    <value>contain at least one upper case letter;</value>
+  </data>
   <data name="CopyrightText" xml:space="preserve">
     <value>Copyright © 2013 easygenerator. All rights reserved.</value>
+  </data>
+  <data name="CreateAccountTitle" xml:space="preserve">
+    <value>Create account</value>
+  </data>
+  <data name="EmailCaption" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="EnterValidEmailMessage" xml:space="preserve">
+    <value>Enter a valid e-mail</value>
+  </data>
+  <data name="LicenseAgreeCheckBoxTitle" xml:space="preserve">
+    <value>I have read and I agree to the &lt;a href="{0}"&gt;Terms&lt;/a&gt; and &lt;a href="{1}"&gt;Privacy&lt;/a&gt;</value>
+  </data>
+  <data name="NotContainWhitespaceCharacters" xml:space="preserve">
+    <value>NOT contain whitespace character(s).</value>
+  </data>
+  <data name="PasswordCaption" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordDoesNotMeetRequirements" xml:space="preserve">
+    <value>Password does not meet requirements</value>
+  </data>
+  <data name="PasswordIsStrongEnough" xml:space="preserve">
+    <value>Password is strong enough</value>
+  </data>
+  <data name="PasswordRequirementsTitle" xml:space="preserve">
+    <value>Password is required to:</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Privacy policy</value>
@@ -127,6 +175,9 @@
     <value>Sign in</value>
   </data>
   <data name="SignUp" xml:space="preserve">
+    <value>Sign up</value>
+  </data>
+  <data name="SignUpButton" xml:space="preserve">
     <value>Sign up</value>
   </data>
   <data name="TermsOfUse" xml:space="preserve">

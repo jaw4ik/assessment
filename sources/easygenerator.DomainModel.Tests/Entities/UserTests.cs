@@ -104,16 +104,6 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void User_ShouldThrowArgumentException_WhenPasswordHasNoSpecialSymbol()
-        {
-            //Arrange
-            Action action = () => UserObjectMother.CreateWithPassword("Olololo1");
-
-            //Act & Assert
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
-        }
-
-        [TestMethod]
         public void User_ShouldThrowArgumentException_WhenPasswordHasWhitespaceSymbol()
         {
             //Arrange

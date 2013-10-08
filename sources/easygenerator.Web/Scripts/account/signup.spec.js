@@ -136,15 +136,6 @@
 
             });
 
-            describe('when not contain special character', function () {
-
-                it('should be not valid', function () {
-                    viewModel.password('Password1');
-                    expect(viewModel.password.isValid()).toBeFalsy();
-                });
-
-            });
-
             describe('when contain whitespace', function () {
 
                 it('should be not valid', function () {
@@ -288,23 +279,44 @@
 
             });
 
-            describe('when userName is not empty', function () {
+            describe('when user name is not e-mail', function() {
+
+                it('should set \"userExists\" false', function () {
+                    spyOn($, 'ajax').andReturn($.Deferred().promise());
+                    viewModel.userName('invalid mail');
+                    viewModel.userExists(null);
+                    viewModel.checkUserExists();
+
+                    expect(viewModel.userExists()).toBeFalsy();
+                });
+
+                it('should not send request to server', function () {
+                    spyOn($, 'ajax').andReturn($.Deferred().promise());
+                    viewModel.userName('invalid mail');
+                    viewModel.checkUserExists();
+
+                    expect($.ajax).not.toHaveBeenCalled();
+                });
+                
+            });
+
+            describe('when user name is valid e-mail', function () {
 
                 it('should call \"/api/user/exists"', function () {
                     spyOn($, 'ajax').andReturn($.Deferred().promise());
-                    viewModel.userName('mail');
+                    viewModel.userName('user@mail.com');
                     viewModel.checkUserExists();
 
                     expect($.ajax).toHaveBeenCalledWith({
                         url: '/api/user/exists',
-                        data: { email: 'mail' },
+                        data: { email: 'user@mail.com' },
                         type: 'POST'
                     });
                 });
 
                 it('should set \"isUserValidating\" true', function() {
                     spyOn($, 'ajax').andReturn($.Deferred().promise());
-                    viewModel.userName('mail');
+                    viewModel.userName('user@mail.com');
                     viewModel.isUserNameValidating(null);
 
                     viewModel.checkUserExists();
@@ -328,7 +340,7 @@
                 describe('and user exists', function () {
 
                     it('should set \"userExists\" true', function () {
-                        viewModel.userName('mail');
+                        viewModel.userName('user@mail.com');
                         viewModel.userExists(null);
                         deferred.resolve({ data: true });
 
@@ -344,7 +356,7 @@
                     });
 
                     it('should change \"userPreciselyExists\" in true', function () {
-                        viewModel.userName('mail');
+                        viewModel.userName('user@mail.com');
                         viewModel.userExists(null);
                         deferred.resolve({ data: true });
 
@@ -362,7 +374,7 @@
                     describe('and userName is changed', function () {
 
                         it('should change \"userPreciselyExists\" in false', function () {
-                            viewModel.userName('mail');
+                            viewModel.userName('user@mail.com');
                             viewModel.userExists(null);
                             deferred.resolve({ data: true });
 
@@ -382,7 +394,7 @@
                     });
 
                     it('should set \"isUserNameValidating\" false', function() {
-                        viewModel.userName('mail');
+                        viewModel.userName('user@mail.com');
                         viewModel.isUserNameValidating(null);
                         viewModel.userExists(null);
                         deferred.resolve({ data: true });
@@ -403,7 +415,7 @@
                 describe('and user not exists', function () {
 
                     it('should set \"userExists\" false', function () {
-                        viewModel.userName('mail');
+                        viewModel.userName('user@mail.com');
                         viewModel.userExists(null);
                         deferred.resolve({ data: false });
 
@@ -419,7 +431,7 @@
                     });
 
                     it('should set \"isUserNameValidating\" false', function () {
-                        viewModel.userName('mail');
+                        viewModel.userName('user@mail.com');
                         viewModel.isUserNameValidating(null);
                         deferred.resolve({ data: false });
 

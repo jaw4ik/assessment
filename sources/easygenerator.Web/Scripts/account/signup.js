@@ -33,7 +33,7 @@
             }
 
             userExists(false);
-            if (userName().trim() == '') {
+            if (!userName.isValid()) {
                 return;
             }
 
@@ -53,19 +53,17 @@
 
     userName.isValid = ko.computed(function () {
         var mailRegex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/;
-        return userName().trim().length > 0 && mailRegex.test(userName()) && !userExists();
+        return userName().trim().length > 0 && mailRegex.test(userName().trim()) && !userExists();
     });
 
     password.isValid = ko.computed(function () {
         var digitRegex = /\d/,
-            specialCharacterRegex = /\W/,
             whitespaceRegex = /\s/;
 
         return password().length >= 7
             && password().toLowerCase() != password()
             && password().toUpperCase() != password()
             && digitRegex.test(password())
-            && specialCharacterRegex.test(password())
             && !whitespaceRegex.test(password());
     });
 

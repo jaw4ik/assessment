@@ -1,40 +1,39 @@
 ﻿@using AccountRes
 
 @{
-    ViewBag.Title = "SignUp";
+    ViewBag.Title = Resources.SignUp;
     Layout = "~/Views/Account/_Layout.cshtml";
 }
 <section class="view-module sign-up">
     <div class="user-columns">
         <div class="user-column form">
-            <div class="user-title">@SignUp.CreateAccountTitle</div>
+            <div class="user-title">@Resources.CreateAccountTitle</div>
             <form class="user-form" id="signUpForm" action="#" method="post">
                 <div class="user-form-row" data-bind="css : { error: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), success: !isUserNameValidating() && !isUserNameEditing() && userName.isValid() }">
-                    <label class="user-form-label email">@SignUp.EmailCaption</label>
+                    <label class="user-form-label email">@Resources.EmailCaption</label>
                     <div class="user-form-input-holder">
                         <input class="user-form-input" type="text" name="email" autocomplete="off" data-bind="value: userName, valueUpdate: 'afterkeydown', event: { blur: checkUserExists }, hasFocus: isUserNameEditing" />
                     </div>
-                    <span class="form-validation-message" data-bind="visible: isUserNameValidating()">@SignUp.Validating</span>
-                    <span class="user-form-message" data-bind="visible: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), text: userExists() ? '@SignUp.AccountAlreadyExists' : '@SignUp.EnterValidEmailMessage'"></span>
+                    <span class="form-validation-message" data-bind="visible: isUserNameValidating()">@Resources.Checking</span>
+                    <span class="user-form-message" data-bind="visible: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), text: userExists() ? '@Resources.AccountAlreadyExists' : '@Resources.EnterValidEmailMessage'"></span>
                 </div>
                 <div class="user-form-row" data-bind="css : { error: !password.isValid() && password().length > 0, success: password.isValid() }">
-                    <label class="user-form-label password">@SignUp.PasswordCaption</label>
+                    <label class="user-form-label password">@Resources.PasswordCaption</label>
                     <div class="user-form-input-holder show-tooltip">
                         <input class="user-form-input" name="password" autocomplete="off" data-bind="attr: { type: isPasswordVisible() ? 'text' : 'password' }, value: password, valueUpdate: 'afterkeydown', hasFocus: isPasswordEditing" />
                         <a href="#" class="user-form-password-eye" data-bind="css:{ revealed: isPasswordVisible }, click: showHidePassword "></a>
                         <div class="user-form-tooltip" data-bind="visible: isPasswordEditing(), css: { top : userName.isValid(), bottom : !userName.isValid() }">
-                            <div class="user-form-tooltip-title">@SignUp.PasswordRequirementsTitle</div>
+                            <div class="user-form-tooltip-title">@Resources.PasswordRequirementsTitle</div>
                             <ul class="user-form-tooltip-list">
-                                <li class="user-form-tooltip-list-item">@SignUp.BeAtLeast7CharactersLong</li>
-                                <li class="user-form-tooltip-list-item">@SignUp.ContainAtLeastOneLowerCaseLetter</li>
-                                <li class="user-form-tooltip-list-item">@SignUp.ContainAtLeastOneUpperCaseLetter</li>
-                                <li class="user-form-tooltip-list-item">@SignUp.ContainAtLeastOneDigit</li>
-                                <li class="user-form-tooltip-list-item">@SignUp.ContainAtLeastOneSpecialCharacter</li>
-                                <li class="user-form-tooltip-list-item">@SignUp.NotContainWhitespaceCharacters</li>
+                                <li class="user-form-tooltip-list-item">@Resources.BeAtLeast7CharactersLong</li>
+                                <li class="user-form-tooltip-list-item">@Resources.ContainAtLeastOneLowerCaseLetter</li>
+                                <li class="user-form-tooltip-list-item">@Resources.ContainAtLeastOneUpperCaseLetter</li>
+                                <li class="user-form-tooltip-list-item">@Resources.ContainAtLeastOneDigit</li>
+                                <li class="user-form-tooltip-list-item">@Resources.NotContainWhitespaceCharacters</li>
                             </ul>
                         </div>
                     </div>
-                    <span class="user-form-message" data-bind="visible: password().length > 0, text: password.isValid() ? '@SignUp.PasswordIsStrongEnough' : '@AccountRes.SignUp.PasswordDoesNotMeetRequirements'"></span>
+                    <span class="user-form-message" data-bind="visible: password().length > 0, text: password.isValid() ? '@Resources.PasswordIsStrongEnough' : '@Resources.PasswordDoesNotMeetRequirements'"></span>
                 </div>
                 <div class="user-form-row submit">
                     <div class="user-form-checkbox-holder clearfix">
@@ -43,12 +42,12 @@
                         </div>
                         <div class="user-form-checkbox-label">
                             <label for="uf-checkbox">
-                                @Html.Raw(String.Format(SignUp.LicenseAgreeCheckBoxTitle, Url.Action("TermsOfUse", "Account"), Url.Action("PrivacyPolicy", "Account")))
+                                @Html.Raw(String.Format(Resources.LicenseAgreeCheckBoxTitle, Url.Action("TermsOfUse", "Account"), Url.Action("PrivacyPolicy", "Account")))
                             </label>
                         </div>
                     </div>
                     <div class="formBtn" data-bind="css: { disabled: !(userName.isValid() && password.isValid() && isLicenseAgreed()) }">
-                        <input class="orange btn" type="submit" value="@SignUp.SignUpButton" data-bind="enable: userName.isValid() && password.isValid() && isLicenseAgreed(), click: signUp">
+                        <input class="orange btn" type="submit" value="@Resources.SignUpButton" data-bind="enable: userName.isValid() && password.isValid() && isLicenseAgreed(), click: signUp">
                     </div>
                 </div>
             </form>

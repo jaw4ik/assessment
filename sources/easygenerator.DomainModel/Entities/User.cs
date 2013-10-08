@@ -52,9 +52,6 @@ namespace easygenerator.DomainModel.Entities
             if (!Regex.IsMatch(password, @"[a-z]"))
                 throw new ArgumentException("Password should contain at least one lower case symbol", "password");
 
-            if (!Regex.IsMatch(password, @"\W"))
-                throw new ArgumentException("Password should contain at least one special symbol", "password");
-
             if (password.Contains(" "))
                 throw new ArgumentException("Password should not contain whitespace symbols", "password");
         }

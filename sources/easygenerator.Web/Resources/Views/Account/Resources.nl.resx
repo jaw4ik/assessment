@@ -117,14 +117,65 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountAlreadyExists" xml:space="preserve">
+    <value>Dit account bestaat al</value>
+  </data>
+  <data name="BeAtLeast7CharactersLong" xml:space="preserve">
+    <value>minstens zeven tekens lang zijn;</value>
+  </data>
+  <data name="Checking" xml:space="preserve">
+    <value>Bezig met controle...</value>
+  </data>
+  <data name="ContainAtLeastOneDigit" xml:space="preserve">
+    <value>minstens één cijfer hebben;</value>
+  </data>
+  <data name="ContainAtLeastOneLowerCaseLetter" xml:space="preserve">
+    <value>minstens één kleine letter hebben;</value>
+  </data>
+  <data name="ContainAtLeastOneSpecialCharacter" xml:space="preserve">
+    <value>minstens één speciaal teken hebben;</value>
+  </data>
+  <data name="ContainAtLeastOneUpperCaseLetter" xml:space="preserve">
+    <value>minstens één hoofdletter hebben;</value>
+  </data>
   <data name="CopyrightText" xml:space="preserve">
     <value>Copyright © 2013 easygenerator. Alle rechten voorbehouden.</value>
+  </data>
+  <data name="CreateAccountTitle" xml:space="preserve">
+    <value>Account maken</value>
+  </data>
+  <data name="EmailCaption" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="EnterValidEmailMessage" xml:space="preserve">
+    <value>Voer een geldig e-mailadres in</value>
+  </data>
+  <data name="LicenseAgreeCheckBoxTitle" xml:space="preserve">
+    <value>Ik heb de volgende &lt;a href="{0}"&gt;Voorwaarden&lt;/a&gt; en &lt;a href="{1}"&gt;Privacy&lt;/a&gt; gelezen en ga ermee akkoord</value>
+  </data>
+  <data name="NotContainWhitespaceCharacters" xml:space="preserve">
+    <value>GEEN spatie(s) bevatten.</value>
+  </data>
+  <data name="PasswordCaption" xml:space="preserve">
+    <value>Wachtwoord</value>
+  </data>
+  <data name="PasswordDoesNotMeetRequirements" xml:space="preserve">
+    <value>Wachtwoord voldoet niet aan de eisen</value>
+  </data>
+  <data name="PasswordIsStrongEnough" xml:space="preserve">
+    <value>Wachtwoord is sterk genoeg</value>
+  </data>
+  <data name="PasswordRequirementsTitle" xml:space="preserve">
+    <value>Het wachtwoord moet:</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Privacybeleid</value>
   </data>
   <data name="SignUp" xml:space="preserve">
-    <value>Aanmelden</value>
+    <value>Inschrijven</value>
+  </data>
+  <data name="SignUpButton" xml:space="preserve">
+    <value>Inschrijven</value>
   </data>
   <data name="TermsOfUse" xml:space="preserve">
     <value>Gebruiksvoorwaarden</value>
