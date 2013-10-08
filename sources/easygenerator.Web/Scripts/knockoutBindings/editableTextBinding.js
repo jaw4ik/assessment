@@ -1,5 +1,5 @@
 ﻿$(window).on("hashchange", function () {
-    $(".editable-text-binding:focus").blur();
+    $(".editable-text-binding:focus, .question-learning-object:focus").blur();
 });
 
 ko.bindingHandlers.editableText = {
