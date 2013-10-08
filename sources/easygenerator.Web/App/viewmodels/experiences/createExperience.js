@@ -95,9 +95,10 @@
             if (!title.isValid() || !_.isString(template.id())) {
                 return;
             }
-
+            notify.lockContent();
             repository.addExperience(title().trim(), template.id()).then(function (experience) {
                 title('');
+                notify.unlockContent();
                 callback(experience);
             });
         }

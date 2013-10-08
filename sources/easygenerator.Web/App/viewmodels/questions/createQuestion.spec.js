@@ -157,6 +157,12 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Save and edit question');
                 });
 
+                it('should lock content', function() {
+                    spyOn(notify, 'lockContent');
+                    viewModel.saveAndOpen();
+                    expect(notify.lockContent).toHaveBeenCalled();
+                });
+
                 describe('and when question is updated successfully', function () {
                     var question = { id: 0, title: 'lala' };
 
@@ -186,6 +192,22 @@
                                 expect(router.navigateWithQueryString).toHaveBeenCalled();
                             });
                         });
+
+                        it('should unlock content', function() {
+                            spyOn(notify, 'unlockContent');
+                            
+                            viewModel.saveAndOpen();
+
+                            var promise = deferred.promise.finally(function () { });
+                            deferred.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(notify.unlockContent).toHaveBeenCalled();
+                            });
+                        });
                     });
                 });
             });
@@ -208,14 +230,14 @@
                 it('should set title.isModified to \'true\'', function () {
                     viewModel.title('');
                     viewModel.title.isModified(false);
-                    viewModel.saveAndOpen();
+                    viewModel.saveAndNew();
                     expect(viewModel.title.isModified()).toBeTruthy();
                 });
 
                 it('should set title.isEditing to \'true\'', function () {
                     viewModel.title('');
                     viewModel.title.isEditing(false);
-                    viewModel.saveAndOpen();
+                    viewModel.saveAndNew();
                     expect(viewModel.title.isEditing()).toBeTruthy();
                 });
 
@@ -238,8 +260,14 @@
 
                 it('should add question to repository', function () {
                     viewModel.title(question.title);
-                    viewModel.saveAndOpen();
+                    viewModel.saveAndNew();
                     expect(questionRepository.addQuestion).toHaveBeenCalled();
+                });
+
+                it('should lock content', function () {
+                    spyOn(notify, 'lockContent');
+                    viewModel.saveAndNew();
+                    expect(notify.lockContent).toHaveBeenCalled();
                 });
 
                 describe('and when question is updated successfully', function () {
@@ -306,6 +334,22 @@
                         });
                         runs(function () {
                             expect(notify.info).toHaveBeenCalled();
+                        });
+                    });
+
+                    it('should unlock content', function () {
+                        spyOn(notify, 'unlockContent');
+
+                        viewModel.saveAndNew();
+
+                        var promise = deferred.promise.finally(function () { });
+                        deferred.resolve();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(notify.unlockContent).toHaveBeenCalled();
                         });
                     });
                 });

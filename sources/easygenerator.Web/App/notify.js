@@ -14,14 +14,16 @@
 
         infoClass = "info",
         successClass = "success",
-        errorClass = "error"
+        errorClass = "error",
+
+        isShownMessage = ko.observable(true)
     ;
 
     var
         info = function (message) {
             showMessage(message, infoClass);
         },
-        error = function(message) {
+        error = function (message) {
             showMessage(message, errorClass);
         }
     ;
@@ -36,9 +38,10 @@
     }
 
     function showMessage(message, messageClass) {
+        if (!isShownMessage())
+            return;
 
         hideMessage();
-
         $("<div />")
             .addClass(notificationClass)
             .addClass(clearfixClass)
@@ -81,7 +84,8 @@
         lockContent: lockContent,
         unlockContent: unlockContent,
 
-        hide: hideMessage
+        hide: hideMessage,
+        isShownMessage: isShownMessage
     };
 
 });

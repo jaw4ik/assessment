@@ -38,7 +38,9 @@
                 eventTracker.publish(events.saveAndOpen);
 
                 var that = this;
+                notify.lockContent();
                 questionRepository.addQuestion(that.objectiveId, { title: that.title() }).then(function (newQuestion) {
+                    notify.unlockContent();
                     router.navigateWithQueryString('objective/' + that.objectiveId + '/question/' + newQuestion.id);
                 });
             },
@@ -54,7 +56,10 @@
                 eventTracker.publish(events.saveAndNew);
 
                 var that = this;
+                notify.lockContent();
                 questionRepository.addQuestion(that.objectiveId, { title: that.title() }).then(function (newQuestion) {
+                    notify.unlockContent();
+                    
                     that.title('');
                     that.title.isModified(false);
                     that.title.isEditing(true);

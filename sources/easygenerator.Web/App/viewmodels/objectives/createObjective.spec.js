@@ -3,6 +3,7 @@
         "use strict";
 
         var router = require('plugins/router'),
+            notify = require('notify'),
             experienceRepository = require('repositories/experienceRepository'),
             eventTracker = require('eventTracker');
 
@@ -104,7 +105,6 @@
 
                 describe('when title is valid', function () {
 
-                    var notify = require('notify');
                     var id = '0';
                     var objective = { id: id, createdOn: new Date() };
 
@@ -132,10 +132,31 @@
                         });
                     });
 
+                    it('should lock content', function () {
+                        spyOn(notify, 'lockContent');
+                        viewModel.createAndNew();
+                        expect(notify.lockContent).toHaveBeenCalled();
+                    });
+
                     describe('when objective created', function () {
 
                         beforeEach(function () {
                             addObjective.resolve(objective);
+                        });
+
+                        it('should unlock content', function () {
+                            spyOn(notify, "unlockContent");
+                            viewModel.createAndNew();
+
+                            var promise = addObjective.promise.fin(function () { });
+                            addObjective.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(notify.unlockContent).toHaveBeenCalled();
+                            });
                         });
 
                         describe('and when contextExperiencId is not string', function () {
@@ -255,7 +276,7 @@
                 });
 
                 describe('when title is valid', function () {
-
+                    
                     beforeEach(function () {
                         viewModel.title('Some valid text');
                     });
@@ -279,12 +300,33 @@
                         });
                     });
 
+                    it('should lock content', function () {
+                        spyOn(notify, 'lockContent');
+                        viewModel.createAndEdit();
+                        expect(notify.lockContent).toHaveBeenCalled();
+                    });
+
                     describe('and objective created', function () {
                         var id = '0';
                         var objective = { id: id };
 
                         beforeEach(function () {
                             addObjective.resolve(objective);
+                        });
+
+                        it('should unlock content', function () {
+                            spyOn(notify, "unlockContent");
+                            viewModel.createAndEdit();
+
+                            var promise = addObjective.promise.fin(function () { });
+                            addObjective.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(notify.unlockContent).toHaveBeenCalled();
+                            });
                         });
 
                         describe('and when contextExperiencId is not string', function () {

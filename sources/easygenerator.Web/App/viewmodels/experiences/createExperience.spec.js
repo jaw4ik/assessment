@@ -4,6 +4,7 @@
 
         var router = require('plugins/router'),
             eventTracker = require('eventTracker'),
+            notify = require('notify'),
             repository = require('repositories/experienceRepository'),
             templateRepository = require('repositories/templateRepository'),
             localizationManager = require('localization/localizationManager');
@@ -163,9 +164,9 @@
             });
 
             describe('createAndNew:', function () {
+                var addExperience,
+                    template = { id: 'id', name: 'lala', image: 'img' };
 
-                var addExperience;
-                var template = { id: 'id', name: 'lala', image: 'img' };
                 beforeEach(function () {
                     viewModel.templates([template]);
                     addExperience = Q.defer();
@@ -206,7 +207,7 @@
                 });
 
                 describe('and title is valid and template.id is set', function () {
-
+                        
                     beforeEach(function () {
                         viewModel.template.id(template.id);
                         viewModel.title.isValid = function () {
@@ -226,9 +227,13 @@
                         expect(repository.addExperience).toHaveBeenCalledWith('title', template.id);
                     });
 
-                    describe('and experience was added successfully', function () {
+                    it('should lock content', function() {
+                        spyOn(notify, 'lockContent');
+                        viewModel.createAndNew();
+                        expect(notify.lockContent).toHaveBeenCalled();
+                    });
 
-                        var notify = require('notify');
+                    describe('and experience was added successfully', function () {
 
                         beforeEach(function () {
                             spyOn(notify, "info");
@@ -275,6 +280,21 @@
                             });
                             runs(function () {
                                 expect(notify.info).toHaveBeenCalled();
+                            });
+                        });
+
+                        it('should unlock content', function() {
+                            spyOn(notify, "unlockContent");
+                            viewModel.createAndNew();
+
+                            var promise = addExperience.promise.fin(function () { });
+                            addExperience.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(notify.unlockContent).toHaveBeenCalled();
                             });
                         });
 
@@ -329,7 +349,7 @@
                 });
 
                 describe('and title is valid and template is set', function () {
-
+                    
                     beforeEach(function () {
                         viewModel.template.id(template.id);
                         viewModel.title.isValid = function () {
@@ -347,6 +367,12 @@
                         viewModel.title('title');
                         viewModel.createAndEdit();
                         expect(repository.addExperience).toHaveBeenCalledWith('title', template.id);
+                    });
+
+                    it('should lock content', function () {
+                        spyOn(notify, 'lockContent');
+                        viewModel.createAndEdit();
+                        expect(notify.lockContent).toHaveBeenCalled();
                     });
 
                     describe('and experience was added successfully', function () {
@@ -381,6 +407,20 @@
                             });
                         });
 
+                        it('should unlock content', function () {
+                            spyOn(notify, "unlockContent");
+                            viewModel.createAndEdit();
+
+                            var promise = addExperience.promise.fin(function () { });
+                            addExperience.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(notify.unlockContent).toHaveBeenCalled();
+                            });
+                        });
                     });
 
                 });

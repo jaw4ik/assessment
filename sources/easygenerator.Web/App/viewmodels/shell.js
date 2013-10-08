@@ -81,6 +81,7 @@
                         router.guardRoute = function (routeInfo, params) {
                             if (requestsCounter() > 0) {
                                 notify.lockContent();
+                                notify.isShownMessage(false);
                                 var subscription = requestsCounter.subscribe(function (newValue) {
                                     if (newValue == 0) {
                                         notify.unlockContent();
@@ -95,6 +96,7 @@
 
                         router.on('router:route:activating').then(function () {
                             isViewReady(false);
+                            notify.isShownMessage(true);
                         });
 
                         router.on('router:navigation:composition-complete').then(function () {

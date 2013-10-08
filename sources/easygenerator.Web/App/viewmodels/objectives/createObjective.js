@@ -86,9 +86,11 @@
             }
             
             var that = this;
+            notify.lockContent();
             objectiveRepository.addObjective({ title: title() }).then(function (createdObjective) {
                 title('');
-
+                notify.unlockContent();
+                
                 if (_.isString(that.contextExperienceId)) {
                     objectiveRepository.getById(createdObjective.id).then(function (objective) {
                         experienceRepository.relateObjectives(that.contextExperienceId, [objective]).then(function () {

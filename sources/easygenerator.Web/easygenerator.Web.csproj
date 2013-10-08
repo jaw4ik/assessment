@@ -149,6 +149,9 @@
     <Content Include="App\httpWrapper.js" />
     <Content Include="App\models\template.js" />
     <Content Include="App\notify.js" />
+    <Content Include="App\notify.spec.js">
+      <DependentUpon>notify.js</DependentUpon>
+    </Content>
     <Content Include="App\repositories\answerRepository.js" />
     <Content Include="App\repositories\answerRepository.spec.js">
       <DependentUpon>answerRepository.js</DependentUpon>
