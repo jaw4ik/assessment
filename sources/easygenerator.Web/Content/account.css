@@ -39,7 +39,7 @@ body.try {
     height: 100%;
     min-width: 600px;
     width: 90%;
-    max-width: 1080px;
+    max-width: 1280px;
     padding: 0 20px;
     margin: 0 auto;
     -moz-box-sizing: border-box;
@@ -310,10 +310,11 @@ body.try {
         color: #222;
         text-decoration: underline;
     }
-    .user-form-checkbox-label a:hover {
-        color: #555;
-        text-decoration: underline;
-    }
+
+        .user-form-checkbox-label a:hover {
+            color: #555;
+            text-decoration: underline;
+        }
 
 .user-form-row.success .user-form-input {
     border: solid 1px #62a426;
@@ -913,15 +914,17 @@ body.try {
 /*#region Terms of use and Privacy Polycy*/
 
 .view-module.terms-of-use, .view-module.privacy-policy {
-    padding-left: 150px;
+    padding-left: 153px;
     line-height: 2;
     color: #222;
 }
 
 .document-title {
+    line-height: 1;
     font-size: 50px;
     font-weight: normal;
     color: #222;
+    padding: 9px 0 26px;
 }
 
 .document-subtitle {
@@ -940,11 +943,15 @@ body.try {
     text-decoration: underline;
 }
 
-.view-module.terms-of-use a:hover,
-.view-module.privacy-policy a:hover {
-    color: #555;
-    font-family: 'OpenSans-Semibold';
-    text-decoration: underline;
+    .view-module.terms-of-use a:hover,
+    .view-module.privacy-policy a:hover {
+        color: #555;
+        font-family: 'OpenSans-Semibold';
+        text-decoration: underline;
+    }
+
+.numeric-list {
+    list-style-position: inside;
 }
 
 .document-numeric-list-item {
@@ -958,8 +965,9 @@ body.try {
     font-family: 'OpenSans';
     font-weight: normal;
     list-style-type: disc;
+    list-style-position: outside;
     text-transform: none;
-    margin-left: 20px;
+    padding-left: 35px;
 }
 
 .document-list-item-content {
@@ -985,10 +993,11 @@ body.try {
     .document-subtitle .italic a {
         font-family: 'OpenSans-SemiboldItalic';
     }
-    .document-subtitle .italic a:hover {
-        font-family: 'OpenSans-SemiboldItalic';
-        color: #555;
-    }
+
+        .document-subtitle .italic a:hover {
+            font-family: 'OpenSans-SemiboldItalic';
+            color: #555;
+        }
 
 /*#endregion Terms of use and Privacy Polycy*/
 
@@ -997,7 +1006,6 @@ body.try {
     /*#region Layout*/
     .content-wrapper.try {
         width: 100%;
-        max-width: 1280px;
         font-size: 14px;
         font-family: 'OpenSans', Arial, sans-serif;
         letter-spacing: 0;
@@ -1019,7 +1027,7 @@ body.try {
 
 @media (max-width: 830px) {
     .try-image-bottom-text {
-        right: 4%;   
+        right: 4%;
     }
 }
 
