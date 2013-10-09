@@ -545,7 +545,7 @@ this.FeatureBackground();
                         "Id"});
             table17.AddRow(new string[] {
                         "Objective1",
-                        "1"});
+                        "00000000000000000000000000000001"});
 #line 187
 testRunner.Given("objectives are present in database", ((string)(null)), table17, "Given ");
 #line 190
@@ -555,7 +555,8 @@ testRunner.When("mouse hover element of objectives list with title \'Objective1\
 #line 192
 testRunner.And("click open objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 193
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
+                    "0000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

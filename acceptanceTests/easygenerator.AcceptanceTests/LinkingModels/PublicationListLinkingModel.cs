@@ -14,7 +14,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string SortingByTitleAsc = "//div[contains(@class,'experiences-sort-by-title-asc')]";
         public string SortingByTitleDesc = "//div[contains(@class,'experiences-sort-by-title-desc')]";
         public string IsTitelSortingActiveClass = "active";
-        public string ObjectivesTabLink = "//a[contains(@class,'top-navigation-btn')]";
+        public string ObjectivesTabLink = "//a[contains(@class,'top-navigation-item')]";
 
         //CUD Experiences
 

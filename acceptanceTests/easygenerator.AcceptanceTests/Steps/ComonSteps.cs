@@ -36,8 +36,10 @@ namespace easygenerator.AcceptanceTests.Steps
             if (!TestUtils.WaitForCondition(() =>
                 (DriverProvider.Current().Driver.FindElementsByXPath(".//section[contains(@id,'content')]//section").Count != 0), 20000))
                 throw new TimeoutException("Content data is not reachable");
-            System.Threading.Thread.Sleep(500);
 
+            System.Threading.Thread.Sleep(1000);
+            DriverProvider.Current().Driver.Navigate().Refresh();
+            System.Threading.Thread.Sleep(1000);
         }
 
         [When(@"browser window width and height is set to (.*) and (.*)")]

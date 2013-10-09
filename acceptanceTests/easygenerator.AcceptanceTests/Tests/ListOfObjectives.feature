@@ -185,12 +185,12 @@ And Action select is enabled true for objectives list item with title 'Objective
 @NotFirefox
 Scenario: Open action of objectives list item navigates to objective's editing page 
 Given objectives are present in database
-| Title      | Id |
-| Objective1 | 1  |
+| Title      | Id                               |
+| Objective1 | 00000000000000000000000000000001 |
 When open page by url 'http://localhost:5656/#objectives'
 When mouse hover element of objectives list with title 'Objective1'
 And click open objective list item with title 'Objective1'
-Then browser navigates to url 'http://localhost:5656/#objective/1'
+Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001'
 
 
 Scenario: Navigation works using tab navigation to expiriences from objectives list
