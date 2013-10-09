@@ -12,14 +12,14 @@
                 </div>
                 <div class="pull-right ">
                     <ul class="header-menu-list clearfix">
-                        <li class="header-menu-list-item sign-up" data-bind="css: { istrymode: isTryMode() }">
+                        <li class="header-menu-list-item sign-up" data-bind="visible: isTryMode()">
                             <span data-bind="localize: { text: 'tryWarningMessage' }">In Try It Now mode your content is not safe!</span>
                             <a class="orange button" href="/account/logout" data-bind="localize: { text: 'signUpButton' }">Sign up
                             </a>
                         </li>
                         <li class="header-menu-list-item help" data-bind="localize: { text: 'help' }">Help</li>
                         <!-- ko if: userEmail -->
-                        <li class="header-menu-list-item mode profile" data-bind="css: { istrymode: !isTryMode() }, dropDown: {}">
+                        <li class="header-menu-list-item mode profile" data-bind="dropDown: {}">
                             <div class="header-submenu-holder">
                                 <span class="header-submenu-expand-icon"></span>
                             </div>
