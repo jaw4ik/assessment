@@ -55,10 +55,20 @@ namespace easygenerator.Web.Controllers
 
         public ActionResult LogOut()
         {
+            return LogoutAndRedirectToRoute("SignUp");
+        }
+
+        public ActionResult LogoutAndRedirectToLogin()
+        {
+            return LogoutAndRedirectToRoute("LogIn"); 
+        }
+
+        private ActionResult LogoutAndRedirectToRoute(string routeToRedirect)
+        {
             if (System.Web.HttpContext.Current.User != null && System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
                 _authenticationProvider.SignOut();
 
-            return RedirectToRoute("SignUp");
+            return RedirectToRoute(routeToRedirect);
         }
     }
 }
