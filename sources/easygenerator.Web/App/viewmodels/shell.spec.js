@@ -35,14 +35,6 @@
             });
 
         });
-
-        describe('isTryMode:', function () {
-
-            it('should be observable', function() {
-                expect(viewModel.isTryMode).toBeObservable();
-            });
-
-        });
         
         describe('userEmail:', function () {
 
