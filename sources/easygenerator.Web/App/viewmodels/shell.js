@@ -42,7 +42,7 @@
                 return _.contains(['404', '400'], this.activeModuleName());
             },
 
-            isTryMode = ko.observable(),
+            isTryMode = false,
             userEmail = '',
 
             activate = function () {
@@ -131,7 +131,7 @@
                                 })
                             }
                         ]);
-                        that.isTryMode(datacontext.isTryMode);
+                        that.isTryMode = datacontext.isTryMode;
                         that.userEmail = datacontext.userEmail;
 
                         return router.map(routes)
