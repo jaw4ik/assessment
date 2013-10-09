@@ -10,6 +10,7 @@
             experiences = [],
             templates = [],
             isTryMode = false,
+            userEmail = '',
             initialize = function () {
                 var that = this;
                 return $.ajax({
@@ -101,6 +102,17 @@
                     }).then(function (response) {
                         that.isTryMode = response.data;
                     });
+                }).then(function () {
+                    return $.ajax({
+                        url: '/api/user',
+                        type: 'GET',
+                        contentType: 'application/json',
+                        dataType: 'json'
+                    }).then(function (response) {
+                        if (response.data) {
+                            that.userEmail = response.data.Email || '';
+                        }
+                    });
                 }).fail(function () {
                     app.showMessage("Failed to initialize datacontext.");
                 });
@@ -112,6 +124,7 @@
             objectives: objectives,
             experiences: experiences,
             templates: templates,
-            isTryMode: isTryMode
+            isTryMode: isTryMode,
+            userEmail: userEmail
         };
     });

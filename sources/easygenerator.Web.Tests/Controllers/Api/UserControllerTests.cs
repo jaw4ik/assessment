@@ -223,5 +223,58 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         #endregion
+
+        #region GetCurrentUserInfo
+
+        [TestMethod]
+        public void GetCurrentUserEmail_ShouldReturnJsonSuccess_WhenUserIsNotAuthenticated()
+        {
+            //Arrange
+            _user.Identity.IsAuthenticated.Returns(false);
+
+            //Act
+            var result = _controller.GetCurrentUserEmail();
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+
+        [TestMethod]
+        public void GetCurrentUserEmail_ShouldReturnJsonSuccess_WhenUserDoesNotExist()
+        {
+            //Arrange
+            var userName = "5B63B14B-AB18-4B20-B6C8-D67AD769B337";
+
+            _user.Identity.IsAuthenticated.Returns(true);
+            _user.Identity.Name.Returns(userName);
+
+            _repository.GetUserByEmail(userName).Returns((User)null);
+
+            //Act
+            var result = _controller.GetCurrentUserEmail();
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+
+        [TestMethod]
+        public void GetCurrentUserEmail_ShouldReturnJsonSuccessWithEmail_WhenUserIsSignedIn()
+        {
+            //Arrange
+            var userEmail = "easygenerator@easygenerator.com";
+
+            _user.Identity.IsAuthenticated.Returns(true);
+            _user.Identity.Name.Returns(userEmail);
+
+            _repository.GetUserByEmail(userEmail).Returns(Substitute.For<User>());
+
+            //Act
+            var result = _controller.GetCurrentUserEmail();
+
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { Email = "easygenerator@easygenerator.com" });
+        }
+
+        #endregion
     }
 }

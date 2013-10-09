@@ -10,18 +10,18 @@
             };
 
         var requestsCounter = ko.observable(0);
-        
+
         app.on('httpWrapper:post-begin').then(function () {
             requestsCounter(requestsCounter() + 1);
         });
-        
+
         app.on('httpWrapper:post-end').then(function () {
             requestsCounter(requestsCounter() - 1);
         });
 
         var experiencesModule = 'experiences',
             objectivesModules = ['objectives', 'objective'],
-            experiencesModules = ['experiences','experience'],
+            experiencesModules = ['experiences', 'experience'],
             isViewReady = ko.observable(false),
             isExpanded = ko.observable(false),
             activeModule = ko.computed(function () {
@@ -47,8 +47,9 @@
             },
 
             isTryMode = ko.observable(),
+            userEmail = '',
 
-        activate = function () {
+            activate = function () {
                 var that = this;
                 return datacontext.initialize()
                     .then(function () {
@@ -120,7 +121,7 @@
                                 },
                                 title: 'experiences',
                                 isActive: ko.computed(function () {
-                                    return _.contains(experiencesModules,that.activeModuleName()) || router.isNavigating();
+                                    return _.contains(experiencesModules, that.activeModuleName()) || router.isNavigating();
                                 })
                             },
                             {
@@ -130,12 +131,12 @@
                                 },
                                 title: 'materialDevelopment',
                                 isActive: ko.computed(function () {
-                                    return _.contains(objectivesModules,that.activeModuleName()) || router.isNavigating();
+                                    return _.contains(objectivesModules, that.activeModuleName()) || router.isNavigating();
                                 })
                             }
                         ]);
-
                         that.isTryMode(datacontext.isTryMode);
+                        that.userEmail = datacontext.userEmail;
 
                         return router.map(routes)
                             .buildNavigationModel()
@@ -153,13 +154,15 @@
             homeModuleName: experiencesModule,
 
             isViewReady: isViewReady,
-            
+
             isExpanded: isExpanded,
             toggleExpansion: toggleExpansion,
 
             showNavigation: showNavigation,
             navigation: navigation,
-            isTryMode: isTryMode
+            isTryMode: isTryMode,
+            
+            userEmail: userEmail
         };
     }
 );

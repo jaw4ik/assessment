@@ -43,6 +43,14 @@
             });
 
         });
+        
+        describe('userEmail:', function () {
+
+            it('should be defined', function () {
+                expect(viewModel.userEmail).toBeDefined();
+            });
+
+        });
 
         describe('showNavigation:', function () {
 

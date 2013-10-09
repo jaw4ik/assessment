@@ -17,18 +17,20 @@
                         </a>
                     </li>
                     <li class="header-menu-list-item help">Help</li>
+                    <!-- ko if: userEmail -->
                     <li class="header-menu-list-item mode profile" data-bind="css: { active: isExpanded, istrymode: !isTryMode() }">
                         <div class="click-area" data-bind="click: $root.toggleExpansion"></div>
                         <div class="header-submenu-holder">
                             <span class="header-submenu-expand-icon"></span>
                         </div>
-                        <div class="header-username">1</div>
+                        <div class="header-username"><span data-bind="text: userEmail"></span></div>
                         <ul class="header-submenu-list">
                             <li class="header-submenu-item sign-out">
-                                <a class="header-submenu-link" href="\account\logout">Sign out</a>
+                                <a class="header-submenu-link" href="/account/logout" data-bind="localize: { text: 'signOutButton' }">Sign out</a>
                             </li>
                         </ul>
                     </li>
+                    <!-- /ko -->
                 </ul>
             </div>
         </div>

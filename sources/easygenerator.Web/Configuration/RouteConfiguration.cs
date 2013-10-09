@@ -217,12 +217,17 @@ namespace easygenerator.Web.Configuration
                 url: "api/user/exists",
                 defaults: new { controller = "User", action = "Exists" }
             );
-
             routes.MapRoute(
                 name: "IsTryMode",
                 url: "api/user/istrymode",
                 defaults: new {controller = "User", action = "IsTryMode"}
             );
+
+            routes.MapRoute(
+               name: "GetCurrentUserEmail",
+               url: "api/user",
+               defaults: new { controller = "User", action = "GetCurrentUserEmail" }
+           );
 
             #endregion
 
