@@ -30,7 +30,7 @@ if exist %outFile% del %outFile%
 %SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild "%testsProject%" /t:Clean,Build /verbosity:q /nologo /property:TreatWarningsAsErrors=true /p:Configuration=Release
 
 xcopy "%~dp0..\sources\easygenerator.Web\obj\AutoTests\TransformWebConfig\transformed\Web.config" "%webSiteDir%\easygenerator.Web\" /Y /F /I
-xcopy "%~dp0..\acceptanceTests\easygenerator.AcceptanceTests.dll.config" /Y /F /I "%webSiteDir%\easygenerator.AcceptanceTests.dll.config"
+xcopy "%~dp0..\acceptanceTests\easygenerator.AcceptanceTests.dll.config" /Y /F "%webSiteDir%\easygenerator.AcceptanceTests.dll.config"
 
 if not %errorlevel% ==0 (
 echo Cannot execute or build tests
