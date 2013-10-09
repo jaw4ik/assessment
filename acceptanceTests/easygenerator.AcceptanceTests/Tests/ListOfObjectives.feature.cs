@@ -100,7 +100,7 @@ testRunner.When("open page by url \'http://localhost:5656/account/login\'", ((st
 #line 16
 testRunner.And("sign in as \'test\' user on sign in page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 17
-testRunner.And("sleep 5000 milliseconds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.Then("browser navigates to url \'http://localhost:5656\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 18
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden

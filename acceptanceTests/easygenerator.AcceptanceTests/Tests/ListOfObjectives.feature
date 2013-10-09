@@ -14,7 +14,7 @@ Given objectives are present in database
 | Objective3 |
 When open page by url 'http://localhost:5656/account/login'
 And sign in as 'test' user on sign in page
-And sleep 5000 milliseconds
+Then browser navigates to url 'http://localhost:5656'
 When open page by url 'http://localhost:5656/#objectives'
 Then objectives tiles list contains items with data 
 | Title      |
