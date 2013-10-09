@@ -12,7 +12,7 @@ namespace easygenerator.Web.Components
 
             if (actionName == currentAction && controllerName == currentController)
             {
-                return htmlHelper.ActionLink(linkText, actionName, controllerName, null, new { @class = cssClass + " active" });
+                return htmlHelper.Label(linkText, new { @class = cssClass + " active" });
             }
 
             return htmlHelper.ActionLink(linkText, actionName, controllerName, null, new { @class = cssClass });
