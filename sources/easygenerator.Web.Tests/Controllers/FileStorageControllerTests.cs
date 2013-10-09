@@ -13,6 +13,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using easygenerator.Web.Controllers;
 using System.Web.Routing;
+using System.Net.Mime;
 
 namespace easygenerator.Web.Tests.Controllers
 {
@@ -68,7 +69,7 @@ namespace easygenerator.Web.Tests.Controllers
             var result = _controller.Upload();
 
             //Assert
-            result.Should().BeOfType<JsonSuccessResult>();
+            result.Should().BeOfType<TextJsonSuccessResult>();
         }
 
         [TestMethod]
@@ -153,7 +154,7 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void Upload_ShouldReturnJsonResult_WhenUploadingFileWithTiffExtension()
+        public void Upload_ShouldReturnJsonSuccessResult_WhenUploadingFileWithTiffExtension()
         {
             //Arrange
             postedFile.FileName.Returns("SomeImage.tiff");
@@ -163,11 +164,25 @@ namespace easygenerator.Web.Tests.Controllers
             var result = _controller.Upload();
 
             //Assert
-            result.Should().BeJsonSuccessResult();
+            result.Should().BeOfType<TextJsonSuccessResult>();
         }
 
         [TestMethod]
-        public void Upload_ShouldReturnJsonResult_WhenUploadingFileWithPngExtension()
+        public void Upload_ShouldReturnJsonSuccessResult_WhenUploadingFileWithTifExtension()
+        {
+            //Arrange
+            postedFile.FileName.Returns("SomeImage.tif");
+            postedFile.ContentLength.Returns(1024);
+
+            //Act
+            var result = _controller.Upload();
+
+            //Assert
+            result.Should().BeOfType<TextJsonSuccessResult>();
+        }
+
+        [TestMethod]
+        public void Upload_ShouldReturnJsonSuccessResult_WhenUploadingFileWithPngExtension()
         {
             //Arrange
             postedFile.FileName.Returns("SomeImage.png");
@@ -177,11 +192,11 @@ namespace easygenerator.Web.Tests.Controllers
             var result = _controller.Upload();
 
             //Assert
-            result.Should().BeJsonSuccessResult();
+            result.Should().BeOfType<TextJsonSuccessResult>();
         }
 
         [TestMethod]
-        public void Upload_ShouldReturnJsonResult_WhenUploadingFileWithJpgExtension()
+        public void Upload_ShouldReturnJsonSuccessResult_WhenUploadingFileWithJpgExtension()
         {
             //Arrange
             postedFile.FileName.Returns("SomeImage.jpg");
@@ -191,11 +206,11 @@ namespace easygenerator.Web.Tests.Controllers
             var result = _controller.Upload();
 
             //Assert
-            result.Should().BeJsonSuccessResult();
+            result.Should().BeOfType<TextJsonSuccessResult>();
         }
 
         [TestMethod]
-        public void Upload_ShouldReturnJsonResult_WhenUploadingFileWithJpegExtension()
+        public void Upload_ShouldReturnJsonSuccessResult_WhenUploadingFileWithJpegExtension()
         {
             //Arrange
             postedFile.FileName.Returns("SomeImage.jpeg");
@@ -205,11 +220,11 @@ namespace easygenerator.Web.Tests.Controllers
             var result = _controller.Upload();
 
             //Assert
-            result.Should().BeJsonSuccessResult();
+            result.Should().BeOfType<TextJsonSuccessResult>();
         }
 
         [TestMethod]
-        public void Upload_ShouldReturnJsonResult_WhenUploadingFileWithGifExtension()
+        public void Upload_ShouldReturnJsonSuccessResult_WhenUploadingFileWithGifExtension()
         {
             //Arrange
             postedFile.FileName.Returns("SomeImage.gif");
@@ -219,11 +234,11 @@ namespace easygenerator.Web.Tests.Controllers
             var result = _controller.Upload();
 
             //Assert
-            result.Should().BeJsonSuccessResult();
+            result.Should().BeOfType<TextJsonSuccessResult>();
         }
 
         [TestMethod]
-        public void Upload_ShouldReturnErrorJsonResult_WhenUploadingFileBiggerThen10MB()
+        public void Upload_ShouldReturnJsonErrorResult_WhenUploadingFileBiggerThen10MB()
         {
             //Arrange
             postedFile.FileName.Returns("SomeImage.gif");

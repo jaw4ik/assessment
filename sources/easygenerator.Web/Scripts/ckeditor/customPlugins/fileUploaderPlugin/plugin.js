@@ -14,14 +14,14 @@
                     fileInputId, frameId, statusContainerId,
                     lang = editor.lang.fileUploaderPlugin,
                     titleInstructions = lang.fileSizeNotMoreThan + ' ' + maxFileSize + 'MB\n' + lang.extensions + ': ' + allowedFileExtensions.join(', ');
-                
+
                 CKEDITOR.ui.dialog.uiElement.call(this, dialog, elementDefinition, htmlList, "div", {
                     position: 'relative'
                 }, null, function () {
                     frameId = CKEDITOR.tools.getNextId() + "_frame";
                     fileInputId = CKEDITOR.tools.getNextId() + "_fileInput";
                     statusContainerId = CKEDITOR.tools.getNextId() + "_status";
-                    
+
                     var content = [
                         '<a class="cke_dialog_ui_button file_upload_button" href="javascript:void(0)">',
                             lang.chooseFile,
@@ -43,15 +43,15 @@
 
                     if (statusContainer && inputContainer && fileFrame) {
                         var statusManager = {
-                            info: function() {
+                            info: function () {
                                 this.container.className = "";
                                 this.container.title = titleInstructions;
                             },
-                            failed: function() {
+                            failed: function () {
                                 this.container.className = "failed";
                                 this.container.title = lang.uploadFailed + ':\n' + titleInstructions;
                             },
-                            loading: function() {
+                            loading: function () {
                                 this.container.className = "loading";
                                 this.container.title = "";
                             },
@@ -59,41 +59,46 @@
                         };
 
                         var inputManager = {
-                            enable: function() {
+                            enable: function () {
                                 this.container.offsetParent.className = this.container.offsetParent.className.replace(" disabled", "");
                                 this.container.disabled = false;
                             },
-                            disable: function() {
+                            disable: function () {
                                 this.container.offsetParent.className += " disabled";
                                 this.container.disabled = true;
+                            },
+                            submit: function () {
+                                this.container.form.submit();
+                                this.disable();
+                                statusManager.loading();
                             },
                             container: inputContainer.$
                         };
 
-                        inputManager.container.onchange = function() {
-                            if (this.files && this.files.length > 0) {
-                                var file = this.files[0];
+                        inputManager.container.onchange = function () {
+                            if (this.files) {
+                                if (this.files.length > 0) {
+                                    var file = this.files[0];
 
-                                if (file.size < maxFileSize * 1024 * 1024) {
+                                    if (file.size < maxFileSize * 1024 * 1024) {
 
-                                    var fileExtension = file.name.split('.').pop();
+                                        var fileExtension = file.name.split('.').pop();
 
-                                    for (var i = 0; i < allowedFileExtensions.length; i++) {
-                                        if (fileExtension.toLowerCase() == allowedFileExtensions[i].toLowerCase()) {
-                                            inputManager.container.form.submit();
-
-                                            inputManager.disable();
-                                            statusManager.loading();
-                                            return;
+                                        for (var i = 0; i < allowedFileExtensions.length; i++) {
+                                            if (fileExtension.toLowerCase() == allowedFileExtensions[i].toLowerCase()) {
+                                                inputManager.submit();
+                                                return;
+                                            }
                                         }
                                     }
-
                                 }
+                                statusManager.failed();
+                            } else {
+                                inputManager.submit();
                             }
-                            statusManager.failed();
                         };
 
-                        var handleResult = function() {
+                        var handleResult = function () {
                             try {
                                 var result = JSON.parse(this.contentDocument.body.innerHTML);
 
@@ -106,7 +111,7 @@
                                 } else {
                                     statusManager.failed();
                                 }
-                            } catch(e) {
+                            } catch (e) {
                                 statusManager.failed();
                             } finally {
                                 inputManager.enable();
@@ -116,7 +121,7 @@
                         statusManager.info();
 
                         if (window.top.navigator.userAgent.indexOf("MSIE") > -1) {
-                            fileFrame.$.onreadystatechange = function() {
+                            fileFrame.$.onreadystatechange = function () {
                                 if (this.readyState == "complete") {
                                     handleResult.call(this);
                                 }
@@ -130,15 +135,15 @@
                 });
             }
         });
-        
+
         CKEDITOR.ui.dialog.fileUploadButton.prototype = new CKEDITOR.ui.dialog.button;
-        
+
         var builder = {
             build: function (dialog, elementDefinition, htmlList) {
                 return new CKEDITOR.ui.dialog[elementDefinition.type](dialog, elementDefinition, htmlList);
             }
         };
-        
+
         CKEDITOR.dialog.addUIElement("fileUploadButton", builder);
 
         CKEDITOR.document.appendStyleSheet(CKEDITOR.basePath + 'customPlugins/fileUploaderPlugin/styles.css');

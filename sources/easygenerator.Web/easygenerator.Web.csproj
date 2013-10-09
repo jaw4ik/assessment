@@ -176,6 +176,8 @@
     <Compile Include="BuildExperience\PackageModel\LearningObjectPackageModel.cs" />
     <Compile Include="BuildExperience\PackageModel\ObjectivePackageModel.cs" />
     <Compile Include="BuildExperience\PackageModel\QuestionPackageModel.cs" />
+    <Compile Include="Components\ActionResults\TextJsonErrorResult.cs" />
+    <Compile Include="Components\ActionResults\TextJsonSuccessResult.cs" />
     <Compile Include="Components\ActionResults\JsonErrorResult.cs" />
     <Compile Include="Components\ActionResults\JsonSuccessResult.cs" />
     <Compile Include="Components\AuthenticationProvider.cs" />
@@ -346,6 +348,7 @@
     <Content Include="Content\font\opensans-semibolditalic.eot" />
     <Content Include="Content\font\opensans-semibolditalic.ttf" />
     <Content Include="Content\font\opensans-semibolditalic.woff" />
+    <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
