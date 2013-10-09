@@ -11,7 +11,7 @@
                 <div class="user-form-row" data-bind="css: { error: hasError() || (!username.isValid() && username.isModified()) }">
                     <label class="user-form-label email">@Resources.EmailCaption</label>
                     <div class="user-form-input-holder">
-                        <input class="user-form-input" type="text" name="email" data-bind="value: username, valueUpdate: 'afterkeydown', event: { blur: username.markAsModified }" />
+                        <input class="user-form-input" type="text" name="email" autocomplete="off" data-bind="value: username, valueUpdate: 'afterkeydown', event: { blur: username.markAsModified }" />
                     </div>
                     <!-- ko if: !username.isValid() && username.isModified() -->
                     <span class="user-form-message">@Resources.EnterValidEmailMessage</span>
@@ -20,7 +20,7 @@
                 <div class="user-form-row" data-bind="css: { error: hasError }">
                     <label class="user-form-label password">@Resources.PasswordCaption</label>
                     <div class="user-form-input-holder">
-                        <input class="user-form-input" type="password" name="password" data-bind="value: password, valueUpdate: 'afterkeydown', attr: { type: isPasswordVisible() ? 'text' : 'password' }" />
+                        <input class="user-form-input" type="password" name="password" autocomplete="off" data-bind="value: password, valueUpdate: 'afterkeydown', attr: { type: isPasswordVisible() ? 'text' : 'password' }" />
                         <a href="#" class="user-form-password-eye" data-bind="css: { revealed: isPasswordVisible }, click: togglePasswordVisibility"></a>
                     </div>
                 </div>
