@@ -134,9 +134,6 @@
                         that.isTryMode = datacontext.isTryMode;
                         that.userEmail = datacontext.userEmail;
 
-                        console.log(that.isTryMode);
-                        console.log(that.userEmail);
-
                         return router.map(routes)
                             .buildNavigationModel()
                             .mapUnknownRoutes('viewmodels/errors/404', '404')
