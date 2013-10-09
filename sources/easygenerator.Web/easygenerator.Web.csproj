@@ -192,6 +192,7 @@
     <Compile Include="Controllers\Api\AnswerController.cs" />
     <Compile Include="Controllers\Api\ExperienceController.cs" />
     <Compile Include="Controllers\Api\LearningObjectController.cs" />
+    <Compile Include="Controllers\FileStorageController.cs" />
     <Compile Include="Controllers\Api\ObjectiveController.cs" />
     <Compile Include="Controllers\Api\QuestionController.cs" />
     <Compile Include="Controllers\Api\TemplateController.cs" />
@@ -276,6 +277,22 @@
       <DependentUpon>signup.js</DependentUpon>
     </Content>
     <Content Include="Scripts\almond-custom.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\failed.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\info.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\lang\en.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\loader.gif" />
+    <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\plugin.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\styles.css" />
+    <Content Include="Scripts\ckeditor\customPlugins\image\dialogs\image.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\image\icons\hidpi\image.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\image\icons\image.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\image\images\noimage.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\image\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\image\lang\en.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\image\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\image\plugin.js" />
     <Content Include="Scripts\durandal\activator.js" />
     <Content Include="Scripts\durandal\app.js" />
     <Content Include="Scripts\durandal\binder.js" />

@@ -12,8 +12,10 @@ CKEDITOR.editorConfig = function (config) {
     ];
 
     CKEDITOR.plugins.addExternal('semanticTagsPlugin', CKEDITOR.basePath + 'customPlugins/semanticTagsPlugin/', 'plugin.js');
+    CKEDITOR.plugins.addExternal('fileUploaderPlugin', CKEDITOR.basePath + 'customPlugins/fileUploaderPlugin/', 'plugin.js');
+    CKEDITOR.plugins.addExternal('image', CKEDITOR.basePath + 'customPlugins/image/', 'plugin.js');
 
-    config.extraPlugins = 'semanticTagsPlugin';
+    config.extraPlugins = 'semanticTagsPlugin,fileUploaderPlugin,image';
     config.extraAllowedContent = 'iframe';
 
     config.removeFormatTags = 'b,big,code,del,dfn,em,font,i,ins,kbd,q,s,samp,small,span,strike,strong,sub,sup,tt,u,var,abbr,acronym,blockquote,cite,mark,figcaption,time';

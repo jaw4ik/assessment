@@ -98,5 +98,17 @@ namespace easygenerator.Web.Tests.BuildExperience
 
             //Assert
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotSupportedException))]
+        public void GetFileContentType_ShouldThrowNotSupportedException_WhenExtentionNotAllowed()
+        {
+            //Arrange
+
+            //Act
+            _physicalFileManager.GetFileContentType("filePath.exe");
+
+            //Assert
+        }
     }
 }

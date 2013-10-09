@@ -13,6 +13,17 @@ namespace easygenerator.Infrastructure
             Directory.CreateDirectory(path);
         }
 
+        public virtual void CreateDirectoryIfNotExists(string path)
+        {
+            if (String.IsNullOrEmpty(path))
+                throw new ArgumentException();
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+
         public virtual void DeleteDirectory(string path)
         {
             if (String.IsNullOrEmpty(path))
@@ -105,6 +116,27 @@ namespace easygenerator.Infrastructure
                 {
                     
                 }
+            }
+        }
+
+        public virtual bool FileExists(string filePath)
+        {
+            return File.Exists(filePath);
+        }
+
+        public virtual string GetFileContentType(string filePath)
+        {
+            var fileInfo = new FileInfo(filePath);
+            switch (fileInfo.Extension.ToLower())
+            {
+                case ".png": return "image/png";
+                case ".jpg": return "image/jpeg";
+                case ".jpeg": return "image/jpeg";
+                case ".gif": return "image/gif";
+                case ".tif": return "image/tiff";
+                case ".tiff": return "image/tiff";
+                default:
+                    throw new NotSupportedException("The Specified File Type Is Not Supported");
             }
         }
     }

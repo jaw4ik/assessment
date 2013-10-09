@@ -1,0 +1,67 @@
+.file_upload_button
+{
+    position: relative !important;
+    vertical-align: top !important;
+	overflow: hidden !important; 
+	height: 23px !important; 
+	padding: 0 18px !important;
+    line-height: 23px !important;
+    cursor: default !important;
+}
+.file_upload_button.disabled {
+    pointer-events: none !important;
+    opacity: 0.6 !important;
+}
+
+/*hack for IE 9*/
+.ie9 .file_upload_button {
+	margin-top: -2px !important;
+}
+.ie9 .file_upload_button + span {
+	margin-top: 3px !important;
+}
+/*hack for IE 10*/
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .file_upload_button {
+	    margin-top: -2px !important;
+    }
+    .file_upload_button + span {
+	    margin-top: 3px !important;
+    }
+}
+
+.file_upload_button input
+{
+	position: absolute;
+    left: 0; 
+	top: 0; 	
+	width: 100%; 
+	height: 100%;
+    cursor: default;
+    opacity: 0; 
+}
+.file_upload_button  iframe
+{
+	width: 0px; 
+	height: 0px; 
+	border: none;
+}
+.file_upload_button + span
+{
+    display: inline-block !important;
+    width: 16px !important;
+    height: 16px !important;
+
+    margin: 5px !important;
+    vertical-align: top !important;
+
+    background: url(info.png) no-repeat !important;
+}
+.file_upload_button + span.loading
+{
+	background: url(loader.gif) no-repeat !important;
+}
+.file_upload_button + span.failed
+{
+	background: url(failed.png) no-repeat !important;
+}

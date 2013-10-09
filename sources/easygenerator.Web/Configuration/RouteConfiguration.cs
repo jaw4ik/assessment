@@ -260,6 +260,22 @@ namespace easygenerator.Web.Configuration
 
             #endregion;
 
+            #region FileStorage
+
+            routes.MapRoute(
+                name: "Upload",
+                url: "api/filestorage/upload",
+                defaults: new { controller = "FileStorage", action = "Upload" }
+            );
+
+            routes.MapRoute(
+                name: "GetFile",
+                url: "filestorage/{fileId}",
+                defaults: new { controller = "FileStorage", action = "Get", fileId = "", }
+            );
+
+            #endregion
+
             routes.MapRoute(
                 name: "Default",
                 url: "",

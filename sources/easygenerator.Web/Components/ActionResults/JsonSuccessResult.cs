@@ -21,7 +21,8 @@ namespace easygenerator.Web.Components.ActionResults
             var jsonResult = new JsonResult
             {
                 Data = new { success = true, message = Message, data = Data },
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                ContentType = "text/html"
             };
 
             jsonResult.ExecuteResult(context);

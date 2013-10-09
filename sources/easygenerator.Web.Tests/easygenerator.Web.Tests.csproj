@@ -117,6 +117,7 @@
     <Compile Include="Controllers\Api\AnswerControllerTests.cs" />
     <Compile Include="Controllers\Api\ExperienceControllerTests.cs" />
     <Compile Include="Controllers\Api\LearningObjectControllerTests.cs" />
+    <Compile Include="Controllers\FileStorageControllerTests.cs" />
     <Compile Include="Controllers\Api\ObjectiveControllerTests.cs" />
     <Compile Include="Controllers\Api\QuestionControllerTests.cs" />
     <Compile Include="Controllers\Api\TemplateControllerTests.cs" />
