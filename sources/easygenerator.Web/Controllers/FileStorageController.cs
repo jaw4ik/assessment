@@ -71,7 +71,8 @@ namespace easygenerator.Web.Controllers
             var savePath = Path.Combine(fileStoragePath, newFileName + fileInfo.Extension);
             file.SaveAs(savePath);
 
-            return new TextJsonSuccessResult(new { url = Path.Combine(_httpRuntimeWrapper.GetAppDomain(), FilestorageApiUrl, newFileName + fileInfo.Extension) });
+            var rootDomain = Request.Url.AbsoluteUri.Replace(Request.Url.AbsolutePath, string.Empty);
+            return new TextJsonSuccessResult(new { url = Path.Combine(rootDomain + "/", FilestorageApiUrl, newFileName + fileInfo.Extension) });
         }
 
     }

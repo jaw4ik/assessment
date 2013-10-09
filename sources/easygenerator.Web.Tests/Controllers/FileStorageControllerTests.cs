@@ -43,7 +43,7 @@ namespace easygenerator.Web.Tests.Controllers
 
             _request = Substitute.For<HttpRequestBase>();
             _request.Files.Returns(_fileCollection);
-            _request.UrlReferrer.Returns(new Uri("http://some_url.com"));
+            _request.Url.Returns(new Uri("http://some_url.com/some/path"));
 
             _context = Substitute.For<HttpContextBase>();
             _context.Request.Returns(_request);

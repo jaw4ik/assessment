@@ -8,10 +8,5 @@ namespace easygenerator.Web.BuildExperience
         {
             return HttpRuntime.AppDomainAppPath;
         }
-
-        public virtual string GetAppDomain()
-        {
-            return HttpRuntime.AppDomainAppVirtualPath;
-        }
     }
 }
