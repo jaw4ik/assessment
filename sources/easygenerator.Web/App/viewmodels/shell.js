@@ -20,7 +20,8 @@
         });
 
         var experiencesModule = 'experiences',
-            objectivesModule = 'objectives',
+            objectivesModules = ['objectives', 'objective'],
+            experiencesModules = ['experiences','experience'],
             isViewReady = ko.observable(false),
             isExpanded = ko.observable(false),
             activeModule = ko.computed(function () {
@@ -40,10 +41,12 @@
             showNavigation = function () {
                 return _.contains(['404', '400'], this.activeModuleName());
             },
-            
+
             toggleExpansion = function () {
                 isExpanded(!isExpanded());
             },
+
+            isTryMode = ko.observable(),
 
         activate = function () {
                 var that = this;
@@ -117,7 +120,7 @@
                                 },
                                 title: 'experiences',
                                 isActive: ko.computed(function () {
-                                    return that.activeModuleName() == experiencesModule || router.isNavigating();
+                                    return _.contains(experiencesModules,that.activeModuleName()) || router.isNavigating();
                                 })
                             },
                             {
@@ -127,10 +130,12 @@
                                 },
                                 title: 'materialDevelopment',
                                 isActive: ko.computed(function () {
-                                    return that.activeModuleName() == objectivesModule || router.isNavigating();
+                                    return _.contains(objectivesModules,that.activeModuleName()) || router.isNavigating();
                                 })
                             }
                         ]);
+
+                        that.isTryMode(datacontext.isTryMode);
 
                         return router.map(routes)
                             .buildNavigationModel()
@@ -153,7 +158,8 @@
             toggleExpansion: toggleExpansion,
 
             showNavigation: showNavigation,
-            navigation: navigation
+            navigation: navigation,
+            isTryMode: isTryMode
         };
     }
 );

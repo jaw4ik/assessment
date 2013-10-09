@@ -36,6 +36,14 @@
 
         });
 
+        describe('isTryMode:', function () {
+
+            it('should be observable', function() {
+                expect(viewModel.isTryMode).toBeObservable();
+            });
+
+        });
+
         describe('showNavigation:', function () {
 
             it('should be defined', function () {

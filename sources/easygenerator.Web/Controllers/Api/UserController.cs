@@ -54,5 +54,12 @@ namespace easygenerator.Web.Controllers.Api
             var exists = _repository.GetUserByEmail(email) != null;
             return JsonSuccess(exists);
         }
+
+        [HttpPost]
+        public ActionResult IsTryMode()
+        {
+            var isTryMode = _repository.GetUserByEmail(GetCurrentUsername()) == null;
+            return JsonSuccess(isTryMode);
+        }
     }
 }

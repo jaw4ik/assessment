@@ -85,6 +85,7 @@
         padding: 16px 20px;
         border-radius: 1px;
         color: #f59957;
+        background: #37383b;
         font-size: 14px;
         cursor: default;
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
@@ -124,6 +125,7 @@
 }
 
 .header-menu-list-item.profile {
+    display: none;
     position: relative;
     max-width: 280px;
     min-width: 75px;
@@ -141,6 +143,9 @@
         left: 0;
         z-index: 10;
     }
+.header-menu-list-item.istrymode {
+    display: list-item;
+}
 
 .header-username {
     position: relative;

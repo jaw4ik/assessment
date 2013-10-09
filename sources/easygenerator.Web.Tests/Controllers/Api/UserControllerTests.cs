@@ -191,5 +191,37 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         #endregion
+
+        #region isTryMode
+
+        [TestMethod]
+        public void IsTryMode_ShouldReturnJsonTrueResult_WhenUserIsAnonymous()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.IsTryMode();
+
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.Should().Be(true);
+        }
+
+        [TestMethod]
+        public void IsTryMode_ShouldReturnJsonFalseResult_WhenUserIsNotAnonymous()
+        {
+            //Arrange
+            var email = "easygenerator@eg.com";
+            _user.Identity.Name.Returns(email);
+            _repository.GetUserByEmail(email).Returns(UserObjectMother.Create());
+
+            //Act
+            var result = _controller.IsTryMode();
+
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.Should().Be(false);
+
+        }
+
+        #endregion
     }
 }
