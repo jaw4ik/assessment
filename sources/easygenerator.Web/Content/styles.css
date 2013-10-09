@@ -48,7 +48,7 @@
     }
 
 .header-logo-holder {
-    padding-top: 14px;
+    padding: 14px 0;
 }
 
 .header-logo {
@@ -255,3 +255,40 @@ a.top-navigation-item:hover {
 /*#region FOOTER*/
 
 /*#endregion FOOTER*/
+
+
+@media (max-width: 1020px) {
+
+    /*#region HEADER*/
+    .header-logo {
+        width: 36px;
+    }
+    /*#endregion HEADER*/
+
+}
+
+@media (max-width: 880px ) {
+
+    /*#region HEADER*/
+    .header .content-holder {
+        width: 90%;
+    }
+    /*#endregion HEADER*/
+
+}
+
+@media (max-width: 780px ) {
+
+    /*#region HEADER*/
+    .header-menu-list-item.sign-up {
+        padding: 16px 15px;
+        font-size: 13px;
+    }
+
+        .header-menu-list-item.sign-up.sign-up .button {
+            padding: 7px 8px;
+            font-size: 12px;
+        }
+    /*#endregion HEADER*/
+
+}

@@ -949,6 +949,11 @@
         nl: 'Afmelden',
         de: 'Abmelden'
     },
+    help: {
+        en: 'Help',
+        nl: 'Help',
+        de: 'Hilfe'
+    },
     /* End resource section for model Sign Out */
     
     /* Resource section for model File uploader */
