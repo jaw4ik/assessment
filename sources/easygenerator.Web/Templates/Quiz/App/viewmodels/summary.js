@@ -10,7 +10,7 @@
         },
 
         finish = function () {
-            alert('You overall score ' + this.overallScore + '%');
+            alert('You overall score ' + Math.round(this.overallScore) + '%');
         },
 
         activate = function () {
