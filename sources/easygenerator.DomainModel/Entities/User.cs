@@ -32,6 +32,9 @@ namespace easygenerator.DomainModel.Entities
         {
             ArgumentValidation.ThrowIfNullOrEmpty(email, "email");
 
+            if (email.Length > 254)
+                throw new ArgumentException("Invalid email", "email");
+
             if (!Regex.IsMatch(email, Constants.EmailValidationRegexp))
                 throw new ArgumentException("Invalid email format", "email");
         }

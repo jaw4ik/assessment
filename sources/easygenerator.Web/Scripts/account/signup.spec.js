@@ -45,6 +45,15 @@
 
             });
 
+            describe('when e-mail length bigger than 254', function () {
+
+                it('should be not valid', function() {
+                    viewModel.userName(utils.createString(250) + '@t.ru');
+                    expect(viewModel.userName.isValid()).toBeFalsy();
+                });
+
+            });
+
             describe('when user with such e-mail exists', function () {
 
                 it('should be not valid', function () {

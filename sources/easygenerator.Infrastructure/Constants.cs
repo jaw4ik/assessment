@@ -2,6 +2,6 @@
 {
     public static class Constants
     {
-        public const string EmailValidationRegexp = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
+        public const string EmailValidationRegexp = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$";
     }
 }

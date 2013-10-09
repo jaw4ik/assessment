@@ -22,7 +22,7 @@
                 data: { email: userName().trim().toLowerCase(), password: password() },
                 type: 'POST'
             })
-            .done(function () {
+            .done(function() {
                 window.location.replace('/');
             });
         },
@@ -52,8 +52,9 @@
         };
 
     userName.isValid = ko.computed(function () {
-        var mailRegex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/;
-        return userName().trim().length > 0 && mailRegex.test(userName().trim()) && !userExists();
+        var mailRegex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/,
+            length = userName().trim().length;
+        return length > 0 && length < 255 && mailRegex.test(userName().trim()) && !userExists();
     });
 
     password.isValid = ko.computed(function () {

@@ -15,6 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.Tests", "easy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easygenerator.DataAccess", "easygenerator.DataAccess\easygenerator.DataAccess.csproj", "{67A666AE-DE1A-4744-80BC-455536DB1171}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FFBFF1F0-08AF-48A6-B6BD-7409FE8F062B}"
+	ProjectSection(SolutionItems) = preProject
+		WE-browsers.xml = WE-browsers.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		AutoTests|Any CPU = AutoTests|Any CPU

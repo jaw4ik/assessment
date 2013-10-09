@@ -34,6 +34,16 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
+        public void User_ShouldThrowArgumentException_WhenEmailLengthBiggerthen254Characters()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithEmail("0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789@t.ru");
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("email");
+        }
+
+        [TestMethod]
         public void User_ShouldThrowArgumentException_WhenEmailIsInvalid()
         {
             //Arrange
