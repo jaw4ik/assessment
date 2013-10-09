@@ -164,9 +164,11 @@
                         guard.throwIfNotAnObject(experience, "Experience doesn`t exist");
 
                         experience.objectives = _.reject(experience.objectives, function (objective) {
-                            return _.contains(objectives, objective);
+                            return _.find(objectives, function (item) {
+                                return item.id == objective.id;
+                            });
                         });
-                        
+
                         experience.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
                         return experience.modifiedOn;
                     });
