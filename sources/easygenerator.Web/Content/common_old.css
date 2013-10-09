@@ -108,6 +108,13 @@ ol.unstyled  {
     min-width: 600px;
 }
 
+.main {
+    padding-top: 97px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 .clear {
     clear: both;
 }
@@ -618,9 +625,9 @@ ol.unstyled  {
     margin-top: -16px;
 }
 
-.icon-spinner-wrapper img {
-    vertical-align: top;   
-}
+    .icon-spinner-wrapper img {
+        vertical-align: top;
+    }
 
 /*#endregion Page-loader icon*/
 

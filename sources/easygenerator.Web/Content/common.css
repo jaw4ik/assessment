@@ -173,6 +173,12 @@ ol.unstyled  {
     user-select: text;
 }
 
+.fixed-container {
+    width: 100%;
+    position: fixed;
+    z-index: 200;
+}
+
 /*#endregion COMMON CLASSES CSS-STYLES*/
 
 /*#region CHECKBOX */
