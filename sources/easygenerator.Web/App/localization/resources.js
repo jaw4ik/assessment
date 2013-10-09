@@ -735,7 +735,7 @@
     },
     learningExperienceEditor: {
         en: 'Learning experience editor',
-        nl: 'Editor leerervaringen',
+        nl: 'Leerervaringen editor',
         de: 'Lernerfahrungs-Editor'
     },
     /* End resource section for model Display experience */
@@ -786,7 +786,213 @@
         en: 'Unfortunately, mobile devices are not supported yet. Please, use desktop or laptop computer with modern web browser to enjoy easygenerator capabilities.',
         nl: 'Unfortunately, mobile devices are not supported yet. Please, use desktop or laptop computer with modern web browser to enjoy easygenerator capabilities.[nl]',
         de: 'Unfortunately, mobile devices are not supported yet. Please, use desktop or laptop computer with modern web browser to enjoy easygenerator capabilities.[de]'
-    }
+    },
     /* End resource section for model Not supported browsers */
+    
+    /* Resource section for model SignUp form */
+    CreateAccountTitle: {
+        en: 'Create account',
+        nl: 'Account maken',
+        de: 'Konto erstellen'
+    },
+    EmailCaption: {
+        en: 'E-mail',
+        nl: 'E-mail',
+        de: 'E-Mail'
+    },
+    PasswordCaption: {
+        en: 'Password',
+        nl: 'Wachtwoord',
+        de: 'Kennwort'
+    },
+    signUpButton: {
+        en: 'Sign up',
+        nl: 'Inschrijven',
+        de: 'Registrieren'
+    },
+    PasswordRequirementsTitle: {
+        en: 'Password is required to:',
+        nl: 'Het wachtwoord moet:',
+        de: 'Das Kennwort muss:'
+    },
+    BeAtLeast7CharaterLong: {
+        en: 'be at least 7 characters long;',
+        nl: 'minstens zeven tekens lang zijn;',
+        de: 'mindestens 7 Zeichen lang sein;'
+    },
+    ContainAtLeastOneLowerCaseLetter: {
+        en: 'contain at least one lower case letter;',
+        nl: 'minstens één kleine letter hebben;',
+        de: 'mindestens einen Kleinbuchstaben enthalten;'
+    },
+    ContainAtLeastOneUpperCaseLetter: {
+        en: 'contain at least one upper case letter;',
+        nl: 'minstens één hoofdletter hebben;',
+        de: 'mindestens einen Großbuchstaben enthalten;'
+    },
+    ContainAtLeastOneDigit: {
+        en: 'contain at least one digit;',
+        nl: 'minstens één cijfer hebben;',
+        de: 'mindestens eine Ziffer enthalten;'
+    },
+    ContainAtLeastOneSpecialCharacter: {
+        en: 'contain at least one special character;',
+        nl: 'minstens één speciaal teken hebben;',
+        de: 'mindestens ein Sonderzeichen enthalten;'
+    },
+    NotContainWhitespaceCharacters: {
+        en: 'NOT contain whitespace character(s).',
+        nl: 'GEEN spatie(s) bevatten.',
+        de: 'darf kein(e) Leerzeichen enthalten.'
+    },
+    EnterValidEmail: {
+        en: 'Enter a valid e-mail',
+        nl: 'Voer een geldig e-mailadres in',
+        de: 'Geben Sie eine gültige E-Mail-Adresse ein'
+    },
+    AccountAlreadyExists: {
+        en: 'This account already exists',
+        nl: 'Dit account bestaat al',
+        de: 'Dieses Konto besteht bereits'
+    },
+    PasswordIsStrongEnough: {
+        en: 'Password is strong enough',
+        nl: 'Wachtwoord is sterk genoeg',
+        de: 'Das Kennwort ist stark genug'
+    },
+    PasswordDoesNotMeetRequirements: {
+        en: 'Password does not meet requirements',
+        nl: 'Wachtwoord voldoet niet aan de eisen',
+        de: 'Das Kenntwort erfüllt nicht die Anforderungen'
+    },
+    LicenseAgreeCheckBoxTitle: {
+        en: 'I have read and I agree to the <a href=\"{0}\">Terms</a> and <a href=\"{1}\">Privacy</a>',
+        nl: 'Ik heb de volgende <a href=\"{0}\">voorwaarden</a> en <a href=\"{1}\">Privacy</ a> gelezen en ga ermee akkoord',
+        de: 'Ich habe die folgenden <a href=\"{0}\">Nutzungsbedingungen</a> und <a href=\"{1}\">Datenschutz</ a> gelesen und stimme ihnen zu'
+    },
+    Checking: {
+        en: 'Checking...',
+        nl: 'Bezig met controle...',
+        de: 'Überprüfung...'
+    },
+    /* End resource section for model SignUp form */
+    
+    /* Resource section for model Sign In */
+    email: {
+        en: 'E-mail',
+        nl: 'E-mail',
+        de: 'E-Mail'
+    },
+    password: {
+        en: 'Password',
+        nl: 'Wachtwoord',
+        de: 'Kennwort'
+    },
+    signIn: {
+        en: 'Sign in',
+        nl: 'Aanmelden',
+        de: 'Anmelden'
+    },
+    incorrectEmailOrPassword: {
+        en: 'Such e-mail and password combination not found',
+        nl: 'Deze combinatie van e-mailadres en wachtwoord is niet gevonden.',
+        de: 'Diese Kombination von E-Mail-Adresse und Kennwort wurde nicht gefunden.'
+    },
+    forgotPassword: {
+        en: 'forgot password?',
+        nl: 'wachtwoord vergeten?',
+        de: 'Kennwort vergessen?'
+    },
+    /* End resource section for model Sign In */
+    
+    /* Resource section for model Try now */
+    tryNow: {
+        en: 'Try now',
+        nl: 'Nu proberen',
+        de: 'Jetzt ausprobieren'
+    },
+    tryWarningMessage: {
+        en: 'In Try It Now mode your content is not safe!',
+        nl: 'Uw inhoud is niet veilig in de Probeer-modus!',
+        de: 'Im Jetzt ausprobieren-Modus sind Ihre Inhalte nicht sicher!'
+    },
+    tryTitle: {
+        en: 'Introducing easygenerator',
+        nl: 'Introductie van easygenerator',
+        de: 'easygenerator - Einführung'
+    },
+    trySubtitle: {
+        en: 'A revolutionary eLearning platform',
+        nl: 'Een revolutionair eLearning-platform',
+        de: 'Eine revolutionäre eLearning-Plattform'
+    },
+    trySubmitCaption: {
+        en: 'Try it now',
+        nl: 'Probeer het nu',
+        de: 'Probieren Sie es jetzt aus.'
+    },
+    tryImageDevelopOn: {
+        en: 'Develop on',
+        nl: 'Ontwikkel hier',
+        de: 'Entwickeln in'
+    },
+    tryImagePublishTo: {
+        en: 'Publish to',
+        nl: 'Publiceer hier',
+        de: 'Veröffentlichen in'
+    },
+    /* End resource section for model Try now */
+    
+    /* Resource section for model Sign Out */
+    signOutButton: {
+        en: 'Sign out',
+        nl: 'Afmelden',
+        de: 'Abmelden'
+    },
+    /* End resource section for model Sign Out */
+    
+    /* Resource section for model File uploader */
+    fileSizeNotMoreThan: {
+        en: 'File size not more than 10 MB',
+        nl: 'Bestandsgrootte maximaal 10 MB',
+        de: 'Dateigröße maximal 10 MB'
+    },
+    extensions: {
+        en: 'Extensions',
+        nl: 'Extensies',
+        de: 'Erweiterungen'
+    },
+    uploadFailed: {
+        en: 'Upload failed',
+        nl: 'Uploaden mislukt',
+        de: 'Hochladen nicht erfolgreich'
+    },
+    chooseFile: {
+        en: 'Choose file',
+        nl: 'Kiezen bestand',
+        de: 'Datei wählen'
+    },
+    /* End resource section for model File uploader */
+    
+    /* Resource section for model Terms Of Use and Privacy policy */
+    TermsOfUse: {
+        en: 'Terms of use',
+        nl: 'Gebruiksvoorwaarden',
+        de: 'Nutzungsbedingungen'
+    },
+    PrivacyPolicy: {
+        en: 'Privacy policy',
+        nl: 'Privacybeleid',
+        de: 'Datenschutzrichtlinie'
+    },
+    /* End resource section for model Terms Of Use and Privacy policy */
+    
+    /* Resource section for model Copyright */
+    CopyrightText: {
+        en: 'Copyright © 2013 easygenerator. All rights reserved.',
+        nl: 'Copyright © 2013 easygenerator. Alle rechten voorbehouden.',
+        de: 'Copyright © 2013 easygenerator. Alle Rechte vorbehalten.'
+    }
+    /* End resource section for model Copyright */
            
 });
