@@ -27,9 +27,8 @@ namespace easygenerator.AcceptanceTests.Steps
             {
                 SignInPage.InputEmail(@"vr.danylchuk@ism-ukraine.com");
                 SignInPage.InputPassword(@"Easy123!");                
-                System.Threading.Thread.Sleep(1000);
                 SignInPage.SignInSubmitButtonClick();
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(2000);
             }
             else
             {

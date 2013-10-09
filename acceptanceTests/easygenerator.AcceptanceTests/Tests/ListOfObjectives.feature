@@ -4,6 +4,9 @@ Feature: ListOfObjectives
 
 Background: 
 Given clear data context
+When open page by url 'http://localhost:5656/account/login'
+And sign in as 'test' user on sign in page
+Then browser navigates to url 'http://localhost:5656/'
 
 
 Scenario: All objectives should be present in list
@@ -12,9 +15,6 @@ Given objectives are present in database
 | Objective1 |
 | Objective2 |
 | Objective3 |
-When open page by url 'http://localhost:5656/account/login'
-And sign in as 'test' user on sign in page
-Then browser navigates to url 'http://localhost:5656'
 When open page by url 'http://localhost:5656/#objectives'
 Then objectives tiles list contains items with data 
 | Title      |
