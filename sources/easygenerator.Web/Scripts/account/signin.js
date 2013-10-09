@@ -69,7 +69,10 @@ app.signinViewModel = function () {
             });
         };
 
-
+    ko.computed(function () {
+        var subscription = username() & password();
+        errorMessage("");
+    });
 
     return {
         username: username,

@@ -141,6 +141,34 @@
                 expect(viewModel.errorMessage).toBeObservable();
             });
 
+            describe('when error message exists', function () {
+
+                beforeEach(function () {
+                    viewModel.username("");
+                    viewModel.password("");
+                    viewModel.errorMessage("error");
+                });
+
+                describe('and username changed', function () {
+
+                    it('should clear error message', function () {
+                        viewModel.username("username@easygenerator.com");
+                        expect(viewModel.errorMessage()).toBe("");
+                    });
+
+                });
+
+                describe('and password changed', function () {
+
+                    it('should clear error message', function () {
+                        viewModel.password("Abc123!");
+                        expect(viewModel.errorMessage()).toBe("");
+                    });
+
+                });
+
+            });
+
         });
 
         describe('hasError:', function () {
