@@ -62,7 +62,7 @@ namespace easygenerator.Web.Tests.Controllers
         public void Upload_ShouldReturnJsonResult()
         {
             //Arrange
-            postedFile.FileName.Returns("SomeImage.tiff");
+            postedFile.FileName.Returns("SomeImage.png");
             postedFile.ContentLength.Returns(1024);
 
             //Act
@@ -115,7 +115,7 @@ namespace easygenerator.Web.Tests.Controllers
         public void Upload_ShouldReturnJsonErrorResult_WhenFileContentLengthIsZero()
         {
             //Arrange
-            postedFile.FileName.Returns("SomeImage.tiff");
+            postedFile.FileName.Returns("SomeImage.png");
             postedFile.ContentLength.Returns(0);
 
             //Act
@@ -143,7 +143,7 @@ namespace easygenerator.Web.Tests.Controllers
         public void Upload_ShouldSaveFile()
         {
             //Arrange
-            postedFile.FileName.Returns("SomeImage.tiff");
+            postedFile.FileName.Returns("SomeImage.png");
             postedFile.ContentLength.Returns(1024);
 
             //Act
@@ -151,34 +151,6 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Assert
             postedFile.Received().SaveAs(Arg.Any<String>());
-        }
-
-        [TestMethod]
-        public void Upload_ShouldReturnJsonSuccessResult_WhenUploadingFileWithTiffExtension()
-        {
-            //Arrange
-            postedFile.FileName.Returns("SomeImage.tiff");
-            postedFile.ContentLength.Returns(1024);
-
-            //Act
-            var result = _controller.Upload();
-
-            //Assert
-            result.Should().BeOfType<TextJsonSuccessResult>();
-        }
-
-        [TestMethod]
-        public void Upload_ShouldReturnJsonSuccessResult_WhenUploadingFileWithTifExtension()
-        {
-            //Arrange
-            postedFile.FileName.Returns("SomeImage.tif");
-            postedFile.ContentLength.Returns(1024);
-
-            //Act
-            var result = _controller.Upload();
-
-            //Assert
-            result.Should().BeOfType<TextJsonSuccessResult>();
         }
 
         [TestMethod]

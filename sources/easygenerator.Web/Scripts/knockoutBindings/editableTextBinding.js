@@ -1,8 +1,4 @@
-﻿$(window).on("hashchange", function () {
-    $(".editable-text-binding:focus, .question-learning-object:focus").blur();
-});
-
-ko.bindingHandlers.editableText = {
+﻿ko.bindingHandlers.editableText = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var
             $element = $(element),
@@ -99,6 +95,9 @@ ko.bindingHandlers.editableText = {
             }
         }
 
+        $(window).one("hashchange", function () {
+            $element.blur();
+        });
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var text = ko.unwrap(valueAccessor().text);

@@ -15,7 +15,7 @@ namespace easygenerator.Web.Controllers
     {
         public static readonly long MaximumFileSize = 10 * 1024 * 1024; // 10 MB 
         public static readonly string FileStoragePath = "FileStorage";
-        public static readonly string[] AllowedExtensions = new[] { ".gif", ".jpeg", ".jpg", ".png", ".tif", ".tiff" };
+        public static readonly string[] AllowedExtensions = new[] { ".gif", ".jpeg", ".jpg", ".png" };
         public static readonly string FilestorageApiUrl = "filestorage/";
 
         private HttpRuntimeWrapper _httpRuntimeWrapper;

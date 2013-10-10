@@ -6,7 +6,11 @@
             eventTracker = valueAccessor().eventTracker || null,
             data = valueAccessor().data,
             isEditing = valueAccessor().isEditing,
+            
             saveHandler = valueAccessor().save,
+            focusHandler = valueAccessor().focus,
+            blurHandler = valueAccessor().blur,
+            
             autosaveInterval = valueAccessor().autosaveInterval || 60000,
 
             that = bindingContext.$root,
@@ -31,6 +35,9 @@
                 if (!isEditing())
                     isEditing(true);
 
+                if (!!focusHandler)
+                    focusHandler.call(that, viewModel);
+
                 updateToolbarPosition();
                 saveIntervalId = setInterval(saveData, autosaveInterval);
             });
@@ -42,7 +49,10 @@
 
             editor.on('blur', function () {
                 isEditing(false);
-                saveData();
+
+                if (!!blurHandler)
+                    blurHandler.call(that, viewModel);
+                
                 clearInterval(saveIntervalId);
             });
 
@@ -68,6 +78,10 @@
                 }, 100);
             });
 
+            $(window).one("hashchange", function () {
+                if (isEditing())
+                    saveData();
+            });
         });
 
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
@@ -75,8 +89,7 @@
                 CKEDITOR.dialog._.currentTop.hide();
 
             clearInterval(saveIntervalId);
-            if (isEditing())
-                saveData();
+            
             editor.destroy(true);
             $(element).removeAttr('contenteditable');
         });

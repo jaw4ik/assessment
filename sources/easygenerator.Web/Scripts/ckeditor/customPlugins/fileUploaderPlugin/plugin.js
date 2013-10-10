@@ -9,7 +9,7 @@
                 var
                     url = 'api/filestorage/upload',
                     maxFileSize = 10, //Mb
-                    allowedFileExtensions = ['GIF', 'JPEG', 'JPG', 'PNG', 'TIF', 'TIFF'],
+                    allowedFileExtensions = ['GIF', 'JPEG', 'JPG', 'PNG'],
 
                     fileInputId, frameId, statusContainerId,
                     lang = editor.lang.fileUploaderPlugin,

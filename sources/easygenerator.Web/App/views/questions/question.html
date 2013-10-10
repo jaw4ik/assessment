@@ -145,7 +145,7 @@
                         <li class="question-learning-object-item" data-bind="css: { active: hasFocus }">
                             <div class="question-learning-object-list-item">
                                 <div class="question-learning-object-wrapper">
-                                    <div class="question-learning-object selectable" data-bind="event: { focus: $parent.beginEditText, blur: function (data, event) { $parent.updateText(data, event), $parent.endEditText(data, event); } }, ckeditor: { data: text, language: $root.language(), eventTracker: $root.eventTracker, isEditing: hasFocus, save: $parent.updateText, autosaveInterval: $parent.autosaveInterval }">
+                                    <div class="question-learning-object selectable" data-bind="ckeditor: { data: text, language: $root.language(), eventTracker: $root.eventTracker, isEditing: hasFocus, save: $parent.updateText, focus: $parent.beginEditText, blur: function (data, event) { $parent.updateText(data, event), $parent.endEditText(data, event); }, autosaveInterval: $parent.autosaveInterval }">
                                     </div>
                                 </div>
                                 <div class="question-learning-object-delete-wrapper" data-bind="click: $parent.removeLearningObject, localize: { title: 'delete' }">

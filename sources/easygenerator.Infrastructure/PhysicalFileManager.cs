@@ -133,8 +133,6 @@ namespace easygenerator.Infrastructure
                 case ".jpg": return "image/jpeg";
                 case ".jpeg": return "image/jpeg";
                 case ".gif": return "image/gif";
-                case ".tif": return "image/tiff";
-                case ".tiff": return "image/tiff";
                 default:
                     throw new NotSupportedException("The Specified File Type Is Not Supported");
             }
