@@ -86,6 +86,14 @@ body.try {
         border-bottom: none;
     }
 
+.preloader-block .opensans-italic {
+    font-family: 'OpenSansItalic';
+}
+
+.preloader-block .opensans-semibolditalic {
+    font-family: 'OpenSans-SemiboldItalic';
+}
+
 /*#endregion Layout*/
 
 /*#region Account navigation*/
@@ -912,7 +920,7 @@ body.try {
 
 /*#endregion TRY NOW*/
 
-/*#region Terms of use and Privacy Polycy*/
+/*#region Terms of use and Privacy Policy*/
 
 .view-module.terms-of-use, .view-module.privacy-policy {
     padding-left: 153px;
@@ -1000,7 +1008,7 @@ body.try {
             color: #555;
         }
 
-/*#endregion Terms of use and Privacy Polycy*/
+/*#endregion Terms of use and Privacy Policy*/
 
 @media (max-width: 1020px) {
 
