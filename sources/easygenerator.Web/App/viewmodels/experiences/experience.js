@@ -300,6 +300,7 @@
                 router.replace('400');
                 return undefined;
             }
+            clientContext.set('lastVistedExperience', experienceId);
             isEditing(false);
             language(localizationManager.currentLanguage);
             hintPopup.displayed(false);

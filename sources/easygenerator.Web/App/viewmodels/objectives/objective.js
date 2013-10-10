@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/experienceRepository', 'repositories/questionRepository', 'notify'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository, experienceRepository, questionRepository, notify) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/experienceRepository', 'repositories/questionRepository', 'notify', 'clientContext'],
+    function (dataContext, constants, eventTracker, localizationManager, router, repository, experienceRepository, questionRepository, notify, clientContext) {
         "use strict";
 
         var events = {
@@ -170,6 +170,7 @@
             activate = function (objId, queryParams) {
                 var that = this;
 
+                clientContext.set('lastVisitedObjective', objId);
                 that.language(localizationManager.currentLanguage);
                 if (_.isNullOrUndefined(queryParams) || !_.isString(queryParams.experienceId)) {
                     that.contextExperienceId = null;

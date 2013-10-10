@@ -1,5 +1,5 @@
-﻿define(['constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/experienceRepository', 'notify', 'localization/localizationManager'],
-    function (constants, eventTracker, router, objectiveRepository, experienceRepository, notify, localizationManager) {
+﻿define(['constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/experienceRepository', 'notify', 'localization/localizationManager', 'clientContext'],
+    function (constants, eventTracker, router, objectiveRepository, experienceRepository, notify, localizationManager, clientContext) {
         "use strict";
 
         var events = {
@@ -17,6 +17,7 @@
             };
 
         var objectives = ko.observableArray([]),
+            lastVisitedObjective = '',
             //#region Sorting
 
             currentSortingOption = ko.observable(constants.sortingOptions.byTitleAsc),
@@ -104,6 +105,9 @@
 
              activate = function () {
 
+                 this.lastVisitedObjective = clientContext.get('lastVisitedObjective');
+                 clientContext.set('lastVisitedObjective', null);
+
                  return objectiveRepository.getCollection().then(function (objectiveBriefCollection) {
 
                      experienceRepository.getCollection().then(function (experiences) {
@@ -157,6 +161,7 @@
 
             canDeleteObjectives: canDeleteObjectives,
             deleteSelectedObjectives: deleteSelectedObjectives,
+            lastVisitedObjective: lastVisitedObjective,
 
             activate: activate
         };

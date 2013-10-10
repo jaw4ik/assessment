@@ -8,7 +8,8 @@
             constants = require('constants'),
             objectiveRepository = require('repositories/objectiveRepository'),
             experienceRepository = require('repositories/experienceRepository'),
-            notify = require('notify');
+            notify = require('notify'),
+            clientContext = require('clientContext');
 
         var
             eventsCategory = 'Objectives';

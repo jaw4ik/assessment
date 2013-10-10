@@ -9,7 +9,8 @@
             experienceRepository = require('repositories/experienceRepository'),
             questionRepository = require('repositories/questionRepository'),
             localizationManager = require('localization/localizationManager'),
-            notify = require('notify');
+            notify = require('notify'),
+            clientContext = require('clientContext');
 
         describe('viewModel [objective]', function () {
 
@@ -51,6 +52,20 @@
 
                 it('should be a function', function () {
                     expect(viewModel.activate).toBeFunction();
+                });
+
+                it('should set client context with current objective id', function () {
+                    spyOn(clientContext, 'set');
+                    var promise = viewModel.activate(objective.id, null);
+                    deferred.resolve(null);
+                    
+                    waitsFor(function () {
+                        return promise.isFulfilled();
+                    });
+                    runs(function () {
+                        expect(clientContext.set).toHaveBeenCalledWith('lastVisitedObjective', objective.id);
+                    });
+
                 });
 
                 describe('when query params null', function () {

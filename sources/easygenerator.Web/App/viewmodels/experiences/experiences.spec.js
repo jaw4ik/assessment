@@ -7,7 +7,8 @@
             eventTracker = require('eventTracker'),
             dataContext = require('dataContext'),
             experienceModel = require('models/experience'),
-            constants = require('constants');
+            constants = require('constants'),
+            clientContext = require('clientContext');
 
         var
             template = { id: '0', name: 'name', image: 'img' },

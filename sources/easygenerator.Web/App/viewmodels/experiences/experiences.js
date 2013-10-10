@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/experienceRepository', 'services/buildExperience', 'notify', 'localization/localizationManager'],
-    function (dataContext, constants, eventTracker, router, experienceRepository, experienceService, notify, localizationManager) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/experienceRepository', 'services/buildExperience', 'notify', 'localization/localizationManager', 'clientContext'],
+    function (dataContext, constants, eventTracker, router, experienceRepository, experienceService, notify, localizationManager, clientContext) {
         "use strict";
 
         var
@@ -27,6 +27,8 @@
             experiences = ko.observableArray([]),
 
             enableSorting = ko.observable(true),
+            
+            lastVistedExperienceId = '', 
 
             toggleSelection = function (experience) {
                 if (!experience.isSelected())
@@ -85,10 +87,10 @@
                         experience.buildingStatus(updatedExperience.buildingStatus);
                         experience.packageUrl = updatedExperience.packageUrl;
                         experience.isFirstBuild(false);
-                     })
+                    })
                      .fail(function () {
-                        sendEvent(events.experienceBuildFailed);
-                        experience.buildingStatus(constants.buildingStatuses.failed);
+                         sendEvent(events.experienceBuildFailed);
+                         experience.buildingStatus(constants.buildingStatuses.failed);
                      });
             },
 
@@ -144,6 +146,9 @@
                     return experience.title.toLowerCase();
                 });
 
+                this.lastVistedExperienceId = clientContext.get('lastVistedExperience');
+                clientContext.set('lastVistedExperience', null);
+
                 sortedExperiences = currentSortingOption() == constants.sortingOptions.byTitleAsc ? sortedExperiences : sortedExperiences.reverse();
 
                 experiences(_.map(sortedExperiences, function (item) {
@@ -166,10 +171,9 @@
                         || item.buildingStatus != storageItem.buildingStatus;
 
                     experience.showBuildingStatus(showBuildingStatus);
-
                     return experience;
                 }));
-
+               
                 enableSorting(experiences().length > 1);
             },
 
@@ -205,6 +209,7 @@
 
             canDeleteExperiences: canDeleteExperiences,
             deleteSelectedExperiences: deleteSelectedExperiences,
+            lastVistedExperienceId: lastVistedExperienceId,
 
             activate: activate,
             deactivate: deactivate

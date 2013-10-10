@@ -44,7 +44,7 @@
                 </a>
                 <!-- /ko -->
                 <!-- ko if: isActive -->
-                <span class="top-navigation-item" data-bind="css: { current: !$parent.router.isNavigating(), cursor: $parent.router.isNavigating() }">
+                <span class="top-navigation-item" data-bind="css: { current: !$parent.router.isNavigating(), cursor: $parent.router.isNavigating() }, scrollToTop: true">
                     <span data-bind="localize: { text: title }, css: { 'cursor-default': $parent.router.isNavigating() }"></span>
                 </span>
                 <!-- /ko -->

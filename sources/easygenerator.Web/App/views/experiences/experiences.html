@@ -37,7 +37,8 @@
     'experience-brief-selected': isSelected,
     'experience-building': showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.inProgress,
     'experience-success': showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.succeed,
-    'experience-failed': showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.failed
+    'experience-failed': showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.failed,
+    'scrollToElement': $parent.lastVistedExperienceId == id
 }">
                         <!-- ko if: buildingStatus() != $parent.buildingStatuses.inProgress -->
                         <div class="build-experience-tooltip-wrapper">

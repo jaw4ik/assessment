@@ -465,7 +465,7 @@
 
                     it('should change status to \'succeed\'', function () {
                         build.resolve({ buildingStatus: constants.buildingStatuses.succeed, buildOn: new Date(), packageUrl: 'SomeUrl' });
-                        
+
                         viewModel.id = 1;
                         viewModel.buildExperience();
                         var promise = build.promise.fin(function () { });
@@ -1128,6 +1128,20 @@
                     runs(function () {
                         expect(viewModel.id).toEqual(experience.id);
                     });
+                });
+
+                it('should set client context with current experience id', function () {
+                    spyOn(clientContext, 'set');
+                    var promise = viewModel.activate(experience.id);
+                    deferred.resolve([experience]);
+
+                    waitsFor(function () {
+                        return promise.isFulfilled();
+                    });
+                    runs(function () {
+                        expect(clientContext.set).toHaveBeenCalledWith('lastVistedExperience', experience.id);
+                    });
+
                 });
 
                 it('should set current experience title', function () {

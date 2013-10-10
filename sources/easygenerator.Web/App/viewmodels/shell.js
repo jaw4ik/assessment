@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/router', 'configuration/routes', 'dataContext', 'localization/localizationManager', 'eventTracker', 'httpWrapper', 'notify'],
-    function (app, router, routes, datacontext, localizationManager, eventTracker, httpWrapper, notify) {
+﻿define(['durandal/app', 'plugins/router', 'configuration/routes', 'dataContext', 'localization/localizationManager', 'eventTracker', 'httpWrapper', 'notify', 'clientContext'],
+    function (app, router, routes, datacontext, localizationManager, eventTracker, httpWrapper, notify, clientContext) {
         var
             events = {
                 navigateToExperiences: "Navigate to experiences",
@@ -107,12 +107,24 @@
                         router.on('router:navigation:composition-complete').then(function () {
                             isViewReady(true);
                             $("[data-autofocus='true']").focus();
+                            
+                            var $scrollElement = $('.scrollToElement');
+                            if ($scrollElement.length != 0) {
+                                var targetTop = $scrollElement.offset().top;
+                                $('html, body').animate({
+                                    scrollTop: targetTop - 140 //header size
+                                });
+                                $scrollElement.removeClass('scrollToElement');
+                            } else {
+                                window.scroll(0, 0);
+                            }
                         });
 
                         that.navigation([
                             {
                                 navigate: function () {
                                     sendEvent(events.navigateToExperiences);
+                                    ClearClientContext();
                                     router.navigate('experiences');
                                 },
                                 title: 'experiences',
@@ -123,6 +135,7 @@
                             {
                                 navigate: function () {
                                     sendEvent(events.navigateToObjectives);
+                                    ClearClientContext();
                                     router.navigate('objectives');
                                 },
                                 title: 'materialDevelopment',
@@ -133,6 +146,13 @@
                         ]);
                         that.isTryMode = datacontext.isTryMode;
                         that.userEmail = datacontext.userEmail;
+
+                        ClearClientContext();
+
+                        function ClearClientContext() {
+                            clientContext.set('lastVisitedObjective', null);
+                            clientContext.set('lastVistedExperience', null);
+                        }
 
                         return router.map(routes)
                             .buildNavigationModel()
