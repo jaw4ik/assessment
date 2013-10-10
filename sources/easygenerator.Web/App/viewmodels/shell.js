@@ -124,35 +124,37 @@
                             {
                                 navigate: function () {
                                     sendEvent(events.navigateToExperiences);
-                                    ClearClientContext();
+                                    clientContext.set('lastVisitedObjective', null);
                                     router.navigate('experiences');
                                 },
                                 title: 'experiences',
                                 isActive: ko.computed(function () {
                                     return _.contains(experiencesModules, that.activeModuleName()) || router.isNavigating();
+                                }),
+                                isEditor: ko.computed(function () {
+                                    return experiencesModules[1] == that.activeModuleName()
                                 })
                             },
                             {
                                 navigate: function () {
                                     sendEvent(events.navigateToObjectives);
-                                    ClearClientContext();
+                                    clientContext.set('lastVistedExperience', null);
                                     router.navigate('objectives');
                                 },
                                 title: 'materialDevelopment',
                                 isActive: ko.computed(function () {
                                     return _.contains(objectivesModules, that.activeModuleName()) || router.isNavigating();
+                                }),
+                                isEditor: ko.computed(function() {
+                                    return objectivesModules[1] == that.activeModuleName()
                                 })
                             }
                         ]);
                         that.isTryMode = datacontext.isTryMode;
                         that.userEmail = datacontext.userEmail;
 
-                        ClearClientContext();
-
-                        function ClearClientContext() {
-                            clientContext.set('lastVisitedObjective', null);
-                            clientContext.set('lastVistedExperience', null);
-                        }
+                        clientContext.set('lastVisitedObjective', null);
+                        clientContext.set('lastVistedExperience', null);
 
                         return router.map(routes)
                             .buildNavigationModel()

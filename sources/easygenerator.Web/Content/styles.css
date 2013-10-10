@@ -249,6 +249,11 @@ a.top-navigation-item:hover {
     color: #544f4b;
     cursor: default;
 }
+
+.top-navigation-item.current.cursor-pointer {
+    cursor: pointer;
+}
+
 /*#endregion TOP-NAVIGATION*/
 
 /*#region FOOTER*/
