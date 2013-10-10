@@ -5,9 +5,9 @@ Feature: ListOfQuestions
 Background: 
 Given clear data context
 Given objectives are present in database
-| Title      | Id |
-| Objective1 | 1  |
-| Objective2 | 2  |
+| Title      | Id                               |
+| Objective1 | 00000000000000000000000000000001 |
+| Objective2 | 00000000000000000000000000000002 |
 When open page by url 'http://localhost:5656/account/login'
 And sign in as 'test' user on sign in page
 Then browser navigates to url 'http://localhost:5656/'
@@ -18,7 +18,7 @@ Given questions related to 'Objective1' are present in database
 | Question1 |
 | Question2 |
 | Question3 |
-When open page by url 'http://localhost:5656/#/objective/1'
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001'
 Then questions list contains items with data 
 | Title     |
 | Question1 |
@@ -29,7 +29,7 @@ Scenario: Questions list item name could contain special symbols
 Given questions related to 'Objective1' are present in database
 | Title                                |
 | ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
-When open page by url 'http://localhost:5656/#/objective/1'
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001'
 Then questions list contains items with data  
 | Title                                |
 | ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
@@ -45,7 +45,7 @@ Given questions related to 'Objective2' are present in database
 | Question21 |
 | Question22 |
 | Question23 |
-When open page by url 'http://localhost:5656/#/objective/2'
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000002'
 Then questions list consists of ordered items
 | Title      |
 | Question21 |
@@ -60,7 +60,7 @@ Given questions related to 'Objective1' are present in database
 | Question_z |
 | 1_Question |
 | _Question  |
-When open page by url 'http://localhost:5656/#/objective/1'
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001'
 Then questions list consists of ordered items
 | Title      |
 | 1_Question |
@@ -79,7 +79,7 @@ Given questions related to 'Objective1' are present in database
 | Question_z |
 | 1_Question |
 | _Question  |
-When open page by url 'http://localhost:5656/#/objective/1'
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001'
 And I switch questions list order to 'ascending'
 And I switch questions list order to 'descending'
 Then questions list consists of ordered items
@@ -99,7 +99,7 @@ Given questions related to 'Objective1' are present in database
 | Question_z |
 | 1_Question |
 | _Question  |
-When open page by url 'http://localhost:5656/#/objective/1'
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001'
 And I switch questions list order to 'descending'
 And I switch questions list order to 'ascending'
 Then questions list consists of ordered items
@@ -117,7 +117,7 @@ Given questions related to 'Objective1' are present in database
 | Question1  |
 | Question2  |
 | Question3  |
-When open page by url 'http://localhost:5656/#/objective/1'
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001'
 Then questions list item with title 'Question2' is not selected
 And questions list item with title 'Question1' is not selected
 And questions list item with title 'Question3' is not selected
@@ -139,7 +139,7 @@ Given questions related to 'Objective1' are present in database
 | Question12 |
 | Question13 |
 | Question14 |
-When open page by url 'http://localhost:5656/#/objective/1'
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001'
 And browser window width and height is set to 640 and 300
 And scroll questions list item with title 'Question14' into the view
 Then element with title 'Question14' of questions list is visible
@@ -151,7 +151,7 @@ Given questions related to 'Objective1' are present in database
 | Question1 |
 | Question2 |
 | Question3 |
-When open page by url 'http://localhost:5656/#/objective/1'
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001'
 And mouse hover element of questions list with title 'Question2'
 Then Action select is enabled true for questions list item with title 'Question2'
 And Action open is enabled true for questions list item with title 'Question2'
@@ -162,7 +162,7 @@ Given questions related to 'Objective1' are present in database
 | Question1 |
 | Question2 |
 | Question3 |
-When open page by url 'http://localhost:5656/#/objective/1'
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001'
 And mouse hover element of questions list with title 'Question1'
 And click on select questions list item with title 'Question1'
 And mouse hover element of questions list with title 'Question3'
@@ -177,7 +177,7 @@ Given questions related to 'Objective1' are present in database
 | Question1 |
 | Question2 |
 | Question3 |
-When open page by url 'http://localhost:5656/#/objective/1'
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001'
 And mouse hover element of questions list with title 'Question1'
 And click on select questions list item with title 'Question1'
 And mouse hover element of questions list with title 'Question2'
@@ -194,18 +194,18 @@ But questions list item with title 'Question3' is selected
 
 Scenario: Edit question action of questions list navigates to question's editing page 
 Given questions related to 'Objective1' are present in database
-| Title      | Id |
-| Question1  | 1  |
-When open page by url 'http://localhost:5656/#/objective/1'
+| Title     | Id                               |
+| Question1 | 00000000000000000000000000000001 |
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001'
 And mouse hover element of questions list with title 'Question1'
 And click on open question with title 'Question1'
-Then browser navigates to url 'http://localhost:5656/#objective/1/question/1'
+Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 
 
 Scenario: Back action of questions list navigates to objectives list page 
 Given questions related to 'Objective1' are present in database
 | Title     |
 | Question1 |
-When open page by url 'http://localhost:5656/#/objective/1'
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001'
 And click on back from questions list
 Then browser navigates to url 'http://localhost:5656/#objectives'
