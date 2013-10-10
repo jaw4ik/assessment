@@ -70,7 +70,7 @@ namespace easygenerator.AcceptanceTests.Helpers
 
                 foreach (var obj in objectives)
                 {
-                    exp.Objectives.Add(obj);
+                    exp.Objectives.Add(entities.Objectives.First(item => item.Id == obj.Id));
                 }
                 entities.SaveChanges();
             }
@@ -92,6 +92,7 @@ namespace easygenerator.AcceptanceTests.Helpers
         {
             using (var entities = new Entities())
             {
+                var template_id = entities.Templates.First(tmpl => tmpl.Name == "Default").Id;
                 foreach (var exp in entities.Experiences)
                 {
                     entities.Experiences.Remove(exp);
@@ -99,6 +100,7 @@ namespace easygenerator.AcceptanceTests.Helpers
 
                 foreach (var exp in experiences)
                 {
+                    exp.Template_Id = template_id;
                     entities.Experiences.Add(exp);
                 }
                 entities.SaveChanges();

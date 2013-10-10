@@ -8,6 +8,9 @@ Given objectives are present in database
 | Title      | Id |
 | Objective1 | 1  |
 | Objective2 | 2  |
+When open page by url 'http://localhost:5656/account/login'
+And sign in as 'test' user on sign in page
+Then browser navigates to url 'http://localhost:5656/'
 
 Scenario: All questions should be present in list
 Given questions related to 'Objective1' are present in database

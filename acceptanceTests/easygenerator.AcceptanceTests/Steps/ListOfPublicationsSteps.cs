@@ -36,7 +36,8 @@ namespace easygenerator.AcceptanceTests.Steps
                 BuildOn = null,
                 Objectives = new Collection<Objective>(),
                 PackageUrl = "",
-                Template_Id = new Collection<Template>().First(it => it.Name == "Default").Id,
+                Template_Id = Guid.Empty,
+                //Template_Id = new Collection<Template>().First(it => it.Name == "Default").Id,
                 CreatedBy = "vr.danylchuk@ism-ukraine.com",
                 ModifiedBy = "vr.danylchuk@ism-ukraine.com"
 

@@ -5,6 +5,9 @@ Feature: ListOfExperiences
 
 Background:
 Given clear data context
+When open page by url 'http://localhost:5656/account/login'
+And sign in as 'test' user on sign in page
+Then browser navigates to url 'http://localhost:5656/'
 
 Scenario: All publications should be present in list
 Given publications are present in database
@@ -182,26 +185,26 @@ And Action build is enabled true for publications list item with title 'Publicat
 
 Scenario: Open action of publications list item navigates to publication's editing page 
 Given publications are present in database
-| Title        | Id |
-| Publication1 | 1  |
+| Title        | Id                               |
+| Publication1 | 00000000000000000000000000000001 |
 When open page by url 'http://localhost:5656/#/experiences'
 And mouse hover element of publications list with title 'Publication1'
 And click open publication list item with title 'Publication1'
-Then browser navigates to url 'http://localhost:5656/#experience/1'
+Then browser navigates to url 'http://localhost:5656/#experience/00000000000000000000000000000001'
 
 Scenario: Download action becomes available after build
 Given publications are present in database
-| Title       | Id |
-| Experience1 | 1  |
+| Title       | Id                               |
+| Experience1 | 00000000000000000000000000000001 |
 Given objectives are present in database
-| Title       | Id |
-| Objective11 | 1  |
+| Title       | Id                               |
+| Objective11 | 00000000000000000000000000000001 |
 Given objectives are linked to experiance 'Experience1'
-| Title       | Id |
-| Objective11 | 1  |
+| Title       | Id                               |
+| Objective11 | 00000000000000000000000000000001 |
 Given questions related to 'Objective11' are present in database
-| Title      | Id |
-| Question11 | 1  |
+| Title      | Id                               |
+| Question11 | 00000000000000000000000000000001 |
 Given answer options related to 'Question11' of 'Objective11' are present in database
 | Text           | isCorrect |
 | AnswerOption11 | true      |
@@ -216,23 +219,23 @@ Then Action download is enabled true for publications list item with title 'Expe
 
 Scenario: Objective count is shown for each publications list item
 Given publications are present in database
-| Title       | Id |
-| Experience1 | 1  |
-| Experience2 | 2  |
+| Title       | Id                               |
+| Experience1 | 00000000000000000000000000000001 |
+| Experience2 | 00000000000000000000000000000002 |
 Given objectives are present in database
-| Title       | Id |
-| Objective11 | 1  |
-| Objective12 | 2  |
-| Objective13 | 3  |
+| Title       | Id                               |
+| Objective11 | 00000000000000000000000000000001 |
+| Objective12 | 00000000000000000000000000000002 |
+| Objective13 | 00000000000000000000000000000003 |
 Given objectives are linked to experiance 'Experience1'
-| Title       | Id |
-| Objective11 | 1  |
-| Objective12 | 2  |
+| Title       | Id                               |
+| Objective11 | 00000000000000000000000000000001 |
+| Objective12 | 00000000000000000000000000000002 |
 Given objectives are linked to experiance 'Experience2'
-| Title       | Id |
-| Objective11 | 1  |
-| Objective12 | 2  |
-| Objective13 | 3  |
+| Title       | Id                               |
+| Objective11 | 00000000000000000000000000000001 |
+| Objective12 | 00000000000000000000000000000002 |
+| Objective13 | 00000000000000000000000000000003 |
 When open page by url 'http://localhost:5656/#/experiences'
 Then objective count for element of publications list with title 'Experience1' is '2'
 And objective count for element of publications list with title 'Experience2' is '3'
