@@ -20,8 +20,8 @@
         });
 
         var experiencesModule = 'experiences',
-            objectivesModules = ['objectives', 'objective'],
-            experiencesModules = ['experiences', 'experience'],
+            objectivesModules = ['objectives', 'objective', 'createQuestion', 'question'],
+            experiencesModules = ['experiences', 'experience', 'createExperience'],
             isViewReady = ko.observable(false),
 
             activeModule = ko.computed(function () {
@@ -132,7 +132,7 @@
                                     return _.contains(experiencesModules, that.activeModuleName()) || router.isNavigating();
                                 }),
                                 isEditor: ko.computed(function () {
-                                    return experiencesModules[1] == that.activeModuleName()
+                                    return _.contains(_.without(experiencesModules, 'experiences'), that.activeModuleName());
                                 })
                             },
                             {
@@ -143,10 +143,10 @@
                                 },
                                 title: 'materialDevelopment',
                                 isActive: ko.computed(function () {
-                                    return _.contains(objectivesModules, that.activeModuleName()) || router.isNavigating();
+                                    return  _.contains(objectivesModules, that.activeModuleName()) || router.isNavigating();
                                 }),
                                 isEditor: ko.computed(function() {
-                                    return objectivesModules[1] == that.activeModuleName()
+                                    return _.contains(_.without(objectivesModules, 'objectives'), that.activeModuleName());
                                 })
                             }
                         ]);
