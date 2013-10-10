@@ -2,14 +2,14 @@
     position: absolute;
     top: 46px;
     right: 0;
-    z-index: 10;
+    z-index: 200;
 }
 
 
 .notification {
     position: relative;
     margin: 10px;
-    padding: 10px;
+    padding: 11px 10px;
     -moz-min-width: 325px;
     -ms-min-width: 325px;
     -webkit-min-width: 325px;

@@ -191,7 +191,7 @@ ol.unstyled  {
 .fixed-container {
     width: 100%;
     position: fixed;
-    z-index: 200;
+    z-index: 100;
 }
 
 /*#endregion COMMON CLASSES CSS-STYLES*/
