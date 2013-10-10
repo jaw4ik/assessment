@@ -78,10 +78,10 @@ testRunner.Given("clear data context", ((string)(null)), ((TechTalk.SpecFlow.Tab
                         "Id"});
             table1.AddRow(new string[] {
                         "Objective1",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table1.AddRow(new string[] {
                         "Objective2",
-                        "2"});
+                        "00000000000000000000000000000002"});
 #line 7
 testRunner.Given("objectives are present in database", ((string)(null)), table1, "Given ");
 #line hidden
@@ -90,13 +90,13 @@ testRunner.Given("objectives are present in database", ((string)(null)), table1,
                         "Id"});
             table2.AddRow(new string[] {
                         "Question11",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table2.AddRow(new string[] {
                         "Question12",
-                        "2"});
+                        "00000000000000000000000000000002"});
             table2.AddRow(new string[] {
                         "Question13",
-                        "3"});
+                        "00000000000000000000000000000003"});
 #line 11
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table2, "Given ");
 #line hidden
@@ -105,10 +105,10 @@ testRunner.Given("questions related to \'Objective1\' are present in database", 
                         "Id"});
             table3.AddRow(new string[] {
                         "Question112",
-                        "1"});
+                        "00000000000000000000000000000011"});
             table3.AddRow(new string[] {
                         "Question113",
-                        "2"});
+                        "00000000000000000000000000000013"});
 #line 16
 testRunner.Given("questions related to \'Objective2\' are present in database", ((string)(null)), table3, "Given ");
 #line hidden
@@ -159,6 +159,12 @@ testRunner.Given("explanations related to \'Question11\' of \'Objective1\' are p
                         "Explanation23"});
 #line 35
 testRunner.Given("explanations related to \'Question12\' of \'Objective1\' are present in database", ((string)(null)), table7, "Given ");
+#line 40
+testRunner.When("open page by url \'http://localhost:5656/account/login\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 41
+testRunner.And("sign in as \'test\' user on sign in page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 42
+testRunner.Then("browser navigates to url \'http://localhost:5656/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
         }
         
@@ -169,12 +175,13 @@ testRunner.Given("explanations related to \'Question12\' of \'Objective1\' are p
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All answer options and explanations related to question are present on question p" +
                     "age", ((string[])(null)));
-#line 41
+#line 44
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 42
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 45
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "Text"});
@@ -184,7 +191,7 @@ testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question
                         "AnswerOption22"});
             table8.AddRow(new string[] {
                         "AnswerOption23"});
-#line 43
+#line 46
 testRunner.Then("answer options list contains only items with data", ((string)(null)), table8, "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
@@ -195,7 +202,7 @@ testRunner.Then("answer options list contains only items with data", ((string)(n
                         "Explanation22"});
             table9.AddRow(new string[] {
                         "Explanation23"});
-#line 48
+#line 51
 testRunner.And("explanations list contains only items with data", ((string)(null)), table9, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -206,13 +213,14 @@ testRunner.And("explanations list contains only items with data", ((string)(null
         public virtual void RelatedObjectiveTitleIsShownInBackToObjectiveLink()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Related objective title is shown in back to objective link", ((string[])(null)));
-#line 54
+#line 57
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 55
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 56
+#line 58
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 59
 testRunner.Then("\'Objective1\' title is shown in back to objective link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -223,13 +231,14 @@ testRunner.Then("\'Objective1\' title is shown in back to objective link", ((str
         public virtual void RelatedQuestionTitleIsShownInQuestionPageHeader()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Related question title is shown in question page header", ((string[])(null)));
-#line 58
+#line 61
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 59
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 60
+#line 62
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 63
 testRunner.Then("\'Question12\' title is shown in question page header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -240,15 +249,16 @@ testRunner.Then("\'Question12\' title is shown in question page header", ((strin
         public virtual void CorrectIndicatorsAreShownForAnswerOptionsOnQuestionPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Correct indicators are shown for answer options on question page", ((string[])(null)));
-#line 62
+#line 65
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 63
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 64
+#line 66
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 67
 testRunner.Then("correct answer option is set to \'true\' for \'AnswerOption11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 65
+#line 68
 testRunner.And("correct answer option is set to \'false\' for \'AnswerOption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -261,24 +271,28 @@ testRunner.And("correct answer option is set to \'false\' for \'AnswerOption12\'
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Next and previous actions of question page navigate through questions of current " +
                     "objective", ((string[])(null)));
-#line 67
+#line 70
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 68
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 69
-testRunner.And("click on next question", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 70
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1/question/2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 71
-testRunner.When("click on next question", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 72
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1/question/3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("click on next question", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 73
-testRunner.When("click on previous question", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
+                    "0000000001/question/00000000000000000000000000000002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 74
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1/question/2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.When("click on next question", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 75
+testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
+                    "0000000001/question/00000000000000000000000000000003\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 76
+testRunner.When("click on previous question", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 77
+testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
+                    "0000000001/question/00000000000000000000000000000002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -288,13 +302,14 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1/q
         public virtual void PreviousQuestionActionIsNotAvailableForFirstQuestion()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Previous question action is not available for first question", ((string[])(null)));
-#line 76
+#line 79
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 77
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 78
+#line 80
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 81
 testRunner.Then("previous question action is not available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -305,13 +320,14 @@ testRunner.Then("previous question action is not available", ((string)(null)), (
         public virtual void NextQuestionActionIsNotAvailableForLastQuestion()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Next question action is not available for last question", ((string[])(null)));
-#line 80
+#line 83
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 81
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 82
+#line 84
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000003\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 85
 testRunner.Then("next question action is not available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -322,15 +338,16 @@ testRunner.Then("next question action is not available", ((string)(null)), ((Tec
         public virtual void AnswerOptionsBlockAndExplanationsBlockAreExpandedByDefault()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("answer options block and explanations block are expanded by default", ((string[])(null)));
-#line 84
+#line 87
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 85
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 86
+#line 88
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 89
 testRunner.Then("answer options block is expanded", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 87
+#line 90
 testRunner.And("explanations block is expanded", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -341,17 +358,18 @@ testRunner.And("explanations block is expanded", ((string)(null)), ((TechTalk.Sp
         public virtual void CollapseAnswerOptionsActionOnQuestionPageCollapsesAnswerOptionsBlock()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Collapse answer options action on question page collapses answer options block", ((string[])(null)));
-#line 89
+#line 92
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 90
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 91
-testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 92
-testRunner.Then("answer options block is collapsed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 93
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 94
+testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 95
+testRunner.Then("answer options block is collapsed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 96
 testRunner.And("explanations block is expanded", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -362,17 +380,18 @@ testRunner.And("explanations block is expanded", ((string)(null)), ((TechTalk.Sp
         public virtual void CollapseExplanationsActionOnQuestionPageCollapsesExplanationsBlock()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Collapse explanations action on question page collapses explanations block", ((string[])(null)));
-#line 95
+#line 98
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 96
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 97
-testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 98
-testRunner.Then("explanations block is collapsed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 99
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 100
+testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 101
+testRunner.Then("explanations block is collapsed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 102
 testRunner.And("answer options block is expanded", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -383,21 +402,22 @@ testRunner.And("answer options block is expanded", ((string)(null)), ((TechTalk.
         public virtual void ExpandAnswerOptionsActionOnQuestionPageExpandsAnswerOptionBlock()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Expand answer options action on question page expands answer option block", ((string[])(null)));
-#line 101
+#line 104
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 102
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 103
-testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 104
-testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 105
-testRunner.And("click on expand answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 106
-testRunner.Then("answer options block is expanded", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 107
+testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 108
+testRunner.And("click on expand answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 109
+testRunner.Then("answer options block is expanded", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 110
 testRunner.And("explanations block is collapsed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -408,21 +428,22 @@ testRunner.And("explanations block is collapsed", ((string)(null)), ((TechTalk.S
         public virtual void ExpandExplanationsActionOnQuestionPageExpandsExplanationsBlock()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Expand explanations action on question page expands explanations block", ((string[])(null)));
-#line 109
+#line 112
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 110
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 111
-testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 112
-testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 113
-testRunner.And("click on expand explanations options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 114
-testRunner.Then("explanations block is expanded", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 115
+testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 116
+testRunner.And("click on expand explanations options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 117
+testRunner.Then("explanations block is expanded", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 118
 testRunner.And("answer options block is collapsed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -433,16 +454,18 @@ testRunner.And("answer options block is collapsed", ((string)(null)), ((TechTalk
         public virtual void BackActionOfQuestionPageNavigatesToRelativeObjectivePage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Back action of question page navigates to relative objective page", ((string[])(null)));
-#line 117
+#line 120
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 118
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 119
+#line 121
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 122
 testRunner.And("click on back to objective on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 120
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 123
+testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
+                    "0000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -452,16 +475,18 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1\'
         public virtual void ObjectiiveTitleOfQuestionPageNavigatesToRelativeObjectivePage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Objectiive title of question page navigates to relative objective page", ((string[])(null)));
-#line 122
+#line 125
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 123
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 124
+#line 126
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 127
 testRunner.And("click on back to objective title on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 125
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 128
+testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
+                    "0000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
