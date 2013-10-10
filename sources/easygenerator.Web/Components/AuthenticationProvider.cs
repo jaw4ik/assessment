@@ -8,6 +8,7 @@ namespace easygenerator.Web.Components
     {
         void SignIn(string username, bool isPersistent);
         void SignOut();
+        bool IsUserAuthenticated();
     }
 
     public class AuthenticationProvider : IAuthenticationProvider
@@ -20,6 +21,11 @@ namespace easygenerator.Web.Components
         public void SignOut()
         {
             FormsAuthentication.SignOut();
+        }
+
+        public bool IsUserAuthenticated()
+        {
+            return HttpContext.Current.User != null && HttpContext.Current.User.Identity.IsAuthenticated;
         }
     }
 }

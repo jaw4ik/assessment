@@ -343,7 +343,7 @@
     <Content Include="Content\font\opensans-semibold.eot" />
     <Content Include="Content\font\opensans-semibold.ttf" />
     <Content Include="Content\font\opensans-semibold.woff" />
-    <Content Include="Views\Account\LogIn.cshtml" />
+    <Content Include="Views\Account\SignIn.cshtml" />
     <Content Include="Views\Account\TryNow.cshtml" />
     <Content Include="Content\eula\easygenerator_EULA.pdf" />
     <Content Include="Content\font\opensans-semibolditalic.eot" />

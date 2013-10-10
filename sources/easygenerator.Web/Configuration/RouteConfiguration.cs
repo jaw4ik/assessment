@@ -235,33 +235,33 @@ namespace easygenerator.Web.Configuration
 
             routes.MapRoute(
                 name: "PrivacyPolicy",
-                url: "account/privacypolicy",
+                url: "privacypolicy",
                 defaults: new { controller = "Account", action = "PrivacyPolicy" });
 
             routes.MapRoute(
                 name: "TermOfUse",
-                url: "account/termsofuse",
+                url: "termsofuse",
                 defaults: new { controller = "Account", action = "TermsOfUse" });
 
             routes.MapRoute(
                 name: "SignUp",
-                url: "account/signup",
+                url: "signup",
                 defaults: new { controller = "Account", action = "SignUp" });
 
             routes.MapRoute(
-                name: "LogIn",
-                url: "account/login",
-                defaults: new { controller = "Account", action = "LogIn" });
+                name: "SignIn",
+                url: "signin",
+                defaults: new { controller = "Account", action = "SignIn" });
 
             routes.MapRoute(
-                name: "LogOut",
-                url: "account/logout",
-                defaults: new { controller = "Account", action = "LogOut" });
+                name: "SignupFromTry",
+                url: "signupfromtry",
+                defaults: new { controller = "Account", action = "SignupFromTry" });
 
             routes.MapRoute(
-                name: "LogoutAndRedirectToLogin",
-                url: "account/logoutandgotologin",
-                defaults: new { controller = "Account", action = "LogoutAndRedirectToLogin" });
+                name: "SignOut",
+                url: "signout",
+                defaults: new { controller = "Account", action = "SignOut" });
 
             routes.MapRoute(
                 name: "TryWithoutSignup",

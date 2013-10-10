@@ -19,13 +19,17 @@ namespace easygenerator.Web.Controllers
         [HttpGet]
         public ActionResult TryWithoutSignup()
         {
+            if (_authenticationProvider.IsUserAuthenticated())
+                return RedirectToRoute("Default");
+
             return View("TryNow");
         }
 
         [HttpPost]
         public ActionResult TryWithoutSignup(object viewModel)
         {
-            _authenticationProvider.SignIn(Guid.NewGuid().ToString(), true);
+            if (!_authenticationProvider.IsUserAuthenticated())
+                _authenticationProvider.SignIn(Guid.NewGuid().ToString(), true);
 
             return RedirectToRoute("Default");
         }
@@ -42,30 +46,33 @@ namespace easygenerator.Web.Controllers
 
         public ActionResult SignUp()
         {
-            if (System.Web.HttpContext.Current.User != null && System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            if (_authenticationProvider.IsUserAuthenticated())
                 return RedirectToRoute("Default");
-                
+
             return View();
         }
 
-        public ActionResult LogIn()
+        public ActionResult SignIn()
         {
+            if (_authenticationProvider.IsUserAuthenticated())
+                return RedirectToRoute("Default");
+
             return View();
         }
 
-        public ActionResult LogOut()
+        public ActionResult SignupFromTry()
         {
             return LogoutAndRedirectToRoute("SignUp");
         }
 
-        public ActionResult LogoutAndRedirectToLogin()
+        public ActionResult SignOut()
         {
-            return LogoutAndRedirectToRoute("LogIn"); 
+            return LogoutAndRedirectToRoute("SignIn"); 
         }
 
         private ActionResult LogoutAndRedirectToRoute(string routeToRedirect)
         {
-            if (System.Web.HttpContext.Current.User != null && System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            if (_authenticationProvider.IsUserAuthenticated())
                 _authenticationProvider.SignOut();
 
             return RedirectToRoute(routeToRedirect);

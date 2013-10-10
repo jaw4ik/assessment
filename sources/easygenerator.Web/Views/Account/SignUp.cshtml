@@ -12,7 +12,7 @@
                 <div class="user-form-row" data-bind="css : { error: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), success: !isUserNameValidating() && !isUserNameEditing() && userName.isValid() }">
                     <label class="user-form-label email">@Resources.EmailCaption</label>
                     <div class="user-form-input-holder">
-                        <input class="user-form-input" type="text" name="email" autocomplete="off" data-bind="value: userName, valueUpdate: 'afterkeydown', event: { blur: checkUserExists }, hasFocus: isUserNameEditing" />
+                        <input class="user-form-input" type="text" name="email" autocomplete="off" data-bind="value: userName, valueUpdate: 'afterkeydown', event: { blur: checkUserExists }, hasFocus: isUserNameEditing" ondrop="return false;" />
                     </div>
                     <span class="form-validation-message" data-bind="visible: isUserNameValidating()">@Resources.Checking</span>
                     <span class="user-form-message" data-bind="visible: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), text: userExists() ? '@Resources.AccountAlreadyExists' : '@Resources.EnterValidEmailMessage'"></span>
@@ -20,7 +20,7 @@
                 <div class="user-form-row" data-bind="css : { error: !password.isValid() && password().length > 0, success: password.isValid() }">
                     <label class="user-form-label password">@Resources.PasswordCaption</label>
                     <div class="user-form-input-holder show-tooltip">
-                        <input class="user-form-input" name="password" autocomplete="off" data-bind="attr: { type: isPasswordVisible() ? 'text' : 'password' }, value: password, valueUpdate: 'afterkeydown', hasFocus: isPasswordEditing" />
+                        <input class="user-form-input" name="password" autocomplete="off" data-bind="attr: { type: isPasswordVisible() ? 'text' : 'password' }, value: password, valueUpdate: 'afterkeydown', hasFocus: isPasswordEditing" ondrop="return false;" />
                         <a href="#" class="user-form-password-eye" data-bind="css:{ revealed: isPasswordVisible }, click: showHidePassword "></a>
                         <div class="user-form-tooltip" data-bind="visible: isPasswordEditing(), css: { top : userName.isValid(), bottom : !userName.isValid() }">
                             <div class="user-form-tooltip-title">@Resources.PasswordRequirementsTitle</div>
