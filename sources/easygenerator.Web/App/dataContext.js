@@ -96,7 +96,7 @@
                 }).then(function() {
                     return $.ajax({
                         url: 'api/user/istrymode',
-                        type: 'POST',
+                        type: 'GET',
                         contentType: 'application/json',
                         dataType: 'json',
                         cache: false
