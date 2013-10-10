@@ -20,7 +20,7 @@
         });
 
         var experiencesModule = 'experiences',
-            objectivesModules = ['objectives', 'objective', 'createQuestion', 'question'],
+            objectivesModules = ['objectives', 'objective', 'createObjective', 'createQuestion', 'question'],
             experiencesModules = ['experiences', 'experience', 'createExperience'],
             isViewReady = ko.observable(false),
 
