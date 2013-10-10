@@ -98,7 +98,8 @@
                         url: 'api/user/istrymode',
                         type: 'POST',
                         contentType: 'application/json',
-                        dataType: 'json'
+                        dataType: 'json',
+                        cache: false
                     }).then(function (response) {
                         that.isTryMode = response.data;
                     });
@@ -107,7 +108,8 @@
                         url: '/api/user',
                         type: 'GET',
                         contentType: 'application/json',
-                        dataType: 'json'
+                        dataType: 'json',
+                        cache: false
                     }).then(function (response) {
                         if (response.data) {
                             that.userEmail = response.data.Email || '';
