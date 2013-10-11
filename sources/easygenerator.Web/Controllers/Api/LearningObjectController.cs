@@ -24,7 +24,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (question == null)
             {
-                return JsonSuccess(new { Id = Guid.NewGuid().ToString("N"), CreatedOn = DateTimeWrapper.Now() });
+                return JsonLocalizableError(Constants.Errors.QuestionNotFoundError, Constants.Errors.QuestionNotFoundResourceKey);
             }
 
             var learningObject = _entityFactory.LearningObject(text, GetCurrentUsername());
@@ -39,7 +39,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (question == null)
             {
-                return JsonSuccess(new { ModifiedOn = DateTimeWrapper.Now() });
+                return JsonLocalizableError(Constants.Errors.QuestionNotFoundError, Constants.Errors.QuestionNotFoundResourceKey);
             }
 
             question.RemoveLearningObject(learningObject, GetCurrentUsername());
@@ -52,7 +52,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (learningObject == null)
             {
-                return JsonSuccess(new { ModifiedOn = DateTimeWrapper.Now() });
+                return JsonLocalizableError(Constants.Errors.LearningObjectNotFoundError, Constants.Errors.LearningObjectNotFoundResourceKey);
             }
 
             learningObject.UpdateText(text, GetCurrentUsername());

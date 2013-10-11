@@ -42,12 +42,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Create question
 
         [TestMethod]
-        public void Create_ShouldReturnJsonSuccessResult_WnenObjectiveIsNull()
+        public void Create_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
         {
             var result = _controller.Create(null, null);
 
-            result.Should()
-                .BeJsonSuccessResult();
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");  
         }
 
         [TestMethod]
@@ -88,12 +88,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Delete question
 
         [TestMethod]
-        public void Delete_ShouldReturnJsonSuccessResult_WnenObjectiveIsNull()
+        public void Delete_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
         {
             var result = _controller.Delete(null, null);
 
-            result.Should()
-                .BeJsonSuccessResult();
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");  
         }
 
         [TestMethod]
@@ -128,13 +128,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Update title
 
         [TestMethod]
-        public void Update_ShouldReturnJsonSuccessResult_WhenQuestionIsNull()
+        public void Update_ShouldReturnJsonErrorResult_WhenQuestionIsNull()
         {
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             var result = _controller.UpdateTitle(null, String.Empty);
 
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = DateTime.MaxValue });
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Question is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");  
         }
 
 

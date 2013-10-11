@@ -96,13 +96,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Update objective
 
         [TestMethod]
-        public void Update_ShouldReturnJsonSuccessResult_WhenObjectiveIsNull()
+        public void Update_ShouldReturnJsonErrorResult_WhenObjectiveIsNull()
         {
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             var result = _controller.Update(null, String.Empty);
 
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = DateTime.MaxValue });
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");  
         }
 
 

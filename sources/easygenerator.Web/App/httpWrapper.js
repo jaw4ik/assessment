@@ -1,5 +1,5 @@
-﻿define(['plugins/http', 'durandal/app'],
-    function (http, app) {
+﻿define(['plugins/http', 'durandal/app', 'localization/localizationManager', 'notify'],
+    function (http, app, localizationManager, notify) {
 
         var
             post = function (url, data) {
@@ -13,13 +13,24 @@
                         }
 
                         if (!response.success) {
-                            deferred.reject(response.message || 'Response is not successful');
+                            var errorMessage;
+
+                            if (response.resourceKey)
+                                errorMessage = localizationManager.localize(response.resourceKey);
+                            else if (response.message)
+                                errorMessage = response.message;
+                            else
+                                errorMessage = 'Response is not successful';
+
+                            notify.error(errorMessage);
+                            deferred.reject(errorMessage);
                             return;
                         }
 
                         deferred.resolve(response.data);
                     })
                     .fail(function (reason) {
+                        notify.error(reason);
                         deferred.reject(reason);
                     })
                     .always(function () {

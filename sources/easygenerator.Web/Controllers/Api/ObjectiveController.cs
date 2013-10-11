@@ -74,7 +74,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (objective == null)
             {
-                return JsonSuccess(new { ModifiedOn = DateTimeWrapper.Now() });
+                return JsonLocalizableError(Constants.Errors.ObjectiveNotFoundError, Constants.Errors.ObjectiveNotFoundResourceKey);
             }
 
             objective.UpdateTitle(title, GetCurrentUsername());

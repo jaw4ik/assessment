@@ -42,13 +42,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Create
 
         [TestMethod]
-        public void Create_ShouldReturnJsonSuccessResult_WnenQuestionIsNull()
+        public void Create_ShouldReturnJsonErrorResult_WnenQuestionIsNull()
         {
             const string text = "text";
             const bool isCorrect = true;
             var result = _controller.Create(null, text, isCorrect);
 
-            result.Should().BeJsonSuccessResult();
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Question is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");  
         }
 
         [TestMethod]
@@ -92,12 +93,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Delete question
 
         [TestMethod]
-        public void Delete_ShouldReturnJsonSuccessResult_WnenQuestionIsNull()
+        public void Delete_ShouldReturnJsonErrorResult_WnenQuestionIsNull()
         {
             var result = _controller.Delete(null, null);
 
-            result.Should()
-                .BeJsonSuccessResult();
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Question is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");  
         }
 
         [TestMethod]
@@ -130,13 +131,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Update text
 
         [TestMethod]
-        public void UpdateText_ShouldReturnJsonSuccessResult_WhenAnswerIsNull()
+        public void UpdateText_ShouldReturnJsonErrorResult_WhenAnswerIsNull()
         {
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             var result = _controller.UpdateText(null, null);
 
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = DateTime.MaxValue });
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Answer is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("answerNotFoundError");  
         }
 
 
@@ -168,13 +170,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Update correctness
 
         [TestMethod]
-        public void UpdateCorrectness_ShouldReturnJsonSuccessResult_WhenAnswerIsNull()
+        public void UpdateCorrectness_ShouldReturnJsonErrorResult_WhenAnswerIsNull()
         {
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             var result = _controller.UpdateCorrectness(null, true);
 
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = DateTime.MaxValue });
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Answer is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("answerNotFoundError");  
         }
 
 

@@ -6,9 +6,9 @@ using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
-using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.Components;
+using easygenerator.Infrastructure;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -51,7 +51,7 @@ namespace easygenerator.Web.Controllers.Api
         public ActionResult Build(Experience experience)
         {
             if (experience == null)
-                return JsonError("Experience not found");
+                return JsonError(Constants.Errors.ExperienceNotFoundError);
 
             var result = _builder.Build(experience);
 
@@ -95,7 +95,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (experience == null)
             {
-                return JsonSuccess(new { ModifiedOn = DateTimeWrapper.Now() });
+                return JsonLocalizableError(Constants.Errors.ExperienceNotFoundError, Constants.Errors.ExperienceNotFoundResourceKey);
             }
 
             experience.UpdateTitle(experienceTitle, GetCurrentUsername());
@@ -108,7 +108,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (experience == null)
             {
-                return JsonSuccess(new { ModifiedOn = DateTimeWrapper.Now() });
+                return JsonLocalizableError(Constants.Errors.ExperienceNotFoundError, Constants.Errors.ExperienceNotFoundResourceKey);
             }
 
             experience.UpdateTemplate(template, GetCurrentUsername());
@@ -121,10 +121,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (experience == null)
             {
-                return JsonSuccess(new
-                {
-                    ModifiedOn = DateTimeWrapper.Now()
-                });
+                return JsonLocalizableError(Constants.Errors.ExperienceNotFoundError, Constants.Errors.ExperienceNotFoundResourceKey);
             }
 
             if (objectives.Count == 0)
@@ -148,10 +145,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (experience == null)
             {
-                return JsonSuccess(new
-                {
-                    ModifiedOn = DateTimeWrapper.Now()
-                });
+                return JsonLocalizableError(Constants.Errors.ExperienceNotFoundError, Constants.Errors.ExperienceNotFoundResourceKey);
             }
 
             if (objectives.Count == 0)

@@ -28,6 +28,11 @@ namespace easygenerator.Web.Components
             return new JsonErrorResult(message);
         }
 
+        protected ActionResult JsonLocalizableError(string message, string resourceKey)
+        {
+            return new JsonErrorResult(message, resourceKey);
+        }
+
         protected ActionResult BadRequest()
         {
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

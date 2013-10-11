@@ -24,7 +24,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (question == null)
             {
-                return JsonSuccess(new { Id = Guid.NewGuid().ToString("N"), CreatedOn = DateTimeWrapper.Now() });
+                return JsonLocalizableError(Constants.Errors.QuestionNotFoundError, Constants.Errors.QuestionNotFoundResourceKey);
             }
 
             var answer = _entityFactory.Answer(text, isCorrect, GetCurrentUsername());
@@ -39,7 +39,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (question == null)
             {
-                return JsonSuccess(new { ModifiedOn = DateTimeWrapper.Now() });
+                return JsonLocalizableError(Constants.Errors.QuestionNotFoundError, Constants.Errors.QuestionNotFoundResourceKey);
             }
 
             question.RemoveAnswer(answer, GetCurrentUsername());
@@ -52,7 +52,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (answer == null)
             {
-                return JsonSuccess(new { ModifiedOn = DateTimeWrapper.Now() });
+                return JsonLocalizableError(Constants.Errors.AnswerNotFoundError, Constants.Errors.AnswerNotFoundResourceKey);
             }
 
             answer.UpdateText(text, GetCurrentUsername());
@@ -65,7 +65,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (answer == null)
             {
-                return JsonSuccess(new { ModifiedOn = DateTimeWrapper.Now() });
+                return JsonLocalizableError(Constants.Errors.AnswerNotFoundError, Constants.Errors.AnswerNotFoundResourceKey);
             }
 
             answer.UpdateCorrectness(isCorrect, GetCurrentUsername());

@@ -42,12 +42,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Create
 
         [TestMethod]
-        public void Create_ShouldReturnJsonSuccessResult_WnenQuestionIsNull()
+        public void Create_ShouldReturnJsonErrorResult_WnenQuestionIsNull()
         {
             const string text = "text";
             var result = _controller.Create(null, text);
 
-            result.Should().BeJsonSuccessResult();
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Question is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");  
         }
 
         [TestMethod]
@@ -89,12 +90,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Delete question
 
         [TestMethod]
-        public void Delete_ShouldReturnJsonSuccessResult_WnenQuestionIsNull()
+        public void Delete_ShouldReturnJsonErrorResult_WnenQuestionIsNull()
         {
             var result = _controller.Delete(null, null);
 
-            result.Should()
-                .BeJsonSuccessResult();
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Question is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");  
         }
 
         [TestMethod]
@@ -127,13 +128,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Update text
 
         [TestMethod]
-        public void UpdateText_ShouldReturnJsonSuccessResult_WhenLearningObjectIsNull()
+        public void UpdateText_ShouldReturnJsonErrorResult_WhenLearningObjectIsNull()
         {
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             var result = _controller.UpdateText(null, null);
 
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = DateTime.MaxValue });
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Learning Object is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("learningObjectNotFoundError");  
         }
 
 

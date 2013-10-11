@@ -3,7 +3,9 @@
 
     var
         http = require('plugins/http'),
-        app = require('durandal/app');
+        app = require('durandal/app'),
+        localizationManager = require('localization/localizationManager'),
+        notify = require('notify');
 
     describe('[httpWrapper]', function () {
 
@@ -45,6 +47,9 @@
             });
 
             describe('when post request failed', function () {
+                beforeEach(function() {
+                    spyOn(notify, 'error');
+                });
 
                 it('should reject promise', function () {
                     var promise = httpWrapper.post();
@@ -58,9 +63,22 @@
                     runs(function () {
                         expect(promise).toBeRejectedWith(reason);
                     });
-
                 });
-                
+
+                it('should show error notification', function() {
+                    var promise = httpWrapper.post();
+                    var reason = "reason";
+
+                    post.reject(reason);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(notify.error).toHaveBeenCalledWith(reason);
+                    });
+                });
+
                 it('should trigger \'httpWrapper:post-end\' event', function () {
                     var promise = httpWrapper.post();
                     post.reject();
@@ -108,43 +126,113 @@
                 describe('and response is an object', function () {
 
                     describe('and response state is not success', function () {
+                        beforeEach(function () {
+                            spyOn(notify, 'error');
+                        });
 
-                        describe('and response message exists', function () {
-
-                            it('should reject promise with response message', function () {
-                                var message = "An error occured";
+                        describe('and response resourceKey exists', function () {
+                            beforeEach(function() {
+                                spyOn(localizationManager, 'localize').andReturn("test localizable value");
+                            });
+                            
+                            it('should reject promise with localizable value', function () {
+                                var resourceKey = "testResourceKey";
+                                var message = "test message";
+                                
                                 var promise = httpWrapper.post();
 
-                                post.resolve({ message: message });
+                                post.resolve({ resourceKey: resourceKey, message: message });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(promise).toBeRejectedWith(message);
+                                    expect(localizationManager.localize).toHaveBeenCalledWith(resourceKey);
+                                    expect(promise).toBeRejected("test localizable value");
                                 });
                             });
 
-                        });
+                            it('should show error notification with localizable value', function() {
+                                var resourceKey = "testResourceKey";
+                                var message = "test message";
 
-                        describe('and response message does not exist', function () {
-
-                            it('should reject promise with default message', function () {
                                 var promise = httpWrapper.post();
 
-                                post.resolve({});
+                                post.resolve({ resourceKey: resourceKey, message: message });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(promise).toBeRejectedWith('Response is not successful');
+                                    expect(notify.error).toHaveBeenCalledWith("test localizable value");
+                                });
+                            });
+                        });
+
+                        describe('and response resourceKey does not exist', function () {
+
+                            describe('and response message exists', function () {
+
+                                it('should reject promise with response message', function () {
+                                    var message = "test message";
+
+                                    var promise = httpWrapper.post();
+
+                                    post.resolve({ message: message });
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(promise).toBeRejectedWith(message);
+                                    });
+                                });
+
+                                it('should show error notification with response message', function () {
+                                    var message = "test message";
+
+                                    var promise = httpWrapper.post();
+
+                                    post.resolve({ message: message });
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(notify.error).toHaveBeenCalledWith(message);
+                                    });
                                 });
                             });
 
+                            describe('and response message does not exist', function () {
+
+                                it('should reject promise with default message', function () {
+                                    var promise = httpWrapper.post();
+
+                                    post.resolve({});
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(promise).toBeRejectedWith('Response is not successful');
+                                    });
+                                });
+
+                                it('should show error notification with default message', function () {
+                                    var promise = httpWrapper.post();
+
+                                    post.resolve({});
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(notify.error).toHaveBeenCalledWith('Response is not successful');
+                                    });
+                                });
+                            });
                         });
-
-
                     });
 
                     describe('and response state is success', function () {

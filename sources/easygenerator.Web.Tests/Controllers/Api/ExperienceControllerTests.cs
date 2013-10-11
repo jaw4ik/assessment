@@ -116,7 +116,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Build(null);
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Experience not found");
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Experience is not found");
         }
 
         [TestMethod]
@@ -168,13 +168,12 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Update Title
 
         [TestMethod]
-        public void Update_ShouldReturnJsonSuccessResult_WhenExperienceIsNull()
+        public void Update_ShouldReturnJsonErrorResult_WhenExperienceIsNull()
         {
-            DateTimeWrapper.Now = () => DateTime.MaxValue;
-
             var result = _controller.UpdateTitle(null, String.Empty);
 
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = DateTime.MaxValue });
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Experience is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("experienceNotFoundError");  
         }
 
         [TestMethod]
@@ -206,17 +205,17 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Update Template
 
         [TestMethod]
-        public void UpdateTemplate_ShouldReturnJsonSuccessResult_WhenQuestionIsNull()
+        public void UpdateTemplate_ShouldReturnJsonErrorResult_WhenExperienceIsNull()
         {
             //Arrange
             var template = TemplateObjectMother.Create();
-            DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             //Act
             var result = _controller.UpdateTemplate(null, template);
 
             //Assert
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = DateTime.MaxValue });
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Experience is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("experienceNotFoundError"); 
         }
 
 
@@ -286,17 +285,17 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void RelateObjectives_ShouldReturnJsonSuccessResult_WhenExperienceIsNull()
+        public void RelateObjectives_ShouldReturnJsonErrorResult_WhenExperienceIsNull()
         {
             //Arrange
-            var experience = ExperienceObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
 
             //Act
             var result = _controller.RelateObjectives(null, new List<Objective>() { objective });
 
             //Assert
-            ActionResultAssert.IsJsonSuccessResult(result);
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Experience is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("experienceNotFoundError");  
         }
 
         [TestMethod]
@@ -349,7 +348,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void UnrelateObjectives_ShouldReturnJsonSuccessResult_WhenExperienceIsNull()
+        public void UnrelateObjectives_ShouldReturnJsonErrorResult_WhenExperienceIsNull()
         {
             //Arrange
             var objective = ObjectiveObjectMother.Create();
@@ -358,7 +357,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.UnrelateObjectives(null, new List<Objective>() { objective });
 
             //Assert
-            ActionResultAssert.IsJsonSuccessResult(result);
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Experience is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("experienceNotFoundError");  
         }
 
         [TestMethod]

@@ -997,7 +997,35 @@
         en: 'Copyright © 2013 easygenerator. All rights reserved.',
         nl: 'Copyright © 2013 easygenerator. Alle rechten voorbehouden.',
         de: 'Copyright © 2013 easygenerator. Alle Rechte vorbehalten.'
-    }
+    },
     /* End resource section for model Copyright */
+    
+    /* Resource section for model Server error notification */
+    experienceNotFoundError: {
+        en: 'Experience is not found. Please refresh your data.',
+        nl: 'Experience is not found. Please refresh your data.[nl]',
+        de: 'Experience is not found. Please refresh your data.[de]'
+    },
+    objectiveNotFoundError: {
+        en: 'Objective is not found. Please refresh your data.',
+        nl: 'Objective is not found. Please refresh your data.[nl]',
+        de: 'Objective is not found. Please refresh your data.[de]'
+    },
+    answerNotFoundError: {
+        en: 'Answer is not found. Please refresh your data.',
+        nl: 'Answer is not found. Please refresh your data.[nl]',
+        de: 'Answer is not found. Please refresh your data.[de]'
+    },
+    questionNotFoundError: {
+        en: 'Question is not found. Please refresh your data.',
+        nl: 'Question is not found. Please refresh your data.[nl]',
+        de: 'Question is not found. Please refresh your data.[de]'
+    },
+    learningObjectNotFoundError: {
+        en: 'Learning object is not found. Please refresh your data.',
+        nl: 'Learning object is not found. Please refresh your data.[nl]',
+        de: 'Learning object is not found. Please refresh your data.[de]'
+    }
+    /* End resource section for model Server error notification */
            
 });
