@@ -7,6 +7,9 @@ Feature: CUDObjective
 
 Background:
 Given clear data context
+When open page by url 'http://localhost:5656/signin'
+And sign in as 'test' user on sign in page
+Then browser navigates to url 'http://localhost:5656/'
 
 
 Scenario: Add objective action on objective list page navigates to create objective view
@@ -60,7 +63,7 @@ And chars counter marked with error on create view
 Scenario: Changes are not saved if go back from create view
 Given objectives are present in database
 | Title      | Id |
-| Objective1 | 1  |
+| Objective1 | 00000000000000000000000000000001  |
 When open page by url 'http://localhost:5656/#objective/create'
 And input 'text' into title edit area on create view
 And click back button on create view
@@ -72,9 +75,9 @@ And objectives tiles list consists of ordered items
 Scenario: Action CreateAndEdit navigates to newly created objective
 Given objectives are present in database
 | Title      | Id |
-| Objective1 | 1  |
-| Objective2 | 2  |
-| Objective3 | 3  |
+| Objective1 | 00000000000000000000000000000001  |
+| Objective2 | 00000000000000000000000000000002  |
+| Objective3 | 00000000000000000000000000000003  |
 When open page by url 'http://localhost:5656/#objective/create'
 And input 'Objective4' into title edit area on create view
 And click on create and edit button on create view
@@ -111,16 +114,16 @@ And objectives tiles list consists of ordered items
 
 Scenario: Special symbols could be entered into title edit area on create view and saved
 When open page by url 'http://localhost:5656/#objective/create'
-And input '~`!@#$%^&*()_+-={[]}:;"'|\<,.>/?№ё' into title edit area on create view
+And input '~`!@#$%^&*()_+-={[]}:;"'|\<,.>/?' into title edit area on create view
 And click on create and edit button on create view
 Then browser navigates to url that contains 'http://localhost:5656/#objective/'
-And '~`!@#$%^&*()_+-={[]}:;"'|\<,.>/?№ё' title is shown in objective page header
+And '~`!@#$%^&*()_+-={[]}:;"'|\<,.>/?' title is shown in objective page header
 
 Scenario: It is possible to edit objective title on objective page
 Given objectives are present in database
 | Title      | Id |
-| Objective1 | 1  |
-When open page by url 'http://localhost:5656/#objective/1'
+| Objective1 | 00000000000000000000000000000001  |
+When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001'
 And edit objective title with new text 'Objective2' on objective page
 And click on back to objectives list link
 Then objectives tiles list consists of ordered items
@@ -130,8 +133,8 @@ Then objectives tiles list consists of ordered items
 Scenario: Not possible to make existing objective title empty
 Given objectives are present in database
 | Title      | Id |
-| Objective1 | 1  |
-When open page by url 'http://localhost:5656/#objective/1'
+| Objective1 | 00000000000000000000000000000001  |
+When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001'
 And clear header title text field on objective page
 Then title text block marked with error on objective page
 And chars counter marked with error on objective page
@@ -143,8 +146,8 @@ Then objectives tiles list consists of ordered items
 Scenario: Delete objective button becomes available after objective was selected
 Given objectives are present in database
 | Title      | Id |
-| Objective1 | 1  |
-| Objective2 | 2  |
+| Objective1 | 00000000000000000000000000000001  |
+| Objective2 | 00000000000000000000000000000002  |
 When open page by url 'http://localhost:5656/#objectives'
 And mouse hover element of objectives list with title 'Objective2'
 And select objective list item with title 'Objective2'
@@ -153,8 +156,8 @@ Then delete button is displayed true on objectives list page
 Scenario: Delete objective button is not available if there is no selected objectives
 Given objectives are present in database
 | Title      | Id |
-| Objective1 | 1  |
-| Objective2 | 2  |
+| Objective1 | 00000000000000000000000000000001  |
+| Objective2 | 00000000000000000000000000000002  |
 When open page by url 'http://localhost:5656/#objectives'
 Then delete button is displayed false on objectives list page
 When mouse hover element of objectives list with title 'Objective2'
@@ -165,9 +168,9 @@ Then delete button is displayed false on objectives list page
 Scenario: Selected objective can be deleted
 Given objectives are present in database
 | Title      | Id |
-| Objective1 | 1  |
-| Objective2 | 2  |
-| Objective3 | 3  |
+| Objective1 | 00000000000000000000000000000001  |
+| Objective2 | 00000000000000000000000000000002  |
+| Objective3 | 00000000000000000000000000000003  |
 When open page by url 'http://localhost:5656/#objectives'
 And mouse hover element of objectives list with title 'Objective2'
 And select objective list item with title 'Objective2'
@@ -187,10 +190,10 @@ Then objectives tiles list consists of ordered items
 Scenario: Objective can not be deleted if it contains questions
 Given objectives are present in database
 | Title      | Id |
-| Objective1 | 1  |
+| Objective1 | 00000000000000000000000000000001  |
 Given questions related to 'Objective1' are present in database
 | Title     | Id |
-| Question1 | 1  |
+| Question1 | 00000000000000000000000000000001  |
 When open page by url 'http://localhost:5656/#objectives'
 And mouse hover element of objectives list with title 'Objective1'
 And select objective list item with title 'Objective1'
