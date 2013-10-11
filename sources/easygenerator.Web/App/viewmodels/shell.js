@@ -34,9 +34,13 @@
                 return '';
             }),
             
-            getModuleIdFromRouterActiveInstruction = function() {
-                var moduleId = router.activeInstruction().config.moduleId;
-                return moduleId.slice(moduleId.lastIndexOf('/') + 1);
+            getModuleIdFromRouterActiveInstruction = function () {
+                var activeInstruction = router.activeInstruction();
+                if (_.isObject(activeInstruction)) {
+                    var moduleId = router.activeInstruction().config.moduleId;
+                    return moduleId.slice(moduleId.lastIndexOf('/') + 1);
+                }
+                return '';
             },
 
             browserCulture = ko.observable(),
@@ -107,9 +111,6 @@
                         router.on('router:route:activating').then(function () {
                             isViewReady(false);
                             notify.isShownMessage(true);
-                            
-                            that.navigation()[0].isPartOfModules(_.contains(experiencesModules, getModuleIdFromRouterActiveInstruction()));
-                            that.navigation()[1].isPartOfModules(_.contains(objectivesModules, getModuleIdFromRouterActiveInstruction()));
                         });
 
                         router.on('router:navigation:composition-complete').then(function () {
@@ -142,7 +143,9 @@
                                 isEditor: ko.computed(function () {
                                     return _.contains(_.without(experiencesModules, 'experiences'), that.activeModuleName());
                                 }),
-                                isPartOfModules: ko.observable(false)
+                                isPartOfModules: ko.computed(function() {
+                                    return _.contains(experiencesModules, getModuleIdFromRouterActiveInstruction());
+                                })
                             },
                             {
                                 navigate: function () {
@@ -157,7 +160,9 @@
                                 isEditor: ko.computed(function() {
                                     return _.contains(_.without(objectivesModules, 'objectives'), that.activeModuleName());
                                 }),
-                                isPartOfModules: ko.observable(false)
+                                isPartOfModules: ko.computed(function () {
+                                    return _.contains(objectivesModules, getModuleIdFromRouterActiveInstruction());
+                                })
                             }
                         ]);
                         that.isTryMode = datacontext.isTryMode;
