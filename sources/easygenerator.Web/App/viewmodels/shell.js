@@ -99,7 +99,12 @@
                                 var subscription = requestsCounter.subscribe(function (newValue) {
                                     if (newValue == 0) {
                                         notify.unlockContent();
-                                        router.navigate(params.fragment);
+                                        var queryString = params.queryString;
+                                        if (!_.isNullOrUndefined(queryString)) {
+                                            router.navigate(params.fragment + '?' + queryString);
+                                        } else {
+                                            router.navigate(params.fragment);
+                                        }
                                         subscription.dispose();
                                     }
                                 });

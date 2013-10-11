@@ -301,6 +301,7 @@
                 return undefined;
             }
             clientContext.set('lastVistedExperience', experienceId);
+            clientContext.set('lastVisitedObjective', null);
             isEditing(false);
             language(localizationManager.currentLanguage);
             hintPopup.displayed(false);
