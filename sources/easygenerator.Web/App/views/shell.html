@@ -44,7 +44,7 @@
                 </a>
                 <!-- /ko -->
                 <!-- ko if: isActive -->
-                <span class="top-navigation-item" data-bind="click: isEditor() ? navigate : '', css: { current: !$parent.router.isNavigating(), cursor: $parent.router.isNavigating(), 'cursor-pointer': isEditor() }, scrollToTop: true">
+                <span class="top-navigation-item" data-bind="click: isEditor() ? navigate : '', css: { current: isPartOfModules, cursor: $parent.router.isNavigating(), 'cursor-pointer': isEditor() }, scrollToTop: true">
                     <span data-bind="localize: { text: title }, css: { 'cursor-default': $parent.router.isNavigating() }"></span>
                 </span>
                 <!-- /ko -->
