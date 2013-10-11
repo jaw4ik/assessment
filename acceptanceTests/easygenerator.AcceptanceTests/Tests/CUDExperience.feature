@@ -9,6 +9,9 @@ Feature: CUDExperience
 
 Background:
 Given clear data context
+When open page by url 'http://localhost:5656/signin'
+And sign in as 'test' user on sign in page
+Then browser navigates to url 'http://localhost:5656/'
 
 
 Scenario: Add experience action on experiences list page navigates to create experience view
@@ -71,7 +74,7 @@ And chars counter marked with error on create view
 Scenario: Changes are not saved if go back from create view
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
+| Experience1 | 00000000000000000000000000000001  |
 When open page by url 'http://localhost:5656/#experience/create'
 And choose default template on create experience view
 And input 'text' into title edit area on create view
@@ -84,9 +87,9 @@ And publications tiles list consists of ordered items
 Scenario: Action CreateAndEdit navigates to newly created experience
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
-| Experience2 | 2  |
-| Experience3 | 3  |
+| Experience1 | 00000000000000000000000000000001  |
+| Experience2 | 00000000000000000000000000000002  |
+| Experience3 | 00000000000000000000000000000003  |
 When open page by url 'http://localhost:5656/#experience/create'
 And choose default template on create experience view
 And input 'Experience4' into title edit area on create view
@@ -129,16 +132,16 @@ And publications tiles list consists of ordered items
 Scenario: Special symbols could be entered into title edit area on create view and saved
 When open page by url 'http://localhost:5656/#experience/create'
 And choose default template on create experience view
-And input '~`!@#$%^&*()_+-={[]}:;"'|\<,.>/?№ё' into title edit area on create view
+And input '~`!@#$%^&*()_+-={[]}:;"'|\<,.>/?' into title edit area on create view
 And click on create and edit button on create view
 Then browser navigates to url that contains 'http://localhost:5656/#experience/'
-And '~`!@#$%^&*()_+-={[]}:;"'|\<,.>/?№ё' title is shown in experience page header
+And '~`!@#$%^&*()_+-={[]}:;"'|\<,.>/?' title is shown in experience page header
 
 Scenario: It is possible to edit experience title on experience page
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
-When open page by url 'http://localhost:5656/#experience/1'
+| Experience1 | 00000000000000000000000000000001  |
+When open page by url 'http://localhost:5656/#experience/00000000000000000000000000000001'
 And edit experience title with new text 'Experience2' on experience page
 And click on experience header title text on experience page
 And sleep 1000 milliseconds
@@ -150,8 +153,8 @@ Then publications tiles list consists of ordered items
 Scenario: Not possible to make existing experience title empty
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
-When open page by url 'http://localhost:5656/#experience/1'
+| Experience1 | 00000000000000000000000000000001  |
+When open page by url 'http://localhost:5656/#experience/00000000000000000000000000000001'
 And clear header title text field on experience page
 Then title text block marked with error on experience page
 And chars counter marked with error on experience page
@@ -163,8 +166,8 @@ Then publications tiles list consists of ordered items
 Scenario: Delete experience button becomes available after experience was selected
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
-| Experience2 | 2  |
+| Experience1 | 00000000000000000000000000000001  |
+| Experience2 | 00000000000000000000000000000002  |
 When open page by url 'http://localhost:5656/#experiences'
 And mouse hover element of publications list with title 'Experience2'
 And select publication list item with title 'Experience2'
@@ -173,8 +176,8 @@ Then delete button is displayed true on experiences list page
 Scenario: Delete experience button is not available if there is no selected experiences
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
-| Experience2 | 2  |
+| Experience1 | 00000000000000000000000000000001  |
+| Experience2 | 00000000000000000000000000000002  |
 When open page by url 'http://localhost:5656/#experiences'
 Then delete button is displayed false on experiences list page
 When mouse hover element of publications list with title 'Experience2'
@@ -185,9 +188,9 @@ Then delete button is displayed false on experiences list page
 Scenario: Selected experience can be deleted
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
-| Experience2 | 2  |
-| Experience3 | 3  |
+| Experience1 | 00000000000000000000000000000001  |
+| Experience2 | 00000000000000000000000000000002  |
+| Experience3 | 00000000000000000000000000000003  |
 When open page by url 'http://localhost:5656/#experiences'
 And mouse hover element of publications list with title 'Experience2'
 And select publication list item with title 'Experience2'
