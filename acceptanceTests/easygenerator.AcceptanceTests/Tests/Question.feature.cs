@@ -160,7 +160,7 @@ testRunner.Given("explanations related to \'Question11\' of \'Objective1\' are p
 #line 35
 testRunner.Given("explanations related to \'Question12\' of \'Objective1\' are present in database", ((string)(null)), table7, "Given ");
 #line 40
-testRunner.When("open page by url \'http://localhost:5656/account/login\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("open page by url \'http://localhost:5656/signin\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 41
 testRunner.And("sign in as \'test\' user on sign in page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 42

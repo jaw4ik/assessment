@@ -78,7 +78,7 @@ testRunner.Given("clear data context", ((string)(null)), ((TechTalk.SpecFlow.Tab
                         "Id"});
             table1.AddRow(new string[] {
                         "Objective1",
-                        "1"});
+                        "00000000000000000000000000000001"});
 #line 8
 testRunner.Given("objectives are present in database", ((string)(null)), table1, "Given ");
 #line hidden
@@ -87,7 +87,7 @@ testRunner.Given("objectives are present in database", ((string)(null)), table1,
                         "Id"});
             table2.AddRow(new string[] {
                         "Question11",
-                        "1"});
+                        "00000000000000000000000000000001"});
 #line 11
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table2, "Given ");
 #line hidden
@@ -105,6 +105,12 @@ testRunner.Given("questions related to \'Objective1\' are present in database", 
                         "true"});
 #line 14
 testRunner.Given("answer options related to \'Question11\' of \'Objective1\' are present in database", ((string)(null)), table3, "Given ");
+#line 19
+testRunner.When("open page by url \'http://localhost:5656/signin\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 20
+testRunner.And("sign in as \'test\' user on sign in page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 21
+testRunner.Then("browser navigates to url \'http://localhost:5656/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
         }
         
@@ -113,15 +119,16 @@ testRunner.Given("answer options related to \'Question11\' of \'Objective1\' are
         public virtual void NewAnswerOptionCouldBeAddedByEnteringNewAnswerText()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("New answer option could be added by entering new answer text", ((string[])(null)));
-#line 21
+#line 24
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 22
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 23
+#line 25
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 26
 testRunner.And("input text \'AnswerOption14\' into new answer option text field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 24
+#line 27
 testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
@@ -134,7 +141,7 @@ testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.Sp
                         "AnswerOption13"});
             table4.AddRow(new string[] {
                         "AnswerOption14"});
-#line 25
+#line 28
 testRunner.Then("answer options list contains only items with data", ((string)(null)), table4, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -145,19 +152,20 @@ testRunner.Then("answer options list contains only items with data", ((string)(n
         public virtual void NewAnswerOptionCouldBeMarkedAsCorrect()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("New answer option could be marked as correct", ((string[])(null)));
-#line 32
+#line 35
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 33
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 34
-testRunner.And("input text \'AnswerOption14\' into new answer option text field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 35
-testRunner.And("click on correct answer option for active answer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 36
-testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 37
+testRunner.And("input text \'AnswerOption14\' into new answer option text field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 38
+testRunner.And("click on correct answer option for active answer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 39
+testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 40
 testRunner.Then("correct answer option is set to \'true\' for \'AnswerOption14\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -168,21 +176,22 @@ testRunner.Then("correct answer option is set to \'true\' for \'AnswerOption14\'
         public virtual void AnyAnswerOptionCorrectnessCouldBeToggled()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Any answer option correctness could be toggled", ((string[])(null)));
-#line 39
+#line 42
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 40
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 41
-testRunner.And("click on correct answer option for \'AnswerOption11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 42
-testRunner.And("click on correct answer option for \'AnswerOption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 43
-testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 44
-testRunner.Then("correct answer option is set to \'false\' for \'AnswerOption11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("click on correct answer option for \'AnswerOption11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 45
+testRunner.And("click on correct answer option for \'AnswerOption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 46
+testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 47
+testRunner.Then("correct answer option is set to \'false\' for \'AnswerOption11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 48
 testRunner.And("correct answer option is set to \'true\' for \'AnswerOption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -193,15 +202,16 @@ testRunner.And("correct answer option is set to \'true\' for \'AnswerOption12\'"
         public virtual void AnswerOptionTextCouldBeEdited()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Answer option text could be edited", ((string[])(null)));
-#line 47
+#line 50
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 48
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 49
+#line 51
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 52
 testRunner.And("input text \'AnswerOption14\' into answer option text field \'AnswerOption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 50
+#line 53
 testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
@@ -212,7 +222,7 @@ testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.Sp
                         "AnswerOption14"});
             table5.AddRow(new string[] {
                         "AnswerOption13"});
-#line 51
+#line 54
 testRunner.Then("answer options list contains only items with data", ((string)(null)), table5, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -223,15 +233,16 @@ testRunner.Then("answer options list contains only items with data", ((string)(n
         public virtual void AnswerOptionCanTBeSavedWithEmptyText()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Answer option can\'t be saved with empty text", ((string[])(null)));
-#line 57
+#line 60
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 58
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 59
+#line 61
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 62
 testRunner.And("input text \' \' into new answer option text field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 60
+#line 63
 testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
@@ -242,7 +253,7 @@ testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.Sp
                         "AnswerOption12"});
             table6.AddRow(new string[] {
                         "AnswerOption13"});
-#line 61
+#line 64
 testRunner.Then("answer options list contains only items with data", ((string)(null)), table6, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -255,21 +266,22 @@ testRunner.Then("answer options list contains only items with data", ((string)(n
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Changes to answer option data are not lost when user go out from current question" +
                     " page", ((string[])(null)));
-#line 69
+#line 72
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 70
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 71
-testRunner.And("click on correct answer option for \'AnswerOption11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 72
-testRunner.And("input text \'AnswerOption14\' into answer option text field \'AnswerOption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 73
-testRunner.And("click on back to objective on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 74
-testRunner.And("mouse hover element of questions list with title \'Question11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click on correct answer option for \'AnswerOption11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 75
+testRunner.And("input text \'AnswerOption14\' into answer option text field \'AnswerOption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 76
+testRunner.And("click on back to objective on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 77
+testRunner.And("mouse hover element of questions list with title \'Question11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 78
 testRunner.And("click on open question with title \'Question11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
@@ -280,9 +292,9 @@ testRunner.And("click on open question with title \'Question11\'", ((string)(nul
                         "AnswerOption14"});
             table7.AddRow(new string[] {
                         "AnswerOption13"});
-#line 76
+#line 79
 testRunner.Then("answer options list contains only items with data", ((string)(null)), table7, "Then ");
-#line 81
+#line 84
 testRunner.And("correct answer option is set to \'false\' for \'AnswerOption11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -293,17 +305,18 @@ testRunner.And("correct answer option is set to \'false\' for \'AnswerOption11\'
         public virtual void AnswerOptionBecomesSavedAndNotSelectedOnCollapseAnswerOptions()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Answer option becomes saved and not selected on collapse answer options", ((string[])(null)));
-#line 83
+#line 86
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 84
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 85
-testRunner.And("input text \'AnswerOption14\' into new answer option text field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 86
-testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 87
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 88
+testRunner.And("input text \'AnswerOption14\' into new answer option text field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 89
+testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 90
 testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
@@ -316,18 +329,18 @@ testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.
                         "AnswerOption13"});
             table8.AddRow(new string[] {
                         "AnswerOption14"});
-#line 88
+#line 91
 testRunner.Then("answer options list contains only items with data", ((string)(null)), table8, "Then ");
-#line 94
+#line 97
 testRunner.And("answer option delete button is enabled false for answer option with text \'AnswerO" +
                     "ption11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 95
+#line 98
 testRunner.And("answer option delete button is enabled false for answer option with text \'AnswerO" +
                     "ption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 96
+#line 99
 testRunner.And("answer option delete button is enabled false for answer option with text \'AnswerO" +
                     "ption13\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 97
+#line 100
 testRunner.And("answer option delete button is enabled false for answer option with text \'AnswerO" +
                     "ption14\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -339,15 +352,16 @@ testRunner.And("answer option delete button is enabled false for answer option w
         public virtual void DeleteButtonShouldBeEnabledIfHoverAnswerOptionElement()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete button should be enabled if hover answer option element", ((string[])(null)));
-#line 99
+#line 102
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 100
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 101
+#line 103
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 104
 testRunner.And("mouse hover element of answer options with text \'AnswerOption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 102
+#line 105
 testRunner.Then("answer option delete button is enabled true for answer option with text \'AnswerOp" +
                     "tion12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -359,21 +373,22 @@ testRunner.Then("answer option delete button is enabled true for answer option w
         public virtual void DeleteButtonsAreNotEnabledForInactiveAnswerOptionElements()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete buttons are not enabled for inactive answer option elements", ((string[])(null)));
-#line 104
+#line 107
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 105
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 106
+#line 108
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 109
 testRunner.And("mouse hover element of answer options with text \'AnswerOption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 107
+#line 110
 testRunner.Then("answer option delete button is enabled true for answer option with text \'AnswerOp" +
                     "tion12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 108
+#line 111
 testRunner.And("answer option delete button is enabled false for answer option with text \'AnswerO" +
                     "ption11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 109
+#line 112
 testRunner.And("answer option delete button is enabled false for answer option with text \'AnswerO" +
                     "ption13\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -385,15 +400,16 @@ testRunner.And("answer option delete button is enabled false for answer option w
         public virtual void DeleteButtonShouldBeEnabledIfEditAnswerOptionElement()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete button should be enabled if edit answer option element", ((string[])(null)));
-#line 111
+#line 114
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 112
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 113
+#line 115
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 116
 testRunner.And("click answer option text field \'AnswerOption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 114
+#line 117
 testRunner.Then("answer option delete button is enabled true for answer option with text \'AnswerOp" +
                     "tion12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -405,26 +421,27 @@ testRunner.Then("answer option delete button is enabled true for answer option w
         public virtual void AnswerOptionCouldBeDeleted()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Answer option could be deleted", ((string[])(null)));
-#line 116
+#line 119
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 117
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 118
-testRunner.And("mouse hover element of answer options with text \'AnswerOption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 119
-testRunner.And("click on delete answer option \'AnswerOption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 120
-testRunner.And("mouse hover element of answer options with text \'AnswerOption11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 121
+testRunner.And("mouse hover element of answer options with text \'AnswerOption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 122
+testRunner.And("click on delete answer option \'AnswerOption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 123
+testRunner.And("mouse hover element of answer options with text \'AnswerOption11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 124
 testRunner.And("click on delete answer option \'AnswerOption11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "Text"});
             table9.AddRow(new string[] {
                         "AnswerOption13"});
-#line 122
+#line 125
 testRunner.Then("answer options list contains only items with data", ((string)(null)), table9, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -435,15 +452,16 @@ testRunner.Then("answer options list contains only items with data", ((string)(n
         public virtual void AnswerOptionShouldBeDeletedIfAllContentWillBeDeletedFromIt()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Answer option should be deleted if all content will be deleted from it", ((string[])(null)));
-#line 126
+#line 129
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 127
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 128
+#line 130
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 131
 testRunner.And("input text \' \' into answer option text field \'AnswerOption12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 129
+#line 132
 testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
@@ -452,7 +470,7 @@ testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.Sp
                         "AnswerOption11"});
             table10.AddRow(new string[] {
                         "AnswerOption13"});
-#line 130
+#line 133
 testRunner.Then("answer options list contains only items with data", ((string)(null)), table10, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -463,7 +481,7 @@ testRunner.Then("answer options list contains only items with data", ((string)(n
         public virtual void AnswerOptionCouldContainSpecialSymbols()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Answer option could contain special symbols", ((string[])(null)));
-#line 135
+#line 138
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
@@ -472,16 +490,17 @@ this.FeatureBackground();
                         "Text"});
             table11.AddRow(new string[] {
                         "~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё"});
-#line 136
-testRunner.Given("answer options related to \'Question11\' of \'Objective1\' are present in database", ((string)(null)), table11, "Given ");
 #line 139
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.Given("answer options related to \'Question11\' of \'Objective1\' are present in database", ((string)(null)), table11, "Given ");
+#line 142
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
                         "Text"});
             table12.AddRow(new string[] {
                         "~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё"});
-#line 140
+#line 143
 testRunner.Then("answer options list contains only items with data", ((string)(null)), table12, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -494,22 +513,22 @@ testRunner.Then("answer options list contains only items with data", ((string)(n
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("New answer option with special symbols could be added by entering new answer opti" +
                     "on text", ((string[])(null)));
-#line 144
+#line 147
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 145
-testRunner.When("open page by url \'http://localhost:5656/#/objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 146
-testRunner.And("input text \'~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё\' into new answer option text field" +
-                    "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 147
-testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 148
-testRunner.And("click on back to objective on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 149
-testRunner.And("mouse hover element of questions list with title \'Question11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("input text \'~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?\' into new answer option text field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 150
+testRunner.And("click on collapse explanations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 151
+testRunner.And("click on back to objective on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 152
+testRunner.And("mouse hover element of questions list with title \'Question11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 153
 testRunner.And("click on open question with title \'Question11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
@@ -521,8 +540,8 @@ testRunner.And("click on open question with title \'Question11\'", ((string)(nul
             table13.AddRow(new string[] {
                         "AnswerOption13"});
             table13.AddRow(new string[] {
-                        "~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё"});
-#line 151
+                        "~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?"});
+#line 154
 testRunner.Then("answer options list contains only items with data", ((string)(null)), table13, "Then ");
 #line hidden
             this.ScenarioCleanup();
