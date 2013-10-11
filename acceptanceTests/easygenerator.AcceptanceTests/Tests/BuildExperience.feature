@@ -6,21 +6,24 @@ Feature: BuildExperience
 
 Background:
 Given clear data context
+When open page by url 'http://localhost:5656/signin'
+And sign in as 'test' user on sign in page
+Then browser navigates to url 'http://localhost:5656/'
 
 Scenario: Building status is shown after click on build button
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
+| Experience1 | 00000000000000000000000000000001  |
 Given objectives are present in database
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given objectives are linked to experiance 'Experience1'
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given questions related to 'Objective11' are present in database
 | Title      | Id |
-| Question11 | 1  |
-| Question12 | 2  |
+| Question11 | 00000000000000000000000000000001  |
+| Question12 | 00000000000000000000000000000002  |
 Given answer options related to 'Question11' of 'Objective11' are present in database
 | Text           | isCorrect |
 | AnswerOption11 | true      |
@@ -43,16 +46,16 @@ Then status building is shown for publication list item with title 'Experience1'
 Scenario: Complete status is shown after build finished
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
+| Experience1 | 00000000000000000000000000000001  |
 Given objectives are present in database
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given objectives are linked to experiance 'Experience1'
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given questions related to 'Objective11' are present in database
 | Title      | Id |
-| Question11 | 1  |
+| Question11 | 00000000000000000000000000000001  |
 Given answer options related to 'Question11' of 'Objective11' are present in database
 | Text           | isCorrect |
 | AnswerOption11 | true      |
@@ -66,45 +69,45 @@ And mouse hover element of publications list with title 'Experience1'
 And click build publication list item with title 'Experience1'
 Then status complete is shown true for publication list item with title 'Experience1' after build finished
 
-Scenario: Failed status is shown after build failed
-Given publications are present in database
-| Title       | Id |
-| Experience1 | 1  |
-Given objectives are present in database
-| Title       | Id |
-| Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11 | 1  |
-Given objectives are linked to experiance 'Experience1'
-| Title       | Id |
-| Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11 | 1  |
-Given questions related to 'Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11' are present in database
-| Title      | Id |
-| Question11 | 1  |
-Given answer options related to 'Question11' of 'Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11' are present in database
-| Text           | isCorrect |
-| AnswerOption11 | true      |
-| AnswerOption12 | false     |
-Given explanations related to 'Question11' of 'Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11' are present in database
-| Explanation   |
-| Explanation11 |
-| Explanation12 |
-When open page by url 'http://localhost:5656/#/experiences'
-And mouse hover element of publications list with title 'Experience1'
-And click build publication list item with title 'Experience1'
-Then status failed is shown true for publication list item with title 'Experience1' after build finished
+#Scenario: Failed status is shown after build failed
+#Given publications are present in database
+#| Title       | Id |
+#| Experience1 | 00000000000000000000000000000001  |
+#Given objectives are present in database
+#| Title       | Id |
+#| Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11 | 00000000000000000000000000000001  |
+#Given objectives are linked to experiance 'Experience1'
+#| Title       | Id |
+#| Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11 | 00000000000000000000000000000001  |
+#Given questions related to 'Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11' are present in database
+#| Title      | Id |
+#| Question11 | 00000000000000000000000000000001  |
+#Given answer options related to 'Question11' of 'Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11' are present in database
+#| Text           | isCorrect |
+#| AnswerOption11 | true      |
+#| AnswerOption12 | false     |
+#Given explanations related to 'Question11' of 'Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11Objective11' are present in database
+#| Explanation   |
+#| Explanation11 |
+#| Explanation12 |
+#When open page by url 'http://localhost:5656/#/experiences'
+#And mouse hover element of publications list with title 'Experience1'
+#And click build publication list item with title 'Experience1'
+#Then status failed is shown true for publication list item with title 'Experience1' after build finished
 
 Scenario: Explanations are not required, build should succeed
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
+| Experience1 | 00000000000000000000000000000001  |
 Given objectives are present in database
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given objectives are linked to experiance 'Experience1'
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given questions related to 'Objective11' are present in database
 | Title      | Id |
-| Question11 | 1  |
+| Question11 | 00000000000000000000000000000001  |
 Given answer options related to 'Question11' of 'Objective11' are present in database
 | Text           | isCorrect |
 | AnswerOption11 | true      |
@@ -117,16 +120,16 @@ Then status complete is shown true for publication list item with title 'Experie
 Scenario: Answer options are not required, build should succeed
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
+| Experience1 | 00000000000000000000000000000001  |
 Given objectives are present in database
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given objectives are linked to experiance 'Experience1'
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given questions related to 'Objective11' are present in database
 | Title      | Id |
-| Question11 | 1  |
+| Question11 | 00000000000000000000000000000001  |
 Given explanations related to 'Question11' of 'Objective11' are present in database
 | Explanation   |
 | Explanation11 |
@@ -139,17 +142,17 @@ Then status complete is shown true for publication list item with title 'Experie
 Scenario: Build should succeed if some question is empty
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
+| Experience1 | 00000000000000000000000000000001  |
 Given objectives are present in database
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given objectives are linked to experiance 'Experience1'
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given questions related to 'Objective11' are present in database
 | Title      | Id |
-| Question11 | 1  |
-| Question12 | 2  |
+| Question11 | 00000000000000000000000000000001  |
+| Question12 | 00000000000000000000000000000002  |
 Given answer options related to 'Question11' of 'Objective11' are present in database
 | Text           | isCorrect |
 | AnswerOption11 | true      |
@@ -166,18 +169,18 @@ Then status complete is shown true for publication list item with title 'Experie
 Scenario: Build should succeed if some objective is empty
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
+| Experience1 | 00000000000000000000000000000001  |
 Given objectives are present in database
 | Title       | Id |
-| Objective11 | 1  |
-| Objective12 | 2  |
+| Objective11 | 00000000000000000000000000000001  |
+| Objective12 | 00000000000000000000000000000002  |
 Given objectives are linked to experiance 'Experience1'
 | Title       | Id |
-| Objective11 | 1  |
-| Objective12 | 2  |
+| Objective11 | 00000000000000000000000000000001  |
+| Objective12 | 00000000000000000000000000000002  |
 Given questions related to 'Objective11' are present in database
 | Title      | Id |
-| Question11 | 1  |
+| Question11 | 00000000000000000000000000000001  |
 Given answer options related to 'Question11' of 'Objective11' are present in database
 | Text           | isCorrect |
 | AnswerOption11 | true      |
@@ -194,7 +197,7 @@ Then status complete is shown true for publication list item with title 'Experie
 Scenario: Build should succeed even for empty experience
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
+| Experience1 | 00000000000000000000000000000001  |
 When open page by url 'http://localhost:5656/#/experiences'
 And mouse hover element of publications list with title 'Experience1'
 And click build publication list item with title 'Experience1'
@@ -204,16 +207,16 @@ Then status complete is shown true for publication list item with title 'Experie
 Scenario: Open, select, rebuild and download actions become available after build on hover
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
+| Experience1 | 00000000000000000000000000000001  |
 Given objectives are present in database
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given objectives are linked to experiance 'Experience1'
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given questions related to 'Objective11' are present in database
 | Title      | Id |
-| Question11 | 1  |
+| Question11 | 00000000000000000000000000000001  |
 Given answer options related to 'Question11' of 'Objective11' are present in database
 | Text           | isCorrect |
 | AnswerOption11 | true      |
@@ -235,16 +238,16 @@ And Action download is enabled true for publications list item with title 'Exper
 Scenario: Open, select, rebuild and download actions are available after rebuild on hover
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
+| Experience1 | 00000000000000000000000000000001  |
 Given objectives are present in database
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given objectives are linked to experiance 'Experience1'
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given questions related to 'Objective11' are present in database
 | Title      | Id |
-| Question11 | 1  |
+| Question11 | 00000000000000000000000000000001  |
 Given answer options related to 'Question11' of 'Objective11' are present in database
 | Text           | isCorrect |
 | AnswerOption11 | true      |
@@ -269,18 +272,18 @@ And Action download is enabled true for publications list item with title 'Exper
 Scenario: Rebuild should succeed if some objective is empty
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
+| Experience1 | 00000000000000000000000000000001  |
 Given objectives are present in database
 | Title       | Id |
-| Objective11 | 1  |
-| Objective12 | 2  |
+| Objective11 | 00000000000000000000000000000001  |
+| Objective12 | 00000000000000000000000000000002  |
 Given objectives are linked to experiance 'Experience1'
 | Title       | Id |
-| Objective11 | 1  |
-| Objective12 | 2  |
+| Objective11 | 00000000000000000000000000000001  |
+| Objective12 | 00000000000000000000000000000002  |
 Given questions related to 'Objective11' are present in database
 | Title      | Id |
-| Question11 | 1  |
+| Question11 | 00000000000000000000000000000001  |
 Given answer options related to 'Question11' of 'Objective11' are present in database
 | Text           | isCorrect |
 | AnswerOption11 | true      |
@@ -300,17 +303,17 @@ Then status complete is shown true for publication list item with title 'Experie
 Scenario: Rebuild should succeed if some question is empty
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
+| Experience1 | 00000000000000000000000000000001  |
 Given objectives are present in database
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given objectives are linked to experiance 'Experience1'
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given questions related to 'Objective11' are present in database
 | Title      | Id |
-| Question11 | 1  |
-| Question12 | 2  |
+| Question11 | 00000000000000000000000000000001  |
+| Question12 | 00000000000000000000000000000002  |
 Given answer options related to 'Question11' of 'Objective11' are present in database
 | Text           | isCorrect |
 | AnswerOption11 | true      |
@@ -330,16 +333,16 @@ Then status complete is shown true for publication list item with title 'Experie
 Scenario: Answer options are not required, rebuild should succeed
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
+| Experience1 | 00000000000000000000000000000001  |
 Given objectives are present in database
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given objectives are linked to experiance 'Experience1'
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given questions related to 'Objective11' are present in database
 | Title      | Id |
-| Question11 | 1  |
+| Question11 | 00000000000000000000000000000001  |
 Given explanations related to 'Question11' of 'Objective11' are present in database
 | Explanation   |
 | Explanation11 |
@@ -355,16 +358,16 @@ Then status complete is shown true for publication list item with title 'Experie
 Scenario: Explanations are not required, rebuild should succeed
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
+| Experience1 | 00000000000000000000000000000001  |
 Given objectives are present in database
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given objectives are linked to experiance 'Experience1'
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given questions related to 'Objective11' are present in database
 | Title      | Id |
-| Question11 | 1  |
+| Question11 | 00000000000000000000000000000001  |
 Given answer options related to 'Question11' of 'Objective11' are present in database
 | Text           | isCorrect |
 | AnswerOption11 | true      |
@@ -381,17 +384,17 @@ Scenario: Building status is shown after click on rebuild button
 Given clear data context
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
+| Experience1 | 00000000000000000000000000000001  |
 Given objectives are present in database
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given objectives are linked to experiance 'Experience1'
 | Title       | Id |
-| Objective11 | 1  |
+| Objective11 | 00000000000000000000000000000001  |
 Given questions related to 'Objective11' are present in database
 | Title      | Id |
-| Question11 | 1  |
-| Question12 | 2  |
+| Question11 | 00000000000000000000000000000001  |
+| Question12 | 00000000000000000000000000000002  |
 Given answer options related to 'Question11' of 'Objective11' are present in database
 | Text           | isCorrect |
 | AnswerOption11 | true      |
@@ -417,8 +420,8 @@ Then status building is shown for publication list item with title 'Experience1'
 Scenario: Same experience status is shown on both experience and experiences list pages
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
-| Experience2 | 2  |
+| Experience1 | 00000000000000000000000000000001  |
+| Experience2 | 00000000000000000000000000000002  |
 When open page by url 'http://localhost:5656/#/experiences'
 And mouse hover element of publications list with title 'Experience1'
 And click build publication list item with title 'Experience1'
@@ -427,11 +430,11 @@ And mouse hover element of publications list with title 'Experience1'
 Then Action rebuild is enabled true for publications list item with title 'Experience1'
 And Action download is enabled true for publications list item with title 'Experience1'
 When click open publication list item with title 'Experience1'
-Then browser navigates to url 'http://localhost:5656/#experience/1'
+Then browser navigates to url 'http://localhost:5656/#experience/00000000000000000000000000000001'
 And download action on experiance page is available
 And rebuild action on experiance page is available
 When click on next experience
-Then browser navigates to url 'http://localhost:5656/#experience/2'
+Then browser navigates to url 'http://localhost:5656/#experience/00000000000000000000000000000002'
 When click on build button
 Then download action on experiance page is available
 And rebuild action on experiance page is available
