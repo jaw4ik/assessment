@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Components.ActionResults
 {
@@ -21,7 +22,8 @@ namespace easygenerator.Web.Components.ActionResults
             var jsonResult = new JsonResult
             {
                 Data = new { success = true, message = Message, data = Data },
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                MaxJsonLength = Int32.MaxValue
             };
 
             jsonResult.ExecuteResult(context);
