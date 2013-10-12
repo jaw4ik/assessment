@@ -33,7 +33,7 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        protected virtual ICollection<Answer> AnswersCollection { get; set; }
+        protected internal virtual ICollection<Answer> AnswersCollection { get; set; }
 
         public IEnumerable<Answer> Answers
         {
@@ -60,7 +60,7 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        protected virtual ICollection<LearningObject> LearningObjectsCollection { get; set; }
+        protected internal virtual ICollection<LearningObject> LearningObjectsCollection { get; set; }
 
         public IEnumerable<LearningObject> LearningObjects
         {

@@ -33,7 +33,7 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        protected virtual ICollection<Objective> RelatedObjectivesCollection { get; set; }
+        protected internal virtual ICollection<Objective> RelatedObjectivesCollection { get; set; }
 
         public IEnumerable<Objective> RelatedObjectives
         {

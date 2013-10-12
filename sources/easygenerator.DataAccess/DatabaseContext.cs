@@ -56,18 +56,24 @@ namespace easygenerator.DataAccess
         {
             ApplyEntityMapping<Objective>(modelBuilder);
             modelBuilder.Entity<Objective>().Property(e => e.Title).HasMaxLength(255).IsRequired();
-            modelBuilder.Entity<Objective>().HasMany<Objective, Question>("QuestionsCollection");
+            modelBuilder.Entity<Objective>().HasMany(e => e.QuestionsCollection).WithRequired(e => e.Objective);
+            modelBuilder.Entity<Objective>().HasMany(e => e.RelatedExperiencesCollection)
+                .WithMany(e => e.RelatedObjectivesCollection)
+                .Map(m => m.ToTable("ExperienceObjectives"));
+
 
             ApplyEntityMapping<Experience>(modelBuilder);
             modelBuilder.Entity<Experience>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Experience>().HasRequired(e => e.Template);
-            modelBuilder.Entity<Experience>().HasMany<Experience, Objective>("RelatedObjectivesCollection").WithMany();
+            modelBuilder.Entity<Experience>().HasMany(e => e.RelatedObjectivesCollection)
+                .WithMany(e => e.RelatedExperiencesCollection)
+                .Map(m => m.ToTable("ExperienceObjectives"));
 
             ApplyEntityMapping<Question>(modelBuilder);
             modelBuilder.Entity<Question>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Question>().HasRequired(e => e.Objective);
-            modelBuilder.Entity<Question>().HasMany<Question, Answer>("AnswersCollection");
-            modelBuilder.Entity<Question>().HasMany<Question, LearningObject>("LearningObjectsCollection");
+            modelBuilder.Entity<Question>().HasMany(e => e.AnswersCollection).WithRequired(e => e.Question);
+            modelBuilder.Entity<Question>().HasMany(e => e.LearningObjectsCollection).WithRequired(e => e.Question);
 
             ApplyEntityMapping<LearningObject>(modelBuilder);
             modelBuilder.Entity<LearningObject>().Property(e => e.Text).IsRequired();

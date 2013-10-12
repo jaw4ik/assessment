@@ -29,7 +29,18 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        protected virtual ICollection<Question> QuestionsCollection { get; set; }
+        protected internal virtual ICollection<Experience> RelatedExperiencesCollection { get; set; }
+
+        public virtual IEnumerable<Experience> Experiences
+        {
+            get
+            {
+                return RelatedExperiencesCollection.AsEnumerable();
+            }
+        }
+
+
+        protected internal virtual ICollection<Question> QuestionsCollection { get; set; }
 
         public virtual IEnumerable<Question> Questions
         {
