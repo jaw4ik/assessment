@@ -31,9 +31,8 @@ namespace easygenerator.Web.Tests.Utils
             var viewResult = result as ViewResult;
             Assert.IsNotNull(viewResult);
             Assert.AreEqual(viewResult.ViewName, viewName);
-            Assert.IsNotNull(viewResult.Model);
             Assert.AreEqual(viewModel, viewResult.Model);
-            
+
         }
 
         internal static void IsPartialViewResult(object result)
@@ -95,7 +94,7 @@ namespace easygenerator.Web.Tests.Utils
         {
             IsHttpStatusCodeResult(result, 400);
         }
-        
+
         internal static void IsJsonResult(object result)
         {
             Assert.IsInstanceOfType(result, typeof(JsonResult));

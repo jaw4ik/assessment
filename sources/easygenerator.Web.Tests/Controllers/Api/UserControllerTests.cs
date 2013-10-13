@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.Components;
@@ -23,6 +24,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private UserController _controller;
         private IEntityFactory _entityFactory;
         private IAuthenticationProvider _authenticationProvider;
+        private ISignupFromTryItNowHandler _signupFromTryItNowHandler;
         IPrincipal _user;
         HttpContextBase _context;
 
@@ -32,7 +34,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _repository = Substitute.For<IUserRepository>();
             _entityFactory = Substitute.For<IEntityFactory>();
             _authenticationProvider = Substitute.For<IAuthenticationProvider>();
-            _controller = new UserController(_repository, _entityFactory, _authenticationProvider);
+            _signupFromTryItNowHandler = Substitute.For<ISignupFromTryItNowHandler>();
+            _controller = new UserController(_repository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -129,6 +132,26 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             _repository.Received().Add(user);
+        }
+
+        [TestMethod]
+        public void Signup_ShouldHandleTryItNowModeContent_WhenUserWasInTryItNowMode()
+        {
+            //Arrange
+            const string tryItNowUsername = "username";
+            const string signUpUsername = "username@easygenerator.com";
+            const string password = "Abc123!";
+            var user = UserObjectMother.Create(signUpUsername, password);
+            _user.Identity.IsAuthenticated.Returns(true);
+            _user.Identity.Name.Returns(tryItNowUsername);
+            _repository.GetUserByEmail(tryItNowUsername).Returns((User)null);
+            _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
+
+            //Act
+            _controller.Signup(signUpUsername, password);
+
+            //Assert
+            _signupFromTryItNowHandler.Received().HandleOwnership(tryItNowUsername, signUpUsername);
         }
 
         [TestMethod]

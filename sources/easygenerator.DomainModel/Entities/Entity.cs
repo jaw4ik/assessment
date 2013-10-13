@@ -27,6 +27,14 @@ namespace easygenerator.DomainModel.Entities
         public string ModifiedBy { get; protected set; }
         public DateTime ModifiedOn { get; protected set; }
 
+        protected internal virtual void DefineCreatedBy(string createdBy)
+        {
+            ThrowIfCreatedByIsInvalid(createdBy);
+
+            CreatedBy = createdBy;
+            ModifiedBy = createdBy;
+        }
+
         internal virtual void MarkAsModified(string modifiedBy)
         {
             ThrowIfModifiedByIsInvalid(modifiedBy);

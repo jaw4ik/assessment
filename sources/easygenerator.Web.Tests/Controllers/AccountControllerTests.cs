@@ -16,7 +16,7 @@ namespace easygenerator.Web.Tests.Controllers
     public class AccountControllerTests
     {
         private AccountController _controller;
-        private IAuthenticationProvider _authenticationProvider; 
+        private IAuthenticationProvider _authenticationProvider;
 
         [TestInitialize]
         public void InitializeContext()
@@ -24,7 +24,7 @@ namespace easygenerator.Web.Tests.Controllers
             _authenticationProvider = Substitute.For<IAuthenticationProvider>();
             _controller = new AccountController(_authenticationProvider);
         }
-        
+
         #region PrivacyPolicy
 
         [TestMethod]
@@ -32,7 +32,7 @@ namespace easygenerator.Web.Tests.Controllers
         {
             //Arrange
 
-            
+
             //Act
             var result = _controller.PrivacyPolicy();
 
@@ -122,7 +122,7 @@ namespace easygenerator.Web.Tests.Controllers
         #region SignupFromTry
 
         [TestMethod]
-        public void SignupFromTry_ShouldRedirectToSignUp()
+        public void SignupFromTry_ShouldReturnView()
         {
             //Arrange
 
@@ -131,20 +131,7 @@ namespace easygenerator.Web.Tests.Controllers
             var result = _controller.SignupFromTry();
 
             //Assert
-            ActionResultAssert.IsRedirectToRouteResult(result, "SignUp");
-        }
-
-        [TestMethod]
-        public void SignupFromTry_ShouldSignOut_WhenUserAuthenticated()
-        {
-            //Arrange
-            _authenticationProvider.IsUserAuthenticated().Returns(true);
-
-            //Act
-            var result = _controller.SignupFromTry();
-
-            //Assert
-            _authenticationProvider.Received().SignOut();
+            ActionResultAssert.IsViewResult(result, "SignUp", null);
         }
 
         #endregion

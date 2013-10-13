@@ -484,5 +484,53 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
+
+        #region Define createdBy
+
+        [TestMethod]
+        public void DefineCreatedBy_ShouldThrowArgumentNullException_WhenCreatedByIsNull()
+        {
+            var question = QuestionObjectMother.Create();
+
+            Action action = () => question.DefineCreatedBy(null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("createdBy");
+        }
+
+        [TestMethod]
+        public void DefineCreatedBy_ShouldThrowArgumentException_WhenCreatedByIsEmpty()
+        {
+            var question = QuestionObjectMother.Create();
+
+            Action action = () => question.DefineCreatedBy(String.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("createdBy");
+        }
+
+        [TestMethod]
+        public void DefineCreatedBy_ShouldDefineCreatedBy()
+        {
+            const string createdBy = "createdBy";
+            const string updatedCreatedBy = "updatedCreatedBy";
+            var question = QuestionObjectMother.CreateWithCreatedBy(createdBy);
+
+            question.DefineCreatedBy(updatedCreatedBy);
+
+            question.CreatedBy.Should().Be(updatedCreatedBy);
+        }
+
+        [TestMethod]
+        public void DefineCreatedBy_ShouldUpdateModifiedBy()
+        {
+            const string createdBy = "createdBy";
+            const string updatedCreatedBy = "updatedCreatedBy";
+            var question = QuestionObjectMother.CreateWithCreatedBy(createdBy);
+
+            question.DefineCreatedBy(updatedCreatedBy);
+
+            question.ModifiedBy.Should().Be(updatedCreatedBy);
+        }
+
+        #endregion
     }
 }

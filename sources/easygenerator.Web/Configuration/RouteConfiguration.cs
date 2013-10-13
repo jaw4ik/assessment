@@ -220,7 +220,7 @@ namespace easygenerator.Web.Configuration
             routes.MapRoute(
                 name: "IsTryMode",
                 url: "api/user/istrymode",
-                defaults: new {controller = "User", action = "IsTryMode"}
+                defaults: new { controller = "User", action = "IsTryMode" }
             );
 
             routes.MapRoute(
@@ -254,14 +254,14 @@ namespace easygenerator.Web.Configuration
                 defaults: new { controller = "Account", action = "SignIn" });
 
             routes.MapRoute(
-                name: "SignupFromTry",
-                url: "signupfromtry",
-                defaults: new { controller = "Account", action = "SignupFromTry" });
-
-            routes.MapRoute(
                 name: "SignOut",
                 url: "signout",
                 defaults: new { controller = "Account", action = "SignOut" });
+
+            routes.MapRoute(
+                name: "SignupFromTry",
+                url: "try/signup",
+                defaults: new { controller = "Account", action = "SignupFromTry" });
 
             routes.MapRoute(
                 name: "TryWithoutSignup",

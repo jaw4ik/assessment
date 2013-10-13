@@ -5,11 +5,16 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
     public class ExperienceObjectMother
     {
         private const string Title = "Experience title";
-        private const string CreatedBy = "easygenerator@easygenerator.com";
+        private const string CreatedBy = "username@easygenerator.com";
 
         public static Experience CreateWithTitle(string title)
         {
             return Create(title: title);
+        }
+
+        public static Experience CreateWithCreatedBy(string createdBy)
+        {
+            return Create(createdBy: createdBy);
         }
 
         public static Experience CreateWithTemplate(Template template, string title = Title, string createdBy = CreatedBy)

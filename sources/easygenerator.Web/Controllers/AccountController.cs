@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using System.Web.Security;
+using easygenerator.DataAccess.Repositories;
 using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Controllers
@@ -9,7 +11,7 @@ namespace easygenerator.Web.Controllers
     [AllowAnonymous]
     public class AccountController : Controller
     {
-        private IAuthenticationProvider _authenticationProvider;
+        private readonly IAuthenticationProvider _authenticationProvider;
 
         public AccountController(IAuthenticationProvider authenticationProvider)
         {
@@ -62,12 +64,12 @@ namespace easygenerator.Web.Controllers
 
         public ActionResult SignupFromTry()
         {
-            return LogoutAndRedirectToRoute("SignUp");
+            return View("SignUp");
         }
 
         public ActionResult SignOut()
         {
-            return LogoutAndRedirectToRoute("SignIn"); 
+            return LogoutAndRedirectToRoute("SignIn");
         }
 
         private ActionResult LogoutAndRedirectToRoute(string routeToRedirect)

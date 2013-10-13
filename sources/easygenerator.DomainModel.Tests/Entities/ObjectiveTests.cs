@@ -1,8 +1,10 @@
 ﻿using System;
+using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using NSubstitute;
 
 namespace easygenerator.DomainModel.Tests.Entities
 {
@@ -305,7 +307,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void RemoveQuestion_ShouldUpdateMoidifiedBy()
+        public void RemoveQuestion_ShouldUpdateModifiedBy()
         {
             var question = QuestionObjectMother.Create();
             var objective = ObjectiveObjectMother.Create();
@@ -317,5 +319,55 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
+
+        #region Define createdBy
+
+        [TestMethod]
+        public void DefineCreatedBy_ShouldThrowArgumentNullException_WhenCreatedByIsNull()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            Action action = () => objective.DefineCreatedBy(null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("createdBy");
+        }
+
+        [TestMethod]
+        public void DefineCreatedBy_ShouldThrowArgumentException_WhenCreatedByIsEmpty()
+        {
+            var objective = ObjectiveObjectMother.Create();
+
+            Action action = () => objective.DefineCreatedBy(String.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("createdBy");
+        }
+
+
+        [TestMethod]
+        public void DefineCreatedBy_ShouldUpdateCreatedBy()
+        {
+            const string createdBy = "createdBy";
+            const string updatedCreatedBy = "updatedCreatedBy";
+            var objective = ObjectiveObjectMother.CreateWithCreatedBy(createdBy);
+
+            objective.DefineCreatedBy(updatedCreatedBy);
+
+            objective.CreatedBy.Should().Be(updatedCreatedBy);
+        }
+
+        [TestMethod]
+        public void DefineCreatedBy_ShouldUpdateModifiedBy()
+        {
+            const string createdBy = "createdBy";
+            const string updatedCreatedBy = "updatedCreatedBy";
+            var objective = ObjectiveObjectMother.CreateWithCreatedBy(createdBy);
+
+            objective.DefineCreatedBy(updatedCreatedBy);
+
+            objective.ModifiedBy.Should().Be(updatedCreatedBy);
+        }
+
+        #endregion
+
     }
 }

@@ -4,6 +4,7 @@ using Autofac.Integration.Mvc;
 using easygenerator.DataAccess;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
@@ -33,8 +34,9 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PackageModelMapper>();
             builder.RegisterType<PackageModelSerializer>();
             builder.RegisterType<BuildPackageCreator>();
+            builder.RegisterType<SignupFromTryItNowHandler>().As<ISignupFromTryItNowHandler>();
 
-            builder.RegisterModule(new DataAccessModule());            
+            builder.RegisterModule(new DataAccessModule());
 
             builder.RegisterType<EntityFactory>().As<IEntityFactory>();
 
