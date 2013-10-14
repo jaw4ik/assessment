@@ -85,7 +85,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Answer>().HasRequired(e => e.Question);
 
             ApplyEntityMapping<User>(modelBuilder);
-            modelBuilder.Entity<User>().Property(e => e.Email).IsRequired();
+            modelBuilder.Entity<User>().Property(e => e.Email).IsRequired().HasMaxLength(254);
             modelBuilder.Entity<User>().Property(e => e.PasswordHash).IsRequired();
 
             ApplyEntityMapping<Template>(modelBuilder);

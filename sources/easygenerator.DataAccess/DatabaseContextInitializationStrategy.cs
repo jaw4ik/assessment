@@ -8,13 +8,27 @@ using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DataAccess
 {
-    public class DatabaseContextInitializationStrategy : DropCreateDatabaseIfModelChanges<DatabaseContext>
+    public class DatabaseContextInitializationStrategy : IDatabaseInitializer<DatabaseContext>
     {
-        protected override void Seed(DatabaseContext context)
+        public void InitializeDatabase(DatabaseContext context)
         {
+            if (context.Database.Exists())
+            {
+                if (context.Database.CompatibleWithModel(true))
+                {
+                    return;
+                }
+
+                context.Database.Delete();
+            }
+
+            context.Database.CreateIfNotExists();
+            context.Database.ExecuteSqlCommand("ALTER TABLE Users ADD CONSTRAINT UQ_Email UNIQUE (Email)");
+
             context.Set<Template>().Add(new Template("Default", "/Content/images/defaultTemplate.png", "Some user"));
             context.Set<Template>().Add(new Template("Quiz", "/Content/images/quizTemplate.png", "Some user"));
-            base.Seed(context);
+
+            context.SaveChanges();
         }
     }
 }
