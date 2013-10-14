@@ -94,6 +94,8 @@
 
                         router.guardRoute = function (routeInfo, params) {
                             if (requestsCounter() > 0) {
+                                that.navigation()[1].isPartOfModules(_.contains(objectivesModules, that.activeModuleName()));
+                                that.navigation()[0].isPartOfModules(_.contains(experiencesModules, that.activeModuleName()));
                                 notify.lockContent();
                                 notify.isShownMessage(false);
                                 var subscription = requestsCounter.subscribe(function (newValue) {
@@ -116,6 +118,8 @@
                         router.on('router:route:activating').then(function () {
                             isViewReady(false);
                             notify.isShownMessage(true);
+                            that.navigation()[0].isPartOfModules(_.contains(experiencesModules, getModuleIdFromRouterActiveInstruction()));
+                            that.navigation()[1].isPartOfModules(_.contains(objectivesModules, getModuleIdFromRouterActiveInstruction()));
                         });
 
                         router.on('router:navigation:composition-complete').then(function () {
@@ -148,9 +152,7 @@
                                 isEditor: ko.computed(function () {
                                     return _.contains(_.without(experiencesModules, 'experiences'), that.activeModuleName());
                                 }),
-                                isPartOfModules: ko.computed(function() {
-                                    return _.contains(experiencesModules, getModuleIdFromRouterActiveInstruction());
-                                })
+                                isPartOfModules: ko.observable(false)
                             },
                             {
                                 navigate: function () {
@@ -165,9 +167,7 @@
                                 isEditor: ko.computed(function() {
                                     return _.contains(_.without(objectivesModules, 'objectives'), that.activeModuleName());
                                 }),
-                                isPartOfModules: ko.computed(function () {
-                                    return _.contains(objectivesModules, getModuleIdFromRouterActiveInstruction());
-                                })
+                                isPartOfModules: ko.observable(false)
                             }
                         ]);
                         that.isTryMode = datacontext.isTryMode;
