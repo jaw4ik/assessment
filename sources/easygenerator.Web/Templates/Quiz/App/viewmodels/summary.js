@@ -47,24 +47,26 @@
                     });
                     result = 0;
                 });
-                
-                _.each(scores, function (score) {
-                    _.each(that.objectives, function (objective) {
-                        if (score.objectiveId == objective.id) {
-                            objective.score += score.value;
-                            objective.count++;
-                        }
+
+                _.each(this.objectives, function (objective) {
+                    var questionForThisObjective = _.filter(scores, function(item) {
+                        return item.objectiveId == objective.id;
                     });
-                    that.overallScore = that.overallScore + score.value;
+                    
+                    var scoreForThisObjective = 0;
+
+                    _.each(questionForThisObjective, function(question) {
+                        scoreForThisObjective += question.value;
+                    });
+
+                    objective.score = scoreForThisObjective / questionForThisObjective.length;
+                    that.overallScore += objective.score;
                 });
-
-                this.overallScore = this.overallScore / scores.length;
-
+                
                 window.scroll(0, 0);
-
-                return _.each(this.objectives, function (objective) {
-                    objective.score = objective.score / objective.count;
-                });
+                
+                this.overallScore = this.overallScore / this.objectives.length;
+                return this.overallScore;
             }
         };
 
