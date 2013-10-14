@@ -34,6 +34,11 @@ namespace easygenerator.Web.Controllers
         [HttpPost]
         public ActionResult TryWithoutSignup(object viewModel)
         {
+            return LaunchTryMode();
+        }
+
+        public ActionResult LaunchTryMode()
+        {
             if (!_authenticationProvider.IsUserAuthenticated())
                 _authenticationProvider.SignIn(Guid.NewGuid().ToString(), true);
 

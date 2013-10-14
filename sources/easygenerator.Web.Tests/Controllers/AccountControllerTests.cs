@@ -225,5 +225,45 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         #endregion
+
+        #region LaunchTryMode
+
+        [TestMethod]
+        public void LaunchTryMode_ShouldRedirectToRouteResult()
+        {
+            //Act
+            var result = _controller.LaunchTryMode();
+
+            //Assert
+            ActionResultAssert.IsRedirectToRouteResult(result, "Default");
+        }
+
+        [TestMethod]
+        public void LaunchTryMode_ShouldSignIn_WhenUserNotAuthenticated()
+        {
+            //Arrange
+            _authenticationProvider.IsUserAuthenticated().Returns(false);
+
+            //Act
+            var result = _controller.LaunchTryMode();
+
+            //Assert
+            _authenticationProvider.Received().SignIn(Arg.Any<String>(), true);
+        }
+
+        [TestMethod]
+        public void LaunchTryMode_ShouldNotSignIn_WhenUserAuthenticated()
+        {
+            //Arrange
+            _authenticationProvider.IsUserAuthenticated().Returns(true);
+
+            //Act
+            var result = _controller.LaunchTryMode();
+
+            //Assert
+            _authenticationProvider.DidNotReceive().SignIn(Arg.Any<String>(), true);
+        }
+
+        #endregion
     }
 }

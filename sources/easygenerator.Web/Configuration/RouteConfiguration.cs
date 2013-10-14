@@ -263,6 +263,11 @@ namespace easygenerator.Web.Configuration
                 url: "try",
                 defaults: new { controller = "Account", action = "TryWithoutSignup" });
 
+            routes.MapRoute(
+                name: "LaunchTryMode",
+                url: "launchtry",
+                defaults: new { controller = "Account", action = "LaunchTryMode" });
+
             #endregion;
 
             #region FileStorage
