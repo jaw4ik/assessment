@@ -407,7 +407,8 @@
         nl: 'Nieuwe vraag toevoegen',
         de: 'Neue Fragen hinzufügen'
     },
-    clickToAddNewQuestion: {
+    clickToAddNewQuestion 
+: {
         en: 'Click here to add question',
         nl: 'Klik hier om een vraag toe te voegen',
         de: 'Hier klicken, um eine Frage hinzuzufügen'
@@ -441,6 +442,11 @@
         en: 'Create new question',
         nl: 'Nieuwe vraag maken',
         de: 'Neue Frage erstellen'
+    },
+    savedAt: {
+        en: 'Saved at',
+        nl: 'Saved at[nl]',
+        de: 'Saved at[de]'
     },
     /* End resource section for model Questions */
     
@@ -733,11 +739,6 @@
         nl: 'Geselecteerd(e) leerdoel(en) loskoppelen',
         de: 'Ausgewählte(s) Lernziel(e) trennen'
     },
-    learningExperienceEditor: {
-        en: 'Learning experience editor',
-        nl: 'Leerervaringen editor',
-        de: 'Lernerfahrungs-Editor'
-    },
     /* End resource section for model Display experience */
     
     /* Resource section for model Error pages */
@@ -810,7 +811,8 @@
         nl: 'Inschrijven',
         de: 'Registrieren'
     },
-    PasswordRequirementsTitle: {
+    
+PasswordRequirementsTitle: {
         en: 'Password is required to:',
         nl: 'Het wachtwoord moet:',
         de: 'Das Kennwort muss:'
@@ -1025,7 +1027,40 @@
         en: 'Learning object is not found. Please refresh your data.',
         nl: 'Learning object is not found. Please refresh your data.[nl]',
         de: 'Learning object is not found. Please refresh your data.[de]'
-    }
+    },
     /* End resource section for model Server error notification */
+    
+    /* Resource section for model View captions */
+    learningExperienceViewCaption: {
+        en: 'Learning experience editor',
+        nl: 'Leerervaringen editor',
+        de: 'Lernerfahrungs-Editor'
+    },
+    learningObjectiveViewCaption: {
+        en: 'Learning objective editor',
+        nl: 'Learning objective editor[nl]',
+        de: 'Learning objective editor[de]'
+    },
+    questionViewCaption: {
+        en: 'Question editor',
+        nl: 'Question editor[nl]',
+        de: 'Question editor[de]'
+    },
+    createExperienceViewCaption: {
+        en: 'Create learning experience',
+        nl: 'Create learning experience[nl]',
+        de: 'Create learning experience[de]'
+    },
+    createObjectiveViewCaption: {
+        en: 'Create learning objective',
+        nl: 'Create learning objective[nl]',
+        de: 'Create learning objective[de]'
+    },
+    createQuestionViewCaption: {
+        en: 'Create question',
+        nl: 'Create question[nl]',
+        de: 'Create question[de]'
+    }
+    /* End resource section for model View captions */
            
 });
