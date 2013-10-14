@@ -265,7 +265,7 @@ a.top-navigation-item:hover {
 }
 
 .page-view-caption {
-    padding-top: 11px;
+    padding: 11px 0;
 	position: relative;
 }
 
