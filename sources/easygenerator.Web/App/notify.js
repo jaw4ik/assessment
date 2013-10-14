@@ -1,8 +1,8 @@
 ﻿define(['jquery'], function ($) {
 
-    var
-        messageTargetSelector = ".page-view-caption",
-        baseTargetSelector = "#container",
+    var 
+		notificationTargetSelector = ".page-view-caption",
+        spinnerTargetSelector = ".main",
         containerSelector = "notification-container",
         clearfixClass = "clearfix",
 
@@ -33,7 +33,7 @@
         if (cnt.length) {
             return cnt;
         } else {
-            return $("<div />").addClass(containerSelector).appendTo(messageTargetSelector);
+            return $("<div />").addClass(containerSelector).appendTo(notificationTargetSelector);
         }
     }
 
@@ -67,7 +67,7 @@
             $("<div />")
                 .addClass(modalFadeSelector)
                 .append($("<span />").addClass(modalFadeLoaderSelector))
-                .appendTo(baseTargetSelector);
+                .appendTo(spinnerTargetSelector);
         }
     }
 
