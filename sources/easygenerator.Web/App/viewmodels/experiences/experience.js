@@ -206,7 +206,7 @@
                 sendEvent(events.updateExperienceTitle);
                 repository.updateExperienceTitle(this.id, title()).then(function (updatedOn) {
                     modifiedOn(updatedOn);
-                    notify.info(localizationManager.localize('lastSaving') + ': ' + updatedOn.toLocaleTimeString());
+                    notify.info(localizationManager.localize('savedAt') + ' ' + updatedOn.toLocaleTimeString());
                 });
             } else {
                 title(previousTitle);
@@ -273,7 +273,7 @@
                         }).value());
 
                     that.modifiedOn(modifiedDate);
-                    notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
+                    notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
                     that.objectivesMode(objectivesListModes.display);
                     that.hintPopup.hide();
                 });
@@ -291,7 +291,7 @@
                 .then(function (updatedOn) {
                     template.image(selectedTemplate.image);
                     modifiedOn(updatedOn);
-                    notify.info(localizationManager.localize('lastSaving') + ': ' + updatedOn.toLocaleTimeString());
+                    notify.info(localizationManager.localize('savedAt') + ' ' + updatedOn.toLocaleTimeString());
                 });
         },
 
@@ -376,7 +376,7 @@
                 .then(function (modifiedDate) {
                     that.relatedObjectives(_.difference(that.relatedObjectives(), selectedObjectives));
                     that.modifiedOn(modifiedDate);
-                    notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
+                    notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
                 });
         };
 

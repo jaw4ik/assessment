@@ -1,54 +1,48 @@
 ﻿.notification-container {
-    position: fixed;
-    top: 46px;
-    right: 0;
-    z-index: 200;
+    position: absolute;
+	right: 0;
 }
-
 
 .notification {
     position: relative;
-    margin: 10px;
-    padding: 11px 10px;
-    -moz-min-width: 325px;
-    -ms-min-width: 325px;
-    -webkit-min-width: 325px;
-    min-width: 325px;
+    padding: 10px;
+    min-width: 164px;
     border: 1px solid transparent;
     border-radius: 4px 4px 4px 4px;
-    font-size: 12px;
-    font-family: Arial,sans-serif;
-}
-
-.notification-icon {
-    position: absolute;
-    top: 50%;
-    left: 5px;
-    margin-top: -8px;
-    width: 16px;
-    height: 16px;
-    background-image: url("images/icons.png");
-    background-position: 0 0;
 }
 
 .notification-text {
     margin: 0 15px;
-    margin-right: 15px;
-    margin-left: 20px;
-    line-height: 17px;
+    margin-right: 20px;
+    margin-left: 25px;
+    color: #909399;
+    font-family: 'OpenSans';
+    font-size: 12px;
 }
+
+    .notification-text:after {
+        content: '';
+        display: block;
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        margin-top: -9px;
+        background: url("images/icons.png") 0 0;
+    }
 
 .notification-close {
     position: absolute;
     top: 50%;
-    right: 5px;
-    margin-top: -10px;
+    right: 11px;
+    margin-top: -6px;
     border: 0;
     background: none;
-    color: #000000;
+    color: #c1c3c6;
     font-weight: bold;
-    font-size: 20px;
-    line-height: 20px;
+    font-size: 12px;
+    line-height: 12px;
     opacity: 0.5;
     cursor: default;
 }
@@ -59,8 +53,8 @@
     }
 
 .notification.info {
-    border-color: #4DC0F8;
-    background-color: #D4E6F2;
+    border-color: #eeeeee #f8f8f8 #c7c7c7 #f8f8f8;
+    background-color: white;
     color: #23485A;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
@@ -79,7 +73,7 @@
         text-shadow: none;
     }
 
-    .notification.error .notification-icon {
+    .notification.error .notification-text:after {
         margin-top: -10px;
         width: 19px;
         height: 20px;
@@ -105,4 +99,3 @@
     height: 32px;
     background-image: url("images/loader.gif");
 }
-

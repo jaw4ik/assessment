@@ -89,7 +89,7 @@
                     if (title.isValid()) {
                         questionRepository.updateTitle(questionId, title()).then(function (modifiedOn) {
                             that.modifiedOn(modifiedOn);
-                            notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
+                            notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
                         });
                     } else {
                         title(questionTitle);

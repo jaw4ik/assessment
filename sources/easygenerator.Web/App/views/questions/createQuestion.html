@@ -1,23 +1,33 @@
-﻿<section id="createQuestion" class="create-question container unselectable">
-    <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: ' \'' + objectiveTitle + '\'', isGoBackTextLocalizable: false, goBackAction: navigateToObjective.bind($data) } }">
-    </div>
-    <form class="create-form">
-        <div class="white-framing pull-left">
-            <img class="create-form-image" src="/Content/images/multichoice-question.png" alt="" />
+﻿<section id="createQuestion" class="create-question unselectable view-module">
+    <div class="fixed-container">
+        <div class="content-holder">
+            <div class="page-view-caption clearfix">
+                <div class="page-view-caption-text" data-bind="localize : { text : 'createQuestionViewCaption' }">Create question</div>
+            </div>
         </div>
-        <div class="create-form-field">
-            <div class="edit-field selectable">
-                <div class="text-block bordered" data-bind="css: { 'active': title.isEditing(), error: !title.isValid() && title().length > titleMaxLength }">
-                    <div data-autofocus="true" class="editarea editarea-editable-text" data-bind="editableText: { text: title, multiline: false }, hasFocus: title.isEditing"></div>
-                    <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > titleMaxLength }">
-                        <span data-bind="text: title().trim().length"></span>/<span data-bind="    text: titleMaxLength"></span>
+    </div>
+
+    <div class="container">
+        <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: ' \'' + objectiveTitle + '\'', isGoBackTextLocalizable: false, goBackAction: navigateToObjective.bind($data) } }">
+        </div>
+        <form class="create-form">
+            <div class="white-framing pull-left">
+                <img class="create-form-image" src="/Content/images/multichoice-question.png" alt="" />
+            </div>
+            <div class="create-form-field">
+                <div class="edit-field selectable">
+                    <div class="text-block bordered" data-bind="css: { 'active': title.isEditing(), error: !title.isValid() && title().length > titleMaxLength }">
+                        <div data-autofocus="true" class="editarea editarea-editable-text" data-bind="editableText: { text: title, multiline: false }, hasFocus: title.isEditing"></div>
+                        <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > titleMaxLength }">
+                            <span data-bind="text: title().trim().length"></span>/<span data-bind="    text: titleMaxLength"></span>
+                        </div>
                     </div>
                 </div>
+                <!-- ko compose: { view: 'views/common/createtip', model: { text: 'typeQuestionTitleHere' } } -->
+                <!-- /ko -->
             </div>
-            <!-- ko compose: { view: 'views/common/createtip', model: { text: 'typeQuestionTitleHere' } } -->
+            <!-- ko compose: { view: 'views/common/formactions', model: { isValid: title.isValid(), saveAndNew: saveAndNew.bind($data), saveAndOpen: saveAndOpen.bind($data) } } -->
             <!-- /ko -->
-        </div>
-        <!-- ko compose: { view: 'views/common/formactions', model: { isValid: title.isValid(), saveAndNew: saveAndNew.bind($data), saveAndOpen: saveAndOpen.bind($data) } } -->
-        <!-- /ko -->
-    </form>
+        </form>
+    </div>
 </section>

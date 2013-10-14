@@ -57,7 +57,7 @@
                     if (title.isValid()) {
                         repository.updateObjective({ id: that.objectiveId, title: that.title() }).then(function (objectiveModificationOn) {
                             modifiedOn(objectiveModificationOn);
-                            notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
+                            notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
                         });
                     } else {
                         title(objectiveTitle);
@@ -138,7 +138,7 @@
                 questionRepository.removeQuestion(this.objectiveId, selectedQuestions[0].id).then(function (objectiveModificationDate) {
                     questions(_.reject(questions(), function (item) { return item.id == selectedQuestions[0].id; }));
                     modifiedOn(objectiveModificationDate);
-                    notify.info(localizationManager.localize('lastSaving') + ': ' + new Date().toLocaleTimeString());
+                    notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
                 });
 
             },

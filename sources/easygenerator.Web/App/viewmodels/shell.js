@@ -130,7 +130,7 @@
                             if ($scrollElement.length != 0) {
                                 var targetTop = $scrollElement.offset().top;
                                 $('html, body').animate({
-                                    scrollTop: targetTop - 140 //header size
+                                    scrollTop: targetTop - 190 //header size
                                 });
                                 $scrollElement.removeClass('scrollToElement');
                             } else {

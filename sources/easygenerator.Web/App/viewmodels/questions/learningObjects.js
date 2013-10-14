@@ -89,7 +89,7 @@
         }
 
         function showNotification(date) {
-            notify.info(localizationManager.localize('lastSaving') + ': ' + date.toLocaleTimeString());
+            notify.info(localizationManager.localize('savedAt') + ' ' + date.toLocaleTimeString());
         }
 
         _.each(lo, function (item) {

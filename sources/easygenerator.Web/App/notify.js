@@ -1,13 +1,12 @@
 ﻿define(['jquery'], function ($) {
 
     var
-        targetSelector = "#content > *:first",
+        targetSelector = ".page-view-caption",
         containerSelector = "notification-container",
         clearfixClass = "clearfix",
 
         notificationClass = "notification",
         notificationTextClass = "notification-text",
-        notificationIconClass = "notification-icon",
         notificationCloseClass = "notification-close",
         modalFadeSelector = "modalFade",
         modalFadeLoaderSelector = "modalFade-loader icon-spinner-wrapper",
@@ -46,7 +45,6 @@
             .addClass(notificationClass)
             .addClass(clearfixClass)
             .addClass(messageClass)
-            .append($("<span />").addClass(notificationIconClass))
             .append($("<span />").addClass(notificationTextClass).text(message))
             .append($("<a />").addClass(notificationCloseClass).html("&times;").click(function () { $(this).closest("." + notificationClass).remove(); }))
             .appendTo(getContaner());

@@ -1,33 +1,41 @@
-﻿<section id="createObjective" class="create-objective container unselectable">
-    <!--ko if: _.isString(contextExperienceId) -->
-    <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: '\''+contextExperienceTitle+'\'', isGoBackTextLocalizable: false, goBackAction: navigateBack.bind($data) }, cacheViews: false }">
-    </div>
-    <!--/ko-->
-    <!--ko ifnot: _.isString(contextExperienceId) -->
-    <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'learningObjectives', isGoBackTextLocalizable: true, goBackAction: navigateBack.bind($data) }, cacheViews: false }">
-    </div>
-    <!--/ko-->
-
-    <form class="create-form">
-        <div class="white-framing pull-left">
-            <img class="create-form-image" src="/Content/images/objective.png" alt="" />
+﻿<section id="createObjective" class="create-objective unselectable view-module">
+    <div class="fixed-container">
+        <div class="content-holder">
+            <div class="page-view-caption clearfix">
+                <div class="page-view-caption-text" data-bind="localize : { text : 'createObjectiveViewCaption' }">Create learning objective</div>
+            </div>
         </div>
-        <div class="create-form-field">
-            <div class="edit-field selectable">
-                <div class="text-block bordered" data-bind="css: { error: !title.isValid() && title().length > objectiveTitleMaxLength, active: isTitleEditing }">
-                    <div data-autofocus="true" class="editarea editarea-editable-text" data-bind="editableText: { text: title, multiline: false }, hasFocus: isTitleEditing"></div>
-                    <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > objectiveTitleMaxLength }">
-                        <span data-bind="text: title().trim().length"></span>/<span data-bind="text: objectiveTitleMaxLength"></span>
+    </div>
+    <div class="container">
+        <!--ko if: _.isString(contextExperienceId) -->
+        <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: '\''+contextExperienceTitle+'\'', isGoBackTextLocalizable: false, goBackAction: navigateBack.bind($data) }, cacheViews: false }">
+        </div>
+        <!--/ko-->
+        <!--ko ifnot: _.isString(contextExperienceId) -->
+        <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'learningObjectives', isGoBackTextLocalizable: true, goBackAction: navigateBack.bind($data) }, cacheViews: false }">
+        </div>
+        <!--/ko-->
+
+        <form class="create-form">
+            <div class="white-framing pull-left">
+                <img class="create-form-image" src="/Content/images/objective.png" alt="" />
+            </div>
+            <div class="create-form-field">
+                <div class="edit-field selectable">
+                    <div class="text-block bordered" data-bind="css: { error: !title.isValid() && title().length > objectiveTitleMaxLength, active: isTitleEditing }">
+                        <div data-autofocus="true" class="editarea editarea-editable-text" data-bind="editableText: { text: title, multiline: false }, hasFocus: isTitleEditing"></div>
+                        <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > objectiveTitleMaxLength }">
+                            <span data-bind="text: title().trim().length"></span>/<span data-bind="text: objectiveTitleMaxLength"></span>
+                        </div>
                     </div>
                 </div>
+                <!-- ko compose: { view: 'views/common/createtip', model: { text: 'createObjectiveTip' } } -->
+                <!-- /ko -->
             </div>
-            <!-- ko compose: { view: 'views/common/createtip', model: { text: 'createObjectiveTip' } } -->
+
+            <!-- ko compose: { view: 'views/common/formactions', model: { isValid: title.isValid(), saveAndNew: createAndNew.bind($data), saveAndOpen: createAndEdit.bind($data) } } -->
             <!-- /ko -->
-        </div>
 
-        <!-- ko compose: { view: 'views/common/formactions', model: { isValid: title.isValid(), saveAndNew: createAndNew.bind($data), saveAndOpen: createAndEdit.bind($data) } } -->
-        <!-- /ko -->
-
-    </form>
-
+        </form>
+    </div>
 </section>

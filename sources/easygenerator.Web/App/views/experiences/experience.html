@@ -1,217 +1,226 @@
-﻿<section class="experience unselectable container">
-    <nav class="main-nav">
-        <ul class="unstyled main-nav-list">
-            <li class="main-nav-item left" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'experiences', isGoBackTextLocalizable: true, goBackAction: navigateToExperiences } }"></li>
-            <li class="main-nav-item right">
-                <div class="nav-control right" data-bind="css: { 'build-experience': status() == statuses.notStarted }">
-                    <!-- BUILD EXPERIENCE BUTTON -->
-                    <!-- ko if: status() == statuses.notStarted -->
-                    <div class="experience-build-progress-status-item build" data-bind="click: buildExperience">
-                        <span class="experience-build-status-image experience-build-status-image-not-started pull-right"></span>
-                        <span class="nav-title" data-bind="localize: { text: 'createPackage' }">Create package</span>
-                    </div>
-                    <!-- /ko -->
+﻿<section class="experience unselectable view-module">
+    <div class="fixed-container">
+        <div class="content-holder">
+            <div class="page-view-caption clearfix">
+                <div class="page-view-caption-text" data-bind="localize : { text : 'learningExperienceViewCaption' }">Learning experience editor</div>
+            </div>
+        </div>
+    </div>
 
-                    <!-- BUILDING STATUS -->
-                    <!-- ko if: status() == statuses.inProgress && status() != statuses.notStarted -->
-                    <div class="experience-build-progress-status-item not-transparent">
-                        <span class="experience-build-status-image experience-build-status-image-in-progress pull-right"></span>
-                        <!-- ko if: isFirstBuild() -->
-                        <span class="nav-title" data-bind="localize: { text: 'creatingStatus' }">Creating...</span>
+    <div class="container">
+        <nav class="main-nav">
+            <ul class="unstyled main-nav-list">
+                <li class="main-nav-item left" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'experiences', isGoBackTextLocalizable: true, goBackAction: navigateToExperiences } }"></li>
+                <li class="main-nav-item right">
+                    <div class="nav-control right" data-bind="css: { 'build-experience': status() == statuses.notStarted }">
+                        <!-- BUILD EXPERIENCE BUTTON -->
+                        <!-- ko if: status() == statuses.notStarted -->
+                        <div class="experience-build-progress-status-item build" data-bind="click: buildExperience">
+                            <span class="experience-build-status-image experience-build-status-image-not-started pull-right"></span>
+                            <span class="nav-title" data-bind="localize: { text: 'createPackage' }">Create package</span>
+                        </div>
                         <!-- /ko -->
-                        <!-- ko if: !isFirstBuild() -->
-                        <span class="nav-title" data-bind="localize: { text: 'updatingStatus' }">Updating...</span>
+
+                        <!-- BUILDING STATUS -->
+                        <!-- ko if: status() == statuses.inProgress && status() != statuses.notStarted -->
+                        <div class="experience-build-progress-status-item not-transparent">
+                            <span class="experience-build-status-image experience-build-status-image-in-progress pull-right"></span>
+                            <!-- ko if: isFirstBuild() -->
+                            <span class="nav-title" data-bind="localize: { text: 'creatingStatus' }">Creating...</span>
+                            <!-- /ko -->
+                            <!-- ko if: !isFirstBuild() -->
+                            <span class="nav-title" data-bind="localize: { text: 'updatingStatus' }">Updating...</span>
+                            <!-- /ko -->
+                        </div>
+                        <!-- /ko -->
+
+                        <!-- BUILD SUCCESS/ DOWNLOAD BUTTON -->
+                        <!-- ko if: status() == statuses.succeed && status() != statuses.notStarted -->
+                        <div class="experience-build-progress-status-item" data-bind="click: downloadExperience">
+                            <span class="experience-build-status-image experience-build-status-image-complete pull-right"></span>
+                            <span class="nav-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
+                        </div>
+                        <!-- /ko -->
+
+                        <!-- BUILD FAILED BUTTON -->
+                        <!-- ko if: status() == statuses.failed -->
+                        <div class="experience-build-progress-status-item failed not-transparent" data-bind="event: { mouseover: resetBuildStatus }">
+                            <span class="experience-build-status-image experience-build-status-image-failed pull-right"></span>
+                            <span class="experience-build-status-text" data-bind="localize: { text: 'experienceFailedStatus' }">Building failed</span>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+
+                    <!-- REBUILD BUTTON -->
+                    <!-- ko if: status() == statuses.succeed ||  status() == statuses.inProgress && !isFirstBuild() -->
+                    <div class="main-nav-separator"></div>
+                    <div class="nav-control rebuild left">
+                        <!-- ko if: status() == statuses.inProgress -->
+                        <div class="disabled nav-control-inner rebuild">
+                            <span class="nav-title" data-bind="localize: { text: 'updatePackage' }"></span>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko ifnot: status() == statuses.inProgress -->
+                        <div class="nav-control-inner rebuild" data-bind=" click: buildExperience">
+                            <span class="nav-title" data-bind="localize: { text: 'updatePackage' }"></span>
+                        </div>
                         <!-- /ko -->
                     </div>
                     <!-- /ko -->
+                </li>
+            </ul>
+        </nav>
 
-                    <!-- BUILD SUCCESS/ DOWNLOAD BUTTON -->
-                    <!-- ko if: status() == statuses.succeed && status() != statuses.notStarted -->
-                    <div class="experience-build-progress-status-item" data-bind="click: downloadExperience">
-                        <span class="experience-build-status-image experience-build-status-image-complete pull-right"></span>
-                        <span class="nav-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
-                    </div>
-                    <!-- /ko -->
-
-                    <!-- BUILD FAILED BUTTON -->
-                    <!-- ko if: status() == statuses.failed -->
-                    <div class="experience-build-progress-status-item failed not-transparent" data-bind="event: { mouseover: resetBuildStatus }">
-                        <span class="experience-build-status-image experience-build-status-image-failed pull-right"></span>
-                        <span class="experience-build-status-text" data-bind="localize: { text: 'experienceFailedStatus' }">Building failed</span>
-                    </div>
-                    <!-- /ko -->
-                </div>
-
-                <!-- REBUILD BUTTON -->
-                <!-- ko if: status() == statuses.succeed ||  status() == statuses.inProgress && !isFirstBuild() -->
-                <div class="main-nav-separator"></div>
-                <div class="nav-control rebuild left">
-                    <!-- ko if: status() == statuses.inProgress -->
-                    <div class="disabled nav-control-inner rebuild">
-                        <span class="nav-title" data-bind="localize: { text: 'updatePackage' }"></span>
-                    </div>
-                    <!-- /ko -->
-                    <!-- ko ifnot: status() == statuses.inProgress -->
-                    <div class="nav-control-inner rebuild" data-bind=" click: buildExperience">
-                        <span class="nav-title" data-bind="localize: { text: 'updatePackage' }"></span>
-                    </div>
-                    <!-- /ko -->
-                </div>
-                <!-- /ko -->
-            </li>
-        </ul>
-    </nav>
-    <span class="page-title" data-bind="localize: { text: 'learningExperienceViewCaption' }">Learning experience editor</span>
-    <header class="view-header">
-        <!-- ko ifnot: _.isNullOrUndefined(previousExperienceId) -->
-        <a class="view-header-nav-btn previous" href="" title="Previous" data-bind="click: navigateToPreviousExperience, localize: { title: 'previous' }"></a>
-        <!-- /ko -->
-        <!-- ko if: _.isNullOrUndefined(previousExperienceId) -->
-        <div class="view-header-nav-btn previous disabled" title="Previous" data-bind="localize: { title: 'previous' }"></div>
-        <!-- /ko -->
-
-        <div>
-            <!-- ko compose: { 
-                view: 'views/common/entityinfo', 
-                model: {
-                    info: [ { text: 'createdOn', emptyText: '', date: createdOn }, { text: 'modifiedOn', emptyText: '', date: modifiedOn() }, { text: 'packageCreatedOn', emptyText: 'packageNotCreatedStatus', date: builtOn() } ],
-                    image: template.image,
-                    language: language
-                }
-            } -->
+        <header class="view-header">
+            <!-- ko ifnot: _.isNullOrUndefined(previousExperienceId) -->
+            <a class="view-header-nav-btn previous" href="" title="Previous" data-bind="click: navigateToPreviousExperience, localize: { title: 'previous' }"></a>
+            <!-- /ko -->
+            <!-- ko if: _.isNullOrUndefined(previousExperienceId) -->
+            <div class="view-header-nav-btn previous disabled" title="Previous" data-bind="localize: { title: 'previous' }"></div>
             <!-- /ko -->
 
-            <div class="view-header-title">
-                <div class="view-header-title-text selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': isEditing(), 'error': !title.isValid() }"></div>
-                <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
-                    <span data-bind="text: title().trim().length + '/' + experienceTitleMaxLength"></span>
+            <div>
+                <!-- ko compose: { 
+                view: 'views/common/entityinfo', 
+                model: {
+                info: [ { text: 'createdOn', emptyText: '', date: createdOn }, { text: 'modifiedOn', emptyText: '', date: modifiedOn() }, { text: 'packageCreatedOn', emptyText: 'packageNotCreatedStatus', date: builtOn() } ],
+                image: template.image,
+                language: language
+                }
+                } -->
+                <!-- /ko -->
+
+                <div class="view-header-title">
+                    <div class="view-header-title-text selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': isEditing(), 'error': !title.isValid() }"></div>
+                    <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
+                        <span data-bind="text: title().trim().length + '/' + experienceTitleMaxLength"></span>
+                    </div>
+                </div>
+                <div class="entity-actions">
+                    <div class="experience-template-selector-text" data-bind="localize: { text: 'learningExperienceTemplate' } ">Learning experience template:</div>
+                    <div class="experience-template-selector" data-bind="selectBox: { options: templates, optionsText: 'name', optionsValue: 'id', value: template.id }, event: { change: updateExperienceTemplate }"></div>
                 </div>
             </div>
-            <div class="entity-actions">
-                <div class="experience-template-selector-text" data-bind="localize: { text: 'learningExperienceTemplate' } ">Learning experience template:</div>
-                <div class="experience-template-selector" data-bind="selectBox: { options: templates, optionsText: 'name', optionsValue: 'id', value: template.id }, event: { change: updateExperienceTemplate }"></div>
-            </div>
-        </div>
 
-        <!-- ko ifnot: _.isNullOrUndefined(nextExperienceId) -->
-        <a class="view-header-nav-btn next" href="" title="Next" data-bind="click: navigateToNextExperience, localize: { title: 'next' }"></a>
-        <!-- /ko -->
-        <!-- ko if: _.isNullOrUndefined(nextExperienceId) -->
-        <div class="view-header-nav-btn next disabled" title="Next" data-bind="localize: { title: 'next' }"></div>
-        <!-- /ko -->
-    </header>
+            <!-- ko ifnot: _.isNullOrUndefined(nextExperienceId) -->
+            <a class="view-header-nav-btn next" href="" title="Next" data-bind="click: navigateToNextExperience, localize: { title: 'next' }"></a>
+            <!-- /ko -->
+            <!-- ko if: _.isNullOrUndefined(nextExperienceId) -->
+            <div class="view-header-nav-btn next disabled" title="Next" data-bind="localize: { title: 'next' }"></div>
+            <!-- /ko -->
+        </header>
 
 
-    <!-- ko if: objectivesMode() == objectivesListModes.display -->
-    <div class="experience-related-objectives-header">
-        <a class="experiences-header-create-link" data-bind="click: startAppendingObjectives, localize: { title: 'connectObjectives' }"></a>
-        <span class="experience-header-title-text" data-bind="localize: { text: 'connectedLearningObjectives' }">Related learning objectives</span>
-        <!-- ko if: canUnrelateObjectives() -->
-        <span class="header-toolbar-item-wrapper" data-bind="click: unrelateSelectedObjectives, localize: { title: 'disconnectSelectedObjectives' }">
-            <span class="toolbar-unrelate"></span>
-        </span>
-        <!-- /ko -->
-        <hr />
-    </div>
-    <!-- /ko -->
-
-    <!-- ko if: objectivesMode() == objectivesListModes.appending -->
-    <div class="experience-header clearfix">
-        <div class="experiences-header-title">
-            <a class="experiences-header-finish-link" data-bind="click: finishAppendingObjectives, localize: { title: 'connectSelectedObjectives' }"></a>
-            <span class="experiences-header-title-text" data-bind="localize: { text: 'finish' }"></span>
+        <!-- ko if: objectivesMode() == objectivesListModes.display -->
+        <div class="experience-related-objectives-header">
+            <a class="experiences-header-create-link" data-bind="click: startAppendingObjectives, localize: { title: 'connectObjectives' }"></a>
+            <span class="experience-header-title-text" data-bind="localize: { text: 'connectedLearningObjectives' }">Related learning objectives</span>
+            <!-- ko if: canUnrelateObjectives() -->
+            <span class="header-toolbar-item-wrapper" data-bind="click: unrelateSelectedObjectives, localize: { title: 'disconnectSelectedObjectives' }">
+                <span class="toolbar-unrelate"></span>
+            </span>
+            <!-- /ko -->
             <hr />
         </div>
-        <div class="experiences-header-create-objective-wrapper">
-            <div class="experiences-header-create-objective-block">
-                <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
+        <!-- /ko -->
+
+        <!-- ko if: objectivesMode() == objectivesListModes.appending -->
+        <div class="experience-header clearfix">
+            <div class="experiences-header-title">
+                <a class="experiences-header-finish-link" data-bind="click: finishAppendingObjectives, localize: { title: 'connectSelectedObjectives' }"></a>
+                <span class="experiences-header-title-text" data-bind="localize: { text: 'finish' }"></span>
+                <hr />
+            </div>
+            <div class="experiences-header-create-objective-wrapper">
+                <div class="experiences-header-create-objective-block">
+                    <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
                     <!-- ko compose: { view: 'views/common/createtip', model: { text: 'clickToCreateNewObjective' } } -->
                     <!-- /ko -->
-                <!-- /ko -->
-                <span class="experience-create-objective" data-bind="localize: { text: 'createObjectiveFromExperience' }"></span>
-                <span class="experience-create-objective-image" data-bind="click: navigateToCreateObjective, localize: { title: 'addNewObjective' }"></span>    
+                    <!-- /ko -->
+                    <span class="experience-create-objective" data-bind="localize: { text: 'createObjectiveFromExperience' }"></span>
+                    <span class="experience-create-objective-image" data-bind="click: navigateToCreateObjective, localize: { title: 'addNewObjective' }"></span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- /ko -->
+        <!-- /ko -->
 
-    <!-- ko if: (objectivesMode() == objectivesListModes.display && relatedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->
-    <div class="content-list-wrapper">
+        <!-- ko if: (objectivesMode() == objectivesListModes.display && relatedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->
+        <div class="content-list-wrapper">
 
-        <div class="hint-popup-holder" data-bind="visible: hintPopup.displayed">
-            <!-- ko compose: {
+            <div class="hint-popup-holder" data-bind="visible: hintPopup.displayed">
+                <!-- ko compose: {
                 view: 'views/common/hintpopup',
                 model: {
                 text: 'connectObjectivesHelpHint',
                 close: hintPopup.close.bind(hintPopup)
                 }
                 } -->
-            <!-- /ko -->
-        </div>
+                <!-- /ko -->
+            </div>
 
-        <ul class="content-list">
-            <!-- ko foreach: objectivesMode() == objectivesListModes.display ? relatedObjectives() : availableObjectives() -->
-            <li class="content-list-item" data-bind="css: { 'selected': isSelected }">
-                <div class="hover-indicator"></div>
-                <div class="content-list-logo-wrapper white-framing">
-                    <img class="content-list-logo" alt="" data-bind="attr: { src: image }">
-                    <div class="item-options">
-                        <div class="item-option select" data-bind="click: $parent.toggleObjectiveSelection, css: { 'alone': $parent.objectivesMode() == $parent.objectivesListModes.appending }">
-                            <!-- ko ifnot: isSelected() -->
-                            <div class="nowrap" data-bind="localize: { text: 'select' }">Select</div>
-                            <div class="action-img unchecked inline">
-                                <input type="checkbox" class="custom-checkbox">
+            <ul class="content-list">
+                <!-- ko foreach: objectivesMode() == objectivesListModes.display ? relatedObjectives() : availableObjectives() -->
+                <li class="content-list-item" data-bind="css: { 'selected': isSelected }">
+                    <div class="hover-indicator"></div>
+                    <div class="content-list-logo-wrapper white-framing">
+                        <img class="content-list-logo" alt="" data-bind="attr: { src: image }">
+                        <div class="item-options">
+                            <div class="item-option select" data-bind="click: $parent.toggleObjectiveSelection, css: { 'alone': $parent.objectivesMode() == $parent.objectivesListModes.appending }">
+                                <!-- ko ifnot: isSelected() -->
+                                <div class="nowrap" data-bind="localize: { text: 'select' }">Select</div>
+                                <div class="action-img unchecked inline">
+                                    <input type="checkbox" class="custom-checkbox">
+                                </div>
+                                <!-- /ko -->
+                                <!-- ko if: isSelected() -->
+                                <div class="nowrap" data-bind="localize: { text: 'unselect' }">Unselect</div>
+                                <div class="action-img checked inline">
+                                    <input class="custom-checkbox" type="checkbox">
+                                </div>
+                                <!-- /ko -->
                             </div>
-                            <!-- /ko -->
-                            <!-- ko if: isSelected() -->
-                            <div class="nowrap" data-bind="localize: { text: 'unselect' }">Unselect</div>
-                            <div class="action-img checked inline">
-                                <input class="custom-checkbox" type="checkbox">
+                            <!-- ko if: $parent.objectivesMode() == $parent.objectivesListModes.display -->
+                            <div class="separator"></div>
+                            <div class="item-option edit" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent)">
+                                <div class="nowrap" data-bind="localize: { text: 'edit' }">Open</div>
+                                <div class="action-img inline">
+                                </div>
                             </div>
                             <!-- /ko -->
                         </div>
-                        <!-- ko if: $parent.objectivesMode() == $parent.objectivesListModes.display -->
-                        <div class="separator"></div>
-                        <div class="item-option edit" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent)">
-                            <div class="nowrap" data-bind="localize: { text: 'edit' }">Open</div>
-                            <div class="action-img inline">
-                            </div>
-                        </div>
-                        <!-- /ko -->
                     </div>
-                </div>
-                <div class="li-related-objective-question-count-wrapper" data-bind="localize: { title: 'numberOfRelatedQuestions' }">
-                    <div class="li-related-objective-question-count-image"></div>
-                    <div class="li-related-objective-question-count-text" data-bind="text: questionsCount"></div>
-                </div>
-                <div class="text-block selectable">
-                    <p data-bind="text: title"></p>
-                </div>
-            </li>
-            <!-- /ko -->
-        </ul>
-    </div>
-    <!-- /ko -->
-
-    <!-- ko if: objectivesMode() == objectivesListModes.display && relatedObjectives().length == 0 -->
-    <div class="add-new-item-tip">
-        <div class="add-new-item-tip-arrow"></div>
-        <div class="add-new-item-tip-text rotate-right" data-bind="localize: { text: 'clickToAddObjectivesIntoExperience' }"></div>
-    </div>
-    <div class="empty-list-wrapper">
-        <div class="empty-list">
-            <div class="empty-list-text" data-bind="localize: { text: 'noConnectedLearningObjectives' }"></div>
+                    <div class="li-related-objective-question-count-wrapper" data-bind="localize: { title: 'numberOfRelatedQuestions' }">
+                        <div class="li-related-objective-question-count-image"></div>
+                        <div class="li-related-objective-question-count-text" data-bind="text: questionsCount"></div>
+                    </div>
+                    <div class="text-block selectable">
+                        <p data-bind="text: title"></p>
+                    </div>
+                </li>
+                <!-- /ko -->
+            </ul>
         </div>
-    </div>
-    <!-- /ko -->
+        <!-- /ko -->
 
-    <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
-    <div class="empty-list-wrapper">
-        <div class="empty-list">
-            <div class="empty-list-text" data-bind="localize: { text: 'noObjectivesForConnect' }"></div>
+        <!-- ko if: objectivesMode() == objectivesListModes.display && relatedObjectives().length == 0 -->
+        <div class="add-new-item-tip">
+            <div class="add-new-item-tip-arrow"></div>
+            <div class="add-new-item-tip-text rotate-right" data-bind="localize: { text: 'clickToAddObjectivesIntoExperience' }"></div>
         </div>
-    </div>
-    <!-- /ko -->
+        <div class="empty-list-wrapper">
+            <div class="empty-list">
+                <div class="empty-list-text" data-bind="localize: { text: 'noConnectedLearningObjectives' }"></div>
+            </div>
+        </div>
+        <!-- /ko -->
 
+        <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
+        <div class="empty-list-wrapper">
+            <div class="empty-list">
+                <div class="empty-list-text" data-bind="localize: { text: 'noObjectivesForConnect' }"></div>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
 </section>

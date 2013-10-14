@@ -1,34 +1,44 @@
-﻿<section id="createExperience" class="create-experience container unselectable">
-
-    <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'experiences', isGoBackTextLocalizable: true, goBackAction: navigateToExperiences } }">
+﻿<section id="createExperience" class="view-module create-experience unselectable">
+    <div class="fixed-container">
+        <div class="content-holder">
+            <div class="page-view-caption clearfix">
+                <div class="page-view-caption-text" data-bind="localize : { text : 'createExperienceViewCaption' }">Create learning experience</div>
+            </div>
+        </div>
     </div>
 
-    <form class="create-form">
-        <div class="pull-left">
-            <div class="white-framing">
-                <img class="create-form-image" src="#" data-bind="attr: { src: template.image }" />
-            </div>
+    <div class="container">
+
+        <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'experiences', isGoBackTextLocalizable: true, goBackAction: navigateToExperiences } }">
         </div>
 
-        <div class="create-form-field">
-            <div class="edit-field selectable">
-                <div class="text-block bordered active" data-bind="css: { error: !title.isValid() && title().length > experienceTitleMaxLength, active: title.isEditing }">
-                    <div data-autofocus="true" class="editarea editarea-editable-text" data-bind="editableText: { text: title }, hasFocus: title.isEditing"></div>
-                    <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > experienceTitleMaxLength }">
-                        <span data-bind="text: title().trim().length"></span>/<span data-bind="    text: experienceTitleMaxLength"></span>
-                    </div>
+        <form class="create-form">
+            <div class="pull-left">
+                <div class="white-framing">
+                    <img class="create-form-image" src="#" data-bind="attr: { src: template.image }" />
                 </div>
             </div>
-            <!-- ko compose: { view: 'views/common/createtip', model: { text: 'typeExperienceTitleHere' } } -->
+
+            <div class="create-form-field">
+                <div class="edit-field selectable">
+                    <div class="text-block bordered active" data-bind="css: { error: !title.isValid() && title().length > experienceTitleMaxLength, active: title.isEditing }">
+                        <div data-autofocus="true" class="editarea editarea-editable-text" data-bind="editableText: { text: title }, hasFocus: title.isEditing"></div>
+                        <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > experienceTitleMaxLength }">
+                            <span data-bind="text: title().trim().length"></span>/<span data-bind="    text: experienceTitleMaxLength"></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- ko compose: { view: 'views/common/createtip', model: { text: 'typeExperienceTitleHere' } } -->
+                <!-- /ko -->
+            </div>
+
+            <div class="create-entity-actions">
+                <div class="experience-template-selector-text" data-bind="localize: { text: 'chooseLearningExperinceTemplate' } ">Choose learning experience template:</div>
+                <div class="experience-template-selector" data-bind="selectBox: { options: templates(), optionsText: 'name', optionsValue: 'id', value: template.id, defaultText: '&nbsp;' }"></div>
+            </div>
+
+            <!-- ko compose: { view: 'views/common/formactions', model: { isValid: title.isValid() && _.isString(template.id()), saveAndNew: createAndNew, saveAndOpen: createAndEdit } } -->
             <!-- /ko -->
-        </div>
-
-        <div class="create-entity-actions">
-            <div class="experience-template-selector-text" data-bind="localize: { text: 'chooseLearningExperinceTemplate' } ">Choose learning experience template:</div>
-            <div class="experience-template-selector" data-bind="selectBox: { options: templates(), optionsText: 'name', optionsValue: 'id', value: template.id, defaultText: '&nbsp;' }"></div>
-        </div>
-
-        <!-- ko compose: { view: 'views/common/formactions', model: { isValid: title.isValid() && _.isString(template.id()), saveAndNew: createAndNew, saveAndOpen: createAndEdit } } -->
-        <!-- /ko -->
-    </form>
+        </form>
+    </div>
 </section>

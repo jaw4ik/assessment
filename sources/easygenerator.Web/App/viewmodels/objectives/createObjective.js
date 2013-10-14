@@ -61,7 +61,7 @@
                 var that = this;
                 createObjective.call(that, function (createdObjective) {
                     isTitleEditing(true);
-                    notify.info(localizationManager.localize('lastSaving') + ': ' + createdObjective.createdOn.toLocaleTimeString());
+                    notify.info(localizationManager.localize('savedAt') + ' ' + createdObjective.createdOn.toLocaleTimeString());
                 });
             },
 

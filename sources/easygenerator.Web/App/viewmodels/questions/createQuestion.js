@@ -64,7 +64,7 @@
                     that.title.isModified(false);
                     that.title.isEditing(true);
                     
-                    notify.info(localizationManager.localize('lastSaving') + ': ' + newQuestion.createdOn.toLocaleTimeString());
+                    notify.info(localizationManager.localize('savedAt') + ' ' + newQuestion.createdOn.toLocaleTimeString());
                 });
             },
             

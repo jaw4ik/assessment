@@ -44,7 +44,7 @@
                 eventTracker.publish(events.createAndNew);
                 createExperience.call(this, function (experience) {
                     title.isEditing(true);
-                    notify.info(localizationManager.localize('lastSaving') + ': ' + experience.createdOn.toLocaleTimeString());
+                    notify.info(localizationManager.localize('savedAt') + ' ' + experience.createdOn.toLocaleTimeString());
                 });
             },
 
@@ -73,7 +73,7 @@
                     that.chooseTemplateText = localizationManager.localize('chooseTemplate');
                 });
             },
-            
+
             compositionComplete = function () {
                 setWidthSelector();
 
