@@ -259,11 +259,6 @@ namespace easygenerator.Web.Configuration
                 defaults: new { controller = "Account", action = "SignOut" });
 
             routes.MapRoute(
-                name: "SignupFromTry",
-                url: "try/signup",
-                defaults: new { controller = "Account", action = "SignupFromTry" });
-
-            routes.MapRoute(
                 name: "TryWithoutSignup",
                 url: "try",
                 defaults: new { controller = "Account", action = "TryWithoutSignup" });

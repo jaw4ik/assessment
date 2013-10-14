@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using easygenerator.Web.Controllers;
 using easygenerator.Web.Tests.Utils;
@@ -16,13 +22,26 @@ namespace easygenerator.Web.Tests.Controllers
     public class AccountControllerTests
     {
         private AccountController _controller;
+
         private IAuthenticationProvider _authenticationProvider;
+        private IUserRepository _userRepository;
+
+        IPrincipal _user;
+        HttpContextBase _context;
+
 
         [TestInitialize]
         public void InitializeContext()
         {
             _authenticationProvider = Substitute.For<IAuthenticationProvider>();
-            _controller = new AccountController(_authenticationProvider);
+            _userRepository = Substitute.For<IUserRepository>();
+            _controller = new AccountController(_authenticationProvider, _userRepository);
+
+            _user = Substitute.For<IPrincipal>();
+            _context = Substitute.For<HttpContextBase>();
+            _context.User.Returns(_user);
+
+            _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
         #region PrivacyPolicy
@@ -75,10 +94,11 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void SignUp_ShouldRedirectToDefaultRoute_WhenUserAlreadyAuthenticated()
+        public void SignUp_ShouldRedirectToDefaultRoute_WhenExistingUserIsAlreadyAuthenticated()
         {
             //Arrange
             _authenticationProvider.IsUserAuthenticated().Returns(true);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(Substitute.For<User>());
 
             //Act
             var result = _controller.SignUp();
@@ -105,33 +125,17 @@ namespace easygenerator.Web.Tests.Controllers
         }
 
         [TestMethod]
-        public void SignIn_ShouldRedirectToDefaultRoute_WhenUserAlreadyAuthenticated()
+        public void SignIn_ShouldRedirectToDefaultRoute_WhenExistingUserIsAlreadyAuthenticated()
         {
             //Arrange
             _authenticationProvider.IsUserAuthenticated().Returns(true);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(Substitute.For<User>());
 
             //Act
             var result = _controller.SignIn();
 
             //Assert
             ActionResultAssert.IsRedirectToRouteResult(result, "Default");
-        }
-
-        #endregion
-
-        #region SignupFromTry
-
-        [TestMethod]
-        public void SignupFromTry_ShouldReturnView()
-        {
-            //Arrange
-
-
-            //Act
-            var result = _controller.SignupFromTry();
-
-            //Assert
-            ActionResultAssert.IsViewResult(result, "SignUp", null);
         }
 
         #endregion

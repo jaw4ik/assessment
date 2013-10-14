@@ -4,18 +4,22 @@ using System.Net;
 using System.Web.Mvc;
 using System.Web.Security;
 using easygenerator.DataAccess.Repositories;
+using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Controllers
 {
     [AllowAnonymous]
-    public class AccountController : Controller
+    public class AccountController : DefaultController
     {
         private readonly IAuthenticationProvider _authenticationProvider;
+        private readonly IUserRepository _repository;
 
-        public AccountController(IAuthenticationProvider authenticationProvider)
+        public AccountController(IAuthenticationProvider authenticationProvider, IUserRepository repository)
         {
             _authenticationProvider = authenticationProvider;
+            _repository = repository;
         }
 
         [HttpGet]
@@ -48,7 +52,7 @@ namespace easygenerator.Web.Controllers
 
         public ActionResult SignUp()
         {
-            if (_authenticationProvider.IsUserAuthenticated())
+            if (IsExistingUserAuthenticated())
                 return RedirectToRoute("Default");
 
             return View();
@@ -56,28 +60,23 @@ namespace easygenerator.Web.Controllers
 
         public ActionResult SignIn()
         {
-            if (_authenticationProvider.IsUserAuthenticated())
+            if (IsExistingUserAuthenticated())
                 return RedirectToRoute("Default");
 
             return View();
         }
 
-        public ActionResult SignupFromTry()
-        {
-            return View("SignUp");
-        }
-
         public ActionResult SignOut()
-        {
-            return LogoutAndRedirectToRoute("SignIn");
-        }
-
-        private ActionResult LogoutAndRedirectToRoute(string routeToRedirect)
         {
             if (_authenticationProvider.IsUserAuthenticated())
                 _authenticationProvider.SignOut();
 
-            return RedirectToRoute(routeToRedirect);
+            return RedirectToRoute("SignIn");
+        }
+
+        private bool IsExistingUserAuthenticated()
+        {
+            return _authenticationProvider.IsUserAuthenticated() && _repository.GetUserByEmail(User.Identity.Name) != null;
         }
     }
 }
