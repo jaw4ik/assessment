@@ -1429,7 +1429,7 @@ ol.unstyled  {
 @media (max-width: 945px) {
 
     #content {
-        min-height: 550px;
+        min-height: 600px;
     }
 
     /*#region Form action buttons*/

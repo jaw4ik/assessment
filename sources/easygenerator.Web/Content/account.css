@@ -811,6 +811,7 @@ body.try {
     margin: 0 auto;
     padding-top: 9.5%;
     text-align: center;
+    padding-bottom: 30px;
 }
 
 .try-small-row {
@@ -1035,6 +1036,7 @@ body.try {
 }
 
 @media (max-width: 830px) {
+
     .try-image-bottom-text {
         right: 4%;
     }
@@ -1177,7 +1179,7 @@ body.try {
     }
 
     .try-image-bottom-text {
-        right: -27%;
+        right: -10%;
         font-size: 24px;
     }
 
@@ -1230,4 +1232,9 @@ body.try {
         width: 400px;
     }
     /*#endregion Terms of use and Privacy Polycy*/
+
+
+    .footer-item {
+        font-size: 11px;
+    }
 }
