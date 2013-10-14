@@ -11,6 +11,7 @@ using easygenerator.Web.Components.ActionResults;
 
 namespace easygenerator.Web.Controllers
 {
+    [Authorize]
     public class FileStorageController : Controller
     {
         public static readonly long MaximumFileSize = 10 * 1024 * 1024; // 10 MB 
@@ -28,6 +29,7 @@ namespace easygenerator.Web.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult Get(string fileId)
         {
             var fileLocation = Path.Combine(_httpRuntimeWrapper.GetDomainAppPath(), FileStoragePath, fileId[0].ToString(), fileId);
