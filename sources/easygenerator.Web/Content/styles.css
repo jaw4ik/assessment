@@ -27,7 +27,10 @@
     max-width: 1200px;
     min-width: 600px;
     margin: 0 auto;
-    padding: 0 20px 0;
+    padding: 0 20px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .view-module {
@@ -266,7 +269,7 @@ a.top-navigation-item:hover {
 
 .page-view-caption {
     padding: 11px 0;
-    position: relative;
+	position: relative;
 }
 
 .page-view-caption-text {
@@ -307,14 +310,20 @@ a.top-navigation-item:hover {
 @media (max-width: 790px ) {
 
     /*#region HEADER*/
+    .header .content-holder {
+        width: 100%;
+        padding: 0 5px;
+    }
+    
     .header-menu-list-item.sign-up {
-        padding: 16px 13px;
+        padding: 16px 10px;
         font-size: 13px;
     }
 
         .header-menu-list-item.sign-up.sign-up .button {
             padding: 7px 8px;
             font-size: 12px;
+            margin-left: 10px;
         }
     /*#endregion HEADER*/
 
