@@ -104,7 +104,7 @@
                 var promise = removeAnswer.promise.fin(function () { });
                 var answer = {};
                 viewModel.answers([answer]);
-                removeAnswer.resolve(new Date());
+                removeAnswer.resolve({ modifiedOn: new Date() });
 
                 viewModel.removeAnswer(answer);
 
@@ -182,7 +182,7 @@
                         var promise = removeAnswer.promise.fin(function () { });
                         var answer = { id: ko.observable('answerId'), text: ko.observable(''), hasFocus: ko.observable(true) };
                         viewModel.answers([answer]);
-                        removeAnswer.resolve(new Date());
+                        removeAnswer.resolve({ modifiedOn: new Date() });
 
                         viewModel.endEditText(answer);
 
@@ -210,18 +210,15 @@
 
         describe('updateText:', function () {
 
-            var getById;
             var addAnswer;
             var updateAnswerText;
 
             beforeEach(function () {
                 viewModel = ctor(questionId, []);
 
-                getById = Q.defer();
                 addAnswer = Q.defer();
                 updateAnswerText = Q.defer();
 
-                spyOn(repository, 'getById').andReturn(getById.promise);
                 spyOn(repository, 'addAnswer').andReturn(addAnswer.promise);
                 spyOn(repository, 'updateText').andReturn(updateAnswerText.promise);
             });
@@ -239,46 +236,35 @@
                     describe('and text is not modified', function () {
 
                         it('should not update answer text in the repository', function () {
-                            var promise = getById.promise.fin(function () { });
-
-                            getById.resolve({ id: answer.id(), text: 'text' });
-
+                            answer.originalText = 'text';
                             viewModel.updateText(answer);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(repository.updateText).not.toHaveBeenCalledWith(answer.id(), answer.text());
-                            });
+                            expect(repository.updateText).not.toHaveBeenCalledWith(questionId, answer.id(), answer.text());
                         });
 
                     });
 
                     describe('and text is modified', function () {
 
+                        beforeEach(function () {
+                            answer.originalText = '';
+                        });
+
                         it('should update answer text in the repository', function () {
                             var promise = updateAnswerText.promise.fin(function () { });
-
-                            getById.resolve({ id: 'answerId' });
                             updateAnswerText.resolve(new Date());
-
                             viewModel.updateText(answer);
 
                             waitsFor(function () {
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(repository.updateText).toHaveBeenCalledWith(answer.id(), answer.text());
+                                expect(repository.updateText).toHaveBeenCalledWith(questionId, answer.id(), answer.text());
                             });
                         });
 
                         it('should show notification', function () {
-                            var promise = getById.promise.fin(function () { });
-
-                            getById.resolve({ id: 'answerId' });
-                            updateAnswerText.resolve(new Date());
-
+                            var promise = updateAnswerText.promise.fin(function () { });
+                            updateAnswerText.resolve({ modifiedOn: new Date() });
                             viewModel.updateText(answer);
 
                             waitsFor(function () {
@@ -367,7 +353,7 @@
 
                 viewModel.toggleCorrectness(answer);
 
-                expect(repository.updateCorrectness).toHaveBeenCalledWith(answer.id(), true);
+                expect(repository.updateCorrectness).toHaveBeenCalledWith(questionId, answer.id(), true);
             });
 
             it('should update answer correctness in the viewModel', function () {
@@ -382,7 +368,7 @@
                 var promise = updateCorrectness.promise.fin(function () { });
                 var answer = { id: ko.observable('answerId'), isCorrect: ko.observable(false) };
                 notify.info.reset();
-                updateCorrectness.resolve(new Date());
+                updateCorrectness.resolve({ modifiedOn: new Date() });
 
                 viewModel.toggleCorrectness(answer);
 

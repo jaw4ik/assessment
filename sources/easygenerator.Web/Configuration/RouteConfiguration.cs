@@ -112,6 +112,12 @@ namespace easygenerator.Web.Configuration
                 defaults: new { controller = "Answer", action = "UpdateCorrectness" }
             );
 
+            routes.MapRoute(
+                name: "GetAnswers",
+                url: "api/answers",
+                defaults: new { controller = "Answer", action = "GetCollection" }
+            );
+
             #endregion
 
             #region Learning objects

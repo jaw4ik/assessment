@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System;
+using System.Security.Principal;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -202,6 +199,36 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.UpdateCorrectness(answer, true);
 
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = answer.ModifiedOn });
+        }
+
+        #endregion
+
+        #region Get collection
+
+        [TestMethod]
+        public void GetCollection_ShouldReturnJsonErrorResult_WhenQuestionNotFound()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.GetCollection(null);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Constants.Errors.QuestionNotFoundError);
+        }
+
+        [TestMethod]
+        public void GetCollection_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var question = QuestionObjectMother.Create();
+            question.AddAnswer(AnswerObjectMother.Create(), "Some user");
+
+            //Act
+            var result = _controller.GetCollection(question);
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
         }
 
         #endregion

@@ -18,75 +18,6 @@
             expect(repository).toBeObject();
         });
 
-        describe('getById:', function () {
-
-            it('should be function', function () {
-                expect(repository.getById).toBeFunction();
-            });
-
-            it('should return promise', function () {
-                expect(repository.getById()).toBePromise();
-            });
-
-            describe('when id is not a string', function () {
-
-                it('should reject promise', function () {
-                    var promise = repository.getById();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(promise).toBeRejectedWith('Answer id is not a string');
-                    });
-                });
-
-            });
-
-            describe('when answer does not exist in dataContext', function () {
-
-                it('should resolve promise with null', function () {
-                    var promise = repository.getById('');
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(promise).toBeResolvedWith(null);
-                    });
-                });
-
-            });
-
-            describe('when answer exists in dataContext', function () {
-
-                var dataContext = require('dataContext');
-
-                var answer = {
-                    id: 'answerId',
-                    text: 'text'
-                };
-
-                beforeEach(function () {
-                    dataContext.objectives = [{ questions: [{ answerOptions: [answer] }] }];
-                });
-
-
-                it('should resolve promise with answer', function () {
-                    var promise = repository.getById(answer.id);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(promise).toBeResolvedWith(answer);
-                    });
-                });
-
-            });
-
-        });
-
         describe('addAnswer:', function () {
 
             it('should be function', function () {
@@ -291,24 +222,6 @@
                             dataContext.objectives = [objective];
                         });
 
-                        it('should add answer option to question', function () {
-                            var promise = repository.addAnswer(question.id, answer);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(question.answerOptions.length).toEqual(1);
-                                expect(question.answerOptions[0]).toEqual({
-                                    id: response.Id,
-                                    text: answer.text,
-                                    isCorrect: true,
-                                    createdOn: utils.getDateFromString(response.CreatedOn),
-                                    modifiedOn: utils.getDateFromString(response.CreatedOn)
-                                });
-                            });
-                        });
-
                         it('should update question modification date', function () {
                             var promise = repository.addAnswer(question.id, answer);
 
@@ -494,18 +407,6 @@
                             dataContext.objectives = [objective];
                         });
 
-
-                        it('should remove answer from question', function () {
-                            var promise = repository.removeAnswer(question.id, answer.id);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(dataContext.objectives[0].questions[0].answerOptions.length).toEqual(0);
-                            });
-                        });
-
                         it('should update question modification date', function () {
                             var promise = repository.removeAnswer(question.id, answer.id);
 
@@ -524,7 +425,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(promise).toBeResolvedWith(utils.getDateFromString(response.ModifiedOn));
+                                expect(promise).toBeResolvedWith({ modifiedOn: utils.getDateFromString(response.ModifiedOn) });
                             });
                         });
 
@@ -547,10 +448,25 @@
                 expect(repository.updateText()).toBePromise();
             });
 
+            describe('when questionId is not a string', function () {
+
+                it('should reject promise', function () {
+                    var promise = repository.updateText(undefined, '', '');
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(promise).toBeRejectedWith('Question id is not a string');
+                    });
+                });
+
+            });
+
             describe('when answerId is not a string', function () {
 
                 it('should reject promise', function () {
-                    var promise = repository.updateText(undefined, '');
+                    var promise = repository.updateText('', undefined, '');
 
                     waitsFor(function () {
                         return !promise.isPending();
@@ -565,7 +481,7 @@
             describe('when text is not a string', function () {
 
                 it('should reject promise', function () {
-                    var promise = repository.updateText('', undefined);
+                    var promise = repository.updateText('', '', undefined);
 
                     waitsFor(function () {
                         return !promise.isPending();
@@ -578,10 +494,11 @@
             });
 
             it('should send request to server to api/answer/updateText', function () {
+                var questionId = 'questionId';
                 var answerId = 'answerId';
                 var text = 'text';
 
-                var promise = repository.updateText(answerId, text);
+                var promise = repository.updateText(questionId, answerId, text);
 
                 post.reject();
 
@@ -600,7 +517,7 @@
 
                 it('should reject promise', function () {
                     var reason = 'reason';
-                    var promise = repository.updateText('', '');
+                    var promise = repository.updateText('', '', '');
 
                     post.reject(reason);
 
@@ -619,7 +536,7 @@
                 describe('and response is not an object', function () {
 
                     it('should reject promise', function () {
-                        var promise = repository.updateText('', '');
+                        var promise = repository.updateText('', '', '');
 
                         post.resolve();
 
@@ -636,7 +553,7 @@
                 describe('and response does not have answer modification date', function () {
 
                     it('should reject promise', function () {
-                        var promise = repository.updateText('', '');
+                        var promise = repository.updateText('', '', '');
 
                         post.resolve({});
 
@@ -652,91 +569,39 @@
 
                 describe('and response has abswer modification date', function () {
 
-                    var dataContext = require('dataContext');
-
                     var response = {
                         ModifiedOn: "/Date(1378106938845)/"
                     };
+
+                    var dataContext = require('dataContext');
+                    var question = { id: 'questionId', modifiedOn: '' };
+                    var objective = { id: 'objectiveId', questions: [question] };
 
                     beforeEach(function () {
                         post.resolve(response);
                     });
 
+                    it('should update question modification date', function () {
+                        dataContext.objectives = [objective];
+                        var promise = repository.updateText(question.id, '', '');
 
-                    describe('and answer does not exist in dataContext', function () {
-
-                        it('should reject promise', function () {
-                            dataContext.objectives = [];
-
-                            var promise = repository.updateText('', '');
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeRejectedWith('Answer does not exist in dataContext');
-                            });
+                        waitsFor(function () {
+                            return !promise.isPending();
                         });
-
+                        runs(function () {
+                            expect(question.modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
+                        });
                     });
 
-                    describe('and answer exists in dataContext', function () {
+                    it('should resolve promise with answer modification date', function () {
+                        var promise = repository.updateText(question.id, '', '');
 
-                        var answer = { id: 'answerId', text: 'text' };
-                        var question = { id: 'questionId', answerOptions: [] };
-                        var objective = { id: 'objectiveId', questions: [] };
-
-                        beforeEach(function () {
-                            question.answerOptions = [answer];
-                            objective.questions = [question];
-                            dataContext.objectives = [objective];
+                        waitsFor(function () {
+                            return !promise.isPending();
                         });
-
-                        it('should update answer text', function () {
-                            var text = 'updated text';
-                            var promise = repository.updateText(answer.id, text);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(answer.text).toEqual(text);
-                            });
+                        runs(function () {
+                            expect(promise).toBeResolvedWith({ modifiedOn: utils.getDateFromString(response.ModifiedOn) });
                         });
-
-                        it('should update answer modification date', function () {
-                            var promise = repository.updateText(answer.id, '');
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(answer.modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
-                            });
-                        });
-
-                        it('should update question modification date', function () {
-                            var promise = repository.updateText(answer.id, '');
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(question.modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
-                            });
-                        });
-
-                        it('should resolve promise with answer modification date', function () {
-                            var promise = repository.updateText(answer.id, '');
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeResolvedWith(utils.getDateFromString(response.ModifiedOn));
-                            });
-                        });
-
                     });
 
                 });
@@ -755,10 +620,25 @@
                 expect(repository.updateCorrectness()).toBePromise();
             });
 
+            describe('when questionId is not a string', function () {
+
+                it('should reject promise', function () {
+                    var promise = repository.updateCorrectness(undefined, '', true);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(promise).toBeRejectedWith('Question id is not a string');
+                    });
+                });
+
+            });
+
             describe('when answerId is not a string', function () {
 
                 it('should reject promise', function () {
-                    var promise = repository.updateCorrectness(undefined, true);
+                    var promise = repository.updateCorrectness('', undefined, true);
 
                     waitsFor(function () {
                         return !promise.isPending();
@@ -773,7 +653,7 @@
             describe('when isCorrect is not a boolean', function () {
 
                 it('should reject promise', function () {
-                    var promise = repository.updateCorrectness('', undefined);
+                    var promise = repository.updateCorrectness('', '', undefined);
 
                     waitsFor(function () {
                         return !promise.isPending();
@@ -788,7 +668,7 @@
             it('should send request to server to api/answer/updateCorrectness', function () {
                 var answerId = 'answerId';
 
-                var promise = repository.updateCorrectness(answerId, true);
+                var promise = repository.updateCorrectness('', answerId, true);
 
                 post.reject();
 
@@ -807,7 +687,7 @@
 
                 it('should reject promise', function () {
                     var reason = 'reason';
-                    var promise = repository.updateCorrectness('', true);
+                    var promise = repository.updateCorrectness('', '', true);
 
                     post.reject(reason);
 
@@ -826,7 +706,7 @@
                 describe('and response is not an object', function () {
 
                     it('should reject promise', function () {
-                        var promise = repository.updateCorrectness('', true);
+                        var promise = repository.updateCorrectness('', '', true);
 
                         post.resolve();
 
@@ -843,7 +723,7 @@
                 describe('and response does not have answer modification date', function () {
 
                     it('should reject promise', function () {
-                        var promise = repository.updateCorrectness('', true);
+                        var promise = repository.updateCorrectness('', '', true);
 
                         post.resolve({});
 
@@ -865,84 +745,37 @@
                         ModifiedOn: "/Date(1378106938845)/"
                     };
 
+                    var answer = { id: 'answerId', isCorrect: false };
+                    var question = { id: 'questionId', answerOptions: [], modifiedOn: '' };
+                    var objective = { id: 'objectiveId', questions: [] };
+
                     beforeEach(function () {
+                        question.answerOptions = [answer];
+                        objective.questions = [question];
+                        dataContext.objectives = [objective];
                         post.resolve(response);
                     });
 
+                    it('should update question modification date', function () {
+                        var promise = repository.updateCorrectness(question.id, answer.id, true);
 
-                    describe('and answer does not exist in dataContext', function () {
-
-                        it('should reject promise', function () {
-                            dataContext.objectives = [];
-
-                            var promise = repository.updateCorrectness('', true);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeRejectedWith('Answer does not exist in dataContext');
-                            });
+                        waitsFor(function () {
+                            return !promise.isPending();
                         });
-
+                        runs(function () {
+                            expect(question.modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
+                        });
                     });
 
-                    describe('and answer exists in dataContext', function () {
+                    it('should resolve promise with answer modification date', function () {
+                        var promise = repository.updateCorrectness(question.id, answer.id, true);
 
-                        var answer = { id: 'answerId', isCorrect: false };
-                        var question = { id: 'questionId', answerOptions: [] };
-                        var objective = { id: 'objectiveId', questions: [] };
-
-                        beforeEach(function () {
-                            question.answerOptions = [answer];
-                            objective.questions = [question];
-                            dataContext.objectives = [objective];
+                        waitsFor(function () {
+                            return !promise.isPending();
                         });
-
-                        it('should update answer correctness', function () {
-                            var promise = repository.updateCorrectness(answer.id, true);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(answer.isCorrect).toEqual(true);
-                            });
+                        runs(function () {
+                            expect(promise).toBeResolvedWith({ modifiedOn: utils.getDateFromString(response.ModifiedOn) });
                         });
-
-                        it('should update answer modification date', function () {
-                            var promise = repository.updateCorrectness(answer.id, true);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(answer.modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
-                            });
-                        });
-
-                        it('should update question modification date', function () {
-                            var promise = repository.updateCorrectness(answer.id, true);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(question.modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
-                            });
-                        });
-
-                        it('should resolve promise with answer modification date', function () {
-                            var promise = repository.updateCorrectness(answer.id, true);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeResolvedWith(utils.getDateFromString(response.ModifiedOn));
-                            });
-                        });
-
                     });
 
                 });

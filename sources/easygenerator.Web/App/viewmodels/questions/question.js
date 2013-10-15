@@ -1,5 +1,5 @@
-﻿define(['viewmodels/questions/answers', 'viewmodels/questions/learningObjects', 'plugins/router', 'eventTracker', 'models/answerOption', 'models/learningObject', 'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify'],
-    function (vmAnswers, vmLearningObjects, router, eventTracker, answerOptionModel, learningObjectModel, localizationManager, constants, questionRepository, objectiveRepository, system, notify) {
+﻿define(['viewmodels/questions/answers', 'viewmodels/questions/learningObjects', 'plugins/router', 'eventTracker', 'models/answerOption', 'models/learningObject', 'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify', 'repositories/answerRepository'],
+    function (vmAnswers, vmLearningObjects, router, eventTracker, answerOptionModel, learningObjectModel, localizationManager, constants, questionRepository, objectiveRepository, system, notify, answerRepository) {
         "use strict";
         var
             events = {
@@ -44,7 +44,6 @@
             var length = title().trim().length;
             return length > 0 && length <= constants.validation.questionTitleMaxLength;
         });
-        //#region Question
 
         var
             goToRelatedObjective = function () {
@@ -96,7 +95,6 @@
                     }
                 });
             },
-            //#endregion Question
 
             answers = null,
             learningObjects = null,
@@ -114,7 +112,6 @@
                         that.createdOn = question.createdOn;
                         that.modifiedOn(question.modifiedOn);
 
-                        that.answers = vmAnswers(questionId, question.answerOptions);
                         that.learningObjects = vmLearningObjects(questionId, question.learningObjects);
 
                         var questionIndex = objective.questions.indexOf(question);
@@ -123,11 +120,14 @@
 
                         that.hasNext = nextId != null;
                         that.hasPrevious = previousId != null;
-                    })
-                        .fail(function () {
+                    }).fail(function () {
                             router.replace('404');
                             return;
                         });
+                }).then(function () {
+                    return answerRepository.getCollection(questionId).then(function (answerOptions) {
+                        that.answers = vmAnswers(questionId, answerOptions);
+                    });
                 }).fail(function () {
                     router.replace('404');
                     return;
@@ -145,7 +145,6 @@
             language: language,
             eventTracker: eventTracker,
 
-            //#region Methods
             activate: activate,
 
             goToRelatedObjective: goToRelatedObjective,
@@ -156,8 +155,7 @@
             endEditQuestionTitle: endEditQuestionTitle,
 
             answers: answers,
-            learningObjects: learningObjects,
-
+            learningObjects: learningObjects
         };
     }
 );

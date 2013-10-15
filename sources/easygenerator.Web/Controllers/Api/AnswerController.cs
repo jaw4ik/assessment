@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Linq;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -71,6 +68,24 @@ namespace easygenerator.Web.Controllers.Api
             answer.UpdateCorrectness(isCorrect, GetCurrentUsername());
 
             return JsonSuccess(new { ModifiedOn = answer.ModifiedOn });
+        }
+
+        [HttpPost]
+        public ActionResult GetCollection(Question question)
+        {
+            if (question == null)
+            {
+                return JsonLocalizableError(Constants.Errors.QuestionNotFoundError, Constants.Errors.QuestionNotFoundResourceKey);
+            }
+
+            var answers = question.Answers.Select(a => new
+            {
+                Id = a.Id.ToString("N"),
+                Text = a.Text,
+                IsCorrect = a.IsCorrect
+            });
+
+            return JsonSuccess(new { Answers = answers });
         }
     }
 }

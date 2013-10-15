@@ -1,19 +1,28 @@
-﻿define(['dataContext', 'httpWrapper', 'guard'],
-    function (dataContext, httpWrapper, guard) {
+﻿define(['dataContext', 'httpWrapper', 'guard', 'models/answerOption'],
+    function (dataContext, httpWrapper, guard, answerModel) {
 
         var
-            getById = function (id) {
+            getCollection = function (questionId) {
                 return Q.fcall(function () {
-                    guard.throwIfNotString(id, 'Answer id is not a string');
-                    var context = getAnswerAndQuestion(id);
-                    return context == null ? null : context.answer;
+                    guard.throwIfNotString(questionId, 'Question id is not a string');
+
+                    return httpWrapper.post('api/answers', { questionId: questionId }).then(function (response) {
+                        guard.throwIfNotAnObject(response, 'Response is not an object');
+                        guard.throwIfNotArray(response.Answers, 'Answers is not an array');
+
+                        return _.map(response.Answers, function (answer) {
+                            return new answerModel({
+                                id: answer.Id,
+                                text: answer.Text,
+                                isCorrect: answer.IsCorrect
+                            });
+                        });
+                    });
                 });
             },
 
             addAnswer = function (questionId, answer) {
-
                 return Q.fcall(function () {
-
                     guard.throwIfNotString(questionId, 'Question id is not a string');
                     guard.throwIfNotAnObject(answer, 'Answer data is not an object');
                     guard.throwIfNotString(answer.text, 'Answer data text is not a string');
@@ -30,32 +39,19 @@
                         guard.throwIfNotString(response.Id, 'Answer id is not a string');
                         guard.throwIfNotString(response.CreatedOn, 'Answer creation date is not a string');
 
-                        var question = getQuestion(questionId);
-
-                        guard.throwIfNotAnObject(question, 'Question does not exist in dataContext');
-
                         var createdOn = new Date(parseInt(response.CreatedOn.substr(6), 10));
+                        updateQuestionModifiedOnDate(questionId, createdOn);
 
-                        question.modifiedOn = createdOn;
-                        question.answerOptions.push({
+                        return {
                             id: response.Id,
-                            text: answer.text,
-                            isCorrect: answer.isCorrect,
-                            createdOn: createdOn,
-                            modifiedOn: createdOn
-                        });
-
-                        return { id: response.Id, createdOn: createdOn };
-
+                            createdOn: createdOn
+                        };
                     });
-
                 });
-
             },
 
             removeAnswer = function (questionId, answerId) {
                 return Q.fcall(function () {
-
                     guard.throwIfNotString(questionId, 'Question id is not a string');
                     guard.throwIfNotString(answerId, 'Answer id is not a string');
 
@@ -68,94 +64,70 @@
                         guard.throwIfNotAnObject(response, 'Response is not an object');
                         guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
-                        var question = getQuestion(questionId);
+                        var modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                        updateQuestionModifiedOnDate(questionId, modifiedOn);
 
-                        guard.throwIfNotAnObject(question, 'Question does not exist in dataContext');
-
-                        question.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
-                        question.answerOptions = _.reject(question.answerOptions, function (item) {
-                            return item.id == answerId;
-                        });
-
-                        return question.modifiedOn;
+                        return {
+                            modifiedOn: modifiedOn
+                        };
                     });
-
                 });
             },
 
-            updateText = function (answerId, text) {
+            updateText = function (questionId, answerId, text) {
                 return Q.fcall(function () {
+                    guard.throwIfNotString(questionId, 'Question id is not a string');
                     guard.throwIfNotString(answerId, 'Answer id is not a string');
                     guard.throwIfNotString(text, 'Answer text is not a string');
 
-                    var data = { answerId: answerId, text: text };
+                    var data = {
+                        answerId: answerId,
+                        text: text
+                    };
 
                     return httpWrapper.post('api/answer/updateText', data).then(function (response) {
-
                         guard.throwIfNotAnObject(response, 'Response is not an object');
                         guard.throwIfNotString(response.ModifiedOn, 'Answer modification date is not a string');
 
-                        var context = getAnswerAndQuestion(answerId);
-                        guard.throwIfNotAnObject(context, 'Answer does not exist in dataContext');
-
                         var modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                        updateQuestionModifiedOnDate(questionId, modifiedOn);
 
-                        context.answer.text = text;
-                        context.answer.modifiedOn = modifiedOn;
-                        context.question.modifiedOn = modifiedOn;
-
-                        return modifiedOn;
+                        return {
+                            modifiedOn: modifiedOn
+                        };
                     });
-
                 });
             },
 
-            updateCorrectness = function (answerId, isCorrect) {
+            updateCorrectness = function (questionId, answerId, isCorrect) {
                 return Q.fcall(function () {
+                    guard.throwIfNotString(questionId, 'Question id is not a string');
                     guard.throwIfNotString(answerId, 'Answer id is not a string');
                     guard.throwIfNotBoolean(isCorrect, 'Answer correctness is not a boolean');
 
-                    var data = { answerId: answerId, isCorrect: isCorrect };
+                    var data = {
+                        answerId: answerId,
+                        isCorrect: isCorrect
+                    };
 
                     return httpWrapper.post('api/answer/updateCorrectness', data).then(function (response) {
-
                         guard.throwIfNotAnObject(response, 'Response is not an object');
                         guard.throwIfNotString(response.ModifiedOn, 'Answer modification date is not a string');
 
-                        var context = getAnswerAndQuestion(answerId);
-                        guard.throwIfNotAnObject(context, 'Answer does not exist in dataContext');
-
                         var modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                        updateQuestionModifiedOnDate(questionId, modifiedOn);
 
-                        context.answer.isCorrect = isCorrect;
-                        context.answer.modifiedOn = modifiedOn;
-                        context.question.modifiedOn = modifiedOn;
-
-                        return modifiedOn;
+                        return {
+                            modifiedOn: modifiedOn
+                        };
                     });
-
                 });
-            }
-        ;
+            };
 
-        function getAnswerAndQuestion(answerId) {
-            var questions = getQuestions();
-
-            for (var i = 0; i < questions.length; i++) {
-
-                var answer = _.find(questions[i].answerOptions, function (item) {
-                    return item.id === answerId;
-                });
-
-                if (answer != null) {
-                    return {
-                        question: questions[i],
-                        answer: answer
-                    };
-                }
-            }
-
-            return null;
+        function updateQuestionModifiedOnDate(questionId, modifiedOn) {
+            var question = getQuestion(questionId);
+            guard.throwIfNotAnObject(question, 'Question does not exist in dataContext');
+            question.modifiedOn = modifiedOn;
         }
 
         function getQuestions() {
@@ -173,7 +145,7 @@
         }
 
         return {
-            getById: getById,
+            getCollection: getCollection,
 
             addAnswer: addAnswer,
             removeAnswer: removeAnswer,

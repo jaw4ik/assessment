@@ -48,13 +48,7 @@
                                         title: question.Title,
                                         createdOn: parseDateString(question.CreatedOn),
                                         modifiedOn: parseDateString(question.ModifiedOn),
-                                        answerOptions: _.map(question.Answers, function (answer) {
-                                            return new AnswerOptionModel({
-                                                id: answer.Id,
-                                                text: answer.Text,
-                                                isCorrect: answer.IsCorrect
-                                            });
-                                        }),
+                                        answerOptions: [],
                                         learningObjects: _.map(question.LearningObjects, function (learningObject) {
                                             return new LearningObjectModel({
                                                 id: learningObject.Id,

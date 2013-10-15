@@ -17,17 +17,20 @@
                 eventTracker.publish(events.addAnswerOption);
                 doAddAnswer();
             },
+
             removeAnswer = function (answer) {
                 eventTracker.publish(events.deleteAnswerOption);
                 answerOptions.remove(answer);
-                repository.removeAnswer(questionId, ko.unwrap(answer.id)).then(function (modifiedOn) {
-                    showNotification(modifiedOn);
+                repository.removeAnswer(questionId, ko.unwrap(answer.id)).then(function (response) {
+                    showNotification(response.modifiedOn);
                 });
             },
+
             beginEditText = function (answer) {
                 eventTracker.publish(events.beginEditText);
                 answer.hasFocus(true);
             },
+
             updateText = function (answer) {
                 var id = ko.unwrap(answer.id);
                 var text = ko.unwrap(answer.text);
@@ -40,17 +43,18 @@
                     repository.addAnswer(questionId, { text: text, isCorrect: false }).then(function (item) {
                         showNotification(item.createdOn);
                         answer.id(item.id);
+                        answer.originalText = text;
                     });
                 } else {
-                    repository.getById(id).then(function (item) {
-                        if (item.text != text) {
-                            repository.updateText(id, text).then(function (modifiedOn) {
-                                showNotification(modifiedOn);
-                            });
-                        }
-                    });
+                    if (answer.originalText != text) {
+                        repository.updateText(questionId, id, text).then(function (response) {
+                            showNotification(response.modifiedOn);
+                            answer.originalText = text;
+                        });
+                    }
                 }
             },
+
             endEditText = function (answer) {
                 eventTracker.publish(events.endEditText);
                 answer.hasFocus(false);
@@ -61,18 +65,19 @@
                 if (_.isEmptyOrWhitespace(text)) {
                     answerOptions.remove(answer);
                     if (!_.isEmptyOrWhitespace(id)) {
-                        repository.removeAnswer(questionId, id).then(function (modifiedOn) {
-                            showNotification(modifiedOn);
+                        repository.removeAnswer(questionId, id).then(function (response) {
+                            showNotification(response.modifiedOn);
                         });
                     }
                 }
             },
+
             toggleCorrectness = function (answer) {
                 eventTracker.publish(events.toggleAnswerCorrectness);
                 var id = answer.id();
                 var isCorrect = !answer.isCorrect();
-                repository.updateCorrectness(id, isCorrect).then(function (modifiedOn) {
-                    showNotification(modifiedOn);
+                repository.updateCorrectness(questionId, id, isCorrect).then(function (response) {
+                    showNotification(response.modifiedOn);
                 });
                 answer.isCorrect(isCorrect);
             },
@@ -89,6 +94,7 @@
             answerOptions.push({
                 id: ko.observable(answer.id),
                 text: ko.observable(answer.text),
+                originalText: answer.text,
                 isCorrect: ko.observable(answer.isCorrect),
                 hasFocus: ko.observable(true)
             });
