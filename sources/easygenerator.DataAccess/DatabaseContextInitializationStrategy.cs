@@ -25,7 +25,7 @@ namespace easygenerator.DataAccess
             context.Database.CreateIfNotExists();
             context.Database.ExecuteSqlCommand("ALTER TABLE Users ADD CONSTRAINT UQ_Email UNIQUE (Email)");
 
-            context.Set<Template>().Add(new Template("Default", "/Content/images/defaultTemplate.png", "Some user"));
+            context.Set<Template>().Add(new Template("Freestyle learning", "/Content/images/freestyleLearningTemplate.png", "Some user"));
             context.Set<Template>().Add(new Template("Quiz", "/Content/images/quizTemplate.png", "Some user"));
 
             context.SaveChanges();
