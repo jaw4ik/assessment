@@ -407,8 +407,7 @@
         nl: 'Nieuwe vraag toevoegen',
         de: 'Neue Fragen hinzufügen'
     },
-    clickToAddNewQuestion 
-: {
+    clickToAddNewQuestion: {
         en: 'Click here to add question',
         nl: 'Klik hier om een vraag toe te voegen',
         de: 'Hier klicken, um eine Frage hinzuzufügen'
@@ -811,8 +810,7 @@
         nl: 'Inschrijven',
         de: 'Registrieren'
     },
-    
-PasswordRequirementsTitle: {
+    PasswordRequirementsTitle: {
         en: 'Password is required to:',
         nl: 'Het wachtwoord moet:',
         de: 'Das Kennwort muss:'
@@ -1004,29 +1002,29 @@ PasswordRequirementsTitle: {
     
     /* Resource section for model Server error notification */
     experienceNotFoundError: {
-        en: 'Experience is not found. Please refresh your data.',
-        nl: 'Experience is not found. Please refresh your data.[nl]',
-        de: 'Experience is not found. Please refresh your data.[de]'
+        en: 'Learning experience was not found. Please refresh your data.',
+        nl: 'Learning experience was not found. Please refresh your data.[nl]',
+        de: 'Learning experience was not found. Please refresh your data.[de]'
     },
     objectiveNotFoundError: {
-        en: 'Objective is not found. Please refresh your data.',
-        nl: 'Objective is not found. Please refresh your data.[nl]',
-        de: 'Objective is not found. Please refresh your data.[de]'
+        en: 'Learning objective was not found. Please refresh your data.',
+        nl: 'Learning objective was not found. Please refresh your data.[nl]',
+        de: 'Learning objective was not found. Please refresh your data.[de]'
     },
     answerNotFoundError: {
-        en: 'Answer is not found. Please refresh your data.',
-        nl: 'Answer is not found. Please refresh your data.[nl]',
-        de: 'Answer is not found. Please refresh your data.[de]'
+        en: 'Answer option was not found. Please refresh your data.',
+        nl: 'Answer option was not found. Please refresh your data.[nl]',
+        de: 'Answer option was not found. Please refresh your data.[de]'
     },
     questionNotFoundError: {
-        en: 'Question is not found. Please refresh your data.',
-        nl: 'Question is not found. Please refresh your data.[nl]',
-        de: 'Question is not found. Please refresh your data.[de]'
+        en: 'Question was not found. Please refresh your data.',
+        nl: 'Question was not found. Please refresh your data.[nl]',
+        de: 'Question was not found. Please refresh your data.[de]'
     },
     learningObjectNotFoundError: {
-        en: 'Learning object is not found. Please refresh your data.',
-        nl: 'Learning object is not found. Please refresh your data.[nl]',
-        de: 'Learning object is not found. Please refresh your data.[de]'
+        en: 'Learning object was not found. Please refresh your data.',
+        nl: 'Learning object was not found. Please refresh your data.[nl]',
+        de: 'Learning object was not found. Please refresh your data.[de]'
     },
     /* End resource section for model Server error notification */
     
@@ -1060,7 +1058,153 @@ PasswordRequirementsTitle: {
         en: 'Create question',
         nl: 'Create question[nl]',
         de: 'Create question[de]'
-    }
+    },
     /* End resource section for model View captions */
+    
+    /* Resource section for model Sign-UP optional fields */
+    FullNameCaption: {
+        en: 'Full name',
+        nl: 'Full name[nl]',
+        de: 'Full name[de]'
+    },
+    PhoneNumberCaption: {
+        en: 'Phone number',
+        nl: 'Phone number[nl]',
+        de: 'Phone number[de]'
+    },
+    OrganizationNameCaption: {
+        en: 'Organization name',
+        nl: 'Organization name[nl]',
+        de: 'Organization name[de]'
+    },
+    CountryCaption: {
+        en: 'Country',
+        nl: 'Country[nl]',
+        de: 'Country[de]'
+    },
+    howManyPeopleQuestion: {
+        en: 'How many people at your company are authoring courses?',
+        nl: 'How many people at your company are authoring courses?[nl]',
+        de: 'How many people at your company are authoring courses?[de]'
+    },
+    whenDoYouNeedToolQuestion: {
+        en: 'How soon do you need an authoring tool?',
+        nl: 'How soon do you need an authoring tool?[nl]',
+        de: 'How soon do you need an authoring tool?[de]'
+    },
+    howAuthorTodayQuestion: {
+        en: 'How do you author courses today?',
+        nl: 'How do you author courses today?[nl]',
+        de: 'How do you author courses today?[de]'
+    },
+    chooseAnswer: {
+        en: 'Choose answer',
+        nl: 'Choose answer[nl]',
+        de: 'Choose answer[de]'
+    },
+    now: {
+        en: 'Now',
+        nl: 'Now[nl]',
+        de: 'Now[de]'
+    },
+    variant1Month: {
+        en: '1-3 Months',
+        nl: '1-3 Months[nl]',
+        de: '1-3 Months[de]'
+    },
+    variantMore3Months: {
+        en: '>3 Months',
+        nl: '>3 Months[nl]',
+        de: '>3 Months[de]'
+    },
+    justLooking: {
+        en: 'Just Looking',
+        nl: 'Just Looking[nl]',
+        de: 'Just Looking[de]'
+    },
+    powerPoint: {
+        en: 'PowerPoint',
+        nl: 'PowerPoint[nl]',
+        de: 'PowerPoint[de]'
+    },
+    anotherTool: {
+        en: 'Another authoring tool',
+        nl: 'Another authoring tool[nl]',
+        de: 'Another authoring tool[de]'
+    },
+    nothing: {
+        en: 'Nothing',
+        nl: 'Nothing[nl]',
+        de: 'Nothing[de]'
+    },
+    other: {
+        en: 'Other',
+        nl: 'Other[nl]',
+        de: 'Other[de]'
+    },
+    skip: {
+        en: 'Skip',
+        nl: 'Skip[nl]',
+        de: 'Skip[de]'
+    },
+    RequiredInformation: {
+        en: 'Required information',
+        nl: 'Required information[nl]',
+        de: 'Required information[de]'
+    },
+    OptionalInformation: {
+        en: 'Optional information',
+        nl: 'Optional information[nl]',
+        de: 'Optional information[de]'
+    },
+    ChooseYourCountry: {
+        en: 'Choose your country',
+        nl: 'Choose your country[nl]',
+        de: 'Choose your country[de]'
+    },
+    /* End resource section for model Sign-UP optional fields */
+    
+    /* Resource section for model Help hints */
+    experiencesHelpHint: {
+        en: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+        nl: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.[nl]',
+        de: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.[de]'
+    },
+    experienceHelpHint: {
+        en: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+        nl: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.[nl]',
+        de: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.[de]'
+    },
+    createExperienceHelpHint: {
+        en: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+        nl: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.[nl]',
+        de: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.[de]'
+    },
+    objectiveHelpHint: {
+        en: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+        nl: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.[nl]',
+        de: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.[de]'
+    },
+    objectivesHelpHint: {
+        en: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+        nl: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.[nl]',
+        de: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.[de]'
+    },
+    createObjectiveHelpHint: {
+        en: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+        nl: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.[nl]',
+        de: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.[de]'
+    },
+    questionHelpHint: {
+        en: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+        nl: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.[nl]',
+        de: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.[de]'
+    },
+    createQuestionHelpHint: {
+        en: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+        nl: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.[nl]',
+        de: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.[de]'
+    }
+    /* End resource section for model Help hints */
            
 });

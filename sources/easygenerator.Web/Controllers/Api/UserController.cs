@@ -15,13 +15,15 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IUserRepository _repository;
         private readonly IAuthenticationProvider _authenticationProvider;
         private readonly ISignupFromTryItNowHandler _signupFromTryItNowHandler;
+        private readonly IHelpHintRepository _helpHintRepository;
 
-        public UserController(IUserRepository repository, IEntityFactory entityFactory, IAuthenticationProvider authenticationProvider, ISignupFromTryItNowHandler signupFromTryItNowHandler)
+        public UserController(IUserRepository repository, IEntityFactory entityFactory, IAuthenticationProvider authenticationProvider, ISignupFromTryItNowHandler signupFromTryItNowHandler, IHelpHintRepository helpHintRepository)
         {
             _repository = repository;
             _entityFactory = entityFactory;
             _authenticationProvider = authenticationProvider;
             _signupFromTryItNowHandler = signupFromTryItNowHandler;
+            _helpHintRepository = helpHintRepository;
         }
 
         [HttpPost]
@@ -52,6 +54,8 @@ namespace easygenerator.Web.Controllers.Api
             user.UpdateOrganization(profile.Organization, profile.Email);
 
             _repository.Add(user);
+
+            _helpHintRepository.CreateHelpHintsForUser(user.Email);
 
             if (User.Identity.IsAuthenticated && _repository.GetUserByEmail(User.Identity.Name) == null)
             {

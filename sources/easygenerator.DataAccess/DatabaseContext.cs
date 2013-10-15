@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using easygenerator.DomainModel.Entities;
 
 namespace easygenerator.DataAccess
@@ -46,6 +40,7 @@ namespace easygenerator.DataAccess
         public DbSet<LearningObject> LearningObjects { get; set; }
         public DbSet<Template> Templates { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<HelpHint> HelpHints { get; set; }
 
         public IDbSet<T> GetSet<T>() where T : Entity
         {
@@ -87,6 +82,9 @@ namespace easygenerator.DataAccess
             ApplyEntityMapping<User>(modelBuilder);
             modelBuilder.Entity<User>().Property(e => e.Email).IsRequired().HasMaxLength(254);
             modelBuilder.Entity<User>().Property(e => e.PasswordHash).IsRequired();
+
+            ApplyEntityMapping<HelpHint>(modelBuilder);
+            modelBuilder.Entity<HelpHint>().Property(e => e.Name).IsRequired().HasMaxLength(254);
 
             ApplyEntityMapping<Template>(modelBuilder);
             modelBuilder.Entity<Template>().Property(e => e.Name).IsRequired();

@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/router', 'configuration/routes', 'dataContext', 'localization/localizationManager', 'eventTracker', 'httpWrapper', 'notify', 'clientContext'],
-    function (app, router, routes, datacontext, localizationManager, eventTracker, httpWrapper, notify, clientContext) {
+﻿define(['durandal/app', 'plugins/router', 'configuration/routes', 'dataContext', 'localization/localizationManager', 'eventTracker', 'httpWrapper', 'notify', 'clientContext', 'repositories/helpHintRepository'],
+    function (app, router, routes, datacontext, localizationManager, eventTracker, httpWrapper, notify, clientContext, helpHintRepository) {
         var
             events = {
                 navigateToExperiences: "Navigate to experiences",
@@ -41,6 +41,25 @@
                     return moduleId.slice(moduleId.lastIndexOf('/') + 1);
                 }
                 return '';
+            },
+            
+            helpHint = ko.observable(undefined),
+
+            helpHintText = ko.computed(function() {
+                if (helpHint() == undefined) {
+                    return '';
+                }
+
+                return localizationManager.localize(helpHint().localizationKey);
+            }),
+
+            hideHint = function () {
+                if (helpHint() == undefined) {
+                    return;
+                }
+                helpHintRepository.hideHint(helpHint().id).then(function () {
+                    helpHint(undefined);
+                });
             },
 
             browserCulture = ko.observable(),
@@ -136,6 +155,10 @@
                             } else {
                                 window.scroll(0, 0);
                             }
+
+                            helpHint(_.find(datacontext.helpHints, function(item) {
+                                return item.name === activeModule();
+                            }));
                         });
 
                         that.navigation([
@@ -180,7 +203,6 @@
                             .buildNavigationModel()
                             .mapUnknownRoutes('viewmodels/errors/404', '404')
                             .activate(experiencesModule);
-
                     });
             };
 
@@ -197,7 +219,10 @@
             navigation: navigation,
             isTryMode: isTryMode,
             
-            userEmail: userEmail
+            userEmail: userEmail,
+            helpHint: helpHint,
+            hideHint: hideHint,
+            helpHintText: helpHintText
         };
     }
 );

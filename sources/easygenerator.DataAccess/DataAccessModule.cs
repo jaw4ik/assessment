@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using easygenerator.DataAccess.Repositories;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
+using System.Data.Entity;
 
 namespace easygenerator.DataAccess
 {
@@ -46,6 +41,10 @@ namespace easygenerator.DataAccess
             builder.RegisterType<UserRepository>()
                 .As<IUserRepository>()
                 .As<IQuerableRepository<User>>();
+
+            builder.RegisterType<HelpHintRepository>()
+                .As<IHelpHintRepository>()
+                .As<IQuerableRepository<HelpHint>>();
 
             base.Load(builder);
         }

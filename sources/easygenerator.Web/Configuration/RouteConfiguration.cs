@@ -11,31 +11,6 @@ namespace easygenerator.Web.Configuration
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-
-            //routes.MapRoute(
-            //    name: "ApiObjectives",
-            //    url: "api/data",
-            //    defaults: new { controller = "Application", action = "ApplicationData" }
-            //);
-
-            //routes.MapRoute(
-            //    name: "CreateObjective",
-            //    url: "objective/create",
-            //    defaults: new { controller = "Objective", action = "Create" }
-            //);
-
-            //routes.MapRoute(
-            //    name: "ObjectiveDetails",
-            //    url: "objective/details",
-            //    defaults: new { controller = "Objective", action = "Details" }
-            //);
-
-            //routes.MapRoute(
-            //    name: "Objectives",
-            //    url: "objectives",
-            //    defaults: new { controller = "Objective", action = "Index" }
-            //);
-
             #region Objectives
 
             routes.MapRoute(
@@ -138,6 +113,12 @@ namespace easygenerator.Web.Configuration
                 name: "UpdateLearningObjectText",
                 url: "api/learningObject/updateText",
                 defaults: new { controller = "LearningObject", action = "UpdateText" }
+            );
+
+            routes.MapRoute(
+                name: "GetLearningObjects",
+                url: "api/learningObjects",
+                defaults: new { controller = "LearningObject", action = "GetCollection" }
             );
 
             #endregion
@@ -288,6 +269,22 @@ namespace easygenerator.Web.Configuration
                 name: "GetFile",
                 url: "filestorage/{fileId}",
                 defaults: new { controller = "FileStorage", action = "Get", fileId = "", }
+            );
+
+            #endregion
+
+            #region Help hints
+
+            routes.MapRoute(
+                name: "HideHelpHint",
+                url: "api/helpHint/hide",
+                defaults: new { controller = "HelpHint", action = "HideHint" }
+            );
+
+            routes.MapRoute(
+                name: "GetHelpHints",
+                url: "api/helpHints",
+                defaults: new { controller = "HelpHint", action = "GetCollection" }
             );
 
             #endregion

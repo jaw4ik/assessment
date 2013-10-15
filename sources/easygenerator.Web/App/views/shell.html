@@ -56,6 +56,16 @@
         <img src="/Content/images/loader.gif" alt="" />
     </div>
     <section id="content" class="main" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }, css: browserCulture() + '-lang'">
+        <!-- ko if: helpHint() != undefined -->
+        <div class="header-hint">
+            <div class="content-holder">
+                <div class="hh-content">
+                    <div class="hh-text" data-bind="text: helpHintText"></div>
+                    <a class="hh-close" data-bind="click: hideHint">Don‘t show again</a>
+                </div>
+            </div>
+        </div>
+        <!-- /ko -->
         <div data-bind="router: { cacheViews: false }"></div>
     </section>
 </div>
@@ -63,8 +73,7 @@
 <footer class="footer try">
     <div class="content-wrapper try clearfix">
         <div class="footer-item pull-left">
-            <span class="cursor-default" data-bind="localize: { text: 'CopyrightText' }">
-            </span>
+            <span class="cursor-default" data-bind="localize: { text: 'CopyrightText' }"></span>
         </div>
     </div>
 </footer>

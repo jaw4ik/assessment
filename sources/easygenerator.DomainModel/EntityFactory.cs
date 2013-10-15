@@ -10,6 +10,7 @@ namespace easygenerator.DomainModel
         Answer Answer(string text, bool isCorrect, string createdBy);
         LearningObject LearningObject(string text, string createdBy);
         User User(string email, string password, string createdBy);
+        HelpHint HelpHint(string name, string createdBy);
     }
 
     public class EntityFactory : IEntityFactory
@@ -42,6 +43,11 @@ namespace easygenerator.DomainModel
         public User User(string email, string password, string createdBy)
         {
             return new User(email, password, createdBy);
+        }
+
+        public HelpHint HelpHint(string name, string createdBy)
+        {
+            return new HelpHint(name, createdBy);
         }
     }
 }

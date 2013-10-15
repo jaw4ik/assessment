@@ -11,6 +11,8 @@
             templates = [],
             isTryMode = false,
             userEmail = '',
+            helpHints = [],
+
             initialize = function () {
                 var that = this;
                 return $.ajax({
@@ -27,6 +29,21 @@
                                 name: template.Name,
                                 image: template.Image
                             }));
+                    });
+                }).then(function () {
+                    return $.ajax({
+                        url: 'api/helpHints',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        dataType: 'json'
+                    }).then(function (response) {
+                        _.each(response.data.HelpHints, function (helpHint) {
+                            helpHints.push({
+                                id: helpHint.Id,
+                                name: helpHint.Name,
+                                localizationKey: helpHint.Name + 'HelpHint'
+                            });
+                        });
                     });
                 }).then(function () {
                     return $.ajax({
@@ -87,7 +104,7 @@
                             }));
                         });
                     });
-                }).then(function() {
+                }).then(function () {
                     return $.ajax({
                         url: 'api/user/istrymode',
                         type: 'GET',
@@ -121,6 +138,7 @@
             experiences: experiences,
             templates: templates,
             isTryMode: isTryMode,
-            userEmail: userEmail
+            userEmail: userEmail,
+            helpHints: helpHints
         };
     });

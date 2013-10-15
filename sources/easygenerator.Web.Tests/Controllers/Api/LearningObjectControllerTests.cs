@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
@@ -164,5 +161,34 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
+        #region Get collection
+
+        [TestMethod]
+        public void GetCollection_ShouldReturnJsonErrorResult_WhenQuestionNotFound()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.GetCollection(null);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Constants.Errors.QuestionNotFoundError);
+        }
+
+        [TestMethod]
+        public void GetCollection_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var question = QuestionObjectMother.Create();
+            question.AddLearningObject(LearningObjectObjectMother.Create(), "Some user");
+
+            //Act
+            var result = _controller.GetCollection(question);
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+
+        #endregion
     }
 }

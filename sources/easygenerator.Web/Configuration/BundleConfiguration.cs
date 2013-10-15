@@ -50,6 +50,7 @@ namespace easygenerator.Web.Configuration
                     .Include("~/Content/selectbox.css")
                     .Include("~/Content/common.css")
                     .Include("~/Content/account.css")
+                    .Include("~/Content/helphint.css")
                 );
         }
     }

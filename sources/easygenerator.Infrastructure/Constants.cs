@@ -16,7 +16,21 @@
             public const string ObjectiveNotFoundResourceKey = "objectiveNotFoundError";
             public const string QuestionNotFoundResourceKey = "questionNotFoundError";
             public const string AnswerNotFoundResourceKey = "answerNotFoundError";
-            public const string LearningObjectNotFoundResourceKey = "learningObjectNotFoundError";     
+            public const string LearningObjectNotFoundResourceKey = "learningObjectNotFoundError";
+        }
+
+        public class HelpHintNames
+        {
+            public const string ExperiencesHelpHintKey = "experiences";
+            public const string ExperienceHelpHintKey = "experience";
+            public const string CreateExperienceHelpHintKey = "createExperience";
+
+            public const string LearningObjectivesHelpHintKey = "objectives";
+            public const string LearningObjectiveHelpHintKey = "objective";
+            public const string CreateLearningObjectiveHelpHintKey = "createObjective";
+
+            public const string QuestionHelpHintKey = "question";
+            public const string CreateQuestionHelpHintKey = "createQuestion";
         }
     }
 }

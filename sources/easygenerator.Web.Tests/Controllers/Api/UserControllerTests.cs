@@ -35,7 +35,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory = Substitute.For<IEntityFactory>();
             _authenticationProvider = Substitute.For<IAuthenticationProvider>();
             _signupFromTryItNowHandler = Substitute.For<ISignupFromTryItNowHandler>();
-            _controller = new UserController(_repository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler);
+            _controller = new UserController(_repository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler, Substitute.For<IHelpHintRepository>());
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
