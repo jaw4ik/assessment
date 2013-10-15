@@ -24,10 +24,10 @@
 }
 
 .content-holder {
-    max-width: 1000px;
-    width: 80%;
+    max-width: 1200px;
     min-width: 600px;
     margin: 0 auto;
+    padding: 0 20px 0;
 }
 
 .view-module {
@@ -266,7 +266,7 @@ a.top-navigation-item:hover {
 
 .page-view-caption {
     padding: 11px 0;
-	position: relative;
+    position: relative;
 }
 
 .page-view-caption-text {
