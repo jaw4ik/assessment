@@ -50,7 +50,6 @@ namespace easygenerator.Web.Controllers.Api
             user.UpdateFullName(profile.FullName, profile.Email);
             user.UpdatePhone(profile.Phone, profile.Email);
             user.UpdateOrganization(profile.Organization, profile.Email);
-            user.UpdateCountry(profile.Country, profile.Email);
 
             _repository.Add(user);
 

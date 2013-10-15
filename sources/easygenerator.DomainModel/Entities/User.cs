@@ -25,7 +25,6 @@ namespace easygenerator.DomainModel.Entities
         public string FullName { get; private set; }
         public string Phone { get; private set; }
         public string Organization { get; private set; }
-        public string Country { get; private set; }
 
         public virtual void UpdateFullName(string fullName, string modifiedBy)
         {
@@ -45,11 +44,6 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        public virtual void UpdateCountry(string country, string modifiedBy)
-        {
-            Country = country;
-            MarkAsModified(modifiedBy);
-        }
 
         public virtual bool VerifyPassword(string password)
         {

@@ -165,6 +165,9 @@
   <data name="NotContainWhitespaceCharacters" xml:space="preserve">
     <value>NOT contain whitespace character(s).</value>
   </data>
+  <data name="OptionalInformation" xml:space="preserve">
+    <value>Optional information</value>
+  </data>
   <data name="OrganizationNameCaption" xml:space="preserve">
     <value>Organization name</value>
   </data>
@@ -185,6 +188,9 @@
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Privacy policy</value>
+  </data>
+  <data name="RequiredInformation" xml:space="preserve">
+    <value>Required information</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Sign in</value>

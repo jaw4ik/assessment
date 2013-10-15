@@ -205,6 +205,15 @@ namespace AccountRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Optional information.
+        /// </summary>
+        public static string OptionalInformation {
+            get {
+                return ResourceManager.GetString("OptionalInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Organization name.
         /// </summary>
         public static string OrganizationNameCaption {
@@ -264,6 +273,15 @@ namespace AccountRes {
         public static string PrivacyPolicy {
             get {
                 return ResourceManager.GetString("PrivacyPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Required information.
+        /// </summary>
+        public static string RequiredInformation {
+            get {
+                return ResourceManager.GetString("RequiredInformation", resourceCulture);
             }
         }
         

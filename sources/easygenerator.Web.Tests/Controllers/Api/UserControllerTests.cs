@@ -242,23 +242,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
             user.Received().UpdateOrganization("", signUpUsername);
         }
 
-        [TestMethod]
-        public void Signup_ShouldUpdateUserCountry()
-        {
-            //Arrange
-            const string signUpUsername = "username@easygenerator.com";
-            const string password = "Abc123!";
-            var profile = new UserSignUpViewModel() { Email = signUpUsername, Password = password, Country = "" };
-            var user = Substitute.For<User>();
-            _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
-
-            //Act
-            _controller.Signup(profile);
-
-            //Assert
-            user.Received().UpdateCountry("", signUpUsername);
-        }
-
         #endregion
 
         #region Exists

@@ -4,7 +4,6 @@
         fullName = ko.observable(''),
         phone = ko.observable(''),
         organization = ko.observable(''),
-        country = ko.observable(''),
         isLicenseAgreed = ko.observable(false),
         isUserNameEditing = ko.observable(false),
         isUserNameValidating = ko.observable(false),
@@ -23,7 +22,7 @@
         signUp = function() {
             $.ajax({
                 url: '/api/user/signup',
-                data: { email: userName().trim().toLowerCase(), password: password(), fullName: fullName(), phone: phone(), organization: organization(), country: country()},
+                data: { email: userName().trim().toLowerCase(), password: password(), fullName: fullName(), phone: phone(), organization: organization()},
                 type: 'POST'
             })
             .done(function() {
@@ -83,7 +82,6 @@
         fullName: fullName,
         phone: phone,
         organization: organization,
-        country: country,
         isLicenseAgreed: isLicenseAgreed,
         isUserNameEditing: isUserNameEditing,
         isUserNameValidating: isUserNameValidating,

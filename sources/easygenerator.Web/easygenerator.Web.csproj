@@ -256,6 +256,7 @@
     <Content Include="Content\images\build-sprite.png" />
     <Content Include="Content\images\icon.png" />
     <Content Include="Content\images\loader_12x12.GIF" />
+    <Content Include="Content\images\account\optional-divider.png" />
     <Content Include="Content\images\quizTemplate.png" />
     <Content Include="Content\images\emptyBox.png" />
     <Content Include="Content\images\finish.png" />

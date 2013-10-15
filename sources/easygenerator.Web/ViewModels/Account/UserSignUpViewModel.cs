@@ -14,6 +14,5 @@ namespace easygenerator.Web.ViewModels.Account
         public string FullName { get; set; }
         public string Phone { get; set; }
         public string Organization { get; set; }
-        public string Country { get; set; }
     }
 }

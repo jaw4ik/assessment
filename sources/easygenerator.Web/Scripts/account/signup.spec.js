@@ -99,13 +99,6 @@
             });
         });
         
-        describe('country:', function () {
-
-            it('should be observable', function () {
-                expect(viewModel.country).toBeObservable();
-            });
-        });
-
         describe('isUserNameEditing:', function () {
 
             it('should be observable', function () {
@@ -503,7 +496,7 @@
 
                 expect($.ajax).toHaveBeenCalledWith({
                     url: '/api/user/signup',
-                    data: { email: 'mail', password: 'password', fullName: '', phone: '', organization: '', country: ''},
+                    data: { email: 'mail', password: 'password', fullName: '', phone: '', organization: ''},
                     type: 'POST'
                 });
             });
