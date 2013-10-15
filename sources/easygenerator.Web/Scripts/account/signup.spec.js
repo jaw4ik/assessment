@@ -78,6 +78,34 @@
 
         });
 
+        describe('fullName:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.fullName).toBeObservable();
+            });
+        });
+        
+        describe('phone:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.phone).toBeObservable();
+            });
+        });
+        
+        describe('organization:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.organization).toBeObservable();
+            });
+        });
+        
+        describe('country:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.country).toBeObservable();
+            });
+        });
+
         describe('isUserNameEditing:', function () {
 
             it('should be observable', function () {
@@ -475,7 +503,7 @@
 
                 expect($.ajax).toHaveBeenCalledWith({
                     url: '/api/user/signup',
-                    data: { email: 'mail', password: 'password' },
+                    data: { email: 'mail', password: 'password', fullName: '', phone: '', organization: '', country: ''},
                     type: 'POST'
                 });
             });

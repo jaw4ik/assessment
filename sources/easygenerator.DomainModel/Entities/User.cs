@@ -22,6 +22,35 @@ namespace easygenerator.DomainModel.Entities
         public string Email { get; protected set; }
         public string PasswordHash { get; private set; }
 
+        public string FullName { get; private set; }
+        public string Phone { get; private set; }
+        public string Organization { get; private set; }
+        public string Country { get; private set; }
+
+        public virtual void UpdateFullName(string fullName, string modifiedBy)
+        {
+            FullName = fullName;
+            MarkAsModified(modifiedBy);
+        }
+
+        public virtual void UpdatePhone(string phone, string modifiedBy)
+        {
+            Phone = phone;
+            MarkAsModified(modifiedBy);
+        }
+
+        public virtual void UpdateOrganization(string organization, string modifiedBy)
+        {
+            Organization = organization;
+            MarkAsModified(modifiedBy);
+        }
+
+        public virtual void UpdateCountry(string country, string modifiedBy)
+        {
+            Country = country;
+            MarkAsModified(modifiedBy);
+        }
+
         public virtual bool VerifyPassword(string password)
         {
             return Cryptography.VerifyHash(password, PasswordHash);

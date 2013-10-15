@@ -141,6 +141,9 @@
   <data name="CopyrightText" xml:space="preserve">
     <value>Copyright © 2013 easygenerator. All rights reserved.</value>
   </data>
+  <data name="CountryCaption" xml:space="preserve">
+    <value>Country</value>
+  </data>
   <data name="CreateAccountTitle" xml:space="preserve">
     <value>Create account</value>
   </data>
@@ -150,6 +153,9 @@
   <data name="EnterValidEmailMessage" xml:space="preserve">
     <value>Enter a valid e-mail</value>
   </data>
+  <data name="FullNameCaption" xml:space="preserve">
+    <value>Full name</value>
+  </data>
   <data name="IncorrectEmailOrPassword" xml:space="preserve">
     <value>Such e-mail and password combination not found</value>
   </data>
@@ -158,6 +164,9 @@
   </data>
   <data name="NotContainWhitespaceCharacters" xml:space="preserve">
     <value>NOT contain whitespace character(s).</value>
+  </data>
+  <data name="OrganizationNameCaption" xml:space="preserve">
+    <value>Organization name</value>
   </data>
   <data name="PasswordCaption" xml:space="preserve">
     <value>Password</value>
@@ -170,6 +179,9 @@
   </data>
   <data name="PasswordRequirementsTitle" xml:space="preserve">
     <value>Password is required to:</value>
+  </data>
+  <data name="PhoneNumberCaption" xml:space="preserve">
+    <value>Phone number</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Privacy policy</value>

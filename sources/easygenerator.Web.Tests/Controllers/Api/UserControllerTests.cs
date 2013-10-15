@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security.Principal;
+﻿using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -14,6 +13,7 @@ using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using easygenerator.Web.ViewModels.Account;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -110,8 +110,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var email = "easygenerator@easygenerator.com";
             _repository.GetUserByEmail(email).Returns(UserObjectMother.CreateWithEmail(email));
 
+            var profile = new UserSignUpViewModel() { Email = email, Password = "Some password" };
             //Act
-            var result = _controller.Signup(email, "Some password");
+            var result = _controller.Signup(profile);
 
             //Assert
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Account with this email already exists");
@@ -126,9 +127,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var user = UserObjectMother.Create(email, password);
 
             _entityFactory.User(email, password, email).Returns(user);
-
+            var profile = new UserSignUpViewModel() { Email = email , Password = password};
             //Act
-            _controller.Signup(email, password);
+            _controller.Signup(profile);
 
             //Assert
             _repository.Received().Add(user);
@@ -147,8 +148,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _repository.GetUserByEmail(tryItNowUsername).Returns((User)null);
             _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
 
+            var profile = new UserSignUpViewModel() { Email = signUpUsername, Password = password };
+            
             //Act
-            _controller.Signup(signUpUsername, password);
+            _controller.Signup(profile);
 
             //Assert
             _signupFromTryItNowHandler.Received().HandleOwnership(tryItNowUsername, signUpUsername);
@@ -158,28 +161,102 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Signup_ShouldSignInNewUser()
         {
             //Arrange
-            var email = "easygenerator@easygenerator.com";
-            var password = "Easy123!";
+            const string signUpUsername = "username@easygenerator.com";
+            const string password = "Abc123!";
+            var user = UserObjectMother.Create(signUpUsername, password);
+            _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
+            var profile = new UserSignUpViewModel() { Email = signUpUsername, Password = password };
 
             //Act
-            _controller.Signup(email, password);
+            _controller.Signup(profile);
 
             //Assert
-            _authenticationProvider.Received().SignIn(email, true);
+            _authenticationProvider.Received().SignIn(profile.Email, true);
         }
 
         [TestMethod]
         public void Signup_ShouldReturnJsonSuccessResult()
         {
             //Arrange
-            var email = "easygenerator@easygenerator.com";
-            var password = "Easy123!";
-
+            const string signUpUsername = "username@easygenerator.com";
+            const string password = "Abc123!";
+            var user = UserObjectMother.Create(signUpUsername, password);
+            _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
+            var profile = new UserSignUpViewModel() { Email = signUpUsername, Password = password };
+            
             //Act
-            var result = _controller.Signup(email, password);
+            var result = _controller.Signup(profile);
 
             //Assert
             result.Should().BeJsonSuccessResult();
+        }
+
+        [TestMethod]
+        public void Signup_ShouldUpdateUserFullName()
+        {
+            //Arrange
+            const string signUpUsername = "username@easygenerator.com";
+            const string password = "Abc123!";
+            var profile = new UserSignUpViewModel() { Email = signUpUsername, Password = password, FullName = ""};
+            var user = Substitute.For<User>();
+            _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
+
+            //Act
+            _controller.Signup(profile);
+
+            //Assert
+            user.Received().UpdateFullName("", signUpUsername);
+        }
+
+        [TestMethod]
+        public void Signup_ShouldUpdateUserPhone()
+        {
+            //Arrange
+            const string signUpUsername = "username@easygenerator.com";
+            const string password = "Abc123!";
+            var profile = new UserSignUpViewModel() { Email = signUpUsername, Password = password, Phone = "" };
+            var user = Substitute.For<User>();
+            _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
+
+            //Act
+            _controller.Signup(profile);
+
+            //Assert
+            user.Received().UpdatePhone("", signUpUsername);
+        }
+
+        [TestMethod]
+        public void Signup_ShouldUpdateUserOrganization()
+        {
+            //Arrange
+            const string signUpUsername = "username@easygenerator.com";
+            const string password = "Abc123!";
+            var profile = new UserSignUpViewModel() { Email = signUpUsername, Password = password, Organization = "" };
+            var user = Substitute.For<User>();
+            _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
+
+            //Act
+            _controller.Signup(profile);
+
+            //Assert
+            user.Received().UpdateOrganization("", signUpUsername);
+        }
+
+        [TestMethod]
+        public void Signup_ShouldUpdateUserCountry()
+        {
+            //Arrange
+            const string signUpUsername = "username@easygenerator.com";
+            const string password = "Abc123!";
+            var profile = new UserSignUpViewModel() { Email = signUpUsername, Password = password, Country = "" };
+            var user = Substitute.For<User>();
+            _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
+
+            //Act
+            _controller.Signup(profile);
+
+            //Assert
+            user.Received().UpdateCountry("", signUpUsername);
         }
 
         #endregion

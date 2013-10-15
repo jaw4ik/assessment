@@ -1,12 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Web.Mvc;
-using System.Web.Security;
+﻿using System.Web.Mvc;
 using AccountRes;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
+using easygenerator.Web.ViewModels.Account;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -40,14 +38,19 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        public ActionResult Signup(string email, string password)
+        public ActionResult Signup(UserSignUpViewModel profile)
         {
-            if (_repository.GetUserByEmail(email) != null)
+            if (_repository.GetUserByEmail(profile.Email) != null)
             {
                 return JsonError("Account with this email already exists");
             }
 
-            var user = _entityFactory.User(email, password, email);
+            var user = _entityFactory.User(profile.Email, profile.Password, profile.Email);
+
+            user.UpdateFullName(profile.FullName, profile.Email);
+            user.UpdatePhone(profile.Phone, profile.Email);
+            user.UpdateOrganization(profile.Organization, profile.Email);
+            user.UpdateCountry(profile.Country, profile.Email);
 
             _repository.Add(user);
 
@@ -56,7 +59,7 @@ namespace easygenerator.Web.Controllers.Api
                 _signupFromTryItNowHandler.HandleOwnership(User.Identity.Name, user.Email);
             }
 
-            _authenticationProvider.SignIn(email, true);
+            _authenticationProvider.SignIn(profile.Email, true);
 
             return JsonSuccess();
         }

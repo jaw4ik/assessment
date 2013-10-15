@@ -204,6 +204,12 @@ body.try {
     color: #333;
 }
 
+.user-form-label-optional {
+    position: relative;
+    font-size: 24px;
+    color: #333;
+}
+
     .user-form-label:after {
         content: '';
         position: absolute;
