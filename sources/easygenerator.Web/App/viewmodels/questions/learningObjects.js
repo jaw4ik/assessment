@@ -32,7 +32,7 @@
                 var id = ko.unwrap(learningObject.id);
                 var text = ko.unwrap(learningObject.text);
 
-                if (_.isEmptyHtmlText(text)) {
+                if (_.isEmptyOrWhitespace(text)) {
                     learningObjects.remove(learningObject);
                     if (!_.isEmptyOrWhitespace(id)) {
                         repository.removeLearningObject(questionId, id).then(function (modifiedOn) {
@@ -45,7 +45,7 @@
                 var id = ko.unwrap(learningObject.id);
                 var text = ko.unwrap(learningObject.text);
                 
-                if (_.isEmptyHtmlText(text)) {
+                if (_.isEmptyOrWhitespace(text)) {
                     return;
                 }
 
