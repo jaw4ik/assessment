@@ -444,6 +444,13 @@ body.try {
         background-position: -16px -25px;
     }
 
+.user-form-row.submit {
+    padding-bottom: 43px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 .user-form-row.submit .formBtn {
     width: 100%;
 }
