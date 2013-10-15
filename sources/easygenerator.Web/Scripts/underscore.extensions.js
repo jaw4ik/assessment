@@ -15,4 +15,10 @@
         return _.isUndefined(obj) || _.isNull(obj);
     };
 
+    _.isEmptyHtmlText = function(obj) {
+        var removeTagsRegex = /<[^>]*>|&[^;]+?;/g;
+        var textWithoutTagsAndWhiteSpace = obj.replace(removeTagsRegex, '').trim();
+        return _.isEmpty(textWithoutTagsAndWhiteSpace);
+    };
+
 })();
