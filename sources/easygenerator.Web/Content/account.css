@@ -764,6 +764,28 @@ body.try {
                 box-shadow: 0px 1px 2px rgba(0,0,0,0.2) inset;
             }
 
+        /*grey button*/
+        .formBtn .btn.grey {
+            background: none repeat scroll 0 0 #909399;
+            border-color: #909399 #888a90 #888a90 #909399;
+            border-right: 1px solid #888a90;
+            -webkit-text-shadow: 0 -1px 1px rgb(116,119,124);
+            text-shadow: 0 -1px 1px rgb(116,119,124);
+        }
+
+            .formBtn .btn.grey:hover {
+                background: none repeat scroll 0 0 #74767c;
+            }
+
+            .formBtn .btn.grey:active,
+            .formBtn.disabled .btn.grey,
+            .formBtn.disabled .btn.grey:active,
+            .formBtn.disabled .btn.grey:hover {
+                background: #909399;
+                border-color: #888a90;
+                box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset;
+            }
+
     .formBtn.disabled .btn,
     .formBtn.disabled .btn:active,
     .formBtn.disabled .btn:hover {
