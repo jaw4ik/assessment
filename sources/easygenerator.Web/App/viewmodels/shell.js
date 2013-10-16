@@ -67,10 +67,10 @@
                 if (helpHint() != undefined) {
                     return;
                 }
-                
+               /* 
                 helpHintRepository.addHint(activeModule()).then(function (hint) {
                     helpHint(hint);
-                });
+                });*/
             },
 
             browserCulture = ko.observable(),
