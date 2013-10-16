@@ -14,5 +14,9 @@ $(function () {
     if ($(".log-in").length) {
         ko.applyBindings(app.signinViewModel(), $(".log-in")[0]);
     }
+    
+    if ($('.sign-up-second-step').length) {
+        ko.applyBindings(SignUpSecondStepModel(), $('.sign-up-second-step')[0]);
+    }
 });
 

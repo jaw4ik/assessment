@@ -32,6 +32,9 @@ namespace easygenerator.Web.Configuration
                     .Include("~/scripts/jquery-{version}.js")
                     .Include("~/scripts/knockout-{version}.js")
                     .IncludeDirectory("~/scripts/account", "*.js")
+                    .Include("~/scripts/underscore.js")
+                    .Include("~/scripts/underscore.extensions.js")
+                    .Include("~/scripts/knockoutBindings/selectBoxBinding.js")
                 );
 
             bundles.Add(new StyleBundle("~/Content/css")

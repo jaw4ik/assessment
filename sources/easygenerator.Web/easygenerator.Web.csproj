@@ -284,6 +284,7 @@
     <Content Include="Scripts\account\signup.spec.js">
       <DependentUpon>signup.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\account\signupsecondstep.js" />
     <Content Include="Scripts\almond-custom.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\failed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\info.png" />
@@ -470,6 +471,7 @@
     <Content Include="Templates\Freestyle learning\js\vendor.min.js.map">
       <DependentUpon>vendor.js.bundle</DependentUpon>
     </Content>
+    <Content Include="Views\Account\SignUpSecondStep.cshtml" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>

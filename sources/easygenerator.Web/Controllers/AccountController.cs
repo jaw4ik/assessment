@@ -63,6 +63,14 @@ namespace easygenerator.Web.Controllers
             return View();
         }
 
+        public ActionResult SignUpSecondStep()
+        {
+            if (IsExistingUserAuthenticated())
+                return RedirectToRoute("Default");
+
+            return View();
+        }
+
         public ActionResult SignIn()
         {
             if (IsExistingUserAuthenticated())
