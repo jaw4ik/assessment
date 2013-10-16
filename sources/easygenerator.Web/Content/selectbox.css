@@ -112,6 +112,10 @@
         border-radius: 4px 4px 0 0;
     }
 
+    .user-form-selectbox .selectbox-current-item.choosen {
+        color: #333;
+    }
+
 .user-form-selectbox .selectbox-current-item-text {
     padding: 11px 9px;
     margin-right: 47px;
@@ -158,14 +162,14 @@
     text-shadow: 0 0 1px rgba(0,0,0,0.2);
 }
 
-.user-form-selectbox .selectbox-option-item:hover {
-    background: #f3f3f3;    
-}
+    .user-form-selectbox .selectbox-option-item:hover {
+        background: #f3f3f3;
+    }
 
 
-.user-form-selectbox .selectbox-option-item+.selectbox-option-item {
-    margin-top: 10px;
-}
+    .user-form-selectbox .selectbox-option-item + .selectbox-option-item {
+        margin-top: 10px;
+    }
 
 /*#endregion USER-FORM SELECTBOX STYLES*/
 
