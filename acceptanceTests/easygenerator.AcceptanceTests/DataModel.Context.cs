@@ -32,5 +32,6 @@ namespace easygenerator.AcceptanceTests
         public DbSet<Question> Questions { get; set; }
         public DbSet<Template> Templates { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<HelpHint> HelpHints { get; set; }
     }
 }

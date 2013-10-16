@@ -9,6 +9,7 @@
           <EntitySet Name="Answers" EntityType="Model.Store.Answers" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ExperienceObjectives" EntityType="Model.Store.ExperienceObjectives" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Experiences" EntityType="Model.Store.Experiences" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="HelpHints" EntityType="Model.Store.HelpHints" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="LearningObjects" EntityType="Model.Store.LearningObjects" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Objectives" EntityType="Model.Store.Objectives" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Questions" EntityType="Model.Store.Questions" store:Type="Tables" Schema="dbo" />
@@ -54,11 +55,11 @@
         </EntityType>
         <EntityType Name="ExperienceObjectives">
           <Key>
-            <PropertyRef Name="Experience_Id" />
             <PropertyRef Name="Objective_Id" />
+            <PropertyRef Name="Experience_Id" />
           </Key>
-          <Property Name="Experience_Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Objective_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Experience_Id" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Experiences">
           <Key>
@@ -73,6 +74,17 @@
           <Property Name="ModifiedBy" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
           <Property Name="Template_Id" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HelpHints">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="254" />
+          <Property Name="CreatedBy" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="LearningObjects">
           <Key>
@@ -126,8 +138,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="254" />
           <Property Name="PasswordHash" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar(max)" />
+          <Property Name="Phone" Type="nvarchar(max)" />
+          <Property Name="Organization" Type="nvarchar(max)" />
           <Property Name="CreatedBy" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="nvarchar(max)" Nullable="false" />
@@ -249,6 +264,7 @@
             <End Role="Experiences" EntitySet="Experiences" />
             <End Role="Objectives" EntitySet="Objectives" />
           </AssociationSet>
+          <EntitySet Name="HelpHints" EntityType="Model.HelpHint" />
         </EntityContainer>
         <EntityType Name="Answer">
           <Key>
@@ -339,12 +355,15 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="254" Unicode="true" FixedLength="false" />
           <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Type="String" Name="FullName" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Phone" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Organization" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_dbo_Answers_dbo_Questions_Question_Id">
           <End Role="Questions" Type="Model.Question" Multiplicity="1">
@@ -406,6 +425,17 @@
           <End Role="Experiences" Type="Model.Experience" Multiplicity="*" />
           <End Role="Objectives" Type="Model.Objective" Multiplicity="*" />
         </Association>
+        <EntityType Name="HelpHint">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CreatedBy" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="3" />
+          <Property Type="String" Name="ModifiedBy" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="ModifiedOn" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -495,6 +525,9 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="Model.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Organization" ColumnName="Organization" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
@@ -513,6 +546,18 @@
               <ScalarProperty Name="Id" ColumnName="Objective_Id" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="HelpHints">
+            <EntityTypeMapping TypeName="Model.HelpHint">
+              <MappingFragment StoreEntitySet="HelpHints">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

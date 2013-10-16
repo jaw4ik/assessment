@@ -32,6 +32,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [When(@"open page by url '(.*)'")]
         public void WhenOpenPageByUrl(string url)
         {
+            System.Threading.Thread.Sleep(500);
             DriverProvider.Current().Driver.Navigate().GoToUrl(url);
             if (!TestUtils.WaitForCondition(() =>
                 (DriverProvider.Current().Driver.FindElementsByXPath(".//section[contains(@id,'content')]//section").Count != 0), 20000))

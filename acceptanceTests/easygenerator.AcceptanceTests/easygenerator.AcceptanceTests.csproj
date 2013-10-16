@@ -150,6 +150,9 @@
     <Compile Include="Helpers\FsHelper.cs" />
     <Compile Include="Helpers\TestExperienceBuilder.cs" />
     <Compile Include="Helpers\TestUtils.cs" />
+    <Compile Include="HelpHint.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="LearningObject.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>

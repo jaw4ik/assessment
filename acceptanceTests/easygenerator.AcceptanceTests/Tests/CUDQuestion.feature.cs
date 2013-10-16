@@ -74,6 +74,12 @@ in order to prove that he has reached specific Learning Objective
 #line 8
 #line 9
 testRunner.Given("clear data context", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 10
+testRunner.When("open page by url \'http://localhost:5656/signin\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 11
+testRunner.And("sign in as \'test\' user on sign in page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 12
+testRunner.Then("browser navigates to url \'http://localhost:5656/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
         }
         
@@ -82,7 +88,7 @@ testRunner.Given("clear data context", ((string)(null)), ((TechTalk.SpecFlow.Tab
         public virtual void AddQuestionActionOnObjectivePageNavigatesToCreateQuestionView()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add question action on objective page navigates to create question view", ((string[])(null)));
-#line 12
+#line 15
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -92,15 +98,17 @@ this.FeatureBackground();
                         "Id"});
             table1.AddRow(new string[] {
                         "Objective1",
-                        "1"});
-#line 13
-testRunner.Given("objectives are present in database", ((string)(null)), table1, "Given ");
+                        "00000000000000000000000000000001"});
 #line 16
-testRunner.When("open page by url \'http://localhost:5656/#objective/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 17
+testRunner.Given("objectives are present in database", ((string)(null)), table1, "Given ");
+#line 19
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "01\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 20
 testRunner.And("press add new question button on objective page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 18
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 21
+testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
+                    "0000000001/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -110,7 +118,7 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1/q
         public virtual void CreateNewQuestionButtonOnQuestionPageNavigatesToCreateQuestionView()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create new question button on question page navigates to create question view", ((string[])(null)));
-#line 20
+#line 23
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -120,8 +128,8 @@ this.FeatureBackground();
                         "Id"});
             table2.AddRow(new string[] {
                         "Objective1",
-                        "1"});
-#line 21
+                        "00000000000000000000000000000001"});
+#line 24
 testRunner.Given("objectives are present in database", ((string)(null)), table2, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -129,15 +137,17 @@ testRunner.Given("objectives are present in database", ((string)(null)), table2,
                         "Id"});
             table3.AddRow(new string[] {
                         "Question1",
-                        "1"});
-#line 24
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table3, "Given ");
+                        "00000000000000000000000000000001"});
 #line 27
-testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 28
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table3, "Given ");
+#line 30
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "01/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 31
 testRunner.And("click create new question button on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 29
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 32
+testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
+                    "0000000001/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -147,7 +157,7 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1/q
         public virtual void CreateNewQuestionTextOnQuestionPageNavigatesToCreateQuestionView()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create new question text on question page navigates to create question view", ((string[])(null)));
-#line 31
+#line 34
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -157,8 +167,8 @@ this.FeatureBackground();
                         "Id"});
             table4.AddRow(new string[] {
                         "Objective1",
-                        "1"});
-#line 32
+                        "00000000000000000000000000000001"});
+#line 35
 testRunner.Given("objectives are present in database", ((string)(null)), table4, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
@@ -166,15 +176,17 @@ testRunner.Given("objectives are present in database", ((string)(null)), table4,
                         "Id"});
             table5.AddRow(new string[] {
                         "Question1",
-                        "1"});
-#line 35
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table5, "Given ");
+                        "00000000000000000000000000000001"});
 #line 38
-testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 39
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table5, "Given ");
+#line 41
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "01/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 42
 testRunner.And("click on create new question text on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 40
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 43
+testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
+                    "0000000001/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -184,7 +196,7 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1/q
         public virtual void EditQuestionTitleTextBlockIsActiveWhenOpenCreateQuestionView()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit question title text block is active when open create question view", ((string[])(null)));
-#line 42
+#line 45
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -194,12 +206,13 @@ this.FeatureBackground();
                         "Id"});
             table6.AddRow(new string[] {
                         "Objective1",
-                        "1"});
-#line 43
-testRunner.Given("objectives are present in database", ((string)(null)), table6, "Given ");
+                        "00000000000000000000000000000001"});
 #line 46
-testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 47
+testRunner.Given("objectives are present in database", ((string)(null)), table6, "Given ");
+#line 49
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "01/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 50
 testRunner.Then("edit title text block is active on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -210,7 +223,7 @@ testRunner.Then("edit title text block is active on create view", ((string)(null
         public virtual void EditQuestionTitleTextBlockIsEmptyWhenOpenCreateQuestionView()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Edit question title text block is empty when open create question view", ((string[])(null)));
-#line 49
+#line 52
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -220,12 +233,13 @@ this.FeatureBackground();
                         "Id"});
             table7.AddRow(new string[] {
                         "Objective1",
-                        "1"});
-#line 50
-testRunner.Given("objectives are present in database", ((string)(null)), table7, "Given ");
+                        "00000000000000000000000000000001"});
 #line 53
-testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 54
+testRunner.Given("objectives are present in database", ((string)(null)), table7, "Given ");
+#line 56
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "01/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 57
 testRunner.Then("edit title text block is empty on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -238,7 +252,7 @@ testRunner.Then("edit title text block is empty on create view", ((string)(null)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Buttons CreateAndEdit and CreateAndNew are disabled if title text is empty on cre" +
                     "ate question view", ((string[])(null)));
-#line 56
+#line 59
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -248,18 +262,19 @@ this.FeatureBackground();
                         "Id"});
             table8.AddRow(new string[] {
                         "Objective1",
-                        "1"});
-#line 57
-testRunner.Given("objectives are present in database", ((string)(null)), table8, "Given ");
+                        "00000000000000000000000000000001"});
 #line 60
-testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 61
-testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 62
-testRunner.When("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.Given("objectives are present in database", ((string)(null)), table8, "Given ");
 #line 63
-testRunner.And("clear edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "01/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 64
+testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 65
+testRunner.When("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 66
+testRunner.And("clear edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 67
 testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -272,7 +287,7 @@ testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled false on cre
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Buttons CreateAndEdit and CreateAndNew are enabled if title text is not empty on " +
                     "create question view", ((string[])(null)));
-#line 66
+#line 69
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -282,14 +297,15 @@ this.FeatureBackground();
                         "Id"});
             table9.AddRow(new string[] {
                         "Objective1",
-                        "1"});
-#line 67
-testRunner.Given("objectives are present in database", ((string)(null)), table9, "Given ");
+                        "00000000000000000000000000000001"});
 #line 70
-testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 71
+testRunner.Given("objectives are present in database", ((string)(null)), table9, "Given ");
+#line 73
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "01/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 74
 testRunner.And("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 72
+#line 75
 testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled true on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -300,7 +316,7 @@ testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled true on crea
         public virtual void BackActionOnCreateQuestionViewNavigatesBackToRelatedObjective()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Back action on create question view navigates back to related objective", ((string[])(null)));
-#line 74
+#line 77
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -310,21 +326,23 @@ this.FeatureBackground();
                         "Id"});
             table10.AddRow(new string[] {
                         "Objective1",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table10.AddRow(new string[] {
                         "Objective2",
-                        "2"});
+                        "00000000000000000000000000000002"});
             table10.AddRow(new string[] {
                         "Objective3",
-                        "3"});
-#line 75
+                        "00000000000000000000000000000003"});
+#line 78
 testRunner.Given("objectives are present in database", ((string)(null)), table10, "Given ");
-#line 80
-testRunner.When("open page by url \'http://localhost:5656/#objective/2/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 81
+#line 83
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "02/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 84
 testRunner.And("click back button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 82
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 85
+testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
+                    "0000000002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -336,7 +354,7 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/2\'
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Max allowed chars count is shown in edit title text block on create view from the" +
                     " beginning", ((string[])(null)));
-#line 84
+#line 87
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -346,12 +364,13 @@ this.FeatureBackground();
                         "Id"});
             table11.AddRow(new string[] {
                         "Objective1",
-                        "1"});
-#line 85
-testRunner.Given("objectives are present in database", ((string)(null)), table11, "Given ");
+                        "00000000000000000000000000000001"});
 #line 88
-testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 89
+testRunner.Given("objectives are present in database", ((string)(null)), table11, "Given ");
+#line 91
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "01/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 92
 testRunner.Then("max chars count \'255\' is shown in chars counter on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -364,7 +383,7 @@ testRunner.Then("max chars count \'255\' is shown in chars counter on create vie
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("correct input chars count and max chars count are shown in edit title text block " +
                     "on create view", ((string[])(null)));
-#line 91
+#line 94
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -374,16 +393,17 @@ this.FeatureBackground();
                         "Id"});
             table12.AddRow(new string[] {
                         "Objective1",
-                        "1"});
-#line 92
-testRunner.Given("objectives are present in database", ((string)(null)), table12, "Given ");
+                        "00000000000000000000000000000001"});
 #line 95
-testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 96
-testRunner.And("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 97
-testRunner.Then("chars count \'4\' is shown in chars counter on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Given("objectives are present in database", ((string)(null)), table12, "Given ");
 #line 98
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "01/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 99
+testRunner.And("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 100
+testRunner.Then("chars count \'4\' is shown in chars counter on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 101
 testRunner.And("max chars count \'255\' is shown in chars counter on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -394,7 +414,7 @@ testRunner.And("max chars count \'255\' is shown in chars counter on create view
         public virtual void NotPossibleToSaveMoreThan255CharractersInTitleTextOnCreateView()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Not possible to save more than 255 charracters in title text on create view", ((string[])(null)));
-#line 100
+#line 103
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -404,20 +424,21 @@ this.FeatureBackground();
                         "Id"});
             table13.AddRow(new string[] {
                         "Objective1",
-                        "1"});
-#line 101
-testRunner.Given("objectives are present in database", ((string)(null)), table13, "Given ");
+                        "00000000000000000000000000000001"});
 #line 104
-testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 105
-testRunner.And(@"input 'WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW WWW' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 106
-testRunner.Then("chars count \'256\' is shown in chars counter on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Given("objectives are present in database", ((string)(null)), table13, "Given ");
 #line 107
-testRunner.And("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "01/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 108
-testRunner.And("title text block marked with error on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And(@"input 'WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW WWW' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 109
+testRunner.Then("chars count \'256\' is shown in chars counter on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 110
+testRunner.And("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 111
+testRunner.And("title text block marked with error on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 112
 testRunner.And("chars counter marked with error on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -428,7 +449,7 @@ testRunner.And("chars counter marked with error on create view", ((string)(null)
         public virtual void ChangesAreNotSavedIfGoBackFromCreateView()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Changes are not saved if go back from create view", ((string[])(null)));
-#line 111
+#line 114
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -438,8 +459,8 @@ this.FeatureBackground();
                         "Id"});
             table14.AddRow(new string[] {
                         "Objective1",
-                        "1"});
-#line 112
+                        "00000000000000000000000000000001"});
+#line 115
 testRunner.Given("objectives are present in database", ((string)(null)), table14, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
@@ -447,23 +468,25 @@ testRunner.Given("objectives are present in database", ((string)(null)), table14
                         "Id"});
             table15.AddRow(new string[] {
                         "Question1",
-                        "1"});
-#line 115
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table15, "Given ");
+                        "00000000000000000000000000000001"});
 #line 118
-testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 119
-testRunner.And("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 120
-testRunner.And("click back button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table15, "Given ");
 #line 121
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "01/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 122
+testRunner.And("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 123
+testRunner.And("click back button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 124
+testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
+                    "0000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table16.AddRow(new string[] {
                         "Question1"});
-#line 122
+#line 125
 testRunner.And("questions list consists of ordered items", ((string)(null)), table16, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -476,7 +499,7 @@ testRunner.And("questions list consists of ordered items", ((string)(null)), tab
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Action CreateAndEdit navigates to newly created question related to current objec" +
                     "tive", ((string[])(null)));
-#line 126
+#line 129
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -486,14 +509,14 @@ this.FeatureBackground();
                         "Id"});
             table17.AddRow(new string[] {
                         "Objective1",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table17.AddRow(new string[] {
                         "Objective2",
-                        "2"});
+                        "00000000000000000000000000000002"});
             table17.AddRow(new string[] {
                         "Objective3",
-                        "3"});
-#line 127
+                        "00000000000000000000000000000003"});
+#line 130
 testRunner.Given("objectives are present in database", ((string)(null)), table17, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
@@ -501,27 +524,28 @@ testRunner.Given("objectives are present in database", ((string)(null)), table17
                         "Id"});
             table18.AddRow(new string[] {
                         "Question1",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table18.AddRow(new string[] {
                         "Question2",
-                        "2"});
+                        "00000000000000000000000000000002"});
             table18.AddRow(new string[] {
                         "Question3",
-                        "3"});
-#line 132
+                        "00000000000000000000000000000003"});
+#line 135
 testRunner.Given("questions related to \'Objective2\' are present in database", ((string)(null)), table18, "Given ");
-#line 137
-testRunner.When("open page by url \'http://localhost:5656/#objective/2/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 138
-testRunner.And("input \'Question4\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 139
-testRunner.And("click on create and edit button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 140
-testRunner.Then("browser navigates to url that contains \'http://localhost:5656/#objective/2/questi" +
-                    "on/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "02/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 141
-testRunner.And("\'Question4\' title is shown in question page header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("input \'Question4\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 142
+testRunner.And("click on create and edit button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 143
+testRunner.Then("browser navigates to url that contains \'http://localhost:5656/#objective/00000000" +
+                    "000000000000000000000002/question/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 144
+testRunner.And("\'Question4\' title is shown in question page header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 145
 testRunner.And("\'Objective2\' title is shown in back to objective link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -534,7 +558,7 @@ testRunner.And("\'Objective2\' title is shown in back to objective link", ((stri
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Action CreateAndNew saves changes to newly created question related to current ob" +
                     "jective and navigates to new create question view", ((string[])(null)));
-#line 144
+#line 147
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -544,14 +568,14 @@ this.FeatureBackground();
                         "Id"});
             table19.AddRow(new string[] {
                         "Objective1",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table19.AddRow(new string[] {
                         "Objective2",
-                        "2"});
+                        "00000000000000000000000000000002"});
             table19.AddRow(new string[] {
                         "Objective3",
-                        "3"});
-#line 145
+                        "00000000000000000000000000000003"});
+#line 148
 testRunner.Given("objectives are present in database", ((string)(null)), table19, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
@@ -559,27 +583,30 @@ testRunner.Given("objectives are present in database", ((string)(null)), table19
                         "Id"});
             table20.AddRow(new string[] {
                         "Question1",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table20.AddRow(new string[] {
                         "Question2",
-                        "2"});
+                        "00000000000000000000000000000002"});
             table20.AddRow(new string[] {
                         "Question3",
-                        "3"});
-#line 150
+                        "00000000000000000000000000000003"});
+#line 153
 testRunner.Given("questions related to \'Objective2\' are present in database", ((string)(null)), table20, "Given ");
-#line 155
-testRunner.When("open page by url \'http://localhost:5656/#objective/2/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 156
-testRunner.And("input \'Question4\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 157
-testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 158
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/2/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "02/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 159
-testRunner.When("click back button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.And("input \'Question4\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 160
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 161
+testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
+                    "0000000002/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 162
+testRunner.When("click back button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 163
+testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
+                    "0000000002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -591,7 +618,7 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/2\'
                         "Question3"});
             table21.AddRow(new string[] {
                         "Question4"});
-#line 161
+#line 164
 testRunner.And("questions list consists of ordered items", ((string)(null)), table21, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -604,7 +631,7 @@ testRunner.And("questions list consists of ordered items", ((string)(null)), tab
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Several questions related to current objective can be created via CreateAndNew ac" +
                     "tion", ((string[])(null)));
-#line 168
+#line 171
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -614,33 +641,35 @@ this.FeatureBackground();
                         "Id"});
             table22.AddRow(new string[] {
                         "Objective1",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table22.AddRow(new string[] {
                         "Objective2",
-                        "2"});
+                        "00000000000000000000000000000002"});
             table22.AddRow(new string[] {
                         "Objective3",
-                        "3"});
-#line 169
+                        "00000000000000000000000000000003"});
+#line 172
 testRunner.Given("objectives are present in database", ((string)(null)), table22, "Given ");
-#line 174
-testRunner.When("open page by url \'http://localhost:5656/#objective/2/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 175
-testRunner.And("input \'Question3\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 176
-testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 177
-testRunner.And("input \'Question1\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "02/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 178
-testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("input \'Question3\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 179
-testRunner.And("input \'Question2\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 180
 testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 180
+testRunner.And("input \'Question1\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 181
-testRunner.And("click back button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 182
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("input \'Question2\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 183
+testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 184
+testRunner.And("click back button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 185
+testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
+                    "0000000002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table23 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -650,7 +679,7 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/2\'
                         "Question2"});
             table23.AddRow(new string[] {
                         "Question3"});
-#line 183
+#line 186
 testRunner.And("questions list consists of ordered items", ((string)(null)), table23, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -661,7 +690,7 @@ testRunner.And("questions list consists of ordered items", ((string)(null)), tab
         public virtual void SpecialSymbolsCouldBeEnteredIntoTitleEditAreaOnCreateViewAndSaved()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Special symbols could be entered into title edit area on create view and saved", ((string[])(null)));
-#line 189
+#line 192
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -671,20 +700,21 @@ this.FeatureBackground();
                         "Id"});
             table24.AddRow(new string[] {
                         "Objective1",
-                        "1"});
-#line 190
-testRunner.Given("objectives are present in database", ((string)(null)), table24, "Given ");
+                        "00000000000000000000000000000001"});
 #line 193
-testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 194
-testRunner.And("input \'~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 195
-testRunner.And("click on create and edit button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.Given("objectives are present in database", ((string)(null)), table24, "Given ");
 #line 196
-testRunner.Then("browser navigates to url that contains \'http://localhost:5656/#objective/1/questi" +
-                    "on/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "01/question/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 197
-testRunner.And("\'~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё\' title is shown in question page header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("input \'~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 198
+testRunner.And("click on create and edit button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 199
+testRunner.Then("browser navigates to url that contains \'http://localhost:5656/#objective/00000000" +
+                    "000000000000000000000001/question/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 200
+testRunner.And("\'~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?\' title is shown in question page header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -694,7 +724,7 @@ testRunner.And("\'~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё\' title is shown in q
         public virtual void ItIsPossibleToEditQuestionTitleOnQuestionPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("It is possible to edit question title on question page", ((string[])(null)));
-#line 199
+#line 202
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -704,8 +734,8 @@ this.FeatureBackground();
                         "Id"});
             table25.AddRow(new string[] {
                         "Objective1",
-                        "1"});
-#line 200
+                        "00000000000000000000000000000001"});
+#line 203
 testRunner.Given("objectives are present in database", ((string)(null)), table25, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
@@ -713,21 +743,22 @@ testRunner.Given("objectives are present in database", ((string)(null)), table25
                         "Id"});
             table26.AddRow(new string[] {
                         "Question1",
-                        "1"});
-#line 203
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table26, "Given ");
+                        "00000000000000000000000000000001"});
 #line 206
-testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 207
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table26, "Given ");
+#line 209
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "01/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 210
 testRunner.And("edit question title with new text \'Question2\' on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 208
+#line 211
 testRunner.And("click on back to objective on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table27.AddRow(new string[] {
                         "Question2"});
-#line 209
+#line 212
 testRunner.Then("questions list consists of ordered items", ((string)(null)), table27, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -738,7 +769,7 @@ testRunner.Then("questions list consists of ordered items", ((string)(null)), ta
         public virtual void NotPossibleToMakeExistingQuestionTitleEmpty()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Not possible to make existing question title empty", ((string[])(null)));
-#line 213
+#line 216
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -748,8 +779,8 @@ this.FeatureBackground();
                         "Id"});
             table28.AddRow(new string[] {
                         "Objective1",
-                        "1"});
-#line 214
+                        "00000000000000000000000000000001"});
+#line 217
 testRunner.Given("objectives are present in database", ((string)(null)), table28, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table29 = new TechTalk.SpecFlow.Table(new string[] {
@@ -757,25 +788,26 @@ testRunner.Given("objectives are present in database", ((string)(null)), table28
                         "Id"});
             table29.AddRow(new string[] {
                         "Question1",
-                        "1"});
-#line 217
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table29, "Given ");
+                        "00000000000000000000000000000001"});
 #line 220
-testRunner.When("open page by url \'http://localhost:5656/#objective/1/question/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 221
-testRunner.And("clear header title text field on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 222
-testRunner.Then("title text block marked with error on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table29, "Given ");
 #line 223
-testRunner.And("chars counter marked with error on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "01/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 224
+testRunner.And("clear header title text field on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 225
+testRunner.Then("title text block marked with error on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 226
+testRunner.And("chars counter marked with error on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 227
 testRunner.When("click on back to objective on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table30 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table30.AddRow(new string[] {
                         "Question1"});
-#line 225
+#line 228
 testRunner.Then("questions list consists of ordered items", ((string)(null)), table30, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -786,7 +818,7 @@ testRunner.Then("questions list consists of ordered items", ((string)(null)), ta
         public virtual void DeleteQuestionButtonBecomesAvailableAfterQuestionWasSelected()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete question button becomes available after question was selected", ((string[])(null)));
-#line 229
+#line 232
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -796,8 +828,8 @@ this.FeatureBackground();
                         "Id"});
             table31.AddRow(new string[] {
                         "Objective1",
-                        "1"});
-#line 230
+                        "00000000000000000000000000000001"});
+#line 233
 testRunner.Given("objectives are present in database", ((string)(null)), table31, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table32 = new TechTalk.SpecFlow.Table(new string[] {
@@ -805,19 +837,20 @@ testRunner.Given("objectives are present in database", ((string)(null)), table31
                         "Id"});
             table32.AddRow(new string[] {
                         "Question1",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table32.AddRow(new string[] {
                         "Question2",
-                        "2"});
-#line 233
+                        "00000000000000000000000000000002"});
+#line 236
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table32, "Given ");
-#line 237
-testRunner.When("open page by url \'http://localhost:5656/#objective/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 238
-testRunner.And("mouse hover element of questions list with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 239
-testRunner.And("click on select questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 240
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "01\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 241
+testRunner.And("mouse hover element of questions list with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 242
+testRunner.And("click on select questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 243
 testRunner.Then("delete button is displayed true on question list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -828,7 +861,7 @@ testRunner.Then("delete button is displayed true on question list page", ((strin
         public virtual void DeleteQuestionButtonIsNotAvailableIfThereIsNoSelectedQuestions()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete question button is not available if there is no selected questions", ((string[])(null)));
-#line 242
+#line 245
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -838,8 +871,8 @@ this.FeatureBackground();
                         "Id"});
             table33.AddRow(new string[] {
                         "Objective1",
-                        "1"});
-#line 243
+                        "00000000000000000000000000000001"});
+#line 246
 testRunner.Given("objectives are present in database", ((string)(null)), table33, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table34 = new TechTalk.SpecFlow.Table(new string[] {
@@ -847,23 +880,24 @@ testRunner.Given("objectives are present in database", ((string)(null)), table33
                         "Id"});
             table34.AddRow(new string[] {
                         "Question1",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table34.AddRow(new string[] {
                         "Question2",
-                        "2"});
-#line 246
+                        "00000000000000000000000000000002"});
+#line 249
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table34, "Given ");
-#line 250
-testRunner.When("open page by url \'http://localhost:5656/#objective/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 251
-testRunner.Then("delete button is displayed false on question list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 252
-testRunner.When("mouse hover element of questions list with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 253
-testRunner.And("click on select questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "01\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 254
-testRunner.And("click on select questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.Then("delete button is displayed false on question list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 255
+testRunner.When("mouse hover element of questions list with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 256
+testRunner.And("click on select questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 257
+testRunner.And("click on select questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 258
 testRunner.Then("delete button is displayed false on question list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -874,7 +908,7 @@ testRunner.Then("delete button is displayed false on question list page", ((stri
         public virtual void SelectedQuestionCanBeDeleted()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Selected question can be deleted", ((string[])(null)));
-#line 257
+#line 260
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -884,8 +918,8 @@ this.FeatureBackground();
                         "Id"});
             table35.AddRow(new string[] {
                         "Objective1",
-                        "1"});
-#line 258
+                        "00000000000000000000000000000001"});
+#line 261
 testRunner.Given("objectives are present in database", ((string)(null)), table35, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table36 = new TechTalk.SpecFlow.Table(new string[] {
@@ -893,22 +927,23 @@ testRunner.Given("objectives are present in database", ((string)(null)), table35
                         "Id"});
             table36.AddRow(new string[] {
                         "Question1",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table36.AddRow(new string[] {
                         "Question2",
-                        "2"});
+                        "00000000000000000000000000000002"});
             table36.AddRow(new string[] {
                         "Question3",
-                        "3"});
-#line 261
+                        "00000000000000000000000000000003"});
+#line 264
 testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table36, "Given ");
-#line 266
-testRunner.When("open page by url \'http://localhost:5656/#objective/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 267
-testRunner.And("mouse hover element of questions list with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 268
-testRunner.And("click on select questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 269
+testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
+                    "01\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 270
+testRunner.And("mouse hover element of questions list with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 271
+testRunner.And("click on select questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 272
 testRunner.And("click on delete button on question list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table37 = new TechTalk.SpecFlow.Table(new string[] {
@@ -917,13 +952,13 @@ testRunner.And("click on delete button on question list page", ((string)(null)),
                         "Question1"});
             table37.AddRow(new string[] {
                         "Question3"});
-#line 270
+#line 273
 testRunner.Then("questions list consists of ordered items", ((string)(null)), table37, "Then ");
-#line 274
+#line 277
 testRunner.When("click on back from questions list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 275
+#line 278
 testRunner.And("mouse hover element of objectives list with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 276
+#line 279
 testRunner.And("click open objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table38 = new TechTalk.SpecFlow.Table(new string[] {
@@ -932,7 +967,7 @@ testRunner.And("click open objective list item with title \'Objective1\'", ((str
                         "Question1"});
             table38.AddRow(new string[] {
                         "Question3"});
-#line 277
+#line 280
 testRunner.Then("questions list consists of ordered items", ((string)(null)), table38, "Then ");
 #line hidden
             this.ScenarioCleanup();

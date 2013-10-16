@@ -12,17 +12,13 @@ namespace easygenerator.AcceptanceTests
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class HelpHint
     {
         public System.Guid Id { get; set; }
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
+        public string Name { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public System.DateTime ModifiedOn { get; set; }
-        public string FullName { get; set; }
-        public string Phone { get; set; }
-        public string Organization { get; set; }
     }
 }
