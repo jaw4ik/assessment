@@ -26,7 +26,5 @@
         $(fixedContainer).css('top', headerHeight + topNavHeight + helpHintHeight + 'px');
         $(notFixedContainer).css('padding-top', 40 + helpHintHeight + 'px');
         $(contentContainer).css('min-height', 600 + helpHintHeight + 'px');
-
-        console.log(helpHintHeight);
     }
 };
