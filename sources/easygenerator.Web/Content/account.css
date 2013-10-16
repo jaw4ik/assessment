@@ -183,7 +183,7 @@ body.try {
 }
 
 .view-module.sign-up .user-columns {
-    width: 981px;
+    width: 900px;
     margin: 0 auto;
 }
 
@@ -207,13 +207,13 @@ body.try {
 }
 
 .user-column.required {
-    padding-right: 90px;
-    width: 490px;
+    padding-right: 50px;
+    width: 450px;
 }
 
 .user-column.optional {
-    padding-left: 90px;
-    width: 490px;
+    padding-left: 50px;
+    width: 450px;
 }
 
 .user-column.divider {
@@ -226,24 +226,6 @@ body.try {
     min-height: 137px;
 }
 
-.view-module.sign-up .user-form-row {
-    min-height: 154px;
-}
-
-.user-form-optional-row {
-    min-height: 127px;
-}
-
-.user-form-header-row {
-    min-height: 72px;
-}
-
-.user-form-caption {
-    position: relative;
-    font-size: 24px;
-    color: #333;
-}
-
 .user-form-label {
     position: relative;
     padding-left: 35px;
@@ -251,26 +233,15 @@ body.try {
     color: #333;
 }
 
-.user-form-caption.required {
-    font-weight: bold;
-}
 
-    .user-form-caption.required:after,
     .user-form-label.required:after {
-        content: '*';
+        content: ' *';
         position: relative;
         top: -14px;
         color: rgb(241, 138, 63);
         font-weight: normal;
+        font-size: 16px;
     }
-
-    .user-form-caption.required:after {
-        font-size: 20px;
-    }
-
-.user-form-label.required:after {
-    font-size: 16px;
-}
 
 .user-form-label:before {
     content: '';
@@ -284,11 +255,23 @@ body.try {
 }
 
 .user-form-label.email:before {
-    background-position: -216px 0;
+    background-position: -240px -45px;
 }
 
 .user-form-label.password:before {
     background-position: -249px 5px;
+}
+
+.user-form-label.fullname:before {
+    background-position: -216px 0;
+}
+
+.user-form-label.organization:before {
+    background-position: -202px -45px;
+}
+
+.user-form-label.phone:before {
+    background-position: -165px -45px;
 }
 
 .user-form-sublabel {
@@ -343,6 +326,7 @@ body.try {
 
 .user-form-checkbox-holder {
     min-height: 36px;
+    padding-bottom: 18px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;

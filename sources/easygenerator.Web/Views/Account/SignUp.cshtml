@@ -9,9 +9,6 @@
         <div class="user-title">@Resources.CreateAccountTitle</div>
         <form class="user-form" id="signUpForm" action="#" method="post">
             <div class="user-column required">
-                <div class="user-form-header-row">
-                    <label class="user-form-caption required">@Resources.RequiredInformation</label>
-                </div>
                 <div class="user-form-row" data-bind="css : { error: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), success: !isUserNameValidating() && !isUserNameEditing() && userName.isValid() }">
                     <label class="user-form-label required email">@Resources.EmailCaption</label>
                     <div class="user-form-input-holder">
@@ -19,6 +16,12 @@
                     </div>
                     <span class="form-validation-message" data-bind="visible: isUserNameValidating()">@Resources.Checking</span>
                     <span class="user-form-message" data-bind="visible: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), text: userExists() ? '@Resources.AccountAlreadyExists' : '@Resources.EnterValidEmailMessage'"></span>
+                </div>
+                <div class="user-form-row">
+                    <label class="user-form-label fullname">@Resources.FullNameCaption</label>
+                    <div class="user-form-input-holder">
+                        <input class="user-form-input" type="text" name="fullName" data-bind="value: fullName" ondrop="return false;" />
+                    </div>
                 </div>
                 <div class="user-form-row" data-bind="css : { error: !password.isValid() && password().length > 0, success: password.isValid() }">
                     <label class="user-form-label required password">@Resources.PasswordCaption</label>
@@ -54,26 +57,15 @@
                     </div>
                 </div>
             </div>
-            <div class="user-column divider">
-            </div>
             <div class="user-column optional">
-                <div class="user-form-header-row">
-                    <label class="user-form-caption">@Resources.OptionalInformation</label>
-                </div>
-                <div class="user-form-optional-row">
-                    <label class="user-form-caption">@Resources.FullNameCaption</label>
-                    <div class="user-form-input-holder">
-                        <input class="user-form-input" type="text" name="fullName" data-bind="value: fullName" ondrop="return false;" />
-                    </div>
-                </div>
-                <div class="user-form-optional-row">
-                    <label class="user-form-caption">@Resources.OrganizationNameCaption</label>
+                <div class="user-form-row">
+                    <label class="user-form-label organization">@Resources.OrganizationNameCaption</label>
                     <div class="user-form-input-holder">
                         <input class="user-form-input" type="text" name="organization" data-bind="value: organization" ondrop="return false;" />
                     </div>
                 </div>
-                <div class="user-form-optional-row">
-                    <label class="user-form-caption">@Resources.PhoneNumberCaption</label>
+                <div class="user-form-row">
+                    <label class="user-form-label phone">@Resources.PhoneNumberCaption</label>
                     <div class="user-form-input-holder">
                         <input class="user-form-input" type="text" name="phone" data-bind="value: phone" ondrop="return false;" />
                     </div>
