@@ -444,8 +444,8 @@
     },
     savedAt: {
         en: 'Saved at',
-        nl: 'Saved at[nl]',
-        de: 'Saved at[de]'
+        nl: 'Opgeslagen om',
+        de: 'Gespeichert am'
     },
     /* End resource section for model Questions */
     
@@ -1003,169 +1003,169 @@
     /* Resource section for model Server error notification */
     experienceNotFoundError: {
         en: 'Learning experience was not found. Please refresh your data.',
-        nl: 'Learning experience was not found. Please refresh your data.[nl]',
-        de: 'Learning experience was not found. Please refresh your data.[de]'
+        nl: 'De leerervaring is niet gevonden. Vernieuw uw gegevens.',
+        de: 'Die Lernerfahrung wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
     },
     objectiveNotFoundError: {
         en: 'Learning objective was not found. Please refresh your data.',
-        nl: 'Learning objective was not found. Please refresh your data.[nl]',
-        de: 'Learning objective was not found. Please refresh your data.[de]'
+        nl: 'Het leerdoel is niet gevonden. Vernieuw uw gegevens.',
+        de: 'Das Lernziel wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
     },
     answerNotFoundError: {
         en: 'Answer option was not found. Please refresh your data.',
-        nl: 'Answer option was not found. Please refresh your data.[nl]',
-        de: 'Answer option was not found. Please refresh your data.[de]'
+        nl: 'De antwoordoptie is niet gevonden. Vernieuw uw gegevens.',
+        de: 'Die Antwortoption wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
     },
     questionNotFoundError: {
         en: 'Question was not found. Please refresh your data.',
-        nl: 'Question was not found. Please refresh your data.[nl]',
-        de: 'Question was not found. Please refresh your data.[de]'
+        nl: 'De vraag is niet gevonden. Vernieuw uw gegevens.',
+        de: 'Die Frage wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
     },
     learningObjectNotFoundError: {
         en: 'Learning object was not found. Please refresh your data.',
-        nl: 'Learning object was not found. Please refresh your data.[nl]',
-        de: 'Learning object was not found. Please refresh your data.[de]'
+        nl: 'Het leerobject is niet gevonden. Vernieuw uw gegevens.',
+        de: 'Der Lerngegenstand wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
     },
     helpHintNotFoundError: {
         en: 'Help hint was not found. Please refresh your data.',
-        nl: 'Help hint was not found. Please refresh your data.[nl]',
-        de: 'Help hint was not found. Please refresh your data.[de]'
+        nl: 'De helphint is niet gevonden. Vernieuw uw gegevens.',
+        de: 'Der Hilfehinweis wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
     },
     /* End resource section for model Server error notification */
     
     /* Resource section for model View captions */
     learningExperienceViewCaption: {
         en: 'Learning experience editor',
-        nl: 'Leerervaringen editor',
+        nl: 'Leerervaring-editor',
         de: 'Lernerfahrungs-Editor'
     },
     learningObjectiveViewCaption: {
         en: 'Learning objective editor',
-        nl: 'Learning objective editor[nl]',
-        de: 'Learning objective editor[de]'
+        nl: 'Leerdoel-editor',
+        de: 'Lernziel-Editor'
     },
     questionViewCaption: {
         en: 'Question editor',
-        nl: 'Question editor[nl]',
-        de: 'Question editor[de]'
+        nl: 'Vraag-editor',
+        de: 'Frage-Editor'
     },
     createExperienceViewCaption: {
         en: 'Create learning experience',
-        nl: 'Create learning experience[nl]',
-        de: 'Create learning experience[de]'
+        nl: 'Leerervaring maken',
+        de: 'Lernerfahrung erstellen'
     },
     createObjectiveViewCaption: {
         en: 'Create learning objective',
-        nl: 'Create learning objective[nl]',
-        de: 'Create learning objective[de]'
+        nl: 'Leerdoel',
+        de: 'Lernziel erstellen'
     },
     createQuestionViewCaption: {
         en: 'Create question',
-        nl: 'Create question[nl]',
-        de: 'Create question[de]'
+        nl: 'Vraag maken',
+        de: 'Frage erstellen'
     },
     /* End resource section for model View captions */
     
     /* Resource section for model Sign-UP optional fields */
     FullNameCaption: {
         en: 'Full name',
-        nl: 'Full name[nl]',
-        de: 'Full name[de]'
+        nl: 'Volledige naam',
+        de: 'Vollständiger Name'
     },
     PhoneNumberCaption: {
         en: 'Phone number',
-        nl: 'Phone number[nl]',
-        de: 'Phone number[de]'
+        nl: 'Telefoonnummer',
+        de: 'Telefonnummer'
     },
     OrganizationNameCaption: {
         en: 'Organization name',
-        nl: 'Organization name[nl]',
-        de: 'Organization name[de]'
+        nl: 'Naam van organisatie',
+        de: 'Name der Organisiation'
     },
     CountryCaption: {
         en: 'Country',
-        nl: 'Country[nl]',
-        de: 'Country[de]'
+        nl: 'Land',
+        de: 'Land'
     },
     howManyPeopleQuestion: {
         en: 'How many people at your company are authoring courses?',
-        nl: 'How many people at your company are authoring courses?[nl]',
-        de: 'How many people at your company are authoring courses?[de]'
+        nl: 'Hoeveel medewerkers in uw bedrijf schrijven cursusmateriaal?',
+        de: 'Wie viele Personen in Ihrem Unternehmen erstellen Kurse?'
     },
     whenDoYouNeedToolQuestion: {
         en: 'How soon do you need an authoring tool?',
-        nl: 'How soon do you need an authoring tool?[nl]',
-        de: 'How soon do you need an authoring tool?[de]'
+        nl: 'Hoe snel hebt u een schrijftool nodig?',
+        de: 'Wie bald benötigen Sie ein Autorentool?'
     },
     howAuthorTodayQuestion: {
         en: 'How do you author courses today?',
-        nl: 'How do you author courses today?[nl]',
-        de: 'How do you author courses today?[de]'
+        nl: 'Hoe schrijft u nu cursusmateriaal?',
+        de: 'Wie erstellen Sie heute Kurse?'
     },
     chooseAnswer: {
         en: 'Choose answer',
-        nl: 'Choose answer[nl]',
-        de: 'Choose answer[de]'
+        nl: 'Kies een antwoord',
+        de: 'Antwort auswählen'
     },
     now: {
         en: 'Now',
-        nl: 'Now[nl]',
-        de: 'Now[de]'
+        nl: 'Nu',
+        de: 'Jetzt'
     },
     variant1Month: {
         en: '1-3 Months',
-        nl: '1-3 Months[nl]',
-        de: '1-3 Months[de]'
+        nl: '1-3 maanden',
+        de: 'In 1 - 3 Monaten'
     },
     variantMore3Months: {
         en: '>3 Months',
-        nl: '>3 Months[nl]',
-        de: '>3 Months[de]'
+        nl: '>3 maanden',
+        de: 'In mehr als 3 Monaten'
     },
     justLooking: {
         en: 'Just Looking',
-        nl: 'Just Looking[nl]',
-        de: 'Just Looking[de]'
+        nl: 'Ik oriënteer me alleen',
+        de: 'Ich informiere mich nur.'
     },
     powerPoint: {
         en: 'PowerPoint',
-        nl: 'PowerPoint[nl]',
-        de: 'PowerPoint[de]'
+        nl: 'PowerPoint',
+        de: 'PowerPoint'
     },
     anotherTool: {
         en: 'Another authoring tool',
-        nl: 'Another authoring tool[nl]',
-        de: 'Another authoring tool[de]'
+        nl: 'Een andere schrijftool',
+        de: 'Mit einem anderen Autorentool'
     },
     nothing: {
         en: 'Nothing',
-        nl: 'Nothing[nl]',
-        de: 'Nothing[de]'
+        nl: 'Geen',
+        de: 'Keines'
     },
     other: {
         en: 'Other',
-        nl: 'Other[nl]',
-        de: 'Other[de]'
+        nl: 'Anders',
+        de: 'Sonstiges'
     },
     skip: {
         en: 'Skip',
-        nl: 'Skip[nl]',
-        de: 'Skip[de]'
+        nl: 'Overslaan',
+        de: 'Überspringen'
     },
     RequiredInformation: {
         en: 'Required information',
-        nl: 'Required information[nl]',
-        de: 'Required information[de]'
+        nl: 'Verplichte informatie',
+        de: 'Erforderliche Information'
     },
     OptionalInformation: {
         en: 'Optional information',
-        nl: 'Optional information[nl]',
-        de: 'Optional information[de]'
+        nl: 'Optionele informatie',
+        de: 'Optionale Information'
     },
     ChooseYourCountry: {
         en: 'Choose your country',
-        nl: 'Choose your country[nl]',
-        de: 'Choose your country[de]'
+        nl: 'Kies uw land',
+        de: 'Wählen Sie Ihr Land aus.'
     },
     /* End resource section for model Sign-UP optional fields */
     
