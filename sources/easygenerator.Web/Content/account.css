@@ -50,6 +50,10 @@ body.try {
     letter-spacing: 0;
 }
 
+.try .view-module {
+    padding-top: 0;
+}
+
 .footer.try {
     width: 100%;
     height: 35px;
@@ -243,24 +247,24 @@ body.try {
     font-weight: bold;
 }
 
-    .user-form-label:after {
-        content: '';
-        position: absolute;
-        left: 2px;
-        top: 1px;
-        display: block;
-        width: 26px;
-        height: 30px;
-        background: url(images/sprites.png) -216px 0 no-repeat;
-    }
+.user-form-label:after {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 1px;
+    display: block;
+    width: 26px;
+    height: 30px;
+    background: url(images/sprites.png) -216px 0 no-repeat;
+}
 
-    .user-form-label.email:after {
-        background-position: -216px 0;
-    }
+.user-form-label.email:after {
+    background-position: -216px 0;
+}
 
-    .user-form-label.password:after {
-        background-position: -249px 5px;
-    }
+.user-form-label.password:after {
+    background-position: -249px 5px;
+}
 
 .user-form-sublabel {
     color: #333;
@@ -490,13 +494,13 @@ body.try {
     box-sizing: border-box;
 }
 
-.user-form-row.submit .formBtn {
-    width: 100%;
-}
-
-    .user-form-row.submit .formBtn input {
+    .user-form-row.submit .formBtn {
         width: 100%;
     }
+
+        .user-form-row.submit .formBtn input {
+            width: 100%;
+        }
 
 .user-column.image {
     width: 50%;

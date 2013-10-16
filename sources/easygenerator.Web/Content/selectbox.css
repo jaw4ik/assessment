@@ -97,6 +97,7 @@
     border: 1px solid #ccc;
     border-radius: 0 0 4px 4px;
     background: white;
+    overflow: hidden;
 }
 
 .user-form-selectbox .selectbox-current-item {
@@ -143,6 +144,26 @@
 
 .user-form-selectbox .selectbox-current-item.expanded .selectbox-caret {
     background-position: -116px -60px;
+}
+
+.user-form-selectbox .selectbox-option-item {
+    padding: 7px 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #333;
+    font-size: 15px;
+    -webkit-text-shadow: 0 0 1px rgba(0,0,0,0.2);
+    text-shadow: 0 0 1px rgba(0,0,0,0.2);
+}
+
+.user-form-selectbox .selectbox-option-item:hover {
+    background: #f3f3f3;    
+}
+
+
+.user-form-selectbox .selectbox-option-item+.selectbox-option-item {
+    margin-top: 10px;
 }
 
 /*#endregion USER-FORM SELECTBOX STYLES*/
