@@ -203,7 +203,7 @@ body.try {
 }
 
 .view-module.sign-up .user-form {
-    padding-top: 2.5%;
+    padding-top: 37px;
 }
 
 .user-column.required {
@@ -226,8 +226,16 @@ body.try {
     min-height: 137px;
 }
 
+.view-module.sign-up .user-form-row {
+    min-height: 154px;
+}
+
+.user-form-optional-row {
+    min-height: 127px;
+}
+
 .user-form-header-row {
-    min-height: 70px;
+    min-height: 72px;
 }
 
 .user-form-caption {
@@ -247,24 +255,41 @@ body.try {
     font-weight: bold;
 }
 
-.user-form-label:after {
-    content: '';
-    position: absolute;
-    left: 2px;
-    top: 1px;
-    display: block;
-    width: 26px;
-    height: 30px;
-    background: url(images/sprites.png) -216px 0 no-repeat;
-}
+    .user-form-caption.required:after,
+    .user-form-label.required:after {
+        content: '*';
+        position: relative;
+        top: -14px;
+        color: rgb(241, 138, 63);
+        font-weight: normal;
+    }
 
-.user-form-label.email:after {
-    background-position: -216px 0;
-}
+    .user-form-caption.required:after {
+        font-size: 20px;
+    }
 
-.user-form-label.password:after {
-    background-position: -249px 5px;
-}
+    .user-form-label.required:after {
+        font-size: 16px;
+    }
+
+    .user-form-label:before {
+        content: '';
+        position: absolute;
+        left: 2px;
+        top: 1px;
+        display: block;
+        width: 26px;
+        height: 30px;
+        background: url(images/sprites.png) -216px 0 no-repeat;
+    }
+
+    .user-form-label.email:before {
+        background-position: -216px 0;
+    }
+
+    .user-form-label.password:before {
+        background-position: -249px 5px;
+    }
 
 .user-form-sublabel {
     color: #333;
@@ -317,8 +342,7 @@ body.try {
     }
 
 .user-form-checkbox-holder {
-    min-height: 40px;
-    padding-bottom: 18px;
+    min-height: 36px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;

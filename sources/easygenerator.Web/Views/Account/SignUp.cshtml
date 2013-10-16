@@ -13,7 +13,7 @@
                     <label class="user-form-caption required">@Resources.RequiredInformation</label>
                 </div>
                 <div class="user-form-row" data-bind="css : { error: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), success: !isUserNameValidating() && !isUserNameEditing() && userName.isValid() }">
-                    <label class="user-form-label email">@Resources.EmailCaption</label>
+                    <label class="user-form-label required email">@Resources.EmailCaption</label>
                     <div class="user-form-input-holder">
                         <input class="user-form-input" type="text" name="email" autocomplete="off" data-bind="value: userName, valueUpdate: 'afterkeydown', event: { blur: checkUserExists }, hasFocus: isUserNameEditing" ondrop="return false;" />
                     </div>
@@ -21,7 +21,7 @@
                     <span class="user-form-message" data-bind="visible: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), text: userExists() ? '@Resources.AccountAlreadyExists' : '@Resources.EnterValidEmailMessage'"></span>
                 </div>
                 <div class="user-form-row" data-bind="css : { error: !password.isValid() && password().length > 0, success: password.isValid() }">
-                    <label class="user-form-label password">@Resources.PasswordCaption</label>
+                    <label class="user-form-label required password">@Resources.PasswordCaption</label>
                     <div class="user-form-input-holder show-tooltip">
                         <input class="user-form-input" name="password" autocomplete="off" data-bind="attr: { type: isPasswordVisible() ? 'text' : 'password' }, value: password, valueUpdate: 'afterkeydown', hasFocus: isPasswordEditing" ondrop="return false;" />
                         <a href="#" class="user-form-password-eye" data-bind="css:{ revealed: isPasswordVisible }, click: showHidePassword "></a>
@@ -60,19 +60,19 @@
                 <div class="user-form-header-row">
                     <label class="user-form-caption">@Resources.OptionalInformation</label>
                 </div>
-                <div class="user-form-row">
+                <div class="user-form-optional-row">
                     <label class="user-form-caption">@Resources.FullNameCaption</label>
                     <div class="user-form-input-holder">
                         <input class="user-form-input" type="text" name="fullName" data-bind="value: fullName" ondrop="return false;" />
                     </div>
                 </div>
-                <div class="user-form-row">
+                <div class="user-form-optional-row">
                     <label class="user-form-caption">@Resources.OrganizationNameCaption</label>
                     <div class="user-form-input-holder">
                         <input class="user-form-input" type="text" name="organization" data-bind="value: organization" ondrop="return false;" />
                     </div>
                 </div>
-                <div class="user-form-row">
+                <div class="user-form-optional-row">
                     <label class="user-form-caption">@Resources.PhoneNumberCaption</label>
                     <div class="user-form-input-holder">
                         <input class="user-form-input" type="text" name="phone" data-bind="value: phone" ondrop="return false;" />
