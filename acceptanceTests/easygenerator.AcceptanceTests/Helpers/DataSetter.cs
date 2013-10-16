@@ -92,7 +92,7 @@ namespace easygenerator.AcceptanceTests.Helpers
         {
             using (var entities = new Entities())
             {
-                var template_id = entities.Templates.First(tmpl => tmpl.Name == "Default").Id;
+                var template_id = entities.Templates.First(tmpl => tmpl.Name == "Freestyle learning").Id;
                 foreach (var exp in entities.Experiences)
                 {
                     entities.Experiences.Remove(exp);
