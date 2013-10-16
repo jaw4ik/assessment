@@ -58,7 +58,7 @@
                     return;
                 }
                 
-                helpHintRepository.hideHint(helpHint().id).then(function () {
+                helpHintRepository.removeHint(helpHint().id).then(function () {
                     helpHint(undefined);
                 });
             },
@@ -68,7 +68,7 @@
                     return;
                 }
                 
-                helpHintRepository.showHint(activeModule()).then(function (hint) {
+                helpHintRepository.addHint(activeModule()).then(function (hint) {
                     helpHint(hint);
                 });
             },

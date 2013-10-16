@@ -8,7 +8,7 @@
                 });
             },
 
-            hideHint = function (hintId) {
+            removeHint = function (hintId) {
                 return Q.fcall(function () {
                     guard.throwIfNotString(hintId, 'Hint id is not a string');
 
@@ -24,7 +24,7 @@
                 });
             },
             
-            showHint = function (hintKey) {
+            addHint = function (hintKey) {
                 return Q.fcall(function () {
                     guard.throwIfNotString(hintKey, 'Hint key is not a string');
 
@@ -52,7 +52,7 @@
         return {
             getCollection: getCollection,
 
-            hideHint: hideHint,
-            showHint: showHint
+            removeHint: removeHint,
+            addHint: addHint
         };
     });
