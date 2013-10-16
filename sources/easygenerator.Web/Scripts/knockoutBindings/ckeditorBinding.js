@@ -47,15 +47,8 @@
                 setCaretToStart();
             }
 
-            editor.on('blur', function () {
-                isEditing(false);
-
-                if (!!blurHandler)
-                    blurHandler.call(that, viewModel);
-                
-                clearInterval(saveIntervalId);
-            });
-
+            editor.on('blur', onBlur);
+            
             editor.on('key', function (event) {
                 if (event.data.keyCode == 27) {
                     $(editor.editable().$).blur();
@@ -79,8 +72,10 @@
             });
 
             $(window).one("hashchange", function () {
-                if (isEditing())
+                if (isEditing()) {
+                    editor.removeListener('blur', onBlur);
                     saveData();
+                }
             });
         });
 
@@ -93,6 +88,15 @@
             editor.destroy(true);
             $(element).removeAttr('contenteditable');
         });
+
+        function onBlur() {
+            isEditing(false);
+
+            if (!!blurHandler)
+                blurHandler.call(that, viewModel);
+
+            clearInterval(saveIntervalId);
+        };
 
         function saveData() {
             if (!!saveHandler) {

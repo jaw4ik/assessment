@@ -215,11 +215,9 @@
             beforeEach(function () {
                 viewModel = ctor(questionId, learningObjects);
 
-                getById = Q.defer();
                 addLearningObject = Q.defer();
                 updateLearningObjectText = Q.defer();
 
-                spyOn(repository, 'getById').andReturn(getById.promise);
                 spyOn(repository, 'addLearningObject').andReturn(addLearningObject.promise);
                 spyOn(repository, 'updateText').andReturn(updateLearningObjectText.promise);
             });
@@ -231,34 +229,28 @@
             describe('when text is not empty', function () {
 
                 describe('and id is not empty', function () {
-
-                    var learningObject = { id: ko.observable('learningObjectId'), text: ko.observable('text') };
+                    var text = 'text';
+                    var learningObject = { id: ko.observable('learningObjectId'), text: ko.observable(text) };
 
                     describe('and text is not modified', function () {
+                        beforeEach(function() {
+                            learningObject.originalText = text;
+                        });
 
                         it('should not update learning object text in the repository', function () {
-                            var promise = getById.promise.fin(function () { });
-
-                            getById.resolve({ id: learningObject.id(), text: 'text' });
-
                             viewModel.updateText(learningObject);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(repository.updateText).not.toHaveBeenCalledWith(learningObject.id(), learningObject.text());
-                            });
+                            expect(repository.updateText).not.toHaveBeenCalledWith(learningObject.id(), learningObject.text());
                         });
 
                     });
 
                     describe('and text is modified', function () {
+                        beforeEach(function() {
+                            learningObject.originalText = 'text2';
+                        });
 
                         it('should update learning object text in the repository', function () {
                             var promise = updateLearningObjectText.promise.fin(function () { });
-
-                            getById.resolve({ id: 'learningObjectId' });
                             updateLearningObjectText.resolve();
 
                             viewModel.updateText(learningObject);
@@ -272,9 +264,8 @@
                         });
 
                         it('should show notification', function () {
-                            var promise = getById.promise.fin(function () { });
+                            var promise = updateLearningObjectText.promise.fin(function () { });
 
-                            getById.resolve({ id: 'learningObjectId' });
                             updateLearningObjectText.resolve(new Date());
 
                             viewModel.updateText(learningObject);
@@ -286,7 +277,22 @@
                                 expect(notify.info).toHaveBeenCalled();
                             });
                         });
+                        
+                        it('should update learning object original text', function () {
+                            var promise = updateLearningObjectText.promise.fin(function () { });
 
+                            updateLearningObjectText.resolve(new Date());
+
+                            viewModel.updateText(learningObject);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(learningObject.originalText).toBe(learningObject.text());
+                            });
+                        });
+                      
                     });
 
                 });
@@ -294,16 +300,18 @@
                 describe('and id is empty', function () {
 
                     var id = 'id';
+                    var learningObject;
+
+                    beforeEach(function() {
+                        learningObject = { id: ko.observable(''), text: ko.observable('text') };
+                    });
 
                     it('should add learning object to the repository', function () {
-                        var learningObject = { id: ko.observable(''), text: ko.observable('text') };
-
                         viewModel.updateText(learningObject);
                         expect(repository.addLearningObject).toHaveBeenCalledWith(questionId, { text: learningObject.text() });
                     });
 
                     it('should update learning object id in the viewModel', function () {
-                        var learningObject = { id: ko.observable(''), text: ko.observable('text') };
                         var promise = addLearningObject.promise.fin(function () { });
                         addLearningObject.resolve({ id: id, createdOn: new Date() });
 
@@ -319,7 +327,19 @@
 
 
                     it('should show notification', function () {
-                        var learningObject = { id: ko.observable(''), text: ko.observable('text') };
+                        var promise = addLearningObject.promise.fin(function () { });
+                        addLearningObject.resolve({ id: id, createdOn: new Date() });
+                        viewModel.updateText(learningObject);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(notify.info).toHaveBeenCalled();
+                        });
+                    });
+                    
+                    it('should set learning object original text', function () {
                         var promise = addLearningObject.promise.fin(function () { });
                         addLearningObject.resolve({ id: id, createdOn: new Date() });
 
@@ -329,7 +349,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(notify.info).toHaveBeenCalled();
+                            expect(learningObject.originalText).toBe(learningObject.text());
                         });
                     });
 

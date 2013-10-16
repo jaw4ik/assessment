@@ -44,7 +44,7 @@
             updateText = function (learningObject) {
                 var id = ko.unwrap(learningObject.id);
                 var text = ko.unwrap(learningObject.text);
-                
+
                 if (_.isEmptyHtmlText(text)) {
                     return;
                 }
@@ -52,16 +52,16 @@
                 if (_.isEmptyOrWhitespace(id)) {
                     repository.addLearningObject(questionId, { text: text }).then(function (item) {
                         learningObject.id(item.id);
+                        learningObject.originalText = text;
                         showNotification(item.createdOn);
                     });
                 } else {
-                    repository.getById(id).then(function (item) {
-                        if (item.text != text) {
-                            repository.updateText(id, text).then(function (modifiedOn) {
-                                showNotification(modifiedOn);
-                            });
-                        }
-                    });
+                    if (text != learningObject.originalText) {
+                        repository.updateText(id, text).then(function (modifiedOn) {
+                            learningObject.originalText = text;
+                            showNotification(modifiedOn);
+                        });
+                    }
                 }
             },
 
@@ -84,6 +84,7 @@
             learningObjects.push({
                 id: ko.observable(learningObject.id),
                 text: ko.observable(learningObject.text),
+                originalText: learningObject.text,
                 hasFocus: ko.observable(learningObject.hasFocus || false)
             });
         }
