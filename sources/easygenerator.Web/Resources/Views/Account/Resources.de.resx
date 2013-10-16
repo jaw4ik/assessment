@@ -141,9 +141,6 @@
   <data name="CopyrightText" xml:space="preserve">
     <value>Copyright © 2013 easygenerator. Alle Rechte vorbehalten.</value>
   </data>
-  <data name="CountryCaption" xml:space="preserve">
-    <value>Country [de]</value>
-  </data>
   <data name="CreateAccountTitle" xml:space="preserve">
     <value>Konto erstellen</value>
   </data>
@@ -154,7 +151,7 @@
     <value>Geben Sie eine gültige E-Mail-Adresse ein</value>
   </data>
   <data name="FullNameCaption" xml:space="preserve">
-    <value>Full name [de]</value>
+    <value>Vollständiger Name</value>
   </data>
   <data name="IncorrectEmailOrPassword" xml:space="preserve">
     <value>Diese Kombination von E-Mail-Adresse und Kennwort wurde nicht gefunden.</value>
@@ -166,10 +163,10 @@
     <value>darf kein(e) Leerzeichen enthalten.</value>
   </data>
   <data name="OptionalInformation" xml:space="preserve">
-    <value>Optional information [de]</value>
+    <value>Optionale Information</value>
   </data>
   <data name="OrganizationNameCaption" xml:space="preserve">
-    <value>Organization name [de]</value>
+    <value>Name der Organisiation</value>
   </data>
   <data name="PasswordCaption" xml:space="preserve">
     <value>Kennwort</value>
@@ -184,13 +181,13 @@
     <value>Das Kennwort muss:</value>
   </data>
   <data name="PhoneNumberCaption" xml:space="preserve">
-    <value>Phone number [de]</value>
+    <value>Telefonnummer</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Datenschutzrichtlinie</value>
   </data>
   <data name="RequiredInformation" xml:space="preserve">
-    <value>Required information [de]</value>
+    <value>Erforderliche Information</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Anmelden</value>

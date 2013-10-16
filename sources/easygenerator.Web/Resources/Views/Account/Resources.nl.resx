@@ -141,9 +141,6 @@
   <data name="CopyrightText" xml:space="preserve">
     <value>Copyright © 2013 easygenerator. Alle rechten voorbehouden.</value>
   </data>
-  <data name="CountryCaption" xml:space="preserve">
-    <value>Country [nl]</value>
-  </data>
   <data name="CreateAccountTitle" xml:space="preserve">
     <value>Account maken</value>
   </data>
@@ -154,7 +151,7 @@
     <value>Voer een geldig e-mailadres in</value>
   </data>
   <data name="FullNameCaption" xml:space="preserve">
-    <value>Full name [nl]</value>
+    <value>Volledige naam</value>
   </data>
   <data name="IncorrectEmailOrPassword" xml:space="preserve">
     <value>Deze combinatie van e-mailadres en wachtwoord is niet gevonden.</value>
@@ -166,10 +163,10 @@
     <value>GEEN spatie(s) bevatten.</value>
   </data>
   <data name="OptionalInformation" xml:space="preserve">
-    <value>Optional information [nl]</value>
+    <value>Optionele informatie</value>
   </data>
   <data name="OrganizationNameCaption" xml:space="preserve">
-    <value>Organization name [nl]</value>
+    <value>Naam van organisatie</value>
   </data>
   <data name="PasswordCaption" xml:space="preserve">
     <value>Wachtwoord</value>
@@ -184,13 +181,13 @@
     <value>Het wachtwoord moet:</value>
   </data>
   <data name="PhoneNumberCaption" xml:space="preserve">
-    <value>Phone number [nl]</value>
+    <value>Telefoonnummer</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Privacybeleid</value>
   </data>
   <data name="RequiredInformation" xml:space="preserve">
-    <value>Required information [nl]</value>
+    <value>Verplichte informatie</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Aanmelden</value>
