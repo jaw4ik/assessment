@@ -10,14 +10,10 @@ namespace easygenerator.Web.Configuration
             bundles.IgnoreList.Clear();
             bundles.IgnoreList.Ignore("*.spec.js");
 
-            bundles.Add(new ScriptBundle("~/scripts/modernizr")
-                 .Include("~/scripts/modernizr-{version}.js"));
-
             bundles.Add(new ScriptBundle("~/scripts/vendor")
                     .Include("~/scripts/jquery-{version}.js")
                     .Include("~/scripts/knockout-{version}.js")
                     .Include("~/scripts/knockout.validation.debug.js")
-                    .Include("~/scripts/sammy-{version}.js")
                     .Include("~/scripts/q.js")
                     .Include("~/scripts/underscore.js")
                     .Include("~/scripts/underscore.extensions.js")
