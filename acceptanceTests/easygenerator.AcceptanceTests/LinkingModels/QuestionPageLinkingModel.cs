@@ -49,7 +49,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         //CUD Question
 
         public string CreateNewQuestionButton = ".//div[contains(@class,'create-question-image')]";
-        public string CreateNewQuestionText = ".//div[contains(@class,'pull-right')]//span";
+        public string CreateNewQuestionText = ".//div[contains(@class,'create-question-from-question-view pull-right')]//span";
 
         public string CharsCounter = ".//div[contains(@class,'view-header-title')]//div[contains(@class,'chars-counter')]";        
         public string CharsCount = ".//div[contains(@class,'text-block')]//div[contains(@class,'chars-counter')]//span";

@@ -29,10 +29,16 @@ namespace easygenerator.AcceptanceTests.Steps
             DriverProvider.Current().Localization = localizationString;
         }
 
+        [When(@"refresh page")]
+        public void WhenRefreshPage()
+        {
+            DriverProvider.Current().Driver.Navigate().Refresh();
+        }
+
+
         [When(@"open page by url '(.*)'")]
         public void WhenOpenPageByUrl(string url)
         {
-            System.Threading.Thread.Sleep(500);
             DriverProvider.Current().Driver.Navigate().GoToUrl(url);
             if (!TestUtils.WaitForCondition(() =>
                 (DriverProvider.Current().Driver.FindElementsByXPath(".//section[contains(@id,'content')]//section").Count != 0), 20000))
