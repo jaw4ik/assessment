@@ -146,8 +146,8 @@
                             </div>
                         </div>
                     </div>
-                    <!-- ko if: isExpanded -->
-                    <div class="question-content-items-list">
+                    
+                    <div class="question-content-items-list" data-bind="visible: isExpanded">
                         <ul class="unstyled">
                             <!-- ko foreach: learningObjects -->
                             <li class="question-learning-object-item" data-bind="css: { active: hasFocus }">
@@ -176,7 +176,7 @@
                             </li>
                         </ul>
                     </div>
-                    <!-- /ko -->
+                    
                 </div>
             </div>
         </div>
