@@ -36,7 +36,12 @@ namespace easygenerator.Web.Controllers.Api
                     Id = q.Id.ToString("N"),
                     Title = q.Title,
                     CreatedOn = q.CreatedOn,
-                    ModifiedOn = q.ModifiedOn
+                    ModifiedOn = q.ModifiedOn,
+                    LearningObjects = q.LearningObjects.Select(lo => new
+                    {
+                        Id = lo.Id.ToString("N"),
+                        Text = lo.Text,
+                    })
                 })
             });
 

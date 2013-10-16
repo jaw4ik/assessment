@@ -1,4 +1,4 @@
-﻿///#source 1 1 /Templates/Default/js/jquery-1.9.1.js
+﻿///#source 1 1 /Templates/Freestyle learning/js/jquery-1.9.1.js
 /*!
  * jQuery JavaScript Library v1.9.1
  * http://jquery.com/
@@ -9597,7 +9597,7 @@ if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
 
 })( window );
 
-///#source 1 1 /Templates/Default/js/knockout-2.2.1.js
+///#source 1 1 /Templates/Freestyle learning/js/knockout-2.2.1.js
 // Knockout JavaScript library v2.2.1
 // (c) Steven Sanderson - http://knockoutjs.com/
 // License: MIT (http://www.opensource.org/licenses/mit-license.php)
@@ -9684,7 +9684,7 @@ var f=b.data("precompiled");f||(f=b.text()||"",f=F.template(p,"{{ko_with $item.k
 {open:"__.push($1 || '');"},F.tmpl.tag.ko_with={open:"with($1) {",close:"} "})};b.qa.prototype=new b.v;w=new b.qa;0<w.Db&&b.wa(w);b.b("jqueryTmplTemplateEngine",b.qa)}"function"===typeof require&&"object"===typeof exports&&"object"===typeof module?L(module.exports||exports):"function"===typeof define&&define.amd?define(["exports"],L):L(x.ko={});m;
 })();
 
-///#source 1 1 /Templates/Default/js/sammy-0.7.4.js
+///#source 1 1 /Templates/Freestyle learning/js/sammy-0.7.4.js
 // name: sammy
 // version: 0.7.4
 
@@ -11806,7 +11806,7 @@ $.extend(Sammy.DefaultLocationProxy.prototype , {
 });
 })(jQuery, window);
 
-///#source 1 1 /Templates/Default/js/underscore-1.5.1.js
+///#source 1 1 /Templates/Freestyle learning/js/underscore-1.5.1.js
 //     Underscore.js 1.5.1
 //     http://underscorejs.org
 //     (c) 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -13054,7 +13054,7 @@ $.extend(Sammy.DefaultLocationProxy.prototype , {
 
 }).call(this);
 
-///#source 1 1 /Templates/Default/js/circleProgressBinding.js
+///#source 1 1 /Templates/Freestyle learning/js/circleProgressBinding.js
 ko.bindingHandlers.circleProgress = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
 

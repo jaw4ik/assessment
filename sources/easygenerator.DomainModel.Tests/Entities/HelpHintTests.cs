@@ -34,10 +34,20 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
+        public void HelpHint_ShoulThrowArgumentException_WhenNameIsNotAllowed()
+        {
+            //Arrange
+            Action action = () => HelpHintObjectMother.CreateWithName("NotAllowedName");
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("name");
+        }
+
+        [TestMethod]
         public void HelpHint_ShouldCreateHelpHint()
         {
             //Arrange
-            var name = "Some name";
+            var name = "objectives";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             //Act

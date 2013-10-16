@@ -20,19 +20,5 @@
             public const string LearningObjectNotFoundResourceKey = "learningObjectNotFoundError";
             public const string HelpHintNotFoundResourceKey = "helpHintNotFoundError";
         }
-
-        public class HelpHintNames
-        {
-            public const string ExperiencesHelpHintKey = "experiences";
-            public const string ExperienceHelpHintKey = "experience";
-            public const string CreateExperienceHelpHintKey = "createExperience";
-
-            public const string LearningObjectivesHelpHintKey = "objectives";
-            public const string LearningObjectiveHelpHintKey = "objective";
-            public const string CreateLearningObjectiveHelpHintKey = "createObjective";
-
-            public const string QuestionHelpHintKey = "question";
-            public const string CreateQuestionHelpHintKey = "createQuestion";
-        }
     }
 }

@@ -3,7 +3,6 @@ using System.Linq;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
-using easygenerator.Infrastructure;
 
 namespace easygenerator.DataAccess.Repositories
 {
@@ -26,14 +25,10 @@ namespace easygenerator.DataAccess.Repositories
 
         public void CreateHelpHintsForUser(string user)
         {
-            _dataContext.GetSet<HelpHint>().Add(_entityFactory.HelpHint(Constants.HelpHintNames.ExperiencesHelpHintKey, user));
-            _dataContext.GetSet<HelpHint>().Add(_entityFactory.HelpHint(Constants.HelpHintNames.ExperienceHelpHintKey, user));
-            _dataContext.GetSet<HelpHint>().Add(_entityFactory.HelpHint(Constants.HelpHintNames.CreateExperienceHelpHintKey, user));
-            _dataContext.GetSet<HelpHint>().Add(_entityFactory.HelpHint(Constants.HelpHintNames.LearningObjectivesHelpHintKey, user));
-            _dataContext.GetSet<HelpHint>().Add(_entityFactory.HelpHint(Constants.HelpHintNames.LearningObjectiveHelpHintKey, user));
-            _dataContext.GetSet<HelpHint>().Add(_entityFactory.HelpHint(Constants.HelpHintNames.CreateLearningObjectiveHelpHintKey, user));
-            _dataContext.GetSet<HelpHint>().Add(_entityFactory.HelpHint(Constants.HelpHintNames.QuestionHelpHintKey, user));
-            _dataContext.GetSet<HelpHint>().Add(_entityFactory.HelpHint(Constants.HelpHintNames.CreateQuestionHelpHintKey, user));
+            foreach (string allowedHintKey in HelpHint.AllowedHintKeys)
+            {
+                _dataContext.GetSet<HelpHint>().Add(_entityFactory.HelpHint(allowedHintKey, user));
+            }
         }
 
         public void ShowHint(HelpHint hint)

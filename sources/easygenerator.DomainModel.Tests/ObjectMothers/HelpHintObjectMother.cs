@@ -4,7 +4,7 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
 {
     public class HelpHintObjectMother
     {
-        private const string Name = "Help hint name";
+        private const string Name = "objectives";
         private const string CreatedBy = "username@easygenerator.com";
 
         public static HelpHint Create(string name = Name, string createdBy = CreatedBy)

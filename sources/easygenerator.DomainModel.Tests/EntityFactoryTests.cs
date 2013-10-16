@@ -88,7 +88,7 @@ namespace easygenerator.DomainModel.Tests
         public void HelpHint_ShouldCreateHelpHint()
         {
             const string createdBy = "easygenerator@easygenerator.com";
-            const string name = "Some help hint";
+            const string name = "experiences";
 
             var helpHint = _entityFactory.HelpHint(name, ModifiedBy);
             helpHint.Should().NotBeNull();
