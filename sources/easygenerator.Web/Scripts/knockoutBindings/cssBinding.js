@@ -4,7 +4,7 @@
     },
 
     update: function (elem, va) {
-        var 
+        var
             helpHintHeight,
             contentContainer = '#content',
             helpHint = '.help-hint',
@@ -15,10 +15,10 @@
         var headerHeight = $('.header').height(),
             topNavHeight = $('.top-navigation').height();
 
-        ($(helpHintText).is(':empty')) ? helpHintHeight = 0 : helpHintHeight = $(helpHint).height(); 
-        
+        ($(helpHintText).is(':empty')) ? helpHintHeight = 0 : helpHintHeight = $(helpHint).height();
+
         $(fixedContainer).css('top', headerHeight + topNavHeight + helpHintHeight + 'px');
         $(notFixedContainer).css('padding-top', 40 + helpHintHeight + 'px');
-        $(contentContainer).height(600 + helpHintHeight);
+        $(contentContainer).css('min-height', 600 + helpHintHeight + 'px');
     }
 };
