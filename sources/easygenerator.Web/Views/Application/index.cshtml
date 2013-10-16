@@ -10,6 +10,7 @@
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/scripts/modernizr")
+    @Html.Partial("_mixpanelAnalytics")
 </head>
 <!--[if IE 9]>
 <body class="ie9">
@@ -32,7 +33,6 @@
     </script>
 
     @Scripts.Render("~/scripts/vendor")
-    @{ Html.RenderPartial("GoogleAnalytics"); }
 
     @if (Request.UserLanguages != null && Request.UserLanguages.Length > 0)
     {

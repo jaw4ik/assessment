@@ -488,19 +488,45 @@
 
                     describe('and response is successful', function () {
 
-                        it('should redirect to home page', function () {
+                        var trackEvent;
+
+                        beforeEach(function () {
+                            trackEvent = $.Deferred();
+                            spyOn(app, 'trackEvent').andReturn(trackEvent.promise());
+
                             ajax.resolve({ success: true });
+                        });
 
-                            spyOn(app, 'openHomePage');
-
+                        it('should track event \'Sign in\'', function () {
                             viewModel.submit();
 
                             waitsFor(function () {
                                 return ajax.state() !== "pending";
                             });
                             runs(function () {
-                                expect(app.openHomePage).toHaveBeenCalled();
+                                expect(app.trackEvent).toHaveBeenCalledWith('Sign in', { username: username });
                             });
+                        });
+
+                        describe('and event is tracked', function () {
+
+                            beforeEach(function () {
+                                trackEvent.resolve();
+                            });
+
+                            it('should redirect to home page', function () {
+                                spyOn(app, 'openHomePage');
+
+                                viewModel.submit();
+
+                                waitsFor(function () {
+                                    return ajax.state() !== "pending";
+                                });
+                                runs(function () {
+                                    expect(app.openHomePage).toHaveBeenCalled();
+                                });
+                            });
+
                         });
 
                     });

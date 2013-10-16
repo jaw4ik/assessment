@@ -5,7 +5,7 @@
 
     describe('viewModel [signUp]', function () {
 
-        beforeEach(function() {
+        beforeEach(function () {
             viewModel = signupModel();
         });
 
@@ -47,7 +47,7 @@
 
             describe('when e-mail length bigger than 254', function () {
 
-                it('should be not valid', function() {
+                it('should be not valid', function () {
                     viewModel.userName(utils.createString(250) + '@t.ru');
                     expect(viewModel.userName.isValid()).toBeFalsy();
                 });
@@ -84,21 +84,21 @@
                 expect(viewModel.fullName).toBeObservable();
             });
         });
-        
+
         describe('phone:', function () {
 
             it('should be observable', function () {
                 expect(viewModel.phone).toBeObservable();
             });
         });
-        
+
         describe('organization:', function () {
 
             it('should be observable', function () {
                 expect(viewModel.organization).toBeObservable();
             });
         });
-        
+
         describe('isUserNameEditing:', function () {
 
             it('should be observable', function () {
@@ -268,7 +268,7 @@
                 expect(viewModel.checkUserExists).toBeFunction();
             });
 
-            describe('when user precisely exists', function() {
+            describe('when user precisely exists', function () {
 
                 it('should not set \"userExists\"', function () {
                     viewModel.userExists(null);
@@ -277,7 +277,7 @@
                     viewModel.checkUserExists();
                     expect(viewModel.userExists()).toBeNull();
                 });
-                
+
                 it('should not send request to server', function () {
                     spyOn($, 'ajax').andReturn($.Deferred().promise());
                     spyOn(viewModel, "userPreciselyExists").andReturn(true);
@@ -309,7 +309,7 @@
 
             });
 
-            describe('when user name is not e-mail', function() {
+            describe('when user name is not e-mail', function () {
 
                 it('should set \"userExists\" false', function () {
                     spyOn($, 'ajax').andReturn($.Deferred().promise());
@@ -327,7 +327,7 @@
 
                     expect($.ajax).not.toHaveBeenCalled();
                 });
-                
+
             });
 
             describe('when user name is valid e-mail', function () {
@@ -344,7 +344,7 @@
                     });
                 });
 
-                it('should set \"isUserValidating\" true', function() {
+                it('should set \"isUserValidating\" true', function () {
                     spyOn($, 'ajax').andReturn($.Deferred().promise());
                     viewModel.userName('user@mail.com');
                     viewModel.isUserNameValidating(null);
@@ -423,7 +423,7 @@
 
                     });
 
-                    it('should set \"isUserNameValidating\" false', function() {
+                    it('should set \"isUserNameValidating\" false', function () {
                         viewModel.userName('user@mail.com');
                         viewModel.isUserNameValidating(null);
                         viewModel.userExists(null);
@@ -488,17 +488,69 @@
                 expect(viewModel.signUp).toBeFunction();
             });
 
+            var ajax;
+            beforeEach(function () {
+                ajax = $.Deferred();
+                spyOn($, 'ajax').andReturn(ajax.promise());
+            });
+
+
             it('should call \"/api/user/signup"', function () {
-                spyOn($, 'ajax').andReturn($.Deferred().promise());
                 viewModel.userName('mail');
                 viewModel.password('password');
                 viewModel.signUp();
 
                 expect($.ajax).toHaveBeenCalledWith({
                     url: '/api/user/signup',
-                    data: { email: 'mail', password: 'password', fullName: '', phone: '', organization: ''},
+                    data: { email: 'mail', password: 'password', fullName: '', phone: '', organization: '' },
                     type: 'POST'
                 });
+            });
+
+            describe('and request succeded', function () {
+                var trackEvent;
+
+                beforeEach(function () {
+                    trackEvent = $.Deferred();
+                    spyOn(app, 'trackEvent').andReturn(trackEvent.promise());
+
+                    ajax.resolve();
+                });
+
+                it('should track event \'Sign up\'', function () {
+                    var username = 'username@easygenerator.com';
+                    viewModel.userName(username);
+                    viewModel.signUp();
+
+                    waitsFor(function () {
+                        return ajax.state() !== "pending";
+                    });
+                    runs(function () {
+                        expect(app.trackEvent).toHaveBeenCalledWith('Sign up', { username: username });
+                    });
+                });
+
+                describe('and event is tracked', function () {
+
+                    beforeEach(function () {
+                        trackEvent.resolve();
+                    });
+
+                    it('should redirect to home page', function () {
+                        spyOn(app, 'openHomePage');
+
+                        viewModel.signUp();
+
+                        waitsFor(function () {
+                            return ajax.state() !== "pending";
+                        });
+                        runs(function () {
+                            expect(app.openHomePage).toHaveBeenCalled();
+                        });
+                    });
+
+                });
+
             });
 
         });

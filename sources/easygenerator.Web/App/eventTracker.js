@@ -1,16 +1,23 @@
-﻿define(['durandal/system', 'plugins/router'],
-    function (system, router) {
+﻿define(['durandal/system', 'plugins/router', 'dataContext'],
+    function (system, router, dataContext) {
 
         var providers = [];
 
-        function googleAnalyticsProvider() {
+        function mixpanelProvider() {
             var
                 trackEvent = function (eventName, eventCategory) {
-                    if (!window._gaq) {
+                    var mixpanel = window.mixpanel;
+                    var username = dataContext.userName;
+
+                    if (!mixpanel) {
                         return;
                     }
-                    
-                    window._gaq.push(['_trackEvent', eventCategory, eventName]);
+
+                    if (username) {
+                        mixpanel.identify(username);
+                    }
+
+                    mixpanel.track(eventName, { Category: eventCategory });
                 };
 
             return {
@@ -32,12 +39,14 @@
             };
         }
 
-        providers.push(new googleAnalyticsProvider());
-        providers.push(new consoleProvider());
+        if (!has('release')) {
+            providers.push(consoleProvider());
+        }
+        providers.push(mixpanelProvider());
 
         function publish(eventName) {
             var activeInstruction = router.activeInstruction();
-            var eventCategory = _.isObject(activeInstruction) ? activeInstruction.config.title: 'Default category' ;
+            var eventCategory = _.isObject(activeInstruction) ? activeInstruction.config.title : 'Default category';
 
             _.each(providers, function (provider) {
                 provider.trackEvent(eventName, eventCategory);

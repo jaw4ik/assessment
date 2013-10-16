@@ -19,14 +19,17 @@
             isPasswordVisible(!isPasswordVisible());
         },
 
-        signUp = function() {
+        signUp = function () {
+            var data = { email: userName().trim().toLowerCase(), password: password(), fullName: fullName(), phone: phone(), organization: organization() };
             $.ajax({
                 url: '/api/user/signup',
-                data: { email: userName().trim().toLowerCase(), password: password(), fullName: fullName(), phone: phone(), organization: organization()},
+                data: data,
                 type: 'POST'
             })
-            .done(function() {
-                window.location.replace('/');
+            .done(function () {
+                app.trackEvent(app.constants.events.signup, { username: data.email }).done(function () {
+                    app.openHomePage();
+                });
             });
         },
 
@@ -48,7 +51,7 @@
                 data: { email: userName().trim().toLowerCase() },
                 type: 'POST'
             })
-            .done(function(response) {
+            .done(function (response) {
                 userExists(response.data);
                 isUserNameValidating(false);
             });
