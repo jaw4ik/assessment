@@ -7,7 +7,8 @@ define(function (require) {
         eventTracker = require('eventTracker'),
         questionRepository = require('repositories/questionRepository'),
         objectiveRepository = require('repositories/objectiveRepository'),
-        notify = require('notify');
+        notify = require('notify'),
+        http = require('plugins/http');
 
     var question = {
         id: '1',
@@ -321,6 +322,8 @@ define(function (require) {
 
                 spyOn(questionRepository, 'getById').andReturn(getQuestionByIdDeferred.promise);
                 spyOn(objectiveRepository, 'getById').andReturn(getObjectiveByIdDeferred.promise);
+
+                spyOn(http, 'post');
             });
 
             it('should be a function', function () {

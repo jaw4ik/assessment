@@ -53,12 +53,23 @@
                 return localizationManager.localize(helpHint().localizationKey);
             }),
 
-            hideHint = function () {
+            hideHelpHint = function () {
                 if (helpHint() == undefined) {
                     return;
                 }
+                
                 helpHintRepository.hideHint(helpHint().id).then(function () {
                     helpHint(undefined);
+                });
+            },
+            
+            showHelpHint = function() {
+                if (helpHint() != undefined) {
+                    return;
+                }
+                
+                helpHintRepository.showHint(activeModule()).then(function (hint) {
+                    helpHint(hint);
                 });
             },
 
@@ -156,9 +167,12 @@
                                 window.scroll(0, 0);
                             }
 
-                            helpHint(_.find(datacontext.helpHints, function(item) {
-                                return item.name === activeModule();
-                            }));
+                            helpHintRepository.getCollection().then(function (helpHints) {
+                                var activeHint = _.find(helpHints, function(item) {
+                                    return item.name === activeModule();
+                                });
+                                helpHint(activeHint);
+                            });
                         });
 
                         that.navigation([
@@ -221,8 +235,9 @@
             
             userEmail: userEmail,
             helpHint: helpHint,
-            hideHint: hideHint,
-            helpHintText: helpHintText
+            helpHintText: helpHintText,
+            hideHelpHint: hideHelpHint,
+            showHelpHint: showHelpHint
         };
     }
 );

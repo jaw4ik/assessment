@@ -160,6 +160,9 @@
       <DependentUpon>experienceRepository.js</DependentUpon>
     </Content>
     <Content Include="App\repositories\helpHintRepository.js" />
+    <Content Include="App\repositories\helpHintRepository.spec.js">
+      <DependentUpon>helpHintRepository.js</DependentUpon>
+    </Content>
     <Content Include="App\repositories\learningObjectRepository.js" />
     <Content Include="App\repositories\learningObjectRepository.spec.js">
       <DependentUpon>learningObjectRepository.js</DependentUpon>

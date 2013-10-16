@@ -94,6 +94,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var hintKey = "Some hint key";
             var user = "Some user";
             _user.Identity.Name.Returns(user);
+            _entityFactory.HelpHint(hintKey, user).Returns(HelpHintObjectMother.Create());
 
             //Act
             _controller.ShowHint(hintKey);

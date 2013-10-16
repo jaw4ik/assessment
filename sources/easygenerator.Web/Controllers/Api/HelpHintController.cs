@@ -48,7 +48,12 @@ namespace easygenerator.Web.Controllers.Api
         {
             var hint = _entityFactory.HelpHint(hintKey, GetCurrentUsername());
             _repository.ShowHint(hint);
-            return JsonSuccess();
+
+            return JsonSuccess(new
+            {
+                Id = hint.Id.ToString("N"),
+                Name = hint.Name,
+            });
         }
     }
 }
