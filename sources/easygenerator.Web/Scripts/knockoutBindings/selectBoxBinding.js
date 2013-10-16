@@ -5,6 +5,7 @@
         optionItem: 'selectbox-option-item',
         currentItem: 'selectbox-current-item',
         currentItemText: 'selectbox-current-item-text',
+        caretHolder: 'selectbox-caret-holder',
         caret: 'selectbox-caret'
     },
     init: function (element) {
@@ -22,9 +23,13 @@
             .addClass(cssClasses.currentItemText)
             .appendTo($currentItemElement);
 
-        $('<div />')
-            .addClass(cssClasses.caret)
+        var $currentItemCaretHolder = $('<div />')
+            .addClass(cssClasses.caretHolder)
             .appendTo($currentItemElement);
+        
+        $('<span />')
+            .addClass(cssClasses.caret)
+            .appendTo($currentItemCaretHolder);
 
         var $optionsListElement = $('<ul />')
             .addClass(cssClasses.optionsList)
@@ -33,11 +38,13 @@
 
         $currentItemElement.on('click', function (e) {
             $optionsListElement.toggle();
+            $currentItemElement.toggleClass('expanded');
             e.stopPropagation();
         });
 
         $('html').click(function () {
             $optionsListElement.hide();
+            $currentItemElement.removeClass('expanded');
         });
     },
     update: function (element, valueAccessor) {

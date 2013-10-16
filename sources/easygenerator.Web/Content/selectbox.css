@@ -1,12 +1,28 @@
-﻿.selectbox {
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    color: #666666;
+﻿
+/*#region COMMON SELECTBOX STYLES*/
+
+.selectbox {
     position: relative;
     cursor: default;
 }
 
 .selectbox-options-list {
+    position: absolute;
+    z-index: 1;
+}
+
+/*#endregion COMMON SELECTBOX STYLES*/
+
+/*#region EXPERIENCE SELECTBOX STYLES*/
+
+.experience-template-selector.selectbox {
+    color: #666666;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+
+.experience-template-selector .selectbox-options-list {
+    width: 100%;
     list-style-type: none;
     border: 1px solid #C4C4C4;
     border-radius: 2px;
@@ -15,7 +31,7 @@
     box-shadow: 0px 1px 3px rgba(0, 0, 0, .1) inset;
 }
 
-.selectbox-current-item {
+.experience-template-selector .selectbox-current-item {
     height: 30px;
     line-height: 30px;
     padding: 0 10px;
@@ -34,25 +50,25 @@
     box-shadow: 0 0 4px rgba(0, 0, 0, .1);
 }
 
-    .selectbox-current-item .selectbox-caret {
-        position: absolute;
-        top: 13px;
-        right: 10px;
-        background-image: url("images/arrow-for-select-box.png");
-        background-position: 0 4px;
-        content: "↕";
-        width: 8px;
-        height: 4px;
-    }
+.experience-template-selector .selectbox-caret {
+    content: "↕";
+    width: 8px;
+    height: 4px;
+    position: absolute;
+    top: 13px;
+    right: 10px;
+    background-image: url("images/arrow-for-select-box.png");
+    background-position: 0 4px;
+}
 
-.selectbox-current-item-text {
+.experience-template-selector .selectbox-current-item-text {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     padding-right: 5px;
 }
 
-.selectbox-options-list .selectbox-option-item {
+.experience-template-selector .selectbox-option-item {
     height: 30px;
     padding: 0 10px;
     line-height: 30px;
@@ -62,6 +78,72 @@
     text-overflow: ellipsis;
 }
 
-    .selectbox-options-list .selectbox-option-item:hover {
+    .experience-template-selector .selectbox-option-item:hover {
         background: #EFF4FA;
     }
+
+/*#endregion EXPERIENCE SELECTBOX STYLES*/
+
+/*#region USER-FROM SELECTBOX STYLES*/
+.user-form-selectbox.selectbox {
+    font-size: 16px;
+    max-width: 600px;
+}
+
+.user-form-selectbox .selectbox-options-list {
+    width: 100%;
+    margin-top: -1px;
+    list-style-type: none;
+    border: 1px solid #ccc;
+    border-radius: 0 0 4px 4px;
+    background: white;
+}
+
+.user-form-selectbox .selectbox-current-item {
+    position: relative;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+    .user-form-selectbox .selectbox-current-item.expanded {
+        border-radius: 4px 4px 0 0;
+    }
+
+.user-form-selectbox .selectbox-current-item-text {
+    padding: 11px 9px;
+    margin-right: 47px;
+    color: #c3c3c3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-form-selectbox .selectbox-caret-holder {
+    height: 100%;
+    width: 47px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-left: 1px solid #ccc;
+    border-radius: 0 4px 4px 0;
+}
+
+.user-form-selectbox .selectbox-caret {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 13px;
+    height: 6px;
+    margin-top: -3px;
+    margin-left: -6px;
+    background: url(../Content/images/sprites.png) -116px -54px;
+}
+
+.user-form-selectbox .selectbox-current-item.expanded .selectbox-caret {
+    background-position: -116px -60px;
+}
+
+/*#endregion USER-FORM SELECTBOX STYLES*/
+
