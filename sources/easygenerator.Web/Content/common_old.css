@@ -106,7 +106,7 @@ ol.unstyled  {
 
 #content {
     min-width: 600px;
-    min-height: 460px;
+    min-height: 600px;
 }
 
 .main {
@@ -1426,10 +1426,6 @@ ol.unstyled  {
 }
 
 @media (max-width: 945px) {
-
-    #content {
-        min-height: 600px;
-    }
 
     /*#region Form action buttons*/
     .form-actions .btn {
