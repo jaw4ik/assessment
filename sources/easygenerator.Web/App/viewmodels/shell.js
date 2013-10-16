@@ -119,7 +119,7 @@
                             var hash = window.location.hash,
                                 href = window.location.href;
                             var downloadUrl = hash == '' ? href + '/' + url : href.replace(hash, url);
-                            window.location.assign(downloadUrl);
+                            window.open(downloadUrl);
                         };
 
                         router.guardRoute = function (routeInfo, params) {
