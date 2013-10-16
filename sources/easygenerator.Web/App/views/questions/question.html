@@ -85,7 +85,7 @@
                         <!-- ko foreach: answers -->
                         <li class="answer-option-item" data-bind="css: { active: hasFocus }">
                             <div class="answer-options-list-item">
-                                <div class="question-answer-value-wrapper unselectable" data-bind="css: { hidden: _.isEmpty(id()) && _.isEmptyOrWhitespace(text()) }">
+                                <div class="question-answer-value-wrapper unselectable" data-bind="css: { hidden: _.isEmpty(id()) }">
                                     <!-- ko if: isCorrect -->
                                     <div class="question-answer-value correct" data-bind="click: $parent.toggleCorrectness, localize: { title: 'correctAnswer' }">
                                         <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>
