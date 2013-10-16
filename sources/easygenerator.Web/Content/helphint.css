@@ -1,34 +1,41 @@
 ﻿/*#region Header Hint -----------------*/
 
-.header-hint {
+.help-hint {
+    position: fixed;
+    z-index: 150;
+    width: 100%;
     border-top: solid 1px #e5e2d3;
     border-bottom: solid 1px #e5e2d3;
     background: #fcf8e8;
 }
-.hh-content {
+
+.help-hint-content {
     position: relative;
     padding: 19px 0;
     padding-top: 50px;
     font-size: 13px;
     font-family: 'OpenSans';
 }
-.hh-title {
+
+.help-hint-title {
     position: relative;
     padding: 0 0 15px 35px;
     font: 14px/24px 'OpenSans-Semibold';
     color: #303133;
 }
 
-.hh-left {
+.help-hint-left {
     float: left;
     width: 57%;
     padding-right: 2%;
 }
-.hh-right {
+
+.help-hint-right {
     float: left;
     width: 41%;
 }
-.hh-close {
+
+.help-hint-close {
     position: absolute;
     top: 15px;
     right: 0;
@@ -36,17 +43,31 @@
     font-size: 11px;
     line-height: 18px;
     z-index: 120;
+    cursor: default;
 }
 
-.hh-list-item-link {
+    .help-hint-close:after {
+        content: '';
+        display: block;
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        background: url(../Content/images/sprites.png) -139px -51px no-repeat;
+    }
+
+.help-hint-list-item-link {
     color: #00a8ff;
 }
-.hh-list-item-link:hover {
-    color: #2793cb;
-}
-.hh-list-item-link:before {
-    content: '›';
-    margin-right: 3px;
-}
+
+    .help-hint-list-item-link:hover {
+        color: #2793cb;
+    }
+
+    .help-hint-list-item-link:before {
+        content: '›';
+        margin-right: 3px;
+    }
 
 /*#endregion */

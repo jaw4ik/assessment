@@ -17,7 +17,7 @@
                             <a class="orange button" href="/signup" data-bind="localize: { text: 'signUpButton' }">Sign up
                             </a>
                         </li>
-                        <li class="header-menu-list-item help" data-bind="localize: { text: 'help' }, click: showHelpHint">Help</li>
+                        <li class="header-menu-list-item help" data-bind="localize: { text: 'help' }, click: showHelpHint, css: { disabled: helpHint() != undefined }">Help</li>
                         <!-- ko if: userEmail != '' -->
                         <li class="header-menu-list-item mode profile" data-bind="dropDown: {}">
                             <div class="header-submenu-holder">
@@ -57,11 +57,11 @@
     </div>
     <section id="content" class="main" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }, css: browserCulture() + '-lang'">
         <!-- ko if: helpHint() != undefined -->
-        <div class="header-hint">
+        <div class="help-hint">
             <div class="content-holder">
-                <div class="hh-content">
-                    <div class="hh-text" data-bind="text: helpHintText"></div>
-                    <a class="hh-close" data-bind="click: hideHelpHint">Don‘t show again</a>
+                <div class="help-hint-content">
+                    <div class="help-hint-text" data-bind="text: helpHintText, fixedBlocksPosition: {}"></div>
+                    <a class="help-hint-close" data-bind="click: hideHelpHint">Don‘t show again</a>
                 </div>
             </div>
         </div>
