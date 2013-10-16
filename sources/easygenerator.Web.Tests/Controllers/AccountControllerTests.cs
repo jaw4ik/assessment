@@ -12,7 +12,6 @@ using easygenerator.DomainModel.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using easygenerator.Web.Controllers;
 using easygenerator.Web.Tests.Utils;
-using FluentAssertions;
 using easygenerator.Web.Components;
 using NSubstitute;
 
@@ -25,6 +24,7 @@ namespace easygenerator.Web.Tests.Controllers
 
         private IAuthenticationProvider _authenticationProvider;
         private IUserRepository _userRepository;
+        private IHelpHintRepository _helpHintRepository;
 
         IPrincipal _user;
         HttpContextBase _context;
@@ -35,7 +35,8 @@ namespace easygenerator.Web.Tests.Controllers
         {
             _authenticationProvider = Substitute.For<IAuthenticationProvider>();
             _userRepository = Substitute.For<IUserRepository>();
-            _controller = new AccountController(_authenticationProvider, _userRepository);
+            _helpHintRepository = Substitute.For<IHelpHintRepository>();
+            _controller = new AccountController(_authenticationProvider, _userRepository, _helpHintRepository);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -262,6 +263,19 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Assert
             _authenticationProvider.DidNotReceive().SignIn(Arg.Any<String>(), true);
+        }
+
+        [TestMethod]
+        public void LaunchTryMode_ShouldCreateHelpHintsForUser()
+        {
+            //Arrange
+            _authenticationProvider.IsUserAuthenticated().Returns(false);
+
+            //Act
+            var result = _controller.LaunchTryMode();
+
+            //Assert
+            _helpHintRepository.Received().CreateHelpHintsForUser(Arg.Any<String>());
         }
 
         #endregion

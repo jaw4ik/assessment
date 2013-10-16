@@ -36,6 +36,11 @@ namespace easygenerator.DataAccess.Repositories
             _dataContext.GetSet<HelpHint>().Add(_entityFactory.HelpHint(Constants.HelpHintNames.CreateQuestionHelpHintKey, user));
         }
 
+        public void ShowHint(HelpHint hint)
+        {
+            _dataContext.GetSet<HelpHint>().Add(hint);
+        }
+
         public void HideHint(HelpHint hint)
         {
             _dataContext.GetSet<HelpHint>().Remove(hint);

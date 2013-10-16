@@ -83,6 +83,18 @@ namespace easygenerator.DomainModel.Tests
             user.Email.Should().Be(email);
             user.VerifyPassword(password).Should().BeTrue();
         }
+
+        [TestMethod]
+        public void HelpHint_ShouldCreateHelpHint()
+        {
+            const string createdBy = "easygenerator@easygenerator.com";
+            const string name = "Some help hint";
+
+            var helpHint = _entityFactory.HelpHint(name, ModifiedBy);
+            helpHint.Should().NotBeNull();
+            helpHint.Name.Should().Be(name);
+            helpHint.CreatedBy.Should().Be(createdBy);
+        }
     }
 }
 

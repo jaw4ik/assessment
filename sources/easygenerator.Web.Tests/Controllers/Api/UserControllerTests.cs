@@ -25,6 +25,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IEntityFactory _entityFactory;
         private IAuthenticationProvider _authenticationProvider;
         private ISignupFromTryItNowHandler _signupFromTryItNowHandler;
+        private IHelpHintRepository _helpHintRepository;
+
         IPrincipal _user;
         HttpContextBase _context;
 
@@ -35,7 +37,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory = Substitute.For<IEntityFactory>();
             _authenticationProvider = Substitute.For<IAuthenticationProvider>();
             _signupFromTryItNowHandler = Substitute.For<ISignupFromTryItNowHandler>();
-            _controller = new UserController(_repository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler, Substitute.For<IHelpHintRepository>());
+            _helpHintRepository = Substitute.For<IHelpHintRepository>();
+            _controller = new UserController(_repository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler, _helpHintRepository);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -240,6 +243,23 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             user.Received().UpdateOrganization("", signUpUsername);
+        }
+
+        [TestMethod]
+        public void SignUp_ShouldCreateHelpHintsForUser()
+        {
+            //Arrange
+            const string signUpUsername = "username@easygenerator.com";
+            const string password = "Abc123!";
+            var profile = new UserSignUpViewModel() { Email = signUpUsername, Password = password, Organization = "" };
+            var user = Substitute.For<User>();
+            _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
+
+            //Act
+            _controller.Signup(profile);
+
+            //Assert
+            _helpHintRepository.Received().CreateHelpHintsForUser(signUpUsername);
         }
 
         #endregion

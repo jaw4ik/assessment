@@ -7,6 +7,7 @@ namespace easygenerator.DomainModel.Repositories
     {
         ICollection<HelpHint> GetHelpHintsForUser(string user);
         void CreateHelpHintsForUser(string user);
+        void ShowHint(HelpHint hint);
         void HideHint(HelpHint hint);
     }
 }

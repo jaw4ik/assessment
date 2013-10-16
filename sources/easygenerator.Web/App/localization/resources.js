@@ -1026,6 +1026,11 @@
         nl: 'Learning object was not found. Please refresh your data.[nl]',
         de: 'Learning object was not found. Please refresh your data.[de]'
     },
+    helpHintNotFoundError: {
+        en: 'Help hint was not found. Please refresh your data.',
+        nl: 'Help hint was not found. Please refresh your data.[nl]',
+        de: 'Help hint was not found. Please refresh your data.[de]'
+    },
     /* End resource section for model Server error notification */
     
     /* Resource section for model View captions */

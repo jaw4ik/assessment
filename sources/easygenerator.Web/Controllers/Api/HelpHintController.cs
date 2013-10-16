@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Controllers.Api
@@ -9,10 +11,12 @@ namespace easygenerator.Web.Controllers.Api
     public class HelpHintController : DefaultController
     {
         private readonly IHelpHintRepository _repository;
+        private readonly IEntityFactory _entityFactory;
 
-        public HelpHintController(IHelpHintRepository repository)
+        public HelpHintController(IHelpHintRepository repository, IEntityFactory entityFactory)
         {
             _repository = repository;
+            _entityFactory = entityFactory;
         }
 
         [HttpPost]
@@ -32,10 +36,18 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (hint == null)
             {
-                return JsonError("Hint not found");
+                return JsonLocalizableError(Constants.Errors.HelpHintNotFoundError, Constants.Errors.HelpHintNotFoundResourceKey);
             }
 
             _repository.HideHint(hint);
+            return JsonSuccess();
+        }
+
+        [HttpPost]
+        public ActionResult ShowHint(string hintKey)
+        {
+            var hint = _entityFactory.HelpHint(hintKey, GetCurrentUsername());
+            _repository.ShowHint(hint);
             return JsonSuccess();
         }
     }

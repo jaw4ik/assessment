@@ -55,7 +55,7 @@ namespace easygenerator.Web.Controllers.Api
 
             _repository.Add(user);
 
-            _helpHintRepository.CreateHelpHintsForUser(user.Email);
+            _helpHintRepository.CreateHelpHintsForUser(profile.Email);
 
             if (User.Identity.IsAuthenticated && _repository.GetUserByEmail(User.Identity.Name) == null)
             {

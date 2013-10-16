@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Linq;
-using System.Net;
 using System.Web.Mvc;
-using System.Web.Security;
-using easygenerator.DataAccess.Repositories;
-using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
 
@@ -15,11 +10,13 @@ namespace easygenerator.Web.Controllers
     {
         private readonly IAuthenticationProvider _authenticationProvider;
         private readonly IUserRepository _repository;
+        private readonly IHelpHintRepository _helpHintRepository;
 
-        public AccountController(IAuthenticationProvider authenticationProvider, IUserRepository repository)
+        public AccountController(IAuthenticationProvider authenticationProvider, IUserRepository repository, IHelpHintRepository helpHintRepository)
         {
             _authenticationProvider = authenticationProvider;
             _repository = repository;
+            _helpHintRepository = helpHintRepository;
         }
 
         [HttpGet]
@@ -40,7 +37,11 @@ namespace easygenerator.Web.Controllers
         public ActionResult LaunchTryMode()
         {
             if (!_authenticationProvider.IsUserAuthenticated())
-                _authenticationProvider.SignIn(Guid.NewGuid().ToString(), true);
+            {
+                var user = Guid.NewGuid().ToString();
+                _authenticationProvider.SignIn(user, true);
+                _helpHintRepository.CreateHelpHintsForUser(user);
+            }
 
             return RedirectToRoute("Default");
         }

@@ -11,12 +11,14 @@
             public const string QuestionNotFoundError = "Question is not found";
             public const string AnswerNotFoundError = "Answer is not found";
             public const string LearningObjectNotFoundError = "Learning Object is not found";
+            public const string HelpHintNotFoundError = "Help Hint is not found";
 
             public const string ExperienceNotFoundResourceKey = "experienceNotFoundError";
             public const string ObjectiveNotFoundResourceKey = "objectiveNotFoundError";
             public const string QuestionNotFoundResourceKey = "questionNotFoundError";
             public const string AnswerNotFoundResourceKey = "answerNotFoundError";
             public const string LearningObjectNotFoundResourceKey = "learningObjectNotFoundError";
+            public const string HelpHintNotFoundResourceKey = "helpHintNotFoundError";
         }
 
         public class HelpHintNames

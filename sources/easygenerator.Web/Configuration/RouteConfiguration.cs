@@ -287,6 +287,12 @@ namespace easygenerator.Web.Configuration
             );
 
             routes.MapRoute(
+                name: "ShowHelpHint",
+                url: "api/helpHint/show",
+                defaults: new { controller = "HelpHint", action = "ShowHint" }
+            );
+
+            routes.MapRoute(
                 name: "GetHelpHints",
                 url: "api/helpHints",
                 defaults: new { controller = "HelpHint", action = "GetCollection" }
