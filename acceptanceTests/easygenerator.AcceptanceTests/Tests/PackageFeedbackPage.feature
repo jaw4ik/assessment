@@ -7,27 +7,27 @@ Background:
 Given clear data context 
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
-| Experience2 | 2  |
+| Experience1 | 00000000000000000000000000000001  |
+| Experience2 | 00000000000000000000000000000002  |
 Given objectives are present in database
 | Title       | Id |
-| Objective11 | 1  |
-| Objective12 | 2  |
-| Objective21 | 3  |
-| Objective22 | 4  |
+| Objective11 | 00000000000000000000000000000001  |
+| Objective12 | 00000000000000000000000000000002  |
+| Objective21 | 00000000000000000000000000000003  |
+| Objective22 | 00000000000000000000000000000004  |
 Given objectives are linked to experiance 'Experience1'
 | Title       | Id |
-| Objective11 | 1  |
-| Objective12 | 2  |
+| Objective11 | 00000000000000000000000000000001  |
+| Objective12 | 00000000000000000000000000000002  |
 Given objectives are linked to experiance 'Experience2'
 | Title       | Id |
-| Objective21 | 3  |
-| Objective22 | 4  |
+| Objective21 | 00000000000000000000000000000003  |
+| Objective22 | 00000000000000000000000000000004  |
 
 Given questions related to 'Objective11' are present in database
 | Title      | Id |
-| Question11 | 1  |
-| Question12 | 2  |
+| Question11 | 00000000000000000000000000000001  |
+| Question12 | 00000000000000000000000000000002  |
 Given answer options related to 'Question11' of 'Objective11' are present in database
 | Text           | isCorrect |
 | AnswerOption11 | true      |
@@ -47,8 +47,8 @@ Given explanations related to 'Question12' of 'Objective11' are present in datab
 
 Given questions related to 'Objective12' are present in database
 | Title      | Id |
-| Question21 | 1  |
-| Question22 | 2  |
+| Question21 | 00000000000000000000000000000003  |
+| Question22 | 00000000000000000000000000000004  |
 Given answer options related to 'Question21' of 'Objective12' are present in database
 | Text            | isCorrect |
 | AnswerOption211 | true      |
@@ -69,8 +69,8 @@ Given explanations related to 'Question22' of 'Objective12' are present in datab
 
 Given questions related to 'Objective21' are present in database
 | Title        | Id |
-| Question11e2 | 1  |
-| Question12e2 | 2  |
+| Question11e2 | 00000000000000000000000000000005  |
+| Question12e2 | 00000000000000000000000000000006  |
 Given answer options related to 'Question11e2' of 'Objective21' are present in database
 | Text             | isCorrect |
 | AnswerOption11e2 | true      |
@@ -90,8 +90,8 @@ Given explanations related to 'Question12e2' of 'Objective21' are present in dat
 
 Given questions related to 'Objective22' are present in database
 | Title        | Id |
-| Question21e2 | 1  |
-| Question22e2 | 2  |
+| Question21e2 | 00000000000000000000000000000007  |
+| Question22e2 | 00000000000000000000000000000008  |
 Given answer options related to 'Question21e2' of 'Objective22' are present in database
 | Text              | isCorrect |
 | AnswerOption211e2 | true      |
@@ -108,13 +108,18 @@ Given explanations related to 'Question22e2' of 'Objective22' are present in dat
 | Explanation      |
 | Explanation221e2 |
 | Explanation222e2 |
+When open page by url 'http://localhost:5656/signout'
+And open page by url 'http://localhost:5656/signin'
+And sign in as 'test' user on sign in page
+Then browser navigates to url 'http://localhost:5656/'
 
-And open page by url 'http://localhost:5656/#/experiences'
+
+When open page by url 'http://localhost:5656/#/experiences'
 And mouse hover element of publications list with title 'Experience1'
 And click build publication list item with title 'Experience1'
 And mouse hover element of publications list with title 'Experience1'
 And click download publication list item with title 'Experience1'
-And unzip '1' package to 'tmp'
+And unzip '00000000000000000000000000000001' package to 'tmp'
 
 
 Scenario: Question progress score is shown on package feedback page
@@ -122,7 +127,7 @@ When open page by url 'http://localhost:5656/Templates/tmp'
 And toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on submit button on package question page
-Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/objective/1/question/1/feedback'
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001/feedback'
 And question progress score '50%' is shown on package feedback page
 
 Scenario: Show explanations button on package feedback page navigates to question related explanations page
@@ -131,7 +136,7 @@ And toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on submit button on package question page
 And click on show explanations button on package feedback page
-Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/objective/1/question/1/learningObjects'
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001/learningObjects'
 
 Scenario: Try again button on package feedback page navigates back to question
 When open page by url 'http://localhost:5656/Templates/tmp'
@@ -139,7 +144,7 @@ And toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on submit button on package question page
 And click on try again button on package feedback page
-Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/objective/1/question/1'
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 
 Scenario: Back to objectives link on package feedback page navigates back to package objectives list page
 When open page by url 'http://localhost:5656/Templates/tmp'

@@ -110,7 +110,7 @@ Given explanations related to 'Question22e2' of 'Objective22' are present in dat
 | Explanation221e2 |
 | Explanation222e2 |
 When open page by url 'http://localhost:5656/signout'
-When open page by url 'http://localhost:5656/signin'
+And open page by url 'http://localhost:5656/signin'
 And sign in as 'test' user on sign in page
 Then browser navigates to url 'http://localhost:5656/'
 
