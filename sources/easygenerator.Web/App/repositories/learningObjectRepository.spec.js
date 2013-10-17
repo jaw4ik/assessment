@@ -145,75 +145,6 @@
 
             });
 
-            describe('getById:', function () {
-
-                it('should be function', function () {
-                    expect(repository.getById).toBeFunction();
-                });
-
-                it('should return promise', function () {
-                    expect(repository.getById()).toBePromise();
-                });
-
-                describe('when id is not a string', function () {
-
-                    it('should reject promise', function () {
-                        var promise = repository.getById();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejectedWith('Learning object id is not a string');
-                        });
-                    });
-
-                });
-
-                describe('when learning object does not exist in dataContext', function () {
-
-                    it('should resolve promise with null', function () {
-                        var promise = repository.getById('');
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeResolvedWith(null);
-                        });
-                    });
-
-                });
-
-                describe('when learning object exists in dataContext', function () {
-
-                    var dataContext = require('dataContext');
-
-                    var learningObject = {
-                        id: 'learningObjectId',
-                        text: 'text'
-                    };
-
-                    beforeEach(function () {
-                        dataContext.objectives = [{ questions: [{ learningObjects: [learningObject] }] }];
-                    });
-
-
-                    it('should resolve promise with learning Object', function () {
-                        var promise = repository.getById(learningObject.id);
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeResolvedWith(learningObject);
-                        });
-                    });
-
-                });
-
-            });
-
             describe('addLearningObject:', function () {
 
                 it('should be function', function () {
@@ -402,23 +333,6 @@
                                 dataContext.objectives = [objective];
                             });
 
-                            it('should add learningObject option to question', function () {
-                                var promise = repository.addLearningObject(question.id, learningObject);
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(question.learningObjects.length).toEqual(1);
-                                    expect(question.learningObjects[0]).toEqual({
-                                        id: response.Id,
-                                        text: learningObject.text,
-                                        createdOn: utils.getDateFromString(response.CreatedOn),
-                                        modifiedOn: utils.getDateFromString(response.CreatedOn)
-                                    });
-                                });
-                            });
-
                             it('should update question modification date', function () {
                                 var promise = repository.addLearningObject(question.id, learningObject);
 
@@ -605,17 +519,6 @@
                             });
 
 
-                            it('should remove learningObject from question', function () {
-                                var promise = repository.removeLearningObject(question.id, learningObject.id);
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(dataContext.objectives[0].questions[0].learningObjects.length).toEqual(0);
-                                });
-                            });
-
                             it('should update question modification date', function () {
                                 var promise = repository.removeLearningObject(question.id, learningObject.id);
 
@@ -634,7 +537,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(promise).toBeResolvedWith(utils.getDateFromString(response.ModifiedOn));
+                                    expect(promise).toBeResolvedWith({ modifiedOn: utils.getDateFromString(response.ModifiedOn) });
                                 });
                             });
 
@@ -657,10 +560,25 @@
                     expect(repository.updateText()).toBePromise();
                 });
 
+                describe('when questionId is not a string', function () {
+
+                    it('should reject promise', function () {
+                        var promise = repository.updateText(undefined, '', '');
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith('Question id is not a string');
+                        });
+                    });
+
+                });
+
                 describe('when learningObjectId is not a string', function () {
 
                     it('should reject promise', function () {
-                        var promise = repository.updateText(undefined, '');
+                        var promise = repository.updateText('', undefined, '');
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -675,7 +593,7 @@
                 describe('when text is not a string', function () {
 
                     it('should reject promise', function () {
-                        var promise = repository.updateText('', undefined);
+                        var promise = repository.updateText('', '', undefined);
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -688,10 +606,11 @@
                 });
 
                 it('should send request to server to api/learningObject/updateText', function () {
+                    var questionId = 'questionId';
                     var learningObjectId = 'learningObjectId';
                     var text = 'text';
 
-                    var promise = repository.updateText(learningObjectId, text);
+                    var promise = repository.updateText(questionId, learningObjectId, text);
 
                     post.reject();
 
@@ -710,7 +629,7 @@
 
                     it('should reject promise', function () {
                         var reason = 'reason';
-                        var promise = repository.updateText('', '');
+                        var promise = repository.updateText('', '', '');
 
                         post.reject(reason);
 
@@ -729,7 +648,7 @@
                     describe('and response is not an object', function () {
 
                         it('should reject promise', function () {
-                            var promise = repository.updateText('', '');
+                            var promise = repository.updateText('', '', '');
 
                             post.resolve();
 
@@ -746,7 +665,7 @@
                     describe('and response does not have learningObject modification date', function () {
 
                         it('should reject promise', function () {
-                            var promise = repository.updateText('', '');
+                            var promise = repository.updateText('', '', '');
 
                             post.resolve({});
 
@@ -760,7 +679,7 @@
 
                     });
 
-                    describe('and response has abswer modification date', function () {
+                    describe('and response has learning object modification date', function () {
 
                         var dataContext = require('dataContext');
 
@@ -768,85 +687,37 @@
                             ModifiedOn: "/Date(1378106938845)/"
                         };
 
+                        var learningObject = { id: 'learningObjectId', text: 'text' };
+                        var question = { id: 'questionId', modifiedOn: '' };
+                        var objective = { id: 'objectiveId', questions: [] };
+
                         beforeEach(function () {
                             post.resolve(response);
+
+                            objective.questions = [question];
+                            dataContext.objectives = [objective];
                         });
 
+                        it('should update question modification date', function () {
+                            var promise = repository.updateText(question.id, learningObject.id, '');
 
-                        describe('and learningObject does not exist in dataContext', function () {
-
-                            it('should reject promise', function () {
-                                dataContext.objectives = [];
-
-                                var promise = repository.updateText('', '');
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeRejectedWith('Learning object does not exist in dataContext');
-                                });
+                            waitsFor(function () {
+                                return !promise.isPending();
                             });
-
+                            runs(function () {
+                                expect(question.modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
+                            });
                         });
 
-                        describe('and learningObject exists in dataContext', function () {
+                        it('should resolve promise with learningObject modification date', function () {
+                            var promise = repository.updateText(question.id, learningObject.id, '');
 
-                            var learningObject = { id: 'learningObjectId', text: 'text' };
-                            var question = { id: 'questionId', learningObjects: [] };
-                            var objective = { id: 'objectiveId', questions: [] };
-
-                            beforeEach(function () {
-                                question.learningObjects = [learningObject];
-                                objective.questions = [question];
-                                dataContext.objectives = [objective];
+                            waitsFor(function () {
+                                return !promise.isPending();
                             });
-
-                            it('should update learningObject text', function () {
-                                var text = 'updated text';
-                                var promise = repository.updateText(learningObject.id, text);
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(learningObject.text).toEqual(text);
-                                });
+                            runs(function () {
+                                expect(promise).toBeResolvedWith({ modifiedOn: utils.getDateFromString(response.ModifiedOn) });
                             });
-
-                            it('should update learningObject modification date', function () {
-                                var promise = repository.updateText(learningObject.id, '');
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(learningObject.modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
-                                });
-                            });
-
-                            it('should update question modification date', function () {
-                                var promise = repository.updateText(learningObject.id, '');
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(question.modifiedOn).toEqual(utils.getDateFromString(response.ModifiedOn));
-                                });
-                            });
-
-                            it('should resolve promise with learningObject modification date', function () {
-                                var promise = repository.updateText(learningObject.id, '');
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeResolvedWith(utils.getDateFromString(response.ModifiedOn));
-                                });
-                            });
-
                         });
 
                     });

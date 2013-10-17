@@ -1,5 +1,5 @@
-﻿define(['viewmodels/questions/answers', 'viewmodels/questions/learningObjects', 'plugins/router', 'eventTracker', 'models/answerOption', 'models/learningObject', 'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify', 'repositories/answerRepository'],
-    function (vmAnswers, vmLearningObjects, router, eventTracker, answerOptionModel, learningObjectModel, localizationManager, constants, questionRepository, objectiveRepository, system, notify, answerRepository) {
+﻿define(['viewmodels/questions/answers', 'viewmodels/questions/learningObjects', 'plugins/router', 'eventTracker', 'models/answerOption', 'models/learningObject', 'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify', 'repositories/answerRepository', 'repositories/learningObjectRepository'],
+    function (vmAnswers, vmLearningObjects, router, eventTracker, answerOptionModel, learningObjectModel, localizationManager, constants, questionRepository, objectiveRepository, system, notify, answerRepository, learningObjectRepository) {
         "use strict";
         var
             events = {
@@ -112,8 +112,6 @@
                         that.createdOn = question.createdOn;
                         that.modifiedOn(question.modifiedOn);
 
-                        that.learningObjects = vmLearningObjects(questionId, question.learningObjects);
-
                         var questionIndex = objective.questions.indexOf(question);
                         nextId = (objective.questions.length > questionIndex + 1) ? objective.questions[questionIndex + 1].id : null;
                         previousId = (questionIndex != 0) ? objective.questions[questionIndex - 1].id : null;
@@ -121,12 +119,16 @@
                         that.hasNext = nextId != null;
                         that.hasPrevious = previousId != null;
                     }).fail(function () {
-                            router.replace('404');
-                            return;
-                        });
+                        router.replace('404');
+                        return;
+                    });
                 }).then(function () {
                     return answerRepository.getCollection(questionId).then(function (answerOptions) {
                         that.answers = vmAnswers(questionId, answerOptions);
+                    });
+                }).then(function () {
+                    return learningObjectRepository.getCollection(questionId).then(function (learningObjects) {
+                        that.learningObjects = vmLearningObjects(questionId, learningObjects);
                     });
                 }).fail(function () {
                     router.replace('404');

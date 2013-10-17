@@ -12,21 +12,25 @@
 
         var
             learningObjects = ko.observableArray([]),
+            isExpanded = ko.observable(true),
 
             addLearningObject = function () {
                 eventTracker.publish(events.addLearningObject);
                 doAddLearningObject();
             },
+
             removeLearningObject = function (learningObject) {
                 eventTracker.publish(events.deleteLearningObject);
                 learningObjects.remove(learningObject);
-                repository.removeLearningObject(questionId, ko.unwrap(learningObject.id)).then(function (modifiedOn) {
-                    showNotification(modifiedOn);
+                repository.removeLearningObject(questionId, ko.unwrap(learningObject.id)).then(function (response) {
+                    showNotification(response.modifiedOn);
                 });
             },
+
             beginEditText = function () {
                 eventTracker.publish(events.beginEditText);
             },
+
             endEditText = function (learningObject) {
                 eventTracker.publish(events.endEditText);
                 var id = ko.unwrap(learningObject.id);
@@ -41,6 +45,7 @@
                     }
                 }
             },
+
             updateText = function (learningObject) {
                 var id = ko.unwrap(learningObject.id);
                 var text = ko.unwrap(learningObject.text);
@@ -57,18 +62,18 @@
                     });
                 } else {
                     if (text != learningObject.originalText) {
-                        repository.updateText(id, text).then(function (modifiedOn) {
+                        repository.updateText(questionId, id, text).then(function (response) {
                             learningObject.originalText = text;
-                            showNotification(modifiedOn);
+                            showNotification(response.modifiedOn);
                         });
                     }
                 }
             },
 
-            isExpanded = ko.observable(true),
             toggleExpand = function () {
                 isExpanded(!isExpanded());
             },
+
             canAddLearningObject = ko.computed({
                 read: function () {
                     return !_.some(learningObjects(), function (item) {

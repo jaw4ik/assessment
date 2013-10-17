@@ -54,24 +54,17 @@
                     }).then(function (response) {
                         _.each(response.data, function (item) {
                             objectives.push(new ObjectiveModel({
-                                id: item.Id.split('-').join(''),
+                                id: item.Id,
                                 title: item.Title,
                                 createdOn: parseDateString(item.CreatedOn),
                                 modifiedOn: parseDateString(item.ModifiedOn),
                                 image: constants.defaultObjectiveImage,
                                 questions: _.map(item.Questions, function (question) {
                                     return new QuestionModel({
-                                        id: question.Id.split('-').join(''),
+                                        id: question.Id,
                                         title: question.Title,
                                         createdOn: parseDateString(question.CreatedOn),
-                                        modifiedOn: parseDateString(question.ModifiedOn),
-                                        answerOptions: [],
-                                        learningObjects: _.map(question.LearningObjects, function (learningObject) {
-                                            return new LearningObjectModel({
-                                                id: learningObject.Id,
-                                                text: learningObject.Text,
-                                            });
-                                        })
+                                        modifiedOn: parseDateString(question.ModifiedOn)
                                     });
                                 })
                             }));
