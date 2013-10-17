@@ -130,7 +130,7 @@
     <value>Überprüfung...</value>
   </data>
   <data name="ChooseAnswer" xml:space="preserve">
-    <value>Antwort auswählen</value>
+    <value>Antwort auswählen...</value>
   </data>
   <data name="ContainAtLeastOneDigit" xml:space="preserve">
     <value>mindestens eine Ziffer enthalten;</value>

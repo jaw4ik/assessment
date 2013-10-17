@@ -130,7 +130,7 @@
     <value>Checking...</value>
   </data>
   <data name="ChooseAnswer" xml:space="preserve">
-    <value>Choose answer</value>
+    <value>Choose answer...</value>
   </data>
   <data name="ContainAtLeastOneDigit" xml:space="preserve">
     <value>contain at least one digit;</value>

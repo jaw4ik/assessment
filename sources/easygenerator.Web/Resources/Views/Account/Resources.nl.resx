@@ -130,7 +130,7 @@
     <value>Bezig met controle...</value>
   </data>
   <data name="ChooseAnswer" xml:space="preserve">
-    <value>Kies een antwoord</value>
+    <value>Kies een antwoord...</value>
   </data>
   <data name="ContainAtLeastOneDigit" xml:space="preserve">
     <value>minstens één cijfer hebben;</value>

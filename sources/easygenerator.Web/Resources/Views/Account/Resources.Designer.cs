@@ -97,7 +97,7 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose answer.
+        ///   Looks up a localized string similar to Choose answer....
         /// </summary>
         public static string ChooseAnswer {
             get {
