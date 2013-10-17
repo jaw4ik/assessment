@@ -79,10 +79,10 @@ testRunner.Given("clear data context", ((string)(null)), ((TechTalk.SpecFlow.Tab
                         "Id"});
             table1.AddRow(new string[] {
                         "Experience1",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table1.AddRow(new string[] {
                         "Experience2",
-                        "2"});
+                        "00000000000000000000000000000002"});
 #line 9
 testRunner.Given("publications are present in database", ((string)(null)), table1, "Given ");
 #line hidden
@@ -91,16 +91,16 @@ testRunner.Given("publications are present in database", ((string)(null)), table
                         "Id"});
             table2.AddRow(new string[] {
                         "Objective11",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table2.AddRow(new string[] {
                         "Objective12",
-                        "2"});
+                        "00000000000000000000000000000002"});
             table2.AddRow(new string[] {
                         "Objective21",
-                        "3"});
+                        "00000000000000000000000000000003"});
             table2.AddRow(new string[] {
                         "Objective22",
-                        "4"});
+                        "00000000000000000000000000000004"});
 #line 13
 testRunner.Given("objectives are present in database", ((string)(null)), table2, "Given ");
 #line hidden
@@ -109,10 +109,10 @@ testRunner.Given("objectives are present in database", ((string)(null)), table2,
                         "Id"});
             table3.AddRow(new string[] {
                         "Objective11",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table3.AddRow(new string[] {
                         "Objective12",
-                        "2"});
+                        "00000000000000000000000000000002"});
 #line 19
 testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table3, "Given ");
 #line hidden
@@ -121,10 +121,10 @@ testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string
                         "Id"});
             table4.AddRow(new string[] {
                         "Objective21",
-                        "3"});
+                        "00000000000000000000000000000003"});
             table4.AddRow(new string[] {
                         "Objective22",
-                        "4"});
+                        "00000000000000000000000000000004"});
 #line 23
 testRunner.Given("objectives are linked to experiance \'Experience2\'", ((string)(null)), table4, "Given ");
 #line hidden
@@ -133,10 +133,10 @@ testRunner.Given("objectives are linked to experiance \'Experience2\'", ((string
                         "Id"});
             table5.AddRow(new string[] {
                         "Question11",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table5.AddRow(new string[] {
                         "Question12",
-                        "2"});
+                        "00000000000000000000000000000002"});
 #line 28
 testRunner.Given("questions related to \'Objective11\' are present in database", ((string)(null)), table5, "Given ");
 #line hidden
@@ -187,10 +187,10 @@ testRunner.Given("explanations related to \'Question12\' of \'Objective11\' are 
                         "Id"});
             table10.AddRow(new string[] {
                         "Question21",
-                        "1"});
+                        "00000000000000000000000000000003"});
             table10.AddRow(new string[] {
                         "Question22",
-                        "2"});
+                        "00000000000000000000000000000004"});
 #line 49
 testRunner.Given("questions related to \'Objective12\' are present in database", ((string)(null)), table10, "Given ");
 #line hidden
@@ -241,10 +241,10 @@ testRunner.Given("explanations related to \'Question22\' of \'Objective12\' are 
                         "Id"});
             table15.AddRow(new string[] {
                         "Question11e2",
-                        "1"});
+                        "00000000000000000000000000000005"});
             table15.AddRow(new string[] {
                         "Question12e2",
-                        "2"});
+                        "00000000000000000000000000000006"});
 #line 71
 testRunner.Given("questions related to \'Objective21\' are present in database", ((string)(null)), table15, "Given ");
 #line hidden
@@ -297,10 +297,10 @@ testRunner.Given("explanations related to \'Question12e2\' of \'Objective21\' ar
                         "Id"});
             table20.AddRow(new string[] {
                         "Question21e2",
-                        "1"});
+                        "00000000000000000000000000000007"});
             table20.AddRow(new string[] {
                         "Question22e2",
-                        "2"});
+                        "00000000000000000000000000000008"});
 #line 92
 testRunner.Given("questions related to \'Objective22\' are present in database", ((string)(null)), table20, "Given ");
 #line hidden
@@ -347,18 +347,26 @@ testRunner.Given("explanations related to \'Question21e2\' of \'Objective22\' ar
                         "Explanation222e2"});
 #line 108
 testRunner.Given("explanations related to \'Question22e2\' of \'Objective22\' are present in database", ((string)(null)), table24, "Given ");
+#line 112
+testRunner.When("open page by url \'http://localhost:5656/signout\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 113
-testRunner.And("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("open page by url \'http://localhost:5656/signin\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 114
-testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("sign in as \'test\' user on sign in page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 115
-testRunner.And("click build publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 116
-testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.Then("browser navigates to url \'http://localhost:5656/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 117
-testRunner.And("click download publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 118
-testRunner.And("unzip \'1\' package to \'tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 119
+testRunner.And("click build publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 120
+testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 121
+testRunner.And("click download publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 122
+testRunner.And("unzip \'00000000000000000000000000000001\' package to \'tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
         
@@ -367,11 +375,11 @@ testRunner.And("unzip \'1\' package to \'tmp\'", ((string)(null)), ((TechTalk.Sp
         public virtual void AllPackageObjectivesArePresentOnPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All package objectives are present on page", ((string[])(null)));
-#line 120
+#line 124
 this.ScenarioSetup(scenarioInfo);
 #line 7
 this.FeatureBackground();
-#line 121
+#line 125
 testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
@@ -380,7 +388,7 @@ testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((st
                         "Objective11"});
             table25.AddRow(new string[] {
                         "Objective12"});
-#line 122
+#line 126
 testRunner.Then("package objectives tiles list contains only items with data", ((string)(null)), table25, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -391,13 +399,13 @@ testRunner.Then("package objectives tiles list contains only items with data", (
         public virtual void PackageObjectivesAreNotExpandedByDefault()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("package objectives are not expanded by default", ((string[])(null)));
-#line 127
+#line 131
 this.ScenarioSetup(scenarioInfo);
 #line 7
 this.FeatureBackground();
-#line 128
+#line 132
 testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 129
+#line 133
 testRunner.Then("package questions are not displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -408,15 +416,15 @@ testRunner.Then("package questions are not displayed", ((string)(null)), ((TechT
         public virtual void AllPackageQuestionsArePresentOnPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All package questions are present on page", ((string[])(null)));
-#line 132
+#line 136
 this.ScenarioSetup(scenarioInfo);
 #line 7
 this.FeatureBackground();
-#line 133
+#line 137
 testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 134
+#line 138
 testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 135
+#line 139
 testRunner.And("toggle expand package objective item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
@@ -424,11 +432,11 @@ testRunner.And("toggle expand package objective item with title \'Objective12\'"
                         "Id"});
             table26.AddRow(new string[] {
                         "Question11",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table26.AddRow(new string[] {
                         "Question12",
-                        "2"});
-#line 136
+                        "00000000000000000000000000000002"});
+#line 140
 testRunner.Then("package questions list of objective item with title \'Objective11\' containes only " +
                     "items with data", ((string)(null)), table26, "Then ");
 #line hidden
@@ -437,11 +445,11 @@ testRunner.Then("package questions list of objective item with title \'Objective
                         "Id"});
             table27.AddRow(new string[] {
                         "Question21",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table27.AddRow(new string[] {
                         "Question22",
-                        "2"});
-#line 140
+                        "00000000000000000000000000000002"});
+#line 144
 testRunner.And("package questions list of objective item with title \'Objective12\' containes only " +
                     "items with data", ((string)(null)), table27, "And ");
 #line hidden
@@ -453,15 +461,15 @@ testRunner.And("package questions list of objective item with title \'Objective1
         public virtual void ProgressSummaryButtonNavigatesToProgressSummaryPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Progress summary button navigates to progress summary page", ((string[])(null)));
-#line 145
+#line 149
 this.ScenarioSetup(scenarioInfo);
 #line 7
 this.FeatureBackground();
-#line 146
+#line 150
 testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 147
+#line 151
 testRunner.And("click on progress summary button on package list of objective page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 148
+#line 152
 testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#/summary\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

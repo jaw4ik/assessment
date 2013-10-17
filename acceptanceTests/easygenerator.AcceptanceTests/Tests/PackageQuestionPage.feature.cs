@@ -79,10 +79,10 @@ testRunner.Given("clear data context", ((string)(null)), ((TechTalk.SpecFlow.Tab
                         "Id"});
             table1.AddRow(new string[] {
                         "Experience1",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table1.AddRow(new string[] {
                         "Experience2",
-                        "2"});
+                        "00000000000000000000000000000002"});
 #line 8
 testRunner.Given("publications are present in database", ((string)(null)), table1, "Given ");
 #line hidden
@@ -91,16 +91,16 @@ testRunner.Given("publications are present in database", ((string)(null)), table
                         "Id"});
             table2.AddRow(new string[] {
                         "Objective11",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table2.AddRow(new string[] {
                         "Objective12",
-                        "2"});
+                        "00000000000000000000000000000002"});
             table2.AddRow(new string[] {
                         "Objective21",
-                        "3"});
+                        "00000000000000000000000000000003"});
             table2.AddRow(new string[] {
                         "Objective22",
-                        "4"});
+                        "00000000000000000000000000000004"});
 #line 12
 testRunner.Given("objectives are present in database", ((string)(null)), table2, "Given ");
 #line hidden
@@ -109,10 +109,10 @@ testRunner.Given("objectives are present in database", ((string)(null)), table2,
                         "Id"});
             table3.AddRow(new string[] {
                         "Objective11",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table3.AddRow(new string[] {
                         "Objective12",
-                        "2"});
+                        "00000000000000000000000000000002"});
 #line 18
 testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table3, "Given ");
 #line hidden
@@ -121,10 +121,10 @@ testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string
                         "Id"});
             table4.AddRow(new string[] {
                         "Objective21",
-                        "3"});
+                        "00000000000000000000000000000003"});
             table4.AddRow(new string[] {
                         "Objective22",
-                        "4"});
+                        "00000000000000000000000000000004"});
 #line 22
 testRunner.Given("objectives are linked to experiance \'Experience2\'", ((string)(null)), table4, "Given ");
 #line hidden
@@ -133,10 +133,10 @@ testRunner.Given("objectives are linked to experiance \'Experience2\'", ((string
                         "Id"});
             table5.AddRow(new string[] {
                         "Question11",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table5.AddRow(new string[] {
                         "Question12",
-                        "2"});
+                        "00000000000000000000000000000002"});
 #line 27
 testRunner.Given("questions related to \'Objective11\' are present in database", ((string)(null)), table5, "Given ");
 #line hidden
@@ -187,10 +187,10 @@ testRunner.Given("explanations related to \'Question12\' of \'Objective11\' are 
                         "Id"});
             table10.AddRow(new string[] {
                         "Question21",
-                        "1"});
+                        "00000000000000000000000000000003"});
             table10.AddRow(new string[] {
                         "Question22",
-                        "2"});
+                        "00000000000000000000000000000004"});
 #line 48
 testRunner.Given("questions related to \'Objective12\' are present in database", ((string)(null)), table10, "Given ");
 #line hidden
@@ -241,10 +241,10 @@ testRunner.Given("explanations related to \'Question22\' of \'Objective12\' are 
                         "Id"});
             table15.AddRow(new string[] {
                         "Question11e2",
-                        "1"});
+                        "00000000000000000000000000000005"});
             table15.AddRow(new string[] {
                         "Question12e2",
-                        "2"});
+                        "00000000000000000000000000000006"});
 #line 70
 testRunner.Given("questions related to \'Objective21\' are present in database", ((string)(null)), table15, "Given ");
 #line hidden
@@ -297,10 +297,10 @@ testRunner.Given("explanations related to \'Question12e2\' of \'Objective21\' ar
                         "Id"});
             table20.AddRow(new string[] {
                         "Question21e2",
-                        "1"});
+                        "00000000000000000000000000000007"});
             table20.AddRow(new string[] {
                         "Question22e2",
-                        "2"});
+                        "00000000000000000000000000000008"});
 #line 91
 testRunner.Given("questions related to \'Objective22\' are present in database", ((string)(null)), table20, "Given ");
 #line hidden
@@ -347,18 +347,26 @@ testRunner.Given("explanations related to \'Question21e2\' of \'Objective22\' ar
                         "Explanation222e2"});
 #line 107
 testRunner.Given("explanations related to \'Question22e2\' of \'Objective22\' are present in database", ((string)(null)), table24, "Given ");
+#line 111
+testRunner.When("open page by url \'http://localhost:5656/signout\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 112
-testRunner.And("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("open page by url \'http://localhost:5656/signin\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 113
-testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("sign in as \'test\' user on sign in page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 114
-testRunner.And("click build publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 115
-testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.Then("browser navigates to url \'http://localhost:5656/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 116
-testRunner.And("click download publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 117
-testRunner.And("unzip \'1\' package to \'tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 118
+testRunner.And("click build publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 119
+testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 120
+testRunner.And("click download publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 121
+testRunner.And("unzip \'00000000000000000000000000000001\' package to \'tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
         
@@ -367,17 +375,17 @@ testRunner.And("unzip \'1\' package to \'tmp\'", ((string)(null)), ((TechTalk.Sp
         public virtual void CorrectPackageQuestionTitleIsShownOnPackageQuestionPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Correct package question title is shown on package question page", ((string[])(null)));
-#line 120
+#line 125
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 121
+#line 126
 testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 122
+#line 127
 testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 123
+#line 128
 testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 124
+#line 129
 testRunner.Then("package question title \'Question11\' is shown on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -388,15 +396,15 @@ testRunner.Then("package question title \'Question11\' is shown on package quest
         public virtual void AllPackageAnswerOptionsArePresentOnPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All package answer options are present on page", ((string[])(null)));
-#line 127
+#line 132
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 128
+#line 133
 testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 129
+#line 134
 testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 130
+#line 135
 testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
@@ -405,7 +413,7 @@ testRunner.And("click package question list item \'Question11\' of \'Objective11
                         "AnswerOption11"});
             table25.AddRow(new string[] {
                         "AnswerOption12"});
-#line 131
+#line 136
 testRunner.Then("package answer options list contains only items with data", ((string)(null)), table25, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -416,21 +424,21 @@ testRunner.Then("package answer options list contains only items with data", ((s
         public virtual void SubmitButtonOnPackageQuestionPageNavigatesToFeedbackPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Submit button on package question page navigates to feedback page", ((string[])(null)));
-#line 136
+#line 141
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 137
+#line 142
 testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 138
+#line 143
 testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 139
+#line 144
 testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 140
+#line 145
 testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 141
-testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#/objective/1/quest" +
-                    "ion/1/feedback\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 146
+testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#/objective/0000000" +
+                    "0000000000000000000000001/question/00000000000000000000000000000001/feedback\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -442,21 +450,22 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Show explanations link on package question page navigates to related explanations" +
                     " page", ((string[])(null)));
-#line 143
+#line 148
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 144
+#line 149
 testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 145
+#line 150
 testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 146
+#line 151
 testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 147
+#line 152
 testRunner.And("click on show explanations link on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 148
-testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#/objective/1/quest" +
-                    "ion/1/learningObjects\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 153
+testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#/objective/0000000" +
+                    "0000000000000000000000001/question/00000000000000000000000000000001/learningObje" +
+                    "cts\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -468,19 +477,19 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Back action on package question page navigates back to package objectives list pa" +
                     "ge", ((string[])(null)));
-#line 150
+#line 155
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 151
+#line 156
 testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 152
+#line 157
 testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 153
+#line 158
 testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 154
+#line 159
 testRunner.And("click on back to objectives link on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 155
+#line 160
 testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -491,19 +500,19 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/
         public virtual void ProgressSummaryLinkOnPackageQuestionPageNavigatesToSummaryPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Progress summary link on package question page navigates to summary page", ((string[])(null)));
-#line 157
+#line 162
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 158
+#line 163
 testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 159
+#line 164
 testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 160
+#line 165
 testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 161
+#line 166
 testRunner.And("click on progress summary link on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 162
+#line 167
 testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#/summary\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -514,19 +523,19 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/
         public virtual void HomeLinkOnPackageQuestionPageNavigatesToPackageHomePage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Home link on package question page navigates to package home page", ((string[])(null)));
-#line 164
+#line 169
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 165
+#line 170
 testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 166
+#line 171
 testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 167
+#line 172
 testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 168
+#line 173
 testRunner.And("click home link on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 169
+#line 174
 testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -537,25 +546,25 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/
         public virtual void PackageAnswerOptionCheckboxStatusCanBeToggled()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Package answer option checkbox status can be toggled", ((string[])(null)));
-#line 171
+#line 176
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 172
-testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 173
-testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 174
-testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 175
-testRunner.And("toggle package answer option \'AnswerOption11\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 176
-testRunner.And("toggle package answer option \'AnswerOption12\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 177
-testRunner.And("toggle package answer option \'AnswerOption11\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 178
-testRunner.Then("package answer option \'AnswerOption11\' is checked false", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 179
+testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 180
+testRunner.And("toggle package answer option \'AnswerOption11\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 181
+testRunner.And("toggle package answer option \'AnswerOption12\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 182
+testRunner.And("toggle package answer option \'AnswerOption11\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 183
+testRunner.Then("package answer option \'AnswerOption11\' is checked false", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 184
 testRunner.And("package answer option \'AnswerOption12\' is checked true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
