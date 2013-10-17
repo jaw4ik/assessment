@@ -67,6 +67,7 @@
             });
 
             var removeAnswer;
+            var answer = { id: ko.observable('answerId'), text: ko.observable('') };
 
             beforeEach(function () {
                 removeAnswer = Q.defer();
@@ -78,41 +79,116 @@
             });
 
             it('should send event \'Delete answer option\'', function () {
-                viewModel.removeAnswer({});
+                viewModel.removeAnswer(answer);
                 expect(eventTracker.publish).toHaveBeenCalledWith('Delete answer option');
             });
 
-            it('should remove answer from the repository', function () {
-                var answer = { id: ko.observable('answerId'), text: ko.observable('') };
-                viewModel.answers([answer]);
+            describe('when answer id is set', function () {
 
-                viewModel.removeAnswer(answer);
+                it('should remove answer from the repository', function () {
+                    viewModel.answers([answer]);
 
-                expect(repository.removeAnswer).toHaveBeenCalledWith(questionId, answer.id());
-            });
+                    viewModel.removeAnswer(answer);
 
-            it('should remove answer from the viewModel', function () {
-                var answer = {};
-                viewModel.answers([answer]);
-
-                viewModel.removeAnswer(answer);
-
-                expect(viewModel.answers().length).toEqual(0);
-            });
-
-            it('should show notification', function () {
-                var promise = removeAnswer.promise.fin(function () { });
-                var answer = {};
-                viewModel.answers([answer]);
-                removeAnswer.resolve({ modifiedOn: new Date() });
-
-                viewModel.removeAnswer(answer);
-
-                waitsFor(function () {
-                    return !promise.isPending();
+                    expect(repository.removeAnswer).toHaveBeenCalledWith(questionId, answer.id());
                 });
-                runs(function () {
-                    expect(notify.info).toHaveBeenCalled();
+
+                it('should remove answer from the viewModel', function () {
+                    viewModel.answers([answer]);
+
+                    viewModel.removeAnswer(answer);
+
+                    expect(viewModel.answers().length).toEqual(0);
+                });
+
+                it('should show notification', function () {
+                    var promise = removeAnswer.promise.fin(function () { });
+                    viewModel.answers([answer]);
+                    removeAnswer.resolve({ modifiedOn: new Date() });
+
+                    viewModel.removeAnswer(answer);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(notify.info).toHaveBeenCalled();
+                    });
+                });
+
+            });
+
+            describe('when answer id is not set initially', function () {
+                var answerWithoutId;
+                beforeEach(function () {
+                    answerWithoutId = { id: ko.observable(''), text: ko.observable('') };
+                });
+
+                it('should not remove answer from the repository', function () {
+                    viewModel.answers([answerWithoutId]);
+
+                    viewModel.removeAnswer(answerWithoutId);
+                    expect(repository.removeAnswer).not.toHaveBeenCalled();
+                });
+
+                it('should remove answer from the viewModel', function () {
+                    viewModel.answers([answerWithoutId]);
+
+                    viewModel.removeAnswer(answerWithoutId);
+
+                    expect(viewModel.answers().length).toEqual(0);
+                });
+
+                it('should not show notification', function () {
+                    var promise = removeAnswer.promise.fin(function () { });
+                    viewModel.answers([answerWithoutId]);
+                    removeAnswer.resolve({ modifiedOn: new Date() });
+
+                    viewModel.removeAnswer(answerWithoutId);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(notify.info).not.toHaveBeenCalled();
+                    });
+                });
+
+                describe('and answer id is set later', function () {
+
+                    it('should remove answer from the repository', function () {
+                        viewModel.answers([answerWithoutId]);
+
+                        viewModel.removeAnswer(answerWithoutId);
+                        answerWithoutId.id('answerId');
+                        expect(repository.removeAnswer).toHaveBeenCalledWith(questionId, answer.id());
+                    });
+
+                    it('should remove answer from the viewModel', function () {
+                        viewModel.answers([answerWithoutId]);
+
+                        viewModel.removeAnswer(answerWithoutId);
+                        answerWithoutId.id('answerId');
+
+                        expect(viewModel.answers().length).toEqual(0);
+                    });
+
+                    it('should show notification', function () {
+                        var promise = removeAnswer.promise.fin(function () { });
+                        viewModel.answers([answerWithoutId]);
+                        removeAnswer.resolve({ modifiedOn: new Date() });
+
+                        viewModel.removeAnswer(answerWithoutId);
+                        answerWithoutId.id('answerId');
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(notify.info).toHaveBeenCalled();
+                        });
+                    });
+
                 });
             });
 
@@ -330,10 +406,10 @@
         describe('toggleCorrectness', function () {
 
             var updateCorrectness;
-
+            var answer;
             beforeEach(function () {
                 viewModel = ctor(questionId, []);
-
+                answer = { id: ko.observable('answerId'), isCorrect: ko.observable(false) };
                 updateCorrectness = Q.defer();
                 spyOn(repository, 'updateCorrectness').andReturn(updateCorrectness.promise);
             });
@@ -343,41 +419,108 @@
             });
 
             it('should send event \'Change answer option correctness\'', function () {
-                var answer = { id: ko.observable('answerId'), isCorrect: ko.observable(false) };
                 viewModel.toggleCorrectness(answer);
                 expect(eventTracker.publish).toHaveBeenCalledWith('Change answer option correctness');
             });
 
-            it('should update answer correctness in the repository', function () {
-                var answer = { id: ko.observable('answerId'), isCorrect: ko.observable(false) };
+            describe('when answer id is set', function () {
 
-                viewModel.toggleCorrectness(answer);
+                it('should update answer correctness in the repository', function () {
+                    viewModel.toggleCorrectness(answer);
 
-                expect(repository.updateCorrectness).toHaveBeenCalledWith(questionId, answer.id(), true);
+                    expect(repository.updateCorrectness).toHaveBeenCalledWith(questionId, answer.id(), true);
+                });
+
+                it('should update answer correctness in the viewModel', function () {
+                    viewModel.toggleCorrectness(answer);
+
+                    expect(answer.isCorrect()).toBeTruthy();
+                });
+
+                it('should show notification', function () {
+                    var promise = updateCorrectness.promise.fin(function () { });
+                    notify.info.reset();
+                    updateCorrectness.resolve({ modifiedOn: new Date() });
+
+                    viewModel.toggleCorrectness(answer);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(notify.info).toHaveBeenCalled();
+                    });
+                });
+
             });
 
-            it('should update answer correctness in the viewModel', function () {
-                var answer = { id: ko.observable('answerId'), isCorrect: ko.observable(false) };
-
-                viewModel.toggleCorrectness(answer);
-
-                expect(answer.isCorrect()).toBeTruthy();
-            });
-
-            it('should show notification', function () {
-                var promise = updateCorrectness.promise.fin(function () { });
-                var answer = { id: ko.observable('answerId'), isCorrect: ko.observable(false) };
-                notify.info.reset();
-                updateCorrectness.resolve({ modifiedOn: new Date() });
-
-                viewModel.toggleCorrectness(answer);
-
-                waitsFor(function () {
-                    return !promise.isPending();
+            describe('when answer id is not set initially', function () {
+                var answerWithoutId;
+                beforeEach(function () {
+                    answerWithoutId = { id: ko.observable(''), text: ko.observable(''), isCorrect: ko.observable(false) };
                 });
-                runs(function () {
-                    expect(notify.info).toHaveBeenCalled();
+                
+                it('should not update answer correctness in the repository', function () {
+                    viewModel.toggleCorrectness(answerWithoutId);
+
+                    expect(repository.updateCorrectness).not.toHaveBeenCalled();
                 });
+
+                it('should update answer correctness in the viewModel', function () {
+                    viewModel.toggleCorrectness(answerWithoutId);
+
+                    expect(answerWithoutId.isCorrect()).toBeTruthy();
+                });
+
+                it('should not show notification', function () {
+                    var promise = updateCorrectness.promise.fin(function () { });
+                    notify.info.reset();
+                    updateCorrectness.resolve({ modifiedOn: new Date() });
+
+                    viewModel.toggleCorrectness(answerWithoutId);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(notify.info).not.toHaveBeenCalled();
+                    });
+                });
+
+                describe('and answer id is set later', function () {
+
+                    it('should not update answer correctness in the repository', function () {
+                        viewModel.toggleCorrectness(answerWithoutId);
+                        answerWithoutId.id('answerId');
+
+                        expect(repository.updateCorrectness).toHaveBeenCalled();
+                    });
+
+                    it('should update answer correctness in the viewModel', function () {
+                        viewModel.toggleCorrectness(answerWithoutId);
+                        answerWithoutId.id('answerId');
+
+                        expect(answerWithoutId.isCorrect()).toBeTruthy();
+                    });
+
+                    it('should not show notification', function () {
+                        var promise = updateCorrectness.promise.fin(function () { });
+                        notify.info.reset();
+                        updateCorrectness.resolve({ modifiedOn: new Date() });
+
+                        viewModel.toggleCorrectness(answerWithoutId);
+                        answerWithoutId.id('answerId');
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(notify.info).toHaveBeenCalled();
+                        });
+                    });
+                    
+                });
+
             });
 
         });
