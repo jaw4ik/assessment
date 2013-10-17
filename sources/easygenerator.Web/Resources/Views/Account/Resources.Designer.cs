@@ -232,7 +232,7 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Just Looking.
+        ///   Looks up a localized string similar to Just looking.
         /// </summary>
         public static string JustLooking {
             get {
@@ -493,7 +493,7 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1-3 Months.
+        ///   Looks up a localized string similar to 1-3 months.
         /// </summary>
         public static string Variant1Month {
             get {
@@ -502,7 +502,7 @@ namespace AccountRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &gt;3 Months.
+        ///   Looks up a localized string similar to &gt;3 months.
         /// </summary>
         public static string VariantMore3Months {
             get {
