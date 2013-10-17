@@ -138,7 +138,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Delete_ShouldReturnJsonSuccessResult()
         {
-            var objective = ObjectiveObjectMother.Create();
+            var objective = Substitute.For<Objective>("Some title", CreatedBy);
 
             var result = _controller.Delete(objective);
 
@@ -148,13 +148,27 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestMethod]
         public void Delete_ShouldRemoveObjective()
         {
-            var objective = ObjectiveObjectMother.Create();
+            var objective = Substitute.For<Objective>("Some title", CreatedBy);
 
             _controller.Delete(objective);
 
             _repository.Received().Remove(objective);
         }
 
+        [TestMethod]
+        public void Delete_ReturnJsonErrorResult_WhenObjectiveIsInExperience()
+        {
+            var experience = Substitute.For<Experience>();
+            var experiences = new List<Experience>() { experience };
+            
+            var objective = Substitute.For<Objective>("Some title", CreatedBy);
+            objective.Experiences.Returns(experiences);
+
+            var result = _controller.Delete(objective);
+
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective can not be deleted");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveCannnotBeDeleted"); 
+        }
 
         #endregion
     }
