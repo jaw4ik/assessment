@@ -25,5 +25,10 @@
         {
             public const string UserSignUpModel = "UserSignUpModel";
         }
+
+        public class MailTemplates
+        {
+            public const string SignedUpUserTemplate = "SignedUpUserTemplate";
+        }
     }
 }

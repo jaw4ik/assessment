@@ -1,5 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using Autofac;
+using Autofac.Builder;
 using Autofac.Integration.Mvc;
 using easygenerator.DataAccess;
 using easygenerator.DomainModel;
@@ -10,6 +12,11 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ModelBinding;
+using System.Reflection;
+using System;
+using System.Collections.Generic;
+using easygenerator.Web.Mail;
+using easygenerator.DomainModel.Events;
 
 namespace easygenerator.Web.Configuration
 {
@@ -19,7 +26,8 @@ namespace easygenerator.Web.Configuration
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            var applicationAssembly = typeof(MvcApplication).Assembly;
+            builder.RegisterControllers(applicationAssembly);
 
             builder.RegisterType<ExperienceBuilder>()
                    .As<IExperienceBuilder>();
@@ -42,8 +50,51 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<AuthenticationProvider>().As<IAuthenticationProvider>();
 
+            #region Register domain events dependecies
+
+            builder.RegisterGeneric(typeof(DomainEventPublisher<>)).As(typeof(IDomainEventPublisher<>)).InstancePerHttpRequest();
+            builder.RegisterGeneric(typeof(DomainEventHandlersProvider<>)).As(typeof(IDomainEventHandlersProvider<>)).InstancePerHttpRequest();
+            RegisterGenericTypes(builder, applicationAssembly, typeof (IDomainEventHandler<>)).ForEach(_ => _.InstancePerHttpRequest());
+
+            #endregion
+
+            builder.RegisterType<MailNotificationManager>();
+
             var container = builder.Build();
+
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+        }
+
+        private static bool IsAssignableToGenericType(Type givenType, Type genericType)
+        {
+            var interfaceTypes = givenType.GetInterfaces();
+
+            if (interfaceTypes.Where(it => it.IsGenericType).Any(it => it.GetGenericTypeDefinition() == genericType))
+                return true;
+
+            var baseType = givenType.BaseType;
+            if (baseType == null) return false;
+
+            return baseType.IsGenericType &&
+                   baseType.GetGenericTypeDefinition() == genericType ||
+                   IsAssignableToGenericType(baseType, genericType);
+        }
+
+        private static List<IRegistrationBuilder<object, object, object>> RegisterGenericTypes(ContainerBuilder builder, Assembly assembly, Type genericRepositoryType)
+        {
+            var builders = new List<IRegistrationBuilder<object, object, object>>();
+
+            var types = assembly.GetExportedTypes().Where(t => !t.IsInterface && !t.IsAbstract && IsAssignableToGenericType(t, genericRepositoryType)).ToArray();
+
+            foreach (var type in types)
+            {
+                if (type.IsGenericType)
+                    builders.Add(builder.RegisterGeneric(type).AsImplementedInterfaces().InstancePerHttpRequest());
+                else
+                    builders.Add(builder.RegisterType(type).AsImplementedInterfaces().InstancePerHttpRequest());
+            }
+
+            return builders;
         }
     }
 }

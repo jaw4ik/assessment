@@ -8,7 +8,7 @@ namespace easygenerator.DataAccess.Repositories
 {
     public class QuerableRepository<T> : IQuerableRepository<T> where T : Entity
     {
-        private readonly IDataContext _dataContext;
+        protected readonly IDataContext _dataContext;
 
         public QuerableRepository(IDataContext dataContext)
         {

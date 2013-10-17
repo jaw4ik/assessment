@@ -90,6 +90,19 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Template>().Property(e => e.Name).IsRequired();
             modelBuilder.Entity<Template>().Property(e => e.Image).IsRequired();
 
+            modelBuilder.Entity<MailNotification>().HasKey(e => e.Id);
+            modelBuilder.Entity<MailNotification>().Property(e => e.CreatedOn).IsRequired();
+            modelBuilder.Entity<MailNotification>().Property(e => e.Body).IsRequired();
+            // ignore useless properties for mailnotification entities
+            modelBuilder.Entity<MailNotification>().Ignore(e => e.ModifiedOn);
+            modelBuilder.Entity<MailNotification>().Ignore(e => e.CreatedBy);
+            modelBuilder.Entity<MailNotification>().Ignore(e => e.ModifiedBy);
+            //
+            modelBuilder.Entity<MailNotification>().Property(e => e.Subject).HasMaxLength(254).IsRequired();
+            modelBuilder.Entity<MailNotification>().Property(e => e.ToEmailAddresses).HasMaxLength(511).IsRequired();
+            modelBuilder.Entity<MailNotification>().Property(e => e.CCEmailAddresses).HasMaxLength(511);
+            modelBuilder.Entity<MailNotification>().Property(e => e.BCCEmailAddresses).HasMaxLength(511);
+            modelBuilder.Entity<MailNotification>().Property(e => e.FromEmailAddress).HasMaxLength(127).IsRequired();
 
             base.OnModelCreating(modelBuilder);
         }

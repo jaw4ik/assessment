@@ -8,13 +8,11 @@ namespace easygenerator.DataAccess.Repositories
 {
     public class HelpHintRepository : Repository<HelpHint>, IHelpHintRepository
     {
-        private readonly IDataContext _dataContext;
         private readonly IEntityFactory _entityFactory;
 
         public HelpHintRepository(IDataContext dataContext, IEntityFactory entityFactory)
             : base(dataContext)
         {
-            _dataContext = dataContext;
             _entityFactory = entityFactory;
         }
 

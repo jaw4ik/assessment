@@ -6,6 +6,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.ViewModels.Account;
+using easygenerator.DomainModel.Events;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -17,14 +18,17 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IAuthenticationProvider _authenticationProvider;
         private readonly ISignupFromTryItNowHandler _signupFromTryItNowHandler;
         private readonly IHelpHintRepository _helpHintRepository;
+        private readonly IDomainEventPublisher<UserSignedUpEvent> _publisher;
 
-        public UserController(IUserRepository repository, IEntityFactory entityFactory, IAuthenticationProvider authenticationProvider, ISignupFromTryItNowHandler signupFromTryItNowHandler, IHelpHintRepository helpHintRepository)
+        public UserController(IUserRepository repository, IEntityFactory entityFactory, IAuthenticationProvider authenticationProvider, ISignupFromTryItNowHandler signupFromTryItNowHandler,
+            IHelpHintRepository helpHintRepository, IDomainEventPublisher<UserSignedUpEvent> publisher)
         {
             _repository = repository;
             _entityFactory = entityFactory;
             _authenticationProvider = authenticationProvider;
             _signupFromTryItNowHandler = signupFromTryItNowHandler;
             _helpHintRepository = helpHintRepository;
+            _publisher = publisher;
         }
 
         [HttpPost]
@@ -65,6 +69,7 @@ namespace easygenerator.Web.Controllers.Api
             user.UpdateOrganization(profile.Organization, profile.Email);
 
             _repository.Add(user);
+            _publisher.Publish(new UserSignedUpEvent(user, profile.PeopleBusyWithCourseDevelopmentAmount, profile.NeedAuthoringTool, profile.UsedAuthoringTool));
 
             _helpHintRepository.CreateHelpHintsForUser(profile.Email);
 

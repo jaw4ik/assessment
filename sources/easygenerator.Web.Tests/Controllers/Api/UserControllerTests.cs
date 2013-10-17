@@ -16,6 +16,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using easygenerator.Web.ViewModels.Account;
+using easygenerator.DomainModel.Events;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -28,6 +29,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         private IAuthenticationProvider _authenticationProvider;
         private ISignupFromTryItNowHandler _signupFromTryItNowHandler;
         private IHelpHintRepository _helpHintRepository;
+        private IDomainEventPublisher<UserSignedUpEvent> _publisher;
 
         IPrincipal _user;
         HttpContextBase _context;
@@ -40,7 +42,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _authenticationProvider = Substitute.For<IAuthenticationProvider>();
             _signupFromTryItNowHandler = Substitute.For<ISignupFromTryItNowHandler>();
             _helpHintRepository = Substitute.For<IHelpHintRepository>();
-            _controller = new UserController(_repository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler, _helpHintRepository);
+            _helpHintRepository = Substitute.For<IHelpHintRepository>();
+            _publisher = Substitute.For<IDomainEventPublisher<UserSignedUpEvent>>();
+            _controller = new UserController(_repository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler, _helpHintRepository, _publisher);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -138,6 +142,38 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             _repository.Received().Add(user);
+        }
+
+        [TestMethod]
+        public void Signup_ShouldRaiseEventAboutUserCreation()
+        {
+            //Arrange
+            var email = "easygenerator@easygenerator.com";
+            var password = "Easy123!";
+            var user = UserObjectMother.Create(email, password);
+            var courseDevelopersCount = "5";
+            var whenNeedAuthoringTool = "Now";
+            var usedAuthoringTool = "powerpoint";
+
+            _entityFactory.User(email, password, email).Returns(user);
+            var profile = new UserSecondStepViewModel()
+            {
+                Email = email,
+                Password = password,
+                PeopleBusyWithCourseDevelopmentAmount = courseDevelopersCount,
+                NeedAuthoringTool = whenNeedAuthoringTool,
+                UsedAuthoringTool = usedAuthoringTool
+            };
+
+            //Act
+            _controller.Signup(profile);
+
+            //Assert
+            _publisher.Received().Publish
+                (
+                    Arg.Is<UserSignedUpEvent>(_ => _.User == user && _.UsedAuthoringTool == usedAuthoringTool && _.CourseDevelopersCount == courseDevelopersCount
+                    && _.WhenNeedAuthoringTool == whenNeedAuthoringTool)
+                );
         }
 
         [TestMethod]

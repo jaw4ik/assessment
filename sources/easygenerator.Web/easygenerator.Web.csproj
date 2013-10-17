@@ -59,6 +59,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RazorEngine, Version=3.3.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\RazorEngine.3.3.0\lib\net40\RazorEngine.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -185,6 +189,9 @@
     <Compile Include="Components\ActionResults\JsonErrorResult.cs" />
     <Compile Include="Components\ActionResults\JsonSuccessResult.cs" />
     <Compile Include="Components\AuthenticationProvider.cs" />
+    <Compile Include="Components\Configuration\MailSenderConfigurationSection.cs" />
+    <Compile Include="Components\Configuration\MailTemplate.cs" />
+    <Compile Include="Components\Configuration\MailTemplateCollection.cs" />
     <Compile Include="Components\ModelBinding\EntityCollectionModelBinderProvider.cs" />
     <Compile Include="Components\ModelBinding\EntityModelBinder.cs" />
     <Compile Include="Components\ModelBinding\EntityModelBinderProvider.cs" />
@@ -206,9 +213,15 @@
     <Compile Include="Controllers\Api\UserController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Components\DefaultController.cs" />
+    <Compile Include="DomainEvents\Handlers\SendMailAboutNewUserHandler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <None Include="Mail\MailTemplates\SignedUpUserTemplate.cshtml" />
+    <Compile Include="Mail\MailNotificationManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Mail\MailTemplatesProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Views\Account\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1028,6 +1041,7 @@
       <Name>easygenerator.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

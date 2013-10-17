@@ -46,6 +46,10 @@ namespace easygenerator.DataAccess
                 .As<IHelpHintRepository>()
                 .As<IQuerableRepository<HelpHint>>();
 
+            builder.RegisterType<MailNotificationRepository>()
+                .As<IMailNotificationRepository>()
+                .As<IQuerableRepository<MailNotification>>();
+
             base.Load(builder);
         }
     }

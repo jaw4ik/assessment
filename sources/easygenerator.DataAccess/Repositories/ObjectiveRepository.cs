@@ -13,7 +13,6 @@ namespace easygenerator.DataAccess.Repositories
         public ObjectiveRepository(IDataContext dataContext)
             : base(dataContext)
         {
-
         }
     }
 }

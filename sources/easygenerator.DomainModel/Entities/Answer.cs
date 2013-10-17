@@ -6,7 +6,7 @@ namespace easygenerator.DomainModel.Entities
     {
         protected internal Answer() { }
 
-        public Answer(string text, bool isCorrect, string createdBy)
+        protected internal Answer(string text, bool isCorrect, string createdBy)
             : base(createdBy)
         {
             ThrowIfTextIsInvalid(text);

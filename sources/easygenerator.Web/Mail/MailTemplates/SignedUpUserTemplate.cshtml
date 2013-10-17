@@ -1,0 +1,24 @@
+﻿@model easygenerator.DomainModel.Events.UserSignedUpEvent
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>New user was registered!</title>
+  </head>
+    <body>
+        <label>Full Name: @Model.User.FullName</label>
+        <br />
+        <label>Company Name: @Model.User.Organization</label>
+        <br />
+        <label>Email Address: @Model.User.Email</label>
+        <br />
+        <label>Phone Number: @Model.User.Phone</label>
+        <br />
+        <label>How many people at your company are authoring courses? @Model.CourseDevelopersCount</label>
+        <br />
+        <label>How soon do you need an authoring tool? @Model.WhenNeedAuthoringTool</label>
+        <br />
+        <label>How do you author cources today? @Model.UsedAuthoringTool</label>
+    </body>
+</html>

@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Entities\AnswerTests.cs" />
     <Compile Include="Entities\LearningObjectTests.cs" />
+    <Compile Include="Entities\MailNotificationTests.cs" />
     <Compile Include="Entities\ObjectiveTests.cs" />
     <Compile Include="Entities\ExperienceTests.cs" />
     <Compile Include="Entities\QuestionTests.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="EntityFactoryTests.cs" />
     <Compile Include="Handlers\SignupFromTryItNowHandlerTests.cs" />
     <Compile Include="ObjectMothers\AnswerObjectMother.cs" />
+    <Compile Include="ObjectMothers\MailNotificationObjectMother.cs" />
     <Compile Include="ObjectMothers\ExperienceObjectMother.cs" />
     <Compile Include="ObjectMothers\HelpHintObjectMother.cs" />
     <Compile Include="ObjectMothers\LearningObjectObjectMother.cs" />

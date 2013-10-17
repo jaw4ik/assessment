@@ -12,7 +12,6 @@ namespace easygenerator.DataAccess.Repositories
         public TemplateRepository(IDataContext dataContext)
             : base(dataContext)
         {
-
         }
     }
 }

@@ -2,8 +2,12 @@
 using System.Globalization;
 using System.Threading;
 using System.Web.Mvc;
+using Autofac;
+using Autofac.Core;
 using easygenerator.Web.Components.ModelBinding;
 using easygenerator.Web.Configuration;
+using System.Web.Caching;
+using easygenerator.Web.Mail;
 
 namespace easygenerator.Web
 {
@@ -22,6 +26,8 @@ namespace easygenerator.Web
             RouteConfiguration.Configure();
             FilterConfiguration.Configure();
             ContainerConfiguration.Configure();
+
+            DependencyResolver.Current.GetService<MailNotificationManager>().SetUpMailSenderTask();
         }
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)

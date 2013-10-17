@@ -6,12 +6,9 @@ namespace easygenerator.DataAccess.Repositories
 {
     public class UserRepository : Repository<User>, IUserRepository
     {
-        private readonly IDataContext _dataContext;
-
         public UserRepository(IDataContext dataContext)
             : base(dataContext)
         {
-            _dataContext = dataContext;
         }
 
         public User GetUserByEmail(string email)

@@ -11,6 +11,8 @@ namespace easygenerator.DomainModel
         LearningObject LearningObject(string text, string createdBy);
         User User(string email, string password, string createdBy);
         HelpHint HelpHint(string name, string createdBy);
+        MailNotification MailNotification(string body, string subject, string from, string to, string cc = null,
+            string bcc = null);
     }
 
     public class EntityFactory : IEntityFactory
@@ -48,6 +50,11 @@ namespace easygenerator.DomainModel
         public HelpHint HelpHint(string name, string createdBy)
         {
             return new HelpHint(name, createdBy);
+        }
+
+        public MailNotification MailNotification(string body, string subject, string from, string to, string cc = null, string bcc = null)
+        {
+            return new MailNotification(body, subject, from, to, cc, bcc);
         }
     }
 }

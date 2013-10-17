@@ -9,7 +9,7 @@ namespace easygenerator.DomainModel.Entities
         public string Name { get; private set; }
         public string Image { get; private set; }
 
-        public Template(string name, string image, string createdBy)
+        protected internal Template(string name, string image, string createdBy)
             : base(createdBy)
         {
             ThrowIfNameIsInvalid(name);
