@@ -33,7 +33,14 @@
                         @Html.NavigationLink(Resources.TryNow, "TryWithoutSignup", "Account", "account-link-try-now")
                     </li>
                     <li class="account-nav-item">
-                        @Html.NavigationLink(Resources.SignUp, "SignUp", "Account", "account-link-sign-up")
+                        @if (this.ViewContext.RouteData.GetRequiredString("controller") == "Account" && (this.ViewContext.RouteData.GetRequiredString("action") == "SignUp" || this.ViewContext.RouteData.GetRequiredString("action") == "SignUpSecondStep"))
+                        {
+                            @Html.Label(Resources.SignUp, null, new {@class = "account-link-sign-up active"})
+                        }
+                        else
+                        {
+                            @Html.ActionLink(Resources.SignUp, "SignUp", ViewContext.RouteData.GetRequiredString("controller"), null, new { @class = "account-link-sign-up" })
+                        }
                     </li>
                     <li class="account-nav-item">
                         @Html.NavigationLink(Resources.SignIn, "SignIn", "Account", "account-link-sign-in")
@@ -52,24 +59,18 @@
             <div class="footer-item pull-right">
                 <ul class="footer-menu-list">
                     <li class="footer-menu-item">
-                        @if (this.ViewContext.RouteData.GetRequiredString("action") == "TermsOfUse")
-                        {
-                            @Html.Label(Resources.TermsOfUse, null, new {@class = "footer-menu-link active"})
-                        }
-                        else
-                        {
-                            @Html.ActionLink(Resources.TermsOfUse, "TermsOfUse", "Account", null, new {@class = "footer-menu-link"})
-                        }
+                        @Html.NavigationLink(Resources.TermsOfUse, "TermsOfUse", "Account", "footer-menu-link")
                     </li>
                     <li class="footer-menu-item">
-                        @if (this.ViewContext.RouteData.GetRequiredString("action") == "PrivacyPolicy")
+                        @Html.NavigationLink(Resources.PrivacyPolicy, "PrivacyPolicy", "Account", "footer-menu-link")
+                        @*@if (this.ViewContext.RouteData.GetRequiredString("action") == "PrivacyPolicy")
                         {
                             @Html.Label(Resources.PrivacyPolicy, null, new {@class = "footer-menu-link active"})
                         }
                         else
                         {
                             @Html.ActionLink(Resources.PrivacyPolicy, "PrivacyPolicy", "Account", null, new { @class = "footer-menu-link" })
-                        }
+                        }*@
 
                     </li>
                 </ul>

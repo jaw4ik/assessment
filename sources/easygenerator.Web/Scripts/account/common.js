@@ -26,7 +26,7 @@ $(function () {
     }
 
     if ($('.sign-up-second-step').length) {
-        ko.applyBindings(SignUpSecondStepModel(), $('.sign-up-second-step')[0]);
+        ko.applyBindings(signUpSecondStepModel(), $('.sign-up-second-step')[0]);
     }
 });
 

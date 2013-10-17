@@ -289,6 +289,9 @@
       <DependentUpon>signup.js</DependentUpon>
     </Content>
     <Content Include="Scripts\account\signupsecondstep.js" />
+    <Content Include="Scripts\account\signupsecondstep.spec.js">
+      <DependentUpon>signupsecondstep.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\almond-custom.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\failed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\info.png" />

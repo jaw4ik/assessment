@@ -3,6 +3,7 @@ using AccountRes;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.ViewModels.Account;
 
@@ -40,8 +41,18 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        public ActionResult Signup(UserSignUpViewModel profile)
+        public ActionResult Signup(UserSecondStepViewModel profile)
         {
+            var profileFromFirstStep = Session[Constants.SessionConstants.UserSignUpModel] as UserSignUpViewModel;
+            if (profileFromFirstStep != null)
+            {
+                profile.Email = profileFromFirstStep.Email;
+                profile.Password = profileFromFirstStep.Password;
+                profile.FullName = profileFromFirstStep.FullName;
+                profile.Organization = profileFromFirstStep.Organization;
+                profile.Phone = profileFromFirstStep.Phone;
+            }
+
             if (_repository.GetUserByEmail(profile.Email) != null)
             {
                 return JsonError("Account with this email already exists");
@@ -63,6 +74,21 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             _authenticationProvider.SignIn(profile.Email, true);
+
+            Session[Constants.SessionConstants.UserSignUpModel] = null;
+
+            return JsonSuccess(profile.Email);
+        }
+
+        [HttpPost]
+        public ActionResult SignUpFirstStep(UserSignUpViewModel profile)
+        {
+            if (_repository.GetUserByEmail(profile.Email) != null)
+            {
+                return JsonError("Account with this email already exists");
+            }
+
+            Session[Constants.SessionConstants.UserSignUpModel] = profile;
 
             return JsonSuccess();
         }

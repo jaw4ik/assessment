@@ -214,7 +214,13 @@ namespace easygenerator.Web.Configuration
                name: "GetCurrentUserEmail",
                url: "api/user",
                defaults: new { controller = "User", action = "GetCurrentUserEmail" }
-           );
+            );
+
+            routes.MapRoute(
+                name: "SignUpFirstStep",
+                url: "api/user/signupfirststep",
+                defaults: new { controller = "User", action = "SignUpFirstStep" }
+            );
 
             #endregion
 

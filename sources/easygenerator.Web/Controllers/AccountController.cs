@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Web.Mvc;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
+using easygenerator.Web.ViewModels.Account;
 
 namespace easygenerator.Web.Controllers
 {
@@ -67,7 +69,14 @@ namespace easygenerator.Web.Controllers
         public ActionResult SignUpSecondStep()
         {
             if (IsExistingUserAuthenticated())
+            {
                 return RedirectToRoute("Default");
+            }
+
+            if (!IsSessionWithUserSignupModelExist())
+            {
+                return RedirectToRoute("SignUp");
+            }
 
             return View();
         }
@@ -91,6 +100,11 @@ namespace easygenerator.Web.Controllers
         private bool IsExistingUserAuthenticated()
         {
             return _authenticationProvider.IsUserAuthenticated() && _repository.GetUserByEmail(User.Identity.Name) != null;
+        }
+
+        private bool IsSessionWithUserSignupModelExist()
+        {
+            return Session[Constants.SessionConstants.UserSignUpModel] is UserSignUpViewModel;
         }
     }
 }

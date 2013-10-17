@@ -1,11 +1,25 @@
-﻿function SignUpSecondStepModel() {
-    var howManyPeopleAnswer = ko.observable('Choose answer'),
-        authoringCourseAnswer = ko.observable('Choose answer'),
-        authorCourseNowAnswer = ko.observable('Choose answer');
+﻿function signUpSecondStepModel() {
+    var peopleBusyWithCourseDevelopmentAmount = ko.observable(null),
+        needAuthoringTool = ko.observable(null),
+        usedAuthoringTool = ko.observable(null),
+        signUp = function () {
+            debugger;
+            $.ajax({
+                url: '/api/user/signup',
+                data: { PeopleBusyWithCourseDevelopmentAmount: peopleBusyWithCourseDevelopmentAmount(), NeedAuthoringTool: needAuthoringTool(), UsedAuthoringTool: usedAuthoringTool() },
+                type: 'POST'
+            })
+            .done(function (response) {
+                app.trackEvent(app.constants.events.signup, { username: response.data }).done(function () {
+                    app.openHomePage();
+                });
+            });
+        };
     
     return {
-        howManyPeopleAnswer: howManyPeopleAnswer,
-        authoringCourseAnswer: authoringCourseAnswer,
-        authorCourseNowAnswer: authorCourseNowAnswer
+        peopleBusyWithCourseDevelopmentAmount: peopleBusyWithCourseDevelopmentAmount,
+        needAuthoringTool: needAuthoringTool,
+        usedAuthoringTool: usedAuthoringTool,
+        signUp: signUp
     };
 }

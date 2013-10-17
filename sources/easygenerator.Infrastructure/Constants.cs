@@ -20,5 +20,10 @@
             public const string LearningObjectNotFoundResourceKey = "learningObjectNotFoundError";
             public const string HelpHintNotFoundResourceKey = "helpHintNotFoundError";
         }
+
+        public static class SessionConstants
+        {
+            public const string UserSignUpModel = "UserSignUpModel";
+        }
     }
 }

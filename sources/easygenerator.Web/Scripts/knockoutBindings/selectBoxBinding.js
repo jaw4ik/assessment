@@ -37,6 +37,11 @@
             .hide();
 
         $currentItemElement.on('click', function (e) {
+            _.each($('.selectbox-options-list'), function (item) {
+                if (item != $optionsListElement[0]) {
+                    $(item).hide();
+                }
+            });
             $optionsListElement.toggle();
             $currentItemElement.toggleClass('expanded');
             e.stopPropagation();
@@ -73,6 +78,7 @@
                 });
 
                 $currentItemTextElement.text(selectedOption[optionsText]);
+                $currentItemTextElement.addClass('choosen');
             }
 
             $optionsListElement.empty();

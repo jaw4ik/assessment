@@ -22,14 +22,12 @@
         signUp = function () {
             var data = { email: userName().trim().toLowerCase(), password: password(), fullName: fullName(), phone: phone(), organization: organization() };
             $.ajax({
-                url: '/api/user/signup',
+                url: '/api/user/signupfirststep',
                 data: data,
                 type: 'POST'
             })
             .done(function () {
-                app.trackEvent(app.constants.events.signup, { username: data.email }).done(function () {
-                    app.openHomePage();
-                });
+                window.location.assign(window.location.origin + '/signupsecondstep');
             });
         },
 

@@ -120,11 +120,17 @@
   <data name="AccountAlreadyExists" xml:space="preserve">
     <value>This account already exists</value>
   </data>
+  <data name="AnotherTool" xml:space="preserve">
+    <value>Another authoring tool</value>
+  </data>
   <data name="BeAtLeast7CharactersLong" xml:space="preserve">
     <value>be at least 7 characters long;</value>
   </data>
   <data name="Checking" xml:space="preserve">
     <value>Checking...</value>
+  </data>
+  <data name="ChooseAnswer" xml:space="preserve">
+    <value>Choose answer</value>
   </data>
   <data name="ContainAtLeastOneDigit" xml:space="preserve">
     <value>contain at least one digit;</value>
@@ -153,11 +159,23 @@
   <data name="EnterValidEmailMessage" xml:space="preserve">
     <value>Enter a valid e-mail</value>
   </data>
+  <data name="Finish" xml:space="preserve">
+    <value>Finish</value>
+  </data>
   <data name="FullNameCaption" xml:space="preserve">
     <value>Full name</value>
   </data>
+  <data name="HowAuthorTodayQuestion" xml:space="preserve">
+    <value>How do you author courses today?</value>
+  </data>
+  <data name="HowManyPeopleQuestion" xml:space="preserve">
+    <value>How many people at your company are authoring courses?</value>
+  </data>
   <data name="IncorrectEmailOrPassword" xml:space="preserve">
     <value>Such e-mail and password combination not found</value>
+  </data>
+  <data name="JustLooking" xml:space="preserve">
+    <value>Just Looking</value>
   </data>
   <data name="LicenseAgreeCheckBoxTitle" xml:space="preserve">
     <value>I have read and I agree to the &lt;a href="{0}"&gt;Terms&lt;/a&gt; and &lt;a href="{1}"&gt;Privacy&lt;/a&gt;</value>
@@ -165,11 +183,20 @@
   <data name="NotContainWhitespaceCharacters" xml:space="preserve">
     <value>NOT contain whitespace character(s).</value>
   </data>
+  <data name="Nothing" xml:space="preserve">
+    <value>Nothing</value>
+  </data>
+  <data name="Now" xml:space="preserve">
+    <value>Now</value>
+  </data>
   <data name="OptionalInformation" xml:space="preserve">
     <value>Optional information</value>
   </data>
   <data name="OrganizationNameCaption" xml:space="preserve">
     <value>Organization name</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
   </data>
   <data name="PasswordCaption" xml:space="preserve">
     <value>Password</value>
@@ -185,6 +212,9 @@
   </data>
   <data name="PhoneNumberCaption" xml:space="preserve">
     <value>Phone number</value>
+  </data>
+  <data name="PowerPoint" xml:space="preserve">
+    <value>PowerPoint</value>
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Privacy policy</value>
@@ -203,6 +233,9 @@
   </data>
   <data name="SignUpButton" xml:space="preserve">
     <value>Sign up</value>
+  </data>
+  <data name="Skip" xml:space="preserve">
+    <value>Skip</value>
   </data>
   <data name="TermsOfUse" xml:space="preserve">
     <value>Terms of use</value>
@@ -227,5 +260,14 @@
   </data>
   <data name="TryWarningMessage" xml:space="preserve">
     <value>In Try It Now mode your content is not safe!</value>
+  </data>
+  <data name="Variant1Month" xml:space="preserve">
+    <value>1-3 Months</value>
+  </data>
+  <data name="VariantMore3Months" xml:space="preserve">
+    <value>&gt;3 Months</value>
+  </data>
+  <data name="WhenDoYouNeedToolQuestion" xml:space="preserve">
+    <value>How soon do you need an authoring tool?</value>
   </data>
 </root>

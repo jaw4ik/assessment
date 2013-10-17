@@ -495,62 +495,16 @@
             });
 
 
-            it('should call \"/api/user/signup"', function () {
+            it('should call \"/api/user/signupfirststep"', function () {
                 viewModel.userName('mail');
                 viewModel.password('password');
                 viewModel.signUp();
 
                 expect($.ajax).toHaveBeenCalledWith({
-                    url: '/api/user/signup',
+                    url: '/api/user/signupfirststep',
                     data: { email: 'mail', password: 'password', fullName: '', phone: '', organization: '' },
                     type: 'POST'
                 });
-            });
-
-            describe('and request succeded', function () {
-                var trackEvent;
-
-                beforeEach(function () {
-                    trackEvent = $.Deferred();
-                    spyOn(app, 'trackEvent').andReturn(trackEvent.promise());
-
-                    ajax.resolve();
-                });
-
-                it('should track event \'Sign up\'', function () {
-                    var username = 'username@easygenerator.com';
-                    viewModel.userName(username);
-                    viewModel.signUp();
-
-                    waitsFor(function () {
-                        return ajax.state() !== "pending";
-                    });
-                    runs(function () {
-                        expect(app.trackEvent).toHaveBeenCalledWith('Sign up', { username: username });
-                    });
-                });
-
-                describe('and event is tracked', function () {
-
-                    beforeEach(function () {
-                        trackEvent.resolve();
-                    });
-
-                    it('should redirect to home page', function () {
-                        spyOn(app, 'openHomePage');
-
-                        viewModel.signUp();
-
-                        waitsFor(function () {
-                            return ajax.state() !== "pending";
-                        });
-                        runs(function () {
-                            expect(app.openHomePage).toHaveBeenCalled();
-                        });
-                    });
-
-                });
-
             });
 
         });
