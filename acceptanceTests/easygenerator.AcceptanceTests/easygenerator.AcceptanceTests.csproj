@@ -177,6 +177,9 @@
     <Compile Include="LinkingModels\SignInPageLinkingModel.cs" />
     <Compile Include="LinkingModels\TryNowPageLinkingModel.cs" />
     <Compile Include="LinkingModels\UserSettingsLinkingModel.cs" />
+    <Compile Include="MailNotification.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Objective.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>

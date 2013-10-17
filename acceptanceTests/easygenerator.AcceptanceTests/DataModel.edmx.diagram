@@ -18,6 +18,7 @@
         <AssociationConnector Association="Model.FK_dbo_Questions_dbo_Objectives_Objective_Id" ManuallyRouted="false" />
         <AssociationConnector Association="Model.ExperienceObjectives" ManuallyRouted="false" />
         <EntityTypeShape EntityType="Model.HelpHint" Width="1.5" PointX="3.75" PointY="7.25" />
+        <EntityTypeShape EntityType="Model.MailNotification" Width="1.5" PointX="6.75" PointY="7.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

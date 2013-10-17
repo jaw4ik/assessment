@@ -11,6 +11,7 @@
           <EntitySet Name="Experiences" EntityType="Model.Store.Experiences" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="HelpHints" EntityType="Model.Store.HelpHints" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="LearningObjects" EntityType="Model.Store.LearningObjects" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="MailNotifications" EntityType="Model.Store.MailNotifications" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Objectives" EntityType="Model.Store.Objectives" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Questions" EntityType="Model.Store.Questions" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Templates" EntityType="Model.Store.Templates" store:Type="Tables" Schema="dbo" />
@@ -97,6 +98,19 @@
           <Property Name="ModifiedBy" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
           <Property Name="Question_Id" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MailNotifications">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" Nullable="false" MaxLength="254" />
+          <Property Name="ToEmailAddresses" Type="nvarchar" Nullable="false" MaxLength="511" />
+          <Property Name="CCEmailAddresses" Type="nvarchar" MaxLength="511" />
+          <Property Name="BCCEmailAddresses" Type="nvarchar" MaxLength="511" />
+          <Property Name="FromEmailAddress" Type="nvarchar" Nullable="false" MaxLength="127" />
+          <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Objectives">
           <Key>
@@ -265,6 +279,7 @@
             <End Role="Objectives" EntitySet="Objectives" />
           </AssociationSet>
           <EntitySet Name="HelpHints" EntityType="Model.HelpHint" />
+          <EntitySet Name="MailNotifications" EntityType="Model.MailNotification" />
         </EntityContainer>
         <EntityType Name="Answer">
           <Key>
@@ -436,6 +451,19 @@
           <Property Type="String" Name="ModifiedBy" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="ModifiedOn" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="MailNotification">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Subject" Nullable="false" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ToEmailAddresses" Nullable="false" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CCEmailAddresses" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="BCCEmailAddresses" MaxLength="511" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FromEmailAddress" Nullable="false" MaxLength="127" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Body" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -554,6 +582,20 @@
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MailNotifications">
+            <EntityTypeMapping TypeName="Model.MailNotification">
+              <MappingFragment StoreEntitySet="MailNotifications">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="FromEmailAddress" ColumnName="FromEmailAddress" />
+                <ScalarProperty Name="BCCEmailAddresses" ColumnName="BCCEmailAddresses" />
+                <ScalarProperty Name="CCEmailAddresses" ColumnName="CCEmailAddresses" />
+                <ScalarProperty Name="ToEmailAddresses" ColumnName="ToEmailAddresses" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
