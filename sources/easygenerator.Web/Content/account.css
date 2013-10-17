@@ -521,7 +521,7 @@ body.try {
     display: inline-block;
     vertical-align: top;
     width: 100%;
-    max-width: 576px;
+    max-width: 500px;
     height: auto;
 }
 
