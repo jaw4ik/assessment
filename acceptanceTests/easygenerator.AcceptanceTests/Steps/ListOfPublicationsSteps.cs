@@ -265,26 +265,64 @@ namespace easygenerator.AcceptanceTests.Steps
 
 
         [When(@"unzip '(.*)' package to '(.*)'")]
-        public void WhenUnzipPackageTo(string zipFile, string extractFolder)
+        public void WhenUnzipPackageTo(string zipFileName, string extractFolder)
         {
-            string zipPath = @"D:\Downloads" + zipFile;
-            string extractPath = @"D:\Development\easygenerator-web\acceptanceTests\easygenerator.AcceptanceTests\bin\Debug\easygenerator.Web\Templates\" + extractFolder;
-
-            if (System.IO.File.Exists(zipPath) && DateTime.Now - System.IO.File.GetLastWriteTime(zipPath) < TimeSpan.FromMinutes(30))
+            string downloadDirPath;
+            string extractPath;
+            if (System.IO.Directory.Exists(@"D:\AcceptanceTests_WorkDirectory"))
             {
-                return;
+                downloadDirPath = @"C:\Windows\SysWOW64\config\systemprofile\Documents\Downloads";
+                extractPath = @"D:\AcceptanceTests_WorkDirectory\acceptanceTests\easygenerator.AcceptanceTests\bin\Release\easygenerator.Web\Templates\" + extractFolder;
             }
-            
+            else
+            {
+                downloadDirPath = System.IO.Path.Combine(Environment.ExpandEnvironmentVariables("%userprofile%"), "Downloads");
+                extractPath = @"D:\Development\easygenerator-web\acceptanceTests\easygenerator.AcceptanceTests\bin\Debug\easygenerator.Web\Templates\" + extractFolder;
+            }
 
             if (System.IO.Directory.Exists(extractPath))
             {
+                //int loop1 = 0;
+                //while (loop1 < 60)
+                //{
+                //    try
+                //    {
+                //        System.Threading.Thread.Sleep(1000);
+                //        System.IO.Directory.Delete(extractPath, true);
+                //        break;
+                //    }
+                //    catch (UnauthorizedAccessException)
+                //    {
+                //        loop1++;
+                //    }
+                //}
+                System.Threading.Thread.Sleep(1000);
                 System.IO.Directory.Delete(extractPath, true);
-            }
-            System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, extractPath);
-            System.IO.File.Delete(zipPath);
 
-            //tmp
-            //System.Threading.Thread.Sleep(3000);
+            }
+
+            System.IO.DirectoryInfo downloadDir = new System.IO.DirectoryInfo(downloadDirPath);
+            string zipFilePath = downloadDir.GetFiles().ToList().First(f => (f.Name.Contains(zipFileName + " ") && f.Name.Contains("-UTC"))).FullName;
+            int loop2 = 0;
+            while (loop2 < 60)
+            {
+                try
+                {
+                    System.Threading.Thread.Sleep(1000);
+                    System.IO.Compression.ZipFile.ExtractToDirectory(zipFilePath, extractPath);
+                    break;
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    loop2++;
+                }
+            }
+            //System.IO.Compression.ZipFile.ExtractToDirectory(zipFilePath, extractPath);
+
+            System.Threading.Thread.Sleep(2000);
+
+            //System.IO.File.Delete(zipFilePath);
+            FsHelper.DirClean(downloadDir);
         }
                 
         [When(@"click open publication list item with title '(.*)'")]
@@ -338,6 +376,18 @@ namespace easygenerator.AcceptanceTests.Steps
             }
             
         }
+
+        [When(@"click download publication list item with title '(.*)'")]
+        public void WhenClickDownloadPublicationListItemWithTitle(string title)
+        {
+            System.Threading.Thread.Sleep(1000);
+            var item = publicationsPage.Items.First(it => it.Title == title);
+            if (TestUtils.WaitForCondition((() => item.IsDownloadEnabled), 1000))
+            {
+                item.Download();
+            }
+        }
+
 
 
 
