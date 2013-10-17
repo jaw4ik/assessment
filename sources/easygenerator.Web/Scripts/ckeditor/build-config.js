@@ -36,7 +36,6 @@ var CKBUILDER_CONFIG = {
 		'enterkey' : 1,
 		'entities' : 1,
 		'filebrowser' : 1,
-		'floatingspace' : 1,
 		'format' : 1,
 		'htmlwriter' : 1,
 		'horizontalrule' : 1,

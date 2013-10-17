@@ -21,6 +21,15 @@
 
         CKEDITOR.config.language = language;
 
+        //Floating Space plugin settings
+        CKEDITOR.config.floatSpaceUpdateSettingsFunction = function () {
+            var landmarkContainer = $('.page-view-caption').closest('.fixed-container');
+            var offsetTop = parseInt(landmarkContainer.css('top')) + landmarkContainer.height();
+            if (!!offsetTop)
+                CKEDITOR.config.floatSpaceWindowOffsetTop = offsetTop;
+        };
+        CKEDITOR.config.baseFloatZIndex = 99;
+
         $(element).html(data());
         $(element).attr('contenteditable', true);
         editor = CKEDITOR.inline(element);

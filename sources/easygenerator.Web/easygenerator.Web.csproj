@@ -314,6 +314,7 @@
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\loader.gif" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\styles.css" />
+    <Content Include="Scripts\ckeditor\customPlugins\floatingspace\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\dialogs\image.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\icons\hidpi\image.png" />
     <Content Include="Scripts\ckeditor\customPlugins\image\icons\image.png" />
