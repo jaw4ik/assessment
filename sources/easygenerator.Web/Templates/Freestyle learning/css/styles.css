@@ -24,11 +24,6 @@ body, .application-wrapper {
 }
 
 body {
-    -moz-backface-visibility: hidden;
-    -ms-backface-visibility: hidden;
-    -o-backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
     -webkit-font-smoothing: subpixel-antialiased !important;
     -moz-min-width: 620px;
     -ms-min-width: 620px;

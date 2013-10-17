@@ -332,10 +332,6 @@ body {
     margin: 0 auto;
     padding-bottom: 20px;
     -webkit-font-smoothing: subpixel-antialiased !important;
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    -ms-backface-visibility: hidden;
-    backface-visibility: hidden;
 }
 
 .page-title-holder {
