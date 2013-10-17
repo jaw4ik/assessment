@@ -1011,6 +1011,11 @@
         nl: 'Het leerdoel is niet gevonden. Vernieuw uw gegevens.',
         de: 'Das Lernziel wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
     },
+    objectivesNotFoundError: {
+        en: 'Learning objectives were not found. Please refresh your data.',
+        nl: 'Learning objectives were not found. Please refresh your data.[nl]',
+        de: 'Learning objectives were not found. Please refresh your data.[de]'
+    },
     answerNotFoundError: {
         en: 'Answer option was not found. Please refresh your data.',
         nl: 'De antwoordoptie is niet gevonden. Vernieuw uw gegevens.',
@@ -1030,6 +1035,11 @@
         en: 'Help hint was not found. Please refresh your data.',
         nl: 'De helphint is niet gevonden. Vernieuw uw gegevens.',
         de: 'Der Hilfehinweis wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
+    },
+    responseFailed: {
+        en: 'Response is failed.',
+        nl: 'Response is failed.[nl]',
+        de: 'Response is failed.[de]'
     },
     /* End resource section for model Server error notification */
     

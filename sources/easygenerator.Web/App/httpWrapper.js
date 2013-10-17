@@ -20,7 +20,7 @@
                             else if (response.message)
                                 errorMessage = response.message;
                             else
-                                errorMessage = 'Response is not successful';
+                                errorMessage = localizationManager.localize('responseFailed');
 
                             notify.error(errorMessage);
                             deferred.reject(errorMessage);
@@ -30,8 +30,18 @@
                         deferred.resolve(response.data);
                     })
                     .fail(function (reason) {
-                        notify.error(reason);
-                        deferred.reject(reason);
+                        var message;
+
+                        if (typeof reason == "string") {
+                            message = reason;
+                        } else if (reason && reason.statusText) {
+                            message = reason.statusText;
+                        } else {
+                            message = localizationManager.localize("responseFailed");
+                        }
+
+                        notify.error(message);
+                        deferred.reject(message);
                     })
                     .always(function () {
                         app.trigger('httpWrapper:post-end');

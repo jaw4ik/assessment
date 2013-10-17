@@ -49,6 +49,7 @@
             describe('when post request failed', function () {
                 beforeEach(function() {
                     spyOn(notify, 'error');
+                    spyOn(localizationManager, 'localize').andReturn("failed");
                 });
 
                 it('should reject promise', function () {
@@ -65,17 +66,67 @@
                     });
                 });
 
-                it('should show error notification', function() {
-                    var promise = httpWrapper.post();
-                    var reason = "reason";
+                describe('and reason is undefined', function() {
+                
+                    it('should show default error notification', function () {
+                        var promise = httpWrapper.post();
+                        
+                        post.reject();
 
-                    post.reject(reason);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(notify.error).toHaveBeenCalledWith("failed");
+                        });
                     });
-                    runs(function () {
-                        expect(notify.error).toHaveBeenCalledWith(reason);
+                });
+                
+                describe('and reason is string', function () {
+
+                    it('should show error notification with reason', function () {
+                        var promise = httpWrapper.post();
+
+                        post.reject("error");
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(notify.error).toHaveBeenCalledWith("error");
+                        });
+                    });
+                });
+                
+                describe('and reason contains statusText', function () {
+
+                    it('should show error notification with reason statusText', function () {
+                        var promise = httpWrapper.post();
+                        var reason = {statusText: 'error'};
+                        post.reject(reason);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(notify.error).toHaveBeenCalledWith("error");
+                        });
+                    });
+                });
+
+                describe('and reason does not contain statusText', function () {
+
+                    it('should show default error notification', function () {
+                        var promise = httpWrapper.post();
+                        var reason = { value: 'error' };
+                        post.reject(reason);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(notify.error).toHaveBeenCalledWith("failed");
+                        });
                     });
                 });
 
@@ -206,6 +257,23 @@
 
                             describe('and response message does not exist', function () {
 
+                                beforeEach(function() {
+                                    spyOn(localizationManager, 'localize').andReturn("failed");
+                                });
+
+                                it('should show localized default error message', function() {
+                                    var promise = httpWrapper.post();
+
+                                    post.resolve({});
+
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(localizationManager.localize).toHaveBeenCalledWith('responseFailed');
+                                    });
+                                });
+
                                 it('should reject promise with default message', function () {
                                     var promise = httpWrapper.post();
 
@@ -215,7 +283,7 @@
                                         return !promise.isPending();
                                     });
                                     runs(function () {
-                                        expect(promise).toBeRejectedWith('Response is not successful');
+                                        expect(promise).toBeRejectedWith('failed');
                                     });
                                 });
 
@@ -228,7 +296,7 @@
                                         return !promise.isPending();
                                     });
                                     runs(function () {
-                                        expect(notify.error).toHaveBeenCalledWith('Response is not successful');
+                                        expect(notify.error).toHaveBeenCalledWith('failed');
                                     });
                                 });
                             });
