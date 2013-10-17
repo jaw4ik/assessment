@@ -92,7 +92,6 @@
                         return ajax.state() === "resolved";
                     });
                     runs(function () {
-                        debugger;
                         expect(app.trackEvent).toHaveBeenCalledWith('Sign up', { username: username });
                     });
                 });

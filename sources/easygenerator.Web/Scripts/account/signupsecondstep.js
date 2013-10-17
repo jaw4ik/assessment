@@ -3,7 +3,6 @@
         needAuthoringTool = ko.observable(null),
         usedAuthoringTool = ko.observable(null),
         signUp = function () {
-            debugger;
             $.ajax({
                 url: '/api/user/signup',
                 data: { PeopleBusyWithCourseDevelopmentAmount: peopleBusyWithCourseDevelopmentAmount(), NeedAuthoringTool: needAuthoringTool(), UsedAuthoringTool: usedAuthoringTool() },
