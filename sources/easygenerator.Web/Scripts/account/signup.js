@@ -27,7 +27,7 @@
                 type: 'POST'
             })
             .done(function () {
-                window.location.assign(window.location.origin + '/signupsecondstep');
+                window.location.assign(window.location.href.slice(0, window.location.href.lastIndexOf('/')) + '/signupsecondstep');
             });
         },
 
