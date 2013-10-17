@@ -115,7 +115,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var email = "easygenerator@easygenerator.com";
             _repository.GetUserByEmail(email).Returns(UserObjectMother.CreateWithEmail(email));
 
-            var profile = new UserSignUpViewModel() { Email = email, Password = "Some password" };
+            var profile = new UserSecondStepViewModel() { Email = email, Password = "Some password" };
             //Act
             var result = _controller.Signup(profile);
 
@@ -132,7 +132,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var user = UserObjectMother.Create(email, password);
 
             _entityFactory.User(email, password, email).Returns(user);
-            var profile = new UserSignUpViewModel() { Email = email, Password = password };
+            var profile = new UserSecondStepViewModel() { Email = email, Password = password };
             //Act
             _controller.Signup(profile);
 
@@ -153,7 +153,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _repository.GetUserByEmail(tryItNowUsername).Returns((User)null);
             _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
 
-            var profile = new UserSignUpViewModel() { Email = signUpUsername, Password = password };
+            var profile = new UserSecondStepViewModel() { Email = signUpUsername, Password = password };
 
             //Act
             _controller.Signup(profile);
@@ -170,7 +170,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string password = "Abc123!";
             var user = UserObjectMother.Create(signUpUsername, password);
             _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
-            var profile = new UserSignUpViewModel() { Email = signUpUsername, Password = password };
+            var profile = new UserSecondStepViewModel() { Email = signUpUsername, Password = password };
 
             //Act
             _controller.Signup(profile);
@@ -187,7 +187,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string password = "Abc123!";
             var user = UserObjectMother.Create(signUpUsername, password);
             _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
-            var profile = new UserSignUpViewModel() { Email = signUpUsername, Password = password };
+            var profile = new UserSecondStepViewModel() { Email = signUpUsername, Password = password };
 
             //Act
             var result = _controller.Signup(profile);
@@ -202,7 +202,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             const string signUpUsername = "username@easygenerator.com";
             const string password = "Abc123!";
-            var profile = new UserSignUpViewModel() { Email = signUpUsername, Password = password, FullName = "" };
+            var profile = new UserSecondStepViewModel() { Email = signUpUsername, Password = password, FullName = "" };
             var user = Substitute.For<User>();
             _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
 
@@ -219,7 +219,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             const string signUpUsername = "username@easygenerator.com";
             const string password = "Abc123!";
-            var profile = new UserSignUpViewModel() { Email = signUpUsername, Password = password, Phone = "" };
+            var profile = new UserSecondStepViewModel() { Email = signUpUsername, Password = password, Phone = "" };
             var user = Substitute.For<User>();
             _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
 
@@ -236,7 +236,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             const string signUpUsername = "username@easygenerator.com";
             const string password = "Abc123!";
-            var profile = new UserSignUpViewModel() { Email = signUpUsername, Password = password, Organization = "" };
+            var profile = new UserSecondStepViewModel() { Email = signUpUsername, Password = password, Organization = "" };
             var user = Substitute.For<User>();
             _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
 
@@ -253,7 +253,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             const string signUpUsername = "username@easygenerator.com";
             const string password = "Abc123!";
-            var profile = new UserSignUpViewModel() { Email = signUpUsername, Password = password, Organization = "" };
+            var profile = new UserSecondStepViewModel() { Email = signUpUsername, Password = password, Organization = "" };
             var user = Substitute.For<User>();
             _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
 
@@ -271,14 +271,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var email = "easygenerator@easygenerator.com";
             var password = "Easy123!";
             var user = UserObjectMother.Create(email, password);
-            var profile = new UserSignUpViewModel()
+            var profile = new UserSecondStepViewModel()
             {
                 NeedAuthoringTool = "Some tool",
                 PeopleBusyWithCourseDevelopmentAmount = "Some count of people",
                 UsedAuthoringTool = "Some used tool"
             };
             _context.Session[Constants.SessionConstants.UserSignUpModel].Returns(new UserSignUpViewModel() { Email = email, Password = password });
-            var resultProfile = new UserSignUpViewModel()
+            var resultProfile = new UserSecondStepViewModel()
             {
                 Email = email,
                 Password = password,
@@ -303,7 +303,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             string password = "Abc123!";
             var user = UserObjectMother.Create(email, password);
             _entityFactory.User(email, password, email).Returns(user);
-            var profile = new UserSignUpViewModel() { Email = email, Password = password, Organization = "" };
+            var profile = new UserSecondStepViewModel() { Email = email, Password = password, Organization = "" };
             _context.Session[Constants.SessionConstants.UserSignUpModel].Returns(profile);
 
             //Act
