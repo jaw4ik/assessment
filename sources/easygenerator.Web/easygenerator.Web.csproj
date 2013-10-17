@@ -217,6 +217,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Content Include="Content\images\account\log-in.jpg" />
     <Content Include="Mail\MailTemplates\SignedUpUserTemplate.cshtml" />
     <Compile Include="Mail\MailNotificationManager.cs">
       <SubType>Code</SubType>
@@ -261,7 +262,6 @@
     <Content Include="Content\font\opensans-semibold.svg" />
     <Content Include="Content\font\opensans-semibolditalic.svg" />
     <Content Include="Content\helphint.css" />
-    <Content Include="Content\images\account\log-in.png" />
     <Content Include="Content\images\account\pointer-left-big.png" />
     <Content Include="Content\images\account\pointer-right-big.png" />
     <Content Include="Content\images\account\pointer-right-small.png" />
