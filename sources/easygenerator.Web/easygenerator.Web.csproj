@@ -265,7 +265,6 @@
     <Content Include="Content\images\account\pointer-left-big.png" />
     <Content Include="Content\images\account\pointer-right-big.png" />
     <Content Include="Content\images\account\pointer-right-small.png" />
-    <Content Include="Content\images\account\sign-up.png" />
     <Content Include="Content\images\account\try-center.png" />
     <Content Include="Content\images\account\try-left.png" />
     <Content Include="Content\images\account\try-right.png" />

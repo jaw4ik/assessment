@@ -179,8 +179,7 @@ body.try {
 
 .user-columns {
     display: table;
-    width: 900px;
-    margin: 0 auto;
+    width: 100%;
 }
 
 .view-module.sign-up .user-columns {
@@ -191,6 +190,12 @@ body.try {
 .user-column {
     display: table-cell;
 }
+
+    .user-column.form {
+        width: 50%;
+        padding-left: 12.5%;
+        padding-right: 3.5%;
+    }
 
 .user-form {
     position: relative;
@@ -505,7 +510,7 @@ body.try {
         }
 
 .user-column.image {
-    width: 56%;
+    width: 50%;
     padding-top: 3%;
     padding-left: 3.5%;
     vertical-align: middle;
@@ -518,7 +523,6 @@ body.try {
     width: 100%;
     max-width: 576px;
     height: auto;
-    margin-left: 85px;
 }
 
 /*#endregion User Columns*/
