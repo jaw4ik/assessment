@@ -3,7 +3,9 @@
     var viewModel = require('viewmodels/shell'),
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
-        dataContext = require('dataContext');
+        dataContext = require('dataContext'),
+        localizationManager = require('localization/localizationManager'),
+        helpHintRepository = require('repositories/helpHintRepository');
 
     describe('viewModel [shell]', function () {
 
@@ -35,7 +37,7 @@
             });
 
         });
-        
+
         describe('userEmail:', function () {
 
             it('should be defined', function () {
@@ -81,6 +83,180 @@
                 it('should be return fasle', function () {
                     spyOn(viewModel, 'activeModuleName').andReturn('somepage');
                     expect(viewModel.showNavigation()).toBeFalsy();
+                });
+
+            });
+
+        });
+
+        describe('helpHint:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.helpHint).toBeObservable();
+            });
+
+        });
+
+        describe('helpHintText:', function () {
+
+            describe('when helpHint is undefined', function () {
+
+                it('should return empty string', function () {
+                    viewModel.helpHint(undefined);
+                    expect(viewModel.helpHintText()).toBe('');
+                });
+
+            });
+
+            describe('when helpHint defined', function () {
+
+                it('should return localized text', function () {
+                    spyOn(localizationManager, 'localize').andReturn('someLocalizedText');
+                    viewModel.helpHint({ localizationKey: 'someKey' });
+
+                    var result = viewModel.helpHintText();
+
+                    expect(localizationManager.localize).toHaveBeenCalledWith('someKey');
+                    expect(result).toBe('someLocalizedText');
+                });
+
+            });
+
+        });
+
+        describe('hideHelpHint:', function () {
+
+            var removeHintDeffer;
+
+            beforeEach(function () {
+                removeHintDeffer = Q.defer();
+                spyOn(helpHintRepository, 'removeHint').andReturn(removeHintDeffer.promise);
+                spyOn(localizationManager, 'localize').andReturn('someLocalizedText');
+            });
+
+            it('should be function', function () {
+                expect(viewModel.hideHelpHint).toBeFunction();
+            });
+
+            describe('when helpHint is undefined', function () {
+
+                it('should not call removeHint in repository', function () {
+                    viewModel.helpHint(undefined);
+
+                    viewModel.hideHelpHint();
+
+                    expect(helpHintRepository.removeHint).not.toHaveBeenCalled();
+                });
+
+            });
+
+            describe('when help hint is defined', function () {
+
+                it('should call removeHint in repository', function () {
+                    var helpHint = { id: 'someId', name: 'someName', localizationKey: 'someLocalizationKey' };
+                    viewModel.helpHint(helpHint);
+                    var promise = removeHintDeffer.promise.fin(function () { });
+                    
+                    viewModel.hideHelpHint();
+                    removeHintDeffer.resolve();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(helpHintRepository.removeHint).toHaveBeenCalledWith(helpHint.id);
+                    });
+                });
+
+                describe('and promise resolved', function () {
+
+                    it('should set help hint to undefined', function () {
+                        var helpHint = { id: 'someId', name: 'someName', localizationKey: 'someLocalizationKey' };
+                        viewModel.helpHint(helpHint);
+
+                        var promise = removeHintDeffer.promise.fin(function () { });
+
+                        viewModel.hideHelpHint();
+                        removeHintDeffer.resolve();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.helpHint()).toBe(undefined);
+                        });
+                    });
+
+                });
+
+            });
+
+        });
+
+        describe('showHelpHint:', function () {
+
+            var addHintDeffer;
+
+            beforeEach(function () {
+                addHintDeffer = Q.defer();
+                spyOn(helpHintRepository, 'addHint').andReturn(addHintDeffer.promise);
+                spyOn(localizationManager, 'localize').andReturn('someLocalizedText');
+            });
+
+            it('should be function', function () {
+                expect(viewModel.showHelpHint).toBeFunction();
+            });
+
+
+            describe('when helpHint is defined', function () {
+
+                it('should not call addHint in repository', function () {
+                    var helpHint = { id: 'someId', name: 'someName', localizationKey: 'someLocalizationKey' };
+                    viewModel.helpHint(helpHint);
+
+                    viewModel.showHelpHint();
+
+                    expect(helpHintRepository.addHint).not.toHaveBeenCalled();
+                });
+
+            });
+
+            describe('when helpHint is undefined', function () {
+
+                it('should call addHint in repository', function () {
+                    var helpHint = { id: 'someId', name: 'someName', localizationKey: 'someLocalizationKey' };
+                    viewModel.helpHint(undefined);
+                    var promise = addHintDeffer.promise.fin(function () { });
+
+                    viewModel.showHelpHint();
+                    addHintDeffer.resolve(helpHint);
+
+                    waitsFor(function() {
+                        return !promise.isPending();
+                    });
+                    runs(function() {
+                        expect(helpHintRepository.addHint).toHaveBeenCalled();
+                    });
+                });
+
+                describe('and addHint promise resolved', function () {
+
+                    it('should update helpHint', function() {
+                        var helpHint = { id: 'someId', name: 'someName', localizationKey: 'someLocalizationKey' };
+                        viewModel.helpHint(undefined);
+                        var promise = addHintDeffer.promise.fin(function () { });
+
+                        viewModel.showHelpHint();
+                        addHintDeffer.resolve(helpHint);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.helpHint()).toBe(helpHint);
+                        });
+                    });
+
                 });
 
             });
