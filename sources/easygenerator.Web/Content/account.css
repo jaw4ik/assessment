@@ -179,7 +179,8 @@ body.try {
 
 .user-columns {
     display: table;
-    width: 100%;
+    width: 900px;
+    margin: 0 auto;
 }
 
 .view-module.sign-up .user-columns {
@@ -190,12 +191,6 @@ body.try {
 .user-column {
     display: table-cell;
 }
-
-    .user-column.form {
-        width: 50%;
-        padding-left: 12.5%;
-        padding-right: 3.5%;
-    }
 
 .user-form {
     position: relative;
