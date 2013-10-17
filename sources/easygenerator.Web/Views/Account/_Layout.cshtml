@@ -63,15 +63,6 @@
                     </li>
                     <li class="footer-menu-item">
                         @Html.NavigationLink(Resources.PrivacyPolicy, "PrivacyPolicy", "Account", "footer-menu-link")
-                        @*@if (this.ViewContext.RouteData.GetRequiredString("action") == "PrivacyPolicy")
-                        {
-                            @Html.Label(Resources.PrivacyPolicy, null, new {@class = "footer-menu-link active"})
-                        }
-                        else
-                        {
-                            @Html.ActionLink(Resources.PrivacyPolicy, "PrivacyPolicy", "Account", null, new { @class = "footer-menu-link" })
-                        }*@
-
                     </li>
                 </ul>
             </div>
