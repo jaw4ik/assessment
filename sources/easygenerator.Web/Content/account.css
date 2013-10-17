@@ -201,12 +201,12 @@ body.try {
     padding-top: 37px;
 }
 
-.user-column.required {
+.user-column.optional {
     padding-right: 50px;
     width: 450px;
 }
 
-.user-column.optional {
+.user-column.required {
     padding-left: 50px;
     width: 450px;
 }
@@ -527,21 +527,21 @@ body.try {
 .user-form-tooltip {
     position: absolute;
     top: 9px;
-    left: 100%;
-    background: #fff;
+    right: 100%;
+    background: hsl(0, 100%, 100%);
     width: 293px;
-    margin-left: 8px;
+    margin-right: 8px;
     padding: 10px 0 0 0;
-    color: #333;
+    color: hsl(0, 0%, 20%);
     font-size: 13px;
-    border: solid 1px #cfcfcf;
+    border: solid 1px hsl(0, 0%, 81%);
     -webkit-border-radius: 3px;
     -khtml-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    -webkit-box-shadow: -1px 0 1px rgba(207,207,207,0.3);
+    -webkit-box-shadow: -1px 0 1px hsla(0, 0%, 81%, 0.3);
     -moz-box-shadow: -1px 0 1px rgba(207,207,207,0.3);
-    box-shadow: -1px 0 1px rgba(207,207,207,0.3);
+    box-shadow: -1px 0 1px hsla(0, 0%, 81%, 0.3);
     z-index: 1;
 }
 
@@ -549,11 +549,11 @@ body.try {
         content: '';
         position: absolute;
         top: 15px;
-        right: 100%;
+        left: 100%;
         display: block;
         width: 8px;
         height: 16px;
-        background: url(images/sprites.png) -54px -52px no-repeat;
+        background: url(images/sprites.png) -85px -52px no-repeat;
         z-index: 1;
     }
 
