@@ -372,7 +372,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.UnrelateObjectives(experience, new List<Objective>() { });
 
             //Assert
-            ActionResultAssert.IsBadRequestStatusCodeResult(result);
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objectives are not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectivesNotFoundError");  
         }
 
         #endregion

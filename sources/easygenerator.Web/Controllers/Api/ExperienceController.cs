@@ -150,7 +150,7 @@ namespace easygenerator.Web.Controllers.Api
 
             if (objectives.Count == 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return JsonLocalizableError(Constants.Errors.ObjectivesNotFoundError, Constants.Errors.ObjectivesNotFoundResourceKey);
             }
 
             foreach (Objective objective in objectives)
