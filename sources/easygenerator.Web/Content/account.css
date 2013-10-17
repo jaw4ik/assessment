@@ -528,20 +528,20 @@ body.try {
     position: absolute;
     top: 9px;
     right: 100%;
-    background: hsl(0, 100%, 100%);
+    background: #fff;
     width: 293px;
     margin-right: 8px;
     padding: 10px 0 0 0;
-    color: hsl(0, 0%, 20%);
+    color: #333;
     font-size: 13px;
-    border: solid 1px hsl(0, 0%, 81%);
+    border: solid 1px #cfcfcf;
     -webkit-border-radius: 3px;
     -khtml-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    -webkit-box-shadow: -1px 0 1px hsla(0, 0%, 81%, 0.3);
+    -webkit-box-shadow: -1px 0 1px rgba(207,207,207,0.3);
     -moz-box-shadow: -1px 0 1px rgba(207,207,207,0.3);
-    box-shadow: -1px 0 1px hsla(0, 0%, 81%, 0.3);
+    box-shadow: -1px 0 1px rgba(207,207,207,0.3);
     z-index: 1;
 }
 
