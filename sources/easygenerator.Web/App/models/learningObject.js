@@ -6,7 +6,6 @@
             var obj = new entityModel(spec);
 
             obj.text = spec.text;
-            obj.id = spec.id;
 
             return obj;
         };

@@ -1,7 +1,25 @@
-﻿define(['dataContext', 'httpWrapper', 'guard'],
-    function (dataContext, httpWrapper, guard) {
+﻿define(['dataContext', 'httpWrapper', 'guard', 'models/learningObject'],
+    function (dataContext, httpWrapper, guard, learningObjectModel) {
 
         var
+            getCollection = function (questionId) {
+                return Q.fcall(function () {
+                    guard.throwIfNotString(questionId, 'Question id is not a string');
+
+                    return httpWrapper.post('api/learningObjects', { questionId: questionId }).then(function (response) {
+                        guard.throwIfNotAnObject(response, 'Response is not an object');
+                        guard.throwIfNotArray(response.LearningObjects, 'Learning objects is not an array');
+                        
+                        return _.map(response.LearningObjects, function (learningObject) {
+                            return new learningObjectModel({
+                                id: learningObject.Id,
+                                text: learningObject.Text,
+                            });
+                        });
+                    });
+                });
+            },
+
             getById = function (id) {
                 return Q.fcall(function () {
                     guard.throwIfNotString(id, 'Learning object id is not a string');
@@ -109,7 +127,11 @@
 
         ;
 
-
+        function updateQuestionModifiedOnDate(questionId, modifiedOn) {
+            var question = getQuestion(questionId);
+            guard.throwIfNotAnObject(question, 'Question does not exist in dataContext');
+            question.modifiedOn = modifiedOn;
+        }
 
         function getQuestions() {
             var questions = [];
@@ -143,6 +165,7 @@
         }
 
         return {
+            getCollection: getCollection,
             getById: getById,
 
             addLearningObject: addLearningObject,

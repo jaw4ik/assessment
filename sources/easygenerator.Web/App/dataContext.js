@@ -5,23 +5,6 @@
             return new Date(parseInt(str.substr(6), 10));
         }
 
-        /*.then(function () {
-                    return $.ajax({
-                        url: 'api/helpHints',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        dataType: 'json'
-                    }).then(function (response) {
-                        _.each(response.data.HelpHints, function (helpHint) {
-                            helpHints.push({
-                                id: helpHint.Id,
-                                name: helpHint.Name,
-                                localizationKey: helpHint.Name + 'HelpHint'
-                            });
-                        });
-                    });
-                })*/
-
         var
             objectives = [],
             experiences = [],
@@ -46,6 +29,21 @@
                                 name: template.Name,
                                 image: template.Image
                             }));
+                    });
+                }).then(function () {
+                    return $.ajax({
+                        url: 'api/helpHints',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        dataType: 'json'
+                    }).then(function (response) {
+                        _.each(response.data.HelpHints, function (helpHint) {
+                            helpHints.push({
+                                id: helpHint.Id,
+                                name: helpHint.Name,
+                                localizationKey: helpHint.Name + 'HelpHint'
+                            });
+                        });
                     });
                 }).then(function () {
                     return $.ajax({

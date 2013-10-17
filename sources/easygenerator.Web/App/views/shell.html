@@ -17,7 +17,7 @@
                             <a class="orange button" href="/signup" data-bind="localize: { text: 'signUpButton' }">Sign up
                             </a>
                         </li>
-                        <li class="header-menu-list-item help disabled" data-bind="localize: { text: 'help' }">Help</li>
+                        <li class="header-menu-list-item help" data-bind="localize: { text: 'help' }, click: showHelpHint, css: { disabled: helpHint() != undefined }">Help</li>
                         <!-- ko if: userEmail != '' -->
                         <li class="header-menu-list-item mode profile" data-bind="dropDown: {}">
                             <div class="header-submenu-holder">
