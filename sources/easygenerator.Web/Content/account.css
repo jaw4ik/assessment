@@ -233,7 +233,6 @@ body.try {
     color: #333;
 }
 
-
     .user-form-label.required:after {
         content: ' *';
         position: relative;
@@ -1088,6 +1087,11 @@ body.try {
 /*#endregion Terms of use and Privacy Policy*/
 
 /*#region SIGNUP SECONF STEP*/
+
+.sign-up-second-step .user-title {
+    margin-bottom: 30px;
+}
+
 .sign-up-second-step .formBtn {
     width: 50%;
     padding-right: 20px;
@@ -1096,6 +1100,11 @@ body.try {
     .sign-up-second-step .formBtn .btn {
         width: 100%;
         max-width: 370px;
+    }
+
+    .user-form-caption {
+        color: #333;
+        font-size: 24px;
     }
 
 /*#endregion SIGNUP SECONF STEP*/
