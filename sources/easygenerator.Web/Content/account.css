@@ -518,6 +518,7 @@ body.try {
     width: 100%;
     max-width: 576px;
     height: auto;
+    margin-left: 85px;
 }
 
 /*#endregion User Columns*/
