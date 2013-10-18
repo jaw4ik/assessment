@@ -1221,9 +1221,9 @@
         de: '<p>Click \"Create and Edit\" if you want to edit learning experience objective right after creating.</p><p>Click \"Create and New\" if you would like to create several learning objectives in a row.</p>[de]'
     },
     helpCloseButton: {
-        en: 'Don\'t show again',
-        nl: 'Don\'t show again[nl]',
-        de: 'Don\'t show again[de]'
+        en: 'Hide',
+        nl: 'Hide[nl]',
+        de: 'Hide[de]'
     }
     /* End resource section for model Help hints */
            
