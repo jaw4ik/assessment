@@ -7,7 +7,7 @@
             var
                 trackEvent = function (eventName, eventCategory) {
                     var mixpanel = window.mixpanel;
-                    var username = dataContext.userName;
+                    var username = dataContext.userEmail;
 
                     if (!mixpanel) {
                         return;
