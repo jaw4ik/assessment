@@ -7,9 +7,9 @@ namespace easygenerator.Web.DomainEvents.Handlers
 {
     public class SendMailAboutNewUserHandler : IDomainEventHandler<UserSignedUpEvent>
     {
-        private readonly MailNotificationManager _mailNotificationManager;
+        private readonly IMailNotificationManager _mailNotificationManager;
 
-        public SendMailAboutNewUserHandler(MailNotificationManager mailNotificationManager)
+        public SendMailAboutNewUserHandler(IMailNotificationManager mailNotificationManager)
         {
             _mailNotificationManager = mailNotificationManager;
         }

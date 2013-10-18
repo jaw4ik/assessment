@@ -5,7 +5,17 @@ using System.Net.Mail;
 
 namespace easygenerator.Web.Mail
 {
-    public class MailSender
+    public interface IMailSender
+    {
+        bool Send(MailNotification mail);
+
+        bool Send(string body, string subject, string fromAddress, string toAddresses, string ccAddresses = null,
+            string bccAddresses = null);
+
+        bool Send(MailMessage msg);
+    }
+
+    public class MailSender : IMailSender
     {
         private const char AddressesSeparator = ';';
 

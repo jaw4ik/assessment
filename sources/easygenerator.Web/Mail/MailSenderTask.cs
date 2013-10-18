@@ -8,7 +8,7 @@ namespace easygenerator.Web.Mail
 {
     public class MailSenderTask
     {
-        private readonly MailSender _mailSender;
+        private readonly IMailSender _mailSender;
         private readonly IUnitOfWork _dataContext;
         private readonly IMailNotificationRepository _mailNotificationRepository;
         private readonly MailSettings _senderSettings;
@@ -16,7 +16,7 @@ namespace easygenerator.Web.Mail
         private static CacheItemRemovedCallback OnCacheRemove = null;
         private const string TaskName = "MailSenderTask";
 
-        public MailSenderTask(IUnitOfWork unitOfWork, IMailNotificationRepository mailRepository, MailSender sender, MailSettings senderSettings)
+        public MailSenderTask(IUnitOfWork unitOfWork, IMailNotificationRepository mailRepository, IMailSender sender, MailSettings senderSettings)
         {
             _dataContext = unitOfWork;
             _mailSender = sender;

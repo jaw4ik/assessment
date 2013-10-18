@@ -5,7 +5,12 @@ using easygenerator.DomainModel.Repositories;
 
 namespace easygenerator.Web.Mail
 {
-    public class MailNotificationManager
+    public interface IMailNotificationManager
+    {
+        void AddMailNotificationToQueue(string templateName, dynamic templateModel);
+    }
+
+    public class MailNotificationManager : IMailNotificationManager
     {
         private readonly IEntityFactory _entityFactory;
         private readonly MailSettings _senderSettings;

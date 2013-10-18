@@ -58,8 +58,8 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
-            builder.RegisterType<MailNotificationManager>().SingleInstance();
-            builder.RegisterType<MailSender>().SingleInstance();
+            builder.RegisterType<MailNotificationManager>().As<IMailNotificationManager>().SingleInstance();
+            builder.RegisterType<MailSender>().As<IMailSender>().SingleInstance();
             builder.RegisterType<MailSettings>().SingleInstance();
             builder.RegisterType<MailSenderTask>().SingleInstance();
 
