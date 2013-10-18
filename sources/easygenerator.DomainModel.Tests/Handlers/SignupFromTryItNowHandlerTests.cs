@@ -23,6 +23,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         private IQuerableRepository<Answer> _answerRepository;
         private IQuerableRepository<LearningObject> _learningObjectRepository;
         private IQuerableRepository<Experience> _experienceRepository;
+        private IHelpHintRepository _helpHintRepository;
 
         [TestInitialize]
         public void InitializeContext()
@@ -32,8 +33,9 @@ namespace easygenerator.DomainModel.Tests.Handlers
             _answerRepository = Substitute.For<IQuerableRepository<Answer>>();
             _learningObjectRepository = Substitute.For<IQuerableRepository<LearningObject>>();
             _experienceRepository = Substitute.For<IQuerableRepository<Experience>>();
+            _helpHintRepository = Substitute.For<IHelpHintRepository>();
 
-            _handler = new SignupFromTryItNowHandler(_experienceRepository, _objectiveRepository, _questionRepository, _answerRepository, _learningObjectRepository);
+            _handler = new SignupFromTryItNowHandler(_experienceRepository, _objectiveRepository, _questionRepository, _answerRepository, _learningObjectRepository, _helpHintRepository);
         }
 
         #region Experiences
@@ -162,6 +164,32 @@ namespace easygenerator.DomainModel.Tests.Handlers
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
 
             learningObject.DidNotReceive().DefineCreatedBy(Arg.Any<string>());
+        }
+
+        #endregion
+
+        #region Help hints
+
+        [TestMethod]
+        public void Handle_ShouldDefineCreatedByForHelpHintsThatWereCreatedInTryMode()
+        {
+            var helpHint = Substitute.For<HelpHint>("objectives", TryItNowUsername);
+            _helpHintRepository.GetHelpHintsForUser(TryItNowUsername).Returns(new List<HelpHint>() { helpHint });
+
+            _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
+
+            helpHint.Received().DefineCreatedBy(SignUpUsername);
+        }
+
+        [TestMethod]
+        public void Handle_ShouldNotDefineCreatedByForHelpHintsThatWereCreatedByOtherExistingUser()
+        {
+            var helpHint = Substitute.For<HelpHint>("objectives", OtherExistingUser);
+            _helpHintRepository.GetHelpHintsForUser(OtherExistingUser).Returns(new List<HelpHint>() { helpHint });
+
+            _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
+
+            helpHint.DidNotReceive().DefineCreatedBy(Arg.Any<string>());
         }
 
         #endregion

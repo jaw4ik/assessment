@@ -71,11 +71,13 @@ namespace easygenerator.Web.Controllers.Api
             _repository.Add(user);
             _publisher.Publish(new UserSignedUpEvent(user, profile.PeopleBusyWithCourseDevelopmentAmount, profile.NeedAuthoringTool, profile.UsedAuthoringTool));
 
-            _helpHintRepository.CreateHelpHintsForUser(profile.Email);
-
             if (User.Identity.IsAuthenticated && _repository.GetUserByEmail(User.Identity.Name) == null)
             {
                 _signupFromTryItNowHandler.HandleOwnership(User.Identity.Name, user.Email);
+            }
+            else
+            {
+                _helpHintRepository.CreateHelpHintsForUser(profile.Email);                
             }
 
             _authenticationProvider.SignIn(profile.Email, true);
