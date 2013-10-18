@@ -13,6 +13,7 @@
           <EntitySet Name="LearningObjects" EntityType="Model.Store.LearningObjects" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MailNotifications" EntityType="Model.Store.MailNotifications" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Objectives" EntityType="Model.Store.Objectives" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PasswordRecoveryTickets" EntityType="Model.Store.PasswordRecoveryTickets" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Questions" EntityType="Model.Store.Questions" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Templates" EntityType="Model.Store.Templates" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="Model.Store.Users" store:Type="Tables" Schema="dbo" />
@@ -35,6 +36,10 @@
           <AssociationSet Name="FK_dbo_LearningObjects_dbo_Questions_Question_Id" Association="Model.Store.FK_dbo_LearningObjects_dbo_Questions_Question_Id">
             <End Role="Questions" EntitySet="Questions" />
             <End Role="LearningObjects" EntitySet="LearningObjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PasswordRecoveryTickets_dbo_Users_User_Id" Association="Model.Store.FK_dbo_PasswordRecoveryTickets_dbo_Users_User_Id">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PasswordRecoveryTickets" EntitySet="PasswordRecoveryTickets" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_Questions_dbo_Objectives_Objective_Id" Association="Model.Store.FK_dbo_Questions_dbo_Objectives_Objective_Id">
             <End Role="Objectives" EntitySet="Objectives" />
@@ -122,6 +127,14 @@
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PasswordRecoveryTickets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="User_Id" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Questions">
           <Key>
@@ -232,6 +245,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_PasswordRecoveryTickets_dbo_Users_User_Id">
+          <End Role="Users" Type="Model.Store.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PasswordRecoveryTickets" Type="Model.Store.PasswordRecoveryTickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PasswordRecoveryTickets">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_Questions_dbo_Objectives_Objective_Id">
           <End Role="Objectives" Type="Model.Store.Objectives" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -280,6 +307,11 @@
           </AssociationSet>
           <EntitySet Name="HelpHints" EntityType="Model.HelpHint" />
           <EntitySet Name="MailNotifications" EntityType="Model.MailNotification" />
+          <EntitySet Name="PasswordRecoveryTickets" EntityType="Model.PasswordRecoveryTicket" />
+          <AssociationSet Name="FK_dbo_PasswordRecoveryTickets_dbo_Users_User_Id" Association="Model.FK_dbo_PasswordRecoveryTickets_dbo_Users_User_Id">
+            <End Role="User" EntitySet="Users" />
+            <End Role="PasswordRecoveryTicket" EntitySet="PasswordRecoveryTickets" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Answer">
           <Key>
@@ -379,6 +411,7 @@
           <Property Type="String" Name="FullName" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Phone" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Organization" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PasswordRecoveryTickets" Relationship="Model.FK_dbo_PasswordRecoveryTickets_dbo_Users_User_Id" FromRole="User" ToRole="PasswordRecoveryTicket" />
         </EntityType>
         <Association Name="FK_dbo_Answers_dbo_Questions_Question_Id">
           <End Role="Questions" Type="Model.Question" Multiplicity="1">
@@ -464,6 +497,29 @@
           <Property Type="String" Name="Body" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="PasswordRecoveryTicket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="3" />
+          <Property Type="Guid" Name="User_Id" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Model.FK_dbo_PasswordRecoveryTickets_dbo_Users_User_Id" FromRole="PasswordRecoveryTicket" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_dbo_PasswordRecoveryTickets_dbo_Users_User_Id">
+          <End Type="Model.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.PasswordRecoveryTicket" Role="PasswordRecoveryTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PasswordRecoveryTicket">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -596,6 +652,15 @@
                 <ScalarProperty Name="CCEmailAddresses" ColumnName="CCEmailAddresses" />
                 <ScalarProperty Name="ToEmailAddresses" ColumnName="ToEmailAddresses" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PasswordRecoveryTickets">
+            <EntityTypeMapping TypeName="Model.PasswordRecoveryTicket">
+              <MappingFragment StoreEntitySet="PasswordRecoveryTickets">
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

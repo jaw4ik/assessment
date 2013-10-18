@@ -12,24 +12,12 @@ namespace easygenerator.AcceptanceTests
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class PasswordRecoveryTicket
     {
-        public User()
-        {
-            this.PasswordRecoveryTickets = new HashSet<PasswordRecoveryTicket>();
-        }
-    
         public System.Guid Id { get; set; }
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
-        public string CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
-        public string ModifiedBy { get; set; }
-        public System.DateTime ModifiedOn { get; set; }
-        public string FullName { get; set; }
-        public string Phone { get; set; }
-        public string Organization { get; set; }
+        public System.Guid User_Id { get; set; }
     
-        public virtual ICollection<PasswordRecoveryTicket> PasswordRecoveryTickets { get; set; }
+        public virtual User User { get; set; }
     }
 }

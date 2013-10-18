@@ -17,8 +17,10 @@
         <AssociationConnector Association="Model.FK_dbo_LearningObjects_dbo_Questions_Question_Id" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_dbo_Questions_dbo_Objectives_Objective_Id" ManuallyRouted="false" />
         <AssociationConnector Association="Model.ExperienceObjectives" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Model.HelpHint" Width="1.5" PointX="3.75" PointY="7.25" />
-        <EntityTypeShape EntityType="Model.MailNotification" Width="1.5" PointX="6.75" PointY="7.125" />
+        <EntityTypeShape EntityType="Model.HelpHint" Width="1.5" PointX="7.75" PointY="7.5" />
+        <EntityTypeShape EntityType="Model.MailNotification" Width="1.5" PointX="9.625" PointY="7.375" />
+        <EntityTypeShape EntityType="Model.PasswordRecoveryTicket" Width="1.5" PointX="4.5" PointY="7.125" />
+        <AssociationConnector Association="Model.FK_dbo_PasswordRecoveryTickets_dbo_Users_User_Id" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
