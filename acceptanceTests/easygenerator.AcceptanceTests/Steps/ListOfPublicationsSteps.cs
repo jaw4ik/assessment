@@ -282,22 +282,22 @@ namespace easygenerator.AcceptanceTests.Steps
 
             if (System.IO.Directory.Exists(extractPath))
             {
-                //int loop1 = 0;
-                //while (loop1 < 60)
-                //{
-                //    try
-                //    {
-                //        System.Threading.Thread.Sleep(1000);
-                //        System.IO.Directory.Delete(extractPath, true);
-                //        break;
-                //    }
-                //    catch (UnauthorizedAccessException)
-                //    {
-                //        loop1++;
-                //    }
-                //}
-                System.Threading.Thread.Sleep(1000);
-                System.IO.Directory.Delete(extractPath, true);
+                int loop1 = 0;
+                while (loop1 < 60)
+                {
+                    try
+                    {
+                        System.Threading.Thread.Sleep(1000);
+                        System.IO.Directory.Delete(extractPath, true);
+                        break;
+                    }
+                    catch (System.IO.IOException)
+                    {
+                        loop1++;
+                    }
+                }
+                //System.Threading.Thread.Sleep(1000);
+                //System.IO.Directory.Delete(extractPath, true);
 
             }
 

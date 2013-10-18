@@ -11,20 +11,20 @@ Background:
 Given clear data context 
 Given publications are present in database
 | Title       | Id |
-| Experience1 | 1  |
+| Experience1 | 00000000000000000000000000000001  |
 Given objectives are present in database
 | Title       | Id |
-| Objective11 | 1  |
-| Objective12 | 2  |
+| Objective11 | 00000000000000000000000000000001  |
+| Objective12 | 00000000000000000000000000000002  |
 Given objectives are linked to experiance 'Experience1'
 | Title       | Id |
-| Objective11 | 1  |
-| Objective12 | 2  |
+| Objective11 | 00000000000000000000000000000001  |
+| Objective12 | 00000000000000000000000000000002  |
 
 Given questions related to 'Objective11' are present in database
 | Title      | Id |
-| Question11 | 1  |
-| Question12 | 2  |
+| Question11 | 00000000000000000000000000000001  |
+| Question12 | 00000000000000000000000000000002  |
 Given answer options related to 'Question11' of 'Objective11' are present in database
 | Text           | isCorrect |
 | AnswerOption11 | true      |
@@ -45,8 +45,8 @@ Given explanations related to 'Question12' of 'Objective11' are present in datab
 
 Given questions related to 'Objective12' are present in database
 | Title      | Id |
-| Question21 | 1  |
-| Question22 | 2  |
+| Question21 | 00000000000000000000000000000003  |
+| Question22 | 00000000000000000000000000000004  |
 Given answer options related to 'Question21' of 'Objective12' are present in database
 | Text            | isCorrect |
 | AnswerOption211 | true      |
@@ -64,13 +64,17 @@ Given explanations related to 'Question22' of 'Objective12' are present in datab
 | Explanation    |
 | Explanation221 |
 | Explanation222 |
+When open page by url 'http://localhost:5656/signout'
+And open page by url 'http://localhost:5656/signin'
+And sign in as 'test' user on sign in page
+Then browser navigates to url 'http://localhost:5656/'
 
-And open page by url 'http://localhost:5656/#/experiences'
+When open page by url 'http://localhost:5656/#/experiences'
 And mouse hover element of publications list with title 'Experience1'
 And click build publication list item with title 'Experience1'
 And mouse hover element of publications list with title 'Experience1'
 And click download publication list item with title 'Experience1'
-And unzip '1' package to 'tmp'
+And unzip '00000000000000000000000000000001' package to 'tmp'
 
 
 Scenario: Package score should not be calculated if only visit pages and not submit answers
@@ -212,7 +216,7 @@ When click on progress summary link on package feedback page
 Then overall progress score '63%' is shown on package summary page
 And objective progress list contains items with data
 | Title       | Value | MeterValue  |
-| Objective11 | 84%   | width: 84%; |
+| Objective11 | 83%   | width: 83%; |
 | Objective12 | 42%   | width: 42%; |
 
 

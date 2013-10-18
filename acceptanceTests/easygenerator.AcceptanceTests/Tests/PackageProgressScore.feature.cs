@@ -80,7 +80,7 @@ testRunner.Given("clear data context", ((string)(null)), ((TechTalk.SpecFlow.Tab
                         "Id"});
             table1.AddRow(new string[] {
                         "Experience1",
-                        "1"});
+                        "00000000000000000000000000000001"});
 #line 12
 testRunner.Given("publications are present in database", ((string)(null)), table1, "Given ");
 #line hidden
@@ -89,10 +89,10 @@ testRunner.Given("publications are present in database", ((string)(null)), table
                         "Id"});
             table2.AddRow(new string[] {
                         "Objective11",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table2.AddRow(new string[] {
                         "Objective12",
-                        "2"});
+                        "00000000000000000000000000000002"});
 #line 15
 testRunner.Given("objectives are present in database", ((string)(null)), table2, "Given ");
 #line hidden
@@ -101,10 +101,10 @@ testRunner.Given("objectives are present in database", ((string)(null)), table2,
                         "Id"});
             table3.AddRow(new string[] {
                         "Objective11",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table3.AddRow(new string[] {
                         "Objective12",
-                        "2"});
+                        "00000000000000000000000000000002"});
 #line 19
 testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table3, "Given ");
 #line hidden
@@ -113,10 +113,10 @@ testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string
                         "Id"});
             table4.AddRow(new string[] {
                         "Question11",
-                        "1"});
+                        "00000000000000000000000000000001"});
             table4.AddRow(new string[] {
                         "Question12",
-                        "2"});
+                        "00000000000000000000000000000002"});
 #line 24
 testRunner.Given("questions related to \'Objective11\' are present in database", ((string)(null)), table4, "Given ");
 #line hidden
@@ -170,10 +170,10 @@ testRunner.Given("explanations related to \'Question12\' of \'Objective11\' are 
                         "Id"});
             table9.AddRow(new string[] {
                         "Question21",
-                        "1"});
+                        "00000000000000000000000000000003"});
             table9.AddRow(new string[] {
                         "Question22",
-                        "2"});
+                        "00000000000000000000000000000004"});
 #line 46
 testRunner.Given("questions related to \'Objective12\' are present in database", ((string)(null)), table9, "Given ");
 #line hidden
@@ -221,18 +221,26 @@ testRunner.Given("explanations related to \'Question21\' of \'Objective12\' are 
                         "Explanation222"});
 #line 63
 testRunner.Given("explanations related to \'Question22\' of \'Objective12\' are present in database", ((string)(null)), table13, "Given ");
+#line 67
+testRunner.When("open page by url \'http://localhost:5656/signout\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 68
-testRunner.And("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("open page by url \'http://localhost:5656/signin\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 69
-testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("sign in as \'test\' user on sign in page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 70
-testRunner.And("click build publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 71
-testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.Then("browser navigates to url \'http://localhost:5656/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 72
-testRunner.And("click download publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 73
-testRunner.And("unzip \'1\' package to \'tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 74
+testRunner.And("click build publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 75
+testRunner.And("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 76
+testRunner.And("click download publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 77
+testRunner.And("unzip \'00000000000000000000000000000001\' package to \'tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
         
@@ -243,29 +251,29 @@ testRunner.And("unzip \'1\' package to \'tmp\'", ((string)(null)), ((TechTalk.Sp
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Package score should not be calculated if only visit pages and not submit answers" +
                     "", ((string[])(null)));
-#line 76
+#line 80
 this.ScenarioSetup(scenarioInfo);
 #line 10
 this.FeatureBackground();
-#line 77
-testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 78
-testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 79
-testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 80
-testRunner.And("click on show explanations link on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 81
-testRunner.And("click on back to objectives link on package explanations page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 82
-testRunner.And("toggle expand package objective item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 83
-testRunner.And("click package question list item \'Question22\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 84
 testRunner.And("click on show explanations link on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 85
-testRunner.And("click on progress summary link on package explanations page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click on back to objectives link on package explanations page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 86
+testRunner.And("toggle expand package objective item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 87
+testRunner.And("click package question list item \'Question22\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 88
+testRunner.And("click on show explanations link on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 89
+testRunner.And("click on progress summary link on package explanations page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 90
 testRunner.Then("overall progress score \'0%\' is shown on package summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
@@ -280,7 +288,7 @@ testRunner.Then("overall progress score \'0%\' is shown on package summary page"
                         "Objective12",
                         "0%",
                         "width: 0%;"});
-#line 87
+#line 91
 testRunner.And("objective progress list contains items with data", ((string)(null)), table14, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -291,59 +299,59 @@ testRunner.And("objective progress list contains items with data", ((string)(nul
         public virtual void AllScoresAre100IfAllCorrectAnswersWereCheckedAndSubmited()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All scores are 100% if all correct answers were checked and submited", ((string[])(null)));
-#line 93
+#line 97
 this.ScenarioSetup(scenarioInfo);
 #line 10
 this.FeatureBackground();
-#line 94
-testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 95
-testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 96
-testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 97
-testRunner.And("toggle package answer option \'AnswerOption11\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 98
-testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 99
-testRunner.Then("question progress score \'100%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 100
+testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 101
-testRunner.When("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.And("toggle package answer option \'AnswerOption11\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 102
-testRunner.And("click package question list item \'Question12\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 103
-testRunner.And("toggle package answer option \'AnswerOption21\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 104
-testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.Then("question progress score \'100%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 105
-testRunner.Then("question progress score \'100%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.When("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 106
+testRunner.And("click package question list item \'Question12\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 107
-testRunner.When("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.And("toggle package answer option \'AnswerOption21\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 108
-testRunner.And("toggle expand package objective item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 109
-testRunner.And("click package question list item \'Question21\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 110
-testRunner.And("toggle package answer option \'AnswerOption211\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.Then("question progress score \'100%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 111
-testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 112
-testRunner.Then("question progress score \'100%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 114
 testRunner.When("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 112
+testRunner.And("toggle expand package objective item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 113
+testRunner.And("click package question list item \'Question21\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 114
+testRunner.And("toggle package answer option \'AnswerOption211\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 115
-testRunner.And("click package question list item \'Question22\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 116
-testRunner.And("toggle package answer option \'AnswerOption221\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 117
-testRunner.And("toggle package answer option \'AnswerOption222\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 118
 testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 119
+#line 116
 testRunner.Then("question progress score \'100%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 118
+testRunner.When("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 119
+testRunner.And("click package question list item \'Question22\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 120
+testRunner.And("toggle package answer option \'AnswerOption221\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 121
-testRunner.When("click on progress summary link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.And("toggle package answer option \'AnswerOption222\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 122
+testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 123
+testRunner.Then("question progress score \'100%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 125
+testRunner.When("click on progress summary link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 126
 testRunner.Then("overall progress score \'100%\' is shown on package summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
@@ -358,7 +366,7 @@ testRunner.Then("overall progress score \'100%\' is shown on package summary pag
                         "Objective12",
                         "100%",
                         "width: 100%;"});
-#line 123
+#line 127
 testRunner.And("objective progress list contains items with data", ((string)(null)), table15, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -369,59 +377,59 @@ testRunner.And("objective progress list contains items with data", ((string)(nul
         public virtual void AllScoresAre0IfAllIncorrectAnswersWereCheckedAndSubmited()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All scores are 0% if all incorrect answers were checked and submited", ((string[])(null)));
-#line 129
+#line 133
 this.ScenarioSetup(scenarioInfo);
 #line 10
 this.FeatureBackground();
-#line 130
-testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 131
-testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 132
-testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 133
-testRunner.And("toggle package answer option \'AnswerOption12\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 134
-testRunner.And("toggle package answer option \'AnswerOption13\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 135
-testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 136
-testRunner.Then("question progress score \'0%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 137
+testRunner.And("toggle package answer option \'AnswerOption12\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 138
-testRunner.When("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.And("toggle package answer option \'AnswerOption13\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 139
-testRunner.And("click package question list item \'Question12\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 140
-testRunner.And("toggle package answer option \'AnswerOption22\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 141
-testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.Then("question progress score \'0%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 142
-testRunner.Then("question progress score \'0%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.When("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 143
+testRunner.And("click package question list item \'Question12\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 144
-testRunner.When("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.And("toggle package answer option \'AnswerOption22\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 145
-testRunner.And("toggle expand package objective item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 146
-testRunner.And("click package question list item \'Question21\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 147
-testRunner.And("toggle package answer option \'AnswerOption212\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.Then("question progress score \'0%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 148
-testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 149
-testRunner.Then("question progress score \'0%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 151
 testRunner.When("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 149
+testRunner.And("toggle expand package objective item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 150
+testRunner.And("click package question list item \'Question21\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 151
+testRunner.And("toggle package answer option \'AnswerOption212\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 152
-testRunner.And("click package question list item \'Question22\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 153
-testRunner.And("toggle package answer option \'AnswerOption223\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 154
 testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 155
+#line 153
 testRunner.Then("question progress score \'0%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 155
+testRunner.When("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 156
+testRunner.And("click package question list item \'Question22\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 157
-testRunner.When("click on progress summary link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.And("toggle package answer option \'AnswerOption223\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 158
+testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 159
+testRunner.Then("question progress score \'0%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 161
+testRunner.When("click on progress summary link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 162
 testRunner.Then("overall progress score \'0%\' is shown on package summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
@@ -436,7 +444,7 @@ testRunner.Then("overall progress score \'0%\' is shown on package summary page"
                         "Objective12",
                         "0%",
                         "width: 0%;"});
-#line 159
+#line 163
 testRunner.And("objective progress list contains items with data", ((string)(null)), table16, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -449,37 +457,37 @@ testRunner.And("objective progress list contains items with data", ((string)(nul
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Not checked incorrect options are equal to checked correct options in score calcu" +
                     "lation and vice versa", ((string[])(null)));
-#line 164
+#line 168
 this.ScenarioSetup(scenarioInfo);
 #line 10
 this.FeatureBackground();
-#line 165
-testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 166
-testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 167
-testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 168
-testRunner.And("toggle package answer option \'AnswerOption11\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 169
-testRunner.And("toggle package answer option \'AnswerOption13\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 170
-testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 171
-testRunner.Then("question progress score \'67%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 172
+testRunner.And("toggle package answer option \'AnswerOption11\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 173
-testRunner.When("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.And("toggle package answer option \'AnswerOption13\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 174
-testRunner.And("toggle expand package objective item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 175
-testRunner.And("click package question list item \'Question22\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 176
-testRunner.And("toggle package answer option \'AnswerOption221\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 177
-testRunner.And("toggle package answer option \'AnswerOption223\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 178
 testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 175
+testRunner.Then("question progress score \'67%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 177
+testRunner.When("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 178
+testRunner.And("toggle expand package objective item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 179
+testRunner.And("click package question list item \'Question22\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 180
+testRunner.And("toggle package answer option \'AnswerOption221\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 181
+testRunner.And("toggle package answer option \'AnswerOption223\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 182
+testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 183
 testRunner.Then("question progress score \'33%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -492,63 +500,63 @@ testRunner.Then("question progress score \'33%\' is shown on package feedback pa
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Overall experience progress value is arithmetical mean of all progress values of " +
                     "objectives", ((string[])(null)));
-#line 181
+#line 185
 this.ScenarioSetup(scenarioInfo);
 #line 10
 this.FeatureBackground();
-#line 182
-testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 183
-testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 184
-testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 185
-testRunner.And("toggle package answer option \'AnswerOption11\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 186
-testRunner.And("toggle package answer option \'AnswerOption13\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 187
-testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 188
-testRunner.Then("question progress score \'67%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 189
+testRunner.And("toggle package answer option \'AnswerOption11\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 190
-testRunner.When("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.And("toggle package answer option \'AnswerOption13\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 191
-testRunner.And("click package question list item \'Question12\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 192
-testRunner.And("toggle package answer option \'AnswerOption21\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 193
-testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.Then("question progress score \'67%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 194
-testRunner.Then("question progress score \'100%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.When("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 195
+testRunner.And("click package question list item \'Question12\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 196
-testRunner.When("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.And("toggle package answer option \'AnswerOption21\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 197
-testRunner.And("toggle expand package objective item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 198
-testRunner.And("click package question list item \'Question21\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 199
-testRunner.And("toggle package answer option \'AnswerOption211\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.Then("question progress score \'100%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 200
-testRunner.And("toggle package answer option \'AnswerOption212\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 201
-testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 202
-testRunner.Then("question progress score \'50%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 204
 testRunner.When("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 201
+testRunner.And("toggle expand package objective item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 202
+testRunner.And("click package question list item \'Question21\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 203
+testRunner.And("toggle package answer option \'AnswerOption211\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 204
+testRunner.And("toggle package answer option \'AnswerOption212\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 205
-testRunner.And("click package question list item \'Question22\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 206
-testRunner.And("toggle package answer option \'AnswerOption221\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 207
-testRunner.And("toggle package answer option \'AnswerOption223\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 208
 testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 206
+testRunner.Then("question progress score \'50%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 208
+testRunner.When("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 209
-testRunner.Then("question progress score \'33%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("click package question list item \'Question22\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 210
+testRunner.And("toggle package answer option \'AnswerOption221\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 211
-testRunner.When("click on progress summary link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.And("toggle package answer option \'AnswerOption223\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 212
+testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 213
+testRunner.Then("question progress score \'33%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 215
+testRunner.When("click on progress summary link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 216
 testRunner.Then("overall progress score \'63%\' is shown on package summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
@@ -557,13 +565,13 @@ testRunner.Then("overall progress score \'63%\' is shown on package summary page
                         "MeterValue"});
             table17.AddRow(new string[] {
                         "Objective11",
-                        "84%",
-                        "width: 84%;"});
+                        "83%",
+                        "width: 83%;"});
             table17.AddRow(new string[] {
                         "Objective12",
                         "42%",
                         "width: 42%;"});
-#line 213
+#line 217
 testRunner.And("objective progress list contains items with data", ((string)(null)), table17, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -574,25 +582,25 @@ testRunner.And("objective progress list contains items with data", ((string)(nul
         public virtual void EffectiveScoreForEachQuestionIsScoreOfTheLastAttemptForThisQuestion()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Effective score for each question is score of the last attempt for this question", ((string[])(null)));
-#line 219
+#line 223
 this.ScenarioSetup(scenarioInfo);
 #line 10
 this.FeatureBackground();
-#line 220
-testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 221
-testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 222
-testRunner.And("click package question list item \'Question12\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 223
-testRunner.And("toggle package answer option \'AnswerOption21\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 224
-testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 225
-testRunner.Then("question progress score \'100%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 226
-testRunner.When("click on progress summary link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.And("click package question list item \'Question12\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 227
+testRunner.And("toggle package answer option \'AnswerOption21\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 228
+testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 229
+testRunner.Then("question progress score \'100%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 230
+testRunner.When("click on progress summary link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 231
 testRunner.Then("overall progress score \'25%\' is shown on package summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
@@ -607,23 +615,23 @@ testRunner.Then("overall progress score \'25%\' is shown on package summary page
                         "Objective12",
                         "0%",
                         "width: 0%;"});
-#line 228
+#line 232
 testRunner.And("objective progress list contains items with data", ((string)(null)), table18, "And ");
-#line 233
-testRunner.When("click on home link on progress summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 234
-testRunner.And("click package question list item \'Question12\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 235
-testRunner.And("toggle package answer option \'AnswerOption21\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 236
-testRunner.And("toggle package answer option \'AnswerOption22\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 237
-testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("click on home link on progress summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 238
-testRunner.Then("question progress score \'50%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("click package question list item \'Question12\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 239
-testRunner.When("click on progress summary link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.And("toggle package answer option \'AnswerOption21\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 240
+testRunner.And("toggle package answer option \'AnswerOption22\' checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 241
+testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 242
+testRunner.Then("question progress score \'50%\' is shown on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 243
+testRunner.When("click on progress summary link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 244
 testRunner.Then("overall progress score \'13%\' is shown on package summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
@@ -638,7 +646,7 @@ testRunner.Then("overall progress score \'13%\' is shown on package summary page
                         "Objective12",
                         "0%",
                         "width: 0%;"});
-#line 241
+#line 245
 testRunner.And("objective progress list contains items with data", ((string)(null)), table19, "And ");
 #line hidden
             this.ScenarioCleanup();
