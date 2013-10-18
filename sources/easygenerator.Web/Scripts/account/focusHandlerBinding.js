@@ -2,7 +2,7 @@
     init: function () {
     },
 
-    update: function (elem) {
+    update: function () {
         var inputElem = '.user-form-input';
 
         $(inputElem).focusin(function () {
