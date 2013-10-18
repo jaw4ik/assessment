@@ -182,7 +182,7 @@ body.try {
     width: 100%;
 }
 
-.view-module.sign-up .user-columns {
+.view-module.sign-up .user-columns, .view-module.sign-up-second-step .user-columns {
     width: 900px;
     margin: 0 auto;
 }
@@ -196,6 +196,11 @@ body.try {
         padding-left: 12.5%;
         padding-right: 3.5%;
     }
+
+.view-module.sign-up-second-step .user-column.form {
+    padding-left: 0;
+    padding-right: 0;
+}
 
 .user-form {
     position: relative;
@@ -339,13 +344,13 @@ body.try {
         color: #444444;
     }
 
-    .user-form-input-wrapper.focus {
-        outline: none;
-        border: solid 1px #00a8ff;
-        -webkit-box-shadow: 0 0 2px #00a8ff;
-        -moz-box-shadow: 0 0 2px #00a8ff;
-        box-shadow: 0 0 2px #00a8ff;
-    }
+.user-form-input-wrapper.focus {
+    outline: none;
+    border: solid 1px #00a8ff;
+    -webkit-box-shadow: 0 0 2px #00a8ff;
+    -moz-box-shadow: 0 0 2px #00a8ff;
+    box-shadow: 0 0 2px #00a8ff;
+}
 
 .user-form-checkbox-holder {
     min-height: 36px;
