@@ -11,9 +11,6 @@
             notify = require('notify'),
             clientContext = require('clientContext');
 
-        var
-            eventsCategory = 'Objectives';
-
 
         describe('viewModel [objectives]', function () {
 

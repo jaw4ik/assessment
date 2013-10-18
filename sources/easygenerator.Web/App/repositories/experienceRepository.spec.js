@@ -365,13 +365,13 @@
                         var experienceId = 'id';
                         var promise = repository.removeExperience(experienceId);
 
-                        post.reject();
+                        httpWrapperPost.reject();
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(http.post).toHaveBeenCalledWith('api/experience/delete', {
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/experience/delete', {
                                 experienceId: experienceId
                             });
                         });
@@ -385,7 +385,7 @@
                                 var reason = 'reason';
                                 var promise = repository.removeExperience('id');
 
-                                post.reject(reason);
+                                httpWrapperPost.reject(reason);
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -399,76 +399,34 @@
 
                         describe('and request succeed', function () {
 
-                            describe('and response is not an object', function () {
+                            describe('and response is an object', function () {
 
-                                it('should reject promise', function () {
+                                it('should resolve promise', function () {
                                     var promise = repository.removeExperience('id');
+                                    
+                                    httpWrapperPost.resolve();
+                                    
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(promise).toBeResolved();
+                                    });
+                                });
 
-                                    post.resolve();
+                                it('should remove experience from dataContext', function () {
+                                    var experienceId = 'id';
+                                    var dataContext = require('dataContext');
+                                    dataContext.experiences = [{ id: 'id' }];
+                                    httpWrapperPost.resolve();
+                                    var promise = repository.removeExperience(experienceId);
 
                                     waitsFor(function () {
                                         return !promise.isPending();
                                     });
                                     runs(function () {
-                                        expect(promise).toBeRejected();
+                                        expect(dataContext.experiences.length).toEqual(0);
                                     });
-                                });
-
-                            });
-
-                            describe('and response is an object', function () {
-
-                                describe('and response is not successful', function () {
-
-                                    beforeEach(function () {
-                                        post.resolve({});
-                                    });
-
-                                    it('should reject promise', function () {
-                                        var promise = repository.removeExperience('id');
-
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(promise).toBeRejected();
-                                        });
-                                    });
-
-                                });
-
-                                describe('and response is successful', function () {
-
-                                    beforeEach(function () {
-                                        post.resolve({ success: true });
-                                    });
-
-                                    it('should resolve promise', function () {
-                                        var promise = repository.removeExperience('id');
-
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(promise).toBeResolved();
-                                        });
-                                    });
-
-                                    it('should remove experience from dataContext', function () {
-                                        var experienceId = 'id';
-                                        var dataContext = require('dataContext');
-                                        dataContext.experiences = [{ id: 'id' }];
-
-                                        var promise = repository.removeExperience(experienceId);
-
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(dataContext.experiences.length).toEqual(0);
-                                        });
-                                    });
-
                                 });
 
                             });
