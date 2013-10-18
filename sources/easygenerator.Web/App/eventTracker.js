@@ -13,11 +13,16 @@
                         return;
                     }
 
+                    var eventProperties = {
+                        Category: eventCategory
+                    };
+
                     if (username) {
                         mixpanel.identify(username);
+                        eventProperties.Email = username;
                     }
 
-                    mixpanel.track(eventName, { Category: eventCategory });
+                    mixpanel.track(eventName, eventProperties);
                 };
 
             return {
