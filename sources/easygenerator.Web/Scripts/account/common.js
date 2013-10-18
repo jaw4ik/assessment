@@ -16,7 +16,7 @@ app.constants = {
 };
 
 $(function () {
-    
+
     if ($(".sign-up").length) {
         ko.applyBindings(signupModel(), $(".sign-up")[0]);
     }

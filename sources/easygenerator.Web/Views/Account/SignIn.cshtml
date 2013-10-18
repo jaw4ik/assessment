@@ -7,11 +7,13 @@
     <div class="user-columns">
         <div class="user-column form">
             <div class="user-title">@Resources.SignIn </div>
-            <form class="user-form" id="signinForm" action="#" method="post" data-bind="submit: submit">
+            <form class="user-form" id="signinForm" action="#" method="post" data-bind="submit: submit, focusHandler: {}">
                 <div class="user-form-row" data-bind="css: { error: hasError() || (!username.isValid() && username.isModified()) }">
                     <label class="user-form-label email">@Resources.EmailCaption</label>
                     <div class="user-form-input-holder">
-                        <input class="user-form-input" type="text" name="email" autocomplete="off" data-bind="value: username, valueUpdate: 'afterkeydown', event: { blur: username.markAsModified }" ondrop="return false;" />
+                        <span class="user-form-input-wrapper">
+                            <input class="user-form-input" type="text" name="email" autocomplete="off" data-bind="value: username, valueUpdate: 'afterkeydown', event: { blur: username.markAsModified }" ondrop="return false;" />
+                        </span>
                     </div>
                     <!-- ko if: !username.isValid() && username.isModified() -->
                     <span class="user-form-message">@Resources.EnterValidEmailMessage</span>
@@ -20,8 +22,10 @@
                 <div class="user-form-row" data-bind="css: { error: hasError }">
                     <label class="user-form-label password">@Resources.PasswordCaption</label>
                     <div class="user-form-input-holder">
-                        <input class="user-form-input" type="password" name="password" autocomplete="off" data-bind="value: password, valueUpdate: 'afterkeydown', attr: { type: isPasswordVisible() ? 'text' : 'password' } " ondrop="return false;" />
-                        <a href="#" class="user-form-password-eye" data-bind="css: { revealed: isPasswordVisible }, click: togglePasswordVisibility"></a>
+                        <span class="user-form-input-wrapper">
+                            <input class="user-form-input" type="password" name="password" autocomplete="off" data-bind="value: password, valueUpdate: 'afterkeydown', attr: { type: isPasswordVisible() ? 'text' : 'password' }" ondrop="return false;" />
+                            <a href="#" class="user-form-password-eye" data-bind="css: { revealed: isPasswordVisible }, click: togglePasswordVisibility"></a>
+                        </span>
                     </div>
                 </div>
                 <!-- ko if: hasError -->
