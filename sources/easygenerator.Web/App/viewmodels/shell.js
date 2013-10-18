@@ -150,6 +150,13 @@
                             notify.isShownMessage(true);
                             that.navigation()[0].isPartOfModules(_.contains(experiencesModules, getModuleIdFromRouterActiveInstruction()));
                             that.navigation()[1].isPartOfModules(_.contains(objectivesModules, getModuleIdFromRouterActiveInstruction()));
+                           
+                            helpHintRepository.getCollection().then(function (helpHints) {
+                                var activeHint = _.find(helpHints, function (item) {
+                                    return item.name === activeModule();
+                                });
+                                helpHint(activeHint);
+                            });
                         });
 
                         router.on('router:navigation:composition-complete').then(function () {
