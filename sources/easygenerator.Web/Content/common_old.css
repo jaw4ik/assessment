@@ -224,7 +224,7 @@ ol.unstyled  {
 }
 
     .white-framing img {
-        border: 1px solid #f8f8f8;
+        outline: 1px solid #f8f8f8;
         vertical-align: top;
     }
 
