@@ -159,9 +159,12 @@
                             var $scrollElement = $('.scrollToElement');
                             if ($scrollElement.length != 0) {
                                 var targetTop = $scrollElement.offset().top;
-                                $('html, body').animate({
-                                    scrollTop: targetTop - 190 //header size
-                                });
+                                /*190px header size, 250px header and title and button "Add"*/
+                                if (targetTop >= 250) {
+                                    $('html, body').animate({
+                                        scrollTop: targetTop - 190 
+                                    });
+                                }
                                 $scrollElement.removeClass('scrollToElement');
                             } else {
                                 window.scroll(0, 0);
