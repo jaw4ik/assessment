@@ -82,6 +82,14 @@ namespace easygenerator.DataAccess
             ApplyEntityMapping<User>(modelBuilder);
             modelBuilder.Entity<User>().Property(e => e.Email).IsRequired().HasMaxLength(254);
             modelBuilder.Entity<User>().Property(e => e.PasswordHash).IsRequired();
+            modelBuilder.Entity<User>().HasMany(e => e.PasswordRecoveryTicketCollection).WithRequired(e => e.User);
+
+            modelBuilder.Entity<PasswordRecoveryTicket>().HasKey(e => e.Id);
+            modelBuilder.Entity<PasswordRecoveryTicket>().HasRequired(e => e.User);
+            modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.CreatedBy);
+            modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.ModifiedBy);
+            modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.CreatedBy);
+            modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.ModifiedOn);
 
             ApplyEntityMapping<HelpHint>(modelBuilder);
             modelBuilder.Entity<HelpHint>().Property(e => e.Name).IsRequired().HasMaxLength(254);

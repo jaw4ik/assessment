@@ -49,6 +49,7 @@
     <Compile Include="Entities\LearningObject.cs" />
     <Compile Include="Entities\MailNotification.cs" />
     <Compile Include="Entities\Objective.cs" />
+    <Compile Include="Entities\PasswordRecoveryTicket.cs" />
     <Compile Include="Entities\Question.cs" />
     <Compile Include="Entities\Template.cs" />
     <Compile Include="Entities\User.cs" />

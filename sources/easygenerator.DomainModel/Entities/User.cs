@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using easygenerator.Infrastructure;
 
@@ -48,6 +50,26 @@ namespace easygenerator.DomainModel.Entities
         public virtual bool VerifyPassword(string password)
         {
             return Cryptography.VerifyHash(password, PasswordHash);
+        }
+
+        protected internal virtual ICollection<PasswordRecoveryTicket> PasswordRecoveryTicketCollection { get; set; }
+
+        public string RequestPasswordRecoveryTicket()
+        {
+            var ticket = new PasswordRecoveryTicket();
+
+            PasswordRecoveryTicketCollection.Add(ticket);
+
+            return ticket.Id.ToString("N");
+        }
+
+        public void RecoverPasswordUsingTicket(string ticket, string password)
+        {
+            var item = PasswordRecoveryTicketCollection.SingleOrDefault(t => t.Id.ToString("N") == ticket);
+            if (item != null)
+            {
+                PasswordHash = Cryptography.GetHash(password);
+            }
         }
 
 
