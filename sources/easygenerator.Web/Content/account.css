@@ -206,6 +206,28 @@ body.try {
     padding-top: 37px;
 }
 
+.user-title-container {
+    display: inline-block;
+    position: relative;
+}
+
+.user-required-subtitle {
+    color: #222;
+    font-family: 'OpenSans-Semibold';
+    font-size: 12px;
+    text-align: right;
+    position: absolute;
+    bottom: -10px;
+    right: 0px;
+}
+
+    .user-required-subtitle:before {
+        content: '* ';
+        color: rgb(241, 138, 63);
+        font-weight: normal;
+        font-size: 16px;
+    }
+
 .user-column.optional {
     padding-right: 50px;
     width: 450px;
@@ -214,12 +236,6 @@ body.try {
 .user-column.required {
     padding-left: 50px;
     width: 450px;
-}
-
-.user-column.divider {
-    width: 1px;
-    background: url(images/account/optional-divider.png) no-repeat 100%;
-    opacity: 0.3;
 }
 
 .user-form-row {
@@ -1141,48 +1157,21 @@ body.try {
     /*#endregion Terms of use and Privacy Policy*/
 }
 
-@media (max-width: 830px) {
+@media (max-width: 950px) {
 
-    .try-image-bottom-text {
-        right: 4%;
+    .view-module.sign-up .user-column {
+        display: block;
     }
-}
 
-@media (max-width: 810px) {
-
-    /*#region Account navigation*/
-    .account-nav-list {
-        padding-bottom: 16px;
-    }
-    /*#endregion Account navigation*/
-
-    /*#region User Title*/
-    .user-title {
-        padding-bottom: 3px;
-        font-size: 40px;
-        text-align: center;
-        white-space: normal;
-    }
-    /*#endregion User Title*/
-
-    /*#region User Columns*/
-    .user-columns {
-        width: 390px;
+    .view-module.sign-up .user-columns {
+        width: 400px;
         margin: 0 auto;
     }
 
-    .user-column.form {
-        width: 100%;
+    .user-column.required, .user-column.optional {
         padding-left: 0;
         padding-right: 0;
-    }
-
-    .user-form {
-        padding-top: 12%;
-    }
-
-    .user-column.image {
-        display: none;
+        width: 400px;
     }
 
     .user-form-tooltip.top {
@@ -1234,6 +1223,52 @@ body.try {
     .user-form-tooltip-list-item {
         padding-bottom: 11px;
     }
+}
+
+@media (max-width: 830px) {
+
+    .try-image-bottom-text {
+        right: 4%;
+    }
+}
+
+@media (max-width: 810px) {
+
+    /*#region Account navigation*/
+    .account-nav-list {
+        padding-bottom: 16px;
+    }
+    /*#endregion Account navigation*/
+
+    /*#region User Title*/
+    .user-title {
+        padding-bottom: 3px;
+        font-size: 40px;
+        text-align: center;
+        white-space: normal;
+    }
+    /*#endregion User Title*/
+
+    /*#region User Columns*/
+    .user-columns {
+        width: 390px;
+        margin: 0 auto;
+    }
+
+    .user-column.form {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .user-form {
+        padding-top: 12%;
+    }
+
+    .user-column.image {
+        display: none;
+    }
+    
     /*#endregion User Columns*/
 
     /*#region TRY NOW*/

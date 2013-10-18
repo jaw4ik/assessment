@@ -217,7 +217,7 @@
     <value>Datenschutzrichtlinie</value>
   </data>
   <data name="RequiredInformation" xml:space="preserve">
-    <value>Erforderliche Information</value>
+    <value>- Erforderliche Information</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Anmelden</value>

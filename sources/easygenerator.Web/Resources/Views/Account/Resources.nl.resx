@@ -217,7 +217,7 @@
     <value>Privacybeleid</value>
   </data>
   <data name="RequiredInformation" xml:space="preserve">
-    <value>Verplichte informatie</value>
+    <value>- verplichte informatie</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Aanmelden</value>
