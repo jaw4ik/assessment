@@ -129,6 +129,7 @@
 
 .header-menu-list-item.help:hover {
     text-decoration: underline;
+    opacity: .5;
 }
 
 .header-menu-list-item.help.disabled,
