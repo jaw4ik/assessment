@@ -27,7 +27,12 @@ namespace easygenerator.Web
             FilterConfiguration.Configure();
             ContainerConfiguration.Configure();
 
-            DependencyResolver.Current.GetService<MailNotificationManager>().SetUpMailSenderTask();
+            StartTasks();
+        }
+
+        protected void StartTasks()
+        {
+            DependencyResolver.Current.GetService<MailSenderTask>().Start();
         }
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)

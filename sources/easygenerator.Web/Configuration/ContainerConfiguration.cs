@@ -58,7 +58,10 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
-            builder.RegisterType<MailNotificationManager>();
+            builder.RegisterType<MailNotificationManager>().SingleInstance();
+            builder.RegisterType<MailSender>().SingleInstance();
+            builder.RegisterType<MailSettings>().SingleInstance();
+            builder.RegisterType<MailSenderTask>().SingleInstance();
 
             var container = builder.Build();
 

@@ -222,6 +222,9 @@
     <Compile Include="Mail\MailNotificationManager.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Mail\MailSender.cs" />
+    <Compile Include="Mail\MailSettings.cs" />
+    <Compile Include="Mail\MailSenderTask.cs" />
     <Compile Include="Mail\MailTemplatesProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Views\Account\Resources.Designer.cs">
