@@ -3,6 +3,7 @@ using easygenerator.DomainModel.Repositories;
 using System;
 using System.Web;
 using System.Web.Caching;
+using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Mail
 {
@@ -44,9 +45,9 @@ namespace easygenerator.Web.Mail
             {
                 SendMailNotifications(_senderSettings.MailSenderSettings.BatchSize);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // log error
+                ElmahLog.LogException(e);
             }
             finally
             {

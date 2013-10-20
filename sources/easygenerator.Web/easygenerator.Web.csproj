@@ -54,6 +54,12 @@
     <Reference Include="AutoMapper">
       <HintPath>..\..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Elmah">
+      <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah.Mvc">
+      <HintPath>..\..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -192,6 +198,7 @@
     <Compile Include="Components\Configuration\MailSenderConfigurationSection.cs" />
     <Compile Include="Components\Configuration\MailTemplate.cs" />
     <Compile Include="Components\Configuration\MailTemplateCollection.cs" />
+    <Compile Include="Components\ElmahLog.cs" />
     <Compile Include="Components\ModelBinding\EntityCollectionModelBinderProvider.cs" />
     <Compile Include="Components\ModelBinding\EntityModelBinder.cs" />
     <Compile Include="Components\ModelBinding\EntityModelBinderProvider.cs" />

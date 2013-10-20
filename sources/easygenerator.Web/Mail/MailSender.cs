@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Mail;
+using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Mail
 {
@@ -50,14 +51,14 @@ namespace easygenerator.Web.Mail
 
         public bool Send(MailMessage msg)
         {
-            SmtpClient smtp = new SmtpClient();
+            var smtp = new SmtpClient();
             try
             {
                 smtp.Send(msg);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                // log error
+                ElmahLog.LogException(exception);
                 return false;
             }
             return true;
