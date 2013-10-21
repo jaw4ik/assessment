@@ -11,6 +11,16 @@ namespace easygenerator.Web.Configuration
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            #region Errors
+
+            routes.MapRoute(
+                name: "ErrorNotFound",
+                url: "notfound",
+                defaults: new { controller = "Error", action = "NotFound" }
+            );
+
+            #endregion
+
             #region Objectives
 
             routes.MapRoute(

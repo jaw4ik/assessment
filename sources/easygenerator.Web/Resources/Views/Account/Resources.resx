@@ -147,9 +147,6 @@
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>
   </data>
-  <data name="CopyrightText" xml:space="preserve">
-    <value>Copyright © 2013 easygenerator. All rights reserved.</value>
-  </data>
   <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
     <value>Sorry! We could not verify that this user requested a password reset. Please, initiate resetting procedure again.</value>
   </data>
@@ -228,9 +225,6 @@
   <data name="PowerPoint" xml:space="preserve">
     <value>PowerPoint</value>
   </data>
-  <data name="PrivacyPolicy" xml:space="preserve">
-    <value>Privacy policy</value>
-  </data>
   <data name="RequestError" xml:space="preserve">
     <value>An error was encountered while processing your request</value>
   </data>
@@ -251,9 +245,6 @@
   </data>
   <data name="Skip" xml:space="preserve">
     <value>Skip</value>
-  </data>
-  <data name="TermsOfUse" xml:space="preserve">
-    <value>Terms of use</value>
   </data>
   <data name="TryImageDevelopOn" xml:space="preserve">
     <value>Develop on</value>

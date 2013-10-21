@@ -1,0 +1,55 @@
+﻿@using System.Web.Optimization
+@using easygenerator.Web.Components
+@using SharedResources
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=640,maximum-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Html.Partial("_mixpanelAnalytics")
+</head>
+<body class="try">
+    <div class="main-container try">
+        <div class="preloader-block">
+            <span class="opensans-semibolditalic">a</span>
+            <span class="opensans-italic">a</span>
+        </div>
+        <header class="page-header try">
+            <div class="content-wrapper try">
+                <a href="#" class="logo">Logo</a>
+            </div>
+        </header>
+
+        <div class="content-wrapper try eg-bg-image">
+            @RenderBody()
+        </div>
+
+    </div>
+
+    <footer class="footer try">
+        <div class="content-wrapper try clearfix">
+            <div class="footer-item pull-left">
+                <span class="selectable cursor-default">@Resources.CopyrightText</span>
+            </div>
+            <div class="footer-item pull-right">
+                <ul class="footer-menu-list">
+                    <li class="footer-menu-item">
+                        @Html.NavigationLink(Resources.TermsOfUse, "TermsOfUse", "Account", "footer-menu-link")
+                    </li>
+                    <li class="footer-menu-item">
+                        @Html.NavigationLink(Resources.PrivacyPolicy, "PrivacyPolicy", "Account", "footer-menu-link")
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

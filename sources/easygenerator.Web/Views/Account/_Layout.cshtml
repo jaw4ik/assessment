@@ -3,71 +3,34 @@
 @using AccountRes
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml"; ;
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>@ViewBag.Title</title>
-    <meta name="viewport" content="width=640,maximum-scale=1.0">
-    @Styles.Render("~/Content/css")
-    @Html.Partial("_mixpanelAnalytics")
-</head>
-<body class="try">
-    <div class="main-container try">
-        <div class="preloader-block">
-            <span class="opensans-semibolditalic">a</span>
-            <span class="opensans-italic">a</span>
-        </div>
-        <header class="page-header try">
-            <div class="content-wrapper try">
-                <a href="#" class="logo">Logo</a>
-            </div>
-        </header>
-        <section id="content" class="content-wrapper try eg-bg-image">
-            <div class="account-nav">
-                <ul class="account-nav-list">
-                    <li class="account-nav-item">
-                        @Html.NavigationLink(Resources.TryNow, "TryWithoutSignup", "Account", "account-link-try-now")
-                    </li>
-                    <li class="account-nav-item">
-                        @if (this.ViewContext.RouteData.GetRequiredString("controller") == "Account" && (this.ViewContext.RouteData.GetRequiredString("action") == "SignUp" || this.ViewContext.RouteData.GetRequiredString("action") == "SignUpSecondStep"))
-                        {
-                            @Html.Label(Resources.SignUp, null, new {@class = "account-link-sign-up active"})
-                        }
-                        else
-                        {
-                            @Html.ActionLink(Resources.SignUp, "SignUp", ViewContext.RouteData.GetRequiredString("controller"), null, new { @class = "account-link-sign-up" })
-                        }
-                    </li>
-                    <li class="account-nav-item">
-                        @Html.NavigationLink(Resources.SignIn, "SignIn", "Account", "account-link-sign-in")
-                    </li>
-                </ul>
-            </div>
-            @RenderBody()
-        </section>
+<section id="content">
+    <div class="account-nav">
+        <ul class="account-nav-list">
+            <li class="account-nav-item">
+                @Html.NavigationLink(Resources.TryNow, "TryWithoutSignup", "Account", "account-link-try-now")
+            </li>
+            <li class="account-nav-item">
+                @if (this.ViewContext.RouteData.GetRequiredString("controller") == "Account" && (this.ViewContext.RouteData.GetRequiredString("action") == "SignUp" || this.ViewContext.RouteData.GetRequiredString("action") == "SignUpSecondStep"))
+                {
+                    @Html.Label(Resources.SignUp, null, new { @class = "account-link-sign-up active" })
+                }
+                else
+                {
+                    @Html.ActionLink(Resources.SignUp, "SignUp", ViewContext.RouteData.GetRequiredString("controller"), null, new { @class = "account-link-sign-up" })
+                }
+            </li>
+            <li class="account-nav-item">
+                @Html.NavigationLink(Resources.SignIn, "SignIn", "Account", "account-link-sign-in")
+            </li>
+        </ul>
     </div>
+    @RenderBody()
+</section>
 
-    <footer class="footer try">
-        <div class="content-wrapper try clearfix">
-            <div class="footer-item pull-left">
-                <span class="selectable cursor-default">@Resources.CopyrightText</span>
-            </div>
-            <div class="footer-item pull-right">
-                <ul class="footer-menu-list">
-                    <li class="footer-menu-item">
-                        @Html.NavigationLink(Resources.TermsOfUse, "TermsOfUse", "Account", "footer-menu-link")
-                    </li>
-                    <li class="footer-menu-item">
-                        @Html.NavigationLink(Resources.PrivacyPolicy, "PrivacyPolicy", "Account", "footer-menu-link")
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </footer>
+@section Scripts
+{
     @Scripts.Render("~/scripts/accounts")
-</body>
-</html>
+}

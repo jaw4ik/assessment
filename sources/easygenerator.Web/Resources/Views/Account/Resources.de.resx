@@ -144,9 +144,6 @@
   <data name="ContainAtLeastOneUpperCaseLetter" xml:space="preserve">
     <value>mindestens einen Großbuchstaben enthalten;</value>
   </data>
-  <data name="CopyrightText" xml:space="preserve">
-    <value>Copyright © 2013 easygenerator. Alle Rechte vorbehalten.</value>
-  </data>
   <data name="CreateAccountTitle" xml:space="preserve">
     <value>Konto erstellen</value>
   </data>
@@ -213,9 +210,6 @@
   <data name="PowerPoint" xml:space="preserve">
     <value>PowerPoint</value>
   </data>
-  <data name="PrivacyPolicy" xml:space="preserve">
-    <value>Datenschutzrichtlinie</value>
-  </data>
   <data name="RequiredInformation" xml:space="preserve">
     <value>- Erforderliche Information</value>
   </data>
@@ -233,9 +227,6 @@
   </data>
   <data name="Skip" xml:space="preserve">
     <value>Überspringen</value>
-  </data>
-  <data name="TermsOfUse" xml:space="preserve">
-    <value>Nutzungsbedingungen</value>
   </data>
   <data name="TryImageDevelopOn" xml:space="preserve">
     <value>Entwickeln in</value>

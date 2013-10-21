@@ -506,10 +506,14 @@ ol.unstyled  {
 /*#region Error pages */
 
 .error-page {
-    margin: 100px auto;
+    margin: auto;
+    padding: 115px;
     min-width: 500px;
     max-width: 1000px;
-    padding: 15px;
+}
+
+.error-page-home-link {
+    margin-top: 20px;
 }
 
 /*#endregion Error pages */
