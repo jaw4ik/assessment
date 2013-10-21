@@ -74,8 +74,9 @@ app.signinViewModel = function () {
             });
         },
 
+        forgotPasswordEnabled = ko.observable(true),
         forgotPassword = function () {
-            if (!username.isValid()) {
+            if (!username.isValid() || !forgotPasswordEnabled()) {
                 return;
             }
 
@@ -85,6 +86,8 @@ app.signinViewModel = function () {
             
             var that = this;
             
+            forgotPasswordEnabled(false);
+
             $.ajax({
                 url: '/api/user/forgotpassword',
                 data: data,
@@ -108,6 +111,9 @@ app.signinViewModel = function () {
             })
             .fail(function (reason) {
                 that.errorMessage(reason);
+            })
+            .always(function () {
+                forgotPasswordEnabled(true);
             });
         };
 
@@ -124,6 +130,8 @@ app.signinViewModel = function () {
 
         canSubmit: canSubmit,
         submit: submit,
+
+        forgotPasswordEnabled: forgotPasswordEnabled,
         forgotPassword: forgotPassword,
         forgotPasswordSent: forgotPasswordSent,
 
