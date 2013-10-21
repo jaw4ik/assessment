@@ -27,6 +27,9 @@
                         </span>
                         <a href="#" class="user-form-password-eye" data-bind="css: { revealed: isPasswordVisible }, click: togglePasswordVisibility"></a>
                     </div>
+                    <div class="forgot-password-wrapper">
+                        <a class="forgot-password-link pull-right" data-bind="css: { 'disabled': !username.isValid() }, click: forgotPassword">@Resources.ForgotPassword</a>
+                    </div>
                 </div>
                 <!-- ko if: hasError -->
                 <div class="user-form-notification warning">
