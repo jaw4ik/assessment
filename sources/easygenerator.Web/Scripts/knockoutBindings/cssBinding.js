@@ -16,9 +16,9 @@
             topNavHeight = $('.top-navigation').height();
 
         if (!$(helpHintText).is(':empty')) {
-            if ($(helpHint).height() > 69) {
+            if ($(helpHint).height() > 72) {
                 helpHintHeight = $(helpHint).height();
-            } else {
+        } else {
                 helpHintHeight = 0;
             }
         }
