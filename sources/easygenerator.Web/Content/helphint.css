@@ -39,6 +39,11 @@
         background: url(../Content/images/sprites.png) -272px -49px;
     }
 
+.help-hint-text strong {
+    font-family: 'OpenSans-Semibold';
+    font-weight: normal;
+}
+
 .help-hint-left {
     float: left;
     width: 57%;
@@ -59,8 +64,8 @@
     line-height: 18px;
     z-index: 120;
     cursor: default;
+    opacity: 0.8;
 }
-
     .help-hint-close:after {
         content: '';
         display: block;
@@ -70,6 +75,10 @@
         right: 0;
         top: 0;
         background: url(../Content/images/sprites.png) -139px -51px no-repeat;
+    }
+
+    .help-hint-close:hover {
+        opacity: 1;
     }
 
 .help-hint-list-item-link {
