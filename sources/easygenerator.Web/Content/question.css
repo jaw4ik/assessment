@@ -26,6 +26,15 @@
     max-width: 100%;
 }
 
+.question .nav-control.flexible .nav-title {
+    padding-left: 0;
+}
+
+.question .nav-control.flexible .nav-title .nav-element {
+    padding-left: 10px;
+    display: inline-block;
+}
+
 .question .nav-title {
     width: 100%;
     padding-right: 0;
