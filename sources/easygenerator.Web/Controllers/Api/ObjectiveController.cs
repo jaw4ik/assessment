@@ -23,9 +23,9 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         public ActionResult GetCollection()
         {
-            var objectives = _repository.GetCollection();
+            var objectives = _repository.GetCollection(obj => obj.CreatedBy == User.Identity.Name);
 
-            var result = objectives.Where(obj => obj.CreatedBy == User.Identity.Name).Select(obj => new
+            var result = objectives.Select(obj => new
             {
                 Id = obj.Id.ToString("N"),
                 Title = obj.Title,

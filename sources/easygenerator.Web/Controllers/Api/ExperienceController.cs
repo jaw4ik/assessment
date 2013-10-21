@@ -72,7 +72,7 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         public ActionResult GetCollection()
         {
-            var experiences = _repository.GetCollection().Where(exp => exp.CreatedBy == User.Identity.Name);
+            var experiences = _repository.GetCollection(exp => exp.CreatedBy == User.Identity.Name);
 
             var result = experiences.Select(exp => new
             {

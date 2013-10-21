@@ -12,5 +12,6 @@ namespace easygenerator.DomainModel.Repositories
         T Get(Guid id);
 
         ICollection<T> GetCollection();
+        ICollection<T> GetCollection(Func<T, bool> predicate);
     }
 }

@@ -24,5 +24,10 @@ namespace easygenerator.DataAccess.Repositories
         {
             return _dataContext.GetSet<T>().ToList();
         }
+
+        public ICollection<T> GetCollection(Func<T, bool> predicate)
+        {
+            return _dataContext.GetSet<T>().Where(predicate).ToList();
+        }
     }
 }
