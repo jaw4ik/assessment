@@ -167,7 +167,7 @@
   </data>
   <data name="ForgotPasswordBody" xml:space="preserve">
     <value>&lt;div&gt;
-	Hello,
+	Guten Tag,
 	&lt;p&gt;Jemand hat vor Kurzem eine Kenntwortrücksetzung auf &lt;a href="{0}"&gt;{0}&lt;/a&gt; beantragt.&lt;/p&gt;
 	&lt;p&gt;
 		Um das Kennwort zurückzusetzen, klicken Sie bitte auf den folgenden Link:&lt;br /&gt;
