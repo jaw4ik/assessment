@@ -306,6 +306,9 @@
     <Content Include="Scripts\account\common.js" />
     <Content Include="Scripts\account\focusHandlerBinding.js" />
     <Content Include="Scripts\account\passwordrecovery.js" />
+    <Content Include="Scripts\account\passwordrecovery.spec.js">
+      <DependentUpon>passwordrecovery.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\account\signin.js" />
     <Content Include="Scripts\account\signin.spec.js">
       <DependentUpon>signin.js</DependentUpon>
