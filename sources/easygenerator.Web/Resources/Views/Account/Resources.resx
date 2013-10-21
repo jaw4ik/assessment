@@ -168,6 +168,28 @@
   <data name="ForgotPassword" xml:space="preserve">
     <value>Forgot your password?</value>
   </data>
+  <data name="ForgotPasswordBody" xml:space="preserve">
+    <value>&lt;div&gt;
+	Hello,
+	&lt;p&gt;Someone recently requested a password reset for your account at &lt;a href="{0}"&gt;{0}&lt;/a&gt;.&lt;/p&gt;
+	&lt;p&gt;
+		To reset the password please click on the link below:&lt;br /&gt;
+		&lt;a href="{1}"&gt;{1}&lt;/a&gt;
+	&lt;/p&gt;
+	&lt;p&gt;
+		If this is a mistake just ignore this e-mail - your password will not be changed. 
+	&lt;/p&gt;
+	&lt;p&gt;
+		Thank you for using easygenerator.com and have a nice day!      
+	&lt;/p&gt;
+	&lt;strong&gt;--&lt;/strong&gt;&lt;br /&gt;
+	&lt;strong&gt;Best regards,&lt;/strong&gt;&lt;br /&gt;
+	&lt;strong&gt;easygenerator team&lt;/strong&gt;
+&lt;/div&gt;</value>
+  </data>
+  <data name="ForgotPasswordSubject" xml:space="preserve">
+    <value>Password reset on {0}</value>
+  </data>
   <data name="FullNameCaption" xml:space="preserve">
     <value>Full name</value>
   </data>

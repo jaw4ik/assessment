@@ -12,26 +12,19 @@ namespace easygenerator.Web.Components
 
     public class UrlHelperWrapper : IUrlHelperWrapper
     {
-        private readonly UrlHelper _urlHelper;
-
         public HttpRequest HttpRequest
         {
             get { return HttpContext.Current.Request; }
         }
 
-        public UrlHelperWrapper()
-        {
-            _urlHelper = new UrlHelper(HttpRequest.RequestContext);
-        }
-
         public string RouteWebsiteUrl()
         {
-            return String.Format("{0}://{1}{2}", HttpRequest.Url.Scheme, HttpRequest.Url.Authority, _urlHelper.Content("~"));
+            return String.Format("{0}://{1}{2}", HttpRequest.Url.Scheme, HttpRequest.Url.Authority, new UrlHelper(HttpRequest.RequestContext).Content("~"));
         }
 
         public string RouteRestorePasswordUrl(string ticketId)
         {
-            return _urlHelper.RouteUrl("PasswordRecovery", new { ticketId = ticketId }, HttpRequest.Url.Scheme);
+            return new UrlHelper(HttpRequest.RequestContext).RouteUrl("PasswordRecovery", new { ticketId = ticketId }, HttpRequest.Url.Scheme);
         }
     }
 }

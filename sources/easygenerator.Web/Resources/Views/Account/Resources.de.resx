@@ -156,6 +156,28 @@
   <data name="Finish" xml:space="preserve">
     <value>Fertig stellen</value>
   </data>
+  <data name="ForgotPasswordBody" xml:space="preserve">
+    <value>&lt;div&gt;
+	Hello,
+	&lt;p&gt;Jemand hat vor Kurzem eine Kenntwortrücksetzung auf &lt;a href="{0}"&gt;{0}&lt;/a&gt; beantragt.&lt;/p&gt;
+	&lt;p&gt;
+		Um das Kennwort zurückzusetzen, klicken Sie bitte auf den folgenden Link:&lt;br /&gt;
+		&lt;a href="{1}"&gt;{1}&lt;/a&gt;
+	&lt;/p&gt;
+	&lt;p&gt;
+		Sollte es sich hierbei um einen Fehler handeln, ignorieren Sie einfach diese E-Mail, Ihr Kennwort wird nicht geändert. 
+	&lt;/p&gt;
+	&lt;p&gt;
+		Vielen Dank, dass Sie easygenerator.com verwenden, und einen guten Tag!
+	&lt;/p&gt;
+	&lt;strong&gt;--&lt;/strong&gt;&lt;br /&gt;
+	&lt;strong&gt;Viele Grüße,&lt;/strong&gt;&lt;br /&gt;
+	&lt;strong&gt;Ihr easygenerator-Team&lt;/strong&gt;
+&lt;/div&gt;</value>
+  </data>
+  <data name="ForgotPasswordSubject" xml:space="preserve">
+    <value>Kennwortrücksetztung auf {0}</value>
+  </data>
   <data name="FullNameCaption" xml:space="preserve">
     <value>Vollständiger Name</value>
   </data>
