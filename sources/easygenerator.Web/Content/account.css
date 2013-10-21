@@ -325,6 +325,7 @@ body.try {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+    cursor: text;
 }
 
 .user-form-input {
@@ -632,7 +633,7 @@ body.try {
 
 .user-form-password-eye {
     position: absolute;
-    top: 18px;
+    top: 26px;
     right: 10px;
     display: block;
     width: 24px;
