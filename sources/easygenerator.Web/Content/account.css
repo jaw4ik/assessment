@@ -852,9 +852,12 @@ body.try {
     cursor: pointer;
 }
 
-.forgot-password-link.disabled {
+.forgot-password-link.disabled,
+.forgot-password-link.disabled:hover,
+.forgot-password-link.disabled:active {
     opacity: .1;
     cursor: default;
+    text-decoration: none;
 }
 
 /*#endregion Login*/
