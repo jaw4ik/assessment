@@ -836,10 +836,12 @@ body.try {
 
 .forgot-password-link:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .forgot-password-link.disabled {
     opacity: .1;
+    cursor: default;
 }
 
 /*#endregion Login*/
