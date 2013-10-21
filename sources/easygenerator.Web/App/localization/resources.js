@@ -1217,6 +1217,9 @@
     },
     /* End resource section for model Forgot password */
     
+    /* Resource section for model ForgotPasswordBody */
+    /* End resource section for model ForgotPasswordBody */
+    
     /* Resource section for model Help hints */
     experiencesHelpHintTitle: {
         en: 'What is a learning experience?',
