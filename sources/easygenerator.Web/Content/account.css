@@ -331,6 +331,14 @@ body.try {
     cursor: text;
 }
 
+    .user-form-input-wrapper:hover,
+    .user-form-input-wrapper.hover {
+        outline: none;
+        -webkit-box-shadow: 0 0 3px #dedede;
+        -moz-box-shadow: 0 0 3px #dedede;
+        box-shadow: 0 0 3px #dedede;
+    }
+
 .user-form-input {
     display: block;
     position: relative;
@@ -602,9 +610,9 @@ body.try {
     z-index: 1;
 }
 
-.user-form-tooltip.visible {
-    display: block;
-}
+    .user-form-tooltip.visible {
+        display: block;
+    }
 
     .user-form-tooltip:after {
         content: '';
@@ -1226,9 +1234,9 @@ body.try {
     font-size: 18px;
 }
 
-.password-recovery .user-message-text.error {
-    color: #b94a48;
-}
+    .password-recovery .user-message-text.error {
+        color: #b94a48;
+    }
 
 /*#endregion recovery password */
 

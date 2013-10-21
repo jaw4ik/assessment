@@ -23,6 +23,10 @@
             }
         });
 
+        $(elem).hover(function () {
+            $(this).parent().find(wrapper).toggleClass('hover');
+        });
+
         $(elem).focusin(function () {
             $(this).parent().find(wrapper).addClass('focus');
         });
