@@ -581,6 +581,7 @@ body.try {
 /*#region Form Tooltip*/
 
 .user-form-tooltip {
+    display: none;
     position: absolute;
     top: 9px;
     right: 100%;
@@ -599,6 +600,10 @@ body.try {
     -moz-box-shadow: -1px 0 1px rgba(207,207,207,0.3);
     box-shadow: -1px 0 1px rgba(207,207,207,0.3);
     z-index: 1;
+}
+
+.user-form-tooltip.visible {
+    display: block;
 }
 
     .user-form-tooltip:after {
