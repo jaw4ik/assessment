@@ -16,6 +16,7 @@ Given answer options related to 'Question11' of 'Objective1' are present in data
 | AnswerOption11 | true      |
 | AnswerOption12 | false     |
 | AnswerOption13 | true      |
+When open page by url 'http://localhost:5656/signout'
 When open page by url 'http://localhost:5656/signin'
 And sign in as 'test' user on sign in page
 Then browser navigates to url 'http://localhost:5656/'

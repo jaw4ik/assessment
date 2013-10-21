@@ -10,6 +10,7 @@ Given publications are present in database
 | Experience1 | 00000000000000000000000000000001  |
 | Experience2 | 00000000000000000000000000000002  |
 | Experience3 | 00000000000000000000000000000003  |
+When open page by url 'http://localhost:5656/signout'
 When open page by url 'http://localhost:5656/signin'
 And sign in as 'test' user on sign in page
 Then browser navigates to url 'http://localhost:5656/'

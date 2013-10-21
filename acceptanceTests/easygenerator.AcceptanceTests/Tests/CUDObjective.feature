@@ -7,6 +7,7 @@ Feature: CUDObjective
 
 Background:
 Given clear data context
+When open page by url 'http://localhost:5656/signout'
 When open page by url 'http://localhost:5656/signin'
 And sign in as 'test' user on sign in page
 Then browser navigates to url 'http://localhost:5656/'
@@ -123,6 +124,7 @@ Scenario: It is possible to edit objective title on objective page
 Given objectives are present in database
 | Title      | Id |
 | Objective1 | 00000000000000000000000000000001  |
+When open page by url 'http://localhost:5656/#objectives'
 When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001'
 And edit objective title with new text 'Objective2' on objective page
 And click on back to objectives list link
@@ -134,6 +136,7 @@ Scenario: Not possible to make existing objective title empty
 Given objectives are present in database
 | Title      | Id |
 | Objective1 | 00000000000000000000000000000001  |
+When open page by url 'http://localhost:5656/#objectives'
 When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001'
 And clear header title text field on objective page
 Then title text block marked with error on objective page

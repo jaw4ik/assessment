@@ -37,6 +37,7 @@ Given explanations related to 'Question12' of 'Objective1' are present in databa
 | Explanation21 |
 | Explanation22 |
 | Explanation23 |
+When open page by url 'http://localhost:5656/signout'
 When open page by url 'http://localhost:5656/signin'
 And sign in as 'test' user on sign in page
 Then browser navigates to url 'http://localhost:5656/'

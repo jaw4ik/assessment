@@ -9,6 +9,7 @@ Feature: CUDExperience
 
 Background:
 Given clear data context
+When open page by url 'http://localhost:5656/signout'
 When open page by url 'http://localhost:5656/signin'
 And sign in as 'test' user on sign in page
 Then browser navigates to url 'http://localhost:5656/'
@@ -141,6 +142,7 @@ Scenario: It is possible to edit experience title on experience page
 Given publications are present in database
 | Title       | Id |
 | Experience1 | 00000000000000000000000000000001  |
+When open page by url 'http://localhost:5656/#experiences'
 When open page by url 'http://localhost:5656/#experience/00000000000000000000000000000001'
 And edit experience title with new text 'Experience2' on experience page
 And click on experience header title text on experience page
@@ -154,6 +156,7 @@ Scenario: Not possible to make existing experience title empty
 Given publications are present in database
 | Title       | Id |
 | Experience1 | 00000000000000000000000000000001  |
+When open page by url 'http://localhost:5656/#experiences'
 When open page by url 'http://localhost:5656/#experience/00000000000000000000000000000001'
 And clear header title text field on experience page
 Then title text block marked with error on experience page

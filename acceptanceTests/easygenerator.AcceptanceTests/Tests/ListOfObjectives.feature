@@ -4,6 +4,7 @@ Feature: ListOfObjectives
 
 Background: 
 Given clear data context
+When open page by url 'http://localhost:5656/signout'
 When open page by url 'http://localhost:5656/signin'
 And sign in as 'test' user on sign in page
 Then browser navigates to url 'http://localhost:5656/'
