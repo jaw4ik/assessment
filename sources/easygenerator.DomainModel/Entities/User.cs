@@ -58,6 +58,10 @@ namespace easygenerator.DomainModel.Entities
 
         public virtual void AddPasswordRecoveryTicket(PasswordRecoveryTicket ticket)
         {
+            foreach (var passwordRecoveryTicket in PasswordRecoveryTicketCollection)
+            {
+                passwordRecoveryTicket.User = null;
+            }
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket> { ticket };
             ticket.User = this;
         }

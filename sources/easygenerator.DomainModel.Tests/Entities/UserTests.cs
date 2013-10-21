@@ -207,6 +207,19 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
+        public void AddPasswordRecoveryTicket_ShouldUnsetUserFromPreviousTickets()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+            ticket.User = user;
+            user.PasswordRecoveryTicketCollection.Add(ticket);
+
+            user.AddPasswordRecoveryTicket(PasswordRecoveryTicketObjectMother.Create());
+
+            ticket.User.Should().BeNull();
+        }
+
+        [TestMethod]
         public void AddPasswordRecoveryTicket_ShouldSetUserToPasswordRecoveryTicket()
         {
             var user = UserObjectMother.Create();
