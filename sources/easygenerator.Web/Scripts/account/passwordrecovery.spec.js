@@ -118,6 +118,19 @@
                 });
 
             });
+
+            describe('when password is not valid', function () {
+
+                it('should return false', function () {
+                    viewModel.password('Eas3');
+
+                    var result = viewModel.canSubmit();
+
+                    expect(result).toBeFalsy();
+                });
+
+            });
+
         });
         
     });
