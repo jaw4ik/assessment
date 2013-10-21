@@ -1013,8 +1013,8 @@
     },
     objectivesNotFoundError: {
         en: 'Learning objectives were not found. Please refresh your data.',
-        nl: 'Learning objectives were not found. Please refresh your data.[nl]',
-        de: 'Learning objectives were not found. Please refresh your data.[de]'
+        nl: 'De leerdoelen zijn niet gevonden. Vernieuw uw gegevens',
+        de: 'Die Lernziele wurden nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
     },
     answerNotFoundError: {
         en: 'Answer option was not found. Please refresh your data.',
@@ -1038,8 +1038,8 @@
     },
     responseFailed: {
         en: 'Response is failed.',
-        nl: 'Response is failed.[nl]',
-        de: 'Response is failed.[de]'
+        nl: 'Respons mislukt',
+        de: 'Antwort fehlgeschlagen'
     },
     /* End resource section for model Server error notification */
     
@@ -1179,51 +1179,129 @@
     },
     /* End resource section for model Sign-UP optional fields */
     
+    /* Resource section for model Forgot password */
+    passwordRecovery: {
+        en: 'Password recovery',
+        nl: 'Wachtwoordherstel',
+        de: 'Kennwortwiederherstellung'
+    },
+    RequestError: {
+        en: 'An error was encountered while processing your request:',
+        nl: 'Er is een fout opgetreden bij de verwerking van uw verzoek:',
+        de: 'Bei der Bearbeitung Ihrer Anfrage ist ein Fehler aufgetreten:'
+    },
+    CouldNotVerifyPasswordRecovery: {
+        en: 'Sorry! We could not verify that this user requested a password reset. Please, initiate resetting procedure again.',
+        nl: 'Helaas. We kunnen niet verifiëren dat deze gebruiker heeft verzocht om het wachtwoord opnieuw in te stellen. Start de herstelprocedure opnieuw.',
+        de: 'Wir konnten leider nicht verifizieren, ob dieser Benutzer eine Kenntwortrücksetzung angefordert hat. Bitte starten Sie die Rücksetzungsprozedur erneut.'
+    },
+    RestorePasswordCaption: {
+        en: 'Enter your new password',
+        nl: 'Voer uw nieuwe wachtwoord in',
+        de: 'Neues Kennwort eingeben'
+    },
+    Continue: {
+        en: 'Continue',
+        nl: 'Doorgaan',
+        de: 'Weiter'
+    },
+    ForgotPassword: {
+        en: 'Forgot your password?',
+        nl: 'Wachtwoord vergeten?',
+        de: 'Haben Sie Ihr Kennwort vergessen?'
+    },
+    ForgotPasswordSent: {
+        en: 'We\'ve sent you an e-mail with instructions on how to reset your password.',
+        nl: 'We hebben een e-mail verzonden met instructies voor het opnieuw instellen van uw wachtwoord.',
+        de: 'Wir haben Ihnen eine E-Mail mit Anleitungen zum Rücksetzen Ihres Kenntworts gesendet.'
+    },
+    /* End resource section for model Forgot password */
+    
     /* Resource section for model Help hints */
+    experiencesHelpHintTitle: {
+        en: 'What is a learning experience?',
+        nl: 'Wat is een leerervaring?',
+        de: 'Was ist eine Lernerfahrung?'
+    },
     experiencesHelpHint: {
-        en: '<p>Learning experience is a kind of \"wrapping\" around the knowledge nuggets. It helps learners interact with the course in the most efficient and convenient way.</p>',
-        nl: '<p>Learning experience is a kind of \"wrapping\" around the knowledge nuggets. It helps learners interact with the course in the most efficient and convenient way.</p>[nl]',
-        de: '<p>Learning experience is a kind of \"wrapping\" around the knowledge nuggets. It helps learners interact with the course in the most efficient and convenient way.</p>[de]'
+        en: '<p>A <strong>learning experience</strong> is the name we gave to the eLearning you will be creating. It can be a course, a Learning nugget, a quiz. In fact it can be anything that will give the learner a learning experience.</p><p> A learning experience consist out of one or more learning objectives, with connected questions and learning content.</p>',
+        nl: '<p>Een leerervaring is de naam die we hebben gegeven aan de eLearning die u gaat maken. Het kan een cursus zijn, of een \'korte uitleg, of\' een toets. Het kan eigenlijk alles zijn dat de lerende een leerervaring geeft. </p><p>Een leerervaring bestaat uit een of meer leerdoelen met gerelateerde vragen en leerinhoud.</p>',
+        de: '<p>Eine Lernerfahrung ist der Name, den wir dem eLearning gegeben haben, das Sie erstellen werden. Es kann sich um einen Kurs, eine kurze Erklärung oder einen Quiz handeln. Eigentlich kann es sich um alles handeln, was dem Lerner eine Lernerfahrung vermittelt.</p><p>Eine Lernerfahrung besteht aus einem oder mehreren Lernzielen mit den dazugehörigen Fragen und Lerninhalten.</p>'
+    },
+    experienceHelpHintTitle: {
+        en: 'Why do I need to connect learning objectives?',
+        nl: 'Waarom moet ik leerdoelen koppelen?',
+        de: 'Warum muss ich Lernziele miteinander verbinden?'
     },
     experienceHelpHint: {
-        en: '<p>One should build learning process around Learning Objectives to make it effective. That is why the first step of creating Learning Experience is to set (or to create) Learning Objectives.</p>',
-        nl: '<p>One should build learning process around Learning Objectives to make it effective. That is why the first step of creating Learning Experience is to set (or to create) Learning Objectives.</p>[nl]',
-        de: '<p>One should build learning process around Learning Objectives to make it effective. That is why the first step of creating Learning Experience is to set (or to create) Learning Objectives.</p>[de]'
+        en: '<p>When you want to create instructional sound eLearning you should start with defining the <strong>Learning Objectives</strong>. This goes for the design process, but learning objectives are also the starting point for the learner.</p>',
+        nl: '<p>Als je eLearning wilt maken op basis van didactische principes moet je beginnen met het definiëren van leerdoelen. Dit geldt voor het ontwerp proces. Maar de leerdoelen zijn ook het startpunt voor de lerende.</p>',
+        de: '<p>Wenn Sie didaktisch sinnvolles eLearning erstellen möchten, sollten mit dem Festlegen der Lernziele beginnen. Dies gilt für den Entwicklungsprozess, die Lernziele sind jedoch auch der Ausgangspunkt für den Lerner.</p>'
+    },
+    createExperienceHelpHintTitle: {
+        en: 'What is a learning experience template?',
+        nl: 'Wat is een leerervaringssjabloon?',
+        de: 'Was ist eine Lernerfahrungsvorlage?'
     },
     createExperienceHelpHint: {
-        en: '<p>Template is used to quickly define or change the appearance of a course.</p><p>It determines the layout and interactions between learner and learning experience.</p><p>Click \"Create and Edit\" if you want to edit learning experience objective right after creating.</p><p>Click \"Create and New\" If you would like to create several learning objectives in a row.</p>',
-        nl: '<p>Template is used to quickly define or change the appearance of a course.</p><p>It determines the layout and interactions between learner and learning experience.</p><p>Click \"Create and Edit\" if you want to edit learning experience objective right after creating.</p><p>Click \"Create and New\" If you would like to create several learning objectives in a row.</p>[nl]',
-        de: '<p>Template is used to quickly define or change the appearance of a course.</p><p>It determines the layout and interactions between learner and learning experience.</p><p>Click \"Create and Edit\" if you want to edit learning experience objective right after creating.</p><p>Click \"Create and New\" If you would like to create several learning objectives in a row.</p>[de]'
+        en: '<p>A <strong>template</strong> defines the selection and the presentation of the learning content of a learning experience.</p><p>For now you can choose between a learning presentation of the content (freestyle learning) and an assessment (quiz).</p>',
+        nl: '<p>Een template definieert de selectie en de presentatie van de inhoud van een leerervaring.</p><p>U kunt op dit moment kiezen tussen een leer presentatie van de inhoud (vrije stijl leren) of een toets.</p>',
+        de: '<p>Eine Vorlage definiert die Auswahl und die Präsentation des Lerninhalts einer Lernerfahrung.</p><p>Derzeit können Sie zwischen einer Lernpräsentation des Inhalts (Freistil-Lernen) und einer Leistungsmessung (Quiz) wählen.</p>'
+    },
+    objectiveHelpHintTitle: {
+        en: 'What is  a related question?',
+        nl: 'Wat is een gerelateerde vraag?',
+        de: 'Was ist eine zugehörige Frage?'
     },
     objectiveHelpHint: {
-        en: '<p>Related question is a question that relates to a certain learning objective. When a learner answers the related question she contributes to achieving this specific objective.</p>',
-        nl: '<p>Related question is a question that relates to a certain learning objective. When a learner answers the related question she contributes to achieving this specific objective.</p>[nl]',
-        de: '<p>Related question is a question that relates to a certain learning objective. When a learner answers the related question she contributes to achieving this specific objective.</p>[de]'
+        en: '<p>A <strong>related question</strong> is a question that measures the learners skills or knowledge for a specific learning objective. When answered correct progress is made on the objective.</p>',
+        nl: '<p>Een gerelateerde vraag is een vraag die de kennis of vaardigheden van een lerende meet voor een specifiek leerdoel. Als de vraag correct beantwoord wordt, wordt voortgang op het leerdoel bereikt.</p>',
+        de: '<p>Eine zugehörige Frage ist eine Frage, mit der die Fähigkeiten und Kenntnisse des Lerners zu einem bestimmten Lernziel gemessen werden.</p><p> Wenn sie richtig beantwortet wird, werden Fortschritte in Richtung auf das Ziel gemacht.</p>'
+    },
+    objectivesHelpHintTitle: {
+        en: 'What is a learning objective?',
+        nl: 'Wat is een leerdoel?',
+        de: 'Was ist ein Lernziel?'
     },
     objectivesHelpHint: {
-        en: '<p>Learning objective describes new knowledge and skills which a learner will gain by the end of a course. Learning objectives should guide learner\'s performance. High-quality learning objectives should be neither too abstract (\"the learners will understand what the Universe is\"); nor too narrow (\"the learners will know what a prime number is\"). Also, they should not be restricted to lower-level cognitive skills (\"the learners will be able to name the countries in Africa.\")</p><p>Good learning objective should sound like \"Be able to recognize foreshadowing in various works of literature.\"</p>',
-        nl: '<p>Learning objective describes new knowledge and skills which a learner will gain by the end of a course. Learning objectives should guide learner\'s performance. High-quality learning objectives should be neither too abstract (\"the learners will understand what the Universe is\"); nor too narrow (\"the learners will know what a prime number is\"). Also, they should not be restricted to lower-level cognitive skills (\"the learners will be able to name the countries in Africa.\")</p><p>Good learning objective should sound like \"Be able to recognize foreshadowing in various works of literature.\"</p>[nl]',
-        de: '<p>Learning objective describes new knowledge and skills which a learner will gain by the end of a course. Learning objectives should guide learner\'s performance. High-quality learning objectives should be neither too abstract (\"the learners will understand what the Universe is\"); nor too narrow (\"the learners will know what a prime number is\"). Also, they should not be restricted to lower-level cognitive skills (\"the learners will be able to name the countries in Africa.\")</p><p>Good learning objective should sound like \"Be able to recognize foreshadowing in various works of literature.\"</p>[de]'
+        en: '<p>A <strong>Learning objective</strong> is a statement that describes the specific skills or knowledge a learning will be able to demonstrate as a result of completing a learning experience.</p><p>See http://teachonline.asu.edu/objectives-builder/ for instructions and support for building proper objectives based on Blooms taxonomy.</p>',
+        nl: '<p>Een Leerdoel is een stelling die specifieke vaardigheden of kennis beschrijft die de lerende kan demonstreren als een resultaat van het voltooien van een leerervaring.</p><p>Ga naar http://teachonline.asu.edu/objectives-builder/ voor instructies en uitleg over hoe goede leerdoelen te definiëren gebaseerd op Blooms taxonomy.</p>',
+        de: '<p>Ein Lernziel ist eine Aussage, die die spezifischen Fähigkeiten oder Kenntnisse beschreibt, die ein Lerner als Ergebnis einer Lernerfahrung vorweisen kann.</p><p>Anleitungen und Unterstützung für das Aufbauen geeigneter Ziele auf Basis von Blooms Taxonomie finden Sie unter http://teachonline.asu.edu/objectives-builder/.</p>'
+    },
+    createObjectiveHelpHintTitle: {
+        en: 'How to formulate a correct learning objective?',
+        nl: 'Hoe formuleert u een correcte leerervaring?',
+        de: 'Wie wird ein korrektes Lernobjekt formuliert?'
     },
     createObjectiveHelpHint: {
-        en: '<p>A learning objective describes new knowledge and skills which a learner will gain by the end of a course. Learning objectives should guide learner\'s performance. High-quality learning objectives should not be neither too abstract (\"the learners will understand what the Universe is\"); nor too narrow (\"the learners will know what a prime number is\"). Also, they should not be restricted to lower-level cognitive skills (\"the learners will be able to name the countries in Africa.\").</p><p>Good learning objective should sound like \"Be able to recognize foreshadowing in various works of literature.\"</p><p>Click \"Create and Edit\" if you want to edit learning experience objective right after creating.</p><p>Click \"Create and New\" If you would like to create several learning objectives in a row.</p>',
-        nl: '<p>A learning objective describes new knowledge and skills which a learner will gain by the end of a course. Learning objectives should guide learner\'s performance. High-quality learning objectives should not be neither too abstract (\"the learners will understand what the Universe is\"); nor too narrow (\"the learners will know what a prime number is\"). Also, they should not be restricted to lower-level cognitive skills (\"the learners will be able to name the countries in Africa.\").</p><p>Good learning objective should sound like \"Be able to recognize foreshadowing in various works of literature.\"</p><p>Click \"Create and Edit\" if you want to edit learning experience objective right after creating.</p><p>Click \"Create and New\" If you would like to create several learning objectives in a row.</p>[nl]',
-        de: '<p>A learning objective describes new knowledge and skills which a learner will gain by the end of a course. Learning objectives should guide learner\'s performance. High-quality learning objectives should not be neither too abstract (\"the learners will understand what the Universe is\"); nor too narrow (\"the learners will know what a prime number is\"). Also, they should not be restricted to lower-level cognitive skills (\"the learners will be able to name the countries in Africa.\").</p><p>Good learning objective should sound like \"Be able to recognize foreshadowing in various works of literature.\"</p><p>Click \"Create and Edit\" if you want to edit learning experience objective right after creating.</p><p>Click \"Create and New\" If you would like to create several learning objectives in a row.</p>[de]'
+        en: '<p>A <strong>Learning objective</strong> is a statement that describes the specific skills or knowledge a learning will be able to demonstrate as a result of completing a learning experience.</p><p>See http://teachonline.asu.edu/objectives-builder/ for instructions and support for building proper objectives based on Blooms taxonomy.</p>',
+        nl: '<p>Een Leerdoel is een stelling die specifieke vaardigheden of kennis beschrijft die de lerende kan demonstreren als een resultaat van het voltooien van een leerervaring.</p><p>Ga naar http://teachonline.asu.edu/objectives-builder/ voor instructies en uitleg over hoe goede leerdoelen te definiëren gebaseerd op Blooms taxonomy.</p>',
+        de: '<p>Ein Lernziel ist eine Aussage, die die spezifischen Fähigkeiten oder Kenntnisse beschreibt, die ein Lerner als Ergebnis einer Lernerfahrung vorweisen kann.</p><p>Anleitungen und Unterstützung für das Aufbauen geeigneter Ziele auf Basis von Blooms Taxonomie finden Sie unter http://teachonline.asu.edu/objectives-builder/.</p>'
+    },
+    questionHelpHintTitle: {
+        en: 'What are answer options? What are learning objects?',
+        nl: 'Wat zijn antwoordopties? Wat zijn leerobjecten?',
+        de: 'Was sind Antwortoptionen? Was sind Lernobjekte?'
     },
     questionHelpHint: {
-        en: '<p>Answer option is one of the possible answers to a question.</p><p>Answer option can be marked either correct or incorrect.</p><p>To achieve learning objectives learner should choose correct answers and avoid choosing incorrect answers.</p><p>A learning object is the smallest atomic piece of knowledge in the form of a short text, image, graphics, video or a training interaction, which a learner is supposed to look through in order to gain understanding of a correct answer to any specific question or to get skills needed for an efficient performance.</p>',
-        nl: '<p>Answer option is one of the possible answers to a question.</p><p>Answer option can be marked either correct or incorrect.</p><p>To achieve learning objectives learner should choose correct answers and avoid choosing incorrect answers.</p><p>A learning object is the smallest atomic piece of knowledge in the form of a short text, image, graphics, video or a training interaction, which a learner is supposed to look through in order to gain understanding of a correct answer to any specific question or to get skills needed for an efficient performance.</p>[nl]',
-        de: '<p>Answer option is one of the possible answers to a question.</p><p>Answer option can be marked either correct or incorrect.</p><p>To achieve learning objectives learner should choose correct answers and avoid choosing incorrect answers.</p><p>A learning object is the smallest atomic piece of knowledge in the form of a short text, image, graphics, video or a training interaction, which a learner is supposed to look through in order to gain understanding of a correct answer to any specific question or to get skills needed for an efficient performance.</p>[de]'
+        en: '<p></strong>Answer options</strong> are the options presented to the learner for answering the question. They can be correct or incorrect.</p></p>Learning object is the information presented to the learner to assist him in answering a specific question. It can consist out of text, video or images.</p>',
+        nl: '<p>Een antwoordoptie zijn die opties die aan de lerende gepresenteerd worden om antwoord op een vraag te geven. Ze kunnen juist of onjuist zijn.</p><p>Leerobject is de informatie die aan de lerende wordt gepresenteerd om hem te helpen een specifieke vraag correct te beantwoorden. Leerinhoud kan bestaan uit tekst, video of afbeeldingen.</p>',
+        de: '<p>Antwortoptionen sind die Optionen, die dem Lerner zur Beantwortung der Frage präsentiert werden. Sie können richtig oder falsch sein.</p><p>Lernobjekt ist die Information, die dem Lerner präsentiert wird, um ihm bei der Beantwortung einer bestimmten Frage zu helfen. Es kann sich dabei um einen Text, ein Video oder einen Film handeln.</p>'
+    },
+    createQuestionHelpHintTitle: {
+        en: 'What is the difference between \"Create and Edit\" and \"Create and New\"?',
+        nl: 'Wat is het verschil tussen \"Maken en bewerken\" en \"Maken en nieuw\"?',
+        de: 'Was ist der Unterschied zwischen \"Erstellen und bearbeiten\" und \"Erstellen und Neu\"?'
     },
     createQuestionHelpHint: {
-        en: '<p>Click \"Create and Edit\" if you want to edit learning experience objective right after creating.</p><p>Click \"Create and New\" if you would like to create several learning objectives in a row.</p>',
-        nl: '<p>Click \"Create and Edit\" if you want to edit learning experience objective right after creating.</p><p>Click \"Create and New\" if you would like to create several learning objectives in a row.</p>[nl]',
-        de: '<p>Click \"Create and Edit\" if you want to edit learning experience objective right after creating.</p><p>Click \"Create and New\" if you would like to create several learning objectives in a row.</p>[de]'
+        en: '<p>Click <strong>\"Create and edit\"</strong> if you want to edit the objective right after creating it.</p><p>Click <strong>\"Create and new\"</strong> If you would like to create several learning objectives in a row.</p>',
+        nl: '<p>Klik op \'Maken en bewerken\' als je het leerdoel meteen wilt bewerken na het aanmaken.</p><p>Klik op \'Maken en nieuw\' als je een serie leerdoelen wilt aanmaken.</p>',
+        de: '</p>Klicken Sie auf \"Erstellen und bearbeiten\", wenn Sie das Ziel sofort nach dem Erstellen bearbeiten möchten.</p><p>Klicken Sie auf \"Erstellen und neu\", wenn Sie mehrere Lernziele in einer Serie erstellen möchten.</p>'
     },
     helpCloseButton: {
         en: 'Hide',
-        nl: 'Hide[nl]',
-        de: 'Hide[de]'
+        nl: 'Verbergen',
+        de: 'Ausblenden'
     }
     /* End resource section for model Help hints */
            

@@ -33,7 +33,7 @@
                 }
                 return '';
             }),
-            
+
             getModuleIdFromRouterActiveInstruction = function () {
                 var activeInstruction = router.activeInstruction();
                 if (_.isObject(activeInstruction)) {
@@ -42,10 +42,10 @@
                 }
                 return '';
             },
-            
+
             helpHint = ko.observable(undefined),
 
-            helpHintText = ko.computed(function() {
+            helpHintText = ko.computed(function () {
                 if (helpHint() == undefined) {
                     return '';
                 }
@@ -53,21 +53,29 @@
                 return localizationManager.localize(helpHint().localizationKey);
             }),
 
+            helpHintTitle = ko.computed(function () {
+                if (helpHint() == undefined) {
+                    return '';
+                }
+
+                return localizationManager.localize(helpHint().localizationKey + 'Title');
+            }),
+
             hideHelpHint = function () {
                 if (helpHint() == undefined) {
                     return;
                 }
-                
+
                 helpHintRepository.removeHint(helpHint().id).then(function () {
                     helpHint(undefined);
                 });
             },
-            
-            showHelpHint = function() {
+
+            showHelpHint = function () {
                 if (helpHint() != undefined) {
                     return;
                 }
-               
+
                 helpHintRepository.addHint(activeModule()).then(function (hint) {
                     helpHint(hint);
                 });
@@ -155,14 +163,14 @@
                         router.on('router:navigation:composition-complete').then(function () {
                             isViewReady(true);
                             $("[data-autofocus='true']").focus();
-                            
+
                             var $scrollElement = $('.scrollToElement');
                             if ($scrollElement.length != 0) {
                                 var targetTop = $scrollElement.offset().top;
                                 /*190px header size, 250px header and title and button "Add"*/
                                 if (targetTop >= 250) {
                                     $('html, body').animate({
-                                        scrollTop: targetTop - 190 
+                                        scrollTop: targetTop - 190
                                     });
                                 }
                                 $scrollElement.removeClass('scrollToElement');
@@ -171,7 +179,7 @@
                             }
 
                             helpHintRepository.getCollection().then(function (helpHints) {
-                                var activeHint = _.find(helpHints, function(item) {
+                                var activeHint = _.find(helpHints, function (item) {
                                     return item.name === activeModule();
                                 });
                                 helpHint(activeHint);
@@ -202,9 +210,9 @@
                                 },
                                 title: 'materialDevelopment',
                                 isActive: ko.computed(function () {
-                                    return  _.contains(objectivesModules, that.activeModuleName()) || router.isNavigating();
+                                    return _.contains(objectivesModules, that.activeModuleName()) || router.isNavigating();
                                 }),
-                                isEditor: ko.computed(function() {
+                                isEditor: ko.computed(function () {
                                     return _.contains(_.without(objectivesModules, 'objectives'), that.activeModuleName());
                                 }),
                                 isPartOfModules: ko.observable(false)
@@ -235,12 +243,13 @@
             showNavigation: showNavigation,
             navigation: navigation,
             isTryMode: isTryMode,
-            
+
             userEmail: userEmail,
             helpHint: helpHint,
             helpHintText: helpHintText,
             hideHelpHint: hideHelpHint,
-            showHelpHint: showHelpHint
+            showHelpHint: showHelpHint,
+            helpHintTitle: helpHintTitle
         };
     }
 );
