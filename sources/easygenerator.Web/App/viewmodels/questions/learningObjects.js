@@ -21,9 +21,12 @@
 
             removeLearningObject = function (learningObject) {
                 eventTracker.publish(events.deleteLearningObject);
-                learningObjects.remove(learningObject);
-                repository.removeLearningObject(questionId, ko.unwrap(learningObject.id)).then(function (response) {
-                    showNotification(response.modifiedOn);
+
+                performActionWhenLearningObjectIdIsSet(learningObject, function () {
+                    learningObjects.remove(learningObject);
+                    repository.removeLearningObject(questionId, ko.unwrap(learningObject.id)).then(function (response) {
+                        showNotification(response.modifiedOn);
+                    });
                 });
             },
 
@@ -92,6 +95,20 @@
                 originalText: learningObject.text,
                 hasFocus: ko.observable(learningObject.hasFocus || false)
             });
+        }
+
+
+        function performActionWhenLearningObjectIdIsSet(learningObject, action) {
+            if (_.isEmptyOrWhitespace(ko.unwrap(learningObject.id))) {
+                var subscription = learningObject.id.subscribe(function () {
+                    if (!_.isEmptyOrWhitespace(ko.unwrap(learningObject.id))) {
+                        action();
+                        subscription.dispose();
+                    }
+                });
+            } else {
+                action();
+            }
         }
 
         function showNotification(date) {

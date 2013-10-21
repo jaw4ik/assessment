@@ -131,12 +131,12 @@
                     expect(repository.removeAnswer).not.toHaveBeenCalled();
                 });
 
-                it('should remove answer from the viewModel', function () {
+                it('should not remove answer from the viewModel', function () {
                     viewModel.answers([answerWithoutId]);
 
                     viewModel.removeAnswer(answerWithoutId);
 
-                    expect(viewModel.answers().length).toEqual(0);
+                    expect(viewModel.answers().length).toEqual(1);
                 });
 
                 it('should not show notification', function () {

@@ -65,8 +65,11 @@
             });
 
             var removeLearningObject;
+            var learningObject;
 
             beforeEach(function () {
+                learningObject = { id: ko.observable(''), text: ko.observable('') };
+
                 removeLearningObject = Q.defer();
                 spyOn(repository, 'removeLearningObject').andReturn(removeLearningObject.promise);
             });
@@ -76,40 +79,120 @@
             });
 
             it('should send event \'Delete learning object\'', function () {
-                viewModel.removeLearningObject({});
+                viewModel.removeLearningObject(learningObject);
                 expect(eventTracker.publish).toHaveBeenCalledWith('Delete learning object');
             });
 
-            it('should remove learning object from the repository', function () {
-                var learningObject = { id: ko.observable('learningObjectId'), text: ko.observable('') };
-                viewModel.learningObjects([learningObject]);
-                viewModel.removeLearningObject(learningObject);
-
-                expect(repository.removeLearningObject).toHaveBeenCalledWith(questionId, learningObject.id());
-            });
-
-            it('should remove learning object from the viewModel', function () {
-                var learningObject = {};
-                viewModel.learningObjects([learningObject]);
-
-                viewModel.removeLearningObject(learningObject);
-
-                expect(viewModel.learningObjects().length).toEqual(0);
-            });
-
-            it('should show notification', function () {
-                var promise = removeLearningObject.promise.fin(function () { });
-                var learningObject = {};
-                viewModel.learningObjects([learningObject]);
-                removeLearningObject.resolve({ modifiedOn: new Date() });
-
-                viewModel.removeLearningObject(learningObject);
-
-                waitsFor(function () {
-                    return !promise.isPending();
+            describe('when learning object id is set', function () {
+                beforeEach(function() {
+                    learningObject.id('id');
                 });
-                runs(function () {
-                    expect(notify.info).toHaveBeenCalled();
+                
+                it('should remove learning object from the repository', function () {
+
+                    viewModel.learningObjects([learningObject]);
+                    viewModel.removeLearningObject(learningObject);
+
+                    expect(repository.removeLearningObject).toHaveBeenCalledWith(questionId, learningObject.id());
+                });
+
+                it('should remove learning object from the viewModel', function () {
+                    viewModel.learningObjects([learningObject]);
+
+                    viewModel.removeLearningObject(learningObject);
+
+                    expect(viewModel.learningObjects().length).toEqual(0);
+                });
+
+                it('should show notification', function () {
+                    var promise = removeLearningObject.promise.fin(function () { });
+                    viewModel.learningObjects([learningObject]);
+                    removeLearningObject.resolve({ modifiedOn: new Date() });
+
+                    viewModel.removeLearningObject(learningObject);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(notify.info).toHaveBeenCalled();
+                    });
+                });
+                
+            });
+
+            describe('when learning object id is not set initially', function() {
+                beforeEach(function () {
+                    learningObject.id('');
+                });
+                
+                it('should not remove learning object from the repository', function () {
+
+                    viewModel.learningObjects([learningObject]);
+                    viewModel.removeLearningObject(learningObject);
+
+                    expect(repository.removeLearningObject).not.toHaveBeenCalledWith(questionId, learningObject.id());
+                });
+
+                it('should not remove learning object from the viewModel', function () {
+                    viewModel.learningObjects([learningObject]);
+
+                    viewModel.removeLearningObject(learningObject);
+
+                    expect(viewModel.learningObjects().length).toEqual(1);
+                });
+
+                it('should not show notification', function () {
+                    var promise = removeLearningObject.promise.fin(function () { });
+                    viewModel.learningObjects([learningObject]);
+                    removeLearningObject.resolve({ modifiedOn: new Date() });
+
+                    viewModel.removeLearningObject(learningObject);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(notify.info).not.toHaveBeenCalled();
+                    });
+                });
+
+                describe('and learning object id is set later', function () {
+                    
+                    it('should remove learning object from the repository', function () {
+                        viewModel.learningObjects([learningObject]);
+                        
+                        viewModel.removeLearningObject(learningObject);
+                        learningObject.id('id');
+                        
+                        expect(repository.removeLearningObject).toHaveBeenCalledWith(questionId, learningObject.id());
+                    });
+
+                    it('should remove learning object from the viewModel', function () {
+                        viewModel.learningObjects([learningObject]);
+
+                        viewModel.removeLearningObject(learningObject);
+                        learningObject.id('id');
+
+                        expect(viewModel.learningObjects().length).toEqual(0);
+                    });
+
+                    it('should show notification', function () {
+                        var promise = removeLearningObject.promise.fin(function () { });
+                        viewModel.learningObjects([learningObject]);
+                        removeLearningObject.resolve({ modifiedOn: new Date() });
+
+                        viewModel.removeLearningObject(learningObject);
+                        learningObject.id('id');
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(notify.info).toHaveBeenCalled();
+                        });
+                    });
+                    
                 });
             });
 

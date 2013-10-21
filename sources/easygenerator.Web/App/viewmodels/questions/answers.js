@@ -20,9 +20,9 @@
 
                 removeAnswer = function (answer) {
                     eventTracker.publish(events.deleteAnswerOption);
-                    answerOptions.remove(answer);
 
                     performActionWhenAnswerIdIsSet(answer, function () {
+                        answerOptions.remove(answer);
                         repository.removeAnswer(questionId, ko.unwrap(answer.id)).then(function (response) {
                             showNotification(response.modifiedOn);
                         });
