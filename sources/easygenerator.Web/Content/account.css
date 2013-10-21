@@ -1166,6 +1166,11 @@ body.try {
     padding-top: 10%;
 }
 
+.view-module.invalid-password-recovery {
+    padding-top: 10%;
+    text-align: center;
+}
+
 .user-title.password-recovery {
     white-space: nowrap;
 }
@@ -1189,6 +1194,20 @@ body.try {
     padding-top: 4%;
 }
 
+.user-message-holder.password-recovery {
+    padding-top: 10%;
+    width: 100%;
+}
+
+.password-recovery .user-message-text {
+    margin: 10px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.password-recovery .user-message-text.error {
+    color: #b94a48;
+}
 
 /*#endregion recovery password */
 
