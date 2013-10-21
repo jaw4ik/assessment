@@ -28,6 +28,10 @@ $(function () {
     if ($('.sign-up-second-step').length) {
         ko.applyBindings(signUpSecondStepModel(), $('.sign-up-second-step')[0]);
     }
+    
+    if ($('.password-recovery').length) {
+        ko.applyBindings(app.passwordRecoveryViewModel(), $('.password-recovery')[0]);
+    }
 });
 
 

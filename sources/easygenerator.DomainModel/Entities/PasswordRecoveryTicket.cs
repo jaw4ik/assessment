@@ -8,6 +8,6 @@ namespace easygenerator.DomainModel.Entities
 {
     public class PasswordRecoveryTicket : Entity
     {
-        public User User { get; set; }
+        public virtual User User { get; internal set; }
     }
 }

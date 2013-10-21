@@ -70,12 +70,16 @@
     <Compile Include="Repositories\ITemplateRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Handlers\SignupFromTryItNowHandler.cs" />
+    <Compile Include="Repositories\IPasswordRecoveryTicketRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\easygenerator.Infrastructure\easygenerator.Infrastructure.csproj">
       <Project>{E186A113-426B-4AB1-A4B1-5ECC54FA4E80}</Project>
       <Name>easygenerator.Infrastructure</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entities\Validation\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

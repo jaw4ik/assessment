@@ -200,6 +200,12 @@ namespace easygenerator.Web.Configuration
             );
 
             routes.MapRoute(
+               name: "ForgotPassword",
+               url: "api/user/forgotpassword",
+               defaults: new { controller = "User", action = "ForgotPassword" }
+            );
+
+            routes.MapRoute(
                 name: "CheckUserExists",
                 url: "api/user/exists",
                 defaults: new { controller = "User", action = "Exists" }
@@ -265,6 +271,11 @@ namespace easygenerator.Web.Configuration
                 name: "SignUpSecondStep",
                 url: "signupsecondstep",
                 defaults: new { controller = "Account", action = "SignUpSecondStep" });
+
+            routes.MapRoute(
+                name: "PasswordRecovery",
+                url: "passwordrecovery/{ticketId}",
+                defaults: new { controller = "Account", action = "PasswordRecovery" });
 
             #endregion;
 

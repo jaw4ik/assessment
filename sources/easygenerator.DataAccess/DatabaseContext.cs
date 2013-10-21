@@ -148,13 +148,17 @@ namespace easygenerator.DataAccess
                     {
                         entry.State = EntityState.Deleted;
                     }
+                    if ((entry.Entity is PasswordRecoveryTicket) && (entry.Entity as PasswordRecoveryTicket).User == null)
+                    {
+                        entry.State = EntityState.Deleted;
+                    }
                 }
 
                 return base.SaveChanges();
             }
-            catch (DbEntityValidationException dbEx)
+            catch (DbEntityValidationException exception)
             {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                foreach (var validationErrors in exception.EntityValidationErrors)
                 {
                     foreach (var validationError in validationErrors.ValidationErrors)
                     {

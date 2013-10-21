@@ -69,6 +69,40 @@ app.signinViewModel = function () {
             .fail(function (reason) {
                 that.errorMessage(reason);
             });
+        },
+
+        forgotPassword = function () {
+            if (!username.isValid()) {
+                return;
+            }
+
+            var data = {
+                email: username()
+            };
+
+            $.ajax({
+                url: '/api/user/forgotpassword',
+                data: data,
+                type: 'POST'
+            })
+            .done(function (response) {
+                if (response) {
+                    if (response.success) {
+                        alert('Password recovery email has been send. Please check your mailbox for further instructions.');
+                    } else {
+                        if (response.message) {
+                            that.errorMessage(response.message);
+                        } else {
+                            throw 'Error message is not defined';
+                        }
+                    }
+                } else {
+                    throw 'Response is not an object';
+                }
+            })
+            .fail(function (reason) {
+                that.errorMessage(reason);
+            });
         };
 
     ko.computed(function () {
@@ -84,6 +118,7 @@ app.signinViewModel = function () {
 
         canSubmit: canSubmit,
         submit: submit,
+        forgotPassword: forgotPassword,
 
         hasError: hasError,
         errorMessage: errorMessage

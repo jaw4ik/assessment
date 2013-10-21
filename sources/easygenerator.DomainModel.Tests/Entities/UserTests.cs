@@ -1,4 +1,5 @@
 ﻿using System;
+using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -130,7 +131,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var email = "easygenerator3@easygenerator.com";
             var password = "Easy123!";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
-            
+
             //Act
             var user = UserObjectMother.Create(email, password, CreatedBy);
 
@@ -178,6 +179,169 @@ namespace easygenerator.DomainModel.Tests.Entities
             result.Should().BeFalse();
         }
 
+        #endregion
+
+        #region Add password recovery ticket
+
+        [TestMethod]
+        public void AddPasswordRecoveryTicket_ShouldRemovePreviousTickets()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+            user.PasswordRecoveryTicketCollection.Add(ticket);
+
+            user.AddPasswordRecoveryTicket(PasswordRecoveryTicketObjectMother.Create());
+
+            user.PasswordRecoveryTicketCollection.Should().NotContain(t => t == ticket);
+        }
+
+        [TestMethod]
+        public void AddPasswordRecoveryTicket_ShouldAddPasswordRecoveryTicket()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+
+            user.AddPasswordRecoveryTicket(ticket);
+
+            user.PasswordRecoveryTicketCollection.Should().Contain(ticket);
+        }
+
+        [TestMethod]
+        public void AddPasswordRecoveryTicket_ShouldSetUserToPasswordRecoveryTicket()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+
+            user.AddPasswordRecoveryTicket(ticket);
+
+            ticket.User.Should().Be(user);
+        }
+
+        #endregion
+
+        #region Recover password using ticket
+
+        [TestMethod]
+        public void RecoverPasswordUsingTicket_ShouldThrowArgumentNullException_WhenPasswordIsNull()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+
+            Action action = () => user.RecoverPasswordUsingTicket(ticket, null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void RecoverPasswordUsingTicket_ShouldThrowArgumentException_WhenPasswordIsEmpty()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+
+            Action action = () => user.RecoverPasswordUsingTicket(ticket, String.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void RecoverPasswordUsingTicket_ShouldThrowArgumentException_WhenPasswordShorterThanSevenSymbols()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+
+            Action action = () => user.RecoverPasswordUsingTicket(ticket, "");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void RecoverPasswordUsingTicket_ShouldThrowArgumentException_WhenPasswordHasNoDigitSymbol()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+
+            Action action = () => user.RecoverPasswordUsingTicket(ticket, "abcdefghujklmn");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void RecoverPasswordUsingTicket_ShouldThrowArgumentException_WhenPasswordHasNoUpperCaseSymbol()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+
+            Action action = () => user.RecoverPasswordUsingTicket(ticket, "abcdefghujklmn1");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void RecoverPasswordUsingTicket_ShouldThrowArgumentException_WhenPasswordHasNoLowerCaseSymbol()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+
+            Action action = () => user.RecoverPasswordUsingTicket(ticket, "ABCDEFGHIJKLMN1");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void RecoverPasswordUsingTicket_ShouldThrowArgumentException_WhenPasswordHasWhitespaceSymbol()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+
+            Action action = () => user.RecoverPasswordUsingTicket(ticket, "abcd efghij klmn1");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
+        }
+
+        [TestMethod]
+        public void RecoverPasswordUsingTicket_ShouldThrowArgumentNullException_WhenTicketIsNull()
+        {
+            var user = UserObjectMother.Create();
+            Action action = () => user.RecoverPasswordUsingTicket(null, "Easy123!");
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("ticket");
+        }
+
+        [TestMethod]
+        public void RecoverPasswordUsingTicket_ShouldThrowInvalidOperationException_WhenTicketDoesNotExist()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+            Action action = () => user.RecoverPasswordUsingTicket(ticket, "Easy123!");
+
+            action.ShouldThrow<InvalidOperationException>();
+        }
+
+        [TestMethod]
+        public void RecoverPasswordUsingTicket_ShouldUpdatePasswordHash()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+            user.PasswordRecoveryTicketCollection.Add(ticket);
+            const string password = "easyGenerAtoR123!";
+
+            user.RecoverPasswordUsingTicket(ticket, password);
+
+            user.PasswordHash.Should().Be(Cryptography.GetHash(password));
+        }
+
+        [TestMethod]
+        public void RecoverPasswordUsingTicket_ShouldRemoveTicket()
+        {
+            var user = UserObjectMother.Create();
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+            user.PasswordRecoveryTicketCollection.Add(ticket);
+            const string password = "easyGenerAtoR123!";
+
+            user.RecoverPasswordUsingTicket(ticket, password);
+
+            user.PasswordRecoveryTicketCollection.Should().NotContain(ticket);
+        }
         #endregion
     }
 }

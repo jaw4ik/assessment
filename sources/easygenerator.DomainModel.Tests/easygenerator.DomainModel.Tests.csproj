@@ -80,6 +80,7 @@
     <Compile Include="ObjectMothers\HelpHintObjectMother.cs" />
     <Compile Include="ObjectMothers\LearningObjectObjectMother.cs" />
     <Compile Include="ObjectMothers\ObjectiveObjectMother.cs" />
+    <Compile Include="ObjectMothers\PasswordRecoveryTicketObjectMother.cs" />
     <Compile Include="ObjectMothers\QuestionObjectMother.cs" />
     <Compile Include="ObjectMothers\TemplateObjectMother.cs" />
     <Compile Include="ObjectMothers\UserObjectMother.cs" />

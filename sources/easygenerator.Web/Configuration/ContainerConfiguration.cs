@@ -11,6 +11,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.ModelBinding;
 using System.Reflection;
 using System;
@@ -54,14 +55,17 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterGeneric(typeof(DomainEventPublisher<>)).As(typeof(IDomainEventPublisher<>)).InstancePerHttpRequest();
             builder.RegisterGeneric(typeof(DomainEventHandlersProvider<>)).As(typeof(IDomainEventHandlersProvider<>)).InstancePerHttpRequest();
-            RegisterGenericTypes(builder, applicationAssembly, typeof (IDomainEventHandler<>)).ForEach(_ => _.InstancePerHttpRequest());
+            RegisterGenericTypes(builder, applicationAssembly, typeof(IDomainEventHandler<>)).ForEach(_ => _.InstancePerHttpRequest());
 
             #endregion
 
             builder.RegisterType<MailNotificationManager>().As<IMailNotificationManager>().SingleInstance();
             builder.RegisterType<MailSender>().As<IMailSender>().SingleInstance();
+            builder.RegisterType<MailSenderWrapper>().As<IMailSenderWrapper>().SingleInstance();
             builder.RegisterType<MailSettings>().SingleInstance();
             builder.RegisterType<MailSenderTask>().SingleInstance();
+
+            builder.RegisterType<UrlHelperWrapper>().As<IUrlHelperWrapper>();
 
             var container = builder.Build();
 

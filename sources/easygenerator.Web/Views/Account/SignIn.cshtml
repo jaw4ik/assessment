@@ -26,6 +26,9 @@
                             <input class="user-form-input" type="password" name="password" autocomplete="off" data-bind="value: password, valueUpdate: 'afterkeydown', attr: { type: isPasswordVisible() ? 'text' : 'password' }" ondrop="return false;" />
                             <a href="#" class="user-form-password-eye" data-bind="css: { revealed: isPasswordVisible }, click: togglePasswordVisibility"></a>
                         </span>
+                        <div class="forgot-password-wrapper">
+                            <a class="forgot-password-link pull-right" data-bind="css: { 'disabled': !username.isValid() }, click: forgotPassword">@Resources.ForgotPassword</a>
+                        </div>
                     </div>
                 </div>
                 <!-- ko if: hasError -->

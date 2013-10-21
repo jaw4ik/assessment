@@ -19,7 +19,8 @@ namespace easygenerator.DataAccess
                     return;
                 }
 
-                context.Database.Delete();
+                throw new ApplicationException();
+                //context.Database.Delete();
             }
 
             context.Database.CreateIfNotExists();

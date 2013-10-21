@@ -42,6 +42,10 @@ namespace easygenerator.DataAccess
                 .As<IUserRepository>()
                 .As<IQuerableRepository<User>>();
 
+            builder.RegisterType<PasswordRecoveryTicketRepository>()
+                .As<IPasswordRecoveryTicketRepository>()
+                .As<IQuerableRepository<PasswordRecoveryTicket>>();
+
             builder.RegisterType<HelpHintRepository>()
                 .As<IHelpHintRepository>()
                 .As<IQuerableRepository<HelpHint>>();

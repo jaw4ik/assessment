@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionResults;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -35,6 +31,14 @@ namespace easygenerator.Web.Tests.Utils
 
         }
 
+        internal static void IsViewResult(object result, string viewName)
+        {
+            IsViewResult(result);
+            var viewResult = result as ViewResult;
+            Assert.IsNotNull(viewResult);
+            Assert.AreEqual(viewResult.ViewName, viewName);
+        }
+
         internal static void IsPartialViewResult(object result)
         {
             Assert.IsInstanceOfType(result, typeof(PartialViewResult));
@@ -52,6 +56,15 @@ namespace easygenerator.Web.Tests.Utils
         internal static void IsRedirectToRouteResult(object result)
         {
             Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+        }
+
+        internal static void IsRedirectToRouteResult(object result, string expectedRouteName)
+        {
+            IsRedirectToRouteResult(result);
+
+            var redirectToRouteResult = result as RedirectToRouteResult;
+            Assert.IsNotNull(redirectToRouteResult);
+            Assert.AreEqual(expectedRouteName, redirectToRouteResult.RouteName);
         }
 
         internal static void IsRedirectToRouteResult(object result, string expectedRouteName, params KeyValuePair<string, object>[] routeValues)

@@ -833,6 +833,15 @@ body.try {
 .view-module.log-in .user-form-row.submit {
     padding-top: 45px;
 }
+
+.forgot-password-link:hover {
+    text-decoration: underline;
+}
+
+.forgot-password-link.disabled {
+    opacity: .1;
+}
+
 /*#endregion Login*/
 
 /*#region TRY NOW*/

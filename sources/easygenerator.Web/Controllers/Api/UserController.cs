@@ -1,10 +1,16 @@
-﻿using System.Web.Mvc;
+﻿using System.Net.Mail;
+using System.Runtime.InteropServices;
+using System.Web.Configuration;
+using System.Web.Mvc;
 using AccountRes;
 using easygenerator.DomainModel;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.Configuration;
+using easygenerator.Web.Mail;
 using easygenerator.Web.ViewModels.Account;
 using easygenerator.DomainModel.Events;
 
@@ -13,15 +19,21 @@ namespace easygenerator.Web.Controllers.Api
     [AllowAnonymous]
     public class UserController : DefaultController
     {
-        private readonly IEntityFactory _entityFactory;
         private readonly IUserRepository _repository;
+        private readonly IHelpHintRepository _helpHintRepository;
+        private readonly IEntityFactory _entityFactory;
         private readonly IAuthenticationProvider _authenticationProvider;
         private readonly ISignupFromTryItNowHandler _signupFromTryItNowHandler;
-        private readonly IHelpHintRepository _helpHintRepository;
         private readonly IDomainEventPublisher<UserSignedUpEvent> _publisher;
+        private readonly IMailSenderWrapper _mailSenderWrapper;
 
-        public UserController(IUserRepository repository, IEntityFactory entityFactory, IAuthenticationProvider authenticationProvider, ISignupFromTryItNowHandler signupFromTryItNowHandler,
-            IHelpHintRepository helpHintRepository, IDomainEventPublisher<UserSignedUpEvent> publisher)
+        public UserController(IUserRepository repository,
+            IHelpHintRepository helpHintRepository,
+            IEntityFactory entityFactory,
+            IAuthenticationProvider authenticationProvider,
+            ISignupFromTryItNowHandler signupFromTryItNowHandler,
+            IDomainEventPublisher<UserSignedUpEvent> publisher,
+            IMailSenderWrapper mailSenderWrapper)
         {
             _repository = repository;
             _entityFactory = entityFactory;
@@ -29,6 +41,7 @@ namespace easygenerator.Web.Controllers.Api
             _signupFromTryItNowHandler = signupFromTryItNowHandler;
             _helpHintRepository = helpHintRepository;
             _publisher = publisher;
+            _mailSenderWrapper = mailSenderWrapper;
         }
 
         [HttpPost]
@@ -77,7 +90,7 @@ namespace easygenerator.Web.Controllers.Api
             }
             else
             {
-                _helpHintRepository.CreateHelpHintsForUser(profile.Email);                
+                _helpHintRepository.CreateHelpHintsForUser(profile.Email);
             }
 
             _authenticationProvider.SignIn(profile.Email, true);
@@ -96,6 +109,35 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             Session[Constants.SessionConstants.UserSignUpModel] = profile;
+
+            return JsonSuccess();
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPassword(string email)
+        {
+            var user = _repository.GetUserByEmail(email);
+
+            if (user != null)
+            {
+                var ticket = _entityFactory.PasswordRecoveryTicket(user);
+                user.AddPasswordRecoveryTicket(ticket);
+
+                _mailSenderWrapper.SendForgotPasswordMessage(email, ticket.Id.ToString("N"));
+            }
+
+            return JsonSuccess();
+        }
+
+        [HttpPost]
+        public ActionResult RecoverPassword(PasswordRecoveryTicket ticket, string password)
+        {
+            if (ticket == null)
+            {
+                return JsonError("Ticket does not exist");
+            }
+
+            ticket.User.RecoverPasswordUsingTicket(ticket, password);
 
             return JsonSuccess();
         }

@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.ViewModels.Account;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using easygenerator.Web.Controllers;
 using easygenerator.Web.Tests.Utils;
@@ -322,6 +321,98 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Assert
             _helpHintRepository.Received().CreateHelpHintsForUser(Arg.Any<String>());
+        }
+
+        #endregion
+
+        #region PasswordRecovery
+
+        [TestMethod]
+        public void PasswordRecovery_ShouldReturnInvalidPasswordRecoveryView_WhenTickenIsNotDefined()
+        {
+            //Arrange
+
+
+            //Act
+            var result = _controller.PasswordRecovery(null);
+
+            //Assert
+            ActionResultAssert.IsViewResult(result, "InvalidPasswordRecovery");
+        }
+
+
+        [TestMethod]
+        public void PasswordRecovery_ShouldReturnPasswordRecoveryView_WhenTickenDefined()
+        {
+            //Arrange
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+
+            //Act
+            var result = _controller.PasswordRecovery(ticket);
+
+            //Assert
+            ActionResultAssert.IsViewResult(result, "PasswordRecovery");
+        }
+
+        [TestMethod]
+        public void PasswordRecovery_ShouldReturnInvalidPasswordRecoveryView_WhenTickenIsNotDefinedOnPost()
+        {
+            //Arrange
+
+
+            //Act
+            var result = _controller.PasswordRecovery(null, "NewPassword");
+
+            //Assert
+            ActionResultAssert.IsViewResult(result, "InvalidPasswordRecovery");
+        }
+
+
+        [TestMethod]
+        public void PasswordRecovery_ShouldReturnRedirectToDefaultRoute_WhenTickenDefinedOnPost()
+        {
+            //Arrange
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+            var user = UserObjectMother.Create();
+
+            user.AddPasswordRecoveryTicket(ticket);
+
+            //Act
+            var result = _controller.PasswordRecovery(ticket, "NewPassword123123");
+
+            //Assert
+            ActionResultAssert.IsRedirectToRouteResult(result, "Default");
+        }
+
+        [TestMethod]
+        public void PasswordRecovery_ShouldSignInUser_WhenTickenDefinedOnPost()
+        {
+            //Arrange
+            var ticket = PasswordRecoveryTicketObjectMother.Create();
+            var user = UserObjectMother.Create();
+
+            user.AddPasswordRecoveryTicket(ticket);
+
+            //Act
+            _controller.PasswordRecovery(ticket, "NewPassword123123");
+
+            //Assert
+            _authenticationProvider.Received().SignIn(ticket.User.Email, true);
+        }
+
+        [TestMethod]
+        public void PasswordRecovery_ShouldRecoverPassword_WhenTickenDefinedOnPost()
+        {
+            //Arrange
+            var ticket = Substitute.For<PasswordRecoveryTicket>();
+            var user = Substitute.For<User>();
+            ticket.User.Returns(user);
+
+            //Act
+            _controller.PasswordRecovery(ticket, "NewPassword123123");
+
+            //Assert
+            user.Received().RecoverPasswordUsingTicket(ticket, "NewPassword123123");
         }
 
         #endregion

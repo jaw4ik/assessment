@@ -23,14 +23,14 @@ namespace easygenerator.Web.Components.Configuration
             set { base["from"] = value; }
         }
 
-        [ConfigurationProperty("to", IsRequired = true)]
+        [ConfigurationProperty("to", IsRequired = false)]
         public string To
         {
             get { return (string)base["to"]; }
             set { base["to"] = value; }
         }
 
-        [ConfigurationProperty("subject", IsRequired = true)]
+        [ConfigurationProperty("subject", IsRequired = false)]
         public string Subject
         {
             get { return (string)base["subject"]; }

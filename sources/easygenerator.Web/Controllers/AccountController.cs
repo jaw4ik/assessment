@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
@@ -96,6 +97,32 @@ namespace easygenerator.Web.Controllers
 
             return RedirectToRoute("SignIn");
         }
+
+        [HttpGet]
+        public ActionResult PasswordRecovery(PasswordRecoveryTicket ticket)
+        {
+            if (ticket == null)
+            {
+                return View("InvalidPasswordRecovery");
+            }
+
+            return View("PasswordRecovery", new { ticketId = ticket.Id.ToString("N") });
+        }
+
+        [HttpPost]
+        public ActionResult PasswordRecovery(PasswordRecoveryTicket ticket, string password)
+        {
+            if (ticket == null)
+            {
+                return View("InvalidPasswordRecovery");
+            }
+
+            ticket.User.RecoverPasswordUsingTicket(ticket, password);
+            _authenticationProvider.SignIn(ticket.User.Email, true);
+
+            return RedirectToRoute("Default");
+        }
+
 
         private bool IsExistingUserAuthenticated()
         {

@@ -60,6 +60,7 @@
     <Compile Include="Repositories\HelpHintRepository.cs" />
     <Compile Include="Repositories\MailNotificationRepository.cs" />
     <Compile Include="Repositories\ObjectiveRepository.cs" />
+    <Compile Include="Repositories\PasswordRecoveryTicketRepository.cs" />
     <Compile Include="Repositories\QuerableRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repositories\TemplateRepository.cs" />

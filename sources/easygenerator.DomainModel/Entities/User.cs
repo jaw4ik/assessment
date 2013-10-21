@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using easygenerator.Infrastructure;
@@ -19,6 +20,7 @@ namespace easygenerator.DomainModel.Entities
 
             Email = email;
             PasswordHash = Cryptography.GetHash(password);
+            PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
         }
 
         public string Email { get; protected set; }
@@ -54,22 +56,23 @@ namespace easygenerator.DomainModel.Entities
 
         protected internal virtual ICollection<PasswordRecoveryTicket> PasswordRecoveryTicketCollection { get; set; }
 
-        public string RequestPasswordRecoveryTicket()
+        public virtual void AddPasswordRecoveryTicket(PasswordRecoveryTicket ticket)
         {
-            var ticket = new PasswordRecoveryTicket();
-
-            PasswordRecoveryTicketCollection.Add(ticket);
-
-            return ticket.Id.ToString("N");
+            PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket> { ticket };
+            ticket.User = this;
         }
 
-        public void RecoverPasswordUsingTicket(string ticket, string password)
+        public virtual void RecoverPasswordUsingTicket(PasswordRecoveryTicket ticket, string password)
         {
-            var item = PasswordRecoveryTicketCollection.SingleOrDefault(t => t.Id.ToString("N") == ticket);
-            if (item != null)
-            {
-                PasswordHash = Cryptography.GetHash(password);
-            }
+            ArgumentValidation.ThrowIfNull(ticket, "ticket");
+            ThrowIfPasswordIsNotValid(password);
+
+            var item = PasswordRecoveryTicketCollection.SingleOrDefault(t => t == ticket);
+            if (item == null)
+                throw new InvalidOperationException("Ticket does not exist");
+
+            PasswordHash = Cryptography.GetHash(password);
+            PasswordRecoveryTicketCollection.Remove(ticket);
         }
 
 

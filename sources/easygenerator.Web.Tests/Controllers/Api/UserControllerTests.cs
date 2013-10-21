@@ -1,4 +1,6 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
+using System.Net.Mail;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
@@ -11,6 +13,7 @@ using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Controllers.Api;
+using easygenerator.Web.Mail;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -23,13 +26,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
     [TestClass]
     public class UserControllerTests
     {
-        private IUserRepository _repository;
+        private IUserRepository _userRepository;
+        private IHelpHintRepository _helpHintRepository;
         private UserController _controller;
         private IEntityFactory _entityFactory;
         private IAuthenticationProvider _authenticationProvider;
         private ISignupFromTryItNowHandler _signupFromTryItNowHandler;
-        private IHelpHintRepository _helpHintRepository;
         private IDomainEventPublisher<UserSignedUpEvent> _publisher;
+        private IMailSenderWrapper _mailSenderWrapper;
 
         IPrincipal _user;
         HttpContextBase _context;
@@ -37,14 +41,15 @@ namespace easygenerator.Web.Tests.Controllers.Api
         [TestInitialize]
         public void InitializeContext()
         {
-            _repository = Substitute.For<IUserRepository>();
+            _userRepository = Substitute.For<IUserRepository>();
+            _helpHintRepository = Substitute.For<IHelpHintRepository>();
             _entityFactory = Substitute.For<IEntityFactory>();
             _authenticationProvider = Substitute.For<IAuthenticationProvider>();
             _signupFromTryItNowHandler = Substitute.For<ISignupFromTryItNowHandler>();
-            _helpHintRepository = Substitute.For<IHelpHintRepository>();
-            _helpHintRepository = Substitute.For<IHelpHintRepository>();
             _publisher = Substitute.For<IDomainEventPublisher<UserSignedUpEvent>>();
-            _controller = new UserController(_repository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler, _helpHintRepository, _publisher);
+            _mailSenderWrapper = Substitute.For<IMailSenderWrapper>();
+
+            _controller = new UserController(_userRepository, _helpHintRepository, _entityFactory, _authenticationProvider, _signupFromTryItNowHandler, _publisher, _mailSenderWrapper);
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
@@ -70,7 +75,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string password = "Abc123!";
 
             var user = Substitute.For<User>();
-            _repository.GetUserByEmail(username).Returns(user);
+            _userRepository.GetUserByEmail(username).Returns(user);
             user.VerifyPassword(password).Returns(false);
 
             var result = _controller.Signin(username, password);
@@ -85,7 +90,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string password = "Abc123!";
 
             var user = Substitute.For<User>();
-            _repository.GetUserByEmail(username).Returns(user);
+            _userRepository.GetUserByEmail(username).Returns(user);
             user.VerifyPassword(password).Returns(true);
 
             _controller.Signin(username, password);
@@ -101,7 +106,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             var user = Substitute.For<User>();
             user.VerifyPassword(password).Returns(true);
-            _repository.GetUserByEmail(username).Returns(user);
+            _userRepository.GetUserByEmail(username).Returns(user);
 
             var result = _controller.Signin(username, password);
 
@@ -117,7 +122,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var email = "easygenerator@easygenerator.com";
-            _repository.GetUserByEmail(email).Returns(UserObjectMother.CreateWithEmail(email));
+            _userRepository.GetUserByEmail(email).Returns(UserObjectMother.CreateWithEmail(email));
 
             var profile = new UserSecondStepViewModel() { Email = email, Password = "Some password" };
             //Act
@@ -141,7 +146,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.Signup(profile);
 
             //Assert
-            _repository.Received().Add(user);
+            _userRepository.Received().Add(user);
         }
 
         [TestMethod]
@@ -186,7 +191,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var user = UserObjectMother.Create(signUpUsername, password);
             _user.Identity.IsAuthenticated.Returns(true);
             _user.Identity.Name.Returns(tryItNowUsername);
-            _repository.GetUserByEmail(tryItNowUsername).Returns((User)null);
+            _userRepository.GetUserByEmail(tryItNowUsername).Returns((User)null);
             _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
 
             var profile = new UserSecondStepViewModel() { Email = signUpUsername, Password = password };
@@ -359,7 +364,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var email = "easygenerator@easygenerator.com";
-            _repository.GetUserByEmail(email).Returns(UserObjectMother.CreateWithEmail(email));
+            _userRepository.GetUserByEmail(email).Returns(UserObjectMother.CreateWithEmail(email));
             var profile = new UserSignUpViewModel() { Email = email, Password = "Some password" };
 
             //Act
@@ -398,6 +403,101 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
+        #region Forgot password
+
+        [TestMethod]
+        public void ForgotPassword_ShouldAddPasswordRecoveryTicket_WhenUserExists()
+        {
+            //Arrange
+            const string email = "username@easygenerator.com";
+            var user = Substitute.For<User>();
+            _userRepository.GetUserByEmail(email).Returns(user);
+
+            var ticket = Substitute.For<PasswordRecoveryTicket>();
+            _entityFactory.PasswordRecoveryTicket(user).Returns(ticket);
+
+            //Act
+            _controller.ForgotPassword(email);
+
+            //Assert
+            user.Received().AddPasswordRecoveryTicket(ticket);
+        }
+
+        [TestMethod]
+        public void ForgotPassword_ShouldSendEmailToUser_WhenUserExists()
+        {
+            //Arrange
+            const string email = "username@easygenerator.com";
+            var user = Substitute.For<User>();
+            _userRepository.GetUserByEmail(email).Returns(user);
+
+            var ticket = Substitute.For<PasswordRecoveryTicket>();
+            _entityFactory.PasswordRecoveryTicket(user).Returns(ticket);
+
+            //Act
+            _controller.ForgotPassword(email);
+
+            //Assert
+            _mailSenderWrapper.Received().SendForgotPasswordMessage(email, ticket.Id.ToString("N"));
+        }
+
+        [TestMethod]
+        public void ForgotPassword_ShouldReturnJsonSuccessResult()
+        {
+            var result = _controller.ForgotPassword(null);
+
+            result.Should().BeJsonSuccessResult();
+        }
+
+
+        #endregion
+
+        #region Recover Password
+
+        [TestMethod]
+        public void RecoverPassword_ShouldReturnJsonErrorResult_WhenTicketDoesNotExist()
+        {
+            var result = _controller.RecoverPassword(null, null);
+
+            result.Should().BeJsonErrorResult();
+        }
+
+        [TestMethod]
+        public void RecoverPassword_ShouldRecoverUserPassword()
+        {
+            //Arrange
+            var ticket = Substitute.For<PasswordRecoveryTicket>();
+            var user = Substitute.For<User>();
+            ticket.User.Returns(user);
+
+            const string password = "Abc123!";
+
+            //Act
+            _controller.RecoverPassword(ticket, password);
+
+            //Assert
+            //user.Received().RecoverPasswordUsingTicket(Arg.Any<string>(), password);
+        }
+
+        [TestMethod]
+        public void RecoverPassword_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var ticket = Substitute.For<PasswordRecoveryTicket>();
+            var user = Substitute.For<User>();
+            ticket.User.Returns(user);
+
+            const string password = "Abc123!";
+
+            //Act
+            var result = _controller.RecoverPassword(ticket, password);
+
+            //Assert
+            result.Should().BeJsonSuccessResult();
+        }
+
+        #endregion
+
         #region Exists
 
         [TestMethod]
@@ -405,7 +505,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var email = "easygenerator@easygenerator.com";
-            _repository.GetUserByEmail(email).Returns(UserObjectMother.CreateWithEmail(email));
+            _userRepository.GetUserByEmail(email).Returns(UserObjectMother.CreateWithEmail(email));
 
             //Act
             var result = _controller.Exists(email);
@@ -449,7 +549,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var email = "easygenerator@eg.com";
             _user.Identity.Name.Returns(email);
-            _repository.GetUserByEmail(email).Returns(UserObjectMother.Create());
+            _userRepository.GetUserByEmail(email).Returns(UserObjectMother.Create());
 
             //Act
             var result = _controller.IsTryMode();
@@ -485,7 +585,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user.Identity.IsAuthenticated.Returns(true);
             _user.Identity.Name.Returns(userName);
 
-            _repository.GetUserByEmail(userName).Returns((User)null);
+            _userRepository.GetUserByEmail(userName).Returns((User)null);
 
             //Act
             var result = _controller.GetCurrentUserEmail();
@@ -503,7 +603,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user.Identity.IsAuthenticated.Returns(true);
             _user.Identity.Name.Returns(userEmail);
 
-            _repository.GetUserByEmail(userEmail).Returns(Substitute.For<User>());
+            _userRepository.GetUserByEmail(userEmail).Returns(Substitute.For<User>());
 
             //Act
             var result = _controller.GetCurrentUserEmail();

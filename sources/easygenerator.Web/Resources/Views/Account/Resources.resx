@@ -144,8 +144,14 @@
   <data name="ContainAtLeastOneUpperCaseLetter" xml:space="preserve">
     <value>contain at least one upper case letter;</value>
   </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
   <data name="CopyrightText" xml:space="preserve">
     <value>Copyright © 2013 easygenerator. All rights reserved.</value>
+  </data>
+  <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
+    <value>Sorry! We could not verify that this user requested a password reset. Please, initiate resetting procedure again.</value>
   </data>
   <data name="CountryCaption" xml:space="preserve">
     <value>Country</value>
@@ -161,6 +167,9 @@
   </data>
   <data name="Finish" xml:space="preserve">
     <value>Finish</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Forgot your password?</value>
   </data>
   <data name="FullNameCaption" xml:space="preserve">
     <value>Full name</value>
@@ -207,6 +216,9 @@
   <data name="PasswordIsStrongEnough" xml:space="preserve">
     <value>Password is strong enough</value>
   </data>
+  <data name="PasswordRecovery" xml:space="preserve">
+    <value>Password recovery</value>
+  </data>
   <data name="PasswordRequirementsTitle" xml:space="preserve">
     <value>Password is required to:</value>
   </data>
@@ -218,6 +230,9 @@
   </data>
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Privacy policy</value>
+  </data>
+  <data name="RequestError" xml:space="preserve">
+    <value>An error was encountered while processing your request</value>
   </data>
   <data name="RequiredInformation" xml:space="preserve">
     <value>- required information</value>
