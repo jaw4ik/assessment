@@ -252,6 +252,20 @@
                                 expect(viewModel.title()).toEqual("");
                             });
                         });
+                        
+                        it('should clear template.id', function () {
+                            viewModel.createAndNew();
+
+                            var promise = addExperience.promise.fin(function () { });
+                            addExperience.resolve();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.template.id()).toEqual(null);
+                            });
+                        });
 
                         it('should set focus to title', function () {
                             viewModel.title.isEditing(false);

@@ -44,6 +44,7 @@
                 eventTracker.publish(events.createAndNew);
                 createExperience.call(this, function (experience) {
                     title.isEditing(true);
+                    template.id(null);
                     notify.info(localizationManager.localize('savedAt') + ' ' + experience.createdOn.toLocaleTimeString());
                 });
             },
