@@ -158,24 +158,25 @@
   </data>
   <data name="ForgotPasswordBody" xml:space="preserve">
     <value>&lt;div&gt;
-	Hello,
-	&lt;p&gt;Someone recently requested a password reset for your account at &lt;a href="{0}"&gt;{0}&lt;/a&gt;.&lt;/p&gt;
+	Hallo,
+	&lt;p&gt;Iemand heeft recentelijk geprobeerd het wachtwoord voor uw account bij &lt;a href="{0}"&gt;{0}&lt;/a&gt; opnieuw in te stellen.&lt;/p&gt;
 	&lt;p&gt;
-		To reset the password please click on the link below:&lt;br /&gt;
+		Als u het wachtwoord opnieuw wilt instellen, klikt u op de onderstaande koppeling:&lt;br /&gt;
 		&lt;a href="{1}"&gt;{1}&lt;/a&gt;
 	&lt;/p&gt;
 	&lt;p&gt;
-		If this is a mistake just ignore this e-mail - your password will not be changed. 
+		Als dit een vergissing is, kunt u deze e-mail negeren. Uw wachtwoord wordt dan niet gewijzigd.
 	&lt;/p&gt;
 	&lt;p&gt;
-		Thank you for using easygenerator.com and have a nice day!      
+		Dank u voor het gebruik van easygenerator.com en een prettige dag!
 	&lt;/p&gt;
-	&lt;strong&gt;Best regards,&lt;/strong&gt;&lt;br /&gt;
-	&lt;strong&gt;easygenerator team&lt;/strong&gt;
-&lt;/div&gt;&gt;</value>
+	&lt;strong&gt;--&lt;/strong&gt;&lt;br /&gt;
+	&lt;strong&gt;Vriendelijke groet,&lt;/strong&gt;&lt;br /&gt;
+	&lt;strong&gt;team van easygenerator&lt;/strong&gt;
+&lt;/div&gt;</value>
   </data>
   <data name="ForgotPasswordSubject" xml:space="preserve">
-    <value>Password reset on {0}</value>
+    <value>Uw poging uw wachtwoord opnieuw in te stellen op {0}</value>
   </data>
   <data name="FullNameCaption" xml:space="preserve">
     <value>Volledige naam</value>
