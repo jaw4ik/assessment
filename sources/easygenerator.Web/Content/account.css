@@ -441,7 +441,7 @@ body.try {
     }
 
 .user-form-notification {
-    /*display: none;*/
+    display: none;
     position: absolute;
     width: 100%;
     padding: 10px;
@@ -450,6 +450,10 @@ body.try {
     text-align: center;
     cursor: default;
 }
+
+    .user-form-notification.visible {
+        display: block;
+    }
 
     .user-form-notification.warning {
         background: #fbf8e7;

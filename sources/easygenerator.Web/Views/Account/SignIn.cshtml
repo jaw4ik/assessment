@@ -29,11 +29,9 @@
                         <a class="forgot-password-link pull-right" data-bind="css: { 'disabled': !username.isValid() }, click: forgotPassword">@Resources.ForgotPassword</a>
                     </div>
                 </div>
-                <!-- ko if: hasError -->
-                <div class="user-form-notification warning">
+                <div class="user-form-notification warning" data-bind="css: { visible: hasError() }">
                     <span class="user-form-notification-text" data-bind="text: errorMessage"></span>
                 </div>
-                <!-- /ko -->
                 <div class="user-form-row submit">
                     <div class="formBtn" data-bind="css: { disabled: !canSubmit() }">
                         <input class="green btn" type="submit" data-bind="enable: canSubmit" value="@Resources.SignIn ">

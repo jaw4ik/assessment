@@ -13,25 +13,26 @@
 .help-hint-content {
     position: relative;
     padding: 19px 0;
-    padding-top: 50px;
     font-size: 13px;
     font-family: 'OpenSans';
 }
 
 .help-hint-title {
-    position: absolute;
-    top: 15px;
+    position: relative;
+    margin-right: 70px;
+    margin-bottom: 15px;
     padding-left: 30px;
     font-size: 14px;
     font-family: 'OpenSans-Semibold';
     color: #303133;
+    word-wrap: break-word;
 }
 
     .help-hint-title:after {
         content: '';
         display: block;
         position: absolute;
-        top: -3px;
+        top: -2px;
         left: 0;
         width: 24px;
         height: 24px;
