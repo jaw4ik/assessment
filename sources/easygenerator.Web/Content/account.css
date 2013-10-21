@@ -54,6 +54,11 @@ body.try {
     padding-top: 0;
 }
 
+.view-module.password-recovery {
+    width: 430px;
+    margin: 0 auto;
+}
+
 .footer.try {
     width: 100%;
     height: 35px;
@@ -1127,7 +1132,7 @@ body.try {
 
 /*#endregion Terms of use and Privacy Policy*/
 
-/*#region SIGNUP SECONF STEP*/
+/*#region SIGNUP SECOND STEP*/
 
 .sign-up-second-step .user-title {
     margin-bottom: 30px;
