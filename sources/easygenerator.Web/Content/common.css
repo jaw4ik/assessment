@@ -152,6 +152,12 @@ ol.unstyled  {
     list-style: none;
 }
 
+h1 {
+    font-size: 2.0em;
+    -webkit-margin-before: 0.67em;
+    -webkit-margin-after: 0.67em;
+}
+
 /*#endregion COMMON*/
 
 /*#region COMMON CLASSES CSS-STYLES*/
