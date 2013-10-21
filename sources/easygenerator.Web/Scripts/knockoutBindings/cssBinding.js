@@ -13,17 +13,18 @@
             fixedContainer = '.view-module > .fixed-container:first-child';
 
         var headerHeight = $('.header').height(),
-            topNavHeight = $('.top-navigation').height();
+            topNavHeight = $('.top-navigation').height(),
+            helpHeight = $(helpHint).height();
 
         if (!$(helpHintText).is(':empty')) {
-            if ($(helpHint).height() > 72) {
+            if ($(helpHint).height() > helpHeight) {
                 helpHintHeight = $(helpHint).height();
         } else {
                 helpHintHeight = 0;
             }
         }
 
-        $(fixedContainer).css('top', headerHeight + topNavHeight + helpHintHeight + 'px');
+        $(fixedContainer).css('top', headerHeight + topNavHeight + helpHintHeight + 1 + 'px');
         $(notFixedContainer).css('padding-top', 40 + helpHintHeight + 'px');
         $(contentContainer).css('min-height', 600 + helpHintHeight + 'px');
     }
