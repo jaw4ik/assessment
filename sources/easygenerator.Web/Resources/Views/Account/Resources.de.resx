@@ -144,6 +144,12 @@
   <data name="ContainAtLeastOneUpperCaseLetter" xml:space="preserve">
     <value>mindestens einen Großbuchstaben enthalten;</value>
   </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Weiter</value>
+  </data>
+  <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
+    <value>Wir konnten leider nicht verifizieren, ob dieser Benutzer eine Kenntwortrücksetzung angefordert hat. Bitte starten Sie die Rücksetzungsprozedur erneut.</value>
+  </data>
   <data name="CreateAccountTitle" xml:space="preserve">
     <value>Konto erstellen</value>
   </data>
@@ -155,6 +161,9 @@
   </data>
   <data name="Finish" xml:space="preserve">
     <value>Fertig stellen</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Haben Sie Ihr Kennwort vergessen?</value>
   </data>
   <data name="ForgotPasswordBody" xml:space="preserve">
     <value>&lt;div&gt;
@@ -174,6 +183,9 @@
 	&lt;strong&gt;Viele Grüße,&lt;/strong&gt;&lt;br /&gt;
 	&lt;strong&gt;Ihr easygenerator-Team&lt;/strong&gt;
 &lt;/div&gt;</value>
+  </data>
+  <data name="ForgotPasswordSent" xml:space="preserve">
+    <value>Wir haben Ihnen eine E-Mail mit Anleitungen zum Rücksetzen Ihres Kenntworts gesendet.</value>
   </data>
   <data name="ForgotPasswordSubject" xml:space="preserve">
     <value>Kennwortrücksetztung auf {0}</value>
@@ -223,6 +235,9 @@
   <data name="PasswordIsStrongEnough" xml:space="preserve">
     <value>Das Kennwort ist stark genug</value>
   </data>
+  <data name="PasswordRecovery" xml:space="preserve">
+    <value>Kennwortwiederherstellung</value>
+  </data>
   <data name="PasswordRequirementsTitle" xml:space="preserve">
     <value>Das Kennwort muss:</value>
   </data>
@@ -232,8 +247,14 @@
   <data name="PowerPoint" xml:space="preserve">
     <value>PowerPoint</value>
   </data>
+  <data name="RequestError" xml:space="preserve">
+    <value>Bei der Bearbeitung Ihrer Anfrage ist ein Fehler aufgetreten:</value>
+  </data>
   <data name="RequiredInformation" xml:space="preserve">
     <value>- Erforderliche Information</value>
+  </data>
+  <data name="RestorePasswordCaption" xml:space="preserve">
+    <value>Neues Kennwort eingeben</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Anmelden</value>

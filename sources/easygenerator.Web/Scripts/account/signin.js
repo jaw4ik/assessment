@@ -21,12 +21,14 @@ app.signinViewModel = function () {
             isPasswordVisible(!isPasswordVisible());
         },
 
+        forgotPasswordSent = ko.observable(false),
         errorMessage = ko.observable(),
         hasError = ko.computed(function () {
             return !!(errorMessage() && errorMessage().length);
         }),
 
         canSubmit = ko.computed(function () {
+            forgotPasswordSent(false);
             return !!(username.isValid() && password() && password().trim().length);
         }),
 
@@ -36,6 +38,7 @@ app.signinViewModel = function () {
             }
 
             errorMessage("");
+            forgotPasswordSent(false);
 
             var data = {
                 username: username().trim().toLowerCase(),
@@ -79,7 +82,9 @@ app.signinViewModel = function () {
             var data = {
                 email: username()
             };
-
+            
+            var that = this;
+            
             $.ajax({
                 url: '/api/user/forgotpassword',
                 data: data,
@@ -88,7 +93,8 @@ app.signinViewModel = function () {
             .done(function (response) {
                 if (response) {
                     if (response.success) {
-                        alert('Password recovery email has been send. Please check your mailbox for further instructions.');
+                        that.forgotPasswordSent(true);
+                        that.errorMessage('');
                     } else {
                         if (response.message) {
                             that.errorMessage(response.message);
@@ -119,6 +125,7 @@ app.signinViewModel = function () {
         canSubmit: canSubmit,
         submit: submit,
         forgotPassword: forgotPassword,
+        forgotPasswordSent: forgotPasswordSent,
 
         hasError: hasError,
         errorMessage: errorMessage

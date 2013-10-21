@@ -460,6 +460,11 @@ body.try {
         color: #953b39;
     }
 
+    .user-form-notification.info {
+        background: #fbf8e7;
+        color: #62a426;
+    }
+
 .user-form-notification-text {
     display: inline-block;
     position: relative;
@@ -479,6 +484,10 @@ body.try {
 
 .user-form-notification.warning .user-form-notification-text:after {
     background-position: -16px -25px;
+}
+
+.user-form-notification.info .user-form-notification-text:after {
+    background-position: 0 -25px;
 }
 
 .user-form-message {

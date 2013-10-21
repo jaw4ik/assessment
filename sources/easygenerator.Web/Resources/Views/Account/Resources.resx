@@ -187,6 +187,10 @@
 	&lt;strong&gt;easygenerator team&lt;/strong&gt;
 &lt;/div&gt;</value>
   </data>
+  <data name="ForgotPasswordSent" xml:space="preserve">
+    <value>We have sent you an e-mail with instructions on how to reset
+your password.</value>
+  </data>
   <data name="ForgotPasswordSubject" xml:space="preserve">
     <value>Password reset on {0}</value>
   </data>
@@ -248,10 +252,13 @@
     <value>PowerPoint</value>
   </data>
   <data name="RequestError" xml:space="preserve">
-    <value>An error was encountered while processing your request</value>
+    <value>An error was encountered while processing your request:</value>
   </data>
   <data name="RequiredInformation" xml:space="preserve">
     <value>- required information</value>
+  </data>
+  <data name="RestorePasswordCaption" xml:space="preserve">
+    <value>Enter your new password</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Sign in</value>

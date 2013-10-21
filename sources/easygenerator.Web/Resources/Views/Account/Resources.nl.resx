@@ -144,6 +144,12 @@
   <data name="ContainAtLeastOneUpperCaseLetter" xml:space="preserve">
     <value>minstens één hoofdletter hebben;</value>
   </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Doorgaan</value>
+  </data>
+  <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
+    <value>Helaas. We kunnen niet verifiëren dat deze gebruiker heeft verzocht om het wachtwoord opnieuw in te stellen. Start de herstelprocedure opnieuw.</value>
+  </data>
   <data name="CreateAccountTitle" xml:space="preserve">
     <value>Account maken</value>
   </data>
@@ -155,6 +161,9 @@
   </data>
   <data name="Finish" xml:space="preserve">
     <value>Afsluiten</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Wachtwoord vergeten?</value>
   </data>
   <data name="ForgotPasswordBody" xml:space="preserve">
     <value>&lt;div&gt;
@@ -174,6 +183,9 @@
 	&lt;strong&gt;Vriendelijke groet,&lt;/strong&gt;&lt;br /&gt;
 	&lt;strong&gt;team van easygenerator&lt;/strong&gt;
 &lt;/div&gt;</value>
+  </data>
+  <data name="ForgotPasswordSent" xml:space="preserve">
+    <value>We hebben een e-mail verzonden met instructies voor het opnieuw instellen van uw wachtwoord.</value>
   </data>
   <data name="ForgotPasswordSubject" xml:space="preserve">
     <value>Uw poging uw wachtwoord opnieuw in te stellen op {0}</value>
@@ -223,6 +235,9 @@
   <data name="PasswordIsStrongEnough" xml:space="preserve">
     <value>Wachtwoord is sterk genoeg</value>
   </data>
+  <data name="PasswordRecovery" xml:space="preserve">
+    <value>Wachtwoordherstel</value>
+  </data>
   <data name="PasswordRequirementsTitle" xml:space="preserve">
     <value>Het wachtwoord moet:</value>
   </data>
@@ -232,8 +247,14 @@
   <data name="PowerPoint" xml:space="preserve">
     <value>PowerPoint</value>
   </data>
+  <data name="RequestError" xml:space="preserve">
+    <value>Er is een fout opgetreden bij de verwerking van uw verzoek:</value>
+  </data>
   <data name="RequiredInformation" xml:space="preserve">
     <value>- verplichte informatie</value>
+  </data>
+  <data name="RestorePasswordCaption" xml:space="preserve">
+    <value>Voer uw nieuwe wachtwoord in</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Aanmelden</value>
