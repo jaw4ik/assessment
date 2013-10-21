@@ -19,11 +19,24 @@
 }
 
 .help-hint-title {
-    position: relative;
-    padding: 0 0 15px 35px;
-    font: 14px/24px 'OpenSans-Semibold';
+    position: absolute;
+    top: 15px;
+    padding-left: 30px;
+    font-size: 14px;
+    font-family: 'OpenSans-Semibold';
     color: #303133;
 }
+
+    .help-hint-title:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -3px;
+        left: 0;
+        width: 24px;
+        height: 24px;
+        background: url(../Content/images/sprites.png) -272px -49px;
+    }
 
 .help-hint-left {
     float: left;
