@@ -54,11 +54,6 @@ body.try {
     padding-top: 0;
 }
 
-.view-module.password-recovery {
-    width: 430px;
-    margin: 0 auto;
-}
-
 .footer.try {
     width: 100%;
     height: 35px;
@@ -314,16 +309,19 @@ body.try {
 
 .user-form-input-holder {
     position: relative;
+    padding: 9px 40px 6px 20px;
+    height: 65px;
 }
 
 .user-form-input-wrapper {
-    position: relative;
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    left: 0;
     display: inline-block;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    width: 100%;
-    margin: 9px 0 6px 0;
     padding: 12px 40px 12px 20px;
     background: #fff;
     border: solid 1px #ccc;
@@ -334,10 +332,15 @@ body.try {
 }
 
 .user-form-input {
-    width: 100%;
+    display: block;
+    position: relative;
+    max-width: 340px;
     height: 24px;
+    width: 100%;
+    top: 13px;
+    left: 0;
+    right: 40px;
     border: none;
-    display: inline-block;
     color: #333;
     font-size: 16px;
     font-family: 'OpenSans';
@@ -638,7 +641,7 @@ body.try {
 
 .user-form-password-eye {
     position: absolute;
-    top: 26px;
+    top: 27px;
     right: 10px;
     display: block;
     width: 24px;
@@ -1155,6 +1158,40 @@ body.try {
 
 /*#endregion SIGNUP SECONF STEP*/
 
+/*#region recovery password */
+
+.view-module.password-recovery {
+    width: 430px;
+    margin: 0 auto;
+    padding-top: 10%;
+}
+
+.user-title.password-recovery {
+    white-space: nowrap;
+}
+
+.user-form.password-recovery {
+    padding-top: 24%;
+    margin: 0 16px;
+}
+
+.user-form-label.password-recovery {
+    display: block;
+    padding-left: 0;
+    text-align: center;
+}
+
+    .user-form-label.password-recovery:before {
+        display: none;
+    }
+
+.user-form-row.password-recovery.submit {
+    padding-top: 4%;
+}
+
+
+/*#endregion recovery password */
+
 @media (max-width: 1020px) {
 
     /*#region Layout*/
@@ -1216,7 +1253,7 @@ body.try {
         }
 
     .user-form-tooltip.bottom {
-        top: auto;
+        top: 100%;
         left: 50%;
         margin-left: 0;
         margin-top: 1px;
@@ -1290,7 +1327,7 @@ body.try {
     .user-column.image {
         display: none;
     }
-    
+
     /*#endregion User Columns*/
 
     /*#region TRY NOW*/

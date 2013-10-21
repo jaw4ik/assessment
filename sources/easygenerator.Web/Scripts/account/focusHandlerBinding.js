@@ -12,22 +12,22 @@
         }).focusin();
 
         $(wrapper).click(function () {
-            if ($(this).find(elem).is(':focus')) {
+            if ($(this).parent().find(elem).is(':focus')) {
                 $(this).bind('click mousedown mouseup', function () {
                     return false;
                 });
             } else {
                 $(this).bind('click mousedown mouseup', function () {
                     return false;
-                }).find(elem).focus();
+                }).parent().find(elem).focus();
             }
         });
 
         $(elem).focusin(function () {
-            $(this).parent(wrapper).addClass('focus');
+            $(this).parent().find(wrapper).addClass('focus');
         });
         $(elem).blur(function () {
-            $(this).parent(wrapper).removeClass('focus');
+            $(this).parent().find(wrapper).removeClass('focus');
         });
     }
 };
