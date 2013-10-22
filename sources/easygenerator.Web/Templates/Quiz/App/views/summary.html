@@ -36,7 +36,7 @@
                         </div>
                         <div class="progressbar-block">
                             <div class="progressbar-bg-line"></div>
-                            <div class="progressbar-score-line" data-bind="style: { width: score + '%' }"></div>
+                            <div class="progressbar-score-line" data-bind="style: { width: score + '%', display: Math.round(score) < 1 ? 'none' : 'block'  }"></div>
                         </div>
                     </div>
                 </div>
