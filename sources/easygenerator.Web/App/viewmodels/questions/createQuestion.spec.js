@@ -390,7 +390,7 @@
             describe('when objective does not exist', function () {
 
                 beforeEach(function () {
-                    deferred.resolve(null);
+                    deferred.reject();
                 });
 
                 it('should navigate to #404', function () {

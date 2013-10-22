@@ -86,7 +86,10 @@
                         that.title('');
                         that.title.isModified(false);
                         that.title.isEditing(false);
-                    });
+                    }
+                ).fail(function() {
+                    router.replace('404');
+                });
             };
 
         return {
