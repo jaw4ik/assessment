@@ -48,6 +48,15 @@
     margin: 5px 0 0;
 }
 
+.help-hint-text a {
+    color: #333;
+    text-decoration: underline;
+}
+
+.help-hint-text a:hover {
+    text-decoration: none;
+}
+
 .help-hint-left {
     float: left;
     width: 57%;
