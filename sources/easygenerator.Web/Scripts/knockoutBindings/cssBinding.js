@@ -15,18 +15,16 @@
             headerHeight = $('.header').height(),
             topNavHeight = $('.top-navigation').height();
 
-        setTimeout(function() {
-            if (!$(helpHintText).is(':empty')) {
-                if ($(helpHint).height() > 73) {
-                    helpHintHeight = $(helpHint).height();
-                } else {
-                    helpHintHeight = 0;
-                }
+        if (!$(helpHintText).is(':empty')) {
+            if ($(helpHint).height() > 73) {
+                helpHintHeight = $(helpHint).height();
+            } else {
+                helpHintHeight = 0;
             }
+        }
 
-            $(fixedContainer).css('top', headerHeight + topNavHeight + helpHintHeight + 'px');
-            $(notFixedContainer).css('padding-top', 40 + helpHintHeight + 'px');
-            $(contentContainer).css('min-height', 600 + helpHintHeight + 'px');
-        }, 10);
+        $(fixedContainer).css('top', headerHeight + topNavHeight + helpHintHeight + 'px');
+        $(notFixedContainer).css('padding-top', 40 + helpHintHeight + 'px');
+        $(contentContainer).css('min-height', 600 + helpHintHeight + 'px');
     }
 };

@@ -1227,7 +1227,7 @@
         de: 'Was ist eine Lernerfahrung?'
     },
     experiencesHelpHint: {
-        en: '<p>A <strong>learning experience</strong> is the name we gave to the eLearning you will be creating. It can be a course, a Learning nugget, a quiz. In fact it can be anything that will give the learner a learning experience.</p><p> A learning experience consist out of one or more learning objectives, with connected questions and learning content.</p>',
+        en: '<p><span>A </span><strong>learning experience</strong><span> is the name we gave to the eLearning you will be creating. It can be a course, a Learning nugget, a quiz. In fact it can be anything that will give the learner a learning experience.</p><p> A learning experience consist out of one or more learning objectives, with connected questions and learning content.</span></p>',
         nl: '<p>Een leerervaring is de naam die we hebben gegeven aan de eLearning die u gaat maken. Het kan een cursus zijn, of een \'korte uitleg, of\' een toets. Het kan eigenlijk alles zijn dat de lerende een leerervaring geeft. </p><p>Een leerervaring bestaat uit een of meer leerdoelen met gerelateerde vragen en leerinhoud.</p>',
         de: '<p>Eine Lernerfahrung ist der Name, den wir dem eLearning gegeben haben, das Sie erstellen werden. Es kann sich um einen Kurs, eine kurze Erklärung oder einen Quiz handeln. Eigentlich kann es sich um alles handeln, was dem Lerner eine Lernerfahrung vermittelt.</p><p>Eine Lernerfahrung besteht aus einem oder mehreren Lernzielen mit den dazugehörigen Fragen und Lerninhalten.</p>'
     },
