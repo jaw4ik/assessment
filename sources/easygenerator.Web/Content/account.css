@@ -663,6 +663,7 @@ body.try {
     padding-left: 5px;
     padding-bottom: 22px;
     line-height: 1;
+    text-align: left;
 }
 
 .user-form-password-eye {
