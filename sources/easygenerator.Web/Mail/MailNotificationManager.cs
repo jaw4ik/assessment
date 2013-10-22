@@ -1,4 +1,5 @@
-﻿using easygenerator.DataAccess;
+﻿using System;
+using easygenerator.DataAccess;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
@@ -7,7 +8,7 @@ namespace easygenerator.Web.Mail
 {
     public interface IMailNotificationManager
     {
-        void AddMailNotificationToQueue(string templateName, dynamic templateModel);
+        void AddMailNotificationToQueue(string templateName, dynamic templateModel, string fromAddress = null);
     }
 
     public class MailNotificationManager : IMailNotificationManager
@@ -25,19 +26,21 @@ namespace easygenerator.Web.Mail
             _dataContext = unitOfWork;
         }
 
-        public void AddMailNotificationToQueue(string templateName, dynamic templateModel)
+        public void AddMailNotificationToQueue(string templateName, dynamic templateModel, string fromAddress = null)
         {
-            var mailNotification = GetMailNotification(templateName, templateModel);
+            var mailNotification = GetMailNotification(templateName, templateModel, fromAddress);
             _mailNotificationRepository.Add(mailNotification);
             _dataContext.Save();
         }
 
-        private MailNotification GetMailNotification(string templateName, dynamic templateModel)
+        private MailNotification GetMailNotification(string templateName, dynamic templateModel, string fromAddress = null)
         {
             var templateSettings = _senderSettings.MailTemplatesSettings[templateName];
             string emailBody = MailTemplatesProvider.GetMailTemplateBody(templateName, templateSettings, templateModel);
 
-            return _entityFactory.MailNotification(emailBody, templateSettings.Subject, templateSettings.From,
+            // override from address from settings with address specified in method parameter
+            string fromEmail = !String.IsNullOrWhiteSpace(fromAddress) ? fromAddress : templateSettings.From;
+            return _entityFactory.MailNotification(emailBody, templateSettings.Subject, fromEmail,
                 templateSettings.To, templateSettings.Cc, templateSettings.Bcc);
         }
     }
