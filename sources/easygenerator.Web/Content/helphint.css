@@ -44,6 +44,10 @@
     font-weight: normal;
 }
 
+.help-hint-text p {
+    margin: 5px 0 0;
+}
+
 .help-hint-left {
     float: left;
     width: 57%;
