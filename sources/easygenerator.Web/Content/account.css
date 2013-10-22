@@ -1190,9 +1190,8 @@ body.try {
 /*#region recovery password */
 
 .view-module.password-recovery {
-    width: 430px;
-    margin: 0 auto;
     padding-top: 10%;
+    text-align: center;
 }
 
 .view-module.invalid-password-recovery {
@@ -1205,8 +1204,9 @@ body.try {
 }
 
 .user-form.password-recovery {
-    padding-top: 24%;
-    margin: 0 16px;
+    padding: 9.3% 16px 0;
+    width: 430px;
+    margin: 0 auto;
 }
 
 .user-form-label.password-recovery {
