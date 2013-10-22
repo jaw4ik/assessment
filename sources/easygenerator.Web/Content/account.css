@@ -476,7 +476,7 @@ body.try {
 .user-form-notification-text {
     display: inline-block;
     position: relative;
-    padding-left: 20px;
+    padding-left: 30px;
 }
 
     .user-form-notification-text:after {
@@ -485,8 +485,8 @@ body.try {
         position: absolute;
         top: 5px;
         left: 2px;
-        width: 11px;
-        height: 9px;
+        width: 16px;
+        height: 10px;
         background: url(images/sprites.png);
     }
 
@@ -495,7 +495,7 @@ body.try {
 }
 
 .user-form-notification.info .user-form-notification-text:after {
-    background-position: 0 -25px;
+    background-position: -5px -77px;
 }
 
 .user-form-message {
