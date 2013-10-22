@@ -8,17 +8,17 @@
             helpHintHeight,
             contentContainer = '#content',
             helpHint = '.help-hint',
-            helpHintText = '.help-hint-text',
+            helpHintText = '.help-hint .hh-text',
             notFixedContainer = '.view-module',
-            fixedContainer = '.view-module > .fixed-container:first-child',
+            fixedContainer = '.view-module > .fixed-container:first-child';
 
-            headerHeight = $('.header').height(),
+        var headerHeight = $('.header').height(),
             topNavHeight = $('.top-navigation').height();
 
-        if (!$(helpHintText + ' *').is(':empty')) {
+        if (!$(helpHintText).is(':empty')) {
             if ($(helpHint).height() > 73) {
                 helpHintHeight = $(helpHint).height();
-            } else {
+        } else {
                 helpHintHeight = 0;
             }
         }
