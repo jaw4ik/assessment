@@ -1267,9 +1267,9 @@
         de: 'Was ist ein Lernziel?'
     },
     objectivesHelpHint: {
-        en: '<p>A <strong>learning objective</strong> is a statement that describes the specific skills or knowledge a learner will be able to demonstrate as a result of completing a learning experience.</p><p>See http://teachonline.asu.edu/objectives-builder/ for instructions and support for building proper objectives based on Blooms taxonomy.</p>',
-        nl: '<p>Een Leerdoel is een stelling die specifieke vaardigheden of kennis beschrijft die de lerende kan demonstreren als een resultaat van het voltooien van een leerervaring.</p><p>Ga naar http://teachonline.asu.edu/objectives-builder/ voor instructies en uitleg over hoe goede leerdoelen te definiëren gebaseerd op Blooms taxonomy.</p>',
-        de: '<p>Ein Lernziel ist eine Aussage, die die spezifischen Fähigkeiten oder Kenntnisse beschreibt, die ein Lerner als Ergebnis einer Lernerfahrung vorweisen kann.</p><p>Anleitungen und Unterstützung für das Aufbauen geeigneter Ziele auf Basis von Blooms Taxonomie finden Sie unter http://teachonline.asu.edu/objectives-builder/.</p>'
+        en: '<p>A <strong>learning objective</strong> is a statement that describes the specific skills or knowledge a learner will be able to demonstrate as a result of completing a learning experience.</p><p>See <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> for instructions and support for building proper objectives based on Blooms taxonomy.</p>',
+        nl: '<p>Een Leerdoel is een stelling die specifieke vaardigheden of kennis beschrijft die de lerende kan demonstreren als een resultaat van het voltooien van een leerervaring.</p><p>Ga naar <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> voor instructies en uitleg over hoe goede leerdoelen te definiëren gebaseerd op Blooms taxonomy.</p>',
+        de: '<p>Ein Lernziel ist eine Aussage, die die spezifischen Fähigkeiten oder Kenntnisse beschreibt, die ein Lerner als Ergebnis einer Lernerfahrung vorweisen kann.</p><p>Anleitungen und Unterstützung für das Aufbauen geeigneter Ziele auf Basis von Blooms Taxonomie finden Sie unter <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a>.</p>'
     },
     createObjectiveHelpHintTitle: {
         en: 'How to formulate a correct learning objective?',
@@ -1277,9 +1277,9 @@
         de: 'Wie formuliert man ein korrektes Lernziel?'
     },
     createObjectiveHelpHint: {
-        en: '<p>A <strong>learning objective</strong> is a statement that describes the specific skills or knowledge a learner will be able to demonstrate as a result of completing a learning experience.</p><p>See http://teachonline.asu.edu/objectives-builder/ for instructions and support for building proper objectives based on Blooms taxonomy.</p>',
-        nl: '<p>Een Leerdoel is een stelling die specifieke vaardigheden of kennis beschrijft die de lerende kan demonstreren als een resultaat van het voltooien van een leerervaring.</p><p>Ga naar http://teachonline.asu.edu/objectives-builder/ voor instructies en uitleg over hoe goede leerdoelen te definiëren gebaseerd op Blooms taxonomy.</p>',
-        de: '<p>Ein Lernziel ist eine Aussage, die die spezifischen Fähigkeiten oder Kenntnisse beschreibt, die ein Lerner als Ergebnis einer Lernerfahrung vorweisen kann.</p><p>Anleitungen und Unterstützung für das Aufbauen geeigneter Ziele auf Basis von Blooms Taxonomie finden Sie unter http://teachonline.asu.edu/objectives-builder/.</p>'
+        en: '<p>A <strong>learning objective</strong> is a statement that describes the specific skills or knowledge a learner will be able to demonstrate as a result of completing a learning experience.</p><p>See <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> for instructions and support for building proper objectives based on Blooms taxonomy.</p>',
+        nl: '<p>Een Leerdoel is een stelling die specifieke vaardigheden of kennis beschrijft die de lerende kan demonstreren als een resultaat van het voltooien van een leerervaring.</p><p>Ga naar <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> voor instructies en uitleg over hoe goede leerdoelen te definiëren gebaseerd op Blooms taxonomy.</p>',
+        de: '<p>Ein Lernziel ist eine Aussage, die die spezifischen Fähigkeiten oder Kenntnisse beschreibt, die ein Lerner als Ergebnis einer Lernerfahrung vorweisen kann.</p><p>Anleitungen und Unterstützung für das Aufbauen geeigneter Ziele auf Basis von Blooms Taxonomie finden Sie unter <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a>.</p>'
     },
     questionHelpHintTitle: {
         en: 'What are answer options? What are learning objects?',
