@@ -1043,7 +1043,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Views\Account\Resources.de.resx" />
+    <EmbeddedResource Include="Resources\Views\Account\Resources.de.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Account\Resources.nl.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
