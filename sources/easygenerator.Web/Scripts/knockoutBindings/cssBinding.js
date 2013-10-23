@@ -4,35 +4,42 @@
     },
 
     update: function (elem, va) {
-        var
+
+        var value = va;
+
+        if (value) {
+
+            var
             helpHintHeight,
             contentContainer = '#content',
             helpHint = '.help-hint',
-            helpHintText = '.help-hint .hh-text',
+            helpHintText = '.help-hint-text',
             notFixedContainer = '.view-module',
             fixedContainer = '.view-module > .fixed-container:first-child';
 
-        setTimeout(function () { setHeight(); }, 10);
-
-        $(window).resize(function () {
             setHeight();
-        });
 
-        function setHeight() {
-            var headerHeight = $('.header').height(),
-                topNavHeight = $('.top-navigation').height();
+            $(window).resize(function () {
+                setHeight();
+            });
 
-            if (!$(helpHintText).is(':empty')) {
-                if ($(helpHint).height() > 73) {
-                    helpHintHeight = $(helpHint).height();
-                } else {
-                    helpHintHeight = 0;
+            function setHeight() {
+                var headerHeight = $('.header').height(),
+                    topNavHeight = $('.top-navigation').height();
+
+                if (!$(helpHintText).is(':empty')) {
+
+                    if ($(helpHint).height() > 73) {
+                        helpHintHeight = $(helpHint).height();
+                    } else {
+                        helpHintHeight = 0;
+                    }
                 }
-            }
 
-            $(fixedContainer).css('top', headerHeight + topNavHeight + helpHintHeight + 'px');
-            $(notFixedContainer).css('padding-top', 40 + helpHintHeight + 'px');
-            $(contentContainer).css('min-height', 600 + helpHintHeight + 'px');
+                $(fixedContainer).css('top', headerHeight + topNavHeight + helpHintHeight + 'px');
+                $(notFixedContainer).css('padding-top', 40 + helpHintHeight + 'px');
+                $(contentContainer).css('min-height', 600 + helpHintHeight + 'px');
+            }
         }
     }
 };
