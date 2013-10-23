@@ -5,41 +5,37 @@
 
     update: function (elem, va) {
 
-        var value = va;
+        var
+        helpHintHeight,
+        contentContainer = '#content',
+        helpHint = '.help-hint',
+        helpHintText = '.help-hint-text',
+        notFixedContainer = '.view-module',
+        fixedContainer = '.view-module > .fixed-container:first-child';
 
-        if (value) {
+        setHeight();
 
-            var
-            helpHintHeight,
-            contentContainer = '#content',
-            helpHint = '.help-hint',
-            helpHintText = '.help-hint-text',
-            notFixedContainer = '.view-module',
-            fixedContainer = '.view-module > .fixed-container:first-child';
-
+        $(window).resize(function () {
             setHeight();
+        });
 
-            $(window).resize(function () {
-                setHeight();
-            });
+        function setHeight() {
+            var headerHeight = $('.header').height(),
+                topNavHeight = $('.top-navigation').height();
 
-            function setHeight() {
-                var headerHeight = $('.header').height(),
-                    topNavHeight = $('.top-navigation').height();
+            if (!$(helpHintText).is(':empty')) {
 
-                if (!$(helpHintText).is(':empty')) {
-
-                    if ($(helpHint).height() > 73) {
-                        helpHintHeight = $(helpHint).height();
-                    } else {
-                        helpHintHeight = 0;
-                    }
+                if ($(helpHint).height() > 73) {
+                    helpHintHeight = $(helpHint).height();
+                } else {
+                    helpHintHeight = 0;
                 }
-
-                $(fixedContainer).css('top', headerHeight + topNavHeight + helpHintHeight + 'px');
-                $(notFixedContainer).css('padding-top', 40 + helpHintHeight + 'px');
-                $(contentContainer).css('min-height', 600 + helpHintHeight + 'px');
             }
+
+            $(fixedContainer).css('top', headerHeight + topNavHeight + helpHintHeight + 'px');
+            $(notFixedContainer).css('padding-top', 40 + helpHintHeight + 'px');
+            $(contentContainer).css('min-height', 600 + helpHintHeight + 'px');
         }
     }
+
 };
