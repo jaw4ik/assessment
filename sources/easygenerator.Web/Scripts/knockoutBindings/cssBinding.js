@@ -9,7 +9,7 @@
         helpHintHeight,
         contentContainer = '#content',
         helpHint = '.help-hint',
-        helpHintText = '.help-hint .hh-text',
+        helpHintText = '.help-hint-text',
         notFixedContainer = '.view-module',
         fixedContainer = '.view-module > .fixed-container:first-child';
 
@@ -30,6 +30,8 @@
                 } else {
                     helpHintHeight = 0;
                 }
+            } else {
+                helpHintHeight = 0;
             }
 
             $(fixedContainer).css('top', headerHeight + topNavHeight + helpHintHeight + 'px');
