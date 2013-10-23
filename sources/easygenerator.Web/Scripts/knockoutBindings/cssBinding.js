@@ -9,7 +9,7 @@
         helpHintHeight,
         contentContainer = '#content',
         helpHint = '.help-hint',
-        helpHintText = '.help-hint-text',
+        helpHintText = '.help-hint .hh-text',
         notFixedContainer = '.view-module',
         fixedContainer = '.view-module > .fixed-container:first-child';
 
