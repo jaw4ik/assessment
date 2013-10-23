@@ -455,7 +455,7 @@ body.try {
     padding: 10px;
     font-size: 13px;
     margin-top: -17px;
-    text-align: center;
+    text-align: left;
     cursor: default;
 }
 
@@ -490,9 +490,15 @@ body.try {
         background: url(images/sprites.png);
     }
 
-.user-form-notification.warning .user-form-notification-text:after {
-    background-position: -16px -25px;
+.user-form-notification.warning .user-form-notification-text {
+    padding-left: 20px;
 }
+
+
+    .user-form-notification.warning .user-form-notification-text:after {
+        background-position: -16px -25px;
+        width: 10px;
+    }
 
 .user-form-notification.info .user-form-notification-text:after {
     background-position: -5px -77px;
