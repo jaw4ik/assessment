@@ -547,6 +547,7 @@ body.try {
 .user-form-row.error .user-form-message {
     display: block;
     color: #953b39;
+    text-align: left;
 }
 
     .user-form-row.error .user-form-message:after {
