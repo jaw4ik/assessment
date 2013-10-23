@@ -68,6 +68,13 @@
                 data(editor.getData());
             });
             
+            // FIX for IE.
+            editor.on('afterCommandExec', function (evt) {
+                if (evt.data.name === 'undo' || evt.data.name === 'redo') {
+                    editor.focus();
+                }
+            });
+            
             editor.on('paste', function () {
                 setTimeout(function () {
                     filterContent(editor.editable().$);
