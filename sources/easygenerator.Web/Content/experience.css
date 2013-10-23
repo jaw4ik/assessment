@@ -608,10 +608,7 @@
 /*#region Template selector*/
 
 .experience .entity-actions {
-    width: 174px;
-    margin-left: 56px;
     position: absolute;
-    top: 97px;
 }
 
 .experience-template-selector {

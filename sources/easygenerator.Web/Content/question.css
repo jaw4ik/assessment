@@ -442,10 +442,10 @@
 
 .answer-option-item.active .question-answer-text-wrapper,
 .question-learning-object-item.active .question-learning-object-wrapper {
-    border: 1px solid rgba(68, 192, 252, 0.4);
-    -webkit-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
-    -moz-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
-    box-shadow: 0 0 3px rgba(68, 192, 252, 1);
+    border: 1px solid rgba(116, 185, 240, 1);
+    -webkit-box-shadow: 0 0 3px rgba(116, 185, 240, 1);
+    -moz-box-shadow: 0 0 3px rgba(116, 185, 240, 1);
+    box-shadow: 0 0 3px rgba(116, 185, 240, 1);
 }
 
 .answer-option-item.active .question-answer-text,

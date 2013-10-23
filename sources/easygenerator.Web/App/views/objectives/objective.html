@@ -16,36 +16,12 @@
         <!-- /ko -->
 
         <header class="view-header">
-            <!-- ko ifnot: _.isNullOrUndefined(previousObjectiveId) -->
-            <a class="view-header-nav-btn previous" href="" title="Previous" data-bind="click: navigateToPreviousObjective, localize: { title: 'previous' }"></a>
-            <!-- /ko -->
-            <!-- ko if: _.isNullOrUndefined(previousObjectiveId) -->
-            <div class="view-header-nav-btn previous disabled" title="Previous" data-bind="localize: { title: 'previous' }"></div>
-            <!-- /ko -->
-
-            <div>
-                <!-- ko compose: { view: 'views/common/entityinfo', 
-                        model: {
-                        info: [ { text: 'createdOn', emptyText: '', date: createdOn }, { text: 'modifiedOn', emptyText: '', date: modifiedOn() } ],
-                        image: image,
-                        language: language
-                    }
-                } -->
-                <!-- /ko -->
-                <div class="view-header-title">
-                    <div class="view-header-title-text selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() }"></div>
-                    <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
-                        <span data-bind="text: title().trim().length + '/' + titleMaxLength"></span>
-                    </div>
+            <div class="view-header-title">
+                <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() }"></div>
+                <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
+                    <span data-bind="text: title().trim().length + '/' + titleMaxLength"></span>
                 </div>
             </div>
-
-            <!-- ko ifnot: _.isNullOrUndefined(nextObjectiveId) -->
-            <a class="view-header-nav-btn next" href="" title="Next" data-bind="click: navigateToNextObjective, localize: { title: 'next' }"></a>
-            <!-- /ko -->
-            <!-- ko if: _.isNullOrUndefined(nextObjectiveId) -->
-            <div class="view-header-nav-btn next disabled" title="Next" data-bind="localize: { title: 'next' }"></div>
-            <!-- /ko -->
         </header>
 
         <div class="questions-header clearfix">

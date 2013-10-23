@@ -649,9 +649,11 @@ ol.unstyled  {
 
 .create-form-field {
     margin-left: 250px;
+    position: relative;
 }
 
-.create-form .editarea {
+
+.create-form .edit-field {
     min-height: 120px;
 }
 
@@ -690,81 +692,6 @@ ol.unstyled  {
     display: inline-block;
 }
 
-.edit-field {
-    position: relative;
-}
-
-    .edit-field .text-block .editarea-editable-text {
-        width: 100%;
-        border: 1px solid transparent;
-        -ms-resize: none;
-        resize: none;
-        padding: 10px 15px 25px 15px;
-        vertical-align: top;
-        outline: none;
-        background-color: transparent;
-        color: #666;
-        font-size: 14px;
-    }
-
-    .edit-field .text-block.bordered > .editarea {
-        background-color: white;
-        border: 1px solid #e1e1e1;
-        -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-        -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-    }
-
-    .edit-field .text-block:hover > .editarea {
-        border: 1px solid #e1e1e1;
-        -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-        -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-    }
-
-    .edit-field .text-block.active > .editarea {
-        background-color: white;
-        border: 1px solid rgba(68, 192, 252, 0.4);
-        -webkit-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
-        -moz-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
-        box-shadow: 0 0 3px rgba(68, 192, 252, 1);
-    }
-
-    .edit-field .text-block.error > .editarea {
-        border: 1px solid rgba(242, 108, 79, 0.4);
-        -webkit-box-shadow: 0 0 3px rgba(242, 108, 79, 1);
-        -moz-box-shadow: 0 0 3px rgba(242, 108, 79, 1);
-        box-shadow: 0 0 3px rgba(242, 108, 79, 1);
-    }
-
-    .edit-field .text-block.active .chars-counter {
-        display: block;
-    }
-
-    .edit-field .text-block .chars-counter.error {
-        background-color: #f26c4f;
-        display: block;
-    }
-
-.chars-counter {
-    display: none;
-    color: white;
-    background-color: #6DCEFC;
-    padding: 0 5px;
-    width: auto;
-    height: 17px;
-    line-height: 17px;
-    position: absolute;
-    bottom: 5px;
-    right: 4px;
-    font-size: 12px;
-    margin-top: -22px;
-    -webkit-border-radius: 7px;
-    -moz-border-radius: 7px;
-    border-radius: 7px;
-    text-align: center;
-}
-
 .editable-text-binding {
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -772,6 +699,83 @@ ol.unstyled  {
 }
 
 /*#endregion Create form*/
+
+/*#region Edit field*/
+
+.edit-field {
+    padding: 10px 15px 25px 15px;
+    border: 1px solid rgba(68, 192, 252, 0);
+    font-size: 14px;
+    color: #666;
+    width: 100%;
+    -ms-resize: none;
+    resize: none;
+    vertical-align: top;
+    outline: none;
+    background-color: transparent;
+}
+
+    .edit-field.bordered {
+        border: 1px solid #e1e1e1;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+    }
+
+    .edit-field:hover {
+        border: 1px solid #e1e1e1;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+    }
+
+    .edit-field.active {
+        background-color: white;
+        border: 1px solid rgba(116, 185, 240, 1);
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        -webkit-box-shadow: 0 0 3px rgba(116, 185, 240, 1);
+        -moz-box-shadow: 0 0 3px rgba(116, 185, 240, 1);
+        box-shadow: 0 0 3px rgba(116, 185, 240, 1);
+    }
+
+        .edit-field.active + .chars-counter {
+            display: block;
+        }
+
+    .edit-field + .chars-counter.error {
+        background-color: #f26c4f;
+        display: block;
+    }
+
+    .edit-field.error {
+        border: 1px solid rgba(242, 108, 79, 0.8);
+        -webkit-box-shadow: 0 0 3px rgba(242, 108, 79, 1);
+        -moz-box-shadow: 0 0 3px rgba(242, 108, 79, 1);
+        box-shadow: 0 0 3px rgba(242, 108, 79, 1);
+    }
+
+.chars-counter {
+    display: none;
+    color: white;
+    background-color: #74B9F0;
+    padding: 0 5px;
+    width: auto;
+    height: 17px;
+    line-height: 17px;
+    position: absolute;
+    bottom: 0px;
+    right: 0;
+    font-size: 12px;
+    margin: 0;
+    -webkit-border-radius: 5px 0px 3px 0px;
+    -moz-border-radius: 5px 0px 3px 0px;
+    border-radius: 5px 0px 3px 0px;
+    text-align: center;
+}
+
+/*#endregion Edit field*/
 
 /*#region Create explanation tooltip*/
 
@@ -826,85 +830,12 @@ ol.unstyled  {
     position: relative;
 }
 
-.view-header-nav-btn {
-    height: 32px;
-    width: 22px;
-    opacity: 0.6;
-    cursor: pointer;
-    top: 50%;
-    position: absolute;
-    margin-top: -16px;
-}
-
-    .view-header-nav-btn:hover {
-        opacity: 1;
+    .view-header-title .edit-field {
+        color: #303032;
+        font-size: 16px;
+        font-family: 'OpenSans-Semibold';
     }
 
-    .view-header-nav-btn.disabled {
-        opacity: .2;
-        cursor: default;
-    }
-
-    .view-header-nav-btn.previous {
-        background-image: url(images/middle-sized-icons-pack.png);
-        background-position: 0 -104px;
-        left: 0;
-    }
-
-    .view-header-nav-btn.next {
-        background-image: url(images/middle-sized-icons-pack.png);
-        background-position: 0 -136px;
-        right: 0;
-    }
-
-.view-header-title-text {
-    min-height: 100px;
-    margin-left: 285px;
-    margin-right: 60px;
-    padding: 10px 15px 25px 15px;
-    border: 1px solid rgba(68, 192, 252, 0);
-    font-size: 14px;
-    color: #555;
-}
-
-    .view-header-title-text:hover {
-        border: 1px solid #e1e1e1;
-        -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-        -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
-    }
-
-
-    .view-header-title-text + .chars-counter {
-        right: 65px;
-    }
-
-
-    .view-header-title-text.active {
-        background-color: white;
-        border: 1px solid rgba(68, 192, 252, 0.4);
-        -webkit-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
-        -moz-box-shadow: 0 0 3px rgba(68, 192, 252, 1);
-        box-shadow: 0 0 3px rgba(68, 192, 252, 1);
-        color: #767676;
-    }
-
-        .view-header-title-text.active + .chars-counter {
-            display: block;
-        }
-
-
-    .view-header-title-text + .chars-counter.error {
-        background-color: #f26c4f;
-        display: block;
-    }
-
-    .view-header-title-text.error {
-        border: 1px solid rgba(242, 108, 79, 0.4);
-        -webkit-box-shadow: 0 0 3px rgba(242, 108, 79, 1);
-        -moz-box-shadow: 0 0 3px rgba(242, 108, 79, 1);
-        box-shadow: 0 0 3px rgba(242, 108, 79, 1);
-    }
 /*#endregion View header*/
 
 /*#region Entity info*/

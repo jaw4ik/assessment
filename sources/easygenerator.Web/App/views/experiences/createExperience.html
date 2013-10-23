@@ -20,13 +20,9 @@
             </div>
 
             <div class="create-form-field">
-                <div class="edit-field selectable">
-                    <div class="text-block bordered active" data-bind="css: { error: !title.isValid() && title().length > experienceTitleMaxLength, active: title.isEditing }">
-                        <div data-autofocus="true" class="editarea editarea-editable-text" data-bind="editableText: { text: title }, hasFocus: title.isEditing"></div>
-                        <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > experienceTitleMaxLength }">
-                            <span data-bind="text: title().trim().length"></span>/<span data-bind="    text: experienceTitleMaxLength"></span>
-                        </div>
-                    </div>
+                <div data-autofocus="true" class="edit-field bordered selectable" data-bind="editableText: { text: title }, hasFocus: title.isEditing, css: { error: !title.isValid() && title().length > experienceTitleMaxLength, active: title.isEditing }"></div>
+                <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > experienceTitleMaxLength }">
+                    <span data-bind="text: title().trim().length"></span>/<span data-bind="text: experienceTitleMaxLength"></span>
                 </div>
                 <!-- ko compose: { view: 'views/common/createtip', model: { text: 'typeExperienceTitleHere' } } -->
                 <!-- /ko -->
