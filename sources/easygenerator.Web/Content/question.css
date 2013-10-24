@@ -671,8 +671,12 @@
 
 .question .flexible .nav-title {
     margin-left: 0;
-    padding-left: 10px;
+    padding-left: 0;
     padding-right: 20px;
+}
+
+.question .flexible .nav-element {
+    padding: 10px;
 }
 
 /*#endregion Create new question navigation button*/
@@ -680,6 +684,7 @@
 .nav-control.create-question-from-question-view {
     cursor: pointer;
 }
-.nav-control.create-question-from-question-view .nav-title {
-    padding-left: 0;
-}
+
+    .nav-control.create-question-from-question-view .nav-title {
+        padding-left: 0;
+    }

@@ -830,11 +830,11 @@ ol.unstyled  {
     position: relative;
 }
 
-    .view-header-title .edit-field {
-        color: #303032;
-        font-size: 16px;
-        font-family: 'OpenSans-Semibold';
-    }
+.view-header-title .edit-field {
+    color: #303032;
+    font-size: 16px;
+    font-family: 'OpenSans-Semibold';
+}
 
 /*#endregion View header*/
 
