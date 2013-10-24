@@ -1,12 +1,6 @@
-﻿using System;
-using System.Globalization;
-using System.Net.Mail;
-using System.Security.Principal;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using easygenerator.DomainModel;
+﻿using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
@@ -15,11 +9,14 @@ using easygenerator.Web.Components;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Mail;
 using easygenerator.Web.Tests.Utils;
+using easygenerator.Web.ViewModels.Account;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
-using easygenerator.Web.ViewModels.Account;
-using easygenerator.DomainModel.Events;
+using System.Security.Principal;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -289,7 +286,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void SignUp_ShouldCreateHelpHintsForUser()
+        public void SignUp_ShouldNotCreateHelpHintsForUser_WhenUserSignupFromTry()
         {
             //Arrange
             const string signUpUsername = "username@easygenerator.com";
@@ -297,6 +294,25 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var profile = new UserSecondStepViewModel() { Email = signUpUsername, Password = password, Organization = "" };
             var user = Substitute.For<User>();
             _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
+            _user.Identity.IsAuthenticated.Returns(true);
+
+            //Act
+            _controller.Signup(profile);
+
+            //Assert
+            _helpHintRepository.DidNotReceive().CreateHelpHintsForUser(signUpUsername);
+        }
+
+        [TestMethod]
+        public void SignUp_ShouldNotCreateHelpHintsForUser_WhenUserSignup()
+        {
+            //Arrange
+            const string signUpUsername = "username@easygenerator.com";
+            const string password = "Abc123!";
+            var profile = new UserSecondStepViewModel() { Email = signUpUsername, Password = password, Organization = "" };
+            var user = Substitute.For<User>();
+            _entityFactory.User(signUpUsername, password, signUpUsername).Returns(user);
+            _user.Identity.IsAuthenticated.Returns(false);
 
             //Act
             _controller.Signup(profile);

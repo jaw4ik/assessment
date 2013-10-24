@@ -1,18 +1,14 @@
-﻿using System.Net.Mail;
-using System.Runtime.InteropServices;
-using System.Web.Configuration;
-using System.Web.Mvc;
-using AccountRes;
+﻿using AccountRes;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DomainModel.Events;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
-using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Mail;
 using easygenerator.Web.ViewModels.Account;
-using easygenerator.DomainModel.Events;
+using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
