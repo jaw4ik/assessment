@@ -42,6 +42,12 @@ DEL /S /Q /F "%DeploymentDirectory%\*.release.config"
 DEL /S /Q /F "%DeploymentDirectory%\packages.config"
 DEL /S /Q /F "%DeploymentDirectory%\bin\*.config"
 DEL /S /Q /F "%DeploymentDirectory%\bin\*.xml"
+DEL /S /Q /F "%DeploymentDirectory%\*.pdb"
+DEL /S /Q /F "%DeploymentDirectory%\*.spec.js"
+DEL /S /Q /F "%DeploymentDirectory%\apple-touch-icon*"
+DEL /S /Q /F "%DeploymentDirectory%\Scripts\*.map"
+DEL /Q /F "%DeploymentDirectory%\humans.txt"
+RMDIR /S /Q "%DeploymentDirectory%\Scripts\jasmine"
 
 ECHO Success!!!
 color A
