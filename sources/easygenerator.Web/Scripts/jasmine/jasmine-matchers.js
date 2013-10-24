@@ -11,6 +11,10 @@
         toBeObservable: function () {
             return toBeObservable.call(this, this.actual);
         },
+        
+        toBeObservableArray: function() {
+            return toBeObservableArray.call(this, this.actual);
+        },
 
         toBeComputed: function () {
             return toBeComputed.call(this, this.actual);
@@ -88,6 +92,18 @@ function toBeObservable(actual) {
     };
 
     return ko.isObservable(actual);
+}
+
+function toBeObservableArray(actual) {
+    if (this.isNot) {
+        throw '[.not] is not supported';
+    }
+
+    this.message = function () {
+        return "Expected to be observable array";
+    };
+
+    return ko.isObservable(actual) && jasmine.getEnv().equals_(ko.unwrap(actual), jasmine.any(Array));
 }
 
 function toBeComputed(actual) {
