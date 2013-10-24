@@ -271,7 +271,6 @@
     </Content>
     <Content Include="App\views\common\createtip.html" />
     <Content Include="App\views\common\formactions.html" />
-    <Content Include="App\views\common\entityinfo.html" />
     <Content Include="App\views\common\hintpopup.html" />
     <Content Include="App\guard.spec.js">
       <DependentUpon>guard.js</DependentUpon>

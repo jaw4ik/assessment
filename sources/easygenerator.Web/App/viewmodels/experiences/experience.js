@@ -10,8 +10,6 @@
                 buildExperience: 'Build experience',
                 downloadExperience: 'Download experience',
                 navigateToExperiences: 'Navigate to experiences',
-                navigateToNextExperience: 'Navigate to next experience',
-                navigateToPreviousExperience: 'Navigate to previous experience',
                 navigateToObjectiveDetails: 'Navigate to objective details',
                 navigateToCreateObjective: 'Navigate to create objective',
                 selectObjective: 'Select Objective',
@@ -39,14 +37,8 @@
             templates = [],
             status = ko.observable(),
             isFirstBuild = ko.observable(true),
-            nextExperienceId = null,
-            previousExperienceId = null,
             previousTitle = '',
             experience = [],
-            createdOn = null,
-            modifiedOn = ko.observable(),
-            builtOn = ko.observable(),
-            language = ko.observable(),
             objectivesMode = ko.observable(''),
             isEditing = ko.observable(),
             template = {},
@@ -96,24 +88,6 @@
             router.navigate('experiences');
         },
 
-        navigateToNextExperience = function () {
-            sendEvent(events.navigateToNextExperience);
-            if (_.isUndefined(this.nextExperienceId) || _.isNull(this.nextExperienceId)) {
-                router.replace('404');
-            } else {
-                router.navigate('experience/' + this.nextExperienceId);
-            }
-        },
-
-        navigateToPreviousExperience = function () {
-            sendEvent(events.navigateToPreviousExperience);
-            if (_.isUndefined(this.previousExperienceId) || _.isNull(this.previousExperienceId)) {
-                router.replace('404');
-            } else {
-                router.navigate('experience/' + this.previousExperienceId);
-            }
-        },
-
         navigateToObjectiveDetails = function (objective) {
             sendEvent(events.navigateToObjectiveDetails);
             if (_.isUndefined(objective)) {
@@ -151,12 +125,10 @@
             var that = this;
             service.build(this.id).then(function (updatedExperience) {
                 that.status(updatedExperience.buildingStatus);
-                that.builtOn(updatedExperience.builtOn);
                 that.experience.packageUrl = updatedExperience.packageUrl;
                 that.isFirstBuild(false);
             }).fail(function () {
                 that.status(constants.buildingStatuses.failed);
-                that.builtOn('');
             });
         },
 
@@ -205,7 +177,6 @@
             if (title.isValid() && title() != previousTitle) {
                 sendEvent(events.updateExperienceTitle);
                 repository.updateExperienceTitle(this.id, title()).then(function (updatedOn) {
-                    modifiedOn(updatedOn);
                     notify.info(localizationManager.localize('savedAt') + ' ' + updatedOn.toLocaleTimeString());
                 });
             } else {
@@ -262,7 +233,7 @@
             }
 
             repository.relateObjectives(that.id, addingObjectives)
-                .then(function (modifiedDate) {
+                .then(function () {
                     that.relatedObjectives(_.chain(addingObjectives)
                         .map(function (item) {
                             return objectiveBrief(item);
@@ -272,7 +243,6 @@
                             return item.title.toLowerCase();
                         }).value());
 
-                    that.modifiedOn(modifiedDate);
                     notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
                     that.objectivesMode(objectivesListModes.display);
                     that.hintPopup.hide();
@@ -290,7 +260,6 @@
             repository.updateExperienceTemplate(this.id, selectedTemplate.id)
                 .then(function (updatedOn) {
                     template.image(selectedTemplate.image);
-                    modifiedOn(updatedOn);
                     notify.info(localizationManager.localize('savedAt') + ' ' + updatedOn.toLocaleTimeString());
                 });
         },
@@ -303,7 +272,6 @@
             clientContext.set('lastVistedExperience', experienceId);
             clientContext.set('lastVisitedObjective', null);
             isEditing(false);
-            language(localizationManager.currentLanguage);
             hintPopup.displayed(false);
 
             var that = this;
@@ -322,12 +290,7 @@
                     return;
                 }
 
-                that.createdOn = that.experience.createdOn;
-                that.modifiedOn(that.experience.modifiedOn);
-                that.builtOn(that.experience.builtOn);
-
                 that.isFirstBuild(that.experience.buildingStatus == constants.buildingStatuses.notStarted);
-
                 that.status(that.experience.buildingStatus);
 
                 that.id = that.experience.id;
@@ -340,10 +303,6 @@
                         .value());
 
                 that.objectivesMode(that.objectivesListModes.display);
-
-                var index = _.indexOf(experiences, that.experience);
-                that.previousExperienceId = index != 0 ? experiences[index - 1].id : null;
-                that.nextExperienceId = index != experiences.length - 1 ? experiences[index + 1].id : null;
 
                 that.template.id(that.experience.template.id);
                 that.template.image(that.experience.template.image);
@@ -373,9 +332,8 @@
                 });
 
             repository.unrelateObjectives(this.id, _.map(selectedObjectives, function (item) { return item; }))
-                .then(function (modifiedDate) {
+                .then(function () {
                     that.relatedObjectives(_.difference(that.relatedObjectives(), selectedObjectives));
-                    that.modifiedOn(modifiedDate);
                     notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
                 });
         };
@@ -393,16 +351,12 @@
             status: status,
             statuses: constants.buildingStatuses,
             experience: experience,
-            nextExperienceId: nextExperienceId,
-            previousExperienceId: previousExperienceId,
             objectivesMode: objectivesMode,
             objectivesListModes: objectivesListModes,
             canUnrelateObjectives: canUnrelateObjectives,
             hintPopup: hintPopup,
 
             navigateToExperiences: navigateToExperiences,
-            navigateToNextExperience: navigateToNextExperience,
-            navigateToPreviousExperience: navigateToPreviousExperience,
             navigateToObjectiveDetails: navigateToObjectiveDetails,
             navigateToCreateObjective: navigateToCreateObjective,
 
@@ -416,10 +370,6 @@
             updateExperienceTemplate: updateExperienceTemplate,
 
             resetBuildStatus: resetBuildStatus,
-            language: language,
-            createdOn: createdOn,
-            modifiedOn: modifiedOn,
-            builtOn: builtOn,
             experienceTitleMaxLength: constants.validation.experienceTitleMaxLength,
             isEditing: isEditing,
 

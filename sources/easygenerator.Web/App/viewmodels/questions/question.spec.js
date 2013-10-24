@@ -57,12 +57,6 @@ define(function (require) {
             expect(viewModel).toBeDefined();
         });
 
-        describe('modifiedOn:', function () {
-            it('should be observable', function () {
-                expect(viewModel.modifiedOn).toBeObservable();
-            });
-        });
-
         describe('title:', function () {
 
             it('should be observable', function () {
@@ -272,23 +266,6 @@ define(function (require) {
                             });
                         });
 
-                        it('should update modifiedOn', function () {
-                            viewModel.endEditQuestionTitle();
-
-                            var modificationDate = new Date();
-                            question.modifiedOn = modificationDate;
-
-                            var promise = updateDeferred.promise.finally(function () { });
-                            updateDeferred.resolve(modificationDate);
-
-                            waitsFor(function () {
-                                return !getPromise.isPending() && !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeResolved();
-                                expect(viewModel.modifiedOn()).toEqual(question.modifiedOn);
-                            });
-                        });
                     });
 
                 });
@@ -362,41 +339,6 @@ define(function (require) {
 
             });
 
-            describe('when question is last', function () {
-
-                it('should disable next', function () {
-                    var promise = viewModel.activate('obj2', '0');
-
-                    getObjectiveByIdDeferred.resolve(objective);
-                    getQuestionByIdDeferred.resolve(question);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.hasNext).toBe(false);
-                    });
-                });
-
-            });
-
-            describe('when question is first', function () {
-
-                it('should disable previous', function () {
-                    var promise = viewModel.activate('obj3', '0');
-                    getObjectiveByIdDeferred.resolve(objective);
-                    getQuestionByIdDeferred.resolve(question);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.hasPrevious).toBe(false);
-                    });
-                });
-
-            }); 
-
             it('should initialize fields', function () {
                 var promise = viewModel.activate(objective.id, question.id);
 
@@ -409,14 +351,8 @@ define(function (require) {
                 runs(function () {
                     expect(viewModel.objectiveTitle).toBe(objectiveFull.title);
                     expect(viewModel.title()).toBe(question.title);
-                    expect(viewModel.createdOn).toBe(question.createdOn);
-                    expect(viewModel.modifiedOn()).toBe(question.modifiedOn);
-
                     expect(viewModel.answers).toBeDefined();
                     expect(viewModel.learningObjects).toBeDefined();
-                    
-                    expect(viewModel.hasPrevious).toBe(true);
-                    expect(viewModel.hasNext).toBe(true);
                 });
             });
         });
@@ -453,63 +389,6 @@ define(function (require) {
             it('should navigate to #objective/{objectiveId}', function () {
                 viewModel.goToRelatedObjective();
                 expect(router.navigateWithQueryString).toHaveBeenCalled();
-            });
-
-        });
-
-        describe('goToPreviousQuestion:', function () {
-
-            it('should be a function', function () {
-                expect(viewModel.goToPreviousQuestion).toBeFunction();
-            });
-
-            it('should track event \"Navigate to previous question\"', function () {
-                viewModel.goToPreviousQuestion();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to previous question');
-            });
-
-            it('should navigate to previous question', function () {
-                viewModel.goToPreviousQuestion();
-                expect(router.navigateWithQueryString).toHaveBeenCalled();
-            });
-
-            describe('when previous question doesnt exist', function () {
-
-                it('should navigate to #404 ', function () {
-                    viewModel.hasPrevious = false;
-                    viewModel.goToPreviousQuestion();
-                    expect(router.replace).toHaveBeenCalledWith('404');
-                });
-
-            });
-
-        });
-
-        describe('goToNextQuestion:', function () {
-
-            it('should be a function', function () {
-                expect(viewModel.goToNextQuestion).toBeFunction();
-            });
-
-            it('should track event \'Navigate to next question\'', function () {
-                viewModel.goToNextQuestion();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to next question');
-            });
-
-            it('should navigate to next question', function () {
-                viewModel.hasNext = true;
-                viewModel.goToNextQuestion();
-                expect(router.navigateWithQueryString).toHaveBeenCalled();
-            });
-
-            describe('when next question doesnt exist', function () {
-
-                it('should navigate to #404', function () {
-                    viewModel.hasNext = false;
-                    viewModel.goToNextQuestion();
-                    expect(router.replace).toHaveBeenCalledWith('404');
-                });
-
             });
 
         });

@@ -12,8 +12,6 @@
             selectQuestion: "Select question",
             unselectQuestion: "Unselect question",
             deleteSelectedQuestions: "Delete question",
-            navigateToNextObjective: "Navigate to next objective",
-            navigateToPreviousObjective: "Navigate to previous objective",
             navigateToExperience: "Navigate to experience"
         },
             sendEvent = function (eventName) {
@@ -21,14 +19,9 @@
             };
 
         var objectiveId = null,
-            nextObjectiveId = null,
-            previousObjectiveId = null,
-            createdOn = null,
-            modifiedOn = ko.observable(),
             title = ko.observable(''),
             contextExperienceTitle = null,
-            contextExperienceId = null,
-            language = ko.observable();
+            contextExperienceId = null;
 
         title.isEditing = ko.observable();
         title.isValid = ko.computed(function () {
@@ -55,8 +48,7 @@
                     sendEvent(events.updateObjectiveTitle);
 
                     if (title.isValid()) {
-                        repository.updateObjective({ id: that.objectiveId, title: that.title() }).then(function (objectiveModificationOn) {
-                            modifiedOn(objectiveModificationOn);
+                        repository.updateObjective({ id: that.objectiveId, title: that.title() }).then(function () {
                             notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
                         });
                     } else {
@@ -64,8 +56,6 @@
                     }
                 });
             },
-
-            image = ko.observable(),
 
             questions = ko.observableArray([]),
 
@@ -111,33 +101,14 @@
                 router.navigateWithQueryString('objective/' + this.objectiveId + '/question/create');
             },
 
-            navigateToNextObjective = function () {
-                sendEvent(events.navigateToNextObjective);
-                if (_.isNullOrUndefined(this.nextObjectiveId)) {
-                    router.replace('404');
-                } else {
-                    router.navigateWithQueryString('objective/' + this.nextObjectiveId);
-                }
-            },
-
-            navigateToPreviousObjective = function () {
-                sendEvent(events.navigateToPreviousObjective);
-                if (_.isNullOrUndefined(this.previousObjectiveId)) {
-                    router.replace('404');
-                } else {
-                    router.navigateWithQueryString('objective/' + this.previousObjectiveId);
-                }
-            },
-
             deleteSelectedQuestions = function () {
                 sendEvent(events.deleteSelectedQuestions);
                 var selectedQuestions = getSelectedQuestions();
                 if (selectedQuestions.length == 0)
                     throw 'No selected questions to delete';
 
-                questionRepository.removeQuestion(this.objectiveId, selectedQuestions[0].id).then(function (objectiveModificationDate) {
+                questionRepository.removeQuestion(this.objectiveId, selectedQuestions[0].id).then(function () {
                     questions(_.reject(questions(), function (item) { return item.id == selectedQuestions[0].id; }));
-                    modifiedOn(objectiveModificationDate);
                     notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
                 });
 
@@ -171,7 +142,6 @@
                 var that = this;
 
                 clientContext.set('lastVisitedObjective', objId);
-                that.language(localizationManager.currentLanguage);
                 if (_.isNullOrUndefined(queryParams) || !_.isString(queryParams.experienceId)) {
                     that.contextExperienceId = null;
                     that.contextExperienceTitle = null;
@@ -205,15 +175,8 @@
                         return;
                     }
 
-                    that.objectiveId = objId;
+                    that.objectiveId = objective.id;
                     that.title(objective.title);
-                    that.createdOn = objective.createdOn;
-                    that.modifiedOn(objective.modifiedOn);
-                    that.image(objective.image);
-
-                    var index = _.indexOf(objectives, objective);
-                    that.previousObjectiveId = index != 0 ? objectives[index - 1].id : null;
-                    that.nextObjectiveId = index != objectives.length - 1 ? objectives[index + 1].id : null;
 
                     var array = _.chain(objective.questions)
                         .map(function (item) {
@@ -238,18 +201,11 @@
 
         return {
             objectiveId: objectiveId,
-            nextObjectiveId: nextObjectiveId,
-            previousObjectiveId: previousObjectiveId,
-
             title: title,
             contextExperienceId: contextExperienceId,
             contextExperienceTitle: contextExperienceTitle,
             titleMaxLength: constants.validation.objectiveTitleMaxLength,
-            language: language,
-            createdOn: createdOn,
-            modifiedOn: modifiedOn,
 
-            image: image,
             questions: questions,
             canDeleteQuestions: canDeleteQuestions,
 
@@ -263,8 +219,6 @@
 
             navigateToEditQuestion: navigateToEditQuestion,
             navigateBack: navigateBack,
-            navigateToNextObjective: navigateToNextObjective,
-            navigateToPreviousObjective: navigateToPreviousObjective,
             navigateToCreateQuestion: navigateToCreateQuestion,
 
             deleteSelectedQuestions: deleteSelectedQuestions,

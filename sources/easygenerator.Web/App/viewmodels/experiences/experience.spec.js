@@ -155,18 +155,6 @@
                 expect(viewModel.statuses).toEqual(constants.buildingStatuses);
             });
 
-            describe('language:', function () {
-
-                it('should be defined', function () {
-                    expect(viewModel.language).toBeDefined();
-                });
-
-                it('should be observable', function () {
-                    expect(viewModel.language).toBeObservable();
-                });
-
-            });
-
             describe('navigateToExperiences:', function () {
 
                 it('should be a function', function () {
@@ -181,92 +169,6 @@
                 it('should navigate to #experiences', function () {
                     viewModel.navigateToExperiences();
                     expect(router.navigate).toHaveBeenCalledWith('experiences');
-                });
-
-            });
-
-            describe('navigateToNextExperience:', function () {
-
-                it('should be a function', function () {
-                    expect(viewModel.navigateToNextExperience).toBeFunction();
-                });
-
-                it('should send event \'Navigate to next experience\'', function () {
-                    viewModel.navigateToNextExperience();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to next experience');
-                });
-
-                describe('when nextExperience is undefined', function () {
-
-                    it('should navigate to #404', function () {
-                        viewModel.nextExperienceId = null;
-                        viewModel.navigateToNextExperience();
-                        expect(router.replace).toHaveBeenCalledWith('404');
-                    });
-
-                });
-
-                describe('when nextExperience is null', function () {
-
-                    it('should navigate to #404', function () {
-                        viewModel.nextExperienceId = null;
-                        viewModel.navigateToNextExperience();
-                        expect(router.replace).toHaveBeenCalledWith('404');
-                    });
-
-                });
-
-                describe('when nextExperience is not null or undefined', function () {
-
-                    it('should navigate to #experience/{nextExperienceId}', function () {
-                        viewModel.nextExperienceId = nextExperienceId;
-                        viewModel.navigateToNextExperience();
-                        expect(router.navigate).toHaveBeenCalledWith('experience/' + nextExperienceId);
-                    });
-
-                });
-
-            });
-
-            describe('navigateToPreviousExperience:', function () {
-
-                it('should be a function', function () {
-                    expect(viewModel.navigateToPreviousExperience).toBeFunction();
-                });
-
-                it('should send event \'Navigate to previous experience\'', function () {
-                    viewModel.navigateToPreviousExperience();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to previous experience');
-                });
-
-                describe('when previousExperienceId is null', function () {
-
-                    it('should navigate to #404', function () {
-                        viewModel.previousExperienceId = null;
-                        viewModel.navigateToPreviousExperience();
-                        expect(router.replace).toHaveBeenCalledWith('404');
-                    });
-
-                });
-
-                describe('when previousExperienceId is undefined', function () {
-
-                    it('should navigate to #404', function () {
-                        viewModel.previousExperienceId = undefined;
-                        viewModel.navigateToPreviousExperience();
-                        expect(router.replace).toHaveBeenCalledWith('404');
-                    });
-
-                });
-
-                describe('when previousExperienceId is not null', function () {
-
-                    it('should navigate to #/experience/{previousExperienceId}', function () {
-                        viewModel.previousExperienceId = previousExperienceId;
-                        viewModel.navigateToPreviousExperience();
-                        expect(router.navigate).toHaveBeenCalledWith('experience/' + previousExperienceId);
-                    });
-
                 });
 
             });
@@ -512,23 +414,6 @@
                         });
                     });
 
-                    it('should change field builtOn', function () {
-                        build.resolve({ Success: true, PackageUrl: "packageUrl" });
-
-                        var builtOn = experience.builtOn;
-
-                        viewModel.id = 1;
-                        viewModel.buildExperience();
-                        var promise = build.promise.fin(function () { });
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(viewModel.builtOn()).toNotEqual(builtOn);
-                        });
-                    });
-
                     afterEach(function () {
                         experience.packageUrl = '';
                     });
@@ -569,24 +454,6 @@
                             expect(promise).toBeRejectedWith("Build failed");
                         });
 
-                    });
-
-                    it('should clear buildOn', function () {
-                        build.reject();
-
-                        viewModel.builtOn(experience.builtOn);
-
-                        viewModel.id = 1;
-                        viewModel.buildExperience();
-
-                        var promise = build.promise.fin(function () { });
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(viewModel.builtOn()).toEqual('');
-                        });
                     });
 
                 });
@@ -729,19 +596,6 @@
                             });
                         });
 
-                        it('should update modifiedOn', function () {
-                            viewModel.endEditTitle();
-
-                            var promise = updateExperienceTitleDeferred.promise.fin(function () { });
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(viewModel.modifiedOn()).toEqual(updatedExperience.modifiedOn);
-                            });
-                        });
-
                         it('should send event \'Update experience title\'', function () {
                             viewModel.endEditTitle();
                             expect(eventTracker.publish).toHaveBeenCalledWith('Update experience title');
@@ -770,7 +624,7 @@
                     updateExperiencePromise = updateExperienceDeferred.promise.fin(function () { });
                 });
 
-                describe('and when experience updated successfully', function () {
+                describe('when experience updated successfully', function () {
                     var updatedOn = new Date();
                     beforeEach(function () {
                         viewModel.templates = [template];
@@ -787,18 +641,6 @@
                         runs(function () {
                             expect(updateExperiencePromise).toBeResolved();
                             expect(notify.info).toHaveBeenCalled();
-                        });
-                    });
-
-                    it('should update modifiedOn', function () {
-                        viewModel.updateExperienceTemplate();
-
-                        waitsFor(function () {
-                            return !updateExperiencePromise.isPending();
-                        });
-                        runs(function () {
-                            expect(updateExperiencePromise).toBeResolved();
-                            expect(viewModel.modifiedOn()).toEqual(updatedOn);
                         });
                     });
 
@@ -1038,17 +880,6 @@
                                 });
                             });
 
-                            it('should update modified on date', function () {
-                                viewModel.finishAppendingObjectives();
-
-                                waitsFor(function () {
-                                    return !relateObjectivesPromise.isPending();
-                                });
-                                runs(function () {
-                                    expect(viewModel.modifiedOn()).toBe('modified date');
-                                });
-                            });
-
                             it('should set objectivesMode to \'display\'', function () {
                                 viewModel.finishAppendingObjectives();
 
@@ -1185,48 +1016,6 @@
                     });
                 });
 
-                it('should set current experience createdOn', function () {
-                    viewModel.createdOn = null;
-
-                    var promise = viewModel.activate(experience.id);
-                    deferred.resolve([experience]);
-
-                    waitsFor(function () {
-                        return promise.isFulfilled();
-                    });
-                    runs(function () {
-                        expect(viewModel.createdOn).toEqual(experience.createdOn);
-                    });
-                });
-
-                it('should set current experience modifiedOn', function () {
-                    viewModel.modifiedOn('');
-
-                    var promise = viewModel.activate(experience.id);
-                    deferred.resolve([experience]);
-
-                    waitsFor(function () {
-                        return promise.isFulfilled();
-                    });
-                    runs(function () {
-                        expect(viewModel.modifiedOn()).toEqual(experience.modifiedOn);
-                    });
-                });
-
-                it('should set current experience builtOn', function () {
-                    viewModel.builtOn('');
-
-                    var promise = viewModel.activate(experience.id);
-                    deferred.resolve([experience]);
-
-                    waitsFor(function () {
-                        return promise.isFulfilled();
-                    });
-                    runs(function () {
-                        expect(viewModel.builtOn()).toEqual(experience.builtOn);
-                    });
-                });
-
                 it('should set current experience template', function () {
                     viewModel.template.id('');
                     viewModel.template.image('');
@@ -1282,82 +1071,6 @@
                         });
                         runs(function () {
                             expect(viewModel.isFirstBuild()).toBeFalsy();
-                        });
-                    });
-
-                });
-
-                describe('when previous experience exists in sorted by title collection of experiences', function () {
-
-                    it('should set previousExperienceId', function () {
-                        viewModel.previousExperienceId = null;
-
-                        var promise = viewModel.activate(experience.id);
-                        deferred.resolve([{ id: previousExperienceId, title: 'a', template: { id: 'id', name: 'name', image: 'img' } },
-                            { id: experience.id, title: 'b', template: { id: 'id', name: 'name', image: 'img' } }]);
-
-                        waitsFor(function () {
-                            return promise.isFulfilled();
-                        });
-                        runs(function () {
-                            expect(viewModel.previousExperienceId).toEqual(previousExperienceId);
-                        });
-                    });
-
-                });
-
-                describe('when previous experience does not exist in sorted by title collection of experiences', function () {
-
-                    it('should set previousExperienceId to null ', function () {
-                        viewModel.previousExperienceId = null;
-
-                        var promise = viewModel.activate(experience.id);
-                        deferred.resolve([{ id: previousExperienceId, title: 'z', template: { id: 'id', name: 'name', image: 'img' } },
-                            { id: experience.id, title: 'b', template: { id: 'id', name: 'name', image: 'img' } }]);
-
-                        waitsFor(function () {
-                            return promise.isFulfilled();
-                        });
-                        runs(function () {
-                            expect(viewModel.previousExperienceId).toBeNull();
-                        });
-                    });
-
-                });
-
-                describe('when next experience exists in sorted by title collection of experiences', function () {
-
-                    it('should set nextExperienceId', function () {
-                        viewModel.nextExperienceId = null;
-
-                        var promise = viewModel.activate(experience.id);
-                        deferred.resolve([{ id: experience.id, title: 'a', template: { id: 'id', name: 'name', image: 'img' } },
-                            { id: nextExperienceId, title: 'b', template: { id: 'id', name: 'name', image: 'img' } }]);
-
-                        waitsFor(function () {
-                            return promise.isFulfilled();
-                        });
-                        runs(function () {
-                            expect(viewModel.nextExperienceId).toEqual(nextExperienceId);
-                        });
-                    });
-
-                });
-
-                describe('when next experience does not exist in sorted by title collection of experiences', function () {
-
-                    it('should set nextExperienceId to null', function () {
-                        viewModel.nextExperienceId = null;
-
-                        var promise = viewModel.activate(experience.id);
-                        deferred.resolve([{ id: experience.id, title: 'z', template: { id: 'id', name: 'name', image: 'img' } },
-                            { id: nextExperienceId, title: 'b', template: { id: 'id', name: 'name', image: 'img' } }]);
-
-                        waitsFor(function () {
-                            return promise.isFulfilled();
-                        });
-                        runs(function () {
-                            expect(viewModel.nextExperienceId).toBeNull();
                         });
                     });
 
@@ -1567,18 +1280,6 @@
                             runs(function () {
                                 expect(viewModel.relatedObjectives().length).toBe(1);
                                 expect(viewModel.relatedObjectives()[0].id).toBe('1');
-                            });
-                        });
-
-                        it('should update modified on date', function () {
-                            viewModel.unrelateSelectedObjectives();
-
-                            waitsFor(function () {
-                                return !unrelateObjectivesPromise.isPending();
-                            });
-
-                            runs(function () {
-                                expect(viewModel.modifiedOn()).toBe('modified date');
                             });
                         });
 

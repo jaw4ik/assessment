@@ -4,8 +4,6 @@
         var
             events = {
                 navigateToRelatedObjective: 'Navigate to related objective',
-                navigateToNextQuestion: 'Navigate to next question',
-                navigateToPreviousQuestion: 'Navigate to previous question',
                 updateQuestionTitle: 'Update question title',
                 navigateToCreateQuestion: 'Navigate to create question',
 
@@ -29,13 +27,7 @@
         var
             objectiveId = '',
             questionId = '',
-            previousId = '',
-            nextId = '',
             objectiveTitle = '',
-            createdOn = null,
-            modifiedOn = ko.observable(),
-            hasPrevious = false,
-            hasNext = false,
             title = ko.observable(''),
             language = ko.observable();
 
@@ -50,20 +42,6 @@
                 sendEvent(events.navigateToRelatedObjective);
                 router.navigateWithQueryString('objective/' + objectiveId);
             },
-            goToPreviousQuestion = function () {
-                if (!this.hasPrevious)
-                    router.replace('404');
-
-                sendEvent(events.navigateToPreviousQuestion);
-                router.navigateWithQueryString('objective/' + objectiveId + '/question/' + previousId);
-            },
-            goToNextQuestion = function () {
-                if (!this.hasNext)
-                    router.replace('404');
-
-                sendEvent(events.navigateToNextQuestion);
-                router.navigateWithQueryString('objective/' + objectiveId + '/question/' + nextId);
-            },
             goToCreateQuestion = function () {
                 sendEvent(events.navigateToCreateQuestion);
                 router.navigateWithQueryString('objective/' + objectiveId + '/question/create');
@@ -75,7 +53,6 @@
                 title(title().trim());
                 title.isEditing(false);
 
-                var that = this;
                 var questionTitle = null;
                 questionRepository.getById(objectiveId, questionId).then(function (response) {
                     questionTitle = response.title;
@@ -86,8 +63,7 @@
                     sendEvent(events.updateQuestionTitle);
 
                     if (title.isValid()) {
-                        questionRepository.updateTitle(questionId, title()).then(function (modifiedOn) {
-                            that.modifiedOn(modifiedOn);
+                        questionRepository.updateTitle(questionId, title()).then(function () {
                             notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
                         });
                     } else {
@@ -109,15 +85,6 @@
                     questionRepository.getById(objectiveId, questionId).then(function (question) {
                         that.title(question.title);
                         that.objectiveTitle = objective.title;
-                        that.createdOn = question.createdOn;
-                        that.modifiedOn(question.modifiedOn);
-
-                        var questionIndex = objective.questions.indexOf(question);
-                        nextId = (objective.questions.length > questionIndex + 1) ? objective.questions[questionIndex + 1].id : null;
-                        previousId = (questionIndex != 0) ? objective.questions[questionIndex - 1].id : null;
-
-                        that.hasNext = nextId != null;
-                        that.hasPrevious = previousId != null;
                     }).fail(function () {
                         router.replace('404');
                         return;
@@ -139,19 +106,13 @@
         return {
             objectiveTitle: objectiveTitle,
             title: title,
-            createdOn: createdOn,
-            modifiedOn: modifiedOn,
             questionTitleMaxLength: constants.validation.questionTitleMaxLength,
-            hasPrevious: hasPrevious,
-            hasNext: hasNext,
             language: language,
             eventTracker: eventTracker,
 
             activate: activate,
 
             goToRelatedObjective: goToRelatedObjective,
-            goToPreviousQuestion: goToPreviousQuestion,
-            goToNextQuestion: goToNextQuestion,
             goToCreateQuestion: goToCreateQuestion,
             startEditQuestionTitle: startEditQuestionTitle,
             endEditQuestionTitle: endEditQuestionTitle,
