@@ -700,6 +700,23 @@ ol.unstyled  {
 
 /*#endregion Create form*/
 
+/*#region View header*/
+
+.view-header {
+    margin-top: 11px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.view-header-title .edit-field {
+    color: #303032;
+    font-size: 16px;
+    font-family: 'OpenSans-Semibold';
+    border-bottom: 1px solid #E8E8E8;
+}
+
+/*#endregion View header*/
+
 /*#region Edit field*/
 
 .edit-field {
@@ -716,14 +733,14 @@ ol.unstyled  {
 }
 
     .edit-field.bordered {
-        border: 1px solid #e1e1e1;
+        border: 1px solid #E8E8E8;
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
         border-radius: 3px;
     }
 
     .edit-field:hover {
-        border: 1px solid #e1e1e1;
+        border: 1px solid #E8E8E8;
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
         border-radius: 3px;
@@ -821,22 +838,6 @@ ol.unstyled  {
     }
 
 /*#endregion Create entity tooltip*/
-
-/*#region View header*/
-
-.view-header {
-    margin-top: 11px;
-    margin-bottom: 15px;
-    position: relative;
-}
-
-.view-header-title .edit-field {
-    color: #303032;
-    font-size: 16px;
-    font-family: 'OpenSans-Semibold';
-}
-
-/*#endregion View header*/
 
 /*#region controls panel buttons*/
 
