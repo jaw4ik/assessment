@@ -774,15 +774,15 @@ ol.unstyled  {
         }
 
     .edit-field + .chars-counter.error {
-        background-color: #f26c4f;
+        background-color: #953b39;
         display: block;
     }
 
     .edit-field.error {
-        border: 1px solid rgba(242, 108, 79, 0.8);
-        -webkit-box-shadow: 0 0 3px rgba(242, 108, 79, 1);
-        -moz-box-shadow: 0 0 3px rgba(242, 108, 79, 1);
-        box-shadow: 0 0 3px rgba(242, 108, 79, 1);
+        border: 1px solid rgba(149, 59, 57, 0.8);
+        -webkit-box-shadow: 0 0 3px rgba(149, 59, 57, 1);
+        -moz-box-shadow: 0 0 3px rgba(149, 59, 57, 1);
+        box-shadow: 0 0 3px rgba(149, 59, 57, 1);
     }
 
 .chars-counter {
