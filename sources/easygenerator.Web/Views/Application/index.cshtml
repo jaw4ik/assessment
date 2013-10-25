@@ -1,4 +1,5 @@
 ﻿@using System.Web.Optimization
+@using easygenerator.Infrastructure
 <!DOCTYPE html>
 <html class="no-js">
 <head>
@@ -52,7 +53,7 @@
     }
     else
     {
-        var bundlePath = "/App/main-built.js?v=" + DateTime.Now.Ticks;
+        var bundlePath = "/App/main-built.js?v=" + DateTimeWrapper.InstanceStartTime.Ticks;
         <script type="text/javascript" src="@bundlePath"></script>
     }
 
