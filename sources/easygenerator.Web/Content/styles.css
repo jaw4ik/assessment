@@ -97,6 +97,7 @@
         .header-menu-list-item.sign-up .btn.orange {
             padding: 7px 24px;
             margin-left: 20px;
+            cursor: pointer;
         }
 
     .header-menu-list-item.help {
@@ -283,19 +284,15 @@ a.top-navigation-item:hover {
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 
-    .btn.disabled {
-        opacity: 0.6;
-        filter: alpha(opacity=60);
-        cursor: default;
+    .btn:active {
         box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset;
     }
 
-        .btn:active,
-        .btn.disabled,
-        .btn.disabled:hover,
-        .btn.disabled:active {
-            box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset;
-        }
+    .btn.disabled {
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        cursor: default;
+    }
 
 .btn-small {
     min-width: 90px;
@@ -332,7 +329,7 @@ a.top-navigation-item:hover {
     .btn.green.disabled:hover,
     .btn.green.disabled:active {
         background: #b0c93e;
-        border-color: #9db23b;
+        border-color: #98ae35;
     }
 /*blue button*/
 .btn.blue {

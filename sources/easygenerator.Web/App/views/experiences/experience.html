@@ -2,7 +2,7 @@
     <div class="fixed-container">
         <div class="content-holder">
             <div class="page-view-caption clearfix">
-                <div class="page-view-caption-text" data-bind="localize : { text : 'learningExperienceViewCaption' }">Learning experience editor</div>
+                <div class="page-view-caption-text" data-bind="localize: { text: 'learningExperienceViewCaption' }">Learning experience editor</div>
             </div>
         </div>
     </div>
@@ -11,65 +11,77 @@
         <nav class="main-nav">
             <ul class="unstyled main-nav-list">
                 <li class="main-nav-item left" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'experiences', isGoBackTextLocalizable: true, goBackAction: navigateToExperiences } }"></li>
-                <li class="main-nav-item right">
-                    <div class="nav-control right" data-bind="css: { 'build-experience': status() == statuses.notStarted }">
-                        <!-- BUILD EXPERIENCE BUTTON -->
-                        <!-- ko if: status() == statuses.notStarted -->
-                        <div class="experience-build-progress-status-item build" data-bind="click: buildExperience">
-                            <span class="experience-build-status-image experience-build-status-image-not-started pull-right"></span>
-                            <span class="nav-title" data-bind="localize: { text: 'createPackage' }">Create package</span>
-                        </div>
-                        <!-- /ko -->
+            </ul>
+        </nav>
 
-                        <!-- BUILDING STATUS -->
-                        <!-- ko if: status() == statuses.inProgress && status() != statuses.notStarted -->
-                        <div class="experience-build-progress-status-item not-transparent">
-                            <span class="experience-build-status-image experience-build-status-image-in-progress pull-right"></span>
-                            <!-- ko if: isFirstBuild() -->
-                            <span class="nav-title" data-bind="localize: { text: 'creatingStatus' }">Creating...</span>
-                            <!-- /ko -->
-                            <!-- ko if: !isFirstBuild() -->
-                            <span class="nav-title" data-bind="localize: { text: 'updatingStatus' }">Updating...</span>
-                            <!-- /ko -->
-                        </div>
-                        <!-- /ko -->
-
-                        <!-- BUILD SUCCESS/ DOWNLOAD BUTTON -->
-                        <!-- ko if: status() == statuses.succeed && status() != statuses.notStarted -->
-                        <div class="experience-build-progress-status-item" data-bind="click: downloadExperience">
-                            <span class="experience-build-status-image experience-build-status-image-complete pull-right"></span>
-                            <span class="nav-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
-                        </div>
-                        <!-- /ko -->
-
-                        <!-- BUILD FAILED BUTTON -->
-                        <!-- ko if: status() == statuses.failed -->
-                        <div class="experience-build-progress-status-item failed not-transparent" data-bind="event: { mouseover: resetBuildStatus }">
-                            <span class="experience-build-status-image experience-build-status-image-failed pull-right"></span>
-                            <span class="experience-build-status-text" data-bind="localize: { text: 'experienceFailedStatus' }">Building failed</span>
-                        </div>
-                        <!-- /ko -->
+        <div class="package-actions-holder">
+            <div class="package-actions-content clearfix">
+                <aside class="actions-left-column">
+                    <!-- CREATE PACKAGE BUTTON -->
+                    <!-- ko if: status() == statuses.notStarted -->
+                    <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience">
+                        <span class="btn-title" data-bind="localize: { text: 'createPackage' }">Create package</span>
                     </div>
+                    <!-- /ko -->
 
-                    <!-- REBUILD BUTTON -->
-                    <!-- ko if: status() == statuses.succeed ||  status() == statuses.inProgress && !isFirstBuild() -->
-                    <div class="main-nav-separator"></div>
-                    <div class="nav-control rebuild left">
-                        <!-- ko if: status() == statuses.inProgress -->
-                        <div class="disabled nav-control-inner rebuild">
-                            <span class="nav-title" data-bind="localize: { text: 'updatePackage' }"></span>
-                        </div>
+                    <!-- BUILDING/CREATING STATUS -->
+                    <!-- ko if: status() == statuses.inProgress && status() != statuses.notStarted -->
+                    <div class="package-action-btn btn orange creating-btn">
+                        <!-- ko if: isFirstBuild() -->
+                        <span class="btn-title" data-bind="localize: { text: 'creatingStatus' }">Creating...</span>
                         <!-- /ko -->
-                        <!-- ko ifnot: status() == statuses.inProgress -->
-                        <div class="nav-control-inner rebuild" data-bind=" click: buildExperience">
-                            <span class="nav-title" data-bind="localize: { text: 'updatePackage' }"></span>
-                        </div>
+                        <!-- ko if: !isFirstBuild() -->
+                        <span class="btn-title" data-bind="localize: { text: 'updatingStatus' }">Updating...</span>
                         <!-- /ko -->
                     </div>
                     <!-- /ko -->
-                </li>
-            </ul>
-        </nav>
+
+                    <!-- REBUILD PACKAGE BUTTON -->
+                    <!-- ko if: status() == statuses.succeed ||  status() == statuses.inProgress && !isFirstBuild() -->
+                    <!-- ko ifnot: status() == statuses.inProgress -->
+                    <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience">
+                        <span class="btn-title" data-bind="localize: { text: 'updatePackage' }">Create package</span>
+                    </div>
+                    <!-- /ko -->
+                    <!-- /ko -->
+                    <div class="action-arrow down" data-bind="css: { disabled: (status() == statuses.notStarted) || (status() == statuses.inProgress) }">
+                        <span class="icon-item"></span>
+                    </div>
+                    <!-- PUBLISH BUTTON -->
+                    <!-- ko if: status() == statuses.succeed && status() != statuses.notStarted -->
+                    <div class="package-action-btn btn green publish-btn" onclick="javascript: alert('Not implemented yet');">
+                        <span class="btn-title">Publish online</span>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: status() == statuses.succeed && status() != statuses.notStarted -->
+                    <div class="package-action-btn btn green publish-btn disabled">
+                        <span class="btn-title">Publish online</span>
+                    </div>
+                    <!-- /ko -->
+                </aside>
+                <aside class="actions-right-column clearfix">
+                    <div class="action-arrow right" data-bind="css: { disabled: (status() == statuses.notStarted) || (status() == statuses.inProgress) }">
+                        <i class="icon-item"></i>
+                    </div>
+                    <!-- BUILD SUCCESS/ DOWNLOAD BUTTON -->
+                    <!-- ko if: status() == statuses.succeed && status() != statuses.notStarted -->
+                    <div class="package-action-btn btn grey download-btn" data-bind="click: downloadExperience">
+                        <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: status() == statuses.succeed && status() != statuses.notStarted -->
+                    <div class="package-action-btn btn grey download-btn disabled">
+                        <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
+                    </div>
+                    <!-- /ko -->
+                </aside>
+                <div class="copy-link-control clear clearfix">
+                    <div class="btn-small btn grey disabled">Copy link</div>
+                    <div class="copy-link-input-wrapper disabled">
+                        <input class="copy-link-input" disabled type="text" /></div>
+                </div>
+            </div>
+        </div>
 
         <header class="view-header">
             <div class="view-header-title">

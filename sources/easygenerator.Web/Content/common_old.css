@@ -524,9 +524,7 @@ ol.unstyled  {
     font-size: 16px;
     color: #656565;
     min-width: 100px;
-    height: 55px;
     padding: 0 20px;
-    line-height: 52px;
     margin: 0;
     border: 1px solid #DEDFE3;
     -webkit-border-radius: 5px;
@@ -549,19 +547,22 @@ ol.unstyled  {
 
 .btn.saveAndOpen,
 .btn.saveAndNew {
+    height: 55px;
+    line-height: 52px;
     border: 1px solid #dedfe3;
     font-family: Tahoma, sans-serif;
     -webkit-text-shadow: none;
     text-shadow: none;
 }
-.btn.saveAndOpen.disabled,
-.btn.saveAndOpen.disabled:hover,
-.btn.saveAndOpen.disabled:active,
-.btn.saveAndNew.disabled,
-.btn.saveAndNew.disabled:hover,
-.btn.saveAndNew.disabled:active {
-    box-shadow: none;
-}
+
+    .btn.saveAndOpen.disabled,
+    .btn.saveAndOpen.disabled:hover,
+    .btn.saveAndOpen.disabled:active,
+    .btn.saveAndNew.disabled,
+    .btn.saveAndNew.disabled:hover,
+    .btn.saveAndNew.disabled:active {
+        box-shadow: none;
+    }
 
 .btn.enabled:hover {
     background: #f6f7f9;
