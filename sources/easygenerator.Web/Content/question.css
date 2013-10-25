@@ -48,7 +48,7 @@
 .question-answers {
 }
 
-.question-learning-objects {
+.question-learning-contents {
 }
 
 /*#region Info button*/
@@ -257,7 +257,7 @@
         background-position: center -168px;
     }
 
-    .question-content-block-header-icon .learning-object-icon {
+    .question-content-block-header-icon .learning-content-icon {
         background-position: center -195px;
     }
 
@@ -290,10 +290,10 @@
 
 /*#endregion Question content block*/
 
-/*#region Answer options & learning objects*/
+/*#region Answer options & learning content*/
 
 .answer-options-list-item,
-.question-learning-object-list-item {
+.question-learning-content-list-item {
     display: table;
     table-layout: fixed;
     width: 100%;
@@ -301,7 +301,7 @@
 }
 
 .answer-option-item + .answer-option-item,
-.question-learning-object-item + .question-learning-object-item,
+.question-learning-content-item + .question-learning-content-item,
 .add-button {
     margin-top: 15px;
 }
@@ -334,14 +334,14 @@
 }
 
 .answer-option-item:hover .question-answer-text,
-.question-learning-object-item:hover .question-learning-object {
+.question-learning-content-item:hover .question-learning-content {
     -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2) inset;
     -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2) inset;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.2) inset;
 }
 
 /*.answer-option-item.active:hover .question-answer-value,*/
-.question-learning-object-item.active:hover .question-learning-object {
+.question-learning-content-item.active:hover .question-learning-content {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
@@ -372,7 +372,7 @@
 /* Answer option text */
 
 .question-answer-text-wrapper,
-.question-learning-object-wrapper {
+.question-learning-content-wrapper {
     display: table-cell;
     border: 1px dashed #e1e1e1;
     color: #666;
@@ -381,7 +381,7 @@
     overflow: hidden;
 }
 
-.question-learning-object {
+.question-learning-content {
     min-height: 40px;
     padding: 12px 10px;
     vertical-align: top;
@@ -389,8 +389,8 @@
     word-wrap: break-word;
 }
 
-    .question-learning-object ul,
-    .question-learning-object ol {
+    .question-learning-content ul,
+    .question-learning-content ol {
         padding-left: 30px;
     }
 
@@ -424,7 +424,7 @@
     }
 
 .answer-option-item:hover .question-answer-text-wrapper,
-.question-learning-object-item:hover .question-learning-object-wrapper {
+.question-learning-content-item:hover .question-learning-content-wrapper {
     border-style: solid;
     -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
@@ -432,7 +432,7 @@
 }
 
 .answer-option-item.active .question-answer-text-wrapper,
-.question-learning-object-item.active .question-learning-object-wrapper {
+.question-learning-content-item.active .question-learning-content-wrapper {
     border: 1px solid rgba(116, 185, 240, 1);
     -webkit-box-shadow: 0 0 3px rgba(116, 185, 240, 1);
     -moz-box-shadow: 0 0 3px rgba(116, 185, 240, 1);
@@ -440,7 +440,7 @@
 }
 
 .answer-option-item.active .question-answer-text,
-.question-learning-object-item.active .question-learning-object {
+.question-learning-content-item.active .question-learning-content {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
@@ -449,7 +449,7 @@
 /*#region Delete button*/
 
 .question-answer-delete-wrapper,
-.question-learning-object-delete-wrapper {
+.question-learning-content-delete-wrapper {
     width: 45px;
     display: table-cell;
     vertical-align: middle;
@@ -461,8 +461,8 @@
 
 .answer-option-item.active .question-answer-delete-wrapper,
 .answer-option-item:hover .question-answer-delete-wrapper,
-.question-learning-object-item.active .question-learning-object-delete-wrapper,
-.question-learning-object-item:hover .question-learning-object-delete-wrapper {
+.question-learning-content-item.active .question-learning-content-delete-wrapper,
+.question-learning-content-item:hover .question-learning-content-delete-wrapper {
     visibility: visible;
     background-color: #f5f5f5;
     border: 1px solid #e1e1e1;
@@ -472,12 +472,12 @@
 }
 
     .answer-option-item:hover .question-answer-delete-wrapper:hover,
-    .question-learning-object-item:hover .question-learning-object-delete-wrapper:hover {
+    .question-learning-content-item:hover .question-learning-content-delete-wrapper:hover {
         background-color: #e3e3e3;
     }
 
 .question-answer-delete-icon,
-.question-learning-object-delete-icon {
+.question-learning-content-delete-icon {
     display: inline-block;
     height: 25px;
     width: 22px;
@@ -496,7 +496,7 @@
 
     .add-button .question-answer-value,
     .add-button .question-answer-text-wrapper,
-    .add-button .question-learning-object-wrapper {
+    .add-button .question-learning-content-wrapper {
         background-color: #fafafa;
         text-align: center;
     }
@@ -508,7 +508,7 @@
 
     .add-button:hover .question-answer-value,
     .add-button:hover .question-answer-text-wrapper,
-    .add-button:hover .question-learning-object-wrapper.enabled {
+    .add-button:hover .question-learning-content-wrapper.enabled {
         border-style: solid;
         background-color: white;
         -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
@@ -517,7 +517,7 @@
     }
 
     .add-button .question-answer-text-wrapper,
-    .add-button .question-learning-object-wrapper.enabled {
+    .add-button .question-learning-content-wrapper.enabled {
         cursor: text;
     }
 

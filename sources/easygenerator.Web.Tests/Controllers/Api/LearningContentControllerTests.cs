@@ -16,13 +16,13 @@ using NSubstitute;
 namespace easygenerator.Web.Tests.Controllers.Api
 {
     [TestClass]
-    public class LearningObjectControllerTests
+    public class LearningContentControllerTests
     {
         IPrincipal _user;
         HttpContextBase _context;
         IEntityFactory _entityFactory;
 
-        LearningObjectController _controller;
+        LearningContentController _controller;
 
         [TestInitialize]
         public void InitializeContext()
@@ -32,7 +32,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _context = Substitute.For<HttpContextBase>();
             _context.User.Returns(_user);
 
-            _controller = new LearningObjectController(_entityFactory);
+            _controller = new LearningContentController(_entityFactory);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -49,20 +49,20 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Create_ShouldAddLearningObjectToQuestion()
+        public void Create_ShouldAddLearningContentToQuestion()
         {
             const string text = "text";
             const string user = "username@easygenerator.com";
             _user.Identity.Name.Returns(user);
 
             var question = Substitute.For<Question>();
-            var learningObject = Substitute.For<LearningObject>();
+            var learningContent = Substitute.For<LearningContent>();
 
-            _entityFactory.LearningObject(text, user).Returns(learningObject);
+            _entityFactory.LearningContent(text, user).Returns(learningContent);
 
             _controller.Create(question, text);
 
-            question.Received().AddLearningObject(learningObject, user);
+            question.Received().AddLearningContent(learningContent, user);
         }
 
         [TestMethod]
@@ -71,15 +71,15 @@ namespace easygenerator.Web.Tests.Controllers.Api
             const string text = "text";
             const string user = "username@easygenerator.com";
             _user.Identity.Name.Returns(user);
-            var learningObject = Substitute.For<LearningObject>();
+            var learningContent = Substitute.For<LearningContent>();
 
-            _entityFactory.LearningObject(text, user).Returns(learningObject);
+            _entityFactory.LearningContent(text, user).Returns(learningContent);
 
             var result = _controller.Create(Substitute.For<Question>(), text);
 
             result.Should()
                 .BeJsonSuccessResult()
-                .And.Data.ShouldBeSimilar(new { Id = learningObject.Id.ToString("N"), CreatedOn = learningObject.CreatedOn });
+                .And.Data.ShouldBeSimilar(new { Id = learningContent.Id.ToString("N"), CreatedOn = learningContent.CreatedOn });
         }
 
         #endregion
@@ -96,16 +96,16 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Delete_ShouldRemoveLearningObjectFromQuestion()
+        public void Delete_ShouldRemoveLearningContentFromQuestion()
         {
             const string user = "username@easygenerator.com";
             _user.Identity.Name.Returns(user);
             var question = Substitute.For<Question>();
-            var learningObject = Substitute.For<LearningObject>();
+            var learningContent = Substitute.For<LearningContent>();
 
-            _controller.Delete(question, learningObject);
+            _controller.Delete(question, learningContent);
 
-            question.Received().RemoveLearningObject(learningObject, user);
+            question.Received().RemoveLearningContent(learningContent, user);
         }
 
         [TestMethod]
@@ -113,7 +113,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             var question = Substitute.For<Question>();
 
-            var result = _controller.Delete(question, Substitute.For<LearningObject>());
+            var result = _controller.Delete(question, Substitute.For<LearningContent>());
 
             result.Should()
                 .BeJsonSuccessResult()
@@ -125,38 +125,38 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region Update text
 
         [TestMethod]
-        public void UpdateText_ShouldReturnJsonErrorResult_WhenLearningObjectIsNull()
+        public void UpdateText_ShouldReturnJsonErrorResult_WhenLearningContentIsNull()
         {
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             var result = _controller.UpdateText(null, null);
 
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Learning Object is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("learningObjectNotFoundError");  
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Learning Content is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("learningContentNotFoundError");  
         }
 
 
         [TestMethod]
-        public void UpdateText_ShouldUpdateLearningObjectText()
+        public void UpdateText_ShouldUpdateLearningContentText()
         {
             const string text = "updated text";
             const string user = "username@easygenerator.com";
             _user.Identity.Name.Returns(user);
-            var learningObject = Substitute.For<LearningObject>();
+            var learningContent = Substitute.For<LearningContent>();
 
-            _controller.UpdateText(learningObject, text);
+            _controller.UpdateText(learningContent, text);
 
-            learningObject.Received().UpdateText(text, user);
+            learningContent.Received().UpdateText(text, user);
         }
 
         [TestMethod]
         public void UpdateText_ShouldReturnJsonSuccessResult()
         {
-            var learningObject = Substitute.For<LearningObject>();
+            var learningContent = Substitute.For<LearningContent>();
 
-            var result = _controller.UpdateText(learningObject, String.Empty);
+            var result = _controller.UpdateText(learningContent, String.Empty);
 
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = learningObject.ModifiedOn });
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = learningContent.ModifiedOn });
         }
 
         #endregion
@@ -180,7 +180,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             var question = QuestionObjectMother.Create();
-            question.AddLearningObject(LearningObjectObjectMother.Create(), "Some user");
+            question.AddLearningContent(LearningContentObjectMother.Create(), "Some user");
 
             //Act
             var result = _controller.GetCollection(question);

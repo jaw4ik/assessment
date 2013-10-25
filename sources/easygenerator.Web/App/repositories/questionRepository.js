@@ -26,7 +26,7 @@
                             createdQuestion = {
                                 id: response.Id,
                                 title: obj.title,
-                                learningObjects: [],
+                                learningContents: [],
                                 answerOptions: [],
                                 createdOn: createdOn,
                                 modifiedOn: createdOn

@@ -52,11 +52,11 @@ namespace easygenerator.Web.Tests.BuildExperience
         private Experience GetExperienceToBuild()
         {
             var answer = AnswerObjectMother.Create("AnswerText", true);
-            var explanation = LearningObjectObjectMother.Create("Text");
+            var explanation = LearningContentObjectMother.Create("Text");
 
             var question = QuestionObjectMother.Create("QuestionTitle");
             question.AddAnswer(answer, "SomeUser");
-            question.AddLearningObject(explanation, "SomeUser");
+            question.AddLearningContent(explanation, "SomeUser");
 
             var objective = ObjectiveObjectMother.Create("ObjectiveTitle");
             objective.AddQuestion(question, "SomeUser");
@@ -179,17 +179,17 @@ namespace easygenerator.Web.Tests.BuildExperience
             var explanationFilePath = "SomeExplanationPath";
             var buildId = _experiencePackageModel.Id + String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now());
 
-            _buildPathProvider.GetLearningObjectFileName(buildId,
+            _buildPathProvider.GetLearningContentFileName(buildId,
                 _experience.RelatedObjectives.ToArray()[0].Id.ToString("N"),
                 _experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToString("N"),
-                _experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].LearningObjects.ToArray()[0].Id.ToString("N"))
+                _experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].LearningContents.ToArray()[0].Id.ToString("N"))
                 .Returns(explanationFilePath);
 
             //Act
             _builder.Build(_experience);
 
             //Assert
-            _fileManager.Received().WriteToFile(explanationFilePath, _experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].LearningObjects.ToArray()[0].Text);
+            _fileManager.Received().WriteToFile(explanationFilePath, _experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].LearningContents.ToArray()[0].Text);
         }
 
         [TestMethod]

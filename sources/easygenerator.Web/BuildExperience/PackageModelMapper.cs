@@ -13,7 +13,7 @@ namespace easygenerator.Web.BuildExperience
             Mapper.CreateMap<Answer, AnswerOptionPackageModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString("N")));
 
-            Mapper.CreateMap<LearningObject, LearningObjectPackageModel>()
+            Mapper.CreateMap<LearningContent, LearningContentPackageModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString("N")));
 
             Mapper.CreateMap<Question, QuestionPackageModel>()

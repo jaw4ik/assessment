@@ -15,21 +15,21 @@ namespace easygenerator.DomainModel.Handlers
         private readonly IQuerableRepository<Objective> _objectiveRepository;
         private readonly IQuerableRepository<Question> _qustionRepository;
         private readonly IQuerableRepository<Answer> _answerRepository;
-        private readonly IQuerableRepository<LearningObject> _learningObjectRepository;
+        private readonly IQuerableRepository<LearningContent> _learningContentRepository;
         private readonly IHelpHintRepository _helpHintRepository;
 
         public SignupFromTryItNowHandler(IQuerableRepository<Experience> experienceRepository,
             IQuerableRepository<Objective> objectiveRepository,
             IQuerableRepository<Question> qustionRepository,
             IQuerableRepository<Answer> answerRepository,
-            IQuerableRepository<LearningObject> learningObjectRepository,
+            IQuerableRepository<LearningContent> learningContentRepository,
             IHelpHintRepository helpHintRepository)
         {
             _experienceRepository = experienceRepository;
             _objectiveRepository = objectiveRepository;
             _qustionRepository = qustionRepository;
             _answerRepository = answerRepository;
-            _learningObjectRepository = learningObjectRepository;
+            _learningContentRepository = learningContentRepository;
             _helpHintRepository = helpHintRepository;
         }
 
@@ -55,9 +55,9 @@ namespace easygenerator.DomainModel.Handlers
                 answer.DefineCreatedBy(signUpUsername);
             }
 
-            foreach (var learningObject in _learningObjectRepository.GetCollection().Where(e => e.CreatedBy == tryItNowUsername))
+            foreach (var learningContent in _learningContentRepository.GetCollection().Where(e => e.CreatedBy == tryItNowUsername))
             {
-                learningObject.DefineCreatedBy(signUpUsername);
+                learningContent.DefineCreatedBy(signUpUsername);
             }
 
             foreach (var helpHint in _helpHintRepository.GetHelpHintsForUser(tryItNowUsername))

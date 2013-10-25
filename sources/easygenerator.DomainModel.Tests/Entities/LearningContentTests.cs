@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace easygenerator.DomainModel.Tests.Entities
 {
     [TestClass]
-    public class LearningObjectTests
+    public class LearningContentTests
     {
         private const string ModifiedBy = "easygenerator@easygenerator.com";
         private const string CreatedBy = "easygenerator2@easygenerator.com";
@@ -15,29 +15,29 @@ namespace easygenerator.DomainModel.Tests.Entities
         #region Constructor
 
         [TestMethod]
-        public void LearningObject_ShouldThrowArgumentNullException_WhenTextIsNull()
+        public void LearningContent_ShouldThrowArgumentNullException_WhenTextIsNull()
         {
-            Action action = () => LearningObjectObjectMother.CreateWithText(null);
+            Action action = () => LearningContentObjectMother.CreateWithText(null);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("text");
         }
 
         [TestMethod]
-        public void LearningObject_ShouldThrowArgumentException_WhenTextIsEmpty()
+        public void LearningContent_ShouldThrowArgumentException_WhenTextIsEmpty()
         {
-            Action action = () => LearningObjectObjectMother.CreateWithText(String.Empty);
+            Action action = () => LearningContentObjectMother.CreateWithText(String.Empty);
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("text");
         }
 
 
         [TestMethod]
-        public void LearningObject_ShouldCreateLearningObjectInstance()
+        public void LearningContent_ShouldCreateLearningContentInstance()
         {
             const string text = "text";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var answer = LearningObjectObjectMother.Create(text, CreatedBy);
+            var answer = LearningContentObjectMother.Create(text, CreatedBy);
 
             answer.Id.Should().NotBeEmpty();
             answer.Text.Should().Be(text);
@@ -55,9 +55,9 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void UpdateText_ShouldThrowArgumentNullException_WhenTextIsNull()
         {
-            var learningObject = LearningObjectObjectMother.Create();
+            var learningContent = LearningContentObjectMother.Create();
 
-            Action action = () => learningObject.UpdateText(null, ModifiedBy);
+            Action action = () => learningContent.UpdateText(null, ModifiedBy);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("text");
         }
@@ -65,9 +65,9 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void UpdateText_ShouldThrowArgumentException_WhenTitleIsEmpty()
         {
-            var learningObject = LearningObjectObjectMother.Create();
+            var learningContent = LearningContentObjectMother.Create();
 
-            Action action = () => learningObject.UpdateText(String.Empty, ModifiedBy);
+            Action action = () => learningContent.UpdateText(String.Empty, ModifiedBy);
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("text");
         }
@@ -76,33 +76,33 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void UpdateText_ShouldUpdateText()
         {
             const string text = "text";
-            var learningObject = LearningObjectObjectMother.Create();
+            var learningContent = LearningContentObjectMother.Create();
 
-            learningObject.UpdateText(text, ModifiedBy);
+            learningContent.UpdateText(text, ModifiedBy);
 
-            learningObject.Text.Should().Be(text);
+            learningContent.Text.Should().Be(text);
         }
 
         [TestMethod]
         public void UpdateText_ShouldUpdateModificationDate()
         {
             DateTimeWrapper.Now = () => DateTime.Now;
-            var learningObject = LearningObjectObjectMother.Create();
+            var learningContent = LearningContentObjectMother.Create();
 
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            learningObject.UpdateText("text", ModifiedBy);
+            learningContent.UpdateText("text", ModifiedBy);
 
-            learningObject.ModifiedOn.Should().Be(dateTime);
+            learningContent.ModifiedOn.Should().Be(dateTime);
         }
 
         [TestMethod]
         public void UpdateText_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
         {
-            var learningObject = LearningObjectObjectMother.Create();
+            var learningContent = LearningContentObjectMother.Create();
 
-            Action action = () => learningObject.UpdateText("Some text", null);
+            Action action = () => learningContent.UpdateText("Some text", null);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
         }
@@ -110,9 +110,9 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void UpdateText_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
         {
-            var learningObject = LearningObjectObjectMother.Create();
+            var learningContent = LearningContentObjectMother.Create();
 
-            Action action = () => learningObject.UpdateText("Some text", string.Empty);
+            Action action = () => learningContent.UpdateText("Some text", string.Empty);
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
         }
@@ -120,12 +120,12 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void UpdateText_ShouldUpdateMoidifiedBy()
         {
-            var learningObject = LearningObjectObjectMother.Create();
+            var learningContent = LearningContentObjectMother.Create();
             const string user = "Some user";
 
-            learningObject.UpdateText("Some text", user);
+            learningContent.UpdateText("Some text", user);
 
-            learningObject.ModifiedBy.Should().Be(user);
+            learningContent.ModifiedBy.Should().Be(user);
         }
 
         #endregion
@@ -135,9 +135,9 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void DefineCreatedBy_ShouldThrowArgumentNullException_WhenCreatedByIsNull()
         {
-            var learningObject = LearningObjectObjectMother.Create();
+            var learningContent = LearningContentObjectMother.Create();
 
-            Action action = () => learningObject.DefineCreatedBy(null);
+            Action action = () => learningContent.DefineCreatedBy(null);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("createdBy");
         }
@@ -145,9 +145,9 @@ namespace easygenerator.DomainModel.Tests.Entities
         [TestMethod]
         public void DefineCreatedBy_ShouldThrowArgumentException_WhenCreatedByIsEmpty()
         {
-            var learningObject = LearningObjectObjectMother.Create();
+            var learningContent = LearningContentObjectMother.Create();
 
-            Action action = () => learningObject.DefineCreatedBy(String.Empty);
+            Action action = () => learningContent.DefineCreatedBy(String.Empty);
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("createdBy");
         }
@@ -157,11 +157,11 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             const string createdBy = "createdBy";
             const string updatedCreatedBy = "updatedCreatedBy";
-            var learningObject = LearningObjectObjectMother.CreateWithCreatedBy(createdBy);
+            var learningContent = LearningContentObjectMother.CreateWithCreatedBy(createdBy);
 
-            learningObject.DefineCreatedBy(updatedCreatedBy);
+            learningContent.DefineCreatedBy(updatedCreatedBy);
 
-            learningObject.CreatedBy.Should().Be(updatedCreatedBy);
+            learningContent.CreatedBy.Should().Be(updatedCreatedBy);
         }
 
         [TestMethod]
@@ -169,11 +169,11 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             const string createdBy = "createdBy";
             const string updatedCreatedBy = "updatedCreatedBy";
-            var learningObject = LearningObjectObjectMother.CreateWithCreatedBy(createdBy);
+            var learningContent = LearningContentObjectMother.CreateWithCreatedBy(createdBy);
 
-            learningObject.DefineCreatedBy(updatedCreatedBy);
+            learningContent.DefineCreatedBy(updatedCreatedBy);
 
-            learningObject.ModifiedBy.Should().Be(updatedCreatedBy);
+            learningContent.ModifiedBy.Should().Be(updatedCreatedBy);
         }
 
         #endregion

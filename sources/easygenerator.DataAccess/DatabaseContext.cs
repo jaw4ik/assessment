@@ -5,6 +5,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using easygenerator.DomainModel.Entities;
+using easygenerator.DataAccess.Migrations;
 
 namespace easygenerator.DataAccess
 {
@@ -14,7 +15,7 @@ namespace easygenerator.DataAccess
         {
             try
             {
-                Database.SetInitializer(new DatabaseContextInitializationStrategy());
+                Database.SetInitializer(new MigrateDatabaseToLatestVersion<DatabaseContext, Configuration>());
             }
             catch (Exception)
             {
@@ -37,7 +38,7 @@ namespace easygenerator.DataAccess
         public DbSet<Experience> Experiences { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
-        public DbSet<LearningObject> LearningObjects { get; set; }
+        public DbSet<LearningContent> LearningContents { get; set; }
         public DbSet<Template> Templates { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<HelpHint> HelpHints { get; set; }
@@ -68,11 +69,11 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Question>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Question>().HasRequired(e => e.Objective);
             modelBuilder.Entity<Question>().HasMany(e => e.AnswersCollection).WithRequired(e => e.Question);
-            modelBuilder.Entity<Question>().HasMany(e => e.LearningObjectsCollection).WithRequired(e => e.Question);
+            modelBuilder.Entity<Question>().HasMany(e => e.LearningContentsCollection).WithRequired(e => e.Question);
 
-            ApplyEntityMapping<LearningObject>(modelBuilder);
-            modelBuilder.Entity<LearningObject>().Property(e => e.Text).IsRequired();
-            modelBuilder.Entity<LearningObject>().HasRequired(e => e.Question);
+            ApplyEntityMapping<LearningContent>(modelBuilder);
+            modelBuilder.Entity<LearningContent>().Property(e => e.Text).IsRequired();
+            modelBuilder.Entity<LearningContent>().HasRequired(e => e.Question);
 
             ApplyEntityMapping<Answer>(modelBuilder);
             modelBuilder.Entity<Answer>().Property(e => e.Text).IsRequired();
@@ -140,7 +141,7 @@ namespace easygenerator.DataAccess
                     {
                         entry.State = EntityState.Deleted;
                     }
-                    if ((entry.Entity is LearningObject) && (entry.Entity as LearningObject).Question == null)
+                    if ((entry.Entity is LearningContent) && (entry.Entity as LearningContent).Question == null)
                     {
                         entry.State = EntityState.Deleted;
                     }

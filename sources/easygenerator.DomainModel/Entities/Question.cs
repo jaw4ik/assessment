@@ -17,7 +17,7 @@ namespace easygenerator.DomainModel.Entities
             Title = title;
 
             AnswersCollection = new Collection<Answer>();
-            LearningObjectsCollection = new Collection<LearningObject>();
+            LearningContentsCollection = new Collection<LearningContent>();
         }
 
         public string Title { get; private set; }
@@ -60,30 +60,30 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        protected internal virtual ICollection<LearningObject> LearningObjectsCollection { get; set; }
+        protected internal virtual ICollection<LearningContent> LearningContentsCollection { get; set; }
 
-        public IEnumerable<LearningObject> LearningObjects
+        public IEnumerable<LearningContent> LearningContents
         {
-            get { return LearningObjectsCollection.AsEnumerable(); }
+            get { return LearningContentsCollection.AsEnumerable(); }
         }
 
-        public virtual void AddLearningObject(LearningObject learningObject, string modifiedBy)
+        public virtual void AddLearningContent(LearningContent learningContent, string modifiedBy)
         {
-            ThrowIfLearningObjectIsInvalid(learningObject);
+            ThrowIfLearningContentIsInvalid(learningContent);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            LearningObjectsCollection.Add(learningObject);
-            learningObject.Question = this;
+            LearningContentsCollection.Add(learningContent);
+            learningContent.Question = this;
             MarkAsModified(modifiedBy);
         }
 
-        public virtual void RemoveLearningObject(LearningObject learningObject, string modifiedBy)
+        public virtual void RemoveLearningContent(LearningContent learningContent, string modifiedBy)
         {
-            ThrowIfLearningObjectIsInvalid(learningObject);
+            ThrowIfLearningContentIsInvalid(learningContent);
             ThrowIfModifiedByIsInvalid(modifiedBy);
 
-            LearningObjectsCollection.Remove(learningObject);
-            learningObject.Question = null;
+            LearningContentsCollection.Remove(learningContent);
+            learningContent.Question = null;
             MarkAsModified(modifiedBy);
         }
 
@@ -98,9 +98,9 @@ namespace easygenerator.DomainModel.Entities
             ArgumentValidation.ThrowIfNull(answer, "answer");
         }
 
-        private void ThrowIfLearningObjectIsInvalid(LearningObject learningObject)
+        private void ThrowIfLearningContentIsInvalid(LearningContent learningContent)
         {
-            ArgumentValidation.ThrowIfNull(learningObject, "explanation");
+            ArgumentValidation.ThrowIfNull(learningContent, "explanation");
         }
 
         private void ThrowIfModifiedByIsInvalid(string modifiedBy)

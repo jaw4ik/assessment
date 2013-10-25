@@ -21,7 +21,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         private IQuerableRepository<Objective> _objectiveRepository;
         private IQuerableRepository<Question> _questionRepository;
         private IQuerableRepository<Answer> _answerRepository;
-        private IQuerableRepository<LearningObject> _learningObjectRepository;
+        private IQuerableRepository<LearningContent> _learningContentRepository;
         private IQuerableRepository<Experience> _experienceRepository;
         private IHelpHintRepository _helpHintRepository;
 
@@ -31,11 +31,11 @@ namespace easygenerator.DomainModel.Tests.Handlers
             _objectiveRepository = Substitute.For<IQuerableRepository<Objective>>();
             _questionRepository = Substitute.For<IQuerableRepository<Question>>();
             _answerRepository = Substitute.For<IQuerableRepository<Answer>>();
-            _learningObjectRepository = Substitute.For<IQuerableRepository<LearningObject>>();
+            _learningContentRepository = Substitute.For<IQuerableRepository<LearningContent>>();
             _experienceRepository = Substitute.For<IQuerableRepository<Experience>>();
             _helpHintRepository = Substitute.For<IHelpHintRepository>();
 
-            _handler = new SignupFromTryItNowHandler(_experienceRepository, _objectiveRepository, _questionRepository, _answerRepository, _learningObjectRepository, _helpHintRepository);
+            _handler = new SignupFromTryItNowHandler(_experienceRepository, _objectiveRepository, _questionRepository, _answerRepository, _learningContentRepository, _helpHintRepository);
         }
 
         #region Experiences
@@ -142,28 +142,28 @@ namespace easygenerator.DomainModel.Tests.Handlers
 
         #endregion
 
-        #region Learning objects
+        #region Learning content
 
         [TestMethod]
-        public void Handle_ShouldDefineCreatedByForLearningObjectsThatWereCreatedInTryMode()
+        public void Handle_ShouldDefineCreatedByForLearningContentsThatWereCreatedInTryMode()
         {
-            var learningObject = Substitute.For<LearningObject>("text", TryItNowUsername);
-            _learningObjectRepository.GetCollection().Returns(new List<LearningObject>() { learningObject });
+            var learningContent = Substitute.For<LearningContent>("text", TryItNowUsername);
+            _learningContentRepository.GetCollection().Returns(new List<LearningContent>() { learningContent });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
 
-            learningObject.Received().DefineCreatedBy(SignUpUsername);
+            learningContent.Received().DefineCreatedBy(SignUpUsername);
         }
 
         [TestMethod]
-        public void Handle_ShouldNotDefineCreatedByForLearningObjectsThatWereCreatedByOtherExistingUser()
+        public void Handle_ShouldNotDefineCreatedByForLearningContentsThatWereCreatedByOtherExistingUser()
         {
-            var learningObject = Substitute.For<LearningObject>("text", OtherExistingUser);
-            _learningObjectRepository.GetCollection().Returns(new List<LearningObject>() { learningObject });
+            var learningContent = Substitute.For<LearningContent>("text", OtherExistingUser);
+            _learningContentRepository.GetCollection().Returns(new List<LearningContent>() { learningContent });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
 
-            learningObject.DidNotReceive().DefineCreatedBy(Arg.Any<string>());
+            learningContent.DidNotReceive().DefineCreatedBy(Arg.Any<string>());
         }
 
         #endregion

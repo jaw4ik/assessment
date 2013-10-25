@@ -15,7 +15,7 @@
                         { "id": "1", "isCorrect": true, "text": "Answer option 2" },
                         { "id": "1", "isCorrect": false, "text": "Answer option 3" }
                     ],
-                    "learningObjects": [
+                    "learningContents": [
                         { "id": "1" },
                         { "id": "2" },
                         { "id": "3" }
@@ -29,7 +29,7 @@
                         { "id": "1", "isCorrect": false, "text": "Answer option 2" },
                         { "id": "1", "isCorrect": true, "text": "Answer option 3" }
                     ],
-                    "learningObjects": [
+                    "learningContents": [
                         { "id": "1" },
                         { "id": "2" },
                         { "id": "3" }
@@ -50,7 +50,7 @@
                         { "id": "1", "isCorrect": true, "text": "Answer option 2" },
                         { "id": "1", "isCorrect": false, "text": "Answer option 3" }
                     ],
-                    "learningObjects": [
+                    "learningContents": [
                         { "id": "1" },
                         { "id": "2" },
                         { "id": "3" }
@@ -64,7 +64,7 @@
                         { "id": "1", "isCorrect": false, "text": "Answer option 2" },
                         { "id": "1", "isCorrect": true, "text": "Answer option 3" }
                     ],
-                    "learningObjects": [
+                    "learningContents": [
                         { "id": "1" },
                         { "id": "2" },
                         { "id": "3" }
@@ -85,7 +85,7 @@
                         { "id": "1", "isCorrect": true, "text": "Answer option 2" },
                         { "id": "1", "isCorrect": false, "text": "Answer option 3" }
                     ],
-                    "learningObjects": [
+                    "learningContents": [
                         { "id": "1" },
                         { "id": "2" },
                         { "id": "3" }
@@ -99,7 +99,7 @@
                         { "id": "1", "isCorrect": false, "text": "Answer option 2" },
                         { "id": "1", "isCorrect": true, "text": "Answer option 3" }
                     ],
-                    "learningObjects": [
+                    "learningContents": [
                         { "id": "1" },
                         { "id": "2" },
                         { "id": "3" }

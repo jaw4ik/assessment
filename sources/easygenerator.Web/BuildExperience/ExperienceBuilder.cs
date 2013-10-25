@@ -44,10 +44,10 @@ namespace easygenerator.Web.BuildExperience
                     {
                         _fileManager.CreateDirectory(_buildPathProvider.GetQuestionDirectoryName(buildId, objective.Id, question.Id));
 
-                        foreach (LearningObjectPackageModel learningObject in question.LearningObjects)
+                        foreach (LearningContentPackageModel learningContent in question.LearningContents)
                         {
-                            _fileManager.WriteToFile(_buildPathProvider.GetLearningObjectFileName(buildId, objective.Id, question.Id, learningObject.Id),
-                                learningObject.Text);
+                            _fileManager.WriteToFile(_buildPathProvider.GetLearningContentFileName(buildId, objective.Id, question.Id, learningContent.Id),
+                                learningContent.Text);
                         }
                     }
                 }

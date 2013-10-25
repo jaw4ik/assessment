@@ -173,9 +173,9 @@
     <Content Include="App\repositories\helpHintRepository.spec.js">
       <DependentUpon>helpHintRepository.js</DependentUpon>
     </Content>
-    <Content Include="App\repositories\learningObjectRepository.js" />
-    <Content Include="App\repositories\learningObjectRepository.spec.js">
-      <DependentUpon>learningObjectRepository.js</DependentUpon>
+    <Content Include="App\repositories\learningContentRepository.js" />
+    <Content Include="App\repositories\learningContentRepository.spec.js">
+      <DependentUpon>learningContentRepository.js</DependentUpon>
     </Content>
     <Content Include="App\repositories\objectiveRepository.js" />
     <Compile Include="BuildExperience\BuildPackageCreator.cs" />
@@ -187,7 +187,7 @@
     <Compile Include="BuildExperience\PackageModelSerializer.cs" />
     <Compile Include="BuildExperience\PackageModel\AnswerOptionPackageModel.cs" />
     <Compile Include="BuildExperience\PackageModel\ExperiencePackageModel.cs" />
-    <Compile Include="BuildExperience\PackageModel\LearningObjectPackageModel.cs" />
+    <Compile Include="BuildExperience\PackageModel\LearningContentPackageModel.cs" />
     <Compile Include="BuildExperience\PackageModel\ObjectivePackageModel.cs" />
     <Compile Include="BuildExperience\PackageModel\QuestionPackageModel.cs" />
     <Compile Include="Components\ActionResults\TextJsonErrorResult.cs" />
@@ -215,7 +215,7 @@
     <Compile Include="Controllers\Api\AnswerController.cs" />
     <Compile Include="Controllers\Api\ExperienceController.cs" />
     <Compile Include="Controllers\Api\HelpHintController.cs" />
-    <Compile Include="Controllers\Api\LearningObjectController.cs" />
+    <Compile Include="Controllers\Api\LearningContentController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FileStorageController.cs" />
     <Compile Include="Controllers\Api\ObjectiveController.cs" />
@@ -228,6 +228,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Content Include="App\viewmodels\questions\learningContents.spec.js">
+      <DependentUpon>learningContents.js</DependentUpon>
+    </Content>
     <Content Include="Content\images\account\log-in.jpg" />
     <Content Include="Mail\MailTemplates\SignedUpUserTemplate.cshtml" />
     <Compile Include="Mail\MailNotificationManager.cs">
@@ -264,10 +267,7 @@
     <Content Include="App\viewmodels\questions\answers.spec.js">
       <DependentUpon>answers.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\learningObjects.js" />
-    <Content Include="App\viewmodels\questions\learningObjects.spec.js">
-      <DependentUpon>learningObjects.js</DependentUpon>
-    </Content>
+    <Content Include="App\viewmodels\questions\learningContents.js" />
     <Content Include="App\viewmodels\shell.spec.js">
       <DependentUpon>shell.js</DependentUpon>
     </Content>
@@ -406,7 +406,7 @@
     <Content Include="Templates\Freestyle learning\App\viewmodels\404.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\feedback.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\home.js" />
-    <Content Include="Templates\Freestyle learning\App\viewmodels\learningObjects.js" />
+    <Content Include="Templates\Freestyle learning\App\viewmodels\learningContents.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\notsupportedbrowser.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\notsupportedbrowserMobile.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\question.js" />
@@ -416,7 +416,7 @@
     <Content Include="Templates\Freestyle learning\App\views\404.html" />
     <Content Include="Templates\Freestyle learning\App\views\feedback.html" />
     <Content Include="Templates\Freestyle learning\App\views\home.html" />
-    <Content Include="Templates\Freestyle learning\App\views\learningObjects.html" />
+    <Content Include="Templates\Freestyle learning\App\views\learningContents.html" />
     <Content Include="Templates\Freestyle learning\App\views\notsupportedbrowser.html" />
     <Content Include="Templates\Freestyle learning\App\views\notsupportedbrowserMobile.html" />
     <Content Include="Templates\Freestyle learning\App\views\question.html" />
@@ -487,8 +487,8 @@
     <Content Include="Templates\Freestyle learning\js\vendor.min.js">
       <DependentUpon>vendor.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Templates\Quiz\App\viewmodels\learningObjects.spec.js">
-      <DependentUpon>learningObjects.js</DependentUpon>
+    <Content Include="Templates\Quiz\App\viewmodels\learningContents.spec.js">
+      <DependentUpon>learningContents.js</DependentUpon>
     </Content>
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.eot" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.ttf" />
@@ -540,7 +540,7 @@
     <Content Include="apple-touch-icon-72x72-precomposed.png" />
     <Content Include="apple-touch-icon-precomposed.png" />
     <Content Include="apple-touch-icon.png" />
-    <Content Include="App\models\learningObject.js" />
+    <Content Include="App\models\learningContent.js" />
     <Content Include="App\repositories\experienceRepository.js" />
     <Content Include="App\repositories\questionRepository.js" />
     <Content Include="App\repositories\questionRepository.spec.js">
@@ -917,7 +917,7 @@
     <Content Include="Templates\Quiz\App\viewmodels\404.spec.js">
       <DependentUpon>404.js</DependentUpon>
     </Content>
-    <Content Include="Templates\Quiz\App\viewmodels\learningObjects.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\learningContents.js" />
     <Content Include="Templates\Quiz\App\viewmodels\home.js" />
     <Content Include="Templates\Quiz\App\viewmodels\home.spec.js">
       <DependentUpon>home.js</DependentUpon>
@@ -936,7 +936,7 @@
     </Content>
     <Content Include="Templates\Quiz\App\views\400.html" />
     <Content Include="Templates\Quiz\App\views\404.html" />
-    <Content Include="Templates\Quiz\App\views\learningObjects.html" />
+    <Content Include="Templates\Quiz\App\views\learningContents.html" />
     <Content Include="Templates\Quiz\App\views\home.html" />
     <Content Include="Templates\Quiz\App\views\notsupportedbrowser.html" />
     <Content Include="Templates\Quiz\App\views\shell.html" />

@@ -203,7 +203,7 @@
                                             title: question.title,
                                             createdOn: utils.getDateFromString(response.CreatedOn),
                                             modifiedOn: utils.getDateFromString(response.CreatedOn),
-                                            learningObjects: [],
+                                            learningContents: [],
                                             answerOptions: []
                                         });
                                     });

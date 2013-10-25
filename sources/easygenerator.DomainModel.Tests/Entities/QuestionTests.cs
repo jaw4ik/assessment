@@ -323,7 +323,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var question = QuestionObjectMother.Create();
 
-            Action action = () => question.AddLearningObject(null, ModifiedBy);
+            Action action = () => question.AddLearningContent(null, ModifiedBy);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("explanation");
         }
@@ -332,20 +332,20 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void AddExplanation_ShouldAddExplanation()
         {
             var question = QuestionObjectMother.Create();
-            var explanation = LearningObjectObjectMother.Create();
+            var explanation = LearningContentObjectMother.Create();
 
-            question.AddLearningObject(explanation, ModifiedBy);
+            question.AddLearningContent(explanation, ModifiedBy);
 
-            question.LearningObjects.Should().NotBeNull().And.HaveCount(1).And.Contain(explanation);
+            question.LearningContents.Should().NotBeNull().And.HaveCount(1).And.Contain(explanation);
         }
 
         [TestMethod]
         public void AddExplanation_ShouldSetQuestionToExplanation()
         {
             var question = QuestionObjectMother.Create();
-            var explanation = LearningObjectObjectMother.Create();
+            var explanation = LearningContentObjectMother.Create();
 
-            question.AddLearningObject(explanation, ModifiedBy);
+            question.AddLearningContent(explanation, ModifiedBy);
 
             explanation.Question.Should().Be(question);
         }
@@ -359,7 +359,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            question.AddLearningObject(LearningObjectObjectMother.Create(), ModifiedBy);
+            question.AddLearningContent(LearningContentObjectMother.Create(), ModifiedBy);
 
             question.ModifiedOn.Should().Be(dateTime);
         }
@@ -368,9 +368,9 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void AddExplanation_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
         {
             var question = QuestionObjectMother.Create();
-            var explanation = LearningObjectObjectMother.Create();
+            var explanation = LearningContentObjectMother.Create();
 
-            Action action = () => question.AddLearningObject(explanation, null);
+            Action action = () => question.AddLearningContent(explanation, null);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
         }
@@ -379,9 +379,9 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void AddExplanation_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
         {
             var question = QuestionObjectMother.Create();
-            var explanation = LearningObjectObjectMother.Create();
+            var explanation = LearningContentObjectMother.Create();
 
-            Action action = () => question.AddLearningObject(explanation, string.Empty);
+            Action action = () => question.AddLearningContent(explanation, string.Empty);
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
         }
@@ -390,10 +390,10 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void AddExplanation_ShouldUpdateMoidifiedBy()
         {
             var question = QuestionObjectMother.Create();
-            var explanation = LearningObjectObjectMother.Create();
+            var explanation = LearningContentObjectMother.Create();
             var user = "Some user";
 
-            question.AddLearningObject(explanation, user);
+            question.AddLearningContent(explanation, user);
 
             question.ModifiedBy.Should().Be(user);
         }
@@ -407,7 +407,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         {
             var question = QuestionObjectMother.Create();
 
-            Action action = () => question.RemoveLearningObject(null, ModifiedBy);
+            Action action = () => question.RemoveLearningContent(null, ModifiedBy);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("explanation");
         }
@@ -416,21 +416,21 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void RemoveExplanation_ShouldRemoveExplanation()
         {
             var question = QuestionObjectMother.Create();
-            var explanation = LearningObjectObjectMother.Create();
-            question.AddLearningObject(explanation, ModifiedBy);
+            var explanation = LearningContentObjectMother.Create();
+            question.AddLearningContent(explanation, ModifiedBy);
 
-            question.RemoveLearningObject(explanation, ModifiedBy);
-            question.LearningObjects.Should().BeEmpty();
+            question.RemoveLearningContent(explanation, ModifiedBy);
+            question.LearningContents.Should().BeEmpty();
         }
 
         [TestMethod]
         public void RemoveExplanation_ShouldUnsetQuestionFromExplanation()
         {
             var question = QuestionObjectMother.Create();
-            var explanation = LearningObjectObjectMother.Create();
+            var explanation = LearningContentObjectMother.Create();
             explanation.Question = question;
 
-            question.RemoveLearningObject(explanation, ModifiedBy);
+            question.RemoveLearningContent(explanation, ModifiedBy);
 
             explanation.Question.Should().BeNull();
         }
@@ -444,7 +444,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             var dateTime = DateTime.Now.AddDays(2);
             DateTimeWrapper.Now = () => dateTime;
 
-            question.RemoveLearningObject(LearningObjectObjectMother.Create(), ModifiedBy);
+            question.RemoveLearningContent(LearningContentObjectMother.Create(), ModifiedBy);
 
             question.ModifiedOn.Should().Be(dateTime);
         }
@@ -453,9 +453,9 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void RemoveExplanation_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
         {
             var question = QuestionObjectMother.Create();
-            var explanation = LearningObjectObjectMother.Create();
+            var explanation = LearningContentObjectMother.Create();
 
-            Action action = () => question.RemoveLearningObject(explanation, null);
+            Action action = () => question.RemoveLearningContent(explanation, null);
 
             action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
         }
@@ -464,9 +464,9 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void RemoveExplanation_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
         {
             var question = QuestionObjectMother.Create();
-            var explanation = LearningObjectObjectMother.Create();
+            var explanation = LearningContentObjectMother.Create();
 
-            Action action = () => question.RemoveLearningObject(explanation, string.Empty);
+            Action action = () => question.RemoveLearningContent(explanation, string.Empty);
 
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
         }
@@ -475,10 +475,10 @@ namespace easygenerator.DomainModel.Tests.Entities
         public void RemoveExplanation_ShouldUpdateMoidifiedBy()
         {
             var question = QuestionObjectMother.Create();
-            var explanation = LearningObjectObjectMother.Create();
+            var explanation = LearningContentObjectMother.Create();
             var user = "Some user";
 
-            question.RemoveLearningObject(explanation, user);
+            question.RemoveLearningContent(explanation, user);
 
             question.ModifiedBy.Should().Be(user);
         }

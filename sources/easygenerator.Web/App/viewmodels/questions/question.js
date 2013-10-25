@@ -1,5 +1,5 @@
-﻿define(['viewmodels/questions/answers', 'viewmodels/questions/learningObjects', 'plugins/router', 'eventTracker', 'models/answerOption', 'models/learningObject', 'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify', 'repositories/answerRepository', 'repositories/learningObjectRepository'],
-    function (vmAnswers, vmLearningObjects, router, eventTracker, answerOptionModel, learningObjectModel, localizationManager, constants, questionRepository, objectiveRepository, system, notify, answerRepository, learningObjectRepository) {
+﻿define(['viewmodels/questions/answers', 'viewmodels/questions/learningContents', 'plugins/router', 'eventTracker', 'models/answerOption', 'models/learningContent', 'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify', 'repositories/answerRepository', 'repositories/learningContentRepository'],
+    function (vmAnswers, vmLearningContents, router, eventTracker, answerOptionModel, learningContentModel, localizationManager, constants, questionRepository, objectiveRepository, system, notify, answerRepository, learningContentRepository) {
         "use strict";
         var
             events = {
@@ -14,10 +14,10 @@
                 startEditingAnswerOption: 'Start editing answer option',
                 endEditingAnswerOption: 'End editing answer option',
 
-                addLearningObject: 'Add learning object',
-                deleteLearningObject: 'Delete learning object',
-                startEditingLearningObject: 'Start editing learning object',
-                EndEditingLearningObject: 'End editing learning object'
+                addLearningContent: 'Add learning content',
+                deleteLearningContent: 'Delete learning content',
+                startEditingLearningContent: 'Start editing learning content',
+                EndEditingLearningContent: 'End editing learning content'
             },
 
             sendEvent = function (eventName) {
@@ -73,7 +73,7 @@
             },
 
             answers = null,
-            learningObjects = null,
+            learningContents = null,
 
             activate = function (objId, quesId) {
                 objectiveId = objId;
@@ -94,8 +94,8 @@
                         that.answers = vmAnswers(questionId, answerOptions);
                     });
                 }).then(function () {
-                    return learningObjectRepository.getCollection(questionId).then(function (learningObjects) {
-                        that.learningObjects = vmLearningObjects(questionId, learningObjects);
+                    return learningContentRepository.getCollection(questionId).then(function (learningContents) {
+                        that.learningContents = vmLearningContents(questionId, learningContents);
                     });
                 }).fail(function () {
                     router.replace('404');
@@ -118,7 +118,7 @@
             endEditQuestionTitle: endEditQuestionTitle,
 
             answers: answers,
-            learningObjects: learningObjects
+            learningContents: learningContents
         };
     }
 );

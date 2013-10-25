@@ -48,7 +48,7 @@
                                 "isCorrect": true,
                                 "text": "You always will see the direct effect of your actions in the editing screen of easygenerator."
                             }],
-                            "learningObjects": [{
+                            "learningContents": [{
                                 "id": 0
                             }, {
                                 "id": 1
@@ -72,7 +72,7 @@
                                 this.isCorrect = !this.isCorrect;
                             }
                         }],
-                        learningObjects: [],
+                        learningContents: [],
                         title: 'Questions 1',
                         score: 46
                     }, {
@@ -91,7 +91,7 @@
                                 this.isCorrect = !this.isCorrect;
                             }
                         }],
-                        learningObjects: [],
+                        learningContents: [],
                         title: 'Questions 2',
                         score: 89
                     }]);

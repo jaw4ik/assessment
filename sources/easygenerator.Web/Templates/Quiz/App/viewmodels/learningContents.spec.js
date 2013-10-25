@@ -2,12 +2,12 @@
     "use strict";
 
     var
-        viewModel = require('viewModels/learningObjects'),
+        viewModel = require('viewModels/learningContents'),
         router = require('durandal/plugins/router'),
         context = require('context'),
         http = require('durandal/http');
 
-    describe('viewModel [learningObjects]', function () {
+    describe('viewModel [learningContents]', function () {
 
         it('should be defined', function () {
             expect(viewModel).toBeDefined();
@@ -30,7 +30,7 @@
                         "isCorrect": true,
                         "text": "You always will see the direct effect of your actions in the editing screen of easygenerator."
                     }],
-                    "learningObjects": [{
+                    "learningContents": [{
                         "id": 0
                     }]
                 }]
@@ -53,9 +53,9 @@
                 expect(viewModel.activate).toBeFunction();
             });
 
-            it('should be set learning objects', function () {
+            it('should be set learning content', function () {
                 viewModel.activate({ objectiveId: 0, questionId: 0 });
-                expect(viewModel.learningObjects).toNotBe([]);
+                expect(viewModel.learningContents).toNotBe([]);
             });
 
             describe('when routeData incorrect', function () {
@@ -124,18 +124,18 @@
                 expect(window.scroll).toHaveBeenCalledWith(0, 0);
             });
 
-            it('should load learning objects', function () {
+            it('should load learning content', function () {
                 var objectiveId = '0';
                 var questionId = '0';
                 var itemId = '0';
-                var learningObjectUrl = 'content/' + objectiveId + '/' + questionId + '/' + itemId + '.html';
+                var learningContentUrl = 'content/' + objectiveId + '/' + questionId + '/' + itemId + '.html';
 
                 viewModel.activate({ objectiveId: objectiveId, questionId: questionId });
 
-                expect(http.get).toHaveBeenCalledWith(learningObjectUrl);
+                expect(http.get).toHaveBeenCalledWith(learningContentUrl);
             });
             
-            it('should push loaded learning objects to viewmodel', function () {
+            it('should push loaded learning content to viewmodel', function () {
                 var objectiveId = '0';
                 var questionId = '0';
                 var responseText = 'some response text';
@@ -148,7 +148,7 @@
                     return promise.state() == 'resolved';
                 });
                 runs(function () {
-                    expect(viewModel.learningObjects[0].learningObject).toEqual(responseText);
+                    expect(viewModel.learningContents[0].learningContent).toEqual(responseText);
                 });
             });
 

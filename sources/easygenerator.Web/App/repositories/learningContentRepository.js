@@ -1,40 +1,40 @@
-﻿define(['dataContext', 'httpWrapper', 'guard', 'models/learningObject'],
-    function (dataContext, httpWrapper, guard, learningObjectModel) {
+﻿define(['dataContext', 'httpWrapper', 'guard', 'models/learningContent'],
+    function (dataContext, httpWrapper, guard, learningContentModel) {
 
         var
             getCollection = function (questionId) {
                 return Q.fcall(function () {
                     guard.throwIfNotString(questionId, 'Question id is not a string');
 
-                    return httpWrapper.post('api/learningObjects', { questionId: questionId }).then(function (response) {
+                    return httpWrapper.post('api/learningContents', { questionId: questionId }).then(function (response) {
                         guard.throwIfNotAnObject(response, 'Response is not an object');
-                        guard.throwIfNotArray(response.LearningObjects, 'Learning objects is not an array');
+                        guard.throwIfNotArray(response.LearningContents, 'Learning content is not an array');
 
-                        return _.map(response.LearningObjects, function (learningObject) {
-                            return new learningObjectModel({
-                                id: learningObject.Id,
-                                text: learningObject.Text,
+                        return _.map(response.LearningContents, function (learningContent) {
+                            return new learningContentModel({
+                                id: learningContent.Id,
+                                text: learningContent.Text,
                             });
                         });
                     });
                 });
             },
 
-            addLearningObject = function (questionId, learningObject) {
+            addLearningContent = function (questionId, learningContent) {
                 return Q.fcall(function () {
                     guard.throwIfNotString(questionId, 'Question id is not a string');
-                    guard.throwIfNotAnObject(learningObject, 'Learning object data is not an object');
-                    guard.throwIfNotString(learningObject.text, 'Learning object text is not a string');
+                    guard.throwIfNotAnObject(learningContent, 'Learning content data is not an object');
+                    guard.throwIfNotString(learningContent.text, 'Learning content text is not a string');
 
                     var data = {
                         questionId: questionId,
-                        text: learningObject.text
+                        text: learningContent.text
                     };
 
-                    return httpWrapper.post('api/learningObject/create', data).then(function (response) {
+                    return httpWrapper.post('api/learningContent/create', data).then(function (response) {
                         guard.throwIfNotAnObject(response, 'Response is not an object');
-                        guard.throwIfNotString(response.Id, 'Learning object id is not a string');
-                        guard.throwIfNotString(response.CreatedOn, 'Learning object creation date is not a string');
+                        guard.throwIfNotString(response.Id, 'Learning content id is not a string');
+                        guard.throwIfNotString(response.CreatedOn, 'Learning content creation date is not a string');
 
                         var createdOn = new Date(parseInt(response.CreatedOn.substr(6), 10));
                         updateQuestionModifiedOnDate(questionId, createdOn);
@@ -47,18 +47,18 @@
                 });
             },
 
-            removeLearningObject = function (questionId, learningObjectId) {
+            removeLearningContent = function (questionId, learningContentId) {
                 return Q.fcall(function () {
 
                     guard.throwIfNotString(questionId, 'Question id is not a string');
-                    guard.throwIfNotString(learningObjectId, 'Learning object id is not a string');
+                    guard.throwIfNotString(learningContentId, 'Learning content id is not a string');
 
                     var data = {
                         questionId: questionId,
-                        learningObjectId: learningObjectId
+                        learningContentId: learningContentId
                     };
 
-                    return httpWrapper.post('api/learningObject/delete', data).then(function (response) {
+                    return httpWrapper.post('api/learningContent/delete', data).then(function (response) {
                         guard.throwIfNotAnObject(response, 'Response is not an object');
                         guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
@@ -72,20 +72,20 @@
                 });
             },
 
-            updateText = function (questionId, learningObjectId, text) {
+            updateText = function (questionId, learningContentId, text) {
                 return Q.fcall(function () {
                     guard.throwIfNotString(questionId, 'Question id is not a string');
-                    guard.throwIfNotString(learningObjectId, 'Learning object id is not a string');
-                    guard.throwIfNotString(text, 'Learning object text is not a string');
+                    guard.throwIfNotString(learningContentId, 'Learning content id is not a string');
+                    guard.throwIfNotString(text, 'Learning content text is not a string');
 
                     var data = {
-                        learningObjectId: learningObjectId,
+                        learningContentId: learningContentId,
                         text: text
                     };
 
-                    return httpWrapper.post('api/learningObject/updateText', data).then(function (response) {
+                    return httpWrapper.post('api/learningContent/updateText', data).then(function (response) {
                         guard.throwIfNotAnObject(response, 'Response is not an object');
-                        guard.throwIfNotString(response.ModifiedOn, 'Learning object modification date is not a string');
+                        guard.throwIfNotString(response.ModifiedOn, 'Learning content modification date is not a string');
 
                         var modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
                         updateQuestionModifiedOnDate(questionId, modifiedOn);
@@ -120,8 +120,8 @@
         return {
             getCollection: getCollection,
 
-            addLearningObject: addLearningObject,
-            removeLearningObject: removeLearningObject,
+            addLearningContent: addLearningContent,
+            removeLearningContent: removeLearningContent,
 
             updateText: updateText
         };

@@ -7,11 +7,11 @@ using System.Web.Mvc;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    public class LearningObjectController : DefaultController
+    public class LearningContentController : DefaultController
     {
         private readonly IEntityFactory _entityFactory;
 
-        public LearningObjectController(IEntityFactory entityFactory)
+        public LearningContentController(IEntityFactory entityFactory)
         {
             _entityFactory = entityFactory;
         }
@@ -24,37 +24,37 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Constants.Errors.QuestionNotFoundError, Constants.Errors.QuestionNotFoundResourceKey);
             }
 
-            var learningObject = _entityFactory.LearningObject(text, GetCurrentUsername());
+            var learningContent = _entityFactory.LearningContent(text, GetCurrentUsername());
 
-            question.AddLearningObject(learningObject, GetCurrentUsername());
+            question.AddLearningContent(learningContent, GetCurrentUsername());
 
-            return JsonSuccess(new { Id = learningObject.Id.ToString("N"), CreatedOn = learningObject.CreatedOn });
+            return JsonSuccess(new { Id = learningContent.Id.ToString("N"), CreatedOn = learningContent.CreatedOn });
         }
 
         [HttpPost]
-        public ActionResult Delete(Question question, LearningObject learningObject)
+        public ActionResult Delete(Question question, LearningContent learningContent)
         {
             if (question == null)
             {
                 return JsonLocalizableError(Constants.Errors.QuestionNotFoundError, Constants.Errors.QuestionNotFoundResourceKey);
             }
 
-            question.RemoveLearningObject(learningObject, GetCurrentUsername());
+            question.RemoveLearningContent(learningContent, GetCurrentUsername());
 
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }
 
         [HttpPost]
-        public ActionResult UpdateText(LearningObject learningObject, string text)
+        public ActionResult UpdateText(LearningContent learningContent, string text)
         {
-            if (learningObject == null)
+            if (learningContent == null)
             {
-                return JsonLocalizableError(Constants.Errors.LearningObjectNotFoundError, Constants.Errors.LearningObjectNotFoundResourceKey);
+                return JsonLocalizableError(Constants.Errors.LearningContentNotFoundError, Constants.Errors.LearningContentNotFoundResourceKey);
             }
 
-            learningObject.UpdateText(text, GetCurrentUsername());
+            learningContent.UpdateText(text, GetCurrentUsername());
 
-            return JsonSuccess(new { ModifiedOn = learningObject.ModifiedOn });
+            return JsonSuccess(new { ModifiedOn = learningContent.ModifiedOn });
         }
 
         [HttpPost]
@@ -65,13 +65,13 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Constants.Errors.QuestionNotFoundError, Constants.Errors.QuestionNotFoundResourceKey);
             }
 
-            var learningObjects = question.LearningObjects.Select(lo => new
+            var learningContents = question.LearningContents.Select(lo => new
             {
                 Id = lo.Id.ToString("N"),
                 Text = lo.Text,
             });
 
-            return JsonSuccess(new { LearningObjects = learningObjects });
+            return JsonSuccess(new { LearningContents = learningContents });
         }
     }
 }

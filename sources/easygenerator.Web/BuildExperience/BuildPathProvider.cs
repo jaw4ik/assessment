@@ -37,9 +37,9 @@ namespace easygenerator.Web.BuildExperience
             return Path.Combine(GetObjectiveDirectoryName(buildId, objectiveId), questionId);
         }
 
-        public virtual string GetLearningObjectFileName(string buildId, string objectiveId, string questionId, string learningObjectId)
+        public virtual string GetLearningContentFileName(string buildId, string objectiveId, string questionId, string learningContentId)
         {
-            return Path.Combine(GetQuestionDirectoryName(buildId, objectiveId, questionId), learningObjectId + ".html");
+            return Path.Combine(GetQuestionDirectoryName(buildId, objectiveId, questionId), learningContentId + ".html");
         }
 
         public virtual string GetDataFileName(string buildId)

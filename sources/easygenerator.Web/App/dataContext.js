@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/http', 'models/objective', 'models/objective', 'models/question', 'models/experience', 'models/answerOption', 'models/learningObject', 'models/template', 'constants'],
-    function (app, http, objectiveModel, ObjectiveModel, QuestionModel, ExperienceModel, AnswerOptionModel, LearningObjectModel, TemplateModel, constants) {
+﻿define(['durandal/app', 'plugins/http', 'models/objective', 'models/objective', 'models/question', 'models/experience', 'models/answerOption', 'models/learningContent', 'models/template', 'constants'],
+    function (app, http, objectiveModel, ObjectiveModel, QuestionModel, ExperienceModel, AnswerOptionModel, LearningContentModel, TemplateModel, constants) {
 
         function parseDateString(str) {
             return new Date(parseInt(str.substr(6), 10));

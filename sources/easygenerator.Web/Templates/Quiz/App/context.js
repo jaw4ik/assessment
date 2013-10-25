@@ -32,8 +32,8 @@
                                             text: answer.text
                                         };
                                     }),
-                                    learningObjects: _.map(question.learningObjects, function (learningObject) {
-                                        return { id: learningObject.id };
+                                    learningContents: _.map(question.learningContents, function (learningContent) {
+                                        return { id: learningContent.id };
                                     }),
                                     score: 0
                                 };

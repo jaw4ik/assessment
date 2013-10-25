@@ -2,7 +2,7 @@
 
 namespace easygenerator.Web.BuildExperience.PackageModel
 {
-    public class LearningObjectPackageModel
+    public class LearningContentPackageModel
     {
         public string Id { get; set; }
 

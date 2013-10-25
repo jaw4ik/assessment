@@ -46,7 +46,7 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Experience.cs" />
     <Compile Include="Entities\HelpHint.cs" />
-    <Compile Include="Entities\LearningObject.cs" />
+    <Compile Include="Entities\LearningContent.cs" />
     <Compile Include="Entities\MailNotification.cs" />
     <Compile Include="Entities\Objective.cs" />
     <Compile Include="Entities\PasswordRecoveryTicket.cs" />

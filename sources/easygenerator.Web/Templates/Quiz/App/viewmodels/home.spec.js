@@ -25,7 +25,7 @@
                         "isCorrect": true,
                         "text": "You always will see the direct effect of your actions in the editing screen of easygenerator."
                     }],
-                    "learningObjects": [{
+                    "learningContents": [{
                         "id": 0
                     }, {
                         "id": 1
@@ -68,8 +68,8 @@
             expect(viewModel.submit).toBeDefined();
         });
         
-        it('should be defined showLearningObjects', function () {
-            expect(viewModel.showLearningObjects).toBeDefined();
+        it('should be defined showLearningContents', function () {
+            expect(viewModel.showLearningContents).toBeDefined();
         });
         
         it('should be defined viewAttached', function () {
@@ -175,19 +175,19 @@
             });
         });
 
-        describe('showLearningObjects:', function () {
+        describe('showLearningContents:', function () {
             beforeEach(function () {
                 spyOn(router, 'navigateTo');
             });
             
             it('should be function', function () {
-                expect(viewModel.showLearningObjects).toBeFunction();
+                expect(viewModel.showLearningContents).toBeFunction();
             });
             
-            it('should navigate to #/objective/:objectiveId/question/:questionid/learningObjects', function () {
-                var learningObject = { objectiveId: 'obj1', id: 'ques1' };
-                viewModel.showLearningObjects(learningObject);
-                expect(router.navigateTo).toHaveBeenCalledWith('#/objective/obj1/question/ques1/learningObjects');
+            it('should navigate to #/objective/:objectiveId/question/:questionid/learningContents', function () {
+                var learningContent = { objectiveId: 'obj1', id: 'ques1' };
+                viewModel.showLearningContents(learningContent);
+                expect(router.navigateTo).toHaveBeenCalledWith('#/objective/obj1/question/ques1/learningContents');
             });
         });
     });

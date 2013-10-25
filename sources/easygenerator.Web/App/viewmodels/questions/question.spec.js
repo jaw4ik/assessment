@@ -16,7 +16,7 @@ define(function (require) {
         createdOn: new Date(),
         modifiedOn: new Date(),
         answerOptions: [],
-        learningObjects: []
+        learningContents: []
     };
 
     var objective = {
@@ -32,14 +32,14 @@ define(function (require) {
                 id: '0',
                 title: 'Question 1',
                 answerOptions: [],
-                learningObjects: []
+                learningContents: []
             },
             question,
             {
                 id: '2',
                 title: 'Question 3',
                 answerOptions: [],
-                learningObjects: []
+                learningContents: []
             }
         ]
     };
@@ -352,7 +352,7 @@ define(function (require) {
                     expect(viewModel.objectiveTitle).toBe(objectiveFull.title);
                     expect(viewModel.title()).toBe(question.title);
                     expect(viewModel.answers).toBeDefined();
-                    expect(viewModel.learningObjects).toBeDefined();
+                    expect(viewModel.learningContents).toBeDefined();
                 });
             });
         });

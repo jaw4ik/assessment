@@ -339,7 +339,7 @@ input[type="checkbox"] {
 .question .navigation-link-left-image,
 .feedback .navigation-link-left-image,
 .summary .navigation-link-left-image,
-.learning-objects .navigation-link-left-image {
+.learning-contents .navigation-link-left-image {
     background-position: 0 0;
 }
 
@@ -615,40 +615,40 @@ input[type="checkbox"] {
 
 /*#endregion feedback view */
 
-/*#region learning object view*/
-.learning-objects {
+/*#region learning content view*/
+.learning-contents {
     padding-bottom: 10px;
 }
 
-    .learning-objects .navigation-link-right-image {
+    .learning-contents .navigation-link-right-image {
         background-position: 0 -114px;
     }
 
-    .learning-objects .caption-icon-image {
+    .learning-contents .caption-icon-image {
         background-position: 0 -28px;
     }
 
-    .learning-objects .caption-text {
+    .learning-contents .caption-text {
         text-transform: uppercase;
     }
 
-.learning-object-items {
+.learning-content-items {
     padding: 0 10px;
     margin: 0;
 }
 
-    .learning-object-items .learning-object-item {
+    .learning-content-items .learning-content-item {
         padding: 20px 0;
         -ms-word-wrap: break-word;
         word-wrap: break-word;
         overflow: hidden;
     }
 
-        .learning-object-items .learning-object-item + .learning-object-item {
+        .learning-content-items .learning-content-item + .learning-content-item {
             border-top: solid 2px #e0e0e0;
         }
 
-/*#endregion of learning object view*/
+/*#endregion of learning content view*/
 
 /*#region not supported browser view */
 

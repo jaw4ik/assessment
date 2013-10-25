@@ -35,8 +35,8 @@ namespace easygenerator.DataAccess
             builder.RegisterType<QuerableRepository<Answer>>()
                 .As<IQuerableRepository<Answer>>();
 
-            builder.RegisterType<QuerableRepository<LearningObject>>()
-                .As<IQuerableRepository<LearningObject>>();
+            builder.RegisterType<QuerableRepository<LearningContent>>()
+                .As<IQuerableRepository<LearningContent>>();
 
             builder.RegisterType<UserRepository>()
                 .As<IUserRepository>()

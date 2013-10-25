@@ -2,11 +2,11 @@
 
 namespace easygenerator.DomainModel.Entities
 {
-    public class LearningObject : Entity
+    public class LearningContent : Entity
     {
-        protected internal LearningObject() { }
+        protected internal LearningContent() { }
 
-        protected internal LearningObject(string text, string createdBy)
+        protected internal LearningContent(string text, string createdBy)
             : base(createdBy)
         {
             ThrowIfTextIsInvalid(text);

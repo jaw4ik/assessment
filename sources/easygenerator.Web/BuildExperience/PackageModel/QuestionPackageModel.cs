@@ -7,6 +7,6 @@ namespace easygenerator.Web.BuildExperience.PackageModel
         public string Id { get; set; }
         public string Title { get; set; }
         public List<AnswerOptionPackageModel> Answers { get; set; }
-        public List<LearningObjectPackageModel> LearningObjects { get; set; }
+        public List<LearningContentPackageModel> LearningContents { get; set; }
     }
 }

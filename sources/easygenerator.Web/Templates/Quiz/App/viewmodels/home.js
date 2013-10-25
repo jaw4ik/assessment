@@ -33,8 +33,8 @@
             router.navigateTo('#/summary');
         },
 
-        showLearningObjects = function (item) {
-            router.navigateTo('#/objective/' + item.objectiveId + '/question/' + item.id + '/learningObjects');
+        showLearningContents = function (item) {
+            router.navigateTo('#/objective/' + item.objectiveId + '/question/' + item.id + '/learningContents');
             scrollId = '' + item.objectiveId + item.id;
         },
 
@@ -63,7 +63,7 @@
                                 }
                             };
                         }),
-                        learningObjects: question.learningObjects,
+                        learningContents: question.learningContents,
                         title: question.title,
                         number: 0
                     };
@@ -124,7 +124,7 @@
         itemsQuestion: context.testResult,
         getItems: getItems,
         submit: submit,
-        showLearningObjects: showLearningObjects,
+        showLearningContents: showLearningContents,
         viewAttached: viewAttached,
         isEndTest: isEndTest,
         titleOfExperience: context.title,

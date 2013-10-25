@@ -23,11 +23,11 @@ namespace easygenerator.Web.Tests.BuildExperience
         private Experience GetExperience()
         {
             var answer = AnswerObjectMother.Create("AnswerText", true);
-            var explanation = LearningObjectObjectMother.Create("Text");
+            var explanation = LearningContentObjectMother.Create("Text");
 
             var question = QuestionObjectMother.Create("QuestionTitle");
             question.AddAnswer(answer, "SomeUser");
-            question.AddLearningObject(explanation, "SomeUser");
+            question.AddLearningContent(explanation, "SomeUser");
 
             var objective = ObjectiveObjectMother.Create("ObjectiveTitle");
             objective.AddQuestion(question, "SomeUser");
@@ -54,7 +54,7 @@ namespace easygenerator.Web.Tests.BuildExperience
         }
 
         [TestMethod]
-        public void Mapexperience_ShouldReturnMappedLearningObjectPackageModel()
+        public void Mapexperience_ShouldReturnMappedLearningContentPackageModel()
         {
             //Arrange
             var experience = GetExperience();
@@ -63,8 +63,8 @@ namespace easygenerator.Web.Tests.BuildExperience
             var result = _packageModelMapper.MapExperience(experience);
 
             //Assert
-            var expectedModel = experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].LearningObjects.ToArray()[0];
-            var actualModel = result.Objectives[0].Questions[0].LearningObjects[0];
+            var expectedModel = experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].LearningContents.ToArray()[0];
+            var actualModel = result.Objectives[0].Questions[0].LearningContents[0];
 
             expectedModel.Id.ToString("N").Should().Be(actualModel.Id);
         }
@@ -104,7 +104,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             expectedModel.Id.ToString("N").Should().Be(actualModel.Id);
             expectedModel.Title.Should().Be(actualModel.Title);
             expectedModel.Answers.Count().Should().Be(actualModel.Answers.Count);
-            expectedModel.LearningObjects.Count().Should().Be(actualModel.LearningObjects.Count);
+            expectedModel.LearningContents.Count().Should().Be(actualModel.LearningContents.Count);
         }
         
         [TestMethod]

@@ -21,7 +21,7 @@
                             "text": "You always will see the direct effect of your actions in the editing screen of easygenerator."
                         }
                     ],
-                    "learningObjects": [
+                    "learningContents": [
                         {
                             "id": 0
                         },
@@ -100,7 +100,7 @@
                             "text": "Question templates available"
                         }
                     ],
-                    "learningObjects": [
+                    "learningContents": [
                         {
                             "id": 0
                         },
@@ -143,7 +143,7 @@
                             "text": "Image, flash, video, hotspot."
                         }
                     ],
-                    "learningObjects": [
+                    "learningContents": [
                         {
                             "id": 0
                         },
@@ -184,7 +184,7 @@
                             "text": "All of the above."
                         }
                     ],
-                    "learningObjects": [
+                    "learningContents": [
                         {
                             "id": 0
                         },
@@ -224,7 +224,7 @@
                             "text": "Content pages are tied to quiz questions and assessments and the course navigation will automatically change, based on the progress in the course."
                         }
                     ],
-                    "learningObjects": [
+                    "learningContents": [
                         {
                             "id": 0
                         },
@@ -258,7 +258,7 @@
                             "text": "Learning objective weight, a question pool or question page, a content page."
                         }
                     ],
-                    "learningObjects": [
+                    "learningContents": [
                         {
                             "id": 0
                         },
@@ -313,7 +313,7 @@
                             "text": "With versioning, online collaboration and use of workflow."
                         }
                     ],
-                    "learningObjects": [
+                    "learningContents": [
                         {
                             "id": 0
                         },
@@ -359,7 +359,7 @@
                             "text": "All of the above."
                         }
                     ],
-                    "learningObjects": [
+                    "learningContents": [
                         {
                             "id": 0
                         },
@@ -409,7 +409,7 @@
                             "text": "When you paste a page as a 'Page Link' the page is placed in the new selected location. If you change anything in the content this will happen in both places. When you add or remove an object it will only affect the 'page linked' page."
                         }
                     ],
-                    "learningObjects": [
+                    "learningContents": [
                         {
                             "id": 0
                         },
@@ -446,7 +446,7 @@
                             "text": "A page link creates a copy of a certain page that can be used in another course. The copy will automatically take on the look and feel of the course it is played in now."
                         }
                     ],
-                    "learningObjects": [
+                    "learningContents": [
                         {
                             "id": 0
                         },

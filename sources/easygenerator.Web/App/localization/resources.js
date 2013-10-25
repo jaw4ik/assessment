@@ -160,9 +160,9 @@
         de: 'Klicken, um Lernziel hinzuzufügen'
     },
     objectiveCannnotBeDeleted: {
-        en: 'Learning objective cannot be deleted, while it is included into learning experience(s) or contains questions.',
-        nl: 'Leerdoel kan niet worden verwijderd als het is opgenomen in een of meer leerervaringen of als het vragen bevat.',
-        de: 'Ein Lernziel kann nicht gelöscht werden, wenn es in eine oder mehrere Lernerfahrungen eingeschlossen ist oder Fragen enthält.'
+        en: 'Learning objective cannot be deleted, while it is connected into learning experience(s) or contains questions.',
+        nl: 'Leerdoel kan niet worden verwijderd als het is gekoppeld aan een of meer leerervaringen of als het vragen bevat.',
+        de: 'Ein Lernziel kann nicht gelöscht werden, wenn es mit einer oder mehreren Lernerfahrungen verbunden ist oder Fragen enthält.'
     },
     /* End resource section for model Objectives */
     
@@ -231,9 +231,9 @@
         de: 'Liste der Lernerfahrungen ist leer'
     },
     experienceCannotBeDeleted: {
-        en: 'Learning experience cannot be deleted while it has included learning objective(s)',
-        nl: 'Leerervaring kan niet worden verwijderd als de ervaring een of meer leerdoelen bevat',
-        de: 'Eine Lernerfahrung kann nicht gelöscht werden, wenn sie ein oder mehrere Lernziele enthält'
+        en: 'Learning experience cannot be deleted while it has connected learning objective(s)',
+        nl: 'Leerervaring kan niet worden verwijderd als er aan de ervaring een of meer leerdoelen zijn gekoppeld',
+        de: 'Eine Lernerfahrung kann nicht gelöscht werden, wenn sie mit einem oder mehreren Lernzielen verbunden ist.'
     },
     createPackage: {
         en: 'Create package',
@@ -254,6 +254,41 @@
         en: 'updating...',
         nl: 'bezig met bijwerken...',
         de: 'wird aktualisiert...'
+    },
+    experienceDefine: {
+        en: 'Define',
+        nl: 'Definiëren',
+        de: 'Definition'
+    },
+    experienceDesign: {
+        en: 'Design',
+        nl: 'Ontwerpen',
+        de: 'Entwurf'
+    },
+    experienceDeliver: {
+        en: 'Deliver',
+        nl: 'Leveren',
+        de: 'Fertigstellung'
+    },
+    publishOnline: {
+        en: 'Publish online',
+        nl: 'Publish online[nl]',
+        de: 'Publish online[de]'
+    },
+    republishOnline: {
+        en: 'Republish online',
+        nl: 'Republish online[nl]',
+        de: 'Republish online[de]'
+    },
+    publishing: {
+        en: 'publishing...',
+        nl: 'publishing...[nl]',
+        de: 'publishing...[de]'
+    },
+    republishing: {
+        en: 'republishing...',
+        nl: 'republishing...[nl]',
+        de: 'republishing...[de]'
     },
     /* End resource section for model Experiences */
     
@@ -368,6 +403,16 @@
         en: 'Click here to add learning object',
         nl: 'Klik hier om een leerobject toe te voegen',
         de: 'Klicken Sie hier, um ein Lernobjekt hinzuzufügen'
+    },
+    learningContent: {
+        en: 'Learning content',
+        nl: 'Leerinhoud',
+        de: 'Lerngegenstand'
+    },
+    clickToAddLearningContent: {
+        en: 'Click here to add learning content',
+        nl: 'Klik hier om leerinhoud toe te voegen',
+        de: 'Klicken Sie hier, um einen Lerngegenstand hinzuzufügen.'
     },
     /* End resource section for model Question */
     
@@ -1031,6 +1076,11 @@
         nl: 'Het leerobject is niet gevonden. Vernieuw uw gegevens.',
         de: 'Der Lerngegenstand wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
     },
+    learningContentNotFoundError: {
+        en: 'Learning content was not found. Please refresh your data.',
+        nl: 'Er is geen leerinhoud gevonden. Vernieuw uw gegevens.',
+        de: 'Der Lerngegenstand wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
+    },
     helpHintNotFoundError: {
         en: 'Help hint was not found. Please refresh your data.',
         nl: 'De helphint is niet gevonden. Vernieuw uw gegevens.',
@@ -1227,9 +1277,9 @@
         de: 'Was ist eine Lernerfahrung?'
     },
     experiencesHelpHint: {
-        en: '<p>A <strong>learning experience</strong> is the name we gave to the eLearning you will be creating. It can be a course, a Learning nugget, a quiz. In fact it can be anything that will give the learner a learning experience.</p><p> A learning experience consist out of one or more learning objectives, with connected questions and learning content.</p>',
-        nl: '<p>Een <strong>leerervaring</strong> is de naam die we hebben gegeven aan de eLearning die u gaat maken. Het kan een cursus zijn, of een \"korte uitleg, of\" een toets. Het kan eigenlijk alles zijn dat de lerende een leerervaring geeft. </p><p>Een leerervaring bestaat uit een of meer leerdoelen met gerelateerde vragen en leerinhoud.</p>',
-        de: '<p>Eine <strong>Lernerfahrung</strong> ist der Name, den wir dem eLearning gegeben haben, das Sie erstellen werden. Es kann sich um einen Kurs, eine kurze Erklärung oder einen Quiz handeln. Eigentlich kann es sich um alles handeln, was dem Lerner eine Lernerfahrung vermittelt.</p><p>Eine Lernerfahrung besteht aus einem oder mehreren Lernzielen mit den dazugehörigen Fragen und Lerninhalten.</p>'
+        en: '<p>A <strong>learning experience</strong> is the name we gave to the eLearning you will be creating. It can be a course, a Learning nugget, a quiz. In fact it can be anything that will give the learner a learning experience.</p><p>A learning experience consist out of one or more learning objectives, with connected questions and learning content.</p>',
+        nl: '<p>Een <strong>leerervaring</strong> is de naam die we hebben gegeven aan de eLearning die u gaat maken. Het kan een cursus zijn, een korte uitleg, of een toets. Het kan eigenlijk alles zijn dat de cursist een leerervaring geeft.</p><p>Een leerervaring bestaat uit een of meer leerdoelen met gerelateerde vragen en leerinhoud.</p>',
+        de: '<p>Eine <strong>Lernerfahrung</strong> ist der Name, den wir dem eLearning gegeben haben, das Sie erstellen werden. Es kann sich um einen Kurs, eine kurze Erklärung oder ein Quiz handeln. Eigentlich kann es sich um alles handeln, was dem Lerner eine Lernerfahrung vermittelt.</p><p>Eine Lernerfahrung besteht aus einem oder mehreren Lernzielen mit den dazugehörigen Fragen und Lerngegenständen.</p>'
     },
     experienceHelpHintTitle: {
         en: 'Why do I need to connect learning objectives?',
@@ -1252,14 +1302,14 @@
         de: '<p>Eine <strong>Lernerfahrungsvorlage</strong> ist ein Satz von vordefinierten grafischen und Unterrichts-Entwicklungsparametern.</p><p>Die Lernerfahrungsvorlage legt fest, wie Lernmaterialien dem Lerner präsentiert werden, wie ein Lerner damit interagieren kann und wie sich die Antworten des Lerners auf die Lernerfahrung auswirken.</p><p>Für einen Autor ändert die Auswahl einer bestimmten Lernvorlage auch den Satz der Entwicklungsmöglichkeiten, je nachdem, welche von diesen von der ausgwählten Lernerfahrungsvorlage unterstützt werden.</p>'
     },
     objectiveHelpHintTitle: {
-        en: 'What is  a related question?',
+        en: 'What is a related question?',
         nl: 'Wat is een gerelateerde vraag?',
         de: 'Was ist eine zugehörige Frage?'
     },
     objectiveHelpHint: {
         en: '<p>A <strong>related question</strong> is a question that measures the learners skills or knowledge for a specific learning objective. When answered correct progress is made on the learning objective.</p>',
         nl: '<p>Een <strong>gerelateerde vraag</strong> is een vraag die de kennis of vaardigheden van een cursist meet voor een specifiek leerdoel. Als de vraag correct beantwoord wordt, wordt voortgang op het leerdoel bereikt.</p>',
-        de: 'Eine <strong> zugehörige Frage</strong>  ist eine Frage, mit der die Fähigkeiten und Kenntnisse des Lerners zu einem bestimmten Lernziel gemessen werden. Wenn sie richtig beantwortet wird, werden Fortschritte in Richtung auf das Lernziel gemacht.'
+        de: 'Eine <strong> zugehörige Frage</strong> ist eine Frage, mit der die Fähigkeiten und Kenntnisse des Lerners zu einem bestimmten Lernziel gemessen werden. Wenn sie richtig beantwortet wird, werden Fortschritte in Richtung auf das Lernziel gemacht.'
     },
     objectivesHelpHintTitle: {
         en: 'What is a learning objective?',
@@ -1282,14 +1332,14 @@
         de: '<p>Ein Lernziel ist eine Aussage, die die spezifischen Fähigkeiten oder Kenntnisse beschreibt, die ein Lerner als Ergebnis einer Lernerfahrung vorweisen kann.</p><p>Anleitungen und Unterstützung für das Aufbauen geeigneter Ziele auf Basis von Blooms Taxonomie finden Sie unter <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a>.</p>'
     },
     questionHelpHintTitle: {
-        en: 'What are answer options? What are learning objects?',
-        nl: 'Wat zijn antwoordopties? Wat zijn leerobjecten?',
-        de: 'Was sind Antwortoptionen? Was sind Lernobjekte?'
+        en: 'What are answer options? What is learning content?',
+        nl: 'Wat zijn antwoordopties? Wat is leerinhoud?',
+        de: 'Was sind Antwortoptionen? Was sind Lerngegenstände?'
     },
     questionHelpHint: {
-        en: '<p><strong>Answer options</strong> are the options presented to the learner for answering the question. They can be correct or incorrect.</p><p><strong>Learning object</strong> is the information presented to the learner to assist him in answering a specific question. It can consist out of text, video or images.</p>',
-        nl: '<p>Een <strong>antwoordoptiev</strong> zijn die opties die aan de lerende gepresenteerd worden om antwoord op een vraag te geven. Ze kunnen juist of onjuist zijn.</p><p><strong>Leerobject</strong> is de informatie die aan de lerende wordt gepresenteerd om hem te helpen een specifieke vraag correct te beantwoorden. Leerinhoud kan bestaan uit tekst, video of afbeeldingen.</p>',
-        de: '<p><strong>Antwortoptionen</strong> sind die Optionen, die dem Lerner zur Beantwortung der Frage präsentiert werden. Sie können richtig oder falsch sein.</p><p>Lernobjekt ist die Information, die dem Lerner präsentiert wird, um ihm bei der Beantwortung einer bestimmten Frage zu helfen. Es kann sich dabei um einen Text, ein Video oder einen Film handeln.</p>'
+        en: '<p><strong>Answer options</strong> are the options presented to the learner for answering the question. They can be correct or incorrect.</p><p><strong>Learning content </strong> is the information presented to the learner to assist him in answering a specific question. It can consist out of text, video or images.</p>',
+        nl: '<p>Een <strong>antwoordoptie</strong> zijn die opties die aan de cursist gepresenteerd worden om antwoord op een vraag te geven. Ze kunnen juist of onjuist zijn.</p><p><strong>Leerinhoud</strong> is de informatie die aan de cursist wordt gepresenteerd om hem te helpen een specifieke vraag correct te beantwoorden. Leerinhoud kan bestaan uit tekst, video of afbeeldingen.</p>',
+        de: '<p><strong>Antwortoptionen</strong> sind die Optionen, die dem Lerner zur Beantwortung der Frage präsentiert werden. Sie können richtig oder falsch sein.</p><p><strong>Lerngegenstände</strong> sind die Informationen, die Lernern präsentiert werden, um sie bei der Beantwortung bestimmter Fragen zu unnterstützen. Dies können Texte, Videos oder Bilder sein.</p>'
     },
     createQuestionHelpHintTitle: {
         en: 'What is the difference between \"Create and Edit\" and \"Create and New\"?',
@@ -1297,7 +1347,7 @@
         de: 'Was ist der Unterschied zwischen \"Erstellen und bearbeiten\" und \"Erstellen und Neu\"?'
     },
     createQuestionHelpHint: {
-        en: '<p>Click <strong>\"Create and edit\"</strong> if you want to edit the question right after creating it.</p><p>Click <strong>\"Create and new\"</strong> If you would like to create several learning objectives in a row.</p>',
+        en: '<p>Click <strong>\"Create and edit\"</strong> if you want to edit the question right after creating it.</p><p>Click <strong>\"Create and new\"</strong> If you would like to create several questions in a row.</p>',
         nl: '<p>Klik op <strong>\"Maken en bewerken\"</strong> als u de vraag na het maken direct wilt bewerken. Klik op <strong>\"Maken en nieuw\"</strong> als u meerdere vragen achter elkaar wilt maken.</p>',
         de: '<p>Klicken Sie auf <strong>\"Erstellen und bearbeiten\"</strong>, wenn Sie die Frage unmittelbar nachdem Erstellen bearbeiten möchten. Klicken Sie auf <strong>\"Erstellen und Neu\"</strong>, wenn Sie mehrere Fragen hintereinander erstellen möchten.</p>'
     },
