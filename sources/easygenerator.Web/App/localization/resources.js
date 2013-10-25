@@ -412,7 +412,7 @@
     clickToAddLearningContent: {
         en: 'Click here to add learning content',
         nl: 'Klik hier om leerinhoud toe te voegen',
-        de: 'Klicken Sie hier, um einen Lerngegenstand hinzuzufügen.'
+        de: 'Klicken Sie hier, um einen Lerngegenstand hinzuzufügen'
     },
     /* End resource section for model Question */
     
@@ -701,7 +701,7 @@
     relateObjectivesHelpHint: {
         en: 'Move cursor over learning objective and select to include it into learning experience. Use Finish button when done',
         nl: 'Verplaats de cursor over het leerdoel en selecteer het om het in de leeromgeving op te nemen. Klik na afloop op de knop Afsluiten',
-        de: 'Bewegen Sie den Mauszeiger über ein Lernziel und wählen Sie es aus, um es in die Lernerfahrung einzuschließen. Klicken Sie auf die Schaltfläche \"Fertig stellen\", wenn Sie fertig sind.'
+        de: 'Bewegen Sie den Mauszeiger über ein Lernziel und wählen Sie es aus, um es in die Lernerfahrung einzuschließen. Klicken Sie auf die Schaltfläche \"Fertig stellen\", wenn Sie fertig sind'
     },
     clickToCreateNewObjective: {
         en: 'To create new learning objective click \"+\" button',
@@ -761,7 +761,7 @@
     connectObjectivesHelpHint: {
         en: 'Move cursor over learning objective and select to connect it to learning experience. Use Finish button when done',
         nl: 'Verplaats de cursor over het leerdoel en selecteer het om het aan de leeromgeving te koppelen. Klik na afloop op de knop Afsluiten',
-        de: 'Bewegen Sie den Mauszeiger über ein Lernziel und wählen Sie es aus, um es mit der Lernerfahrung zu verbinden. Klicken Sie auf die Schaltfläche \"Fertig stellen\", wenn Sie fertig sind.'
+        de: 'Bewegen Sie den Mauszeiger über ein Lernziel und wählen Sie es aus, um es mit der Lernerfahrung zu verbinden. Klicken Sie auf die Schaltfläche \"Fertig stellen\", wenn Sie fertig sind'
     },
     noObjectivesForConnect: {
         en: 'No learning objectives to connect',
@@ -940,8 +940,8 @@
     },
     incorrectEmailOrPassword: {
         en: 'Such e-mail and password combination not found',
-        nl: 'Deze combinatie van e-mailadres en wachtwoord is niet gevonden.',
-        de: 'Diese Kombination von E-Mail-Adresse und Kennwort wurde nicht gefunden.'
+        nl: 'Deze combinatie van e-mailadres en wachtwoord is niet gevonden',
+        de: 'Diese Kombination von E-Mail-Adresse und Kennwort wurde nicht gefunden'
     },
     forgotPassword: {
         en: 'forgot password?',
@@ -1058,7 +1058,7 @@
     },
     objectivesNotFoundError: {
         en: 'Learning objectives were not found. Please refresh your data.',
-        nl: 'De leerdoelen zijn niet gevonden. Vernieuw uw gegevens',
+        nl: 'De leerdoelen zijn niet gevonden. Vernieuw uw gegevens.',
         de: 'Die Lernziele wurden nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
     },
     answerNotFoundError: {
@@ -1087,7 +1087,7 @@
         de: 'Der Hilfehinweis wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
     },
     responseFailed: {
-        en: 'Response is failed.',
+        en: 'Response is failed',
         nl: 'Respons mislukt',
         de: 'Antwort fehlgeschlagen'
     },
