@@ -17,7 +17,7 @@ namespace easygenerator.AcceptanceTests
         public Question()
         {
             this.Answers = new HashSet<Answer>();
-            this.LearningObjects = new HashSet<LearningObject>();
+            this.LearningContents = new HashSet<LearningContent>();
         }
     
         public System.Guid Id { get; set; }
@@ -29,7 +29,7 @@ namespace easygenerator.AcceptanceTests
         public System.Guid Objective_Id { get; set; }
     
         public virtual ICollection<Answer> Answers { get; set; }
-        public virtual ICollection<LearningObject> LearningObjects { get; set; }
         public virtual Objective Objective { get; set; }
+        public virtual ICollection<LearningContent> LearningContents { get; set; }
     }
 }

@@ -177,22 +177,22 @@ namespace easygenerator.AcceptanceTests.Helpers
             //});
         }
 
-        public void AddExplanationsToDatabase(string objTitle, string questionTitle, LearningObject[] explanations)
+        public void AddExplanationsToDatabase(string objTitle, string questionTitle, LearningContent[] explanations)
         {
             using (var entities = new Entities())
             {
                 var objective = entities.Objectives.First(obj => obj.Title == objTitle);
                 var question = entities.Questions.Where(item => item.Objective_Id == objective.Id).First(q => q.Title == questionTitle);
 
-                foreach (var expl in entities.LearningObjects.Where(item => item.Question_Id == question.Id))
+                foreach (var expl in entities.LearningContents.Where(item => item.Question_Id == question.Id))
                 {
-                    entities.LearningObjects.Remove(expl);
+                    entities.LearningContents.Remove(expl);
                 }
 
                 foreach (var expl in explanations)
                 {
                     expl.Question_Id = question.Id;
-                    entities.LearningObjects.Add(expl);
+                    entities.LearningContents.Add(expl);
                 }
                 entities.SaveChanges();
             }
@@ -213,7 +213,7 @@ namespace easygenerator.AcceptanceTests.Helpers
         {
             using (var entities = new Entities())
             {
-                entities.Database.ExecuteSqlCommand("DELETE FROM LearningObjects");
+                entities.Database.ExecuteSqlCommand("DELETE FROM LearningContents");
                 entities.Database.ExecuteSqlCommand("DELETE FROM Answers");
                 entities.Database.ExecuteSqlCommand("DELETE FROM Questions");
                 entities.Database.ExecuteSqlCommand("DELETE FROM Objectives");

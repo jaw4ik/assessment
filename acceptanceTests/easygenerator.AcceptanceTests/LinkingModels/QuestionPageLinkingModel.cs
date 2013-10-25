@@ -11,25 +11,25 @@ namespace easygenerator.AcceptanceTests.LinkingModels
     public class QuestionPageLinkingModel : ILinkingModel
     {
         public string AnswerItem = ".//div[contains(@class,'question-answers')]//li[contains(@class,'answer-option-item')]";
-        public string ExplanationItem = ".//div[contains(@class,'question-learning-objects')]//li[contains(@class,'question-learning-object-item')]";
+        public string ExplanationItem = ".//div[contains(@class,'question-learning-contents')]//li[contains(@class,'question-learning-content-item')]";
         public string CorrectAnswerIndicator = ".//span[@class='answer-correct-icon']";
         //public string AnswerItemText = ".//div[contains(@class,'question-answer-text')]";
         public string AnswerItemText = ".//div[contains(@class,'question-answer-text')]//div[contains(@class,'editarea-editable-text')]";
-        public string ExplanationItemText = ".//div[contains(@class,'question-learning-object')]";
+        public string ExplanationItemText = ".//div[contains(@class,'question-learning-content')]";
         public string AnswerItemValue = ".//div[contains(@class,'question-answer-value')]";
         public string AnswerItemDeleteButton = ".//div[@class='question-answer-delete-wrapper']";
-        public string ExplanationDeleteButton = ".//div[@class='question-learning-object-delete-wrapper']";
+        public string ExplanationDeleteButton = ".//div[@class='question-learning-content-delete-wrapper']";
 
         public string BackToObjectiveLink = "//div[contains(@class,'nav-control') and contains(@class,'flexible')]//div[contains(@class,'nav-element')]";
         public string BackToObjectiveText = "//div[contains(@class,'nav-control') and contains(@class,'flexible')]//span[contains(@class,'nav-element')]";
 
-        public string QuestionTitle = ".//section[contains(@class,'question')]//header[contains(@class,'view-header')]//div[contains(@class,'view-header-title-text')]";
+        public string QuestionTitle = ".//section[contains(@class,'question')]//header[contains(@class,'view-header')]//div[contains(@class,'view-header-title')]//div[contains(@class,'edit-field')]";
 
         public string AnswerOptionsBlock = ".//div[contains(@class,'question-answers')]";
-        public string ExplanationsBlock = ".//div[contains(@class,'question-learning-objects')]";
+        public string ExplanationsBlock = ".//div[contains(@class,'question-learning-contents')]";
         public string BlockList = ".//div[@class='question-content-items-list']";
         public string ExpandAnswerOptionsButton = "//div[contains(@class,'question-answers')]//span[contains(@class,'nav-element')]";
-        public string ExpandExplanationsButton = "//div[contains(@class,'question-learning-objects')]//span[contains(@class,'nav-element')]";
+        public string ExpandExplanationsButton = "//div[contains(@class,'question-learning-contents')]//span[contains(@class,'nav-element')]";
 
         public string NextQuestionButton = ".//header[contains(@class,'view-header')]//a[contains(@class,'view-header-nav-btn next')]";
         public string PreviousQuestionButton = ".//header[contains(@class,'view-header')]//a[contains(@class,'view-header-nav-btn previous')]";
@@ -39,9 +39,9 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string AnswerOptionActiveText = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[contains(@class,'question-answer-text')]//div[contains(@class,'editarea-editable-text')]";
         public string AnswerOptionActiveCorrectnessIndicator = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[@class='question-answer-value']";
 
-        public string AddNewExplanationButton = ".//div[contains(@class,'question-learning-objects')]//li[@class='add-button']//div[contains(@class,'question-learning-object selectable')]";
+        public string AddNewExplanationButton = ".//div[contains(@class,'question-learning-contents')]//li[@class='add-button']//div[contains(@class,'question-learning-content selectable')]";
         //public string ExplanationActiveText = ".//div[contains(@class,'question-explanations')]//li[contains(@class,'active')]//div[contains(@class,'question-explanation')]//div[contains(@class,'cke_contents_ltr')]";
-        public string ExplanationActiveText = ".//div[contains(@class,'question-learning-objects')]//li[contains(@class,'active')]//div[contains(@class,'cke_contents_ltr')]";
+        public string ExplanationActiveText = ".//div[contains(@class,'question-learning-contents')]//li[contains(@class,'active')]//div[contains(@class,'cke_contents_ltr')]";
 
         //      <div class="cke_editable cke_editable_inline cke_contents_ltr"
         public string Ckeditor = ".//div[contains(@class,'cke_contents_ltr')]";

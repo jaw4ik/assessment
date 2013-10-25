@@ -267,39 +267,6 @@ testRunner.And("correct answer option is set to \'false\' for \'AnswerOption12\'
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Next and previous actions of question page navigate through questions of current " +
-            "objective")]
-        public virtual void NextAndPreviousActionsOfQuestionPageNavigateThroughQuestionsOfCurrentObjective()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Next and previous actions of question page navigate through questions of current " +
-                    "objective", ((string[])(null)));
-#line 71
-this.ScenarioSetup(scenarioInfo);
-#line 5
-this.FeatureBackground();
-#line 72
-testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
-                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 73
-testRunner.And("click on next question", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 74
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
-                    "0000000001/question/00000000000000000000000000000002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 75
-testRunner.When("click on next question", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 76
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
-                    "0000000001/question/00000000000000000000000000000003\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 77
-testRunner.When("click on previous question", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 78
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
-                    "0000000001/question/00000000000000000000000000000002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Previous question action is not available for first question")]
         public virtual void PreviousQuestionActionIsNotAvailableForFirstQuestion()
         {

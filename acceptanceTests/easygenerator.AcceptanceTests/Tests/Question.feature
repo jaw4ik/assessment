@@ -68,14 +68,14 @@ When open page by url 'http://localhost:5656/#/objective/00000000000000000000000
 Then correct answer option is set to 'true' for 'AnswerOption11'
 And correct answer option is set to 'false' for 'AnswerOption12'
 
-Scenario: Next and previous actions of question page navigate through questions of current objective
-When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
-And click on next question
-Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/00000000000000000000000000000002'
-When click on next question
-Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/00000000000000000000000000000003'
-When click on previous question
-Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/00000000000000000000000000000002'
+#Scenario: Next and previous actions of question page navigate through questions of current objective
+#When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
+#And click on next question
+#Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/00000000000000000000000000000002'
+#When click on next question
+#Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/00000000000000000000000000000003'
+#When click on previous question
+#Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/00000000000000000000000000000002'
 
 Scenario: Previous question action is not available for first question
 When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'

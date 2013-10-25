@@ -464,8 +464,8 @@ testRunner.And("click package question list item \'Question11\' of \'Objective11
 testRunner.And("click on show explanations link on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 153
 testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#/objective/0000000" +
-                    "0000000000000000000000001/question/00000000000000000000000000000001/learningObje" +
-                    "cts\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+                    "0000000000000000000000001/question/00000000000000000000000000000001/learningCont" +
+                    "ents\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

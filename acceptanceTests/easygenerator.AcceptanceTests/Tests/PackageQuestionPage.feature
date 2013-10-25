@@ -150,7 +150,7 @@ When open page by url 'http://localhost:5656/Templates/tmp'
 And toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on show explanations link on package question page
-Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001/learningObjects'
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001/learningContents'
 
 Scenario: Back action on package question page navigates back to package objectives list page
 When open page by url 'http://localhost:5656/Templates/tmp'

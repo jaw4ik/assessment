@@ -44,9 +44,9 @@ namespace easygenerator.AcceptanceTests.Steps
             };
         }
 
-        private LearningObject BuildExplanation(ExplanationData data)
+        private LearningContent BuildExplanation(ExplanationData data)
         {
-            return new LearningObject()
+            return new LearningContent()
             {
                 Id = data.Id,
                 Text = data.Explanation,

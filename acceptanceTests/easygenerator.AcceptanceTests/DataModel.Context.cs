@@ -27,7 +27,6 @@ namespace easygenerator.AcceptanceTests
     
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Experience> Experiences { get; set; }
-        public DbSet<LearningObject> LearningObjects { get; set; }
         public DbSet<Objective> Objectives { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Template> Templates { get; set; }
@@ -35,5 +34,6 @@ namespace easygenerator.AcceptanceTests
         public DbSet<HelpHint> HelpHints { get; set; }
         public DbSet<MailNotification> MailNotifications { get; set; }
         public DbSet<PasswordRecoveryTicket> PasswordRecoveryTickets { get; set; }
+        public DbSet<LearningContent> LearningContents { get; set; }
     }
 }

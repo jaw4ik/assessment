@@ -10,7 +10,7 @@
           <EntitySet Name="ExperienceObjectives" EntityType="Model.Store.ExperienceObjectives" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Experiences" EntityType="Model.Store.Experiences" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="HelpHints" EntityType="Model.Store.HelpHints" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="LearningObjects" EntityType="Model.Store.LearningObjects" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="LearningContents" EntityType="Model.Store.LearningContents" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MailNotifications" EntityType="Model.Store.MailNotifications" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Objectives" EntityType="Model.Store.Objectives" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="PasswordRecoveryTickets" EntityType="Model.Store.PasswordRecoveryTickets" store:Type="Tables" Schema="dbo" />
@@ -33,9 +33,9 @@
             <End Role="Templates" EntitySet="Templates" />
             <End Role="Experiences" EntitySet="Experiences" />
           </AssociationSet>
-          <AssociationSet Name="FK_dbo_LearningObjects_dbo_Questions_Question_Id" Association="Model.Store.FK_dbo_LearningObjects_dbo_Questions_Question_Id">
+          <AssociationSet Name="FK_dbo_LearningContents_dbo_Questions_Question_Id" Association="Model.Store.FK_dbo_LearningContents_dbo_Questions_Question_Id">
             <End Role="Questions" EntitySet="Questions" />
-            <End Role="LearningObjects" EntitySet="LearningObjects" />
+            <End Role="LearningContents" EntitySet="LearningContents" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_PasswordRecoveryTickets_dbo_Users_User_Id" Association="Model.Store.FK_dbo_PasswordRecoveryTickets_dbo_Users_User_Id">
             <End Role="Users" EntitySet="Users" />
@@ -92,7 +92,7 @@
           <Property Name="ModifiedBy" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="LearningObjects">
+        <EntityType Name="LearningContents">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -231,16 +231,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_dbo_LearningObjects_dbo_Questions_Question_Id">
+        <Association Name="FK_dbo_LearningContents_dbo_Questions_Question_Id">
           <End Role="Questions" Type="Model.Store.Questions" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="LearningObjects" Type="Model.Store.LearningObjects" Multiplicity="*" />
+          <End Role="LearningContents" Type="Model.Store.LearningContents" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Questions">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="LearningObjects">
+            <Dependent Role="LearningContents">
               <PropertyRef Name="Question_Id" />
             </Dependent>
           </ReferentialConstraint>
@@ -280,7 +280,6 @@
         <EntityContainer Name="Entities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="Answers" EntityType="Model.Answer" />
           <EntitySet Name="Experiences" EntityType="Model.Experience" />
-          <EntitySet Name="LearningObjects" EntityType="Model.LearningObject" />
           <EntitySet Name="Objectives" EntityType="Model.Objective" />
           <EntitySet Name="Questions" EntityType="Model.Question" />
           <EntitySet Name="Templates" EntityType="Model.Template" />
@@ -292,10 +291,6 @@
           <AssociationSet Name="FK_dbo_Experiences_dbo_Templates_Template_Id" Association="Model.FK_dbo_Experiences_dbo_Templates_Template_Id">
             <End Role="Templates" EntitySet="Templates" />
             <End Role="Experiences" EntitySet="Experiences" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_LearningObjects_dbo_Questions_Question_Id" Association="Model.FK_dbo_LearningObjects_dbo_Questions_Question_Id">
-            <End Role="Questions" EntitySet="Questions" />
-            <End Role="LearningObjects" EntitySet="LearningObjects" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_Questions_dbo_Objectives_Objective_Id" Association="Model.FK_dbo_Questions_dbo_Objectives_Objective_Id">
             <End Role="Objectives" EntitySet="Objectives" />
@@ -311,6 +306,11 @@
           <AssociationSet Name="FK_dbo_PasswordRecoveryTickets_dbo_Users_User_Id" Association="Model.FK_dbo_PasswordRecoveryTickets_dbo_Users_User_Id">
             <End Role="User" EntitySet="Users" />
             <End Role="PasswordRecoveryTicket" EntitySet="PasswordRecoveryTickets" />
+          </AssociationSet>
+          <EntitySet Name="LearningContents" EntityType="Model.LearningContent" />
+          <AssociationSet Name="FK_dbo_LearningContents_dbo_Questions_Question_Id" Association="Model.FK_dbo_LearningContents_dbo_Questions_Question_Id">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="LearningContent" EntitySet="LearningContents" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Answer">
@@ -343,19 +343,6 @@
           <NavigationProperty Name="Template" Relationship="Model.FK_dbo_Experiences_dbo_Templates_Template_Id" FromRole="Experiences" ToRole="Templates" />
           <NavigationProperty Name="Objectives" Relationship="Model.ExperienceObjectives" FromRole="Experiences" ToRole="Objectives" />
         </EntityType>
-        <EntityType Name="LearningObject">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Guid" Nullable="false" />
-          <Property Name="Text" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Question_Id" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Question" Relationship="Model.FK_dbo_LearningObjects_dbo_Questions_Question_Id" FromRole="LearningObjects" ToRole="Questions" />
-        </EntityType>
         <EntityType Name="Objective">
           <Key>
             <PropertyRef Name="Id" />
@@ -381,8 +368,8 @@
           <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Objective_Id" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Answers" Relationship="Model.FK_dbo_Answers_dbo_Questions_Question_Id" FromRole="Questions" ToRole="Answers" />
-          <NavigationProperty Name="LearningObjects" Relationship="Model.FK_dbo_LearningObjects_dbo_Questions_Question_Id" FromRole="Questions" ToRole="LearningObjects" />
           <NavigationProperty Name="Objective" Relationship="Model.FK_dbo_Questions_dbo_Objectives_Objective_Id" FromRole="Questions" ToRole="Objectives" />
+          <NavigationProperty Name="LearningContents" Relationship="Model.FK_dbo_LearningContents_dbo_Questions_Question_Id" FromRole="Question" ToRole="LearningContent" />
         </EntityType>
         <EntityType Name="Template">
           <Key>
@@ -438,20 +425,6 @@
             </Principal>
             <Dependent Role="Experiences">
               <PropertyRef Name="Template_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_LearningObjects_dbo_Questions_Question_Id">
-          <End Role="Questions" Type="Model.Question" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="LearningObjects" Type="Model.LearningObject" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Questions">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="LearningObjects">
-              <PropertyRef Name="Question_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -520,6 +493,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="LearningContent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Text" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CreatedBy" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="3" />
+          <Property Type="String" Name="ModifiedBy" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="ModifiedOn" Nullable="false" Precision="3" />
+          <Property Type="Guid" Name="Question_Id" Nullable="false" />
+          <NavigationProperty Name="Question" Relationship="Model.FK_dbo_LearningContents_dbo_Questions_Question_Id" FromRole="LearningContent" ToRole="Question" />
+        </EntityType>
+        <Association Name="FK_dbo_LearningContents_dbo_Questions_Question_Id">
+          <End Type="Model.Question" Role="Question" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.LearningContent" Role="LearningContent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LearningContent">
+              <PropertyRef Name="Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -552,19 +552,6 @@
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="Template_Id" ColumnName="Template_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LearningObjects">
-            <EntityTypeMapping TypeName="Model.LearningObject">
-              <MappingFragment StoreEntitySet="LearningObjects">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-                <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -661,6 +648,19 @@
               <MappingFragment StoreEntitySet="PasswordRecoveryTickets">
                 <ScalarProperty Name="User_Id" ColumnName="User_Id" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LearningContents">
+            <EntityTypeMapping TypeName="Model.LearningContent">
+              <MappingFragment StoreEntitySet="LearningContents">
+                <ScalarProperty Name="Question_Id" ColumnName="Question_Id" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

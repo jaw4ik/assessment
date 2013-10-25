@@ -34,7 +34,7 @@ namespace easygenerator.AcceptanceTests.Steps
                 CreatedOn = DateTime.Now,
                 ModifiedOn = DateTime.Now,
                 Answers = new Collection<Answer>(),
-                LearningObjects = new Collection<LearningObject>(),
+                LearningContents = new Collection<LearningContent>(),
                 CreatedBy = "vr.danylchuk@ism-ukraine.com",
                 ModifiedBy = "vr.danylchuk@ism-ukraine.com"
             };

@@ -12,7 +12,7 @@ namespace easygenerator.AcceptanceTests
     using System;
     using System.Collections.Generic;
     
-    public partial class LearningObject
+    public partial class LearningContent
     {
         public System.Guid Id { get; set; }
         public string Text { get; set; }
