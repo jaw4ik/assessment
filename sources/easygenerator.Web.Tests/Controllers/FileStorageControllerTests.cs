@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Activities.Statements;
-using System.Globalization;
-using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.Components.ActionResults;
+using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using easygenerator.Web.Controllers;
 using System.Web.Routing;
-using System.Net.Mime;
 
 namespace easygenerator.Web.Tests.Controllers
 {
@@ -28,6 +25,8 @@ namespace easygenerator.Web.Tests.Controllers
         private HttpContextBase _context;
         private HttpRequestBase _request;
         private HttpFileCollectionBase _fileCollection;
+        private FileStorageConfigurationSection _fileStorageConfiguration;
+        private ConfigurationReader _configurationReader;
 
         private const string DomainAppPath = "SomePath";
 
@@ -51,9 +50,12 @@ namespace easygenerator.Web.Tests.Controllers
             _httpRuntimeWrapper = Substitute.For<HttpRuntimeWrapper>();
             _httpRuntimeWrapper.GetDomainAppPath().Returns(DomainAppPath);
             _physicalFileManager = Substitute.For<PhysicalFileManager>();
+            _configurationReader = Substitute.For<ConfigurationReader>();
 
-            _controller = new FileStorageController(_httpRuntimeWrapper, _physicalFileManager);
+            _controller = new FileStorageController(_httpRuntimeWrapper, _physicalFileManager, _configurationReader);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
+
+            _fileStorageConfiguration = new FileStorageConfigurationSection() { MaximumFileSize = 1024, Path = "SomePath", Url = "SomeUrl" };
         }
 
         #region Upload
@@ -64,6 +66,7 @@ namespace easygenerator.Web.Tests.Controllers
             //Arrange
             postedFile.FileName.Returns("SomeImage.png");
             postedFile.ContentLength.Returns(1024);
+            _configurationReader.FileStorageConfiguration.Returns(_fileStorageConfiguration);
 
             //Act
             var result = _controller.Upload();
@@ -145,6 +148,7 @@ namespace easygenerator.Web.Tests.Controllers
             //Arrange
             postedFile.FileName.Returns("SomeImage.png");
             postedFile.ContentLength.Returns(1024);
+            _configurationReader.FileStorageConfiguration.Returns(_fileStorageConfiguration);
 
             //Act
             _controller.Upload();
@@ -159,6 +163,7 @@ namespace easygenerator.Web.Tests.Controllers
             //Arrange
             postedFile.FileName.Returns("SomeImage.png");
             postedFile.ContentLength.Returns(1024);
+            _configurationReader.FileStorageConfiguration.Returns(_fileStorageConfiguration);
 
             //Act
             var result = _controller.Upload();
@@ -173,6 +178,7 @@ namespace easygenerator.Web.Tests.Controllers
             //Arrange
             postedFile.FileName.Returns("SomeImage.jpg");
             postedFile.ContentLength.Returns(1024);
+            _configurationReader.FileStorageConfiguration.Returns(_fileStorageConfiguration);
 
             //Act
             var result = _controller.Upload();
@@ -187,6 +193,7 @@ namespace easygenerator.Web.Tests.Controllers
             //Arrange
             postedFile.FileName.Returns("SomeImage.jpeg");
             postedFile.ContentLength.Returns(1024);
+            _configurationReader.FileStorageConfiguration.Returns(_fileStorageConfiguration);
 
             //Act
             var result = _controller.Upload();
@@ -201,6 +208,7 @@ namespace easygenerator.Web.Tests.Controllers
             //Arrange
             postedFile.FileName.Returns("SomeImage.gif");
             postedFile.ContentLength.Returns(1024);
+            _configurationReader.FileStorageConfiguration.Returns(_fileStorageConfiguration);
 
             //Act
             var result = _controller.Upload();
@@ -214,7 +222,8 @@ namespace easygenerator.Web.Tests.Controllers
         {
             //Arrange
             postedFile.FileName.Returns("SomeImage.gif");
-            postedFile.ContentLength.Returns((int)(FileStorageController.MaximumFileSize + 1));
+            postedFile.ContentLength.Returns((int)(_fileStorageConfiguration.MaximumFileSize + 1));
+            _configurationReader.FileStorageConfiguration.Returns(_fileStorageConfiguration);
 
             //Act
             var result = _controller.Upload();
@@ -230,6 +239,7 @@ namespace easygenerator.Web.Tests.Controllers
             //Arrange
             postedFile.FileName.Returns("InvalidExtension.exe");
             postedFile.ContentLength.Returns(1024);
+            _configurationReader.FileStorageConfiguration.Returns(_fileStorageConfiguration);
 
             //Act
             var result = _controller.Upload();
@@ -248,6 +258,7 @@ namespace easygenerator.Web.Tests.Controllers
         {
             //Arrange
             _physicalFileManager.FileExists(Arg.Any<String>()).Returns(false);
+            _configurationReader.FileStorageConfiguration.Returns(_fileStorageConfiguration);
 
             //Act
             var result = _controller.Get("filename");
@@ -265,6 +276,7 @@ namespace easygenerator.Web.Tests.Controllers
             //Arrange
             _physicalFileManager.FileExists(Arg.Any<String>()).Returns(true);
             _physicalFileManager.GetFileContentType(Arg.Any<String>()).Returns("image/png");
+            _configurationReader.FileStorageConfiguration.Returns(_fileStorageConfiguration);
 
             //Act
             var result = _controller.Get("filename");

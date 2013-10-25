@@ -44,6 +44,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<PackageModelSerializer>();
             builder.RegisterType<BuildPackageCreator>();
             builder.RegisterType<SignupFromTryItNowHandler>().As<ISignupFromTryItNowHandler>();
+            builder.RegisterType<ConfigurationReader>();
 
             builder.RegisterModule(new DataAccessModule());
 

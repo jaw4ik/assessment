@@ -2,37 +2,45 @@
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Mime;
-using System.Web;
 using System.Web.Mvc;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.Components.ActionResults;
+using easygenerator.Web.Components.Configuration;
 
 namespace easygenerator.Web.Controllers
 {
     [Authorize]
     public class FileStorageController : Controller
     {
-        public static readonly long MaximumFileSize = 10 * 1024 * 1024; // 10 MB 
-        public static readonly string FileStoragePath = "FileStorage";
         public static readonly string[] AllowedExtensions = new[] { ".gif", ".jpeg", ".jpg", ".png" };
-        public static readonly string FilestorageApiUrl = "filestorage/";
 
         private HttpRuntimeWrapper _httpRuntimeWrapper;
         private PhysicalFileManager _physicalFileManager;
+        private readonly ConfigurationReader _configurationReader;
 
-        public FileStorageController(HttpRuntimeWrapper httpRuntimeWrapper, PhysicalFileManager physicalFileManager)
+        private string FileStoragePath
+        {
+            get
+            {
+                return Path.IsPathRooted(_configurationReader.FileStorageConfiguration.Path)
+                    ? _configurationReader.FileStorageConfiguration.Path
+                    : Path.Combine(_httpRuntimeWrapper.GetDomainAppPath(), _configurationReader.FileStorageConfiguration.Path);
+            }
+        }
+
+        public FileStorageController(HttpRuntimeWrapper httpRuntimeWrapper, PhysicalFileManager physicalFileManager, ConfigurationReader configurationReader)
         {
             _httpRuntimeWrapper = httpRuntimeWrapper;
             _physicalFileManager = physicalFileManager;
+            _configurationReader = configurationReader;
         }
 
         [HttpGet]
         [AllowAnonymous]
         public ActionResult Get(string fileId)
         {
-            var fileLocation = Path.Combine(_httpRuntimeWrapper.GetDomainAppPath(), FileStoragePath, fileId[0].ToString(), fileId);
+            var fileLocation = Path.Combine(FileStoragePath, fileId[0].ToString(), fileId);
 
             if (!_physicalFileManager.FileExists(fileLocation))
             {
@@ -56,7 +64,7 @@ namespace easygenerator.Web.Controllers
                 return new TextJsonErrorResult("File data is empty");
             }
 
-            if (file.ContentLength > MaximumFileSize)
+            if (file.ContentLength > _configurationReader.FileStorageConfiguration.MaximumFileSize)
             {
                 return new TextJsonErrorResult("File size too big");
             }
@@ -68,13 +76,13 @@ namespace easygenerator.Web.Controllers
             }
 
             var newFileName = Guid.NewGuid().ToString("N");
-            var fileStoragePath = Path.Combine(_httpRuntimeWrapper.GetDomainAppPath(), FileStoragePath, newFileName[0].ToString());
+            var fileStoragePath = Path.Combine(FileStoragePath, newFileName[0].ToString());
             _physicalFileManager.CreateDirectoryIfNotExists(fileStoragePath);
             var savePath = Path.Combine(fileStoragePath, newFileName + fileInfo.Extension);
             file.SaveAs(savePath);
 
             var rootDomain = Request.Url.AbsoluteUri.Replace(Request.Url.AbsolutePath, string.Empty);
-            return new TextJsonSuccessResult(new { url = Path.Combine(rootDomain + "/", FilestorageApiUrl, newFileName + fileInfo.Extension) });
+            return new TextJsonSuccessResult(new { url = Path.Combine(rootDomain + "/", _configurationReader.FileStorageConfiguration.Url, newFileName + fileInfo.Extension) });
         }
 
     }
