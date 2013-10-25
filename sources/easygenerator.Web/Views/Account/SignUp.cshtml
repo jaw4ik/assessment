@@ -74,8 +74,8 @@
                             </label>
                         </div>
                     </div>
-                    <div class="formBtn" data-bind="css: { disabled: !(userName.isValid() && password.isValid() && isLicenseAgreed()) }">
-                        <input class="orange btn" type="submit" value="@Resources.SignUpButton" data-bind="enable: userName.isValid() && password.isValid() && isLicenseAgreed(), click: signUp">
+                    <div class="formBtn">
+                        <input class="orange btn user-form-btn" type="submit" value="@Resources.SignUpButton" data-bind="css: { disabled: !(userName.isValid() && password.isValid() && isLicenseAgreed()) }, enable: userName.isValid() && password.isValid() && isLicenseAgreed(), click: signUp">
                     </div>
                 </div>
             </div>

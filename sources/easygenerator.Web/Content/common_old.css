@@ -521,7 +521,6 @@ ol.unstyled  {
 /*#region Form action buttons*/
 
 .btn {
-    font-family: Tahoma, sans-serif;
     font-size: 16px;
     color: #656565;
     min-width: 100px;
@@ -530,9 +529,6 @@ ol.unstyled  {
     line-height: 52px;
     margin: 0;
     border: 1px solid #DEDFE3;
-    -webkit-box-shadow: inset 0 0 0 2px white;
-    -moz-box-shadow: inset 0 0 0 2px white;
-    box-shadow: inset 0 0 0 2px white;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -549,6 +545,22 @@ ol.unstyled  {
 
 .ie9 .btn {
     filter: none;
+}
+
+.btn.saveAndOpen,
+.btn.saveAndNew {
+    border: 1px solid #dedfe3;
+    font-family: Tahoma, sans-serif;
+    -webkit-text-shadow: none;
+    text-shadow: none;
+}
+.btn.saveAndOpen.disabled,
+.btn.saveAndOpen.disabled:hover,
+.btn.saveAndOpen.disabled:active,
+.btn.saveAndNew.disabled,
+.btn.saveAndNew.disabled:hover,
+.btn.saveAndNew.disabled:active {
+    box-shadow: none;
 }
 
 .btn.enabled:hover {

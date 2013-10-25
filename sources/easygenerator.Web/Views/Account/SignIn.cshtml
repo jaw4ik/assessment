@@ -38,8 +38,8 @@
                 </div>
                 <!-- /ko -->
                 <div class="user-form-row submit">
-                    <div class="formBtn" data-bind="css: { disabled: !canSubmit() }">
-                        <input class="green btn" type="submit" data-bind="enable: canSubmit" value="@Resources.SignIn ">
+                    <div class="formBtn">
+                        <input class="green btn user-form-btn" type="submit" data-bind="enable: canSubmit, css: { disabled: !canSubmit() }" value="@Resources.SignIn ">
                     </div>
                 </div>
             </form>

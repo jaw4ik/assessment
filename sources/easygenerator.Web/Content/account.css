@@ -782,92 +782,19 @@ body.try {
     display: inline-block;
 }
 
-    .formBtn .btn {
-        height: auto;
-        line-height: 1;
-        display: inline-block;
-        -moz-box-sizing: border-box;
-        padding: 14px 20px;
-        border-style: solid;
-        border-width: 1px;
-        border-radius: 5px 5px 5px 5px;
-        box-shadow: none;
-        color: #FFFFFF;
-        font-size: 18px;
-        font-family: 'OpenSans-Semibold';
-        text-align: center;
-        cursor: pointer;
-        -webkit-text-shadow: 0 1px 1px rgba(0,0,0,0.2);
-        text-shadow: 0 1px 1px rgba(0,0,0,0.2);
-    }
-
-        /* green button*/
-        .formBtn .btn.green {
-            background: none repeat scroll 0 0 #B0C93E;
-            border-color: #B0C93E #9BB136 #9BB136 #B0C93E;
-            border-right: 1px solid #9BB136;
-        }
-
-            .formBtn .btn.green:hover {
-                background: none repeat scroll 0 0 #BDD93D;
-            }
-
-            .formBtn .btn.green:active,
-            .formBtn.disabled .btn.green,
-            .formBtn.disabled .btn.green:active,
-            .formBtn.disabled .btn.green:hover {
-                background: none repeat scroll 0 0 #B0C93E;
-                border-color: #9DB23B;
-                box-shadow: 0px 1px 2px rgba(0,0,0,0.2) inset;
-            }
-
-        /*orange button*/
-        .formBtn .btn.orange {
-            background: none repeat scroll 0 0 #f59957;
-            border-color: #f59957 #d7864c #d7864c #f59957;
-            border-right: 1px solid #d7864c;
-        }
-
-            .formBtn .btn.orange:hover {
-                background: none repeat scroll 0 0 #f2893e;
-            }
-
-            .formBtn .btn.orange:active,
-            .formBtn.disabled .btn.orange,
-            .formBtn.disabled .btn.orange:active,
-            .formBtn.disabled .btn.orange:hover {
-                background: #f59957;
-                border-color: #b16e3f;
-                box-shadow: 0px 1px 2px rgba(0,0,0,0.2) inset;
-            }
-
-        /*grey button*/
-        .formBtn .btn.grey {
-            background: none repeat scroll 0 0 #909399;
-            border-color: #909399 #888a90 #888a90 #909399;
-            border-right: 1px solid #888a90;
-        }
-
-            .formBtn .btn.grey:hover {
-                background: none repeat scroll 0 0 #74767c;
-            }
-
-            .formBtn .btn.grey:active,
-            .formBtn.disabled .btn.grey,
-            .formBtn.disabled .btn.grey:active,
-            .formBtn.disabled .btn.grey:hover {
-                background: #909399;
-                border-color: #888a90;
-                box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset;
-            }
-
-    .formBtn.disabled .btn,
-    .formBtn.disabled .btn:active,
-    .formBtn.disabled .btn:hover {
-        opacity: 0.6;
-        box-shadow: none;
-        cursor: default;
-    }
+.user-form-btn {
+    height: auto;
+    min-height: 46px;
+    line-height: 1;
+    display: inline-block;
+    vertical-align: top;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 20px;
+    border-radius: 5px 5px 5px 5px;
+    color: #FFFFFF;
+    cursor: pointer;
+}
 
 /*#endregion Form Button*/
 
@@ -909,6 +836,7 @@ body.try {
 
 .try-btn {
     display: inline-block;
+    height: auto;
     min-width: 300px;
     line-height: 45px;
     -moz-box-sizing: border-box;
@@ -917,23 +845,14 @@ body.try {
     box-sizing: border-box;
     margin-bottom: 14px;
     padding: 2px 22px 0 30px;
-    border-style: solid;
-    border-width: 1px;
-    -webkit-border-radius: 5px;
-    -khtml-border-radius: 5px;
-    -moz-border-radius: 5px;
     border-radius: 5px;
     color: #fff;
+    font-family: 'OpenSans';
     font-size: 18px;
-    text-align: center;
+    -webkit-text-shadow: 0 -1px 1px #0087ff;
+    text-shadow: 0 -1px 1px #0087ff;
     text-transform: uppercase;
     cursor: pointer;
-    text-shadow: 0 -1px 1px rgb(0,135,255);
-    border-right-color: #0094e0;
-    border-bottom-color: #0094e0;
-    border-left-color: #00a8ff;
-    border-top-color: #00a8ff;
-    background: #00a8ff;
 }
 
     .try-btn:hover {
