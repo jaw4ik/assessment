@@ -403,9 +403,9 @@
 
                                 it('should resolve promise', function () {
                                     var promise = repository.removeExperience('id');
-                                    
+
                                     httpWrapperPost.resolve();
-                                    
+
                                     waitsFor(function () {
                                         return !promise.isPending();
                                     });
@@ -583,7 +583,7 @@
                                     expect(dataContext.experiences[0].modifiedOn).toEqual(utils.getDateFromString('/Date(1378106938845)/'));
                                 });
                             });
-                            
+
                             it('should relate objectives to experience', function () {
                                 dataContext.experiences = [{ id: experience.id, modifiedOn: new Date(), objectives: [] }];
                                 var promise = repository.relateObjectives(experience.id, objectives);
@@ -596,7 +596,7 @@
                                     expect(dataContext.experiences[0].objectives).toEqual(objectives);
                                 });
                             });
-                            
+
                             it('should resolve promise with modification date', function () {
                                 dataContext.experiences = [{ id: experience.id, modifiedOn: new Date(), objectives: [] }];
                                 var promise = repository.relateObjectives(experience.id, objectives);
@@ -727,7 +727,7 @@
                         experience = { id: "SomeExperienceId" };
                         objectives = [{ id: "SomeObjectiveId1" }, { id: "SomeObjectiveId2" }];
                     });
-                    
+
                     it('should send request to server', function () {
                         var promise = repository.unrelateObjectives(experience.id, objectives);
                         httpWrapperPost.resolve();
@@ -739,7 +739,7 @@
                             expect(httpWrapper.post).toHaveBeenCalled();
                         });
                     });
-                    
+
                     describe('and request to server failed', function () {
 
                         it('should reject promise', function () {
@@ -1271,7 +1271,7 @@
                                                 return !promise.isPending();
                                             });
                                             runs(function () {
-                                                expect(promise).toBeResolvedWith(utils.getDateFromString(newModifiedOnDate));
+                                                expect(promise).toBeResolvedWith({ modifiedOn: utils.getDateFromString(newModifiedOnDate) });
                                             });
                                         });
                                     });

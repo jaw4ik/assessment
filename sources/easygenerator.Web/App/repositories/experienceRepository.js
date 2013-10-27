@@ -75,11 +75,11 @@
             },
 
             removeExperience = function (experienceId) {
-                return Q.fcall(function() {
+                return Q.fcall(function () {
                     guard.throwIfNotString(experienceId, 'Experience id (string) was expected');
-                    
+
                     return httpWrapper.post('api/experience/delete', { experienceId: experienceId }).then(function () {
-                        dataContext.experiences = _.reject(dataContext.experiences, function(experience) {
+                        dataContext.experiences = _.reject(dataContext.experiences, function (experience) {
                             return experience.id === experienceId;
                         });
                     });
@@ -209,7 +209,9 @@
                         experience.template = { id: template.id, name: template.name, image: template.image };
                         experience.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
 
-                        return experience.modifiedOn;
+                        return {
+                            modifiedOn: experience.modifiedOn
+                        };
                     });
 
                 });

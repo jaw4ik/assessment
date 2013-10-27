@@ -1,13 +1,13 @@
-﻿define([],
-    function () {
+﻿define(['models/entity'],
+    function (entityModel) {
 
         var template = function (spec) {
 
-            var obj = {};
+            var obj = new entityModel(spec);
 
             obj.name = spec.name;
-            obj.id = spec.id;
             obj.image = spec.image;
+            obj.description = spec.description;
 
             return obj;
         };

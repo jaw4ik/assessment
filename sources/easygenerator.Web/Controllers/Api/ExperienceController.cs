@@ -80,7 +80,7 @@ namespace easygenerator.Web.Controllers.Api
                 Title = exp.Title,
                 CreatedOn = exp.CreatedOn,
                 ModifiedOn = exp.ModifiedOn,
-                Template = new { Id = exp.Template.Id },
+                Template = new { Id = exp.Template.Id.ToString("N") },
                 RelatedObjectives = exp.RelatedObjectives.Select(obj => new
                 {
                     Id = obj.Id.ToString("N")

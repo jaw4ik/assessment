@@ -1,0 +1,72 @@
+﻿<section>
+    <div class="package-actions-holder">
+        <div class="package-actions-content clearfix">
+            <aside class="actions-left-column">
+                <!-- CREATE PACKAGE BUTTON -->
+                <!-- ko if: status() == statuses.notStarted -->
+                <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience">
+                    <span class="btn-title" data-bind="localize: { text: 'createPackage' }">Create package</span>
+                </div>
+                <!-- /ko -->
+
+                <!-- BUILDING/CREATING STATUS -->
+                <!-- ko if: status() == statuses.inProgress && status() != statuses.notStarted -->
+                <div class="package-action-btn btn orange creating-btn">
+                    <!-- ko if: isFirstBuild() -->
+                    <span class="btn-title" data-bind="localize: { text: 'creatingStatus' }">Creating...</span>
+                    <!-- /ko -->
+                    <!-- ko if: !isFirstBuild() -->
+                    <span class="btn-title" data-bind="localize: { text: 'updatingStatus' }">Updating...</span>
+                    <!-- /ko -->
+                </div>
+                <!-- /ko -->
+
+                <!-- REBUILD PACKAGE BUTTON -->
+                <!-- ko if: status() == statuses.succeed ||  status() == statuses.inProgress && !isFirstBuild() -->
+                <!-- ko ifnot: status() == statuses.inProgress -->
+                <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience">
+                    <span class="btn-title" data-bind="localize: { text: 'updatePackage' }">Create package</span>
+                </div>
+                <!-- /ko -->
+                <!-- /ko -->
+                <div class="action-arrow down" data-bind="css: { disabled: (status() == statuses.notStarted) || (status() == statuses.inProgress) }">
+                    <span class="icon-item"></span>
+                </div>
+                <!-- PUBLISH BUTTON -->
+                <!-- ko if: status() == statuses.succeed && status() != statuses.notStarted -->
+                <div class="package-action-btn btn green publish-btn" onclick="javascript: alert('Not implemented yet');">
+                    <span class="btn-title">Publish online</span>
+                </div>
+                <!-- /ko -->
+                <!-- ko ifnot: status() == statuses.succeed && status() != statuses.notStarted -->
+                <div class="package-action-btn btn green publish-btn disabled">
+                    <span class="btn-title">Publish online</span>
+                </div>
+                <!-- /ko -->
+            </aside>
+            <aside class="actions-right-column clearfix">
+                <div class="action-arrow right" data-bind="css: { disabled: (status() == statuses.notStarted) || (status() == statuses.inProgress) }">
+                    <i class="icon-item"></i>
+                </div>
+                <!-- BUILD SUCCESS/ DOWNLOAD BUTTON -->
+                <!-- ko if: status() == statuses.succeed && status() != statuses.notStarted -->
+                <div class="package-action-btn btn grey download-btn" data-bind="click: downloadExperience">
+                    <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
+                </div>
+                <!-- /ko -->
+                <!-- ko ifnot: status() == statuses.succeed && status() != statuses.notStarted -->
+                <div class="package-action-btn btn grey download-btn disabled">
+                    <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
+                </div>
+                <!-- /ko -->
+            </aside>
+            <div class="copy-link-control clear clearfix">
+                <div class="btn-small btn grey disabled">Copy link</div>
+                <div class="copy-link-input-wrapper disabled">
+                    <input class="copy-link-input" disabled type="text" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

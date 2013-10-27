@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Repositories;
+﻿using System.Linq;
+using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
 using System.Web.Mvc;
 
@@ -18,7 +19,15 @@ namespace easygenerator.Web.Controllers.Api
         {
             var templates = _repository.GetCollection();
 
-            return JsonSuccess(templates);
+            var result = templates.Select(tmpl => new
+            {
+                Id = tmpl.Id.ToString("N"),
+                Name = tmpl.Name,
+                Image = tmpl.Image,
+                Description = "Some description for template " + tmpl.Name
+            });
+
+            return JsonSuccess(result);
         }
     }
 }

@@ -228,11 +228,30 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Content Include="App\viewmodels\experiences\design.spec.js">
+      <DependentUpon>design.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\experiences\define.spec.js">
+      <DependentUpon>define.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\experiences\deliver.spec.js">
+      <DependentUpon>deliver.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\experiences\deliver.js" />
+    <Content Include="App\viewmodels\experiences\design.js" />
+    <Content Include="App\viewmodels\experiences\experience.js" />
+    <Content Include="App\viewmodels\experiences\experience.spec.js">
+      <DependentUpon>experience.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\questions\learningContents.spec.js">
       <DependentUpon>learningContents.js</DependentUpon>
     </Content>
+    <Content Include="App\views\experiences\deliver.html" />
+    <Content Include="App\views\experiences\design.html" />
+    <Content Include="App\views\experiences\experience.html" />
     <Content Include="Content\images\account\log-in.jpg" />
     <Content Include="Content\images\package-preloader.gif" />
+    <Content Include="Content\images\processSteps.png" />
     <Content Include="Mail\MailTemplates\SignedUpUserTemplate.cshtml" />
     <Compile Include="Mail\MailNotificationManager.cs">
       <SubType>Code</SubType>
@@ -554,10 +573,7 @@
     <Content Include="App\viewmodels\experiences\createExperience.spec.js">
       <DependentUpon>createExperience.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\experiences\experience.js" />
-    <Content Include="App\viewmodels\experiences\experience.spec.js">
-      <DependentUpon>experience.js</DependentUpon>
-    </Content>
+    <Content Include="App\viewmodels\experiences\define.js" />
     <Content Include="App\viewmodels\experiences\experiences.js" />
     <Content Include="App\viewmodels\objectives\createObjective.js" />
     <Content Include="App\viewmodels\objectives\createObjective.spec.js">
@@ -644,7 +660,7 @@
     </Content>
     <None Include="App\specs.html" />
     <Content Include="App\localization\localizationManager.js" />
-    <Content Include="App\views\experiences\experience.html" />
+    <Content Include="App\views\experiences\define.html" />
     <Content Include="App\views\objectives\objective.html" />
     <Content Include="App\views\objectives\objectives.html" />
     <Content Include="App\views\experiences\experiences.html" />

@@ -153,9 +153,9 @@
     white-space: nowrap;
 }
 
-.copy-link-control.disabled {
-    opacity: 0.2;
-}
+    .copy-link-control.disabled {
+        opacity: 0.2;
+    }
 
     .copy-link-control .btn {
         float: left;
@@ -166,9 +166,9 @@
     margin-left: 100px;
 }
 
-.copy-link-input-wrapper.disabled {
-    opacity: 0.2;
-}
+    .copy-link-input-wrapper.disabled {
+        opacity: 0.2;
+    }
 
 .copy-link-input {
     width: 100%;
@@ -831,3 +831,65 @@
     font-family: OpenSansItalic;
     border-bottom: 1px dotted #BDBDBD;
 }
+
+
+/*#region Process steps*/
+
+.process-steps-container {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.process-steps {
+    display: table;
+    width: 100%;
+    -webkit-padding-start: 0;
+}
+
+    .process-steps .tb-cell {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .process-steps .separator {
+        display: block;
+        width: 10px;
+        height: 16px;
+        margin: 0 auto;
+        opacity: 0.2;
+        cursor: default;
+        background: url('images/processSteps.png') no-repeat 0 0;
+    }
+
+.process-step {
+    width: 28.5%;
+    padding: 13px;
+    border: 1px solid #ebebeb;
+    border-top-color: #f2f2f2;
+    border-bottom-color: #bdbdbd;
+    border-radius: 3px 3px 0 0;
+    background: #f2f2f2;
+    color: #9c9fa6;
+    font-size: 14px;
+    font-family: 'OpenSans-Semibold';
+}
+
+    .process-step:hover {
+        background: #fafafa;
+        border-left-color: #f4f4f4;
+        border-right-color: #f4f4f4;
+        border-top-color: #fafafa;
+        color: #303133;
+        cursor: pointer;
+    }
+
+    .process-step.active {
+        color: #303133;
+        background: #fafafa;
+        border-color: #f4f4f4;
+        border-top-color: #fafafa;
+        border-bottom: 2px solid #bcd643;
+    }
+
+/*#endregion Process steps*/

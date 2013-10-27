@@ -1,0 +1,126 @@
+﻿<section>
+
+    <div class="container">
+
+        <header class="view-header">
+            <div class="view-header-title">
+                <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': isEditing(), 'error': !title.isValid() }"></div>
+                <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
+                    <span data-bind="text: title().trim().length + '/' + experienceTitleMaxLength"></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- ko if: objectivesMode() == objectivesListModes.display -->
+        <div class="experience-related-objectives-header">
+            <a class="experiences-header-create-link" data-bind="click: startAppendingObjectives, localize: { title: 'connectObjectives' }"></a>
+            <span class="experience-header-title-text" data-bind="localize: { text: 'connectedLearningObjectives' }">Related learning objectives</span>
+            <!-- ko if: canUnrelateObjectives() -->
+            <span class="header-toolbar-item-wrapper" data-bind="click: unrelateSelectedObjectives, localize: { title: 'disconnectSelectedObjectives' }">
+                <span class="toolbar-unrelate"></span>
+            </span>
+            <!-- /ko -->
+            <hr />
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: objectivesMode() == objectivesListModes.appending -->
+        <div class="experience-header clearfix">
+            <div class="experiences-header-title">
+                <a class="experiences-header-finish-link" data-bind="click: finishAppendingObjectives, localize: { title: 'connectSelectedObjectives' }"></a>
+                <span class="experiences-header-title-text" data-bind="localize: { text: 'finish' }"></span>
+                <hr />
+            </div>
+            <div class="experiences-header-create-objective-wrapper">
+                <div class="experiences-header-create-objective-block">
+                    <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
+                    <!-- ko compose: { view: 'views/common/createtip', model: { text: 'clickToCreateNewObjective' } } -->
+                    <!-- /ko -->
+                    <!-- /ko -->
+                    <span class="experience-create-objective" data-bind="localize: { text: 'createObjectiveFromExperience' }"></span>
+                    <span class="experience-create-objective-image" data-bind="click: navigateToCreateObjective, localize: { title: 'addNewObjective' }"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- /ko -->
+
+        <!-- ko if: (objectivesMode() == objectivesListModes.display && relatedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->
+        <div class="content-list-wrapper">
+
+            <div class="hint-popup-holder" data-bind="visible: hintPopup.displayed">
+                <!-- ko compose: {
+                view: 'views/common/hintpopup',
+                model: {
+                text: 'connectObjectivesHelpHint',
+                close: hintPopup.close.bind(hintPopup)
+                }
+                } -->
+                <!-- /ko -->
+            </div>
+
+            <ul class="content-list">
+                <!-- ko foreach: objectivesMode() == objectivesListModes.display ? relatedObjectives() : availableObjectives() -->
+                <li class="content-list-item" data-bind="css: { 'selected': isSelected }">
+                    <div class="hover-indicator"></div>
+                    <div class="content-list-logo-wrapper white-framing">
+                        <img class="content-list-logo" alt="" data-bind="attr: { src: image }">
+                        <div class="item-options">
+                            <div class="item-option select" data-bind="click: $parent.toggleObjectiveSelection, css: { 'alone': $parent.objectivesMode() == $parent.objectivesListModes.appending }">
+                                <!-- ko ifnot: isSelected() -->
+                                <div class="nowrap" data-bind="localize: { text: 'select' }">Select</div>
+                                <div class="action-img unchecked inline">
+                                    <input type="checkbox" class="custom-checkbox">
+                                </div>
+                                <!-- /ko -->
+                                <!-- ko if: isSelected() -->
+                                <div class="nowrap" data-bind="localize: { text: 'unselect' }">Unselect</div>
+                                <div class="action-img checked inline">
+                                    <input class="custom-checkbox" type="checkbox">
+                                </div>
+                                <!-- /ko -->
+                            </div>
+                            <!-- ko if: $parent.objectivesMode() == $parent.objectivesListModes.display -->
+                            <div class="separator"></div>
+                            <div class="item-option edit" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent)">
+                                <div class="nowrap" data-bind="localize: { text: 'edit' }">Open</div>
+                                <div class="action-img inline">
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                    <div class="li-related-objective-question-count-wrapper" data-bind="localize: { title: 'numberOfRelatedQuestions' }">
+                        <div class="li-related-objective-question-count-image"></div>
+                        <div class="li-related-objective-question-count-text" data-bind="text: questionsCount"></div>
+                    </div>
+                    <div class="text-block selectable">
+                        <p data-bind="text: title"></p>
+                    </div>
+                </li>
+                <!-- /ko -->
+            </ul>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: objectivesMode() == objectivesListModes.display && relatedObjectives().length == 0 -->
+        <div class="add-new-item-tip">
+            <div class="add-new-item-tip-arrow"></div>
+            <div class="add-new-item-tip-text rotate-right" data-bind="localize: { text: 'clickToAddObjectivesIntoExperience' }"></div>
+        </div>
+        <div class="empty-list-wrapper">
+            <div class="empty-list">
+                <div class="empty-list-text" data-bind="localize: { text: 'noConnectedLearningObjectives' }"></div>
+            </div>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
+        <div class="empty-list-wrapper">
+            <div class="empty-list">
+                <div class="empty-list-text" data-bind="localize: { text: 'noObjectivesForConnect' }"></div>
+            </div>
+        </div>
+        <!-- /ko -->
+    </div>
+</section>

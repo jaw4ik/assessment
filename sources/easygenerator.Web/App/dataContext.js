@@ -25,9 +25,10 @@
                         templates.push(
                             new TemplateModel(
                             {
-                                id: template.Id.split('-').join(''),
+                                id: template.Id,
                                 name: template.Name,
-                                image: template.Image
+                                image: template.Image,
+                                description: template.Description
                             }));
                     });
                 }).then(function () {
@@ -92,7 +93,7 @@
                                 builtOn: _.isNullOrUndefined(item.builtOn) ? null : parseDateString(item.builtOn),
                                 packageUrl: item.packageUrl,
                                 template: _.find(templates, function (tItem) {
-                                    return tItem.id === item.Template.Id.split('-').join('');
+                                    return tItem.id === item.Template.Id;
                                 })
                             }));
                         });

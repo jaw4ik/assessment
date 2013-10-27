@@ -22,7 +22,6 @@ namespace easygenerator.Web.Controllers
             _helpHintRepository = helpHintRepository;
         }
 
-        [HttpGet]
         public ActionResult TryWithoutSignup()
         {
             if (_authenticationProvider.IsUserAuthenticated())

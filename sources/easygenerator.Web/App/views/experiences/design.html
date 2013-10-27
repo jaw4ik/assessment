@@ -1,0 +1,8 @@
+﻿<section>
+    <img class="white-framing" data-bind="attr: { src: selectedTemlateImage }" />
+    <div class="entity-actions">
+        <div class="experience-template-selector-text" data-bind="localize: { text: 'learningExperienceTemplate' } ">Learning experience template:</div>
+        <div class="experience-template-selector" data-bind="selectBox: { options: templates, optionsText: 'name', optionsValue: 'id', value: selectedTemplateId }, event: { change: updateExperienceTemplate }"></div>
+    </div>
+    <span data-bind="text: selectedTemlateDescription"></span>
+</section>
