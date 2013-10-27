@@ -24,11 +24,11 @@ exports.config = function (weyland) {
                     'durandal': '../Scripts/durandal',
                     'plugins': '../Scripts/durandal/plugins',
                     'transitions': '../Scripts/durandal/transitions',
-                    'knockout': '../Scripts/knockout-2.3.0',
-                    'jquery': '../Scripts/jquery-2.0.3'
+                    'knockout': 'empty:',
+                    'jquery': 'empty:'
                 },
                 inlineText: true,
-                optimize: 'none',
+                optimize: 'uglify2',
                 stubModules: ['text', 'knockout', 'jquery'],
                 keepBuildDir: true,
                 out: 'App/main-built.js',
