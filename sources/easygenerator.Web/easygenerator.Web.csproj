@@ -249,6 +249,7 @@
     <Content Include="App\views\experiences\deliver.html" />
     <Content Include="App\views\experiences\design.html" />
     <Content Include="App\views\experiences\experience.html" />
+    <Content Include="Content\durandal.css" />
     <Content Include="Content\images\account\log-in.jpg" />
     <Content Include="Content\images\package-preloader.gif" />
     <Content Include="Content\images\processSteps.png" />
@@ -299,7 +300,6 @@
     </Content>
     <Content Include="Content\account.css" />
     <Content Include="Content\common_old.css" />
-    <Content Include="Content\durandal.css" />
     <Content Include="Content\font\buxtonsketch.svg" />
     <Content Include="Content\font\opensans-italic.svg" />
     <Content Include="Content\font\opensans-regular.svg" />
@@ -389,12 +389,14 @@
     <Content Include="Scripts\knockoutBindings\cssBinding.js" />
     <Content Include="Scripts\knockoutBindings\dropDownBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToTopBinding.js" />
-    <Content Include="Scripts\moment+langs.js" />
-    <Content Include="Scripts\moment+langs.min.js" />
+    <Content Include="Scripts\moment-with-langs.js" />
+    <Content Include="Scripts\moment-with-langs.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\q.js" />
     <Content Include="Scripts\q.min.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Templates\Freestyle learning\App\browserSupport.js" />
@@ -898,8 +900,6 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment-lang-de.js" />
     <Content Include="Scripts\moment-lang-nl.js" />
-    <Content Include="Scripts\r.js" />
-    <Content Include="Scripts\require.js" />
     <Content Include="Scripts\text.js" />
     <Content Include="Scripts\underscore.extensions.js" />
     <Content Include="Templates\Quiz\App\browserSupport.js" />
