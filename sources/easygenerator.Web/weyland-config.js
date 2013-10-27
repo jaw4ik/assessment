@@ -28,7 +28,7 @@ exports.config = function (weyland) {
                     'jquery': '../Scripts/jquery-2.0.3'
                 },
                 inlineText: true,
-                optimize: 'uglify2',
+                optimize: 'none',
                 stubModules: ['text', 'knockout', 'jquery'],
                 keepBuildDir: true,
                 out: 'App/main-built.js',
