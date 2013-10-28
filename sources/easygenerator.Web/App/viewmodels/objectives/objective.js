@@ -145,8 +145,8 @@
                 if (_.isNullOrUndefined(queryParams) || !_.isString(queryParams.experienceId)) {
                     that.contextExperienceId = null;
                     that.contextExperienceTitle = null;
-                    return repository.getCollection().then(function (response) {
-                        initializeObjectiveInfo(response);
+                    return repository.getById(objId).then(function (objective) {
+                        initializeObjectiveInfo(objective);
                     });
                 } else {
                     return experienceRepository.getById(queryParams.experienceId).then(function (experience) {
@@ -157,19 +157,13 @@
 
                         that.contextExperienceId = queryParams.experienceId;
                         that.contextExperienceTitle = experience.title;
-                        initializeObjectiveInfo(experience.objectives);
+                        repository.getById(objId).then(function (objective) {
+                            initializeObjectiveInfo(objective);
+                        });
                     });
                 }
 
-                function initializeObjectiveInfo(objectivesList) {
-                    var objectives = _.sortBy(objectivesList, function (item) {
-                        return item.title.toLowerCase();
-                    });
-
-                    var objective = _.find(objectives, function (item) {
-                        return item.id === objId;
-                    });
-
+                function initializeObjectiveInfo(objective) {
                     if (!_.isObject(objective)) {
                         router.replace('404');
                         return;

@@ -46,7 +46,7 @@
                 beforeEach(function () {
                     deferred = Q.defer();
                     getExperienceDeferred = Q.defer();
-                    spyOn(repository, 'getCollection').andReturn(deferred.promise);
+                    spyOn(repository, 'getById').andReturn(deferred.promise);
                     spyOn(experienceRepository, 'getById').andReturn(getExperienceDeferred.promise);
                 });
 
@@ -113,9 +113,9 @@
 
                     });
 
-                    describe('when single objective exists', function () {
+                    describe('when objective exists', function () {
                         beforeEach(function () {
-                            deferred.resolve([objective]);
+                            deferred.resolve(objective);
                         });
 
                         it('should return promise', function () {
@@ -241,9 +241,9 @@
 
                         });
 
-                        describe('when single objective exists', function () {
+                        describe('when objective exists', function () {
                             beforeEach(function () {
-                                deferred.resolve([objective]);
+                                deferred.resolve(objective);
                             });
 
                             it('should return promise', function () {
@@ -311,6 +311,7 @@
                     describe('when query string has experienceId param', function () {
                         var queryParams = { experienceId: 'id' };
                         var contextExperienceTitle = "exper";
+
                         describe('and when experience doesnt exist', function () {
                             beforeEach(function () {
                                 getExperienceDeferred.resolve(null);
@@ -329,6 +330,7 @@
                         });
 
                         describe('and when experience exists', function () {
+
                             it('should set contextExperienceTitle', function () {
                                 viewModel.contextExperienceTitle = '';
                                 var promise = viewModel.activate(objective.id, queryParams);
@@ -356,7 +358,8 @@
                             describe('when objective not found', function () {
 
                                 beforeEach(function () {
-                                    getExperienceDeferred.resolve({ title: contextExperienceTitle, objectives: [] });
+                                    getExperienceDeferred.resolve({ title: contextExperienceTitle });
+                                    deferred.resolve(null);
                                 });
 
                                 it('should navigate to #404', function () {
@@ -381,9 +384,10 @@
 
                             });
 
-                            describe('when single objective exists', function () {
+                            describe('when objective exists', function () {
                                 beforeEach(function () {
-                                    getExperienceDeferred.resolve({ title: contextExperienceTitle, objectives: [objective] });
+                                    getExperienceDeferred.resolve({ title: contextExperienceTitle });
+                                    deferred.resolve(objective);
                                 });
 
                                 it('should return promise', function () {
