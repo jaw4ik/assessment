@@ -85,7 +85,7 @@
 /*#region PACKAGE ACTIONS*/
 .package-actions-holder {
     width: 100%;
-    padding-top: 10px;
+    padding-top: 50px;
     text-align: center;
 }
 
@@ -497,7 +497,7 @@
 
 /*#region DESIGN STEP*/
 .design.view-module {
-    padding-top: 10px;
+    padding-top: 20px;
 }
 
     .design.view-module .template-logo {
@@ -894,14 +894,12 @@
     border-bottom: 1px dotted #BDBDBD;
 }
 
-
 /*#region Process steps*/
 
 .process-steps-container {
     width: 100%;
     margin: 0 auto;
     text-align: center;
-    padding-bottom: 40px;
 }
 
 .process-steps {
