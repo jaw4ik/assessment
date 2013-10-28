@@ -85,7 +85,7 @@
 /*#region PACKAGE ACTIONS*/
 .package-actions-holder {
     width: 100%;
-    padding-top: 50px;
+    padding-top: 10px;
     text-align: center;
 }
 
@@ -498,7 +498,7 @@
 
 /*#region DESIGN STEP*/
 .design.view-module {
-    padding-top: 20px;
+    padding-top: 10px;
 }
 
     .design.view-module .template-logo {
@@ -902,6 +902,7 @@
     width: 100%;
     margin: 0 auto;
     text-align: center;
+    padding-bottom: 40px;
 }
 
 .process-steps {
@@ -953,6 +954,7 @@
         border-color: #f4f4f4;
         border-top-color: #fafafa;
         border-bottom: 2px solid #bcd643;
+        cursor: default;
     }
 
 /*#endregion Process steps*/
