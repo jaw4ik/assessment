@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Threading;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
@@ -34,9 +33,6 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         public ActionResult HideHint(HelpHint hint)
         {
-            Thread.Sleep(2000);
-            
-
             if (hint != null)
             {
                 _repository.HideHint(hint);
