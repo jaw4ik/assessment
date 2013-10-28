@@ -116,7 +116,7 @@ namespace easygenerator.DataAccess
 
         public void Save()
         {
-            SaveChanges();
+            SaveChangesAsync().Wait();
         }
 
 
