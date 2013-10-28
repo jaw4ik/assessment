@@ -86,5 +86,23 @@ namespace ErrorResources {
                 return ResourceManager.GetString("PageNotFoundDescription", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something is not right.
+        /// </summary>
+        public static string ServerError {
+            get {
+                return ResourceManager.GetString("ServerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry, something went wrong.  Try checking the URL for errors, use the navigation above or click &quot;Home&apos; link below..
+        /// </summary>
+        public static string ServerErrorDescription {
+            get {
+                return ResourceManager.GetString("ServerErrorDescription", resourceCulture);
+            }
+        }
     }
 }

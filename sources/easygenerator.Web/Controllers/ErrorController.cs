@@ -15,5 +15,11 @@ namespace easygenerator.Web.Controllers
             Response.StatusCode = (int)HttpStatusCode.NotFound;
             return View();
         }
+
+        public ActionResult ServerError()
+        {
+            Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            return View();
+        }
     }
 }

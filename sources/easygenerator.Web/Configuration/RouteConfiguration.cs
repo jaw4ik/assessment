@@ -19,6 +19,12 @@ namespace easygenerator.Web.Configuration
                 defaults: new { controller = "Error", action = "NotFound" }
             );
 
+            routes.MapRoute(
+               name: "ServerError",
+               url: "servererror",
+               defaults: new { controller = "Error", action = "ServerError" }
+           );
+
             #endregion
 
             #region Objectives

@@ -1,0 +1,15 @@
+﻿@using ErrorResources
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="error error-page">
+
+    <h2>@Resources.ServerError</h2>
+    <p>@Resources.ServerErrorDescription</p>
+
+    <p class="error-page-home-link">
+        <a href="/">@Resources.HomePage</a>
+    </p>
+
+</section>

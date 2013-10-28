@@ -598,6 +598,7 @@
     </Content>
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Error\ServerError.cshtml" />
     <None Include="weyland-config.js" />
   </ItemGroup>
   <ItemGroup>
