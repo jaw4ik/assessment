@@ -31,21 +31,43 @@
                     expect(viewModel.activate).toBeFunction();
                 });
 
+                it('should return promise', function() {
+                    expect(viewModel.activate('SomeId')).toBePromise();
+                });
+
                 it('should reset active step to define', function () {
-                    viewModel.activate('SomeId');
-                    expect(viewModel.activeStep.activateItem).toHaveBeenCalledWith(define, 'SomeId');
+                    var promise = viewModel.activate('SomeId');
+
+                    waitsFor(function() {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.activeStep.activateItem).toHaveBeenCalledWith(define, 'SomeId');
+                    });
                 });
 
                 it('should set experience id as the last visited in client context', function () {
                     spyOn(clientContext, 'set');
-                    viewModel.activate('SomeId');
-                    expect(clientContext.set).toHaveBeenCalledWith('lastVistedExperience', 'SomeId');
+                    var promise = viewModel.activate('SomeId');
+
+                    waitsFor(function() {
+                        return !promise.isPending();
+                    });
+                    runs(function() {
+                        expect(clientContext.set).toHaveBeenCalledWith('lastVistedExperience', 'SomeId');
+                    });
                 });
                 
                 it('should set reset last visited objective in client context', function () {
                     spyOn(clientContext, 'set');
-                    viewModel.activate('SomeId');
-                    expect(clientContext.set).toHaveBeenCalledWith('lastVisitedObjective', null);
+                    var promise = viewModel.activate('SomeId');
+                    
+                    waitsFor(function() {
+                        return !promise.isPending();
+                    });
+                    runs(function() {
+                        expect(clientContext.set).toHaveBeenCalledWith('lastVisitedObjective', null);
+                    });
                 });
 
             });

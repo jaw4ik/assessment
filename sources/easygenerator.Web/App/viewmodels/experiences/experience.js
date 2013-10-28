@@ -8,24 +8,28 @@
             id = null,
 
             goToDefine = function () {
-                activeStep.activateItem(define, id);
+                activeStep.activateItem(define, this.id);
             },
 
             goToDesign = function () {
-                activeStep.activateItem(design, id);
+                activeStep.activateItem(design, this.id);
             },
 
             goToDeliver = function () {
-                activeStep.activateItem(deliver, id);
+                activeStep.activateItem(deliver, this.id);
             },
 
             activate = function (experienceId) {
-                activeStep.activateItem({});
-                id = experienceId;
-                goToDefine();
+                var that = this;
 
-                clientContext.set('lastVistedExperience', experienceId);
-                clientContext.set('lastVisitedObjective', null);
+                return Q.fcall(function() {
+                    activeStep.activateItem({});
+                    that.id = experienceId;
+                    goToDefine.call(that);
+
+                    clientContext.set('lastVistedExperience', experienceId);
+                    clientContext.set('lastVisitedObjective', null);
+                });
             }
         ;
 
