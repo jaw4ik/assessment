@@ -182,43 +182,72 @@
                         viewModel.title(newTitle);
                     });
 
-                    it('should update experience in repository', function () {
-                        viewModel.endEditTitle();
-                        expect(repository.updateExperienceTitle).toHaveBeenCalled();
-                    });
-
-                    describe('and when experience updated successfully', function () {
-
-                        var updatedExperience = { title: newTitle, templateId: "0", modifiedOn: new Date() };
+                    describe('and when title was changed', function () {
                         beforeEach(function () {
-                            updateTitle.resolve(updatedExperience.modifiedOn);
-                        });
-
-                        it('should update notificaion', function () {
-                            viewModel.endEditTitle();
-
-                            var promise = updateTitle.promise.fin(function () { });
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(notify.info).toHaveBeenCalled();
-                            });
+                            viewModel.originalTitle = "original title";
                         });
 
                         it('should send event \'Update experience title\'', function () {
                             viewModel.endEditTitle();
                             expect(eventTracker.publish).toHaveBeenCalledWith('Update experience title');
                         });
+                        
+                        it('should update experience in repository', function () {
+                            viewModel.endEditTitle();
+                            expect(repository.updateExperienceTitle).toHaveBeenCalled();
+                        });
 
+                        describe('and when experience updated successfully', function () {
+
+                            var updatedExperience = { title: newTitle, templateId: "0", modifiedOn: new Date() };
+                            beforeEach(function () {
+                                updateTitle.resolve(updatedExperience.modifiedOn);
+                            });
+
+                            it('should update notificaion', function () {
+                                viewModel.endEditTitle();
+
+                                var promise = updateTitle.promise.fin(function () { });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(notify.info).toHaveBeenCalled();
+                                });
+                            });
+                        });
+
+                        it('should set isEditing to false', function () {
+                            viewModel.isEditing(true);
+                            viewModel.endEditTitle();
+                            expect(viewModel.isEditing()).toBeFalsy();
+                        });
+                        
+                    });
+                    
+                    describe('and when title was not changed', function () {
+                        beforeEach(function () {
+                            viewModel.originalTitle = newTitle;
+                        });
+                        
+                        it('should not update experience in repository', function () {
+                            viewModel.endEditTitle();
+                            expect(repository.updateExperienceTitle).not.toHaveBeenCalled();
+                        });
+
+                        it('should not send event \'Update experience title\'', function () {
+                            viewModel.endEditTitle();
+                            expect(eventTracker.publish).not.toHaveBeenCalledWith('Update experience title');
+                        });
+
+                        it('should set isEditing to false', function () {
+                            viewModel.isEditing(true);
+                            viewModel.endEditTitle();
+                            expect(viewModel.isEditing()).toBeFalsy();
+                        });
                     });
 
-                    it('should set isEditing to false', function () {
-                        viewModel.isEditing(true);
-                        viewModel.endEditTitle();
-                        expect(viewModel.isEditing()).toBeFalsy();
-                    });
                 });
             });
 

@@ -96,7 +96,9 @@
         }
 
         $(window).one("hashchange", function () {
-            $element.blur();
+            if ($element.is(':focus')) {
+                $element.blur();
+            }
         });
     },
     update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {

@@ -33,7 +33,7 @@
             })(),
             relatedObjectives = ko.observableArray([]),
             availableObjectives = ko.observableArray([]),
-            previousTitle = '',
+            originalTitle = '',
             objectivesMode = ko.observable(''),
             isEditing = ko.observable(),
 
@@ -114,18 +114,18 @@
                 }
             },
             startEditTitle = function () {
-                previousTitle = title();
+                this.originalTitle = title();
                 isEditing(true);
             },
             endEditTitle = function () {
                 title(title().trim());
-                if (title.isValid() && title() != previousTitle) {
+                if (title.isValid() && title() != this.originalTitle) {
                     sendEvent(events.updateExperienceTitle);
                     repository.updateExperienceTitle(this.id, title()).then(function (updatedOn) {
                         notify.info(localizationManager.localize('savedAt') + ' ' + updatedOn.toLocaleTimeString());
                     });
                 } else {
-                    title(previousTitle);
+                    title(this.originalTitle);
                 }
                 isEditing(false);
             },
@@ -210,6 +210,7 @@
                 return repository.getById(experienceId).then(function (experience) {
                     that.id = experience.id;
                     that.title(experience.title);
+                    that.originalTitle = experience.title;
                     that.objectivesMode(that.objectivesListModes.display);
                     that.relatedObjectives(_.chain(experience.objectives)
                         .map(function (objective) {
@@ -232,6 +233,7 @@
 
             id: id,
             title: title,
+            originalTitle: originalTitle,
             relatedObjectives: relatedObjectives,
             availableObjectives: availableObjectives,
             objectivesMode: objectivesMode,
