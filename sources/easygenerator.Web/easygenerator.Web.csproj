@@ -251,8 +251,10 @@
     <Content Include="App\views\experiences\experience.html" />
     <Content Include="Content\durandal.css" />
     <Content Include="Content\images\account\log-in.jpg" />
+    <Content Include="Content\images\oops.png" />
     <Content Include="Content\images\package-preloader.gif" />
     <Content Include="Content\images\processSteps.png" />
+    <Content Include="Content\images\publish-loader.GIF" />
     <Content Include="Mail\MailTemplates\SignedUpUserTemplate.cshtml" />
     <Compile Include="Mail\MailNotificationManager.cs">
       <SubType>Code</SubType>

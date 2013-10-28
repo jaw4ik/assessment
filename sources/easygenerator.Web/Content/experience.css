@@ -202,6 +202,10 @@
     background-position: -126px -75px;
 }
 
+.publishing-btn .btn-title:after {
+    background: url('images/publish-loader.gif') no-repeat 0 2px;
+}
+
 /*icons*/
 .action-arrow {
     position: relative;
