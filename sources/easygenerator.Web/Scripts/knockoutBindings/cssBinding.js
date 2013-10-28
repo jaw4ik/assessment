@@ -14,19 +14,19 @@
 
         setHeight();
 
-        var hintH = $(helpHint).height(),
-            currH,
+        var oldHeight = $(helpHint).height(),
+            newHeight;
 
-            interval = setInterval(function () {
-                currH = $(helpHint).height();
-                if (hintH != currH) {
-                    hintH = currH;
-                    setHeight();
-                } else {
-                    clearInterval(interval);
-                }
-            }, 300);
-
+        var interval = setInterval(function () {
+            newHeight = $(helpHint).height();
+            if (oldHeight != newHeight) {
+                oldHeight = newHeight;
+                setHeight();
+            } else {
+                clearInterval(interval);
+            }
+        }, 300);
+        
         $(window).resize(function () {
             setHeight();
         });
