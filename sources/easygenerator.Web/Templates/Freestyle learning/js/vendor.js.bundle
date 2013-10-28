@@ -3,7 +3,7 @@
   <!--The order of the <file> elements determines the order of them when bundled.-->
   <file>/Templates/Freestyle learning/js/jquery-1.9.1.js</file>
   <file>/Templates/Freestyle learning/js/knockout-2.2.1.js</file>
-  <file>/Templates/Freestyle learning/js/sammy-0.7.4.js</file>
   <file>/Templates/Freestyle learning/js/underscore-1.5.1.js</file>
+  <file>/Templates/Freestyle learning/js/q.js</file>
   <file>/Templates/Freestyle learning/js/circleProgressBinding.js</file>
 </bundle>

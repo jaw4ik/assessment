@@ -9684,2128 +9684,6 @@ var f=b.data("precompiled");f||(f=b.text()||"",f=F.template(p,"{{ko_with $item.k
 {open:"__.push($1 || '');"},F.tmpl.tag.ko_with={open:"with($1) {",close:"} "})};b.qa.prototype=new b.v;w=new b.qa;0<w.Db&&b.wa(w);b.b("jqueryTmplTemplateEngine",b.qa)}"function"===typeof require&&"object"===typeof exports&&"object"===typeof module?L(module.exports||exports):"function"===typeof define&&define.amd?define(["exports"],L):L(x.ko={});m;
 })();
 
-///#source 1 1 /Templates/Freestyle learning/js/sammy-0.7.4.js
-// name: sammy
-// version: 0.7.4
-
-// Sammy.js / http://sammyjs.org
-
-(function($, window) {
-  (function(factory){
-    // Support module loading scenarios
-    if (typeof define === 'function' && define.amd){
-      // AMD Anonymous Module
-      define(['jquery'], factory);
-    } else {
-      // No module loader (plain <script> tag) - put directly in global namespace
-      $.sammy = window.Sammy = factory($);
-    }
-  })(function($){
-
-  var Sammy,
-      PATH_REPLACER = "([^\/]+)",
-      PATH_NAME_MATCHER = /:([\w\d]+)/g,
-      QUERY_STRING_MATCHER = /\?([^#]*)?$/,
-      // mainly for making `arguments` an Array
-      _makeArray = function(nonarray) { return Array.prototype.slice.call(nonarray); },
-      // borrowed from jQuery
-      _isFunction = function( obj ) { return Object.prototype.toString.call(obj) === "[object Function]"; },
-      _isArray = function( obj ) { return Object.prototype.toString.call(obj) === "[object Array]"; },
-      _isRegExp = function( obj ) { return Object.prototype.toString.call(obj) === "[object RegExp]"; },
-      _decode = function( str ) { return decodeURIComponent((str || '').replace(/\+/g, ' ')); },
-      _encode = encodeURIComponent,
-      _escapeHTML = function(s) {
-        return String(s).replace(/&(?!\w+;)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-      },
-      _routeWrapper = function(verb) {
-        return function() {
-          return this.route.apply(this, [verb].concat(Array.prototype.slice.call(arguments)));
-        };
-      },
-      _template_cache = {},
-      _has_history = !!(window.history && history.pushState),
-      loggers = [];
-
-
-  // `Sammy` (also aliased as $.sammy) is not only the namespace for a
-  // number of prototypes, its also a top level method that allows for easy
-  // creation/management of `Sammy.Application` instances. There are a
-  // number of different forms for `Sammy()` but each returns an instance
-  // of `Sammy.Application`. When a new instance is created using
-  // `Sammy` it is added to an Object called `Sammy.apps`. This
-  // provides for an easy way to get at existing Sammy applications. Only one
-  // instance is allowed per `element_selector` so when calling
-  // `Sammy('selector')` multiple times, the first time will create
-  // the application and the following times will extend the application
-  // already added to that selector.
-  //
-  // ### Example
-  //
-  //      // returns the app at #main or a new app
-  //      Sammy('#main')
-  //
-  //      // equivalent to "new Sammy.Application", except appends to apps
-  //      Sammy();
-  //      Sammy(function() { ... });
-  //
-  //      // extends the app at '#main' with function.
-  //      Sammy('#main', function() { ... });
-  //
-  Sammy = function() {
-    var args = _makeArray(arguments),
-        app, selector;
-    Sammy.apps = Sammy.apps || {};
-    if (args.length === 0 || args[0] && _isFunction(args[0])) { // Sammy()
-      return Sammy.apply(Sammy, ['body'].concat(args));
-    } else if (typeof (selector = args.shift()) == 'string') { // Sammy('#main')
-      app = Sammy.apps[selector] || new Sammy.Application();
-      app.element_selector = selector;
-      if (args.length > 0) {
-        $.each(args, function(i, plugin) {
-          app.use(plugin);
-        });
-      }
-      // if the selector changes make sure the reference in Sammy.apps changes
-      if (app.element_selector != selector) {
-        delete Sammy.apps[selector];
-      }
-      Sammy.apps[app.element_selector] = app;
-      return app;
-    }
-  };
-
-  Sammy.VERSION = '0.7.4';
-
-  // Add to the global logger pool. Takes a function that accepts an
-  // unknown number of arguments and should print them or send them somewhere
-  // The first argument is always a timestamp.
-  Sammy.addLogger = function(logger) {
-    loggers.push(logger);
-  };
-
-  // Sends a log message to each logger listed in the global
-  // loggers pool. Can take any number of arguments.
-  // Also prefixes the arguments with a timestamp.
-  Sammy.log = function()  {
-    var args = _makeArray(arguments);
-    args.unshift("[" + Date() + "]");
-    $.each(loggers, function(i, logger) {
-      logger.apply(Sammy, args);
-    });
-  };
-
-  if (typeof window.console != 'undefined') {
-    if (_isFunction(window.console.log.apply)) {
-      Sammy.addLogger(function() {
-        window.console.log.apply(window.console, arguments);
-      });
-    } else {
-      Sammy.addLogger(function() {
-        window.console.log(arguments);
-      });
-    }
-  } else if (typeof console != 'undefined') {
-    Sammy.addLogger(function() {
-      console.log.apply(console, arguments);
-    });
-  }
-
-  $.extend(Sammy, {
-    makeArray: _makeArray,
-    isFunction: _isFunction,
-    isArray: _isArray
-  });
-
-  // Sammy.Object is the base for all other Sammy classes. It provides some useful
-  // functionality, including cloning, iterating, etc.
-  Sammy.Object = function(obj) { // constructor
-    return $.extend(this, obj || {});
-  };
-
-  $.extend(Sammy.Object.prototype, {
-
-    // Escape HTML in string, use in templates to prevent script injection.
-    // Also aliased as `h()`
-    escapeHTML: _escapeHTML,
-    h: _escapeHTML,
-
-    // Returns a copy of the object with Functions removed.
-    toHash: function() {
-      var json = {};
-      $.each(this, function(k,v) {
-        if (!_isFunction(v)) {
-          json[k] = v;
-        }
-      });
-      return json;
-    },
-
-    // Renders a simple HTML version of this Objects attributes.
-    // Does not render functions.
-    // For example. Given this Sammy.Object:
-    //
-    //     var s = new Sammy.Object({first_name: 'Sammy', last_name: 'Davis Jr.'});
-    //     s.toHTML()
-    //     //=> '<strong>first_name</strong> Sammy<br /><strong>last_name</strong> Davis Jr.<br />'
-    //
-    toHTML: function() {
-      var display = "";
-      $.each(this, function(k, v) {
-        if (!_isFunction(v)) {
-          display += "<strong>" + k + "</strong> " + v + "<br />";
-        }
-      });
-      return display;
-    },
-
-    // Returns an array of keys for this object. If `attributes_only`
-    // is true will not return keys that map to a `function()`
-    keys: function(attributes_only) {
-      var keys = [];
-      for (var property in this) {
-        if (!_isFunction(this[property]) || !attributes_only) {
-          keys.push(property);
-        }
-      }
-      return keys;
-    },
-
-    // Checks if the object has a value at `key` and that the value is not empty
-    has: function(key) {
-      return this[key] && $.trim(this[key].toString()) !== '';
-    },
-
-    // convenience method to join as many arguments as you want
-    // by the first argument - useful for making paths
-    join: function() {
-      var args = _makeArray(arguments);
-      var delimiter = args.shift();
-      return args.join(delimiter);
-    },
-
-    // Shortcut to Sammy.log
-    log: function() {
-      Sammy.log.apply(Sammy, arguments);
-    },
-
-    // Returns a string representation of this object.
-    // if `include_functions` is true, it will also toString() the
-    // methods of this object. By default only prints the attributes.
-    toString: function(include_functions) {
-      var s = [];
-      $.each(this, function(k, v) {
-        if (!_isFunction(v) || include_functions) {
-          s.push('"' + k + '": ' + v.toString());
-        }
-      });
-      return "Sammy.Object: {" + s.join(',') + "}";
-    }
-  });
-
-
-  // Return whether the event targets this window.
-  Sammy.targetIsThisWindow = function targetIsThisWindow(event) {
-    var targetWindow = $(event.target).attr('target');
-    if ( !targetWindow || targetWindow === window.name || targetWindow === '_self' ) { return true; }
-    if ( targetWindow === '_blank' ) { return false; }
-    if ( targetWindow === 'top' && window === window.top ) { return true; }
-    return false;
-  };
-
-
-  // The DefaultLocationProxy is the default location proxy for all Sammy applications.
-  // A location proxy is a prototype that conforms to a simple interface. The purpose
-  // of a location proxy is to notify the Sammy.Application its bound to when the location
-  // or 'external state' changes.
-  //
-  // The `DefaultLocationProxy` watches for changes to the path of the current window and
-  // is also able to set the path based on changes in the application. It does this by
-  // using different methods depending on what is available in the current browser. In
-  // the latest and greatest browsers it used the HTML5 History API and the `pushState`
-  // `popState` events/methods. This allows you to use Sammy to serve a site behind normal
-  // URI paths as opposed to the older default of hash (#) based routing. Because the server
-  // can interpret the changed path on a refresh or re-entry, though, it requires additional
-  // support on the server side. If you'd like to force disable HTML5 history support, please
-  // use the `disable_push_state` setting on `Sammy.Application`. If pushState support
-  // is enabled, `DefaultLocationProxy` also binds to all links on the page. If a link is clicked
-  // that matches the current set of routes, the URL is changed using pushState instead of
-  // fully setting the location and the app is notified of the change.
-  //
-  // If the browser does not have support for HTML5 History, `DefaultLocationProxy` automatically
-  // falls back to the older hash based routing. The newest browsers (IE, Safari > 4, FF >= 3.6)
-  // support a 'onhashchange' DOM event, thats fired whenever the location.hash changes.
-  // In this situation the DefaultLocationProxy just binds to this event and delegates it to
-  // the application. In the case of older browsers a poller is set up to track changes to the
-  // hash.
-  Sammy.DefaultLocationProxy = function(app, run_interval_every) {
-    this.app = app;
-    // set is native to false and start the poller immediately
-    this.is_native = false;
-    this.has_history = _has_history;
-    this._startPolling(run_interval_every);
-  };
-
-  Sammy.DefaultLocationProxy.fullPath = function(location_obj) {
-   // Bypass the `window.location.hash` attribute.  If a question mark
-    // appears in the hash IE6 will strip it and all of the following
-    // characters from `window.location.hash`.
-    var matches = location_obj.toString().match(/^[^#]*(#.+)$/);
-    var hash = matches ? matches[1] : '';
-    return [location_obj.pathname, location_obj.search, hash].join('');
-  };
-$.extend(Sammy.DefaultLocationProxy.prototype , {
-    // bind the proxy events to the current app.
-    bind: function() {
-      var proxy = this, app = this.app, lp = Sammy.DefaultLocationProxy;
-      $(window).bind('hashchange.' + this.app.eventNamespace(), function(e, non_native) {
-        // if we receive a native hash change event, set the proxy accordingly
-        // and stop polling
-        if (proxy.is_native === false && !non_native) {
-          proxy.is_native = true;
-          window.clearInterval(lp._interval);
-          lp._interval = null;
-        }
-        app.trigger('location-changed');
-      });
-      if (_has_history && !app.disable_push_state) {
-        // bind to popstate
-        $(window).bind('popstate.' + this.app.eventNamespace(), function(e) {
-          app.trigger('location-changed');
-        });
-        // bind to link clicks that have routes
-        $(document).delegate('a', 'click.history-' + this.app.eventNamespace(), function (e) {
-            if (e.isDefaultPrevented() || e.metaKey || e.ctrlKey) {
-            return;
-          }
-          var full_path = lp.fullPath(this);
-          if (this.hostname == window.location.hostname &&
-              app.lookupRoute('get', full_path) &&
-              Sammy.targetIsThisWindow(e)) {
-            e.preventDefault();
-            proxy.setLocation(full_path);
-            return false;
-          }
-        });
-      }
-      if (!lp._bindings) {
-        lp._bindings = 0;
-      }
-      lp._bindings++;
-    },
-
-    // unbind the proxy events from the current app
-    unbind: function() {
-      $(window).unbind('hashchange.' + this.app.eventNamespace());
-      $(window).unbind('popstate.' + this.app.eventNamespace());
-      $(document).undelegate('a', 'click.history-' + this.app.eventNamespace());
-      Sammy.DefaultLocationProxy._bindings--;
-      if (Sammy.DefaultLocationProxy._bindings <= 0) {
-        window.clearInterval(Sammy.DefaultLocationProxy._interval);
-        Sammy.DefaultLocationProxy._interval = null;
-      }
-    },
-
-    // get the current location from the hash.
-    getLocation: function() {
-      return Sammy.DefaultLocationProxy.fullPath(window.location);
-    },
-
-    // set the current location to `new_location`
-    setLocation: function(new_location) {
-      if (/^([^#\/]|$)/.test(new_location)) { // non-prefixed url
-        if (_has_history && !this.app.disable_push_state) {
-          new_location = '/' + new_location;
-        } else {
-          new_location = '#!/' + new_location;
-        }
-      }
-      if (new_location != this.getLocation()) {
-        // HTML5 History exists and new_location is a full path
-        if (_has_history && !this.app.disable_push_state && /^\//.test(new_location)) {
-          history.pushState({ path: new_location }, window.title, new_location);
-          this.app.trigger('location-changed');
-        } else {
-          return (window.location = new_location);
-        }
-      }
-    },
-
-    _startPolling: function(every) {
-      // set up interval
-      var proxy = this;
-      if (!Sammy.DefaultLocationProxy._interval) {
-        if (!every) { every = 10; }
-        var hashCheck = function() {
-          var current_location = proxy.getLocation();
-          if (typeof Sammy.DefaultLocationProxy._last_location == 'undefined' ||
-            current_location != Sammy.DefaultLocationProxy._last_location) {
-            window.setTimeout(function() {
-              $(window).trigger('hashchange', [true]);
-            }, 0);
-          }
-          Sammy.DefaultLocationProxy._last_location = current_location;
-        };
-        hashCheck();
-        Sammy.DefaultLocationProxy._interval = window.setInterval(hashCheck, every);
-      }
-    }
-  });
-
-
-  // Sammy.Application is the Base prototype for defining 'applications'.
-  // An 'application' is a collection of 'routes' and bound events that is
-  // attached to an element when `run()` is called.
-  // The only argument an 'app_function' is evaluated within the context of the application.
-  Sammy.Application = function(app_function) {
-    var app = this;
-    this.routes            = {};
-    this.listeners         = new Sammy.Object({});
-    this.arounds           = [];
-    this.befores           = [];
-    // generate a unique namespace
-    this.namespace         = (new Date()).getTime() + '-' + parseInt(Math.random() * 1000, 10);
-    this.context_prototype = function() { Sammy.EventContext.apply(this, arguments); };
-    this.context_prototype.prototype = new Sammy.EventContext();
-
-    if (_isFunction(app_function)) {
-      app_function.apply(this, [this]);
-    }
-    // set the location proxy if not defined to the default (DefaultLocationProxy)
-    if (!this._location_proxy) {
-      this.setLocationProxy(new Sammy.DefaultLocationProxy(this, this.run_interval_every));
-    }
-    if (this.debug) {
-      this.bindToAllEvents(function(e, data) {
-        app.log(app.toString(), e.cleaned_type, data || {});
-      });
-    }
-  };
-
-  Sammy.Application.prototype = $.extend({}, Sammy.Object.prototype, {
-
-    // the four route verbs
-    ROUTE_VERBS: ['get','post','put','delete'],
-
-    // An array of the default events triggered by the
-    // application during its lifecycle
-    APP_EVENTS: ['run', 'unload', 'lookup-route', 'run-route', 'route-found', 'event-context-before', 'event-context-after', 'changed', 'error', 'check-form-submission', 'redirect', 'location-changed'],
-
-    _last_route: null,
-    _location_proxy: null,
-    _running: false,
-
-    // Defines what element the application is bound to. Provide a selector
-    // (parseable by `jQuery()`) and this will be used by `$element()`
-    element_selector: 'body',
-
-    // When set to true, logs all of the default events using `log()`
-    debug: false,
-
-    // When set to true, and the error() handler is not overridden, will actually
-    // raise JS errors in routes (500) and when routes can't be found (404)
-    raise_errors: false,
-
-    // The time in milliseconds that the URL is queried for changes
-    run_interval_every: 50,
-
-    // if using the `DefaultLocationProxy` setting this to true will force the app to use
-    // traditional hash based routing as opposed to the new HTML5 PushState support
-    disable_push_state: false,
-
-    // The default template engine to use when using `partial()` in an
-    // `EventContext`. `template_engine` can either be a string that
-    // corresponds to the name of a method/helper on EventContext or it can be a function
-    // that takes two arguments, the content of the unrendered partial and an optional
-    // JS object that contains interpolation data. Template engine is only called/referred
-    // to if the extension of the partial is null or unknown. See `partial()`
-    // for more information
-    template_engine: null,
-
-    // //=> Sammy.Application: body
-    toString: function() {
-      return 'Sammy.Application:' + this.element_selector;
-    },
-
-    // returns a jQuery object of the Applications bound element.
-    $element: function(selector) {
-      return selector ? $(this.element_selector).find(selector) : $(this.element_selector);
-    },
-
-    // `use()` is the entry point for including Sammy plugins.
-    // The first argument to use should be a function() that is evaluated
-    // in the context of the current application, just like the `app_function`
-    // argument to the `Sammy.Application` constructor.
-    //
-    // Any additional arguments are passed to the app function sequentially.
-    //
-    // For much more detail about plugins, check out:
-    // [http://sammyjs.org/docs/plugins](http://sammyjs.org/docs/plugins)
-    //
-    // ### Example
-    //
-    //      var MyPlugin = function(app, prepend) {
-    //
-    //        this.helpers({
-    //          myhelper: function(text) {
-    //            alert(prepend + " " + text);
-    //          }
-    //        });
-    //
-    //      };
-    //
-    //      var app = $.sammy(function() {
-    //
-    //        this.use(MyPlugin, 'This is my plugin');
-    //
-    //        this.get('#/', function() {
-    //          this.myhelper('and dont you forget it!');
-    //          //=> Alerts: This is my plugin and dont you forget it!
-    //        });
-    //
-    //      });
-    //
-    // If plugin is passed as a string it assumes your are trying to load
-    // Sammy."Plugin". This is the preferred way of loading core Sammy plugins
-    // as it allows for better error-messaging.
-    //
-    // ### Example
-    //
-    //      $.sammy(function() {
-    //        this.use('Mustache'); //=> Sammy.Mustache
-    //        this.use('Storage'); //=> Sammy.Storage
-    //      });
-    //
-    use: function() {
-      // flatten the arguments
-      var args = _makeArray(arguments),
-          plugin = args.shift(),
-          plugin_name = plugin || '';
-      try {
-        args.unshift(this);
-        if (typeof plugin == 'string') {
-          plugin_name = 'Sammy.' + plugin;
-          plugin = Sammy[plugin];
-        }
-        plugin.apply(this, args);
-      } catch(e) {
-        if (typeof plugin === 'undefined') {
-          this.error("Plugin Error: called use() but plugin (" + plugin_name.toString() + ") is not defined", e);
-        } else if (!_isFunction(plugin)) {
-          this.error("Plugin Error: called use() but '" + plugin_name.toString() + "' is not a function", e);
-        } else {
-          this.error("Plugin Error", e);
-        }
-      }
-      return this;
-    },
-
-    // Sets the location proxy for the current app. By default this is set to
-    // a new `Sammy.DefaultLocationProxy` on initialization. However, you can set
-    // the location_proxy inside you're app function to give your app a custom
-    // location mechanism. See `Sammy.DefaultLocationProxy` and `Sammy.DataLocationProxy`
-    // for examples.
-    //
-    // `setLocationProxy()` takes an initialized location proxy.
-    //
-    // ### Example
-    //
-    //        // to bind to data instead of the default hash;
-    //        var app = $.sammy(function() {
-    //          this.setLocationProxy(new Sammy.DataLocationProxy(this));
-    //        });
-    //
-    setLocationProxy: function(new_proxy) {
-      var original_proxy = this._location_proxy;
-      this._location_proxy = new_proxy;
-      if (this.isRunning()) {
-        if (original_proxy) {
-          // if there is already a location proxy, unbind it.
-          original_proxy.unbind();
-        }
-        this._location_proxy.bind();
-      }
-    },
-
-    // provide log() override for inside an app that includes the relevant application element_selector
-    log: function() {
-      Sammy.log.apply(Sammy, Array.prototype.concat.apply([this.element_selector],arguments));
-    },
-
-
-    // `route()` is the main method for defining routes within an application.
-    // For great detail on routes, check out:
-    // [http://sammyjs.org/docs/routes](http://sammyjs.org/docs/routes)
-    //
-    // This method also has aliases for each of the different verbs (eg. `get()`, `post()`, etc.)
-    //
-    // ### Arguments
-    //
-    // * `verb` A String in the set of ROUTE_VERBS or 'any'. 'any' will add routes for each
-    //    of the ROUTE_VERBS. If only two arguments are passed,
-    //    the first argument is the path, the second is the callback and the verb
-    //    is assumed to be 'any'.
-    // * `path` A Regexp or a String representing the path to match to invoke this verb.
-    // * `callback` A Function that is called/evaluated when the route is run see: `runRoute()`.
-    //    It is also possible to pass a string as the callback, which is looked up as the name
-    //    of a method on the application.
-    //
-    route: function(verb, path) {
-      var app = this, param_names = [], add_route, path_match, callback = Array.prototype.slice.call(arguments,2);
-
-      // if the method signature is just (path, callback)
-      // assume the verb is 'any'
-      if (callback.length === 0 && _isFunction(path)) {
-        path = verb;
-        callback = [path];
-        verb = 'any';
-      }
-
-      verb = verb.toLowerCase(); // ensure verb is lower case
-
-      // if path is a string turn it into a regex
-      if (path.constructor == String) {
-
-        // Needs to be explicitly set because IE will maintain the index unless NULL is returned,
-        // which means that with two consecutive routes that contain params, the second set of params will not be found and end up in splat instead of params
-        // https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/RegExp/lastIndex
-        PATH_NAME_MATCHER.lastIndex = 0;
-
-        // find the names
-        while ((path_match = PATH_NAME_MATCHER.exec(path)) !== null) {
-          param_names.push(path_match[1]);
-        }
-        // replace with the path replacement
-        path = new RegExp(path.replace(PATH_NAME_MATCHER, PATH_REPLACER) + "$");
-      }
-      // lookup callbacks
-      $.each(callback,function(i,cb){
-        if (typeof(cb) === 'string') {
-          callback[i] = app[cb];
-        }
-      });
-
-      add_route = function(with_verb) {
-        var r = {verb: with_verb, path: path, callback: callback, param_names: param_names};
-        // add route to routes array
-        app.routes[with_verb] = app.routes[with_verb] || [];
-        // place routes in order of definition
-        app.routes[with_verb].push(r);
-      };
-
-      if (verb === 'any') {
-        $.each(this.ROUTE_VERBS, function(i, v) { add_route(v); });
-      } else {
-        add_route(verb);
-      }
-
-      // return the app
-      return this;
-    },
-
-    // Alias for route('get', ...)
-    get: _routeWrapper('get'),
-
-    // Alias for route('post', ...)
-    post: _routeWrapper('post'),
-
-    // Alias for route('put', ...)
-    put: _routeWrapper('put'),
-
-    // Alias for route('delete', ...)
-    del: _routeWrapper('delete'),
-
-    // Alias for route('any', ...)
-    any: _routeWrapper('any'),
-
-    // `mapRoutes` takes an array of arrays, each array being passed to route()
-    // as arguments, this allows for mass definition of routes. Another benefit is
-    // this makes it possible/easier to load routes via remote JSON.
-    //
-    // ### Example
-    //
-    //      var app = $.sammy(function() {
-    //
-    //        this.mapRoutes([
-    //            ['get', '#/', function() { this.log('index'); }],
-    //            // strings in callbacks are looked up as methods on the app
-    //            ['post', '#/create', 'addUser'],
-    //            // No verb assumes 'any' as the verb
-    //            [/dowhatever/, function() { this.log(this.verb, this.path)}];
-    //          ]);
-    //      });
-    //
-    mapRoutes: function(route_array) {
-      var app = this;
-      $.each(route_array, function(i, route_args) {
-        app.route.apply(app, route_args);
-      });
-      return this;
-    },
-
-    // A unique event namespace defined per application.
-    // All events bound with `bind()` are automatically bound within this space.
-    eventNamespace: function() {
-      return ['sammy-app', this.namespace].join('-');
-    },
-
-    // Works just like `jQuery.fn.bind()` with a couple notable differences.
-    //
-    // * It binds all events to the application element
-    // * All events are bound within the `eventNamespace()`
-    // * Events are not actually bound until the application is started with `run()`
-    // * callbacks are evaluated within the context of a Sammy.EventContext
-    //
-    bind: function(name, data, callback) {
-      var app = this;
-      // build the callback
-      // if the arity is 2, callback is the second argument
-      if (typeof callback == 'undefined') { callback = data; }
-      var listener_callback =  function() {
-        // pull off the context from the arguments to the callback
-        var e, context, data;
-        e       = arguments[0];
-        data    = arguments[1];
-        if (data && data.context) {
-          context = data.context;
-          delete data.context;
-        } else {
-          context = new app.context_prototype(app, 'bind', e.type, data, e.target);
-        }
-        e.cleaned_type = e.type.replace(app.eventNamespace(), '');
-        callback.apply(context, [e, data]);
-      };
-
-      // it could be that the app element doesnt exist yet
-      // so attach to the listeners array and then run()
-      // will actually bind the event.
-      if (!this.listeners[name]) { this.listeners[name] = []; }
-      this.listeners[name].push(listener_callback);
-      if (this.isRunning()) {
-        // if the app is running
-        // *actually* bind the event to the app element
-        this._listen(name, listener_callback);
-      }
-      return this;
-    },
-
-    // Triggers custom events defined with `bind()`
-    //
-    // ### Arguments
-    //
-    // * `name` The name of the event. Automatically prefixed with the `eventNamespace()`
-    // * `data` An optional Object that can be passed to the bound callback.
-    // * `context` An optional context/Object in which to execute the bound callback.
-    //   If no context is supplied a the context is a new `Sammy.EventContext`
-    //
-    trigger: function(name, data) {
-      this.$element().trigger([name, this.eventNamespace()].join('.'), [data]);
-      return this;
-    },
-
-    // Reruns the current route
-    refresh: function() {
-      this.last_location = null;
-      this.trigger('location-changed');
-      return this;
-    },
-
-    // Takes a single callback that is pushed on to a stack.
-    // Before any route is run, the callbacks are evaluated in order within
-    // the current `Sammy.EventContext`
-    //
-    // If any of the callbacks explicitly return false, execution of any
-    // further callbacks and the route itself is halted.
-    //
-    // You can also provide a set of options that will define when to run this
-    // before based on the route it proceeds.
-    //
-    // ### Example
-    //
-    //      var app = $.sammy(function() {
-    //
-    //        // will run at #/route but not at #/
-    //        this.before('#/route', function() {
-    //          //...
-    //        });
-    //
-    //        // will run at #/ but not at #/route
-    //        this.before({except: {path: '#/route'}}, function() {
-    //          this.log('not before #/route');
-    //        });
-    //
-    //        this.get('#/', function() {});
-    //
-    //        this.get('#/route', function() {});
-    //
-    //      });
-    //
-    // See `contextMatchesOptions()` for a full list of supported options
-    //
-    before: function(options, callback) {
-      if (_isFunction(options)) {
-        callback = options;
-        options = {};
-      }
-      this.befores.push([options, callback]);
-      return this;
-    },
-
-    // A shortcut for binding a callback to be run after a route is executed.
-    // After callbacks have no guarunteed order.
-    after: function(callback) {
-      return this.bind('event-context-after', callback);
-    },
-
-
-    // Adds an around filter to the application. around filters are functions
-    // that take a single argument `callback` which is the entire route
-    // execution path wrapped up in a closure. This means you can decide whether
-    // or not to proceed with execution by not invoking `callback` or,
-    // more usefully wrapping callback inside the result of an asynchronous execution.
-    //
-    // ### Example
-    //
-    // The most common use case for around() is calling a _possibly_ async function
-    // and executing the route within the functions callback:
-    //
-    //      var app = $.sammy(function() {
-    //
-    //        var current_user = false;
-    //
-    //        function checkLoggedIn(callback) {
-    //          // /session returns a JSON representation of the logged in user
-    //          // or an empty object
-    //          if (!current_user) {
-    //            $.getJSON('/session', function(json) {
-    //              if (json.login) {
-    //                // show the user as logged in
-    //                current_user = json;
-    //                // execute the route path
-    //                callback();
-    //              } else {
-    //                // show the user as not logged in
-    //                current_user = false;
-    //                // the context of aroundFilters is an EventContext
-    //                this.redirect('#/login');
-    //              }
-    //            });
-    //          } else {
-    //            // execute the route path
-    //            callback();
-    //          }
-    //        };
-    //
-    //        this.around(checkLoggedIn);
-    //
-    //      });
-    //
-    around: function(callback) {
-      this.arounds.push(callback);
-      return this;
-    },
-
-    // Adds a onComplete function to the application. onComplete functions are executed
-    // at the end of a chain of route callbacks, if they call next(). Unlike after,
-    // which is called as soon as the route is complete, onComplete is like a final next()
-    // for all routes, and is thus run asynchronously
-    //
-    // ### Example
-    //
-    // app.get('/chain',function(context,next){
-    //     console.log('chain1');
-    //    next();
-    // },function(context,next){
-    //     console.log('chain2');
-    //    next();
-    // });
-    // app.get('/link',function(context,next){
-    //     console.log('link1');
-    //    next();
-    // },function(context,next){
-    //     console.log('link2');
-    //    next();
-    // });
-    // app.onComplete(function(){
-    //     console.log("Running finally")
-    // });
-    //
-    // If you go to '/chain', you will get the following messages:
-    //   chain1
-    //   chain2
-    //   Running onComplete
-    //
-    //
-    // If you go to /link, you will get the following messages:
-    //   link1
-    //   link2
-    //   Running onComplete
-    //
-    // It really comes to play when doing asynchronous:
-    // app.get('/chain',function(context,next){
-    //    $.get('/my/url',function(){
-    //       console.log('chain1');
-    //      next();
-    //    })
-    // },function(context,next){
-    //     console.log('chain2');
-    //    next();
-    // });
-    //
-    onComplete: function(callback) {
-      this._onComplete = callback;
-      return this;
-    },
-
-    // Returns `true` if the current application is running.
-    isRunning: function() {
-      return this._running;
-    },
-
-    // Helpers extends the EventContext prototype specific to this app.
-    // This allows you to define app specific helper functions that can be used
-    // whenever you're inside of an event context (templates, routes, bind).
-    //
-    // ### Example
-    //
-    //     var app = $.sammy(function() {
-    //
-    //       helpers({
-    //         upcase: function(text) {
-    //          return text.toString().toUpperCase();
-    //         }
-    //       });
-    //
-    //       get('#/', function() { with(this) {
-    //         // inside of this context I can use the helpers
-    //         $('#main').html(upcase($('#main').text());
-    //       }});
-    //
-    //     });
-    //
-    //
-    // ### Arguments
-    //
-    // * `extensions` An object collection of functions to extend the context.
-    //
-    helpers: function(extensions) {
-      $.extend(this.context_prototype.prototype, extensions);
-      return this;
-    },
-
-    // Helper extends the event context just like `helpers()` but does it
-    // a single method at a time. This is especially useful for dynamically named
-    // helpers
-    //
-    // ### Example
-    //
-    //     // Trivial example that adds 3 helper methods to the context dynamically
-    //     var app = $.sammy(function(app) {
-    //
-    //       $.each([1,2,3], function(i, num) {
-    //         app.helper('helper' + num, function() {
-    //           this.log("I'm helper number " + num);
-    //         });
-    //       });
-    //
-    //       this.get('#/', function() {
-    //         this.helper2(); //=> I'm helper number 2
-    //       });
-    //     });
-    //
-    // ### Arguments
-    //
-    // * `name` The name of the method
-    // * `method` The function to be added to the prototype at `name`
-    //
-    helper: function(name, method) {
-      this.context_prototype.prototype[name] = method;
-      return this;
-    },
-
-    // Actually starts the application's lifecycle. `run()` should be invoked
-    // within a document.ready block to ensure the DOM exists before binding events, etc.
-    //
-    // ### Example
-    //
-    //     var app = $.sammy(function() { ... }); // your application
-    //     $(function() { // document.ready
-    //        app.run();
-    //     });
-    //
-    // ### Arguments
-    //
-    // * `start_url` Optionally, a String can be passed which the App will redirect to
-    //   after the events/routes have been bound.
-    run: function(start_url) {
-      if (this.isRunning()) { return false; }
-      var app = this;
-
-      // actually bind all the listeners
-      $.each(this.listeners.toHash(), function(name, callbacks) {
-        $.each(callbacks, function(i, listener_callback) {
-          app._listen(name, listener_callback);
-        });
-      });
-
-      this.trigger('run', {start_url: start_url});
-      this._running = true;
-      // set last location
-      this.last_location = null;
-      if (!(/\#(.+)/.test(this.getLocation())) && typeof start_url != 'undefined') {
-        this.setLocation(start_url);
-      }
-      // check url
-      this._checkLocation();
-      this._location_proxy.bind();
-      this.bind('location-changed', function() {
-        app._checkLocation();
-      });
-
-      // bind to submit to capture post/put/delete routes
-      this.bind('submit', function(e) {
-        if ( !Sammy.targetIsThisWindow(e) ) { return true; }
-        var returned = app._checkFormSubmission($(e.target).closest('form'));
-        return (returned === false) ? e.preventDefault() : false;
-      });
-
-      // bind unload to body unload
-      $(window).bind('unload', function() {
-        app.unload();
-      });
-
-      // trigger html changed
-      return this.trigger('changed');
-    },
-
-    // The opposite of `run()`, un-binds all event listeners and intervals
-    // `run()` Automatically binds a `onunload` event to run this when
-    // the document is closed.
-    unload: function() {
-      if (!this.isRunning()) { return false; }
-      var app = this;
-      this.trigger('unload');
-      // clear interval
-      this._location_proxy.unbind();
-      // unbind form submits
-      this.$element().unbind('submit').removeClass(app.eventNamespace());
-      // unbind all events
-      $.each(this.listeners.toHash() , function(name, listeners) {
-        $.each(listeners, function(i, listener_callback) {
-          app._unlisten(name, listener_callback);
-        });
-      });
-      this._running = false;
-      return this;
-    },
-
-    // Not only runs `unbind` but also destroys the app reference.
-    destroy: function() {
-      this.unload();
-      delete Sammy.apps[this.element_selector];
-      return this;
-    },
-
-    // Will bind a single callback function to every event that is already
-    // being listened to in the app. This includes all the `APP_EVENTS`
-    // as well as any custom events defined with `bind()`.
-    //
-    // Used internally for debug logging.
-    bindToAllEvents: function(callback) {
-      var app = this;
-      // bind to the APP_EVENTS first
-      $.each(this.APP_EVENTS, function(i, e) {
-        app.bind(e, callback);
-      });
-      // next, bind to listener names (only if they dont exist in APP_EVENTS)
-      $.each(this.listeners.keys(true), function(i, name) {
-        if ($.inArray(name, app.APP_EVENTS) == -1) {
-          app.bind(name, callback);
-        }
-      });
-      return this;
-    },
-
-    // Returns a copy of the given path with any query string after the hash
-    // removed.
-    routablePath: function(path) {
-      return path.replace(QUERY_STRING_MATCHER, '');
-    },
-
-    // Given a verb and a String path, will return either a route object or false
-    // if a matching route can be found within the current defined set.
-    lookupRoute: function(verb, path) {
-      var app = this, routed = false, i = 0, l, route;
-      if (typeof this.routes[verb] != 'undefined') {
-        l = this.routes[verb].length;
-        for (; i < l; i++) {
-          route = this.routes[verb][i];
-          if (app.routablePath(path).match(route.path)) {
-            routed = route;
-            break;
-          }
-        }
-      }
-      return routed;
-    },
-
-    // First, invokes `lookupRoute()` and if a route is found, parses the
-    // possible URL params and then invokes the route's callback within a new
-    // `Sammy.EventContext`. If the route can not be found, it calls
-    // `notFound()`. If `raise_errors` is set to `true` and
-    // the `error()` has not been overridden, it will throw an actual JS
-    // error.
-    //
-    // You probably will never have to call this directly.
-    //
-    // ### Arguments
-    //
-    // * `verb` A String for the verb.
-    // * `path` A String path to lookup.
-    // * `params` An Object of Params pulled from the URI or passed directly.
-    //
-    // ### Returns
-    //
-    // Either returns the value returned by the route callback or raises a 404 Not Found error.
-    //
-    runRoute: function(verb, path, params, target) {
-      var app = this,
-          route = this.lookupRoute(verb, path),
-          context,
-          wrapped_route,
-          arounds,
-          around,
-          befores,
-          before,
-          callback_args,
-          path_params,
-          final_returned;
-
-      if (this.debug) {
-        this.log('runRoute', [verb, path].join(' '));
-      }
-
-      this.trigger('run-route', {verb: verb, path: path, params: params});
-      if (typeof params == 'undefined') { params = {}; }
-
-      $.extend(params, this._parseQueryString(path));
-
-      if (route) {
-        this.trigger('route-found', {route: route});
-        // pull out the params from the path
-        if ((path_params = route.path.exec(this.routablePath(path))) !== null) {
-          // first match is the full path
-          path_params.shift();
-          // for each of the matches
-          $.each(path_params, function(i, param) {
-            // if theres a matching param name
-            if (route.param_names[i]) {
-              // set the name to the match
-              params[route.param_names[i]] = _decode(param);
-            } else {
-              // initialize 'splat'
-              if (!params.splat) { params.splat = []; }
-              params.splat.push(_decode(param));
-            }
-          });
-        }
-
-        // set event context
-        context  = new this.context_prototype(this, verb, path, params, target);
-        // ensure arrays
-        arounds = this.arounds.slice(0);
-        befores = this.befores.slice(0);
-        // set the callback args to the context + contents of the splat
-        callback_args = [context];
-        if (params.splat) {
-          callback_args = callback_args.concat(params.splat);
-        }
-        // wrap the route up with the before filters
-        wrapped_route = function() {
-          var returned, i, nextRoute;
-          while (befores.length > 0) {
-            before = befores.shift();
-            // check the options
-            if (app.contextMatchesOptions(context, before[0])) {
-              returned = before[1].apply(context, [context]);
-              if (returned === false) { return false; }
-            }
-          }
-          app.last_route = route;
-          context.trigger('event-context-before', {context: context});
-          // run multiple callbacks
-          if (typeof(route.callback) === "function") {
-            route.callback = [route.callback];
-          }
-          if (route.callback && route.callback.length) {
-            i = -1;
-            nextRoute = function() {
-              i++;
-              if (route.callback[i]) {
-                returned = route.callback[i].apply(context,callback_args);
-              } else if (app._onComplete && typeof(app._onComplete === "function")) {
-                app._onComplete(context);
-              }
-            };
-            callback_args.push(nextRoute);
-            nextRoute();
-          }
-          context.trigger('event-context-after', {context: context});
-          return returned;
-        };
-        $.each(arounds.reverse(), function(i, around) {
-          var last_wrapped_route = wrapped_route;
-          wrapped_route = function() { return around.apply(context, [last_wrapped_route]); };
-        });
-        try {
-          final_returned = wrapped_route();
-        } catch(e) {
-          this.error(['500 Error', verb, path].join(' '), e);
-        }
-        return final_returned;
-      } else {
-        return this.notFound(verb, path);
-      }
-    },
-
-    // Matches an object of options against an `EventContext` like object that
-    // contains `path` and `verb` attributes. Internally Sammy uses this
-    // for matching `before()` filters against specific options. You can set the
-    // object to _only_ match certain paths or verbs, or match all paths or verbs _except_
-    // those that match the options.
-    //
-    // ### Example
-    //
-    //     var app = $.sammy(),
-    //         context = {verb: 'get', path: '#/mypath'};
-    //
-    //     // match against a path string
-    //     app.contextMatchesOptions(context, '#/mypath'); //=> true
-    //     app.contextMatchesOptions(context, '#/otherpath'); //=> false
-    //     // equivalent to
-    //     app.contextMatchesOptions(context, {only: {path:'#/mypath'}}); //=> true
-    //     app.contextMatchesOptions(context, {only: {path:'#/otherpath'}}); //=> false
-    //     // match against a path regexp
-    //     app.contextMatchesOptions(context, /path/); //=> true
-    //     app.contextMatchesOptions(context, /^path/); //=> false
-    //     // match only a verb
-    //     app.contextMatchesOptions(context, {only: {verb:'get'}}); //=> true
-    //     app.contextMatchesOptions(context, {only: {verb:'post'}}); //=> false
-    //     // match all except a verb
-    //     app.contextMatchesOptions(context, {except: {verb:'post'}}); //=> true
-    //     app.contextMatchesOptions(context, {except: {verb:'get'}}); //=> false
-    //     // match all except a path
-    //     app.contextMatchesOptions(context, {except: {path:'#/otherpath'}}); //=> true
-    //     app.contextMatchesOptions(context, {except: {path:'#/mypath'}}); //=> false
-    //     // match multiple paths
-    //     app.contextMatchesOptions(context, {path: ['#/mypath', '#/otherpath']}); //=> true
-    //     app.contextMatchesOptions(context, {path: ['#/otherpath', '#/thirdpath']}); //=> false
-    //     // equivalent to
-    //     app.contextMatchesOptions(context, {only: {path: ['#/mypath', '#/otherpath']}}); //=> true
-    //     app.contextMatchesOptions(context, {only: {path: ['#/otherpath', '#/thirdpath']}}); //=> false
-    //     // match all except multiple paths
-    //     app.contextMatchesOptions(context, {except: {path: ['#/mypath', '#/otherpath']}}); //=> false
-    //     app.contextMatchesOptions(context, {except: {path: ['#/otherpath', '#/thirdpath']}}); //=> true
-    //
-    contextMatchesOptions: function(context, match_options, positive) {
-      var options = match_options;
-      // normalize options
-      if (typeof options === 'string' || _isRegExp(options)) {
-        options = {path: options};
-      }
-      if (typeof positive === 'undefined') {
-        positive = true;
-      }
-      // empty options always match
-      if ($.isEmptyObject(options)) {
-        return true;
-      }
-      // Do we have to match against multiple paths?
-      if (_isArray(options.path)){
-        var results, numopt, opts, len;
-        results = [];
-        for (numopt = 0, len = options.path.length; numopt < len; numopt += 1) {
-          opts = $.extend({}, options, {path: options.path[numopt]});
-          results.push(this.contextMatchesOptions(context, opts));
-        }
-        var matched = $.inArray(true, results) > -1 ? true : false;
-        return positive ? matched : !matched;
-      }
-      if (options.only) {
-        return this.contextMatchesOptions(context, options.only, true);
-      } else if (options.except) {
-        return this.contextMatchesOptions(context, options.except, false);
-      }
-      var path_matched = true, verb_matched = true;
-      if (options.path) {
-        if (!_isRegExp(options.path)) {
-          options.path = new RegExp(options.path.toString() + '$');
-        }
-        path_matched = options.path.test(context.path);
-      }
-      if (options.verb) {
-        if(typeof options.verb === 'string') {
-          verb_matched = options.verb === context.verb;
-        } else {
-          verb_matched = options.verb.indexOf(context.verb) > -1;
-        }
-      }
-      return positive ? (verb_matched && path_matched) : !(verb_matched && path_matched);
-    },
-
-
-    // Delegates to the `location_proxy` to get the current location.
-    // See `Sammy.DefaultLocationProxy` for more info on location proxies.
-    getLocation: function() {
-      return this._location_proxy.getLocation();
-    },
-
-    // Delegates to the `location_proxy` to set the current location.
-    // See `Sammy.DefaultLocationProxy` for more info on location proxies.
-    //
-    // ### Arguments
-    //
-    // * `new_location` A new location string (e.g. '#/')
-    //
-    setLocation: function(new_location) {
-      return this._location_proxy.setLocation(new_location);
-    },
-
-    // Swaps the content of `$element()` with `content`
-    // You can override this method to provide an alternate swap behavior
-    // for `EventContext.partial()`.
-    //
-    // ### Example
-    //
-    //      var app = $.sammy(function() {
-    //
-    //        // implements a 'fade out'/'fade in'
-    //        this.swap = function(content, callback) {
-    //          var context = this;
-    //          context.$element().fadeOut('slow', function() {
-    //            context.$element().html(content);
-    //            context.$element().fadeIn('slow', function() {
-    //              if (callback) {
-    //                callback.apply();
-    //              }
-    //            });
-    //          });
-    //        };
-    //
-    //      });
-    //
-    swap: function(content, callback) {
-      var $el = this.$element().html(content);
-      if (_isFunction(callback)) { callback(content); }
-      return $el;
-    },
-
-    // a simple global cache for templates. Uses the same semantics as
-    // `Sammy.Cache` and `Sammy.Storage` so can easily be replaced with
-    // a persistent storage that lasts beyond the current request.
-    templateCache: function(key, value) {
-      if (typeof value != 'undefined') {
-        return _template_cache[key] = value;
-      } else {
-        return _template_cache[key];
-      }
-    },
-
-    // clear the templateCache
-    clearTemplateCache: function() {
-      return (_template_cache = {});
-    },
-
-    // This throws a '404 Not Found' error by invoking `error()`.
-    // Override this method or `error()` to provide custom
-    // 404 behavior (i.e redirecting to / or showing a warning)
-    notFound: function(verb, path) {
-      var ret = this.error(['404 Not Found', verb, path].join(' '));
-      return (verb === 'get') ? ret : true;
-    },
-
-    // The base error handler takes a string `message` and an `Error`
-    // object. If `raise_errors` is set to `true` on the app level,
-    // this will re-throw the error to the browser. Otherwise it will send the error
-    // to `log()`. Override this method to provide custom error handling
-    // e.g logging to a server side component or displaying some feedback to the
-    // user.
-    error: function(message, original_error) {
-      if (!original_error) { original_error = new Error(); }
-      original_error.message = [message, original_error.message].join(' ');
-      this.trigger('error', {message: original_error.message, error: original_error});
-      if (this.raise_errors) {
-        throw(original_error);
-      } else {
-        this.log(original_error.message, original_error);
-      }
-    },
-
-    _checkLocation: function() {
-      var location, returned;
-      // get current location
-      location = this.getLocation();
-      // compare to see if hash has changed
-      if (!this.last_location || this.last_location[0] != 'get' || this.last_location[1] != location) {
-        // reset last location
-        this.last_location = ['get', location];
-        // lookup route for current hash
-        returned = this.runRoute('get', location);
-      }
-      return returned;
-    },
-
-    _getFormVerb: function(form) {
-      var $form = $(form), verb, $_method;
-      $_method = $form.find('input[name="_method"]');
-      if ($_method.length > 0) { verb = $_method.val(); }
-      if (!verb) { verb = $form[0].getAttribute('method'); }
-      if (!verb || verb === '') { verb = 'get'; }
-      return $.trim(verb.toString().toLowerCase());
-    },
-
-    _checkFormSubmission: function(form) {
-      var $form, path, verb, params, returned;
-      this.trigger('check-form-submission', {form: form});
-      $form = $(form);
-      path  = $form.attr('action') || '';
-      verb  = this._getFormVerb($form);
-
-      if (this.debug) {
-        this.log('_checkFormSubmission', $form, path, verb);
-      }
-
-      if (verb === 'get') {
-        params = this._serializeFormParams($form);
-        if (params !== '') { path += '?' + params; }
-        this.setLocation(path);
-        returned = false;
-      } else {
-        params = $.extend({}, this._parseFormParams($form));
-        returned = this.runRoute(verb, path, params, form.get(0));
-      }
-      return (typeof returned == 'undefined') ? false : returned;
-    },
-
-    _serializeFormParams: function($form) {
-       var queryString = "",
-         fields = $form.serializeArray(),
-         i;
-       if (fields.length > 0) {
-         queryString = this._encodeFormPair(fields[0].name, fields[0].value);
-         for (i = 1; i < fields.length; i++) {
-           queryString = queryString + "&" + this._encodeFormPair(fields[i].name, fields[i].value);
-         }
-       }
-       return queryString;
-    },
-
-    _encodeFormPair: function(name, value){
-      return _encode(name) + "=" + _encode(value);
-    },
-
-    _parseFormParams: function($form) {
-      var params = {},
-          form_fields = $form.serializeArray(),
-          i;
-      for (i = 0; i < form_fields.length; i++) {
-        params = this._parseParamPair(params, form_fields[i].name, form_fields[i].value);
-      }
-      return params;
-    },
-
-    _parseQueryString: function(path) {
-      var params = {}, parts, pairs, pair, i;
-
-      parts = path.match(QUERY_STRING_MATCHER);
-      if (parts && parts[1]) {
-        pairs = parts[1].split('&');
-        for (i = 0; i < pairs.length; i++) {
-          pair = pairs[i].split('=');
-          params = this._parseParamPair(params, _decode(pair[0]), _decode(pair[1] || ""));
-        }
-      }
-      return params;
-    },
-
-    _parseParamPair: function(params, key, value) {
-      if (typeof params[key] !== 'undefined') {
-        if (_isArray(params[key])) {
-          params[key].push(value);
-        } else {
-          params[key] = [params[key], value];
-        }
-      } else {
-        params[key] = value;
-      }
-      return params;
-    },
-
-    _listen: function(name, callback) {
-      return this.$element().bind([name, this.eventNamespace()].join('.'), callback);
-    },
-
-    _unlisten: function(name, callback) {
-      return this.$element().unbind([name, this.eventNamespace()].join('.'), callback);
-    }
-
-  });
-
-  // `Sammy.RenderContext` is an object that makes sequential template loading,
-  // rendering and interpolation seamless even when dealing with asynchronous
-  // operations.
-  //
-  // `RenderContext` objects are not usually created directly, rather they are
-  // instantiated from an `Sammy.EventContext` by using `render()`, `load()` or
-  // `partial()` which all return `RenderContext` objects.
-  //
-  // `RenderContext` methods always returns a modified `RenderContext`
-  // for chaining (like jQuery itself).
-  //
-  // The core magic is in the `then()` method which puts the callback passed as
-  // an argument into a queue to be executed once the previous callback is complete.
-  // All the methods of `RenderContext` are wrapped in `then()` which allows you
-  // to queue up methods by chaining, but maintaining a guaranteed execution order
-  // even with remote calls to fetch templates.
-  //
-  Sammy.RenderContext = function(event_context) {
-    this.event_context    = event_context;
-    this.callbacks        = [];
-    this.previous_content = null;
-    this.content          = null;
-    this.next_engine      = false;
-    this.waiting          = false;
-  };
-
-  Sammy.RenderContext.prototype = $.extend({}, Sammy.Object.prototype, {
-
-    // The "core" of the `RenderContext` object, adds the `callback` to the
-    // queue. If the context is `waiting` (meaning an async operation is happening)
-    // then the callback will be executed in order, once the other operations are
-    // complete. If there is no currently executing operation, the `callback`
-    // is executed immediately.
-    //
-    // The value returned from the callback is stored in `content` for the
-    // subsequent operation. If you return `false`, the queue will pause, and
-    // the next callback in the queue will not be executed until `next()` is
-    // called. This allows for the guaranteed order of execution while working
-    // with async operations.
-    //
-    // If then() is passed a string instead of a function, the string is looked
-    // up as a helper method on the event context.
-    //
-    // ### Example
-    //
-    //      this.get('#/', function() {
-    //        // initialize the RenderContext
-    //        // Even though `load()` executes async, the next `then()`
-    //        // wont execute until the load finishes
-    //        this.load('myfile.txt')
-    //            .then(function(content) {
-    //              // the first argument to then is the content of the
-    //              // prev operation
-    //              $('#main').html(content);
-    //            });
-    //      });
-    //
-    then: function(callback) {
-      if (!_isFunction(callback)) {
-        // if a string is passed to then, assume we want to call
-        // a helper on the event context in its context
-        if (typeof callback === 'string' && callback in this.event_context) {
-          var helper = this.event_context[callback];
-          callback = function(content) {
-            return helper.apply(this.event_context, [content]);
-          };
-        } else {
-          return this;
-        }
-      }
-      var context = this;
-      if (this.waiting) {
-        this.callbacks.push(callback);
-      } else {
-        this.wait();
-        window.setTimeout(function() {
-          var returned = callback.apply(context, [context.content, context.previous_content]);
-          if (returned !== false) {
-            context.next(returned);
-          }
-        }, 0);
-      }
-      return this;
-    },
-
-    // Pause the `RenderContext` queue. Combined with `next()` allows for async
-    // operations.
-    //
-    // ### Example
-    //
-    //        this.get('#/', function() {
-    //          this.load('mytext.json')
-    //              .then(function(content) {
-    //                var context = this,
-    //                    data    = JSON.parse(content);
-    //                // pause execution
-    //                context.wait();
-    //                // post to a url
-    //                $.post(data.url, {}, function(response) {
-    //                  context.next(JSON.parse(response));
-    //                });
-    //              })
-    //              .then(function(data) {
-    //                // data is json from the previous post
-    //                $('#message').text(data.status);
-    //              });
-    //        });
-    wait: function() {
-      this.waiting = true;
-    },
-
-    // Resume the queue, setting `content` to be used in the next operation.
-    // See `wait()` for an example.
-    next: function(content) {
-      this.waiting = false;
-      if (typeof content !== 'undefined') {
-        this.previous_content = this.content;
-        this.content = content;
-      }
-      if (this.callbacks.length > 0) {
-        this.then(this.callbacks.shift());
-      }
-    },
-
-    // Load a template into the context.
-    // The `location` can either be a string specifying the remote path to the
-    // file, a jQuery object, or a DOM element.
-    //
-    // No interpolation happens by default, the content is stored in
-    // `content`.
-    //
-    // In the case of a path, unless the option `{cache: false}` is passed the
-    // data is stored in the app's `templateCache()`.
-    //
-    // If a jQuery or DOM object is passed the `innerHTML` of the node is pulled in.
-    // This is useful for nesting templates as part of the initial page load wrapped
-    // in invisible elements or `<script>` tags. With template paths, the template
-    // engine is looked up by the extension. For DOM/jQuery embedded templates,
-    // this isnt possible, so there are a couple of options:
-    //
-    //  * pass an `{engine:}` option.
-    //  * define the engine in the `data-engine` attribute of the passed node.
-    //  * just store the raw template data and use `interpolate()` manually
-    //
-    // If a `callback` is passed it is executed after the template load.
-    load: function(location, options, callback) {
-      var context = this;
-      return this.then(function() {
-        var should_cache, cached, is_json, location_array;
-        if (_isFunction(options)) {
-          callback = options;
-          options = {};
-        } else {
-          options = $.extend({}, options);
-        }
-        if (callback) { this.then(callback); }
-        if (typeof location === 'string') {
-          // it's a path
-          is_json      = (location.match(/\.json$/) || options.json);
-          should_cache = is_json ? options.cache === true : options.cache !== false;
-          context.next_engine = context.event_context.engineFor(location);
-          delete options.cache;
-          delete options.json;
-          if (options.engine) {
-            context.next_engine = options.engine;
-            delete options.engine;
-          }
-          if (should_cache && (cached = this.event_context.app.templateCache(location))) {
-            return cached;
-          }
-          this.wait();
-          $.ajax($.extend({
-            url: location,
-            data: {},
-            dataType: is_json ? 'json' : 'text',
-            type: 'get',
-            success: function(data) {
-              if (should_cache) {
-                context.event_context.app.templateCache(location, data);
-              }
-              context.next(data);
-            }
-          }, options));
-          return false;
-        } else {
-          // it's a dom/jQuery
-          if (location.nodeType) {
-            return location.innerHTML;
-          }
-          if (location.selector) {
-            // it's a jQuery
-            context.next_engine = location.attr('data-engine');
-            if (options.clone === false) {
-              return location.remove()[0].innerHTML.toString();
-            } else {
-              return location[0].innerHTML.toString();
-            }
-          }
-        }
-      });
-    },
-
-    // Load partials
-    //
-    // ### Example
-    //
-    //      this.loadPartials({mypartial: '/path/to/partial'});
-    //
-    loadPartials: function(partials) {
-      var name;
-      if(partials) {
-        this.partials = this.partials || {};
-        for(name in partials) {
-          (function(context, name) {
-            context.load(partials[name])
-                   .then(function(template) {
-                     this.partials[name] = template;
-                   });
-          })(this, name);
-        }
-      }
-      return this;
-    },
-
-    // `load()` a template and then `interpolate()` it with data.
-    //
-    // can be called with multiple different signatures:
-    //
-    //      this.render(callback);
-    //      this.render('/location');
-    //      this.render('/location', {some: data});
-    //      this.render('/location', callback);
-    //      this.render('/location', {some: data}, callback);
-    //      this.render('/location', {some: data}, {my: partials});
-    //      this.render('/location', callback, {my: partials});
-    //      this.render('/location', {some: data}, callback, {my: partials});
-    //
-    // ### Example
-    //
-    //      this.get('#/', function() {
-    //        this.render('mytemplate.template', {name: 'test'});
-    //      });
-    //
-    render: function(location, data, callback, partials) {
-      if (_isFunction(location) && !data) {
-        // invoked as render(callback)
-        return this.then(location);
-      } else {
-        if(_isFunction(data)) {
-          // invoked as render(location, callback, [partials])
-          partials = callback;
-          callback = data;
-          data = null;
-        } else if(callback && !_isFunction(callback)) {
-          // invoked as render(location, data, partials)
-          partials = callback;
-          callback = null;
-        }
-
-        return this.loadPartials(partials)
-                   .load(location)
-                   .interpolate(data, location)
-                   .then(callback);
-      }
-    },
-
-    // `render()` the `location` with `data` and then `swap()` the
-    // app's `$element` with the rendered content.
-    partial: function(location, data, callback, partials) {
-      if (_isFunction(callback)) {
-        // invoked as partial(location, data, callback, [partials])
-        return this.render(location, data, partials).swap(callback);
-      } else if (_isFunction(data)) {
-        // invoked as partial(location, callback, [partials])
-        return this.render(location, {}, callback).swap(data);
-      } else {
-        // invoked as partial(location, data, [partials])
-        return this.render(location, data, callback).swap();
-      }
-    },
-
-    // defers the call of function to occur in order of the render queue.
-    // The function can accept any number of arguments as long as the last
-    // argument is a callback function. This is useful for putting arbitrary
-    // asynchronous functions into the queue. The content passed to the
-    // callback is passed as `content` to the next item in the queue.
-    //
-    // ### Example
-    //
-    //     this.send($.getJSON, '/app.json')
-    //         .then(function(json) {
-    //           $('#message).text(json['message']);
-    //          });
-    //
-    //
-    send: function() {
-      var context = this,
-          args = _makeArray(arguments),
-          fun  = args.shift();
-
-      if (_isArray(args[0])) { args = args[0]; }
-
-      return this.then(function(content) {
-        args.push(function(response) { context.next(response); });
-        context.wait();
-        fun.apply(fun, args);
-        return false;
-      });
-    },
-
-    // iterates over an array, applying the callback for each item item. the
-    // callback takes the same style of arguments as `jQuery.each()` (index, item).
-    // The return value of each callback is collected as a single string and stored
-    // as `content` to be used in the next iteration of the `RenderContext`.
-    collect: function(array, callback, now) {
-      var context = this;
-      var coll = function() {
-        if (_isFunction(array)) {
-          callback = array;
-          array = this.content;
-        }
-        var contents = [], doms = false;
-        $.each(array, function(i, item) {
-          var returned = callback.apply(context, [i, item]);
-          if (returned.jquery && returned.length == 1) {
-            returned = returned[0];
-            doms = true;
-          }
-          contents.push(returned);
-          return returned;
-        });
-        return doms ? contents : contents.join('');
-      };
-      return now ? coll() : this.then(coll);
-    },
-
-    // loads a template, and then interpolates it for each item in the `data`
-    // array. If a callback is passed, it will call the callback with each
-    // item in the array _after_ interpolation
-    renderEach: function(location, name, data, callback) {
-      if (_isArray(name)) {
-        callback = data;
-        data = name;
-        name = null;
-      }
-      return this.load(location).then(function(content) {
-          var rctx = this;
-          if (!data) {
-            data = _isArray(this.previous_content) ? this.previous_content : [];
-          }
-          if (callback) {
-            $.each(data, function(i, value) {
-              var idata = {}, engine = this.next_engine || location;
-              if (name) {
-                idata[name] = value;
-              } else {
-                idata = value;
-              }
-              callback(value, rctx.event_context.interpolate(content, idata, engine));
-            });
-          } else {
-            return this.collect(data, function(i, value) {
-              var idata = {}, engine = this.next_engine || location;
-              if (name) {
-                idata[name] = value;
-              } else {
-                idata = value;
-              }
-              return this.event_context.interpolate(content, idata, engine);
-            }, true);
-          }
-      });
-    },
-
-    // uses the previous loaded `content` and the `data` object to interpolate
-    // a template. `engine` defines the templating/interpolation method/engine
-    // that should be used. If `engine` is not passed, the `next_engine` is
-    // used. If `retain` is `true`, the final interpolated data is appended to
-    // the `previous_content` instead of just replacing it.
-    interpolate: function(data, engine, retain) {
-      var context = this;
-      return this.then(function(content, prev) {
-        if (!data && prev) { data = prev; }
-        if (this.next_engine) {
-          engine = this.next_engine;
-          this.next_engine = false;
-        }
-        var rendered = context.event_context.interpolate(content, data, engine, this.partials);
-        return retain ? prev + rendered : rendered;
-      });
-    },
-
-    // Swap the return contents ensuring order. See `Application#swap`
-    swap: function(callback) {
-      return this.then(function(content) {
-        this.event_context.swap(content, callback);
-        return content;
-      }).trigger('changed', {});
-    },
-
-    // Same usage as `jQuery.fn.appendTo()` but uses `then()` to ensure order
-    appendTo: function(selector) {
-      return this.then(function(content) {
-        $(selector).append(content);
-      }).trigger('changed', {});
-    },
-
-    // Same usage as `jQuery.fn.prependTo()` but uses `then()` to ensure order
-    prependTo: function(selector) {
-      return this.then(function(content) {
-        $(selector).prepend(content);
-      }).trigger('changed', {});
-    },
-
-    // Replaces the `$(selector)` using `html()` with the previously loaded
-    // `content`
-    replace: function(selector) {
-      return this.then(function(content) {
-        $(selector).html(content);
-      }).trigger('changed', {});
-    },
-
-    // trigger the event in the order of the event context. Same semantics
-    // as `Sammy.EventContext#trigger()`. If data is omitted, `content`
-    // is sent as `{content: content}`
-    trigger: function(name, data) {
-      return this.then(function(content) {
-        if (typeof data == 'undefined') { data = {content: content}; }
-        this.event_context.trigger(name, data);
-        return content;
-      });
-    }
-
-  });
-
-  // `Sammy.EventContext` objects are created every time a route is run or a
-  // bound event is triggered. The callbacks for these events are evaluated within a `Sammy.EventContext`
-  // This within these callbacks the special methods of `EventContext` are available.
-  //
-  // ### Example
-  //
-  //       $.sammy(function() {
-  //         // The context here is this Sammy.Application
-  //         this.get('#/:name', function() {
-  //           // The context here is a new Sammy.EventContext
-  //           if (this.params['name'] == 'sammy') {
-  //             this.partial('name.html.erb', {name: 'Sammy'});
-  //           } else {
-  //             this.redirect('#/somewhere-else')
-  //           }
-  //         });
-  //       });
-  //
-  // Initialize a new EventContext
-  //
-  // ### Arguments
-  //
-  // * `app` The `Sammy.Application` this event is called within.
-  // * `verb` The verb invoked to run this context/route.
-  // * `path` The string path invoked to run this context/route.
-  // * `params` An Object of optional params to pass to the context. Is converted
-  //   to a `Sammy.Object`.
-  // * `target` a DOM element that the event that holds this context originates
-  //   from. For post, put and del routes, this is the form element that triggered
-  //   the route.
-  //
-  Sammy.EventContext = function(app, verb, path, params, target) {
-    this.app    = app;
-    this.verb   = verb;
-    this.path   = path;
-    this.params = new Sammy.Object(params);
-    this.target = target;
-  };
-
-  Sammy.EventContext.prototype = $.extend({}, Sammy.Object.prototype, {
-
-    // A shortcut to the app's `$element()`
-    $element: function() {
-      return this.app.$element(_makeArray(arguments).shift());
-    },
-
-    // Look up a templating engine within the current app and context.
-    // `engine` can be one of the following:
-    //
-    // * a function: should conform to `function(content, data) { return interpolated; }`
-    // * a template path: 'template.ejs', looks up the extension to match to
-    //   the `ejs()` helper
-    // * a string referring to the helper: "mustache" => `mustache()`
-    //
-    // If no engine is found, use the app's default `template_engine`
-    //
-    engineFor: function(engine) {
-      var context = this, engine_match;
-      // if path is actually an engine function just return it
-      if (_isFunction(engine)) { return engine; }
-      // lookup engine name by path extension
-      engine = (engine || context.app.template_engine).toString();
-      if ((engine_match = engine.match(/\.([^\.\?\#]+)$/))) {
-        engine = engine_match[1];
-      }
-      // set the engine to the default template engine if no match is found
-      if (engine && _isFunction(context[engine])) {
-        return context[engine];
-      }
-
-      if (context.app.template_engine) {
-        return this.engineFor(context.app.template_engine);
-      }
-      return function(content, data) { return content; };
-    },
-
-    // using the template `engine` found with `engineFor()`, interpolate the
-    // `data` into `content`
-    interpolate: function(content, data, engine, partials) {
-      return this.engineFor(engine).apply(this, [content, data, partials]);
-    },
-
-    // Create and return a `Sammy.RenderContext` calling `render()` on it.
-    // Loads the template and interpolate the data, however does not actual
-    // place it in the DOM.
-    //
-    // ### Example
-    //
-    //      // mytemplate.mustache <div class="name">{{name}}</div>
-    //      render('mytemplate.mustache', {name: 'quirkey'});
-    //      // sets the `content` to <div class="name">quirkey</div>
-    //      render('mytemplate.mustache', {name: 'quirkey'})
-    //        .appendTo('ul');
-    //      // appends the rendered content to $('ul')
-    //
-    render: function(location, data, callback, partials) {
-      return new Sammy.RenderContext(this).render(location, data, callback, partials);
-    },
-
-    // Create and return a `Sammy.RenderContext` calling `renderEach()` on it.
-    // Loads the template and interpolates the data for each item,
-    // however does not actual place it in the DOM.
-    //
-    // ### Example
-    //
-    //      // mytemplate.mustache <div class="name">{{name}}</div>
-    //      renderEach('mytemplate.mustache', [{name: 'quirkey'}, {name: 'endor'}])
-    //      // sets the `content` to <div class="name">quirkey</div><div class="name">endor</div>
-    //      renderEach('mytemplate.mustache', [{name: 'quirkey'}, {name: 'endor'}]).appendTo('ul');
-    //      // appends the rendered content to $('ul')
-    //
-    renderEach: function(location, name, data, callback) {
-      return new Sammy.RenderContext(this).renderEach(location, name, data, callback);
-    },
-
-    // create a new `Sammy.RenderContext` calling `load()` with `location` and
-    // `options`. Called without interpolation or placement, this allows for
-    // preloading/caching the templates.
-    load: function(location, options, callback) {
-      return new Sammy.RenderContext(this).load(location, options, callback);
-    },
-
-    // create a new `Sammy.RenderContext` calling `loadPartials()` with `partials`.
-    loadPartials: function(partials) {
-      return new Sammy.RenderContext(this).loadPartials(partials);
-    },
-
-    // `render()` the `location` with `data` and then `swap()` the
-    // app's `$element` with the rendered content.
-    partial: function(location, data, callback, partials) {
-      return new Sammy.RenderContext(this).partial(location, data, callback, partials);
-    },
-
-    // create a new `Sammy.RenderContext` calling `send()` with an arbitrary
-    // function
-    send: function() {
-      var rctx = new Sammy.RenderContext(this);
-      return rctx.send.apply(rctx, arguments);
-    },
-
-    // Changes the location of the current window. If `to` begins with
-    // '#' it only changes the document's hash. If passed more than 1 argument
-    // redirect will join them together with forward slashes.
-    //
-    // ### Example
-    //
-    //      redirect('#/other/route');
-    //      // equivalent to
-    //      redirect('#', 'other', 'route');
-    //
-    redirect: function() {
-      var to, args = _makeArray(arguments),
-          current_location = this.app.getLocation(),
-          l = args.length;
-      if (l > 1) {
-        var i = 0, paths = [], pairs = [], params = {}, has_params = false;
-        for (; i < l; i++) {
-          if (typeof args[i] == 'string') {
-            paths.push(args[i]);
-          } else {
-            $.extend(params, args[i]);
-            has_params = true;
-          }
-        }
-        to = paths.join('/');
-        if (has_params) {
-          for (var k in params) {
-            pairs.push(this.app._encodeFormPair(k, params[k]));
-          }
-          to += '?' + pairs.join('&');
-        }
-      } else {
-        to = args[0];
-      }
-      this.trigger('redirect', {to: to});
-      this.app.last_location = [this.verb, this.path];
-      this.app.setLocation(to);
-      if (new RegExp(to).test(current_location)) {
-        this.app.trigger('location-changed');
-      }
-    },
-
-    // Triggers events on `app` within the current context.
-    trigger: function(name, data) {
-      if (typeof data == 'undefined') { data = {}; }
-      if (!data.context) { data.context = this; }
-      return this.app.trigger(name, data);
-    },
-
-    // A shortcut to app's `eventNamespace()`
-    eventNamespace: function() {
-      return this.app.eventNamespace();
-    },
-
-    // A shortcut to app's `swap()`
-    swap: function(contents, callback) {
-      return this.app.swap(contents, callback);
-    },
-
-    // Raises a possible `notFound()` error for the current path.
-    notFound: function() {
-      return this.app.notFound(this.verb, this.path);
-    },
-
-    // Default JSON parsing uses jQuery's `parseJSON()`. Include `Sammy.JSON`
-    // plugin for the more conformant "crockford special".
-    json: function(string) {
-      return $.parseJSON(string);
-    },
-
-    // //=> Sammy.EventContext: get #/ {}
-    toString: function() {
-      return "Sammy.EventContext: " + [this.verb, this.path, this.params].join(' ');
-    }
-
-  });
-
-  return Sammy;
-});
-})(jQuery, window);
-
 ///#source 1 1 /Templates/Freestyle learning/js/underscore-1.5.1.js
 //     Underscore.js 1.5.1
 //     http://underscorejs.org
@@ -13053,6 +10931,1945 @@ $.extend(Sammy.DefaultLocationProxy.prototype , {
   });
 
 }).call(this);
+
+///#source 1 1 /Templates/Freestyle learning/js/q.js
+// vim:ts=4:sts=4:sw=4:
+/*!
+ *
+ * Copyright 2009-2012 Kris Kowal under the terms of the MIT
+ * license found at http://github.com/kriskowal/q/raw/master/LICENSE
+ *
+ * With parts by Tyler Close
+ * Copyright 2007-2009 Tyler Close under the terms of the MIT X license found
+ * at http://www.opensource.org/licenses/mit-license.html
+ * Forked at ref_send.js version: 2009-05-11
+ *
+ * With parts by Mark Miller
+ * Copyright (C) 2011 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+(function (definition) {
+    // Turn off strict mode for this function so we can assign to global.Q
+    /* jshint strict: false */
+
+    // This file will function properly as a <script> tag, or a module
+    // using CommonJS and NodeJS or RequireJS module formats.  In
+    // Common/Node/RequireJS, the module exports the Q API and when
+    // executed as a simple <script>, it creates a Q global instead.
+
+    // Montage Require
+    if (typeof bootstrap === "function") {
+        bootstrap("promise", definition);
+
+    // CommonJS
+    } else if (typeof exports === "object") {
+        module.exports = definition();
+
+    // RequireJS
+    } else if (typeof define === "function" && define.amd) {
+        define(definition);
+
+    // SES (Secure EcmaScript)
+    } else if (typeof ses !== "undefined") {
+        if (!ses.ok()) {
+            return;
+        } else {
+            ses.makeQ = definition;
+        }
+
+    // <script>
+    } else {
+        Q = definition();
+    }
+
+})(function () {
+"use strict";
+
+var hasStacks = false;
+try {
+    throw new Error();
+} catch (e) {
+    hasStacks = !!e.stack;
+}
+
+// All code after this point will be filtered from stack traces reported
+// by Q.
+var qStartingLine = captureLine();
+var qFileName;
+
+// shims
+
+// used for fallback in "allResolved"
+var noop = function () {};
+
+// Use the fastest possible means to execute a task in a future turn
+// of the event loop.
+var nextTick =(function () {
+    // linked list of tasks (single, with head node)
+    var head = {task: void 0, next: null};
+    var tail = head;
+    var flushing = false;
+    var requestTick = void 0;
+    var isNodeJS = false;
+
+    function flush() {
+        /* jshint loopfunc: true */
+
+        while (head.next) {
+            head = head.next;
+            var task = head.task;
+            head.task = void 0;
+            var domain = head.domain;
+
+            if (domain) {
+                head.domain = void 0;
+                domain.enter();
+            }
+
+            try {
+                task();
+
+            } catch (e) {
+                if (isNodeJS) {
+                    // In node, uncaught exceptions are considered fatal errors.
+                    // Re-throw them synchronously to interrupt flushing!
+
+                    // Ensure continuation if the uncaught exception is suppressed
+                    // listening "uncaughtException" events (as domains does).
+                    // Continue in next event to avoid tick recursion.
+                    if (domain) {
+                        domain.exit();
+                    }
+                    setTimeout(flush, 0);
+                    if (domain) {
+                        domain.enter();
+                    }
+
+                    throw e;
+
+                } else {
+                    // In browsers, uncaught exceptions are not fatal.
+                    // Re-throw them asynchronously to avoid slow-downs.
+                    setTimeout(function() {
+                       throw e;
+                    }, 0);
+                }
+            }
+
+            if (domain) {
+                domain.exit();
+            }
+        }
+
+        flushing = false;
+    }
+
+    nextTick = function (task) {
+        tail = tail.next = {
+            task: task,
+            domain: isNodeJS && process.domain,
+            next: null
+        };
+
+        if (!flushing) {
+            flushing = true;
+            requestTick();
+        }
+    };
+
+    if (typeof process !== "undefined" && process.nextTick) {
+        // Node.js before 0.9. Note that some fake-Node environments, like the
+        // Mocha test runner, introduce a `process` global without a `nextTick`.
+        isNodeJS = true;
+
+        requestTick = function () {
+            process.nextTick(flush);
+        };
+
+    } else if (typeof setImmediate === "function") {
+        // In IE10, Node.js 0.9+, or https://github.com/NobleJS/setImmediate
+        if (typeof window !== "undefined") {
+            requestTick = setImmediate.bind(window, flush);
+        } else {
+            requestTick = function () {
+                setImmediate(flush);
+            };
+        }
+
+    } else if (typeof MessageChannel !== "undefined") {
+        // modern browsers
+        // http://www.nonblocking.io/2011/06/windownexttick.html
+        var channel = new MessageChannel();
+        // At least Safari Version 6.0.5 (8536.30.1) intermittently cannot create
+        // working message ports the first time a page loads.
+        channel.port1.onmessage = function () {
+            requestTick = requestPortTick;
+            channel.port1.onmessage = flush;
+            flush();
+        };
+        var requestPortTick = function () {
+            // Opera requires us to provide a message payload, regardless of
+            // whether we use it.
+            channel.port2.postMessage(0);
+        };
+        requestTick = function () {
+            setTimeout(flush, 0);
+            requestPortTick();
+        };
+
+    } else {
+        // old browsers
+        requestTick = function () {
+            setTimeout(flush, 0);
+        };
+    }
+
+    return nextTick;
+})();
+
+// Attempt to make generics safe in the face of downstream
+// modifications.
+// There is no situation where this is necessary.
+// If you need a security guarantee, these primordials need to be
+// deeply frozen anyway, and if you don’t need a security guarantee,
+// this is just plain paranoid.
+// However, this does have the nice side-effect of reducing the size
+// of the code by reducing x.call() to merely x(), eliminating many
+// hard-to-minify characters.
+// See Mark Miller’s explanation of what this does.
+// http://wiki.ecmascript.org/doku.php?id=conventions:safe_meta_programming
+var call = Function.call;
+function uncurryThis(f) {
+    return function () {
+        return call.apply(f, arguments);
+    };
+}
+// This is equivalent, but slower:
+// uncurryThis = Function_bind.bind(Function_bind.call);
+// http://jsperf.com/uncurrythis
+
+var array_slice = uncurryThis(Array.prototype.slice);
+
+var array_reduce = uncurryThis(
+    Array.prototype.reduce || function (callback, basis) {
+        var index = 0,
+            length = this.length;
+        // concerning the initial value, if one is not provided
+        if (arguments.length === 1) {
+            // seek to the first value in the array, accounting
+            // for the possibility that is is a sparse array
+            do {
+                if (index in this) {
+                    basis = this[index++];
+                    break;
+                }
+                if (++index >= length) {
+                    throw new TypeError();
+                }
+            } while (1);
+        }
+        // reduce
+        for (; index < length; index++) {
+            // account for the possibility that the array is sparse
+            if (index in this) {
+                basis = callback(basis, this[index], index);
+            }
+        }
+        return basis;
+    }
+);
+
+var array_indexOf = uncurryThis(
+    Array.prototype.indexOf || function (value) {
+        // not a very good shim, but good enough for our one use of it
+        for (var i = 0; i < this.length; i++) {
+            if (this[i] === value) {
+                return i;
+            }
+        }
+        return -1;
+    }
+);
+
+var array_map = uncurryThis(
+    Array.prototype.map || function (callback, thisp) {
+        var self = this;
+        var collect = [];
+        array_reduce(self, function (undefined, value, index) {
+            collect.push(callback.call(thisp, value, index, self));
+        }, void 0);
+        return collect;
+    }
+);
+
+var object_create = Object.create || function (prototype) {
+    function Type() { }
+    Type.prototype = prototype;
+    return new Type();
+};
+
+var object_hasOwnProperty = uncurryThis(Object.prototype.hasOwnProperty);
+
+var object_keys = Object.keys || function (object) {
+    var keys = [];
+    for (var key in object) {
+        if (object_hasOwnProperty(object, key)) {
+            keys.push(key);
+        }
+    }
+    return keys;
+};
+
+var object_toString = uncurryThis(Object.prototype.toString);
+
+function isObject(value) {
+    return value === Object(value);
+}
+
+// generator related shims
+
+// FIXME: Remove this function once ES6 generators are in SpiderMonkey.
+function isStopIteration(exception) {
+    return (
+        object_toString(exception) === "[object StopIteration]" ||
+        exception instanceof QReturnValue
+    );
+}
+
+// FIXME: Remove this helper and Q.return once ES6 generators are in
+// SpiderMonkey.
+var QReturnValue;
+if (typeof ReturnValue !== "undefined") {
+    QReturnValue = ReturnValue;
+} else {
+    QReturnValue = function (value) {
+        this.value = value;
+    };
+}
+
+// Until V8 3.19 / Chromium 29 is released, SpiderMonkey is the only
+// engine that has a deployed base of browsers that support generators.
+// However, SM's generators use the Python-inspired semantics of
+// outdated ES6 drafts.  We would like to support ES6, but we'd also
+// like to make it possible to use generators in deployed browsers, so
+// we also support Python-style generators.  At some point we can remove
+// this block.
+var hasES6Generators;
+try {
+    /* jshint evil: true, nonew: false */
+    new Function("(function* (){ yield 1; })");
+    hasES6Generators = true;
+} catch (e) {
+    hasES6Generators = false;
+}
+
+// long stack traces
+
+var STACK_JUMP_SEPARATOR = "From previous event:";
+
+function makeStackTraceLong(error, promise) {
+    // If possible, transform the error stack trace by removing Node and Q
+    // cruft, then concatenating with the stack trace of `promise`. See #57.
+    if (hasStacks &&
+        promise.stack &&
+        typeof error === "object" &&
+        error !== null &&
+        error.stack &&
+        error.stack.indexOf(STACK_JUMP_SEPARATOR) === -1
+    ) {
+        var stacks = [];
+        for (var p = promise; !!p; p = p.source) {
+            if (p.stack) {
+                stacks.unshift(p.stack);
+            }
+        }
+        stacks.unshift(error.stack);
+
+        var concatedStacks = stacks.join("\n" + STACK_JUMP_SEPARATOR + "\n");
+        error.stack = filterStackString(concatedStacks);
+    }
+}
+
+function filterStackString(stackString) {
+    var lines = stackString.split("\n");
+    var desiredLines = [];
+    for (var i = 0; i < lines.length; ++i) {
+        var line = lines[i];
+
+        if (!isInternalFrame(line) && !isNodeFrame(line) && line) {
+            desiredLines.push(line);
+        }
+    }
+    return desiredLines.join("\n");
+}
+
+function isNodeFrame(stackLine) {
+    return stackLine.indexOf("(module.js:") !== -1 ||
+           stackLine.indexOf("(node.js:") !== -1;
+}
+
+function getFileNameAndLineNumber(stackLine) {
+    // Named functions: "at functionName (filename:lineNumber:columnNumber)"
+    // In IE10 function name can have spaces ("Anonymous function") O_o
+    var attempt1 = /at .+ \((.+):(\d+):(?:\d+)\)$/.exec(stackLine);
+    if (attempt1) {
+        return [attempt1[1], Number(attempt1[2])];
+    }
+
+    // Anonymous functions: "at filename:lineNumber:columnNumber"
+    var attempt2 = /at ([^ ]+):(\d+):(?:\d+)$/.exec(stackLine);
+    if (attempt2) {
+        return [attempt2[1], Number(attempt2[2])];
+    }
+
+    // Firefox style: "function@filename:lineNumber or @filename:lineNumber"
+    var attempt3 = /.*@(.+):(\d+)$/.exec(stackLine);
+    if (attempt3) {
+        return [attempt3[1], Number(attempt3[2])];
+    }
+}
+
+function isInternalFrame(stackLine) {
+    var fileNameAndLineNumber = getFileNameAndLineNumber(stackLine);
+
+    if (!fileNameAndLineNumber) {
+        return false;
+    }
+
+    var fileName = fileNameAndLineNumber[0];
+    var lineNumber = fileNameAndLineNumber[1];
+
+    return fileName === qFileName &&
+        lineNumber >= qStartingLine &&
+        lineNumber <= qEndingLine;
+}
+
+// discover own file name and line number range for filtering stack
+// traces
+function captureLine() {
+    if (!hasStacks) {
+        return;
+    }
+
+    try {
+        throw new Error();
+    } catch (e) {
+        var lines = e.stack.split("\n");
+        var firstLine = lines[0].indexOf("@") > 0 ? lines[1] : lines[2];
+        var fileNameAndLineNumber = getFileNameAndLineNumber(firstLine);
+        if (!fileNameAndLineNumber) {
+            return;
+        }
+
+        qFileName = fileNameAndLineNumber[0];
+        return fileNameAndLineNumber[1];
+    }
+}
+
+function deprecate(callback, name, alternative) {
+    return function () {
+        if (typeof console !== "undefined" &&
+            typeof console.warn === "function") {
+            console.warn(name + " is deprecated, use " + alternative +
+                         " instead.", new Error("").stack);
+        }
+        return callback.apply(callback, arguments);
+    };
+}
+
+// end of shims
+// beginning of real work
+
+/**
+ * Constructs a promise for an immediate reference, passes promises through, or
+ * coerces promises from different systems.
+ * @param value immediate reference or promise
+ */
+function Q(value) {
+    // If the object is already a Promise, return it directly.  This enables
+    // the resolve function to both be used to created references from objects,
+    // but to tolerably coerce non-promises to promises.
+    if (isPromise(value)) {
+        return value;
+    }
+
+    // assimilate thenables
+    if (isPromiseAlike(value)) {
+        return coerce(value);
+    } else {
+        return fulfill(value);
+    }
+}
+Q.resolve = Q;
+
+/**
+ * Performs a task in a future turn of the event loop.
+ * @param {Function} task
+ */
+Q.nextTick = nextTick;
+
+/**
+ * Controls whether or not long stack traces will be on
+ */
+Q.longStackSupport = false;
+
+/**
+ * Constructs a {promise, resolve, reject} object.
+ *
+ * `resolve` is a callback to invoke with a more resolved value for the
+ * promise. To fulfill the promise, invoke `resolve` with any value that is
+ * not a thenable. To reject the promise, invoke `resolve` with a rejected
+ * thenable, or invoke `reject` with the reason directly. To resolve the
+ * promise to another thenable, thus putting it in the same state, invoke
+ * `resolve` with that other thenable.
+ */
+Q.defer = defer;
+function defer() {
+    // if "messages" is an "Array", that indicates that the promise has not yet
+    // been resolved.  If it is "undefined", it has been resolved.  Each
+    // element of the messages array is itself an array of complete arguments to
+    // forward to the resolved promise.  We coerce the resolution value to a
+    // promise using the `resolve` function because it handles both fully
+    // non-thenable values and other thenables gracefully.
+    var messages = [], progressListeners = [], resolvedPromise;
+
+    var deferred = object_create(defer.prototype);
+    var promise = object_create(Promise.prototype);
+
+    promise.promiseDispatch = function (resolve, op, operands) {
+        var args = array_slice(arguments);
+        if (messages) {
+            messages.push(args);
+            if (op === "when" && operands[1]) { // progress operand
+                progressListeners.push(operands[1]);
+            }
+        } else {
+            nextTick(function () {
+                resolvedPromise.promiseDispatch.apply(resolvedPromise, args);
+            });
+        }
+    };
+
+    // XXX deprecated
+    promise.valueOf = deprecate(function () {
+        if (messages) {
+            return promise;
+        }
+        var nearerValue = nearer(resolvedPromise);
+        if (isPromise(nearerValue)) {
+            resolvedPromise = nearerValue; // shorten chain
+        }
+        return nearerValue;
+    }, "valueOf", "inspect");
+
+    promise.inspect = function () {
+        if (!resolvedPromise) {
+            return { state: "pending" };
+        }
+        return resolvedPromise.inspect();
+    };
+
+    if (Q.longStackSupport && hasStacks) {
+        try {
+            throw new Error();
+        } catch (e) {
+            // NOTE: don't try to use `Error.captureStackTrace` or transfer the
+            // accessor around; that causes memory leaks as per GH-111. Just
+            // reify the stack trace as a string ASAP.
+            //
+            // At the same time, cut off the first line; it's always just
+            // "[object Promise]\n", as per the `toString`.
+            promise.stack = e.stack.substring(e.stack.indexOf("\n") + 1);
+        }
+    }
+
+    // NOTE: we do the checks for `resolvedPromise` in each method, instead of
+    // consolidating them into `become`, since otherwise we'd create new
+    // promises with the lines `become(whatever(value))`. See e.g. GH-252.
+
+    function become(newPromise) {
+        resolvedPromise = newPromise;
+        promise.source = newPromise;
+
+        array_reduce(messages, function (undefined, message) {
+            nextTick(function () {
+                newPromise.promiseDispatch.apply(newPromise, message);
+            });
+        }, void 0);
+
+        messages = void 0;
+        progressListeners = void 0;
+    }
+
+    deferred.promise = promise;
+    deferred.resolve = function (value) {
+        if (resolvedPromise) {
+            return;
+        }
+
+        become(Q(value));
+    };
+
+    deferred.fulfill = function (value) {
+        if (resolvedPromise) {
+            return;
+        }
+
+        become(fulfill(value));
+    };
+    deferred.reject = function (reason) {
+        if (resolvedPromise) {
+            return;
+        }
+
+        become(reject(reason));
+    };
+    deferred.notify = function (progress) {
+        if (resolvedPromise) {
+            return;
+        }
+
+        array_reduce(progressListeners, function (undefined, progressListener) {
+            nextTick(function () {
+                progressListener(progress);
+            });
+        }, void 0);
+    };
+
+    return deferred;
+}
+
+/**
+ * Creates a Node-style callback that will resolve or reject the deferred
+ * promise.
+ * @returns a nodeback
+ */
+defer.prototype.makeNodeResolver = function () {
+    var self = this;
+    return function (error, value) {
+        if (error) {
+            self.reject(error);
+        } else if (arguments.length > 2) {
+            self.resolve(array_slice(arguments, 1));
+        } else {
+            self.resolve(value);
+        }
+    };
+};
+
+/**
+ * @param resolver {Function} a function that returns nothing and accepts
+ * the resolve, reject, and notify functions for a deferred.
+ * @returns a promise that may be resolved with the given resolve and reject
+ * functions, or rejected by a thrown exception in resolver
+ */
+Q.promise = promise;
+function promise(resolver) {
+    if (typeof resolver !== "function") {
+        throw new TypeError("resolver must be a function.");
+    }
+    var deferred = defer();
+    try {
+        resolver(deferred.resolve, deferred.reject, deferred.notify);
+    } catch (reason) {
+        deferred.reject(reason);
+    }
+    return deferred.promise;
+}
+
+// XXX experimental.  This method is a way to denote that a local value is
+// serializable and should be immediately dispatched to a remote upon request,
+// instead of passing a reference.
+Q.passByCopy = function (object) {
+    //freeze(object);
+    //passByCopies.set(object, true);
+    return object;
+};
+
+Promise.prototype.passByCopy = function () {
+    //freeze(object);
+    //passByCopies.set(object, true);
+    return this;
+};
+
+/**
+ * If two promises eventually fulfill to the same value, promises that value,
+ * but otherwise rejects.
+ * @param x {Any*}
+ * @param y {Any*}
+ * @returns {Any*} a promise for x and y if they are the same, but a rejection
+ * otherwise.
+ *
+ */
+Q.join = function (x, y) {
+    return Q(x).join(y);
+};
+
+Promise.prototype.join = function (that) {
+    return Q([this, that]).spread(function (x, y) {
+        if (x === y) {
+            // TODO: "===" should be Object.is or equiv
+            return x;
+        } else {
+            throw new Error("Can't join: not the same: " + x + " " + y);
+        }
+    });
+};
+
+/**
+ * Returns a promise for the first of an array of promises to become fulfilled.
+ * @param answers {Array[Any*]} promises to race
+ * @returns {Any*} the first promise to be fulfilled
+ */
+Q.race = race;
+function race(answerPs) {
+    return promise(function(resolve, reject) {
+        // Switch to this once we can assume at least ES5
+        // answerPs.forEach(function(answerP) {
+        //     Q(answerP).then(resolve, reject);
+        // });
+        // Use this in the meantime
+        for (var i = 0, len = answerPs.length; i < len; i++) {
+            Q(answerPs[i]).then(resolve, reject);
+        }
+    });
+}
+
+Promise.prototype.race = function () {
+    return this.then(Q.race);
+};
+
+/**
+ * Constructs a Promise with a promise descriptor object and optional fallback
+ * function.  The descriptor contains methods like when(rejected), get(name),
+ * set(name, value), post(name, args), and delete(name), which all
+ * return either a value, a promise for a value, or a rejection.  The fallback
+ * accepts the operation name, a resolver, and any further arguments that would
+ * have been forwarded to the appropriate method above had a method been
+ * provided with the proper name.  The API makes no guarantees about the nature
+ * of the returned object, apart from that it is usable whereever promises are
+ * bought and sold.
+ */
+Q.makePromise = Promise;
+function Promise(descriptor, fallback, inspect) {
+    if (fallback === void 0) {
+        fallback = function (op) {
+            return reject(new Error(
+                "Promise does not support operation: " + op
+            ));
+        };
+    }
+    if (inspect === void 0) {
+        inspect = function () {
+            return {state: "unknown"};
+        };
+    }
+
+    var promise = object_create(Promise.prototype);
+
+    promise.promiseDispatch = function (resolve, op, args) {
+        var result;
+        try {
+            if (descriptor[op]) {
+                result = descriptor[op].apply(promise, args);
+            } else {
+                result = fallback.call(promise, op, args);
+            }
+        } catch (exception) {
+            result = reject(exception);
+        }
+        if (resolve) {
+            resolve(result);
+        }
+    };
+
+    promise.inspect = inspect;
+
+    // XXX deprecated `valueOf` and `exception` support
+    if (inspect) {
+        var inspected = inspect();
+        if (inspected.state === "rejected") {
+            promise.exception = inspected.reason;
+        }
+
+        promise.valueOf = deprecate(function () {
+            var inspected = inspect();
+            if (inspected.state === "pending" ||
+                inspected.state === "rejected") {
+                return promise;
+            }
+            return inspected.value;
+        });
+    }
+
+    return promise;
+}
+
+Promise.prototype.toString = function () {
+    return "[object Promise]";
+};
+
+Promise.prototype.then = function (fulfilled, rejected, progressed) {
+    var self = this;
+    var deferred = defer();
+    var done = false;   // ensure the untrusted promise makes at most a
+                        // single call to one of the callbacks
+
+    function _fulfilled(value) {
+        try {
+            return typeof fulfilled === "function" ? fulfilled(value) : value;
+        } catch (exception) {
+            return reject(exception);
+        }
+    }
+
+    function _rejected(exception) {
+        if (typeof rejected === "function") {
+            makeStackTraceLong(exception, self);
+            try {
+                return rejected(exception);
+            } catch (newException) {
+                return reject(newException);
+            }
+        }
+        return reject(exception);
+    }
+
+    function _progressed(value) {
+        return typeof progressed === "function" ? progressed(value) : value;
+    }
+
+    nextTick(function () {
+        self.promiseDispatch(function (value) {
+            if (done) {
+                return;
+            }
+            done = true;
+
+            deferred.resolve(_fulfilled(value));
+        }, "when", [function (exception) {
+            if (done) {
+                return;
+            }
+            done = true;
+
+            deferred.resolve(_rejected(exception));
+        }]);
+    });
+
+    // Progress propagator need to be attached in the current tick.
+    self.promiseDispatch(void 0, "when", [void 0, function (value) {
+        var newValue;
+        var threw = false;
+        try {
+            newValue = _progressed(value);
+        } catch (e) {
+            threw = true;
+            if (Q.onerror) {
+                Q.onerror(e);
+            } else {
+                throw e;
+            }
+        }
+
+        if (!threw) {
+            deferred.notify(newValue);
+        }
+    }]);
+
+    return deferred.promise;
+};
+
+/**
+ * Registers an observer on a promise.
+ *
+ * Guarantees:
+ *
+ * 1. that fulfilled and rejected will be called only once.
+ * 2. that either the fulfilled callback or the rejected callback will be
+ *    called, but not both.
+ * 3. that fulfilled and rejected will not be called in this turn.
+ *
+ * @param value      promise or immediate reference to observe
+ * @param fulfilled  function to be called with the fulfilled value
+ * @param rejected   function to be called with the rejection exception
+ * @param progressed function to be called on any progress notifications
+ * @return promise for the return value from the invoked callback
+ */
+Q.when = when;
+function when(value, fulfilled, rejected, progressed) {
+    return Q(value).then(fulfilled, rejected, progressed);
+}
+
+Promise.prototype.thenResolve = function (value) {
+    return this.then(function () { return value; });
+};
+
+Q.thenResolve = function (promise, value) {
+    return Q(promise).thenResolve(value);
+};
+
+Promise.prototype.thenReject = function (reason) {
+    return this.then(function () { throw reason; });
+};
+
+Q.thenReject = function (promise, reason) {
+    return Q(promise).thenReject(reason);
+};
+
+/**
+ * If an object is not a promise, it is as "near" as possible.
+ * If a promise is rejected, it is as "near" as possible too.
+ * If it’s a fulfilled promise, the fulfillment value is nearer.
+ * If it’s a deferred promise and the deferred has been resolved, the
+ * resolution is "nearer".
+ * @param object
+ * @returns most resolved (nearest) form of the object
+ */
+
+// XXX should we re-do this?
+Q.nearer = nearer;
+function nearer(value) {
+    if (isPromise(value)) {
+        var inspected = value.inspect();
+        if (inspected.state === "fulfilled") {
+            return inspected.value;
+        }
+    }
+    return value;
+}
+
+/**
+ * @returns whether the given object is a promise.
+ * Otherwise it is a fulfilled value.
+ */
+Q.isPromise = isPromise;
+function isPromise(object) {
+    return isObject(object) &&
+        typeof object.promiseDispatch === "function" &&
+        typeof object.inspect === "function";
+}
+
+Q.isPromiseAlike = isPromiseAlike;
+function isPromiseAlike(object) {
+    return isObject(object) && typeof object.then === "function";
+}
+
+/**
+ * @returns whether the given object is a pending promise, meaning not
+ * fulfilled or rejected.
+ */
+Q.isPending = isPending;
+function isPending(object) {
+    return isPromise(object) && object.inspect().state === "pending";
+}
+
+Promise.prototype.isPending = function () {
+    return this.inspect().state === "pending";
+};
+
+/**
+ * @returns whether the given object is a value or fulfilled
+ * promise.
+ */
+Q.isFulfilled = isFulfilled;
+function isFulfilled(object) {
+    return !isPromise(object) || object.inspect().state === "fulfilled";
+}
+
+Promise.prototype.isFulfilled = function () {
+    return this.inspect().state === "fulfilled";
+};
+
+/**
+ * @returns whether the given object is a rejected promise.
+ */
+Q.isRejected = isRejected;
+function isRejected(object) {
+    return isPromise(object) && object.inspect().state === "rejected";
+}
+
+Promise.prototype.isRejected = function () {
+    return this.inspect().state === "rejected";
+};
+
+//// BEGIN UNHANDLED REJECTION TRACKING
+
+// This promise library consumes exceptions thrown in handlers so they can be
+// handled by a subsequent promise.  The exceptions get added to this array when
+// they are created, and removed when they are handled.  Note that in ES6 or
+// shimmed environments, this would naturally be a `Set`.
+var unhandledReasons = [];
+var unhandledRejections = [];
+var unhandledReasonsDisplayed = false;
+var trackUnhandledRejections = true;
+function displayUnhandledReasons() {
+    if (
+        !unhandledReasonsDisplayed &&
+        typeof window !== "undefined" &&
+        !window.Touch &&
+        window.console
+    ) {
+        console.warn("[Q] Unhandled rejection reasons (should be empty):",
+                     unhandledReasons);
+    }
+
+    unhandledReasonsDisplayed = true;
+}
+
+function logUnhandledReasons() {
+    for (var i = 0; i < unhandledReasons.length; i++) {
+        var reason = unhandledReasons[i];
+        console.warn("Unhandled rejection reason:", reason);
+    }
+}
+
+function resetUnhandledRejections() {
+    unhandledReasons.length = 0;
+    unhandledRejections.length = 0;
+    unhandledReasonsDisplayed = false;
+
+    if (!trackUnhandledRejections) {
+        trackUnhandledRejections = true;
+
+        // Show unhandled rejection reasons if Node exits without handling an
+        // outstanding rejection.  (Note that Browserify presently produces a
+        // `process` global without the `EventEmitter` `on` method.)
+        if (typeof process !== "undefined" && process.on) {
+            process.on("exit", logUnhandledReasons);
+        }
+    }
+}
+
+function trackRejection(promise, reason) {
+    if (!trackUnhandledRejections) {
+        return;
+    }
+
+    unhandledRejections.push(promise);
+    if (reason && typeof reason.stack !== "undefined") {
+        unhandledReasons.push(reason.stack);
+    } else {
+        unhandledReasons.push("(no stack) " + reason);
+    }
+    displayUnhandledReasons();
+}
+
+function untrackRejection(promise) {
+    if (!trackUnhandledRejections) {
+        return;
+    }
+
+    var at = array_indexOf(unhandledRejections, promise);
+    if (at !== -1) {
+        unhandledRejections.splice(at, 1);
+        unhandledReasons.splice(at, 1);
+    }
+}
+
+Q.resetUnhandledRejections = resetUnhandledRejections;
+
+Q.getUnhandledReasons = function () {
+    // Make a copy so that consumers can't interfere with our internal state.
+    return unhandledReasons.slice();
+};
+
+Q.stopUnhandledRejectionTracking = function () {
+    resetUnhandledRejections();
+    if (typeof process !== "undefined" && process.on) {
+        process.removeListener("exit", logUnhandledReasons);
+    }
+    trackUnhandledRejections = false;
+};
+
+resetUnhandledRejections();
+
+//// END UNHANDLED REJECTION TRACKING
+
+/**
+ * Constructs a rejected promise.
+ * @param reason value describing the failure
+ */
+Q.reject = reject;
+function reject(reason) {
+    var rejection = Promise({
+        "when": function (rejected) {
+            // note that the error has been handled
+            if (rejected) {
+                untrackRejection(this);
+            }
+            return rejected ? rejected(reason) : this;
+        }
+    }, function fallback() {
+        return this;
+    }, function inspect() {
+        return { state: "rejected", reason: reason };
+    });
+
+    // Note that the reason has not been handled.
+    trackRejection(rejection, reason);
+
+    return rejection;
+}
+
+/**
+ * Constructs a fulfilled promise for an immediate reference.
+ * @param value immediate reference
+ */
+Q.fulfill = fulfill;
+function fulfill(value) {
+    return Promise({
+        "when": function () {
+            return value;
+        },
+        "get": function (name) {
+            return value[name];
+        },
+        "set": function (name, rhs) {
+            value[name] = rhs;
+        },
+        "delete": function (name) {
+            delete value[name];
+        },
+        "post": function (name, args) {
+            // Mark Miller proposes that post with no name should apply a
+            // promised function.
+            if (name === null || name === void 0) {
+                return value.apply(void 0, args);
+            } else {
+                return value[name].apply(value, args);
+            }
+        },
+        "apply": function (thisp, args) {
+            return value.apply(thisp, args);
+        },
+        "keys": function () {
+            return object_keys(value);
+        }
+    }, void 0, function inspect() {
+        return { state: "fulfilled", value: value };
+    });
+}
+
+/**
+ * Converts thenables to Q promises.
+ * @param promise thenable promise
+ * @returns a Q promise
+ */
+function coerce(promise) {
+    var deferred = defer();
+    nextTick(function () {
+        try {
+            promise.then(deferred.resolve, deferred.reject, deferred.notify);
+        } catch (exception) {
+            deferred.reject(exception);
+        }
+    });
+    return deferred.promise;
+}
+
+/**
+ * Annotates an object such that it will never be
+ * transferred away from this process over any promise
+ * communication channel.
+ * @param object
+ * @returns promise a wrapping of that object that
+ * additionally responds to the "isDef" message
+ * without a rejection.
+ */
+Q.master = master;
+function master(object) {
+    return Promise({
+        "isDef": function () {}
+    }, function fallback(op, args) {
+        return dispatch(object, op, args);
+    }, function () {
+        return Q(object).inspect();
+    });
+}
+
+/**
+ * Spreads the values of a promised array of arguments into the
+ * fulfillment callback.
+ * @param fulfilled callback that receives variadic arguments from the
+ * promised array
+ * @param rejected callback that receives the exception if the promise
+ * is rejected.
+ * @returns a promise for the return value or thrown exception of
+ * either callback.
+ */
+Q.spread = spread;
+function spread(value, fulfilled, rejected) {
+    return Q(value).spread(fulfilled, rejected);
+}
+
+Promise.prototype.spread = function (fulfilled, rejected) {
+    return this.all().then(function (array) {
+        return fulfilled.apply(void 0, array);
+    }, rejected);
+};
+
+/**
+ * The async function is a decorator for generator functions, turning
+ * them into asynchronous generators.  Although generators are only part
+ * of the newest ECMAScript 6 drafts, this code does not cause syntax
+ * errors in older engines.  This code should continue to work and will
+ * in fact improve over time as the language improves.
+ *
+ * ES6 generators are currently part of V8 version 3.19 with the
+ * --harmony-generators runtime flag enabled.  SpiderMonkey has had them
+ * for longer, but under an older Python-inspired form.  This function
+ * works on both kinds of generators.
+ *
+ * Decorates a generator function such that:
+ *  - it may yield promises
+ *  - execution will continue when that promise is fulfilled
+ *  - the value of the yield expression will be the fulfilled value
+ *  - it returns a promise for the return value (when the generator
+ *    stops iterating)
+ *  - the decorated function returns a promise for the return value
+ *    of the generator or the first rejected promise among those
+ *    yielded.
+ *  - if an error is thrown in the generator, it propagates through
+ *    every following yield until it is caught, or until it escapes
+ *    the generator function altogether, and is translated into a
+ *    rejection for the promise returned by the decorated generator.
+ */
+Q.async = async;
+function async(makeGenerator) {
+    return function () {
+        // when verb is "send", arg is a value
+        // when verb is "throw", arg is an exception
+        function continuer(verb, arg) {
+            var result;
+            if (hasES6Generators) {
+                try {
+                    result = generator[verb](arg);
+                } catch (exception) {
+                    return reject(exception);
+                }
+                if (result.done) {
+                    return result.value;
+                } else {
+                    return when(result.value, callback, errback);
+                }
+            } else {
+                // FIXME: Remove this case when SM does ES6 generators.
+                try {
+                    result = generator[verb](arg);
+                } catch (exception) {
+                    if (isStopIteration(exception)) {
+                        return exception.value;
+                    } else {
+                        return reject(exception);
+                    }
+                }
+                return when(result, callback, errback);
+            }
+        }
+        var generator = makeGenerator.apply(this, arguments);
+        var callback = continuer.bind(continuer, "next");
+        var errback = continuer.bind(continuer, "throw");
+        return callback();
+    };
+}
+
+/**
+ * The spawn function is a small wrapper around async that immediately
+ * calls the generator and also ends the promise chain, so that any
+ * unhandled errors are thrown instead of forwarded to the error
+ * handler. This is useful because it's extremely common to run
+ * generators at the top-level to work with libraries.
+ */
+Q.spawn = spawn;
+function spawn(makeGenerator) {
+    Q.done(Q.async(makeGenerator)());
+}
+
+// FIXME: Remove this interface once ES6 generators are in SpiderMonkey.
+/**
+ * Throws a ReturnValue exception to stop an asynchronous generator.
+ *
+ * This interface is a stop-gap measure to support generator return
+ * values in older Firefox/SpiderMonkey.  In browsers that support ES6
+ * generators like Chromium 29, just use "return" in your generator
+ * functions.
+ *
+ * @param value the return value for the surrounding generator
+ * @throws ReturnValue exception with the value.
+ * @example
+ * // ES6 style
+ * Q.async(function* () {
+ *      var foo = yield getFooPromise();
+ *      var bar = yield getBarPromise();
+ *      return foo + bar;
+ * })
+ * // Older SpiderMonkey style
+ * Q.async(function () {
+ *      var foo = yield getFooPromise();
+ *      var bar = yield getBarPromise();
+ *      Q.return(foo + bar);
+ * })
+ */
+Q["return"] = _return;
+function _return(value) {
+    throw new QReturnValue(value);
+}
+
+/**
+ * The promised function decorator ensures that any promise arguments
+ * are settled and passed as values (`this` is also settled and passed
+ * as a value).  It will also ensure that the result of a function is
+ * always a promise.
+ *
+ * @example
+ * var add = Q.promised(function (a, b) {
+ *     return a + b;
+ * });
+ * add(Q(a), Q(B));
+ *
+ * @param {function} callback The function to decorate
+ * @returns {function} a function that has been decorated.
+ */
+Q.promised = promised;
+function promised(callback) {
+    return function () {
+        return spread([this, all(arguments)], function (self, args) {
+            return callback.apply(self, args);
+        });
+    };
+}
+
+/**
+ * sends a message to a value in a future turn
+ * @param object* the recipient
+ * @param op the name of the message operation, e.g., "when",
+ * @param args further arguments to be forwarded to the operation
+ * @returns result {Promise} a promise for the result of the operation
+ */
+Q.dispatch = dispatch;
+function dispatch(object, op, args) {
+    return Q(object).dispatch(op, args);
+}
+
+Promise.prototype.dispatch = function (op, args) {
+    var self = this;
+    var deferred = defer();
+    nextTick(function () {
+        self.promiseDispatch(deferred.resolve, op, args);
+    });
+    return deferred.promise;
+};
+
+/**
+ * Gets the value of a property in a future turn.
+ * @param object    promise or immediate reference for target object
+ * @param name      name of property to get
+ * @return promise for the property value
+ */
+Q.get = function (object, key) {
+    return Q(object).dispatch("get", [key]);
+};
+
+Promise.prototype.get = function (key) {
+    return this.dispatch("get", [key]);
+};
+
+/**
+ * Sets the value of a property in a future turn.
+ * @param object    promise or immediate reference for object object
+ * @param name      name of property to set
+ * @param value     new value of property
+ * @return promise for the return value
+ */
+Q.set = function (object, key, value) {
+    return Q(object).dispatch("set", [key, value]);
+};
+
+Promise.prototype.set = function (key, value) {
+    return this.dispatch("set", [key, value]);
+};
+
+/**
+ * Deletes a property in a future turn.
+ * @param object    promise or immediate reference for target object
+ * @param name      name of property to delete
+ * @return promise for the return value
+ */
+Q.del = // XXX legacy
+Q["delete"] = function (object, key) {
+    return Q(object).dispatch("delete", [key]);
+};
+
+Promise.prototype.del = // XXX legacy
+Promise.prototype["delete"] = function (key) {
+    return this.dispatch("delete", [key]);
+};
+
+/**
+ * Invokes a method in a future turn.
+ * @param object    promise or immediate reference for target object
+ * @param name      name of method to invoke
+ * @param value     a value to post, typically an array of
+ *                  invocation arguments for promises that
+ *                  are ultimately backed with `resolve` values,
+ *                  as opposed to those backed with URLs
+ *                  wherein the posted value can be any
+ *                  JSON serializable object.
+ * @return promise for the return value
+ */
+// bound locally because it is used by other methods
+Q.mapply = // XXX As proposed by "Redsandro"
+Q.post = function (object, name, args) {
+    return Q(object).dispatch("post", [name, args]);
+};
+
+Promise.prototype.mapply = // XXX As proposed by "Redsandro"
+Promise.prototype.post = function (name, args) {
+    return this.dispatch("post", [name, args]);
+};
+
+/**
+ * Invokes a method in a future turn.
+ * @param object    promise or immediate reference for target object
+ * @param name      name of method to invoke
+ * @param ...args   array of invocation arguments
+ * @return promise for the return value
+ */
+Q.send = // XXX Mark Miller's proposed parlance
+Q.mcall = // XXX As proposed by "Redsandro"
+Q.invoke = function (object, name /*...args*/) {
+    return Q(object).dispatch("post", [name, array_slice(arguments, 2)]);
+};
+
+Promise.prototype.send = // XXX Mark Miller's proposed parlance
+Promise.prototype.mcall = // XXX As proposed by "Redsandro"
+Promise.prototype.invoke = function (name /*...args*/) {
+    return this.dispatch("post", [name, array_slice(arguments, 1)]);
+};
+
+/**
+ * Applies the promised function in a future turn.
+ * @param object    promise or immediate reference for target function
+ * @param args      array of application arguments
+ */
+Q.fapply = function (object, args) {
+    return Q(object).dispatch("apply", [void 0, args]);
+};
+
+Promise.prototype.fapply = function (args) {
+    return this.dispatch("apply", [void 0, args]);
+};
+
+/**
+ * Calls the promised function in a future turn.
+ * @param object    promise or immediate reference for target function
+ * @param ...args   array of application arguments
+ */
+Q["try"] =
+Q.fcall = function (object /* ...args*/) {
+    return Q(object).dispatch("apply", [void 0, array_slice(arguments, 1)]);
+};
+
+Promise.prototype.fcall = function (/*...args*/) {
+    return this.dispatch("apply", [void 0, array_slice(arguments)]);
+};
+
+/**
+ * Binds the promised function, transforming return values into a fulfilled
+ * promise and thrown errors into a rejected one.
+ * @param object    promise or immediate reference for target function
+ * @param ...args   array of application arguments
+ */
+Q.fbind = function (object /*...args*/) {
+    var promise = Q(object);
+    var args = array_slice(arguments, 1);
+    return function fbound() {
+        return promise.dispatch("apply", [
+            this,
+            args.concat(array_slice(arguments))
+        ]);
+    };
+};
+Promise.prototype.fbind = function (/*...args*/) {
+    var promise = this;
+    var args = array_slice(arguments);
+    return function fbound() {
+        return promise.dispatch("apply", [
+            this,
+            args.concat(array_slice(arguments))
+        ]);
+    };
+};
+
+/**
+ * Requests the names of the owned properties of a promised
+ * object in a future turn.
+ * @param object    promise or immediate reference for target object
+ * @return promise for the keys of the eventually settled object
+ */
+Q.keys = function (object) {
+    return Q(object).dispatch("keys", []);
+};
+
+Promise.prototype.keys = function () {
+    return this.dispatch("keys", []);
+};
+
+/**
+ * Turns an array of promises into a promise for an array.  If any of
+ * the promises gets rejected, the whole array is rejected immediately.
+ * @param {Array*} an array (or promise for an array) of values (or
+ * promises for values)
+ * @returns a promise for an array of the corresponding values
+ */
+// By Mark Miller
+// http://wiki.ecmascript.org/doku.php?id=strawman:concurrency&rev=1308776521#allfulfilled
+Q.all = all;
+function all(promises) {
+    return when(promises, function (promises) {
+        var countDown = 0;
+        var deferred = defer();
+        array_reduce(promises, function (undefined, promise, index) {
+            var snapshot;
+            if (
+                isPromise(promise) &&
+                (snapshot = promise.inspect()).state === "fulfilled"
+            ) {
+                promises[index] = snapshot.value;
+            } else {
+                ++countDown;
+                when(
+                    promise,
+                    function (value) {
+                        promises[index] = value;
+                        if (--countDown === 0) {
+                            deferred.resolve(promises);
+                        }
+                    },
+                    deferred.reject,
+                    function (progress) {
+                        deferred.notify({ index: index, value: progress });
+                    }
+                );
+            }
+        }, void 0);
+        if (countDown === 0) {
+            deferred.resolve(promises);
+        }
+        return deferred.promise;
+    });
+}
+
+Promise.prototype.all = function () {
+    return all(this);
+};
+
+/**
+ * Waits for all promises to be settled, either fulfilled or
+ * rejected.  This is distinct from `all` since that would stop
+ * waiting at the first rejection.  The promise returned by
+ * `allResolved` will never be rejected.
+ * @param promises a promise for an array (or an array) of promises
+ * (or values)
+ * @return a promise for an array of promises
+ */
+Q.allResolved = deprecate(allResolved, "allResolved", "allSettled");
+function allResolved(promises) {
+    return when(promises, function (promises) {
+        promises = array_map(promises, Q);
+        return when(all(array_map(promises, function (promise) {
+            return when(promise, noop, noop);
+        })), function () {
+            return promises;
+        });
+    });
+}
+
+Promise.prototype.allResolved = function () {
+    return allResolved(this);
+};
+
+/**
+ * @see Promise#allSettled
+ */
+Q.allSettled = allSettled;
+function allSettled(promises) {
+    return Q(promises).allSettled();
+}
+
+/**
+ * Turns an array of promises into a promise for an array of their states (as
+ * returned by `inspect`) when they have all settled.
+ * @param {Array[Any*]} values an array (or promise for an array) of values (or
+ * promises for values)
+ * @returns {Array[State]} an array of states for the respective values.
+ */
+Promise.prototype.allSettled = function () {
+    return this.then(function (promises) {
+        return all(array_map(promises, function (promise) {
+            promise = Q(promise);
+            function regardless() {
+                return promise.inspect();
+            }
+            return promise.then(regardless, regardless);
+        }));
+    });
+};
+
+/**
+ * Captures the failure of a promise, giving an oportunity to recover
+ * with a callback.  If the given promise is fulfilled, the returned
+ * promise is fulfilled.
+ * @param {Any*} promise for something
+ * @param {Function} callback to fulfill the returned promise if the
+ * given promise is rejected
+ * @returns a promise for the return value of the callback
+ */
+Q.fail = // XXX legacy
+Q["catch"] = function (object, rejected) {
+    return Q(object).then(void 0, rejected);
+};
+
+Promise.prototype.fail = // XXX legacy
+Promise.prototype["catch"] = function (rejected) {
+    return this.then(void 0, rejected);
+};
+
+/**
+ * Attaches a listener that can respond to progress notifications from a
+ * promise's originating deferred. This listener receives the exact arguments
+ * passed to ``deferred.notify``.
+ * @param {Any*} promise for something
+ * @param {Function} callback to receive any progress notifications
+ * @returns the given promise, unchanged
+ */
+Q.progress = progress;
+function progress(object, progressed) {
+    return Q(object).then(void 0, void 0, progressed);
+}
+
+Promise.prototype.progress = function (progressed) {
+    return this.then(void 0, void 0, progressed);
+};
+
+/**
+ * Provides an opportunity to observe the settling of a promise,
+ * regardless of whether the promise is fulfilled or rejected.  Forwards
+ * the resolution to the returned promise when the callback is done.
+ * The callback can return a promise to defer completion.
+ * @param {Any*} promise
+ * @param {Function} callback to observe the resolution of the given
+ * promise, takes no arguments.
+ * @returns a promise for the resolution of the given promise when
+ * ``fin`` is done.
+ */
+Q.fin = // XXX legacy
+Q["finally"] = function (object, callback) {
+    return Q(object)["finally"](callback);
+};
+
+Promise.prototype.fin = // XXX legacy
+Promise.prototype["finally"] = function (callback) {
+    callback = Q(callback);
+    return this.then(function (value) {
+        return callback.fcall().then(function () {
+            return value;
+        });
+    }, function (reason) {
+        // TODO attempt to recycle the rejection with "this".
+        return callback.fcall().then(function () {
+            throw reason;
+        });
+    });
+};
+
+/**
+ * Terminates a chain of promises, forcing rejections to be
+ * thrown as exceptions.
+ * @param {Any*} promise at the end of a chain of promises
+ * @returns nothing
+ */
+Q.done = function (object, fulfilled, rejected, progress) {
+    return Q(object).done(fulfilled, rejected, progress);
+};
+
+Promise.prototype.done = function (fulfilled, rejected, progress) {
+    var onUnhandledError = function (error) {
+        // forward to a future turn so that ``when``
+        // does not catch it and turn it into a rejection.
+        nextTick(function () {
+            makeStackTraceLong(error, promise);
+            if (Q.onerror) {
+                Q.onerror(error);
+            } else {
+                throw error;
+            }
+        });
+    };
+
+    // Avoid unnecessary `nextTick`ing via an unnecessary `when`.
+    var promise = fulfilled || rejected || progress ?
+        this.then(fulfilled, rejected, progress) :
+        this;
+
+    if (typeof process === "object" && process && process.domain) {
+        onUnhandledError = process.domain.bind(onUnhandledError);
+    }
+
+    promise.then(void 0, onUnhandledError);
+};
+
+/**
+ * Causes a promise to be rejected if it does not get fulfilled before
+ * some milliseconds time out.
+ * @param {Any*} promise
+ * @param {Number} milliseconds timeout
+ * @param {String} custom error message (optional)
+ * @returns a promise for the resolution of the given promise if it is
+ * fulfilled before the timeout, otherwise rejected.
+ */
+Q.timeout = function (object, ms, message) {
+    return Q(object).timeout(ms, message);
+};
+
+Promise.prototype.timeout = function (ms, message) {
+    var deferred = defer();
+    var timeoutId = setTimeout(function () {
+        deferred.reject(new Error(message || "Timed out after " + ms + " ms"));
+    }, ms);
+
+    this.then(function (value) {
+        clearTimeout(timeoutId);
+        deferred.resolve(value);
+    }, function (exception) {
+        clearTimeout(timeoutId);
+        deferred.reject(exception);
+    }, deferred.notify);
+
+    return deferred.promise;
+};
+
+/**
+ * Returns a promise for the given value (or promised value), some
+ * milliseconds after it resolved. Passes rejections immediately.
+ * @param {Any*} promise
+ * @param {Number} milliseconds
+ * @returns a promise for the resolution of the given promise after milliseconds
+ * time has elapsed since the resolution of the given promise.
+ * If the given promise rejects, that is passed immediately.
+ */
+Q.delay = function (object, timeout) {
+    if (timeout === void 0) {
+        timeout = object;
+        object = void 0;
+    }
+    return Q(object).delay(timeout);
+};
+
+Promise.prototype.delay = function (timeout) {
+    return this.then(function (value) {
+        var deferred = defer();
+        setTimeout(function () {
+            deferred.resolve(value);
+        }, timeout);
+        return deferred.promise;
+    });
+};
+
+/**
+ * Passes a continuation to a Node function, which is called with the given
+ * arguments provided as an array, and returns a promise.
+ *
+ *      Q.nfapply(FS.readFile, [__filename])
+ *      .then(function (content) {
+ *      })
+ *
+ */
+Q.nfapply = function (callback, args) {
+    return Q(callback).nfapply(args);
+};
+
+Promise.prototype.nfapply = function (args) {
+    var deferred = defer();
+    var nodeArgs = array_slice(args);
+    nodeArgs.push(deferred.makeNodeResolver());
+    this.fapply(nodeArgs).fail(deferred.reject);
+    return deferred.promise;
+};
+
+/**
+ * Passes a continuation to a Node function, which is called with the given
+ * arguments provided individually, and returns a promise.
+ * @example
+ * Q.nfcall(FS.readFile, __filename)
+ * .then(function (content) {
+ * })
+ *
+ */
+Q.nfcall = function (callback /*...args*/) {
+    var args = array_slice(arguments, 1);
+    return Q(callback).nfapply(args);
+};
+
+Promise.prototype.nfcall = function (/*...args*/) {
+    var nodeArgs = array_slice(arguments);
+    var deferred = defer();
+    nodeArgs.push(deferred.makeNodeResolver());
+    this.fapply(nodeArgs).fail(deferred.reject);
+    return deferred.promise;
+};
+
+/**
+ * Wraps a NodeJS continuation passing function and returns an equivalent
+ * version that returns a promise.
+ * @example
+ * Q.nfbind(FS.readFile, __filename)("utf-8")
+ * .then(console.log)
+ * .done()
+ */
+Q.nfbind =
+Q.denodeify = function (callback /*...args*/) {
+    var baseArgs = array_slice(arguments, 1);
+    return function () {
+        var nodeArgs = baseArgs.concat(array_slice(arguments));
+        var deferred = defer();
+        nodeArgs.push(deferred.makeNodeResolver());
+        Q(callback).fapply(nodeArgs).fail(deferred.reject);
+        return deferred.promise;
+    };
+};
+
+Promise.prototype.nfbind =
+Promise.prototype.denodeify = function (/*...args*/) {
+    var args = array_slice(arguments);
+    args.unshift(this);
+    return Q.denodeify.apply(void 0, args);
+};
+
+Q.nbind = function (callback, thisp /*...args*/) {
+    var baseArgs = array_slice(arguments, 2);
+    return function () {
+        var nodeArgs = baseArgs.concat(array_slice(arguments));
+        var deferred = defer();
+        nodeArgs.push(deferred.makeNodeResolver());
+        function bound() {
+            return callback.apply(thisp, arguments);
+        }
+        Q(bound).fapply(nodeArgs).fail(deferred.reject);
+        return deferred.promise;
+    };
+};
+
+Promise.prototype.nbind = function (/*thisp, ...args*/) {
+    var args = array_slice(arguments, 0);
+    args.unshift(this);
+    return Q.nbind.apply(void 0, args);
+};
+
+/**
+ * Calls a method of a Node-style object that accepts a Node-style
+ * callback with a given array of arguments, plus a provided callback.
+ * @param object an object that has the named method
+ * @param {String} name name of the method of object
+ * @param {Array} args arguments to pass to the method; the callback
+ * will be provided by Q and appended to these arguments.
+ * @returns a promise for the value or error
+ */
+Q.nmapply = // XXX As proposed by "Redsandro"
+Q.npost = function (object, name, args) {
+    return Q(object).npost(name, args);
+};
+
+Promise.prototype.nmapply = // XXX As proposed by "Redsandro"
+Promise.prototype.npost = function (name, args) {
+    var nodeArgs = array_slice(args || []);
+    var deferred = defer();
+    nodeArgs.push(deferred.makeNodeResolver());
+    this.dispatch("post", [name, nodeArgs]).fail(deferred.reject);
+    return deferred.promise;
+};
+
+/**
+ * Calls a method of a Node-style object that accepts a Node-style
+ * callback, forwarding the given variadic arguments, plus a provided
+ * callback argument.
+ * @param object an object that has the named method
+ * @param {String} name name of the method of object
+ * @param ...args arguments to pass to the method; the callback will
+ * be provided by Q and appended to these arguments.
+ * @returns a promise for the value or error
+ */
+Q.nsend = // XXX Based on Mark Miller's proposed "send"
+Q.nmcall = // XXX Based on "Redsandro's" proposal
+Q.ninvoke = function (object, name /*...args*/) {
+    var nodeArgs = array_slice(arguments, 2);
+    var deferred = defer();
+    nodeArgs.push(deferred.makeNodeResolver());
+    Q(object).dispatch("post", [name, nodeArgs]).fail(deferred.reject);
+    return deferred.promise;
+};
+
+Promise.prototype.nsend = // XXX Based on Mark Miller's proposed "send"
+Promise.prototype.nmcall = // XXX Based on "Redsandro's" proposal
+Promise.prototype.ninvoke = function (name /*...args*/) {
+    var nodeArgs = array_slice(arguments, 1);
+    var deferred = defer();
+    nodeArgs.push(deferred.makeNodeResolver());
+    this.dispatch("post", [name, nodeArgs]).fail(deferred.reject);
+    return deferred.promise;
+};
+
+/**
+ * If a function would like to support both Node continuation-passing-style and
+ * promise-returning-style, it can end its internal promise chain with
+ * `nodeify(nodeback)`, forwarding the optional nodeback argument.  If the user
+ * elects to use a nodeback, the result will be sent there.  If they do not
+ * pass a nodeback, they will receive the result promise.
+ * @param object a result (or a promise for a result)
+ * @param {Function} nodeback a Node.js-style callback
+ * @returns either the promise or nothing
+ */
+Q.nodeify = nodeify;
+function nodeify(object, nodeback) {
+    return Q(object).nodeify(nodeback);
+}
+
+Promise.prototype.nodeify = function (nodeback) {
+    if (nodeback) {
+        this.then(function (value) {
+            nextTick(function () {
+                nodeback(null, value);
+            });
+        }, function (error) {
+            nextTick(function () {
+                nodeback(error);
+            });
+        });
+    } else {
+        return this;
+    }
+};
+
+// All code before this point will be filtered from stack traces.
+var qEndingLine = captureLine();
+
+return Q;
+
+});
 
 ///#source 1 1 /Templates/Freestyle learning/js/circleProgressBinding.js
 ko.bindingHandlers.circleProgress = {
