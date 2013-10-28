@@ -2,7 +2,6 @@
 using easygenerator.DataAccess.Repositories;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
-using System.Data.Entity;
 
 namespace easygenerator.DataAccess
 {
@@ -10,8 +9,6 @@ namespace easygenerator.DataAccess
     {
         protected override void Load(ContainerBuilder builder)
         {
-            Database.SetInitializer(new CreateDatabaseIfNotExists<DatabaseContext>());
-
             builder.RegisterType<DatabaseContext>()
                 .As<IDataContext>()
                 .As<IUnitOfWork>()

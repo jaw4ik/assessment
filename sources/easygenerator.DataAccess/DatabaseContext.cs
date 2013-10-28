@@ -50,7 +50,12 @@ namespace easygenerator.DataAccess
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            ApplyEntityMapping<Objective>(modelBuilder);
+            modelBuilder.Properties<Guid>().Where(p => p.Name == "Id").Configure(p => p.IsKey());
+            modelBuilder.Properties<string>().Where(p => p.Name == "CreatedOn").Configure(p => p.IsRequired());
+            modelBuilder.Properties<string>().Where(p => p.Name == "ModifiedOn").Configure(p => p.IsRequired());
+            modelBuilder.Properties<string>().Where(p => p.Name == "CreatedBy").Configure(p => p.IsRequired());
+            modelBuilder.Properties<string>().Where(p => p.Name == "ModifiedBy").Configure(p => p.IsRequired());
+
             modelBuilder.Entity<Objective>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Objective>().HasMany(e => e.QuestionsCollection).WithRequired(e => e.Objective);
             modelBuilder.Entity<Objective>().HasMany(e => e.RelatedExperiencesCollection)
@@ -58,29 +63,24 @@ namespace easygenerator.DataAccess
                 .Map(m => m.ToTable("ExperienceObjectives"));
 
 
-            ApplyEntityMapping<Experience>(modelBuilder);
             modelBuilder.Entity<Experience>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Experience>().HasRequired(e => e.Template);
             modelBuilder.Entity<Experience>().HasMany(e => e.RelatedObjectivesCollection)
                 .WithMany(e => e.RelatedExperiencesCollection)
                 .Map(m => m.ToTable("ExperienceObjectives"));
 
-            ApplyEntityMapping<Question>(modelBuilder);
             modelBuilder.Entity<Question>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Question>().HasRequired(e => e.Objective);
             modelBuilder.Entity<Question>().HasMany(e => e.AnswersCollection).WithRequired(e => e.Question);
             modelBuilder.Entity<Question>().HasMany(e => e.LearningContentsCollection).WithRequired(e => e.Question);
 
-            ApplyEntityMapping<LearningContent>(modelBuilder);
             modelBuilder.Entity<LearningContent>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<LearningContent>().HasRequired(e => e.Question);
 
-            ApplyEntityMapping<Answer>(modelBuilder);
             modelBuilder.Entity<Answer>().Property(e => e.Text).IsRequired();
             modelBuilder.Entity<Answer>().Property(e => e.IsCorrect).IsRequired();
             modelBuilder.Entity<Answer>().HasRequired(e => e.Question);
 
-            ApplyEntityMapping<User>(modelBuilder);
             modelBuilder.Entity<User>().Property(e => e.Email).IsRequired().HasMaxLength(254);
             modelBuilder.Entity<User>().Property(e => e.PasswordHash).IsRequired();
             modelBuilder.Entity<User>().HasMany(e => e.PasswordRecoveryTicketCollection).WithRequired(e => e.User);
@@ -92,10 +92,8 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.CreatedBy);
             modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.ModifiedOn);
 
-            ApplyEntityMapping<HelpHint>(modelBuilder);
             modelBuilder.Entity<HelpHint>().Property(e => e.Name).IsRequired().HasMaxLength(254);
 
-            ApplyEntityMapping<Template>(modelBuilder);
             modelBuilder.Entity<Template>().Property(e => e.Name).IsRequired();
             modelBuilder.Entity<Template>().Property(e => e.Image).IsRequired();
 
@@ -114,15 +112,6 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<MailNotification>().Property(e => e.FromEmailAddress).HasMaxLength(127).IsRequired();
 
             base.OnModelCreating(modelBuilder);
-        }
-
-        private static void ApplyEntityMapping<T>(DbModelBuilder builder) where T : Entity
-        {
-            builder.Entity<T>().HasKey(e => e.Id);
-            builder.Entity<T>().Property(e => e.CreatedOn).IsRequired();
-            builder.Entity<T>().Property(e => e.ModifiedOn).IsRequired();
-            builder.Entity<T>().Property(e => e.CreatedBy).IsRequired();
-            builder.Entity<T>().Property(e => e.ModifiedBy).IsRequired();
         }
 
         public void Save()
