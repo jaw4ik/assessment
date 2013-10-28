@@ -509,6 +509,7 @@
     <Content Include="Templates\Freestyle learning\js\vendor.min.js">
       <DependentUpon>vendor.js.bundle</DependentUpon>
     </Content>
+    <Content Include="Templates\Maintenance\sorry.html" />
     <Content Include="Templates\Quiz\App\viewmodels\learningContents.spec.js">
       <DependentUpon>learningContents.js</DependentUpon>
     </Content>
