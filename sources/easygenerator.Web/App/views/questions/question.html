@@ -106,9 +106,9 @@
                     </div>
 
                     <div class="question-content-items-list" data-bind="visible: isExpanded">
-                        <ul class="unstyled">
+                        <div>
                             <!-- ko foreach: learningContents -->
-                            <li class="question-learning-content-item" data-bind="css: { active: hasFocus }">
+                            <div class="question-learning-content-item" data-bind="css: { active: hasFocus }">
                                 <div class="question-learning-content-list-item">
                                     <div class="question-learning-content-wrapper">
                                         <div class="question-learning-content selectable" data-bind="ckeditor: { data: text, language: $root.language(), eventTracker: $root.eventTracker, isEditing: hasFocus, save: $parent.updateText, focus: $parent.beginEditText, blur: function (data, event) { $parent.updateText(data, event), $parent.endEditText(data, event); }, autosaveInterval: $parent.autosaveInterval }">
@@ -118,9 +118,9 @@
                                         <span class="question-learning-content-delete-icon"></span>
                                     </div>
                                 </div>
-                            </li>
+                            </div>
                             <!-- /ko -->
-                            <li class="add-button">
+                            <div class="add-button">
                                 <div class="question-learning-content-list-item">
                                     <div class="question-learning-content-wrapper" data-bind="css: { 'enabled': true }">
                                         <!-- ko if: canAddLearningContent -->
@@ -131,8 +131,8 @@
                                         <!-- /ko -->
                                     </div>
                                 </div>
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
