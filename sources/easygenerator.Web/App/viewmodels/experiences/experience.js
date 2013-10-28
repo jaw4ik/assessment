@@ -9,9 +9,11 @@
         goToDefine = function () {
             activeStep.activateItem(define, id);
         },
+        
         goToDesign = function () {
             activeStep.activateItem(design, id);
         },
+        
         goToDeliver = function () {
             activeStep.activateItem(deliver, id);
         },

@@ -269,6 +269,30 @@
 
             });
 
+            describe('selectedTemplateId:', function () {
+
+                it('should be observable', function() {
+                    expect(viewModel.selectedTemplateId).toBeObservable();
+                });
+
+            });
+            
+            describe('selectedTemlateImage:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.selectedTemlateImage).toBeObservable();
+                });
+
+            });
+            
+            describe('selectedTemlateDescription:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.selectedTemlateDescription).toBeObservable();
+                });
+
+            });
+
         });
 
     });

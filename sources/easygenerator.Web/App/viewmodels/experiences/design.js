@@ -7,33 +7,31 @@
 
         var
             experienceId = '',
-            selectedTemplateId = ko.observable(''),
-            selectedTemlateImage = ko.observable(''),
-            selectedTemlateDescription = ko.observable(''),
+            selectedTemplateId = ko.observable(),
+            selectedTemlateImage = ko.observable(),
+            selectedTemlateDescription = ko.observable(),
             templates = [],
 
             activate = function (experienceId) {
                 var that = this;
 
-                return Q.fcall(function () {
-                    return experienceRepository.getById(experienceId).then(function (experience) {
-                        that.experienceId = experience.id;
-                        that.selectedTemplateId(experience.template.id);
-                        that.selectedTemlateImage(experience.template.image);
-                        that.selectedTemlateDescription(experience.template.description);
+                return experienceRepository.getById(experienceId).then(function (experience) {
+                    that.experienceId = experience.id;
+                    that.selectedTemplateId(experience.template.id);
+                    that.selectedTemlateImage(experience.template.image);
+                    that.selectedTemlateDescription(experience.template.description);
 
-                        return templateRepository.getCollection().then(function (templates) {
-                            that.templates = templates;
-                        });
-                    }).fail(function () {
-                        router.replace('404');
+                    return templateRepository.getCollection().then(function (templates) {
+                        that.templates = templates;
                     });
+                }).fail(function () {
+                    router.replace('404');
                 });
             },
 
             updateExperienceTemplate = function () {
                 var that = this;
-                
+
                 var selectedTemplate = _.find(this.templates, function (item) {
                     return item.id === selectedTemplateId();
                 });
