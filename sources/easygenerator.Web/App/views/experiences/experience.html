@@ -10,19 +10,19 @@
         <div class="process-steps-container">
             <ul class="process-steps unstyled">
                 <li class="tb-cell process-step" data-bind="click: goToDefine, css: { 'active': activeStep() == steps[0] }">
-                    <span>Define</span>
+                    <span data-bind="localize: { text: 'experienceDefine' }">Define</span>
                 </li>
                 <li class="tb-cell">
                     <span class="separator">&nbsp;</span>
                 </li>
                 <li class="tb-cell process-step" data-bind="click: goToDesign, css: { 'active': activeStep() == steps[1] }">
-                    <span>Design</span>
+                    <span data-bind="localize: { text: 'experienceDesign' }">Design</span>
                 </li>
                 <li class="tb-cell">
                     <span class="separator">&nbsp;</span>
                 </li>
                 <li class="tb-cell process-step active" data-bind="click: goToDeliver, css: { 'active': activeStep() == steps[2] }">
-                    <span>Deliver</span>
+                    <span data-bind="localize: { text: 'experienceDeliver' }">Deliver</span>
                 </li>
             </ul>
         </div>
