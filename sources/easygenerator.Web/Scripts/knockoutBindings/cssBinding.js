@@ -24,7 +24,7 @@
                 } else {
                     clearInterval(interval);
                 }
-            }, 500);
+            }, 300);
 
         $(window).resize(function () {
             setHeight();
