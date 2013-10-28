@@ -58,7 +58,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         #region HideHint
 
         [TestMethod]
-        public void HideHint_ShouldReturnJsonError_WhenHintIsNull()
+        public void HideHint_ShouldReturnJsonSuccess_WhenHintIsNull()
         {
             //Arrange
 
@@ -67,7 +67,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.HideHint(null);
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Constants.Errors.HelpHintNotFoundError);
+            result.Should().BeJsonSuccessResult();
         }
 
         [TestMethod]

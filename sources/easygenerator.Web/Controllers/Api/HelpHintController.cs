@@ -1,9 +1,9 @@
 ﻿using System.Linq;
+using System.Threading;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
-using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 
 namespace easygenerator.Web.Controllers.Api
@@ -34,20 +34,27 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         public ActionResult HideHint(HelpHint hint)
         {
-            if (hint == null)
+            Thread.Sleep(2000);
+            
+
+            if (hint != null)
             {
-                return JsonLocalizableError(Constants.Errors.HelpHintNotFoundError, Constants.Errors.HelpHintNotFoundResourceKey);
+                _repository.HideHint(hint);
             }
 
-            _repository.HideHint(hint);
             return JsonSuccess();
         }
 
         [HttpPost]
         public ActionResult ShowHint(string hintKey)
         {
-            var hint = _entityFactory.HelpHint(hintKey, GetCurrentUsername());
-            _repository.ShowHint(hint);
+            var hint = _repository.GetHelpHintsForUser(GetCurrentUsername()).SingleOrDefault(h => h.Name == hintKey);
+
+            if (hint == null)
+            {
+                hint = _entityFactory.HelpHint(hintKey, GetCurrentUsername());
+                _repository.ShowHint(hint);
+            }
 
             return JsonSuccess(new
             {

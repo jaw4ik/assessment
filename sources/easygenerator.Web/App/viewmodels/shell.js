@@ -23,6 +23,7 @@
             objectivesModules = ['objectives', 'objective', 'createObjective', 'createQuestion', 'question'],
             experiencesModules = ['experiences', 'experience', 'createExperience'],
             isViewReady = ko.observable(false),
+            isHintRequestPending = false,
 
             activeModule = ko.computed(function () {
                 var activeItem = router.activeItem();
@@ -62,22 +63,27 @@
             }),
 
             hideHelpHint = function () {
-                if (helpHint() == undefined) {
+                if (helpHint() == undefined || isHintRequestPending) {
                     return;
                 }
 
+                isHintRequestPending = true;
+
                 helpHintRepository.removeHint(helpHint().id).then(function () {
                     helpHint(undefined);
+                    isHintRequestPending = false;
                 });
             },
 
             showHelpHint = function () {
-                if (helpHint() != undefined) {
+                if (helpHint() != undefined || isHintRequestPending) {
                     return;
                 }
 
+                isHintRequestPending = true;
                 helpHintRepository.addHint(activeModule()).then(function (hint) {
                     helpHint(hint);
+                    isHintRequestPending = false;
                 });
             },
 
