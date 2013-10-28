@@ -20,6 +20,7 @@
             interval = setInterval(function () {
                 currH = $(helpHint).height();
                 if (hintH != currH) {
+                    hintH = currH;
                     setHeight();
                 } else {
                     clearInterval(interval);
