@@ -58,7 +58,7 @@
                     spyOn(clientContext, 'set');
                     var promise = viewModel.activate(objective.id, null);
                     deferred.resolve(null);
-                    
+
                     waitsFor(function () {
                         return promise.isFulfilled();
                     });
@@ -68,392 +68,97 @@
 
                 });
 
-                describe('when query params null', function () {
+                describe('when objective not found', function () {
 
-                    it('should set contextExperienceTitle to null', function () {
-                        var objectives = 'objectives';
+                    beforeEach(function () {
                         deferred.resolve(null);
-                        spyOn(localizationManager, 'localize').andReturn(objectives);
-                        viewModel.contextExperienceTitle = '';
-                        var promise = viewModel.activate(objective.id, null);
+                    });
 
+                    it('should navigate to #404', function () {
+                        var promise = viewModel.activate(objective.id, null);
+                        waitsFor(function () {
+                            return promise.isFulfilled();
+                        });
+                        runs(function () {
+                            expect(router.replace).toHaveBeenCalledWith('404');
+                        });
+                    });
+
+                    it('should resolve promise with undefined', function () {
+                        var promise = viewModel.activate(objective.id, null);
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(viewModel.contextExperienceTitle).toBeNull();
+                            expect(promise).toBeResolvedWith(undefined);
                         });
-                    });
-
-                    describe('when objective not found', function () {
-
-                        beforeEach(function () {
-                            deferred.resolve(null);
-                        });
-
-                        it('should navigate to #404', function () {
-                            var promise = viewModel.activate(objective.id, null);
-                            waitsFor(function () {
-                                return promise.isFulfilled();
-                            });
-                            runs(function () {
-                                expect(router.replace).toHaveBeenCalledWith('404');
-                            });
-                        });
-
-                        it('should resolve promise with undefined', function () {
-                            var promise = viewModel.activate(objective.id, null);
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeResolvedWith(undefined);
-                            });
-                        });
-
-                    });
-
-                    describe('when objective exists', function () {
-                        beforeEach(function () {
-                            deferred.resolve(objective);
-                        });
-
-                        it('should return promise', function () {
-                            expect(viewModel.activate('id')).toBePromise();
-                        });
-
-                        it('should set objective title', function () {
-                            viewModel.title('');
-
-                            var promise = viewModel.activate(objective.id, null);
-
-                            waitsFor(function () {
-                                return promise.isFulfilled();
-                            });
-                            runs(function () {
-                                expect(viewModel.title()).toBe(objective.title);
-                            });
-                        });
-
-                        it('should initialize questions collection', function () {
-                            viewModel.questions([]);
-                            var promise = viewModel.activate(objective.id, null);
-                            waitsFor(function () {
-                                return promise.isFulfilled();
-                            });
-                            runs(function () {
-                                expect(viewModel.questions().length).toBe(objective.questions.length);
-                            });
-                        });
-
-                        describe('when currentSortingOption is asc', function () {
-
-                            it('should sort questions asc', function () {
-                                viewModel.currentSortingOption(constants.sortingOptions.byTitleAsc);
-                                var promise = viewModel.activate(objective.id, null);
-                                waitsFor(function () {
-                                    return promise.isFulfilled();
-                                });
-                                runs(function () {
-                                    expect(viewModel.questions).toBeSortedAsc('title');
-                                });
-                            });
-
-                        });
-
-                        describe('when currentSortingOption is desc', function () {
-
-                            it('should sort questions desc', function () {
-                                viewModel.currentSortingOption(constants.sortingOptions.byTitleDesc);
-                                var promise = viewModel.activate(objective.id, null);
-                                waitsFor(function () {
-                                    return promise.isFulfilled();
-                                });
-                                runs(function () {
-                                    expect(viewModel.questions).toBeSortedDesc('title');
-                                });
-                            });
-
-                        });
-
                     });
 
                 });
 
-                describe('when query params not null', function () {
-
-                    describe('when query string doesnt have experienceId param', function () {
-                        var objectives = 'objectives';
-                        var queryParams = { experienceId: undefined };
-                        beforeEach(function () {
-                            spyOn(localizationManager, 'localize').andReturn(objectives);
-                        });
-
-                        it('should set contextExperienceTitle to null', function () {
-                            viewModel.contextExperienceTitle = '';
-                            var promise = viewModel.activate(objective.id, queryParams);
-                            deferred.resolve(null);
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(viewModel.contextExperienceTitle).toBeNull();
-                            });
-                        });
-
-                        it('should set contextExperienceId to null', function () {
-                            viewModel.isInExperienceContext = '';
-                            var promise = viewModel.activate(objective.id, queryParams);
-                            deferred.resolve(null);
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(viewModel.contextExperienceTitle).toBeNull();
-                            });
-                        });
-
-                        describe('when objective not found', function () {
-
-                            beforeEach(function () {
-                                deferred.resolve(null);
-                            });
-
-                            it('should navigate to #404', function () {
-                                var promise = viewModel.activate(objective.id, queryParams);
-                                waitsFor(function () {
-                                    return promise.isFulfilled();
-                                });
-                                runs(function () {
-                                    expect(router.replace).toHaveBeenCalledWith('404');
-                                });
-                            });
-
-                            it('should resolve promise with undefined', function () {
-                                var promise = viewModel.activate(objective.id, queryParams);
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeResolvedWith(undefined);
-                                });
-                            });
-
-                        });
-
-                        describe('when objective exists', function () {
-                            beforeEach(function () {
-                                deferred.resolve(objective);
-                            });
-
-                            it('should return promise', function () {
-                                expect(viewModel.activate('id')).toBePromise();
-                            });
-
-                            it('should set objective title', function () {
-                                viewModel.title('');
-
-                                var promise = viewModel.activate(objective.id, queryParams);
-
-                                waitsFor(function () {
-                                    return promise.isFulfilled();
-                                });
-                                runs(function () {
-                                    expect(viewModel.title()).toBe(objective.title);
-                                });
-                            });
-
-                            it('should initialize questions collection', function () {
-                                viewModel.questions([]);
-                                var promise = viewModel.activate(objective.id, queryParams);
-                                waitsFor(function () {
-                                    return promise.isFulfilled();
-                                });
-                                runs(function () {
-                                    expect(viewModel.questions().length).toBe(objective.questions.length);
-                                });
-                            });
-
-                            describe('when currentSortingOption is asc', function () {
-
-                                it('should sort questions asc', function () {
-                                    viewModel.currentSortingOption(constants.sortingOptions.byTitleAsc);
-                                    var promise = viewModel.activate(objective.id, queryParams);
-                                    waitsFor(function () {
-                                        return promise.isFulfilled();
-                                    });
-                                    runs(function () {
-                                        expect(viewModel.questions).toBeSortedAsc('title');
-                                    });
-                                });
-
-                            });
-
-                            describe('when currentSortingOption is desc', function () {
-
-                                it('should sort questions desc', function () {
-                                    viewModel.currentSortingOption(constants.sortingOptions.byTitleDesc);
-                                    var promise = viewModel.activate(objective.id, queryParams);
-                                    waitsFor(function () {
-                                        return promise.isFulfilled();
-                                    });
-                                    runs(function () {
-                                        expect(viewModel.questions).toBeSortedDesc('title');
-                                    });
-                                });
-
-                            });
-
-                        });
-                        
+                describe('when objective exists', function () {
+                    beforeEach(function () {
+                        deferred.resolve(objective);
                     });
 
-                    describe('when query string has experienceId param', function () {
-                        var queryParams = { experienceId: 'id' };
-                        var contextExperienceTitle = "exper";
+                    it('should return promise', function () {
+                        expect(viewModel.activate('id')).toBePromise();
+                    });
 
-                        describe('and when experience doesnt exist', function () {
-                            beforeEach(function () {
-                                getExperienceDeferred.resolve(null);
-                            });
+                    it('should set objective title', function () {
+                        viewModel.title('');
 
-                            it('should navigate to 404', function () {
-                                var promise = viewModel.activate(objective.id, queryParams);
+                        var promise = viewModel.activate(objective.id, null);
 
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(router.replace).toHaveBeenCalledWith('404');
-                                });
-                            });
+                        waitsFor(function () {
+                            return promise.isFulfilled();
                         });
-
-                        describe('and when experience exists', function () {
-
-                            it('should set contextExperienceTitle', function () {
-                                viewModel.contextExperienceTitle = '';
-                                var promise = viewModel.activate(objective.id, queryParams);
-                                getExperienceDeferred.resolve({ title: contextExperienceTitle });
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(viewModel.contextExperienceTitle).toBe(contextExperienceTitle);
-                                });
-                            });
-
-                            it('should set contextExperienceId', function () {
-                                viewModel.contextExperienceId = '';
-                                var promise = viewModel.activate(objective.id, queryParams);
-                                getExperienceDeferred.resolve({ title: contextExperienceTitle });
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(viewModel.contextExperienceId).toBe(queryParams.experienceId);
-                                });
-                            });
-
-                            describe('when objective not found', function () {
-
-                                beforeEach(function () {
-                                    getExperienceDeferred.resolve({ title: contextExperienceTitle });
-                                    deferred.resolve(null);
-                                });
-
-                                it('should navigate to #404', function () {
-                                    var promise = viewModel.activate(objective.id, queryParams);
-                                    waitsFor(function () {
-                                        return promise.isFulfilled();
-                                    });
-                                    runs(function () {
-                                        expect(router.replace).toHaveBeenCalledWith('404');
-                                    });
-                                });
-
-                                it('should resolve promise with undefined', function () {
-                                    var promise = viewModel.activate(objective.id, queryParams);
-                                    waitsFor(function () {
-                                        return !promise.isPending();
-                                    });
-                                    runs(function () {
-                                        expect(promise).toBeResolvedWith(undefined);
-                                    });
-                                });
-
-                            });
-
-                            describe('when objective exists', function () {
-                                beforeEach(function () {
-                                    getExperienceDeferred.resolve({ title: contextExperienceTitle });
-                                    deferred.resolve(objective);
-                                });
-
-                                it('should return promise', function () {
-                                    expect(viewModel.activate('id')).toBePromise();
-                                });
-
-                                it('should set objective title', function () {
-                                    viewModel.title('');
-
-                                    var promise = viewModel.activate(objective.id, queryParams);
-                                    waitsFor(function () {
-                                        return promise.isFulfilled();
-                                    });
-                                    runs(function () {
-                                        expect(viewModel.title()).toBe(objective.title);
-                                    });
-                                });
-
-                                it('should initialize questions collection', function () {
-                                    viewModel.questions([]);
-
-                                    var promise = viewModel.activate(objective.id, queryParams);
-                                    waitsFor(function () {
-                                        return promise.isFulfilled();
-                                    });
-                                    runs(function () {
-                                        expect(viewModel.questions().length).toBe(objective.questions.length);
-                                    });
-                                });
-
-                                describe('when currentSortingOption is asc', function () {
-
-                                    it('should sort questions asc', function () {
-                                        viewModel.currentSortingOption(constants.sortingOptions.byTitleAsc);
-
-                                        var promise = viewModel.activate(objective.id, queryParams);
-                                        waitsFor(function () {
-                                            return promise.isFulfilled();
-                                        });
-                                        runs(function () {
-                                            expect(viewModel.questions).toBeSortedAsc('title');
-                                        });
-                                    });
-
-                                });
-
-                                describe('when currentSortingOption is desc', function () {
-
-                                    it('should sort questions desc', function () {
-                                        viewModel.currentSortingOption(constants.sortingOptions.byTitleDesc);
-
-                                        var promise = viewModel.activate(objective.id, queryParams);
-                                        waitsFor(function () {
-                                            return promise.isFulfilled();
-                                        });
-                                        runs(function () {
-                                            expect(viewModel.questions).toBeSortedDesc('title');
-                                        });
-                                    });
-
-                                });
-
-                            });
-                            
+                        runs(function () {
+                            expect(viewModel.title()).toBe(objective.title);
                         });
                     });
+
+                    it('should initialize questions collection', function () {
+                        viewModel.questions([]);
+                        var promise = viewModel.activate(objective.id, null);
+                        waitsFor(function () {
+                            return promise.isFulfilled();
+                        });
+                        runs(function () {
+                            expect(viewModel.questions().length).toBe(objective.questions.length);
+                        });
+                    });
+
+                    describe('when currentSortingOption is asc', function () {
+
+                        it('should sort questions asc', function () {
+                            viewModel.currentSortingOption(constants.sortingOptions.byTitleAsc);
+                            var promise = viewModel.activate(objective.id, null);
+                            waitsFor(function () {
+                                return promise.isFulfilled();
+                            });
+                            runs(function () {
+                                expect(viewModel.questions).toBeSortedAsc('title');
+                            });
+                        });
+
+                    });
+
+                    describe('when currentSortingOption is desc', function () {
+
+                        it('should sort questions desc', function () {
+                            viewModel.currentSortingOption(constants.sortingOptions.byTitleDesc);
+                            var promise = viewModel.activate(objective.id, null);
+                            waitsFor(function () {
+                                return promise.isFulfilled();
+                            });
+                            runs(function () {
+                                expect(viewModel.questions).toBeSortedDesc('title');
+                            });
+                        });
+
+                    });
+
                 });
             });
 
@@ -512,18 +217,6 @@
                         });
 
                     });
-                });
-            });
-
-            describe('contextExperienceTitle:', function () {
-                it('should be defined', function () {
-                    expect(viewModel.contextExperienceTitle).toBeDefined();
-                });
-            });
-
-            describe('contextExperienceId:', function () {
-                it('should be defined', function () {
-                    expect(viewModel.contextExperienceId).toBeDefined();
                 });
             });
 
@@ -676,7 +369,7 @@
                                     expect(notify.info).toHaveBeenCalled();
                                 });
                             });
-                            
+
                         });
 
                     });
@@ -697,46 +390,6 @@
 
                     });
                 });
-            });
-
-            describe('navigateBack', function () {
-
-                describe('when contextExperienceId is not string', function () {
-
-                    beforeEach(function () {
-                        viewModel.contextExperienceId = null;
-                    });
-
-                    it('should navigate to #objectives', function () {
-                        viewModel.navigateBack();
-                        expect(router.navigate).toHaveBeenCalledWith('objectives');
-                    });
-
-                    it('should send event \"Navigate to Learning Objectives\"', function () {
-                        viewModel.navigateBack();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Learning Objectives');
-                    });
-
-                });
-
-                describe('when contextExperienceId is string', function () {
-
-                    var contextExperienceId = 'id';
-                    beforeEach(function () {
-                        viewModel.contextExperienceId = contextExperienceId;
-                    });
-
-                    it('should navigate to experience/{id}', function () {
-                        viewModel.navigateBack();
-                        expect(router.navigate).toHaveBeenCalledWith('experience/' + contextExperienceId);
-                    });
-                    it('should send event \'Navigate to experience\'', function () {
-                        viewModel.navigateBack();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to experience');
-                    });
-
-                });
-
             });
 
             describe('navigateToEditQuestion', function () {

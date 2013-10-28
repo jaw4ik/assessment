@@ -8,12 +8,6 @@
     </div>
 
     <div class="container">
-        <!-- ko if: _.isString(contextExperienceId) -->
-        <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: '\'' + contextExperienceTitle + '\'', isGoBackTextLocalizable: false, goBackAction: navigateBack.bind($data) } }"></div>
-        <!-- /ko -->
-        <!-- ko ifnot: _.isString(contextExperienceId) -->
-        <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'learningObjectives', isGoBackTextLocalizable: true, goBackAction: navigateBack.bind($data) } }"></div>
-        <!-- /ko -->
 
         <header class="view-header">
             <div class="view-header-title">

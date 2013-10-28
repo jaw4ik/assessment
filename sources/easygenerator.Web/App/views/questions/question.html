@@ -8,24 +8,6 @@
     </div>
     <div class="container">
 
-        <nav class="navbar question clearfix">
-            <div class="nav-control fixed create-question-from-question-view pull-right" data-bind="click: goToCreateQuestion">
-                <div class="nav-element nav-icon create-question-image pull-right"></div>
-                <div class="nav-title">
-                    <span class="nav-element" data-bind="localize: { text: 'createNewQuestion' }"></span>
-                </div>
-            </div>
-            <div class="nav-control flexible">
-                <div class="nav-element nav-icon back-icon pull-left" data-bind="click: goToRelatedObjective"></div>
-                <div class="nav-title">
-                    <span class="nav-element" data-bind="click: goToRelatedObjective">
-                        <span data-bind="localize: { text: 'backTo' }"></span>&nbsp;
-                    <span data-bind="text: ' \'' + objectiveTitle + '\''"></span>
-                    </span>
-                </div>
-            </div>
-        </nav>
-
         <header class="view-header">
             <div class="view-header-title">
                 <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() }"></div>

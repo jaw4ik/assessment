@@ -306,6 +306,7 @@ define(function (require) {
             it('should be a function', function () {
                 expect(viewModel.activate).toBeFunction();
             });
+            
             describe('when objective not found', function () {
 
                 it('should navigate to #404', function () {
@@ -349,48 +350,11 @@ define(function (require) {
                     return !promise.isPending();
                 });
                 runs(function () {
-                    expect(viewModel.objectiveTitle).toBe(objectiveFull.title);
                     expect(viewModel.title()).toBe(question.title);
                     expect(viewModel.answers).toBeDefined();
                     expect(viewModel.learningContents).toBeDefined();
                 });
             });
-        });
-      
-        describe('goToCreateQuestion:', function () {
-
-            it('should be a function', function () {
-                expect(viewModel.goToCreateQuestion).toBeFunction();
-            });
-
-            it('should track event \"Navigate to create question\"', function () {
-                viewModel.goToCreateQuestion();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to create question');
-            });
-
-            it('should navigate to #objective/{objectiveId}', function () {
-                viewModel.goToCreateQuestion();
-                expect(router.navigateWithQueryString).toHaveBeenCalled();
-            });
-
-        });
-
-        describe('goToRelatedObjective:', function () {
-
-            it('should be a function', function () {
-                expect(viewModel.goToRelatedObjective).toBeFunction();
-            });
-
-            it('should track event \"Navigate to related objective\"', function () {
-                viewModel.goToRelatedObjective();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to related objective');
-            });
-
-            it('should navigate to #objective/{objectiveId}', function () {
-                viewModel.goToRelatedObjective();
-                expect(router.navigateWithQueryString).toHaveBeenCalled();
-            });
-
         });
 
         describe('language:', function () {

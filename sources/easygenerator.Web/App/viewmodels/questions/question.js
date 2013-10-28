@@ -3,9 +3,7 @@
         "use strict";
         var
             events = {
-                navigateToRelatedObjective: 'Navigate to related objective',
                 updateQuestionTitle: 'Update question title',
-                navigateToCreateQuestion: 'Navigate to create question',
 
                 addAnswerOption: 'Add answer option',
                 toggleAnswerCorrectness: 'Change answer option correctness',
@@ -27,7 +25,6 @@
         var
             objectiveId = '',
             questionId = '',
-            objectiveTitle = '',
             title = ko.observable(''),
             language = ko.observable();
 
@@ -38,14 +35,6 @@
         });
 
         var
-            goToRelatedObjective = function () {
-                sendEvent(events.navigateToRelatedObjective);
-                router.navigateWithQueryString('objective/' + objectiveId);
-            },
-            goToCreateQuestion = function () {
-                sendEvent(events.navigateToCreateQuestion);
-                router.navigateWithQueryString('objective/' + objectiveId + '/question/create');
-            },
             startEditQuestionTitle = function () {
                 title.isEditing(true);
             },
@@ -81,10 +70,9 @@
                 this.language(localizationManager.currentLanguage);
 
                 var that = this;
-                return objectiveRepository.getById(objId).then(function (objective) {
+                return objectiveRepository.getById(objId).then(function () {
                     questionRepository.getById(objectiveId, questionId).then(function (question) {
                         that.title(question.title);
-                        that.objectiveTitle = objective.title;
                     }).fail(function () {
                         router.replace('404');
                         return;
@@ -104,7 +92,6 @@
             };
 
         return {
-            objectiveTitle: objectiveTitle,
             title: title,
             questionTitleMaxLength: constants.validation.questionTitleMaxLength,
             language: language,
@@ -112,8 +99,6 @@
 
             activate: activate,
 
-            goToRelatedObjective: goToRelatedObjective,
-            goToCreateQuestion: goToCreateQuestion,
             startEditQuestionTitle: startEditQuestionTitle,
             endEditQuestionTitle: endEditQuestionTitle,
 

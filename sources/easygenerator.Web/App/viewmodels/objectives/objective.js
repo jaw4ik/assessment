@@ -5,23 +5,19 @@
         var events = {
             updateObjectiveTitle: "Update objective title",
             navigateToEditQuestion: "Navigate to edit question",
-            navigateToObjectives: "Navigate to Learning Objectives",
             navigateToCreateQuestion: "Navigate to create question",
             sortByTitleAsc: "Sort questions by title ascending",
             sortByTitleDesc: "Sort questions by title descending",
             selectQuestion: "Select question",
             unselectQuestion: "Unselect question",
-            deleteSelectedQuestions: "Delete question",
-            navigateToExperience: "Navigate to experience"
+            deleteSelectedQuestions: "Delete question"
         },
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName);
             };
 
         var objectiveId = null,
-            title = ko.observable(''),
-            contextExperienceTitle = null,
-            contextExperienceId = null;
+            title = ko.observable('');
 
         title.isEditing = ko.observable();
         title.isValid = ko.computed(function () {
@@ -71,16 +67,6 @@
                 sendEvent(events.sortByTitleDesc);
                 currentSortingOption(constants.sortingOptions.byTitleDesc);
                 questions(_.sortBy(questions(), function (question) { return question.title.toLowerCase(); }).reverse());
-            },
-
-            navigateBack = function () {
-                if (_.isString(this.contextExperienceId)) {
-                    sendEvent(events.navigateToExperience);
-                    router.navigate('experience/' + this.contextExperienceId);
-                } else {
-                    sendEvent(events.navigateToObjectives);
-                    router.navigate('objectives');
-                }
             },
 
             navigateToEditQuestion = function (question) {
@@ -138,32 +124,12 @@
                 return mappedQuestion;
             },
 
-            activate = function (objId, queryParams) {
+            activate = function (objId) {
                 var that = this;
 
                 clientContext.set('lastVisitedObjective', objId);
-                if (_.isNullOrUndefined(queryParams) || !_.isString(queryParams.experienceId)) {
-                    that.contextExperienceId = null;
-                    that.contextExperienceTitle = null;
-                    return repository.getById(objId).then(function (objective) {
-                        initializeObjectiveInfo(objective);
-                    });
-                } else {
-                    return experienceRepository.getById(queryParams.experienceId).then(function (experience) {
-                        if (_.isNull(experience)) {
-                            router.replace('404');
-                            return;
-                        }
 
-                        that.contextExperienceId = queryParams.experienceId;
-                        that.contextExperienceTitle = experience.title;
-                        repository.getById(objId).then(function (objective) {
-                            initializeObjectiveInfo(objective);
-                        });
-                    });
-                }
-
-                function initializeObjectiveInfo(objective) {
+                return repository.getById(objId).then(function (objective) {
                     if (!_.isObject(objective)) {
                         router.replace('404');
                         return;
@@ -180,7 +146,7 @@
                         .value();
 
                     that.questions(currentSortingOption() == constants.sortingOptions.byTitleAsc ? array : array.reverse());
-                };
+                });
             },
 
             getSelectedQuestions = function () {
@@ -196,8 +162,6 @@
         return {
             objectiveId: objectiveId,
             title: title,
-            contextExperienceId: contextExperienceId,
-            contextExperienceTitle: contextExperienceTitle,
             titleMaxLength: constants.validation.objectiveTitleMaxLength,
 
             questions: questions,
@@ -212,7 +176,6 @@
             sortingOptions: constants.sortingOptions,
 
             navigateToEditQuestion: navigateToEditQuestion,
-            navigateBack: navigateBack,
             navigateToCreateQuestion: navigateToCreateQuestion,
 
             deleteSelectedQuestions: deleteSelectedQuestions,
