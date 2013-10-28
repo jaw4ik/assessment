@@ -217,11 +217,8 @@
                         })
                         .sortBy(function (objective) { return objective.title.toLowerCase(); })
                         .value());
-
-                    clientContext.set('lastVistedExperience', experience.id);
+                    
                     hintPopup.displayed(false);
-
-                    clientContext.set('lastVisitedObjective', null);
                     isEditing(false);
                 }).fail(function () {
                     router.replace('404');

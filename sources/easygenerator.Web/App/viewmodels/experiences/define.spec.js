@@ -986,18 +986,6 @@
                         });
                     });
 
-                    it('should set current experience id as the last visited to client context', function () {
-                        spyOn(clientContext, 'set');
-                        var promise = viewModel.activate(experience.id);
-
-                        waitsFor(function () {
-                            return promise.isFulfilled();
-                        });
-                        runs(function () {
-                            expect(clientContext.set).toHaveBeenCalledWith('lastVistedExperience', experience.id);
-                        });
-                    });
-
                     it('should set current experience objectives sorted by title ascending', function () {
                         viewModel.relatedObjectives(null);
 

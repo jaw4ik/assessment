@@ -4,11 +4,12 @@
         var
             define = require('viewmodels/experiences/define'),
             design = require('viewmodels/experiences/design'),
-            deliver = require('viewmodels/experiences/deliver');
+            deliver = require('viewmodels/experiences/deliver'),
+            clientContext = require('clientContext');
 
-        describe('viewModel [experience]', function() {
+        describe('viewModel [experience]', function () {
 
-            beforeEach(function() {
+            beforeEach(function () {
                 spyOn(viewModel.activeStep, 'activateItem');
             });
 
@@ -18,38 +19,50 @@
 
             describe('activeStep:', function () {
 
-                it('should be observable', function() {
+                it('should be observable', function () {
                     expect(viewModel.activeStep).toBeObservable();
                 });
 
             });
 
-            describe('activate:', function() {
+            describe('activate:', function () {
 
-                it('should be function', function() {
+                it('should be function', function () {
                     expect(viewModel.activate).toBeFunction();
                 });
 
-                it('should reset active step to define', function() {
+                it('should reset active step to define', function () {
                     viewModel.activate('SomeId');
                     expect(viewModel.activeStep.activateItem).toHaveBeenCalledWith(define, 'SomeId');
+                });
+
+                it('should set experience id as the last visited in client context', function () {
+                    spyOn(clientContext, 'set');
+                    viewModel.activate('SomeId');
+                    expect(clientContext.set).toHaveBeenCalledWith('lastVistedExperience', 'SomeId');
+                });
+                
+                it('should set reset last visited objective in client context', function () {
+                    spyOn(clientContext, 'set');
+                    viewModel.activate('SomeId');
+                    expect(clientContext.set).toHaveBeenCalledWith('lastVisitedObjective', null);
                 });
 
             });
 
             describe('goToDefine:', function () {
 
-                it('should be function', function() {
+                it('should be function', function () {
                     expect(viewModel.goToDefine).toBeFunction();
                 });
 
-                it('should set activeStep to define', function() {
+                it('should set activeStep to define', function () {
                     viewModel.goToDefine();
                     expect(viewModel.activeStep.activateItem).toHaveBeenCalledWith(define, jasmine.any(String));
                 });
 
             });
-            
+
             describe('goToDesign:', function () {
 
                 it('should be function', function () {
@@ -62,7 +75,7 @@
                 });
 
             });
-            
+
             describe('goToDeliver:', function () {
 
                 it('should be function', function () {

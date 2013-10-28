@@ -1,39 +1,44 @@
-﻿define(['durandal/activator', 'viewmodels/experiences/define', 'viewmodels/experiences/design', 'viewmodels/experiences/deliver'], function (activator, define, design, deliver) {
+﻿define(['durandal/activator', 'viewmodels/experiences/define', 'viewmodels/experiences/design', 'viewmodels/experiences/deliver', 'clientContext'],
+    function (activator, define, design, deliver, clientContext) {
 
 
-    var
-        activeStep = activator.create(),
+        var
+            activeStep = activator.create(),
 
-        id = null,
+            id = null,
 
-        goToDefine = function () {
-            activeStep.activateItem(define, id);
-        },
-        
-        goToDesign = function () {
-            activeStep.activateItem(design, id);
-        },
-        
-        goToDeliver = function () {
-            activeStep.activateItem(deliver, id);
-        },
+            goToDefine = function () {
+                activeStep.activateItem(define, id);
+            },
 
-        activate = function (experienceId) {
-            activeStep.activateItem({});
-            id = experienceId;            
-            goToDefine();
-        }
-    ;
+            goToDesign = function () {
+                activeStep.activateItem(design, id);
+            },
 
-    return {
-        activeStep: activeStep,
-        steps: [define, design, deliver],
+            goToDeliver = function () {
+                activeStep.activateItem(deliver, id);
+            },
 
-        goToDefine: goToDefine,
-        goToDesign: goToDesign,
-        goToDeliver: goToDeliver,
+            activate = function (experienceId) {
+                activeStep.activateItem({});
+                id = experienceId;
+                goToDefine();
 
-        activate: activate
-    };
+                clientContext.set('lastVistedExperience', experienceId);
+                clientContext.set('lastVisitedObjective', null);
+            }
+        ;
 
-});
+        return {
+            activeStep: activeStep,
+            steps: [define, design, deliver],
+
+            goToDefine: goToDefine,
+            goToDesign: goToDesign,
+            goToDeliver: goToDeliver,
+
+            activate: activate
+        };
+
+    }
+);
