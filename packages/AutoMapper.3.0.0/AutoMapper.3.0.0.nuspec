@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>AutoMapper</id>
-    <version>2.2.1</version>
+    <version>3.0.0</version>
     <authors>Jimmy Bogard</authors>
     <owners>Jimmy Bogard</owners>
     <licenseUrl>https://github.com/AutoMapper/AutoMapper/blob/master/LICENSE.txt</licenseUrl>
