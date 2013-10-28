@@ -33,13 +33,12 @@
                     Q().then(function () {
                         return trackAction(verbs.stopped);
                     }).then(function () {
-                        var defer = Q.defer();
                         if (typeof data === "undefined" ||
                         _.isUndefined(data.result) ||
                         typeof settings === "undefined" ||
                         _.isUndefined(settings.scoresDistribution.minScoreForPositiveResult) ||
                         _.isUndefined(settings.scoresDistribution.positiveVerb)) {
-                            return defer.reject();
+                            throw errorsHandler.errors.notEnoughDataInSettings;
                         }
 
                         if (data.result >= settings.scoresDistribution.minScoreForPositiveResult)
@@ -50,8 +49,8 @@
                         if (!!data.callback) {
                             data.callback.call(this);
                         }
-                    }).fail(function () {
-                        errorsHandler.handleError(errorsHandler.errors.notEnoughDataInSettings);
+                    }).fail(function (error) {
+                        errorsHandler.handleError(error);
                     });
                 });
             },
