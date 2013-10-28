@@ -652,6 +652,8 @@ ol.unstyled  {
 
 .create-form {
     margin-top: 20px;
+    overflow: hidden;
+    padding-bottom: 35px;
 }
 
 .create-form-image {

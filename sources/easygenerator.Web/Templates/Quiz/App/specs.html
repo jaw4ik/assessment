@@ -19,17 +19,28 @@
     <script type="text/javascript" src="../js/underscore-1.5.1.js"></script>
 
     <!-- Source scripts -->
-    <script type="text/javascript" src="durandal/amd/require.js"></script>
+    <script type="text/javascript" src="../js/require.js"></script>
 
     <script type="text/javascript">
 
         (function () {
             require.config({
                 paths: {
-                    "text": "durandal/amd/text"
+                    'text': '../js/text',
+                    'durandal': '../js/durandal',
+                    'plugins': '../js/durandal/plugins',
+                    'transitions': '../js/durandal/transitions'
                 },
                 urlArgs: 'v=' + Math.random()
             });
+
+            require(['plugins/router'], function (router) {
+                router.replace = function () { };
+            });
+            
+            define('jquery', function () { return jQuery; });
+
+            define('knockout', function () { return ko; });
 
             var specs = [
                 'viewmodels/shell.spec',
@@ -38,7 +49,11 @@
                 'viewmodels/notsupportedbrowser.spec',
                 'viewmodels/summary.spec',
                 'viewmodels/404.spec',
-                'viewmodels/400.spec'
+                'viewmodels/400.spec',
+                'viewmodels/xAPIError.spec',
+                'xAPI/base64.spec',
+                'xAPI/errorsHandler.spec',
+                'xAPI/requestManager.spec'
             ];
             
             require(specs, function () {

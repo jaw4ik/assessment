@@ -3,7 +3,7 @@
     
     var
         viewModel = require('viewmodels/home'),
-        router = require('durandal/plugins/router'),
+        router = require('plugins/router'),
         context = require('context');
 
     describe('viewModel [home]', function () {
@@ -68,12 +68,12 @@
             expect(viewModel.submit).toBeDefined();
         });
         
-        it('should be defined showLearningContents', function () {
+        it('should be defined showlearningContents', function () {
             expect(viewModel.showLearningContents).toBeDefined();
         });
         
-        it('should be defined viewAttached', function () {
-            expect(viewModel.viewAttached).toBeDefined();
+        it('should be defined compositionComplete', function () {
+            expect(viewModel.compositionComplete).toBeDefined();
         });
         
         it('should be defined isEndTest', function () {
@@ -149,23 +149,23 @@
             });
         });
 
-        describe('viewAttached:', function() {
+        describe('compositionComplete:', function () {
             it('should be function', function () {
-                expect(viewModel.viewAttached).toBeFunction();
+                expect(viewModel.compositionComplete).toBeFunction();
             });
         });
 
         describe('submit:', function () {
             beforeEach(function() {
-                spyOn(router, 'navigateTo');
+                spyOn(router, 'navigate');
             });
             it('should be function', function() {
                 expect(viewModel.submit).toBeFunction();
             });
             
-            it('should navigate to #/summary', function () {
+            it('should navigate to summary', function () {
                 viewModel.submit();
-                expect(router.navigateTo).toHaveBeenCalledWith('#/summary');
+                expect(router.navigate).toHaveBeenCalledWith('summary');
             });
 
             it('should be set isEndTest to true', function () {
@@ -177,17 +177,17 @@
 
         describe('showLearningContents:', function () {
             beforeEach(function () {
-                spyOn(router, 'navigateTo');
+                spyOn(router, 'navigate');
             });
             
             it('should be function', function () {
                 expect(viewModel.showLearningContents).toBeFunction();
             });
             
-            it('should navigate to #/objective/:objectiveId/question/:questionid/learningContents', function () {
-                var learningContent = { objectiveId: 'obj1', id: 'ques1' };
-                viewModel.showLearningContents(learningContent);
-                expect(router.navigateTo).toHaveBeenCalledWith('#/objective/obj1/question/ques1/learningContents');
+            it('should navigate to objective/:objectiveId/question/:questionid/learningContents', function () {
+                var learningContents = { objectiveId: 'obj1', id: 'ques1' };
+                viewModel.showLearningContents(learningContents);
+                expect(router.navigate).toHaveBeenCalledWith('objective/obj1/question/ques1/learningContents');
             });
         });
     });

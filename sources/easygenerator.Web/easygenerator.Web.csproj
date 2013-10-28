@@ -519,9 +519,28 @@
       <DependentUpon>vendor.js.bundle</DependentUpon>
     </Content>
     <Content Include="Templates\Maintenance\sorry.html" />
+    <Content Include="Templates\Quiz\App\events.js" />
     <Content Include="Templates\Quiz\App\viewmodels\learningContents.spec.js">
       <DependentUpon>learningContents.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Quiz\App\viewmodels\xAPIError.js" />
+    <Content Include="Templates\Quiz\App\viewmodels\xAPIError.spec.js">
+      <DependentUpon>xAPIError.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\xAPI\base64.js" />
+    <Content Include="Templates\Quiz\App\xAPI\base64.spec.js">
+      <DependentUpon>base64.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\xAPI\errorsHandler.js" />
+    <Content Include="Templates\Quiz\App\xAPI\errorsHandler.spec.js">
+      <DependentUpon>errorsHandler.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\xAPI\requestManager.js" />
+    <Content Include="Templates\Quiz\App\xAPI\requestManager.spec.js">
+      <DependentUpon>requestManager.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\xAPI\settings.js" />
+    <Content Include="Templates\Quiz\App\xAPI\verbs.js" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.eot" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.ttf" />
     <Content Include="Templates\Quiz\css\fonts\ubuntu-regular.woff" />
@@ -532,6 +551,26 @@
     <Content Include="Content\font\buxtonsketch.ttf" />
     <Content Include="Content\font\buxtonsketch.woff" />
     <Content Include="Scripts\underscore.min.map" />
+    <Content Include="Templates\Quiz\css\xAPIEror.css" />
+    <Content Include="Templates\Quiz\img\xapierror.png" />
+    <Content Include="Templates\Quiz\js\durandal\activator.js" />
+    <Content Include="Templates\Quiz\js\durandal\app.js" />
+    <Content Include="Templates\Quiz\js\durandal\binder.js" />
+    <Content Include="Templates\Quiz\js\durandal\composition.js" />
+    <Content Include="Templates\Quiz\js\durandal\events.js" />
+    <Content Include="Templates\Quiz\js\durandal\plugins\dialog.js" />
+    <Content Include="Templates\Quiz\js\durandal\plugins\history.js" />
+    <Content Include="Templates\Quiz\js\durandal\plugins\http.js" />
+    <Content Include="Templates\Quiz\js\durandal\plugins\observable.js" />
+    <Content Include="Templates\Quiz\js\durandal\plugins\router.js" />
+    <Content Include="Templates\Quiz\js\durandal\plugins\serializer.js" />
+    <Content Include="Templates\Quiz\js\durandal\plugins\widget.js" />
+    <Content Include="Templates\Quiz\js\durandal\system.js" />
+    <Content Include="Templates\Quiz\js\durandal\transitions\entrance.js" />
+    <Content Include="Templates\Quiz\js\durandal\viewEngine.js" />
+    <Content Include="Templates\Quiz\js\durandal\viewLocator.js" />
+    <Content Include="Templates\Quiz\js\require.js" />
+    <Content Include="Templates\Quiz\js\text.js" />
     <Content Include="Views\Account\PrivacyPolicy.cshtml" />
     <Content Include="Views\Account\TermsOfUse.cshtml" />
     <Content Include="Content\font\opensans-regular.eot" />
@@ -914,26 +953,6 @@
     <Content Include="Scripts\underscore.extensions.js" />
     <Content Include="Templates\Quiz\App\browserSupport.js" />
     <Content Include="Templates\Quiz\App\context.js" />
-    <Content Include="Templates\Quiz\App\durandal\amd\almond-custom.js" />
-    <Content Include="Templates\Quiz\App\durandal\amd\optimizer.exe" />
-    <Content Include="Templates\Quiz\App\durandal\amd\r.js" />
-    <Content Include="Templates\Quiz\App\durandal\amd\require.js" />
-    <Content Include="Templates\Quiz\App\durandal\amd\text.js" />
-    <Content Include="Templates\Quiz\App\durandal\app.js" />
-    <Content Include="Templates\Quiz\App\durandal\composition.js" />
-    <Content Include="Templates\Quiz\App\durandal\events.js" />
-    <Content Include="Templates\Quiz\App\durandal\http.js" />
-    <Content Include="Templates\Quiz\App\durandal\messageBox.html" />
-    <Content Include="Templates\Quiz\App\durandal\messageBox.js" />
-    <Content Include="Templates\Quiz\App\durandal\modalDialog.js" />
-    <Content Include="Templates\Quiz\App\durandal\plugins\router.js" />
-    <Content Include="Templates\Quiz\App\durandal\system.js" />
-    <Content Include="Templates\Quiz\App\durandal\transitions\entrance.js" />
-    <Content Include="Templates\Quiz\App\durandal\viewEngine.js" />
-    <Content Include="Templates\Quiz\App\durandal\viewLocator.js" />
-    <Content Include="Templates\Quiz\App\durandal\viewModel.js" />
-    <Content Include="Templates\Quiz\App\durandal\viewModelBinder.js" />
-    <Content Include="Templates\Quiz\App\durandal\widget.js" />
     <Content Include="Templates\Quiz\App\main.js" />
     <Content Include="Templates\Quiz\App\specs.html" />
     <Content Include="Templates\Quiz\App\viewmodels\400.js" />

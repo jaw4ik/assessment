@@ -1,4 +1,4 @@
-﻿define(['context', 'durandal/plugins/router'], function (context, router) {
+﻿define(['context', 'plugins/router'], function (context, router) {
 
     var objectives = [],
         questions = [],
@@ -30,12 +30,12 @@
         submit = function () {
             scrollId = '0';
             isEndTest(true);
-            router.navigateTo('#/summary');
+            router.navigate('summary');
         },
 
         showLearningContents = function (item) {
-            router.navigateTo('#/objective/' + item.objectiveId + '/question/' + item.id + '/learningContents');
             scrollId = '' + item.objectiveId + item.id;
+            router.navigate('objective/' + item.objectiveId + '/question/' + item.id + '/learningContents');
         },
 
         shuffleAndSetNumber = function () {
@@ -106,9 +106,9 @@
             }
         },
 
-        viewAttached = function () {
+        compositionComplete = function () {
             if (scrollId != '0') {
-                var targetTop = $('#' + scrollId).offset().top;
+                var targetTop = jQuery('#' + scrollId).offset().top;
                 $('html, body').animate({
                     scrollTop: targetTop - 5
                 });
@@ -125,7 +125,7 @@
         getItems: getItems,
         submit: submit,
         showLearningContents: showLearningContents,
-        viewAttached: viewAttached,
+        compositionComplete: compositionComplete,
         isEndTest: isEndTest,
         titleOfExperience: context.title,
         countOfQuestions: countOfQuestions

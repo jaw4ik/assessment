@@ -3,9 +3,9 @@
 
     var
         viewModel = require('viewModels/learningContents'),
-        router = require('durandal/plugins/router'),
+        router = require('plugins/router'),
         context = require('context'),
-        http = require('durandal/http');
+        http = require('plugins/http');
 
     describe('viewModel [learningContents]', function () {
 
@@ -54,73 +54,55 @@
             });
 
             it('should be set learning content', function () {
-                viewModel.activate({ objectiveId: 0, questionId: 0 });
+                viewModel.activate(0, 0);
                 expect(viewModel.learningContents).toNotBe([]);
             });
 
             describe('when routeData incorrect', function () {
 
                 beforeEach(function () {
-                    spyOn(router, 'navigateTo');
+                    spyOn(router, 'navigate');
                 });
 
-                describe('when objectiveId is undefined', function () {
+                describe('when objectiveId is empty', function () {
 
-                    it('should navigate to #/400', function () {
-                        viewModel.activate({ objectiveId: undefined, questionId: '0' });
-                        expect(router.navigateTo).toHaveBeenCalledWith('#/400');
+                    it('should navigate to 400', function () {
+                        viewModel.activate('','0');
+                        expect(router.navigate).toHaveBeenCalledWith('400');
                     });
 
                 });
 
-                describe('when questionId is undefined', function () {
+                describe('when questionId is empty', function () {
 
-                    it('should navigate to #/400', function () {
-                        viewModel.activate({ objectiveId: '0', questionId: undefined });
-                        expect(router.navigateTo).toHaveBeenCalledWith('#/400');
-                    });
-
-                });
-
-                describe('when objectiveId is null', function () {
-
-                    it('should navigate to #/400', function () {
-                        viewModel.activate({ objectiveId: null, questionId: '0' });
-                        expect(router.navigateTo).toHaveBeenCalledWith('#/400');
-                    });
-
-                });
-
-                describe('when questionId is null', function () {
-
-                    it('should navigate to #/400', function () {
-                        viewModel.activate({ objectiveId: '0', questionId: null });
-                        expect(router.navigateTo).toHaveBeenCalledWith('#/400');
+                    it('should navigate to 400', function () {
+                        viewModel.activate('0', '');
+                        expect(router.navigate).toHaveBeenCalledWith('400');
                     });
 
                 });
 
                 describe('when objectiveId incorrect', function () {
 
-                    it('should navigate to #/404', function () {
-                        viewModel.activate({ objectiveId: 'Some incorrect id', questionId: '0' });
-                        expect(router.navigateTo).toHaveBeenCalledWith('#/404');
+                    it('should navigate to 404', function () {
+                        viewModel.activate('Some incorrect id', '0');
+                        expect(router.navigate).toHaveBeenCalledWith('404');
                     });
 
                 });
 
                 describe('when questionId incorrect', function () {
 
-                    it('should navigate to #/404', function () {
-                        viewModel.activate({ objectiveId: '0', questionId: 'Some incorrect id' });
-                        expect(router.navigateTo).toHaveBeenCalledWith('#/404');
+                    it('should navigate to 404', function () {
+                        viewModel.activate('0', 'Some incorrect id');
+                        expect(router.navigate).toHaveBeenCalledWith('404');
                     });
 
                 });
             });
 
             it('should scroll window to 0, 0', function () {
-                viewModel.activate({ objectiveId: '0', questionId: '0' });
+                viewModel.activate('0', '0');
                 expect(window.scroll).toHaveBeenCalledWith(0, 0);
             });
 
@@ -130,7 +112,7 @@
                 var itemId = '0';
                 var learningContentUrl = 'content/' + objectiveId + '/' + questionId + '/' + itemId + '.html';
 
-                viewModel.activate({ objectiveId: objectiveId, questionId: questionId });
+                viewModel.activate(objectiveId, questionId);
 
                 expect(http.get).toHaveBeenCalledWith(learningContentUrl);
             });
@@ -140,7 +122,7 @@
                 var questionId = '0';
                 var responseText = 'some response text';
 
-                var promise = viewModel.activate({ objectiveId: objectiveId, questionId: questionId });
+                var promise = viewModel.activate(objectiveId, questionId);
 
                 deferred.resolve(responseText);
 
@@ -160,10 +142,10 @@
                 expect(viewModel.backToQuestions).toBeFunction();
             });
 
-            it('should navigate to #/', function () {
-                spyOn(router, 'navigateTo');
+            it('should navigate to \'home\'', function () {
+                spyOn(router, 'navigate');
                 viewModel.backToQuestions();
-                expect(router.navigateTo).toHaveBeenCalledWith('#/');
+                expect(router.navigate).toHaveBeenCalledWith('home');
             });
 
         });

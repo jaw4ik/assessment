@@ -3,8 +3,10 @@
 
     var
         viewModel = require('viewmodels/summary'),
-        router = require('durandal/plugins/router'),
-        context = require('context');
+        router = require('plugins/router'),
+        context = require('context'),
+        events = require('events'),
+        app = require('durandal/app');
 
     describe('viewModel [summary]', function () {
 
@@ -20,11 +22,11 @@
 
             describe('when context.testResult does not have data', function () {
 
-                it('should navigate to #/', function () {
+                it('should navigate to \'\'', function () {
                     context.testResult([]);
-                    spyOn(router, 'navigateTo');
+                    spyOn(router, 'navigate');
                     viewModel.activate();
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/');
+                    expect(router.navigate).toHaveBeenCalledWith('');
                 });
 
             });
@@ -95,8 +97,6 @@
                         title: 'Questions 2',
                         score: 89
                     }]);
-
-                    spyOn(window, 'scroll');
                 });
 
                 it('should be set objectives', function () {
@@ -107,11 +107,6 @@
                 it('should be set overallProgress to 50%', function () {
                     viewModel.activate();
                     expect(viewModel.overallScore).toBe(50);
-                });
-
-                it('should scroll window to 0, 0', function () {
-                    viewModel.activate({ objectiveId: '0', questionId: '0' });
-                    expect(window.scroll).toHaveBeenCalledWith(0, 0);
                 });
 
             });
@@ -126,7 +121,7 @@
             describe('when click "Try Again"', function () {
 
                 beforeEach(function () {
-                    spyOn(router, 'navigateTo');
+                    spyOn(router, 'navigate');
                     context.isTryAgain = false;
                 });
 
@@ -135,9 +130,9 @@
                     expect(context.isTryAgain).toBeTruthy();
                 });
 
-                it('should navigate to #/', function () {
+                it('should navigate to \'\'', function () {
                     viewModel.tryAgain();
-                    expect(router.navigateTo).toHaveBeenCalledWith('#/');
+                    expect(router.navigate).toHaveBeenCalledWith('');
                 });
 
             });
@@ -147,6 +142,18 @@
 
             it('should be function', function () {
                 expect(viewModel.finish).toBeFunction();
+            });
+
+
+            beforeEach(function () {
+                spyOn(app, 'trigger');
+                spyOn(app, 'off');
+                spyOn(window, 'close');
+            });
+
+            it('should trigger \'events.courseFinished\' event', function () {
+                viewModel.finish();
+                expect(app.trigger).toHaveBeenCalled();
             });
 
         });

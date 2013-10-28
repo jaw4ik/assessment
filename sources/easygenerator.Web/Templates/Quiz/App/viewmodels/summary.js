@@ -1,4 +1,4 @@
-﻿define(['durandal/plugins/router', 'context'], function (router, context) {
+﻿define(['durandal/app', 'plugins/router', 'context', 'events'], function (app, router, context, events) {
     var
         objectives = [],
         scores = [],
@@ -6,18 +6,30 @@
 
         tryAgain = function () {
             context.isTryAgain = true;
-            router.navigateTo('#/');
+            router.navigate('');
         },
 
         finish = function () {
-            alert('You overall score ' + Math.round(this.overallScore) + '%');
+            var that = this;
+            return app.trigger(events.courseFinished, {
+                result: Math.round(that.overallScore),
+                callback: function () {
+                    _.each(events, function (event) {
+                        app.off(event);
+                    });
+
+                    if (navigator.appName != "Microsoft Internet Explorer") {
+                        setTimeout("alert('Thank you. It is now safe to close this page.')", 100);
+                    }
+                }
+            });
         },
 
         activate = function () {
             var that = this;
 
             if (context.testResult().length == 0)
-                return router.navigateTo('#/');
+                return router.navigate('');
             else {
                 this.objectives = [];
                 scores = [];
@@ -49,22 +61,20 @@
                 });
 
                 _.each(this.objectives, function (objective) {
-                    var questionForThisObjective = _.filter(scores, function(item) {
+                    var questionForThisObjective = _.filter(scores, function (item) {
                         return item.objectiveId == objective.id;
                     });
-                    
+
                     var scoreForThisObjective = 0;
 
-                    _.each(questionForThisObjective, function(question) {
+                    _.each(questionForThisObjective, function (question) {
                         scoreForThisObjective += question.value;
                     });
 
                     objective.score = scoreForThisObjective / questionForThisObjective.length;
                     that.overallScore += objective.score;
                 });
-                
-                window.scroll(0, 0);
-                
+
                 this.overallScore = this.overallScore / this.objectives.length;
                 return this.overallScore;
             }
