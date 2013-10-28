@@ -14,16 +14,27 @@
 
         setHeight();
 
+        var hintH = $(helpHint).height(),
+            currH,
+
+            interval = setInterval(function () {
+                currH = $(helpHint).height();
+                if (hintH != currH) {
+                    setHeight();
+                } else {
+                    clearInterval(interval);
+                }
+            }, 500);
+
         $(window).resize(function () {
             setHeight();
         });
 
         function setHeight() {
-            
-            
+
             var headerHeight = $('.header').height(),
                 topNavHeight = $('.top-navigation').height();
-            
+
             if (!$(helpHintText).is(':empty')) {
 
                 if ($(helpHint).height() > 73) {
