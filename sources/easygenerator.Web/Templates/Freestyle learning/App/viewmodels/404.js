@@ -2,8 +2,8 @@
 
     var
         url = '',
-        activate = function (routeData) {
-            this.url = _.isObject(routeData) && _.isString(routeData.url) ? routeData.url : '';
+        activate = function (url) {
+            this.url = url;
         }
     ;
 

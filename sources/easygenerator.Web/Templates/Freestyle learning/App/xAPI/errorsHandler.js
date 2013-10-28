@@ -1,5 +1,5 @@
-﻿define(['durandal/plugins/router'],
-    function (router) {
+﻿define(['plugins/router', './settings'],
+    function (router, settings) {
     
         var
             errorMessages = {
@@ -23,11 +23,15 @@
 
             handleError = function (errorMessage) {
 
-                if (window.location.hash.indexOf('#/xapierror') !== -1)
-                    return;
+                if (!!settings.errorPageUrl) {
+                    if (window.location.hash.indexOf(settings.errorPageUrl) !== -1)
+                        return;
 
-                var navigateUrl = '#/xapierror/' + encodeURIComponent(window.location.hash);
-                router.replaceLocation(navigateUrl);
+                    var navigateUrl = settings.errorPageUrl + '/' + encodeURIComponent(window.location.hash);
+                    setTimeout(function () {
+                        router.navigate(navigateUrl, { replace: true, trigger: true });
+                    }, 0);
+                }
             };
 
         return {

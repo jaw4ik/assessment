@@ -316,6 +316,15 @@ input[type="checkbox"] {
     filter: alpha(opacity=60);
 }
 
+    .navigation-link.disabled {
+        cursor: default;
+    }
+    .navigation-link.disabled:hover {
+        -ms-opacity: 0.6;
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+    }
+
     .navigation-link:hover {
         -ms-opacity: 0.75;
         opacity: 0.75;
@@ -335,6 +344,11 @@ input[type="checkbox"] {
     background-image: url(../img/nav-icons.png);
     background-repeat: no-repeat;
 }
+
+    .navigation-link-right-image.loading {
+        background-image: url(../img/buildprogress.gif);
+        background-position: 0 0 !important;
+    }
 
 .question .navigation-link-left-image,
 .feedback .navigation-link-left-image,

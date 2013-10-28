@@ -1,14 +1,14 @@
-﻿define(['context', 'durandal/plugins/router'], function (context, router) {
+﻿define(['context', 'plugins/router'], function (context, router) {
 
     var
         score = null,
         objective = null,
         question = null,
         backToObjectives = function () {
-            router.navigateTo('#/');
+            router.navigate('');
         },
         showLearningContents = function () {
-            router.navigateTo('#/objective/' + objective.id + '/question/' + question.id + '/learningContents');
+            router.navigate('objective/' + objective.id + '/question/' + question.id + '/learningContents');
         },
         isShowNextQuestionButton = function () {
             return this.score == 100;
@@ -17,19 +17,29 @@
             return this.score < 100;
         },
         chooseNextQuestion = function () {
-            router.navigateTo('#/');
+            router.navigate('');
         },
         tryAgain = function () {
-            router.navigateTo('#/objective/' + objective.id + '/question/' + question.id );
+            router.navigate('objective/' + objective.id + '/question/' + question.id );
         },
-        activate = function (routeData) {
+        activate = function (objectiveId, questionId) {
             objective = _.find(context.objectives, function (item) {
-                return item.id == routeData.objectiveId;
+                return item.id == objectiveId;
             });
 
+            if (!objective) {
+                router.navigate('404');
+                return;
+            }
+
             question = _.find(objective.questions, function (item) {
-                return item.id == routeData.questionId;
+                return item.id == questionId;
             });
+
+            if (!question) {
+                router.navigate('404');
+                return;
+            }
 
             this.score = question.score;
         };

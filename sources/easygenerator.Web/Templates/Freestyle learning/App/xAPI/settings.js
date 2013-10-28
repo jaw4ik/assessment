@@ -17,6 +17,8 @@
                 positiveVerb: verbs.passed
             },
 
+            errorPageUrl: "xapierror",
+
             timeout: 120000,//2 minutes
 
             defaultLanguage: "en-US",

@@ -6,16 +6,16 @@
         learningContents = [],
 
         backToObjectives = function () {
-            router.navigateTo('#/');
+            router.navigate('');
         },
 
         backToQuestion = function () {
-            router.navigateTo('#/objective/' + objectiveId + '/question/' + questionId);
+            router.navigate('objective/' + this.objectiveId + '/question/' + this.questionId);
         },
 
         activate = function (routeData) {
-            objectiveId = routeData.objectiveId;
-            questionId = routeData.questionId;
+            this.objectiveId = objectiveId;
+            this.questionId = questionId;
 
             this.learningContents = [];
 
@@ -23,9 +23,19 @@
                 return item.id == objectiveId;
             });
 
+            if (!objective) {
+                router.navigate('404');
+                return;
+            }
+
             var question = _.find(objective.questions, function (item) {
                 return item.id == questionId;
             });
+
+            if (!question) {
+                router.navigate('404');
+                return;
+            }
 
             var that = this;
 

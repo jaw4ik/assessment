@@ -8,10 +8,24 @@
             </a>
         </div>
         <div class="pull-right">
+            <!-- ko if: status() == statuses.readyToFinish -->
             <a class="navigation-link navigation-link-right" href="/#" data-bind="click: finish">
                 <span>Finish</span>
                 <div class="navigation-link-right-image"></div>
             </a>
+            <!-- /ko -->
+            <!-- ko if: status() == statuses.sendingRequests -->
+            <a class="navigation-link navigation-link-right disabled">
+                <span>Finish</span>
+                <div class="navigation-link-right-image loading"></div>
+            </a>
+            <!-- /ko -->
+            <!-- ko if: status() == statuses.finished -->
+            <a class="navigation-link navigation-link-right disabled">
+                <span>Finish</span>
+                <div class="navigation-link-right-image"></div>
+            </a>
+            <!-- /ko -->
         </div>
         <div class="clearfix"></div>
     </div>

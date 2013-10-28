@@ -1,5 +1,5 @@
-﻿define(['durandal/plugins/router', 'context', 'eventsManager', 'xAPI/requestManager'], function (router, context, eventsManager, xApiRequestManager) {
-    
+﻿define(['durandal/app', 'plugins/router', 'context', 'events', 'xAPI/xAPIManager'],
+    function (app, router, context, events, xAPIManager) {
 
     return {
         router: router,
@@ -14,71 +14,65 @@
         }),
         activate: function () {
 
-            router.useConvention();
-            router.map([
-                {
-                    url: '#/',
-                    moduleId: 'viewmodels/home',
-                    name: 'Objectives and questions'
-                },
-                {
-                    url: '#/404',
-                    moduleId: 'viewmodels/404',
-                    name: 'Not found'
-                },
-                {
-                    url: '#/404/:url',
-                    moduleId: 'viewmodels/404',
-                    name: 'Not found'
-                },
-                {
-                    url: '#/objective/:objectiveId/question/:questionId',
-                    moduleId: 'viewmodels/question',
-                    name: 'Question'
-                },
-                {
-                    url: '#/objective/:objectiveId/question/:questionId/feedback',
-                    moduleId: 'viewmodels/feedback',
-                    name: 'Feedback'
-                },
-                {
-                    url: '#/objective/:objectiveId/question/:questionId/learningContents',
-                    moduleId: 'viewmodels/learningContents',
-                    name: 'Learning content'
-                },
-                {
-                    url: '#/summary',
-                    moduleId: 'viewmodels/summary',
-                    name: 'Summary',
-                    visible: true,
-                    settings: {
-                        caption: 'Progress summary&nbsp;<img src="img/progress_summary_white.png" alt="" />'
-                    }
-                },
-                {
-                    url: '#/xapierror/:backUrl',
-                    moduleId: 'viewmodels/xAPIError',
-                    name: 'xAPIError'
-                }
-            ]);
-
-            router.handleInvalidRoute = function (route) {
-                router.replaceLocation("#/404/" + encodeURIComponent(route));
-            };
-
             return context.initialize()
                 .then(function (data) {
-                    
+
                     window.location.hash = '';
-                    
+
                     var title = data.experience.title;
                     var url = window.location.toString() + '?experience_id=' + data.experience.id;;
 
-                    xApiRequestManager.init(eventsManager, "Anonymous user", "anonymous@easygenerator.com", title, url);
+                    xAPIManager.init("Anonymous user", "anonymous@easygenerator.com", title, url);
 
-                    return router.activate().then(function() {
-                        eventsManager.fireEvent(eventsManager.eventsList.courseStarted);
-                    });
+                    var routes = [
+                        {
+                            route: '',
+                            moduleId: 'viewmodels/home',
+                            title: 'Objectives and questions'
+                        },
+                        {
+                            route: '404(/:url)',
+                            moduleId: 'viewmodels/404',
+                            title: 'Not found'
+                        },
+                        {
+                            route: 'objective/:objectiveId/question/:questionId',
+                            moduleId: 'viewmodels/question',
+                            title: 'Question'
+                        },
+                        {
+                            route: 'objective/:objectiveId/question/:questionId/feedback',
+                            moduleId: 'viewmodels/feedback',
+                            title: 'Feedback'
+                        },
+                        {
+                            route: 'objective/:objectiveId/question/:questionId/learningContents',
+                            moduleId: 'viewmodels/learningContents',
+                            title: 'Learning objects'
+                        },
+                        {
+                            route: 'summary',
+                            moduleId: 'viewmodels/summary',
+                            title: 'Summary',
+                            nav: true,
+                            settings: {
+                                caption: 'Progress summary&nbsp;<img src="img/progress_summary_white.png" alt="" />'
+                            }
+                        },
+                        {
+                            route: 'xapierror(/:backUrl)',
+                            moduleId: 'viewmodels/xAPIError',
+                            title: 'xAPI Error'
+                        }
+                    ];
+
+                    return router.map(routes)
+                        .buildNavigationModel()
+                        .mapUnknownRoutes('viewmodels/404', '404')
+                        .activate('')
+                        .then(function () {
+                            app.trigger(events.courseStarted);
+                        });
                 });
         }
     };

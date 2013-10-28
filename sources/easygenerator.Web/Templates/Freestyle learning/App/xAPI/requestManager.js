@@ -1,76 +1,20 @@
-﻿define(['xAPI/settings', 'xAPI/errorsHandler', 'xAPI/verbs', 'xAPI/base64'],
-    function (settings, errorsHandler, verbs, base64) {
+﻿define(['./settings', './errorsHandler', './base64'],
+    function (settings, errorsHandler, base64) {
 
         "use strict";
 
         var
-            actor = {},
-            activity = {},
-
-            init = function (eventsManager, actorName, actorMail, activityName, activityUrl, activityLanguage) {
-
-                if (typeof eventsManager === "undefined" || _.isNull(eventsManager))
-                    return;
-
-                var hashIndex = activityUrl.indexOf("#/");
-                if (hashIndex !== -1)
-                    activityUrl = activityUrl.substring(0, hashIndex);
-
-                actor = {
-                    name: actorName,
-                    mbox: actorMail
-                };
-
-                activity = {
-                    name: activityName,
-                    url: activityUrl,
-                    language: activityLanguage
-                };
-
-                //add listeners to events
-                eventsManager.addEventListener(eventsManager.eventsList.courseStarted, function () {
-                    trackAction(verbs.started);
-                });
-
-                eventsManager.addEventListener(eventsManager.eventsList.courseStopped, function () {
-                    return trackAction(verbs.stopped);
-                });
-
-                eventsManager.addEventListener(eventsManager.eventsList.courseFinished, function (data) {
-                    if (typeof data === "undefined" ||
-                        _.isUndefined(data.result) ||
-                        typeof settings === "undefined" ||
-                        _.isUndefined(settings.scoresDistribution.minScoreForPositiveResult) ||
-                        _.isUndefined(settings.scoresDistribution.positiveVerb)) {
-
-                        errorsHandler.handleError(errorsHandler.errors.notEnoughDataInSettings);
-                        return;
-                    }
-
-                    if (data.result >= settings.scoresDistribution.minScoreForPositiveResult)
-                        return trackAction(settings.scoresDistribution.positiveVerb, data.result);
-                    else
-                        return trackAction(verbs.failed, data.result);
-                });
-
-            },
-
-            trackAction = function (verb, result) {
+            trackAction = function (actorData, verb, activity, result) {
                 
-                var statement = buildStatement(verb, result);
+                var statement = buildStatement(actorData, verb, activity, result);
 
                 return sendRequest(statement);
             },
 
-            buildStatement = function (verb, result) {
+            buildStatement = function (actorData, verb, activity, result) {
 
                 if (typeof verb === "undefined" || !_.isObject(verb) || _.isUndefined(verb.id) || _.isUndefined(verb.display)) {
                     errorsHandler.handleError(errorsHandler.errors.verbIsIncorrect);
-                    return;
-                }
-
-                if (_.isUndefined(actor.mbox) || _.isEmpty(actor.mbox)) {
-                    errorsHandler.handleError(errorsHandler.errors.actorDataIsIncorrect);
                     return;
                 }
 
@@ -86,27 +30,31 @@
                     result = formattedResult;
                 }
 
-                if (_.isUndefined(activity.url) && window && window.location)
+                //ACTOR
+                var actor = {
+                    mbox: actorData.mail,
+                    objectType: "Agent"
+                };
+                if (!!actorData.name)
+                    actor['name'] = actorData.name;
+
+                //OBJECT
+                var object = {};
+                if (!activity.url && window && window.location)
                     activity.url = window.location.toString();
 
-                if (_.isUndefined(activity.language))
-                    activity.language = settings.defaultLanguage;
+                object["id"] = activity.url;
 
-                if (actor.mbox.substring(0, 7) != "mailto:")
-                    actor.mbox = "mailto:" + actor.mbox;
+                if (!!activity.name) {
+                    
+                    if (!activity.language)
+                        activity.language = settings.defaultLanguage;
+                    
+                    var name = {};
+                    name[activity.language] = activity.name;
 
-                if (_.isUndefined(actor.objectType))
-                    actor.objectType = "Agent";
-
-                var name = {};
-                name[activity.language] = activity.name;
-
-                var object = {
-                    id: activity.url,
-                    definition: {
-                        name: name
-                    }
-                };
+                    object["definition"] = { name: name };
+                }
 
                 var statement = {
                     id: generateGuid(),
@@ -311,7 +259,6 @@
             };
 
         return {
-            init: init,
             trackAction: trackAction
         };
     }

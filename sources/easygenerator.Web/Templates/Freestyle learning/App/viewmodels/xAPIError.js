@@ -1,21 +1,22 @@
-﻿define(['durandal/plugins/router', 'eventsManager'],
-    function (router, eventsManager) {
+﻿define(['plugins/router', 'xAPI/xAPIManager'],
+    function (router, xAPIManager) {
         
         var
             navigateBackUrl = '',
 
             restartExperience = function () {
-                router.replaceLocation("");
+                var rootUrl = location.toString().replace(location.hash, '');
+                router.navigate(rootUrl, { replace: true, trigger: true });
             },
             
             continueLearning = function () {
-                eventsManager.removeAllListeners();
+                xAPIManager.destroy();
 
-                router.navigateTo(navigateBackUrl);
+                router.navigate(navigateBackUrl);
             },
 
-            activate = function (route) {
-                navigateBackUrl = route.backUrl;
+            activate = function (backUrl) {
+                navigateBackUrl = backUrl;
             };
 
         return {
