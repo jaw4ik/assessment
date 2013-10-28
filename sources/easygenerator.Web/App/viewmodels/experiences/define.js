@@ -12,7 +12,6 @@
                 updateExperienceTitle: 'Update experience title',
                 startAppendingRelatedObjectives: 'Start appending related objectives',
                 finishAppendingRelatedObjectives: 'Finish appending related objectives',
-                updateExperienceTemplate: 'Change experience template to',
                 unrelateObjectivesFromExperience: 'Unrelate objectives from experience'
             },
 
@@ -209,11 +208,6 @@
             activate = function (experienceId) {
                 var that = this;
                 return repository.getById(experienceId).then(function (experience) {
-                    if (!_.isObject(experience)) {
-                        router.replace('404');
-                        return;
-                    }
-
                     that.id = experience.id;
                     that.title(experience.title);
                     that.objectivesMode(that.objectivesListModes.display);
@@ -229,6 +223,8 @@
 
                     clientContext.set('lastVisitedObjective', null);
                     isEditing(false);
+                }).fail(function () {
+                    router.replace('404');
                 });
             };
 

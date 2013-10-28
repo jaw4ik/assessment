@@ -242,14 +242,14 @@
                 describe('when experience does not exist', function () {
 
                     beforeEach(function () {
-                        getById.resolve();
+                        getById.reject();
                     });
 
                     it('should navigate to #404 ', function () {
                         var promise = viewModel.activate('experienceId');
 
                         waitsFor(function () {
-                            return promise.isFulfilled();
+                            return !promise.isPending();
                         });
                         runs(function () {
                             expect(router.replace).toHaveBeenCalledWith('404');

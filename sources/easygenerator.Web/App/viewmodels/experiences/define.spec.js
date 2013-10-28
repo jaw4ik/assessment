@@ -7,17 +7,11 @@
             constants = require('constants'),
             repository = require('repositories/experienceRepository'),
             objectiveRepository = require('repositories/objectiveRepository'),
-            templateRepository = require('repositories/templateRepository'),
             notify = require('notify'),
             clientContext = require('clientContext');
 
         describe('viewModel [define]', function () {
             var
-                template = {
-                    id: 'template id',
-                    name: 'template name',
-                    image: 'template image'
-                },
                 experience = {
                     id: '1',
                     title: 'experience',
@@ -32,7 +26,7 @@
                     createdOn: 'createdOn',
                     modifiedOn: 'modifiedOn',
                     builtOn: 'builtOn',
-                    template: template
+                    template: {}
                 }
             ;
 
@@ -907,14 +901,14 @@
                 describe('when experience does not exist', function () {
 
                     beforeEach(function () {
-                        getById.resolve();
+                        getById.reject();
                     });
 
                     it('should navigate to #404 ', function () {
                         var promise = viewModel.activate('experienceId');
 
                         waitsFor(function () {
-                            return promise.isFulfilled();
+                            return !promise.isPending();
                         });
                         runs(function () {
                             expect(router.replace).toHaveBeenCalledWith('404');

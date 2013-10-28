@@ -38,14 +38,11 @@
         activate = function (experienceId) {
             var that = this;
             return repository.getById(experienceId).then(function (experience) {
-                if (!_.isObject(experience)) {
-                    router.replace('404');
-                    return;
-                }
-
                 that.id = experience.id;
                 that.status(experience.buildingStatus);
-                that.packageUrl(experience.packageUrl);                
+                that.packageUrl(experience.packageUrl);
+            }).fail(function () {
+                router.replace('404');
             });
 
         }
