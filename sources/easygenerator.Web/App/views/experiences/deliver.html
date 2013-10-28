@@ -32,6 +32,7 @@
                 <div class="action-arrow down" data-bind="css: { disabled: (status() == statuses.notStarted) || (status() == statuses.inProgress) }">
                     <span class="icon-item"></span>
                 </div>
+
                 <!-- PUBLISH BUTTON -->
                 <!-- ko if: status() == statuses.succeed && status() != statuses.notStarted -->
                 <div class="package-action-btn btn green publish-btn" onclick="javascript: alert('Not implemented yet');">
@@ -40,7 +41,22 @@
                 <!-- /ko -->
                 <!-- ko ifnot: status() == statuses.succeed && status() != statuses.notStarted -->
                 <div class="package-action-btn btn green publish-btn disabled">
-                    <span class="btn-title">Publish online</span>
+                    <span class="btn-title" data-bind="localize: { text: 'publishOnline' }">Publish online</span>
+                </div>
+                <!-- /ko -->
+                
+                <!-- PUBLISHING/REPUBLISHING STATUS -->
+                <!-- ko if: false -->
+                <div class="package-action-btn btn green publishing-btn">
+                    <span class="btn-title" data-bind="localize: { text: 'publishing' }">Publishing...</span>
+                    <span class="btn-title" data-bind="localize: { text: 'republishing' }">Republishing...</span>
+                </div>
+                <!-- /ko -->
+               
+                <!-- REPUBLISH PACKAGE BUTTON -->
+                <!-- ko if: false -->
+                <div class="package-action-btn btn green publish-btn disabled">
+                    <span class="btn-title" data-bind="localize: { text: 'republishOnline' }">Republish online</span>
                 </div>
                 <!-- /ko -->
             </aside>
