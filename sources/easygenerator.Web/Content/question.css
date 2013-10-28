@@ -21,12 +21,12 @@
     padding-bottom: 5px;
 }
 
-.question .navbar,
-.question .nav-control {
+.navbar,
+.nav-control {
     max-width: 100%;
 }
 
-.question .nav-title {
+.nav-title {
     width: 100%;
     padding-right: 0;
     margin-left: -57px;
@@ -652,9 +652,17 @@
     width: 100%;
 }
 
-.question .nav-control.flexible {
+.nav-control.flexible {
     display: block;
     margin-right: 327px;
+}
+
+.nav-control.flexible.single {
+    margin-right: 70px;
+}
+
+.nav-control.single .nav-title {
+	padding-left: 70px;
 }
 
 .nav-icon.create-question-image {

@@ -1,12 +1,14 @@
-﻿<a class="inline nav-control left" data-bind="click: goBackAction" href="#/">
-    <div class="nav-icon back-icon pull-left"></div>
+﻿<div class="nav-control flexible single cursor-pointer">
+    <div class="nav-element nav-icon back-icon pull-left"></div>
     <div class="nav-title">
-        <span data-bind="localize: { text: 'backTo' }"></span>
-        <!-- ko if: isGoBackTextLocalizable -->
-        <span data-bind="localize: { text: goBackText }"></span>
-        <!-- /ko -->
-        <!-- ko ifnot: isGoBackTextLocalizable -->
-        <span data-bind="text: goBackText"></span>
-        <!-- /ko -->
+        <span class="nav-element">
+            <span data-bind="localize: { text: 'backTo' }"></span>
+            <!-- ko if: isGoBackTextLocalizable -->
+            <span data-bind="localize: { text: goBackText }"></span>
+            <!-- /ko -->
+            <!-- ko ifnot: isGoBackTextLocalizable -->
+            <span data-bind="text: goBackText"></span>
+            <!-- /ko -->
+        </span>
     </div>
-</a>
+</div>
