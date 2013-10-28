@@ -5,7 +5,11 @@
             navigateBackUrl = '',
 
             restartExperience = function () {
+                _.each(events, function (event) {
+                    app.off(event);
+                });
                 context.isTryAgain = true;
+                context.isRestartExperience = true;
                 router.replace('home');
             },
             

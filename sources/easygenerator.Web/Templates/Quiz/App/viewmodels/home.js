@@ -1,4 +1,4 @@
-﻿define(['context', 'plugins/router'], function (context, router) {
+﻿define(['context', 'plugins/router', 'xAPI/requestManager', 'events', 'durandal/app'], function (context, router, xApiRequestManager, events, app) {
 
     var objectives = [],
         questions = [],
@@ -91,6 +91,7 @@
 
                 return getItems();
             } else if (context.isTryAgain) {
+                app.trigger(events.courseStarted);
                 _.each(questions, function (question) {
                     _.each(question.answers, function (answer) {
                         answer.isChecked(false);

@@ -1,23 +1,32 @@
 ﻿define(['durandal/app', 'plugins/router', 'context', 'events'], function (app, router, context, events) {
-    var
-        objectives = [],
+    var objectives = [],
         scores = [],
         overallScore = 0,
 
         tryAgain = function () {
             context.isTryAgain = true;
+            this.status(this.statuses.readyToFinish);
             router.navigate('');
         },
+        
+        statuses = {
+            readyToFinish: 'readyToFinish',
+            sendingRequests: 'sendingRequests',
+            finished: 'finished'
+        },
+        
+        status = ko.observable(statuses.readyToFinish),
 
         finish = function () {
             var that = this;
+            that.status(this.statuses.sendingRequests);
             return app.trigger(events.courseFinished, {
                 result: Math.round(that.overallScore),
                 callback: function () {
                     _.each(events, function (event) {
                         app.off(event);
                     });
-
+                    that.status(that.statuses.finished);
                     if (navigator.appName != "Microsoft Internet Explorer") {
                         setTimeout("alert('Thank you. It is now safe to close this page.')", 100);
                     }
@@ -31,6 +40,10 @@
             if (context.testResult().length == 0)
                 return router.navigate('');
             else {
+                if (context.isRestartExperience) {
+                    this.status(this.statuses.readyToFinish);
+                    context.isRestartExperience = false;
+                }
                 this.objectives = [];
                 scores = [];
                 this.overallScore = 0;
@@ -86,6 +99,8 @@
         overallScore: overallScore,
         titleOfExperience: context.title,
         tryAgain: tryAgain,
-        finish: finish
+        finish: finish,
+        status: status,
+        statuses: statuses
     };
 });

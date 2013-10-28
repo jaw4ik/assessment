@@ -7,10 +7,11 @@
             title = '',
             testResult = ko.observableArray([]),
             isTryAgain = false,
-            
+            isRestartExperience = false,
+
             initialize = function () {
                 var that = this;
-                
+
                 return $.ajax({
                     url: 'content/data.js?v=' + Math.random(),
                     contentType: 'application/json',
@@ -51,6 +52,7 @@
             objectives: objectives,
             testResult: testResult,
             isTryAgain: isTryAgain,
+            isRestartExperience: isRestartExperience,
             experienceId: experienceId
         };
 
