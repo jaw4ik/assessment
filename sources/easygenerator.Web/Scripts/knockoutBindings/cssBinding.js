@@ -5,13 +5,13 @@
 
     update: function (elem, va) {
 
-        var
-        helpHintHeight,
-        contentContainer = '#content',
-        helpHint = '.help-hint',
-        helpHintText = '.help-hint-text',
-        notFixedContainer = '.view-module',
-        fixedContainer = '.view-module > .fixed-container:first-child';
+        var helpHintHeight,
+            contentContainer = '#content',
+            helpHint = '.help-hint',
+            helpHintText = '.help-hint-text',
+            notFixedContainer = '.view-module',
+            fixedContainer = '.view-module > .fixed-container:first-child',
+            firstLoad = true;
 
         setHeight();
 
@@ -20,12 +20,19 @@
         });
 
         function setHeight() {
+            firstLoad = false;
+            
             var headerHeight = $('.header').height(),
                 topNavHeight = $('.top-navigation').height();
-
+            
             if (!$(helpHintText).is(':empty')) {
 
-                if ($(helpHint).height() > 73) {
+                if (firstLoad) {
+                    setTimeout(function () {
+                        helpHintHeight = $(helpHint).height();
+                        setHeight();
+                    }, 500);
+                } else if ($(helpHint).height() > 73) {
                     helpHintHeight = $(helpHint).height();
                 } else {
                     helpHintHeight = 0;
