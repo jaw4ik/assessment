@@ -7,6 +7,10 @@
     padding: 0 20px 10px;
 }
 
+.container .container {
+    padding: 0 0 10px;
+}
+
 .navbar {
     height: 57px;
     margin: 20px 0 0px;

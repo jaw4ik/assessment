@@ -1,7 +1,15 @@
-﻿<section>
-    <img class="white-framing" data-bind="attr: { src: selectedTemlateImage }" />
-    <div class="entity-actions">
-        <div class="experience-template-selector-text" data-bind="localize: { text: 'learningExperienceTemplate' } ">Learning experience template:</div>
-        <div class="experience-template-selector" data-bind="selectBox: { options: templates, optionsText: 'name', optionsValue: 'id', value: selectedTemplateId }, event: { change: updateExperienceTemplate }"></div>
+﻿<section class="design view-module">
+    <div class="container">
+        <div class="view-header">
+            <div class="white-framing pull-left">
+                <img class="template-logo" data-bind="attr: { src: selectedTemlateImage }" alt="" />
+            </div>
+            <div class="entity-actions">
+                <div class="experience-template-selector-text-holder">
+                    <span class="experience-template-selector-text" data-bind="localize: { text: 'learningExperienceTemplate' } ">Learning experience template:</span>
+                </div>
+                <div class="experience-template-selector" data-bind="selectBox: { options: templates, optionsText: 'name', optionsValue: 'id', value: selectedTemplateId }, event: { change: updateExperienceTemplate }"></div>
+            </div>
+        </div>
     </div>
 </section>
