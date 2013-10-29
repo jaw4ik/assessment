@@ -24,7 +24,6 @@ if "%Feature%"=="Question" (set excludedfeatures="Errors,AnswerOptions,BuildExpe
 if "%Feature%"=="RelateObjectiveToExperience" (set excludedfeatures="Errors,AnswerOptions,BuildExperience,Experience,Explanations,ListOfObjectives,ListOfExperiences,ListOfQuestions,Localization,PackageListOfObjectives,Question,CUDExperience,CUDObjective,CUDQuestion")
 
 
-
 if exist %outFile% del %outFile%
 %SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild %~dp0..\sources\easygenerator.Web\easygenerator.Web.csproj /verbosity:q /nologo /p:TreatWarningsAsErrors=true /t:Clean,Build,TransformWebConfig /p:Configuration=AutoTests
 %SystemRoot%\Microsoft.NET\Framework\v4.0.30319\msbuild "%testsProject%" /t:Clean,Build /verbosity:q /nologo /property:TreatWarningsAsErrors=true /p:Configuration=Release
