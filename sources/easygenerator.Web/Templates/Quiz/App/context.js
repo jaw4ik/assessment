@@ -18,7 +18,7 @@
                     dataType: 'json'
                 }).then(function (response) {
                     that.title = response.title;
-                    that.experience = response.id;
+                    that.experienceId = response.id;
                     that.objectives = _.map(response.objectives, function (objective) {
                         return {
                             id: objective.id,
