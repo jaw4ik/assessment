@@ -47,15 +47,11 @@
     <div class="summary-btn-holder clearfix">
         <!-- ko ifnot: status() == statuses.readyToFinish -->
         <a class="btn default pull-left" data-bind="css: 'disabled'">Try again</a>
+        <a class="btn default pull-right" data-bind="css: 'disabled'">Finish</a>
         <!-- /ko -->
         <!-- ko if: status() == statuses.readyToFinish -->
         <a class="btn default pull-left" data-bind="click: tryAgain">Try again</a>
-        <!-- /ko -->
-        <!-- ko if: status() == statuses.readyToFinish -->
         <a class="btn default pull-right" data-bind="click: finish">Finish</a>
-        <!-- /ko -->
-        <!-- ko ifnot: status() == statuses.readyToFinish -->
-        <a class="btn default pull-right" data-bind="css: 'disabled'">Finish</a>
         <!-- /ko -->
     </div>
 </section>
