@@ -525,6 +525,10 @@ input[type="checkbox"] {
         vertical-align: middle;
     }
 
+.question-answer-text {
+    word-break: break-all;
+}
+
 .question-answer-checkbox {
     width: 38px;
     height: 36px;
