@@ -10,7 +10,9 @@
                 });
                 context.isTryAgain = true;
                 context.isRestartExperience = true;
-                router.replace('home');
+                var href = window.location.href,
+                    url = href.slice(0,href.lastIndexOf('#'));
+                router.replace(url);
             },
             
             continueLearning = function () {
