@@ -495,11 +495,11 @@
 }
 
 /*#region DESIGN STEP*/
-.design.view-module {
+.design-view-module {
     padding-top: 20px;
 }
 
-    .design.view-module .template-logo {
+    .design-view-module .template-logo {
         width: 165px;
         max-height: 87px;
     }
