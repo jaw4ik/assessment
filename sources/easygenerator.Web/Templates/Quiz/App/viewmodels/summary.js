@@ -21,7 +21,7 @@
             var that = this;
             that.status(this.statuses.sendingRequests);
             return app.trigger(events.courseFinished, {
-                result: Math.round(that.overallScore),
+                result: Math.round(that.overallScore) / 100,
                 callback: function () {
                     _.each(events, function (event) {
                         app.off(event);
