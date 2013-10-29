@@ -41,6 +41,7 @@
                 that.id = experience.id;
                 that.status(experience.buildingStatus);
                 that.packageUrl(experience.packageUrl);
+                that.isFirstBuild(_.isNullOrUndefined(experience.packageUrl) || _.isEmptyOrWhitespace(experience.packageUrl));
             }).fail(function () {
                 router.replace('404');
             });
