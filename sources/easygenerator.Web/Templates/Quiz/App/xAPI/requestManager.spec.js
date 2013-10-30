@@ -5,6 +5,10 @@
 
     describe('requestManger:', function() {
 
+        beforeEach(function() {
+            spyOn($, 'ajax').andReturn($.Deferred());
+        });
+
         it('should be defined', function() {
             expect(viewModel).toBeDefined();
         });
@@ -29,11 +33,11 @@
             });
             
             it('should register \'events.courseStarted\' event', function () {
-                expect(app.on).toHaveBeenCalledWith(events.courseStarted);
+                expect(app.on).toHaveBeenCalledWith(events.events.courseStarted);
             });
             
             it('should register \'events.courseFinished\' event', function () {
-                expect(app.on).toHaveBeenCalledWith(events.courseFinished);
+                expect(app.on).toHaveBeenCalledWith(events.events.courseFinished);
             });
 
         });

@@ -64,24 +64,6 @@
                     spyOn(router, 'navigate');
                 });
 
-                describe('when objectiveId is empty', function () {
-
-                    it('should navigate to 400', function () {
-                        viewModel.activate('','0');
-                        expect(router.navigate).toHaveBeenCalledWith('400');
-                    });
-
-                });
-
-                describe('when questionId is empty', function () {
-
-                    it('should navigate to 400', function () {
-                        viewModel.activate('0', '');
-                        expect(router.navigate).toHaveBeenCalledWith('400');
-                    });
-
-                });
-
                 describe('when objectiveId incorrect', function () {
 
                     it('should navigate to 404', function () {

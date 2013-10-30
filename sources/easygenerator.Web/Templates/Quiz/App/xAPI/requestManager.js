@@ -25,11 +25,11 @@
                 };
 
                 //add listeners to events
-                app.on(events.courseStarted).then(function () {
+                app.on(events.events.courseStarted).then(function () {
                     trackAction(verbs.started);
                 });
 
-                app.on(events.courseFinished).then(function (data) {
+                app.on(events.events.courseFinished).then(function (data) {
                     Q().then(function () {
                         return trackAction(verbs.stopped);
                     }).then(function () {

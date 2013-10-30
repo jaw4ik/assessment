@@ -20,12 +20,10 @@
         finish = function () {
             var that = this;
             that.status(this.statuses.sendingRequests);
-            return app.trigger(events.courseFinished, {
+            return app.trigger(events.events.courseFinished, {
                 result: Math.round(that.overallScore) / 100,
                 callback: function () {
-                    _.each(events, function (event) {
-                        app.off(event);
-                    });
+                    events.turnAllEventsOff();
                     that.status(that.statuses.finished);
                     if (navigator.appName != "Microsoft Internet Explorer") {
                         setTimeout("alert('Thank you. It is now safe to close this page.')", 100);

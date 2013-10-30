@@ -5,11 +5,6 @@
             router.navigate('home');
         },
         activate = function (objectiveId, questionId) {
-            if (_.isEmpty(objectiveId) || _.isEmpty(questionId)) {
-                router.navigate('400');
-                return undefined;
-            }
-
             var that = this;
 
             var objective = _.find(context.objectives, function (item) {

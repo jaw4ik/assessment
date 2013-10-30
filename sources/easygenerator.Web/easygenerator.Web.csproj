@@ -518,6 +518,7 @@
       <DependentUpon>vendor.js.bundle</DependentUpon>
     </Content>
     <Content Include="Templates\Maintenance\sorry.html" />
+    <Content Include="Templates\Quiz\App\configuration\routes.js" />
     <Content Include="Templates\Quiz\App\events.js" />
     <Content Include="Templates\Quiz\App\viewmodels\learningContents.spec.js">
       <DependentUpon>learningContents.js</DependentUpon>
@@ -967,10 +968,6 @@
     <Content Include="Templates\Quiz\App\context.js" />
     <Content Include="Templates\Quiz\App\main.js" />
     <Content Include="Templates\Quiz\App\specs.html" />
-    <Content Include="Templates\Quiz\App\viewmodels\400.js" />
-    <Content Include="Templates\Quiz\App\viewmodels\400.spec.js">
-      <DependentUpon>400.js</DependentUpon>
-    </Content>
     <Content Include="Templates\Quiz\App\viewmodels\404.js" />
     <Content Include="Templates\Quiz\App\viewmodels\404.spec.js">
       <DependentUpon>404.js</DependentUpon>
@@ -992,7 +989,6 @@
     <Content Include="Templates\Quiz\App\viewmodels\summary.spec.js">
       <DependentUpon>summary.js</DependentUpon>
     </Content>
-    <Content Include="Templates\Quiz\App\views\400.html" />
     <Content Include="Templates\Quiz\App\views\404.html" />
     <Content Include="Templates\Quiz\App\views\learningContents.html" />
     <Content Include="Templates\Quiz\App\views\home.html" />

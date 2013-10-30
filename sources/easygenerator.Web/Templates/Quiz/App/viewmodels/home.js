@@ -91,7 +91,7 @@
 
                 return getItems();
             } else if (context.isTryAgain) {
-                app.trigger(events.courseStarted);
+                app.trigger(events.events.courseStarted);
                 _.each(questions, function (question) {
                     _.each(question.answers, function (answer) {
                         answer.isChecked(false);

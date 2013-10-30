@@ -35,10 +35,10 @@
 
             require(['plugins/router'], function (router) {
                 router.replace = function () { };
+                router.updateDocumentTitle = function (instance, instruction) { };
             });
             
             define('jquery', function () { return jQuery; });
-
             define('knockout', function () { return ko; });
 
             var specs = [
@@ -48,7 +48,6 @@
                 'viewmodels/notsupportedbrowser.spec',
                 'viewmodels/summary.spec',
                 'viewmodels/404.spec',
-                'viewmodels/400.spec',
                 'viewmodels/xAPIError.spec',
                 'xAPI/base64.spec',
                 'xAPI/errorsHandler.spec',

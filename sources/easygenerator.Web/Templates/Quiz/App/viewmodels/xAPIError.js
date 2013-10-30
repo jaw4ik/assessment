@@ -5,9 +5,7 @@
             navigateBackUrl = '',
 
             restartExperience = function () {
-                _.each(events, function (event) {
-                    app.off(event);
-                });
+                events.turnAllEventsOff();
                 context.isTryAgain = true;
                 context.isRestartExperience = true;
                 var href = window.location.href,
@@ -16,9 +14,7 @@
             },
             
             continueLearning = function () {
-                _.each(events, function (event) {
-                    app.off(event);
-                });
+                events.turnAllEventsOff();
                 router.navigate(navigateBackUrl);
             },
 
