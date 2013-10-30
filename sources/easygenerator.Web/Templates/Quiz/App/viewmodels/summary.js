@@ -25,6 +25,7 @@
                 callback: function () {
                     events.turnAllEventsOff();
                     that.status(that.statuses.finished);
+                    window.close();
                     if (navigator.appName != "Microsoft Internet Explorer") {
                         setTimeout("alert('Thank you. It is now safe to close this page.')", 100);
                     }
