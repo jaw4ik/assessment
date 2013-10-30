@@ -385,6 +385,31 @@
     overflow-x: hidden;
 }
 
+/*#region EXPERIENCES LIST STYLES*/
+
+.experiences .list-item-logo,
+.experiences .list-item-logo-image {
+    width: 145px;
+    height: 145px;
+}
+
+.experiences .list-item-logo-image {
+    border: 1px solid #e6e6e6;
+}
+
+.experiences .list-item-saved {
+    left: 195px;
+    bottom: 3px;
+}
+
+.package-actions-block {
+    position: absolute;
+    top: 120px;
+    right: 10px;    
+}
+
+/*#endregion EXPERIENCES LIST STYLES*/
+
 @media (min-width: 1220px) {
 
     .experience-brief {

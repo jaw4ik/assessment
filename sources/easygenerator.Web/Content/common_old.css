@@ -934,8 +934,7 @@ ol.unstyled  {
     font-size: 13px;
 }
 
-    .objectives a:hover, .objectives a:focus, .objectives a:active, .objectives a:visited, .objectives a:link,
-    .experiences a:hover, .experiences a:focus, .experiences a:active, .experiences a:visited, .experiences a:link {
+    .objectives a:hover, .objectives a:focus, .objectives a:active, .objectives a:visited, .objectives a:link {
         color: #999999;
         text-decoration: none;
     }

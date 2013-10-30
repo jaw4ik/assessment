@@ -182,15 +182,15 @@
 }
 
 /*buttons*/
-.create-package-btn .btn-title:after {
+.package-action-btn.create-package-btn .btn-title:after {
     background-position: -93px -76px;
 }
 
-.creating-btn .btn-title:after {
+.package-action-btn.creating-btn .btn-title:after {
     background: url('images/package-preloader.gif') no-repeat;
 }
 
-.download-btn {
+.package-action-btn.download-btn {
     float: right;
 }
 
@@ -198,11 +198,11 @@
         background-position: -153px -75px;
     }
 
-.publish-btn .btn-title:after {
+.package-action-btn.publish-btn .btn-title:after {
     background-position: -126px -75px;
 }
 
-.publishing-btn .btn-title:after {
+.package-action-btn.publishing-btn .btn-title:after {
     background: url('images/publish-loader.gif') no-repeat 0 2px;
 }
 
