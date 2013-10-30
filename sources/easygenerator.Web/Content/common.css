@@ -196,7 +196,7 @@ h1 {
 
 .fixed-container {
     position: fixed;
-    z-index: 100;
+    z-index: 99;
     left: 0;
     right: 0;
 }
