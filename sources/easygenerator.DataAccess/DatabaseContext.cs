@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
@@ -116,9 +115,8 @@ namespace easygenerator.DataAccess
 
         public void Save()
         {
-            SaveChangesAsync().Wait();
+            SaveChanges();
         }
-
 
         public override int SaveChanges()
         {
