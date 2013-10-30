@@ -16,7 +16,7 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'browserSuppo
     function (app, viewLocator, system, getRootView) {
         
         app.title = 'easygenerator';
-
+        
         app.configurePlugins({
             router: true,
             dialog: true,

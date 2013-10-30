@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle minify="true" runOnBuild="true" output="vendor.js">
+  <file>/Templates/Quiz/js/jquery-1.9.1.js</file>
+  <file>/Templates/Quiz/js/bootstrap.min.js</file>
+  <file>/Templates/Quiz/js/knockout-2.2.1.js</file>
+  <file>/Templates/Quiz/js/circleProgressBinding.js</file>
+  <file>/Templates/Quiz/js/q.js</file>
+  <file>/Templates/Quiz/js/underscore-1.5.1.js</file>
+  <file>/Templates/Quiz/js/scrollBinding.js</file>
+</bundle>
