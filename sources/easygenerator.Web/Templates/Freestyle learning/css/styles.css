@@ -290,12 +290,8 @@ input[type="checkbox"] {
     vertical-align: middle;
     padding: 9px 18px;
     width: 100%;
+    word-break: break-all;
 }
-
-    .caption-text > span {
-        -ms-word-break: break-all;
-        word-break: break-all;
-    }
 
 /*#endregion caption partial*/
 
