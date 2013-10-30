@@ -407,6 +407,8 @@
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Templates\Freestyle learning\App\browserSupport.js" />
     <Content Include="Templates\Freestyle learning\App\context.js" />
+    <Content Include="Templates\Freestyle learning\App\xAPI\languageMap.js" />
+    <Content Include="Templates\Freestyle learning\App\xAPI\statementBuilder.js" />
     <Content Include="Templates\Freestyle learning\img\buildprogress.gif" />
     <Content Include="Templates\Freestyle learning\js\almond-custom.js" />
     <Content Include="Templates\Freestyle learning\js\durandal\activator.js" />
@@ -429,7 +431,6 @@
     <Content Include="Templates\Freestyle learning\js\durandal\viewEngine.js" />
     <Content Include="Templates\Freestyle learning\js\durandal\viewLocator.js" />
     <Content Include="Templates\Freestyle learning\App\events.js" />
-    <Content Include="Templates\Freestyle learning\App\eventsManager.js" />
     <Content Include="Templates\Freestyle learning\App\main-built.js" />
     <Content Include="Templates\Freestyle learning\App\main.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\404.js" />
@@ -509,6 +510,7 @@
     <Content Include="Templates\Freestyle learning\js\jquery-1.9.1.js" />
     <Content Include="Templates\Freestyle learning\js\knockout-2.2.1.js" />
     <Content Include="Templates\Freestyle learning\js\underscore-1.5.1.js" />
+    <Content Include="Templates\Freestyle learning\js\underscore.extensions.js" />
     <Content Include="Templates\Freestyle learning\js\vendor.js">
       <DependentUpon>vendor.js.bundle</DependentUpon>
     </Content>

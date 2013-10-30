@@ -1,4 +1,4 @@
-﻿define(['context', 'plugins/router'], function (context, router) {
+﻿define(['durandal/app', 'events', 'context', 'plugins/router'], function (app, events, context, router) {
     var
         objective = null,
         question = null,
@@ -19,6 +19,12 @@
             }
 
             question.score = result;
+
+            app.trigger(events.questionAnswered, {
+                objective: objective,
+                question: question
+            });
+
             showFeedback();
         },
 

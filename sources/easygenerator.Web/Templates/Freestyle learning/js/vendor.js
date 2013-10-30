@@ -10932,6 +10932,31 @@ var f=b.data("precompiled");f||(f=b.text()||"",f=F.template(p,"{{ko_with $item.k
 
 }).call(this);
 
+///#source 1 1 /Templates/Freestyle learning/js/underscore.extensions.js
+(function () {
+    "use strict";
+    if (typeof (_) !== "function") {
+        throw new Error("underscore not found.");
+    }
+
+    _.isEmptyOrWhitespace = function (obj) {
+        if (!_.isString(obj))
+            throw new TypeError;
+
+        return _.isEmpty(obj.trim());
+    };
+
+    _.isNullOrUndefined = function (obj) {
+        return _.isUndefined(obj) || _.isNull(obj);
+    };
+
+    _.isEmptyHtmlText = function(obj) {
+        var removeTagsRegex = /<\s*p\s*>(\s|&nbsp;|<\/?\s?br\s?\/?>)*<\s*\/p\s*>|<\s*p\s*\/>|(\s|&nbsp;|<\/?\s?br\s?\/?>)*/g;
+        var textWithoutTagsAndWhiteSpace = obj.replace(removeTagsRegex, '').trim();
+        return _.isEmpty(textWithoutTagsAndWhiteSpace);
+    };
+
+})();
 ///#source 1 1 /Templates/Freestyle learning/js/q.js
 // vim:ts=4:sts=4:sw=4:
 /*!

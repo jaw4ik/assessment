@@ -23,14 +23,15 @@
 
             handleError = function (errorMessage) {
 
-                if (!!settings.errorPageUrl) {
+                if (!_.isNullOrUndefined(settings.errorPageUrl)) {
                     if (window.location.hash.indexOf(settings.errorPageUrl) !== -1)
                         return;
 
                     var navigateUrl = settings.errorPageUrl + '/' + encodeURIComponent(window.location.hash);
-                    setTimeout(function () {
+
+                    _.defer(function () {
                         router.navigate(navigateUrl, { replace: true, trigger: true });
-                    }, 0);
+                    });
                 }
             };
 

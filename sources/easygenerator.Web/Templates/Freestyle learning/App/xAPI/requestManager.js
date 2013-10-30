@@ -4,69 +4,6 @@
         "use strict";
 
         var
-            trackAction = function (actorData, verb, activity, result) {
-                
-                var statement = buildStatement(actorData, verb, activity, result);
-
-                return sendRequest(statement);
-            },
-
-            buildStatement = function (actorData, verb, activity, result) {
-
-                if (typeof verb === "undefined" || !_.isObject(verb) || _.isUndefined(verb.id) || _.isUndefined(verb.display)) {
-                    errorsHandler.handleError(errorsHandler.errors.verbIsIncorrect);
-                    return;
-                }
-
-                if (typeof result !== "undefined" && !_.isObject(result)) {
-
-                    var formattedResult = { score: {} };
-
-                    if (result >= 0 && result <= 1)
-                        formattedResult.score.scaled = result;
-                    else
-                        formattedResult.score.raw = result;
-
-                    result = formattedResult;
-                }
-
-                //ACTOR
-                var actor = {
-                    mbox: actorData.mail,
-                    objectType: "Agent"
-                };
-                if (!!actorData.name)
-                    actor['name'] = actorData.name;
-
-                //OBJECT
-                var object = {};
-                if (!activity.url && window && window.location)
-                    activity.url = window.location.toString();
-
-                object["id"] = activity.url;
-
-                if (!!activity.name) {
-                    
-                    if (!activity.language)
-                        activity.language = settings.defaultLanguage;
-                    
-                    var name = {};
-                    name[activity.language] = activity.name;
-
-                    object["definition"] = { name: name };
-                }
-
-                var statement = {
-                    id: generateGuid(),
-                    actor: actor,
-                    verb: verb,
-                    object: object,
-                    result: result
-                };
-
-                return statement;
-            },
-
             sendRequest = function (statement) {
 
                 var options = buildRequestOptions(statement);
@@ -246,20 +183,10 @@
 
                     });
                 }
-            },
-
-            generateGuid = function () {
-                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
-                    /[xy]/g,
-                    function (c) {
-                        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-                        return v.toString(16);
-                    }
-                );
             };
 
         return {
-            trackAction: trackAction
+            sendRequest: sendRequest
         };
     }
 );

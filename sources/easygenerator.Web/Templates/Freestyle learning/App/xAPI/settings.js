@@ -19,9 +19,10 @@
 
             errorPageUrl: "xapierror",
 
+            defaultLanguage: "en-US",
+            
             timeout: 120000,//2 minutes
 
-            defaultLanguage: "en-US",
             xApiVersion: "1.0.0"
 
         };

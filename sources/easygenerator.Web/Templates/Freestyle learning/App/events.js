@@ -4,8 +4,10 @@
         var events = {
             
             courseStarted: "courseStarted",
-            courseStopped: "courseStopped",
-            courseFinished: "courseFinished"
+            courseFinished: "courseFinished",
+            
+            learningContentExperienced: "learningContentExperienced",
+            questionAnswered: "questionAnswered"
             
         };
 

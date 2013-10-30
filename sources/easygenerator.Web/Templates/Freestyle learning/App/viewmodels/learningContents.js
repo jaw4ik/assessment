@@ -1,9 +1,13 @@
-﻿define(['durandal/http', 'context', 'durandal/plugins/router'], function (http, context, router) {
+﻿define(['durandal/app', '../events', 'plugins/http', 'context', 'plugins/router'], function (app, events, http, context, router) {
 
     var
         objectiveId = '',
         questionId = '',
         learningContents = [],
+
+        enteredOnPage = null,
+        learningContentsUrl = '',
+        questionTitle = '',
 
         backToObjectives = function () {
             router.navigate('');
@@ -13,7 +17,7 @@
             router.navigate('objective/' + this.objectiveId + '/question/' + this.questionId);
         },
 
-        activate = function (routeData) {
+        activate = function (objectiveId, questionId) {
             this.objectiveId = objectiveId;
             this.questionId = questionId;
 
@@ -37,6 +41,10 @@
                 return;
             }
 
+            this.enteredOnPage = new Date();
+            this.learningContentsUrl = window.location.toString();
+            this.questionTitle = question.title;
+
             var that = this;
 
             var requests = [];
@@ -51,6 +59,14 @@
                     return item.index;
                 });
             });
+        },
+
+        deactivate = function () {
+            app.trigger(events.learningContentExperienced, {
+                objectiveId: this.objectiveId,
+                questionId: this.questionId,
+                spentTime: new Date() - this.enteredOnPage
+            });
         }
     ;
 
@@ -58,6 +74,8 @@
 
     return {
         activate: activate,
+        deactivate: deactivate,
+
         learningContents: learningContents,
         backToObjectives: backToObjectives,
         backToQuestion: backToQuestion
