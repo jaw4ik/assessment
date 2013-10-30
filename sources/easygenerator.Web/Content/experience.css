@@ -194,7 +194,7 @@
     float: right;
 }
 
-    .download-btn .btn-title:after {
+    .package-action-btn.download-btn .btn-title:after {
         background-position: -153px -75px;
     }
 

@@ -2,7 +2,7 @@
     <div class="fixed-container">
         <div class="content-holder">
             <div class="page-view-caption clearfix">
-                <div class="page-view-caption-text" data-bind="localize : { text : 'experiences' }">Learning experiences</div>
+                <div class="page-view-caption-text" data-bind="localize: { text: 'experiences' }">Learning experiences</div>
             </div>
         </div>
     </div>
@@ -34,132 +34,87 @@
             </div>
         </div>
     </div>
+    
     <!-- ko if: experiences().length -->
-    <div class="experiences-content-wrapper">
-        <div class="experiences-content">
-            <div class="experiences-list-wrapper">
-                <ul class="unstyled experiences-list clearfix">
-                    <!-- ko foreach: experiences -->
-                    <li class="experience-brief"
-                        data-bind="css: {
-    'experience-brief-selected': isSelected,
-    'experience-building': showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.inProgress,
-    'experience-success': showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.succeed,
-    'experience-failed': showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.failed,
-    'scrollToElement': $parent.lastVistedExperienceId == id
-}">
-                        <!-- ko if: buildingStatus() != $parent.buildingStatuses.inProgress -->
-                        <div class="build-experience-tooltip-wrapper">
-                            <div class="build-experience-tooltip-triangle-wrapper">
-                                <div class="build-experience-tooltip-triangle">
-                                </div>
+    <div class="content-holder">
+        <div class="main-content-list-holder">
+            <ul class="unstyled main-content-list">
+                <!-- ko foreach: experiences -->
+                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedExperienceId == id }">
+                    <div class="list-item-content-holder" data-bind="css: { selected: isSelected }, click: $parent.toggleSelection">
+                        <div class="list-item-checkbox">
+                            <span class="custom-checkbox-input" data-bind="css: { checked: isSelected }">
+                                <input class="custom-checkbox" type="checkbox" />
+                            </span>
+                        </div>
+                        <div class="list-item-logo">
+                            <img class="list-item-logo-image" alt="" data-bind="attr: { src: image }" src="" />
+                        </div>
+                        <div class="list-item-info">
+                            <div class="list-item-title">
+                                <span class="selectable" data-bind="text: title"></span>
                             </div>
-                            <div class="build-experience-tooltip clearfix">
-                                <!-- ko if: buildingStatus() == $parent.buildingStatuses.notStarted || buildingStatus() == $parent.buildingStatuses.failed -->
-                                <div class="experience-brief-options-build clearfix" data-bind="click: $parent.buildExperience">
-                                    <div class="inline">
-                                        <div class="experience-brief-options-build-image inline" data-bind="css: { selected: isSelected() }">
-                                            &nbsp;
-                                        </div>
-                                        <div class="experience-brief-options-build-text inline" data-bind="localize: { text: 'createPackage' }"></div>
-                                    </div>
-                                </div>
-                                <!-- /ko -->
-                                <!-- ko if: buildingStatus() == $parent.buildingStatuses.succeed -->
-                                <div class="experience-brief-options-rebuild pull-left" data-bind="click: $parent.buildExperience">
-                                    <div class="inline">
-                                        <div class="experience-brief-options-rebuild-image inline">
-                                            <input class="custom-checkbox" type="checkbox" />
-                                        </div>
-                                        <div class="experience-brief-options-rebuild-text inline" data-bind="localize: { text: 'updatePackage' }"></div>
-                                    </div>
-                                </div>
-                                <div class="separator"></div>
-                                <div class="experience-brief-options-download clearfix" data-bind="click: $parent.downloadExperience">
-                                    <div class="inline">
-                                        <div class="experience-brief-options-download-image inline" data-bind="css: { selected: isSelected() }">
-                                            &nbsp;
-                                        </div>
-                                        <div class="experience-brief-options-download-text inline" data-bind="localize: { text: 'experienceDownloadAction' }"></div>
-                                    </div>
-                                </div>
-                                <!-- /ko -->
+                            <div class="list-item-saved">
+                                <span>Last edited: </span><span>30-10-2013</span>
                             </div>
+                        </div>
+                    </div>
+                    <div class="open-item-btn">
+                        <a href="" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToDetails">
+                            <span class="open-btn-text" data-bind="localize: { text: 'open' }">Open</span>
+                        </a>
+                    </div>
+                    <div class="package-actions-block cursor-default">
+                        <!-- ko if: buildingStatus() == $parent.buildingStatuses.notStarted || buildingStatus() == $parent.buildingStatuses.failed -->
+                        <div class="experience-action create-package-btn" data-bind="click: $parent.buildExperience">
+                            <span class="btn-title" data-bind="localize: { text: 'createPackage' }">Create package</span>
                         </div>
                         <!-- /ko -->
-                        <div class="white-framing experience-brief-inner">
-                            <div>
-                                <div class="experience-brief-image-wrapper">
-                                    <img class="experience-brief-image" alt="" data-bind="attr: { src: image }" />
-                                </div>
-                                <div class="experience-brief-toolbar clearfix">
-                                    <div class="experience-brief-title pull-left" data-bind="attr: { title: title }">
-                                        <span class="selectable" data-bind="text: title"></span>
-                                    </div>
-                                    <div class="experience-brief-toolbar-objective-count pull-right" data-bind="localize: { title: 'numberOfRelatedObjectives' }">
-                                        <span class="experience-brief-toolbar-icon-objective"></span>
-                                        <div class="selectable" data-bind="text: objectives.length"></div>
-                                    </div>
-                                </div>
-                                <div class="experience-brief-option">
-                                    <!-- ko if: !showBuildingStatus() || buildingStatus() == $parent.buildingStatuses.notStarted -->
-                                    <div class="experience-brief-options-select" data-bind="click: $parent.toggleSelection">
-                                        <!-- ko if: isSelected -->
-                                        <div data-bind="localize: { text: 'unselect' }">Unselect</div>
-                                        <!-- /ko -->
-                                        <!-- ko ifnot: isSelected -->
-                                        <div data-bind="localize: { text: 'select' }">Select</div>
-                                        <!-- /ko -->
-                                        <div class="experience-brief-options-select-image" data-bind="css: { selected: isSelected() }">
-                                            <input class="custom-checkbox" type="checkbox" />
-                                        </div>
-                                    </div>
-                                    <div class="experience-brief-options-separator"></div>
-                                    <div class="experience-brief-options-edit" data-bind="click: $parent.navigateToDetails">
-                                        <div data-bind="localize: { text: 'edit' }">Open</div>
-                                        <div class="experience-brief-options-edit-image"></div>
-                                    </div>
-                                    <!-- /ko -->
-                                    <!-- ko if: showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.inProgress -->
-                                    <div class="experience-brief-option-inner experience-brief-options-building">
-                                        <!-- ko if: isFirstBuild -->
-                                        <div data-bind="localize: { text: 'creatingStatus' }"></div>
-                                        <!-- /ko -->
-                                        <!-- ko ifnot: isFirstBuild -->
-                                        <div data-bind="localize: { text: 'updatingStatus' }"></div>
-                                        <!-- /ko -->
-                                        <div class="experience-brief-options-building-image"></div>
-                                    </div>
-                                    <!-- /ko -->
-                                    <!-- ko if: showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.succeed -->
-                                    <div class="experience-brief-option-inner experience-brief-options-complete" data-bind="event: { mouseover: $parent.enableOpenExperience }">
-                                        <div data-bind="localize: { text: 'experienceCompleteStatus' }"></div>
-                                        <div class="experience-brief-options-complete-image"></div>
-                                    </div>
-                                    <!-- /ko -->
-                                    <!-- ko if: showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.failed -->
-                                    <div class="experience-brief-option-inner experience-brief-options-failed" data-bind="event: { mouseover: $parent.enableOpenExperience }">
-                                        <div data-bind="localize: { text: 'experienceFailedStatus' }"></div>
-                                        <div class="experience-brief-options-failed-image"></div>
-                                    </div>
-                                    <!-- /ko -->
-                                </div>
-                            </div>
+                        <!-- ko if: buildingStatus() == $parent.buildingStatuses.succeed -->
+                        <div class="experience-action create-package-btn" data-bind="click: $parent.buildExperience">
+                            <span class="btn-title" data-bind="localize: { text: 'updatePackage' }">Update package</span>
                         </div>
-                        <span class="substrate-block">
-                            <span class="substrate-inner">
-                                <span class="substrate-inner">
-                                    <span class="substrate-inner"></span>
-                                </span>
-                            </span>
-                        </span>
-                    </li>
+                        <!-- /ko -->
+                        <!-- ko if: buildingStatus() == $parent.buildingStatuses.succeed -->
+                        <div class="experience-action download-btn" data-bind="click: $parent.downloadExperience">
+                            <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                    <!-- ko if: showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.inProgress -->
+                    <div class="experience-status-container">
+                        <div class="experience-status-holder">
+                            <!-- ko if: isFirstBuild -->
+                            <div class="experience-text building" data-bind="localize: { text: 'creatingStatus' }"></div>
+                            <!-- /ko -->
+                            <!-- ko ifnot: isFirstBuild -->
+                            <div class="experience-text building" data-bind="localize: { text: 'updatingStatus' }"></div>
+                            <!-- /ko -->
+                        </div>
+
+                    </div>
                     <!-- /ko -->
-                </ul>
-            </div>
+                    <!-- ko if: showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.succeed -->
+                    <div class="experience-status-container" data-bind="event: { mouseover: $parent.enableOpenExperience }">
+                        <div class="experience-status-holder">
+                            <div class="experience-text complete" data-bind="localize: { text: 'experienceCompleteStatus' }"></div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko if: showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.failed -->
+                    <div class="experience-status-container" data-bind="event: { mouseover: $parent.enableOpenExperience }">
+                        <div class="experience-status-holder">
+                            <div class="experience-text failed" data-bind="localize: { text: 'experienceFailedStatus' }"></div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                </li>
+                <!-- /ko -->
+            </ul>
         </div>
     </div>
     <!-- /ko -->
+
     <!-- ko ifnot: experiences().length -->
     <div class="add-new-item-tip">
         <div class="add-new-item-tip-arrow"></div>

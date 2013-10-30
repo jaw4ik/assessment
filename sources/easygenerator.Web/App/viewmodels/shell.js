@@ -176,7 +176,7 @@
                                 /*190px header size, 250px header and title and button "Add"*/
                                 if (targetTop >= 250) {
                                     $('html, body').animate({
-                                        scrollTop: targetTop - 190
+                                        scrollTop: targetTop - 145
                                     });
                                 }
                                 $scrollElement.removeClass('scrollToElement');
