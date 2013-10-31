@@ -278,7 +278,7 @@ a.top-navigation-item:hover {
     max-width: 745px;
     margin: 0 auto;
     padding-bottom: 30px;
-    border-top: 2px dotted #f1f1f1;
+    border-top: 2px dotted #c6c6c6;
 }
 
 .main-content-list-item {
@@ -316,6 +316,7 @@ a.top-navigation-item:hover {
 
 .main-content-list .list-item-logo {
     display: table-cell;
+    vertical-align: middle;
     width: 100px;
     height: 100px;
 }

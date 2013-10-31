@@ -787,6 +787,10 @@ ol.unstyled  {
         box-shadow: 0 0 3px rgba(149, 59, 57, 1);
     }
 
+    .edit-field a {
+        color: #303032;
+    }
+
 .chars-counter {
     display: none;
     color: white;
