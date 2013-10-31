@@ -1,6 +1,6 @@
 ﻿ko.bindingHandlers.fixedBlocksPosition = {
     init: function (elem, va) {
-
+        
     },
 
     update: function (elem, va) {
@@ -12,24 +12,9 @@
             notFixedContainer = '.view-module',
             fixedContainer = '.view-module > .fixed-container:first-child';
 
-        setHeight();
-
-        var oldHeight = $(helpHint).height(),
-            newHeight;
-
-        var interval = setInterval(function () {
-            newHeight = $(helpHint).height();
-            if (oldHeight != newHeight) {
-                oldHeight = newHeight;
-                setHeight();
-            } else {
-                clearInterval(interval);
-            }
-        }, 300);
+        _.delay(setHeight, 10);
         
-        $(window).resize(function () {
-            setHeight();
-        });
+        $(window).resize(setHeight);
 
         function setHeight() {
 
