@@ -924,6 +924,9 @@
 
 .process-step {
     width: 28.5%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
     padding: 13px;
     border: 1px solid #ebebeb;
     border-top-color: #f2f2f2;
@@ -949,7 +952,7 @@
         background: #fafafa;
         border-color: #f4f4f4;
         border-top-color: #fafafa;
-        border-bottom: 2px solid #bcd643;
+        border-bottom: 1px solid #bcd643;
         cursor: default;
     }
 
