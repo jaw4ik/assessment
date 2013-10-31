@@ -39,53 +39,38 @@
         </div>
 
         <!-- ko if: objectives().length > 0 -->
-        <div class="objectives-content-wrapper">
-            <div class="objectives-content">
-                <div class="objectives-list-wrapper">
-                    <ul class="unstyled objectives-list clearfix">
-                        <!-- ko foreach: objectives -->
-                        <li class="objective-brief" data-bind="css: { 'objective-brief-selected': isSelected(), 'scrollToElement': $parent.lastVisitedObjective == id }">
-                            <div class="white-framing objective-brief-inner">
-                                <div>
-                                    <div class="objective-image-wrapper">
-                                        <img class="objective-brief-image" alt="" src="" data-bind="attr: { src: image }" />
-                                    </div>
-                                    <div class="objective-brief-toolbar">
-                                        <div class="objective-brief-title" data-bind="attr: { title: title }">
-                                            <span class="selectable" data-bind="text: title"></span>
-                                        </div>
-                                        <!--
-                                            -->
-                                        <div class="objective-brief-toolbar-question-count" data-bind="localize: { title: 'numberOfRelatedQuestions' }">
-                                            <div class="objective-brief-toolbar-icon-question"></div>
-                                            <div class="objective-question-count-text" data-bind="text: questionsCount"></div>
-                                        </div>
-                                    </div>
-                                    <div class="objective-brief-options">
-                                        <div class="objective-brief-options-select" data-bind="click: $parent.toggleObjectiveSelection">
-                                            <!-- ko if: isSelected -->
-                                            <div data-bind="localize: { text: 'unselect' }">Unselect</div>
-                                            <!-- /ko-->
-                                            <!-- ko ifnot: isSelected -->
-                                            <div data-bind="localize: { text: 'select' }">Select</div>
-                                            <!-- /ko-->
-                                            <div class="objective-brief-options-select-image" data-bind="css: { selected: isSelected() }">
-                                                <input class="custom-checkbox" type="checkbox" />
-                                            </div>
-                                        </div>
-                                        <div class="objective-brief-options-separator"></div>
-                                        <div class="objective-brief-options-edit" data-bind="click: $parent.navigateToDetails">
-                                            <div data-bind="localize: { text: 'edit' }">Open</div>
-                                            <div class="objective-brief-options-edit-image"></div>
-                                        </div>
-                                    </div>
+         <div class="content-holder">
+             <div class="main-content-list-holder">
+                 <ul class="unstyled main-content-list">
+                     <!-- ko foreach: objectives -->
+                     <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id }">
+                         <div class="list-item-content-holder" data-bind="css: { selected: isSelected }, click: $parent.toggleObjectiveSelection">
+                            <div class="list-item-checkbox" data-bind="">
+                                <span class="custom-checkbox-input" data-bind="css: { checked: isSelected }">
+                                    <input class="custom-checkbox" type="checkbox" />
+                                </span>
+                            </div>
+                            <div class="list-item-logo">
+                                <img class="list-item-logo-image" alt="" data-bind="attr: { src: image }" src="" />
+                            </div>
+                            <div class="list-item-info">
+                                <div class="list-item-title">
+                                    <span class="selectable" data-bind="text: title"></span>
+                                </div>
+                                <div class="list-item-saved">
+                                    <span data-bind="">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
                                 </div>
                             </div>
-                        </li>
-                        <!-- /ko -->
-                    </ul>
-                </div>
-            </div>
+                        </div>
+                         <div class="open-item-btn">
+                             <a href="" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToDetails">
+                                 <span class="open-btn-text" data-bind="localize: { text: 'open' }">Open</span>
+                             </a>
+                         </div>
+                     </li>
+                     <!-- /ko -->
+                 </ul>
+             </div>
         </div>
         <!-- /ko -->
 

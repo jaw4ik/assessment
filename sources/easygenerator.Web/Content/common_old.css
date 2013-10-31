@@ -934,11 +934,6 @@ ol.unstyled  {
     font-size: 13px;
 }
 
-    .objectives a:hover, .objectives a:focus, .objectives a:active, .objectives a:visited, .objectives a:link {
-        color: #999999;
-        text-decoration: none;
-    }
-
 .objectives-header,
 .experiences-header {
     padding: 20px 20px 0;
@@ -1062,25 +1057,6 @@ ol.unstyled  {
     text-transform: uppercase;
 }
 
-
-.objectives-content-wrapper {
-    width: 100%;
-}
-
-.objectives-content {
-    height: 100%;
-    padding-top: 8px;
-}
-
-.objectives-list-wrapper {
-    margin: auto;
-    max-width: 1200px;
-}
-
-.objectives-list {
-    margin: 0;
-}
-
 /*#endregion OBJECTIVES-EXPERIENCES-QUESTIONS*/
 
 /*#region EMPTY LIST*/
@@ -1201,11 +1177,6 @@ ol.unstyled  {
     .experiences {
         max-width: 600px;
     }
-
-    .objectives-list-wrapper,
-    .experiences-list-wrapper {
-        max-width: 400px;
-    }
     /*#endregion OBJECTIVES-EXPERIENCES-QUESTIONS*/
 }
 
@@ -1263,7 +1234,6 @@ ol.unstyled  {
         max-width: 1202px;
     }
 
-    .objectives-list-wrapper,
     .experiences-list-wrapper {
         max-width: 1202px;
     }
@@ -1290,7 +1260,6 @@ ol.unstyled  {
         max-width: 765px;
     }
 
-    .objectives-list-wrapper,
     .experiences-list-wrapper {
         max-width: 765px;
     }

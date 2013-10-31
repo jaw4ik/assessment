@@ -18,6 +18,7 @@
 
         var objectives = ko.observableArray([]),
             lastVisitedObjective = '',
+            currentLanguage = '',
             //#region Sorting
 
             currentSortingOption = ko.observable(constants.sortingOptions.byTitleAsc),
@@ -107,6 +108,7 @@
 
                  this.lastVisitedObjective = clientContext.get('lastVisitedObjective');
                  clientContext.set('lastVisitedObjective', null);
+                 this.currentLanguage = localizationManager.currentLanguage;
 
                  return objectiveRepository.getCollection().then(function (objectiveBriefCollection) {
 
@@ -123,6 +125,7 @@
                                      title: item.title,
                                      image: item.image,
                                      questionsCount: item.questions.length,
+                                     modifiedOn: item.modifiedOn,
                                      isSelected: ko.observable(false),
                                      canBeDeleted: (function (currentItem) {
                                          if (item.questions.length > 0)
@@ -152,6 +155,7 @@
             sortByTitleDesc: sortByTitleDesc,
             currentSortingOption: currentSortingOption,
             sortingOptions: constants.sortingOptions,
+            currentLanguage: currentLanguage,
 
             toggleObjectiveSelection: toggleObjectiveSelection,
 

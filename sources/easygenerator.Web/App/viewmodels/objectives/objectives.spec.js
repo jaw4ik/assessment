@@ -9,7 +9,7 @@
             objectiveRepository = require('repositories/objectiveRepository'),
             experienceRepository = require('repositories/experienceRepository'),
             notify = require('notify'),
-            clientContext = require('clientContext');
+            localizationManager = require('localization/localizationManager');
 
 
         describe('viewModel [objectives]', function () {
@@ -23,16 +23,36 @@
                 expect(viewModel).toBeObject();
             });
 
-            it('should expose objectives observable', function () {
-                expect(viewModel.objectives).toBeObservable();
+            describe('objectives:', function () {
+
+                it('should be observable', function() {
+                    expect(viewModel.objectives).toBeObservable();
+                });
+
             });
 
-            it('should expose objectives sortingOptions', function () {
-                expect(viewModel.sortingOptions).toBeDefined();
+            describe('sortingOptions:', function () {
+
+                it('should be defined', function() {
+                    expect(viewModel.sortingOptions).toBeDefined();
+                });
+
             });
 
-            it('should expose current sortingOption observable', function () {
-                expect(viewModel.currentSortingOption).toBeObservable();
+            describe('currentSortingOption:', function() {
+
+                it('should be observable', function () {
+                    expect(viewModel.currentSortingOption).toBeObservable();
+                });
+
+            });
+
+            describe('currentLanguage:', function() {
+
+                it('should be defined', function() {
+                    expect(viewModel.currentLanguage).toBeDefined();
+                });
+
             });
 
             describe('navigateToCreation', function () {
@@ -225,7 +245,7 @@
                 describe('when get objectives collection', function () {
 
                     var getObjectivesDeferred;
-                    var objectiveItem = { id: '1', title: 'z', image: '', questions: [{ id: 0 }, { id: 1 }] };
+                    var objectiveItem = { id: '1', title: 'z', image: '', questions: [{ id: 0 }, { id: 1 }], modifiedOn: 'some date' };
                     var objectivesCollection = [
                         objectiveItem,
                         { id: '2', title: 'a', image: '', questions: [{}, {}] },
@@ -340,6 +360,20 @@
                                         });
                                     });
 
+                                    it('should set modifiedOn for each objective', function() {
+                                        getExperiencesDeferred.resolve([]);
+                                        getObjectivesDeferred.resolve([objectiveItem]);
+
+                                        var promise = viewModel.activate();
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(promise).toBeResolved();
+                                            expect(viewModel.objectives()[0].modifiedOn).toBe(objectiveItem.modifiedOn);
+                                        });
+                                    });
+
                                     it('should set isSelected observable to false for each objective', function () {
                                         getExperiencesDeferred.resolve([]);
                                         getObjectivesDeferred.resolve([objectiveItem]);
@@ -450,6 +484,12 @@
 
                     });
 
+                });
+
+                it('should set currentLanguage', function () {
+                    viewModel.currentLanguage = null;
+                    viewModel.activate();
+                    expect(viewModel.currentLanguage).toBe(localizationManager.currentLanguage);
                 });
 
             });

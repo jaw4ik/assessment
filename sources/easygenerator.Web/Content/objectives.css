@@ -23,218 +23,31 @@
         background-color: #4E4E4E;
     }
 
-.objective-brief {
-    height: 230px;
-    width: 360px;
-    float: left;
-    margin: 0 13px 40px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-}
-
-.objective-brief-inner {
-    height: 100%;
-    width: 100%;
-    position: relative;
-    z-index: 10;
-}
-
-    .objective-brief-inner > * {
-        height: 100%;
-        position: relative;
-    }
-
-.objective-brief-selected {
-    -webkit-box-shadow: 0 0 9px 2px #6bb4d8;
-    -moz-box-shadow: 0 0 9px 2px #6bb4d8;
-    box-shadow: 0 0 9px 2px #6bb4d8;
-}
-
-.objective-image-wrapper,
-.objective-brief-image {
-    width: 100%;
-}
-
-.objective-brief-options {
-    height: 182px;
-    width: 352px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: none;
-}
-
-.objective-brief:hover .objective-brief-options {
-    background-color: rgba(0, 0, 0, 0.4);
-    display: block;
-}
-
-.objective-brief-options-select,
-.objective-brief-options-edit {
-    height: 182px;
-    width: 50%;
-    float: left;
-    position: relative;
-    padding-top: 51px;
-    color: #cecece;
-    text-align: center;
-    font-size: 22px;
-}
-
-    .objective-brief-options-select:hover,
-    .objective-brief-options-edit:hover {
-        background-color: #000000;
-        background-color: rgba(0, 0, 0, 0.4);
-    }
-
-    .objective-brief-options-edit:hover {
-        cursor: pointer;
-    }
-
-.objective-brief-options-separator {
-    height: 140px;
-    position: absolute;
-    left: 50%;
-    z-index: 1;
-    margin: 20px 0;
-    margin-left: -2px;
-    width: 4px;
-    background-color: #7E7D7B;
-}
-
-.objective-brief-options-select-image {
-    display: inline-block;
-    margin-top: 5px;
-    width: 51px;
-    height: 52px;
-    background: url('images/objexp-sprite.png') 0 -148px;
-}
-
-    .objective-brief-options-select-image.selected {
-        background-position: 0 -210px;
-    }
-
-.objective-brief-options-edit-image {
-    display: inline-block;
-    margin-top: 2px;
-    width: 51px;
-    height: 52px;
-    background: url('images/objexp-sprite.png') 0 -370px;
-}
-
-.objective-brief-toolbar {
-    height: 40px;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    border: 1px solid #E3E3E3;
-    background: #fff;
-    vertical-align: top;
-    white-space: nowrap;
-}
-
-.objective-brief-title {
-    display: inline-block;
-    height: 38px;
-    line-height: 40px;
-    width: 321px;
-    padding: 0 10px;
-    border-right: 1px solid #E3E3E3;
-    overflow: hidden;
-    vertical-align: top;
-    color: #333333;
-    font-size: 12px;
-}
-
-    .objective-brief-title > span {
-        display: block;
-        white-space: nowrap;
-        overflow: hidden;
-        -ms-text-overflow: ellipsis;
-        text-overflow: ellipsis;
-        cursor: default;
-    }
-
-.objective-brief-toolbar-question-count {
-    display: inline-block;
-    padding: 5px 0;
-    margin-left: -4px;
-    width: 29px;
-    color: #484848;
-    text-align: center;
-    font-size: 12px;
-    font-family: Arial,sans-serif;
-    line-height: 12px;
-}
-
-
-.objective-brief-toolbar-icon-question {
-    display: inline-block;
-    width: 17px;
-    height: 17px;
-    background-image: url('images/middle-sized-icons-pack.png');
-    background-position: center -303px;
-}
-
-.objective-question-count-text {
-    cursor: default;
-}
-
-@media (min-width: 1220px) {
-
-    .objective-brief {
-        margin: 0 20px 40px;
-    }
-}
-
-@media (min-width: 767px) and (max-width: 1166px) {
-
-    .objective-brief {
-        margin: 0 10px 40px;
-    }
-}
-
-@media (max-width: 766px) {
-
-    .objective-brief {
-        margin: 0 20px 40px;
-    }
-
-    .alert.alert-info {
-        width: 49%;
-        min-width: inherit;
-        z-index: 10;
-    }
-}
-
-/*#region NOTIFICATION*/
-
-.objectives .alert-info {
-    border-color: #F38971;
-    background-color: #f26c4f;
-}
-
-.objectives .alert {
-    color: #FFFFFF;
-    text-shadow: none;
-}
-
-    .objectives .alert .close {
-        color: #FFFFFF;
-        opacity: 0.8;
-        filter: alpha(opacity=80);
-        line-height: 18px;
-    }
-
-.objectives .alert-info .info-icon {
-    background-image: url(images/warning.png);
-    height: 20px;
-    width: 19px;
-}
-
-/*#endregion NOTIFICATION*/
-
 .create-objective .create-form {
     padding-bottom: 35px;
 }
+
+/*#region OBJECTIVES LIST STYLES*/
+
+.objectives .list-item-logo,
+.objectives .list-item-logo-image {
+    width: 145px;
+    height: 145px;
+}
+
+.objectives .list-item-logo-image {
+    border: 1px solid #e6e6e6;
+}
+
+.objectives .list-item-saved {
+    left: 195px;
+    bottom: 3px;
+}
+
+.package-actions-block {
+    position: absolute;
+    top: 120px;
+    right: 10px;    
+}
+
+/*#endregion OBJECTIVES LIST STYLES*/
