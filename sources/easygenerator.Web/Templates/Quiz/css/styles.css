@@ -678,7 +678,7 @@ body {
     height: 28px;
     line-height: 26px;
     vertical-align: middle;
-    margin-bottom: 19px;
+    margin-bottom: 11px;
     border: 1px solid #829d37;
     border-bottom-color: #98ac61;
     border-radius: 4px;
@@ -727,7 +727,7 @@ body {
 
 .progressbar-holder {
     width: 378px;
-    padding-bottom: 25px;
+    padding-bottom: 36px;
 }
 
 .progressbar-block {
