@@ -126,6 +126,11 @@
         nl: 'Niet gemaakt',
         de: 'Nicht erstellt'
     },
+    lastEdited: {
+        en: 'Last edited:',
+        nl: 'Laatst bewerkt:',
+        de: 'Zuletzt bearbeitet:'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -165,14 +170,6 @@
         de: 'Ein Lernziel kann nicht gelöscht werden, wenn es mit einer oder mehreren Lernerfahrungen verbunden ist oder Fragen enthält.'
     },
     /* End resource section for model Objectives */
-    
-    /* Resource section for model Objective */
-    objectiveTitleEmptyErrorMessage: {
-        en: 'Please, provide title for objective',
-        nl: 'Please, provide title for objective[nl]',
-        de: 'Please, provide title for objective[de]'
-    },
-    /* End resource section for model Objective */
     
     /* Resource section for model Experiences */
     experiences: {
@@ -268,27 +265,27 @@
     experienceDeliver: {
         en: 'Deliver',
         nl: 'Leveren',
-        de: 'Fertigstellung'
+        de: 'Liefern'
     },
     publishOnline: {
         en: 'Publish online',
-        nl: 'Publish online[nl]',
-        de: 'Publish online[de]'
+        nl: 'Online publiceren',
+        de: 'Online veröffentlichen'
     },
     republishOnline: {
         en: 'Republish online',
-        nl: 'Republish online[nl]',
-        de: 'Republish online[de]'
+        nl: 'Opnieuw online publiceren',
+        de: 'Erneut online veröffentlichen'
     },
     publishing: {
         en: 'publishing...',
-        nl: 'publishing...[nl]',
-        de: 'publishing...[de]'
+        nl: 'bezig met publiceren...',
+        de: 'Veröffentlichung läuft...'
     },
     republishing: {
         en: 'republishing...',
-        nl: 'republishing...[nl]',
-        de: 'republishing...[de]'
+        nl: 'bezig met opnieuw publiceren...',
+        de: 'Erneute Veröffentlichung läuft...'
     },
     /* End resource section for model Experiences */
     
@@ -306,26 +303,6 @@
     /* End resource section for model CreateObjective */
     
     /* Resource section for model CreateExperience */
-    newExperience: {
-        en: 'New learning experience',
-        nl: 'New learning experience[nl]',
-        de: 'New learning experience[de]'
-    },
-    experienceTitle: {
-        en: 'Learning experience title',
-        nl: 'Learning experience title[nl]',
-        de: 'Learning experience title[de]'
-    },
-    experienceTitlePlaceholder: {
-        en: 'Learning experience title...',
-        nl: 'Learning experience title...[nl]',
-        de: 'Learning experience title...[de]'
-    },
-    objectivesInExperience: {
-        en: 'Learning objectives in learning experience',
-        nl: 'Learning objectives in learning experience[nl]',
-        de: 'Learning objectives in learning experience[de]'
-    },
     typeExperienceTitleHere: {
         en: 'Type learning experience title here',
         nl: 'Typ hier de titel van de leerervaring',
@@ -386,23 +363,13 @@
     },
     clickToAddNewAnswerOption: {
         en: 'Click here to add answer option',
-        nl: 'Klik hier als u een antwoordoptie wilt toevoegen',
-        de: 'Hier klicken, um Anwortoption hinzuzufügen'
+        nl: 'Klik hier om een antwoordoptie toe te voegen',
+        de: 'Klicken Sie hier, um eine Anwortoption hinzuzufügen'
     },
     deleteAnswerOption: {
         en: 'Delete answer',
         nl: 'Antwoord verwijderen',
         de: 'Antwort löschen'
-    },
-    learningObjects: {
-        en: 'Learning objects',
-        nl: 'Leerobject',
-        de: 'Lernobjekt'
-    },
-    clickToAddLearningObject: {
-        en: 'Click here to add learning object',
-        nl: 'Klik hier om een leerobject toe te voegen',
-        de: 'Klicken Sie hier, um ein Lernobjekt hinzuzufügen'
     },
     learningContent: {
         en: 'Learning content',
@@ -412,7 +379,7 @@
     clickToAddLearningContent: {
         en: 'Click here to add learning content',
         nl: 'Klik hier om leerinhoud toe te voegen',
-        de: 'Klicken Sie hier, um einen Lerngegenstand hinzuzufügen'
+        de: 'Klicken Sie hier, um einen Lerngegenstand hinzuzufügen.'
     },
     /* End resource section for model Question */
     
@@ -678,70 +645,25 @@
     /* End resource section for model customLocalizationPlugin */
     
     /* Resource section for model Display experience */
-    relatedLearningObjectives: {
-        en: 'Included learning objectives',
-        nl: 'Gerelateerde leerdoelen',
-        de: 'Verwandte Lernziele'
-    },
     buildExperience: {
         en: 'Build learning experience',
         nl: 'Leerervaring samenstellen',
         de: 'Lernerfahrung zusammenstellen'
-    },
-    noRelatedLearningObjectives: {
-        en: 'No included learning objectives',
-        nl: 'Geen verwante leerdoelen',
-        de: 'Keine verbundenen Lernziele'
     },
     clickToAddObjectivesIntoExperience: {
         en: 'Click to add learning objective(s) into this learning experience',
         nl: 'Klik om leerdoelen toe te voegen aan deze leerervaring',
         de: 'Klicken, um dieser Lernerfahrung ein oder mehrere Lernziele hinzuzufügen'
     },
-    relateObjectivesHelpHint: {
-        en: 'Move cursor over learning objective and select to include it into learning experience. Use Finish button when done',
-        nl: 'Verplaats de cursor over het leerdoel en selecteer het om het in de leeromgeving op te nemen. Klik na afloop op de knop Afsluiten',
-        de: 'Bewegen Sie den Mauszeiger über ein Lernziel und wählen Sie es aus, um es in die Lernerfahrung einzuschließen. Klicken Sie auf die Schaltfläche \"Fertig stellen\", wenn Sie fertig sind'
-    },
     clickToCreateNewObjective: {
         en: 'To create new learning objective click \"+\" button',
         nl: 'Klik op \"+\" om een nieuw leerdoel te maken',
         de: 'Um ein neues Lernziel zu erstellen, klicken Sie auf die Schaltfläche \"+\"'
     },
-    noObjectivesForRelating: {
-        en: 'No learning objectives to include',
-        nl: 'Geen leerdoelen om op te nemen',
-        de: 'Keine einzuschließenden Lernziele'
-    },
     finish: {
         en: 'Finish',
         nl: 'Afsluiten',
         de: 'Fertig stellen'
-    },
-    relate: {
-        en: 'Include',
-        nl: 'Opnemen',
-        de: 'Einschließen'
-    },
-    unrelate: {
-        en: 'Exclude',
-        nl: 'Uitsluiten',
-        de: 'Ausschließen'
-    },
-    relateObjectives: {
-        en: 'Include learning objective(s)',
-        nl: 'Leerdoel(en) opnemen',
-        de: 'Ein oder mehrere Lernziele einschließen'
-    },
-    unrelateObjectives: {
-        en: 'Exclude selected learning objective(s)',
-        nl: 'Geselecteerde leerdoelen uitsluiten',
-        de: 'Ausgewählte Lernziele ausschließen'
-    },
-    finishRelating: {
-        en: 'Include selected learning objective(s)',
-        nl: 'Geselecteerde leerdoelen opnemen',
-        de: 'Ausgewählte Lernziele einschließen'
     },
     createObjectiveFromExperience: {
         en: 'Create learning objective',
@@ -810,6 +732,16 @@
         en: 'Home',
         nl: 'Startpagina',
         de: 'Start'
+    },
+    serverError: {
+        en: 'Something is not right',
+        nl: 'Er is iets niet goed.',
+        de: 'Etwas ist nicht korrekt.'
+    },
+    serverErrorDescription: {
+        en: 'Sorry, something went wrong.  Try checking the URL for errors, use the navigation above or click \"Home\' link below.',
+        nl: 'Er is een fout opgetreden. Controleer of de URL klopt, gebruik de bovenstaande navigatieopties of klik hieronder op \'Startpagina\'.',
+        de: 'Leider ist ein Fehler aufgetreten. Prüfen Sie die URL auf eventuelle Fehler; verwenden Sie die Navigationselemente oben, oder klicken Sie unten auf den Link \"Start\".'
     },
     /* End resource section for model Error pages */
     
@@ -1071,11 +1003,6 @@
         nl: 'De vraag is niet gevonden. Vernieuw uw gegevens.',
         de: 'Die Frage wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
     },
-    learningObjectNotFoundError: {
-        en: 'Learning object was not found. Please refresh your data.',
-        nl: 'Het leerobject is niet gevonden. Vernieuw uw gegevens.',
-        de: 'Der Lerngegenstand wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
-    },
     learningContentNotFoundError: {
         en: 'Learning content was not found. Please refresh your data.',
         nl: 'Er is geen leerinhoud gevonden. Vernieuw uw gegevens.',
@@ -1225,7 +1152,7 @@
     ChooseYourCountry: {
         en: 'Choose your country',
         nl: 'Kies uw land',
-        de: 'Wählen Sie Ihr Land aus.'
+        de: 'Wählen Sie Ihr Land aus'
     },
     /* End resource section for model Sign-UP optional fields */
     
