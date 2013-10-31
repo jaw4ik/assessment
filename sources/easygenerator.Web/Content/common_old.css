@@ -937,12 +937,6 @@ ol.unstyled  {
     font-size: 13px;
 }
 
-.objectives-header,
-.experiences-header {
-    padding: 20px 20px 0;
-    height: 96px;
-}
-
 .objectives-header-title, .objectives-header-sort-label,
 .experiences-header-title, .experiences-header-sort-label,
 .questions-header-title, .questions-header-sort-label {
@@ -1174,7 +1168,7 @@ ol.unstyled  {
     /*#endregion Create explanation tooltip*/
 }
 
-@media (max-width: 766px) {
+@media (max-width: 879px) {
     /*#region OBJECTIVES-EXPERIENCES-QUESTIONS*/
     .objectives,
     .experiences {
@@ -1256,17 +1250,18 @@ ol.unstyled  {
     /*#endregion Create explanation tooltip*/
 }
 
-@media (min-width: 767px) and (max-width: 1166px) {
+@media (min-width: 880px) and (max-width: 1166px) {
     /*#region OBJECTIVES-EXPERIENCES-QUESTIONS*/
     .objectives,
     .experiences {
-        max-width: 765px;
-    }
-
-    .experiences-list-wrapper {
-        max-width: 765px;
+        max-width: 850px;
     }
     /*#endregion OBJECTIVES-EXPERIENCES-QUESTIONS*/
+
+    .experiences .experiences-header,
+    .objectives-body .objectives-header {
+        padding: 20px 0 0;
+    }
 }
 
 /*#endregion MEDIA*/

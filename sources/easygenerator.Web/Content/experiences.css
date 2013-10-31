@@ -1,24 +1,18 @@
-﻿/*#region EXPERIENCES LIST STYLES*/
-
-.experiences .list-item-logo,
-.experiences .list-item-logo-image {
-    width: 145px;
-    height: 145px;
+﻿.experiences-header {
+    height: 96px;
+    padding: 20px 20px 0;
 }
 
-.experiences .list-item-logo-image {
-    border: 1px solid #e6e6e6;
+.experiences > .content-holder {
+    padding: 0;
 }
 
-.experiences .list-item-saved {
-    left: 195px;
-    bottom: 3px;
-}
+/*#region EXPERIENCES LIST STYLES*/
 
 .package-actions-block {
     display: none;
     position: absolute;
-    top: 120px;
+    top: 85px;
     right: 10px;
     width: 120px;
     font-size: 12px;

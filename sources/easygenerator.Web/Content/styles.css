@@ -275,7 +275,7 @@ a.top-navigation-item:hover {
 
 .main-content-list-holder {
     min-width: 560px;
-    max-width: 745px;
+    max-width: 850px;
     margin: 0 auto;
     padding-bottom: 30px;
     border-top: 2px dotted #c6c6c6;
@@ -294,7 +294,7 @@ a.top-navigation-item:hover {
     width: 100%;
     display: table;
     table-layout: fixed;
-    padding: 20px 0;
+    padding: 15px 0;
     border-left: 3px solid transparent;
 }
 
@@ -317,8 +317,17 @@ a.top-navigation-item:hover {
 .main-content-list .list-item-logo {
     display: table-cell;
     vertical-align: middle;
-    width: 100px;
-    height: 100px;
+}
+
+.main-content-list .list-item-logo,
+.main-content-list .list-item-logo-image {
+    width: 120px;
+    height: 120px;
+}
+
+.main-content-list .list-item-logo-image {
+    vertical-align: top;
+    border: 1px solid #e6e6e6;
 }
 
 .main-content-list .list-item-info {
@@ -337,8 +346,8 @@ a.top-navigation-item:hover {
 
 .main-content-list .list-item-saved {
     position: absolute;
-    left: 14px;
-    bottom: 0;
+    left: 173px;
+    bottom: 1px;
     color: #9c9fa6;
     font-size: 12px;
     font-family: 'OpenSans';
@@ -349,7 +358,7 @@ a.top-navigation-item:hover {
     vertical-align: top;
     width: 123px;
     position: absolute;
-    top: 33px;
+    top: 28px;
     right: 10px;
     text-align: right;
 }

@@ -1,4 +1,13 @@
-﻿.objectives-header-delete-link {
+﻿.objectives-header {
+    height: 96px;
+    padding: 20px 20px 0;
+}
+
+.objectives-body .content-holder {
+    padding: 0;
+}
+
+.objectives-header-delete-link {
     background-color: #797979;
     width: 40px;
     height: 27px;
@@ -28,21 +37,6 @@
 }
 
 /*#region OBJECTIVES LIST STYLES*/
-
-.objectives .list-item-logo,
-.objectives .list-item-logo-image {
-    width: 145px;
-    height: 145px;
-}
-
-.objectives .list-item-logo-image {
-    border: 1px solid #e6e6e6;
-}
-
-.objectives .list-item-saved {
-    left: 195px;
-    bottom: 3px;
-}
 
 .package-actions-block {
     position: absolute;
