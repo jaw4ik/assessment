@@ -2,7 +2,7 @@
     <div class="fixed-container">
         <div class="content-holder">
             <div class="page-view-caption clearfix">
-                <div class="page-view-caption-text" data-bind="localize : { text : 'createQuestionViewCaption' }">Create question</div>
+                <div class="page-view-caption-text" data-bind="localize: { text: 'createQuestionViewCaption' }">Create question</div>
             </div>
         </div>
     </div>
@@ -12,12 +12,12 @@
         </div>
         <form class="create-form">
             <div class="white-framing pull-left">
-                <img class="create-form-image" src="/Content/images/multichoice-question.png" alt="" />
+                <img class="create-form-image wide" src="/Content/images/multichoice-question.png" alt="" />
             </div>
             <div class="create-form-field">
                 <div data-autofocus="true" class="edit-field bordered selectable" data-bind="editableText: { text: title, multiline: false }, hasFocus: title.isEditing, css: { error: !title.isValid() && title().length > titleMaxLength, active: title.isEditing() }"></div>
                 <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > titleMaxLength }">
-                    <span data-bind="text: title().trim().length"></span>/<span data-bind="text: titleMaxLength"></span>
+                    <span data-bind="text: title().trim().length"></span>/<span data-bind="    text: titleMaxLength"></span>
                 </div>
                 <!-- ko compose: { view: 'views/common/createtip', model: { text: 'typeQuestionTitleHere' } } -->
                 <!-- /ko -->

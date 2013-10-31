@@ -63,8 +63,10 @@
                 <!-- ko foreach: objectivesMode() == objectivesListModes.display ? relatedObjectives() : availableObjectives() -->
                 <li class="content-list-item" data-bind="css: { 'selected': isSelected }">
                     <div class="hover-indicator"></div>
-                    <div class="content-list-logo-wrapper white-framing">
-                        <img class="content-list-logo" alt="" data-bind="attr: { src: image }">
+                    <div class="content-list-logo-holder white-framing">
+                        <span class="content-list-logo-inner">
+                            <img class="content-list-logo" alt="" data-bind="attr: { src: image }">
+                        </span>
                         <div class="item-options">
                             <div class="item-option select" data-bind="click: $parent.toggleObjectiveSelection, css: { 'alone': $parent.objectivesMode() == $parent.objectivesListModes.appending }">
                                 <!-- ko ifnot: isSelected() -->

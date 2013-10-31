@@ -222,7 +222,8 @@ ol.unstyled  {
     box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
 }
 
-    .white-framing img {
+    .white-framing > img,
+    .white-framing > span {
         outline: 1px solid #f8f8f8;
         vertical-align: top;
     }
@@ -360,7 +361,7 @@ ol.unstyled  {
         background-color: #f26c4f;
     }
 
-    .content-list-item .content-list-logo-wrapper {
+    .content-list-item .content-list-logo-holder {
         float: left;
         height: 100px;
         width: 190px;
@@ -368,9 +369,16 @@ ol.unstyled  {
         position: relative;
     }
 
-.content-list-logo-wrapper .content-list-logo {
+    .content-list-item .content-list-logo-inner {
+        display: inline-block;
+        vertical-align: top;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+    }
+
+.content-list-logo-holder .content-list-logo {
     height: 100%;
-    width: 100%;
 }
 
 .item-options {
@@ -655,10 +663,20 @@ ol.unstyled  {
     padding-bottom: 35px;
 }
 
-.create-form-image {
-    height: 111px;
+.create-form-image-wrapper {
+    display: inline-block;
     width: 194px;
     vertical-align: top;
+    text-align: center;
+}
+
+.create-form-image {
+    height: 111px;
+    vertical-align: top;
+}
+
+.create-form-image.wide {
+    width: 100%;
 }
 
 .create-form-field {
@@ -1256,12 +1274,12 @@ ol.unstyled  {
     .experiences {
         max-width: 850px;
     }
-    /*#endregion OBJECTIVES-EXPERIENCES-QUESTIONS*/
+        /*#endregion OBJECTIVES-EXPERIENCES-QUESTIONS*/
 
-    .experiences .experiences-header,
-    .objectives-body .objectives-header {
-        padding: 20px 0 0;
-    }
+        .experiences .experiences-header,
+        .objectives-body .objectives-header {
+            padding: 20px 0 0;
+        }
 }
 
 /*#endregion MEDIA*/

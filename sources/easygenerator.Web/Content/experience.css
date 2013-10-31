@@ -499,8 +499,14 @@
     padding-top: 20px;
 }
 
-    .design-view-module .template-logo {
+    .design-view-module .template-logo-wrapper {
+        display: inline-block;
+        vertical-align: top;
         width: 165px;
+        text-align: center;
+    }
+
+    .design-view-module .template-logo {
         max-height: 87px;
     }
 
