@@ -28,7 +28,9 @@
 
             enableSorting = ko.observable(true),
             
-            lastVistedExperienceId = '', 
+            lastVistedExperienceId = '',
+
+            currentLanguage = '',
 
             toggleSelection = function (experience) {
                 if (!experience.isSelected())
@@ -147,6 +149,8 @@
                 });
 
                 this.lastVistedExperienceId = clientContext.get('lastVistedExperience');
+                this.currentLanguage = localizationManager.currentLanguage;
+
                 clientContext.set('lastVistedExperience', null);
 
                 sortedExperiences = currentSortingOption() == constants.sortingOptions.byTitleAsc ? sortedExperiences : sortedExperiences.reverse();
@@ -160,6 +164,7 @@
                     experience.objectives = item.objectives;
                     experience.buildingStatus = ko.observable(item.buildingStatus);
                     experience.packageUrl = item.packageUrl;
+                    experience.modifiedOn = item.modifiedOn;
 
                     experience.isFirstBuild = ko.observable(item.buildingStatus == constants.buildingStatuses.notStarted);
                     experience.isSelected = ko.observable(false);
@@ -210,6 +215,7 @@
             canDeleteExperiences: canDeleteExperiences,
             deleteSelectedExperiences: deleteSelectedExperiences,
             lastVistedExperienceId: lastVistedExperienceId,
+            currentLanguage: currentLanguage,
 
             activate: activate,
             deactivate: deactivate

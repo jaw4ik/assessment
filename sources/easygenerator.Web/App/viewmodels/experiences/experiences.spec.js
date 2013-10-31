@@ -8,6 +8,7 @@
             dataContext = require('dataContext'),
             experienceModel = require('models/experience'),
             constants = require('constants'),
+            localizationManage = require('localization/localizationManager'),
             clientContext = require('clientContext');
 
         var
@@ -48,20 +49,44 @@
                 expect(viewModel).toBeObject();
             });
 
-            it('should expose experiences observable', function () {
-                expect(viewModel.experiences).toBeObservable();
+            describe('experiences:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.experiences).toBeObservable();
+                });
+
             });
 
-            it('should expose experiences sortingOptions', function () {
-                expect(viewModel.sortingOptions).toBeDefined();
+            describe('sortingOptions:', function() {
+
+                it('should be defined', function () {
+                    expect(viewModel.sortingOptions).toBeDefined();
+                });
+
             });
 
-            it('should expose experiences buildingStatuses', function () {
-                expect(viewModel.buildingStatuses).toBeDefined();
+            describe('currentSortingOption', function() {
+
+                it('should be observable', function () {
+                    expect(viewModel.currentSortingOption).toBeObservable();
+                });
+
             });
 
-            it('should expose current sortingOption observable', function () {
-                expect(viewModel.currentSortingOption).toBeObservable();
+            describe('buildingStatuses:', function() {
+
+                it('should be defined', function () {
+                    expect(viewModel.buildingStatuses).toBeDefined();
+                });
+
+            });
+            
+            describe('currentLanguage', function() {
+                
+                it('should be defined', function () {
+                    expect(viewModel.currentLanguage).toBeDefined();
+                });
+
             });
 
             describe('activate:', function () {
@@ -81,6 +106,12 @@
                     viewModel.activate();
                     expect(viewModel.experiences()).toBeSortedAsc('title');
                     expect(viewModel.currentSortingOption()).toBe(constants.sortingOptions.byTitleAsc);
+                });
+
+                it('should set current language', function() {
+                    viewModel.currentLanguage = null;
+                    viewModel.activate();
+                    expect(viewModel.currentLanguage).toBe(localizationManage.currentLanguage);
                 });
 
                 describe('when previous showBuildingStatus is not set', function () {

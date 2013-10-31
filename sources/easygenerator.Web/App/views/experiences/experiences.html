@@ -55,7 +55,7 @@
                                 <span class="selectable" data-bind="text: title"></span>
                             </div>
                             <div class="list-item-saved">
-                                <span>Last edited: </span><span>30-10-2013</span>
+                                <span data-bind="">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
                             </div>
                         </div>
                     </div>
