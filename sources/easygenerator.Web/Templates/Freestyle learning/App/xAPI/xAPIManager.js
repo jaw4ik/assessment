@@ -1,5 +1,5 @@
-﻿define(['./requestManager', './statementBuilder', './errorsHandler', './verbs', './settings', 'durandal/app', '../events', '../context'],
-    function (requestManager, statementBuilder, errorsHandler, verbs, settings, app, events, dataContext) {
+﻿define(['./requestManager', './statementBuilder', './errorsHandler', './verbs', './settings', 'durandal/app', '../events', '../context', './languageMap'],
+    function (requestManager, statementBuilder, errorsHandler, verbs, settings, app, events, dataContext, LanguageMap) {
 
         "use strict";
 
@@ -169,16 +169,40 @@
                     app.on(events.questionAnswered).then(function (data) {
                         if (_.isNullOrUndefined(data) ||
                             _.isNullOrUndefined(data.objective) ||
-                            _.isNullOrUndefined(data.question)) {
+                            _.isNullOrUndefined(data.question) ||
+                            _.isNullOrUndefined(data.selectedAnswersIds)) {
                             errorsHandler.handleError('Results data is incorrect. Event: questionAnswered');
                             return;
                         }
 
                         var questionUrl = courseData.id + '#/objective/' + data.objective.id + '/question/' + data.question.id;
 
+                        var result = {
+                            score: {
+                                scaled: data.question.score / 100
+                            },
+                            response: data.selectedAnswersIds.toString()
+                        };
+
                         var object = {
                             id: questionUrl,
-                            name: data.question.title
+                            definition: {
+                                name: new LanguageMap(data.question.title),
+                                type: "http://adlnet.gov/expapi/activities/cmi.interaction",
+                                interactionType: "likert",
+                                correctResponsesPattern: _.chain(data.question.answers)
+                                    .filter(function (item) {
+                                        return item.isCorrect;
+                                    }).map(function (item) {
+                                        return item.id;
+                                    }).value(),
+                                scale: _.map(data.question.answers, function (item) {
+                                    return {
+                                        id: item.id,
+                                        description: new LanguageMap(item.text)
+                                    };
+                                })
+                            }
                         };
 
                         var context = {
@@ -192,7 +216,7 @@
                             }
                         };
 
-                        return trackAction(verbs.answered, data.question.score / 100, object, context);
+                        return trackAction(verbs.answered, result, object, context);
                     })
                 );
 

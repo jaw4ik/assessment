@@ -22,7 +22,14 @@
 
             app.trigger(events.questionAnswered, {
                 objective: objective,
-                question: question
+                question: question,
+                selectedAnswersIds: _.chain(this.answers)
+                    .filter(function (item) {
+                        return item.isChecked();
+                    })
+                    .map(function (item) {
+                        return item.id;
+                    }).value()
             });
 
             showFeedback();
