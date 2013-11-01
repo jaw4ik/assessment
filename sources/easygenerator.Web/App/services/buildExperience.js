@@ -1,7 +1,6 @@
-﻿define(['plugins/http', 'repositories/experienceRepository', 'repositories/templateRepository', 'constants'], function (http, repository, templateRepository, constants) {
+﻿define(['durandal/app', 'plugins/http', 'repositories/experienceRepository', 'repositories/templateRepository', 'constants'], function (app, http, repository, templateRepository, constants) {
 
     var build = function (experienceId) {
-
         var deferred = Q.defer();
 
         repository.getById(experienceId).then(function (experience) {
@@ -16,6 +15,8 @@
             }
 
             experience.buildingStatus = constants.buildingStatuses.inProgress;
+
+            app.trigger(constants.messages.experience.build.started, experience);
 
             http.post('experience/build', { experienceId: experience.id })
                 .done(function (response) {
@@ -37,6 +38,8 @@
                     experience.buildingStatus = constants.buildingStatuses.failed;
                     experience.packageUrl = '';
                     deferred.reject("Build failed");
+                }).always(function () {
+                    app.trigger(constants.messages.experience.build.finished, experience);
                 });
         });
 

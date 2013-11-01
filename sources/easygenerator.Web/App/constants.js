@@ -7,14 +7,14 @@
                 byTitleDesc: 'byTitleDesc'
             },
 
-            buildingStatuses: {
+            statuses: {
                 notStarted: 'notStarted',
                 inProgress: 'inProgress',
                 succeed: 'succeed',
                 failed: 'failed'
             },
             
-            publishingStates: {
+            buildingStatuses: {
                 notStarted: 'notStarted',
                 inProgress: 'inProgress',
                 succeed: 'succeed',
@@ -26,13 +26,22 @@
                 learningContent: 60000,
                 questionTitle: 5000
             },
-            
+
             validation: {
                 objectiveTitleMaxLength: 255,
                 experienceTitleMaxLength: 255,
                 questionTitleMaxLength: 255
             },
-            
+
+            messages: {
+                experience: {
+                    build: {
+                        started: 'experience:build-started',
+                        finished: 'experience:build-finished'
+                    }
+                }
+            },
+
             defaultObjectiveImage: '/Content/images/objective.png'
         };
     }

@@ -3,6 +3,7 @@
         "use strict";
 
         var
+            app = require('durandal/app'),
             constants = require('constants'),
             repository = require('repositories/experienceRepository'),
             templateRepository = require('repositories/templateRepository'),
@@ -71,15 +72,20 @@
                         describe('and when expirience is not building', function () {
 
                             var experience;
+                            var post;
+
                             beforeEach(function () {
                                 experience = { buildingStatus: '', id: 'someId' };
                                 getById.resolve(experience);
+
+                                spyOn(app, 'trigger');
+
+                                post = $.Deferred();
+                                spyOn(http, 'post').andReturn(post.promise());
                             });
 
                             it('should change building status to \'inProgress\'', function () {
-
-                                spyOn(http, 'post').andReturn($.Deferred().promise());
-
+                                http.post.reset();
                                 service.build(experience.id);
 
                                 waitsFor(function () {
@@ -90,10 +96,19 @@
                                 });
                             });
 
-                            it('should send request', function () {
-                                var post = $.Deferred();
-                                spyOn(http, 'post').andReturn(post.promise());
+                            it('should trigger \'experience:build-started\' event', function () {
+                                http.post.reset();
+                                service.build(experience.id);
 
+                                waitsFor(function () {
+                                    return getById.promise.isFulfilled() && http.post.calls.length == 1;
+                                });
+                                runs(function () {
+                                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.build.started, experience);
+                                });
+                            });
+
+                            it('should send request', function () {
                                 post.resolve();
                                 var promise = service.build().fin(function () { });
 
@@ -106,13 +121,6 @@
                             });
 
                             describe('and send request to server', function () {
-
-                                var post;
-
-                                beforeEach(function () {
-                                    post = $.Deferred();
-                                    spyOn(http, 'post').andReturn(post.promise());
-                                });
 
                                 describe('and request succeed', function () {
 
@@ -152,10 +160,12 @@
 
                                     describe('and response.success is true', function () {
 
+                                        beforeEach(function () {
+                                            post.resolve({ success: true, data: { PackageUrl: 'SomeUrl', BuildOn: '/Date(1378106938845)/' } });
+                                        });
+
                                         it('should set experience buildingStatus to \'succeed\'', function () {
                                             var promise = service.build();
-
-                                            post.resolve({ success: true, data: { PackageUrl: 'SomeUrl', BuildOn: '/Date(1378106938845)/' } });
 
                                             waitsFor(function () {
                                                 return promise.isFulfilled();
@@ -167,10 +177,6 @@
 
                                         it('should resolve promise with true', function () {
                                             var promise = service.build();
-
-                                            var buildResuslt = { success: true, data: { PackageUrl: 'SomeUrl', BuildOn: '/Date(1378106938845)/' } };
-
-                                            post.resolve(buildResuslt);
 
                                             waitsFor(function () {
                                                 return !promise.isPending();
@@ -266,6 +272,24 @@
                                         });
                                         runs(function () {
                                             expect(experience.packageUrl).toEqual('');
+                                        });
+                                    });
+
+                                });
+
+                                describe('and request to server has ended', function () {
+
+                                    it('should trigger \'experience:build-finished\' event', function () {
+                                        app.trigger.reset();
+                                        var promise = service.build();
+
+                                        post.reject();
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.build.finished, experience);
                                         });
                                     });
 
