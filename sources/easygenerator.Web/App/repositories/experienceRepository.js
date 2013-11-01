@@ -60,6 +60,7 @@
                                     },
                                     objectives: [],
                                     buildingStatus: constants.buildingStatuses.notStarted,
+                                    publishingState: constants.publishingStates.notStarted,
                                     createdOn: createdOn,
                                     modifiedOn: createdOn
                                 });

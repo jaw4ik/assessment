@@ -24,7 +24,9 @@
                 createdOn: 'createdOn',
                 modifiedOn: 'modifiedOn',
                 builtOn: 'builtOn',
-                template: template
+                template: template,
+                publishedPackageUrl: 'publishedPackageUrl',
+                publishingState: 'inProgress'
             }
             ;
 
@@ -46,11 +48,35 @@
                 });
 
             });
+            
+            describe('isFirstPublish:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.isFirstPublish).toBeObservable();
+                });
+
+            });
 
             describe('status:', function () {
 
                 it('should be observable', function () {
                     expect(viewModel.status).toBeObservable();
+                });
+
+            });
+            
+            describe('publishingState:', function () {
+
+                it('should be publishingState', function () {
+                    expect(viewModel.isFirstPublish).toBeObservable();
+                });
+
+            });
+            
+            describe('publishedPackageUrl:', function () {
+
+                it('should be publishedPackageUrl', function () {
+                    expect(viewModel.isFirstPublish).toBeObservable();
                 });
 
             });
@@ -192,6 +218,139 @@
 
                 });
             });
+            
+            describe('publishExperience:', function () {
+
+                var experiencerepositorygetByIdDefer;
+                var experiencerepositorygetByIdPromise;
+
+                var service = require('services/buildExperience');
+
+                var publish;
+
+                beforeEach(function () {
+                    publish = Q.defer();
+                    spyOn(service, 'publish').andReturn(publish.promise);
+                    experiencerepositorygetByIdDefer = Q.defer();
+                    experiencerepositorygetByIdPromise = experiencerepositorygetByIdDefer.promise;
+                    spyOn(repository, 'getById').andReturn(experiencerepositorygetByIdPromise);
+                });
+
+                it('should be a function', function () {
+                    expect(viewModel.publishExperience).toBeFunction();
+                });
+
+                it('should send event \'Publish experience\'', function () {
+                    viewModel.publishExperience();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Publish experience');
+                });
+
+                it('should change publishingState to \'inProgress\'', function () {
+                    viewModel.publishExperience();
+                    expect(viewModel.publishingState()).toEqual(constants.publishingStates.inProgress);
+                });
+
+                it('should start publish of current experience', function () {
+                    viewModel.id = 1;
+                    viewModel.publishExperience();
+                    expect(service.publish).toHaveBeenCalledWith(1);
+                });
+
+                describe('when publish is finished successfully', function () {
+
+                    it('should change status to \'succeed\'', function () {
+                        publish.resolve({ publishingState: constants.publishingStates.succeed, publishedPackageUrl: 'publishedPackageUrl' });
+
+                        viewModel.id = 1;
+                        viewModel.publishExperience();
+                        var promise = publish.promise.fin(function () { });
+
+                        waitsFor(function () {
+                            return promise.isFulfilled();
+                        });
+                        runs(function () {
+                            expect(viewModel.publishingState()).toEqual(constants.publishingStates.succeed);
+                        });
+
+                    });
+
+                    it('should resolve promise', function () {
+                        publish.resolve({ Success: true, PublishedPackageUrl: "publishedPackageUrl" });
+
+                        viewModel.id = 1;
+                        viewModel.publishExperience();
+                        var promise = publish.promise.fin(function () {
+                        });
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeResolved();
+                        });
+
+                    });
+
+                    it('should be set isFirstPublish to false', function () {
+                        publish.resolve({ Success: true, PublishedPackageUrl: "publishedPackageUrl" });
+
+                        viewModel.id = 1;
+                        viewModel.publishExperience();
+                        var promise = publish.promise.fin(function () {
+                        });
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.isFirstPublish()).toBeFalsy();
+                        });
+                    });
+
+                    afterEach(function () {
+                        experience.publishedPackageUrl = '';
+                    });
+
+                });
+
+                describe('when publish is failed', function () {
+
+                    it('should change publishingState to \'failed\'', function () {
+                        publish.reject();
+
+                        viewModel.id = 1;
+                        viewModel.publishExperience();
+
+                        var promise = publish.promise.fin(function () { });
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.publishingState()).toEqual(constants.publishingStates.failed);
+                        });
+
+                    });
+
+                    it('should resolve promise', function () {
+                        publish.reject("Publish failed");
+
+                        viewModel.id = 1;
+                        viewModel.publishExperience();
+
+                        var promise = publish.promise.fin(function () { });
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith("Publish failed");
+                        });
+
+                    });
+
+                });
+            });
 
             describe('downloadExperience:', function () {
 
@@ -292,12 +451,16 @@
                         viewModel.status('');
 
                         var promise = viewModel.activate(experience.id);
-
+                        var expectedStatus =
+                            _.isNullOrUndefined(experience.packageUrl) || _.isEmptyOrWhitespace(experience.packageUrl) ?
+                                constants.buildingStatuses.notStarted :
+                                constants.buildingStatuses.succeed;
+                        
                         waitsFor(function () {
                             return promise.isFulfilled();
                         });
                         runs(function () {
-                            expect(viewModel.status()).toEqual(experience.buildingStatus);
+                            expect(viewModel.status()).toEqual(expectedStatus);
                         });
                     });
 
@@ -311,6 +474,38 @@
                         });
                         runs(function () {
                             expect(viewModel.packageUrl()).toEqual(experience.packageUrl);
+                        });
+                    });
+                    
+
+                    it('should set current experience publishingState', function () {
+                        viewModel.publishingState('');
+
+                        var promise = viewModel.activate(experience.id);
+
+                        var expectedStatus =
+                            _.isNullOrUndefined(experience.publishedPackageUrl) || _.isEmptyOrWhitespace(experience.publishedPackageUrl) ?
+                                constants.publishingStates.notStarted :
+                                constants.publishingStates.succeed;
+                        
+                        waitsFor(function () {
+                            return promise.isFulfilled();
+                        });
+                        runs(function () {
+                            expect(viewModel.publishingState()).toEqual(expectedStatus);
+                        });
+                    });
+                    
+                    it('should set current experience publishedPackageUrl', function () {
+                        viewModel.publishedPackageUrl('');
+
+                        var promise = viewModel.activate(experience.id);
+
+                        waitsFor(function () {
+                            return promise.isFulfilled();
+                        });
+                        runs(function () {
+                            expect(viewModel.publishedPackageUrl()).toEqual(experience.publishedPackageUrl);
                         });
                     });
 
@@ -328,8 +523,6 @@
                 });
 
             });
-
-
         });
 
     });

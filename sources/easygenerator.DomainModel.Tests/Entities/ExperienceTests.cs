@@ -501,5 +501,22 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
+        #region UpdatePublishedOnDate
+
+        [TestMethod]
+        public void UpdatePublishedOnDate_ShouldUpdatePublishedOn()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            //Act
+            experience.UpdatePublishedOnDate();
+
+            //Assert
+            experience.PublishedOn.Should().Be(DateTime.MaxValue);
+        }
+
+        #endregion
     }
 }

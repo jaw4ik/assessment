@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.EnterpriseServices.Internal;
+using System.IO;
 
 namespace easygenerator.Web.BuildExperience
 {
@@ -8,6 +9,7 @@ namespace easygenerator.Web.BuildExperience
         private string WebsitePath { get; set; }
         private string TemplatesPath { get; set; }
         private string DownloadPath { get; set; }
+        private string PublishPath { get; set; }
 
         public BuildPathProvider(HttpRuntimeWrapper httpRuntimeWrapper)
         {
@@ -15,6 +17,7 @@ namespace easygenerator.Web.BuildExperience
             WebsitePath = httpRuntimeWrapper.GetDomainAppPath();
             TemplatesPath = Path.Combine(WebsitePath, "Templates");
             DownloadPath = Path.Combine(WebsitePath, "Download");
+            PublishPath = Path.Combine(WebsitePath, "PublishedPackages");
         }
 
         public virtual string GetBuildDirectoryName(string buildId)
@@ -60,6 +63,21 @@ namespace easygenerator.Web.BuildExperience
         public virtual string GetDownloadPath()
         {
             return DownloadPath;
+        }
+
+        public virtual string GetPublishFolderPath(string experienceId)
+        {
+            return Path.Combine(PublishPath, experienceId);
+        }
+
+        public virtual string GetPublishedResourcePath(string resourcePath)
+        {
+            return Path.Combine(PublishPath, resourcePath);
+        }
+
+        public virtual string GetBuildedPackagePath(string packagePath)
+        {
+            return Path.Combine(DownloadPath, packagePath);
         }
     }
 }

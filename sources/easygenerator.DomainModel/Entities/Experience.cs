@@ -85,6 +85,12 @@ namespace easygenerator.DomainModel.Entities
             BuildOn = DateTimeWrapper.Now();
         }
 
+        public DateTime? PublishedOn { get; private set; }
+        public virtual void UpdatePublishedOnDate()
+        {
+            PublishedOn = DateTimeWrapper.Now();
+        }
+
         private void ThrowIfTemplateIsInvaid(Template template)
         {
             ArgumentValidation.ThrowIfNull(template, "template");

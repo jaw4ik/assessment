@@ -302,6 +302,7 @@
                                                         createdOn: utils.getDateFromString(experienceCreatedOn),
                                                         modifiedOn: utils.getDateFromString(experienceCreatedOn),
                                                         buildingStatus: constants.buildingStatuses.notStarted,
+                                                        publishingState: constants.publishingStates.notStarted,
                                                         objectives: []
                                                     });
                                                 });

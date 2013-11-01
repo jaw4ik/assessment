@@ -90,8 +90,10 @@
                                     });
                                 }),
                                 buildingStatus: constants.buildingStatuses.notStarted,
+                                publishedPackageUrl: item.PublishedPackageUrl,
+                                publishingState: constants.publishingStates.notStarted,
                                 builtOn: _.isNullOrUndefined(item.builtOn) ? null : parseDateString(item.builtOn),
-                                packageUrl: item.packageUrl,
+                                packageUrl: item.PackageUrl,
                                 template: _.find(templates, function (tItem) {
                                     return tItem.id === item.Template.Id;
                                 })

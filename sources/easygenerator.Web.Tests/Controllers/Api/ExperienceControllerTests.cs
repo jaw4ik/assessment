@@ -16,6 +16,7 @@ using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using easygenerator.Web.Publish;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -30,6 +31,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         IExperienceRepository _repository;
         IPrincipal _user;
         HttpContextBase _context;
+        private IExperiencePublisher _experiencePublisher;
 
         [TestInitialize]
         public void InitializeContext()
@@ -37,12 +39,15 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory = Substitute.For<IEntityFactory>();
             _repository = Substitute.For<IExperienceRepository>();
             _builder = Substitute.For<IExperienceBuilder>();
+            _experiencePublisher = Substitute.For<IExperiencePublisher>();
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
+            _context = Substitute.For<HttpContextBase>();
+            
             _context.User.Returns(_user);
 
-            _controller = new ExperienceController(_builder, _repository, _entityFactory);
+            _controller = new ExperienceController(_builder, _repository, _entityFactory, _experiencePublisher);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -145,6 +150,49 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { PackageUrl = experience.PackageUrl, BuildOn = experience.BuildOn });
+        }
+
+        #endregion
+
+        #region Publish experience
+
+        [TestMethod]
+        public void Publish_ShouldReturnJsonErrorResult_WhenExperienceNotFound()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.Publish(null);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Experience is not found");
+        }
+
+        [TestMethod]
+        public void Publish_ShouldReturnJsonErrorResult_WhenPublishFails()
+        {
+            //Arrange
+            _experiencePublisher.Publish(Arg.Any<Experience>()).Returns(false);
+
+            //Act
+            var result = _controller.Publish(ExperienceObjectMother.Create());
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Publish failed");
+        }
+
+        [TestMethod]
+        public void Publish_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+            _experiencePublisher.Publish(experience).Returns(true);
+
+            //Act
+            var result = _controller.Publish(experience);
+
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { PublishedPackageUrl = _experiencePublisher.GetPublishedPackageUrl(experience.Id.ToString()) });
         }
 
         #endregion

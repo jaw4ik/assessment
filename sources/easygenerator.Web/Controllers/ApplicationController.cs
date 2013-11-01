@@ -20,7 +20,6 @@ namespace easygenerator.Web.Controllers
             {
                 return RedirectToRoute("TryWithoutSignup");
             }
-
         }
     }
 }

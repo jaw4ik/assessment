@@ -194,6 +194,7 @@
     <Compile Include="BuildExperience\PackageModel\LearningContentPackageModel.cs" />
     <Compile Include="BuildExperience\PackageModel\ObjectivePackageModel.cs" />
     <Compile Include="BuildExperience\PackageModel\QuestionPackageModel.cs" />
+    <Compile Include="Components\ActionFilters\NoCache.cs" />
     <Compile Include="Components\ActionResults\TextJsonErrorResult.cs" />
     <Compile Include="Components\ActionResults\TextJsonSuccessResult.cs" />
     <Compile Include="Components\ActionResults\JsonErrorResult.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="Components\ModelBinding\EntityModelBinderProvider.cs" />
     <Compile Include="Components\ModelBinding\EntityCollectionModelBinder.cs" />
     <Compile Include="Components\NavigationLink.cs" />
+    <Compile Include="Components\RouteConstraints\PublishIsInProgressConstraint.cs" />
     <Compile Include="Components\UrlHelperWrapper.cs" />
     <Compile Include="Configuration\BundleConfiguration.cs" />
     <Compile Include="Configuration\ContainerConfiguration.cs" />
@@ -228,6 +230,8 @@
     <Compile Include="Controllers\Api\UserController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Components\DefaultController.cs" />
+    <Compile Include="Controllers\MaintenanceController.cs" />
+    <Compile Include="Controllers\PublishedPackageController.cs" />
     <Compile Include="DomainEvents\Handlers\SendMailAboutNewUserHandler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -269,6 +273,10 @@
     <Compile Include="Mail\MailTemplatesProvider.cs" />
     <Compile Include="Mail\MailSenderWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Publish\ExperiencePublisher.cs" />
+    <Compile Include="Publish\IExperiencePublisher.cs" />
+    <Compile Include="Publish\IPublishDispatcher.cs" />
+    <Compile Include="Publish\PublishDispatcher.cs" />
     <Compile Include="Resources\Views\Account\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -517,7 +525,6 @@
     <Content Include="Templates\Freestyle learning\js\vendor.min.js">
       <DependentUpon>vendor.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Templates\Maintenance\sorry.html" />
     <Content Include="Templates\Quiz\App\configuration\routes.js" />
     <Content Include="Templates\Quiz\App\events.js" />
     <Content Include="Templates\Quiz\App\viewmodels\learningContents.spec.js">
@@ -611,6 +618,7 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Error\ServerError.cshtml" />
+    <Content Include="Views\Maintenance\PublishIsInProgress.cshtml" />
     <None Include="Templates\Quiz\js\vendor.js.bundle" />
     <Content Include="Templates\Quiz\js\vendor.min.js.map">
       <DependentUpon>vendor.js.bundle</DependentUpon>

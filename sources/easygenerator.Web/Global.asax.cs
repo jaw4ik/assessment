@@ -8,6 +8,8 @@ using easygenerator.Web.Components.ModelBinding;
 using easygenerator.Web.Configuration;
 using System.Web.Caching;
 using easygenerator.Web.Mail;
+using System.Web;
+using System.Reflection;
 
 namespace easygenerator.Web
 {
@@ -23,9 +25,9 @@ namespace easygenerator.Web
             AreaRegistration.RegisterAllAreas();
 
             BundleConfiguration.Configure();
-            RouteConfiguration.Configure();
             FilterConfiguration.Configure();
             ContainerConfiguration.Configure();
+            RouteConfiguration.Configure();
 
             StartTasks();
         }

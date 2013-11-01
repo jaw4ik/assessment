@@ -44,7 +44,55 @@
 
     };
 
+    var publish = function (experienceId) {
+        var deferred = Q.defer();
+
+        repository.getById(experienceId).then(function (experience) {
+            if (_.isNull(experience)) {
+                deferred.reject('Experience was not found');
+                return;
+            }
+
+            if (experience.buildingStatus == constants.buildingStatuses.inProgress) {
+                deferred.reject('Experience is building, cannot publish during building');
+                return;
+            }
+            
+            if (experience.publishingState == constants.publishingStates.inProgress) {
+                deferred.reject('Experience is already publishing');
+                return;
+            }
+
+            experience.publishingState = constants.publishingStates.inProgress;
+
+            http.post('experience/publish', { experienceId: experience.id })
+                .done(function (response) {
+                    if (_.isUndefined(response) || _.isUndefined(response.success)) {
+                        deferred.reject('Response has invalid format');
+                    }
+                    if (response.success && response.data != undefined) {
+                        experience.publishingState = constants.publishingStates.succeed;
+                        experience.publishedPackageUrl = response.data.PublishedPackageUrl;
+                        deferred.resolve(experience);
+                    } else {
+                        experience.publishingState = constants.publishingStates.failed;
+                        experience.publishedPackageUrl = '';
+                        deferred.reject("Publish failed");
+                    }
+                })
+                .fail(function () {
+                    experience.publishingState = constants.publishingStates.failed;
+                    experience.publishedPackageUrl = '';
+                    deferred.reject("Publish failed");
+                });
+        });
+
+        return deferred.promise;
+
+    };
+
     return {
-        build: build
+        build: build,
+        publish: publish
     };
 });

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.IO.Compression;
 
 namespace easygenerator.Infrastructure
 {
@@ -29,7 +30,10 @@ namespace easygenerator.Infrastructure
             if (String.IsNullOrEmpty(path))
                 throw new ArgumentException();
 
-            Directory.Delete(path, true);
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path, true);
+            }
         }
 
         public virtual void CopyDirectory(string source, string destination)
@@ -114,7 +118,7 @@ namespace easygenerator.Infrastructure
                 }
                 catch (UnauthorizedAccessException)
                 {
-                    
+
                 }
             }
         }
@@ -133,9 +137,18 @@ namespace easygenerator.Infrastructure
                 case ".jpg": return "image/jpeg";
                 case ".jpeg": return "image/jpeg";
                 case ".gif": return "image/gif";
+                case ".html": return "text/html";
+                case ".css": return "text/css";
+                case ".js": return "application/javascript";
+                case ".woff": return "application/font-woff";
                 default:
                     throw new NotSupportedException("The Specified File Type Is Not Supported");
             }
+        }
+
+        public virtual void ExtractArchiveToDirectory(string archivePath, string destinationPath)
+        {
+            ZipFile.ExtractToDirectory(archivePath, destinationPath);
         }
     }
 }

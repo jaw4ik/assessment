@@ -11,6 +11,8 @@
             obj.builtOn = spec.builtOn;
             obj.packageUrl = spec.packageUrl;
             obj.template = spec.template;
+            obj.publishingState = spec.publishingState;
+            obj.publishedPackageUrl = spec.publishedPackageUrl;
 
             return obj;
         };

@@ -16,8 +16,10 @@ using easygenerator.Web.Components.ModelBinding;
 using System.Reflection;
 using System;
 using System.Collections.Generic;
+using easygenerator.Web.Components.RouteConstraints;
 using easygenerator.Web.Mail;
 using easygenerator.DomainModel.Events;
+using easygenerator.Web.Publish;
 
 namespace easygenerator.Web.Configuration
 {
@@ -52,7 +54,7 @@ namespace easygenerator.Web.Configuration
 
             builder.RegisterType<AuthenticationProvider>().As<IAuthenticationProvider>();
 
-            #region Register domain events dependecies
+            #region Domain events dependecies
 
             builder.RegisterGeneric(typeof(DomainEventPublisher<>)).As(typeof(IDomainEventPublisher<>)).InstancePerHttpRequest();
             builder.RegisterGeneric(typeof(DomainEventHandlersProvider<>)).As(typeof(IDomainEventHandlersProvider<>)).InstancePerHttpRequest();
@@ -60,11 +62,23 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
+            #region Mail sender dependecies
+
             builder.RegisterType<MailNotificationManager>().As<IMailNotificationManager>().SingleInstance();
             builder.RegisterType<MailSender>().As<IMailSender>().SingleInstance();
             builder.RegisterType<MailSenderWrapper>().As<IMailSenderWrapper>().SingleInstance();
             builder.RegisterType<MailSettings>().SingleInstance();
             builder.RegisterType<MailSenderTask>().SingleInstance();
+
+            #endregion
+
+            #region Publisher dependencies
+
+            builder.RegisterType<ExperiencePublisher>().As<IExperiencePublisher>();
+            builder.RegisterType<PublishDispatcher>().As <IPublishDispatcher>().SingleInstance();
+            builder.RegisterType<PublishIsInProgressConstraint>();
+
+            #endregion
 
             builder.RegisterType<UrlHelperWrapper>().As<IUrlHelperWrapper>();
 

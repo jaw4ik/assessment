@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using easygenerator.Web.Components.RouteConstraints;
+using easygenerator.Web.Publish;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace easygenerator.Web.Configuration
@@ -188,6 +190,29 @@ namespace easygenerator.Web.Configuration
                 url: "experience/build",
                 defaults: new { controller = "Experience", action = "Build" }
             );
+
+            #region Publish routes
+
+            routes.MapRoute(
+                name: "PublishExperience",
+                url: "experience/publish",
+                defaults: new { controller = "Experience", action = "Publish" }
+                );
+
+            routes.MapRoute(
+                "PublishIsInProgress",
+                "storage/{experienceId}",
+                defaults: new { controller = "Maintenance", action = "PublishIsInProgress" },
+                constraints: new RouteValueDictionary { { "experienceId", DependencyResolver.Current.GetService<PublishIsInProgressConstraint>() } }
+                );
+
+            routes.MapRoute(
+                "PublishedPackage",
+                "storage/{packageId}/{*resourceUrl}",
+                defaults: new { controller = "PublishedPackage", action = "GetPublishedResource" }
+                );
+
+            #endregion
 
             #endregion
 

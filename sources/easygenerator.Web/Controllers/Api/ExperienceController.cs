@@ -9,6 +9,8 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.Components;
 using easygenerator.Infrastructure;
+using easygenerator.Web.Publish;
+using Microsoft.Ajax.Utilities;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -17,12 +19,14 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IExperienceBuilder _builder;
         private readonly IEntityFactory _entityFactory;
         private readonly IExperienceRepository _repository;
+        private readonly IExperiencePublisher _experiencePublisher;
 
-        public ExperienceController(IExperienceBuilder experienceBuilder, IExperienceRepository repository, IEntityFactory entityFactory)
+        public ExperienceController(IExperienceBuilder experienceBuilder, IExperienceRepository repository, IEntityFactory entityFactory, IExperiencePublisher experiencePublisher)
         {
             _builder = experienceBuilder;
             _repository = repository;
             _entityFactory = entityFactory;
+            _experiencePublisher = experiencePublisher;
         }
 
         [HttpPost]
@@ -70,6 +74,27 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        public ActionResult Publish(Experience experience)
+        {
+            if (experience == null)
+                return JsonError(Constants.Errors.ExperienceNotFoundError);
+
+            var result = _experiencePublisher.Publish(experience);
+
+            if (!result)
+            {
+                return JsonError("Publish failed");
+            }
+            else
+            {
+                return JsonSuccess(new
+                {
+                    PublishedPackageUrl = _experiencePublisher.GetPublishedPackageUrl(experience.Id.ToString())
+                });
+            }
+        }
+
+        [HttpPost]
         public ActionResult GetCollection()
         {
             var experiences = _repository.GetCollection(exp => exp.CreatedBy == User.Identity.Name);
@@ -81,6 +106,8 @@ namespace easygenerator.Web.Controllers.Api
                 CreatedOn = exp.CreatedOn,
                 ModifiedOn = exp.ModifiedOn,
                 Template = new { Id = exp.Template.Id.ToString("N") },
+                PackageUrl = exp.PackageUrl,
+                PublishedPackageUrl = exp.PublishedOn != null ? _experiencePublisher.GetPublishedPackageUrl(exp.Id.ToString()) : null,
                 RelatedObjectives = exp.RelatedObjectives.Select(obj => new
                 {
                     Id = obj.Id.ToString("N")

@@ -16,6 +16,7 @@ namespace easygenerator.Web.Tests.BuildExperience
         private string WebsitePath { get; set; }
         private string TemplatesPath { get; set; }
         private string DownloadPath { get; set; }
+        private string PublishPath { get; set; }
 
         [TestInitialize]
         public void InitializeContext()
@@ -29,6 +30,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             WebsitePath = _httpRuntimeWrapper.GetDomainAppPath();
             TemplatesPath = Path.Combine(WebsitePath, "Templates");
             DownloadPath = Path.Combine(WebsitePath, "Download");
+            PublishPath = Path.Combine(WebsitePath, "PublishedPackages");
         }
 
         #region GetBuildDirectoryName

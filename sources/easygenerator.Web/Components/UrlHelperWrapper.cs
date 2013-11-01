@@ -8,6 +8,7 @@ namespace easygenerator.Web.Components
     {
         string RouteWebsiteUrl();
         string RouteRestorePasswordUrl(string ticketId);
+        string ToAbsoluteUrl(string relativeUrl);
     }
 
     public class UrlHelperWrapper : IUrlHelperWrapper
@@ -20,6 +21,11 @@ namespace easygenerator.Web.Components
         public string RouteWebsiteUrl()
         {
             return String.Format("{0}://{1}{2}", HttpRequest.Url.Scheme, HttpRequest.Url.Authority, new UrlHelper(HttpRequest.RequestContext).Content("~"));
+        }
+
+        public string ToAbsoluteUrl(string relativeUrl)
+        {
+            return string.Format("{0}{1}", RouteWebsiteUrl(), VirtualPathUtility.ToAbsolute(relativeUrl).TrimStart('/'));
         }
 
         public string RouteRestorePasswordUrl(string ticketId)
