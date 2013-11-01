@@ -376,7 +376,6 @@ a.top-navigation-item:hover {
 .open-item-btn .open-btn-text {
     display: inline-block;
     position: relative;
-    vertical-align: top;
     padding-left: 27px;
 }
 
