@@ -317,7 +317,11 @@ a.top-navigation-item:hover {
 .main-content-list .list-item-logo {
     display: table-cell;
     vertical-align: middle;
+}
+
+.main-content-list .list-item-logo-image-wrapper {
     background: white;
+    display: inline-block;
 }
 
 .main-content-list .list-item-logo,
