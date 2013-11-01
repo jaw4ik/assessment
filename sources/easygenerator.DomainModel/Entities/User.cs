@@ -12,14 +12,23 @@ namespace easygenerator.DomainModel.Entities
     {
         protected internal User() { }
 
-        protected internal User(string email, string password, string createdBy)
+        protected internal User(string email, string password, string fullname, string phone, string organization,
+            string country, string createdBy)
             : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
             ThrowIfPasswordIsNotValid(password);
+            ArgumentValidation.ThrowIfNullOrEmpty(fullname, "fullName");
+            ArgumentValidation.ThrowIfNullOrEmpty(phone, "phone");
+            ArgumentValidation.ThrowIfNullOrEmpty(organization, "organization");
+            ArgumentValidation.ThrowIfNullOrEmpty(country, "country");
 
             Email = email;
             PasswordHash = Cryptography.GetHash(password);
+            FullName = fullname;
+            Phone = phone;
+            Organization = organization;
+            Country = country;
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
         }
 
@@ -29,25 +38,7 @@ namespace easygenerator.DomainModel.Entities
         public string FullName { get; private set; }
         public string Phone { get; private set; }
         public string Organization { get; private set; }
-
-        public virtual void UpdateFullName(string fullName, string modifiedBy)
-        {
-            FullName = fullName;
-            MarkAsModified(modifiedBy);
-        }
-
-        public virtual void UpdatePhone(string phone, string modifiedBy)
-        {
-            Phone = phone;
-            MarkAsModified(modifiedBy);
-        }
-
-        public virtual void UpdateOrganization(string organization, string modifiedBy)
-        {
-            Organization = organization;
-            MarkAsModified(modifiedBy);
-        }
-
+        public string Country { get; private set; }
 
         public virtual bool VerifyPassword(string password)
         {

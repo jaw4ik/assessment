@@ -6,12 +6,14 @@
         currentItem: 'selectbox-current-item',
         currentItemText: 'selectbox-current-item-text',
         caretHolder: 'selectbox-caret-holder',
-        caret: 'selectbox-caret'
+        caret: 'selectbox-caret',
+        scroll: 'selectbox-scroll'
     },
-    init: function (element) {
+    init: function (element, valueAccessor) {
         var $element = $(element),
             selectBox = ko.bindingHandlers.selectBox,
-            cssClasses = selectBox.cssClasses;
+            cssClasses = selectBox.cssClasses,
+            options = valueAccessor().options;
 
         $element.addClass(cssClasses.selectbox);
 
@@ -35,6 +37,10 @@
             .addClass(cssClasses.optionsList)
             .appendTo($element)
             .hide();
+        
+        if (options.length > 5) {
+            $optionsListElement.addClass(cssClasses.scroll);
+        }
 
         $currentItemElement.on('click', function (e) {
             _.each($('.selectbox-options-list'), function (item) {

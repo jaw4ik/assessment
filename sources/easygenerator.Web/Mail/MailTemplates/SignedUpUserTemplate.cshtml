@@ -1,4 +1,5 @@
-﻿@model easygenerator.DomainModel.Events.UserSignedUpEvent
+﻿@using easygenerator.Web.Components
+@model easygenerator.DomainModel.Events.UserSignedUpEvent
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
     "http://www.w3.org/TR/html4/strict.dtd">
@@ -13,7 +14,9 @@
         <br />
         <label>Email Address: @Model.User.Email</label>
         <br />
-        <label>Phone Number: @Model.User.Phone</label>
+        <label>Phone Number: (@PhoneCodeCollection.GetPhoneCode(@Model.User.Country)) @Model.User.Phone.Replace(@PhoneCodeCollection.GetPhoneCode(@Model.User.Country),"")</label>
+        <br />
+        <label>Country: @Model.User.Country</label>
         <br />
         <label>How many people at your company are authoring courses? @Model.CourseDevelopersCount</label>
         <br />

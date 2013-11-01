@@ -124,21 +124,110 @@ namespace easygenerator.DomainModel.Tests.Entities
             action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("password");
         }
 
+
+        [TestMethod]
+        public void User_ShouldThrowArgumentNullException_WhenFullNameIsNull()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithFullName(null);
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("fullName");
+        }
+
+        [TestMethod]
+        public void User_ShouldThrowArgumentNullException_WhenPhoneIsNull()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithPhone(null);
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("phone");
+        }
+
+        [TestMethod]
+        public void User_ShouldThrowArgumentNullException_WhenCountryIsNull()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithCountry(null);
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("country");
+        }
+
+        [TestMethod]
+        public void User_ShouldThrowArgumentNullException_WhenOrganizationIsNull()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithOrganization(null);
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("organization");
+        }
+
+        [TestMethod]
+        public void User_ShouldThrowArgumentNullException_WhenFullNameIsEmpty()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithFullName("");
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("fullName");
+        }
+
+        [TestMethod]
+        public void User_ShouldThrowArgumentNullException_WhenPhoneIsEmpty()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithPhone("");
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("phone");
+        }
+
+        [TestMethod]
+        public void User_ShouldThrowArgumentNullException_WhenCountryIsEmpty()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithCountry("");
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("country");
+        }
+
+        [TestMethod]
+        public void User_ShouldThrowArgumentNullException_WhenOrganizationIsEmpty()
+        {
+            //Arrange
+            Action action = () => UserObjectMother.CreateWithOrganization("");
+
+            //Act & Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("organization");
+        }
+
         [TestMethod]
         public void User_ShouldCreateUser()
         {
             //Arrange
             var email = "easygenerator3@easygenerator.com";
             var password = "Easy123!";
+            var fullname = "easygenerator user";
+            var phone = "some phone";
+            var organization = "Easygenerator";
+            var country = "some country";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
             //Act
-            var user = UserObjectMother.Create(email, password, CreatedBy);
+            var user = UserObjectMother.Create(email, password, fullname, phone, organization, country, CreatedBy);
 
             //Assert
             user.Id.Should().NotBeEmpty();
             user.Email.Should().Be(email);
             user.VerifyPassword(password).Should().BeTrue();
+            user.FullName.Should().Be(fullname);
+            user.Phone.Should().Be(phone);
+            user.Organization.Should().Be(organization);
+            user.Country.Should().Be(country);
             user.CreatedOn.Should().Be(DateTime.MaxValue);
             user.ModifiedOn.Should().Be(DateTime.MaxValue);
             user.CreatedBy.Should().Be(CreatedBy);

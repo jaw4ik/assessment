@@ -91,6 +91,10 @@
     margin-top: 10px;
 }
 
+.sign-up .user-form-selectbox.selectbox {
+    margin-top: 0;
+}
+
 .user-form-selectbox .selectbox-options-list {
     width: 100%;
     margin-top: -1px;
@@ -101,19 +105,26 @@
     overflow: hidden;
 }
 
+.user-form-selectbox .selectbox-options-list.selectbox-scroll {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: 215px;
+}
+
 .user-form-selectbox .selectbox-current-item {
     position: relative;
     background: white;
     border: 1px solid #ccc;
     border-radius: 4px;
+    min-width: 50px;
 }
 
-    .user-form-selectbox .selectbox-current-item.expanded {
+.user-form-selectbox .selectbox-current-item.expanded {
         border-radius: 4px 4px 0 0;
     }
 
 .user-form-selectbox .selectbox-current-item-text {
-    padding: 11px 9px;
+    padding: 13px 9px;
     margin-right: 47px;
     color: #c3c3c3;
     white-space: nowrap;

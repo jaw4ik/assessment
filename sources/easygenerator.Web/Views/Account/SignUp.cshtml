@@ -12,34 +12,19 @@
         </div>
         <form class="user-form" id="signUpForm" action="#" method="post" data-bind="focusHandler: {}">
             <div class="user-column optional">
-                <div class="user-form-row">
-                    <label class="user-form-label fullname">@Resources.FullNameCaption</label>
+                <div class="user-form-row" data-bind="css: { error: isFullNameErrorVisible(), success: !isFullNameErrorVisible() && fullName.isValid() }">
+                    <label class="user-form-label required fullname">@Resources.FullNameCaption</label>
                     <div class="user-form-input-holder">
                         <span class="user-form-input-wrapper"></span>
-                        <input tabindex="1" class="user-form-input" type="text" name="fullName" data-bind="value: fullName" ondrop="return false;" />
+                        <input tabindex="1" class="user-form-input" type="text" name="fullName" data-bind="value: fullName, valueUpdate: 'afterkeydown', event: { blur: validateFullName, focus: onFocusFullName }" ondrop="return false;" />
                     </div>
+                    <span class="user-form-message" data-bind="visible: isFullNameErrorVisible()">@Resources.EnterValidFullName</span>
                 </div>
-                <div class="user-form-row">
-                    <label class="user-form-label organization">@Resources.OrganizationNameCaption</label>
-                    <div class="user-form-input-holder">
-                        <span class="user-form-input-wrapper"></span>
-                        <input tabindex="2" class="user-form-input" type="text" name="organization" data-bind="value: organization" ondrop="return false;" />
-                    </div>
-                </div>
-                <div class="user-form-row">
-                    <label class="user-form-label phone">@Resources.PhoneNumberCaption</label>
-                    <div class="user-form-input-holder">
-                        <span class="user-form-input-wrapper"></span>
-                        <input tabindex="3" class="user-form-input" type="text" name="phone" data-bind="value: phone" ondrop="return false;" />
-                    </div>
-                </div>
-            </div>
-            <div class="user-column required">
                 <div class="user-form-row" data-bind="css : { error: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), success: !isUserNameValidating() && !isUserNameEditing() && userName.isValid() }">
                     <label class="user-form-label required email">@Resources.EmailCaption</label>
                     <div class="user-form-input-holder">
                         <span class="user-form-input-wrapper"></span>
-                        <input tabindex="4" class="user-form-input" type="text" name="email" autocomplete="off" data-bind="value: userName, valueUpdate: 'afterkeydown', event: { blur: checkUserExists }, hasFocus: isUserNameEditing" ondrop="return false;" />
+                        <input tabindex="2" class="user-form-input" type="text" name="email" autocomplete="off" data-bind="value: userName, valueUpdate: 'afterkeydown', event: { blur: checkUserExists }, hasFocus: isUserNameEditing" ondrop="return false;" />
                     </div>
                     <span class="form-validation-message" data-bind="visible: isUserNameValidating()">@Resources.Checking</span>
                     <span class="user-form-message" data-bind="visible: !isUserNameValidating() && !userName.isValid() && userName().length > 0 && (!isUserNameEditing() || userPreciselyExists()), text: userExists() ? '@Resources.AccountAlreadyExists    ' : '@Resources.EnterValidEmailMessage    '"></span>
@@ -48,7 +33,7 @@
                     <label class="user-form-label required password">@Resources.PasswordCaption</label>
                     <div class="user-form-input-holder">
                         <span class="user-form-input-wrapper"></span>
-                        <input tabindex="5" class="user-form-input" name="password" autocomplete="off" data-bind="attr: { type: isPasswordVisible() ? 'text' : 'password' }, value: password, valueUpdate: 'afterkeydown', hasFocus: isPasswordEditing" ondrop="return false;" />
+                        <input tabindex="3" class="user-form-input" name="password" autocomplete="off" data-bind="attr: { type: isPasswordVisible() ? 'text' : 'password' }, value: password, valueUpdate: 'afterkeydown', hasFocus: isPasswordEditing" ondrop="return false;" />
                         <a href="#" class="user-form-password-eye" data-bind="css:{ revealed: isPasswordVisible }, click: showHidePassword "></a>
                         <div class="user-form-tooltip" data-bind="css: { top : userName.isValid(), bottom : !userName.isValid(), visible: isPasswordEditing() }">
                             <div class="user-form-tooltip-title">@Resources.PasswordRequirementsTitle</div>
@@ -61,22 +46,47 @@
                             </ul>
                         </div>
                     </div>
-                    <span class="user-form-message" data-bind="visible: password().length > 0, text: password.isValid() ? '@Resources.PasswordIsStrongEnough    ' : '@Resources.PasswordDoesNotMeetRequirements    '"></span>
+                    <span class="user-form-message" data-bind="visible: password().length > 0, text: password.isValid() ? '@Resources.PasswordIsStrongEnough' : '@Resources.PasswordDoesNotMeetRequirements'"></span>
                 </div>
-                <div class="user-form-row submit">
-                    <div class="user-form-checkbox-holder clearfix">
-                        <div class="user-form-checkbox" data-bind="css: {checked: isLicenseAgreed}">
-                            <input id="uf-checkbox" class="custom-checkbox" type="checkbox" data-bind="checked: isLicenseAgreed" />
-                        </div>
-                        <div class="user-form-checkbox-label">
-                            <label for="uf-checkbox">
-                                @Html.Raw(String.Format(Resources.LicenseAgreeCheckBoxTitle, Url.Action("TermsOfUse", "Account"), Url.Action("PrivacyPolicy", "Account")))
-                            </label>
-                        </div>
+            </div>
+            <div class="user-column required">
+                <div class="user-form-row" data-bind="css: { error: isOrganizationErrorVisible(), success: !isOrganizationErrorVisible() && organization.isValid() }">
+                    <label class="user-form-label required organization">@Resources.OrganizationNameCaption</label>
+                    <div class="user-form-input-holder">
+                        <span class="user-form-input-wrapper"></span>
+                        <input tabindex="4" class="user-form-input" type="text" name="organization" data-bind="value: organization, valueUpdate: 'afterkeydown', event: { blur: validateOrganization, focus: onFocusOrganization }" ondrop="return false;" />
                     </div>
-                    <div class="formBtn">
-                        <input class="orange btn user-form-btn" type="submit" value="@Resources.SignUpButton" data-bind="css: { disabled: !(userName.isValid() && password.isValid() && isLicenseAgreed()) }, enable: userName.isValid() && password.isValid() && isLicenseAgreed(), click: signUp">
+                    <span class="user-form-message" data-bind="visible: isOrganizationErrorVisible()">@Resources.EnterValidOrganization</span>
+                </div>
+                <div class="user-form-row" data-bind="css: { error: isPhoneErrorVisible(), success: !isPhoneErrorVisible() && phone.isValid() }">
+                    <label class="user-form-label required phone">@Resources.PhoneNumberCaption</label>
+                    <div class="user-form-input-holder">
+                        <span class="user-form-input-wrapper"></span>
+                        <input tabindex="5" class="user-form-input" type="text" name="phone" data-bind="value: phone, valueUpdate: 'afterkeydown', event: { blur: validatePhone, focus: onFocusPhone }" ondrop="return false;" />
                     </div>
+                    <span class="user-form-message" data-bind="visible: isPhoneErrorVisible()">@Resources.EnterValidPhoneNumber</span>
+                </div>
+                <div class="user-form-row" data-bind="css: { success: isCountrySuccessVisible() }">
+                    <label class="user-form-label required country">@Resources.CountryCaption</label>
+                    <div class="user-form-input-holder selectbox">
+                        <div class="user-form-selectbox" data-bind="selectBox: { options: countries, optionsText: 'name', optionsValue: 'name', value: country, defaultText: 'Choose your country' }"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="user-form-row submit">
+                <div class="user-form-checkbox-holder clearfix">
+                    <div class="user-form-checkbox" data-bind="css: {checked: isLicenseAgreed}">
+                        <input id="uf-checkbox" class="custom-checkbox" type="checkbox" data-bind="checked: isLicenseAgreed" />
+                    </div>
+                    <div class="user-form-checkbox-label">
+                        <label for="uf-checkbox">
+                            @Html.Raw(String.Format(Resources.LicenseAgreeCheckBoxTitle, Url.Action("TermsOfUse", "Account"), Url.Action("PrivacyPolicy", "Account")))
+                        </label>
+                    </div>
+                </div>
+                <div class="formBtn">
+                    <input class="orange btn user-form-btn" type="submit" value="@Resources.SignUpButton" data-bind="css: { disabled: !isFormValid() }, enable: isFormValid()   , click: signUp">
                 </div>
             </div>
         </form>

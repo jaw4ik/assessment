@@ -64,6 +64,7 @@ namespace easygenerator.Web.Controllers.Api
                 profile.FullName = profileFromFirstStep.FullName;
                 profile.Organization = profileFromFirstStep.Organization;
                 profile.Phone = profileFromFirstStep.Phone;
+                profile.Country = profileFromFirstStep.Country;
             }
 
             if (_repository.GetUserByEmail(profile.Email) != null)
@@ -71,11 +72,8 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonError("Account with this email already exists");
             }
 
-            var user = _entityFactory.User(profile.Email, profile.Password, profile.Email);
-
-            user.UpdateFullName(profile.FullName, profile.Email);
-            user.UpdatePhone(profile.Phone, profile.Email);
-            user.UpdateOrganization(profile.Organization, profile.Email);
+            var user = _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone,
+                profile.Organization, profile.Country, profile.Email);
 
             _repository.Add(user);
             _publisher.Publish(new UserSignedUpEvent(user, profile.PeopleBusyWithCourseDevelopmentAmount, profile.NeedAuthoringTool, profile.UsedAuthoringTool));

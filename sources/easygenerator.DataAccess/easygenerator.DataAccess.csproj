@@ -71,6 +71,10 @@
     <Compile Include="Migrations\201310280638038_AddPublishedOnFieldToExperienceEntity.Designer.cs">
       <DependentUpon>201310280638038_AddPublishedOnFieldToExperienceEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201311011331382_AddColumnCountryToUserAndSetRequired.cs" />
+    <Compile Include="Migrations\201311011331382_AddColumnCountryToUserAndSetRequired.Designer.cs">
+      <DependentUpon>201311011331382_AddColumnCountryToUserAndSetRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ExperienceRepository.cs" />
@@ -102,6 +106,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201310280638038_AddPublishedOnFieldToExperienceEntity.resx">
       <DependentUpon>201310280638038_AddPublishedOnFieldToExperienceEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311011331382_AddColumnCountryToUserAndSetRequired.resx">
+      <DependentUpon>201311011331382_AddColumnCountryToUserAndSetRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -77,8 +77,12 @@ namespace easygenerator.DomainModel.Tests
         {
             const string email = "easygenerator@easygenerator.com";
             const string password = "Easy123!";
+            var fullname = "easygenerator user";
+            var phone = "some phone";
+            var organization = "Easygenerator";
+            var country = "some country";
 
-            var user = _entityFactory.User(email, password, ModifiedBy);
+            var user = _entityFactory.User(email, password, fullname, phone, organization, country, ModifiedBy);
             user.Should().NotBeNull();
             user.Email.Should().Be(email);
             user.VerifyPassword(password).Should().BeTrue();

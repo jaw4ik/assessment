@@ -159,6 +159,15 @@
   <data name="EnterValidEmailMessage" xml:space="preserve">
     <value>Voer een geldig e-mailadres in</value>
   </data>
+  <data name="EnterValidFullName" xml:space="preserve">
+    <value>Voer een geldig volledige naam in</value>
+  </data>
+  <data name="EnterValidOrganization" xml:space="preserve">
+    <value>Voer een geldig naam van organisatie in</value>
+  </data>
+  <data name="EnterValidPhoneNumber" xml:space="preserve">
+    <value>Voer een geldig telefoonnummer in</value>
+  </data>
   <data name="Finish" xml:space="preserve">
     <value>Afsluiten</value>
   </data>

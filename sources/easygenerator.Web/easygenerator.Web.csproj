@@ -212,6 +212,7 @@
     <Compile Include="Components\ModelBinding\EntityCollectionModelBinder.cs" />
     <Compile Include="Components\NavigationLink.cs" />
     <Compile Include="Components\RouteConstraints\PublishIsInProgressConstraint.cs" />
+    <Compile Include="Components\PhoneCodeCollection.cs" />
     <Compile Include="Components\UrlHelperWrapper.cs" />
     <Compile Include="Configuration\BundleConfiguration.cs" />
     <Compile Include="Configuration\ContainerConfiguration.cs" />

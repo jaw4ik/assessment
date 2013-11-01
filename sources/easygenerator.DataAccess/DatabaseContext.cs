@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
@@ -82,6 +83,10 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<User>().Property(e => e.Email).IsRequired().HasMaxLength(254);
             modelBuilder.Entity<User>().Property(e => e.PasswordHash).IsRequired();
+            modelBuilder.Entity<User>().Property(e => e.Phone).IsRequired();
+            modelBuilder.Entity<User>().Property(e => e.FullName).IsRequired();
+            modelBuilder.Entity<User>().Property(e => e.Country).IsRequired();
+            modelBuilder.Entity<User>().Property(e => e.Organization).IsRequired();
             modelBuilder.Entity<User>().HasMany(e => e.PasswordRecoveryTicketCollection).WithRequired(e => e.User);
 
             modelBuilder.Entity<PasswordRecoveryTicket>().HasKey(e => e.Id);

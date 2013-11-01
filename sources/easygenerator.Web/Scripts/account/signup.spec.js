@@ -83,6 +83,32 @@
             it('should be observable', function () {
                 expect(viewModel.fullName).toBeObservable();
             });
+
+            describe('isValid:', function() {
+               
+                it('should be computed', function () {
+                    expect(viewModel.fullName.isValid).toBeComputed();
+                });
+
+            });
+
+            describe('when empty', function() {
+
+                it('should be not valid', function () {
+                    viewModel.fullName('');
+                    expect(viewModel.fullName.isValid()).toBeFalsy();
+                });
+
+            });
+
+            describe('when not empty', function() {
+
+                it('should be valid', function() {
+                    viewModel.fullName('Some name');
+                    expect(viewModel.fullName.isValid()).toBeTruthy();
+                });
+
+            });
         });
 
         describe('phone:', function () {
@@ -90,6 +116,33 @@
             it('should be observable', function () {
                 expect(viewModel.phone).toBeObservable();
             });
+
+            describe('isValid:', function() {
+
+                it('should be computed', function() {
+                    expect(viewModel.phone.isValid).toBeComputed();
+                });
+
+            });
+
+            describe('when empty', function() {
+
+                it('should be not valid', function() {
+                    viewModel.phone('');
+                    expect(viewModel.phone.isValid()).toBeFalsy();
+                });
+
+            });
+
+            describe('when not empty', function() {
+
+                it('should be valid', function() {
+                    viewModel.phone('some phone');
+                    expect(viewModel.phone.isValid()).toBeTruthy();
+                });
+
+            });
+
         });
 
         describe('organization:', function () {
@@ -97,6 +150,219 @@
             it('should be observable', function () {
                 expect(viewModel.organization).toBeObservable();
             });
+
+            describe('isValid:', function () {
+
+                it('should be computed', function () {
+                    expect(viewModel.organization.isValid).toBeComputed();
+                });
+
+            });
+
+            describe('when empty', function () {
+
+                it('should be not valid', function () {
+                    viewModel.organization('');
+                    expect(viewModel.organization.isValid()).toBeFalsy();
+                });
+
+            });
+
+            describe('when not empty', function () {
+
+                it('should be valid', function () {
+                    viewModel.organization('some organization');
+                    expect(viewModel.organization.isValid()).toBeTruthy();
+                });
+
+            });
+            
+        });
+        
+        describe('country:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.country).toBeObservable();
+            });
+
+            describe('isValid:', function () {
+
+                it('should be computed', function () {
+                    expect(viewModel.country.isValid).toBeComputed();
+                });
+
+            });
+
+            describe('when null', function () {
+
+                it('should be not valid', function () {
+                    viewModel.country(null);
+                    expect(viewModel.country.isValid()).toBeFalsy();
+                });
+
+            });
+
+            describe('when not empty', function () {
+
+                it('should be valid', function () {
+                    viewModel.country('some country');
+                    expect(viewModel.country.isValid()).toBeTruthy();
+                });
+
+            });
+
+        });
+
+        describe('isFormValid:', function() {
+
+            it('should be computed', function() {
+                expect(viewModel.isFormValid).toBeComputed();
+            });
+
+            describe('when all data valid', function() {
+
+                it('should be valid', function() {
+                    viewModel.userName('anonymous@easygenerator.com');
+                    viewModel.password('abcABC123');
+                    viewModel.fullName('some fullName');
+                    viewModel.phone('some phone');
+                    viewModel.organization('some organization');
+                    viewModel.country('some country');
+                    viewModel.isLicenseAgreed(true);
+
+                    expect(viewModel.isFormValid()).toBeTruthy();
+                });
+
+            });
+
+            describe('when all data not valid', function() {
+                
+                it('should be not valid', function () {
+                    viewModel.userName('');
+                    viewModel.password('');
+                    viewModel.fullName('');
+                    viewModel.phone('');
+                    viewModel.organization('');
+                    viewModel.country(null);
+                    viewModel.isLicenseAgreed(false);
+
+                    expect(viewModel.isFormValid()).toBeFalsy();
+                });
+
+            });
+
+            describe('when userName not valid', function() {
+                
+                it('should be not valid', function () {
+                    viewModel.userName('');
+                    viewModel.password('abcABC123');
+                    viewModel.fullName('some fullName');
+                    viewModel.phone('some phone');
+                    viewModel.organization('some organization');
+                    viewModel.country('some country');
+                    viewModel.isLicenseAgreed(true);
+
+                    expect(viewModel.isFormValid()).toBeFalsy();
+                });
+
+            });
+            
+            describe('when password not valid', function () {
+
+                it('should be not valid', function () {
+                    viewModel.userName('anonymous@easygenerator.com');
+                    viewModel.password('');
+                    viewModel.fullName('some fullName');
+                    viewModel.phone('some phone');
+                    viewModel.organization('some organization');
+                    viewModel.country('some country');
+                    viewModel.isLicenseAgreed(true);
+
+                    expect(viewModel.isFormValid()).toBeFalsy();
+                });
+
+            });
+            
+            describe('when fullName not valid', function () {
+
+                it('should be not valid', function () {
+                    viewModel.userName('anonymous@easygenerator.com');
+                    viewModel.password('abcABC123');
+                    viewModel.fullName('');
+                    viewModel.phone('some phone');
+                    viewModel.organization('some organization');
+                    viewModel.country('some country');
+                    viewModel.isLicenseAgreed(true);
+
+                    expect(viewModel.isFormValid()).toBeFalsy();
+                });
+
+            });
+            
+            describe('when phone not valid', function () {
+
+                it('should be not valid', function () {
+                    viewModel.userName('anonymous@easygenerator.com');
+                    viewModel.password('abcABC123');
+                    viewModel.fullName('some fullName');
+                    viewModel.phone('');
+                    viewModel.organization('some organization');
+                    viewModel.country('some country');
+                    viewModel.isLicenseAgreed(true);
+
+                    expect(viewModel.isFormValid()).toBeFalsy();
+                });
+
+            });
+            
+            describe('when organization not valid', function () {
+
+                it('should be not valid', function () {
+                    viewModel.userName('anonymous@easygenerator.com');
+                    viewModel.password('abcABC123');
+                    viewModel.fullName('some fullName');
+                    viewModel.phone('some phone');
+                    viewModel.organization('');
+                    viewModel.country('some country');
+                    viewModel.isLicenseAgreed(true);
+
+                    expect(viewModel.isFormValid()).toBeFalsy();
+                });
+
+            });
+            
+            describe('when country not valid', function () {
+
+                it('should be not valid', function () {
+                    viewModel.userName('anonymous@easygenerator.com');
+                    viewModel.password('abcABC123');
+                    viewModel.fullName('some fullName');
+                    viewModel.phone('some phone');
+                    viewModel.organization('some organization');
+                    viewModel.country(null);
+                    viewModel.isLicenseAgreed(true);
+
+                    expect(viewModel.isFormValid()).toBeFalsy();
+                });
+
+            });
+
+            describe('when isLicenseAgreed not valid', function () {
+
+                it('should be not valid', function () {
+                    viewModel.userName('anonymous@easygenerator.com');
+                    viewModel.password('abcABC123');
+                    viewModel.fullName('some fullName');
+                    viewModel.phone('some phone');
+                    viewModel.organization('some organization');
+                    viewModel.country('some country');
+                    viewModel.isLicenseAgreed(false);
+
+                    expect(viewModel.isFormValid()).toBeFalsy();
+                });
+
+            });
+            
         });
 
         describe('isUserNameEditing:', function () {
@@ -494,21 +760,188 @@
                 spyOn($, 'ajax').andReturn(ajax.promise());
             });
 
-
             it('should call \"/api/user/signupfirststep"', function () {
-                viewModel.userName('mail');
-                viewModel.password('password');
+                viewModel.userName('anonymous@easygenerator.com');
+                viewModel.password('abcABC123');
+                viewModel.fullName('some fullName');
+                viewModel.phone('some phone');
+                viewModel.organization('some organization');
+                viewModel.country('some country');
+                
                 viewModel.signUp();
 
                 expect($.ajax).toHaveBeenCalledWith({
                     url: '/api/user/signupfirststep',
-                    data: { email: 'mail', password: 'password', fullName: '', phone: '', organization: '' },
+                    data: { email: viewModel.userName(), password: viewModel.password(), fullName: viewModel.fullName(), phone: viewModel.phone(), organization: viewModel.organization(), country: viewModel.country() },
                     type: 'POST'
                 });
             });
 
         });
 
+        describe('isFullNameErrorVisible:', function () {
+
+            it('should be observable', function() {
+                expect(viewModel.isFullNameErrorVisible).toBeObservable();
+            });
+
+        });
+
+        describe('isPhoneErrorVisible:', function () {
+
+            it('should be observable', function() {
+                expect(viewModel.isPhoneErrorVisible).toBeObservable();
+            });
+
+        });
+
+        describe('isOrganizationErrorVisible', function() {
+
+            it('should be observable', function() {
+                expect(viewModel.isOrganizationErrorVisible).toBeObservable();
+            });
+
+        });
+        
+        describe('isCountrySuccessVisible', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.isCountrySuccessVisible).toBeObservable();
+            });
+
+        });
+
+        describe('onFocusFullName:', function () {
+
+            it('should be function', function() {
+                expect(viewModel.onFocusFullName).toBeFunction();
+            });
+
+            it('should set isFullNameErrorVisible to false', function () {
+                viewModel.isFullNameErrorVisible(true);
+                viewModel.onFocusFullName();
+                expect(viewModel.isFullNameErrorVisible()).toBeFalsy();
+            });
+
+        });
+        
+        describe('onFocusPhone:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.onFocusPhone).toBeFunction();
+            });
+
+            it('should set isPhoneErrorVisible to false', function () {
+                viewModel.isPhoneErrorVisible(true);
+                viewModel.onFocusPhone();
+                expect(viewModel.isPhoneErrorVisible()).toBeFalsy();
+            });
+
+        });
+        
+        describe('onFocusOrganization:', function () {
+
+            it('should be function', function () {
+                expect(viewModel.onFocusOrganization).toBeFunction();
+            });
+
+            it('should set isOrganizationErrorVisible to false', function () {
+                viewModel.isOrganizationErrorVisible(true);
+                viewModel.onFocusOrganization();
+                expect(viewModel.isOrganizationErrorVisible()).toBeFalsy();
+            });
+
+        });
+
+        describe('validateFullName:', function () {
+
+            it('should be function', function() {
+                expect(viewModel.validateFullName).toBeFunction();
+            });
+
+            describe('when fullname has only whitespaces', function() {
+
+                it('should be set isFullNameErrorVisible to true', function () {
+                    viewModel.fullName('        ');
+                    viewModel.isFullNameErrorVisible(false);
+                    viewModel.validateFullName();
+                    expect(viewModel.isFullNameErrorVisible()).toBeTruthy();
+                });
+
+            });
+            
+            describe('when fullname not has only whitespaces', function () {
+
+                it('should be set isFullNameErrorVisible to false', function () {
+                    viewModel.fullName('    some full name    ');
+                    viewModel.isFullNameErrorVisible(true);
+                    viewModel.validateFullName();
+                    expect(viewModel.isFullNameErrorVisible()).toBeFalsy();
+                });
+
+            });
+
+        });
+
+        describe('validatePhone:', function () {
+            
+            it('should be function', function () {
+                expect(viewModel.validatePhone).toBeFunction();
+            });
+            
+            describe('when phone has only whitespaces', function () {
+
+                it('should be set isPhoneErrorVisible to true', function () {
+                    viewModel.phone('        ');
+                    viewModel.isPhoneErrorVisible(false);
+                    viewModel.validatePhone();
+                    expect(viewModel.isPhoneErrorVisible()).toBeTruthy();
+                });
+
+            });
+
+            describe('when phone not has only whitespaces', function () {
+
+                it('should be set isFullNameErrorVisible to false', function () {
+                    viewModel.phone('    some phone    ');
+                    viewModel.isPhoneErrorVisible(true);
+                    viewModel.validatePhone();
+                    expect(viewModel.isPhoneErrorVisible()).toBeFalsy();
+                });
+
+            });
+
+        });
+
+
+        describe('validateOrganization:', function () {
+            
+            it('should be function', function () {
+                expect(viewModel.validateOrganization).toBeFunction();
+            });
+
+            describe('when organization has only whitespaces', function () {
+
+                it('should be set isOrganizationErrorVisible to true', function () {
+                    viewModel.organization('        ');
+                    viewModel.isOrganizationErrorVisible(false);
+                    viewModel.validateOrganization();
+                    expect(viewModel.isOrganizationErrorVisible()).toBeTruthy();
+                });
+
+            });
+
+            describe('when organization not has only whitespaces', function () {
+
+                it('should be set isOrganizationErrorVisible to false', function () {
+                    viewModel.organization('    some organization    ');
+                    viewModel.isOrganizationErrorVisible(true);
+                    viewModel.validateOrganization();
+                    expect(viewModel.isOrganizationErrorVisible()).toBeFalsy();
+                });
+
+            });
+        });
     });
 
 });

@@ -72,7 +72,7 @@ body.try {
 
 .account-nav-list {
     display: inline-block;
-    padding: 24px 0 12px;
+    padding: 24px 0 0;
 }
 
 .account-nav-item {
@@ -147,7 +147,7 @@ body.try {
 }
 
 .view-module.sign-up .user-columns, .view-module.sign-up-second-step .user-columns {
-    width: 900px;
+    width: 950px;
     margin: 0 auto;
 }
 
@@ -198,30 +198,30 @@ body.try {
     }
 
 .user-column.optional {
-    padding-right: 50px;
-    width: 450px;
+    padding-right: 75px;
+    width: 475px;
 }
 
 .user-column.required {
-    padding-left: 50px;
-    width: 450px;
+    padding-left: 75px;
+    width: 475px;
 }
 
 .user-form-row {
-    min-height: 137px;
+    min-height: 117px;
 }
 
 .user-form-label {
     position: relative;
     padding-left: 35px;
-    font-size: 24px;
+    font-size: 22px;
     color: #333;
 }
 
     .user-form-label.required:after {
         content: ' *';
         position: relative;
-        top: -14px;
+        top: -8px;
         color: rgb(241, 138, 63);
         font-weight: normal;
         font-size: 16px;
@@ -231,31 +231,35 @@ body.try {
         content: '';
         position: absolute;
         left: 2px;
-        top: 1px;
+        top: 6px;
         display: block;
-        width: 26px;
-        height: 30px;
+        width: 22px;
+        height: 22px;
         background: url(images/sprites.png) -216px 0 no-repeat;
     }
 
     .user-form-label.email:before {
-        background-position: -240px -45px;
+        background-position: -40px -114px;
     }
 
     .user-form-label.password:before {
-        background-position: -249px 5px;
+        background-position: -63px -114px;
     }
 
     .user-form-label.fullname:before {
-        background-position: -216px 0;
+        background-position: -86px -114px;
     }
 
     .user-form-label.organization:before {
-        background-position: -202px -45px;
+        background-position: -113px -114px;
     }
 
     .user-form-label.phone:before {
-        background-position: -165px -45px;
+        background-position: -139px -114px;
+    }
+
+    .user-form-label.country:before {
+        background-position: -160px -114px;
     }
 
 .user-form-sublabel {
@@ -273,9 +277,13 @@ body.try {
 
 .user-form-input-holder {
     position: relative;
-    padding: 9px 40px 6px 20px;
+    padding: 6px 40px 6px 20px;
     height: 65px;
 }
+.user-form-input-holder.selectbox {
+    padding: 6px 0;
+}
+
 
 .user-form-input-wrapper {
     width: 100%;
@@ -336,6 +344,7 @@ body.try {
 .user-form-checkbox-holder {
     min-height: 36px;
     padding-bottom: 18px;
+    padding-top: 10px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -384,14 +393,15 @@ body.try {
             text-decoration: underline;
         }
 
-.user-form-row.success .user-form-input-wrapper {
+.user-form-row.success .user-form-input-wrapper,
+.user-form-row.success .selectbox-current-item {
     border: solid 1px #62a426;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
 }
 
-    .user-form-row.success .user-form-input-wrapper.focus {
+    .user-form-row.success .user-form-input-wrapper.focus{
         border: solid 1px #62a426;
         -webkit-box-shadow: 0 0 2px #62a426;
         -moz-box-shadow: 0 0 2px #62a426;
@@ -525,10 +535,11 @@ body.try {
     }
 
 .user-form-row.submit {
-    padding-bottom: 43px;
+    padding-bottom: 50px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    width: 400px;
 }
 
     .user-form-row.submit .formBtn {
@@ -563,10 +574,10 @@ body.try {
     display: none;
     position: absolute;
     top: 9px;
-    right: 100%;
+    left: 100%;
     background: #fff;
     width: 293px;
-    margin-right: 8px;
+    margin-left: 8px;
     padding: 10px 0 0 0;
     color: #333;
     font-size: 13px;
@@ -589,11 +600,14 @@ body.try {
         content: '';
         position: absolute;
         top: 15px;
-        left: 100%;
+        right: 100%;
         display: block;
         width: 8px;
         height: 16px;
         background: url(images/sprites.png) -85px -52px no-repeat;
+        -ms-transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
         z-index: 1;
     }
 
@@ -1075,6 +1089,7 @@ body.try {
 .sign-up-second-step .formBtn {
     width: 50%;
     padding-right: 20px;
+    padding-top: 35px;
 }
 
     .sign-up-second-step .formBtn .btn {
@@ -1245,7 +1260,7 @@ body.try {
 
     /*#region Account navigation*/
     .account-nav-list {
-        padding-bottom: 16px;
+        padding-bottom: 0;
     }
     /*#endregion Account navigation*/
 
