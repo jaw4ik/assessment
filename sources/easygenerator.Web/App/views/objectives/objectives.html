@@ -43,8 +43,8 @@
              <div class="main-content-list-holder">
                  <ul class="unstyled main-content-list">
                      <!-- ko foreach: objectives -->
-                     <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id }">
-                         <div class="list-item-content-holder" data-bind="css: { selected: isSelected }, click: $parent.toggleObjectiveSelection">
+                     <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id, 'selected': isSelected }">
+                         <div class="list-item-content-holder" data-bind="click: $parent.toggleObjectiveSelection">
                             <div class="list-item-checkbox" data-bind="">
                                 <span class="custom-checkbox-input" data-bind="css: { checked: isSelected }">
                                     <input class="custom-checkbox" type="checkbox" />
