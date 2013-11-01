@@ -32,6 +32,10 @@
     white-space: nowrap;
 }
 
+.package-actions-block .btn-title:hover {
+    text-decoration: underline;
+}
+
     .package-actions-block .btn-title:after {
         content: '';
         display: block;
