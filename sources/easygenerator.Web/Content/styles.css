@@ -322,6 +322,7 @@ a.top-navigation-item:hover {
 .main-content-list .list-item-logo-image-wrapper {
     background: white;
     display: inline-block;
+    vertical-align: top;
 }
 
 .main-content-list .list-item-logo,
