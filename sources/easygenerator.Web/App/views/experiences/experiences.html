@@ -34,14 +34,14 @@
             </div>
         </div>
     </div>
-    
+
     <!-- ko if: experiences().length -->
     <div class="content-holder">
         <div class="main-content-list-holder">
             <ul class="unstyled main-content-list">
                 <!-- ko foreach: experiences -->
-                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedExperienceId == id }">
-                    <div class="list-item-content-holder" data-bind="css: { selected: isSelected }, click: $parent.toggleSelection">
+                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedExperienceId == id, selected: isSelected }">
+                    <div class="list-item-content-holder" data-bind="click: $parent.toggleSelection">
                         <div class="list-item-checkbox">
                             <span class="custom-checkbox-input" data-bind="css: { checked: isSelected }">
                                 <input class="custom-checkbox" type="checkbox" />
@@ -55,7 +55,7 @@
                                 <span class="selectable" data-bind="text: title"></span>
                             </div>
                             <div class="list-item-saved">
-                                <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                                <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="    date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
                             </div>
                         </div>
                     </div>

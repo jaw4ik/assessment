@@ -49,8 +49,13 @@
 
 .experience-action.create-package-btn {
     display: block;
-    color: #00a8ff;
-    padding-bottom: 15px;
+    color: #0085ca;
+    opacity: 0.8;
+    margin-bottom: 15px;
+}
+
+.experience-action.create-package-btn:hover {
+    opacity: 1;
 }
 
     .experience-action.create-package-btn .btn-title:after {
@@ -58,7 +63,12 @@
     }
 
 .experience-action.download-btn {
-    color: #898989;
+    color: #555555;
+    opacity: 0.8;
+}
+
+.experience-action.download-btn:hover {
+    opacity: 1;
 }
 
     .experience-action.download-btn .btn-title:after {
