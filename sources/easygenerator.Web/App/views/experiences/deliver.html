@@ -43,7 +43,7 @@
                     <span class="btn-title">Publish online</span>
                 </div>
                 <!-- /ko -->
-                <!-- ko if: status() != statuses.succeed -->
+                <!-- ko if: status() != statuses.succeed && publishingState() != publishingStates.succeed -->
                 <div class="package-action-btn btn green publish-btn disabled">
                     <span class="btn-title" data-bind="localize: { text: 'publishOnline' }">Publish online</span>
                 </div>
@@ -64,6 +64,11 @@
                 <!-- REPUBLISH PACKAGE BUTTON -->
                 <!-- ko if: status() == statuses.succeed && publishingState() == publishingStates.succeed -->
                 <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience">
+                    <span class="btn-title" data-bind="localize: { text: 'republishOnline' }">Republish online</span>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: status() != statuses.succeed && publishingState() == publishingStates.succeed -->
+                <div class="package-action-btn btn green publish-btn disabled">
                     <span class="btn-title" data-bind="localize: { text: 'republishOnline' }">Republish online</span>
                 </div>
                 <!-- /ko -->
@@ -92,5 +97,4 @@
             </div>
         </div>
     </div>
-
 </section>
