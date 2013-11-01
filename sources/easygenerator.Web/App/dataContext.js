@@ -89,9 +89,9 @@
                                         return objective.id == relatedObjective.Id.split('-').join('');
                                     });
                                 }),
-                                buildingStatus: constants.buildingStatuses.notStarted,
+                                buildingStatus: constants.statuses.notStarted,
                                 publishedPackageUrl: item.PublishedPackageUrl,
-                                publishingState: constants.publishingStates.notStarted,
+                                publishingState: constants.statuses.notStarted,
                                 builtOn: _.isNullOrUndefined(item.builtOn) ? null : parseDateString(item.builtOn),
                                 packageUrl: item.PackageUrl,
                                 template: _.find(templates, function (tItem) {

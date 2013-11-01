@@ -304,7 +304,7 @@
             });
 
         });
-        
+
         describe('service [publishExperience]', function () {
 
             describe('publish:', function () {
@@ -364,13 +364,13 @@
                                 });
                             });
                         });
-                        
+
                         describe('and experience is already publishing ', function () {
 
                             it('should reject promise', function () {
                                 var promise = service.publish();
 
-                                getById.resolve({ publishingState: constants.publishingStates.inProgress });
+                                getById.resolve({ publishingState: constants.statuses.inProgress });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -399,7 +399,7 @@
                                     return getById.promise.isFulfilled() && http.post.calls.length == 1;
                                 });
                                 runs(function () {
-                                    expect(experience.publishingState).toEqual(constants.publishingStates.inProgress);
+                                    expect(experience.publishingState).toEqual(constants.statuses.inProgress);
                                 });
                             });
 
@@ -474,7 +474,7 @@
                                                 return promise.isFulfilled();
                                             });
                                             runs(function () {
-                                                expect(experience.publishingState).toEqual(constants.publishingStates.succeed);
+                                                expect(experience.publishingState).toEqual(constants.statuses.succeed);
                                             });
                                         });
 
@@ -506,7 +506,7 @@
                                                 return !promise.isPending();
                                             });
                                             runs(function () {
-                                                expect(experience.publishingState).toEqual(constants.publishingStates.failed);
+                                                expect(experience.publishingState).toEqual(constants.statuses.failed);
                                             });
                                         });
 
@@ -550,9 +550,9 @@
 
                                         waitsFor(function () {
                                             return !promise.isPending();
-                                        }); 
+                                        });
                                         runs(function () {
-                                            expect(experience.publishingState).toEqual(constants.publishingStates.failed);
+                                            expect(experience.publishingState).toEqual(constants.statuses.failed);
                                         });
                                     });
 

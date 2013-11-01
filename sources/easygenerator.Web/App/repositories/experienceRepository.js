@@ -59,8 +59,8 @@
                                         image: template.image
                                     },
                                     objectives: [],
-                                    buildingStatus: constants.buildingStatuses.notStarted,
-                                    publishingState: constants.publishingStates.notStarted,
+                                    buildingStatus: constants.statuses.notStarted,
+                                    publishingState: constants.statuses.notStarted,
                                     createdOn: createdOn,
                                     modifiedOn: createdOn
                                 });

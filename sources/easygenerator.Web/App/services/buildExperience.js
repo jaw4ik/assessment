@@ -56,17 +56,17 @@
                 return;
             }
 
-            if (experience.buildingStatus == constants.buildingStatuses.inProgress) {
+            if (experience.buildingStatus == constants.statuses.inProgress) {
                 deferred.reject('Experience is building, cannot publish during building');
                 return;
             }
-            
-            if (experience.publishingState == constants.publishingStates.inProgress) {
+
+            if (experience.publishingState == constants.statuses.inProgress) {
                 deferred.reject('Experience is already publishing');
                 return;
             }
 
-            experience.publishingState = constants.publishingStates.inProgress;
+            experience.publishingState = constants.statuses.inProgress;
 
             http.post('experience/publish', { experienceId: experience.id })
                 .done(function (response) {
@@ -74,17 +74,17 @@
                         deferred.reject('Response has invalid format');
                     }
                     if (response.success && response.data != undefined) {
-                        experience.publishingState = constants.publishingStates.succeed;
+                        experience.publishingState = constants.statuses.succeed;
                         experience.publishedPackageUrl = response.data.PublishedPackageUrl;
                         deferred.resolve(experience);
                     } else {
-                        experience.publishingState = constants.publishingStates.failed;
+                        experience.publishingState = constants.statuses.failed;
                         experience.publishedPackageUrl = '';
                         deferred.reject("Publish failed");
                     }
                 })
                 .fail(function () {
-                    experience.publishingState = constants.publishingStates.failed;
+                    experience.publishingState = constants.statuses.failed;
                     experience.publishedPackageUrl = '';
                     deferred.reject("Publish failed");
                 });
