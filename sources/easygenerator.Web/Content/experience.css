@@ -148,6 +148,19 @@
             background: url('images/sprites.png');
         }
 
+.nl-lang .package-actions-content,
+.de-lang .package-actions-content {
+    width: 660px;
+}
+
+.nl-lang .package-action-btn,
+.de-lang .package-action-btn {
+    width: 275px;
+    font-size: 14px;
+    padding: 10px;
+}
+
+
 .copy-link-control {
     padding-top: 10px;
     white-space: nowrap;

@@ -319,16 +319,16 @@ a.top-navigation-item:hover {
     vertical-align: middle;
 }
 
-.main-content-list .list-item-logo-image-wrapper {
-    background: white;
-    display: inline-block;
-    vertical-align: top;
-}
-
 .main-content-list .list-item-logo,
 .main-content-list .list-item-logo-image {
     width: 120px;
     height: 120px;
+}
+
+.main-content-list .list-item-logo-image-wrapper {
+    background: white;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .main-content-list .list-item-logo-image {
@@ -604,4 +604,5 @@ a.top-navigation-item:hover {
             margin-left: 10px;
         }
     /*#endregion HEADER*/
+
 }
