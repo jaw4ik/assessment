@@ -287,6 +287,11 @@
         nl: 'bezig met opnieuw publiceren...',
         de: 'Erneute Veröffentlichung läuft...'
     },
+    copyLinkTitle: {
+        en: 'Copy link',
+        nl: 'Copy link[nl]',
+        de: 'Copy link[de]'
+    },
     /* End resource section for model Experiences */
     
     /* Resource section for model CreateObjective */
@@ -735,8 +740,8 @@
     },
     serverError: {
         en: 'Something is not right',
-        nl: 'Er is iets niet goed.',
-        de: 'Etwas ist nicht korrekt.'
+        nl: 'Er is iets niet goed',
+        de: 'Etwas ist nicht korrekt'
     },
     serverErrorDescription: {
         en: 'Sorry, something went wrong.  Try checking the URL for errors, use the navigation above or click \"Home\' link below.',
@@ -826,6 +831,21 @@
         en: 'Enter a valid e-mail',
         nl: 'Voer een geldig e-mailadres in',
         de: 'Geben Sie eine gültige E-Mail-Adresse ein'
+    },
+    EnterValidFullName: {
+        en: 'Enter a valid full name',
+        nl: 'Voer een geldig volledige naam in',
+        de: 'Geben Sie eine gültige Vollständiger Name ein'
+    },
+    EnterValidOrganization: {
+        en: 'Enter a valid organization name',
+        nl: 'Voer een geldig telefoonnummer in',
+        de: 'Geben Sie eine gültige Telefonnummer ein'
+    },
+    EnterValidPhoneNumber: {
+        en: 'Enter a valid phon number',
+        nl: 'Voer een geldig naam van organisatie in',
+        de: 'Geben Sie eine gültige Name der Organisiation ein'
     },
     AccountAlreadyExists: {
         en: 'This account already exists',
@@ -1282,7 +1302,20 @@
         en: 'Hide',
         nl: 'Verbergen',
         de: 'Ausblenden'
-    }
+    },
     /* End resource section for model Help hints */
+    
+    /* Resource section for model sorryPage */
+    publishIsInProgressTitle: {
+        en: 'This learning experience is being updated',
+        nl: 'This learning experience is being updated[nl]',
+        de: 'This learning experience is being updated[de]'
+    },
+    publishIsInProgressText: {
+        en: 'Please, try again after few minutes',
+        nl: 'Please, try again after few minutes[nl]',
+        de: 'Please, try again after few minutes[de]'
+    }
+    /* End resource section for model sorryPage */
            
 });
