@@ -118,6 +118,12 @@
                         });
                     });
 
+                    it('should set currentLanguage', function() {
+                        viewModel.currentLanguage = null;
+                        viewModel.activate(objective.id, null);
+                        expect(viewModel.currentLanguage).not.toBeNull();
+                    });
+
                     it('should initialize questions collection', function () {
                         viewModel.questions([]);
                         var promise = viewModel.activate(objective.id, null);
@@ -706,6 +712,15 @@
                 });
 
             });
+
+            describe('currentLanguage:', function() {
+
+                it('should be defined', function () {
+                    expect(viewModel.currentLanguage).toBeDefined();
+                });
+
+            });
+
         });
     }
 );

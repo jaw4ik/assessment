@@ -17,7 +17,8 @@
             };
 
         var objectiveId = null,
-            title = ko.observable('');
+            title = ko.observable(''),
+            currentLanguage = '';
 
         title.isEditing = ko.observable();
         title.isValid = ko.computed(function () {
@@ -118,6 +119,7 @@
                 var mappedQuestion = {
                     id: item.id,
                     title: item.title,
+                    modifiedOn: item.modifiedOn,
                     isSelected: ko.observable(false)
                 };
 
@@ -128,6 +130,7 @@
                 var that = this;
 
                 clientContext.set('lastVisitedObjective', objId);
+                this.currentLanguage = localizationManager.currentLanguage;
 
                 return repository.getById(objId).then(function (objective) {
                     if (!_.isObject(objective)) {
@@ -163,6 +166,7 @@
             objectiveId: objectiveId,
             title: title,
             titleMaxLength: constants.validation.objectiveTitleMaxLength,
+            currentLanguage: currentLanguage,
 
             questions: questions,
             canDeleteQuestions: canDeleteQuestions,

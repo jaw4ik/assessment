@@ -120,7 +120,6 @@
     });
 
     country.isValid = ko.computed(function () {
-        debugger;
         var currentCountry = _.find(app.constants.countries, function(item) {
             return item.name == country();
         });

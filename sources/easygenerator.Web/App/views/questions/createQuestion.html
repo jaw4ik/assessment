@@ -12,7 +12,9 @@
         </div>
         <form class="create-form">
             <div class="white-framing pull-left">
-                <img class="create-form-image wide" src="/Content/images/multichoice-question.png" alt="" />
+                <span class="create-form-image-wrapper">
+                    <img class="create-form-image" src="/Content/images/multichoice-question.png" alt="" />
+                </span>
             </div>
             <div class="create-form-field">
                 <div data-autofocus="true" class="edit-field bordered selectable" data-bind="editableText: { text: title, multiline: false }, hasFocus: title.isEditing, css: { error: !title.isValid() && title().length > titleMaxLength, active: title.isEditing() }"></div>
