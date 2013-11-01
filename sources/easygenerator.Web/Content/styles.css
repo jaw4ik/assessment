@@ -348,7 +348,7 @@ a.top-navigation-item:hover {
 .main-content-list .list-item-saved {
     position: absolute;
     left: 173px;
-    bottom: 1px;
+    bottom: 11px;
     color: #9c9fa6;
     font-size: 12px;
     font-family: 'OpenSans';
