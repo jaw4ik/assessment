@@ -310,7 +310,7 @@ a.top-navigation-item:hover {
 .main-content-list .list-item-checkbox {
     display: table-cell;
     width: 36px;
-    padding: 0 7px;
+    text-align: center;
     vertical-align: middle;
 }
 
@@ -352,7 +352,6 @@ a.top-navigation-item:hover {
 
 .main-content-list .list-item-saved {
     position: absolute;
-    left: 173px;
     bottom: 11px;
     color: #9c9fa6;
     font-size: 12px;
@@ -394,7 +393,8 @@ a.top-navigation-item:hover {
 
 .custom-checkbox-input {
     position: relative;
-    display: block;
+    display: inline-block;
+    vertical-align: top;
     height: 16px;
     width: 16px;
     background: white;
