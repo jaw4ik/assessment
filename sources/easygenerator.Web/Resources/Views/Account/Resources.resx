@@ -132,6 +132,9 @@
   <data name="ChooseAnswer" xml:space="preserve">
     <value>Choose answer...</value>
   </data>
+  <data name="ChooseYourCountry" xml:space="preserve">
+    <value>Choose your country...</value>
+  </data>
   <data name="ContainAtLeastOneDigit" xml:space="preserve">
     <value>contain at least one digit;</value>
   </data>

@@ -106,6 +106,15 @@ namespace AccountRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose your country....
+        /// </summary>
+        public static string ChooseYourCountry {
+            get {
+                return ResourceManager.GetString("ChooseYourCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to contain at least one digit;.
         /// </summary>
         public static string ContainAtLeastOneDigit {
