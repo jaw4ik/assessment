@@ -67,17 +67,15 @@
                         </a>
                     </div>
                     <div class="package-actions-block cursor-default">
-                        <!-- ko if: buildingStatus() == $parent.buildingStatuses.notStarted || buildingStatus() == $parent.buildingStatuses.failed -->
+                        <!-- ko if: isFirstBuild -->
                         <div class="experience-action create-package-btn" data-bind="click: $parent.buildExperience">
                             <span class="btn-title" data-bind="localize: { text: 'createPackage' }">Create package</span>
                         </div>
                         <!-- /ko -->
-                        <!-- ko if: buildingStatus() == $parent.buildingStatuses.succeed -->
+                        <!-- ko ifnot: isFirstBuild -->
                         <div class="experience-action create-package-btn" data-bind="click: $parent.buildExperience">
                             <span class="btn-title" data-bind="localize: { text: 'updatePackage' }">Update package</span>
                         </div>
-                        <!-- /ko -->
-                        <!-- ko if: buildingStatus() == $parent.buildingStatuses.succeed -->
                         <div class="experience-action download-btn" data-bind="click: $parent.downloadExperience">
                             <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
                         </div>
@@ -93,7 +91,6 @@
                             <div class="experience-text building" data-bind="localize: { text: 'updatingStatus' }"></div>
                             <!-- /ko -->
                         </div>
-
                     </div>
                     <!-- /ko -->
                     <!-- ko if: showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.succeed -->

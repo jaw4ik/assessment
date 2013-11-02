@@ -3,7 +3,7 @@
         <div class="package-actions-content clearfix">
             <aside class="actions-left-column">
                 <!-- CREATE PACKAGE BUTTON -->
-                <!-- ko if: status() == statuses.notStarted -->
+                <!-- ko ifnot: packageExists() || status() == statuses.inProgress -->
                 <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience">
                     <span class="btn-title" data-bind="localize: { text: 'createPackage' }">Create package</span>
                 </div>
@@ -12,22 +12,22 @@
                 <!-- BUILDING/CREATING STATUS -->
                 <!-- ko if: status() == statuses.inProgress -->
                 <div class="package-action-btn btn orange creating-btn">
-                    <!-- ko if: isFirstBuild() -->
+                    <!-- ko ifnot: packageExists() -->
                     <span class="btn-title" data-bind="localize: { text: 'creatingStatus' }">Creating...</span>
                     <!-- /ko -->
-                    <!-- ko if: !isFirstBuild() -->
+                    <!-- ko if: packageExists() -->
                     <span class="btn-title" data-bind="localize: { text: 'updatingStatus' }">Updating...</span>
                     <!-- /ko -->
                 </div>
                 <!-- /ko -->
 
                 <!-- REBUILD PACKAGE BUTTON -->
-                <!-- ko if: status() == statuses.succeed && publishingState() != statuses.inProgress  -->
+                <!-- ko if: packageExists() && status() != statuses.inProgress && publishingState() != statuses.inProgress  -->
                 <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience">
                     <span class="btn-title" data-bind="localize: { text: 'updatePackage' }">Update package</span>
                 </div>
                 <!-- /ko -->
-                <!-- ko if: publishingState() == statuses.inProgress  -->
+                <!-- ko if: packageExists() && publishingState() == statuses.inProgress  -->
                 <div class="package-action-btn btn orange create-package-btn disabled">
                     <span class="btn-title" data-bind="localize: { text: 'updatePackage' }">Update package</span>
                 </div>

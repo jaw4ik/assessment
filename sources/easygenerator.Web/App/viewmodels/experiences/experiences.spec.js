@@ -3,6 +3,7 @@
         "use strict";
 
         var
+            app = require('durandal/app'),
             router = require('plugins/router'),
             eventTracker = require('eventTracker'),
             dataContext = require('dataContext'),
@@ -57,7 +58,7 @@
 
             });
 
-            describe('sortingOptions:', function() {
+            describe('sortingOptions:', function () {
 
                 it('should be defined', function () {
                     expect(viewModel.sortingOptions).toBeDefined();
@@ -65,7 +66,7 @@
 
             });
 
-            describe('currentSortingOption', function() {
+            describe('currentSortingOption', function () {
 
                 it('should be observable', function () {
                     expect(viewModel.currentSortingOption).toBeObservable();
@@ -73,16 +74,16 @@
 
             });
 
-            describe('buildingStatuses:', function() {
+            describe('buildingStatuses:', function () {
 
                 it('should be defined', function () {
                     expect(viewModel.buildingStatuses).toBeDefined();
                 });
 
             });
-            
-            describe('currentLanguage', function() {
-                
+
+            describe('currentLanguage', function () {
+
                 it('should be defined', function () {
                     expect(viewModel.currentLanguage).toBeDefined();
                 });
@@ -108,7 +109,7 @@
                     expect(viewModel.currentSortingOption()).toBe(constants.sortingOptions.byTitleAsc);
                 });
 
-                it('should set current language', function() {
+                it('should set current language', function () {
                     viewModel.currentLanguage = null;
                     viewModel.activate();
                     expect(viewModel.currentLanguage).toBe(localizationManage.currentLanguage);
@@ -718,28 +719,10 @@
                     expect(experience.isSelected()).toBe(false);
                 });
 
-                it('should show building status', function () {
-                    experience.showBuildingStatus(false);
-
-                    viewModel.buildExperience(experience);
-
-                    expect(experience.showBuildingStatus()).toBe(true);
-                });
-
                 it('should call buildExperience service', function () {
                     viewModel.buildExperience(experience);
 
                     expect(experienceService.build).toHaveBeenCalledWith(experience.id);
-                });
-
-                describe('when build is started', function () {
-
-                    it('should change experience building status to \"inProgress\"', function () {
-                        viewModel.buildExperience(experience);
-
-                        expect(experience.buildingStatus()).toBe(constants.buildingStatuses.inProgress);
-                    });
-
                 });
 
                 describe('when build is finished', function () {
@@ -748,11 +731,11 @@
 
                         it('should send event \'Experience build is failed\'', function () {
                             viewModel.buildExperience(experience);
-                            
+
                             eventTracker.publish.reset();
                             buildDeferred.reject();
 
-                            waitsFor(function() {
+                            waitsFor(function () {
                                 return !buildPromise.isPending();
                             });
                             runs(function () {
@@ -760,61 +743,6 @@
                             });
                         });
 
-                        it('should set experience building status to failed', function() {
-                            viewModel.buildExperience(experience);
-
-                            buildDeferred.reject();
-
-                            waitsFor(function () {
-                                return !buildPromise.isPending();
-                            });
-                            runs(function () {
-                                expect(experience.buildingStatus()).toEqual(constants.buildingStatuses.failed);
-                            });
-                        });
-                        
-                    });
-
-                    describe('and build successful', function () {
-                        
-                        it('should set experience building status to succeed', function () {
-                            buildDeferred.resolve({ buildingStatus: constants.buildingStatuses.succeed, packageUrl: 'SomeUrl' });
-
-                            viewModel.buildExperience(experience);
-
-                            waitsFor(function () {
-                                return !buildPromise.isPending();
-                            });
-                            runs(function () {
-                                expect(experience.buildingStatus()).toEqual(constants.buildingStatuses.succeed);
-                            });
-                        });
-                        
-                        it('should set experience packageUrl', function () {
-                            viewModel.buildExperience(experience);
-
-                            buildDeferred.resolve({ buildingStatus: constants.buildingStatuses.succeed, packageUrl: 'SomeUrl' });
-
-                            waitsFor(function () {
-                                return !buildPromise.isPending();
-                            });
-                            runs(function () {
-                                expect(experience.packageUrl).toEqual('SomeUrl');
-                            });
-                        });
-                        
-                        it('should set experience isFirstBuild to false', function () {
-                            viewModel.buildExperience(experience);
-
-                            buildDeferred.resolve({ buildingStatus: constants.buildingStatuses.succeed, packageUrl: 'SomeUrl' });
-
-                            waitsFor(function () {
-                                return !buildPromise.isPending();
-                            });
-                            runs(function () {
-                                expect(experience.isFirstBuild()).toBeFalsy();
-                            });
-                        });
                     });
 
                 });
@@ -826,7 +754,7 @@
                 var experience;
 
                 beforeEach(function () {
-                    experience = { packageUrl: 'some url' };
+                    experience = { packageUrl: ko.observable('some url') };
 
                     spyOn(router, 'download');
                 });
@@ -842,7 +770,7 @@
 
                 it('should download experience package', function () {
                     viewModel.downloadExperience(experience);
-                    expect(router.download).toHaveBeenCalledWith('download/' + experience.packageUrl);
+                    expect(router.download).toHaveBeenCalledWith('download/' + experience.packageUrl());
                 });
             });
 
@@ -859,6 +787,88 @@
                     viewModel.enableOpenExperience(experience);
 
                     expect(experience.showBuildingStatus()).toBe(false);
+                });
+
+            });
+
+            describe('when experience build was started', function () {
+
+                var experienceVm;
+
+                beforeEach(function () {
+                    experienceVm = {
+                        id: 'experienceId',
+                        buildingStatus: ko.observable(constants.statuses.notStarted),
+                        showBuildingStatus: ko.observable(false)
+                    };
+                    viewModel.experiences([experienceVm]);
+                });
+
+                it('should change status of corresponding experience to \'inProgress\'', function () {
+                    app.trigger(constants.messages.experience.build.started, { id: experienceVm.id });
+                    expect(experienceVm.buildingStatus()).toEqual(constants.statuses.inProgress);
+                });
+
+                it('should show building status for corresponding experience', function () {
+                    app.trigger(constants.messages.experience.build.started, { id: experienceVm.id });
+                    expect(experienceVm.showBuildingStatus()).toBeTruthy();
+                });
+
+                it('should not change status of other experiences', function () {
+                    app.trigger(constants.messages.experience.build.started, { id: '100500' });
+                    expect(experienceVm.buildingStatus()).toEqual(constants.statuses.notStarted);
+                });
+
+                it('should not show building status for other experiences', function () {
+                    app.trigger(constants.messages.experience.build.started, { id: '100500' });
+                    expect(experienceVm.showBuildingStatus()).toBeFalsy();
+                });
+
+            });
+
+            describe('when experience build was finished', function () {
+
+                var experienceVm;
+
+                beforeEach(function () {
+                    experienceVm = {
+                        id: 'experienceId',
+                        packageUrl: ko.observable('packageUrl'),
+                        buildingStatus: ko.observable(constants.statuses.inProgress),
+                        showBuildingStatus: ko.observable(false)
+                    };
+                    viewModel.experiences([experienceVm]);
+                });
+
+                it('should change status of the corresponding experience', function () {
+                    app.trigger(constants.messages.experience.build.finished, { id: experienceVm.id, buildingStatus: constants.statuses.failed });
+                    expect(experienceVm.buildingStatus()).toEqual(constants.statuses.failed);
+                });
+
+                it('should change packageUrl of the corresponding experience', function () {
+                    var packageUrl = "http://xxx.com";
+                    app.trigger(constants.messages.experience.build.finished, {
+                        id: experienceVm.id,
+                        buildingStatus: constants.statuses.failed,
+                        packageUrl: packageUrl
+                    });
+
+                    expect(experienceVm.packageUrl()).toEqual(packageUrl);
+                });
+
+                it('should not change status of other experiences', function () {
+                    app.trigger(constants.messages.experience.build.finished, { id: '100500', buildingStatus: constants.statuses.failed });
+                    expect(experienceVm.buildingStatus()).toEqual(constants.statuses.inProgress);
+                });
+
+                it('should not change packageUrl of other experiences', function () {
+                    var packageUrl = "http://xxx.com";
+                    app.trigger(constants.messages.experience.build.finished, {
+                        id: '100500',
+                        buildingStatus: constants.statuses.failed,
+                        packageUrl: packageUrl
+                    });
+                    expect(experienceVm.packageUrl()).toEqual('packageUrl');
                 });
 
             });

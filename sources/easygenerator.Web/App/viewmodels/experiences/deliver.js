@@ -27,7 +27,7 @@
     };
 
 
-    viewModel.isFirstBuild = ko.computed(function () {
+    viewModel.packageExists = ko.computed(function () {
         return !_.isNullOrUndefined(this.packageUrl()) && !_.isEmptyOrWhitespace(this.packageUrl());
     }, viewModel);
 

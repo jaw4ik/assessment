@@ -43,35 +43,44 @@
                 expect(viewModel).toBeObject();
             });
 
-            describe('isFirstBuild:', function () {
+            describe('packageExists:', function () {
 
                 it('should be computed', function () {
-                    expect(viewModel.isFirstBuild).toBeComputed();
+                    expect(viewModel.packageExists).toBeComputed();
                 });
 
                 describe('when packageUrl is not defined', function () {
 
                     it('should be false', function () {
                         viewModel.packageUrl(undefined);
-                        expect(viewModel.isFirstBuild()).toBeFalsy();
+                        expect(viewModel.packageExists()).toBeFalsy();
                     });
 
                 });
 
-                describe('when packageUrl is an empty string', function () {
+                describe('when packageUrl is empty', function () {
 
                     it('should be false', function () {
                         viewModel.packageUrl("");
-                        expect(viewModel.isFirstBuild()).toBeFalsy();
+                        expect(viewModel.packageExists()).toBeFalsy();
                     });
 
                 });
 
-                describe('when packageUrl is a whitespace string', function () {
+                describe('when packageUrl is whitespace', function () {
 
                     it('should be false', function () {
-                        viewModel.packageUrl("              ");
-                        expect(viewModel.isFirstBuild()).toBeFalsy();
+                        viewModel.packageUrl("    ");
+                        expect(viewModel.packageExists()).toBeFalsy();
+                    });
+
+                });
+
+                describe('when packageUrl is a non-whitespace string', function () {
+
+                    it('should be true', function () {
+                        viewModel.packageUrl("packageUrl");
+                        expect(viewModel.packageExists()).toBeTruthy();
                     });
 
                 });
