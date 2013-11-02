@@ -22,35 +22,35 @@
                 <!-- /ko -->
 
                 <!-- REBUILD PACKAGE BUTTON -->
-                <!-- ko if: status() == statuses.succeed && publishingState() != publishingStates.inProgress  -->
+                <!-- ko if: status() == statuses.succeed && publishingState() != statuses.inProgress  -->
                 <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience">
                     <span class="btn-title" data-bind="localize: { text: 'updatePackage' }">Update package</span>
                 </div>
                 <!-- /ko -->
-                <!-- ko if: publishingState() == publishingStates.inProgress  -->
+                <!-- ko if: publishingState() == statuses.inProgress  -->
                 <div class="package-action-btn btn orange create-package-btn disabled">
                     <span class="btn-title" data-bind="localize: { text: 'updatePackage' }">Update package</span>
                 </div>
                 <!-- /ko -->
 
-                <div class="action-arrow down" data-bind="css: { disabled: (status() == statuses.notStarted) || (status() == statuses.inProgress) || (publishingState() == publishingStates.inProgress) }">
+                <div class="action-arrow down" data-bind="css: { disabled: (status() == statuses.notStarted) || (status() == statuses.inProgress) || (publishingState() == statuses.inProgress) }">
                     <span class="icon-item"></span>
                 </div>
 
                 <!-- PUBLISH BUTTON -->
-                <!-- ko if: status() == statuses.succeed && publishingState() == publishingStates.notStarted -->
+                <!-- ko if: status() == statuses.succeed && publishingState() == statuses.notStarted -->
                 <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience">
                     <span class="btn-title">Publish online</span>
                 </div>
                 <!-- /ko -->
-                <!-- ko if: status() != statuses.succeed && publishingState() != publishingStates.succeed -->
+                <!-- ko if: status() != statuses.succeed && publishingState() != statuses.succeed -->
                 <div class="package-action-btn btn green publish-btn disabled">
                     <span class="btn-title" data-bind="localize: { text: 'publishOnline' }">Publish online</span>
                 </div>
                 <!-- /ko -->
 
                 <!-- PUBLISHING/REPUBLISHING STATUS -->
-                <!-- ko if: publishingState() == publishingStates.inProgress -->
+                <!-- ko if: publishingState() == statuses.inProgress -->
                 <div class="package-action-btn btn green publishing-btn">
                     <!-- ko if: isFirstPublish() -->
                     <span class="btn-title" data-bind="localize: { text: 'publishing' }">Publishing...</span>
@@ -62,36 +62,36 @@
                 <!-- /ko -->
 
                 <!-- REPUBLISH PACKAGE BUTTON -->
-                <!-- ko if: status() == statuses.succeed && publishingState() == publishingStates.succeed -->
+                <!-- ko if: status() == statuses.succeed && publishingState() == statuses.succeed -->
                 <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience">
                     <span class="btn-title" data-bind="localize: { text: 'republishOnline' }">Republish online</span>
                 </div>
                 <!-- /ko -->
-                <!-- ko if: status() != statuses.succeed && publishingState() == publishingStates.succeed -->
+                <!-- ko if: status() != statuses.succeed && publishingState() == statuses.succeed -->
                 <div class="package-action-btn btn green publish-btn disabled">
                     <span class="btn-title" data-bind="localize: { text: 'republishOnline' }">Republish online</span>
                 </div>
                 <!-- /ko -->
             </aside>
             <aside class="actions-right-column clearfix">
-                <div class="action-arrow right" data-bind="css: { disabled: (status() == statuses.notStarted) || (status() == statuses.inProgress) || (publishingState() == publishingStates.inProgress) }">
+                <div class="action-arrow right" data-bind="css: { disabled: (status() == statuses.notStarted) || (status() == statuses.inProgress) || (publishingState() == statuses.inProgress) }">
                     <i class="icon-item"></i>
                 </div>
                 <!-- BUILD SUCCESS/ DOWNLOAD BUTTON -->
-                <!-- ko if: status() == statuses.succeed && publishingState() != publishingStates.inProgress -->
+                <!-- ko if: status() == statuses.succeed && publishingState() != statuses.inProgress -->
                 <div class="package-action-btn btn grey download-btn" data-bind="click: downloadExperience">
                     <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
                 </div>
                 <!-- /ko -->
-                <!-- ko if: status() != statuses.succeed || publishingState() == publishingStates.inProgress -->
+                <!-- ko if: status() != statuses.succeed || publishingState() == statuses.inProgress -->
                 <div class="package-action-btn btn grey download-btn disabled">
                     <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
                 </div>
                 <!-- /ko -->
             </aside>
             <div class="copy-link-control clear clearfix">
-                <!--<div class="btn-small btn grey" data-bind="css: { disabled: !(status() == statuses.succeed && publishingState() == publishingStates.succeed)}">Copy link</div>-->
-                <div class="copy-link-input-wrapper" data-bind="css: { disabled: !(status() == statuses.succeed && publishingState() == publishingStates.succeed) }">
+                <!--<div class="btn-small btn grey" data-bind="css: { disabled: !(status() == statuses.succeed && publishingState() == statuses.succeed)}">Copy link</div>-->
+                <div class="copy-link-input-wrapper" data-bind="css: { disabled: !(status() == statuses.succeed && publishingState() == statuses.succeed) }">
                     <input class="copy-link-input" type="text" data-bind="value: publishedPackageUrl()" />
                 </div>
             </div>
