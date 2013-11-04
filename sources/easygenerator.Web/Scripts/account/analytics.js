@@ -10,6 +10,8 @@
                 var mixpanel = window.mixpanel;
                 if (mixpanel) {
                     var username = eventProperties.username;
+                    var properties = {};
+
                     if (username) {
                         mixpanel.identify(username);
                         if (eventName == application.constants.events.signup) {
@@ -26,8 +28,10 @@
                                 "$last_login": new Date()
                             });
                         }
+
+                        properties.Email = username;
                     }
-                    mixpanel.track(eventName, {}, function () {
+                    mixpanel.track(eventName, properties, function () {
                         deferred.resolve();
                     });
 
