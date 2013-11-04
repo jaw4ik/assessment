@@ -49,7 +49,7 @@
                         </div>
                         <div class="list-item-logo">
                             <span class="list-item-logo-image-wrapper">
-                                <img class="list-item-logo-image" alt="" data-bind="attr: { src: image }" src="" />   
+                                <img class="list-item-logo-image" alt="" data-bind="attr: { src: image }" src="" />
                             </span>
                         </div>
                         <div class="list-item-info">
@@ -83,28 +83,23 @@
                     </div>
                     <!-- ko if: showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.inProgress -->
                     <div class="experience-status-container">
-                        <div class="experience-status-holder">
-                            <!-- ko if: isFirstBuild -->
-                            <div class="experience-text building" data-bind="localize: { text: 'creatingStatus' }"></div>
-                            <!-- /ko -->
-                            <!-- ko ifnot: isFirstBuild -->
-                            <div class="experience-text building" data-bind="localize: { text: 'updatingStatus' }"></div>
-                            <!-- /ko -->
-                        </div>
+                        <!-- ko if: isFirstBuild -->
+                        <div class="experience-text building" data-bind="localize: { text: 'creatingStatus' }"></div>
+                        <!-- /ko -->
+                        <!-- ko ifnot: isFirstBuild -->
+                        <div class="experience-text building" data-bind="localize: { text: 'updatingStatus' }"></div>
+                        <!-- /ko -->
+
                     </div>
                     <!-- /ko -->
                     <!-- ko if: showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.succeed -->
                     <div class="experience-status-container" data-bind="event: { mouseover: $parent.enableOpenExperience }">
-                        <div class="experience-status-holder">
-                            <div class="experience-text complete" data-bind="localize: { text: 'experienceCompleteStatus' }"></div>
-                        </div>
+                        <div class="experience-text complete" data-bind="localize: { text: 'experienceCompleteStatus' }"></div>
                     </div>
                     <!-- /ko -->
                     <!-- ko if: showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.failed -->
                     <div class="experience-status-container" data-bind="event: { mouseover: $parent.enableOpenExperience }">
-                        <div class="experience-status-holder">
-                            <div class="experience-text failed" data-bind="localize: { text: 'experienceFailedStatus' }"></div>
-                        </div>
+                        <div class="experience-text failed" data-bind="localize: { text: 'experienceFailedStatus' }"></div>
                     </div>
                     <!-- /ko -->
                 </li>

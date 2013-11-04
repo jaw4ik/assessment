@@ -32,9 +32,9 @@
     white-space: nowrap;
 }
 
-.package-actions-block .btn-title:hover {
-    text-decoration: underline;
-}
+    .package-actions-block .btn-title:hover {
+        text-decoration: underline;
+    }
 
     .package-actions-block .btn-title:after {
         content: '';
@@ -54,9 +54,9 @@
     margin-bottom: 15px;
 }
 
-.experience-action.create-package-btn:hover {
-    opacity: 1;
-}
+    .experience-action.create-package-btn:hover {
+        opacity: 1;
+    }
 
     .experience-action.create-package-btn .btn-title:after {
         background-position: -212px -82px;
@@ -67,9 +67,9 @@
     opacity: 0.8;
 }
 
-.experience-action.download-btn:hover {
-    opacity: 1;
-}
+    .experience-action.download-btn:hover {
+        opacity: 1;
+    }
 
     .experience-action.download-btn .btn-title:after {
         background-position: -234px -82px;
@@ -85,26 +85,21 @@
     left: 0;
     height: 100%;
     width: 100%;
+    padding-top: 60px;
     background: rgba(255,255,255,0.8);
     text-align: center;
     display: table-cell;
     vertical-align: middle;
 }
 
-.experience-status-holder {
-    display: inline-block;
-    position: relative;
-    top: 50%;
-    margin-top: -15px;
-    height: 30px;
-    color: #303133;
-    font-size: 18px;
-    font-family: 'OpenSans-Semibold';
-}
-
 .experience-text {
     display: inline-block;
     position: relative;
+    vertical-align: top;
+    line-height: 30px;
+    color: #303133;
+    font-size: 18px;
+    font-family: 'OpenSans-Semibold';
     padding-left: 40px;
 }
 
@@ -112,7 +107,7 @@
         content: '';
         display: block;
         position: absolute;
-        top: -1px;
+        top: 2px;
         left: 0;
         height: 32px;
         width: 32px;
