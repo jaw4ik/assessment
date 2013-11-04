@@ -153,6 +153,9 @@
   <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
     <value>Wir konnten leider nicht verifizieren, ob dieser Benutzer eine Kenntwortrücksetzung angefordert hat. Bitte starten Sie die Rücksetzungsprozedur erneut.</value>
   </data>
+  <data name="CountryCaption" xml:space="preserve">
+    <value>Land</value>
+  </data>
   <data name="CreateAccountTitle" xml:space="preserve">
     <value>Konto erstellen</value>
   </data>

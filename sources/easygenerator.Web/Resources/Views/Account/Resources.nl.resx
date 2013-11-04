@@ -153,6 +153,9 @@
   <data name="CouldNotVerifyPasswordRecovery" xml:space="preserve">
     <value>Helaas. We kunnen niet verifiëren dat deze gebruiker heeft verzocht om het wachtwoord opnieuw in te stellen. Start de herstelprocedure opnieuw.</value>
   </data>
+  <data name="CountryCaption" xml:space="preserve">
+    <value>Land</value>
+  </data>
   <data name="CreateAccountTitle" xml:space="preserve">
     <value>Account maken</value>
   </data>
