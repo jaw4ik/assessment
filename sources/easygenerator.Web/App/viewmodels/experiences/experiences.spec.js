@@ -861,7 +861,46 @@
 
             });
 
-            describe('when experience build was finished', function () {
+            describe('when experience build completed', function () {
+
+                var experienceVm;
+
+                beforeEach(function () {
+                    experienceVm = {
+                        id: 'experienceId',
+                        packageUrl: ko.observable('packageUrl'),
+                        buildingStatus: ko.observable(constants.statuses.inProgress)
+                    };
+                    viewModel.experiences([experienceVm]);
+                });
+
+                it('should change status of the corresponding experience to \'success\'', function () {
+                    app.trigger(constants.messages.experience.build.completed, { id: experienceVm.id });
+                    expect(experienceVm.buildingStatus()).toEqual(constants.statuses.succeed);
+                });
+
+                it('should change packageUrl of the corresponding experience', function () {
+                    var packageUrl = "http://xxx.com";
+                    app.trigger(constants.messages.experience.build.completed, { id: experienceVm.id, packageUrl: packageUrl });
+
+                    expect(experienceVm.packageUrl()).toEqual(packageUrl);
+                });
+
+                it('should not change status of other experiences', function () {
+                    app.trigger(constants.messages.experience.build.completed, { id: '100500' });
+                    expect(experienceVm.buildingStatus()).toEqual(constants.statuses.inProgress);
+                });
+
+                it('should not change packageUrl of other experiences', function () {
+                    var packageUrl = "http://xxx.com";
+                    app.trigger(constants.messages.experience.build.completed, { id: '100500', packageUrl: packageUrl });
+
+                    expect(experienceVm.packageUrl()).toEqual('packageUrl');
+                });
+
+            });
+
+            describe('when experience build failed', function () {
 
                 var experienceVm;
 
@@ -870,40 +909,28 @@
                         id: 'experienceId',
                         packageUrl: ko.observable('packageUrl'),
                         buildingStatus: ko.observable(constants.statuses.inProgress),
-                        showBuildingStatus: ko.observable(false)
                     };
                     viewModel.experiences([experienceVm]);
                 });
 
-                it('should change status of the corresponding experience', function () {
-                    app.trigger(constants.messages.experience.build.finished, { id: experienceVm.id, buildingStatus: constants.statuses.failed });
+                it('should change status of the corresponding experience to \'failed\'', function () {
+                    app.trigger(constants.messages.experience.build.failed, experienceVm.id);
                     expect(experienceVm.buildingStatus()).toEqual(constants.statuses.failed);
                 });
 
-                it('should change packageUrl of the corresponding experience', function () {
-                    var packageUrl = "http://xxx.com";
-                    app.trigger(constants.messages.experience.build.finished, {
-                        id: experienceVm.id,
-                        buildingStatus: constants.statuses.failed,
-                        packageUrl: packageUrl
-                    });
-
-                    expect(experienceVm.packageUrl()).toEqual(packageUrl);
+                it('should remove packageUrl of the corresponding experience', function () {
+                    app.trigger(constants.messages.experience.build.failed, experienceVm.id);
+                    expect(experienceVm.packageUrl()).toEqual("");
                 });
 
                 it('should not change status of other experiences', function () {
-                    app.trigger(constants.messages.experience.build.finished, { id: '100500', buildingStatus: constants.statuses.failed });
+                    app.trigger(constants.messages.experience.build.failed, '100500');
                     expect(experienceVm.buildingStatus()).toEqual(constants.statuses.inProgress);
                 });
 
-                it('should not change packageUrl of other experiences', function () {
-                    var packageUrl = "http://xxx.com";
-                    app.trigger(constants.messages.experience.build.finished, {
-                        id: '100500',
-                        buildingStatus: constants.statuses.failed,
-                        packageUrl: packageUrl
-                    });
-                    expect(experienceVm.packageUrl()).toEqual('packageUrl');
+                it('should not remove packageUrl of other experiences', function () {
+                    app.trigger(constants.messages.experience.build.failed, '100500');
+                    expect(experienceVm.packageUrl()).toEqual("packageUrl");
                 });
 
             });

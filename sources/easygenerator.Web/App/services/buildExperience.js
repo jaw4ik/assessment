@@ -1,104 +1,107 @@
-﻿define(['durandal/app', 'plugins/http', 'repositories/experienceRepository', 'repositories/templateRepository', 'constants'], function (app, http, repository, templateRepository, constants) {
+﻿define(['durandal/app', 'plugins/http', 'repositories/experienceRepository', 'localization/localizationManager', 'constants'],
+    function (app, http, repository, localizationManager, constants) {
 
-    var build = function (experienceId) {
-        var deferred = Q.defer();
+        var build = function (experienceId) {
+            var deferred = Q.defer();
 
-        repository.getById(experienceId).then(function (experience) {
-            if (_.isNull(experience)) {
-                deferred.reject('Experience was not found');
-                return;
-            }
+            repository.getById(experienceId).then(function (experience) {
+                if (_.isNull(experience)) {
+                    deferred.reject('Experience was not found');
+                    return;
+                }
 
-            if (experience.buildingStatus == constants.buildingStatuses.inProgress) {
-                deferred.reject('Experience is already building');
-                return;
-            }
+                if (experience.buildingStatus == constants.buildingStatuses.inProgress) {
+                    deferred.reject('Experience is already building');
+                    return;
+                }
 
-            experience.buildingStatus = constants.buildingStatuses.inProgress;
+                experience.buildingStatus = constants.buildingStatuses.inProgress;
 
-            app.trigger(constants.messages.experience.build.started, experience);
+                app.trigger(constants.messages.experience.build.started, experience);
 
-            http.post('experience/build', { experienceId: experience.id })
-                .done(function (response) {
-                    if (_.isUndefined(response) || _.isUndefined(response.success)) {
-                        deferred.reject('Response has invalid format');
-                    }
-                    if (response.success && response.data != undefined) {
-                        experience.buildingStatus = constants.buildingStatuses.succeed;
-                        experience.packageUrl = response.data.PackageUrl;
-                        experience.builtOn = new Date(parseInt(response.data.BuildOn.substr(6), 10));
-                        deferred.resolve(experience);
-                    } else {
+                http.post('experience/build', { experienceId: experience.id })
+                    .done(function(response) {
+                        if (_.isUndefined(response) || _.isUndefined(response.success)) {
+                            deferred.reject('Response has invalid format');
+                        }
+                        if (response.success && response.data != undefined) {
+                            experience.buildingStatus = constants.buildingStatuses.succeed;
+                            experience.packageUrl = response.data.PackageUrl;
+                            experience.builtOn = new Date(parseInt(response.data.BuildOn.substr(6), 10));
+                            app.trigger(constants.messages.experience.build.completed, experience);
+                            deferred.resolve(experience);
+                        } else {
+                            experience.buildingStatus = constants.buildingStatuses.failed;
+                            experience.packageUrl = '';
+                            var message = response.resourceKey ? localizationManager.localize(response.resourceKey) : response.message;
+                            app.trigger(constants.messages.experience.build.failed, experience.id, message);
+                            deferred.reject(message);
+                        }
+                    })
+                    .fail(function(reason) {
                         experience.buildingStatus = constants.buildingStatuses.failed;
                         experience.packageUrl = '';
-                        deferred.reject("Build failed");
-                    }
-                })
-                .fail(function () {
-                    experience.buildingStatus = constants.buildingStatuses.failed;
-                    experience.packageUrl = '';
-                    deferred.reject("Build failed");
-                }).always(function () {
-                    app.trigger(constants.messages.experience.build.finished, experience);
-                });
-        });
+                        app.trigger(constants.messages.experience.build.failed, experience.id, reason);
+                        deferred.reject(reason);
+                    });
+            });
 
-        return deferred.promise;
+            return deferred.promise;
 
-    };
+        };
 
-    var publish = function (experienceId) {
-        var deferred = Q.defer();
+        var publish = function (experienceId) {
+            var deferred = Q.defer();
 
-        repository.getById(experienceId).then(function (experience) {
-            if (_.isNull(experience)) {
-                deferred.reject('Experience was not found');
-                return;
-            }
+            repository.getById(experienceId).then(function (experience) {
+                if (_.isNull(experience)) {
+                    deferred.reject('Experience was not found');
+                    return;
+                }
 
-            if (experience.buildingStatus == constants.statuses.inProgress) {
-                deferred.reject('Experience is building, cannot publish during building');
-                return;
-            }
+                if (experience.buildingStatus == constants.statuses.inProgress) {
+                    deferred.reject('Experience is building, cannot publish during building');
+                    return;
+                }
 
-            if (experience.publishingState == constants.statuses.inProgress) {
-                deferred.reject('Experience is already publishing');
-                return;
-            }
+                if (experience.publishingState == constants.statuses.inProgress) {
+                    deferred.reject('Experience is already publishing');
+                    return;
+                }
 
-            experience.publishingState = constants.statuses.inProgress;
+                experience.publishingState = constants.statuses.inProgress;
 
-            app.trigger(constants.messages.experience.publish.started, experience);
-            
-            http.post('experience/publish', { experienceId: experience.id })
-                .done(function (response) {
-                    if (_.isUndefined(response) || _.isUndefined(response.success)) {
-                        deferred.reject('Response has invalid format');
-                    }
-                    if (response.success && response.data != undefined) {
-                        experience.publishingState = constants.statuses.succeed;
-                        experience.publishedPackageUrl = response.data.PublishedPackageUrl;
-                        deferred.resolve(experience);
-                    } else {
+                app.trigger(constants.messages.experience.publish.started, experience);
+
+                http.post('experience/publish', { experienceId: experience.id })
+                    .done(function (response) {
+                        if (_.isUndefined(response) || _.isUndefined(response.success)) {
+                            deferred.reject('Response has invalid format');
+                        }
+                        if (response.success && response.data != undefined) {
+                            experience.publishingState = constants.statuses.succeed;
+                            experience.publishedPackageUrl = response.data.PublishedPackageUrl;
+                            deferred.resolve(experience);
+                        } else {
+                            experience.publishingState = constants.statuses.failed;
+                            experience.publishedPackageUrl = '';
+                            deferred.reject("Publish failed");
+                        }
+                    })
+                    .fail(function () {
                         experience.publishingState = constants.statuses.failed;
                         experience.publishedPackageUrl = '';
                         deferred.reject("Publish failed");
-                    }
-                })
-                .fail(function () {
-                    experience.publishingState = constants.statuses.failed;
-                    experience.publishedPackageUrl = '';
-                    deferred.reject("Publish failed");
-                }).always(function () {
-                    app.trigger(constants.messages.experience.publish.finished, experience);
-                });;
-        });
+                    }).always(function () {
+                        app.trigger(constants.messages.experience.publish.finished, experience);
+                    });;
+            });
 
-        return deferred.promise;
-    };
+            return deferred.promise;
+        };
 
-    return {
-        build: build,
-        publish: publish
-    };
-});
+        return {
+            build: build,
+            publish: publish
+        };
+    });

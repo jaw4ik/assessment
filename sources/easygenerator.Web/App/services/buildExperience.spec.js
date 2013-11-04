@@ -6,7 +6,7 @@
             app = require('durandal/app'),
             constants = require('constants'),
             repository = require('repositories/experienceRepository'),
-            templateRepository = require('repositories/templateRepository'),
+            localizationManager = require('localization/localizationManager'),
             http = require('plugins/http');
 
         describe('service [buildExperience]', function () {
@@ -175,6 +175,17 @@
                                             });
                                         });
 
+                                        it('should trigger \'experience:build-completed\' event', function () {
+                                            var promise = service.build();
+
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.build.completed, experience);
+                                            });
+                                        });
+
                                         it('should resolve promise with true', function () {
                                             var promise = service.build();
 
@@ -216,19 +227,78 @@
                                             });
                                         });
 
-                                        it('should reject promise ', function () {
-                                            var promise = service.build();
+                                        describe('and response.resourceKey is a string', function () {
 
-                                            var buildResuslt = { success: false };
+                                            var lozalizedMessage = 'localized message';
 
-                                            post.resolve(buildResuslt);
-
-                                            waitsFor(function () {
-                                                return !promise.isPending();
+                                            beforeEach(function () {
+                                                spyOn(localizationManager, 'localize').andReturn(lozalizedMessage);
                                             });
-                                            runs(function () {
-                                                expect(promise).toBeRejectedWith("Build failed");
+
+                                            it('should trigger \'experience:build-failed\' event with localized message', function () {
+                                                var promise = service.build();
+
+                                                var buildResult = { success: false, resourceKey: 'message' };
+
+                                                post.resolve(buildResult);
+
+                                                waitsFor(function () {
+                                                    return !promise.isPending();
+                                                });
+                                                runs(function () {
+                                                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.build.failed, experience.id, lozalizedMessage);
+                                                });
                                             });
+
+                                            it('should reject promise with localized message', function () {
+                                                var promise = service.build();
+
+                                                var buildResult = { success: false, resourceKey: 'message' };
+
+                                                post.resolve(buildResult);
+
+                                                waitsFor(function () {
+                                                    return !promise.isPending();
+                                                });
+                                                runs(function () {
+                                                    expect(promise).toBeRejectedWith(lozalizedMessage);
+                                                });
+                                            });
+
+                                        });
+
+                                        describe('and response.resourceKey does not exist', function() {
+
+                                            it('should trigger \'experience:build-failed\' event with response message', function () {
+                                                var promise = service.build();
+
+                                                var buildResult = { success: false, message: 'message' };
+
+                                                post.resolve(buildResult);
+
+                                                waitsFor(function () {
+                                                    return !promise.isPending();
+                                                });
+                                                runs(function () {
+                                                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.build.failed, experience.id, buildResult.message);
+                                                });
+                                            });
+
+                                            it('should reject promise with response message', function () {
+                                                var promise = service.build();
+
+                                                var buildResult = { success: false, message: 'message' };
+
+                                                post.resolve(buildResult);
+
+                                                waitsFor(function () {
+                                                    return !promise.isPending();
+                                                });
+                                                runs(function () {
+                                                    expect(promise).toBeRejectedWith(buildResult.message);
+                                                });
+                                            });
+                                            
                                         });
 
                                     });
@@ -249,18 +319,6 @@
                                         });
                                     });
 
-                                    it('should reject promise', function () {
-                                        var promise = service.build();
-
-                                        post.reject();
-
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(promise).toBeRejectedWith("Build failed");
-                                        });
-                                    });
 
                                     it('should set experience packageUrl to \'\'', function () {
                                         var promise = service.build();
@@ -275,21 +333,31 @@
                                         });
                                     });
 
-                                });
-
-                                describe('and request to server has ended', function () {
-
-                                    it('should trigger \'experience:build-finished\' event', function () {
-                                        app.trigger.reset();
+                                    it('should trigger \'experience:build-failed\' event', function () {
+                                        var reason = 'reason';
                                         var promise = service.build();
 
-                                        post.reject();
+                                        post.reject(reason);
 
                                         waitsFor(function () {
                                             return !promise.isPending();
                                         });
                                         runs(function () {
-                                            expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.build.finished, experience);
+                                            expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.build.failed, experience.id, reason);
+                                        });
+                                    });
+
+                                    it('should reject promise', function () {
+                                        var reason = 'reason';
+                                        var promise = service.build();
+
+                                        post.reject(reason);
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(promise).toBeRejectedWith(reason);
                                         });
                                     });
 

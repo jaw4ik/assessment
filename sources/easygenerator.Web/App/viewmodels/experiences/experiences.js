@@ -208,27 +208,40 @@
             });
         };
 
-        app.on(constants.messages.experience.build.started).then(function (experience) {
-            var expVm = _.find(viewModel.experiences(), function (item) {
-                return item.id == experience.id;
-            });
+        //#region App-wide messaging
 
-            if (_.isObject(expVm)) {
+        app.on(constants.messages.experience.build.started).then(function (experience) {
+            updateExperienceViewModelIfExists(experience.id, function (expVm) {
                 expVm.buildingStatus(constants.statuses.inProgress);
                 expVm.showBuildingStatus(true);
-            }
+            });
         });
 
-        app.on(constants.messages.experience.build.finished, function (experience) {
+        app.on(constants.messages.experience.build.completed, function (experience) {
+            updateExperienceViewModelIfExists(experience.id, function (expVm) {
+                expVm.buildingStatus(constants.buildingStatuses.succeed);
+                expVm.packageUrl(experience.packageUrl);
+            });
+        });
+
+        app.on(constants.messages.experience.build.failed, function (experienceId) {
+            updateExperienceViewModelIfExists(experienceId, function (expVm) {
+                expVm.buildingStatus(constants.buildingStatuses.failed);
+                expVm.packageUrl("");
+            });
+        });
+
+        function updateExperienceViewModelIfExists(experienceId, handler) {
             var expVm = _.find(viewModel.experiences(), function (item) {
-                return item.id == experience.id;
+                return item.id == experienceId;
             });
 
             if (_.isObject(expVm)) {
-                expVm.buildingStatus(experience.buildingStatus);
-                expVm.packageUrl(experience.packageUrl);
+                handler(expVm);
             }
-        });
+        }
+
+        //#endregion App-wide messaging
 
         return viewModel;
     }

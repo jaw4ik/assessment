@@ -1,48 +1,58 @@
-﻿define(['durandal/activator', 'viewmodels/experiences/define', 'viewmodels/experiences/design', 'viewmodels/experiences/deliver', 'clientContext'],
-    function (activator, define, design, deliver, clientContext) {
+﻿define(['durandal/activator', 'viewmodels/experiences/define', 'viewmodels/experiences/design', 'viewmodels/experiences/deliver', 'clientContext', 'durandal/app', 'notify', 'constants'],
+    function (activator, define, design, deliver, clientContext, app, notify, constants) {
 
 
-        var
-            activeStep = activator.create(),
+        var viewModel = {
+            id: '',
+            activeStep: activator.create(),
 
-            id = null,
-
-            goToDefine = function () {
-                activeStep.activateItem(define, this.id);
-            },
-
-            goToDesign = function () {
-                activeStep.activateItem(design, this.id);
-            },
-
-            goToDeliver = function () {
-                activeStep.activateItem(deliver, this.id);
-            },
-
-            activate = function (experienceId) {
-                var that = this;
-
-                return Q.fcall(function() {
-                    activeStep.activateItem({});
-                    that.id = experienceId;
-                    goToDefine.call(that);
-
-                    clientContext.set('lastVistedExperience', experienceId);
-                    clientContext.set('lastVisitedObjective', null);
-                });
-            }
-        ;
-
-        return {
-            activeStep: activeStep,
             steps: [define, design, deliver],
 
             goToDefine: goToDefine,
             goToDesign: goToDesign,
             goToDeliver: goToDeliver,
 
-            activate: activate
+            activate: activate,
+            deactivate: deactivate
         };
 
+
+        function goToDefine() {
+            viewModel.activeStep.activateItem(define, viewModel.id);
+        }
+
+        function goToDesign() {
+            viewModel.activeStep.activateItem(design, viewModel.id);
+        }
+
+        function goToDeliver() {
+            viewModel.activeStep.activateItem(deliver, viewModel.id);
+        }
+
+        function activate(experienceId) {
+            return Q.fcall(function () {
+                viewModel.activeStep.activateItem({});
+                viewModel.id = experienceId;
+                viewModel.goToDefine();
+
+                clientContext.set('lastVistedExperience', experienceId);
+                clientContext.set('lastVisitedObjective', null);
+            });
+        }
+
+        function deactivate() {
+            return Q.fcall(function () {
+                viewModel.id = '';
+            });
+        }
+
+
+        app.on(constants.messages.experience.build.failed, function (experienceId, message) {
+            if (experienceId == viewModel.id) {
+                notify.error(message);
+            }
+        });
+
+        return viewModel;
     }
 );

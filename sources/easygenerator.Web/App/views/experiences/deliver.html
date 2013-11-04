@@ -3,13 +3,6 @@
         <div class="package-actions-content clearfix">
             <aside class="actions-left-column">
                 <div class="package-action-btn-holder">
-                    <!-- FAILED MESSAGE -->
-                    <!-- ko if: status() == statuses.failed -->
-                    <div class="notification error package-failed">
-                        <span class="notification-text" data-bind="localize: { text: 'publishFailed' }">Failed. Try again.</span>
-                    </div>
-                    <!-- /ko -->
-
                     <!-- CREATE PACKAGE BUTTON -->
                     <!-- ko if: (status() == statuses.notStarted || status() == statuses.failed) && !packageExists() -->
                     <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience">

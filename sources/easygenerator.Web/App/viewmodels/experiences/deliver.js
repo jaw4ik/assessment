@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'repositories/experienceRepository', 'plugins/router', 'services/buildExperience', 'eventTracker', 'constants'], function (app, repository, router, service, eventTracker, constants) {
+﻿define(['durandal/app', 'repositories/experienceRepository', 'plugins/router', 'services/buildExperience', 'notify', 'eventTracker', 'constants'], function (app, repository, router, service, notify, eventTracker, constants) {
 
     var
         events = {
@@ -24,21 +24,22 @@
         activate: activate
     };
 
-  
+
     viewModel.successfullyPublished = ko.computed(function () {
         return this.status() == this.statuses.succeed && this.publishingState() == this.statuses.succeed;
     }, viewModel);
-    
+
     viewModel.packageExists = ko.computed(function () {
         return !_.isNullOrUndefined(this.packageUrl()) && !_.isEmptyOrWhitespace(this.packageUrl());
     }, viewModel);
-    
+
     viewModel.publishPackageExists = ko.computed(function () {
         return !_.isNullOrUndefined(this.publishedPackageUrl()) && !_.isEmptyOrWhitespace(this.publishedPackageUrl());
     }, viewModel);
 
     function buildExperience() {
         sendEvent(events.buildExperience);
+        notify.hide();
         service.build(viewModel.id);
     }
 
@@ -72,13 +73,21 @@
         }
     });
 
-    app.on(constants.messages.experience.build.finished, function (experience) {
+    app.on(constants.messages.experience.build.completed, function (experience) {
         if (experience.id == viewModel.id) {
-            viewModel.status(experience.buildingStatus);
+            viewModel.status(constants.statuses.succeed);
             viewModel.packageUrl(experience.packageUrl);
         }
     });
-    
+
+    app.on(constants.messages.experience.build.failed, function (experienceId, message) {
+        if (experienceId == viewModel.id) {
+            viewModel.status(constants.statuses.failed);
+            viewModel.packageUrl("");
+        }
+    });
+
+
     app.on(constants.messages.experience.publish.started).then(function (experience) {
         if (experience.id == viewModel.id) {
             viewModel.publishingState(constants.statuses.inProgress);

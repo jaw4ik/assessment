@@ -36,7 +36,8 @@
                 spyOn(eventTracker, 'publish');
                 spyOn(router, 'navigate');
                 spyOn(router, 'replace');
-                spyOn(notify, 'info');
+                spyOn(notify, 'hide');
+                spyOn(notify, 'error');
             });
 
             it('should be object', function () {
@@ -92,7 +93,7 @@
                 it('should be computed', function () {
                     expect(viewModel.publishPackageExists).toBeComputed();
                 });
-                
+
                 describe('when publishPackageUrl is not defined', function () {
 
                     it('should be false', function () {
@@ -183,6 +184,12 @@
                 it('should send event \'Build experience\'', function () {
                     viewModel.buildExperience();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Build experience');
+                });
+
+                it('should hide notification', function () {
+                    notify.hide.reset();
+                    viewModel.buildExperience();
+                    expect(notify.hide).toHaveBeenCalled();
                 });
 
                 it('should start build of current experience', function () {
@@ -404,16 +411,16 @@
 
             });
 
-            describe('when current experience build was finished in any part of application', function () {
+            describe('when current experience build completed in any part of application', function () {
 
-                it('should update current status to the corresponding one', function () {
+                it('should update current status to \'success\'', function () {
                     viewModel.id = experience.id;
                     viewModel.status("");
 
-                    experience.buildingStatus = constants.statuses.failed;
-                    app.trigger(constants.messages.experience.build.finished, experience);
+                    experience.buildingStatus = constants.statuses.succeed;
+                    app.trigger(constants.messages.experience.build.completed, experience);
 
-                    expect(viewModel.status()).toEqual(constants.statuses.failed);
+                    expect(viewModel.status()).toEqual(constants.statuses.succeed);
                 });
 
                 it('should update current packageUrl to the corresponding one', function () {
@@ -421,19 +428,19 @@
                     viewModel.packageUrl("");
 
                     experience.packageUrl = "http://xxx.com";
-                    app.trigger(constants.messages.experience.build.finished, experience);
+                    app.trigger(constants.messages.experience.build.completed, experience);
 
                     expect(viewModel.packageUrl()).toEqual(experience.packageUrl);
                 });
 
             });
 
-            describe('when any other experience build was finished in any part of application', function () {
+            describe('when any other experience build completed in any part of application', function () {
 
                 it('should not update current  status', function () {
                     viewModel.id = experience.id;
                     viewModel.status(constants.statuses.notStarted);
-                    app.trigger(constants.messages.experience.build.finished, { id: '100500' });
+                    app.trigger(constants.messages.experience.build.completed, { id: '100500' });
 
                     expect(viewModel.status()).toEqual(constants.statuses.notStarted);
                 });
@@ -441,13 +448,58 @@
                 it('should not update current packageUrl', function () {
                     viewModel.id = experience.id;
                     viewModel.packageUrl("http://xxx.com");
-                    app.trigger(constants.messages.experience.build.finished, { id: '100500' });
+                    app.trigger(constants.messages.experience.build.completed, { id: '100500' });
 
                     expect(viewModel.packageUrl()).toEqual("http://xxx.com");
                 });
 
             });
 
+            describe('when current experience build failed in any part of application', function () {
+
+                var message = "message";
+
+                it('should update current status to \'failed\'', function () {
+                    viewModel.id = experience.id;
+                    viewModel.status("");
+
+                    app.trigger(constants.messages.experience.build.failed, experience.id, message);
+
+                    expect(viewModel.status()).toEqual(constants.statuses.failed);
+                });
+
+                it('should remove packageUrl', function () {
+                    viewModel.id = experience.id;
+                    viewModel.packageUrl("packageUrl");
+
+                    app.trigger(constants.messages.experience.build.failed, experience.id, message);
+
+                    expect(viewModel.packageUrl()).toEqual("");
+                });
+
+            });
+
+            describe('when any other experience build failed in any part of application', function () {
+
+                it('should not update current status to \'failed\'', function () {
+                    viewModel.id = experience.id;
+                    viewModel.status("");
+
+                    app.trigger(constants.messages.experience.build.failed, '100500');
+
+                    expect(viewModel.status()).toEqual("");
+                });
+
+                it('should not remove packageUrl', function () {
+                    viewModel.id = experience.id;
+                    viewModel.packageUrl("packageUrl");
+
+                    app.trigger(constants.messages.experience.build.failed, '100500');
+
+                    expect(viewModel.packageUrl()).toEqual("packageUrl");
+                });
+
+            });
         });
 
     });

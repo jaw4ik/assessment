@@ -5,12 +5,17 @@
             define = require('viewmodels/experiences/define'),
             design = require('viewmodels/experiences/design'),
             deliver = require('viewmodels/experiences/deliver'),
-            clientContext = require('clientContext');
+            clientContext = require('clientContext'),
+            app = require('durandal/app'),
+            notify = require('notify'),
+            constants = require('constants')
+        ;
 
         describe('viewModel [experience]', function () {
 
             beforeEach(function () {
                 spyOn(viewModel.activeStep, 'activateItem');
+                spyOn(notify, 'error');
             });
 
             it('should be an object', function () {
@@ -31,14 +36,25 @@
                     expect(viewModel.activate).toBeFunction();
                 });
 
-                it('should return promise', function() {
+                it('should return promise', function () {
                     expect(viewModel.activate('SomeId')).toBePromise();
+                });
+
+                it('should set experience id', function () {
+                    var promise = viewModel.activate('SomeId');
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.id).toEqual('SomeId');
+                    });
                 });
 
                 it('should reset active step to define', function () {
                     var promise = viewModel.activate('SomeId');
 
-                    waitsFor(function() {
+                    waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
@@ -50,23 +66,47 @@
                     spyOn(clientContext, 'set');
                     var promise = viewModel.activate('SomeId');
 
-                    waitsFor(function() {
+                    waitsFor(function () {
                         return !promise.isPending();
                     });
-                    runs(function() {
+                    runs(function () {
                         expect(clientContext.set).toHaveBeenCalledWith('lastVistedExperience', 'SomeId');
                     });
                 });
-                
-                it('should set reset last visited objective in client context', function () {
+
+                it('should reset last visited objective in client context', function () {
                     spyOn(clientContext, 'set');
                     var promise = viewModel.activate('SomeId');
-                    
-                    waitsFor(function() {
+
+                    waitsFor(function () {
                         return !promise.isPending();
                     });
-                    runs(function() {
+                    runs(function () {
                         expect(clientContext.set).toHaveBeenCalledWith('lastVisitedObjective', null);
+                    });
+                });
+
+            });
+
+            describe('deactivate:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.deactivate).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(viewModel.deactivate()).toBePromise();
+                });
+
+                it('should set experience id to an empty string', function () {
+                    viewModel.id = 'SomeId';
+                    var promise = viewModel.deactivate();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.id).toEqual('');
                     });
                 });
 
@@ -111,6 +151,33 @@
 
             });
 
+            describe('when current experience build failed', function () {
+
+                var message = "message";
+
+                it('should show notification', function () {
+                    viewModel.id = 'id';
+                    notify.error.reset();
+
+                    app.trigger(constants.messages.experience.build.failed, viewModel.id, message);
+
+                    expect(notify.error).toHaveBeenCalledWith(message);
+                });
+
+            });
+
+            describe('when any other experience build failed', function () {
+
+                it('should not show notification', function () {
+                    viewModel.id = 'id';
+                    notify.error.reset();
+
+                    app.trigger(constants.messages.experience.build.failed, '100500');
+
+                    expect(notify.error).not.toHaveBeenCalled();
+                });
+
+            });
         });
 
     }

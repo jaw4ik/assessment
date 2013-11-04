@@ -13,7 +13,7 @@
                 succeed: 'succeed',
                 failed: 'failed'
             },
-            
+
             buildingStatuses: {
                 notStarted: 'notStarted',
                 inProgress: 'inProgress',
@@ -37,7 +37,8 @@
                 experience: {
                     build: {
                         started: 'experience:build-started',
-                        finished: 'experience:build-finished'
+                        completed: 'experience:build-completed',
+                        failed: 'experience:build-failed',
                     },
                     publish: {
                         started: 'experience:publish-started',

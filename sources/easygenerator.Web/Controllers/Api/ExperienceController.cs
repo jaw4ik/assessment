@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
@@ -61,7 +62,9 @@ namespace easygenerator.Web.Controllers.Api
         public ActionResult Build(Experience experience)
         {
             if (experience == null)
-                return JsonError(Constants.Errors.ExperienceNotFoundError);
+            {
+                return JsonLocalizableError(Constants.Errors.ExperienceNotFoundError, Constants.Errors.ExperienceNotFoundResourceKey);
+            }
 
             var result = _builder.Build(experience);
 
