@@ -119,6 +119,10 @@
     display: table-cell;
 }
 
+.package-action-btn-holder {
+    position: relative;
+}
+
 .package-action-btn {
     height: auto;
     line-height: normal;
@@ -159,7 +163,6 @@
     font-size: 14px;
     padding: 10px;
 }
-
 
 .copy-link-control {
     padding-top: 10px;
@@ -388,6 +391,24 @@
 }
 
 /*#endregion Experience statuses*/
+
+/*#region FAILED NOTIFICATION*/
+    .experience .package-failed {
+        width: 100%;
+        position: absolute;
+        bottom: 100%;
+        margin-bottom: 2px;
+    }
+
+    .package-failed .notification-text {
+        position: relative;
+        font-size: 13px;
+    }
+    
+    .package-failed .notification-text:after {
+        left: -25px;
+    }
+/*#endregion FAILED NOTIFICATION*/
 
 .experience-image {
     width: 200px;
