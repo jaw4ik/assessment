@@ -17,7 +17,7 @@ namespace easygenerator.Web.Publish
         private readonly PhysicalFileManager _fileManager;
         private readonly IPublishDispatcher _publishDispatcher;
         private readonly IUrlHelperWrapper _urlHelper;
-        private const string PublishedPackageUrlPattern = "~/storage/{0}";
+        private const string PublishedPackageUrlPattern = "~/storage/{0}/";
 
         public ExperiencePublisher(PhysicalFileManager fileManager, BuildPathProvider pathProvider, IPublishDispatcher publishDispatcher, IUrlHelperWrapper urlHelper)
         {
