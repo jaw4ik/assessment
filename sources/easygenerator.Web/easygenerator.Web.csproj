@@ -404,6 +404,7 @@
     <Content Include="Scripts\knockoutBindings\cssBinding.js" />
     <Content Include="Scripts\knockoutBindings\dropDownBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToTopBinding.js" />
+    <Content Include="Scripts\knockoutBindings\selectTextBinding.js" />
     <Content Include="Scripts\moment-with-langs.js" />
     <Content Include="Scripts\moment-with-langs.min.js" />
     <Content Include="Scripts\moment.js" />
@@ -1114,8 +1115,8 @@
     <EmbeddedResource Include="Resources\Views\Account\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>AccountRes</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <CustomToolNamespace>Accou</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Error\Resources.de.resx" />
     <EmbeddedResource Include="Resources\Views\Error\Resources.nl.resx">
@@ -1134,7 +1135,7 @@
     <EmbeddedResource Include="Resources\Views\Shared\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>AccountRes</CustomToolNamespace>
+      <CustomToolNamespace>SharedResources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

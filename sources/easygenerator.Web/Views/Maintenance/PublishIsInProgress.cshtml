@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using SharedResources
+
+<!DOCTYPE html>
 <html class="no-js">
 <head>
     <meta charset="utf-8">
@@ -6,9 +8,7 @@
     <meta name="viewport" content="width=640,maximum-scale=1.0">
     <meta name="description" content="">
     <title>easygenerator</title>
-
     @System.Web.Optimization.Styles.Render("~/Content/css")
-
 </head>
 <body>
     <div class="main-container try">
@@ -22,12 +22,8 @@
         <div class="content-wrapper try">
             <div class="maintenance-message-page">
                 <div class="maintenance-message-holder">
-                    <p class="maintenance-message-title">
-                        This learning experience is being updated
-                    </p>
-                    <p class="maintenance-message-error-text">
-                        Please, try again after few minutes
-                    </p>
+                    <p class="maintenance-message-title">@Resources.PublishIsInProgressTitle</p>
+                    <p class="maintenance-message-error-text">@Resources.PublishIsInProgressText</p>
                 </div>
             </div>
         </div>
@@ -35,7 +31,7 @@
     <footer class="footer try">
         <div class="content-wrapper try clearfix">
             <div class="footer-item pull-left">
-                <span class="cursor-default" data-bind="localize: { text: 'CopyrightText' }">Copyright &copy; 2013 easygenerator. All rights reserved.</span>
+                <span class="cursor-default">@Resources.CopyrightText</span>
             </div>
         </div>
     </footer>

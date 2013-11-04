@@ -87,10 +87,46 @@
 
             });
 
-            describe('isFirstPublish:', function () {
+            describe('publishPackageExists:', function () {
 
-                it('should be observable', function () {
-                    expect(viewModel.isFirstPublish).toBeObservable();
+                it('should be computed', function () {
+                    expect(viewModel.publishPackageExists).toBeComputed();
+                });
+                
+                describe('when publishPackageUrl is not defined', function () {
+
+                    it('should be false', function () {
+                        viewModel.publishedPackageUrl(undefined);
+                        expect(viewModel.publishPackageExists()).toBeFalsy();
+                    });
+
+                });
+
+                describe('when publishPackageUrl is empty', function () {
+
+                    it('should be false', function () {
+                        viewModel.publishedPackageUrl("");
+                        expect(viewModel.publishPackageExists()).toBeFalsy();
+                    });
+
+                });
+
+                describe('when publishPackageUrl is whitespace', function () {
+
+                    it('should be false', function () {
+                        viewModel.publishedPackageUrl("    ");
+                        expect(viewModel.publishPackageExists()).toBeFalsy();
+                    });
+
+                });
+
+                describe('when publishPackageUrl is a non-whitespace string', function () {
+
+                    it('should be true', function () {
+                        viewModel.publishedPackageUrl("packageUrl");
+                        expect(viewModel.publishPackageExists()).toBeTruthy();
+                    });
+
                 });
 
             });
@@ -105,16 +141,16 @@
 
             describe('publishingState:', function () {
 
-                it('should be publishingState', function () {
-                    expect(viewModel.isFirstPublish).toBeObservable();
+                it('should be observable', function () {
+                    expect(viewModel.publishingState).toBeObservable();
                 });
 
             });
 
             describe('publishedPackageUrl:', function () {
 
-                it('should be publishedPackageUrl', function () {
-                    expect(viewModel.isFirstPublish).toBeObservable();
+                it('should be observable', function () {
+                    expect(viewModel.publishedPackageUrl).toBeObservable();
                 });
 
             });
@@ -122,7 +158,6 @@
             it('should expose allowed build statuses', function () {
                 expect(viewModel.statuses).toEqual(constants.statuses);
             });
-
 
             describe('buildExperience:', function () {
 
@@ -184,110 +219,10 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Publish experience');
                 });
 
-                it('should change publishingState to \'inProgress\'', function () {
-                    viewModel.publishExperience();
-                    expect(viewModel.publishingState()).toEqual(constants.statuses.inProgress);
-                });
-
                 it('should start publish of current experience', function () {
                     viewModel.id = 1;
                     viewModel.publishExperience();
                     expect(service.publish).toHaveBeenCalledWith(1);
-                });
-
-                describe('when publish is finished successfully', function () {
-
-                    it('should change status to \'succeed\'', function () {
-                        publish.resolve({ publishingState: constants.statuses.succeed, publishedPackageUrl: 'publishedPackageUrl' });
-
-                        viewModel.id = 1;
-                        viewModel.publishExperience();
-                        var promise = publish.promise.fin(function () { });
-
-                        waitsFor(function () {
-                            return promise.isFulfilled();
-                        });
-                        runs(function () {
-                            expect(viewModel.publishingState()).toEqual(constants.statuses.succeed);
-                        });
-
-                    });
-
-                    it('should resolve promise', function () {
-                        publish.resolve({ Success: true, PublishedPackageUrl: "publishedPackageUrl" });
-
-                        viewModel.id = 1;
-                        viewModel.publishExperience();
-                        var promise = publish.promise.fin(function () {
-                        });
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeResolved();
-                        });
-
-                    });
-
-                    it('should be set isFirstPublish to false', function () {
-                        publish.resolve({ Success: true, PublishedPackageUrl: "publishedPackageUrl" });
-
-                        viewModel.id = 1;
-                        viewModel.publishExperience();
-                        var promise = publish.promise.fin(function () {
-                        });
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(viewModel.isFirstPublish()).toBeFalsy();
-                        });
-                    });
-
-                    afterEach(function () {
-                        experience.publishedPackageUrl = '';
-                    });
-
-                });
-
-                describe('when publish is failed', function () {
-
-                    it('should change publishingState to \'failed\'', function () {
-                        publish.reject();
-
-                        viewModel.id = 1;
-                        viewModel.publishExperience();
-
-                        var promise = publish.promise.fin(function () { });
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(viewModel.publishingState()).toEqual(constants.statuses.failed);
-                        });
-
-                    });
-
-                    it('should resolve promise', function () {
-                        publish.reject("Publish failed");
-
-                        viewModel.id = 1;
-                        viewModel.publishExperience();
-
-                        var promise = publish.promise.fin(function () { });
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeRejectedWith("Publish failed");
-                        });
-
-                    });
-
                 });
             });
 
@@ -386,19 +321,6 @@
                         });
                     });
 
-                    it('should set current experience status', function () {
-                        viewModel.status('');
-
-                        var promise = viewModel.activate(experience.id);
-
-                        waitsFor(function () {
-                            return promise.isFulfilled();
-                        });
-                        runs(function () {
-                            expect(viewModel.status()).toEqual(experience.buildingStatus);
-                        });
-                    });
-
                     it('should set current packageUrl', function () {
                         viewModel.packageUrl('');
 
@@ -411,7 +333,6 @@
                             expect(viewModel.packageUrl()).toEqual(experience.packageUrl);
                         });
                     });
-
 
                     it('should set current experience publishingState', function () {
                         viewModel.publishingState('');

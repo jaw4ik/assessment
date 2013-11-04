@@ -38,6 +38,10 @@
                     build: {
                         started: 'experience:build-started',
                         finished: 'experience:build-finished'
+                    },
+                    publish: {
+                        started: 'experience:publish-started',
+                        finished: 'experience:publish-finished'
                     }
                 }
             },

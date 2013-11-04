@@ -68,6 +68,8 @@
 
             experience.publishingState = constants.statuses.inProgress;
 
+            app.trigger(constants.messages.experience.publish.started, experience);
+            
             http.post('experience/publish', { experienceId: experience.id })
                 .done(function (response) {
                     if (_.isUndefined(response) || _.isUndefined(response.success)) {
@@ -87,11 +89,12 @@
                     experience.publishingState = constants.statuses.failed;
                     experience.publishedPackageUrl = '';
                     deferred.reject("Publish failed");
-                });
+                }).always(function () {
+                    app.trigger(constants.messages.experience.publish.finished, experience);
+                });;
         });
 
         return deferred.promise;
-
     };
 
     return {
