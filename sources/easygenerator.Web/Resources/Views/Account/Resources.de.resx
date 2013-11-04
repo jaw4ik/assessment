@@ -266,7 +266,7 @@
     <value>Bei der Bearbeitung Ihrer Anfrage ist ein Fehler aufgetreten:</value>
   </data>
   <data name="RequiredInformation" xml:space="preserve">
-    <value>- Erforderliche Information</value>
+    <value>- erforderliche Information</value>
   </data>
   <data name="RestorePasswordCaption" xml:space="preserve">
     <value>Neues Kennwort eingeben</value>
