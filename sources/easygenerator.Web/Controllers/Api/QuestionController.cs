@@ -38,6 +38,11 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Constants.Errors.ObjectiveNotFoundError, Constants.Errors.ObjectiveNotFoundResourceKey);
             }
 
+            if (question == null)
+            {
+                return JsonLocalizableError(Constants.Errors.QuestionNotFoundError, Constants.Errors.QuestionNotFoundResourceKey);
+            }
+
             objective.RemoveQuestion(question, GetCurrentUsername());
 
             return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });

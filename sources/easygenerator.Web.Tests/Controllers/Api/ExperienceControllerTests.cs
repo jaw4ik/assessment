@@ -107,6 +107,15 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _repository.Received().Remove(experience);
         }
 
+        [TestMethod]
+        public void Delete_ReturnJsonErrorResult_WhenExperienceIsNull()
+        {
+            var result = _controller.Delete(null);
+
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Experience is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("experienceNotFoundError");
+        }
+
         #endregion
 
         #region Build experience

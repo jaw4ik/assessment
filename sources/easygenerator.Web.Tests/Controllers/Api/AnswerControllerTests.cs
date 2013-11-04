@@ -99,6 +99,17 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void Delete_ShouldReturnJsonErrorResult_WnenQuestionIsNotNullAndAnswerIsNull()
+        {
+            var question = Substitute.For<Question>();
+
+            var result = _controller.Delete(question, null);
+
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Answer is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("answerNotFoundError");
+        }
+
+        [TestMethod]
         public void Delete_ShouldRemoveAnswerFromQuestion()
         {
             const string user = "username@easygenerator.com";

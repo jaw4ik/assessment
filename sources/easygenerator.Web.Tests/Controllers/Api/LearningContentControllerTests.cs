@@ -96,6 +96,17 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void Delete_ShouldReturnJsonErrorResult_WnenQuestionIsNotNullAndLearningContentIsNull()
+        {
+            var question = Substitute.For<Question>();
+
+            var result = _controller.Delete(question, null);
+
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Learning Content is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("learningContentNotFoundError");
+        }
+
+        [TestMethod]
         public void Delete_ShouldRemoveLearningContentFromQuestion()
         {
             const string user = "username@easygenerator.com";

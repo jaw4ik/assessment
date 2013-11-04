@@ -156,6 +156,15 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
+        public void Delete_ReturnJsonErrorResult_WhenObjectiveIsNull()
+        {
+            var result = _controller.Delete(null);
+
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
+        }
+
+        [TestMethod]
         public void Delete_ReturnJsonErrorResult_WhenObjectiveIsInExperience()
         {
             var experience = Substitute.For<Experience>();
