@@ -126,4 +126,10 @@
   <data name="PageNotFoundDescription" xml:space="preserve">
     <value>Die Seite, die Sie suchen, wurde leider nicht gefunden. Überprüfen Sie die URL auf Fehler, verwenden Sie die Navigation oben, oder klicken Sie auf den “Start”-Link unten.</value>
   </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Etwas ist nicht korrekt</value>
+  </data>
+  <data name="ServerErrorDescription" xml:space="preserve">
+    <value>Leider ist ein Fehler aufgetreten. Prüfen Sie die URL auf eventuelle Fehler; verwenden Sie die Navigationselemente oben, oder klicken Sie unten auf den Link "Start".</value>
+  </data>
 </root>

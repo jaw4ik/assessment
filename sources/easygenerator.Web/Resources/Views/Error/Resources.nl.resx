@@ -126,4 +126,10 @@
   <data name="PageNotFoundDescription" xml:space="preserve">
     <value>De pagina die u zoekt is onvindbaar. Controleer of de URL klopt, gebruik de bovenstaande navigatieopties of klik hieronder op 'Startpagina'.</value>
   </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Er is iets niet goed</value>
+  </data>
+  <data name="ServerErrorDescription" xml:space="preserve">
+    <value>Er is een fout opgetreden. Controleer of de URL klopt, gebruik de bovenstaande navigatieopties of klik hieronder op 'Startpagina'.</value>
+  </data>
 </root>
