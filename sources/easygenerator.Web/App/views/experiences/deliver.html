@@ -115,7 +115,7 @@
             <!-- ko if: successfullyPublished() -->
             <div class="copy-link-control clear clearfix">
                 <div class="copy-link-input-wrapper" data-bind="css: { disabled: !successfullyPublished() }">
-                    <input class="copy-link-input" type="text" data-bind="value: successfullyPublished() ? publishedPackageUrl() : '', css: { selectable: successfullyPublished() }, selectTextBinding: successfullyPublished" />
+                    <input class="copy-link-input" type="text" readonly="readonly" data-bind="value: successfullyPublished() ? publishedPackageUrl() : '', css: { selectable: successfullyPublished() }, selectTextBinding: successfullyPublished" />
                 </div>
             </div>
             <!-- /ko -->
