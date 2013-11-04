@@ -39,10 +39,12 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Constants.Errors.QuestionNotFoundError, Constants.Errors.QuestionNotFoundResourceKey);
             }
 
-            if (learningContent != null)
+            if (learningContent == null)
             {
-                question.RemoveLearningContent(learningContent, GetCurrentUsername());
+                return JsonLocalizableError(Constants.Errors.LearningContentNotFoundError, Constants.Errors.LearningContentNotFoundResourceKey);
             }
+
+            question.RemoveLearningContent(learningContent, GetCurrentUsername());
 
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }

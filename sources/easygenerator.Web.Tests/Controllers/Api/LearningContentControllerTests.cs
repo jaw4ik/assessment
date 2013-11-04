@@ -84,7 +84,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region Delete
+        #region Delete question
 
         [TestMethod]
         public void Delete_ShouldReturnJsonErrorResult_WnenQuestionIsNull()
@@ -96,14 +96,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Delete_ShouldReturnJsonSuccessResult_WnenLearningContentIsNull()
+        public void Delete_ShouldReturnJsonErrorResult_WnenQuestionIsNotNullAndLearningContentIsNull()
         {
             var question = Substitute.For<Question>();
+
             var result = _controller.Delete(question, null);
 
-            result.Should()
-                .BeJsonSuccessResult()
-                .And.Data.ShouldBeSimilar(new { ModifiedOn = question.ModifiedOn });
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Learning Content is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("learningContentNotFoundError");
         }
 
         [TestMethod]

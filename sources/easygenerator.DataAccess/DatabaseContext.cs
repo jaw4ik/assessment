@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
-using System.Linq;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DataAccess.Migrations;
 
@@ -27,13 +26,12 @@ namespace easygenerator.DataAccess
         public DatabaseContext()
             : this("DefaultConnection")
         {
+
         }
 
         public DatabaseContext(string connectionString)
             : base(connectionString)
         {
-            ((IObjectContextAdapter) this).ObjectContext.ObjectMaterialized +=
-                (sender, e) => DateTimeKindMaterializer.Apply(e.Entity, DateTimeKind.Utc);
         }
 
         public DbSet<Objective> Objectives { get; set; }
@@ -53,8 +51,8 @@ namespace easygenerator.DataAccess
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Properties<Guid>().Where(p => p.Name == "Id").Configure(p => p.IsKey());
-            modelBuilder.Properties<DateTime>().Where(p => p.Name == "CreatedOn").Configure(p => p.IsRequired());
-            modelBuilder.Properties<DateTime>().Where(p => p.Name == "ModifiedOn").Configure(p => p.IsRequired());
+            modelBuilder.Properties<string>().Where(p => p.Name == "CreatedOn").Configure(p => p.IsRequired());
+            modelBuilder.Properties<string>().Where(p => p.Name == "ModifiedOn").Configure(p => p.IsRequired());
             modelBuilder.Properties<string>().Where(p => p.Name == "CreatedBy").Configure(p => p.IsRequired());
             modelBuilder.Properties<string>().Where(p => p.Name == "ModifiedBy").Configure(p => p.IsRequired());
 
