@@ -382,16 +382,22 @@
                         });
 
                         describe('and when expirience is not building and not publishing', function () {
-
                             var experience;
+                            var post;
+
                             beforeEach(function () {
                                 experience = { buildingStatus: '', id: 'someId' };
                                 getById.resolve(experience);
+
+                                spyOn(app, 'trigger');
+
+                                post = $.Deferred();
+                                spyOn(http, 'post').andReturn(post.promise());
                             });
 
                             it('should change publishing status to \'inProgress\'', function () {
 
-                                spyOn(http, 'post').andReturn($.Deferred().promise());
+                                http.post.reset();
 
                                 service.publish(experience.id);
 
@@ -403,10 +409,19 @@
                                 });
                             });
 
-                            it('should send request', function () {
-                                var post = $.Deferred();
-                                spyOn(http, 'post').andReturn(post.promise());
+                            it('should trigger \'experience:publish-started\' event', function () {
+                                http.post.reset();
+                                service.publish(experience.id);
 
+                                waitsFor(function () {
+                                    return getById.promise.isFulfilled() && http.post.calls.length == 1;
+                                });
+                                runs(function () {
+                                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.publish.started, experience);
+                                });
+                            });
+
+                            it('should send request', function () {
                                 post.resolve();
                                 var promise = service.publish().fin(function () { });
 
@@ -419,14 +434,6 @@
                             });
 
                             describe('and send request to server', function () {
-
-                                var post;
-
-                                beforeEach(function () {
-                                    post = $.Deferred();
-                                    spyOn(http, 'post').andReturn(post.promise());
-                                });
-
                                 describe('and request succeed', function () {
 
                                     describe('and response is undefined', function () {
@@ -584,6 +591,23 @@
 
                                 });
 
+                                describe('and request to server has ended', function () {
+
+                                    it('should trigger \'experience:publish-finished\' event', function () {
+                                        app.trigger.reset();
+                                        var promise = service.publish();
+
+                                        post.reject();
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.publish.finished, experience);
+                                        });
+                                    });
+
+                                });
                             });
 
                         });
