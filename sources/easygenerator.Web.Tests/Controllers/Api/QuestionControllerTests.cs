@@ -97,14 +97,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Delete_ShouldReturnJsonErrorResult_WnenObjectiveIsNotNullAndQuestionIsNull()
+        public void Delete_ShouldReturnJsonSuccessResult_WnenQuestionIsNull()
         {
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-
             var result = _controller.Delete(objective, null);
 
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Question is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");
+            result.Should()
+                .BeJsonSuccessResult()
+                .And.Data.ShouldBeSimilar(new { ModifiedOn = objective.ModifiedOn });
         }
 
         [TestMethod]

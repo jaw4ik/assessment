@@ -45,9 +45,7 @@
                     sendEvent(events.updateObjectiveTitle);
 
                     if (title.isValid()) {
-                        repository.updateObjective({ id: that.objectiveId, title: that.title() }).then(function () {
-                            notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
-                        });
+                        repository.updateObjective({ id: that.objectiveId, title: that.title() }).then(showNotification);
                     } else {
                         title(objectiveTitle);
                     }
@@ -94,9 +92,9 @@
                 if (selectedQuestions.length == 0)
                     throw 'No selected questions to delete';
 
-                questionRepository.removeQuestion(this.objectiveId, selectedQuestions[0].id).then(function () {
+                questionRepository.removeQuestion(this.objectiveId, selectedQuestions[0].id).then(function (modifiedOn) {
                     questions(_.reject(questions(), function (item) { return item.id == selectedQuestions[0].id; }));
-                    notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
+                    showNotification(modifiedOn);
                 });
 
             },
@@ -160,7 +158,11 @@
 
             canDeleteQuestions = ko.computed(function () {
                 return getSelectedQuestions().length == 1;
-            });
+            }),
+
+            showNotification = function (date) {
+                notify.info(localizationManager.localize('savedAt') + ' ' + date.toLocaleTimeString());
+            };
 
         return {
             objectiveId: objectiveId,

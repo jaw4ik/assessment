@@ -583,7 +583,7 @@
                             viewModel.questions([{ id: '0', isSelected: ko.observable(true) }]);
 
                             var promise = removeQuestion.promise.finally(function () { });
-                            removeQuestion.resolve();
+                            removeQuestion.resolve(new Date());
 
                             viewModel.deleteSelectedQuestions();
 
