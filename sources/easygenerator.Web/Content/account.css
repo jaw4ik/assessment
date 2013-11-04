@@ -482,6 +482,7 @@ body.try {
     display: none;
     position: relative;
     padding-left: 21px;
+    margin-top: -7px;
 }
 
     .user-form-message:after {
