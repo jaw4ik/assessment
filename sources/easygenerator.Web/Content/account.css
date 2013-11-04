@@ -654,7 +654,7 @@ body.try {
 
 .user-form-password-eye {
     position: absolute;
-    top: 27px;
+    top: 25px;
     right: 10px;
     display: block;
     width: 24px;
@@ -1175,7 +1175,7 @@ body.try {
     }
     /*#endregion User Title*/
 
-    /*#region Terms of use and Privacy Polycy*/
+    /*#region Terms of use and Privacy Policy*/
     .document-subtitle {
         width: 600px;
     }
