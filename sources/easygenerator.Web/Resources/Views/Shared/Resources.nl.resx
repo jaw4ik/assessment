@@ -123,6 +123,12 @@
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>Privacybeleid</value>
   </data>
+  <data name="PublishIsInProgressText" xml:space="preserve">
+    <value>Wacht enkele minuten en probeer het opnieuw</value>
+  </data>
+  <data name="PublishIsInProgressTitle" xml:space="preserve">
+    <value>Deze leerervaring wordt bijgewerkt</value>
+  </data>
   <data name="TermsOfUse" xml:space="preserve">
     <value>Gebruiksvoorwaarden</value>
   </data>

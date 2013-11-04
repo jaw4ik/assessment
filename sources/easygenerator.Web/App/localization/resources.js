@@ -289,8 +289,13 @@
     },
     copyLinkTitle: {
         en: 'Copy link',
-        nl: 'Copy link[nl]',
-        de: 'Copy link[de]'
+        nl: 'Koppeling kopiëren',
+        de: 'Link kopieren'
+    },
+    publishFailed: {
+        en: 'Failed. Try again.',
+        nl: 'Mislukt. Probeer het opnieuw.',
+        de: 'Fehlgeschlagen. Versuchen Sie es erneut.'
     },
     /* End resource section for model Experiences */
     
@@ -451,7 +456,7 @@
     },
     relatedQuestion: {
         en: 'Related question',
-        nl: 'Verwante vraag',
+        nl: 'Gerelateerde vraag',
         de: 'Verwandte Frage'
     },
     createNewQuestion: {
@@ -1170,9 +1175,9 @@
         de: 'Optionale Information'
     },
     ChooseYourCountry: {
-        en: 'Choose your country',
-        nl: 'Kies uw land',
-        de: 'Wählen Sie Ihr Land aus'
+        en: 'Choose your country...',
+        nl: 'Kies uw land...',
+        de: 'Wählen Sie Ihr Land aus...'
     },
     /* End resource section for model Sign-UP optional fields */
     
@@ -1308,13 +1313,13 @@
     /* Resource section for model sorryPage */
     publishIsInProgressTitle: {
         en: 'This learning experience is being updated',
-        nl: 'This learning experience is being updated[nl]',
-        de: 'This learning experience is being updated[de]'
+        nl: 'Deze leerervaring wordt bijgewerkt',
+        de: 'Diese Lernerfahrung wird gerade aktualisiert.'
     },
     publishIsInProgressText: {
         en: 'Please, try again after few minutes',
-        nl: 'Please, try again after few minutes[nl]',
-        de: 'Please, try again after few minutes[de]'
+        nl: 'Wacht enkele minuten en probeer het opnieuw',
+        de: 'Bitte versuchen Sie es in einigen Minuten erneut.'
     }
     /* End resource section for model sorryPage */
            
