@@ -32,7 +32,6 @@
             sortByTitleDesc: sortByTitleDesc,
             currentSortingOption: ko.observable(constants.sortingOptions.byTitleAsc),
             sortingOptions: constants.sortingOptions,
-            enableSorting: ko.observable(true),
 
             navigateToCreation: navigateToCreation,
             navigateToDetails: navigateToDetails,
@@ -52,6 +51,9 @@
             deactivate: deactivate
         };
 
+        viewModel.enableSorting = ko.computed(function () {
+            return this.experiences().length > 1;
+        }, viewModel);
 
         function toggleSelection(experience) {
             if (!experience.isSelected())
@@ -80,11 +82,11 @@
             viewModel.experiences(_.sortBy(viewModel.experiences(), function (experience) { return experience.title.toLowerCase(); }).reverse());
         }
 
+
         function navigateToCreation() {
             sendEvent(events.navigateToCreateExperience);
             router.navigate('experience/create');
         }
-
 
         function navigateToDetails(experience) {
             sendEvent(events.navigateToDetails);
@@ -194,8 +196,6 @@
                 experience.showBuildingStatus(showBuildingStatus);
                 return experience;
             }));
-
-            viewModel.enableSorting(viewModel.experiences().length > 1);
         }
 
         function deactivate() {

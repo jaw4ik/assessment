@@ -74,6 +74,41 @@
 
             });
 
+            describe('enableSorting:', function () {
+
+                it('should be computed', function () {
+                    expect(viewModel.enableSorting).toBeComputed();
+                });
+
+                describe('when there are no experiences', function () {
+
+                    it('should be false', function () {
+                        viewModel.experiences([]);
+                        expect(viewModel.enableSorting()).toBeFalsy();
+                    });
+
+                });
+
+                describe('when there is only one experience', function () {
+
+                    it('should be false', function () {
+                        viewModel.experiences([{}]);
+                        expect(viewModel.enableSorting()).toBeFalsy();
+                    });
+
+                });
+
+                describe('when there are more than one experience', function () {
+
+                    it('should be true', function () {
+                        viewModel.experiences([{}, {}]);
+                        expect(viewModel.enableSorting()).toBeTruthy();
+                    });
+
+                });
+
+            });
+
             describe('buildingStatuses:', function () {
 
                 it('should be defined', function () {
