@@ -57,7 +57,7 @@
                                 <span class="selectable" data-bind="text: title"></span>
                             </div>
                             <div class="list-item-saved">
-                                <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="    date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                                <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
                             </div>
                         </div>
                     </div>
@@ -72,6 +72,7 @@
                             <span class="btn-title" data-bind="localize: { text: 'createPackage' }">Create package</span>
                         </div>
                         <!-- /ko -->
+
                         <!-- ko ifnot: isFirstBuild -->
                         <div class="experience-action create-package-btn" data-bind="click: $parent.buildExperience">
                             <span class="btn-title" data-bind="localize: { text: 'updatePackage' }">Update package</span>
@@ -81,22 +82,25 @@
                         </div>
                         <!-- /ko -->
                     </div>
+
                     <!-- ko if: showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.inProgress -->
                     <div class="experience-status-container">
                         <!-- ko if: isFirstBuild -->
                         <div class="experience-text building" data-bind="localize: { text: 'creatingStatus' }"></div>
                         <!-- /ko -->
+
                         <!-- ko ifnot: isFirstBuild -->
                         <div class="experience-text building" data-bind="localize: { text: 'updatingStatus' }"></div>
                         <!-- /ko -->
-
                     </div>
                     <!-- /ko -->
+
                     <!-- ko if: showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.succeed -->
                     <div class="experience-status-container" data-bind="event: { mouseover: $parent.enableOpenExperience }">
                         <div class="experience-text complete" data-bind="localize: { text: 'experienceCompleteStatus' }"></div>
                     </div>
                     <!-- /ko -->
+
                     <!-- ko if: showBuildingStatus() && buildingStatus() == $parent.buildingStatuses.failed -->
                     <div class="experience-status-container" data-bind="event: { mouseover: $parent.enableOpenExperience }">
                         <div class="experience-text failed" data-bind="localize: { text: 'experienceFailedStatus' }"></div>
@@ -120,8 +124,4 @@
         </div>
     </div>
     <!-- /ko -->
-    <!-- preloading images in mozilla browser in case their appearing by knockout bindings-->
-    <div class="preloader-block">
-        <div class="experience-brief-options-building-image"></div>
-    </div>
 </section>
