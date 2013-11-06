@@ -280,9 +280,10 @@ body.try {
     padding: 6px 40px 6px 20px;
     height: 65px;
 }
-.user-form-input-holder.selectbox {
-    padding: 6px 0;
-}
+
+    .user-form-input-holder.selectbox {
+        padding: 6px 0;
+    }
 
 
 .user-form-input-wrapper {
@@ -401,7 +402,7 @@ body.try {
     box-shadow: none;
 }
 
-    .user-form-row.success .user-form-input-wrapper.focus{
+    .user-form-row.success .user-form-input-wrapper.focus {
         border: solid 1px #62a426;
         -webkit-box-shadow: 0 0 2px #62a426;
         -moz-box-shadow: 0 0 2px #62a426;
@@ -540,16 +541,20 @@ body.try {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    width: 100%;
+}
+
+.view-module.sign-up .user-form-row.submit {
     width: 400px;
 }
 
-    .user-form-row.submit .formBtn {
+.user-form-row.submit .formBtn {
+    width: 100%;
+}
+
+    .user-form-row.submit .formBtn input {
         width: 100%;
     }
-
-        .user-form-row.submit .formBtn input {
-            width: 100%;
-        }
 
 .user-column.image {
     width: 50%;
@@ -775,16 +780,16 @@ body.try {
     cursor: pointer;
 }
 
-        .user-form-btn.disabled,
-        .user-form-btn.disabled:hover,
-        .user-form-btn.disabled:active {
-            box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset;
-        }
+    .user-form-btn.disabled,
+    .user-form-btn.disabled:hover,
+    .user-form-btn.disabled:active {
+        box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset;
+    }
 
-        .user-form-btn.disabled {
-            opacity: 0.6;
-            filter: alpha(opacity=60);
-        }
+    .user-form-btn.disabled {
+        opacity: 0.6;
+        filter: alpha(opacity=60);
+    }
 
 /*#endregion Form Button*/
 
