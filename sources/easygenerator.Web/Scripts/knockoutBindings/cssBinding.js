@@ -12,7 +12,7 @@
             notFixedContainer = '.view-module',
             fixedContainer = '.view-module > .fixed-container:first-child';
 
-        _.delay(setHeight, 10);
+        _.delay(setHeight, 30);
         
         $(window).resize(setHeight);
 
