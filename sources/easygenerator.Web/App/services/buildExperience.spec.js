@@ -267,7 +267,7 @@
 
                                         });
 
-                                        describe('and response.resourceKey does not exist', function() {
+                                        describe('and response.resourceKey does not exist', function () {
 
                                             it('should trigger \'experience:build-failed\' event with response message', function () {
                                                 var promise = service.build();
@@ -298,7 +298,7 @@
                                                     expect(promise).toBeRejectedWith(buildResult.message);
                                                 });
                                             });
-                                            
+
                                         });
 
                                     });
@@ -454,7 +454,7 @@
                             var post;
 
                             beforeEach(function () {
-                                experience = { buildingStatus: '', id: 'someId' };
+                                experience = { publishingState: '', id: 'someId' };
                                 getById.resolve(experience);
 
                                 spyOn(app, 'trigger');
@@ -540,10 +540,12 @@
 
                                     describe('and response.success is true', function () {
 
+                                        beforeEach(function () {
+                                            post.resolve({ success: true, data: { PublishedPackageUrl: 'SomeUrl' } });
+                                        });
+
                                         it('should set experience publishingState to \'succeed\'', function () {
                                             var promise = service.publish();
-
-                                            post.resolve({ success: true, data: { PublishedPackageUrl: 'SomeUrl' } });
 
                                             waitsFor(function () {
                                                 return promise.isFulfilled();
@@ -553,12 +555,19 @@
                                             });
                                         });
 
-                                        it('should resolve promise with true', function () {
+                                        it('should trigger \'experience:publish-completed\' event', function () {
                                             var promise = service.publish();
 
-                                            var publishResuslt = { success: true, data: { PublishedPackageUrl: 'SomeUrl' } };
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.publish.completed, experience);
+                                            });
+                                        });
 
-                                            post.resolve(publishResuslt);
+                                        it('should resolve promise with true', function () {
+                                            var promise = service.publish();
 
                                             waitsFor(function () {
                                                 return !promise.isPending();
@@ -598,19 +607,78 @@
                                             });
                                         });
 
-                                        it('should reject promise ', function () {
-                                            var promise = service.publish();
+                                        describe('and response.resourceKey is a string', function () {
 
-                                            var publishResuslt = { success: false };
+                                            var lozalizedMessage = 'localized message';
 
-                                            post.resolve(publishResuslt);
-
-                                            waitsFor(function () {
-                                                return !promise.isPending();
+                                            beforeEach(function () {
+                                                spyOn(localizationManager, 'localize').andReturn(lozalizedMessage);
                                             });
-                                            runs(function () {
-                                                expect(promise).toBeRejectedWith("Publish failed");
+
+                                            it('should trigger \'experience:publish-failed\' event with localized message', function () {
+                                                var promise = service.publish();
+
+                                                var publishResult = { success: false, resourceKey: 'message' };
+
+                                                post.resolve(publishResult);
+
+                                                waitsFor(function () {
+                                                    return !promise.isPending();
+                                                });
+                                                runs(function () {
+                                                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.publish.failed, experience.id, lozalizedMessage);
+                                                });
                                             });
+
+                                            it('should reject promise with localized message', function () {
+                                                var promise = service.publish();
+
+                                                var publishResult = { success: false, resourceKey: 'message' };
+
+                                                post.resolve(publishResult);
+
+                                                waitsFor(function () {
+                                                    return !promise.isPending();
+                                                });
+                                                runs(function () {
+                                                    expect(promise).toBeRejectedWith(lozalizedMessage);
+                                                });
+                                            });
+
+                                        });
+
+                                        describe('and response.resourceKey does not exist', function () {
+
+                                            it('should trigger \'experience:publish-failed\' event with response message', function () {
+                                                var promise = service.publish();
+
+                                                var publishResult = { success: false, message: 'message' };
+
+                                                post.resolve(publishResult);
+
+                                                waitsFor(function () {
+                                                    return !promise.isPending();
+                                                });
+                                                runs(function () {
+                                                    expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.publish.failed, experience.id, publishResult.message);
+                                                });
+                                            });
+
+                                            it('should reject promise with response message', function () {
+                                                var promise = service.publish();
+
+                                                var publishResult = { success: false, message: 'message' };
+
+                                                post.resolve(publishResult);
+
+                                                waitsFor(function () {
+                                                    return !promise.isPending();
+                                                });
+                                                runs(function () {
+                                                    expect(promise).toBeRejectedWith(publishResult.message);
+                                                });
+                                            });
+
                                         });
 
                                     });
@@ -631,19 +699,6 @@
                                         });
                                     });
 
-                                    it('should reject promise', function () {
-                                        var promise = service.publish();
-
-                                        post.reject();
-
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(promise).toBeRejectedWith("Publish failed");
-                                        });
-                                    });
-
                                     it('should set experience PublishedPackageUrl to \'\'', function () {
                                         var promise = service.publish();
 
@@ -657,25 +712,36 @@
                                         });
                                     });
 
-                                });
-
-                                describe('and request to server has ended', function () {
-
-                                    it('should trigger \'experience:publish-finished\' event', function () {
-                                        app.trigger.reset();
+                                    it('should trigger \'experience:publish-failed\' event', function () {
+                                        var reason = 'reason';
                                         var promise = service.publish();
 
-                                        post.reject();
+                                        post.reject(reason);
 
                                         waitsFor(function () {
                                             return !promise.isPending();
                                         });
                                         runs(function () {
-                                            expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.publish.finished, experience);
+                                            expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.publish.failed, experience.id, reason);
+                                        });
+                                    });
+
+                                    it('should reject promise', function () {
+                                        var reason = 'reason';
+                                        var promise = service.publish();
+
+                                        post.reject(reason);
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(promise).toBeRejectedWith(reason);
                                         });
                                     });
 
                                 });
+
                             });
 
                         });

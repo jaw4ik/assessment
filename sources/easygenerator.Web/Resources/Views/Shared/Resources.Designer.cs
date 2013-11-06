@@ -79,7 +79,7 @@ namespace SharedResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please, try again after few minutes.
+        ///   Looks up a localized string similar to Please, try again after few minutes..
         /// </summary>
         public static string PublishIsInProgressText {
             get {
@@ -88,7 +88,7 @@ namespace SharedResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This learning experience is being updated.
+        ///   Looks up a localized string similar to This learning experience is being updated..
         /// </summary>
         public static string PublishIsInProgressTitle {
             get {

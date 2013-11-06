@@ -178,6 +178,34 @@
                 });
 
             });
+            
+            describe('when current experience publish failed', function () {
+
+                var message = "message";
+
+                it('should show notification', function () {
+                    viewModel.id = 'id';
+                    notify.error.reset();
+
+                    app.trigger(constants.messages.experience.publish.failed, viewModel.id, message);
+
+                    expect(notify.error).toHaveBeenCalledWith(message);
+                });
+
+            });
+
+            describe('when any other experience build failed', function () {
+
+                it('should not show notification', function () {
+                    viewModel.id = 'id';
+                    notify.error.reset();
+
+                    app.trigger(constants.messages.experience.publish.failed, '100500');
+
+                    expect(notify.error).not.toHaveBeenCalled();
+                });
+
+            });
         });
 
     }

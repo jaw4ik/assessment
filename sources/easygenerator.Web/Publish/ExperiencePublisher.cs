@@ -51,9 +51,6 @@ namespace easygenerator.Web.Publish
 
                 PublishPackage(experienceId, experience);
 
-                // end publish, now published content will be shown
-                _publishDispatcher.EndPublish(experienceId);
-
                 experience.UpdatePublishedOnDate();
 
                 return true;
@@ -62,6 +59,11 @@ namespace easygenerator.Web.Publish
             {
                 ElmahLog.LogException(exception);
                 return false;
+            }
+            finally
+            {
+                // end publish, now published content will be shown
+                _publishDispatcher.EndPublish(experienceId);
             }
         }
 
@@ -74,8 +76,16 @@ namespace easygenerator.Web.Publish
 
         private void CopyPublishedPackage(string packagePath, string destinationFolderPath)
         {
-            _fileManager.DeleteDirectory(destinationFolderPath);
-            _fileManager.ExtractArchiveToDirectory(packagePath, destinationFolderPath);
+            try
+            {
+                _fileManager.DeleteDirectory(destinationFolderPath);
+                _fileManager.ExtractArchiveToDirectory(packagePath, destinationFolderPath);
+            }
+            catch
+            {
+                _fileManager.DeleteDirectory(destinationFolderPath);
+                throw;
+            }
         }
     }
 }

@@ -174,7 +174,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Publish(null);
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Experience is not found");
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Constants.Errors.ExperienceNotFoundError);
         }
 
         [TestMethod]
@@ -187,7 +187,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Publish(ExperienceObjectMother.Create());
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Publish failed");
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Constants.Errors.ExperiencePublishFailedError);
         }
 
         [TestMethod]

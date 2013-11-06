@@ -41,13 +41,6 @@
                 </div>
 
                 <div class="package-action-btn-holder">
-                    <!-- FAILED MESSAGE -->
-                    <!-- ko if:publishingState() == statuses.failed -->
-                    <div class="notification error package-failed">
-                        <span class="notification-text" data-bind="localize: { text: 'publishFailed' }">Failed. Try again.</span>
-                    </div>
-                    <!-- /ko -->
-
                     <!-- ko if: !publishPackageExists() || status() == statuses.failed -->
                     <!-- PUBLISH BUTTON -->
                     <!-- ko if: status() == statuses.succeed && (publishingState() == statuses.notStarted || publishingState() == statuses.failed) -->

@@ -50,6 +50,7 @@
 
     function publishExperience() {
         sendEvent(events.publishExperience);
+        notify.hide();
         service.publish(viewModel.id);
     }
 
@@ -87,17 +88,23 @@
         }
     });
 
-
     app.on(constants.messages.experience.publish.started).then(function (experience) {
         if (experience.id == viewModel.id) {
             viewModel.publishingState(constants.statuses.inProgress);
         }
     });
 
-    app.on(constants.messages.experience.publish.finished, function (experience) {
+    app.on(constants.messages.experience.publish.completed, function (experience) {
         if (experience.id == viewModel.id) {
-            viewModel.publishingState(experience.publishingState);
+            viewModel.publishingState(constants.statuses.succeed);
             viewModel.publishedPackageUrl(experience.publishedPackageUrl);
+        }
+    });
+    
+    app.on(constants.messages.experience.publish.failed, function (experienceId, message) {
+        if (experienceId == viewModel.id) {
+            viewModel.publishingState(constants.statuses.failed);
+            viewModel.publishedPackageUrl('');
         }
     });
 

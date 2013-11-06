@@ -42,7 +42,8 @@
                     },
                     publish: {
                         started: 'experience:publish-started',
-                        finished: 'experience:publish-finished'
+                        completed: 'experience:publish-completed',
+                        failed: 'experience:publish-failed'
                     }
                 }
             },

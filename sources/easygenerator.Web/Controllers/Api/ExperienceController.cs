@@ -86,13 +86,15 @@ namespace easygenerator.Web.Controllers.Api
         public ActionResult Publish(Experience experience)
         {
             if (experience == null)
-                return JsonError(Constants.Errors.ExperienceNotFoundError);
+            {
+                return JsonLocalizableError(Constants.Errors.ExperienceNotFoundError, Constants.Errors.ExperienceNotFoundResourceKey);
+            }
 
             var result = _experiencePublisher.Publish(experience);
 
             if (!result)
             {
-                return JsonError("Publish failed");
+                return JsonLocalizableError(Constants.Errors.ExperiencePublishFailedError, Constants.Errors.ExperiencePublishFailedResourceKey);
             }
             else
             {

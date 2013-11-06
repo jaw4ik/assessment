@@ -46,12 +46,14 @@
             });
         }
 
-
-        app.on(constants.messages.experience.build.failed, function (experienceId, message) {
+        function notifyError(experienceId, message) {
             if (experienceId == viewModel.id) {
                 notify.error(message);
             }
-        });
+        }
+        
+        app.on(constants.messages.experience.build.failed, notifyError);
+        app.on(constants.messages.experience.publish.failed, notifyError);
 
         return viewModel;
     }

@@ -14,6 +14,7 @@
             public const string LearningContentNotFoundError = "Learning Content is not found";
             public const string HelpHintNotFoundError = "Help Hint is not found";
             public const string ObjectiveCannotBeDeleted = "Objective can not be deleted";
+            public const string ExperiencePublishFailedError = "Failed. Try again.";
 
             public const string ExperienceNotFoundResourceKey = "experienceNotFoundError";
             public const string ObjectiveNotFoundResourceKey = "objectiveNotFoundError";
@@ -23,6 +24,7 @@
             public const string LearningContentNotFoundResourceKey = "learningContentNotFoundError";
             public const string HelpHintNotFoundResourceKey = "helpHintNotFoundError";
             public const string ObjectiveCannotBeDeletedResourceKey = "objectiveCannnotBeDeleted";
+            public const string ExperiencePublishFailedResourceKey = "publishFailed";
         }
 
         public static class SessionConstants

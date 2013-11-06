@@ -225,6 +225,12 @@
                     viewModel.publishExperience();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Publish experience');
                 });
+                
+                it('should hide notification', function () {
+                    notify.hide.reset();
+                    viewModel.publishExperience();
+                    expect(notify.hide).toHaveBeenCalled();
+                });
 
                 it('should start publish of current experience', function () {
                     viewModel.id = 1;
@@ -497,6 +503,122 @@
                     app.trigger(constants.messages.experience.build.failed, '100500');
 
                     expect(viewModel.packageUrl()).toEqual("packageUrl");
+                });
+
+            });
+            
+
+            // publish
+            describe('when current experience publish was started in any part of application', function () {
+
+                it('should change experience publishState to \'inProgress\'', function () {
+                    viewModel.id = experience.id;
+                    viewModel.publishingState("");
+                    app.trigger(constants.messages.experience.publish.started, experience);
+
+                    expect(viewModel.publishingState()).toEqual(constants.statuses.inProgress);
+                });
+
+            });
+
+            describe('when any other experience publish was started in any part of application', function () {
+
+                it('should not change experience status', function () {
+                    viewModel.id = experience.id;
+                    viewModel.publishingState(constants.statuses.notStarted);
+                    app.trigger(constants.messages.experience.publish.started, { id: '100500' });
+
+                    expect(viewModel.publishingState()).toEqual(constants.statuses.notStarted);
+                });
+
+            });
+
+            describe('when current experience publish completed in any part of application', function () {
+
+                it('should update current publishState to \'success\'', function () {
+                    viewModel.id = experience.id;
+                    viewModel.publishingState("");
+
+                    experience.buildingStatus = constants.statuses.succeed;
+                    app.trigger(constants.messages.experience.publish.completed, experience);
+
+                    expect(viewModel.publishingState()).toEqual(constants.statuses.succeed);
+                });
+
+                it('should update current publishedPackageUrl to the corresponding one', function () {
+                    viewModel.id = experience.id;
+                    viewModel.publishedPackageUrl("");
+
+                    experience.publishedPackageUrl = "http://xxx.com";
+                    app.trigger(constants.messages.experience.publish.completed, experience);
+
+                    expect(viewModel.publishedPackageUrl()).toEqual(experience.publishedPackageUrl);
+                });
+
+            });
+
+            describe('when any other experience publish completed in any part of application', function () {
+
+                it('should not update current  publishState', function () {
+                    viewModel.id = experience.id;
+                    viewModel.publishingState(constants.statuses.notStarted);
+                    app.trigger(constants.messages.experience.publish.completed, { id: '100500' });
+
+                    expect(viewModel.publishingState()).toEqual(constants.statuses.notStarted);
+                });
+
+                it('should not update current publishedPackageUrl', function () {
+                    viewModel.id = experience.id;
+                    viewModel.publishedPackageUrl("http://xxx.com");
+                    app.trigger(constants.messages.experience.publish.completed, { id: '100500' });
+
+                    expect(viewModel.publishedPackageUrl()).toEqual("http://xxx.com");
+                });
+
+            });
+
+            describe('when current experience publish failed in any part of application', function () {
+
+                var message = "message";
+
+                it('should update current publishingState to \'failed\'', function () {
+                    viewModel.id = experience.id;
+                    viewModel.publishingState("");
+
+                    app.trigger(constants.messages.experience.publish.failed, experience.id, message);
+
+                    expect(viewModel.publishingState()).toEqual(constants.statuses.failed);
+                });
+
+                it('should remove publishedPackageUrl', function () {
+                    viewModel.id = experience.id;
+                    viewModel.publishedPackageUrl("publishedPackageUrl");
+
+                    app.trigger(constants.messages.experience.publish.failed, experience.id, message);
+
+                    expect(viewModel.publishedPackageUrl()).toEqual("");
+                });
+
+            });
+
+            describe('when any other experience publish failed in any part of application', function () {
+
+                it('should not update current status to \'failed\'', function () {
+                    viewModel.id = experience.id;
+                    viewModel.publishedPackageUrl("");
+
+                    app.trigger(constants.messages.experience.publish.failed, '100500');
+
+                    expect(viewModel.publishedPackageUrl()).toEqual("");
+                });
+
+                it('should not remove packageUrl', function () {
+                    viewModel.id = experience.id;
+                    viewModel.publishedPackageUrl("packageUrl");
+
+                    app.trigger(constants.messages.experience.publish.failed, '100500');
+
+                    expect(viewModel.publishedPackageUrl()).toEqual("packageUrl");
                 });
 
             });
