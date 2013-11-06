@@ -28,6 +28,7 @@ namespace easygenerator.AcceptanceTests
         public string ModifiedBy { get; set; }
         public System.DateTime ModifiedOn { get; set; }
         public System.Guid Template_Id { get; set; }
+        public Nullable<System.DateTime> PublishedOn { get; set; }
     
         public virtual Template Template { get; set; }
         public virtual ICollection<Objective> Objectives { get; set; }

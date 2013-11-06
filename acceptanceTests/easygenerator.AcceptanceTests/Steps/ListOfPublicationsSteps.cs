@@ -34,6 +34,7 @@ namespace easygenerator.AcceptanceTests.Steps
                 CreatedOn = DateTime.Now,
                 ModifiedOn = DateTime.Now,
                 BuildOn = null,
+                PublishedOn = null,
                 Objectives = new Collection<Objective>(),
                 PackageUrl = "",
                 Template_Id = Guid.Empty,

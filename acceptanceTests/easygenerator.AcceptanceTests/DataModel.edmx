@@ -80,6 +80,7 @@
           <Property Name="ModifiedBy" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
           <Property Name="Template_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PublishedOn" Type="datetime" />
         </EntityType>
         <EntityType Name="HelpHints">
           <Key>
@@ -167,13 +168,14 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="254" />
           <Property Name="PasswordHash" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="FullName" Type="nvarchar(max)" />
-          <Property Name="Phone" Type="nvarchar(max)" />
-          <Property Name="Organization" Type="nvarchar(max)" />
+          <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Organization" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
+          <Property Name="Country" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_Answers_dbo_Questions_Question_Id">
           <End Role="Questions" Type="Model.Store.Questions" Multiplicity="1">
@@ -342,6 +344,7 @@
           <Property Name="Template_Id" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Template" Relationship="Model.FK_dbo_Experiences_dbo_Templates_Template_Id" FromRole="Experiences" ToRole="Templates" />
           <NavigationProperty Name="Objectives" Relationship="Model.ExperienceObjectives" FromRole="Experiences" ToRole="Objectives" />
+          <Property Type="DateTime" Name="PublishedOn" Precision="3" />
         </EntityType>
         <EntityType Name="Objective">
           <Key>
@@ -395,10 +398,11 @@
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Type="String" Name="FullName" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Phone" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="String" Name="Organization" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FullName" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Type="String" Name="Phone" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Type="String" Name="Organization" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="PasswordRecoveryTickets" Relationship="Model.FK_dbo_PasswordRecoveryTickets_dbo_Users_User_Id" FromRole="User" ToRole="PasswordRecoveryTicket" />
+          <Property Type="String" Name="Country" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_dbo_Answers_dbo_Questions_Question_Id">
           <End Role="Questions" Type="Model.Question" Multiplicity="1">
@@ -543,6 +547,7 @@
           <EntitySetMapping Name="Experiences">
             <EntityTypeMapping TypeName="Model.Experience">
               <MappingFragment StoreEntitySet="Experiences">
+                <ScalarProperty Name="PublishedOn" ColumnName="PublishedOn" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="BuildOn" ColumnName="BuildOn" />
@@ -596,6 +601,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="Model.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="Organization" ColumnName="Organization" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="FullName" ColumnName="FullName" />

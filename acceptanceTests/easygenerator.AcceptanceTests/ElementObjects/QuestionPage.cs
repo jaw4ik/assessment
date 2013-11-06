@@ -293,6 +293,12 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         }
 
 
+
+        internal void ClikOnHomeLink()
+        {
+            var HomeLink = GetByXPath(model.HomeLink);
+            HomeLink.Click();
+        }
     }
 
 

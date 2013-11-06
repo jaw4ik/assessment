@@ -122,6 +122,13 @@ namespace easygenerator.AcceptanceTests.Steps
             Question.NavigateToPreviousQuestion();
         }
 
+        [When(@"click on home link")]
+        public void WhenClickOnHomeLink()
+        {
+            Question.ClikOnHomeLink();
+        }
+
+
         [Then(@"previous question action is not available")]
         public void ThenPreviousQuestionActionIsNotAvailable()
         {

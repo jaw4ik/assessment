@@ -53,6 +53,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 
         public string CharsCounter = ".//div[contains(@class,'view-header-title')]//div[contains(@class,'chars-counter')]";        
         public string CharsCount = ".//div[contains(@class,'text-block')]//div[contains(@class,'chars-counter')]//span";
+        public string HomeLink = ".//a[contains(@class,'header-logo')]";
         
     }
 }

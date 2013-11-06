@@ -27,7 +27,11 @@ namespace easygenerator.AcceptanceTests.Helpers
                     CreatedBy = "vr.danylchuk@ism-ukraine.com",
                     CreatedOn = DateTime.Now,
                     ModifiedBy = "vr.danylchuk@ism-ukraine.com",
-                    ModifiedOn = DateTime.Now
+                    ModifiedOn = DateTime.Now,
+                    Country = "not defined",
+                    Phone = "not defined",
+                    FullName = "easygenerator user",
+                    Organization = "not defined"
                 };
                 entities.Users.Add(user);
                 entities.SaveChanges();
