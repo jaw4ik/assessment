@@ -12,7 +12,7 @@
             notFixedContainer = '.view-module',
             fixedContainer = '.view-module > .fixed-container:first-child';
 
-        _.delay(setHeight, 30);
+        _.delay(setHeight, 100);
         
         $(window).resize(setHeight);
 
@@ -31,6 +31,8 @@
             } else {
                 helpHintHeight = 0;
             }
+
+            console.log(helpHintHeight);
 
             $(fixedContainer).css('top', headerHeight + topNavHeight + helpHintHeight + 'px');
             $(notFixedContainer).css('padding-top', 40 + helpHintHeight + 'px');
