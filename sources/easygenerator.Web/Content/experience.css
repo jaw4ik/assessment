@@ -1112,4 +1112,10 @@
     height: 21px;
 }
 
+@media (max-width: 1024px) {
+    .choose-template-container {
+        width: 485px;
+    }
+}
+
 /*#endregion Choose template*/
