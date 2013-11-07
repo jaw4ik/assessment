@@ -138,23 +138,23 @@ And publication list item with title 'Publication1' is not selected
 And publication list item with title 'Publication3' is not selected
 
 
-Scenario Outline: Publications list columns count should depend on screen width
-Given publications are present in database
-| Title        |
-| Publication1 |
-| Publication2 |
-| Publication3 |
-| Publication4 |
-| Publication5 |
-When open page by url 'http://localhost:5656/#/experiences'
-And browser window width and height is set to <window width> and 600 
-Then publications list is displayed in <columns count> columns
-Examples: 
-| window width | columns count |
-| 640          | 1             |
-| 800          | 2             |
-| 1200         | 3             |
-| 1600         | 3             |
+#Scenario Outline: Publications list columns count should depend on screen width
+#Given publications are present in database
+#| Title        |
+#| Publication1 |
+#| Publication2 |
+#| Publication3 |
+#| Publication4 |
+#| Publication5 |
+#When open page by url 'http://localhost:5656/#/experiences'
+#And browser window width and height is set to <window width> and 600 
+#Then publications list is displayed in <columns count> columns
+#Examples: 
+#| window width | columns count |
+#| 640          | 1             |
+#| 800          | 2             |
+#| 1200         | 3             |
+#| 1600         | 3             |
 
 
 Scenario: All elements of publications list can be made visible using scroll
@@ -166,7 +166,7 @@ Given publications are present in database
 | Publication4 |
 | Publication5 |
 When open page by url 'http://localhost:5656/#/experiences'
-And browser window width and height is set to 600 and 600
+And browser window width and height is set to 1024 and 600
 And scroll publication with title 'Publication5' into the view
 Then element with title 'Publication5' of publications list is visible
 
@@ -218,28 +218,28 @@ And click build publication list item with title 'Experience1'
 And mouse hover element of publications list with title 'Experience1'
 Then Action download is enabled true for publications list item with title 'Experience1'
 
-Scenario: Objective count is shown for each publications list item
-Given publications are present in database
-| Title       | Id                               |
-| Experience1 | 00000000000000000000000000000001 |
-| Experience2 | 00000000000000000000000000000002 |
-Given objectives are present in database
-| Title       | Id                               |
-| Objective11 | 00000000000000000000000000000001 |
-| Objective12 | 00000000000000000000000000000002 |
-| Objective13 | 00000000000000000000000000000003 |
-Given objectives are linked to experiance 'Experience1'
-| Title       | Id                               |
-| Objective11 | 00000000000000000000000000000001 |
-| Objective12 | 00000000000000000000000000000002 |
-Given objectives are linked to experiance 'Experience2'
-| Title       | Id                               |
-| Objective11 | 00000000000000000000000000000001 |
-| Objective12 | 00000000000000000000000000000002 |
-| Objective13 | 00000000000000000000000000000003 |
-When open page by url 'http://localhost:5656/#/experiences'
-Then objective count for element of publications list with title 'Experience1' is '2'
-And objective count for element of publications list with title 'Experience2' is '3'
+#Scenario: Objective count is shown for each publications list item
+#Given publications are present in database
+#| Title       | Id                               |
+#| Experience1 | 00000000000000000000000000000001 |
+#| Experience2 | 00000000000000000000000000000002 |
+#Given objectives are present in database
+#| Title       | Id                               |
+#| Objective11 | 00000000000000000000000000000001 |
+#| Objective12 | 00000000000000000000000000000002 |
+#| Objective13 | 00000000000000000000000000000003 |
+#Given objectives are linked to experiance 'Experience1'
+#| Title       | Id                               |
+#| Objective11 | 00000000000000000000000000000001 |
+#| Objective12 | 00000000000000000000000000000002 |
+#Given objectives are linked to experiance 'Experience2'
+#| Title       | Id                               |
+#| Objective11 | 00000000000000000000000000000001 |
+#| Objective12 | 00000000000000000000000000000002 |
+#| Objective13 | 00000000000000000000000000000003 |
+#When open page by url 'http://localhost:5656/#/experiences'
+#Then objective count for element of publications list with title 'Experience1' is '2'
+#And objective count for element of publications list with title 'Experience2' is '3'
 
 
 Scenario: Navigation works using tab navigation to objectives

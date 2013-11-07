@@ -9,14 +9,14 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 {
     public class PublicationListItemLinkingModel : ILinkingModel
     {
-        public string Title = ".//div[contains(@class,'experience-brief-title')]";
-        public string SelectElement = ".//div[contains(@class,'experience-brief-options-select')]";
-        public string OpenElement = ".//div[contains(@class,'experience-brief-options-edit')]";
-        public string IsSelectedClass = "experience-brief-selected";
+        public string Title = ".//div[contains(@class,'list-item-title')]//span";
+        public string SelectElement = ".//div[contains(@class,'list-item-content-holder')]";
+        public string OpenElement = ".//div[contains(@class,'open-item-btn')]//a";
+        public string IsSelectedClass = "selected";
 
-        public string BuildElement = ".//div[contains(@class,'experience-brief-options-build')]";
-        public string DownloadElement = ".//div[contains(@class,'experience-brief-options-download')]";
-        public string RebuildElement = ".//div[contains(@class,'experience-brief-options-rebuild')]";
+        public string BuildElement = ".//div[contains(@class,'create-package-btn')]";
+        public string DownloadElement = ".//div[contains(@class,'download-btn')]";
+        public string RebuildElement = ".//div[contains(@class,'create-package-btn')]";
 
         public string ObjectiveCountElement = ".//div[contains(@class,'experience-brief-toolbar-objective-count')]";
 

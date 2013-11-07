@@ -420,15 +420,11 @@ testRunner.And("publication list item with title \'Publication3\' is not selecte
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Publications list columns count should depend on screen width")]
-        [NUnit.Framework.TestCaseAttribute("640", "1", null)]
-        [NUnit.Framework.TestCaseAttribute("800", "2", null)]
-        [NUnit.Framework.TestCaseAttribute("1200", "3", null)]
-        [NUnit.Framework.TestCaseAttribute("1600", "3", null)]
-        public virtual void PublicationsListColumnsCountShouldDependOnScreenWidth(string windowWidth, string columnsCount, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("All elements of publications list can be made visible using scroll")]
+        public virtual void AllElementsOfPublicationsListCanBeMadeVisibleUsingScroll()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publications list columns count should depend on screen width", exampleTags);
-#line 141
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All elements of publications list can be made visible using scroll", ((string[])(null)));
+#line 160
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
@@ -445,46 +441,12 @@ this.FeatureBackground();
                         "Publication4"});
             table14.AddRow(new string[] {
                         "Publication5"});
-#line 142
-testRunner.Given("publications are present in database", ((string)(null)), table14, "Given ");
-#line 149
-testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 150
-testRunner.And(string.Format("browser window width and height is set to {0} and 600", windowWidth), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 151
-testRunner.Then(string.Format("publications list is displayed in {0} columns", columnsCount), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("All elements of publications list can be made visible using scroll")]
-        public virtual void AllElementsOfPublicationsListCanBeMadeVisibleUsingScroll()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All elements of publications list can be made visible using scroll", ((string[])(null)));
-#line 160
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
-#line hidden
-            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table15.AddRow(new string[] {
-                        "Publication1"});
-            table15.AddRow(new string[] {
-                        "Publication2"});
-            table15.AddRow(new string[] {
-                        "Publication3"});
-            table15.AddRow(new string[] {
-                        "Publication4"});
-            table15.AddRow(new string[] {
-                        "Publication5"});
 #line 161
-testRunner.Given("publications are present in database", ((string)(null)), table15, "Given ");
+testRunner.Given("publications are present in database", ((string)(null)), table14, "Given ");
 #line 168
 testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 169
-testRunner.And("browser window width and height is set to 600 and 600", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("browser window width and height is set to 1024 and 600", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 170
 testRunner.And("scroll publication with title \'Publication5\' into the view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 171
@@ -505,16 +467,16 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table16.AddRow(new string[] {
+            table15.AddRow(new string[] {
                         "Publication1"});
-            table16.AddRow(new string[] {
+            table15.AddRow(new string[] {
                         "Publication2"});
-            table16.AddRow(new string[] {
+            table15.AddRow(new string[] {
                         "Publication3"});
 #line 176
-testRunner.Given("publications are present in database", ((string)(null)), table16, "Given ");
+testRunner.Given("publications are present in database", ((string)(null)), table15, "Given ");
 #line 181
 testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 182
@@ -541,14 +503,14 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table17.AddRow(new string[] {
+            table16.AddRow(new string[] {
                         "Publication1",
                         "00000000000000000000000000000001"});
 #line 188
-testRunner.Given("publications are present in database", ((string)(null)), table17, "Given ");
+testRunner.Given("publications are present in database", ((string)(null)), table16, "Given ");
 #line 191
 testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 192
@@ -572,14 +534,23 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
+            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Title",
+                        "Id"});
+            table17.AddRow(new string[] {
+                        "Experience1",
+                        "00000000000000000000000000000001"});
+#line 197
+testRunner.Given("publications are present in database", ((string)(null)), table17, "Given ");
+#line hidden
             TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
             table18.AddRow(new string[] {
-                        "Experience1",
+                        "Objective11",
                         "00000000000000000000000000000001"});
-#line 197
-testRunner.Given("publications are present in database", ((string)(null)), table18, "Given ");
+#line 200
+testRunner.Given("objectives are present in database", ((string)(null)), table18, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
@@ -587,42 +558,33 @@ testRunner.Given("publications are present in database", ((string)(null)), table
             table19.AddRow(new string[] {
                         "Objective11",
                         "00000000000000000000000000000001"});
-#line 200
-testRunner.Given("objectives are present in database", ((string)(null)), table19, "Given ");
+#line 203
+testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table19, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
             table20.AddRow(new string[] {
-                        "Objective11",
-                        "00000000000000000000000000000001"});
-#line 203
-testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table20, "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title",
-                        "Id"});
-            table21.AddRow(new string[] {
                         "Question11",
                         "00000000000000000000000000000001"});
 #line 206
-testRunner.Given("questions related to \'Objective11\' are present in database", ((string)(null)), table21, "Given ");
+testRunner.Given("questions related to \'Objective11\' are present in database", ((string)(null)), table20, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
                         "Text",
                         "isCorrect"});
-            table22.AddRow(new string[] {
+            table21.AddRow(new string[] {
                         "AnswerOption11",
                         "true"});
 #line 209
-testRunner.Given("answer options related to \'Question11\' of \'Objective11\' are present in database", ((string)(null)), table22, "Given ");
+testRunner.Given("answer options related to \'Question11\' of \'Objective11\' are present in database", ((string)(null)), table21, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table23 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
                         "Explanation"});
-            table23.AddRow(new string[] {
+            table22.AddRow(new string[] {
                         "Explanation11"});
 #line 212
-testRunner.Given("explanations related to \'Question11\' of \'Objective11\' are present in database", ((string)(null)), table23, "Given ");
+testRunner.Given("explanations related to \'Question11\' of \'Objective11\' are present in database", ((string)(null)), table22, "Given ");
 #line 215
 testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 216
@@ -634,79 +596,6 @@ testRunner.And("mouse hover element of publications list with title \'Experience
 #line 219
 testRunner.Then("Action download is enabled true for publications list item with title \'Experience" +
                     "1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Objective count is shown for each publications list item")]
-        public virtual void ObjectiveCountIsShownForEachPublicationsListItem()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Objective count is shown for each publications list item", ((string[])(null)));
-#line 221
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
-#line hidden
-            TechTalk.SpecFlow.Table table24 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title",
-                        "Id"});
-            table24.AddRow(new string[] {
-                        "Experience1",
-                        "00000000000000000000000000000001"});
-            table24.AddRow(new string[] {
-                        "Experience2",
-                        "00000000000000000000000000000002"});
-#line 222
-testRunner.Given("publications are present in database", ((string)(null)), table24, "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title",
-                        "Id"});
-            table25.AddRow(new string[] {
-                        "Objective11",
-                        "00000000000000000000000000000001"});
-            table25.AddRow(new string[] {
-                        "Objective12",
-                        "00000000000000000000000000000002"});
-            table25.AddRow(new string[] {
-                        "Objective13",
-                        "00000000000000000000000000000003"});
-#line 226
-testRunner.Given("objectives are present in database", ((string)(null)), table25, "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title",
-                        "Id"});
-            table26.AddRow(new string[] {
-                        "Objective11",
-                        "00000000000000000000000000000001"});
-            table26.AddRow(new string[] {
-                        "Objective12",
-                        "00000000000000000000000000000002"});
-#line 231
-testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table26, "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title",
-                        "Id"});
-            table27.AddRow(new string[] {
-                        "Objective11",
-                        "00000000000000000000000000000001"});
-            table27.AddRow(new string[] {
-                        "Objective12",
-                        "00000000000000000000000000000002"});
-            table27.AddRow(new string[] {
-                        "Objective13",
-                        "00000000000000000000000000000003"});
-#line 235
-testRunner.Given("objectives are linked to experiance \'Experience2\'", ((string)(null)), table27, "Given ");
-#line 240
-testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 241
-testRunner.Then("objective count for element of publications list with title \'Experience1\' is \'2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 242
-testRunner.And("objective count for element of publications list with title \'Experience2\' is \'3\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
