@@ -23,7 +23,6 @@
                 if (!$.support.cors) {
                     request = getOptionsForIEMode(request);
                 }
-                debugger;
                 return $.ajax(request);
             });
         }
