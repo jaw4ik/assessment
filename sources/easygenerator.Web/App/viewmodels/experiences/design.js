@@ -7,51 +7,61 @@
 
         var
             experienceId = '',
-            selectedTemplateId = ko.observable(),
-            selectedTemlateImage = ko.observable(),
-            selectedTemlateDescription = ko.observable(),
             templates = [],
+            isSwitchTemplateProgressShow = ko.observable(false),
 
             activate = function (experienceId) {
                 var that = this;
 
                 return experienceRepository.getById(experienceId).then(function (experience) {
                     that.experienceId = experience.id;
-                    that.selectedTemplateId(experience.template.id);
-                    that.selectedTemlateImage(experience.template.image);
-                    that.selectedTemlateDescription(experience.template.description);
 
                     return templateRepository.getCollection().then(function (templates) {
-                        that.templates = templates;
+                        that.templates = _.map(templates, function (template) {
+                            return {
+                                id: template.id,
+                                name: template.name,
+                                image: template.image,
+                                description: template.description,
+                                isSelected: ko.observable(template.id === experience.template.id)
+                            };
+                        });
+                        that.templates = _.sortBy(that.templates, function (template) {
+                            return template.name;
+                        });
                     });
                 }).fail(function () {
                     router.replace('404');
                 });
             },
 
-            updateExperienceTemplate = function () {
+            switchTemplate = function (template) {
                 var that = this;
+                if (!template.isSelected()) {
+                    var selectedTemplate = _.find(that.templates, function (item) {
+                        return item.id === template.id;
+                    });
 
-                var selectedTemplate = _.find(this.templates, function (item) {
-                    return item.id === selectedTemplateId();
-                });
+                    that.isSwitchTemplateProgressShow(true);
+                    eventTracker.publish(events.updateExperienceTemplate + ' \'' + selectedTemplate.name + '\'');
+                    experienceRepository.updateExperienceTemplate(that.experienceId, selectedTemplate.id).then(function (response) {
+                        notify.info(localizationManager.localize('savedAt') + ' ' + response.modifiedOn.toLocaleTimeString());
+                        _.each(that.templates, function (template) {
+                            template.isSelected(selectedTemplate.id === template.id);
+                        });
 
-                eventTracker.publish(events.updateExperienceTemplate + ' \'' + selectedTemplate.name + '\'');
-                experienceRepository.updateExperienceTemplate(this.experienceId, selectedTemplate.id).then(function (response) {
-                    notify.info(localizationManager.localize('savedAt') + ' ' + response.modifiedOn.toLocaleTimeString());
-                    that.selectedTemlateImage(selectedTemplate.image);
-                    that.selectedTemlateDescription(selectedTemplate.description);
-                });
+                    }).finally(function () {
+                        that.isSwitchTemplateProgressShow(false);
+                    });
+                }
             };
 
         return {
             experienceId: experienceId,
             activate: activate,
-            selectedTemplateId: selectedTemplateId,
-            selectedTemlateImage: selectedTemlateImage,
-            selectedTemlateDescription: selectedTemlateDescription,
             templates: templates,
-            updateExperienceTemplate: updateExperienceTemplate
+            switchTemplate: switchTemplate,
+            isSwitchTemplateProgressShow: isSwitchTemplateProgressShow
         };
     }
 );

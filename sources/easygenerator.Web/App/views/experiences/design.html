@@ -1,16 +1,30 @@
 ﻿<section class="design-view-module">
     <div class="container">
         <div class="clearfix">
-            <div class="white-framing pull-left">
-                <span class="template-logo-wrapper">
-                    <img class="template-logo" data-bind="attr: { src: selectedTemlateImage }" alt="" />
-                </span>
-            </div>
-            <div class="entity-actions">
-                <div class="experience-template-selector-text-holder">
-                    <span class="experience-template-selector-text" data-bind="localize: { text: 'learningExperienceTemplate' } ">Learning experience template:</span>
+            <div class="choose-template-container">
+                <div class="choose-template-title">Choose template</div>
+                <div class="choose-template-list">
+                    <!-- ko foreach: templates -->
+                    <div class="choose-template-item" data-bind="css: { selected: isSelected() }, click: $parent.switchTemplate.bind($parent)">
+                        <div class="choose-template-picture"></div>
+                        <span class="choose-template-image-wrapper">
+                            <img class="choose-template-image" data-bind="attr: { src: image }" src="" />
+                        </span>
+                        <div class="choose-template-information">
+                            <div class="temlate-title" data-bind="text: name"></div>
+                            <div class="template-information" data-bind="text: description">
+                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                            </div>
+                        </div>
+                        <div class="selected-temlate-image" data-bind="visible: isSelected() "></div>
+                    </div>
+                    <!-- /ko -->
+                    <div class="wait-block" data-bind="visible: isSwitchTemplateProgressShow">
+                        <div class="icon-spinner-wrapper">
+                            <img src="/Content/images/loader.gif" alt="" />
+                        </div>
+                    </div>
                 </div>
-                <div class="experience-template-selector" data-bind="selectBox: { options: templates, optionsText: 'name', optionsValue: 'id', value: selectedTemplateId }, event: { change: updateExperienceTemplate }"></div>
             </div>
         </div>
     </div>
