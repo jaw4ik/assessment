@@ -430,7 +430,7 @@ body.try {
     padding: 10px;
     font-size: 13px;
     margin-top: 0px;
-    text-align: left;
+    text-align: center;
     cursor: default;
 }
 
@@ -471,8 +471,11 @@ body.try {
 
 
     .user-form-notification.warning .user-form-notification-text:after {
-        background-position: -16px -25px;
-        width: 10px;
+        background-position: -28px -149px;
+        height: 14px;
+        width: 18px;
+        top: 2px;
+        left: -1px;
     }
 
 .user-form-notification.info .user-form-notification-text:after {
@@ -528,12 +531,17 @@ body.try {
 
 .user-form-row.error .user-form-message {
     display: block;
+    padding-left: 30px;
     color: #953b39;
     text-align: left;
 }
 
     .user-form-row.error .user-form-message:after {
-        background-position: -16px -25px;
+        height: 14px;
+        width: 18px;
+        top: 3px;
+        left: 6px;
+        background-position: -28px -149px;
     }
 
 .user-form-row.submit {

@@ -20,7 +20,7 @@
 
             var headerHeight = $('.header').height(),
                 topNavHeight = $('.top-navigation').height(),
-                topFixedContainerHeight = $(fixedContainer).height();
+                fixedContainerHeight = $(fixedContainer).height()-1;
 
             if (!$(helpHintText).is(':empty')) {
 
@@ -34,7 +34,7 @@
             }
 
             $(fixedContainer).css('top', headerHeight + topNavHeight + helpHintHeight + 'px');
-            $(notFixedContainer).css('padding-top', topFixedContainerHeight + helpHintHeight + 'px');
+            $(notFixedContainer).css('padding-top', fixedContainerHeight + helpHintHeight + 'px');
             $(contentContainer).css('min-height', 600 + helpHintHeight + 'px');
         }
     }
