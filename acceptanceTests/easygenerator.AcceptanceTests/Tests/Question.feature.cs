@@ -211,24 +211,6 @@ testRunner.And("explanations list contains only items with data", ((string)(null
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Related objective title is shown in back to objective link")]
-        public virtual void RelatedObjectiveTitleIsShownInBackToObjectiveLink()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Related objective title is shown in back to objective link", ((string[])(null)));
-#line 58
-this.ScenarioSetup(scenarioInfo);
-#line 5
-this.FeatureBackground();
-#line 59
-testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
-                    "001/question/00000000000000000000000000000002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 60
-testRunner.Then("\'Objective1\' title is shown in back to objective link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Related question title is shown in question page header")]
         public virtual void RelatedQuestionTitleIsShownInQuestionPageHeader()
         {
@@ -414,48 +396,6 @@ testRunner.And("click on expand explanations options", ((string)(null)), ((TechT
 testRunner.Then("explanations block is expanded", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 119
 testRunner.And("answer options block is collapsed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Back action of question page navigates to relative objective page")]
-        public virtual void BackActionOfQuestionPageNavigatesToRelativeObjectivePage()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Back action of question page navigates to relative objective page", ((string[])(null)));
-#line 121
-this.ScenarioSetup(scenarioInfo);
-#line 5
-this.FeatureBackground();
-#line 122
-testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
-                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 123
-testRunner.And("click on back to objective on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 124
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
-                    "0000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Objectiive title of question page navigates to relative objective page")]
-        public virtual void ObjectiiveTitleOfQuestionPageNavigatesToRelativeObjectivePage()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Objectiive title of question page navigates to relative objective page", ((string[])(null)));
-#line 126
-this.ScenarioSetup(scenarioInfo);
-#line 5
-this.FeatureBackground();
-#line 127
-testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
-                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 128
-testRunner.And("click on back to objective title on question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 129
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
-                    "0000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

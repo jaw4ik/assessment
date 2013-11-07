@@ -55,9 +55,9 @@ And explanations list contains only items with data
 | Explanation22 |
 | Explanation23 |
 
-Scenario: Related objective title is shown in back to objective link
-When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000002'
-Then 'Objective1' title is shown in back to objective link
+#Scenario: Related objective title is shown in back to objective link
+#When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000002'
+#Then 'Objective1' title is shown in back to objective link
 
 Scenario: Related question title is shown in question page header
 When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000002'
@@ -118,12 +118,12 @@ And click on expand explanations options
 Then explanations block is expanded
 And answer options block is collapsed
 
-Scenario: Back action of question page navigates to relative objective page
-When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
-And click on back to objective on question page
-Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001'
+#Scenario: Back action of question page navigates to relative objective page
+#When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
+#And click on back to objective on question page
+#Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001'
 
-Scenario: Objectiive title of question page navigates to relative objective page
-When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
-And click on back to objective title on question page
-Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001'
+#Scenario: Objectiive title of question page navigates to relative objective page
+#When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
+#And click on back to objective title on question page
+#Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001'
