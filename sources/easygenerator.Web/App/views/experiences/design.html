@@ -2,7 +2,7 @@
     <div class="container">
         <div class="clearfix">
             <div class="choose-template-container">
-                <div class="choose-template-title">Choose template</div>
+                <div class="choose-template-title" data-bind="localize: { text: 'chooseTemplate' } ">Choose template</div>
                 <div class="choose-template-list">
                     <!-- ko foreach: templates -->
                     <div class="choose-template-item" data-bind="css: { selected: isSelected() }, click: $parent.switchTemplate.bind($parent)">
