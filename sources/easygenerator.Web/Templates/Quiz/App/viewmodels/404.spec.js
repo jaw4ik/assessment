@@ -9,5 +9,16 @@
             expect(viewModel).toBeDefined();
         });
 
+        describe('activate:', function() {
+
+            it('should be function', function() {
+                expect(viewModel.activate).toBeFunction();
+            });
+
+            it('should return promise', function() {
+                expect(viewModel.activate()).toBePromise();
+            });
+
+        });
     });
 });

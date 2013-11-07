@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/router', 'context', 'xAPI/requestManager', 'events', 'configuration/routes'],
-    function (app, router, context, xApiRequestManager, events, routes) {
+﻿define(['durandal/app', 'plugins/router', 'context', 'eventManager', 'configuration/routes', 'xApi/activityProvider'],
+    function (app, router, context, eventManager, routes, activityProvider) {
         
         var
             homeModule = 'home',
@@ -25,11 +25,14 @@
                     var title = context.title;
                     var url = window.location.toString() + '?experience_id=' + context.experienceId;
 
-                    xApiRequestManager.init("Anonymous user", "anonymous@easygenerator.com", title, url);
-
-                    return router.activate('home').then(function () {
-                        app.trigger(events.events.courseStarted);
+                    var actor = activityProvider.createActor("Anonymous user", "anonymous@easygenerator.com");
+                    return activityProvider.init(actor, title, url).then(function() {
+                        return router.activate('home').then(function () {
+                            app.trigger(eventManager.events.courseStarted);
+                        });
                     });
+
+//                    xApiRequestManager.init("Anonymous user", "anonymous@easygenerator.com", title, url);
                 });
             };
 

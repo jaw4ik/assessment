@@ -1,9 +1,17 @@
-﻿define([], function () {
+﻿define([],
+    function () {
+        "use strict";
 
-    return {
-        activate: function() {
-            
-        }
-    };
+        var
+            activate = function () {
+                return Q.fcall(function () {
 
-});
+                });
+            };
+
+        return {
+            activate: activate
+        };
+
+    }
+);

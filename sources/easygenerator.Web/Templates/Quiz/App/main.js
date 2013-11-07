@@ -31,4 +31,5 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'browserSuppo
             viewLocator.useConvention();
             app.setRoot(getRootView);
         });
-    });
+    }
+);

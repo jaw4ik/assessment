@@ -42,16 +42,21 @@
             define('knockout', function () { return ko; });
 
             var specs = [
-                'viewmodels/shell.spec',
+                /*'viewmodels/shell.spec',
                 'viewmodels/home.spec',
                 'viewmodels/learningContents.spec',
                 'viewmodels/notsupportedbrowser.spec',
                 'viewmodels/summary.spec',
                 'viewmodels/404.spec',
                 'viewmodels/xAPIError.spec',
-                'xAPI/base64.spec',
                 'xAPI/errorsHandler.spec',
-                'xAPI/requestManager.spec'
+                'xAPI/requestManager.spec',*/
+                'eventManager.spec',
+                'xApi/base64.spec',
+                'xApi/guard.spec',
+                'xApi/activityProvider.spec',
+                'xApi/requestManager.spec',
+                'xApi/errorsHandler.spec'
             ];
             
             require(specs, function () {

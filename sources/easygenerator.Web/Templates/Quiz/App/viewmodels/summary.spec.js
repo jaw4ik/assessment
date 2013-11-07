@@ -5,7 +5,6 @@
         viewModel = require('viewmodels/summary'),
         router = require('plugins/router'),
         context = require('context'),
-        events = require('events'),
         app = require('durandal/app');
 
     describe('viewModel [summary]', function () {
