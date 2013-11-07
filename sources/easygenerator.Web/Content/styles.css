@@ -283,7 +283,7 @@ a.top-navigation-item:hover {
 }
 
 .create-new-title {
-    padding: 68px 0;
+    padding: 63px 0;
     cursor: pointer;
     color: rgb(245, 153, 86);
     font-size: 18px;
@@ -348,7 +348,7 @@ a.top-navigation-item:hover {
         width: 20px;
         height: 20px;
         display: inline-block;
-        background: url(images/sprites.png) -213px -117px no-repeat;
+        background: url(images/sprites.png) -212px -117px no-repeat;
         opacity: 0.5;
         position: relative;
         top: 6px;
