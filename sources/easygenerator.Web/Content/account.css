@@ -429,7 +429,7 @@ body.try {
     width: 100%;
     padding: 10px;
     font-size: 13px;
-    margin-top: -17px;
+    margin-top: 0px;
     text-align: left;
     cursor: default;
 }
@@ -796,7 +796,7 @@ body.try {
 /*#region LOGIN*/
 
 .view-module.log-in .user-form-row.submit {
-    padding-top: 45px;
+    padding-top: 60px;
 }
 
 .forgot-password-link:hover {
