@@ -189,11 +189,11 @@ namespace easygenerator.AcceptanceTests.Steps
             Question.ToggleExplanations();
         }
 
-        [When(@"click on back to objective on question page")]
-        public void WhenClickOnBackToObjectiveOnQuestionPage()
-        {
-            Question.NavigateBackToObjective();
-        }
+        //[When(@"click on back to objective on question page")]
+        //public void WhenClickOnBackToObjectiveOnQuestionPage()
+        //{
+        //    Question.NavigateBackToObjective();
+        //}
 
         [When(@"click on back to objective title on question page")]
         public void WhenClickOnBackToObjectiveTitleOnQuestionPage()

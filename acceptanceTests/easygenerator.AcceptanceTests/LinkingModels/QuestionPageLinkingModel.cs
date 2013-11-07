@@ -11,7 +11,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
     public class QuestionPageLinkingModel : ILinkingModel
     {
         public string AnswerItem = ".//div[contains(@class,'question-answers')]//li[contains(@class,'answer-option-item')]";
-        public string ExplanationItem = ".//div[contains(@class,'question-learning-contents')]//li[contains(@class,'question-learning-content-item')]";
+        public string ExplanationItem = ".//div[contains(@class,'question-learning-contents')]//div[contains(@class,'question-learning-content-item')]";
         public string CorrectAnswerIndicator = ".//span[@class='answer-correct-icon']";
         //public string AnswerItemText = ".//div[contains(@class,'question-answer-text')]";
         public string AnswerItemText = ".//div[contains(@class,'question-answer-text')]//div[contains(@class,'editarea-editable-text')]";
@@ -39,9 +39,9 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string AnswerOptionActiveText = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[contains(@class,'question-answer-text')]//div[contains(@class,'editarea-editable-text')]";
         public string AnswerOptionActiveCorrectnessIndicator = ".//div[contains(@class,'question-answers')]//li[contains(@class,'active')]//div[@class='question-answer-value']";
 
-        public string AddNewExplanationButton = ".//div[contains(@class,'question-learning-contents')]//li[@class='add-button']//div[contains(@class,'question-learning-content selectable')]";
+        public string AddNewExplanationButton = ".//div[contains(@class,'question-learning-contents')]//div[@class='add-button']//div[contains(@class,'question-learning-content selectable')]";
         //public string ExplanationActiveText = ".//div[contains(@class,'question-explanations')]//li[contains(@class,'active')]//div[contains(@class,'question-explanation')]//div[contains(@class,'cke_contents_ltr')]";
-        public string ExplanationActiveText = ".//div[contains(@class,'question-learning-contents')]//li[contains(@class,'active')]//div[contains(@class,'cke_contents_ltr')]";
+        public string ExplanationActiveText = ".//div[contains(@class,'question-learning-contents')]//div[contains(@class,'active')]//div[contains(@class,'cke_contents_ltr')]";
 
         //      <div class="cke_editable cke_editable_inline cke_contents_ltr"
         public string Ckeditor = ".//div[contains(@class,'cke_contents_ltr')]";
