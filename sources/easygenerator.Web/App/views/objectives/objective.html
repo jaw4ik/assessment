@@ -2,7 +2,7 @@
     <div class="fixed-container">
         <div class="content-holder">
             <div class="page-view-caption clearfix">
-                <div class="page-view-caption-text" data-bind="localize : { text : 'learningObjective' }">Learning objective</div>
+                <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjective' }">Learning objective</div>
             </div>
         </div>
     </div>
@@ -17,61 +17,47 @@
                 </div>
             </div>
         </header>
-
-        <div class="questions-header clearfix">
-            <div class="questions-header-title" data-bind="css: { 'alone': questions().length <= 1 }">
-                <a class="questions-header-create-link" href="/#" data-bind="click: navigateToCreateQuestion, localize: { title: 'addNewQuestion' }"></a>
-                <span class="questions-header-title-text" data-bind="localize: { text: 'relatedQuestion' }"></span>
-                <!-- ko if: canDeleteQuestions() -->
-                <span class="header-toolbar-item-wrapper" data-bind="click: deleteSelectedQuestions, localize: { title: 'delete' }">
-                    <span class="toolbar-remove"></span>
-                </span>
-                <!-- /ko -->
-                <hr />
-            </div>
-            <!-- ko if: questions().length > 1 -->
-            <div class="questions-header-sort-label">
-                <span data-bind="localize: { text: 'sortByTitle' }"></span>
-            </div>
-            <div class="questions-header-sort-container">
-                <div class="questions-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }, localize: { title: 'ascending' }">
-                    <span data-bind="localize: { text: 'firstLetter' }"></span>
-                    &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
-                <span data-bind="localize: { text: 'lastLetter' }"></span>
-                </div>
-                <div class="questions-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }, localize: { title: 'descending' }">
-                    <span data-bind="localize: { text: 'lastLetter' }"></span>
-                    &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
-                <span data-bind="localize: { text: 'firstLetter' }"></span>
-                </div>
-            </div>
+        <div class="delete-selected-holder">
+            <!-- ko if: enableDeleteQuestions -->
+            <span class="delete-selected-text enabled" data-bind="click: deleteSelectedQuestions, localize: { text: 'deleteSelected' }">Delete selected</span>
             <!-- /ko -->
+
+            <!-- ko ifnot: enableDeleteQuestions -->
+            <span class="delete-selected-text disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
+            <!-- /ko -->
+            <div class="dotted-line"></div>
         </div>
 
-        <!-- ko if: questions().length > 0 -->
         <div class="content-holder">
             <div class="main-content-list-holder">
+                <div class="create-new-holder" data-bind="click: navigateToCreateQuestion">
+                    <div class="create-new-title">
+                        <span class="create-new-icon">+</span>
+                        <span data-bind="localize: { text: 'createNewQuestion' }"></span>
+                    </div>
+                    <div class="dotted-line"></div>
+                </div>
                 <ul class="unstyled main-content-list">
                     <!-- ko foreach: questions -->
                     <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id, 'selected': isSelected }">
                         <div class="list-item-content-holder" data-bind="click: $parent.toggleQuestionSelection">
-                           <div class="list-item-checkbox" data-bind="">
-                               <span class="custom-checkbox-input" data-bind="css: { checked: isSelected }">
-                                   <input class="custom-checkbox" type="checkbox" />
-                               </span>
-                           </div>
-                           <div class="list-item-logo">
-                               <img class="list-item-logo-image" alt="" src="../../../Content/images/multichoice-question.png" />
-                           </div>
-                           <div class="list-item-info">
-                               <div class="list-item-title">
-                                   <span class="selectable" data-bind="text: title"></span>
-                               </div>
-                               <div class="list-item-saved">
-                                   <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
-                               </div>
-                           </div>
-                       </div>
+                            <div class="list-item-checkbox" data-bind="">
+                                <span class="custom-checkbox-input" data-bind="css: { checked: isSelected }">
+                                    <input class="custom-checkbox" type="checkbox" />
+                                </span>
+                            </div>
+                            <div class="list-item-logo">
+                                <img class="list-item-logo-image" alt="" src="../../../Content/images/multichoice-question.png" />
+                            </div>
+                            <div class="list-item-info">
+                                <div class="list-item-title">
+                                    <span class="selectable" data-bind="text: title"></span>
+                                </div>
+                                <div class="list-item-saved">
+                                    <span data-bind="localize: { text: 'lastEdited' }">Last edited:</span> <span data-bind="    date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="open-item-btn">
                             <a href="#" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToEditQuestion.bind($parent)">
                                 <span class="open-btn-text" data-bind="localize: { text: 'open' }">Open</span>
@@ -82,17 +68,5 @@
                 </ul>
             </div>
         </div>
-        <!-- /ko -->
-        <!-- ko ifnot: questions().length > 0 -->
-        <div class="add-new-item-tip">
-            <div class="add-new-item-tip-arrow"></div>
-            <div class="add-new-item-tip-text rotate-right" data-bind="localize: { text: 'clickToAddNewQuestion' }"></div>
-        </div>
-        <div class="empty-list-wrapper">
-            <div class="empty-list">
-                <div class="empty-list-text" data-bind="localize: { text: 'questionListIsEmpty' }"></div>
-            </div>
-        </div>
-        <!-- /ko -->
     </div>
 </section>

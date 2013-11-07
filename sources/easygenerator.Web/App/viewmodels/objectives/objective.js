@@ -94,7 +94,14 @@
                 if (selectedQuestions.length == 0)
                     throw 'No selected questions to delete';
 
-                questionRepository.removeQuestion(this.objectiveId, selectedQuestions[0].id).then(function () {
+                if (selectedQuestions.length > 1) {
+                    notify.error(localizationManager.localize('deleteSeveralQuestionsError'));
+                    return;
+                }
+
+                var selectedObjective = selectedQuestions[0];
+                
+                questionRepository.removeQuestion(this.objectiveId, selectedObjective.id).then(function () {
                     questions(_.reject(questions(), function (item) { return item.id == selectedQuestions[0].id; }));
                     notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
                 });
@@ -158,8 +165,8 @@
                 });
             },
 
-            canDeleteQuestions = ko.computed(function () {
-                return getSelectedQuestions().length == 1;
+            enableDeleteQuestions = ko.computed(function () {
+                return getSelectedQuestions().length > 0;
             });
 
         return {
@@ -169,7 +176,7 @@
             currentLanguage: currentLanguage,
 
             questions: questions,
-            canDeleteQuestions: canDeleteQuestions,
+            enableDeleteQuestions: enableDeleteQuestions,
 
             startEditTitle: startEditTitle,
             endEditTitle: endEditTitle,

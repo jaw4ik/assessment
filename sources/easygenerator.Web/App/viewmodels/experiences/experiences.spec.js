@@ -505,26 +505,26 @@
 
             });
 
-            describe('canDeleteExperiences:', function () {
+            describe('enableDeleteExperiences:', function () {
 
                 it('should be computed', function () {
-                    expect(viewModel.canDeleteExperiences).toBeComputed();
+                    expect(viewModel.enableDeleteExperiences).toBeComputed();
                 });
 
                 describe('when no experience is selected', function () {
 
                     it('should be false', function () {
                         viewModel.experiences([{ isSelected: ko.observable(false) }]);
-                        expect(viewModel.canDeleteExperiences()).toBeFalsy();
+                        expect(viewModel.enableDeleteExperiences()).toBeFalsy();
                     });
 
                 });
 
-                describe('when only 1 experience is selected', function () {
+                describe('when 1 experience is selected', function () {
 
                     it('should be true', function () {
                         viewModel.experiences([{ isSelected: ko.observable(true) }]);
-                        expect(viewModel.canDeleteExperiences()).toBeTruthy();
+                        expect(viewModel.enableDeleteExperiences()).toBeTruthy();
                     });
 
                 });
@@ -533,7 +533,7 @@
 
                     it('should be false', function () {
                         viewModel.experiences([{ isSelected: ko.observable(true) }, { isSelected: ko.observable(true) }]);
-                        expect(viewModel.canDeleteExperiences()).toBeFalsy();
+                        expect(viewModel.enableDeleteExperiences()).toBeTruthy();
                     });
 
                 });
@@ -565,14 +565,14 @@
                 });
 
                 describe('when more that 1 experience are selected', function () {
-
-                    it('should throw exception', function () {
+                    var notify = require('notify');
+                    
+                    it('should show error notification', function () {
                         viewModel.experiences([{ isSelected: ko.observable(true) }, { isSelected: ko.observable(true) }]);
-
-                        var f = function () {
-                            viewModel.deleteSelectedExperiences();
-                        };
-                        expect(f).toThrow();
+                        spyOn(notify, 'error');
+                        
+                        viewModel.deleteSelectedExperiences();
+                        expect(notify.error).toHaveBeenCalled();
                     });
 
                 });

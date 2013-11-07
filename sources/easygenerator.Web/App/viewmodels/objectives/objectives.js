@@ -57,8 +57,8 @@
                     return objective.isSelected && !objective.isSelected();
                 });
             },
-            canDeleteObjectives = ko.computed(function () {
-                return getSelectedObjectives().length == 1;
+            enableDeleteObjectives = ko.computed(function () {
+                return getSelectedObjectives().length > 0;
             }),
             deleteSelectedObjectives = function () {
                 sendEvent(events.deleteObjectives);
@@ -66,18 +66,21 @@
                 var selectedObjectives = getSelectedObjectives();
                 if (selectedObjectives.length == 0)
                     throw "No selected objectives to delete";
-                if (selectedObjectives.length > 1)
-                    throw "Too many elements to remove";
+
+                if (selectedObjectives.length > 1){
+                    notify.error(localizationManager.localize('deleteSeveralObjectivesError'));
+                    return undefined;
+                }
 
                 var selectedObjective = selectedObjectives[0];
 
                 if (!selectedObjective.canBeDeleted) {
                     notify.error(localizationManager.localize('objectiveCannnotBeDeleted'));
                     return undefined;
-                } else {
-                    notify.hide();
-                }
+                } 
 
+                notify.hide();
+                
                 objectiveRepository.removeObjective(selectedObjective.id).then(function () {
                     objectives(_.reject(objectives(), function (objective) {
                         return objective.id === selectedObjective.id;
@@ -163,7 +166,7 @@
             navigateToDetails: navigateToDetails,
             navigateToExperiences: navigateToExperiences,
 
-            canDeleteObjectives: canDeleteObjectives,
+            enableDeleteObjectives: enableDeleteObjectives,
             deleteSelectedObjectives: deleteSelectedObjectives,
             lastVisitedObjective: lastVisitedObjective,
 

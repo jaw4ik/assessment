@@ -539,7 +539,19 @@
 
                 });
 
-                describe('when there are selected questions', function () {
+                describe('when more that 1 question are selected', function () {
+
+                    it('should show error notification', function () {
+                        viewModel.questions([{ id: 'id1', isSelected: ko.observable(true) }, { id: 'id2', isSelected: ko.observable(true) }]);
+                        spyOn(notify, 'error');
+
+                        viewModel.deleteSelectedQuestions();
+                        expect(notify.error).toHaveBeenCalled();
+                    });
+
+                });
+
+                describe('when there is 1 selected question', function () {
 
                     var removeQuestion;
 
@@ -600,17 +612,17 @@
 
             });
 
-            describe('canDeleteQuestions:', function () {
+            describe('enableDeleteQuestions:', function () {
 
                 it('should be observable', function () {
-                    expect(viewModel.canDeleteQuestions).toBeObservable();
+                    expect(viewModel.enableDeleteQuestions).toBeObservable();
                 });
 
                 describe('when no question selected', function () {
 
                     it('should be false', function () {
                         viewModel.questions([]);
-                        expect(viewModel.canDeleteQuestions()).toBe(false);
+                        expect(viewModel.enableDeleteQuestions()).toBe(false);
                     });
 
                 });
@@ -622,7 +634,7 @@
                             { isSelected: ko.observable(true) }
                         ]);
 
-                        expect(viewModel.canDeleteQuestions()).toBe(true);
+                        expect(viewModel.enableDeleteQuestions()).toBe(true);
                     });
 
                 });
@@ -635,7 +647,7 @@
                             { isSelected: ko.observable(true) }
                         ]);
 
-                        expect(viewModel.canDeleteQuestions()).toBe(false);
+                        expect(viewModel.enableDeleteQuestions()).toBe(true);
                     });
 
                 });

@@ -1201,15 +1201,6 @@ ol.unstyled  {
     /*#endregion Create explanation tooltip*/
 }
 
-@media (max-width: 879px) {
-    /*#region OBJECTIVES-EXPERIENCES-QUESTIONS*/
-    .objectives,
-    .experiences {
-        max-width: 600px;
-    }
-    /*#endregion OBJECTIVES-EXPERIENCES-QUESTIONS*/
-}
-
 @media (max-width: 779px) {
     /*#region Page navigation elements */
     .nav-element-wrapper.previous {

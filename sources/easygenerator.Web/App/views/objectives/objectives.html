@@ -2,49 +2,35 @@
     <div class="fixed-container">
         <div class="content-holder">
             <div class="page-view-caption clearfix">
-                <div class="page-view-caption-text" data-bind="localize : { text : 'learningObjectives' }">Learning objectives</div>
+                <div class="page-view-caption-text" data-bind="localize: { text: 'learningObjectives' }">Learning objectives</div>
             </div>
+        </div>
+        <div class="delete-selected-holder">
+            <!-- ko if: enableDeleteObjectives -->
+            <span class="delete-selected-text enabled" data-bind="click: deleteSelectedObjectives, localize: { text: 'deleteSelected' }">Delete selected</span>
+            <!-- /ko -->
+
+            <!-- ko ifnot: enableDeleteObjectives -->
+            <span class="delete-selected-text disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
+            <!-- /ko -->
+            <div class="dotted-line"></div>
         </div>
     </div>
 
     <div class="objectives-body">
-        <div class="objectives-header">
-            <div class="objectives-header-title" data-bind="css: { 'alone': objectives().length <= 1 }">
-                <a class="objectives-header-create-link" href="/#/objective/create" data-bind="click: navigateToCreation, localize: { title: 'addNewObjective' }"></a>
-                <span class="objectives-header-title-text" data-bind="localize: { text: 'learningObjective' }">Learning objective</span>
-                <!-- ko if: canDeleteObjectives() -->
-                <span class="header-toolbar-item-wrapper" data-bind="click: deleteSelectedObjectives, localize: { title: 'delete' }">
-                    <span class="toolbar-remove"></span>
-                </span>
-                <!-- /ko -->
-                <hr />
-            </div>
-            <!-- ko if: objectives().length > 1 -->
-            <div class="objectives-header-sort-label">
-                <span data-bind="localize: { text: 'sortByTitle' }"></span>
-            </div>
-            <div class="objectives-header-sort-container">
-                <div class="objectives-sort-by-title-asc" data-bind="click: sortByTitleAsc, css: { 'active': currentSortingOption() == sortingOptions.byTitleAsc }, localize: { title: 'ascending' }">
-                    <span data-bind="localize: { text: 'firstLetter' }">a</span>
-                    &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
-                    <span data-bind="localize: { text: 'lastLetter' }">z</span>
+        <div class="content-holder">
+            <div class="main-content-list-holder">
+                <div class="create-new-holder" data-bind="click: navigateToCreation">
+                    <div class="create-new-title">
+                        <span class="create-new-icon">+</span>
+                        <span data-bind="localize: { text: 'createNewObjective' }"></span>
+                    </div>
+                    <div class="dotted-line"></div>
                 </div>
-                <div class="objectives-sort-by-title-desc" data-bind="click: sortByTitleDesc, css: { 'active': currentSortingOption() == sortingOptions.byTitleDesc }, localize: { title: 'descending' }">
-                    <span data-bind="localize: { text: 'lastLetter' }">z</span>
-                    &nbsp;<i class="icon-long-arrow-right"></i>&nbsp;
-                    <span data-bind="localize: { text: 'firstLetter' }">a</span>
-                </div>
-            </div>
-            <!-- /ko -->
-        </div>
-
-        <!-- ko if: objectives().length > 0 -->
-         <div class="content-holder">
-             <div class="main-content-list-holder">
-                 <ul class="unstyled main-content-list">
-                     <!-- ko foreach: objectives -->
-                     <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id, 'selected': isSelected }">
-                         <div class="list-item-content-holder" data-bind="click: $parent.toggleObjectiveSelection">
+                <ul class="unstyled main-content-list">
+                    <!-- ko foreach: objectives -->
+                    <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVisitedObjective == id, 'selected': isSelected }">
+                        <div class="list-item-content-holder" data-bind="click: $parent.toggleObjectiveSelection">
                             <div class="list-item-checkbox" data-bind="">
                                 <span class="custom-checkbox-input" data-bind="css: { checked: isSelected }">
                                     <input class="custom-checkbox" type="checkbox" />
@@ -62,29 +48,15 @@
                                 </div>
                             </div>
                         </div>
-                         <div class="open-item-btn">
-                             <a href="" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToDetails">
-                                 <span class="open-btn-text" data-bind="localize: { text: 'open' }">Open</span>
-                             </a>
-                         </div>
-                     </li>
-                     <!-- /ko -->
-                 </ul>
-             </div>
-        </div>
-        <!-- /ko -->
-
-        <!-- ko ifnot: objectives().length > 0 -->
-        <div class="add-new-item-tip">
-            <div class="add-new-item-tip-arrow"></div>
-            <div class="add-new-item-tip-text rotate-right" data-bind="localize: { text: 'clickToAddObjective' }"></div>
-        </div>
-        <div class="empty-list-wrapper">
-            <div class="empty-list">
-                <div class="empty-list-text" data-bind="localize: { text: 'learningObjectiveListIsEmpty' }"></div>
+                        <div class="open-item-btn">
+                            <a href="" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToDetails">
+                                <span class="open-btn-text" data-bind="localize: { text: 'open' }">Open</span>
+                            </a>
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                </ul>
             </div>
         </div>
-        <!-- /ko -->
-
     </div>
 </section>

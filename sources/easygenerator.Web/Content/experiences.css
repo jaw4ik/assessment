@@ -1,4 +1,8 @@
-﻿.experiences-header {
+﻿.experiences.view-module {
+    padding-top: 81px;
+}
+
+.experiences-header {
     height: 96px;
     padding: 20px 20px 0;
 }

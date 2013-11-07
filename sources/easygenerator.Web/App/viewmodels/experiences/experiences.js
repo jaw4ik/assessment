@@ -130,8 +130,8 @@
             });
         }
 
-        viewModel.canDeleteExperiences = ko.computed(function () {
-            return getSelectedExperiences().length == 1;
+        viewModel.enableDeleteExperiences = ko.computed(function () {
+            return getSelectedExperiences().length > 0;
         });
 
         function deleteSelectedExperiences() {
@@ -142,7 +142,8 @@
                 throw 'There are no experiences selected';
             }
             if (selectedExperiences.length > 1) {
-                throw 'You can not delete more than 1 experience at once';
+                notify.error(localizationManager.localize('deleteSeveralExperiencesError'));
+                return;
             }
 
             var selectedExperience = selectedExperiences[0];

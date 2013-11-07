@@ -494,30 +494,30 @@
 
             });
 
-            describe('canDeleteObjectives:', function () {
+            describe('enableDeleteObjectives:', function () {
 
                 it('should be computed', function () {
-                    expect(viewModel.canDeleteObjectives).toBeComputed();
+                    expect(viewModel.enableDeleteObjectives).toBeComputed();
                 });
 
                 describe('when no selected objectives', function () {
                     it('should be false', function () {
                         viewModel.objectives([{ isSelected: ko.observable(false) }]);
-                        expect(viewModel.canDeleteObjectives()).toBeFalsy();
+                        expect(viewModel.enableDeleteObjectives()).toBeFalsy();
                     });
                 });
 
-                describe('when only 1 objective is selected', function () {
+                describe('when 1 objective is selected', function () {
                     it('should be true', function () {
                         viewModel.objectives([{ isSelected: ko.observable(true) }]);
-                        expect(viewModel.canDeleteObjectives()).toBeTruthy();
+                        expect(viewModel.enableDeleteObjectives()).toBeTruthy();
                     });
                 });
 
                 describe('when there are few objectives selected', function () {
                     it('should be false', function () {
                         viewModel.objectives([{ isSelected: ko.observable(true) }, { isSelected: ko.observable(true) }]);
-                        expect(viewModel.canDeleteObjectives()).toBeFalsy();
+                        expect(viewModel.enableDeleteObjectives()).toBeTruthy();
                     });
                 });
             });
@@ -550,13 +550,12 @@
                 });
 
                 describe('when there are few selected objectives', function () {
-                    it('should throw exception', function () {
+                    it('should show error notification', function () {
                         viewModel.objectives([{ isSelected: ko.observable(true) }, { isSelected: ko.observable(true) }]);
-
-                        var f = function () {
-                            viewModel.deleteSelectedObjectives();
-                        };
-                        expect(f).toThrow();
+                        spyOn(notify, 'error');
+                        
+                        viewModel.deleteSelectedObjectives();
+                        expect(notify.error).toHaveBeenCalled();
                     });
                 });
 

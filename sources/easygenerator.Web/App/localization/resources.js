@@ -131,6 +131,26 @@
         nl: 'Laatst bewerkt:',
         de: 'Zuletzt bearbeitet:'
     },
+    deleteSelected: {
+        en: 'Delete selected',
+        nl: 'Delete selected[nl]',
+        de: 'Delete selected[de]'
+    },
+    deleteSeveralExperiencesError: {
+        en: 'You can not delete more than 1 experience at once',
+        nl: 'You can not delete more than 1 experience at once[nl]',
+        de: 'You can not delete more than 1 experience at once[de]'
+    },
+    deleteSeveralObjectivesError: {
+        en: 'You can not delete more than 1 objective at once',
+        nl: 'You can not delete more than 1 objective at once[nl]',
+        de: 'You can not delete more than 1 objective at once[de]'
+    },
+    deleteSeveralQuestionsError: {
+        en: 'You can not delete more than 1 question at once',
+        nl: 'You can not delete more than 1 question at once[nl]',
+        de: 'You can not delete more than 1 question at once[de]'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
