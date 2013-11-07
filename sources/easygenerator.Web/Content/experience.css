@@ -1033,6 +1033,7 @@
     margin-bottom: 10px;
     position: relative;
     display: table;
+    word-break: break-all;
     cursor: default;
 }
 
