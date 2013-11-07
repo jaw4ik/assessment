@@ -577,32 +577,26 @@
     <Content Include="Templates\Quiz\App\views\shell.html" />
     <Content Include="Templates\Quiz\App\views\summary.html" />
     <Content Include="Templates\Quiz\App\views\xAPIError.html" />
-    <Content Include="Templates\Quiz\App\xAPI\activityProvider.js" />
-    <Content Include="Templates\Quiz\App\xAPI\activityProvider.spec.js" />
-    <Content Include="Templates\Quiz\App\xAPI\base64.js" />
-    <Content Include="Templates\Quiz\App\xAPI\base64.spec.js">
-      <DependentUpon>base64.js</DependentUpon>
-    </Content>
-    <Content Include="Templates\Quiz\App\xAPI\constants.js" />
-    <Content Include="Templates\Quiz\App\xAPI\errorsHandler.js" />
-    <Content Include="Templates\Quiz\App\xAPI\errorsHandler.spec.js">
-      <DependentUpon>errorsHandler.js</DependentUpon>
-    </Content>
-    <Content Include="Templates\Quiz\App\xAPI\guard.js" />
-    <Content Include="Templates\Quiz\App\xAPI\guard.spec.js" />
-    <Content Include="Templates\Quiz\App\xAPI\models\activity.js" />
-    <Content Include="Templates\Quiz\App\xAPI\models\activityDefinition.js" />
-    <Content Include="Templates\Quiz\App\xAPI\models\actor.js" />
-    <Content Include="Templates\Quiz\App\xAPI\models\object.js" />
-    <Content Include="Templates\Quiz\App\xAPI\models\result.js" />
-    <Content Include="Templates\Quiz\App\xAPI\models\score.js" />
-    <Content Include="Templates\Quiz\App\xAPI\models\statement.js" />
-    <Content Include="Templates\Quiz\App\xAPI\models\verb.js" />
-    <Content Include="Templates\Quiz\App\xAPI\requestManager.js" />
-    <Content Include="Templates\Quiz\App\xAPI\requestManager.spec.js">
-      <DependentUpon>requestManager.js</DependentUpon>
-    </Content>
-    <Content Include="Templates\Quiz\App\xAPI\settings.js" />
+    <Content Include="Templates\Quiz\App\xApi\activityProvider.js" />
+    <Content Include="Templates\Quiz\App\xApi\activityProvider.spec.js" />
+    <Content Include="Templates\Quiz\App\xApi\base64.js" />
+    <Content Include="Templates\Quiz\App\xApi\base64.spec.js" />
+    <Content Include="Templates\Quiz\App\xApi\constants.js" />
+    <Content Include="Templates\Quiz\App\xApi\errorsHandler.js" />
+    <Content Include="Templates\Quiz\App\xApi\errorsHandler.spec.js" />
+    <Content Include="Templates\Quiz\App\xApi\guard.js" />
+    <Content Include="Templates\Quiz\App\xApi\guard.spec.js" />
+    <Content Include="Templates\Quiz\App\xApi\models\activity.js" />
+    <Content Include="Templates\Quiz\App\xApi\models\activityDefinition.js" />
+    <Content Include="Templates\Quiz\App\xApi\models\actor.js" />
+    <Content Include="Templates\Quiz\App\xApi\models\object.js" />
+    <Content Include="Templates\Quiz\App\xApi\models\result.js" />
+    <Content Include="Templates\Quiz\App\xApi\models\score.js" />
+    <Content Include="Templates\Quiz\App\xApi\models\statement.js" />
+    <Content Include="Templates\Quiz\App\xApi\models\verb.js" />
+    <Content Include="Templates\Quiz\App\xApi\requestManager.js" />
+    <Content Include="Templates\Quiz\App\xApi\requestManager.spec.js" />
+    <Content Include="Templates\Quiz\App\xApi\settings.js" />
     <Content Include="Templates\Quiz\content\0\0\0.html" />
     <Content Include="Templates\Quiz\content\0\0\1.html" />
     <Content Include="Templates\Quiz\content\0\1\0.html" />
