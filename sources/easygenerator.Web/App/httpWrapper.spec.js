@@ -97,38 +97,72 @@
                         });
                     });
                 });
-                
-                describe('and reason contains statusText', function () {
 
-                    it('should show error notification with reason statusText', function () {
-                        var promise = httpWrapper.post();
-                        var reason = {statusText: 'error'};
-                        post.reject(reason);
+                describe('and reason is not-string object', function () {
 
-                        waitsFor(function () {
-                            return !promise.isPending();
+                    describe('and status == 503', function() {
+
+                        beforeEach(function() {
+                            var reason = { status: 503 };
+                            post.reject(reason);
                         });
-                        runs(function () {
-                            expect(notify.error).toHaveBeenCalledWith("error");
+
+                        it('should reject promise with \'Service unavailable\'', function () {
+                            var promise = httpWrapper.post();
+                            
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeRejectedWith('Service unavailable');
+                            });
+                        });
+                        
+                        it('should not show error notification', function () {
+                            var promise = httpWrapper.post();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(notify.error).not.toHaveBeenCalled();
+                            });
+                        });
+                    });
+
+                    describe('and reason contains statusText', function () {
+
+                        it('should show error notification with reason statusText', function () {
+                            var promise = httpWrapper.post();
+                            var reason = { statusText: 'error' };
+                            post.reject(reason);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(notify.error).toHaveBeenCalledWith("error");
+                            });
+                        });
+                    });
+
+                    describe('and reason does not contain statusText', function () {
+
+                        it('should show default error notification', function () {
+                            var promise = httpWrapper.post();
+                            var reason = { value: 'error' };
+                            post.reject(reason);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(notify.error).toHaveBeenCalledWith("failed");
+                            });
                         });
                     });
                 });
 
-                describe('and reason does not contain statusText', function () {
-
-                    it('should show default error notification', function () {
-                        var promise = httpWrapper.post();
-                        var reason = { value: 'error' };
-                        post.reject(reason);
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(notify.error).toHaveBeenCalledWith("failed");
-                        });
-                    });
-                });
 
                 it('should trigger \'httpWrapper:post-end\' event', function () {
                     var promise = httpWrapper.post();

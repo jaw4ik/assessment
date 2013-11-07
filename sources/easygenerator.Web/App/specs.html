@@ -23,7 +23,7 @@
 
     <!-- Source scripts -->
     <script type="text/javascript" src="../Scripts/require.js"></script>
-    
+
     <script type="text/javascript" src="../Scripts/account/common.js"></script>
     <script type="text/javascript" src="../Scripts/account/analytics.js"></script>
     <script type="text/javascript" src="../Scripts/account/signup.js"></script>
@@ -50,6 +50,7 @@
 
             require(['plugins/router'], function (router) {
                 router.replace = function () { };
+                router.reloadLocation = function () { };
                 router.navigateWithQueryString = function () { };
                 router.download = function () { };
             });
@@ -58,6 +59,7 @@
                 'guard.spec',
                 'httpWrapper.spec',
                 'notify.spec',
+                'errorHandling/serviceUnavailabeErrorHandler.spec',
                 'localization/localizationManager.spec',
                 'services/buildExperience.spec',
                 'clientContext.spec',
@@ -67,7 +69,7 @@
                 'repositories/answerRepository.spec',
                 'repositories/learningContentRepository.spec',
                 'repositories/templateRepository.spec',
-                'repositories/helpHintRepository.spec',                
+                'repositories/helpHintRepository.spec',
                 'viewmodels/objectives/objectives.spec',
                 'viewmodels/objectives/objective.spec',
                 'viewmodels/objectives/objectiveBrief.spec',

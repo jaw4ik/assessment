@@ -156,6 +156,14 @@
     <Content Include="App\clientContext.spec.js">
       <DependentUpon>clientContext.js</DependentUpon>
     </Content>
+    <Content Include="App\errorHandling\globalErrorEventHandlerSubscriber.js" />
+    <Content Include="App\errorHandling\globalErrorEventHandlerSubscriber.spec.js">
+      <DependentUpon>globalErrorEventHandlerSubscriber.js</DependentUpon>
+    </Content>
+    <Content Include="App\errorHandling\serviceUnavailabeErrorHandler.spec.js">
+      <DependentUpon>serviceUnavailabeErrorHandler.js</DependentUpon>
+    </Content>
+    <Content Include="App\errorHandling\serviceUnavailabeErrorHandler.js" />
     <Content Include="App\guard.js" />
     <Content Include="App\httpWrapper.spec.js">
       <DependentUpon>httpWrapper.js</DependentUpon>

@@ -30,13 +30,20 @@
                         deferred.resolve(response.data);
                     })
                     .fail(function (reason) {
-                        var message;
+                        var message = null;
 
-                        if (typeof reason == "string") {
-                            message = reason;
-                        } else if (reason && reason.statusText) {
-                            message = reason.statusText;
-                        } else {
+                        if (!_.isNullOrUndefined(reason)) {
+                            if (typeof reason == "string") {
+                                message = reason;
+                            } else if (reason.status == 503) {
+                                deferred.reject('Service unavailable');
+                                return;
+                            } else if (reason.statusText) {
+                                message = reason.statusText;
+                            }
+                        }
+
+                        if (_.isNull(message)) {
                             message = localizationManager.localize("responseFailed");
                         }
 
