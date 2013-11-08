@@ -112,6 +112,7 @@
     <Compile Include="BuildExperience\BuildPackageCreatorTests.cs" />
     <Compile Include="BuildExperience\PackageModelMapperTests.cs" />
     <Compile Include="BuildExperience\PhysicalFileManagerTests.cs" />
+    <Compile Include="Components\CultureInitializationTest.cs" />
     <Compile Include="Components\RouteConstraints\PublishIsInProgressConstraintTest.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\Api\AnswerControllerTests.cs" />

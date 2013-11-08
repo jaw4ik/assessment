@@ -208,6 +208,7 @@
     <Compile Include="Components\ActionResults\JsonErrorResult.cs" />
     <Compile Include="Components\ActionResults\JsonSuccessResult.cs" />
     <Compile Include="Components\AuthenticationProvider.cs" />
+    <Compile Include="Components\CultureInitialization.cs" />
     <Compile Include="Components\Configuration\ConfigurationReader.cs" />
     <Compile Include="Components\Configuration\FileStorageConfigurationSection.cs" />
     <Compile Include="Components\Configuration\MailSenderConfigurationSection.cs" />
