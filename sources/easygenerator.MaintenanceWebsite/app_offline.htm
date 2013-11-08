@@ -3,8 +3,8 @@
 <html>
 <head>
     <script type="text/javascript">
-        // Date.UTC(year, month, date, hrs, min, sec, ms) 
-        var launchDate = new Date(Date.UTC(2013, 11, 14, 8, 0, 0));
+        // Date.UTC(year, month, date, hrs, min) 
+        var launchDate = new Date(Date.UTC(2013, 11, 14, 8, 30));
     </script>
     <meta charset="utf-8">
     <title>easygenerator</title>
@@ -291,15 +291,20 @@
     </footer>
     <script type="text/javascript">
         (function () {
-            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            var hours = launchDate.getHours();
-            var launchTimeText = hours > 12 ? hours - 12 + ' PM' : hours + ' AM';
-
-            var launchDateText = months[launchDate.getMonth() - 1] + ' ' + launchDate.getDate() + ', ' + launchDate.getFullYear() + ' at ' + launchTimeText;
-
-            var elem = document.getElementById('launchDateBlock');
-            elem.innerText = launchDateText;
+            if (typeof launchDate != 'undefined') {
+                var elem = document.getElementById('launchDateBlock');
+                elem.innerText = formatLaunchDate(launchDate);
+            }
         })();
+
+        function formatLaunchDate(date) {           
+            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            var hrs = date.getHours();
+            var mins = date.getMinutes();
+            var launchTimeText = (hrs > 12 ? hrs - 12 : hrs) + (mins > 0 ? ':' + (mins < 10 ? '0' + mins : mins) : '') + ' ' + (hrs > 12 ? 'PM' : 'AM');
+
+            return months[date.getMonth() - 1] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' at ' + launchTimeText + '.';
+        }
     </script>
 </body>
 </html>
