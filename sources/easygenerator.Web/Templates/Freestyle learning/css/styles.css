@@ -416,6 +416,7 @@ input[type="checkbox"] {
 .objective-brief-image {
     width: 165px;
     height: 85px;
+    outline: 1px solid #f8f8f8;
 }
 
 .objective-brief-title {
