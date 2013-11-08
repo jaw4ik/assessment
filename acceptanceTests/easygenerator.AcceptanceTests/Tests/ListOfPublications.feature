@@ -33,64 +33,64 @@ Then publications tiles list contains items with data
 | Title                                |
 | ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
 
-Scenario: Publications are sorted by title ascending by default
-Given publications are present in database
-| Title         |
-| Publication_a |
-| a_Publication |
-| Publication_z |
-| 1_Publication |
-| _Publication  |
-When open page by url 'http://localhost:5656/#/experiences'
-Then publications tiles list consists of ordered items
-| Title         |
-| 1_Publication |
-| _Publication  |
-| a_Publication |
-| Publication_a |
-| Publication_z |
-And publications list order switch is set to 'ascending'
+#Scenario: Publications are sorted by title ascending by default
+#Given publications are present in database
+#| Title         |
+#| Publication_a |
+#| a_Publication |
+#| Publication_z |
+#| 1_Publication |
+#| _Publication  |
+#When open page by url 'http://localhost:5656/#/experiences'
+#Then publications tiles list consists of ordered items
+#| Title         |
+#| 1_Publication |
+#| _Publication  |
+#| a_Publication |
+#| Publication_a |
+#| Publication_z |
+#And publications list order switch is set to 'ascending'
 
 
-Scenario: Publications are sorted by title descending if set descending order
-Given publications are present in database
-| Title         |
-| Publication_a |
-| a_Publication |
-| Publication_z |
-| _Publication  |
-| 1_Publication |
-When open page by url 'http://localhost:5656/#/experiences'
-And I switch publications list order to 'ascending'
-And I switch publications list order to 'descending'
-Then publications tiles list consists of ordered items
-| Title         |
-| Publication_z |
-| Publication_a |
-| a_Publication |
-| _Publication  |
-| 1_Publication |
-And publications list order switch is set to 'descending'
+#Scenario: Publications are sorted by title descending if set descending order
+#Given publications are present in database
+#| Title         |
+#| Publication_a |
+#| a_Publication |
+#| Publication_z |
+#| _Publication  |
+#| 1_Publication |
+#When open page by url 'http://localhost:5656/#/experiences'
+#And I switch publications list order to 'ascending'
+#And I switch publications list order to 'descending'
+#Then publications tiles list consists of ordered items
+#| Title         |
+#| Publication_z |
+#| Publication_a |
+#| a_Publication |
+#| _Publication  |
+#| 1_Publication |
+#And publications list order switch is set to 'descending'
 
-Scenario: Publications are sorted by title ascending if set ascending order
-Given publications are present in database
-| Title         |
-| Publication_a |
-| a_Publication |
-| Publication_z |
-| 1_Publication |
-| _Publication  |
-When open page by url 'http://localhost:5656/#/experiences'
-And I switch publications list order to 'descending'
-And I switch publications list order to 'ascending'
-Then publications tiles list consists of ordered items
-| Title         |
-| 1_Publication |
-| _Publication  |
-| a_Publication |
-| Publication_a |
-| Publication_z |
-And publications list order switch is set to 'ascending'
+#Scenario: Publications are sorted by title ascending if set ascending order
+#Given publications are present in database
+#| Title         |
+#| Publication_a |
+#| a_Publication |
+#| Publication_z |
+#| 1_Publication |
+#| _Publication  |
+#When open page by url 'http://localhost:5656/#/experiences'
+#And I switch publications list order to 'descending'
+#And I switch publications list order to 'ascending'
+#Then publications tiles list consists of ordered items
+#| Title         |
+#| 1_Publication |
+#| _Publication  |
+#| a_Publication |
+#| Publication_a |
+#| Publication_z |
+#And publications list order switch is set to 'ascending'
 
 Scenario: Selected publication should be highlited after selecting
 Given publications are present in database

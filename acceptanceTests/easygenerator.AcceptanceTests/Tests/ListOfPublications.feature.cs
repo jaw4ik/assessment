@@ -151,155 +151,6 @@ testRunner.Then("publications tiles list contains items with data", ((string)(nu
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Publications are sorted by title ascending by default")]
-        public virtual void PublicationsAreSortedByTitleAscendingByDefault()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publications are sorted by title ascending by default", ((string[])(null)));
-#line 36
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
-#line hidden
-            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table5.AddRow(new string[] {
-                        "Publication_a"});
-            table5.AddRow(new string[] {
-                        "a_Publication"});
-            table5.AddRow(new string[] {
-                        "Publication_z"});
-            table5.AddRow(new string[] {
-                        "1_Publication"});
-            table5.AddRow(new string[] {
-                        "_Publication"});
-#line 37
-testRunner.Given("publications are present in database", ((string)(null)), table5, "Given ");
-#line 44
-testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table6.AddRow(new string[] {
-                        "1_Publication"});
-            table6.AddRow(new string[] {
-                        "_Publication"});
-            table6.AddRow(new string[] {
-                        "a_Publication"});
-            table6.AddRow(new string[] {
-                        "Publication_a"});
-            table6.AddRow(new string[] {
-                        "Publication_z"});
-#line 45
-testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table6, "Then ");
-#line 52
-testRunner.And("publications list order switch is set to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Publications are sorted by title descending if set descending order")]
-        public virtual void PublicationsAreSortedByTitleDescendingIfSetDescendingOrder()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publications are sorted by title descending if set descending order", ((string[])(null)));
-#line 55
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
-#line hidden
-            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table7.AddRow(new string[] {
-                        "Publication_a"});
-            table7.AddRow(new string[] {
-                        "a_Publication"});
-            table7.AddRow(new string[] {
-                        "Publication_z"});
-            table7.AddRow(new string[] {
-                        "_Publication"});
-            table7.AddRow(new string[] {
-                        "1_Publication"});
-#line 56
-testRunner.Given("publications are present in database", ((string)(null)), table7, "Given ");
-#line 63
-testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 64
-testRunner.And("I switch publications list order to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 65
-testRunner.And("I switch publications list order to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table8.AddRow(new string[] {
-                        "Publication_z"});
-            table8.AddRow(new string[] {
-                        "Publication_a"});
-            table8.AddRow(new string[] {
-                        "a_Publication"});
-            table8.AddRow(new string[] {
-                        "_Publication"});
-            table8.AddRow(new string[] {
-                        "1_Publication"});
-#line 66
-testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table8, "Then ");
-#line 73
-testRunner.And("publications list order switch is set to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Publications are sorted by title ascending if set ascending order")]
-        public virtual void PublicationsAreSortedByTitleAscendingIfSetAscendingOrder()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Publications are sorted by title ascending if set ascending order", ((string[])(null)));
-#line 75
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
-#line hidden
-            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table9.AddRow(new string[] {
-                        "Publication_a"});
-            table9.AddRow(new string[] {
-                        "a_Publication"});
-            table9.AddRow(new string[] {
-                        "Publication_z"});
-            table9.AddRow(new string[] {
-                        "1_Publication"});
-            table9.AddRow(new string[] {
-                        "_Publication"});
-#line 76
-testRunner.Given("publications are present in database", ((string)(null)), table9, "Given ");
-#line 83
-testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 84
-testRunner.And("I switch publications list order to \'descending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 85
-testRunner.And("I switch publications list order to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table10.AddRow(new string[] {
-                        "1_Publication"});
-            table10.AddRow(new string[] {
-                        "_Publication"});
-            table10.AddRow(new string[] {
-                        "a_Publication"});
-            table10.AddRow(new string[] {
-                        "Publication_a"});
-            table10.AddRow(new string[] {
-                        "Publication_z"});
-#line 86
-testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table10, "Then ");
-#line 93
-testRunner.And("publications list order switch is set to \'ascending\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Selected publication should be highlited after selecting")]
         public virtual void SelectedPublicationShouldBeHighlitedAfterSelecting()
         {
@@ -309,16 +160,16 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table11.AddRow(new string[] {
+            table5.AddRow(new string[] {
                         "Publication1"});
-            table11.AddRow(new string[] {
+            table5.AddRow(new string[] {
                         "Publication2"});
-            table11.AddRow(new string[] {
+            table5.AddRow(new string[] {
                         "Publication3"});
 #line 96
-testRunner.Given("publications are present in database", ((string)(null)), table11, "Given ");
+testRunner.Given("publications are present in database", ((string)(null)), table5, "Given ");
 #line 101
 testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 102
@@ -345,16 +196,16 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table12.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "Publication1"});
-            table12.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "Publication2"});
-            table12.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "Publication3"});
 #line 109
-testRunner.Given("publications are present in database", ((string)(null)), table12, "Given ");
+testRunner.Given("publications are present in database", ((string)(null)), table6, "Given ");
 #line 114
 testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 115
@@ -397,16 +248,16 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table13.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "Publication1"});
-            table13.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "Publication2"});
-            table13.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "Publication3"});
 #line 130
-testRunner.Given("publications are present in database", ((string)(null)), table13, "Given ");
+testRunner.Given("publications are present in database", ((string)(null)), table7, "Given ");
 #line 135
 testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 136
@@ -429,20 +280,20 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table14.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "Publication1"});
-            table14.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "Publication2"});
-            table14.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "Publication3"});
-            table14.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "Publication4"});
-            table14.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "Publication5"});
 #line 161
-testRunner.Given("publications are present in database", ((string)(null)), table14, "Given ");
+testRunner.Given("publications are present in database", ((string)(null)), table8, "Given ");
 #line 168
 testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 169
@@ -467,16 +318,16 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table15.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "Publication1"});
-            table15.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "Publication2"});
-            table15.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "Publication3"});
 #line 176
-testRunner.Given("publications are present in database", ((string)(null)), table15, "Given ");
+testRunner.Given("publications are present in database", ((string)(null)), table9, "Given ");
 #line 181
 testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 182
@@ -503,14 +354,14 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table16.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Publication1",
                         "00000000000000000000000000000001"});
 #line 188
-testRunner.Given("publications are present in database", ((string)(null)), table16, "Given ");
+testRunner.Given("publications are present in database", ((string)(null)), table10, "Given ");
 #line 191
 testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 192
@@ -534,57 +385,57 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table17.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "Experience1",
                         "00000000000000000000000000000001"});
 #line 197
-testRunner.Given("publications are present in database", ((string)(null)), table17, "Given ");
+testRunner.Given("publications are present in database", ((string)(null)), table11, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table18.AddRow(new string[] {
+            table12.AddRow(new string[] {
                         "Objective11",
                         "00000000000000000000000000000001"});
 #line 200
-testRunner.Given("objectives are present in database", ((string)(null)), table18, "Given ");
+testRunner.Given("objectives are present in database", ((string)(null)), table12, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table19.AddRow(new string[] {
+            table13.AddRow(new string[] {
                         "Objective11",
                         "00000000000000000000000000000001"});
 #line 203
-testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table19, "Given ");
+testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table13, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table20.AddRow(new string[] {
+            table14.AddRow(new string[] {
                         "Question11",
                         "00000000000000000000000000000001"});
 #line 206
-testRunner.Given("questions related to \'Objective11\' are present in database", ((string)(null)), table20, "Given ");
+testRunner.Given("questions related to \'Objective11\' are present in database", ((string)(null)), table14, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
                         "Text",
                         "isCorrect"});
-            table21.AddRow(new string[] {
+            table15.AddRow(new string[] {
                         "AnswerOption11",
                         "true"});
 #line 209
-testRunner.Given("answer options related to \'Question11\' of \'Objective11\' are present in database", ((string)(null)), table21, "Given ");
+testRunner.Given("answer options related to \'Question11\' of \'Objective11\' are present in database", ((string)(null)), table15, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
                         "Explanation"});
-            table22.AddRow(new string[] {
+            table16.AddRow(new string[] {
                         "Explanation11"});
 #line 212
-testRunner.Given("explanations related to \'Question11\' of \'Objective11\' are present in database", ((string)(null)), table22, "Given ");
+testRunner.Given("explanations related to \'Question11\' of \'Objective11\' are present in database", ((string)(null)), table16, "Given ");
 #line 215
 testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 216

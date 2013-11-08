@@ -32,65 +32,65 @@ Then objectives tiles list contains items with data
 | Title                                |
 | ~`!@#$%^&*()_+-={[]}:;"'\|\\<,.>/?№ё |
 
-Scenario: Objectives are sorted by title ascending by default
-Given objectives are present in database
-| Title       |
-| Objective_a |
-| objective_b |
-| a_Objective |
-| Objective_z |
-| 1_Objective |
-| _Objective  |
-When open page by url 'http://localhost:5656/#objectives'
-Then objectives tiles list consists of ordered items
-| Title       |
-| 1_Objective |
-| _Objective  |
-| a_Objective |
-| Objective_a |
-| objective_b |
-| Objective_z |
-And objectives list order switch is set to 'ascending'
+#Scenario: Objectives are sorted by title ascending by default
+#Given objectives are present in database
+#| Title       |
+#| Objective_a |
+#| objective_b |
+#| a_Objective |
+#| Objective_z |
+#| 1_Objective |
+#| _Objective  |
+#When open page by url 'http://localhost:5656/#objectives'
+#Then objectives tiles list consists of ordered items
+#| Title       |
+#| 1_Objective |
+#| _Objective  |
+#| a_Objective |
+#| Objective_a |
+#| objective_b |
+#| Objective_z |
+#And objectives list order switch is set to 'ascending'
 
-Scenario: Objectives are sorted by title descending if set descending order
-Given objectives are present in database
-| Title       |
-| Objective_a |
-| a_Objective |
-| Objective_z |
-| 1_Objective |
-| _Objective  |
-When open page by url 'http://localhost:5656/#objectives'
-When I switch objectives list order to 'ascending'
-And I switch objectives list order to 'descending'
-Then objectives tiles list consists of ordered items
-| Title       |
-| Objective_z |
-| Objective_a |
-| a_Objective |
-| _Objective  |
-| 1_Objective |
-And objectives list order switch is set to 'descending'
+#Scenario: Objectives are sorted by title descending if set descending order
+#Given objectives are present in database
+#| Title       |
+#| Objective_a |
+#| a_Objective |
+#| Objective_z |
+#| 1_Objective |
+#| _Objective  |
+#When open page by url 'http://localhost:5656/#objectives'
+#When I switch objectives list order to 'ascending'
+#And I switch objectives list order to 'descending'
+#Then objectives tiles list consists of ordered items
+#| Title       |
+#| Objective_z |
+#| Objective_a |
+#| a_Objective |
+#| _Objective  |
+#| 1_Objective |
+#And objectives list order switch is set to 'descending'
 
-Scenario: Objectives are sorted by title ascending if set ascending order
-Given objectives are present in database
-| Title       |
-| Objective_a |
-| a_Objective |
-| Objective_z |
-| 1_Objective |
-| _Objective  |
-When open page by url 'http://localhost:5656/#objectives'
-When I switch objectives list order to 'descending'
-And I switch objectives list order to 'ascending'
-Then objectives tiles list consists of ordered items
-| Title       |
-| 1_Objective |
-| _Objective  |
-| a_Objective |
-| Objective_a |
-| Objective_z |
-And objectives list order switch is set to 'ascending'
+#Scenario: Objectives are sorted by title ascending if set ascending order
+#Given objectives are present in database
+#| Title       |
+#| Objective_a |
+#| a_Objective |
+#| Objective_z |
+#| 1_Objective |
+#| _Objective  |
+#When open page by url 'http://localhost:5656/#objectives'
+#When I switch objectives list order to 'descending'
+#And I switch objectives list order to 'ascending'
+#Then objectives tiles list consists of ordered items
+#| Title       |
+#| 1_Objective |
+#| _Objective  |
+#| a_Objective |
+#| Objective_a |
+#| Objective_z |
+#And objectives list order switch is set to 'ascending'
 
 Scenario: Selected objective should be highlited after selecting
 Given objectives are present in database
@@ -138,23 +138,23 @@ And objective list item with title 'Objective1' is not selected
 And objective list item with title 'Objective3' is not selected
 
 
-Scenario Outline: Objectives list columns count should depend on screen width
-Given objectives are present in database
-| Title      |
-| Objective1 |
-| Objective2 |
-| Objective3 |
-| Objective4 |
-| Objective5 |
-When open page by url 'http://localhost:5656/#objectives'
-When browser window width and height is set to <window width> and 600 
-Then objectives list is displayed in <columns count> columns
-Examples: 
-| window width | columns count |
-| 650          | 1             |
-| 800          | 2             |
-| 1200         | 3             |
-| 1600         | 3             |
+#Scenario Outline: Objectives list columns count should depend on screen width
+#Given objectives are present in database
+#| Title      |
+#| Objective1 |
+#| Objective2 |
+#| Objective3 |
+#| Objective4 |
+#| Objective5 |
+#When open page by url 'http://localhost:5656/#objectives'
+#When browser window width and height is set to <window width> and 600 
+#Then objectives list is displayed in <columns count> columns
+#Examples: 
+#| window width | columns count |
+#| 650          | 1             |
+#| 800          | 2             |
+#| 1200         | 3             |
+#| 1600         | 3             |
 
 
 Scenario: All elements of objectives list can be made visible using scroll
@@ -166,7 +166,7 @@ Given objectives are present in database
 | Objective4 |
 | Objective5 |
 When open page by url 'http://localhost:5656/#objectives'
-When browser window width and height is set to 600 and 600
+When browser window width and height is set to 1024 and 600
 And scroll objective with title 'Objective5' into the view
 Then element of objectives list with title 'Objective5' is visible
 
