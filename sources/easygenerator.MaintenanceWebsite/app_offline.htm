@@ -2,11 +2,14 @@
 
 <html>
 <head>
+    <script type="text/javascript">
+        // Date.UTC(year, month, date, hrs, min, sec, ms) 
+        var launchDate = new Date(Date.UTC(2013, 11, 14, 8, 0, 0));
+    </script>
     <meta charset="utf-8">
-    <title>Title</title>
+    <title>easygenerator</title>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
     <style>
-        
         html, body {
             height: 100%;
             width: 100%;
@@ -274,7 +277,7 @@
                 <div class="message-block-text-holder">
                     <h1 class="message-block-title">Down for maintenance</h1>
                     <p class="message-block-text">Our estimated launch date is</p>
-                    <p class="message-block-date">November 14, 2013 at 10 o'clock</p>
+                    <p id="launchDateBlock" class="message-block-date">just in few minutes...</p>
                 </div>
             </div>
         </div>
@@ -286,5 +289,17 @@
             </div>
         </div>
     </footer>
+    <script type="text/javascript">
+        (function () {
+            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            var hours = launchDate.getHours();
+            var launchTimeText = hours > 12 ? hours - 12 + ' PM' : hours + ' AM';
+
+            var launchDateText = months[launchDate.getMonth() - 1] + ' ' + launchDate.getDate() + ', ' + launchDate.getFullYear() + ' at ' + launchTimeText;
+
+            var elem = document.getElementById('launchDateBlock');
+            elem.innerText = launchDateText;
+        })();
+    </script>
 </body>
 </html>
