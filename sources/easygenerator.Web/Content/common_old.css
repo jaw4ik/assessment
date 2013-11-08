@@ -966,6 +966,7 @@ ol.unstyled  {
 }
 
 .objectives-header-title, .objectives-header-sort-label,
+.experiences-header-title,
 .questions-header-title, .questions-header-sort-label {
     display: table-cell;
     white-space: nowrap;
@@ -977,6 +978,7 @@ ol.unstyled  {
     }
 
 .objectives-header-title,
+.experiences-header-title,
 .questions-header-title {
     overflow: hidden;
     width: 100%;
@@ -985,22 +987,26 @@ ol.unstyled  {
     cursor: default;
 }
 
-.objectives-header-title-text {
+.objectives-header-title-text,
+.experiences-header-title-text {
     padding-right: 4px;
 }
 
 .objectives-header-title > *,
+.experiences-header-title > *,
 .questions-header-title > * {
     display: inline-block;
     vertical-align: middle;
 }
 
 .objectives-header-title hr,
+.experiences-header-title hr,
 .questions-header-title hr {
     width: 100%;
 }
 
 .objectives-header-create-link,
+.experiences-header-create-link,
 .questions-header-create-link {
     width: 64px;
     height: 64px;
@@ -1008,6 +1014,7 @@ ol.unstyled  {
 }
 
     .objectives-header-create-link:hover,
+    .experiences-header-create-link:hover,
     .questions-header-create-link:hover {
         background-position: 0 -74px;
     }
