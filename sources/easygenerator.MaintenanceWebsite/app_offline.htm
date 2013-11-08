@@ -4,7 +4,7 @@
 <head>
     <script type="text/javascript">
         // Date.UTC(year, month, date, hrs, min) 
-        var launchDate = new Date(Date.UTC(2013, 11, 14, 8, 30));
+        var launchDate = new Date(Date.UTC(2013, 11, 14, 8, 0));
     </script>
     <meta charset="utf-8">
     <title>easygenerator</title>
@@ -301,7 +301,7 @@
             var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
             var hrs = date.getHours();
             var mins = date.getMinutes();
-            var launchTimeText = (hrs > 12 ? hrs - 12 : hrs) + (mins > 0 ? ':' + (mins < 10 ? '0' + mins : mins) : '') + ' ' + (hrs > 12 ? 'PM' : 'AM');
+            var launchTimeText = (hrs > 12 ? hrs - 12 : hrs) + ':' + (mins < 10 ? '0' + mins : mins) + ' ' + (hrs > 12 ? 'PM' : 'AM');
 
             return months[date.getMonth() - 1] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' at ' + launchTimeText + '.';
         }
