@@ -137,14 +137,14 @@
         de: 'Auswahl löschen'
     },
     deleteSeveralExperiencesError: {
-        en: 'You can not delete more than 1 experience at once',
-        nl: 'U kunt maar 1 ervaring tegelijk verwijderen',
-        de: 'Sie können nicht mehr als 1 Erfahrung gleichzeitig löschen'
+        en: 'You can not delete more than 1 learning experience at once',
+        nl: 'U kunt maar 1 leerervaring tegelijk verwijderen',
+        de: 'Sie können nicht mehr als 1 Lernerfahrung gleichzeitig löschen'
     },
     deleteSeveralObjectivesError: {
-        en: 'You can not delete more than 1 objective at once',
-        nl: 'U kunt maar 1 doel tegelijk verwijderen',
-        de: 'Sie können nicht mehr als 1 Ziel gleichzeitig löschen'
+        en: 'You can not delete more than 1 learning objective at once',
+        nl: 'U kunt maar 1 leerdoel tegelijk verwijderen',
+        de: 'Sie können nicht mehr als 1 Lernziel gleichzeitig löschen'
     },
     deleteSeveralQuestionsError: {
         en: 'You can not delete more than 1 question at once',
