@@ -1,8 +1,8 @@
-﻿<section class="question unselectable view-module">
+﻿<section class="question view-module">
     <div class="fixed-container">
         <div class="content-holder">
             <div class="page-view-caption clearfix">
-                <div class="page-view-caption-text" data-bind="localize : { text : 'questionViewCaption' }">Question editor</div>
+                <div class="page-view-caption-text" data-bind="localize: { text: 'questionViewCaption' }">Question editor</div>
             </div>
         </div>
     </div>
@@ -43,7 +43,7 @@
                         <!-- ko foreach: answers -->
                         <li class="answer-option-item" data-bind="css: { active: hasFocus }">
                             <div class="answer-options-list-item">
-                                <div class="question-answer-value-wrapper unselectable" data-bind="css: { hidden: _.isEmptyOrWhitespace(text()) }">
+                                <div class="question-answer-value-wrapper" data-bind="css: { hidden: _.isEmptyOrWhitespace(text()) }">
                                     <!-- ko if: isCorrect -->
                                     <div class="question-answer-value correct" data-bind="click: $parent.toggleCorrectness, localize: { title: 'correctAnswer' }">
                                         <span data-bind="visible: isCorrect" class="answer-correct-icon">&nbsp;</span>

@@ -19,7 +19,6 @@
     
     -webkit-transition: opacity 0.1s linear; 
 	-moz-transition: opacity 0.1s linear; 
-	-o-transition: opacity 0.1s linear;
 	transition: opacity 0.1s linear; 
 }
 

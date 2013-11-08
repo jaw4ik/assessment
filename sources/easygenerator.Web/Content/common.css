@@ -6,10 +6,7 @@
 @font-face {
     font-family: 'OpenSans';
     src: url('./font/opensans-regular.eot');
-    src: url('./font/opensans-regular.eot?#iefix') format('embedded-opentype'),
-         url('./font/opensans-regular.woff') format('woff'),
-         url('./font/opensans-regular.ttf') format('truetype'),
-         url('./font/opensans-regular.svg#OpenSansRegular') format('svg');
+    src: url('./font/opensans-regular.eot?#iefix') format('embedded-opentype'), url('./font/opensans-regular.woff') format('woff'), url('./font/opensans-regular.ttf') format('truetype'), url('./font/opensans-regular.svg#OpenSansRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -17,10 +14,7 @@
 @font-face {
     font-family: 'OpenSans-Semibold';
     src: url('./font/opensans-semibold.eot');
-    src: url('./font/opensans-semibold.eot?#iefix') format('embedded-opentype'),
-         url('./font/opensans-semibold.woff') format('woff'),
-         url('./font/opensans-semibold.ttf') format('truetype'),
-         url('./font/opensans-semibold.svg#OpenSansSemibold') format('svg');
+    src: url('./font/opensans-semibold.eot?#iefix') format('embedded-opentype'), url('./font/opensans-semibold.woff') format('woff'), url('./font/opensans-semibold.ttf') format('truetype'), url('./font/opensans-semibold.svg#OpenSansSemibold') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -28,10 +22,7 @@
 @font-face {
     font-family: 'OpenSansItalic';
     src: url('./font/opensans-italic.eot');
-    src: url('./font/opensans-italic.eot?#iefix') format('embedded-opentype'),
-         url('./font/opensans-italic.woff') format('woff'),
-         url('./font/opensans-italic.ttf') format('truetype'),
-         url('./font/opensans-italic.svg#OpenSansItalic') format('svg');
+    src: url('./font/opensans-italic.eot?#iefix') format('embedded-opentype'), url('./font/opensans-italic.woff') format('woff'), url('./font/opensans-italic.ttf') format('truetype'), url('./font/opensans-italic.svg#OpenSansItalic') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -39,10 +30,7 @@
 @font-face {
     font-family: 'OpenSans-SemiboldItalic';
     src: url('./font/opensans-semibolditalic.eot');
-    src: url('./font/opensans-semibolditalic.eot?#iefix') format('embedded-opentype'),
-         url('./font/opensans-semibolditalic.woff') format('woff'),
-         url('./font/opensans-semibolditalic.ttf') format('truetype'),
-         url('./font/opensans-semibolditalic.svg#OpenSansSemiboldItalic') format('svg');
+    src: url('./font/opensans-semibolditalic.eot?#iefix') format('embedded-opentype'), url('./font/opensans-semibolditalic.woff') format('woff'), url('./font/opensans-semibolditalic.ttf') format('truetype'), url('./font/opensans-semibolditalic.svg#OpenSansSemiboldItalic') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -51,10 +39,7 @@
 @font-face {
     font-family: 'BuxtonSketch';
     src: url('./font/buxtonsketch.eot');
-    src: url('./font/buxtonsketch.eot?#iefix') format('embedded-opentype'),
-         url('./font/buxtonsketch.woff') format('woff'),
-         url('./font/buxtonsketch.ttf') format('truetype'),
-         url('./font/buxtonsketch.svg#BuxtonSketch') format('svg');
+    src: url('./font/buxtonsketch.eot?#iefix') format('embedded-opentype'), url('./font/buxtonsketch.woff') format('woff'), url('./font/buxtonsketch.ttf') format('truetype'), url('./font/buxtonsketch.svg#BuxtonSketch') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -97,7 +82,6 @@ html, body {
     height: 100%;
     width: 100%;
     -moz-user-select: none;
-    -khtml-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
@@ -141,7 +125,6 @@ a {
     }
 
 img:hover {
-    -ms-opacity: 1;
     opacity: 1;
     filter: alpha(opacity = 100);
 }
@@ -174,7 +157,6 @@ h1 {
 .border-box {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
     box-sizing: border-box;
 }
 
@@ -188,7 +170,6 @@ h1 {
 
 .selectable {
     -moz-user-select: text;
-    -khtml-user-select: text;
     -webkit-user-select: text;
     -ms-user-select: text;
     user-select: text;

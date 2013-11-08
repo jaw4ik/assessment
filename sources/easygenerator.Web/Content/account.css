@@ -597,7 +597,6 @@ body.try {
     font-size: 13px;
     border: solid 1px #cfcfcf;
     -webkit-border-radius: 3px;
-    -khtml-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
     -webkit-box-shadow: -1px 0 1px rgba(207,207,207,0.3);
@@ -621,6 +620,7 @@ body.try {
         background: url(images/sprites.png) -85px -52px no-repeat;
         -ms-transform: rotate(180deg);
         -webkit-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
         transform: rotate(180deg);
         z-index: 1;
     }
@@ -645,7 +645,6 @@ body.try {
         height: 1px;
         background: -moz-linear-gradient(left, #fff 0%, #a5a5a5 40%, #a5a5a5 60%, #fff 100%);
         background: -webkit-linear-gradient(left, #fff 0%, #a5a5a5 40%, #a5a5a5 60%, #fff 100%);
-        background: -o-linear-gradient(left, #fff 0%, #a5a5a5 40%, #a5a5a5 60%, #fff 100%);
         background: -ms-linear-gradient(left, #fff 0%, #a5a5a5 40%, #a5a5a5 60%, #fff 100%);
         background: linear-gradient(to right, #fff 0%, #a5a5a5 40%, #a5a5a5 60%, #fff 100%);
     }
@@ -711,7 +710,6 @@ body.try {
     box-sizing: border-box;
     -webkit-transition: padding-bottom 0.3s ease 0s;
     -moz-transition: padding-bottom 0.3s ease 0s;
-    -ms-transition: padding-bottom 0.3s ease 0s;
     transition: padding-bottom 0.3s ease 0s;
 }
 
@@ -761,8 +759,6 @@ body.try {
     opacity: 0;
     -webkit-transition: opacity 0.3s ease 0s;
     -moz-transition: opacity 0.3s ease 0s;
-    -ms-transition: opacity 0.3s ease 0s;
-    -o-transition: opacity 0.3s ease 0s;
     transition: opacity 0.3s ease 0s;
 }
 
@@ -843,7 +839,6 @@ body.try {
     min-width: 300px;
     line-height: 45px;
     -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     margin-bottom: 14px;

@@ -46,7 +46,6 @@ footer, header, hgroup, menu, nav, section {
 *, *:before, *:after {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
     box-sizing: border-box;
 }
 
@@ -115,7 +114,6 @@ ul, ol {
 /*#region images css-styles  */
 
 img:hover {
-    -ms-opacity: 1;
     opacity: 1;
     filter: alpha(opacity = 100);
 }
@@ -161,7 +159,6 @@ img:hover {
 .unselectable,
 .unselectable * {
     -moz-user-select: none;
-    -khtml-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
@@ -170,7 +167,6 @@ img:hover {
 .selectable,
 .selectable * {
     -moz-user-select: text;
-    -khtml-user-select: text;
     -webkit-user-select: text;
     -ms-user-select: text;
     user-select: text;
@@ -190,8 +186,8 @@ html, body, .application-wrapper {
 body {
     min-width: 600px;
     -moz-background-size: cover;
-    -o-background-size: cover;
     -webkit-background-size: cover;
+    background-size: cover;
 }
 
     body.ie9 {
@@ -538,7 +534,6 @@ body {
     margin-right: 20px;
     background-image: url(../img/explanation.png);
     -moz-background-size: 100%;
-    -o-background-size: 100%;
     -webkit-background-size: 100%;
     background-size: 100%;
     background-repeat: no-repeat;
@@ -802,6 +797,7 @@ body {
                 background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(247,247,247,1) 25%,rgba(236,236,236,1) 51%,rgba(230,230,230,1) 51%,rgba(215,215,215,1) 78%,rgba(204,204,204,1) 100%); /* W3C */
                 cursor: default;
             }
+
             .summary-btn-holder > .btn.disabled:active {
                 cursor: default;
                 -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0) inset;

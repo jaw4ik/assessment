@@ -1,4 +1,4 @@
-﻿<section id="createObjective" class="create-objective unselectable view-module">
+﻿<section id="createObjective" class="create-objective view-module">
     <div class="fixed-container">
         <div class="content-holder">
             <div class="page-view-caption clearfix">
@@ -8,7 +8,7 @@
     </div>
     <div class="container">
         <!--ko if: _.isString(contextExperienceId) -->
-        <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: '\''+contextExperienceTitle+'\'', isGoBackTextLocalizable: false, goBackAction: navigateBack.bind($data) }, cacheViews: false }">
+        <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: '\'' + contextExperienceTitle + '\'', isGoBackTextLocalizable: false, goBackAction: navigateBack.bind($data) }, cacheViews: false }">
         </div>
         <!--/ko-->
         <!--ko ifnot: _.isString(contextExperienceId) -->
@@ -18,14 +18,14 @@
 
         <form class="create-form">
             <div class="white-framing pull-left">
-                <span class="create-form-image-wrapper">
+                <span class="create-form-image-wrapper white-bg">
                     <img class="create-form-image" src="/Content/images/objective.png" alt="" />
                 </span>
             </div>
             <div class="create-form-field">
                 <div data-autofocus="true" class="edit-field bordered selectable" data-bind="editableText: { text: title, multiline: false }, hasFocus: isTitleEditing, css: { error: !title.isValid() && title().length > objectiveTitleMaxLength, active: isTitleEditing }"></div>
                 <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > objectiveTitleMaxLength }">
-                    <span data-bind="text: title().trim().length"></span>/<span data-bind="text: objectiveTitleMaxLength"></span>
+                    <span data-bind="text: title().trim().length"></span>/<span data-bind="    text: objectiveTitleMaxLength"></span>
                 </div>
                 <!-- ko compose: { view: 'views/common/createtip', model: { text: 'createObjectiveTip' } } -->
                 <!-- /ko -->
