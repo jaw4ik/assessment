@@ -33,6 +33,10 @@
     box-sizing: border-box;
 }
 
+.content-holder.resizable {
+    padding: 0;
+}
+
 .view-module {
     padding-top: 40px;
 }
@@ -693,8 +697,7 @@ a.top-navigation-item:hover {
     /*#endregion DELETE-SELECTED-HOLDER*/
 
     /*#region OBJECTIVES-EXPERIENCES-QUESTIONS*/
-    .objectives,
-    .experiences {
+    .content-holder.resizable {
         max-width: 600px;
     }
     /*#endregion OBJECTIVES-EXPERIENCES-QUESTIONS*/
