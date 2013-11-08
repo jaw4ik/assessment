@@ -1,4 +1,4 @@
-﻿define(['context', 'plugins/router', 'xAPI/requestManager', 'eventManager', 'durandal/app'],
+﻿define(['context', 'plugins/router', 'xApi/requestManager', 'eventManager', 'durandal/app'],
     function (context, router, xApiRequestManager, eventManager, app) {
 
         var objectives = [],
