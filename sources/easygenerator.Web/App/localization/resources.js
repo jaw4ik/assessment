@@ -133,23 +133,23 @@
     },
     deleteSelected: {
         en: 'Delete selected',
-        nl: 'Delete selected[nl]',
-        de: 'Delete selected[de]'
+        nl: 'Selectie verwijderen',
+        de: 'Auswahl löschen'
     },
     deleteSeveralExperiencesError: {
         en: 'You can not delete more than 1 experience at once',
-        nl: 'You can not delete more than 1 experience at once[nl]',
-        de: 'You can not delete more than 1 experience at once[de]'
+        nl: 'U kunt maar 1 ervaring tegelijk verwijderen',
+        de: 'Sie können nicht mehr als 1 Erfahrung gleichzeitig löschen'
     },
     deleteSeveralObjectivesError: {
         en: 'You can not delete more than 1 objective at once',
-        nl: 'You can not delete more than 1 objective at once[nl]',
-        de: 'You can not delete more than 1 objective at once[de]'
+        nl: 'U kunt maar 1 doel tegelijk verwijderen',
+        de: 'Sie können nicht mehr als 1 Ziel gleichzeitig löschen'
     },
     deleteSeveralQuestionsError: {
         en: 'You can not delete more than 1 question at once',
-        nl: 'You can not delete more than 1 question at once[nl]',
-        de: 'You can not delete more than 1 question at once[de]'
+        nl: 'U kunt maar 1 vraag tegelijk verwijderen',
+        de: 'Sie können nicht mehr als 1 Frage gleichzeitig löschen'
     },
     /* End resource section for model General */
     
@@ -422,7 +422,7 @@
     relatedQuestions: {
         en: 'Related questions',
         nl: 'Gerelateerde vragen',
-        de: 'Ähnliche Fragen'
+        de: 'Verwandte Fragen'
     },
     objectiveProperties: {
         en: 'Learning objective properties',
@@ -1048,6 +1048,11 @@
         nl: 'De vraag is niet gevonden. Vernieuw uw gegevens.',
         de: 'Die Frage wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
     },
+    questionsNotFoundError: {
+        en: 'Questions were not found. Please refresh your data.',
+        nl: 'Questions were not found. Please refresh your data.[nl]',
+        de: 'Questions were not found. Please refresh your data.[de]'
+    },
     learningContentNotFoundError: {
         en: 'Learning content was not found. Please refresh your data.',
         nl: 'Er is geen leerinhoud gevonden. Vernieuw uw gegevens.',
@@ -1332,13 +1337,13 @@
     
     /* Resource section for model sorryPage */
     publishIsInProgressTitle: {
-        en: 'This learning experience is being updated',
-        nl: 'Deze leerervaring wordt bijgewerkt',
+        en: 'This learning experience is being updated.',
+        nl: 'Deze leerervaring wordt bijgewerkt.',
         de: 'Diese Lernerfahrung wird gerade aktualisiert.'
     },
     publishIsInProgressText: {
-        en: 'Please, try again after few minutes',
-        nl: 'Wacht enkele minuten en probeer het opnieuw',
+        en: 'Please, try again after few minutes.',
+        nl: 'Wacht enkele minuten en probeer het opnieuw.',
         de: 'Bitte versuchen Sie es in einigen Minuten erneut.'
     }
     /* End resource section for model sorryPage */
