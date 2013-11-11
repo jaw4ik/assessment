@@ -397,7 +397,6 @@ input[type="checkbox"] {
 }
 
 .objective-brief-image-border {
-    user-select: none;
     position: relative;
     z-index: 10;
     border: 4px solid white;
@@ -411,6 +410,7 @@ input[type="checkbox"] {
     -moz-user-select: -moz-none;
     -ms-user-select: none;
     -webkit-user-select: none;
+    user-select: none;
 }
 
 .objective-brief-image {

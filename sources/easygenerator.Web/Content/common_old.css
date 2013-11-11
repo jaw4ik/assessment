@@ -318,6 +318,7 @@ ol.unstyled  {
         width: 100%;
         height: 100%;
         text-align: center;
+        background: white;
     }
 
 .content-list-logo-holder .content-list-logo {
@@ -821,6 +822,9 @@ ol.unstyled  {
         position: absolute;
         top: 10px;
         right: -70px;
+        -moz-transform-origin: 100% 0;
+        -ms-transform-origin: 100% 0;
+        -webkit-transform-origin: 100% 0;
         transform-origin: 100% 0;
         -webkit-transform: rotate(352deg);
         -moz-transform: rotate(352deg);
@@ -889,7 +893,7 @@ ol.unstyled  {
 
 /*#endregion controls panel buttons*/
 
-/*#region OBJECTIVES-EXPERIENCES-QUESTIONS*/
+/*#region OBJECTIVES-EXPERIENCES*/
 
 .objectives-body,
 .experiences {
@@ -905,7 +909,7 @@ ol.unstyled  {
     font-size: 13px;
 }
 
-/*#endregion OBJECTIVES-EXPERIENCES-QUESTIONS*/
+/*#endregion OBJECTIVES-EXPERIENCES*/
 
 /*#region EMPTY LIST*/
 
@@ -993,6 +997,8 @@ ol.unstyled  {
     .objectives .empty-list-wrapper .empty-list,
     .experiences .empty-list-wrapper .empty-list {
         line-height: 75px;
+        -moz-background-size: 75px;
+        -webkit-background-size: 75px;
         background-size: 75px;
         margin-top: 70px;
     }
@@ -1066,7 +1072,7 @@ ol.unstyled  {
 }
 
 @media (min-width: 1220px) {
-    /*#region OBJECTIVES-EXPERIENCES-QUESTIONS*/
+    /*#region OBJECTIVES-EXPERIENCES*/
     .objectives,
     .experiences {
         max-width: 1202px;
@@ -1075,7 +1081,7 @@ ol.unstyled  {
     .experiences-list-wrapper {
         max-width: 1202px;
     }
-    /*#endregion OBJECTIVES-EXPERIENCES-QUESTIONS*/
+    /*#endregion OBJECTIVES-EXPERIENCES*/
 }
 
 @media (max-width: 1260px) {
@@ -1092,12 +1098,12 @@ ol.unstyled  {
 }
 
 @media (min-width: 880px) and (max-width: 1166px) {
-    /*#region OBJECTIVES-EXPERIENCES-QUESTIONS*/
+    /*#region OBJECTIVES-EXPERIENCES*/
     .objectives,
     .experiences {
         max-width: 850px;
     }
-    /*#endregion OBJECTIVES-EXPERIENCES-QUESTIONS*/
+    /*#endregion OBJECTIVES-EXPERIENCES*/
 
     .objectives-body .objectives-header {
         padding: 20px 0 0;
