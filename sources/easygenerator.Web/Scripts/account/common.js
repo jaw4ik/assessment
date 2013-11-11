@@ -4,6 +4,10 @@ app.openHomePage = function () {
     window.location.replace('/');
 };
 
+app.reload = function () {
+    window.location.reload();
+};
+
 
 app.constants = {
     events: {
@@ -47,6 +51,8 @@ app.constants = {
 };
 
 $(function () {
+
+    serviceUnavailableAjaxErrorHandler().subscribeOnGlobalErrorEvents();
 
     if ($(".sign-up").length) {
         ko.applyBindings(signupModel(), $(".sign-up")[0]);
