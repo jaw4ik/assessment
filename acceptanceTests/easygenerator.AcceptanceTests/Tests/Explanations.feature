@@ -110,7 +110,8 @@ Scenario: Changes to explanation data are not lost when user go out from current
 When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 And input text 'Explanation14' into explanation text field 'Explanation12'
 And click on home link
-And open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
+Then browser navigates to url 'http://localhost:5656/#'
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 Then explanations list contains only items with data
 | Explanation   |
 | Explanation11 |
