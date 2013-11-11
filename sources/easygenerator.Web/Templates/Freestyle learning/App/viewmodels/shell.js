@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/router', 'context', 'events', 'xAPI/xAPIManager'],
-    function (app, router, context, events, xAPIManager) {
+﻿define(['durandal/app', 'plugins/router', 'configuration/routes', 'context', 'eventManager', 'xApi/activityProvider'],
+    function (app, router, routes, context, eventManager, activityProvider) {
 
     return {
         router: router,
@@ -22,57 +22,16 @@
                     var title = data.experience.title;
                     var url = window.location.toString() + '?experience_id=' + data.experience.id;;
 
-                    xAPIManager.init("Anonymous user", "anonymous@easygenerator.com", title, url);
-
-                    var routes = [
-                        {
-                            route: '',
-                            moduleId: 'viewmodels/home',
-                            title: 'Objectives and questions'
-                        },
-                        {
-                            route: '404(/:url)',
-                            moduleId: 'viewmodels/404',
-                            title: 'Not found'
-                        },
-                        {
-                            route: 'objective/:objectiveId/question/:questionId',
-                            moduleId: 'viewmodels/question',
-                            title: 'Question'
-                        },
-                        {
-                            route: 'objective/:objectiveId/question/:questionId/feedback',
-                            moduleId: 'viewmodels/feedback',
-                            title: 'Feedback'
-                        },
-                        {
-                            route: 'objective/:objectiveId/question/:questionId/learningContents',
-                            moduleId: 'viewmodels/learningContents',
-                            title: 'Learning objects'
-                        },
-                        {
-                            route: 'summary',
-                            moduleId: 'viewmodels/summary',
-                            title: 'Summary',
-                            nav: true,
-                            settings: {
-                                caption: 'Progress summary&nbsp;<img src="img/progress_summary_white.png" alt="" />'
-                            }
-                        },
-                        {
-                            route: 'xapierror(/:backUrl)',
-                            moduleId: 'viewmodels/xAPIError',
-                            title: 'xAPI Error'
-                        }
-                    ];
-
-                    return router.map(routes)
-                        .buildNavigationModel()
-                        .mapUnknownRoutes('viewmodels/404', '404')
-                        .activate('')
-                        .then(function () {
-                            app.trigger(events.courseStarted);
-                        });
+                    var actor = activityProvider.createActor("Anonymous user", "anonymous@easygenerator.com");
+                    return activityProvider.init(actor, title, url).then(function () {
+                        return router.map(routes)
+                            .buildNavigationModel()
+                            .mapUnknownRoutes('viewmodels/404', '404')
+                            .activate('')
+                            .then(function () {
+                                app.trigger(eventManager.events.courseStarted);
+                            });
+                    });
                 });
         }
     };

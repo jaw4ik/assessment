@@ -1,4 +1,4 @@
-﻿define(['durandal/app', '../events', 'plugins/http', 'context', 'plugins/router'], function (app, events, http, context, router) {
+﻿define(['durandal/app', 'eventManager', 'plugins/http', 'context', 'plugins/router'], function (app, eventManager, http, context, router) {
 
     var
         objectiveId = '',
@@ -62,11 +62,11 @@
         },
 
         deactivate = function () {
-            app.trigger(events.learningContentExperienced, {
-                objectiveId: this.objectiveId,
-                questionId: this.questionId,
-                spentTime: new Date() - this.enteredOnPage
-            });
+            //app.trigger(eventManager.events.learningContentExperienced, {
+            //    objectiveId: this.objectiveId,
+            //    questionId: this.questionId,
+            //    spentTime: new Date() - this.enteredOnPage
+            //});
         }
     ;
 

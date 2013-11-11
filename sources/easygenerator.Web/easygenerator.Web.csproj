@@ -429,7 +429,47 @@
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Templates\Freestyle learning\App\browserSupport.js" />
+    <Content Include="Templates\Freestyle learning\App\configuration\routes.js" />
     <Content Include="Templates\Freestyle learning\App\context.js" />
+    <Content Include="Templates\Freestyle learning\App\eventManager.js" />
+    <Content Include="Templates\Freestyle learning\App\eventManager.spec.js">
+      <DependentUpon>eventManager.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Freestyle learning\App\specs.html" />
+    <Content Include="Templates\Freestyle learning\App\viewmodels\xAPIError.spec.js">
+      <DependentUpon>xAPIError.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Freestyle learning\App\xApi\activityProvider.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\activityProvider.spec.js">
+      <DependentUpon>activityProvider.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Freestyle learning\App\xApi\base64.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\base64.spec.js">
+      <DependentUpon>base64.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Freestyle learning\App\xApi\constants.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\errorsHandler.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\errorsHandler.spec.js">
+      <DependentUpon>errorsHandler.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Freestyle learning\App\xApi\guard.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\guard.spec.js">
+      <DependentUpon>guard.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Freestyle learning\App\xApi\models\activity.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\models\activityDefinition.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\models\actor.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\models\object.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\models\result.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\models\score.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\models\statement.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\models\verb.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\requestManager.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\requestManager.spec.js">
+      <DependentUpon>requestManager.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Freestyle learning\App\xApi\settings.js" />
+    <Content Include="Templates\Freestyle learning\css\jasmine.css" />
     <Content Include="Templates\Freestyle learning\img\buildprogress.gif" />
     <Content Include="Templates\Freestyle learning\js\almond-custom.js" />
     <Content Include="Templates\Freestyle learning\js\durandal\activator.js" />
@@ -440,6 +480,10 @@
     <Content Include="Templates\Freestyle learning\js\durandal\plugins\observable.js" />
     <Content Include="Templates\Freestyle learning\js\durandal\plugins\serializer.js" />
     <Content Include="Templates\Freestyle learning\js\durandal\plugins\widget.js" />
+    <Content Include="Templates\Freestyle learning\js\jasmine\jasmine-1.3.1-console.js" />
+    <Content Include="Templates\Freestyle learning\js\jasmine\jasmine-1.3.1-html.js" />
+    <Content Include="Templates\Freestyle learning\js\jasmine\jasmine-1.3.1.js" />
+    <Content Include="Templates\Freestyle learning\js\jasmine\jasmine-matchers.js" />
     <Content Include="Templates\Freestyle learning\js\q.js" />
     <Content Include="Templates\Freestyle learning\js\require.js" />
     <Content Include="Templates\Freestyle learning\js\text.js" />
@@ -451,8 +495,6 @@
     <Content Include="Templates\Freestyle learning\js\durandal\transitions\entrance.js" />
     <Content Include="Templates\Freestyle learning\js\durandal\viewEngine.js" />
     <Content Include="Templates\Freestyle learning\js\durandal\viewLocator.js" />
-    <Content Include="Templates\Freestyle learning\App\events.js" />
-    <Content Include="Templates\Freestyle learning\App\main-built.js" />
     <Content Include="Templates\Freestyle learning\App\main.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\404.js" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\feedback.js" />

@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'events', 'context', 'plugins/router'], function (app, events, context, router) {
+﻿define(['durandal/app', 'eventManager', 'context', 'plugins/router'], function (app, eventManager, context, router) {
     var
         objective = null,
         question = null,
@@ -20,17 +20,17 @@
 
             question.score = result;
 
-            app.trigger(events.questionAnswered, {
-                objective: objective,
-                question: question,
-                selectedAnswersIds: _.chain(this.answers)
-                    .filter(function (item) {
-                        return item.isChecked();
-                    })
-                    .map(function (item) {
-                        return item.id;
-                    }).value()
-            });
+            //app.trigger(eventManager.events.questionAnswered, {
+            //    objective: objective,
+            //    question: question,
+            //    selectedAnswersIds: _.chain(this.answers)
+            //        .filter(function (item) {
+            //            return item.isChecked();
+            //        })
+            //        .map(function (item) {
+            //            return item.id;
+            //        }).value()
+            //});
 
             showFeedback();
         },

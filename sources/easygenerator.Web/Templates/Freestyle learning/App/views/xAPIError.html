@@ -3,7 +3,9 @@
         <div class="xapi-error-container-img"></div>
         <h1 class="xapi-error-container-header">Something is wrong</h1>
         <span class="xapi-error-container-description">If you continue without restarting, your learning progress will not be reported.</span>
-        <button class="xapi-error-container-button restart" data-bind="click: restartExperience">Restart experience</button>
-        <button class="xapi-error-container-button continue" data-bind="click: continueLearning">Continue anyway</button>
+        <div class="summary-btn-holder clearfix">
+            <a class="btn default pull-left" data-bind="click: restartExperience">Restart experience</a>
+            <a class="btn default pull-right" data-bind="click: continueLearning">Continue anyway</a>
+        </div>
     </div>
 </section>

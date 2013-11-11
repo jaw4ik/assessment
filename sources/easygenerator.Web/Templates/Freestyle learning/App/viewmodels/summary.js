@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'context', 'plugins/router', 'events', 'xAPI/xAPIManager'],
-    function (app, context, router, events, xAPIManager) {
+﻿define(['durandal/app', 'context', 'plugins/router', 'eventManager'],
+    function (app, context, router, eventManager) {
         var
             objectives = [],
             score = 0,
@@ -34,15 +34,19 @@
                 var that = this;
                 that.status(this.statuses.sendingRequests);
 
-                app.trigger(events.courseFinished, {
-                    totalScore: this.score / 100,
-                    objectivesResults: this.objectives,
+                return app.trigger(eventManager.events.courseFinished, {
+                    result: Math.round(that.score) / 100,
+                    objectives: _.map(that.objectives, function (objective) {
+                        return {
+                            id: objective.id,
+                            title: objective.title,
+                            score: objective.score
+                        };
+                    }),
                     callback: function () {
+                        eventManager.turnAllEventsOff();
                         that.status(that.statuses.finished);
-
-                        xAPIManager.destroy();
                         window.close();
-
                         if (navigator.appName != "Microsoft Internet Explorer") {
                             setTimeout("alert('Thank you. It is now safe to close this page.')", 100);
                         }
