@@ -10,17 +10,17 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 {
     public class CreatePageLinkingModel : ILinkingModel
     {
-        public string EditTitleTextBlock = ".//div[contains(@class,'text-block')]";
-        public string TextBlockEditArea = ".//div[contains(@class,'text-block')]//div[contains(@class,'editarea')]";
+        public string EditTitleTextBlock = ".//form[contains(@class,'create-form')]//div[contains(@class,'edit-field')]";
+        public string TextBlockEditArea = ".//form[contains(@class,'create-form')]//div[contains(@class,'edit-field')]";
         
         public string ButtonCreateAndEdit = ".//*[contains(@class,'saveAndOpen')]";
         public string ButtonCreateAndNew = ".//*[contains(@class,'saveAndNew')]";
 
-        public string BackButton = ".//a[contains(@class,'inline nav-control left')]";
+        public string BackButton = ".//div[contains(@class,'nav-control')]";
 
-        public string CharsCounter = ".//div[contains(@class,'text-block')]//div[contains(@class,'chars-counter')]";
-        public string CharsCount = ".//div[contains(@class,'text-block')]//div[contains(@class,'chars-counter')]//span[1]";
-        public string MaxCharsCount = ".//div[contains(@class,'text-block')]//div[contains(@class,'chars-counter')]//span[2]";
+        public string CharsCounter = ".//form[contains(@class,'create-form')]//div[contains(@class,'chars-counter')]";
+        public string CharsCount = ".//form[contains(@class,'create-form')]//div[contains(@class,'chars-counter')]//span[1]";
+        public string MaxCharsCount = ".//form[contains(@class,'create-form')]//div[contains(@class,'chars-counter')]//span[2]";
         
         //CUD Experience
 

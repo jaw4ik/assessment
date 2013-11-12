@@ -22,29 +22,29 @@ When open page by url 'http://localhost:5656/#objective/000000000000000000000000
 And press add new question button on objective page
 Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/create'
 
-Scenario: Create new question button on question page navigates to create question view
-Given objectives are present in database
-| Title      | Id |
-| Objective1 | 00000000000000000000000000000001  |
-Given questions related to 'Objective1' are present in database
-| Title     | Id |
-| Question1 | 00000000000000000000000000000001  |
-When refresh page
-When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
-And click create new question button on question page
-Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/create'
+#Scenario: Create new question button on question page navigates to create question view
+#Given objectives are present in database
+#| Title      | Id |
+#| Objective1 | 00000000000000000000000000000001  |
+#Given questions related to 'Objective1' are present in database
+#| Title     | Id |
+#| Question1 | 00000000000000000000000000000001  |
+#When refresh page
+#When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
+#And click create new question button on question page
+#Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/create'
 
-Scenario: Create new question text on question page navigates to create question view
-Given objectives are present in database
-| Title      | Id |
-| Objective1 | 00000000000000000000000000000001  |
-Given questions related to 'Objective1' are present in database
-| Title     | Id |
-| Question1 | 00000000000000000000000000000001  |
-When refresh page
-When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
-And click on create new question text on question page
-Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/create'
+#Scenario: Create new question text on question page navigates to create question view
+#Given objectives are present in database
+#| Title      | Id |
+#| Objective1 | 00000000000000000000000000000001  |
+#Given questions related to 'Objective1' are present in database
+#| Title     | Id |
+#| Question1 | 00000000000000000000000000000001  |
+#When refresh page
+#When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
+#And click on create new question text on question page
+#Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/create'
 
 Scenario: Edit question title text block is active when open create question view
 Given objectives are present in database
@@ -156,7 +156,7 @@ And input 'Question4' into title edit area on create view
 And click on create and edit button on create view
 Then browser navigates to url that contains 'http://localhost:5656/#objective/00000000000000000000000000000002/question/'
 And 'Question4' title is shown in question page header
-And 'Objective2' title is shown in back to objective link
+#And 'Objective2' title is shown in back to objective link
 
 Scenario: Action CreateAndNew saves changes to newly created question related to current objective and navigates to new create question view
 Given objectives are present in database
@@ -226,7 +226,8 @@ Given questions related to 'Objective1' are present in database
 When refresh page
 When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 And edit question title with new text 'Question2' on question page
-And click on back to objective on question page
+And click on collapse answer options
+And  open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001'
 Then questions list consists of ordered items
 | Title     |
 | Question2 |
@@ -243,7 +244,8 @@ When open page by url 'http://localhost:5656/#objective/000000000000000000000000
 And clear header title text field on question page
 Then title text block marked with error on question page
 And chars counter marked with error on question page
-When click on back to objective on question page
+When click on collapse answer options
+And  open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001'
 Then questions list consists of ordered items
 | Title     |
 | Question1 |
