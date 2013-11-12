@@ -84,7 +84,7 @@ And input 'Objective4' into title edit area on create view
 And click on create and edit button on create view
 Then browser navigates to url that contains 'http://localhost:5656/#objective/'
 And 'Objective4' title is shown in objective page header
-And 'Learning objectives' text is shown in back to objectives list link
+#And 'Learning objectives' text is shown in back to objectives list link
 
 Scenario: Action CreateAndNew saves changes to newly created objective and navigates to new create objective view
 When open page by url 'http://localhost:5656/#objective/create'
@@ -127,7 +127,8 @@ Given objectives are present in database
 When open page by url 'http://localhost:5656/#objectives'
 When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001'
 And edit objective title with new text 'Objective2' on objective page
-And click on back to objectives list link
+And click on home link
+And open page by url 'http://localhost:5656/#objectives'
 Then objectives tiles list consists of ordered items
 | Title      |
 | Objective2 |
@@ -141,7 +142,8 @@ When open page by url 'http://localhost:5656/#objective/000000000000000000000000
 And clear header title text field on objective page
 Then title text block marked with error on objective page
 And chars counter marked with error on objective page
-When click on back to objectives list link
+When click on home link
+And open page by url 'http://localhost:5656/#objectives'
 Then objectives tiles list consists of ordered items
 | Title      |
 | Objective1 |
@@ -182,9 +184,7 @@ Then objectives tiles list consists of ordered items
 | Title      |
 | Objective1 |
 | Objective3 |
-When mouse hover element of objectives list with title 'Objective1'
-And click open objective list item with title 'Objective1'
-And click on back from questions list
+When refresh page
 Then objectives tiles list consists of ordered items
 | Title      |
 | Objective1 |

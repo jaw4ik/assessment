@@ -22,7 +22,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         
         //CUD Objective
 
-        public string ObjectiveTitle = ".//div[contains(@class, 'view-header-title-text')]";
+        public string ObjectiveTitle = ".//div[contains(@class, 'view-header-title')]//div[contains(@class, 'edit-field')]";
         public string BackToObjectivesListLink = ".//a[contains(@class, 'inline nav-control left')]";
         public string CharsCounter = ".//div[contains(@class, 'view-header-title')]//div[contains(@class, 'chars-counter')]";
 

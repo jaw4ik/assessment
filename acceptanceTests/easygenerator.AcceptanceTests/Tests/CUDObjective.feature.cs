@@ -341,8 +341,6 @@ testRunner.And("click on create and edit button on create view", ((string)(null)
 testRunner.Then("browser navigates to url that contains \'http://localhost:5656/#objective/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 86
 testRunner.And("\'Objective4\' title is shown in objective page header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 87
-testRunner.And("\'Learning objectives\' text is shown in back to objectives list link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -472,13 +470,15 @@ testRunner.When("open page by url \'http://localhost:5656/#objective/00000000000
 #line 129
 testRunner.And("edit objective title with new text \'Objective2\' on objective page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 130
-testRunner.And("click on back to objectives list link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click on home link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 131
+testRunner.And("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table7.AddRow(new string[] {
                         "Objective2"});
-#line 131
+#line 132
 testRunner.Then("objectives tiles list consists of ordered items", ((string)(null)), table7, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -489,7 +489,7 @@ testRunner.Then("objectives tiles list consists of ordered items", ((string)(nul
         public virtual void NotPossibleToMakeExistingObjectiveTitleEmpty()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Not possible to make existing objective title empty", ((string[])(null)));
-#line 135
+#line 136
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -500,27 +500,29 @@ this.FeatureBackground();
             table8.AddRow(new string[] {
                         "Objective1",
                         "00000000000000000000000000000001"});
-#line 136
+#line 137
 testRunner.Given("objectives are present in database", ((string)(null)), table8, "Given ");
-#line 139
-testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 140
+testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 141
 testRunner.When("open page by url \'http://localhost:5656/#objective/000000000000000000000000000000" +
                     "01\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 141
-testRunner.And("clear header title text field on objective page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 142
-testRunner.Then("title text block marked with error on objective page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("clear header title text field on objective page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 143
-testRunner.And("chars counter marked with error on objective page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.Then("title text block marked with error on objective page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 144
-testRunner.When("click on back to objectives list link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.And("chars counter marked with error on objective page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 145
+testRunner.When("click on home link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 146
+testRunner.And("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
             table9.AddRow(new string[] {
                         "Objective1"});
-#line 145
+#line 147
 testRunner.Then("objectives tiles list consists of ordered items", ((string)(null)), table9, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -531,7 +533,7 @@ testRunner.Then("objectives tiles list consists of ordered items", ((string)(nul
         public virtual void DeleteObjectiveButtonBecomesAvailableAfterObjectiveWasSelected()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete objective button becomes available after objective was selected", ((string[])(null)));
-#line 149
+#line 151
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -545,15 +547,15 @@ this.FeatureBackground();
             table10.AddRow(new string[] {
                         "Objective2",
                         "00000000000000000000000000000002"});
-#line 150
+#line 152
 testRunner.Given("objectives are present in database", ((string)(null)), table10, "Given ");
-#line 154
-testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 155
-testRunner.And("mouse hover element of objectives list with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 156
-testRunner.And("select objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 157
+testRunner.And("mouse hover element of objectives list with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 158
+testRunner.And("select objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 159
 testRunner.Then("delete button is displayed true on objectives list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -564,7 +566,7 @@ testRunner.Then("delete button is displayed true on objectives list page", ((str
         public virtual void DeleteObjectiveButtonIsNotAvailableIfThereIsNoSelectedObjectives()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete objective button is not available if there is no selected objectives", ((string[])(null)));
-#line 159
+#line 161
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -578,19 +580,19 @@ this.FeatureBackground();
             table11.AddRow(new string[] {
                         "Objective2",
                         "00000000000000000000000000000002"});
-#line 160
+#line 162
 testRunner.Given("objectives are present in database", ((string)(null)), table11, "Given ");
-#line 164
-testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 165
-testRunner.Then("delete button is displayed false on objectives list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 166
-testRunner.When("mouse hover element of objectives list with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 167
-testRunner.And("select objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.Then("delete button is displayed false on objectives list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 168
-testRunner.And("select objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("mouse hover element of objectives list with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 169
+testRunner.And("select objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 170
+testRunner.And("select objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 171
 testRunner.Then("delete button is displayed false on objectives list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -601,7 +603,7 @@ testRunner.Then("delete button is displayed false on objectives list page", ((st
         public virtual void SelectedObjectiveCanBeDeleted()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Selected objective can be deleted", ((string[])(null)));
-#line 171
+#line 173
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
@@ -618,15 +620,15 @@ this.FeatureBackground();
             table12.AddRow(new string[] {
                         "Objective3",
                         "00000000000000000000000000000003"});
-#line 172
+#line 174
 testRunner.Given("objectives are present in database", ((string)(null)), table12, "Given ");
-#line 177
-testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 178
-testRunner.And("mouse hover element of objectives list with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 179
-testRunner.And("select objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 180
+testRunner.And("mouse hover element of objectives list with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 181
+testRunner.And("select objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 182
 testRunner.And("click on delete button on objectives list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
@@ -635,14 +637,10 @@ testRunner.And("click on delete button on objectives list page", ((string)(null)
                         "Objective1"});
             table13.AddRow(new string[] {
                         "Objective3"});
-#line 181
+#line 183
 testRunner.Then("objectives tiles list consists of ordered items", ((string)(null)), table13, "Then ");
-#line 185
-testRunner.When("mouse hover element of objectives list with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 186
-testRunner.And("click open objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 187
-testRunner.And("click on back from questions list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("refresh page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
