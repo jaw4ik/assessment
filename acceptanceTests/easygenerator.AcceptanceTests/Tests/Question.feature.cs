@@ -249,42 +249,6 @@ testRunner.And("correct answer option is set to \'false\' for \'AnswerOption12\'
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Previous question action is not available for first question")]
-        public virtual void PreviousQuestionActionIsNotAvailableForFirstQuestion()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Previous question action is not available for first question", ((string[])(null)));
-#line 80
-this.ScenarioSetup(scenarioInfo);
-#line 5
-this.FeatureBackground();
-#line 81
-testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
-                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 82
-testRunner.Then("previous question action is not available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Next question action is not available for last question")]
-        public virtual void NextQuestionActionIsNotAvailableForLastQuestion()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Next question action is not available for last question", ((string[])(null)));
-#line 84
-this.ScenarioSetup(scenarioInfo);
-#line 5
-this.FeatureBackground();
-#line 85
-testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
-                    "001/question/00000000000000000000000000000003\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 86
-testRunner.Then("next question action is not available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("answer options block and explanations block are expanded by default")]
         public virtual void AnswerOptionsBlockAndExplanationsBlockAreExpandedByDefault()
         {

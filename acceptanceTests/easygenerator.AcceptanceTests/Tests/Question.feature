@@ -77,13 +77,13 @@ And correct answer option is set to 'false' for 'AnswerOption12'
 #When click on previous question
 #Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/00000000000000000000000000000002'
 
-Scenario: Previous question action is not available for first question
-When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
-Then previous question action is not available
+#Scenario: Previous question action is not available for first question
+#When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
+#Then previous question action is not available
 
-Scenario: Next question action is not available for last question
-When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000003'
-Then next question action is not available
+#Scenario: Next question action is not available for last question
+#When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000003'
+#Then next question action is not available
 
 Scenario: answer options block and explanations block are expanded by default
 When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'

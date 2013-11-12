@@ -9,16 +9,16 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 {
     public class QuestionsListLinkingModel : ILinkingModel
     {
-        public string Item = ".//li[contains(@class,'content-list-item')]";
+        public string Item = ".//li[contains(@class,'main-content-list-item')]";
         public string OrderAsc = "//div[contains(@class,'questions-sort-by-title-asc')]";
         public string OrderDesc = "//div[contains(@class,'questions-sort-by-title-desc')]";
-        public string ObjectivesTabLink = "//a[contains(@class,'nav-control') and contains(@class,'left')]";
+        public string ObjectivesTabLink = "//span[contains(@class,'top-navigation-item')]";
         public string IsTitelSortingActiveClass = "active";
 
         //CUD Question
 
-        public string AddNewQuestionButton = ".//a[contains(@class, 'questions-header-create-link')]";
-        public string DeleteButton = ".//span[contains(@class, 'header-toolbar-item-wrapper')]";
+        public string AddNewQuestionButton = "//div[contains(@class,'create-new-holder')]";
+        public string DeleteButton = ".//span[contains(@class, 'delete-selected-text')]";
         
         //CUD Objective
 

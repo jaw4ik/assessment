@@ -328,24 +328,6 @@ testRunner.And("related objectives list item with title \'Objective13\' is not s
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Build action is available by default")]
-        public virtual void BuildActionIsAvailableByDefault()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Build action is available by default", ((string[])(null)));
-#line 86
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
-#line 87
-testRunner.When("open page by url \'http://localhost:5656/#/experience/0000000000000000000000000000" +
-                    "0001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 88
-testRunner.Then("build action on experiance page is available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Download and Rebuild actions becomes available after build")]
         public virtual void DownloadAndRebuildActionsBecomesAvailableAfterBuild()
         {
@@ -604,7 +586,7 @@ testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string
 testRunner.When("open page by url \'http://localhost:5656/#/experience/0000000000000000000000000000" +
                     "0001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 175
-testRunner.When("browser window width and height is set to 640 and 600", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("browser window width and height is set to 1024 and 600", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 176
 testRunner.And("scroll related objective with title \'Objective16\' into the view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 177
@@ -719,57 +701,6 @@ testRunner.When("open page by url \'http://localhost:5656/#/experience/000000000
 testRunner.Then("question count for related objective item with title \'Objective11\' is \'2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 210
 testRunner.And("question count for related objective item with title \'Objective12\' is \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Back action of experience page navigates to experiences page")]
-        public virtual void BackActionOfExperiencePageNavigatesToExperiencesPage()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Back action of experience page navigates to experiences page", ((string[])(null)));
-#line 212
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
-#line 213
-testRunner.When("open page by url \'http://localhost:5656/#/experience/0000000000000000000000000000" +
-                    "0001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 214
-testRunner.And("click on back to experiences", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 215
-testRunner.Then("browser navigates to url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Next and previous actions of experience page navigate through experiences")]
-        public virtual void NextAndPreviousActionsOfExperiencePageNavigateThroughExperiences()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Next and previous actions of experience page navigate through experiences", ((string[])(null)));
-#line 217
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
-#line 218
-testRunner.When("open page by url \'http://localhost:5656/#/experience/0000000000000000000000000000" +
-                    "0001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 219
-testRunner.And("click on next experience", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 220
-testRunner.Then("browser navigates to url \'http://localhost:5656/#experience/000000000000000000000" +
-                    "00000000002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 221
-testRunner.When("click on next experience", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 222
-testRunner.Then("browser navigates to url \'http://localhost:5656/#experience/000000000000000000000" +
-                    "00000000003\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 223
-testRunner.When("click on previous experience", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 224
-testRunner.Then("browser navigates to url \'http://localhost:5656/#experience/000000000000000000000" +
-                    "00000000002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

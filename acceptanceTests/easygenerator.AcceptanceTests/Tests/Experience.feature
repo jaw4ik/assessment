@@ -83,9 +83,9 @@ Then related objectives list item with title 'Objective12' is not selected
 And related objectives list item with title 'Objective11' is not selected
 And related objectives list item with title 'Objective13' is not selected
 
-Scenario: Build action is available by default
-When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
-Then build action on experiance page is available
+#Scenario: Build action is available by default
+#When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
+#Then build action on experiance page is available
 
 Scenario: Download and Rebuild actions becomes available after build
 Given objectives are present in database
@@ -172,7 +172,7 @@ Given objectives are linked to experiance 'Experience1'
 | Objective15 | 00000000000000000000000000000005  |
 | Objective16 | 00000000000000000000000000000006  |
 When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
-When browser window width and height is set to 640 and 600
+When browser window width and height is set to 1024 and 600
 And scroll related objective with title 'Objective16' into the view
 Then element of related objectives list with title 'Objective16' is visible
 
@@ -209,19 +209,19 @@ When open page by url 'http://localhost:5656/#/experience/0000000000000000000000
 Then question count for related objective item with title 'Objective11' is '2'
 And question count for related objective item with title 'Objective12' is '1'
 
-Scenario: Back action of experience page navigates to experiences page
-When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
-And click on back to experiences
-Then browser navigates to url 'http://localhost:5656/#experiences'
+#Scenario: Back action of experience page navigates to experiences page
+#When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
+#And click on back to experiences
+#Then browser navigates to url 'http://localhost:5656/#experiences'
 
-Scenario: Next and previous actions of experience page navigate through experiences
-When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
-And click on next experience
-Then browser navigates to url 'http://localhost:5656/#experience/00000000000000000000000000000002'
-When click on next experience
-Then browser navigates to url 'http://localhost:5656/#experience/00000000000000000000000000000003'
-When click on previous experience
-Then browser navigates to url 'http://localhost:5656/#experience/00000000000000000000000000000002'
+#Scenario: Next and previous actions of experience page navigate through experiences
+#When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
+#And click on next experience
+#Then browser navigates to url 'http://localhost:5656/#experience/00000000000000000000000000000002'
+#When click on next experience
+#Then browser navigates to url 'http://localhost:5656/#experience/00000000000000000000000000000003'
+#When click on previous experience
+#Then browser navigates to url 'http://localhost:5656/#experience/00000000000000000000000000000002'
 
 Scenario: Previous experience action is not available for first experience
 When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
