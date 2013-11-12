@@ -97,7 +97,7 @@ And input 'Experience4' into title edit area on create view
 And click on create and edit button on create view
 Then browser navigates to url that contains 'http://localhost:5656/#experience/'
 And 'Experience4' title is shown in experience page header
-And 'Learning experiences' text is shown in back to experiences list link
+#And 'Learning experiences' text is shown in back to experiences list link
 
 Scenario: Action CreateAndNew saves changes to newly created experience and navigates to new create experience view
 When open page by url 'http://localhost:5656/#experience/create'
@@ -147,7 +147,7 @@ When open page by url 'http://localhost:5656/#experience/00000000000000000000000
 And edit experience title with new text 'Experience2' on experience page
 And click on experience header title text on experience page
 And sleep 1000 milliseconds
-And click on back to experiences
+And click on home link
 Then publications tiles list consists of ordered items
 | Title       |
 | Experience2 |
@@ -161,7 +161,7 @@ When open page by url 'http://localhost:5656/#experience/00000000000000000000000
 And clear header title text field on experience page
 Then title text block marked with error on experience page
 And chars counter marked with error on experience page
-When click on back to experiences
+When click on home link
 Then publications tiles list consists of ordered items
 | Title       |
 | Experience1 |
@@ -202,9 +202,7 @@ Then publications tiles list consists of ordered items
 | Title       |
 | Experience1 |
 | Experience3 |
-When mouse hover element of publications list with title 'Experience1'
-And click open publication list item with title 'Experience1'
-And click on back to experiences
+When refresh page
 Then publications tiles list consists of ordered items
 | Title       |
 | Experience1 |

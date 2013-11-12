@@ -377,8 +377,6 @@ testRunner.And("click on create and edit button on create view", ((string)(null)
 testRunner.Then("browser navigates to url that contains \'http://localhost:5656/#experience/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 99
 testRunner.And("\'Experience4\' title is shown in experience page header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 100
-testRunner.And("\'Learning experiences\' text is shown in back to experiences list link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -522,7 +520,7 @@ testRunner.And("click on experience header title text on experience page", ((str
 #line 149
 testRunner.And("sleep 1000 milliseconds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 150
-testRunner.And("click on back to experiences", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click on home link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -564,7 +562,7 @@ testRunner.Then("title text block marked with error on experience page", ((strin
 #line 163
 testRunner.And("chars counter marked with error on experience page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 164
-testRunner.When("click on back to experiences", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("click on home link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -688,11 +686,7 @@ testRunner.And("click on delete button on experiences list page", ((string)(null
 #line 201
 testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table13, "Then ");
 #line 205
-testRunner.When("mouse hover element of publications list with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 206
-testRunner.And("click open publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 207
-testRunner.And("click on back to experiences", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("refresh page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -700,7 +694,7 @@ testRunner.And("click on back to experiences", ((string)(null)), ((TechTalk.Spec
                         "Experience1"});
             table14.AddRow(new string[] {
                         "Experience3"});
-#line 208
+#line 206
 testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table14, "Then ");
 #line hidden
             this.ScenarioCleanup();

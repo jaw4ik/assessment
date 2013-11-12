@@ -18,8 +18,8 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 
         //CUD Experiences
 
-        public string AddNewExperienceButton = ".//a[contains(@class,'experiences-header-create-link')]";
-        public string DeleteButton = ".//span[contains(@class, 'header-toolbar-item-wrapper')]";
+        public string AddNewExperienceButton = ".//div[contains(@class,'create-new-holder')]";
+        public string DeleteButton = ".//span[contains(@class, 'delete-selected-text')]";
 
         public string Notification = ".//div[contains(@class,'notification-container')]//div[contains(@class,'notification')]";
     }

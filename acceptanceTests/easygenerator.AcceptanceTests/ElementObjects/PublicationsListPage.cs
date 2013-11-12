@@ -77,7 +77,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                return ExistsOnPage(model.DeleteButton);
+                return GetByXPath(model.DeleteButton).CssContains("enabled");
             }
         }
 
