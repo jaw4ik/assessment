@@ -87,28 +87,28 @@ And related objectives list item with title 'Objective13' is not selected
 #When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
 #Then build action on experiance page is available
 
-Scenario: Download and Rebuild actions becomes available after build
-Given objectives are present in database
-| Title       | Id |
-| Objective11 | 00000000000000000000000000000001  |
-Given objectives are linked to experiance 'Experience1'
-| Title       | Id |
-| Objective11 | 00000000000000000000000000000001  |
-Given questions related to 'Objective11' are present in database
-| Title      | Id |
-| Question11 | 00000000000000000000000000000001  |
-Given answer options related to 'Question11' of 'Objective11' are present in database
-| Text           | isCorrect |
-| AnswerOption11 | true      |
-| AnswerOption12 | false     |
-Given explanations related to 'Question11' of 'Objective11' are present in database
-| Explanation   |
-| Explanation11 |
-| Explanation12 |
-When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
-And click on build button
-Then download action on experiance page is available
-And rebuild action on experiance page is available
+#Scenario: Download and Rebuild actions becomes available after build
+#Given objectives are present in database
+#| Title       | Id |
+#| Objective11 | 00000000000000000000000000000001  |
+#Given objectives are linked to experiance 'Experience1'
+#| Title       | Id |
+#| Objective11 | 00000000000000000000000000000001  |
+#Given questions related to 'Objective11' are present in database
+#| Title      | Id |
+#| Question11 | 00000000000000000000000000000001  |
+#Given answer options related to 'Question11' of 'Objective11' are present in database
+#| Text           | isCorrect |
+#| AnswerOption11 | true      |
+#| AnswerOption12 | false     |
+#Given explanations related to 'Question11' of 'Objective11' are present in database
+#| Explanation   |
+#| Explanation11 |
+#| Explanation12 |
+#When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
+#And click on build button
+#Then download action on experiance page is available
+#And rebuild action on experiance page is available
 
 Scenario: Selected objective should be highlited after selecting
 Given objectives are present in database
@@ -223,26 +223,26 @@ And question count for related objective item with title 'Objective12' is '1'
 #When click on previous experience
 #Then browser navigates to url 'http://localhost:5656/#experience/00000000000000000000000000000002'
 
-Scenario: Previous experience action is not available for first experience
-When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
-Then previous experience action is not available
+#Scenario: Previous experience action is not available for first experience
+#When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
+#Then previous experience action is not available
+#
+#Scenario: Next experience action is not available for last experience
+#When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000003'
+#Then next experience action is not available
 
-Scenario: Next experience action is not available for last experience
-When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000003'
-Then next experience action is not available
-
-Scenario: Building status is shown after click on build button on experience page
-When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
-And click on build button
-Then status building is shown on experience page
-
-Scenario: Building status is shown after click on rebuild button on experience page
-When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
-And click on build button
-Then download action on experiance page is available
-And rebuild action on experiance page is available
-When click on rebuild button
-Then status building is shown on experience page
+#Scenario: Building status is shown after click on build button on experience page
+#When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
+#And click on build button
+#Then status building is shown on experience page
+#
+#Scenario: Building status is shown after click on rebuild button on experience page
+#When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
+#And click on build button
+#Then download action on experiance page is available
+#And rebuild action on experiance page is available
+#When click on rebuild button
+#Then status building is shown on experience page
 
 #Scenario: Failed status is shown on experience page after build failed
 #Given objectives are present in database

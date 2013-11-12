@@ -328,11 +328,11 @@ testRunner.And("related objectives list item with title \'Objective13\' is not s
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Download and Rebuild actions becomes available after build")]
-        public virtual void DownloadAndRebuildActionsBecomesAvailableAfterBuild()
+        [NUnit.Framework.DescriptionAttribute("Selected objective should be highlited after selecting")]
+        public virtual void SelectedObjectiveShouldBeHighlitedAfterSelecting()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Download and Rebuild actions becomes available after build", ((string[])(null)));
-#line 90
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Selected objective should be highlited after selecting", ((string[])(null)));
+#line 113
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
@@ -343,7 +343,13 @@ this.FeatureBackground();
             table13.AddRow(new string[] {
                         "Objective11",
                         "00000000000000000000000000000001"});
-#line 91
+            table13.AddRow(new string[] {
+                        "Objective12",
+                        "00000000000000000000000000000002"});
+            table13.AddRow(new string[] {
+                        "Objective13",
+                        "00000000000000000000000000000003"});
+#line 114
 testRunner.Given("objectives are present in database", ((string)(null)), table13, "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
@@ -352,90 +358,14 @@ testRunner.Given("objectives are present in database", ((string)(null)), table13
             table14.AddRow(new string[] {
                         "Objective11",
                         "00000000000000000000000000000001"});
-#line 94
-testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table14, "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title",
-                        "Id"});
-            table15.AddRow(new string[] {
-                        "Question11",
-                        "00000000000000000000000000000001"});
-#line 97
-testRunner.Given("questions related to \'Objective11\' are present in database", ((string)(null)), table15, "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Text",
-                        "isCorrect"});
-            table16.AddRow(new string[] {
-                        "AnswerOption11",
-                        "true"});
-            table16.AddRow(new string[] {
-                        "AnswerOption12",
-                        "false"});
-#line 100
-testRunner.Given("answer options related to \'Question11\' of \'Objective11\' are present in database", ((string)(null)), table16, "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Explanation"});
-            table17.AddRow(new string[] {
-                        "Explanation11"});
-            table17.AddRow(new string[] {
-                        "Explanation12"});
-#line 104
-testRunner.Given("explanations related to \'Question11\' of \'Objective11\' are present in database", ((string)(null)), table17, "Given ");
-#line 108
-testRunner.When("open page by url \'http://localhost:5656/#/experience/0000000000000000000000000000" +
-                    "0001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 109
-testRunner.And("click on build button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 110
-testRunner.Then("download action on experiance page is available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 111
-testRunner.And("rebuild action on experiance page is available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Selected objective should be highlited after selecting")]
-        public virtual void SelectedObjectiveShouldBeHighlitedAfterSelecting()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Selected objective should be highlited after selecting", ((string[])(null)));
-#line 113
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
-#line hidden
-            TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title",
-                        "Id"});
-            table18.AddRow(new string[] {
-                        "Objective11",
-                        "00000000000000000000000000000001"});
-            table18.AddRow(new string[] {
+            table14.AddRow(new string[] {
                         "Objective12",
                         "00000000000000000000000000000002"});
-            table18.AddRow(new string[] {
-                        "Objective13",
-                        "00000000000000000000000000000003"});
-#line 114
-testRunner.Given("objectives are present in database", ((string)(null)), table18, "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title",
-                        "Id"});
-            table19.AddRow(new string[] {
-                        "Objective11",
-                        "00000000000000000000000000000001"});
-            table19.AddRow(new string[] {
-                        "Objective12",
-                        "00000000000000000000000000000002"});
-            table19.AddRow(new string[] {
+            table14.AddRow(new string[] {
                         "Objective13",
                         "00000000000000000000000000000003"});
 #line 119
-testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table19, "Given ");
+testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table14, "Given ");
 #line 124
 testRunner.When("open page by url \'http://localhost:5656/#/experience/0000000000000000000000000000" +
                     "0001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -463,35 +393,35 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table20.AddRow(new string[] {
+            table15.AddRow(new string[] {
                         "Objective11",
                         "00000000000000000000000000000001"});
-            table20.AddRow(new string[] {
+            table15.AddRow(new string[] {
                         "Objective12",
                         "00000000000000000000000000000002"});
-            table20.AddRow(new string[] {
+            table15.AddRow(new string[] {
                         "Objective13",
                         "00000000000000000000000000000003"});
 #line 132
-testRunner.Given("objectives are present in database", ((string)(null)), table20, "Given ");
+testRunner.Given("objectives are present in database", ((string)(null)), table15, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table21.AddRow(new string[] {
+            table16.AddRow(new string[] {
                         "Objective11",
                         "00000000000000000000000000000001"});
-            table21.AddRow(new string[] {
+            table16.AddRow(new string[] {
                         "Objective12",
                         "00000000000000000000000000000002"});
-            table21.AddRow(new string[] {
+            table16.AddRow(new string[] {
                         "Objective13",
                         "00000000000000000000000000000003"});
 #line 137
-testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table21, "Given ");
+testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table16, "Given ");
 #line 142
 testRunner.When("open page by url \'http://localhost:5656/#/experience/0000000000000000000000000000" +
                     "0001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -535,53 +465,53 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table22.AddRow(new string[] {
+            table17.AddRow(new string[] {
                         "Objective11",
                         "00000000000000000000000000000001"});
-            table22.AddRow(new string[] {
+            table17.AddRow(new string[] {
                         "Objective12",
                         "00000000000000000000000000000002"});
-            table22.AddRow(new string[] {
+            table17.AddRow(new string[] {
                         "Objective13",
                         "00000000000000000000000000000003"});
-            table22.AddRow(new string[] {
+            table17.AddRow(new string[] {
                         "Objective14",
                         "00000000000000000000000000000004"});
-            table22.AddRow(new string[] {
+            table17.AddRow(new string[] {
                         "Objective15",
                         "00000000000000000000000000000005"});
-            table22.AddRow(new string[] {
+            table17.AddRow(new string[] {
                         "Objective16",
                         "00000000000000000000000000000006"});
 #line 158
-testRunner.Given("objectives are present in database", ((string)(null)), table22, "Given ");
+testRunner.Given("objectives are present in database", ((string)(null)), table17, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table23 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table18 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table23.AddRow(new string[] {
+            table18.AddRow(new string[] {
                         "Objective11",
                         "00000000000000000000000000000001"});
-            table23.AddRow(new string[] {
+            table18.AddRow(new string[] {
                         "Objective12",
                         "00000000000000000000000000000002"});
-            table23.AddRow(new string[] {
+            table18.AddRow(new string[] {
                         "Objective13",
                         "00000000000000000000000000000003"});
-            table23.AddRow(new string[] {
+            table18.AddRow(new string[] {
                         "Objective14",
                         "00000000000000000000000000000004"});
-            table23.AddRow(new string[] {
+            table18.AddRow(new string[] {
                         "Objective15",
                         "00000000000000000000000000000005"});
-            table23.AddRow(new string[] {
+            table18.AddRow(new string[] {
                         "Objective16",
                         "00000000000000000000000000000006"});
 #line 166
-testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table23, "Given ");
+testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table18, "Given ");
 #line 174
 testRunner.When("open page by url \'http://localhost:5656/#/experience/0000000000000000000000000000" +
                     "0001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -609,23 +539,23 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table24 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table19 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table24.AddRow(new string[] {
+            table19.AddRow(new string[] {
                         "Objective11",
                         "00000000000000000000000000000001"});
 #line 181
-testRunner.Given("objectives are present in database", ((string)(null)), table24, "Given ");
+testRunner.Given("objectives are present in database", ((string)(null)), table19, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table25.AddRow(new string[] {
+            table20.AddRow(new string[] {
                         "Objective11",
                         "00000000000000000000000000000001"});
 #line 184
-testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table25, "Given ");
+testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table20, "Given ");
 #line 187
 testRunner.When("open page by url \'http://localhost:5656/#/experience/0000000000000000000000000000" +
                     "0001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -650,50 +580,50 @@ this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table26 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table26.AddRow(new string[] {
+            table21.AddRow(new string[] {
                         "Objective11",
                         "00000000000000000000000000000001"});
-            table26.AddRow(new string[] {
+            table21.AddRow(new string[] {
                         "Objective12",
                         "00000000000000000000000000000002"});
 #line 193
-testRunner.Given("objectives are present in database", ((string)(null)), table26, "Given ");
+testRunner.Given("objectives are present in database", ((string)(null)), table21, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table27 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table22 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table27.AddRow(new string[] {
+            table22.AddRow(new string[] {
                         "Objective11",
                         "00000000000000000000000000000001"});
-            table27.AddRow(new string[] {
+            table22.AddRow(new string[] {
                         "Objective12",
                         "00000000000000000000000000000002"});
 #line 197
-testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table27, "Given ");
+testRunner.Given("objectives are linked to experiance \'Experience1\'", ((string)(null)), table22, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table28 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table23 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table28.AddRow(new string[] {
+            table23.AddRow(new string[] {
                         "Question11",
                         "00000000000000000000000000000001"});
-            table28.AddRow(new string[] {
+            table23.AddRow(new string[] {
                         "Question12",
                         "00000000000000000000000000000002"});
 #line 201
-testRunner.Given("questions related to \'Objective11\' are present in database", ((string)(null)), table28, "Given ");
+testRunner.Given("questions related to \'Objective11\' are present in database", ((string)(null)), table23, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table29 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table24 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table29.AddRow(new string[] {
+            table24.AddRow(new string[] {
                         "Question21",
                         "00000000000000000000000000000003"});
 #line 205
-testRunner.Given("questions related to \'Objective12\' are present in database", ((string)(null)), table29, "Given ");
+testRunner.Given("questions related to \'Objective12\' are present in database", ((string)(null)), table24, "Given ");
 #line 208
 testRunner.When("open page by url \'http://localhost:5656/#/experience/0000000000000000000000000000" +
                     "0001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -701,88 +631,6 @@ testRunner.When("open page by url \'http://localhost:5656/#/experience/000000000
 testRunner.Then("question count for related objective item with title \'Objective11\' is \'2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 210
 testRunner.And("question count for related objective item with title \'Objective12\' is \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Previous experience action is not available for first experience")]
-        public virtual void PreviousExperienceActionIsNotAvailableForFirstExperience()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Previous experience action is not available for first experience", ((string[])(null)));
-#line 226
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
-#line 227
-testRunner.When("open page by url \'http://localhost:5656/#/experience/0000000000000000000000000000" +
-                    "0001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 228
-testRunner.Then("previous experience action is not available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Next experience action is not available for last experience")]
-        public virtual void NextExperienceActionIsNotAvailableForLastExperience()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Next experience action is not available for last experience", ((string[])(null)));
-#line 230
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
-#line 231
-testRunner.When("open page by url \'http://localhost:5656/#/experience/0000000000000000000000000000" +
-                    "0003\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 232
-testRunner.Then("next experience action is not available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Building status is shown after click on build button on experience page")]
-        public virtual void BuildingStatusIsShownAfterClickOnBuildButtonOnExperiencePage()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Building status is shown after click on build button on experience page", ((string[])(null)));
-#line 234
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
-#line 235
-testRunner.When("open page by url \'http://localhost:5656/#/experience/0000000000000000000000000000" +
-                    "0001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 236
-testRunner.And("click on build button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 237
-testRunner.Then("status building is shown on experience page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Building status is shown after click on rebuild button on experience page")]
-        public virtual void BuildingStatusIsShownAfterClickOnRebuildButtonOnExperiencePage()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Building status is shown after click on rebuild button on experience page", ((string[])(null)));
-#line 239
-this.ScenarioSetup(scenarioInfo);
-#line 6
-this.FeatureBackground();
-#line 240
-testRunner.When("open page by url \'http://localhost:5656/#/experience/0000000000000000000000000000" +
-                    "0001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 241
-testRunner.And("click on build button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 242
-testRunner.Then("download action on experiance page is available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 243
-testRunner.And("rebuild action on experiance page is available", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 244
-testRunner.When("click on rebuild button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 245
-testRunner.Then("status building is shown on experience page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

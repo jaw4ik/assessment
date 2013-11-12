@@ -10,7 +10,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 {
     public class ExperiencePageLinkingModel : ILinkingModel
     {
-        public string ExperienceTitle = ".//section[contains(@class,'experience')]//header[contains(@class,'view-header')]//div[contains(@class,'view-header-title-text')]";
+        public string ExperienceTitle = ".//div[contains(@class,'view-header-title')]//div[contains(@class,'edit-field')]";
         public string Item = ".//li[contains(@class,'content-list-item')]";
 
         public string BackToExperiencesLink = "//a[contains(@class,'nav-control') and contains(@class,'left')]";
