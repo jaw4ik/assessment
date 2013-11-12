@@ -739,7 +739,6 @@
                                                 return !promise.isPending();
                                             });
                                             runs(function () {
-                                                debugger;
                                                 expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.publish.failed, experience.id, reason);
                                             });
                                         });
