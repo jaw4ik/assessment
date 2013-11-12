@@ -11,6 +11,7 @@ using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using System.Collections.Generic;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -85,49 +86,51 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region Delete question
+        #region Delete questions
 
         [TestMethod]
         public void Delete_ShouldReturnJsonErrorResult_WnenObjectiveIsNull()
         {
-            var result = _controller.Delete(null, null);
+            var result = _controller.Delete(null, new List<Question>(){ });
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
             result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");  
         }
 
         [TestMethod]
-        public void Delete_ShouldReturnJsonErrorResult_WnenObjectiveIsNotNullAndQuestionIsNull()
+        public void Delete_ShouldReturnBadRequest_WnenQuestionsIsNull()
         {
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-
+            
             var result = _controller.Delete(objective, null);
 
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Question is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");
+            ActionResultAssert.IsBadRequestStatusCodeResult(result);
         }
 
         [TestMethod]
-        public void Delete_ShouldRemoveQuestionFromObjective()
+        public void Delete_ShouldRemoveQuestionsFromObjective()
         {
             var user = "Test user";
             _user.Identity.Name.Returns(user);
 
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-            var question = Substitute.For<Question>("Question title", CreatedBy);
+            var question1 = Substitute.For<Question>("Question title 1", CreatedBy);
+            var question2 = Substitute.For<Question>("Question title 2", CreatedBy);
 
-            _controller.Delete(objective, question);
+            _controller.Delete(objective, new List<Question>() { question1, question2 });
 
-            objective.Received().RemoveQuestion(question, user);
+            objective.Received().RemoveQuestion(question1, user);
+            objective.Received().RemoveQuestion(question2, user);
         }
 
         [TestMethod]
         public void Delete_ShouldReturnJsonSuccessResult()
         {
             var objective = Substitute.For<Objective>("Objective title", CreatedBy);
-            var question = Substitute.For<Question>("Question title", CreatedBy);
+            var question1 = Substitute.For<Question>("Question title 1", CreatedBy);
+            var question2 = Substitute.For<Question>("Question title 2", CreatedBy);
 
-            var result = _controller.Delete(objective, question);
+            var result = _controller.Delete(objective, new List<Question>() { question1, question2 });
 
             result.Should()
                 .BeJsonSuccessResult()

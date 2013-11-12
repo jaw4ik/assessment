@@ -539,47 +539,31 @@
 
                 });
 
-                describe('when more that 1 question are selected', function () {
+                describe('when some questions are selected', function () {
 
-                    it('should show error notification', function () {
-                        viewModel.questions([{ id: 'id1', isSelected: ko.observable(true) }, { id: 'id2', isSelected: ko.observable(true) }]);
-                        spyOn(notify, 'error');
-
-                        viewModel.deleteSelectedQuestions();
-                        expect(notify.error).toHaveBeenCalled();
-                    });
-
-                });
-
-                describe('when there is 1 selected question', function () {
-
-                    var removeQuestion;
+                    var removeQuestions;
 
                     beforeEach(function () {
-                        removeQuestion = Q.defer();
+                        viewModel.objectiveId = 'objectiveId';
+                        viewModel.questions([{ id: "SomeQuestionId1", isSelected: ko.observable(true) }, { id: "SomeQuestionId2", isSelected: ko.observable(true) }]);
+                        
+                        removeQuestions = Q.defer();
 
-                        spyOn(questionRepository, 'removeQuestion').andReturn(removeQuestion.promise);
+                        spyOn(questionRepository, 'removeQuestions').andReturn(removeQuestions.promise);
                         spyOn(notify, 'info');
                     });
 
-                    it('should delete selected question', function () {
-                        var objectiveId = 'objectiveId';
-                        var questionId = 'questionId';
-
-                        viewModel.objectiveId = objectiveId;
-                        viewModel.questions([{ id: questionId, isSelected: ko.observable(true) }]);
-
+                    it('should delete selected questions', function () {
                         viewModel.deleteSelectedQuestions();
 
-                        expect(questionRepository.removeQuestion).toHaveBeenCalledWith(objectiveId, questionId);
+                        expect(questionRepository.removeQuestions).toHaveBeenCalledWith('objectiveId', ["SomeQuestionId1", "SomeQuestionId2"]);
                     });
 
-                    describe('and when question deleted successfully', function () {
+                    describe('and when questions deleted successfully', function () {
 
-                        it('should delete selected question from viewModel', function () {
-                            viewModel.questions([{ id: '0', isSelected: ko.observable(true) }]);
-                            var promise = removeQuestion.promise.finally(function () { });
-                            removeQuestion.resolve();
+                        it('should delete selected questions from viewModel', function () {
+                            var promise = removeQuestions.promise.finally(function () { });
+                            removeQuestions.resolve();
 
                             viewModel.deleteSelectedQuestions();
 
@@ -592,10 +576,8 @@
                         });
 
                         it('should update notificaion', function () {
-                            viewModel.questions([{ id: '0', isSelected: ko.observable(true) }]);
-
-                            var promise = removeQuestion.promise.finally(function () { });
-                            removeQuestion.resolve();
+                            var promise = removeQuestions.promise.finally(function () { });
+                            removeQuestions.resolve();
 
                             viewModel.deleteSelectedQuestions();
 

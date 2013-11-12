@@ -356,7 +356,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void RelateObjectives_ShouldReturnBadRequest_WhenObjectiveListIsEmpty()
+        public void RelateObjectives_ShouldReturnJsonErrorResult_WhenObjectiveListIsEmpty()
         {
             //Arrange
             var experience = ExperienceObjectMother.Create();
@@ -420,7 +420,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void UnrelateObjectives_ShouldReturnBadRequest_WhenObjectiveListIsEmpty()
+        public void UnrelateObjectives_ShouldReturnJsonErrorResult_WhenObjectiveListIsEmpty()
         {
             //Arrange
             var experience = ExperienceObjectMother.Create();

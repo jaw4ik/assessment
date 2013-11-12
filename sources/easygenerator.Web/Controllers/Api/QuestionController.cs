@@ -4,6 +4,7 @@ using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
+using System.Collections.Generic;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -31,19 +32,22 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        public ActionResult Delete(Objective objective, Question question)
+        public ActionResult Delete(Objective objective, ICollection<Question> questions)
         {
             if (objective == null)
             {
                 return JsonLocalizableError(Constants.Errors.ObjectiveNotFoundError, Constants.Errors.ObjectiveNotFoundResourceKey);
             }
 
-            if (question == null)
+            if (questions == null)
             {
-                return JsonLocalizableError(Constants.Errors.QuestionNotFoundError, Constants.Errors.QuestionNotFoundResourceKey);
+                return BadRequest();
             }
 
-            objective.RemoveQuestion(question, GetCurrentUsername());
+            foreach (Question question in questions)
+            {
+                objective.RemoveQuestion(question, GetCurrentUsername());
+            }
 
             return JsonSuccess(new { ModifiedOn = objective.ModifiedOn });
         }

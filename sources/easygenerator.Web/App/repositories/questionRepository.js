@@ -43,13 +43,14 @@
             });
         },
 
-        removeQuestion = function (objectiveId, questionId) {
+        removeQuestions = function (objectiveId, questionIds) {
 
             return Q.fcall(function () {
                 guard.throwIfNotString(objectiveId, 'Objective id is not a string');
-                guard.throwIfNotString(questionId, 'Question id is not a string');
+                guard.throwIfNotArray(questionIds, 'Questions to remove are not an array');
 
-                return httpWrapper.post('api/question/delete', { objectiveId: objectiveId, questionId: questionId })
+
+                return httpWrapper.post('api/question/delete', { objectiveId: objectiveId, questions: questionIds })
                     .then(function (response) {
                         guard.throwIfNotAnObject(response, 'Response is not an object');
                         guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
@@ -64,7 +65,7 @@
 
                         objective.modifiedOn = modifiedOn;
                         objective.questions = _.reject(objective.questions, function (item) {
-                            return item.id == questionId;
+                            return _.indexOf(questionIds, item.id) != -1;
                         });
 
                         return modifiedOn;
@@ -159,7 +160,7 @@
 
     return {
         addQuestion: addQuestion,
-        removeQuestion: removeQuestion,
+        removeQuestions: removeQuestions,
         updateTitle: updateTitle,
 
         update: update,

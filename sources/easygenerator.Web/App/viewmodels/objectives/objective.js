@@ -94,15 +94,14 @@
                 if (selectedQuestions.length == 0)
                     throw 'No selected questions to delete';
 
-                if (selectedQuestions.length > 1) {
-                    notify.error(localizationManager.localize('deleteSeveralQuestionsError'));
-                    return;
-                }
-
-                var selectedObjective = selectedQuestions[0];
+                var that = this;
                 
-                questionRepository.removeQuestion(this.objectiveId, selectedObjective.id).then(function () {
-                    questions(_.reject(questions(), function (item) { return item.id == selectedQuestions[0].id; }));
+                var questionIds = _.map(selectedQuestions, function (item) {
+                    return item.id;
+                });
+
+                questionRepository.removeQuestions(this.objectiveId, questionIds).then(function () {
+                    that.questions(_.difference(that.questions(), selectedQuestions));
                     notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
                 });
 
