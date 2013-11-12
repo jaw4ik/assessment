@@ -319,7 +319,6 @@
                                         });
                                     });
 
-
                                     it('should set experience packageUrl to \'\'', function () {
                                         var promise = service.build();
 
@@ -333,17 +332,34 @@
                                         });
                                     });
 
-                                    it('should trigger \'experience:build-failed\' event', function () {
-                                        var reason = 'reason';
-                                        var promise = service.build();
+                                    describe('and when reason status is 503', function () {
+                                        it('should not trigger \'experience:build-failed\' event', function () {
+                                            var promise = service.build();
 
-                                        post.reject(reason);
+                                            var reason = { status: 503 };
+                                            post.reject(reason);
 
-                                        waitsFor(function () {
-                                            return !promise.isPending();
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                expect(app.trigger).not.toHaveBeenCalledWith(constants.messages.experience.build.failed, experience.id, reason);
+                                            });
                                         });
-                                        runs(function () {
-                                            expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.build.failed, experience.id, reason);
+                                    });
+
+                                    describe('and when reason status is not 503', function () {
+                                        it('should trigger \'experience:build-failed\' event', function () {
+                                            var promise = service.build();
+                                            var reason = { status: 500 };
+                                            post.reject(reason);
+
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.build.failed, experience.id, reason);
+                                            });
                                         });
                                     });
 
@@ -712,17 +728,36 @@
                                         });
                                     });
 
-                                    it('should trigger \'experience:publish-failed\' event', function () {
-                                        var reason = 'reason';
-                                        var promise = service.publish();
+                                    describe('and when reason status is not 503', function () {
+                                        it('should trigger \'experience:build-failed\' event', function () {
+                                            var promise = service.publish();
 
-                                        post.reject(reason);
+                                            var reason = {status:500};
+                                            post.reject(reason);
 
-                                        waitsFor(function () {
-                                            return !promise.isPending();
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                debugger;
+                                                expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.publish.failed, experience.id, reason);
+                                            });
                                         });
-                                        runs(function () {
-                                            expect(app.trigger).toHaveBeenCalledWith(constants.messages.experience.publish.failed, experience.id, reason);
+                                    });
+                                    
+                                    describe('and when reason status is 503', function () {
+                                        it('should not trigger \'experience:build-failed\' event', function () {
+                                            var promise = service.publish();
+
+                                            var reason = { status: 503 };
+                                            post.reject(reason);
+
+                                            waitsFor(function () {
+                                                return !promise.isPending();
+                                            });
+                                            runs(function () {
+                                                expect(app.trigger).not.toHaveBeenCalledWith(constants.messages.experience.publish.failed, experience.id, reason);
+                                            });
                                         });
                                     });
 
