@@ -224,6 +224,7 @@ namespace easygenerator.AcceptanceTests.Helpers
                 entities.Database.ExecuteSqlCommand("DELETE FROM ExperienceObjectives");
                 entities.Database.ExecuteSqlCommand("DELETE FROM Experiences");
                 entities.Database.ExecuteSqlCommand("DELETE FROM Users");
+                entities.Database.ExecuteSqlCommand("DELETE FROM HelpHints");
                 AddTestUserToDatabase();
             }
 

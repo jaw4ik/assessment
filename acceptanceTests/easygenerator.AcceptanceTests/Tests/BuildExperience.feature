@@ -418,30 +418,30 @@ And click build publication list item with title 'Experience1'
 And sleep 1000 milliseconds
 Then status building is shown for publication list item with title 'Experience1' on click rebuild
 
-Scenario: Same experience status is shown on both experience and experiences list pages
-Given publications are present in database
-| Title       | Id |
-| Experience1 | 00000000000000000000000000000001  |
-| Experience2 | 00000000000000000000000000000002  |
-When open page by url 'http://localhost:5656/#/experiences'
-And mouse hover element of publications list with title 'Experience1'
-And click build publication list item with title 'Experience1'
-And sleep 1000 milliseconds
-And mouse hover element of publications list with title 'Experience1'
-Then Action rebuild is enabled true for publications list item with title 'Experience1'
-And Action download is enabled true for publications list item with title 'Experience1'
-When click open publication list item with title 'Experience1'
-Then browser navigates to url 'http://localhost:5656/#experience/00000000000000000000000000000001'
-And download action on experiance page is available
-And rebuild action on experiance page is available
-When click on next experience
-Then browser navigates to url 'http://localhost:5656/#experience/00000000000000000000000000000002'
-When click on build button
-Then download action on experiance page is available
-And rebuild action on experiance page is available
-When click on back to experiences
-Then browser navigates to url 'http://localhost:5656/#experiences'
-When mouse hover element of publications list with title 'Experience2'
-Then Action rebuild is enabled true for publications list item with title 'Experience2'
-And Action download is enabled true for publications list item with title 'Experience2'
+#Scenario: Same experience status is shown on both experience and experiences list pages
+#Given publications are present in database
+#| Title       | Id |
+#| Experience1 | 00000000000000000000000000000001  |
+#| Experience2 | 00000000000000000000000000000002  |
+#When open page by url 'http://localhost:5656/#/experiences'
+#And mouse hover element of publications list with title 'Experience1'
+#And click build publication list item with title 'Experience1'
+#And sleep 1000 milliseconds
+#And mouse hover element of publications list with title 'Experience1'
+#Then Action rebuild is enabled true for publications list item with title 'Experience1'
+#And Action download is enabled true for publications list item with title 'Experience1'
+#When click open publication list item with title 'Experience1'
+#Then browser navigates to url 'http://localhost:5656/#experience/00000000000000000000000000000001'
+#And download action on experiance page is available
+#And rebuild action on experiance page is available
+#When click on next experience
+#Then browser navigates to url 'http://localhost:5656/#experience/00000000000000000000000000000002'
+#When click on build button
+#Then download action on experiance page is available
+#And rebuild action on experiance page is available
+#When click on back to experiences
+#Then browser navigates to url 'http://localhost:5656/#experiences'
+#When mouse hover element of publications list with title 'Experience2'
+#Then Action rebuild is enabled true for publications list item with title 'Experience2'
+#And Action download is enabled true for publications list item with title 'Experience2'
 
