@@ -24,7 +24,7 @@ namespace easygenerator.Web.Controllers.Api
                 Id = tmpl.Id.ToString("N"),
                 Name = tmpl.Name,
                 Image = tmpl.Image,
-                Description = "Some description for template " + tmpl.Name
+                Description = tmpl.Name == "Freestyle learning" ? "Use this when you want a course style like setup." : "Use this when you want to create an assessment."
             });
 
             return JsonSuccess(result);
