@@ -117,6 +117,8 @@ Then browser navigates to url 'http://localhost:5656/'
 When open page by url 'http://localhost:5656/#/experiences'
 And mouse hover element of publications list with title 'Experience1'
 And click build publication list item with title 'Experience1'
+And sleep 1000 milliseconds
+And refresh page
 And mouse hover element of publications list with title 'Experience1'
 And click download publication list item with title 'Experience1'
 And unzip '00000000000000000000000000000001' package to 'tmp'
@@ -134,7 +136,7 @@ And click on back to objectives link on package feedback page
 And click package question list item 'Question22' of 'Objective12'
 And click on submit button on package question page
 And click on progress summary link on package feedback page
-Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/summary'
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/#summary'
 And overall progress score '38%' is shown on package summary page
 And objective progress list contains items with data
 | Title       | Value | MeterValue  |
@@ -147,23 +149,23 @@ Scenario: Back action on package summary page navigates to previous page
 When open page by url 'http://localhost:5656/Templates/tmp'
 And click on progress summary button on package list of objective page
 And click on back link on progress summary page
-Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/'
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/#'
 
 When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on progress summary link on package question page
 And click on back link on progress summary page
-Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/#objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 
 When click on submit button on package question page
 And click on progress summary link on package feedback page
 And click on back link on progress summary page
-Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001/feedback'
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/#objective/00000000000000000000000000000001/question/00000000000000000000000000000001/feedback'
 
 When click on show explanations button on package feedback page
 And click on progress summary link on package explanations page
 And click on back link on progress summary page
-Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001/learningObjects'
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/#objective/00000000000000000000000000000001/question/00000000000000000000000000000001/learningObjects'
 
 
 Scenario: Thank you message popup appears on finish link click on package summary page
@@ -178,5 +180,5 @@ And toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on progress summary link on package question page
 And click on home link on progress summary page
-Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/'
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/#'
 

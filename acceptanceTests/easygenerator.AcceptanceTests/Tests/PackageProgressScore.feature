@@ -72,6 +72,8 @@ Then browser navigates to url 'http://localhost:5656/'
 When open page by url 'http://localhost:5656/#/experiences'
 And mouse hover element of publications list with title 'Experience1'
 And click build publication list item with title 'Experience1'
+And sleep 1000 milliseconds
+And refresh page
 And mouse hover element of publications list with title 'Experience1'
 And click download publication list item with title 'Experience1'
 And unzip '00000000000000000000000000000001' package to 'tmp'
