@@ -118,6 +118,23 @@
 
         });
 
+        
+        describe('deactivate:', function () {
+
+            beforeEach(function () {
+                spyOn(app, 'trigger');
+            });
+
+            it('should be function', function () {
+                expect(viewModel.deactivate).toBeFunction();
+            });
+
+            it('should trigger \'events.learningContentExperienced\' event', function () {
+                viewModel.deactivate();
+                expect(app.trigger).toHaveBeenCalledWith("learningContentExperienced");
+            });
+        });
+        
         describe('backToQuestions:', function () {
 
             it('should be function', function () {

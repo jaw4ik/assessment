@@ -1,5 +1,5 @@
-﻿define(['context', 'plugins/router', 'xApi/requestManager', 'eventManager', 'durandal/app'],
-    function (context, router, xApiRequestManager, eventManager, app) {
+﻿define(['context', 'plugins/router', 'xApi/requestManager', 'eventManager', 'durandal/app', 'models/question'],
+    function (context, router, xApiRequestManager, eventManager, app, Question) {
 
         var objectives = [],
             questions = [],
@@ -29,6 +29,12 @@
             },
 
             submit = function () {
+                app.trigger(eventManager.events.answersSubmitted, {
+                    questions: _.map(questions, function (question) {
+                        return new Question(question);
+                    })
+                });
+                    
                 scrollId = '0';
                 isEndTest(true);
                 router.navigate('summary');
@@ -53,6 +59,7 @@
                         return {
                             id: question.id,
                             objectiveId: objective.id,
+                            objectiveTitle: objective.title,
                             answers: _.map(question.answers, function (answer) {
                                 return {
                                     id: answer.id,

@@ -14,7 +14,11 @@
             obj.actor = spec.actor;
             obj.verb = spec.verb;
             obj.object = spec.object;
-            
+
+            if (_.isObject(spec.context)) {
+                obj.context = spec.context;
+            }
+
             if (_.isObject(spec.result)) {
                 obj.result = new resultModel(spec.result);
             }
