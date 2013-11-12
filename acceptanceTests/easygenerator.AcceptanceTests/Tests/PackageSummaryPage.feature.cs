@@ -475,8 +475,8 @@ testRunner.And("click on progress summary link on package explanations page", ((
 testRunner.And("click on back link on progress summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 168
 testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#objective/00000000" +
-                    "000000000000000000000001/question/00000000000000000000000000000001/learningObjec" +
-                    "ts\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+                    "000000000000000000000001/question/00000000000000000000000000000001/learningConte" +
+                    "nts\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -165,7 +165,7 @@ Then browser navigates to url 'http://localhost:5656/Templates/tmp/#objective/00
 When click on show explanations button on package feedback page
 And click on progress summary link on package explanations page
 And click on back link on progress summary page
-Then browser navigates to url 'http://localhost:5656/Templates/tmp/#objective/00000000000000000000000000000001/question/00000000000000000000000000000001/learningObjects'
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/#objective/00000000000000000000000000000001/question/00000000000000000000000000000001/learningContents'
 
 
 Scenario: Thank you message popup appears on finish link click on package summary page

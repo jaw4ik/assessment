@@ -117,6 +117,8 @@ Then browser navigates to url 'http://localhost:5656/'
 When open page by url 'http://localhost:5656/#/experiences'
 And mouse hover element of publications list with title 'Experience1'
 And click build publication list item with title 'Experience1'
+And sleep 1000 milliseconds
+And refresh page
 And mouse hover element of publications list with title 'Experience1'
 And click download publication list item with title 'Experience1'
 And unzip '00000000000000000000000000000001' package to 'tmp'
@@ -126,7 +128,7 @@ When open page by url 'http://localhost:5656/Templates/tmp'
 And toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on show explanations link on package question page
-Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001/learningObjects'
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/#objective/00000000000000000000000000000001/question/00000000000000000000000000000001/learningContents'
 And package explanations list contains only items with data 
 | Explanation   |
 | Explanation11 |
@@ -138,7 +140,7 @@ And toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on show explanations link on package question page
 And click on back to question link on package explanations page
-Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/#objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 
 Scenario: Back to objectives link on package explanations page navigates back to package objectives list page
 When open page by url 'http://localhost:5656/Templates/tmp'
@@ -146,7 +148,7 @@ And toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on show explanations link on package question page
 And click on back to objectives link on package explanations page
-Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/'
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/#'
 
 Scenario: Progress summary link on package explanations page navigates to summary page
 When open page by url 'http://localhost:5656/Templates/tmp'
@@ -154,7 +156,7 @@ And toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on show explanations link on package question page
 And click on progress summary link on package explanations page
-Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/summary'
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/#summary'
 
 Scenario: Home link on package explanations page navigates to package home page
 When open page by url 'http://localhost:5656/Templates/tmp'
@@ -162,4 +164,4 @@ And toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on show explanations link on package question page
 And click home link on package explanations page
-Then browser navigates to url 'http://localhost:5656/Templates/tmp/#/'
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/#'

@@ -10,7 +10,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 {
     public class PackageExplanationsPageLinkingModel : ILinkingModel
     {
-        public string PackageExplanation = ".//ul[contains(@class,'learning-object-items')]//li[contains(@class,'learning-object-item')]";
+        public string PackageExplanation = ".//ul[contains(@class,'learning-content-items')]//li[contains(@class,'learning-content-item')]";
 
         public string BackToQuestionLink = ".//div[contains(@class,'navigation-link-container')]//div[contains(@class,'pull-right')]//a";
         public string BackToObjectivesLink = ".//div[contains(@class,'navigation-link-container')]//div[contains(@class,'pull-left')]//a";
