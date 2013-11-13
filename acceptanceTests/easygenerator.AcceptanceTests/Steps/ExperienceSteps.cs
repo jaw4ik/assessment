@@ -277,6 +277,7 @@ namespace easygenerator.AcceptanceTests.Steps
         public void WhenClickOnExcludeButtonOnExperiencePage()
         {
             experiencePage.ExcludeButtonClick();
+            System.Threading.Thread.Sleep(500);
         }
 
         [Then(@"exclude button is enabled (.*) on experience page")]
