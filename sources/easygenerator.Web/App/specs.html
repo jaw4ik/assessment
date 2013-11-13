@@ -51,6 +51,7 @@
 
             require(['plugins/router'], function (router) {
                 router.replace = function () { };
+                //router.setLocation = function () { };
                 router.reloadLocation = function () { };
                 router.navigateWithQueryString = function () { };
                 router.download = function () { };
@@ -64,6 +65,7 @@
                 'errorHandling/globalErrorHandler.spec',
                 'errorHandling/errorHandlingConfiguration.spec',
                 'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec',
+                //'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler.spec',
                 'errorHandling/httpErrorHandlers/serviceUnavailableHttpErrorHandler.spec',
                 'localization/localizationManager.spec',
                 'services/buildExperience.spec',
