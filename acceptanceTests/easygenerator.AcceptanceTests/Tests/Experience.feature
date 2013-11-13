@@ -189,25 +189,25 @@ When mouse hover element of related objectives list with title 'Objective11'
 And click open related objective list item with title 'Objective11'
 Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001?experienceId=00000000000000000000000000000001'
 
-Scenario: Question count is shown for each related objective list item
-Given objectives are present in database
-| Title       | Id |
-| Objective11 | 00000000000000000000000000000001  |
-| Objective12 | 00000000000000000000000000000002  |
-Given objectives are linked to experiance 'Experience1'
-| Title       | Id |
-| Objective11 | 00000000000000000000000000000001  |
-| Objective12 | 00000000000000000000000000000002  |
-Given questions related to 'Objective11' are present in database
-| Title      | Id |
-| Question11 | 00000000000000000000000000000001  |
-| Question12 | 00000000000000000000000000000002  |
-Given questions related to 'Objective12' are present in database
-| Title      | Id |
-| Question21 | 00000000000000000000000000000003  |
-When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
-Then question count for related objective item with title 'Objective11' is '2'
-And question count for related objective item with title 'Objective12' is '1'
+#Scenario: Question count is shown for each related objective list item
+#Given objectives are present in database
+#| Title       | Id |
+#| Objective11 | 00000000000000000000000000000001  |
+#| Objective12 | 00000000000000000000000000000002  |
+#Given objectives are linked to experiance 'Experience1'
+#| Title       | Id |
+#| Objective11 | 00000000000000000000000000000001  |
+#| Objective12 | 00000000000000000000000000000002  |
+#Given questions related to 'Objective11' are present in database
+#| Title      | Id |
+#| Question11 | 00000000000000000000000000000001  |
+#| Question12 | 00000000000000000000000000000002  |
+#Given questions related to 'Objective12' are present in database
+#| Title      | Id |
+#| Question21 | 00000000000000000000000000000003  |
+#When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
+#Then question count for related objective item with title 'Objective11' is '2'
+#And question count for related objective item with title 'Objective12' is '1'
 
 #Scenario: Back action of experience page navigates to experiences page
 #When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
