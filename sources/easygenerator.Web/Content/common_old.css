@@ -716,7 +716,7 @@ ol.unstyled  {
 }
 
 .experience .add-new-item-tip .add-new-item-tip-text {
-    top: 25px;
+    top: 4px;
     left: 95px;
     width: 300px;
     white-space: normal;
@@ -729,7 +729,7 @@ ol.unstyled  {
 }
 
 .experience .add-new-item-tip .add-new-item-tip-arrow {
-    top: 0;
+    top: -30px;
     left: 30px;
 }
 
