@@ -443,7 +443,6 @@
     <Content Include="Templates\Freestyle learning\App\browserSupport.js" />
     <Content Include="Templates\Freestyle learning\App\configuration\routes.js" />
     <Content Include="Templates\Freestyle learning\App\context.js" />
-    <Content Include="Templates\Freestyle learning\App\errorHandling\serviceUnavailableErrorHandler.js" />
     <Content Include="Templates\Freestyle learning\App\eventManager.js" />
     <Content Include="Templates\Freestyle learning\App\eventManager.spec.js">
       <DependentUpon>eventManager.js</DependentUpon>
