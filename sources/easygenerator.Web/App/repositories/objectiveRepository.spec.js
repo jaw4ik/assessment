@@ -4,7 +4,8 @@
 
         var
            constants = require('constants'),
-           httpWrapper = require('httpWrapper')
+           httpWrapper = require('httpWrapper'),
+           dataContext = require('dataContext')
         ;
 
         describe('repository [objectiveRepository]', function () {
@@ -22,8 +23,6 @@
 
             describe('getCollection:', function () {
 
-                var dataContext = require('dataContext');
-
                 it('should be function', function () {
                     expect(objectiveRepository.getCollection).toBeFunction();
                 });
@@ -32,20 +31,58 @@
                     expect(objectiveRepository.getCollection()).toBePromise();
                 });
 
-                it('should resolve promise with objectives collection', function () {
-                    var objectives = [{ id: 1 }, { id: 2 }];
-                    dataContext.objectives = objectives;
-
+                it('should send request to server to api/objectives', function () {
                     var promise = objectiveRepository.getCollection();
+
+                    post.resolve();
 
                     waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(promise).toBeResolvedWith(objectives);
+                        expect(httpWrapper.post).toHaveBeenCalledWith('api/objectives');
                     });
                 });
 
+                describe('and request failed', function () {
+                    var reason = 'reason';
+                    beforeEach(function() {
+                        post.reject(reason);
+                    });
+
+                    it('should reject promise with reason', function () {
+                        var promise = objectiveRepository.getCollection();
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith(reason);
+                        });
+                    });
+
+                });
+
+                describe('and request succeed', function () {
+
+                    beforeEach(function() {
+                        post.resolve();
+                    });
+
+                    it('should resolve promise with objectives collection', function () {
+                        var objectives = [{ id: 1 }, { id: 2 }];
+                        dataContext.objectives = objectives;
+
+                        var promise = objectiveRepository.getCollection();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeResolvedWith(objectives);
+                        });
+                    });
+
+                });
             });
 
             describe('getById:', function () {
@@ -60,14 +97,25 @@
 
                 describe('when id is not a string', function () {
 
-                    it('should reject promise', function () {
-                        var promise = objectiveRepository.getById('');
+                    it('should reject promise with \'Objective id (string) was expected\'', function () {
+                        var promise = objectiveRepository.getById();
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise).toBeRejectedWith('Objective does not exist');
+                            expect(promise).toBeRejectedWith('Objective id (string) was expected');
+                        });
+                    });
+
+                    it('should not send request to server to api/objectives', function () {
+                        var promise = objectiveRepository.getById();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(httpWrapper.post).not.toHaveBeenCalled();
                         });
                     });
 
@@ -75,38 +123,76 @@
 
                 describe('when id is a string', function () {
 
-                    var dataContext = require('dataContext');
+                    it('should send request to server to api/objectives', function () {
+                        var promise = objectiveRepository.getCollection();
 
-                    describe('and when objective does not exist', function () {
+                        post.resolve();
 
-                        it('should be rejected', function () {
-                            dataContext.objectives = [];
-                            var promise = objectiveRepository.getById('');
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/objectives');
+                        });
+                    });
+
+                    describe('and request failed', function () {
+                        var reason = 'reason';
+                        beforeEach(function () {
+                            post.reject(reason);
+                        });
+
+                        it('should reject promise with reason', function () {
+                            var promise = objectiveRepository.getCollection();
 
                             waitsFor(function () {
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(promise).toBeRejectedWith('Objective does not exist');
+                                expect(promise).toBeRejectedWith(reason);
                             });
                         });
 
                     });
 
-                    describe('and when objective exists', function () {
+                    describe('and request succeed', function () {
 
-                        it('should be resolved with objective from dataContext', function () {
-                            var objective = { id: '0' };
-                            dataContext.objectives = [objective];
+                        beforeEach(function () {
+                            post.resolve();
+                        });
 
-                            var promise = objectiveRepository.getById('0');
+                        describe('and when objective does not exist', function () {
 
-                            waitsFor(function () {
-                                return !promise.isPending();
+                            it('should reject promise with \'Objective with this id is not found\'', function () {
+                                dataContext.objectives = [];
+                                var promise = objectiveRepository.getById('');
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Objective with this id is not found');
+                                });
                             });
-                            runs(function () {
-                                expect(promise).toBeResolvedWith(objective);
+
+                        });
+
+                        describe('and when objective exists', function () {
+
+                            it('should be resolved with objective from dataContext', function () {
+                                var objective = { id: '0' };
+                                dataContext.objectives = [objective];
+
+                                var promise = objectiveRepository.getById('0');
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolvedWith(objective);
+                                });
                             });
+
                         });
 
                     });

@@ -13,8 +13,9 @@
 
         describe('viewModel [experience]', function () {
 
+            var activateItemDeferred = Q.defer();
             beforeEach(function () {
-                spyOn(viewModel.activeStep, 'activateItem');
+                spyOn(viewModel.activeStep, 'activateItem').andReturn(activateItemDeferred.promise);
                 spyOn(notify, 'error');
             });
 
@@ -31,7 +32,6 @@
             });
 
             describe('activate:', function () {
-
                 it('should be function', function () {
                     expect(viewModel.activate).toBeFunction();
                 });
@@ -42,6 +42,7 @@
 
                 it('should set experience id', function () {
                     var promise = viewModel.activate('SomeId');
+                    activateItemDeferred.resolve();
 
                     waitsFor(function () {
                         return !promise.isPending();
@@ -51,38 +52,50 @@
                     });
                 });
 
-                it('should reset active step to define', function () {
-                    var promise = viewModel.activate('SomeId');
+                describe('and when set active step to define', function () {
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.activeStep.activateItem).toHaveBeenCalledWith(define, 'SomeId');
-                    });
-                });
+                    it('should reset active step to define', function () {
+                        var promise = viewModel.activate('SomeId');
+                        activateItemDeferred.resolve();
 
-                it('should set experience id as the last visited in client context', function () {
-                    spyOn(clientContext, 'set');
-                    var promise = viewModel.activate('SomeId');
-
-                    waitsFor(function () {
-                        return !promise.isPending();
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.activeStep.activateItem).toHaveBeenCalledWith(define, 'SomeId');
+                        });
                     });
-                    runs(function () {
-                        expect(clientContext.set).toHaveBeenCalledWith('lastVistedExperience', 'SomeId');
-                    });
-                });
 
-                it('should reset last visited objective in client context', function () {
-                    spyOn(clientContext, 'set');
-                    var promise = viewModel.activate('SomeId');
+                    describe('and when active step set successfully', function () {
 
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(clientContext.set).toHaveBeenCalledWith('lastVisitedObjective', null);
+                        beforeEach(function () {
+                            activateItemDeferred.resolve();
+                        });
+
+                        it('should set experience id as the last visited in client context', function () {
+                            spyOn(clientContext, 'set');
+                            var promise = viewModel.activate('SomeId');
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(clientContext.set).toHaveBeenCalledWith('lastVistedExperience', 'SomeId');
+                            });
+                        });
+
+                        it('should reset last visited objective in client context', function () {
+                            spyOn(clientContext, 'set');
+                            var promise = viewModel.activate('SomeId');
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(clientContext.set).toHaveBeenCalledWith('lastVisitedObjective', null);
+                            });
+                        });
+
                     });
                 });
 
@@ -118,6 +131,10 @@
                     expect(viewModel.goToDefine).toBeFunction();
                 });
 
+                it('should return promise', function () {
+                    expect(viewModel.goToDefine()).toBePromise();
+                });
+
                 it('should set activeStep to define', function () {
                     viewModel.goToDefine();
                     expect(viewModel.activeStep.activateItem).toHaveBeenCalledWith(define, jasmine.any(String));
@@ -131,7 +148,11 @@
                     expect(viewModel.goToDesign).toBeFunction();
                 });
 
-                it('should set activeStep to define', function () {
+                it('should return promise', function () {
+                    expect(viewModel.goToDesign()).toBePromise();
+                });
+
+                it('should set activeStep to desing', function () {
                     viewModel.goToDesign();
                     expect(viewModel.activeStep.activateItem).toHaveBeenCalledWith(design, jasmine.any(String));
                 });
@@ -144,24 +165,40 @@
                     expect(viewModel.goToDeliver).toBeFunction();
                 });
 
-                it('should set activeStep to define', function () {
+                it('should return promise', function () {
+                    expect(viewModel.goToDeliver()).toBePromise();
+                });
+
+                it('should set activeStep to deliver', function () {
                     viewModel.goToDeliver();
                     expect(viewModel.activeStep.activateItem).toHaveBeenCalledWith(deliver, jasmine.any(String));
                 });
-
             });
 
             describe('when current experience build failed', function () {
 
                 var message = "message";
 
-                it('should show notification', function () {
-                    viewModel.id = 'id';
-                    notify.error.reset();
+                describe('and when message is defined', function () {
+                    it('should show notification', function () {
+                        viewModel.id = 'id';
+                        notify.error.reset();
 
-                    app.trigger(constants.messages.experience.build.failed, viewModel.id, message);
+                        app.trigger(constants.messages.experience.build.failed, viewModel.id, message);
 
-                    expect(notify.error).toHaveBeenCalledWith(message);
+                        expect(notify.error).toHaveBeenCalledWith(message);
+                    });
+                });
+
+                describe('and when message is not defined', function () {
+                    it('should not show notification', function () {
+                        viewModel.id = 'id';
+                        notify.error.reset();
+
+                        app.trigger(constants.messages.experience.build.failed, viewModel.id);
+
+                        expect(notify.error).not.toHaveBeenCalled();
+                    });
                 });
 
             });
@@ -178,20 +215,32 @@
                 });
 
             });
-            
+
             describe('when current experience publish failed', function () {
 
                 var message = "message";
 
-                it('should show notification', function () {
-                    viewModel.id = 'id';
-                    notify.error.reset();
+                describe('and when message is defined', function () {
+                    it('should show notification', function () {
+                        viewModel.id = 'id';
+                        notify.error.reset();
 
-                    app.trigger(constants.messages.experience.publish.failed, viewModel.id, message);
+                        app.trigger(constants.messages.experience.publish.failed, viewModel.id, message);
 
-                    expect(notify.error).toHaveBeenCalledWith(message);
+                        expect(notify.error).toHaveBeenCalledWith(message);
+                    });
                 });
 
+                describe('and when message is not defined', function () {
+                    it('should not show notification', function () {
+                        viewModel.id = 'id';
+                        notify.error.reset();
+
+                        app.trigger(constants.messages.experience.publish.failed, viewModel.id);
+
+                        expect(notify.error).not.toHaveBeenCalled();
+                    });
+                });
             });
 
             describe('when any other experience build failed', function () {

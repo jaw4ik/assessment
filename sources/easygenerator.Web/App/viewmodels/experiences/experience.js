@@ -18,25 +18,25 @@
 
 
         function goToDefine() {
-            viewModel.activeStep.activateItem(define, viewModel.id);
+            return viewModel.activeStep.activateItem(define, viewModel.id);
         }
 
         function goToDesign() {
-            viewModel.activeStep.activateItem(design, viewModel.id);
+            return viewModel.activeStep.activateItem(design, viewModel.id);
         }
 
         function goToDeliver() {
-            viewModel.activeStep.activateItem(deliver, viewModel.id);
+            return viewModel.activeStep.activateItem(deliver, viewModel.id);
         }
 
         function activate(experienceId) {
             return Q.fcall(function () {
                 viewModel.activeStep.activateItem({});
                 viewModel.id = experienceId;
-                viewModel.goToDefine();
-
-                clientContext.set('lastVistedExperience', experienceId);
-                clientContext.set('lastVisitedObjective', null);
+                return viewModel.goToDefine().then(function () {
+                    clientContext.set('lastVistedExperience', experienceId);
+                    clientContext.set('lastVisitedObjective', null);
+                });
             });
         }
 
@@ -47,11 +47,11 @@
         }
 
         function notifyError(experienceId, message) {
-            if (experienceId == viewModel.id) {
+            if (experienceId == viewModel.id && !_.isNullOrUndefined(message)) {
                 notify.error(message);
             }
         }
-        
+
         app.on(constants.messages.experience.build.failed, notifyError);
         app.on(constants.messages.experience.publish.failed, notifyError);
 

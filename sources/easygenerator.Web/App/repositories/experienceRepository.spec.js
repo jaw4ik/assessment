@@ -23,6 +23,183 @@
                 expect(repository).toBeObject();
             });
 
+            describe('getCollection:', function () {
+
+                it('should be function', function () {
+                    expect(repository.getCollection).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(repository.getCollection()).toBePromise();
+                });
+
+                it('should send request to server to api/experiences', function () {
+                    var promise = repository.getCollection();
+
+                    httpWrapperPost.resolve();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(httpWrapper.post).toHaveBeenCalledWith('api/experiences');
+                    });
+                });
+
+                describe('and request failed', function () {
+
+                    it('should reject promise with reason', function () {
+                        var reason = 'reason';
+                        var promise = repository.getCollection();
+
+                        httpWrapperPost.reject(reason);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith(reason);
+                        });
+                    });
+
+                });
+
+                describe('and request succeed', function () {
+
+                    it('should resolve promise with experiences collection', function () {
+                        var experiences = [{ id: 1 }, { id: 2 }];
+                        dataContext.experiences = experiences;
+
+                        var promise = repository.getCollection();
+                        httpWrapperPost.resolve(experiences);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeResolvedWith(experiences);
+                        });
+                    });
+
+                });
+            });
+
+            describe('getById:', function () {
+
+                it('should be function', function () {
+                    expect(repository.getById).toBeFunction();
+                });
+
+                it('should return promise', function () {
+                    expect(repository.getById()).toBePromise();
+                });
+
+                describe('when id is not a string', function () {
+
+                    it('should reject promise with \'Experience id (string) was expected\'', function () {
+                        var promise = repository.getById();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith('Experience id (string) was expected');
+                        });
+                    });
+
+                    it('should not send request to server to api/experiences', function () {
+                        var promise = repository.getById();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(http.post).not.toHaveBeenCalled();
+                        });
+                    });
+
+                });
+
+                describe('when id is a string', function () {
+
+                    it('should send request to server to api/experiences', function () {
+                        var promise = repository.getCollection();
+
+                        httpWrapperPost.resolve();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/experiences');
+                        });
+                    });
+
+                    describe('and request failed', function () {
+                        var reason = 'reason';
+                        beforeEach(function () {
+                            httpWrapperPost.reject(reason);
+                        });
+
+                        it('should reject promise with reason', function () {
+                            var promise = repository.getCollection();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeRejectedWith(reason);
+                            });
+                        });
+
+                    });
+
+                    describe('and request succeed', function () {
+
+                        beforeEach(function () {
+                            httpWrapperPost.resolve();
+                        });
+
+                        describe('and when experience does not exist', function () {
+
+                            it('should reject promise with \'Experience with this id is not found\'', function () {
+                                dataContext.experiences = [];
+                                var promise = repository.getById('');
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Experience with this id is not found');
+                                });
+                            });
+
+                        });
+
+                        describe('and when experience exists', function () {
+
+                            it('should be resolved with experience from dataContext', function () {
+                                var experience = { id: '0' };
+                                dataContext.experiences = [experience];
+
+                                var promise = repository.getById('0');
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolvedWith(experience);
+                                });
+                            });
+
+                        });
+
+                    });
+
+                });
+
+            });
+
             describe('addExperience:', function () {
 
                 it('should be function', function () {

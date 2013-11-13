@@ -1,7 +1,7 @@
 ﻿define([], function () {
     "use strict";
 
-    describe('[serviceUnavailabeErrorHandler]', function () {
+    describe('[serviceUnavailableErrorHandler]', function () {
         var errorHandler;
 
         beforeEach(function () {

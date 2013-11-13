@@ -5,23 +5,32 @@
         var
             getCollection = function () {
                 return Q.fcall(function () {
-                    return dataContext.objectives;
+                    return httpWrapper.post('api/objectives').then(function () {
+                        return dataContext.objectives;
+                    });
                 });
             },
 
             getById = function (id) {
-                return Q.fcall(function () {
-                    guard.throwIfNotString(id, 'Invalid argument');
+                return Q.fcall(function() {
+                    var deferred = Q.defer();
+                    guard.throwIfNotString(id, 'Objective id (string) was expected');
 
-                    var result = _.find(dataContext.objectives, function (item) {
-                        return item.id === id;
+                    httpWrapper.post('api/objectives').then(function() {
+                        var result = _.find(dataContext.objectives, function(item) {
+                            return item.id === id;
+                        });
+
+                        if (_.isUndefined(result)) {
+                            deferred.reject('Objective with this id is not found');
+                            return;
+                        };
+
+                        deferred.resolve(result);
                     });
 
-                    guard.throwIfNotAnObject(result, 'Objective does not exist');
-
-                    return result;
+                    return deferred.promise;
                 });
-
             },
 
             addObjective = function (objective) {
@@ -36,7 +45,7 @@
                             guard.throwIfNotString(response.Id, 'Objective Id is not a string');
                             guard.throwIfNotString(response.CreatedOn, 'Objective creation date is not a string');
 
-                            var 
+                            var
                                 createdObjective = objectiveModel({
                                     id: response.Id,
                                     title: objective.title,

@@ -9,7 +9,8 @@
         routes = require('configuration/routes'),
         helpHintRepository = require('repositories/helpHintRepository'),
         localizationManager = require('localization/localizationManager'),
-        globalErrorEventSubscriber = require('errorHandling/globalErrorEventHandlerSubscriber');
+        errorHandlingConfiguration = require('errorHandling/errorHandlingConfiguration'),
+        globalErrorHandler = require('errorHandling/globalErrorHandler');
 
     var
         events = {
@@ -113,7 +114,9 @@
             var that = this;
             return dataContext.initialize()
                 .then(function () {
-                    globalErrorEventSubscriber.subscribe();
+                    errorHandlingConfiguration.configure();
+                    globalErrorHandler.subscribeOnAjaxErrorEvents();
+                    
                     localizationManager.initialize(window.top.userCultures);
 
                     router.updateDocumentTitle = function (instance, instruction) {

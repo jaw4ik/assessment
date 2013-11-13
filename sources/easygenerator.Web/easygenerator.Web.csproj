@@ -156,14 +156,26 @@
     <Content Include="App\clientContext.spec.js">
       <DependentUpon>clientContext.js</DependentUpon>
     </Content>
-    <Content Include="App\errorHandling\globalErrorEventHandlerSubscriber.js" />
-    <Content Include="App\errorHandling\globalErrorEventHandlerSubscriber.spec.js">
-      <DependentUpon>globalErrorEventHandlerSubscriber.js</DependentUpon>
+    <Content Include="App\errorHandling\errorHandlingConfiguration.js" />
+    <Content Include="App\errorHandling\httpErrorHandlerRegistrator.js" />
+    <Content Include="App\errorHandling\errorHandlingConfiguration.spec.js">
+      <DependentUpon>errorHandlingConfiguration.js</DependentUpon>
     </Content>
-    <Content Include="App\errorHandling\serviceUnavailabeErrorHandler.spec.js">
-      <DependentUpon>serviceUnavailabeErrorHandler.js</DependentUpon>
+    <Content Include="App\errorHandling\httpErrorHandlerRegistrator.spec.js">
+      <DependentUpon>httpErrorHandlerRegistrator.js</DependentUpon>
     </Content>
-    <Content Include="App\errorHandling\serviceUnavailabeErrorHandler.js" />
+    <Content Include="App\errorHandling\globalErrorHandler.js" />
+    <Content Include="App\errorHandling\globalErrorHandler.spec.js">
+      <DependentUpon>globalErrorHandler.js</DependentUpon>
+    </Content>
+    <Content Include="App\errorHandling\httpErrorHandlers\defaultHttpErrorHandler.js" />
+    <Content Include="App\errorHandling\httpErrorHandlers\serviceUnavailableHttpErrorHandler.js" />
+    <Content Include="App\errorHandling\httpErrorHandlers\defaultHttpErrorHandler.spec.js">
+      <DependentUpon>defaultHttpErrorHandler.js</DependentUpon>
+    </Content>
+    <Content Include="App\errorHandling\httpErrorHandlers\serviceUnavailableHttpErrorHandler.spec.js">
+      <DependentUpon>serviceUnavailableHttpErrorHandler.js</DependentUpon>
+    </Content>
     <Content Include="App\guard.js" />
     <Content Include="App\httpWrapper.spec.js">
       <DependentUpon>httpWrapper.js</DependentUpon>
@@ -431,6 +443,7 @@
     <Content Include="Templates\Freestyle learning\App\browserSupport.js" />
     <Content Include="Templates\Freestyle learning\App\configuration\routes.js" />
     <Content Include="Templates\Freestyle learning\App\context.js" />
+    <Content Include="Templates\Freestyle learning\App\errorHandling\serviceUnavailableErrorHandler.js" />
     <Content Include="Templates\Freestyle learning\App\eventManager.js" />
     <Content Include="Templates\Freestyle learning\App\eventManager.spec.js">
       <DependentUpon>eventManager.js</DependentUpon>

@@ -41,9 +41,7 @@
                     .fail(function (reason) {
                         experience.buildingStatus = constants.statuses.failed;
                         experience.packageUrl = '';
-                        if (!_.isNullOrUndefined(reason) && reason.status != 503) {
-                            app.trigger(constants.messages.experience.build.failed, experience.id, reason);
-                        }
+                        app.trigger(constants.messages.experience.build.failed, experience.id);
 
                         deferred.reject(reason);
                     });
@@ -96,9 +94,7 @@
                     .fail(function (reason) {
                         experience.publishingState = constants.statuses.failed;
                         experience.publishedPackageUrl = '';
-                        if (!_.isNullOrUndefined(reason) && reason.status != 503) {
-                            app.trigger(constants.messages.experience.publish.failed, experience.id, reason);
-                        }
+                        app.trigger(constants.messages.experience.publish.failed, experience.id);
 
                         deferred.reject(reason);
                     });
