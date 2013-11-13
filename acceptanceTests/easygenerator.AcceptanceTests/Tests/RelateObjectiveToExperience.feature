@@ -155,11 +155,9 @@ And click on exclude button on experience page
 Then related objectives list contains only items with data
 | Title      |
 | Objective2 |
-When click on back to experiences
-And mouse hover element of publications list with title 'Experience1'
-And click open publication list item with title 'Experience1'
-Then browser navigates to url 'http://localhost:5656/#experience/00000000000000000000000000000001'
-And related objectives list contains only items with data
+When click on home link
+And open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
+Then related objectives list contains only items with data
 | Title      |
 | Objective2 |
 
@@ -213,11 +211,9 @@ Then related objectives list contains only items with data
 | Title      |
 | Objective2 |
 | Objective3 |
-When click on back to experiences
-And mouse hover element of publications list with title 'Experience1'
-And click open publication list item with title 'Experience1'
-Then browser navigates to url 'http://localhost:5656/#experience/00000000000000000000000000000001'
-And related objectives list contains only items with data
+When click on home link
+And open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
+Then related objectives list contains only items with data
 | Title      |
 | Objective1 |
 | Objective2 |
@@ -243,11 +239,9 @@ And click on exclude button on experience page
 Then related objectives list contains only items with data
 | Title      |
 | Objective3 |
-When click on back to experiences
-And mouse hover element of publications list with title 'Experience1'
-And click open publication list item with title 'Experience1'
-Then browser navigates to url 'http://localhost:5656/#experience/00000000000000000000000000000001'
-And related objectives list contains only items with data
+When click on home link
+And open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
+Then related objectives list contains only items with data
 | Title      |
 | Objective1 |
 | Objective2 |
