@@ -450,6 +450,7 @@ a.top-navigation-item:hover {
 .main-content-list .list-item-logo-image {
     vertical-align: top;
     border: 1px solid #e6e6e6;
+    background: white;
 }
 
 .main-content-list .list-item-info {
