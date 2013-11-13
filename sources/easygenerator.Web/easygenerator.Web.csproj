@@ -717,6 +717,7 @@
     <Content Include="Templates\Quiz\img\previous.png" />
     <Content Include="Templates\Quiz\img\progress.png" />
     <Content Include="Templates\Quiz\img\safari.png" />
+    <Content Include="Templates\Quiz\img\spiner.GIF" />
     <Content Include="Templates\Quiz\img\tooltip.png" />
     <Content Include="Templates\Quiz\img\xapierror.png" />
     <Content Include="Templates\Quiz\index.html" />

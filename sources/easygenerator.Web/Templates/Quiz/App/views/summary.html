@@ -36,7 +36,7 @@
                         </div>
                         <div class="progressbar-block">
                             <div class="progressbar-bg-line"></div>
-                            <div class="progressbar-score-line" data-bind="style: { width: score + '%', display: Math.round(score) < 1 ? 'none' : 'block'  }"></div>
+                            <div class="progressbar-score-line" data-bind="style: { width: score + '%', display: Math.round(score) < 1 ? 'none' : 'block' }"></div>
                         </div>
                     </div>
                 </div>
@@ -55,6 +55,11 @@
         <!-- /ko -->
     </div>
     <!-- ko if: status() == statuses.sendingRequests -->
-    <img class="loader" src="img/loader.gif" alt="" />
+    <div class="request-loader-holder">
+        <div class="request-loader-wrapper">
+            <span class="request-loader">Reporting progress...</span>
+        </div>
+    </div>
     <!-- /ko  -->
+
 </section>
