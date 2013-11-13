@@ -56,9 +56,9 @@
                     <span class="create-new-icon"></span>
                     <span>Create and connect learning objective</span>
                 </div>
-                <div class="dotted-line"></div>
             </div>
             <!-- ko if: (objectivesMode() == objectivesListModes.display && relatedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->
+            <div class="dotted-line"></div>
             <div class="hint-popup-holder" data-bind="visible: hintPopup.displayed">
                 <!-- ko compose: {
                     view: 'views/common/hintpopup',
