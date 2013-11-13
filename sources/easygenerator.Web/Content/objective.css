@@ -62,10 +62,6 @@
         vertical-align: top;
     }
 
-.objective-text-wrapper .edit-field .text-block .editarea-editable-text {
-    min-height: 120px;
-}
-
 .objective-image {
     height: 111px;
     width: 194px;
@@ -217,10 +213,6 @@
     height: 100%;
     padding-bottom: 10px;
 }
-
-    .create-objective-form .edit-field .text-block .editarea-editable-text {
-        min-height: 140px;
-    }
 
 .create-objective-image {
     float: left;

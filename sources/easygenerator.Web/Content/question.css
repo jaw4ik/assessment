@@ -41,10 +41,6 @@
     white-space: nowrap;
 }
 
-.question-text-wrapper .edit-field .text-block .editarea-editable-text {
-    min-height: 93px;
-}
-
 /*#region Info button*/
 
 .question .info-btn-holder {
@@ -558,10 +554,6 @@
     height: 100%;
     padding-bottom: 10px;
 }
-
-    .create-question-form .edit-field .text-block .editarea-editable-text {
-        min-height: 140px;
-    }
 
 .create-question-text-wrapper {
     position: relative;

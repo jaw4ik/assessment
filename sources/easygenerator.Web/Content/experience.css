@@ -357,35 +357,6 @@
         background-position: 0 64px;
     }
 
-.experience .content-list-item .text-block {
-    margin-right: 37px;
-}
-
-.li-related-objective-question-count-wrapper {
-    float: right;
-    margin: 10px;
-    color: #666;
-    font-size: 12px;
-    font-family: Arial, sans-serif;
-    line-height: 17px;
-}
-
-.li-related-objective-question-count-image {
-    display: inline-block;
-    width: 17px;
-    height: 17px;
-    background-image: url('images/middle-sized-icons-pack.png');
-    background-position: center -303px;
-    vertical-align: top;
-}
-
-.li-related-objective-question-count-text {
-    display: inline-block;
-    vertical-align: middle;
-    line-height: 12px;
-}
-
-
 /*#region DEFINE STEP*/
 .experience .create-new-title {
     padding: 55px 0;
@@ -711,10 +682,6 @@
     .experience .empty-list-wrapper {
         margin-top: 140px;
     }
-}
-
-.experience-text-wrapper .edit-field .text-block .editarea-editable-text {
-    min-height: 124px;
 }
 
 .experience-date-block-text {

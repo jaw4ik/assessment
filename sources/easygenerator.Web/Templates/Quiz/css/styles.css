@@ -152,10 +152,6 @@ img:hover {
     visibility: hidden;
 }
 
-.nowrap {
-    white-space: nowrap;
-}
-
 .unselectable,
 .unselectable * {
     -moz-user-select: none;
