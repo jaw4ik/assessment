@@ -420,7 +420,6 @@ a.top-navigation-item:hover {
 .main-content-list .list-item-logo {
     display: table-cell;
     vertical-align: middle;
-    background: white;
 }
 
 .main-content-list .list-item-logo,
@@ -441,7 +440,7 @@ a.top-navigation-item:hover {
     background: -webkit-linear-gradient(top, #f0f0f0 0%,#fbfbfb 100%); /* Chrome10+,Safari5.1+ */
     background: -ms-linear-gradient(top, #f0f0f0 0%,#fbfbfb 100%); /* IE10+ */
     background: linear-gradient(to bottom, #f0f0f0 0%,#fbfbfb 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#fbfbfb',GradientType=0 ); /* IE6-8 */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#fbfbfb',GradientType=0 ); /* IE6-9 */
 }
 
 .ie9 .main-content-list .list-item-logo-image-wrapper {
@@ -458,6 +457,7 @@ a.top-navigation-item:hover {
     vertical-align: top;
     padding-left: 14px;
     padding-right: 140px;
+    padding-bottom: 12px;
 }
 
 .main-content-list .list-item-title {
