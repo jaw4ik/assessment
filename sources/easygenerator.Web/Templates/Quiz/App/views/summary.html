@@ -54,4 +54,7 @@
         <a class="btn default pull-right" data-bind="click: finish">Finish</a>
         <!-- /ko -->
     </div>
+    <!-- ko if: status() == statuses.sendingRequests -->
+    <img class="loader" src="img/loader.gif" alt="" />
+    <!-- /ko  -->
 </section>
