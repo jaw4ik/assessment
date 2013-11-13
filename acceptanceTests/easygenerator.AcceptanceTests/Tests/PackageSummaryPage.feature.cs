@@ -446,7 +446,7 @@ testRunner.And("click on progress summary button on package list of objective pa
 #line 151
 testRunner.And("click on back link on progress summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 152
-testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 154
 testRunner.When("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 155
@@ -456,8 +456,8 @@ testRunner.And("click on progress summary link on package question page", ((stri
 #line 157
 testRunner.And("click on back link on progress summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 158
-testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#objective/00000000" +
-                    "000000000000000000000001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#/objective/0000000" +
+                    "0000000000000000000000001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 160
 testRunner.When("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 161
