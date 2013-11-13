@@ -323,9 +323,10 @@ a.top-navigation-item:hover {
 
 /*#region DELETE SELECTED BUTTON*/
 
-.delete-selected-holder {
+.list-controls-holder {
     min-width: 600px;
     max-width: 850px;
+    width: 100%;
     text-align: right;
     margin: 0 auto;
 }
@@ -377,6 +378,7 @@ a.top-navigation-item:hover {
 
 .main-content-list-holder {
     min-width: 560px;
+    width: 73%;
     max-width: 850px;
     margin: 0 auto;
     padding-bottom: 30px;
@@ -698,7 +700,7 @@ a.top-navigation-item:hover {
     /*#endregion HEADER*/
 
     /*#region DELETE-SELECTED-HOLDER*/
-    .delete-selected-holder {
+    .list-controls-holder {
         max-width: 600px;
     }
     /*#endregion DELETE-SELECTED-HOLDER*/

@@ -80,180 +80,6 @@
         background-image: url(images/nav-icons.png);
         background-position: 0 -114px;
     }
-
-/*#region PACKAGE ACTIONS*/
-.package-actions-holder {
-    width: 100%;
-    padding-top: 50px;
-    text-align: center;
-}
-
-.package-actions-content {
-    width: 610px;
-    display: inline-block;
-    vertical-align: top;
-}
-
-.actions-left-column {
-    float: left;
-}
-
-    .actions-left-column .action-arrow.down {
-        min-height: 78px;
-    }
-
-.actions-right-column {
-    display: table;
-    margin-left: 250px;
-}
-
-    .actions-right-column .action-arrow.right {
-        display: table-cell;
-        min-width: 107px;
-        margin-right: 250px;
-        vertical-align: middle;
-    }
-
-.action-right-column .package-action-btn {
-    display: table-cell;
-}
-
-.package-action-btn-holder {
-    position: relative;
-}
-
-.package-action-btn {
-    height: auto;
-    line-height: normal;
-    width: 250px;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 8px 10px;
-    color: white;
-}
-
-    .package-action-btn .btn-title {
-        display: inline-block;
-        position: relative;
-        vertical-align: top;
-        padding-left: 34px;
-    }
-
-        .package-action-btn .btn-title:after {
-            content: '';
-            display: block;
-            position: absolute;
-            top: -2px;
-            left: 0;
-            width: 26px;
-            height: 28px;
-            background: url('images/sprites.png');
-        }
-
-.nl-lang .package-actions-content,
-.de-lang .package-actions-content {
-    width: 660px;
-}
-
-.nl-lang .package-action-btn,
-.de-lang .package-action-btn {
-    width: 275px;
-    font-size: 14px;
-    padding: 10px;
-}
-
-.copy-link-control {
-    padding-top: 10px;
-    white-space: nowrap;
-}
-
-    .copy-link-control.disabled {
-        opacity: 0.2;
-    }
-
-    .copy-link-control .btn {
-        float: left;
-    }
-
-.copy-link-input-wrapper {
-    height: 100%;
-    /*margin-left: 100px;*/
-}
-
-    .copy-link-input-wrapper.disabled {
-        opacity: 0.2;
-    }
-
-.copy-link-input {
-    width: 100%;
-    height: 100%;
-    padding: 5px;
-    background: white;
-    border: 1px solid #c1c1c1;
-    border-radius: 2px;
-    font-family: 'OpenSans';
-    font-size: 16px;
-}
-
-/*buttons*/
-.package-action-btn.create-package-btn .btn-title:after {
-    background-position: -93px -76px;
-}
-
-.package-action-btn.creating-btn .btn-title:after {
-    background: url('images/package-preloader.gif') no-repeat;
-}
-
-.package-action-btn.download-btn {
-    float: right;
-}
-
-    .package-action-btn.download-btn .btn-title:after {
-        background-position: -153px -75px;
-    }
-
-.package-action-btn.publish-btn .btn-title:after {
-    background-position: -126px -75px;
-}
-
-.package-action-btn.publishing-btn .btn-title:after {
-    background: url('images/publish-loader.gif') no-repeat 0 2px;
-}
-
-/*icons*/
-.action-arrow {
-    position: relative;
-}
-
-    .action-arrow.disabled {
-        opacity: 0.25;
-    }
-
-    .action-arrow .icon-item {
-        display: inline-block;
-        background: url('images/sprites.png');
-    }
-
-    .action-arrow.right .icon-item {
-        height: 22px;
-        width: 30px;
-        background-position: -56px -75px;
-    }
-
-    .action-arrow.down .icon-item {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        height: 30px;
-        width: 22px;
-        margin-top: -15px;
-        margin-left: -11px;
-        background-position: -27px -77px;
-    }
-
-/*#endregion PACKAGE ACTIONS*/
-
 /*#region MAINTENANCE*/
 .maintenance-message-page {
     padding-top: 8.7%;
@@ -559,6 +385,14 @@
     line-height: 12px;
 }
 
+
+/*#region DEFINE STEP*/
+.experience .create-new-title {
+    padding: 55px 0;
+}
+
+/*#endregion DEFINE STEP*/
+
 /*#region DESIGN STEP*/
 .design-view-module {
     padding-top: 20px;
@@ -576,6 +410,180 @@
     }
 
 /*#endregion DESIGN STEP*/
+
+/*#region DELIVER STEP*/
+
+.package-actions-holder {
+    width: 100%;
+    padding-top: 50px;
+    text-align: center;
+}
+
+.package-actions-content {
+    width: 610px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.actions-left-column {
+    float: left;
+}
+
+    .actions-left-column .action-arrow.down {
+        min-height: 78px;
+    }
+
+.actions-right-column {
+    display: table;
+    margin-left: 250px;
+}
+
+    .actions-right-column .action-arrow.right {
+        display: table-cell;
+        min-width: 107px;
+        margin-right: 250px;
+        vertical-align: middle;
+    }
+
+.action-right-column .package-action-btn {
+    display: table-cell;
+}
+
+.package-action-btn-holder {
+    position: relative;
+}
+
+.package-action-btn {
+    height: auto;
+    line-height: normal;
+    width: 250px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    color: white;
+}
+
+    .package-action-btn .btn-title {
+        display: inline-block;
+        position: relative;
+        vertical-align: top;
+        padding-left: 34px;
+    }
+
+        .package-action-btn .btn-title:after {
+            content: '';
+            display: block;
+            position: absolute;
+            top: -2px;
+            left: 0;
+            width: 26px;
+            height: 28px;
+            background: url('images/sprites.png');
+        }
+
+.nl-lang .package-actions-content,
+.de-lang .package-actions-content {
+    width: 660px;
+}
+
+.nl-lang .package-action-btn,
+.de-lang .package-action-btn {
+    width: 275px;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.copy-link-control {
+    padding-top: 10px;
+    white-space: nowrap;
+}
+
+    .copy-link-control.disabled {
+        opacity: 0.2;
+    }
+
+    .copy-link-control .btn {
+        float: left;
+    }
+
+.copy-link-input-wrapper {
+    height: 100%;
+    /*margin-left: 100px;*/
+}
+
+    .copy-link-input-wrapper.disabled {
+        opacity: 0.2;
+    }
+
+.copy-link-input {
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    background: white;
+    border: 1px solid #c1c1c1;
+    border-radius: 2px;
+    font-family: 'OpenSans';
+    font-size: 16px;
+}
+
+/*buttons*/
+.package-action-btn.create-package-btn .btn-title:after {
+    background-position: -93px -76px;
+}
+
+.package-action-btn.creating-btn .btn-title:after {
+    background: url('images/package-preloader.gif') no-repeat;
+}
+
+.package-action-btn.download-btn {
+    float: right;
+}
+
+    .package-action-btn.download-btn .btn-title:after {
+        background-position: -153px -75px;
+    }
+
+.package-action-btn.publish-btn .btn-title:after {
+    background-position: -126px -75px;
+}
+
+.package-action-btn.publishing-btn .btn-title:after {
+    background: url('images/publish-loader.gif') no-repeat 0 2px;
+}
+
+/*icons*/
+.action-arrow {
+    position: relative;
+}
+
+    .action-arrow.disabled {
+        opacity: 0.25;
+    }
+
+    .action-arrow .icon-item {
+        display: inline-block;
+        background: url('images/sprites.png');
+    }
+
+    .action-arrow.right .icon-item {
+        height: 22px;
+        width: 30px;
+        background-position: -56px -75px;
+    }
+
+    .action-arrow.down .icon-item {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 30px;
+        width: 22px;
+        margin-top: -15px;
+        margin-left: -11px;
+        background-position: -27px -77px;
+    }
+
+/*#endregion DELIVER STEP*/
 
 /*#region Template selector*/
 
@@ -938,8 +946,8 @@
 
     .experience .hint-popup-holder .hint-popup {
         position: absolute;
-        bottom: 0;
-        left: 93px;
+        bottom: -9px;
+        left: 77px;
     }
 
 /*#endregion Hint popup*/
