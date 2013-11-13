@@ -141,6 +141,10 @@
                     router.reloadLocation = function () {
                         document.location.reload();
                     };
+                    
+                    router.setLocation = function (url) {
+                        document.location = url;
+                    };
 
                     router.navigateWithQueryString = function (url) {
                         var queryString = router.activeInstruction().queryString;

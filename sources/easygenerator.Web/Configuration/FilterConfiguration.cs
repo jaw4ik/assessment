@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using easygenerator.Web.Components.ActionFilters;
 
 namespace easygenerator.Web.Configuration
 {
@@ -9,7 +10,7 @@ namespace easygenerator.Web.Configuration
             var filters = GlobalFilters.Filters;
 
             filters.Add(new HandleErrorAttribute());
-            filters.Add(new AuthorizeAttribute());
+            filters.Add(new ApplicationAuthorize());
         }
     }
 }

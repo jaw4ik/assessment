@@ -176,6 +176,10 @@
     <Content Include="App\errorHandling\httpErrorHandlers\serviceUnavailableHttpErrorHandler.spec.js">
       <DependentUpon>serviceUnavailableHttpErrorHandler.js</DependentUpon>
     </Content>
+    <Content Include="App\errorHandling\httpErrorHandlers\unauthorizedHttpErrorHandler.js" />
+    <Content Include="App\errorHandling\httpErrorHandlers\unauthorizedHttpErrorHandler.spec.js">
+      <DependentUpon>unauthorizedHttpErrorHandler.js</DependentUpon>
+    </Content>
     <Content Include="App\guard.js" />
     <Content Include="App\httpWrapper.spec.js">
       <DependentUpon>httpWrapper.js</DependentUpon>
@@ -214,6 +218,7 @@
     <Compile Include="BuildExperience\PackageModel\LearningContentPackageModel.cs" />
     <Compile Include="BuildExperience\PackageModel\ObjectivePackageModel.cs" />
     <Compile Include="BuildExperience\PackageModel\QuestionPackageModel.cs" />
+    <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
     <Compile Include="Components\ActionFilters\NoCache.cs" />
     <Compile Include="Components\ActionResults\TextJsonErrorResult.cs" />
     <Compile Include="Components\ActionResults\TextJsonSuccessResult.cs" />

@@ -10,7 +10,6 @@ using easygenerator.Web.Components.Configuration;
 
 namespace easygenerator.Web.Controllers
 {
-    [Authorize]
     public class FileStorageController : Controller
     {
         public static readonly string[] AllowedExtensions = new[] { ".gif", ".jpeg", ".jpg", ".png" };
