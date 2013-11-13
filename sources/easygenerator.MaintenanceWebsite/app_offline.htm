@@ -276,8 +276,7 @@
             <div class="message-block curved-shadow">
                 <div class="message-block-text-holder">
                     <h1 class="message-block-title">Down for maintenance</h1>
-                    <p class="message-block-text">Our estimated launch date is</p>
-                    <p id="launchDateBlock" class="message-block-date">just in few minutes...</p>
+                    <p id="launchDateBlock" class="message-block-date">We will be back online soon.</span></p>					
                 </div>
             </div>
         </div>
@@ -298,12 +297,11 @@
         })();
 
         function formatLaunchDate(date) {           
-            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
             var hrs = date.getHours();
             var mins = date.getMinutes();
             var launchTimeText = (hrs > 12 ? hrs - 12 : hrs) + ':' + (mins < 10 ? '0' + mins : mins) + ' ' + (hrs > 12 ? 'PM' : 'AM');
 
-            return months[date.getMonth() - 1] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' at ' + launchTimeText + '.';
+            return 'We will be back online at ' + launchTimeText + '.';
         }
     </script>
 </body>
