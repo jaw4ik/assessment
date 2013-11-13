@@ -8,16 +8,17 @@ Scenario Template: Localization of browser should be applied to course by defaul
 	Given browser localizatiom is set to '<localization>'
 	When open page by url 'http://localhost:5656/launchtry'
 	And click on tab objectives link on expiriences list page
+	And sleep 500 milliseconds
 	Then objectives list page header text is '<text>'
 	Scenarios: 
-	| localization | text               |
-	| Nl           | Leerdoel           |
-	| nl-Nl         | Leerdoel           |
-	| nl-Be         | Learning objective |
-	| En           | Learning objective |
-	| De           | Lernziel           |
-	| de-De         | Lernziel           |
-	| sl,de-De      | Lernziel           |
+	| localization | text                |
+	| Nl           | Leerdoelen          |
+	| nl-Nl        | Leerdoelen          |
+	| nl-Be        | Learning objectives |
+	| En           | Learning objectives |
+	| De           | Lernziele           |
+	| de-De        | Lernziele           |
+	| sl,de-De     | Lernziele           |
 
 Scenario Template: Localization is changed if change user settings
 	#When open page by url 'http://localhost:5656'
@@ -31,9 +32,10 @@ Scenario Template: Localization is changed if change user settings
 	And select language '<language>' in user settings
 	And click save user settings
 	And click on tab objectives link on expiriences list page
+	And sleep 500 milliseconds
 	Then objectives list page header text is '<text>'
 	Scenarios: 
-	| language    | text               |
-	| Netherlands | Leerdoel           |
-	| English     | Learning objective |
-	| German      | Lernziel           |
+	| language    | text                |
+	| Netherlands | Leerdoelen          |
+	| English     | Learning objectives |
+	| German      | Lernziele           |

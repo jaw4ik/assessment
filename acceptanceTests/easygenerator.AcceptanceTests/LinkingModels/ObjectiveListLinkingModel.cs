@@ -10,7 +10,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 {
     public class ObjectiveListLinkingModel : ILinkingModel
     {
-        public string Header = "//div[contains(@class,'objectives-header-title')]";
+        public string Header = "//div[contains(@class,'page-view-caption-text')]";
         public string Item = ".//li[contains(@class,'main-content-list-item')]";
         public string SortingByTitleAsc = "//div[contains(@class,'objectives-sort-by-title-asc')]";
         public string SortingByTitleDesc = "//div[contains(@class,'objectives-sort-by-title-desc')]";

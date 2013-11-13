@@ -69,13 +69,13 @@ namespace easygenerator.AcceptanceTests.Tests
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Localization of browser should be applied to course by default")]
         [NUnit.Framework.CategoryAttribute("Localization_Test")]
-        [NUnit.Framework.TestCaseAttribute("Nl", "Leerdoel", null)]
-        [NUnit.Framework.TestCaseAttribute("nl-Nl", "Leerdoel", null)]
-        [NUnit.Framework.TestCaseAttribute("nl-Be", "Learning objective", null)]
-        [NUnit.Framework.TestCaseAttribute("En", "Learning objective", null)]
-        [NUnit.Framework.TestCaseAttribute("De", "Lernziel", null)]
-        [NUnit.Framework.TestCaseAttribute("de-De", "Lernziel", null)]
-        [NUnit.Framework.TestCaseAttribute("sl,de-De", "Lernziel", null)]
+        [NUnit.Framework.TestCaseAttribute("Nl", "Leerdoelen", null)]
+        [NUnit.Framework.TestCaseAttribute("nl-Nl", "Leerdoelen", null)]
+        [NUnit.Framework.TestCaseAttribute("nl-Be", "Learning objectives", null)]
+        [NUnit.Framework.TestCaseAttribute("En", "Learning objectives", null)]
+        [NUnit.Framework.TestCaseAttribute("De", "Lernziele", null)]
+        [NUnit.Framework.TestCaseAttribute("de-De", "Lernziele", null)]
+        [NUnit.Framework.TestCaseAttribute("sl,de-De", "Lernziele", null)]
         public virtual void LocalizationOfBrowserShouldBeAppliedToCourseByDefault(string localization, string text, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -96,6 +96,8 @@ this.ScenarioSetup(scenarioInfo);
 #line 10
  testRunner.And("click on tab objectives link on expiriences list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
+ testRunner.And("sleep 500 milliseconds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 12
  testRunner.Then(string.Format("objectives list page header text is \'{0}\'", text), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -103,33 +105,35 @@ this.ScenarioSetup(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Localization is changed if change user settings")]
-        [NUnit.Framework.TestCaseAttribute("Netherlands", "Leerdoel", null)]
-        [NUnit.Framework.TestCaseAttribute("English", "Learning objective", null)]
-        [NUnit.Framework.TestCaseAttribute("German", "Lernziel", null)]
+        [NUnit.Framework.TestCaseAttribute("Netherlands", "Leerdoelen", null)]
+        [NUnit.Framework.TestCaseAttribute("English", "Learning objectives", null)]
+        [NUnit.Framework.TestCaseAttribute("German", "Lernziele", null)]
         public virtual void LocalizationIsChangedIfChangeUserSettings(string language, string text, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Localization is changed if change user settings", exampleTags);
-#line 22
+#line 23
 this.ScenarioSetup(scenarioInfo);
-#line 25
- testRunner.Given("clear data context", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 26
- testRunner.When("open page by url \'http://localhost:5656/signout\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("clear data context", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 27
- testRunner.And("open page by url \'http://localhost:5656/signin\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("open page by url \'http://localhost:5656/signout\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 28
- testRunner.And("sign in as \'test\' user on sign in page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("open page by url \'http://localhost:5656/signin\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 29
- testRunner.Then("browser navigates to url \'http://localhost:5656/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("sign in as \'test\' user on sign in page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 30
- testRunner.When("open page by url \'http://localhost:5656/#/user\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Then("browser navigates to url \'http://localhost:5656/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 31
- testRunner.And(string.Format("select language \'{0}\' in user settings", language), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("open page by url \'http://localhost:5656/#/user\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 32
- testRunner.And("click save user settings", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("select language \'{0}\' in user settings", language), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 33
- testRunner.And("click on tab objectives link on expiriences list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("click save user settings", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 34
+ testRunner.And("click on tab objectives link on expiriences list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 35
+ testRunner.And("sleep 500 milliseconds", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 36
  testRunner.Then(string.Format("objectives list page header text is \'{0}\'", text), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
