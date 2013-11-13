@@ -588,6 +588,7 @@
     <Content Include="Templates\Quiz\App\eventManager.spec.js" />
     <Content Include="Templates\Quiz\App\main-built.js" />
     <Content Include="Templates\Quiz\App\main.js" />
+    <Content Include="Templates\Quiz\App\models\question.js" />
     <Content Include="Templates\Quiz\App\specs.html" />
     <Content Include="Templates\Quiz\App\viewmodels\404.js" />
     <Content Include="Templates\Quiz\App\viewmodels\404.spec.js">
