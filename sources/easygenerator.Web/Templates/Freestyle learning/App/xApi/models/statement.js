@@ -14,6 +14,7 @@
             obj.actor = spec.actor;
             obj.verb = spec.verb;
             obj.object = spec.object;
+            obj.timestamp = (new Date()).toISOString();
             
             if (_.isObject(spec.result)) {
                 obj.result = new resultModel(spec.result);
