@@ -270,7 +270,6 @@
     }
 
 .experiences-header-title {
-    display: table-cell;
     white-space: nowrap;
     overflow: hidden;
     width: 100%;
@@ -300,40 +299,6 @@
 
     .experiences-header-create-link:hover {
         background-position: 0 -74px;
-    }
-
-.experience-create-objective {
-    font-size: 14px;
-    padding-right: 40px;
-    display: inline-block;
-    cursor: default;
-}
-
-.experience-create-objective-image {
-    width: 32px;
-    height: 32px;
-    background: url('images/small_icons.png') -1px 32px;
-    position: absolute;
-    top: -6px;
-    right: 0px;
-    opacity: 0.8;
-    cursor: pointer;
-}
-
-    .experience-create-objective-image:hover {
-        opacity: 1;
-    }
-
-.experiences-header-create-objective-wrapper {
-    color: #666;
-    font-size: 12px;
-    padding-left: 10px;
-    display: table-cell;
-    white-space: nowrap;
-}
-
-    .experiences-header-create-objective-wrapper .experiences-header-create-objective-block {
-        position: relative;
     }
 
 .experience .experience-header {

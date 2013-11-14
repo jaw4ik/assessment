@@ -26,16 +26,6 @@
                 <span class="experiences-header-title-text" data-bind="localize: { text: 'finish' }"></span>
                 <hr />
             </div>
-            <div class="experiences-header-create-objective-wrapper">
-                <div class="experiences-header-create-objective-block">
-                    <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
-                    <!-- ko compose: { view: 'views/common/createtip', model: { text: 'clickToCreateNewObjective' } } -->
-                    <!-- /ko -->
-                    <!-- /ko -->
-                    <span class="experience-create-objective" data-bind="localize: { text: 'createObjectiveFromExperience' }"></span>
-                    <span class="experience-create-objective-image" data-bind="click: navigateToCreateObjective, localize: { title: 'addNewObjective' }"></span>
-                </div>
-            </div>
         </div>
 
         <!-- /ko -->
