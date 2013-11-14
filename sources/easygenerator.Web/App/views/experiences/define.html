@@ -15,11 +15,6 @@
         <div class="experience-related-objectives-header">
             <a class="experiences-header-create-link" data-bind="click: startAppendingObjectives, localize: { title: 'connectObjectives' }"></a>
             <span class="experience-header-title-text" data-bind="localize: { text: 'connectedLearningObjectives' }">Related learning objectives</span>
-            <!-- ko if: canUnrelateObjectives() -->
-            <span class="header-toolbar-item-wrapper" data-bind="click: unrelateSelectedObjectives, localize: { title: 'disconnectSelectedObjectives' }">
-                <span class="toolbar-unrelate"></span>
-            </span>
-            <!-- /ko -->
             <hr />
         </div>
         <!-- /ko -->
@@ -47,17 +42,29 @@
 
         <aside class="filters-block" style="display: none;"></aside>
         <div class="main-content-list-holder">
-            <div class="list-controls-holder">
-                <span class="delete-selected-text disabled" style="display: none;">Delete selected</span>
+            <div class="list-controls-holder clearfix">
+                <!-- ko if: objectivesMode() !== objectivesListModes.appending -->
+                <!-- ko if: canUnrelateObjectives() -->
+                <span class="selected-item-action disconnect enabled" data-bind="click: unrelateSelectedObjectives">Disconnect selected</span>
+                <!-- /ko -->
+                <!-- ko ifnot: canUnrelateObjectives()-->
+                <span class="selected-item-action disconnect disabled">Disconnect selected</span>
+                <!-- /ko -->
+                <!--/ko -->
+                <!-- ko if: objectivesMode() == objectivesListModes.appending -->
+                <span class="selected-item-action add enabled" style="display: none;">Add selected to experience</span>
+                <span class="selected-item-action add disabled">Add selected to experience</span>
+                <!-- /ko -->
             </div>
-            <div class="create-new-holder" style="display: none;">
-                <div class="create-new-title">
-                    <span class="create-new-icon"></span>
+            <div class="create-new-holder">
+                <div class="dotted-line"></div>
+                <div class="create-new-title" data-bind="click: navigateToCreateObjective">
+                    <span class="create-new-icon">&nbsp;</span>
                     <span>Create and connect learning objective</span>
                 </div>
+                <div class="dotted-line"></div>
             </div>
             <!-- ko if: (objectivesMode() == objectivesListModes.display && relatedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->
-            <div class="dotted-line"></div>
             <div class="hint-popup-holder" data-bind="visible: hintPopup.displayed">
                 <!-- ko compose: {
                     view: 'views/common/hintpopup',
@@ -100,24 +107,5 @@
             <!-- /ko -->
         </div>
 
-        <!-- ko if: objectivesMode() == objectivesListModes.display && relatedObjectives().length == 0 -->
-        <div class="add-new-item-tip">
-            <div class="add-new-item-tip-arrow"></div>
-            <div class="add-new-item-tip-text rotate-right" data-bind="localize: { text: 'clickToAddObjectivesIntoExperience' }"></div>
-        </div>
-        <div class="empty-list-wrapper">
-            <div class="empty-list">
-                <div class="empty-list-text" data-bind="localize: { text: 'noConnectedLearningObjectives' }"></div>
-            </div>
-        </div>
-        <!-- /ko -->
-
-        <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
-        <div class="empty-list-wrapper">
-            <div class="empty-list">
-                <div class="empty-list-text" data-bind="localize: { text: 'noObjectivesForConnect' }"></div>
-            </div>
-        </div>
-        <!-- /ko -->
     </div>
 </section>

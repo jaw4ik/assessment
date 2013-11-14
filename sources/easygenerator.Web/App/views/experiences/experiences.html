@@ -7,11 +7,11 @@
         </div>
         <div class="list-controls-holder">
             <!-- ko if: enableDeleteExperiences -->
-            <span class="delete-selected-text enabled" data-bind="click: deleteSelectedExperiences, localize: { text: 'deleteSelected' }">Delete selected</span>
+            <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedExperiences, localize: { text: 'deleteSelected' }">Delete selected</span>
             <!-- /ko -->
 
             <!-- ko ifnot: enableDeleteExperiences -->
-            <span class="delete-selected-text disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
+            <span class="selected-item-action delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
             <!-- /ko -->
             <div class="dotted-line"></div>
         </div>
@@ -21,7 +21,7 @@
         <div class="main-content-list-holder">
             <div class="create-new-holder" data-bind="click: navigateToCreation">
                 <div class="create-new-title">
-                    <span class="create-new-icon"></span>
+                    <span class="create-new-icon">&nbsp;</span>
                     <span data-bind="localize: { text: 'createNewExperience' }"></span>
                 </div>
                 <div class="dotted-line"></div>
