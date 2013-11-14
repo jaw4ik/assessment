@@ -73,8 +73,9 @@
             if (!_.isUndefined(finishedEventData.objectives) && _.isArray(finishedEventData.objectives) && finishedEventData.objectives.length > 0) {
                 var promises = [];
                 var objectives = finishedEventData.objectives;
-                _.each(objectives, function(objective) {
-                    var statement = createStatement(constants.verbs.mastered, { score: objective.score / 100 }, createActivity(objective.title));
+                _.each(objectives, function (objective) {
+                    var activity = createActivityForObjective(objective.id, objective.title);
+                    var statement = createStatement(constants.verbs.mastered, { score: objective.score / 100 }, activity);
                     promises.push(requestManager.sendStatement(statement));
                 });
                 return Q.allSettled(promises);
@@ -93,8 +94,8 @@
 
             var context = {
                 contextActivities: {
-                    parent: [createActivity(finishedEventData.question.title)],
-                    grouping: [createActivity(finishedEventData.objective.title)]
+                    parent: [createActivityForQuestion(finishedEventData.question.id, finishedEventData.question.title)],
+                    grouping: [createActivityForObjective(finishedEventData.objective.id, finishedEventData.objective.title)]
                 }
             };
 
@@ -106,14 +107,13 @@
             var promises = [];
             
             _.each(finishedEventData.questions, function (question) {
-                var questionsUrl = activityProvider.rootActivityUrl;
                 var result = {
                     score: question.getScore() / 100,
                     response: question.getSelectedAnswersId().toString()
                 };
 
                 var object = {
-                    id: questionsUrl,
+                    id: getActiviryUrlForQuestion(question.id),
                     definition: {
                         name: {
                             "en-US": question.title
@@ -134,7 +134,7 @@
 
                 var context = {
                     contextActivities: {
-                        parent: [createActivity(question.objectiveTitle)]
+                        parent: [createActivityForObjective(question.objectiveId, question.objectiveTitle)]
                     }
                 };
 
@@ -181,6 +181,20 @@
                 result: result,
                 context: context
             });
+        }
+
+        function getActiviryUrlForQuestion(questionId) {
+            return activityProvider.rootActivityUrl + '?questionid=' + questionId;
+        }
+
+        function createActivityForQuestion(questionId, questionTitle) {
+            var activityId = getActiviryUrlForQuestion(questionId);
+            return createActivity(questionTitle, activityId);
+        }
+        
+        function createActivityForObjective(objectiveId, objectiveTitle) {
+            var activityId = activityProvider.rootActivityUrl + '?objectiveid=' + objectiveId;
+            return createActivity(objectiveTitle, activityId);
         }
 
         function timeToISODurationString(timeInMilliseconds) {
