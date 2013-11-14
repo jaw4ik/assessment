@@ -1006,7 +1006,7 @@
 /*#region Choose template*/
 
 .choose-template-container {
-    width: 580px;
+    width: 50%;
     padding-right: 10px;
     color: #303133;
 }
@@ -1034,11 +1034,10 @@
 
 .choose-template-item {
     padding: 10px 15px;
-    height: 120px;
+    min-height: 120px;
     margin-bottom: 10px;
     position: relative;
-    display: table;
-    word-break: break-all;
+    word-wrap: break-word;
     cursor: default;
 }
 
@@ -1060,12 +1059,8 @@
             background-color: #f59957;
         }
 
-.choose-template-picture {
-    display: table-cell;
-    vertical-align: top;
-}
-
 .choose-template-image-wrapper {
+    float: left;
     background: white;
     background: #f0f0f0;
     display: block;
@@ -1090,13 +1085,12 @@
 }
 
 .choose-template-information {
-    display: table-cell;
     vertical-align: top;
-    padding-left: 15px;
+    padding-left: 115px;
     width: 100%;
 }
 
-    .choose-template-information .temlate-title {
+    .choose-template-information .template-title {
         font-family: 'OpenSans-Semibold';
         font-size: 16px;
         margin-bottom: 5px;
@@ -1107,7 +1101,7 @@
         font-size: 14px;
     }
 
-.choose-template-item .selected-temlate-image {
+.choose-template-item .selected-template-image {
     background: url(images/sprites.png) no-repeat;
     background-position: -237px -114px;
     position: absolute;

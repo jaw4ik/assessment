@@ -6,17 +6,16 @@
                 <div class="choose-template-list">
                     <!-- ko foreach: templates -->
                     <div class="choose-template-item" data-bind="css: { selected: isSelected() }, click: $parent.switchTemplate.bind($parent)">
-                        <div class="choose-template-picture"></div>
                         <span class="choose-template-image-wrapper">
                             <img class="choose-template-image" data-bind="attr: { src: image }" src="" />
                         </span>
-                        <div class="choose-template-information">
-                            <div class="temlate-title" data-bind="text: name"></div>
+                        <div class="choose-template-information clearfix">
+                            <div class="template-title" data-bind="text: name"></div>
                             <div class="template-information" data-bind="text: description">
-                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                                &nbsp;
                             </div>
                         </div>
-                        <div class="selected-temlate-image" data-bind="visible: isSelected() "></div>
+                        <div class="selected-template-image" data-bind="visible: isSelected() "></div>
                     </div>
                     <!-- /ko -->
                     <div class="wait-block" data-bind="visible: isSwitchTemplateProgressShow">
