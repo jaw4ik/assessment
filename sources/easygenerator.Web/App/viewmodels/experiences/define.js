@@ -11,12 +11,9 @@
                 unselectObjective: 'Unselect Objective',
                 updateExperienceTitle: 'Update experience title',
                 startAppendingRelatedObjectives: 'Start appending related objectives',
+                connectSelectedObjectivesToExperience: 'Connect selected objectives to experience',
                 finishAppendingRelatedObjectives: 'Finish appending related objectives',
                 unrelateObjectivesFromExperience: 'Unrelate objectives from experience'
-            },
-
-            sendEvent = function (eventName) {
-                eventTracker.publish(eventName);
             };
 
 
@@ -31,7 +28,7 @@
                 }, this);
                 return value;
             })(),
-            relatedObjectives = ko.observableArray([]),
+            connectedObjectives = ko.observableArray([]),
             availableObjectives = ko.observableArray([]),
             originalTitle = '',
             objectivesMode = ko.observable(''),
@@ -42,8 +39,14 @@
                 display: 'display'
             },
 
-            canUnrelateObjectives = ko.computed(function () {
-                return _.some(relatedObjectives(), function (item) {
+            canDisconnectObjectives = ko.computed(function () {
+                return _.some(connectedObjectives(), function (item) {
+                    return item.isSelected();
+                });
+            }),
+
+            canConnectObjectives = ko.computed(function () {
+                return _.some(availableObjectives(), function (item) {
                     return item.isSelected();
                 });
             }),
@@ -66,7 +69,7 @@
             },
 
             navigateToObjectiveDetails = function (objective) {
-                sendEvent(events.navigateToObjectiveDetails);
+                eventTracker.publish(events.navigateToObjectiveDetails);
                 if (_.isUndefined(objective)) {
                     throw 'Objective is undefined';
                 }
@@ -87,7 +90,7 @@
             },
 
             navigateToCreateObjective = function () {
-                sendEvent(events.navigateToCreateObjective);
+                eventTracker.publish(events.navigateToCreateObjective);
                 router.navigate('objective/create?experienceId=' + this.id);
             },
 
@@ -106,10 +109,10 @@
                 }
 
                 if (objective.isSelected()) {
-                    sendEvent(events.unselectObjective);
+                    eventTracker.publish(events.unselectObjective);
                     objective.isSelected(false);
                 } else {
-                    sendEvent(events.selectObjective);
+                    eventTracker.publish(events.selectObjective);
                     objective.isSelected(true);
                 }
             },
@@ -120,7 +123,7 @@
             endEditTitle = function () {
                 title(title().trim());
                 if (title.isValid() && title() != this.originalTitle) {
-                    sendEvent(events.updateExperienceTitle);
+                    eventTracker.publish(events.updateExperienceTitle);
                     repository.updateExperienceTitle(this.id, title()).then(function (updatedOn) {
                         notify.info(localizationManager.localize('savedAt') + ' ' + updatedOn.toLocaleTimeString());
                     });
@@ -130,13 +133,13 @@
                 isEditing(false);
             },
 
-            startAppendingObjectives = function () {
-                sendEvent(events.startAppendingRelatedObjectives);
+            startConnectingObjectives = function () {
+                eventTracker.publish(events.startAppendingRelatedObjectives);
 
                 var that = this;
 
                 objectiveRepository.getCollection().then(function (objectivesList) {
-                    var relatedIds = _.pluck(that.relatedObjectives(), 'id');
+                    var relatedIds = _.pluck(that.connectedObjectives(), 'id');
 
                     availableObjectives(_.chain(objectivesList)
                         .filter(function (item) {
@@ -156,51 +159,57 @@
                     that.hintPopup.show();
                 });
             },
-            finishAppendingObjectives = function () {
-                sendEvent(events.finishAppendingRelatedObjectives);
+            finishConnectingObjectives = function () {
+                eventTracker.publish(events.finishAppendingRelatedObjectives);
 
+                objectivesMode(objectivesListModes.display);
+                hintPopup.hide();
+            },
+            connectObjectives = function () {
+                eventTracker.publish(events.connectSelectedObjectivesToExperience);
                 var that = this;
 
-                var addingObjectives = _.chain(that.availableObjectives())
+                var objectivesToRelate = _.chain(that.availableObjectives())
                     .filter(function (item) {
                         return item.isSelected();
                     })
                     .pluck('_original')
                     .value();
 
-                if (addingObjectives.length == 0) {
-                    that.objectivesMode(that.objectivesListModes.display);
-                    that.hintPopup.hide();
+                if (objectivesToRelate.length == 0) {
                     return;
                 }
 
-                repository.relateObjectives(that.id, addingObjectives)
+                repository.relateObjectives(that.id, objectivesToRelate)
                     .then(function () {
-                        that.relatedObjectives(_.chain(addingObjectives)
+                        that.connectedObjectives(_.chain(objectivesToRelate)
                             .map(function (item) {
                                 return objectiveBrief(item);
                             })
-                            .union(that.relatedObjectives())
+                            .union(that.connectedObjectives())
                             .sortBy(function (item) {
                                 return item.title.toLowerCase();
                             }).value());
 
+                        that.availableObjectives(that.availableObjectives()
+                           .filter(function (item) {
+                               return !_.contains(objectivesToRelate, item._original);
+                           }));
+
                         notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
-                        that.objectivesMode(objectivesListModes.display);
-                        that.hintPopup.hide();
                     });
             },
-            unrelateSelectedObjectives = function () {
-                sendEvent(events.unrelateObjectivesFromExperience);
+            disconnectSelectedObjectives = function () {
+                eventTracker.publish(events.unrelateObjectivesFromExperience);
 
                 var that = this,
-                    selectedObjectives = _.filter(this.relatedObjectives(), function (item) {
+                    selectedObjectives = _.filter(this.connectedObjectives(), function (item) {
                         return item.isSelected();
                     });
 
                 repository.unrelateObjectives(this.id, _.map(selectedObjectives, function (item) { return item; }))
                     .then(function () {
-                        that.relatedObjectives(_.difference(that.relatedObjectives(), selectedObjectives));
+                        that.connectedObjectives(_.difference(that.connectedObjectives(), selectedObjectives));
                         notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
                     });
             },
@@ -212,13 +221,13 @@
                     that.title(experience.title);
                     that.originalTitle = experience.title;
                     that.objectivesMode(that.objectivesListModes.display);
-                    that.relatedObjectives(_.chain(experience.objectives)
+                    that.connectedObjectives(_.chain(experience.objectives)
                         .map(function (objective) {
                             return objectiveBrief(objective);
                         })
                         .sortBy(function (objective) { return objective.title.toLowerCase(); })
                         .value());
-                    
+
                     hintPopup.displayed(false);
                     isEditing(false);
                 }).fail(function () {
@@ -226,26 +235,25 @@
                 });
             };
 
-
-
         return {
             activate: activate,
 
             id: id,
             title: title,
             originalTitle: originalTitle,
-            relatedObjectives: relatedObjectives,
+            connectedObjectives: connectedObjectives,
             availableObjectives: availableObjectives,
             objectivesMode: objectivesMode,
             objectivesListModes: objectivesListModes,
-            canUnrelateObjectives: canUnrelateObjectives,
+            canDisconnectObjectives: canDisconnectObjectives,
+            canConnectObjectives: canConnectObjectives,
             hintPopup: hintPopup,
 
             navigateToObjectiveDetails: navigateToObjectiveDetails,
             navigateToCreateObjective: navigateToCreateObjective,
 
             toggleObjectiveSelection: toggleObjectiveSelection,
-            unrelateSelectedObjectives: unrelateSelectedObjectives,
+            disconnectSelectedObjectives: disconnectSelectedObjectives,
 
             startEditTitle: startEditTitle,
             endEditTitle: endEditTitle,
@@ -253,8 +261,9 @@
             experienceTitleMaxLength: constants.validation.experienceTitleMaxLength,
             isEditing: isEditing,
 
-            startAppendingObjectives: startAppendingObjectives,
-            finishAppendingObjectives: finishAppendingObjectives
+            startConnectingObjectives: startConnectingObjectives,
+            connectObjectives: connectObjectives,
+            finishConnectingObjectives: finishConnectingObjectives
         };
     }
 );

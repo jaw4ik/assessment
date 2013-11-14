@@ -13,7 +13,7 @@
 
         <!-- ko if: objectivesMode() == objectivesListModes.display -->
         <div class="experience-related-objectives-header">
-            <a class="experiences-header-create-link" data-bind="click: startAppendingObjectives, localize: { title: 'connectObjectives' }"></a>
+            <a class="experiences-header-create-link" data-bind="click: startConnectingObjectives, localize: { title: 'connectObjectives' }"></a>
             <span class="experience-header-title-text" data-bind="localize: { text: 'connectedLearningObjectives' }">Related learning objectives</span>
             <hr />
         </div>
@@ -22,7 +22,7 @@
         <!-- ko if: objectivesMode() == objectivesListModes.appending -->
         <div class="experience-header clearfix">
             <div class="experiences-header-title">
-                <a class="experiences-header-finish-link" data-bind="click: finishAppendingObjectives, localize: { title: 'connectSelectedObjectives' }"></a>
+                <a class="experiences-header-finish-link" data-bind="click: finishConnectingObjectives, localize: { title: 'connectSelectedObjectives' }"></a>
                 <span class="experiences-header-title-text" data-bind="localize: { text: 'finish' }"></span>
                 <hr />
             </div>
@@ -34,16 +34,15 @@
         <div class="main-content-list-holder">
             <div class="list-controls-holder clearfix">
                 <!-- ko if: objectivesMode() == objectivesListModes.display -->
-                <!-- ko if: canUnrelateObjectives() -->
-                <span class="selected-item-action disconnect enabled" data-bind="click: unrelateSelectedObjectives">Disconnect selected</span>
+                <!-- ko if: canDisconnectObjectives() -->
+                <span class="selected-item-action disconnect enabled" data-bind="click: disconnectSelectedObjectives">Disconnect selected</span>
                 <!-- /ko -->
-                <!-- ko ifnot: canUnrelateObjectives()-->
+                <!-- ko ifnot: canDisconnectObjectives()-->
                 <span class="selected-item-action disconnect disabled">Disconnect selected</span>
                 <!-- /ko -->
                 <!--/ko -->
                 <!-- ko if: objectivesMode() == objectivesListModes.appending -->
-                <span class="selected-item-action add enabled" style="display: none;">Add selected to experience</span>
-                <span class="selected-item-action add disabled">Add selected to experience</span>
+                <span class="selected-item-action add" data-bind="css: { enabled: canConnectObjectives(), disabled: !canConnectObjectives() }, click: connectObjectives">Connect selected</span>
                 <!-- /ko -->
                 <div class="dotted-line"></div>
             </div>
@@ -56,7 +55,7 @@
                 <div class="dotted-line"></div>
             </div>
             <!-- /ko -->
-            <!-- ko if: (objectivesMode() == objectivesListModes.display && relatedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->
+            <!-- ko if: (objectivesMode() == objectivesListModes.display && connectedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->
             <div class="hint-popup-holder" data-bind="visible: hintPopup.displayed">
                 <!-- ko compose: {
                     view: 'views/common/hintpopup',
@@ -68,7 +67,7 @@
                 <!-- /ko -->
             </div>
             <ul class="unstyled main-content-list">
-                <!-- ko foreach: objectivesMode() == objectivesListModes.display ? relatedObjectives() : availableObjectives() -->
+                <!-- ko foreach: objectivesMode() == objectivesListModes.display ? connectedObjectives() : availableObjectives() -->
                 <li class="main-content-list-item" data-bind="css: { selected: isSelected }">
                     <div class="list-item-content-holder" data-bind="click: $parent.toggleObjectiveSelection">
                         <div class="list-item-checkbox">
@@ -84,7 +83,7 @@
                                 <span class="selectable" data-bind="text: title"></span>
                             </div>
                             <div class="list-item-saved">
-                                <span data-bind="localize: { text: 'lastEdited' }">Last edited: </span><span data-bind="    date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                                <span data-bind="localize: { text: 'lastEdited' }">Last edited: </span><span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
                             </div>
                         </div>
                     </div>

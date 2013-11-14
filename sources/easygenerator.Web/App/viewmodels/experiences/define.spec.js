@@ -191,7 +191,7 @@
                             viewModel.endEditTitle();
                             expect(eventTracker.publish).toHaveBeenCalledWith('Update experience title');
                         });
-                        
+
                         it('should update experience in repository', function () {
                             viewModel.endEditTitle();
                             expect(repository.updateExperienceTitle).toHaveBeenCalled();
@@ -223,14 +223,14 @@
                             viewModel.endEditTitle();
                             expect(viewModel.isEditing()).toBeFalsy();
                         });
-                        
+
                     });
-                    
+
                     describe('and when title was not changed', function () {
                         beforeEach(function () {
                             viewModel.originalTitle = newTitle;
                         });
-                        
+
                         it('should not update experience in repository', function () {
                             viewModel.endEditTitle();
                             expect(repository.updateExperienceTitle).not.toHaveBeenCalled();
@@ -412,21 +412,21 @@
 
             });
 
-            describe('startAppendingObjectives:', function () {
+            describe('startConnectingObjectives:', function () {
 
                 it('should be function', function () {
-                    expect(viewModel.startAppendingObjectives).toBeFunction();
+                    expect(viewModel.startConnectingObjectives).toBeFunction();
                 });
 
                 it('should send event \'Start appending related objectives\'', function () {
-                    viewModel.startAppendingObjectives();
+                    viewModel.startConnectingObjectives();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Start appending related objectives');
                 });
 
                 it('should get objectives from repository', function () {
                     spyOn(objectiveRepository, 'getCollection').andReturn(Q.defer().promise);
 
-                    viewModel.startAppendingObjectives();
+                    viewModel.startConnectingObjectives();
                     expect(objectiveRepository.getCollection).toHaveBeenCalled();
                 });
 
@@ -445,9 +445,9 @@
                     describe('and experience does not have related objectives', function () {
 
                         it('should set all objectives as available', function () {
-                            viewModel.relatedObjectives([]);
+                            viewModel.connectedObjectives([]);
 
-                            viewModel.startAppendingObjectives();
+                            viewModel.startConnectingObjectives();
 
                             waitsFor(function () {
                                 return !getObjectivesPromise.isPending();
@@ -462,9 +462,9 @@
                     describe('and experience has related objectives', function () {
 
                         it('should set not related objectives as available', function () {
-                            viewModel.relatedObjectives([{ id: '0', title: 'B', isSelected: ko.observable(false) }]);
+                            viewModel.connectedObjectives([{ id: '0', title: 'B', isSelected: ko.observable(false) }]);
 
-                            viewModel.startAppendingObjectives();
+                            viewModel.startConnectingObjectives();
 
                             waitsFor(function () {
                                 return !getObjectivesPromise.isPending();
@@ -478,7 +478,7 @@
                     });
 
                     it('should set objectivesMode to \'appending\'', function () {
-                        viewModel.startAppendingObjectives();
+                        viewModel.startConnectingObjectives();
 
                         waitsFor(function () {
                             return !getObjectivesPromise.isPending();
@@ -489,7 +489,7 @@
                     });
 
                     it('should sort available objectives by title', function () {
-                        viewModel.startAppendingObjectives();
+                        viewModel.startConnectingObjectives();
 
                         waitsFor(function () {
                             return !getObjectivesPromise.isPending();
@@ -502,7 +502,7 @@
                     it('should show hint popup', function () {
                         spyOn(viewModel.hintPopup, 'show');
 
-                        viewModel.startAppendingObjectives();
+                        viewModel.startConnectingObjectives();
 
                         waitsFor(function () {
                             return !getObjectivesPromise.isPending();
@@ -516,156 +516,136 @@
 
             });
 
-            describe('finishAppendingObjectives:', function () {
+            describe('finishConnectingObjectives:', function () {
 
                 it('should be function', function () {
-                    expect(viewModel.finishAppendingObjectives).toBeFunction();
+                    expect(viewModel.finishConnectingObjectives).toBeFunction();
                 });
 
                 it('should send event \'Finish appending related objectives\'', function () {
-                    viewModel.finishAppendingObjectives();
+                    viewModel.finishConnectingObjectives();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Finish appending related objectives');
                 });
 
-                describe('when experience has related objectives', function () {
+                it('should change objectivesMode to \'display\' ', function () {
+                    viewModel.finishConnectingObjectives();
+                    expect(viewModel.objectivesMode()).toBe('display');
+                });
+
+                it('should hide hint popup', function () {
+                    spyOn(viewModel.hintPopup, 'hide');
+                    viewModel.finishConnectingObjectives();
+                    expect(viewModel.hintPopup.hide).toHaveBeenCalled();
+                });
+            });
+
+            describe('connectObjectives:', function () {
+                it('should be function', function () {
+                    expect(viewModel.connectObjectives).toBeFunction();
+                });
+
+                it('should send event \'Connect selected objectives to experience\'', function () {
+                    viewModel.connectObjectives();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Connect selected objectives to experience');
+                });
+
+                describe('and no objectives selected', function () {
 
                     beforeEach(function () {
-                        viewModel.relatedObjectives([
-                            { id: '0', title: 'C', isSelected: ko.observable(false) },
-                            { id: '1', title: 'A', isSelected: ko.observable(false) }
-                        ]);
+                        var objectivesList = [
+                                { isSelected: ko.observable(false) }
+                        ];
+                        viewModel.availableObjectives(objectivesList);
+                        viewModel.connectedObjectives([]);
+                        spyOn(repository, 'relateObjectives');
                     });
 
-                    describe('and nothing is selected', function () {
-
-                        beforeEach(function () {
-                            var objectivesList = [
-                                    { isSelected: ko.observable(false) }
-                            ];
-                            viewModel.availableObjectives(objectivesList);
-                        });
-
-                        it('should not call repository relateObjectives method', function () {
-                            spyOn(repository, 'relateObjectives');
-
-                            viewModel.finishAppendingObjectives();
-                            expect(repository.relateObjectives).not.toHaveBeenCalled();
-                        });
-
-                        it('should change objectivesMode to \'display\' ', function () {
-                            viewModel.finishAppendingObjectives();
-                            expect(viewModel.objectivesMode()).toBe('display');
-                        });
-
-                        it('should set related objectives', function () {
-                            viewModel.finishAppendingObjectives();
-                            expect(viewModel.relatedObjectives().length).toBe(2);
-                        });
-
-                        it('should hide hint popup', function () {
-                            spyOn(viewModel.hintPopup, 'hide');
-                            viewModel.finishAppendingObjectives();
-                            expect(viewModel.hintPopup.hide).toHaveBeenCalled();
-                        });
-
+                    it('should not call repository relateObjectives method', function () {
+                        viewModel.connectObjectives();
+                        expect(repository.relateObjectives).not.toHaveBeenCalled();
                     });
 
-                    describe('and some available objectives selected', function () {
-                        var selectedObjectives,
-                            relateObjectivesDefer,
-                            relateObjectivesPromise;
+                    it('should not affect related objectives', function () {
+                        viewModel.finishConnectingObjectives();
+                        expect(viewModel.connectedObjectives().length).toBe(0);
+                    });
+                });
+
+                describe('and there are objectives selected', function () {
+                    var availableObjectives,
+                        relateObjectivesDefer,
+                        relateObjectivesPromise;
+
+                    var selectedObjective = { id: '2', title: 'D' },
+                        notSelectedObjective = { id: '3', title: 'B' };
+                    beforeEach(function () {
+                        availableObjectives = [
+                            { isSelected: ko.observable(true), _original: selectedObjective },
+                            { isSelected: ko.observable(false), _original: notSelectedObjective }
+                        ];
+                        viewModel.availableObjectives(availableObjectives);
+                        viewModel.connectedObjectives([]);
+
+                        relateObjectivesDefer = Q.defer();
+                        relateObjectivesPromise = relateObjectivesDefer.promise.fin(function () { });
+                        spyOn(repository, 'relateObjectives').andReturn(relateObjectivesDefer.promise);
+                    });
+
+                    it('should call relateObjectives repository function with selected objectives', function () {
+                        viewModel.connectObjectives();
+                        expect(repository.relateObjectives).toHaveBeenCalledWith(viewModel.id, [selectedObjective]);
+                    });
+
+                    describe('and objectives were connected successfully', function () {
 
                         beforeEach(function () {
-                            selectedObjectives = [
-                                { isSelected: ko.observable(false), _original: { id: '2', title: 'D' } },
-                                { isSelected: ko.observable(true), _original: { id: '3', title: 'B' } }
-                            ];
-                            viewModel.availableObjectives(selectedObjectives);
-
-                            relateObjectivesDefer = Q.defer();
-                            relateObjectivesPromise = relateObjectivesDefer.promise.fin(function () { });
-                            spyOn(repository, 'relateObjectives').andReturn(relateObjectivesDefer.promise);
+                            relateObjectivesDefer.resolve('modified date');
                         });
 
-                        it('should call relateObjectives repository function with selected objectives', function () {
-                            viewModel.finishAppendingObjectives();
-                            expect(repository.relateObjectives).toHaveBeenCalledWith(viewModel.id, [selectedObjectives[1]._original]);
+                        it('should call \'notify.info\' function', function () {
+                            viewModel.connectObjectives();
+
+                            waitsFor(function () {
+                                return !relateObjectivesPromise.isPending();
+                            });
+                            runs(function () {
+                                expect(notify.info).toHaveBeenCalled();
+                            });
                         });
 
-                        describe('and objectives were added', function () {
+                        it('should update related objectives', function () {
+                            viewModel.connectObjectives();
 
-                            beforeEach(function () {
-                                relateObjectivesDefer.resolve('modified date');
+                            waitsFor(function () {
+                                return !relateObjectivesPromise.isPending();
                             });
-
-                            it('should call \'notify.info\' function', function () {
-                                viewModel.finishAppendingObjectives();
-
-                                waitsFor(function () {
-                                    return !relateObjectivesPromise.isPending();
-                                });
-                                runs(function () {
-                                    expect(notify.info).toHaveBeenCalled();
-                                });
+                            runs(function () {
+                                expect(viewModel.connectedObjectives().length).toBe(1);
+                                expect(viewModel.connectedObjectives()[0].id).toBe(selectedObjective.id);
                             });
+                        });
 
-                            it('should update related objectives', function () {
-                                viewModel.finishAppendingObjectives();
+                        it('should remove connected objectives from available objectives collection', function () {
+                            viewModel.connectObjectives();
 
-                                waitsFor(function () {
-                                    return !relateObjectivesPromise.isPending();
-                                });
-                                runs(function () {
-                                    expect(viewModel.relatedObjectives().length).toBe(3);
-                                });
+                            waitsFor(function () {
+                                return !relateObjectivesPromise.isPending();
                             });
-
-                            it('should sort related objectives by title', function () {
-                                viewModel.finishAppendingObjectives();
-
-                                waitsFor(function () {
-                                    return !relateObjectivesPromise.isPending();
-                                });
-                                runs(function () {
-                                    expect(viewModel.relatedObjectives()).toBeSortedAsc('title');
-                                });
+                            runs(function () {
+                                expect(viewModel.availableObjectives().length).toBe(1);
+                                expect(viewModel.availableObjectives()[0]._original).toBe(notSelectedObjective);
                             });
-
-                            it('should set objectivesMode to \'display\'', function () {
-                                viewModel.finishAppendingObjectives();
-
-                                waitsFor(function () {
-                                    return !relateObjectivesPromise.isPending();
-                                });
-                                runs(function () {
-                                    expect(viewModel.objectivesMode()).toBe('display');
-                                });
-                            });
-
-                            it('should hide hint popup', function () {
-                                spyOn(viewModel.hintPopup, 'hide');
-                                viewModel.finishAppendingObjectives();
-
-                                waitsFor(function () {
-                                    return !relateObjectivesPromise.isPending();
-                                });
-                                runs(function () {
-                                    expect(viewModel.hintPopup.hide).toHaveBeenCalled();
-                                });
-                            });
-
                         });
 
                     });
 
                 });
-
             });
 
-            describe('relatedObjectives:', function () {
+            describe('connectedObjectives:', function () {
 
                 it('should be observable', function () {
-                    expect(viewModel.relatedObjectives).toBeObservable();
+                    expect(viewModel.connectedObjectives).toBeObservable();
                 });
 
             });
@@ -678,36 +658,36 @@
 
             });
 
-            describe('canUnrelateObjectives:', function () {
+            describe('canDisconnectObjectives:', function () {
 
-                it('should be observable', function () {
-                    expect(viewModel.canUnrelateObjectives).toBeObservable();
+                it('should be computed', function () {
+                    expect(viewModel.canDisconnectObjectives).toBeComputed();
                 });
 
-                describe('when all related objectives is unselected', function () {
+                describe('when all related objectives are unselected', function () {
 
                     it('should be false', function () {
-                        viewModel.relatedObjectives([
+                        viewModel.connectedObjectives([
                             { id: '0', isSelected: ko.observable(false) },
                             { id: '1', isSelected: ko.observable(false) },
                             { id: '2', isSelected: ko.observable(false) }
                         ]);
 
-                        expect(viewModel.canUnrelateObjectives()).toBeFalsy();
+                        expect(viewModel.canDisconnectObjectives()).toBeFalsy();
                     });
 
                 });
 
-                describe('when one of related objectives is selected', function () {
+                describe('when one of related objectives are selected', function () {
 
                     it('should be true', function () {
-                        viewModel.relatedObjectives([
+                        viewModel.connectedObjectives([
                             { id: '0', isSelected: ko.observable(true) },
                             { id: '1', isSelected: ko.observable(false) },
                             { id: '2', isSelected: ko.observable(false) }
                         ]);
 
-                        expect(viewModel.canUnrelateObjectives()).toBeTruthy();
+                        expect(viewModel.canDisconnectObjectives()).toBeTruthy();
                     });
 
                 });
@@ -715,27 +695,70 @@
                 describe('when several related objectives are selected', function () {
 
                     it('should be true', function () {
-                        viewModel.relatedObjectives([
+                        viewModel.connectedObjectives([
                             { id: '0', isSelected: ko.observable(false) },
                             { id: '1', isSelected: ko.observable(true) },
                             { id: '2', isSelected: ko.observable(true) }
                         ]);
 
-                        expect(viewModel.canUnrelateObjectives()).toBeTruthy();
+                        expect(viewModel.canDisconnectObjectives()).toBeTruthy();
                     });
 
                 });
 
             });
 
-            describe('unrelateSelectedObjectives:', function () {
+            describe('canConnectObjectives:', function () {
+
+                it('should be computed', function () {
+                    expect(viewModel.canConnectObjectives).toBeComputed();
+                });
+
+                describe('when no available objectives are selected', function () {
+                    it('should be false', function () {
+                        viewModel.availableObjectives([
+                            { id: '0', isSelected: ko.observable(false) },
+                            { id: '1', isSelected: ko.observable(false) },
+                            { id: '2', isSelected: ko.observable(false) }
+                        ]);
+
+                        expect(viewModel.canConnectObjectives()).toBeFalsy();
+                    });
+                });
+
+                describe('when one available objective is selected', function () {
+                    it('should be true', function () {
+                        viewModel.availableObjectives([
+                            { id: '0', isSelected: ko.observable(true) },
+                            { id: '1', isSelected: ko.observable(false) },
+                            { id: '2', isSelected: ko.observable(false) }
+                        ]);
+
+                        expect(viewModel.canConnectObjectives()).toBeTruthy();
+                    });
+                });
+
+                describe('when several available objectives are selected', function () {
+                    it('should be true', function () {
+                        viewModel.availableObjectives([
+                            { id: '0', isSelected: ko.observable(false) },
+                            { id: '1', isSelected: ko.observable(true) },
+                            { id: '2', isSelected: ko.observable(true) }
+                        ]);
+
+                        expect(viewModel.canConnectObjectives()).toBeTruthy();
+                    });
+                });
+            });
+
+            describe('disconnectSelectedObjectives:', function () {
 
                 beforeEach(function () {
                     viewModel.id = 'experienceId';
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.unrelateSelectedObjectives).toBeFunction();
+                    expect(viewModel.disconnectSelectedObjectives).toBeFunction();
                 });
 
                 describe('when some of related objectives is selected', function () {
@@ -750,7 +773,7 @@
                             { id: '2', isSelected: ko.observable(true) }
                         ];
 
-                        viewModel.relatedObjectives(relatedObjectives);
+                        viewModel.connectedObjectives(relatedObjectives);
 
                         unrelateObjectives = Q.defer();
                         unrelateObjectivesPromise = unrelateObjectives.promise.finally(function () { });
@@ -758,15 +781,15 @@
                     });
 
                     it('should send event \'Unrelate objectives from experience\'', function () {
-                        viewModel.unrelateSelectedObjectives();
+                        viewModel.disconnectSelectedObjectives();
                         expect(eventTracker.publish).toHaveBeenCalledWith('Unrelate objectives from experience');
                     });
 
                     it('should call repository \"unrelateObjectives\" method', function () {
-                        var objectives = _.filter(viewModel.relatedObjectives(), function (item) {
+                        var objectives = _.filter(viewModel.connectedObjectives(), function (item) {
                             return item.isSelected();
                         });
-                        viewModel.unrelateSelectedObjectives();
+                        viewModel.disconnectSelectedObjectives();
                         expect(repository.unrelateObjectives).toHaveBeenCalledWith('experienceId', objectives);
                     });
 
@@ -777,7 +800,7 @@
                         });
 
                         it('should call \'notify.info\' function', function () {
-                            viewModel.unrelateSelectedObjectives();
+                            viewModel.disconnectSelectedObjectives();
 
                             waitsFor(function () {
                                 return !unrelateObjectivesPromise.isPending();
@@ -789,15 +812,15 @@
                         });
 
                         it('should update related objectives', function () {
-                            viewModel.unrelateSelectedObjectives();
+                            viewModel.disconnectSelectedObjectives();
 
                             waitsFor(function () {
                                 return !unrelateObjectivesPromise.isPending();
                             });
 
                             runs(function () {
-                                expect(viewModel.relatedObjectives().length).toBe(1);
-                                expect(viewModel.relatedObjectives()[0].id).toBe('1');
+                                expect(viewModel.connectedObjectives().length).toBe(1);
+                                expect(viewModel.connectedObjectives()[0].id).toBe('1');
                             });
                         });
 
@@ -1016,7 +1039,7 @@
                     });
 
                     it('should set current experience objectives sorted by title ascending', function () {
-                        viewModel.relatedObjectives(null);
+                        viewModel.connectedObjectives(null);
 
                         var promise = viewModel.activate(experience.id);
 
@@ -1024,8 +1047,8 @@
                             return promise.isFulfilled();
                         });
                         runs(function () {
-                            expect(viewModel.relatedObjectives().length).toEqual(4);
-                            expect(viewModel.relatedObjectives()).toBeSortedAsc('title');
+                            expect(viewModel.connectedObjectives().length).toEqual(4);
+                            expect(viewModel.connectedObjectives()).toBeSortedAsc('title');
                         });
                     });
 
