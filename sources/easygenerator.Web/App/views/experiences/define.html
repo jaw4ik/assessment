@@ -29,88 +29,88 @@
         </div>
 
         <!-- /ko -->
-
-        <aside class="objectives-filters-block" style="display: none;">
-            <h3 class="objectives-filters-title">Filters</h3>
-            <div class="objectives-filters-controls">
-                <div class="filter-radio-control">
-                    <label class="filter-radio-label">
-                        show all connected learning objectives
-                    </label>
+        <div class="objectives-filters-holder clearfix">
+            <aside class="objectives-filters-block" style="display: none;">
+                <h3 class="objectives-filters-title">Filters</h3>
+                <div class="objectives-filters-controls">
+                    <div class="filter-radio-control">
+                        <label class="filter-radio-label">
+                            show all connected learning objectives
+                        </label>
+                    </div>
+                    <div class="filter-radio-control">
+                        <label class="filter-radio-label checked">
+                            show available learning objectives
+                        </label>
+                    </div>
                 </div>
-                <div class="filter-radio-control">
-                    <label class="filter-radio-label checked">
-                        show available learning objectives
-                    </label>
+            </aside>
+            <div class="main-content-list-holder">
+                <div class="list-controls-holder clearfix">
+                    <!-- ko if: objectivesMode() == objectivesListModes.display -->
+                    <!-- ko if: canDisconnectObjectives() -->
+                    <span class="selected-item-action disconnect enabled" data-bind="click: disconnectSelectedObjectives">Disconnect selected</span>
+                    <!-- /ko -->
+                    <!-- ko ifnot: canDisconnectObjectives()-->
+                    <span class="selected-item-action disconnect disabled">Disconnect selected</span>
+                    <!-- /ko -->
+                    <!--/ko -->
+                    <!-- ko if: objectivesMode() == objectivesListModes.appending -->
+                    <span class="selected-item-action add" data-bind="css: { enabled: canConnectObjectives(), disabled: !canConnectObjectives() }, click: connectObjectives">Connect selected</span>
+                    <!-- /ko -->
+                    <div class="dotted-line"></div>
                 </div>
-            </div>
-        </aside>
-        <div class="main-content-list-holder">
-            <div class="list-controls-holder clearfix">
                 <!-- ko if: objectivesMode() == objectivesListModes.display -->
-                <!-- ko if: canDisconnectObjectives() -->
-                <span class="selected-item-action disconnect enabled" data-bind="click: disconnectSelectedObjectives">Disconnect selected</span>
-                <!-- /ko -->
-                <!-- ko ifnot: canDisconnectObjectives()-->
-                <span class="selected-item-action disconnect disabled">Disconnect selected</span>
-                <!-- /ko -->
-                <!--/ko -->
-                <!-- ko if: objectivesMode() == objectivesListModes.appending -->
-                <span class="selected-item-action add" data-bind="css: { enabled: canConnectObjectives(), disabled: !canConnectObjectives() }, click: connectObjectives">Connect selected</span>
-                <!-- /ko -->
-                <div class="dotted-line"></div>
-            </div>
-            <!-- ko if: objectivesMode() == objectivesListModes.display -->
-            <div class="create-new-holder">
-                <div class="create-new-title" data-bind="click: navigateToCreateObjective">
-                    <span class="create-new-icon">&nbsp;</span>
-                    <span>Create and connect learning objective</span>
+                <div class="create-new-holder">
+                    <div class="create-new-title" data-bind="click: navigateToCreateObjective">
+                        <span class="create-new-icon">&nbsp;</span>
+                        <span>Create and connect learning objective</span>
+                    </div>
+                    <div class="dotted-line"></div>
                 </div>
-                <div class="dotted-line"></div>
-            </div>
-            <!-- /ko -->
-            <!-- ko if: (objectivesMode() == objectivesListModes.display && connectedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->
-            <div class="hint-popup-holder" data-bind="visible: hintPopup.displayed">
-                <!-- ko compose: {
+                <!-- /ko -->
+                <!-- ko if: (objectivesMode() == objectivesListModes.display && connectedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->
+                <div class="hint-popup-holder" data-bind="visible: hintPopup.displayed">
+                    <!-- ko compose: {
                     view: 'views/common/hintpopup',
                     model: {
                     text: 'connectObjectivesHelpHint',
                     close: hintPopup.close.bind(hintPopup)
                     }
                     } -->
+                    <!-- /ko -->
+                </div>
+                <ul class="unstyled main-content-list">
+                    <!-- ko foreach: objectivesMode() == objectivesListModes.display ? connectedObjectives() : availableObjectives() -->
+                    <li class="main-content-list-item" data-bind="css: { selected: isSelected }">
+                        <div class="list-item-content-holder" data-bind="click: $parent.toggleObjectiveSelection">
+                            <div class="list-item-checkbox">
+                                <span class="custom-checkbox-input" data-bind="css: { checked: isSelected }">
+                                    <input class="custom-checkbox" type="checkbox" />
+                                </span>
+                            </div>
+                            <div class="list-item-logo">
+                                <img class="list-item-logo-image" alt="" src="" data-bind="attr: { src: image }" />
+                            </div>
+                            <div class="list-item-info">
+                                <div class="list-item-title">
+                                    <span class="selectable" data-bind="text: title"></span>
+                                </div>
+                                <div class="list-item-saved">
+                                    <span data-bind="localize: { text: 'lastEdited' }">Last edited: </span><span data-bind="    date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="open-item-btn">
+                            <a href="#" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent)">
+                                <span class="open-btn-text" data-bind="localize: { text: 'open' }">Open</span>
+                            </a>
+                        </div>
+                    </li>
+                    <!-- /ko -->
+                </ul>
                 <!-- /ko -->
             </div>
-            <ul class="unstyled main-content-list">
-                <!-- ko foreach: objectivesMode() == objectivesListModes.display ? connectedObjectives() : availableObjectives() -->
-                <li class="main-content-list-item" data-bind="css: { selected: isSelected }">
-                    <div class="list-item-content-holder" data-bind="click: $parent.toggleObjectiveSelection">
-                        <div class="list-item-checkbox">
-                            <span class="custom-checkbox-input" data-bind="css: { checked: isSelected }">
-                                <input class="custom-checkbox" type="checkbox" />
-                            </span>
-                        </div>
-                        <div class="list-item-logo">
-                            <img class="list-item-logo-image" alt="" src="" data-bind="attr: { src: image }" />
-                        </div>
-                        <div class="list-item-info">
-                            <div class="list-item-title">
-                                <span class="selectable" data-bind="text: title"></span>
-                            </div>
-                            <div class="list-item-saved">
-                                <span data-bind="localize: { text: 'lastEdited' }">Last edited: </span><span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="open-item-btn">
-                        <a href="#" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent)">
-                            <span class="open-btn-text" data-bind="localize: { text: 'open' }">Open</span>
-                        </a>
-                    </div>
-                </li>
-                <!-- /ko -->
-            </ul>
-            <!-- /ko -->
         </div>
-
     </div>
 </section>
