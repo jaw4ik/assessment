@@ -20,7 +20,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         //CUD Objective
 
         public string AddNewObjectiveButton = ".//div[contains(@class,'create-new-holder')]";
-        public string DeleteButton = ".//span[contains(@class, 'delete-selected-text')]";
+        public string DeleteButton = ".//div[contains(@class,'list-controls-holder')]//span[contains(@class, 'delete')]";
         public string Notification = ".//div[contains(@class,'notification-container')]//div[contains(@class,'notification')]";
 
     }

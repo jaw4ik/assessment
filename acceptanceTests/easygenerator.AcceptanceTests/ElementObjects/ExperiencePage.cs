@@ -177,7 +177,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                return ExistsOnPage(model.ExcludeButton);
+                return GetByXPath(model.ExcludeButton).CssContains("enabled");
             }
         }
 

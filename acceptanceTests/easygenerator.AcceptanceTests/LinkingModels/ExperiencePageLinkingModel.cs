@@ -32,6 +32,6 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 
         public string IncludeButton = ".//a[contains(@class,'experiences-header-create-link')]";
         public string FinishButton = ".//a[contains(@class,'experiences-header-finish-link')]";
-        public string ExcludeButton = ".//div[contains(@class,'experience-related-objectives-header')]//span[contains(@class,'header-toolbar-item-wrapper')]";
+        public string ExcludeButton = ".//div[contains(@class,'list-controls-holder')]//span[contains(@class,'disconnect')]";
     }
 }
