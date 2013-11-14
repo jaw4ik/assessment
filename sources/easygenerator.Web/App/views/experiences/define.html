@@ -33,7 +33,7 @@
         <aside class="filters-block" style="display: none;"></aside>
         <div class="main-content-list-holder">
             <div class="list-controls-holder clearfix">
-                <!-- ko if: objectivesMode() !== objectivesListModes.appending -->
+                <!-- ko if: objectivesMode() == objectivesListModes.display -->
                 <!-- ko if: canUnrelateObjectives() -->
                 <span class="selected-item-action disconnect enabled" data-bind="click: unrelateSelectedObjectives">Disconnect selected</span>
                 <!-- /ko -->
@@ -45,15 +45,17 @@
                 <span class="selected-item-action add enabled" style="display: none;">Add selected to experience</span>
                 <span class="selected-item-action add disabled">Add selected to experience</span>
                 <!-- /ko -->
-            </div>
-            <div class="create-new-holder">
                 <div class="dotted-line"></div>
+            </div>
+            <!-- ko if: objectivesMode() == objectivesListModes.display -->
+            <div class="create-new-holder">
                 <div class="create-new-title" data-bind="click: navigateToCreateObjective">
                     <span class="create-new-icon">&nbsp;</span>
                     <span>Create and connect learning objective</span>
                 </div>
                 <div class="dotted-line"></div>
             </div>
+            <!-- /ko -->
             <!-- ko if: (objectivesMode() == objectivesListModes.display && relatedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->
             <div class="hint-popup-holder" data-bind="visible: hintPopup.displayed">
                 <!-- ko compose: {
