@@ -73,6 +73,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [Then(@"thank you popup appears on package summary page")]
         public void ThenThankYouPopupAppearsOnPackageSummaryPage()
         {
+            System.Threading.Thread.Sleep(1000);
             TestUtils.Assert_IsTrue_WithWait(() => PackageSummary.isAlertPresent() == true, "thank you alert doesn't appear");
         }
 
