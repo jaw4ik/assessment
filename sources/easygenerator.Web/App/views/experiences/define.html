@@ -30,7 +30,21 @@
 
         <!-- /ko -->
 
-        <aside class="filters-block" style="display: none;"></aside>
+        <aside class="objectives-filters-block" style="display: none;">
+            <h3 class="objectives-filters-title">Filters</h3>
+            <div class="objectives-filters-controls">
+                <div class="filter-radio-control">
+                    <label class="filter-radio-label">
+                        show all connected learning objectives
+                    </label>
+                </div>
+                <div class="filter-radio-control">
+                    <label class="filter-radio-label checked">
+                        show available learning objectives
+                    </label>
+                </div>
+            </div>
+        </aside>
         <div class="main-content-list-holder">
             <div class="list-controls-holder clearfix">
                 <!-- ko if: objectivesMode() == objectivesListModes.display -->
