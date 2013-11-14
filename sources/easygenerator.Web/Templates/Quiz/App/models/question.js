@@ -1,22 +1,16 @@
 ﻿define(['xApi/guard'],
     function (guard) {
-
-        var Question = function (spec) {
-            return {
-                id: spec.id,
-                title: spec.title,
-                answers: spec.answers,
-                learningContents: spec.learningContents,
-                score: spec.score,
-                getScore: getScore,
-                getSelectedAnswersId: getSelectedAnswersId,
-                getCorrectAnswersIds: getCorrectAnswersIds,
-                objectiveId: spec.objectiveId,
-                objectiveTitle: spec.objectiveTitle
-            };
+        function Question (spec) {
+            this.id = spec.id;
+            this.title = spec.title;
+            this.answers = spec.answers;
+            this.learningContents = spec.learningContents;
+            this.score = spec.score;
+            this.objectiveId = spec.objectiveId;
+            this.objectiveTitle = spec.objectiveTitle;
         };
 
-        var getScore = function() {
+        Question.prototype.getScore = function() {
             if (this.answers.length > 0) {
                 var score = 0;
                 _.each(this.answers, function (answer) {
@@ -29,7 +23,7 @@
             return score;
         };
 
-        var getCorrectAnswersIds = function () {
+        Question.prototype.getCorrectAnswersIds = function () {
             return _.chain(this.answers)
                 .filter(function (item) {
                     return item.isCorrect;
@@ -39,7 +33,7 @@
                 }).value();
         };
 
-        var getSelectedAnswersId = function() {
+        Question.prototype.getSelectedAnswersId = function () {
             return _.chain(this.answers)
                 .filter(function(item) {
                     return item.isChecked();

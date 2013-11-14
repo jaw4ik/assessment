@@ -6,7 +6,6 @@
             activityProvider = {
                 actor: null,
                 activityName: null,
-                activityUrl: null,
                 init: init,
                 createActor: createActor,
                 rootCourseUrl: null,
@@ -25,25 +24,13 @@
                 
                 activityProvider.actor = actorData;
                 activityProvider.activityName = activityName;
-                activityProvider.activityUrl = activityUrl;
                 activityProvider.rootCourseUrl = activityUrl.split("?")[0].split("#")[0];
                 activityProvider.rootActivityUrl = activityProvider.rootCourseUrl + '#home';
                 
-                eventManager.subscribeForEvent(eventManager.events.courseStarted).then(function () {
-                    sendCourseStarted();
-                });
-
-                eventManager.subscribeForEvent(eventManager.events.courseFinished).then(function (finishedEventData) {
-                    sendCourseFinished(finishedEventData);
-                });
-
-                eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(function (finishedEventData) {
-                    learningContentExperienced(finishedEventData);
-                });
-                
-                eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(function (finishedEventData) {
-                    sendAnsweredQuestionsStatements(finishedEventData);
-                });
+                eventManager.subscribeForEvent(eventManager.events.courseStarted).then(sendCourseStarted);
+                eventManager.subscribeForEvent(eventManager.events.courseFinished).then(sendCourseFinished);
+                eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(learningContentExperienced);
+                eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(sendAnsweredQuestionsStatements);
             });
 
         }
@@ -54,11 +41,9 @@
         }
 
         function sendCourseFinished(finishedEventData) {
-            return requestManager.sendStatement(createStatement(constants.verbs.stopped)).then(function () {
-                if (!_.isUndefined(finishedEventData.objectives) && _.isArray(finishedEventData.objectives) && finishedEventData.objectives.length > 0) {
-                    return sendMasteredStatementsForObjectives(finishedEventData.objectives);
-                }
-            }).then(function () {
+            var activity = createActivity(activityProvider.activityName);
+            return sendMasteredStatementsForObjectives(finishedEventData)
+                .then(function () {
                 if (_.isUndefined(finishedEventData) || _.isUndefined(finishedEventData.result)) {
                     throw errorsHandler.errors.notEnoughDataInSettings;
                 }
@@ -68,11 +53,14 @@
                 };
 
                 if (result.score >= xApiSettings.scoresDistribution.minScoreForPositiveResult) {
-                    return requestManager.sendStatement(createStatement(xApiSettings.scoresDistribution.positiveVerb, result));
+                    return requestManager.sendStatement(createStatement(xApiSettings.scoresDistribution.positiveVerb, result, activity));
                 } else {
-                    return requestManager.sendStatement(createStatement(constants.verbs.failed, result));
+                    return requestManager.sendStatement(createStatement(constants.verbs.failed, result, activity));
                 }
-            }).then(function () {
+                })
+                .then(function () {
+                    requestManager.sendStatement(createStatement(constants.verbs.stopped, null, activity));
+                }).then(function () {
                 if (!!finishedEventData.callback) {
                     finishedEventData.callback.call(this);
                 }
@@ -81,15 +69,17 @@
             });
         }
 
-        function sendMasteredStatementsForObjectives(objectives) {
-            var promises = [];
-            _.each(objectives, function (objective) {
-                var object = createActivity(objective.title, activityProvider.rootActivityUrl);
-                var statement = createStatement(constants.verbs.mastered, { score: objective.score / 100 }, object);
-                promises.push(requestManager.sendStatement(statement));
-            });
-
-            return Q.allSettled(promises);
+        function sendMasteredStatementsForObjectives(finishedEventData) {
+            if (!_.isUndefined(finishedEventData.objectives) && _.isArray(finishedEventData.objectives) && finishedEventData.objectives.length > 0) {
+                var promises = [];
+                var objectives = finishedEventData.objectives;
+                _.each(objectives, function(objective) {
+                    var statement = createStatement(constants.verbs.mastered, { score: objective.score / 100 }, createActivity(objective.title));
+                    promises.push(requestManager.sendStatement(statement));
+                });
+                return Q.allSettled(promises);
+            }
+            return Q.fcall(function() {});
         }
 
         function learningContentExperienced(finishedEventData) {
@@ -103,8 +93,8 @@
 
             var context = {
                 contextActivities: {
-                    parent: [createActivity(finishedEventData.question.title, activityProvider.rootActivityUrl)],
-                    grouping: [createActivity(finishedEventData.objective.title, activityProvider.rootActivityUrl)]
+                    parent: [createActivity(finishedEventData.question.title)],
+                    grouping: [createActivity(finishedEventData.objective.title)]
                 }
             };
 
@@ -116,14 +106,14 @@
             var promises = [];
             
             _.each(finishedEventData.questions, function (question) {
-                var questionUrl = activityProvider.rootCourseUrl + '#objective/' + question.objectiveId + '/question/' + question.id;
+                var questionsUrl = activityProvider.rootActivityUrl;
                 var result = {
                     score: question.getScore() / 100,
                     response: question.getSelectedAnswersId().toString()
                 };
 
                 var object = {
-                    id: questionUrl,
+                    id: questionsUrl,
                     definition: {
                         name: {
                             "en-US": question.title
@@ -144,7 +134,7 @@
 
                 var context = {
                     contextActivities: {
-                        parent: [createActivity(question.objectiveTitle, activityProvider.rootActivityUrl)]
+                        parent: [createActivity(question.objectiveTitle)]
                     }
                 };
 
@@ -172,7 +162,7 @@
 
         function createActivity(name, id) {
             return activityModel({
-                id: id || activityProvider.activityUrl,
+                id: id || activityProvider.rootActivityUrl,
                 definition: {
                     name: {
                         "en-US": name

@@ -30,8 +30,8 @@
 
             submit = function () {
                 app.trigger(eventManager.events.answersSubmitted, {
-                    questions: _.map(questions, function (question) {
-                        return new Question(question);
+                    questions: _.map(questions, function (_question) {
+                        return new Question(_question);
                     })
                 });
                     

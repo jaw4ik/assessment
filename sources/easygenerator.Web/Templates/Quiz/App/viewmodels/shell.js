@@ -23,7 +23,7 @@
                     };
 
                     var title = context.title;
-                    var url = window.location.toString() + '?experience_id=' + context.experienceId;
+                    var url = window.location.toString();
 
                     var actor = activityProvider.createActor("Anonymous user", "anonymous@easygenerator.com");
                     return activityProvider.init(actor, title, url).then(function() {
@@ -31,8 +31,6 @@
                             app.trigger(eventManager.events.courseStarted);
                         });
                     });
-
-//                    xApiRequestManager.init("Anonymous user", "anonymous@easygenerator.com", title, url);
                 });
             };
 
