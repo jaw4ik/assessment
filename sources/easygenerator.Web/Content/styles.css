@@ -735,8 +735,9 @@ a.top-navigation-item:hover {
 .empty-list-wrapper {
     width: 100%;
     text-align: center;
-    padding: 40px 0 40px 0;
+    padding: 55px 0 0 0;
     border-bottom: 1px solid #e6e6e6;
+    height: 140px;
 }
 
     .empty-list-wrapper .empty-list:before {
