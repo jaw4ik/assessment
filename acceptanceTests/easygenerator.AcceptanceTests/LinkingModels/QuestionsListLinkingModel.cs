@@ -18,7 +18,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         //CUD Question
 
         public string AddNewQuestionButton = "//div[contains(@class,'create-new-holder')]";
-        public string DeleteButton = ".//span[contains(@class, 'delete-selected-text')]";
+        public string DeleteButton = ".//div[contains(@class,'list-controls-holder')]//span[contains(@class, 'delete')]";
         
         //CUD Objective
 
