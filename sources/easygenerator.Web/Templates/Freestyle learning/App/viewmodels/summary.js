@@ -19,7 +19,7 @@
                 }
 
                 this.objectives = _.map(context.objectives, function (item) {
-                    return { title: item.title, score: getObjectiveScore(item) };
+                    return { id: item.id, title: item.title, score: getObjectiveScore(item) };
                 });
 
                 var result = _.reduce(this.objectives, function (memo, objective) { return memo + objective.score; }, 0);

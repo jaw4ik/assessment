@@ -1,54 +1,47 @@
 ﻿define(['durandal/app', 'eventManager', 'plugins/http', 'context', 'plugins/router'], function (app, eventManager, http, context, router) {
 
     var
-        objectiveId = '',
-        questionId = '',
         learningContents = [],
 
         enteredOnPage = null,
-        learningContentsUrl = '',
-        questionTitle = '',
+        objective = null,
+        question = null,
 
         backToObjectives = function () {
             router.navigate('');
         },
 
         backToQuestion = function () {
-            router.navigate('objective/' + this.objectiveId + '/question/' + this.questionId);
+            router.navigate('objective/' + this.objective.id + '/question/' + this.question.id);
         },
 
         activate = function (objectiveId, questionId) {
-            this.objectiveId = objectiveId;
-            this.questionId = questionId;
-
             this.learningContents = [];
 
-            var objective = _.find(context.objectives, function (item) {
+            this.objective = _.find(context.objectives, function (item) {
                 return item.id == objectiveId;
             });
 
-            if (!objective) {
+            if (!this.objective) {
                 router.navigate('404');
                 return;
             }
 
-            var question = _.find(objective.questions, function (item) {
+            this.question = _.find(this.objective.questions, function (item) {
                 return item.id == questionId;
             });
 
-            if (!question) {
+            if (!this.question) {
                 router.navigate('404');
                 return;
             }
 
             this.enteredOnPage = new Date();
-            this.learningContentsUrl = window.location.toString();
-            this.questionTitle = question.title;
 
             var that = this;
 
             var requests = [];
-            _.each(question.learningContents, function (item, index) {
+            _.each(this.question.learningContents, function (item, index) {
                 requests.push(http.get('content/' + objectiveId + '/' + questionId + '/' + item.id + '.html').done(function (response) {
                     that.learningContents.push({ index: index, learningContent: response });
                 }));
@@ -62,11 +55,11 @@
         },
 
         deactivate = function () {
-            //app.trigger(eventManager.events.learningContentExperienced, {
-            //    objectiveId: this.objectiveId,
-            //    questionId: this.questionId,
-            //    spentTime: new Date() - this.enteredOnPage
-            //});
+            app.trigger(eventManager.events.learningContentExperienced, {
+                objective: this.objective,
+                question: this.question,
+                spentTime: new Date() - this.enteredOnPage
+            });
         }
     ;
 
@@ -78,6 +71,7 @@
 
         learningContents: learningContents,
         backToObjectives: backToObjectives,
-        backToQuestion: backToQuestion
+        backToQuestion: backToQuestion,
+        enteredOnPage: enteredOnPage
     };
 });

@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'eventManager', 'context', 'plugins/router'], function (app, eventManager, context, router) {
+﻿define(['durandal/app', 'eventManager', 'context', 'plugins/router', 'models/questionResult'], function (app, eventManager, context, router, QuestionResultModel) {
     var
         objective = null,
         question = null,
@@ -20,17 +20,16 @@
 
             question.score = result;
 
-            //app.trigger(eventManager.events.questionAnswered, {
-            //    objective: objective,
-            //    question: question,
-            //    selectedAnswersIds: _.chain(this.answers)
-            //        .filter(function (item) {
-            //            return item.isChecked();
-            //        })
-            //        .map(function (item) {
-            //            return item.id;
-            //        }).value()
-            //});
+            app.trigger(eventManager.events.questionSubmitted, {
+                question: new QuestionResultModel({
+                    id: question.id,
+                    title: question.title,
+                    answers: this.answers,
+                    score: question.score,
+                    objectiveId: objective.id,
+                    objectiveTitle: objective.title
+                })
+            });
 
             showFeedback();
         },

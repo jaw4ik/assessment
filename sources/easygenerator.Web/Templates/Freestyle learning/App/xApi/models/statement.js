@@ -1,6 +1,6 @@
-﻿define(['xApi/guard', 'durandal/system', 'xApi/models/result'],
-    function (guard, system, resultModel) {
-        
+﻿define(['xApi/guard', 'durandal/system'],
+    function (guard, system) {
+
         var statement = function (spec) {
 
             if (typeof spec == typeof undefined) throw 'You should provide a specification to create Statement';
@@ -16,8 +16,13 @@
             obj.object = spec.object;
             obj.timestamp = (new Date()).toISOString();
             
+
+            if (_.isObject(spec.context)) {
+                obj.context = spec.context;
+            }
+
             if (_.isObject(spec.result)) {
-                obj.result = new resultModel(spec.result);
+                obj.result = spec.result;
             }
 
             return obj;

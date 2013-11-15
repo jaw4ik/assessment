@@ -5,7 +5,9 @@
             events = {
                 courseStarted: "courseStarted",
                 courseStopped: "courseStopped",
-                courseFinished: "courseFinished"
+                courseFinished: "courseFinished",
+                questionSubmitted: "questionSubmitted",
+                learningContentExperienced: "learningContentExperienced"
             },
 
             turnAllEventsOff = function () {

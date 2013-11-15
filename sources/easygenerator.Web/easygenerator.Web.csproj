@@ -452,7 +452,14 @@
     <Content Include="Templates\Freestyle learning\App\eventManager.spec.js">
       <DependentUpon>eventManager.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Freestyle learning\App\models\questionResult.js" />
     <Content Include="Templates\Freestyle learning\App\specs.html" />
+    <Content Include="Templates\Freestyle learning\App\viewmodels\learningContents.spec.js">
+      <DependentUpon>learningContents.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Freestyle learning\App\viewmodels\question.spec.js">
+      <DependentUpon>question.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Freestyle learning\App\viewmodels\xAPIError.spec.js">
       <DependentUpon>xAPIError.js</DependentUpon>
     </Content>
@@ -476,6 +483,8 @@
     <Content Include="Templates\Freestyle learning\App\xApi\models\activity.js" />
     <Content Include="Templates\Freestyle learning\App\xApi\models\activityDefinition.js" />
     <Content Include="Templates\Freestyle learning\App\xApi\models\actor.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\models\context.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\models\contextActivities.js" />
     <Content Include="Templates\Freestyle learning\App\xApi\models\object.js" />
     <Content Include="Templates\Freestyle learning\App\xApi\models\result.js" />
     <Content Include="Templates\Freestyle learning\App\xApi\models\score.js" />
@@ -486,6 +495,10 @@
       <DependentUpon>requestManager.js</DependentUpon>
     </Content>
     <Content Include="Templates\Freestyle learning\App\xApi\settings.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\utils\dateTimeConverter.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\utils\dateTimeConverter.spec.js">
+      <DependentUpon>dateTimeConverter.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Freestyle learning\css\jasmine.css" />
     <Content Include="Templates\Freestyle learning\img\buildprogress.gif" />
     <Content Include="Templates\Freestyle learning\js\almond-custom.js" />

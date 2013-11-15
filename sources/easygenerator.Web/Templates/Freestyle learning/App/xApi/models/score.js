@@ -1,7 +1,7 @@
 ﻿define(['xApi/guard'],
     function (guard) {
 
-        var statement = function (spec) {
+        var score = function (spec) {
 
             if (typeof spec == typeof undefined) throw 'You should provide a specification to create Statement';
 
@@ -18,6 +18,6 @@
             return obj;
         };
 
-        return statement;
+        return score;
     }
 );

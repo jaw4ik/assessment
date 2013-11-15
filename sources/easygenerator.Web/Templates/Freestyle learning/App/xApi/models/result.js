@@ -1,18 +1,28 @@
-﻿define(['xApi/guard', 'xApi/models/score'],
-    function (guard, scoreModel) {
-        
-        var statement = function (spec) {
+﻿define(['xApi/guard'],
+    function (guard) {
+
+        var result = function (spec) {
 
             if (typeof spec == typeof undefined) throw 'You should provide a specification to create Result';
 
-            guard.throwIfNotNumber(spec.score, 'You should provide score for Result');
-
             var obj = {};
-            obj.score = new scoreModel(spec.score);
-            
+
+            if (typeof spec.score != typeof undefined) {
+                obj.score = spec.score;
+            }
+
+            if (typeof spec.duration != typeof undefined) {
+                guard.throwIfNotISODuration(spec.duration, 'You should provide duration in correct ISO duration format.');
+                obj.duration = spec.duration;
+            }
+
+            if (typeof spec.response != typeof undefined) {
+                obj.response = spec.response;
+            }
+
             return obj;
         };
 
-        return statement;
+        return result;
     }
 );

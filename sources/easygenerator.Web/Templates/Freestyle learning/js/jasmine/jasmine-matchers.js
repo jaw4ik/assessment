@@ -1,33 +1,53 @@
 ﻿beforeEach(function () {
     var matchers = {
         toBeSortedAsc: function (sortingField) {
-            return toBeSorted(sortingField, this.actual, true);
+            return toBeSorted.apply(this, [sortingField, this.actual, true]);
         },
 
         toBeSortedDesc: function (sortingField) {
-            return toBeSorted(sortingField, this.actual, false);
+            return toBeSorted.apply(this, [sortingField, this.actual, false]);
         },
-        
+
         toBeObservable: function () {
-            return toBeObservable(this.actual);
+            return toBeObservable.call(this, this.actual);
         },
-        
+
+        toBeObservableArray: function () {
+            return toBeObservableArray.call(this, this.actual);
+        },
+
         toBeComputed: function () {
-            return toBeComputed(this.actual);
+            return toBeComputed.call(this, this.actual);
         },
-        
+
         toBeFunction: function () {
-            return toBeFunction(this.actual);
+            return toBeFunction.call(this, this.actual);
         },
 
         toBeObject: function () {
-            return toBeObject(this.actual);
+            return toBeObject.call(this, this.actual);
         },
-        
-        toBePromise: function() {
-            return toBePromise(this.actual);
+
+        toBePromise: function () {
+            return toBePromise.call(this, this.actual);
+        },
+
+        toBeResolved: function () {
+            return toBeResolved.call(this, this.actual);
+        },
+
+        toBeResolvedWith: function (value) {
+            return toBeResolvedWith.apply(this, [this.actual, value]);
+        },
+
+        toBeRejected: function () {
+            return toBeRejected.call(this, this.actual);
+        },
+
+        toBeRejectedWith: function (reason) {
+            return toBeRejectedWith.apply(this, [this.actual, reason]);
         }
-        
+
     };
 
     this.addMatchers(matchers);
@@ -66,12 +86,24 @@ function toBeObservable(actual) {
     if (this.isNot) {
         throw '[.not] is not supported';
     }
-    
+
     this.message = function () {
         return "Expected to be observable";
     };
-    
+
     return ko.isObservable(actual);
+}
+
+function toBeObservableArray(actual) {
+    if (this.isNot) {
+        throw '[.not] is not supported';
+    }
+
+    this.message = function () {
+        return "Expected to be observable array";
+    };
+
+    return ko.isObservable(actual) && jasmine.getEnv().equals_(ko.unwrap(actual), jasmine.any(Array));
 }
 
 function toBeComputed(actual) {
@@ -120,4 +152,65 @@ function toBePromise(actual) {
     };
 
     return toBeObject(actual) && actual.then !== undefined && toBeFunction(actual.then);
+}
+
+function toBeResolved(actual) {
+    if (this.isNot) {
+        throw '[.not] is not supported';
+    }
+
+    if (!toBePromise(actual)) {
+        throw 'Expected to be promise';
+    }
+
+    this.message = function () {
+        return "Expected promise to be resolved";
+    };
+
+    return actual.inspect().state == "fulfilled";
+}
+
+function toBeResolvedWith(actual, value) {
+    var isResolved = toBeResolved.call(this, actual);
+    if (!isResolved) {
+        return false;
+    }
+
+    var valueJSON = JSON.stringify(value);
+    var actualJSON = JSON.stringify(actual.inspect().value);
+
+    this.message = function () {
+        return "Expected promise to be resolved with value '" + valueJSON + "', but it was resolved with value '" + actualJSON + "'";
+    };
+
+    return actualJSON == valueJSON;
+}
+
+function toBeRejected(actual) {
+    if (this.isNot) {
+        throw '[.not] is not supported';
+    }
+
+    if (!toBePromise(actual)) {
+        throw 'Expected to be promise';
+    }
+
+    this.message = function () {
+        return "Expected promise to be rejected";
+    };
+
+    return actual.inspect().state == "rejected";
+}
+
+function toBeRejectedWith(actual, reason) {
+    var isRejected = toBeRejected.call(this, actual);
+    if (!isRejected) {
+        return false;
+    }
+
+    this.message = function () {
+        return "Expected promise to be rejected with reason '" + reason + "', but it was rejected with reason '" + actual.inspect().reason + "'";
+    };
+
+    return actual.inspect().reason == reason;
 }
