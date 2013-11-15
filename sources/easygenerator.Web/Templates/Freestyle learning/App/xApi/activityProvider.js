@@ -140,9 +140,11 @@
                 }
             });
 
+            var parentUrl = activityProvider.rootCourseUrl + '#home?objectiveid=' + question.objectiveId;
+
             var context = new contextModel({
                 contextActivities: new contextActivitiesModel({
-                    parent: [createActivity(activityProvider.rootActivityUrl, question.objectiveTitle)]
+                    parent: [createActivity(parentUrl, question.objectiveTitle)]
                 })
             });
 
