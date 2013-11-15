@@ -1,21 +1,15 @@
 ﻿using easygenerator.DataAccess;
 using easygenerator.DomainModel.Repositories;
-using System;
-using System.Web;
-using System.Web.Caching;
-using easygenerator.Web.Components;
+using easygenerator.Infrastructure;
 
 namespace easygenerator.Web.Mail
 {
-    public class MailSenderTask
+    public class MailSenderTask : ITask
     {
         private readonly IMailSender _mailSender;
         private readonly IUnitOfWork _dataContext;
         private readonly IMailNotificationRepository _mailNotificationRepository;
         private readonly MailSettings _senderSettings;
-
-        private static CacheItemRemovedCallback OnCacheRemove = null;
-        private const string TaskName = "MailSenderTask";
 
         public MailSenderTask(IUnitOfWork unitOfWork, IMailNotificationRepository mailRepository, IMailSender sender, MailSettings senderSettings)
         {
@@ -25,50 +19,23 @@ namespace easygenerator.Web.Mail
             _senderSettings = senderSettings;
         }
 
-        public void Start()
+        public void Execute()
         {
-            if (_senderSettings.MailSenderSettings.Enable)
+            var mailNotifications = _mailNotificationRepository.GetCollection(_senderSettings.MailSenderSettings.BatchSize);
+            if (mailNotifications == null)
             {
-                AddMailSenderTask(_senderSettings.MailSenderSettings.Interval);
+                return;
             }
-        }
 
-        private void AddMailSenderTask(int interval)
-        {
-            OnCacheRemove = new CacheItemRemovedCallback(CacheItemRemoved);
-            HttpRuntime.Cache.Insert(TaskName, interval, null, DateTime.Now.AddSeconds(interval), Cache.NoSlidingExpiration, CacheItemPriority.NotRemovable, OnCacheRemove);
-        }
-
-        private void CacheItemRemoved(string k, object v, CacheItemRemovedReason r)
-        {
-            try
+            foreach (var mailNotification in mailNotifications)
             {
-                SendMailNotifications(_senderSettings.MailSenderSettings.BatchSize);
-            }
-            catch (Exception e)
-            {
-                ElmahLog.LogException(e);
-            }
-            finally
-            {
-                AddMailSenderTask(Convert.ToInt32(v));
-            }
-        }
-
-        private void SendMailNotifications(int batchSize)
-        {
-            var mailNotifications = _mailNotificationRepository.GetCollection(batchSize);
-            if (mailNotifications != null)
-            {
-                foreach (var mailNotification in mailNotifications)
+                if (_mailSender.Send(mailNotification))
                 {
-                    if (_mailSender.Send(mailNotification))
-                    {
-                        _mailNotificationRepository.Remove(mailNotification);
-                        _dataContext.Save();
-                    }
+                    _mailNotificationRepository.Remove(mailNotification);
                 }
             }
+
+            _dataContext.Save();
         }
     }
 }

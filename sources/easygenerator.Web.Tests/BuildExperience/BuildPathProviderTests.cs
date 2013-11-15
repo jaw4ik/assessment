@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using easygenerator.Web.BuildExperience;
+using easygenerator.Web.Components;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;

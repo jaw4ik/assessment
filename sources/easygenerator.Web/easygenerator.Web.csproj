@@ -209,7 +209,7 @@
     <Compile Include="BuildExperience\BuildPackageCreator.cs" />
     <Compile Include="BuildExperience\BuildPathProvider.cs" />
     <Compile Include="BuildExperience\ExperienceBuilder.cs" />
-    <Compile Include="BuildExperience\HttpRuntimeWrapper.cs" />
+    <Compile Include="Components\HttpRuntimeWrapper.cs" />
     <Compile Include="BuildExperience\IExperienceBuilder.cs" />
     <Compile Include="BuildExperience\PackageModelMapper.cs" />
     <Compile Include="BuildExperience\PackageModelSerializer.cs" />
@@ -237,13 +237,17 @@
     <Compile Include="Components\ModelBinding\EntityModelBinderProvider.cs" />
     <Compile Include="Components\ModelBinding\EntityCollectionModelBinder.cs" />
     <Compile Include="Components\NavigationLink.cs" />
+    <Compile Include="Components\Tasks\PasswordRecoveryTicketExpirationTask.cs" />
     <Compile Include="Components\RouteConstraints\PublishIsInProgressConstraint.cs" />
     <Compile Include="Components\PhoneCodeCollection.cs" />
+    <Compile Include="Components\Tasks\CacheExpirationTaskInvoker.cs" />
+    <Compile Include="Components\Tasks\Scheduler.cs" />
     <Compile Include="Components\UrlHelperWrapper.cs" />
     <Compile Include="Configuration\BundleConfiguration.cs" />
     <Compile Include="Configuration\ContainerConfiguration.cs" />
     <Compile Include="Configuration\FilterConfiguration.cs" />
     <Compile Include="Configuration\RouteConfiguration.cs" />
+    <Compile Include="Configuration\TaskConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\AnswerController.cs" />
     <Compile Include="Controllers\Api\ExperienceController.cs" />

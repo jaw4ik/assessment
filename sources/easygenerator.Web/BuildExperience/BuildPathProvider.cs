@@ -1,5 +1,6 @@
 ﻿using System.EnterpriseServices.Internal;
 using System.IO;
+using easygenerator.Web.Components;
 
 namespace easygenerator.Web.BuildExperience
 {

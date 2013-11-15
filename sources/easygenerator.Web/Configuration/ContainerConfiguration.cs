@@ -5,9 +5,7 @@ using Autofac.Builder;
 using Autofac.Integration.Mvc;
 using easygenerator.DataAccess;
 using easygenerator.DomainModel;
-using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Handlers;
-using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.Components;
@@ -17,6 +15,7 @@ using System.Reflection;
 using System;
 using System.Collections.Generic;
 using easygenerator.Web.Components.RouteConstraints;
+using easygenerator.Web.Components.Tasks;
 using easygenerator.Web.Mail;
 using easygenerator.DomainModel.Events;
 using easygenerator.Web.Publish;
@@ -77,6 +76,16 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<ExperiencePublisher>().As<IExperiencePublisher>();
             builder.RegisterType<PublishDispatcher>().As <IPublishDispatcher>().SingleInstance();
             builder.RegisterType<PublishIsInProgressConstraint>();
+
+            #endregion
+
+            #region Scheduler
+
+            builder.RegisterType<Scheduler>().SingleInstance();
+
+            builder.RegisterType<PasswordRecoveryTicketExpirationTask>().SingleInstance();
+            builder.RegisterType<MailSenderTask>().SingleInstance();
+            builder.RegisterType<CacheExpirationTaskInvoker>().As<ITaskInvoker>().SingleInstance();
 
             #endregion
 

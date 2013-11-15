@@ -9,7 +9,7 @@ namespace easygenerator.Web.Mail
         private readonly MailSenderConfigurationSection _mailSenderSettings;
         private readonly Dictionary<string, MailTemplate> _templatesSettings;
 
-        public MailSenderConfigurationSection MailSenderSettings
+        public virtual MailSenderConfigurationSection MailSenderSettings
         {
             get { return _mailSenderSettings; }
         }
@@ -19,12 +19,10 @@ namespace easygenerator.Web.Mail
             get { return _templatesSettings; }
         }
 
-        public MailSettings()
+        public MailSettings(ConfigurationReader configurationReader)
         {
-            _mailSenderSettings = ConfigurationManager.GetSection("mailSender") as MailSenderConfigurationSection;
-
             _templatesSettings = new Dictionary<string, MailTemplate>();
-            foreach (var mailTemplateSetting in _mailSenderSettings.MailTemplates)
+            foreach (var mailTemplateSetting in configurationReader.MailSenderConfiguration.MailTemplates)
             {
                 MailTemplate templateSettings = (MailTemplate)mailTemplateSetting;
                 _templatesSettings.Add(templateSettings.Name, templateSettings);

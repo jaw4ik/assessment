@@ -5,6 +5,7 @@ using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.BuildExperience.PackageModel;
+using easygenerator.Web.Components;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 using FluentAssertions;
