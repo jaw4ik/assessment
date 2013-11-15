@@ -355,7 +355,7 @@ a.top-navigation-item:hover {
     .selected-item-action.add.enabled {
         color: #00a8ff;
     }
-    
+
     .selected-item-action.delete:before {
         content: '';
         display: block;
@@ -440,6 +440,7 @@ a.top-navigation-item:hover {
     background: white;
     border-bottom: 1px solid #e6e6e6;
     border-left: 3px solid transparent;
+    cursor: default;
 }
 
     .main-content-list-item.selected {
@@ -728,6 +729,70 @@ a.top-navigation-item:hover {
     }
 
 /*#endregion BUTTONS*/
+
+/*#region SEND FEEDBACK*/
+
+.feedback-btn {
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: -66px;
+    z-index: 5000;
+    min-width: 159px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+    padding: 9px 12px 12px;
+    border-top: 1px solid #48494d;
+    border-radius: 0 0 4px 4px;
+    background: #303133;
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    color: white;
+    font-family: 'OpenSans-Semibold';
+    font-size: 13px;
+    text-align: center;
+    text-transform: uppercase;
+    -webkit-text-shadow: 0 0 1px rgba(0,0,0,0.6);
+    text-shadow: 0 0 1px rgba(0,0,0,0.6);
+}
+
+.en-lang.feedback-btn {
+    margin-top: -85px;
+}
+
+.de-lang.feedback-btn {
+    margin-top: -85px;
+}
+
+.nl-lang.feedback-btn {
+    margin-top: -85px;
+}
+
+.feedback-btn-text {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 45px;
+}
+
+    .feedback-btn-text:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -2px;
+        left: 0;
+        width: 30px;
+        height: 22px;
+        background: url(images/sprites.png) -157px -147px no-repeat;
+    }
+
+/*#endregion SEND FEEDBACK*/
 
 @media (max-width: 1040px) {
 
