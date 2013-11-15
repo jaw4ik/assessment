@@ -7,7 +7,6 @@ namespace easygenerator.Web.Mail
     public class MailSettings
     {
         private readonly ConfigurationReader _configurationReader;
-        private readonly MailSenderConfigurationSection _mailSenderSettings;
         private readonly Dictionary<string, MailTemplate> _templatesSettings;
 
         public virtual MailSenderConfigurationSection MailSenderSettings
