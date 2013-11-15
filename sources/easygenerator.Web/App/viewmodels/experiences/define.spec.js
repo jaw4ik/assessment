@@ -525,19 +525,6 @@
                             });
                         });
 
-                        it('should show hint popup', function () {
-                            spyOn(viewModel.hintPopup, 'show');
-
-                            viewModel.showAllAvailableObjectives();
-
-                            waitsFor(function () {
-                                return !getObjectivesPromise.isPending();
-                            });
-                            runs(function () {
-                                expect(viewModel.hintPopup.show).toHaveBeenCalled();
-                            });
-                        });
-
                     });
                     
                 });
@@ -560,12 +547,6 @@
                         expect(eventTracker.publish).not.toHaveBeenCalledWith('Show connected objectives');
                     });
 
-                    it('should not hide hint popup', function () {
-                        spyOn(viewModel.hintPopup, 'hide');
-                        viewModel.showConnectedObjectives();
-                        expect(viewModel.hintPopup.hide).not.toHaveBeenCalled();
-                    });
-
                 });
                 
                 describe('when objectivesMode is not display', function () {
@@ -582,12 +563,6 @@
                     it('should change objectivesMode to \'display\' ', function () {
                         viewModel.showConnectedObjectives();
                         expect(viewModel.objectivesMode()).toBe('display');
-                    });
-
-                    it('should hide hint popup', function () {
-                        spyOn(viewModel.hintPopup, 'hide');
-                        viewModel.showConnectedObjectives();
-                        expect(viewModel.hintPopup.hide).toHaveBeenCalled();
                     });
 
                 });
@@ -884,110 +859,6 @@
 
             });
 
-            describe('hintPopup:', function () {
-
-                it('should be object', function () {
-                    expect(viewModel.hintPopup).toBeObject();
-                });
-
-                describe('displayed:', function () {
-
-                    it('should be observable', function () {
-                        expect(viewModel.hintPopup.displayed).toBeObservable();
-                    });
-
-                });
-
-                describe('show:', function () {
-
-                    it('should be function', function () {
-                        expect(viewModel.hintPopup.show).toBeFunction();
-                    });
-
-                    var clientContextGetSpy;
-
-                    beforeEach(function () {
-                        clientContextGetSpy = spyOn(clientContext, 'get');
-                    });
-
-                    it('should call clientContext.get function', function () {
-                        viewModel.hintPopup.show();
-                        expect(clientContext.get).toHaveBeenCalledWith('showRelateObjectivesHintPopup');
-                    });
-
-                    beforeEach(function () {
-                        viewModel.hintPopup.displayed(false);
-                    });
-
-                    describe('when \'showRelateObjectivesHintPopup\' value from clientContext is false', function () {
-
-                        it('should not set \'displayed\' property to true', function () {
-                            clientContextGetSpy.andReturn(false);
-                            viewModel.hintPopup.show();
-                            expect(viewModel.hintPopup.displayed()).toBeFalsy();
-                        });
-
-                    });
-
-                    describe('when \'showRelateObjectivesHintPopup\' value from clientContext is null', function () {
-
-                        it('should set \'displayed\' property to true', function () {
-                            clientContextGetSpy.andReturn(null);
-                            viewModel.hintPopup.show();
-                            expect(viewModel.hintPopup.displayed()).toBeTruthy();
-                        });
-
-                    });
-
-                    describe('when \'showRelateObjectivesHintPopup\' value from clientContext is true', function () {
-
-                        it('should set \'displayed\' property to true', function () {
-                            clientContextGetSpy.andReturn(true);
-                            viewModel.hintPopup.show();
-                            expect(viewModel.hintPopup.displayed()).toBeTruthy();
-                        });
-
-                    });
-
-                });
-
-                describe('hide:', function () {
-
-                    it('should be function', function () {
-                        expect(viewModel.hintPopup.hide).toBeFunction();
-                    });
-
-                    it('should set \'displayed\' to false', function () {
-                        viewModel.hintPopup.displayed(true);
-                        viewModel.hintPopup.hide();
-                        expect(viewModel.hintPopup.displayed()).toBeFalsy();
-                    });
-
-                });
-
-                describe('close:', function () {
-
-                    it('should be function', function () {
-                        expect(viewModel.hintPopup.close).toBeFunction();
-                    });
-
-                    it('should set \'displayed\' property to false', function () {
-                        viewModel.hintPopup.displayed(true);
-                        viewModel.hintPopup.close();
-
-                        expect(viewModel.hintPopup.displayed()).toBeFalsy();
-                    });
-
-                    it('should set \'showRelateObjectivesHintPopup\' value from clientContext to false', function () {
-                        spyOn(clientContext, 'set');
-                        viewModel.hintPopup.close();
-                        expect(clientContext.set).toHaveBeenCalledWith('showRelateObjectivesHintPopup', false);
-                    });
-
-                });
-
-            });
-
             describe('activate:', function () {
 
                 var getById;
@@ -1063,20 +934,6 @@
                         });
                         runs(function () {
                             expect(viewModel.title()).toEqual(experience.title);
-                        });
-                    });
-
-                    it('should hide hint popup', function () {
-
-                        viewModel.hintPopup.displayed(true);
-
-                        var promise = viewModel.activate(experience.id);
-
-                        waitsFor(function () {
-                            return promise.isFulfilled();
-                        });
-                        runs(function () {
-                            expect(viewModel.hintPopup.displayed()).toBeFalsy();
                         });
                     });
 

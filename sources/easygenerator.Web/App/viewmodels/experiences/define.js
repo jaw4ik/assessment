@@ -51,23 +51,6 @@
                 });
             }),
 
-            hintPopup = {
-                displayed: ko.observable(false),
-
-                show: function () {
-                    if (clientContext.get('showRelateObjectivesHintPopup') !== false) {
-                        this.displayed(true);
-                    }
-                },
-                hide: function () {
-                    this.displayed(false);
-                },
-                close: function () {
-                    this.displayed(false);
-                    clientContext.set('showRelateObjectivesHintPopup', false);
-                }
-            },
-
             navigateToObjectiveDetails = function (objective) {
                 eventTracker.publish(events.navigateToObjectiveDetails);
                 if (_.isUndefined(objective)) {
@@ -160,7 +143,6 @@
                         }).value());
 
                     that.objectivesMode(objectivesListModes.appending);
-                    that.hintPopup.show();
                 });
             },
             showConnectedObjectives = function () {
@@ -171,7 +153,6 @@
                 eventTracker.publish(events.showConnectedObjectives);
 
                 objectivesMode(objectivesListModes.display);
-                hintPopup.hide();
             },
             connectObjectives = function () {
                 eventTracker.publish(events.connectSelectedObjectivesToExperience);
@@ -236,7 +217,6 @@
                         .sortBy(function (objective) { return objective.title.toLowerCase(); })
                         .value());
 
-                    hintPopup.displayed(false);
                     isEditing(false);
                 }).fail(function () {
                     router.replace('404');
@@ -255,7 +235,6 @@
             objectivesListModes: objectivesListModes,
             canDisconnectObjectives: canDisconnectObjectives,
             canConnectObjectives: canConnectObjectives,
-            hintPopup: hintPopup,
 
             navigateToObjectiveDetails: navigateToObjectiveDetails,
             navigateToCreateObjective: navigateToCreateObjective,

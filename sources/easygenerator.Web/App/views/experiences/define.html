@@ -52,16 +52,6 @@
                 </div>
                 <!-- /ko -->
                 <!-- ko if: (objectivesMode() == objectivesListModes.display && connectedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->
-                <div class="hint-popup-holder" data-bind="visible: hintPopup.displayed">
-                    <!-- ko compose: {
-                    view: 'views/common/hintpopup',
-                    model: {
-                    text: 'connectObjectivesHelpHint',
-                    close: hintPopup.close.bind(hintPopup)
-                    }
-                    } -->
-                    <!-- /ko -->
-                </div>
                 <ul class="unstyled main-content-list">
                     <!-- ko foreach: objectivesMode() == objectivesListModes.display ? connectedObjectives() : availableObjectives() -->
                     <li class="main-content-list-item" data-bind="css: { selected: isSelected }">

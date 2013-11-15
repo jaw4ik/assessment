@@ -151,6 +151,11 @@
         nl: 'U kunt maar 1 vraag tegelijk verwijderen.',
         de: 'Sie können nicht mehr als 1 Frage gleichzeitig löschen.'
     },
+    sendFeedback: {
+        en: 'Send feedback',
+        nl: 'Send feedback[nl]',
+        de: 'Send feedback[de]'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -341,7 +346,7 @@
     clickToAddExperience: {
         en: 'Click to add learning experience',
         nl: 'Klik om leerervaring toe te voegen',
-        de: 'Klicken, um neue Lernerfahrung hinzuzufügen'
+        de: 'Klicken, um Lernerfahrung hinzuzufügen'
     },
     createNewExperience: {
         en: 'Create new learning experience',
@@ -710,11 +715,6 @@
         nl: 'Geen gekoppelde leerdoelen',
         de: 'Keine verbundenen Lernziele'
     },
-    connectObjectivesHelpHint: {
-        en: 'Move cursor over learning objective and select to connect it to learning experience. Use Finish button when done',
-        nl: 'Verplaats de cursor over het leerdoel en selecteer het om het aan de leeromgeving te koppelen. Klik na afloop op de knop Afsluiten',
-        de: 'Bewegen Sie den Mauszeiger über ein Lernziel und wählen Sie es aus, um es mit der Lernerfahrung zu verbinden. Klicken Sie auf die Schaltfläche \"Fertig stellen\", wenn Sie fertig sind'
-    },
     noObjectivesForConnect: {
         en: 'No learning objectives to connect',
         nl: 'Geen leerdoelen om te koppelen',
@@ -870,7 +870,7 @@
     EnterValidPhoneNumber: {
         en: 'Enter a valid phon number',
         nl: 'Voer een geldig naam van organisatie in',
-        de: 'Geben Sie eine gültige Name der Organisiation ein'
+        de: 'Geben Sie eine gültige Name der Organisation ein'
     },
     AccountAlreadyExists: {
         en: 'This account already exists',
@@ -1048,11 +1048,6 @@
         nl: 'De vraag is niet gevonden. Vernieuw uw gegevens.',
         de: 'Die Frage wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
     },
-    questionsNotFoundError: {
-        en: 'Questions were not found. Please refresh your data.',
-        nl: 'Questions were not found. Please refresh your data.[nl]',
-        de: 'Questions were not found. Please refresh your data.[de]'
-    },
     learningContentNotFoundError: {
         en: 'Learning content was not found. Please refresh your data.',
         nl: 'Er is geen leerinhoud gevonden. Vernieuw uw gegevens.',
@@ -1117,7 +1112,7 @@
     OrganizationNameCaption: {
         en: 'Organization name',
         nl: 'Naam van organisatie',
-        de: 'Name der Organisiation'
+        de: 'Name der Organisation'
     },
     CountryCaption: {
         en: 'Country',
