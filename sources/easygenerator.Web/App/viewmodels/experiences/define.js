@@ -10,9 +10,9 @@
                 selectObjective: 'Select Objective',
                 unselectObjective: 'Unselect Objective',
                 updateExperienceTitle: 'Update experience title',
-                startAppendingRelatedObjectives: 'Start appending related objectives',
+                showAllAvailableObjectives: 'Show all available objectives',
                 connectSelectedObjectivesToExperience: 'Connect selected objectives to experience',
-                finishAppendingRelatedObjectives: 'Finish appending related objectives',
+                showConnectedObjectives: 'Show connected objectives',
                 unrelateObjectivesFromExperience: 'Unrelate objectives from experience'
             };
 
@@ -133,8 +133,12 @@
                 isEditing(false);
             },
 
-            startConnectingObjectives = function () {
-                eventTracker.publish(events.startAppendingRelatedObjectives);
+            showAllAvailableObjectives = function () {
+                if (objectivesMode() == objectivesListModes.appending) {
+                    return;
+                }
+
+                eventTracker.publish(events.showAllAvailableObjectives);
 
                 var that = this;
 
@@ -159,8 +163,12 @@
                     that.hintPopup.show();
                 });
             },
-            finishConnectingObjectives = function () {
-                eventTracker.publish(events.finishAppendingRelatedObjectives);
+            showConnectedObjectives = function () {
+                if (objectivesMode() == objectivesListModes.display) {
+                    return;
+                }
+
+                eventTracker.publish(events.showConnectedObjectives);
 
                 objectivesMode(objectivesListModes.display);
                 hintPopup.hide();
@@ -261,9 +269,9 @@
             experienceTitleMaxLength: constants.validation.experienceTitleMaxLength,
             isEditing: isEditing,
 
-            startConnectingObjectives: startConnectingObjectives,
+            showAllAvailableObjectives: showAllAvailableObjectives,
             connectObjectives: connectObjectives,
-            finishConnectingObjectives: finishConnectingObjectives
+            showConnectedObjectives: showConnectedObjectives
         };
     }
 );
