@@ -711,12 +711,6 @@
     }
 }
 
-@media (max-width: 900px) {
-    .experience .empty-list-wrapper {
-        margin-top: 140px;
-    }
-}
-
 .experience-date-block-text {
     margin-top: 1px;
 }
@@ -840,10 +834,6 @@
 }
 
 /*#endregion Info popup*/
-
-.experience .empty-list-wrapper .empty-list-text {
-    font-size: 29px;
-}
 
 .experience .entity-info-popup {
     height: 133px;
@@ -1056,3 +1046,4 @@
 }
 
 /*#endregion Choose template*/
+

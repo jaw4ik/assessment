@@ -51,6 +51,11 @@
                     <div class="dotted-line"></div>
                 </div>
                 <!-- /ko -->
+                <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
+                <div class="empty-list-wrapper">
+                    <div class="empty-list">There are no learning objectives to connect</div>
+                </div>
+                <!-- /ko -->
                 <!-- ko if: (objectivesMode() == objectivesListModes.display && connectedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->
                 <ul class="unstyled main-content-list">
                     <!-- ko foreach: objectivesMode() == objectivesListModes.display ? connectedObjectives() : availableObjectives() -->
