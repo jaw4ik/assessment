@@ -80,7 +80,7 @@
         function sendMasteredStatementsForObjectives(objectives) {
             if (!_.isUndefined(objectives) && _.isArray(objectives) && objectives.length > 0) {
                 var promises = _.map(objectives, function (objective) {
-                    var objectiveUrl = activityProvider.rootCourseUrl + '#home?objectiveid=' + objective.id;
+                    var objectiveUrl = activityProvider.rootCourseUrl + '#home?objective_id=' + objective.id;
                     var object = createActivity(objectiveUrl, objective.title);
                     var statement = createStatement(constants.verbs.mastered, new resultModel({ score: new scoreModel(objective.score / 100) }), object);
                     return requestManager.sendStatement(statement);
@@ -98,7 +98,7 @@
 
             var learningContentUrl = activityProvider.rootCourseUrl + '#objective/' + finishedEventData.objective.id + '/question/' + finishedEventData.question.id + '/learningContents';
             var parentUrl = activityProvider.rootCourseUrl + '#objective/' + finishedEventData.objective.id + '/question/' + finishedEventData.question.id;
-            var groupingUrl = activityProvider.rootCourseUrl + '#home?objectiveid=' + finishedEventData.objective.id;
+            var groupingUrl = activityProvider.rootCourseUrl + '#home?objective_id=' + finishedEventData.objective.id;
             var object = createActivity(learningContentUrl, finishedEventData.question.title);
 
             var context = new contextModel({
@@ -140,7 +140,7 @@
                 }
             });
 
-            var parentUrl = activityProvider.rootCourseUrl + '#home?objectiveid=' + question.objectiveId;
+            var parentUrl = activityProvider.rootCourseUrl + '#home?objective_id=' + question.objectiveId;
 
             var context = new contextModel({
                 contextActivities: new contextActivitiesModel({
