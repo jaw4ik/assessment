@@ -13,16 +13,14 @@
 
         <div class="objectives-filters-holder clearfix">
             <aside class="objectives-filters-block">
-                <h3 class="objectives-filters-title">Filters</h3>
+                <h3 class="objectives-filters-title" data-bind="localize: { text: 'filter' }"></h3>
                 <div class="objectives-filters-controls">
                     <div class="filter-radio-control" data-bind="click: showConnectedObjectives">
-                        <label class="filter-radio-label" data-bind="css: { checked: objectivesMode() == objectivesListModes.display }">
-                            show all connected learning objectives
+                        <label class="filter-radio-label" data-bind="css: { checked: objectivesMode() == objectivesListModes.display }, localize: { text: 'showAllConnectedLearningObjectives' }">
                         </label>
                     </div>
                     <div class="filter-radio-control" data-bind="click: showAllAvailableObjectives">
-                        <label class="filter-radio-label" data-bind="css: { checked: objectivesMode() == objectivesListModes.appending }">
-                            show available learning objectives
+                        <label class="filter-radio-label" data-bind="css: { checked: objectivesMode() == objectivesListModes.appending }, localize: { text: 'showOtherLearningObjectives' }">
                         </label>
                     </div>
                 </div>
@@ -31,14 +29,14 @@
                 <div class="list-controls-holder clearfix">
                     <!-- ko if: objectivesMode() == objectivesListModes.display -->
                     <!-- ko if: canDisconnectObjectives() -->
-                    <span class="selected-item-action disconnect enabled" data-bind="click: disconnectSelectedObjectives">Disconnect selected</span>
+                    <span class="selected-item-action disconnect enabled" data-bind="click: disconnectSelectedObjectives, localize: { text: 'disconnectSelected' }"></span>
                     <!-- /ko -->
                     <!-- ko ifnot: canDisconnectObjectives()-->
-                    <span class="selected-item-action disconnect disabled">Disconnect selected</span>
+                    <span class="selected-item-action disconnect disabled" data-bind="localize: { text: 'disconnectSelected' }"></span>
                     <!-- /ko -->
                     <!--/ko -->
                     <!-- ko if: objectivesMode() == objectivesListModes.appending -->
-                    <span class="selected-item-action add" data-bind="css: { enabled: canConnectObjectives(), disabled: !canConnectObjectives() }, click: connectObjectives">Connect selected</span>
+                    <span class="selected-item-action add" data-bind="css: { enabled: canConnectObjectives(), disabled: !canConnectObjectives() }, click: connectObjectives, localize: { text: 'connectSelected' }"></span>
                     <!-- /ko -->
                     <div class="dotted-line"></div>
                 </div>
@@ -46,14 +44,14 @@
                 <div class="create-new-holder">
                     <div class="create-new-title" data-bind="click: navigateToCreateObjective">
                         <span class="create-new-icon">&nbsp;</span>
-                        <span>Create and connect learning objective</span>
+                        <span data-bind="localize: { text: 'createAndConnectLearningObjective' }"></span>
                     </div>
                     <div class="dotted-line"></div>
                 </div>
                 <!-- /ko -->
                 <!-- ko if: objectivesMode() == objectivesListModes.appending && availableObjectives().length == 0-->
                 <div class="empty-list-wrapper">
-                    <div class="empty-list">There are no learning objectives to connect</div>
+                    <div class="empty-list" data-bind="localize: { text: 'noLearningObjectivesToConnect' }"></div>
                 </div>
                 <!-- /ko -->
                 <!-- ko if: (objectivesMode() == objectivesListModes.display && connectedObjectives().length > 0) || (objectivesMode() == objectivesListModes.appending && availableObjectives().length > 0) -->
@@ -74,13 +72,13 @@
                                     <span class="selectable" data-bind="text: title"></span>
                                 </div>
                                 <div class="list-item-saved">
-                                    <span data-bind="localize: { text: 'lastEdited' }">Last edited: </span><span data-bind="    date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
+                                    <span data-bind="localize: { text: 'lastEdited' }">Last edited: </span><span data-bind="date: { value: modifiedOn, formatString: 'L', language: $parent.currentLanguage }"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="open-item-btn">
                             <a href="#" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent)">
-                                <span class="open-btn-text" data-bind="localize: { text: 'open' }">Open</span>
+                                <span class="open-btn-text" data-bind="localize: { text: 'open' }"></span>
                             </a>
                         </div>
                     </li>

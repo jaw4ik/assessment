@@ -335,6 +335,41 @@
         nl: 'Typ hier de titel van de leerdoelstelling',
         de: 'Titel des Lernziels hier eingeben'
     },
+    filter: {
+        en: 'Filter',
+        nl: 'Filter',
+        de: 'Filter'
+    },
+    showAllConnectedLearningObjectives: {
+        en: 'show all connected learning objectives',
+        nl: 'Alle gekoppelde leerdoelen tonen',
+        de: 'Alle verbundenen Lernziele anzeigen'
+    },
+    showOtherLearningObjectives: {
+        en: 'show other learning objectives',
+        nl: 'Andere leerdoelen tonen',
+        de: 'Andere Lernziele anzeigen'
+    },
+    createAndConnectLearningObjective: {
+        en: 'Create and connect learning objective',
+        nl: 'Leerdoel maken en koppelen',
+        de: 'Lernziel erstellen und verbinden'
+    },
+    connectSelected: {
+        en: 'Connect selected',
+        nl: 'Selectie koppelen',
+        de: 'Auswahl verbinden'
+    },
+    disconnectSelected: {
+        en: 'Disconnect selected',
+        nl: 'Selectie loskoppelen',
+        de: 'Verbindung der Auswahl lösen'
+    },
+    noLearningObjectivesToConnect: {
+        en: 'There are no learning objectives to connect',
+        nl: 'Er zijn geen leerdoelen om te koppelen',
+        de: 'Es sind keine Lernziele zum Verbinden vorhanden'
+    },
     /* End resource section for model CreateObjective */
     
     /* Resource section for model CreateExperience */
