@@ -153,8 +153,8 @@
     },
     sendFeedback: {
         en: 'Send feedback',
-        nl: 'Send feedback[nl]',
-        de: 'Send feedback[de]'
+        nl: 'Feedback versturen',
+        de: 'Feedback senden'
     },
     /* End resource section for model General */
     

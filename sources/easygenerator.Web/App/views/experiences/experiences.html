@@ -50,25 +50,9 @@
                         </div>
                     </div>
                     <div class="open-item-btn">
-                        <a href="" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToDetails">
+                        <a href="#" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToDetails">
                             <span class="open-btn-text" data-bind="localize: { text: 'open' }">Open</span>
                         </a>
-                    </div>
-                    <div class="package-actions-block cursor-default">
-                        <!-- ko if: isFirstBuild -->
-                        <div class="experience-action-item create-package-btn" data-bind="click: $parent.buildExperience">
-                            <span class="btn-title" data-bind="localize: { text: 'createPackage' }">Create package</span>
-                        </div>
-                        <!-- /ko -->
-
-                        <!-- ko ifnot: isFirstBuild -->
-                        <div class="experience-action-item create-package-btn" data-bind="click: $parent.buildExperience">
-                            <span class="btn-title" data-bind="localize: { text: 'updatePackage' }">Update package</span>
-                        </div>
-                        <div class="experience-action-item download-btn" data-bind="click: $parent.downloadExperience">
-                            <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
-                        </div>
-                        <!-- /ko -->
                     </div>
 
                     <div class="experience-actions-panel">
@@ -102,7 +86,7 @@
                         <div class="experience-action publish-package">
                             <span class="experience-action-title" data-bind="localize: { text: 'republishOnline' }">Republish online</span>
                         </div>
-                        <div class="experience-action package-link">
+                        <div class="experience-action package-link disabled">
                             <input class="package-link-input" type="text" />
                         </div>
                         <!-- END REPUBLISH-->

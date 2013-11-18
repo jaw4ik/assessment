@@ -801,11 +801,14 @@ a.top-navigation-item:hover {
 }
 
 .de-lang.feedback-btn {
-    margin-top: -85px;
+    left: -74px;
+    margin-top: -94px;
+
 }
 
 .nl-lang.feedback-btn {
-    margin-top: -85px;
+    margin-top: -104px;
+    left: -84px;
 }
 
 .feedback-btn-text {

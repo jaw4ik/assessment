@@ -69,6 +69,11 @@
         <!-- /ko -->
         <div data-bind="router: { cacheViews: false }"></div>
     </section>
+    <a href="#" class="feedback-btn cursor-default" style="display: none" data-bind="click: sendFeedback, css: browserCulture() + '-lang'">
+        <span class="feedback-btn-text" data-bind="localize:{ text: 'sendFeedback'}">
+            Send feedback
+        </span>
+    </a>
 </div>
 
 <footer class="footer try">
