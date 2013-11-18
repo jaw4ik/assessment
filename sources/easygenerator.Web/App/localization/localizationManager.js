@@ -12,14 +12,13 @@
             currentCulture = defaultCulture,
             currentLanguage = '',
 
-
-            localize = function (key) {
+            localize = function (key, culture) {
                 var item = resources[key];
                 if (_.isEmpty(item)) {
                     throw 'A resource with key ' + key + ' was not found';
                 }
-
-                return item[this.currentLanguage] || item[defaultCulture];
+                var cultureInfo = _.contains(supportedCultures, culture) ? culture : this.currentLanguage || defaultCulture;
+                return item[cultureInfo] || item[defaultCulture];
             },
 
             initialize = function (userCultures) {
@@ -80,6 +79,8 @@
             initialize: initialize,
             currentCulture: currentCulture,
             currentLanguage: currentLanguage,
-            localize: localize
+            localize: localize,
+            defaultCulture: defaultCulture,
+            supportedCultures: supportedCultures
         };
     });

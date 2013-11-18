@@ -17,7 +17,8 @@
             saveIntervalId = null,
             $toolbarElement = null,
             editor = null,
-            commandsToTrack = CKEDITOR.config.commandsToTrack || [];
+            commandsToTrack = CKEDITOR.config.commandsToTrack || [],
+            localizationManager = valueAccessor().localizationManager;
 
         CKEDITOR.config.language = language;
 
@@ -138,8 +139,8 @@
                 }
             });
 
-            editor.on('publishEvent', function (eventInfo) {
-                eventTracker.publish(eventInfo.data, 'CKEditor');
+            editor.on('publishSemanticEvent', function (eventInfo) {
+                eventTracker.publish('Semantic tag \"' + localizationManager.localize(eventInfo.data, localizationManager.defaultCulture) + '\" applied', 'CKEditor');
             });
         }
 

@@ -371,7 +371,15 @@ define(function (require) {
                 expect(viewModel.eventTracker).toBeObject();
             });
 
-        });        
+        });
+        
+        describe('localizationManager', function () {
+
+            it('should be defined', function() {
+                expect(viewModel.localizationManager).toBeDefined();
+            });
+
+        });
 
     });
 

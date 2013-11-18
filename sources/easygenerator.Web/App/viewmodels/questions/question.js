@@ -103,7 +103,8 @@
             endEditQuestionTitle: endEditQuestionTitle,
 
             answers: answers,
-            learningContents: learningContents
+            learningContents: learningContents,
+            localizationManager: localizationManager
         };
     }
 );

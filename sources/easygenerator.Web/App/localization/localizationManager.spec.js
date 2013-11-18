@@ -65,6 +65,7 @@
 
                 var key = "resourceKey";
                 var defaultString = 'default string';
+                var currentLanguage = 'ar';
 
                 beforeEach(function () {
                     resources[key] = {};
@@ -75,23 +76,72 @@
                     delete resources[key];
                 });
 
-                it('should throw exception when resource with specified key was not found', function () {                    
-                    expect(function () { localizationManager.localize('omnomnom'); }).toThrow(new Error("A resource with key omnomnom was not found"));
+                it('should throw exception when resource with specified key was not found', function () {
+                    var action = function() {
+                         localizationManager.localize('omnomnom');
+                    };
+                    expect(action).toThrow(new Error("A resource with key omnomnom was not found"));
                 });
 
                 it('should return localized string for current language when it exists', function () {
-                    var currentLanguage = 'ar';
                     var localizedString = 'localized string';
                     resources[key][currentLanguage] = localizedString;
                     localizationManager.currentLanguage = currentLanguage;
-
+                    
                     expect(localizationManager.localize(key)).toEqual(localizedString);
                 });
 
                 it('should return string for default language if it does not exist for current language', function () {
-                    localizationManager.currentLanguage = 'ar';
-
+                    localizationManager.currentLanguage = undefined;
                     expect(localizationManager.localize(key)).toEqual(defaultString);
+                });
+
+                describe('when specify culture', function () {
+
+                    describe('and this culture not supported', function () {
+
+                        it('should return string for current language when it exists', function () {
+                            var specifyLanguage = 'as';
+                            var localizedString = 'localized string';
+                            resources[key][currentLanguage] = localizedString;
+                            localizationManager.currentLanguage = currentLanguage;
+
+                            expect(localizationManager.localize(key, specifyLanguage)).toEqual(localizedString);
+                        });
+
+                        it('should return string for default language if it does not exist for current language', function () {
+                            var specifyLanguage = 'as';
+                            expect(localizationManager.localize(key, specifyLanguage)).toEqual(defaultString);
+                        });
+
+                    });
+
+                    describe('and this culture supported', function () {
+                        
+                        it('should return localized string for specify culture', function () {
+                            var specifyLanguage = 'ku';
+                            var localizedStringForSpecifyCulture = 'localized string for specify culture';
+                            resources[key][specifyLanguage] = localizedStringForSpecifyCulture;
+                            localizationManager.currentLanguage = currentLanguage;
+                            localizationManager.supportedCultures.push(specifyLanguage);
+
+                            expect(localizationManager.localize(key, specifyLanguage)).toEqual(localizedStringForSpecifyCulture);
+                        });
+                        
+                    });
+
+                });
+
+            });
+
+            describe('defaultCulture:', function () {
+
+                it('should be defined', function() {
+                    expect(localizationManager.defaultCulture).toBeDefined();
+                });
+
+                it('should be equal \'en\'', function() {
+                    expect(localizationManager.defaultCulture).toEqual('en');
                 });
 
             });
