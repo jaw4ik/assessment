@@ -11,9 +11,13 @@ namespace easygenerator.Web.Components.Tasks
         {
             try
             {
+                var task = (ITask) v;
+
+                task.Execute();
+
                 if (TaskInvoked != null)
                 {
-                    TaskInvoked(this, (ITask)v);
+                    TaskInvoked(this, task);
                 }
             }
             catch (Exception e)
