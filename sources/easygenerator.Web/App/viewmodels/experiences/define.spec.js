@@ -439,8 +439,17 @@
                 });
 
                 describe('when objectivesMode is not appending', function () {
+
+                    var
+                        getObjectivesDefer,
+                        getObjectivesPromise;
                     
                     beforeEach(function () {
+                        getObjectivesDefer = Q.defer();
+                        getObjectivesPromise = getObjectivesDefer.promise.fin(function () { });
+                        
+                        spyOn(objectiveRepository, 'getCollection').andReturn(getObjectivesDefer.promise);
+                        
                         viewModel.objectivesMode('display');
                     });
 
@@ -450,21 +459,13 @@
                     });
 
                     it('should get objectives from repository', function () {
-                        spyOn(objectiveRepository, 'getCollection').andReturn(Q.defer().promise);
-
                         viewModel.showAllAvailableObjectives();
                         expect(objectiveRepository.getCollection).toHaveBeenCalled();
                     });
 
                     describe('when get objectives', function () {
-                        var getObjectivesDefer,
-                            getObjectivesPromise;
 
                         beforeEach(function () {
-                            getObjectivesDefer = Q.defer();
-                            getObjectivesPromise = getObjectivesDefer.promise.fin(function () { });
-                            spyOn(objectiveRepository, 'getCollection').andReturn(getObjectivesDefer.promise);
-
                             getObjectivesDefer.resolve([{ id: '0', title: 'B' }, { id: '1', title: 'A' }]);
                         });
 
@@ -867,7 +868,6 @@
                     getById = Q.defer();
                     spyOn(repository, 'getById').andReturn(getById.promise);
                 });
-
 
                 it('should get experience from repository', function () {
                     var id = 'experienceId';

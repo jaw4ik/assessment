@@ -233,6 +233,18 @@
 
             describe('activate:', function () {
 
+                var 
+                    getObjectivesDeferred,
+                    getExperiencesDeferred;
+
+                beforeEach(function() {
+                    getObjectivesDeferred = Q.defer();
+                    getExperiencesDeferred = Q.defer();
+
+                    spyOn(objectiveRepository, 'getCollection').andReturn(getObjectivesDeferred.promise);
+                    spyOn(experienceRepository, 'getCollection').andReturn(getExperiencesDeferred.promise);
+                });
+                
                 it('should be function', function () {
                     expect(viewModel.activate).toBeFunction();
                 });
@@ -244,7 +256,6 @@
 
                 describe('when get objectives collection', function () {
 
-                    var getObjectivesDeferred;
                     var objectiveItem = { id: '1', title: 'z', image: '', questions: [{ id: 0 }, { id: 1 }], modifiedOn: 'some date' };
                     var objectivesCollection = [
                         objectiveItem,
@@ -256,9 +267,6 @@
 
                     beforeEach(function () {
                         viewModel.objectives([]);
-
-                        getObjectivesDeferred = Q.defer();
-                        spyOn(objectiveRepository, 'getCollection').andReturn(getObjectivesDeferred.promise);
                     });
 
                     it('should call repository getCollection', function () {
@@ -277,15 +285,6 @@
                     describe('and when objective received', function () {
 
                         describe('when get experiences collection', function () {
-
-                            var getExperiencesDeferred;
-
-                            beforeEach(function () {
-                                viewModel.objectives([]);
-
-                                getExperiencesDeferred = Q.defer();
-                                spyOn(experienceRepository, 'getCollection').andReturn(getExperiencesDeferred.promise);
-                            });
 
                             it('should call repository getCollection', function () {
                                 getObjectivesDeferred.resolve(objectivesCollection);
