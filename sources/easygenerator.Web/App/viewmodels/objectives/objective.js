@@ -134,11 +134,10 @@
 
             activate = function (objId) {
                 var that = this;
-
-                clientContext.set('lastVisitedObjective', objId);
                 this.currentLanguage = localizationManager.currentLanguage;
 
                 return repository.getById(objId).then(function (objective) {
+                    clientContext.set('lastVisitedObjective', objId);
                     that.objectiveId = objective.id;
                     that.title(objective.title);
 
