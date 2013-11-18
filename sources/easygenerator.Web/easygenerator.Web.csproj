@@ -690,6 +690,7 @@
     <Content Include="Templates\Quiz\App\windowOperations.spec.js">
       <DependentUpon>windowOperations.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Quiz\App\xApi\css\img\info-message.png" />
     <Content Include="Templates\Quiz\App\xApi\xApiInitializer.spec.js">
       <DependentUpon>xApiInitializer.js</DependentUpon>
     </Content>
