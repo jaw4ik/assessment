@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'plugins/router', 'eventManager', 'context', 'configuration/constants', 'xApi/activityManager', 'xApi/errorsHandler'],
+﻿define(['durandal/app', 'plugins/router', 'eventManager', 'context', 'xApi/configuration/constants', 'xApi/activityManager', 'xApi/errorsHandler'],
     function (app, router, eventManager, context, constants, activityManager, errorsHandler) {
 
         "use strict";
