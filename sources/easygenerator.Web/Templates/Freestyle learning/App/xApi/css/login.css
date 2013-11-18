@@ -11,6 +11,7 @@
 }
 
 .xapi-form-holder {
+    padding-top: 160px; 
     width: 650px;
     margin: 0 auto;
     position: relative;
@@ -18,19 +19,36 @@
 
 .xapi-form-info-message {
     width: 100%;
+    position: absolute;
+    top: 20px;
     margin-top: 20px;
     padding: 28px 20px;
     background: #ecf6fb;
     border: 1px solid #ddf3f8;
     border-radius: 5px;
+    cursor: default;
 }
 
 .xapi-form-info-text {
     display: inline-block;
+    position: relative;
     color: #3a87ad;
-    padding-left: 51px; 
+    padding-left: 51px;
+    word-break: break-all;
     font-family: Arial, sans-serif;
     font-size: 14px;
+}
+
+.xapi-form-info-text:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -16px;
+    height: 32px;
+    width: 32px;
+    background: url(img/info-message.png);
 }
 
 .xapi-form-row {
@@ -210,7 +228,3 @@
     .xapi-btn-right:hover {
         opacity: 1;
     }
-
-.xapi.navigation-btn-container {
-    padding-bottom: 30px;
-}

@@ -488,6 +488,7 @@
     <Content Include="Templates\Freestyle learning\App\xApi\configuration\settings.js" />
     <Content Include="Templates\Freestyle learning\App\xApi\constants.js" />
     <Content Include="Templates\Freestyle learning\App\xApi\css\img\icons-xApi.png" />
+    <Content Include="Templates\Freestyle learning\App\xApi\css\img\info-message.png" />
     <Content Include="Templates\Freestyle learning\App\xApi\css\img\xapierror.png" />
     <Content Include="Templates\Freestyle learning\App\xApi\css\login.css" />
     <Content Include="Templates\Freestyle learning\App\xApi\css\xAPIError.css" />
