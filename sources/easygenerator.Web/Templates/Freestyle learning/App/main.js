@@ -21,8 +21,12 @@ ko.bindingHandlers.context = {
     }
 };
 
-define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'browserSupport'],
-    function (app, viewLocator, system, getRootView) {
+define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesInitializer', 'browserSupport'],
+    function (app, viewLocator, system, modulesInitializer, getRootView) {
+
+        modulesInitializer.register([
+            "xApi/activityManager"
+        ]);
 
         app.configurePlugins({
             router: true,

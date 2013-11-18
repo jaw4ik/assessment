@@ -283,6 +283,7 @@ input[type="checkbox"] {
     padding: 9px 18px;
     width: 100%;
     word-break: break-all;
+    text-transform: uppercase;
 }
 
 /*#endregion caption partial*/

@@ -16,10 +16,11 @@
     <script type="text/javascript" src="../js/knockout-2.2.1.js"></script>
     <script type="text/javascript" src="../js/q.js"></script>
     <script type="text/javascript" src="../js/underscore-1.5.1.js"></script>
+    <script type="text/javascript" src="../js/underscore.extensions.js"></script>
 
     <!-- Source scripts -->
     <script type="text/javascript" src="../js/require.js"></script>
-
+    
     <script type="text/javascript">
 
         (function () {
@@ -42,11 +43,27 @@
             define('knockout', function () { return ko; });
 
             var specs = [
+                /*'viewmodels/shell.spec',
+                'viewmodels/feedback.spec',
+                'viewmodels/home.spec',
+                'viewmodels/learningContents.spec',
+                'viewmodels/notsupportedbrowser.spec',
+                'viewmodels/notsupportedbrowserMobile.spec',
+                'viewmodels/question.spec',
+                'viewmodels/summary.spec',
+                'viewmodels/404.spec',
+                'xApi/errorsHandler.spec',
+                'xApi/requestManager.spec',
+                'xApi/viewmodels/xAPIError.spec',*/
                 'eventManager.spec',
-                'viewmodels/xAPIError.spec',
+                'modulesInitializer.spec',
+                'windowOperations.spec',
+                'xApi/viewModels/login.spec',
                 'xApi/base64.spec',
                 'xApi/guard.spec',
                 'xApi/activityProvider.spec',
+                'xApi/routingManager.spec',
+                'xApi/activityManager.spec',
                 'xApi/requestManager.spec',
                 'xApi/errorsHandler.spec',
                 'xApi/utils/dateTimeConverter.spec',

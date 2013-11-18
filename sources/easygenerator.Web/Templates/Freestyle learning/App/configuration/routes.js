@@ -34,11 +34,6 @@
             settings: {
                 caption: 'Progress summary&nbsp;<img src="img/progress_summary_white.png" alt="" />'
             }
-        },
-        {
-            route: 'xapierror(/:backUrl)',
-            moduleId: 'viewmodels/xAPIError',
-            title: 'xAPI Error'
         }
     ];
 

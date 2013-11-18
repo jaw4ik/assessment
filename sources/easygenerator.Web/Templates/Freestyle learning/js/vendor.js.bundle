@@ -3,6 +3,7 @@
   <!--The order of the <file> elements determines the order of them when bundled.-->
   <file>/Templates/Freestyle learning/js/jquery-1.9.1.js</file>
   <file>/Templates/Freestyle learning/js/knockout-2.2.1.js</file>
+  <file>/Templates/Freestyle learning/js/knockoutBindings/focusHandlerBinding.js</file>
   <file>/Templates/Freestyle learning/js/underscore-1.5.1.js</file>
   <file>/Templates/Freestyle learning/js/underscore.extensions.js</file>
   <file>/Templates/Freestyle learning/js/q.js</file>

@@ -1,4 +1,4 @@
-﻿define(['xApi/constants'],
+﻿define(['./constants'],
     function (constants) {
 
         var

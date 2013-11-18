@@ -1,5 +1,6 @@
-﻿define(['xApi/models/actor', 'xApi/models/statement', 'xApi/models/activity', 'xApi/settings', 'eventManager', 'xApi/requestManager', 'xApi/constants', 'xApi/errorsHandler', 'xApi/models/result', 'xApi/models/score', 'xApi/models/context', 'xApi/models/contextActivities', 'xApi/utils/dateTimeConverter'],
-    function (actorModel, statementModel, activityModel, xApiSettings, eventManager, requestManager, constants, errorsHandler, resultModel, scoreModel, contextModel, contextActivitiesModel, dateTimeConverter) {
+﻿define(['./models/actor', './models/statement', './models/activity', 'eventManager', './requestManager', './errorsHandler', './configuration/settings', './constants', './models/result', './models/score', './models/context', './models/contextActivities', './utils/dateTimeConverter'],
+    function (actorModel, statementModel, activityModel, eventManager, requestManager, errorsHandler, xApiSettings, constants, resultModel, scoreModel, contextModel, contextActivitiesModel, dateTimeConverter) {
+        
         "use strict";
 
         var
@@ -7,6 +8,7 @@
                 actor: null,
                 activityName: null,
                 activityUrl: null,
+                
                 init: init,
                 createActor: createActor,
                 rootCourseUrl: null
@@ -16,8 +18,6 @@
 
         function init(actorData, activityName, activityUrl) {
             return Q.fcall(function () {
-                return requestManager.init();
-            }).then(function () {
                 if (_.isUndefined(xApiSettings.scoresDistribution.minScoreForPositiveResult) || _.isUndefined(xApiSettings.scoresDistribution.positiveVerb)) {
                     throw errorsHandler.errors.notEnoughDataInSettings;
                 }
@@ -42,8 +42,9 @@
                 eventManager.subscribeForEvent(eventManager.events.questionSubmitted).then(function (finishedEventData) {
                     return sendAnsweredQuestionsStatements(finishedEventData);
                 });
-            });
 
+                activityProvider.isInitialized = true;
+            });
         }
 
         function sendCourseStarted() {

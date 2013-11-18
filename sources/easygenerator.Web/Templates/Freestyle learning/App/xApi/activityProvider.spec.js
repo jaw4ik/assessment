@@ -1,10 +1,10 @@
-﻿define(['xApi/activityProvider'],
+﻿define(['./activityProvider'],
     function (viewModel) {
         "use strict";
 
         var eventmanager = require('eventManager'),
             requestManager = require('xApi/requestManager'),
-            xApiSettings = require('xApi/settings'),
+            xApiSettings = require('xApi/configuration/settings'),
             errorsHandler = require('xApi/errorsHandler'),
             constants = require('xApi/constants');
 
@@ -13,10 +13,9 @@
             it('should be defined', function () {
                 expect(viewModel).toBeDefined();
             });
- 
+
             describe('init:', function () {
                 var actorData, activityName, activityUrl;
-                var requestMangerInitDefer;
 
                 beforeEach(function () {
                     actorData = {
@@ -24,9 +23,6 @@
                     };
                     activityName = 'Experience';
                     activityUrl = 'http://localhost:666/template/freaestyle learning/#';
-
-                    requestMangerInitDefer = Q.defer();
-                    spyOn(requestManager, 'init').andReturn(requestMangerInitDefer.promise);
                 });
 
                 it('should be function', function () {
@@ -37,99 +33,81 @@
                     expect(viewModel.init()).toBePromise();
                 });
 
-                it('should initialize requestManger', function () {
+                var eventMangerDefer,
+                    promise;
 
-                    var promise = viewModel.init(actorData, activityName, activityUrl);
-                    requestMangerInitDefer.reject();
+                beforeEach(function () {
+                    eventMangerDefer = Q.defer();
+                    spyOn(eventmanager, 'subscribeForEvent').andReturn(eventMangerDefer.promise);
+                    promise = viewModel.init(actorData, activityName, activityUrl);
+                    xApiSettings.scoresDistribution.minScoreForPositiveResult = 1;
+                    xApiSettings.scoresDistribution.positiveVerb = constants.verbs.passed;
+                });
 
-                    waitsFor(function () {
-                        return !promise.isPending();
+                describe('when not enough data in xApiSettings', function () {
+
+                    it('should throw exception if minimum score of positive result equals \'undefined\'', function () {
+                        xApiSettings.scoresDistribution.minScoreForPositiveResult = undefined;
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith(errorsHandler.errors.notEnoughDataInSettings);
+                        });
                     });
-                    runs(function () {
-                        expect(requestManager.init).toHaveBeenCalled();
+
+                    it('should throw exception if positiveVerb equals \'undefined\'', function () {
+                        xApiSettings.scoresDistribution.positiveVerb = undefined;
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith(errorsHandler.errors.notEnoughDataInSettings);
+                        });
                     });
 
                 });
 
-                describe('when requestManager initialized', function () {
+                describe('when enough data in xApiSettings', function () {
 
-                    var eventMangerDefer,
-                        promise;
-
-                    beforeEach(function () {
-                        eventMangerDefer = Q.defer();
-                        spyOn(eventmanager, 'subscribeForEvent').andReturn(eventMangerDefer.promise);
-                        promise = viewModel.init(actorData, activityName, activityUrl);
-                        requestMangerInitDefer.resolve();
-                        xApiSettings.scoresDistribution.minScoreForPositiveResult = 1;
-                        xApiSettings.scoresDistribution.positiveVerb = constants.verbs.passed;
+                    it('should subscribe event courseFinished', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(eventmanager.subscribeForEvent).toHaveBeenCalledWith(eventmanager.events.courseFinished);
+                        });
                     });
 
-                    describe('when not enough data in xApiSettings', function () {
-
-                        it('should throw exception if minimum score of positive result equals \'undefined\'', function () {
-                            xApiSettings.scoresDistribution.minScoreForPositiveResult = undefined;
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeRejectedWith(errorsHandler.errors.notEnoughDataInSettings);
-                            });
+                    it('should subscribe event courseStarted', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
                         });
-
-                        it('should throw exception if positiveVerb equals \'undefined\'', function () {
-                            xApiSettings.scoresDistribution.positiveVerb = undefined;
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeRejectedWith(errorsHandler.errors.notEnoughDataInSettings);
-                            });
+                        runs(function () {
+                            expect(eventmanager.subscribeForEvent).toHaveBeenCalledWith(eventmanager.events.courseStarted);
                         });
-
                     });
 
-                    describe('when enough data in xApiSettings', function () {
-
-                        it('should subscribe event courseFinished', function () {
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(eventmanager.subscribeForEvent).toHaveBeenCalledWith(eventmanager.events.courseFinished);
-                            });
+                    it('should subscribe event questionSubmitted', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
                         });
-
-                        it('should subscribe event courseStarted', function () {
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(eventmanager.subscribeForEvent).toHaveBeenCalledWith(eventmanager.events.courseStarted);
-                            });
+                        runs(function () {
+                            expect(eventmanager.subscribeForEvent).toHaveBeenCalledWith(eventmanager.events.questionSubmitted);
                         });
-
-                        it('should subscribe event questionSubmitted', function () {
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(eventmanager.subscribeForEvent).toHaveBeenCalledWith(eventmanager.events.questionSubmitted);
-                            });
-                        });
-
-                        it('should subscribe event learningContentExperienced', function () {
-                            waitsFor(function () {
-                                return promise.inspect().state != 'pending';
-                            });
-                            runs(function () {
-                                expect(eventmanager.subscribeForEvent).toHaveBeenCalledWith(eventmanager.events.learningContentExperienced);
-                            });
-                        });
-
                     });
-                    
+
+                    it('should subscribe event learningContentExperienced', function () {
+                        waitsFor(function () {
+                            return promise.inspect().state != 'pending';
+                        });
+                        runs(function () {
+                            expect(eventmanager.subscribeForEvent).toHaveBeenCalledWith(eventmanager.events.learningContentExperienced);
+                        });
+                    });
+
                 });
+
 
             });
 

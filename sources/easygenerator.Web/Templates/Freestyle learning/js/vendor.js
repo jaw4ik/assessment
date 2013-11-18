@@ -9684,6 +9684,44 @@ var f=b.data("precompiled");f||(f=b.text()||"",f=F.template(p,"{{ko_with $item.k
 {open:"__.push($1 || '');"},F.tmpl.tag.ko_with={open:"with($1) {",close:"} "})};b.qa.prototype=new b.v;w=new b.qa;0<w.Db&&b.wa(w);b.b("jqueryTmplTemplateEngine",b.qa)}"function"===typeof require&&"object"===typeof exports&&"object"===typeof module?L(module.exports||exports):"function"===typeof define&&define.amd?define(["exports"],L):L(x.ko={});m;
 })();
 
+///#source 1 1 /Templates/Freestyle learning/js/knockoutBindings/focusHandlerBinding.js
+ko.bindingHandlers.focusHandler = {
+    init: function () {
+    },
+
+    update: function () {
+
+        var elem = '.xapi-form-input',
+            wrapper = elem + '-wrapper';
+
+        $(elem).focusin(function () {
+        }).blur(function () {
+        }).focusin();
+
+        $(wrapper).click(function () {
+            if ($(this).parent().find(elem).is(':focus')) {
+                $(this).bind('click mousedown mouseup', function () {
+                    return false;
+                });
+            } else {
+                $(this).bind('click mousedown mouseup', function () {
+                    return false;
+                }).parent().find(elem).focus();
+            }
+        });
+
+        $(elem).hover(function () {
+            $(this).parent().find(wrapper).toggleClass('hover');
+        });
+
+        $(elem).focusin(function () {
+            $(this).parent().find(wrapper).addClass('focus');
+        });
+        $(elem).blur(function () {
+            $(this).parent().find(wrapper).removeClass('focus');
+        });
+    }
+};
 ///#source 1 1 /Templates/Freestyle learning/js/underscore-1.5.1.js
 //     Underscore.js 1.5.1
 //     http://underscorejs.org

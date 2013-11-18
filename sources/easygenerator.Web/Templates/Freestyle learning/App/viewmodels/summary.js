@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'context', 'plugins/router', 'eventManager'],
-    function (app, context, router, eventManager) {
+﻿define(['durandal/app', 'context', 'plugins/router', 'eventManager', 'windowOperations'],
+    function (app, context, router, eventManager, windowOperations) {
         var
             objectives = [],
             score = 0,
@@ -31,27 +31,32 @@
             },
 
             finish = function () {
-                var that = this;
-                that.status(this.statuses.sendingRequests);
+                
+                status(statuses.sendingRequests);
 
-                return app.trigger(eventManager.events.courseFinished, {
+                if (_.isNullOrUndefined(app.callbacks) || _.isNullOrUndefined(app.callbacks[eventManager.events.courseFinished])) {
+                    closeCourse();
+                    return;
+                }
+
+                var that = this;
+                app.trigger(eventManager.events.courseFinished, {
                     result: Math.round(that.score) / 100,
-                    objectives: _.map(that.objectives, function (objective) {
+                    objectives: _.map(that.objectives, function(objective) {
                         return {
                             id: objective.id,
                             title: objective.title,
                             score: objective.score
                         };
                     }),
-                    callback: function () {
-                        eventManager.turnAllEventsOff();
-                        that.status(that.statuses.finished);
-                        window.close();
-                        if (navigator.appName != "Microsoft Internet Explorer") {
-                            setTimeout("alert('Thank you. It is now safe to close this page.')", 100);
-                        }
-                    }
+                    callback: closeCourse
                 });
+            },
+            
+            closeCourse = function () {
+                eventManager.turnAllEventsOff();
+                status(statuses.finished);
+                windowOperations.close();
             };
 
         return {

@@ -1,0 +1,196 @@
+.login .content {
+    margin-top: 50px;
+}
+
+.login .caption-icon-image {
+    background-position: 0 -56px;
+}
+
+.module-experienceapi {
+	margin-bottom: 50px;
+}
+
+.xapi-form-holder {
+	padding-top: 90px;
+	width: 650px;
+	margin: 0 auto;
+}
+
+.xapi-form-row {
+	height: 100px;
+	display: table;	
+	width: 100%;
+}
+
+.xapi-form-row-left {
+	display: table-cell;
+	vertical-align: middle;
+	width: 37%;
+}
+
+.xapi-form-row-title {
+	display: inline-block;
+	vertical-align: top;
+	position: relative;	
+	padding-left: 32px;
+	color: #5d6167;
+	font-family: Tahoma, sans-serif;
+	font-size: 16px;
+	text-transform: uppercase;
+}
+
+.xapi-form-message {
+	display: none;
+	position: absolute;
+	left: 0;
+	top: 100%;
+	padding-left: 21px;
+	margin-top: -7px;
+	
+	font-size: 13px;
+}
+
+.xapi-form-row.error .xapi-form-message {
+	display: block;
+	color: #953b39;
+	text-align: left;
+}
+
+.xapi-form-message:after {
+	content: '';
+	position: absolute;
+	top: 8px;
+	left: 3px;
+	display: block;
+	width: 11px;
+	height: 8px;
+	font-size: 12px;
+	background: url(img/icons-xApi.png) -7px -47px;
+}
+
+
+.xapi-form-row-title:after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 2px;
+	left: 0;
+	width: 22px;
+	height: 20px;
+	background: url(img/icons-xApi.png) no-repeat;
+}
+
+.email .xapi-form-row-title:after {	
+	background-position: 0 -20px;
+}
+
+.name .xapi-form-row-title:after {	
+	background-position: 0 2px;
+}
+
+.xapi-form-input-holder {
+	position: relative;
+	padding: 6px 40px 6px 20px;
+	height: 60px;
+}
+
+.xapi-form-input {
+	display: block;
+	position: relative;
+	max-width: 340px;
+	height: 24px;
+	width: 100%;
+	top: 13px;
+	left: 0;
+	right: 40px;
+	border: none;
+	color: #191919;
+	font-size: 16px;	
+}
+
+.xapi-form-input:focus,
+.xapi-form-input:active {
+	outline: none;
+}
+
+.xapi-form-input-wrapper {
+	width: 100%;
+	height: 48px;
+	position: absolute;
+	left: 0;
+	display: inline-block;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 11px 40px 11px 20px;
+	background: #fff;
+	border: solid 1px #ccc;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	cursor: text;
+}
+
+.xapi-form-input-wrapper:hover,
+.xapi-form-input-wrapper.hover {
+	outline: none;
+	-webkit-box-shadow: 0 0 3px #dedede;
+	-moz-box-shadow: 0 0 3px #dedede;
+	box-shadow: 0 0 3px #dedede;
+}
+
+
+.xapi-form-input-wrapper.focus {
+    outline: none;
+    border: solid 1px #5698bb;
+    -webkit-box-shadow: 0 0 2px #5698bb;
+    -moz-box-shadow: 0 0 2px #5698bb;
+    box-shadow: 0 0 2px #5698bb;
+}
+
+.xapi-form-row.error .xapi-form-input-wrapper {
+	border: solid 1px #953b39;
+    -webkit-box-shadow: 0 0 2px #953b39;
+    -moz-box-shadow: 0 0 2px #953b39;
+    box-shadow: 0 0 2px #953b39;
+}
+
+.xapi-form-row-right {
+	display: table-cell;
+	vertical-align: middle;
+	width: 62%;
+}
+
+.xapi-btn-left,
+.xapi-btn-right {
+	width: 46%;
+	height: 52px;
+	line-height: 20px;
+	padding: 15px 10px;
+	color: #fff;
+	font-size: 18px;
+	text-align: center;
+	white-space: nowrap;
+	-ms-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	opacity: 0.8;
+}
+
+.xapi-btn-left:hover,
+.xapi-btn-right:hover {
+	opacity: 1;
+}
+
+.xapi.navigation-btn-container {
+	padding-bottom: 30px;
+}
+
+.xapi-btn-left {
+	background-color: #343a41;
+}
+
+.xapi-btn-right {
+	background-color: #5698bb;
+}
+
