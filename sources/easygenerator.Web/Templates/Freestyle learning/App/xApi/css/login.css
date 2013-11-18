@@ -30,11 +30,11 @@
 }
 
 .xapi-form-info-text {
-    display: inline-block;
+    display: block;
     position: relative;
     color: #3a87ad;
     padding-left: 51px;
-    word-break: break-all;
+    word-wrap: break-word;
     font-family: Arial, sans-serif;
     font-size: 14px;
 }
