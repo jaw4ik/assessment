@@ -10,7 +10,7 @@
             experienceModel = require('models/experience'),
             constants = require('constants'),
             localizationManage = require('localization/localizationManager'),
-            clientContext = require('clientContext');
+            notify = require('notify');
 
         var
             template = { id: '0', name: 'name', image: 'img' },
@@ -565,7 +565,6 @@
                 });
 
                 describe('when more that 1 experience are selected', function () {
-                    var notify = require('notify');
                     
                     it('should show error notification', function () {
                         viewModel.experiences([{ isSelected: ko.observable(true) }, { isSelected: ko.observable(true) }]);
@@ -579,7 +578,6 @@
 
                 describe('when there is only 1 selected objective', function () {
 
-                    var notify = require('notify');
                     var repository = require('repositories/experienceRepository');
 
                     var removeExperience;
@@ -763,6 +761,23 @@
                 describe('when build is finished', function () {
 
                     describe('and build failed', function () {
+
+                        it('should show error notification', function() {
+                            spyOn(notify, 'error');
+                            
+                            viewModel.buildExperience(experience);
+
+                            eventTracker.publish.reset();
+                            buildDeferred.reject("Experience build is failed");
+
+                            waitsFor(function () {
+                                return !buildPromise.isPending();
+                            });
+                            runs(function () {
+                                expect(notify.error).toHaveBeenCalledWith('Experience build is failed');
+                            });
+                        });
+                        
 
                         it('should send event \'Experience build is failed\'', function () {
                             viewModel.buildExperience(experience);

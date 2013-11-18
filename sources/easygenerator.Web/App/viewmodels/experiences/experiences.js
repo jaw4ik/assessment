@@ -105,7 +105,8 @@
             if (experience.isSelected())
                 experience.isSelected(false);
 
-            experienceService.build(experience.id).fail(function () {
+            experienceService.build(experience.id).fail(function (reason) {
+                notify.error(reason);
                 sendEvent(events.experienceBuildFailed);
             });
         }
