@@ -31,22 +31,6 @@
 
             });
 
-            describe('sortingOptions:', function () {
-
-                it('should be defined', function() {
-                    expect(viewModel.sortingOptions).toBeDefined();
-                });
-
-            });
-
-            describe('currentSortingOption:', function() {
-
-                it('should be observable', function () {
-                    expect(viewModel.currentSortingOption).toBeObservable();
-                });
-
-            });
-
             describe('currentLanguage:', function() {
 
                 it('should be defined', function() {
@@ -106,70 +90,6 @@
                 it('should navigate to #/experiences', function () {
                     viewModel.navigateToExperiences();
                     expect(router.navigate).toHaveBeenCalledWith('experiences');
-                });
-
-            });
-
-            describe('sortByTitleAsc', function () {
-
-                it('should be a function', function () {
-                    expect(viewModel.sortByTitleAsc).toBeFunction();
-                });
-
-                it('should send event \'Sort by title ascending\'', function () {
-                    viewModel.sortByTitleAsc();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Sort by title ascending');
-                });
-
-                it('should set currentSortingOption observable', function () {
-                    viewModel.sortByTitleAsc();
-                    expect(viewModel.currentSortingOption()).toEqual(constants.sortingOptions.byTitleAsc);
-                });
-
-                it('should sort objectives by title ascending', function () {
-                    var objectives = [
-                        { id: '1', title: 'c' },
-                        { id: '2', title: 'z' },
-                        { id: '3', title: 'B' },
-                        { id: '4', title: 'a' },
-                        { id: '5', title: 'A' },
-                        { id: '6', title: 'b' }
-                    ];
-                    viewModel.objectives(objectives);
-                    viewModel.sortByTitleAsc();
-                    expect(viewModel.objectives()).toBeSortedAsc('title');
-                });
-
-            });
-
-            describe('sortByTitleDesc', function () {
-
-                it('should be a function', function () {
-                    expect(viewModel.sortByTitleDesc).toBeFunction();
-                });
-
-                it('should send event \'Sort by title descending\'', function () {
-                    viewModel.sortByTitleDesc();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Sort by title descending');
-                });
-
-                it('should set currentSortingOption observable', function () {
-                    viewModel.sortByTitleDesc();
-                    expect(viewModel.currentSortingOption()).toEqual(constants.sortingOptions.byTitleDesc);
-                });
-
-                it('should sort objectives by title descending', function () {
-                    var objectives = [
-                        { id: '1', title: 'a' },
-                        { id: '2', title: 'A' },
-                        { id: '3', title: 'Z' },
-                        { id: '4', title: 'c' },
-                        { id: '5', title: 'z' },
-                        { id: '6', title: 'B' }
-                    ];
-                    viewModel.objectives(objectives);
-                    viewModel.sortByTitleDesc();
-                    expect(viewModel.objectives()).toBeSortedDesc('title');
                 });
 
             });
@@ -442,38 +362,18 @@
                                     });
 
                                 });
+                                
+                                it('should sort objectives collection asc by title', function () {
+                                    getObjectivesDeferred.resolve(objectivesCollection);
+                                    getExperiencesDeferred.resolve([]);
 
-                                describe('when currectSorting option is \'asc\'', function () {
-                                    it('should sort objectives collection asc', function () {
-                                        viewModel.currentSortingOption(constants.sortingOptions.byTitleAsc);
-                                        getObjectivesDeferred.resolve(objectivesCollection);
-                                        getExperiencesDeferred.resolve([]);
-
-                                        var promise = viewModel.activate();
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(promise).toBeResolved();
-                                            expect(viewModel.objectives()).toBeSortedAsc('title');
-                                        });
+                                    var promise = viewModel.activate();
+                                    waitsFor(function () {
+                                        return !promise.isPending();
                                     });
-                                });
-
-                                describe('when currectSorting option is \'desc\'', function () {
-                                    it('should sort objectives collection asc', function () {
-                                        viewModel.currentSortingOption(constants.sortingOptions.byTitleDesc);
-                                        getObjectivesDeferred.resolve(objectivesCollection);
-                                        getExperiencesDeferred.resolve([]);
-
-                                        var promise = viewModel.activate();
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(promise).toBeResolved();
-                                            expect(viewModel.objectives()).toBeSortedDesc('title');
-                                        });
+                                    runs(function () {
+                                        expect(promise).toBeResolved();
+                                        expect(viewModel.objectives()).toBeSortedAsc('title');
                                     });
                                 });
 

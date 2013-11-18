@@ -58,57 +58,6 @@
 
             });
 
-            describe('sortingOptions:', function () {
-
-                it('should be defined', function () {
-                    expect(viewModel.sortingOptions).toBeDefined();
-                });
-
-            });
-
-            describe('currentSortingOption', function () {
-
-                it('should be observable', function () {
-                    expect(viewModel.currentSortingOption).toBeObservable();
-                });
-
-            });
-
-            describe('enableSorting:', function () {
-
-                it('should be computed', function () {
-                    expect(viewModel.enableSorting).toBeComputed();
-                });
-
-                describe('when there are no experiences', function () {
-
-                    it('should be false', function () {
-                        viewModel.experiences([]);
-                        expect(viewModel.enableSorting()).toBeFalsy();
-                    });
-
-                });
-
-                describe('when there is only one experience', function () {
-
-                    it('should be false', function () {
-                        viewModel.experiences([{}]);
-                        expect(viewModel.enableSorting()).toBeFalsy();
-                    });
-
-                });
-
-                describe('when there are more than one experience', function () {
-
-                    it('should be true', function () {
-                        viewModel.experiences([{}, {}]);
-                        expect(viewModel.enableSorting()).toBeTruthy();
-                    });
-
-                });
-
-            });
-
             describe('buildingStatuses:', function () {
 
                 it('should be defined', function () {
@@ -141,7 +90,6 @@
                     dataContext.experiences = experiences;
                     viewModel.activate();
                     expect(viewModel.experiences()).toBeSortedAsc('title');
-                    expect(viewModel.currentSortingOption()).toBe(constants.sortingOptions.byTitleAsc);
                 });
 
                 it('should set current language', function () {
@@ -643,72 +591,6 @@
                         });
                     });
 
-                });
-
-            });
-
-            describe('sortByTitleAsc:', function () {
-
-                beforeEach(function () {
-                    viewModel.experiences([
-                        { title: "title 3" },
-                        { title: "title 1" },
-                        { title: "title 2" }
-                    ]);
-                });
-
-                it('should be a function', function () {
-                    expect(viewModel.sortByTitleAsc).toBeFunction();
-                });
-
-                it('should set currentSortingoption to constants.sortingOptions.byTitleAsc', function () {
-                    viewModel.sortByTitleAsc();
-                    expect(viewModel.currentSortingOption()).toBe(constants.sortingOptions.byTitleAsc);
-                });
-
-                it('should sort experiences', function () {
-                    viewModel.sortByTitleDesc();
-                    viewModel.sortByTitleAsc();
-                    expect(viewModel.experiences()).toBeSortedAsc('title');
-                });
-
-                it('should send event \"Sort by title ascending\"', function () {
-                    viewModel.currentSortingOption(constants.sortingOptions.byTitleDesc);
-                    viewModel.sortByTitleAsc();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Sort by title ascending');
-                });
-
-            });
-
-            describe('sortByTitleDesc:', function () {
-
-                beforeEach(function () {
-                    viewModel.experiences([
-                        { title: "title 3" },
-                        { title: "title 1" },
-                        { title: "title 2" }
-                    ]);
-                });
-
-                it('should be a function', function () {
-                    expect(viewModel.sortByTitleDesc).toBeFunction();
-                });
-
-                it('should set currentSortingoption to constants.sortingOptions.byTitleDesc', function () {
-                    viewModel.sortByTitleDesc();
-                    expect(viewModel.currentSortingOption()).toBe(constants.sortingOptions.byTitleDesc);
-                });
-
-                it('should sort experiences', function () {
-                    viewModel.sortByTitleAsc();
-                    viewModel.sortByTitleDesc();
-                    expect(viewModel.experiences()).toBeSortedDesc('title');
-                });
-
-                it('should send event \"Sort by title descending\"', function () {
-                    viewModel.currentSortingOption(constants.sortingOptions.byTitleAsc);
-                    viewModel.sortByTitleDesc();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Sort by title descending');
                 });
 
             });

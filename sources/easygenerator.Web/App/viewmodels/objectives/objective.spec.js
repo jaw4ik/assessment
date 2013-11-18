@@ -134,35 +134,15 @@
                             expect(viewModel.questions().length).toBe(objective.questions.length);
                         });
                     });
-
-                    describe('when currentSortingOption is asc', function () {
-
-                        it('should sort questions asc', function () {
-                            viewModel.currentSortingOption(constants.sortingOptions.byTitleAsc);
-                            var promise = viewModel.activate(objective.id, null);
-                            waitsFor(function () {
-                                return promise.isFulfilled();
-                            });
-                            runs(function () {
-                                expect(viewModel.questions).toBeSortedAsc('title');
-                            });
+                    
+                    it('should sort questions asc', function () {
+                        var promise = viewModel.activate(objective.id, null);
+                        waitsFor(function () {
+                            return promise.isFulfilled();
                         });
-
-                    });
-
-                    describe('when currentSortingOption is desc', function () {
-
-                        it('should sort questions desc', function () {
-                            viewModel.currentSortingOption(constants.sortingOptions.byTitleDesc);
-                            var promise = viewModel.activate(objective.id, null);
-                            waitsFor(function () {
-                                return promise.isFulfilled();
-                            });
-                            runs(function () {
-                                expect(viewModel.questions).toBeSortedDesc('title');
-                            });
+                        runs(function () {
+                            expect(viewModel.questions).toBeSortedAsc('title');
                         });
-
                     });
 
                 });
@@ -473,46 +453,6 @@
                     viewModel.navigateToCreateQuestion();
 
                     expect(router.navigateWithQueryString).toHaveBeenCalledWith('objective/' + viewModel.objectiveId + '/question/create');
-                });
-
-            });
-
-            describe('sortByTitleAsc', function () {
-
-                it('should send event \"Sort questions by title ascending\"', function () {
-                    viewModel.sortByTitleAsc();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Sort questions by title ascending');
-                });
-
-                it('should change sorting option to constants.sortingOptions.byTitleAcs', function () {
-                    viewModel.sortByTitleAsc();
-                    expect(viewModel.currentSortingOption()).toBe(constants.sortingOptions.byTitleAsc);
-                });
-
-                it('should sort questions', function () {
-                    viewModel.questions(ko.observableArray(objective.questions));
-                    viewModel.sortByTitleAsc();
-                    expect(viewModel.questions()).toBeSortedAsc('title');
-                });
-
-            });
-
-            describe('sortByTitleDesc', function () {
-
-                it('should send event \"Sort questions by title descending\"', function () {
-                    viewModel.sortByTitleDesc();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Sort questions by title descending');
-                });
-
-                it('should change sorting option to constants.sortingOptions.byTitleDecs', function () {
-                    viewModel.sortByTitleDesc();
-                    expect(viewModel.currentSortingOption()).toBe(constants.sortingOptions.byTitleDesc);
-                });
-
-                it('should sort questions', function () {
-                    viewModel.questions(ko.observableArray([objective.questions]));
-                    viewModel.sortByTitleDesc();
-                    expect(viewModel.questions()).toBeSortedDesc('title');
                 });
 
             });

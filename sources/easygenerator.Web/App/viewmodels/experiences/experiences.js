@@ -5,8 +5,6 @@
         var
             events = {
                 navigateToObjectives: 'Navigate to objectives',
-                sortByTitleAsc: 'Sort by title ascending',
-                sortByTitleDesc: 'Sort by title descending',
                 navigateToCreateExperience: 'Navigate to create experience',
                 experienceSelected: 'Experience selected',
                 experienceUnselected: 'Experience unselected',
@@ -17,105 +15,72 @@
                 deleteExperiences: "Delete selected experiences"
             },
 
-            sendEvent = function (eventName) {
-                eventTracker.publish(eventName);
-            },
-
             storage = [];
 
+        var
+            viewModel = {
+                experiences: ko.observableArray([]),
+                toggleSelection: toggleSelection,
 
-        var viewModel = {
-            experiences: ko.observableArray([]),
-            toggleSelection: toggleSelection,
+                navigateToCreation: navigateToCreation,
+                navigateToDetails: navigateToDetails,
+                navigateToObjectives: navigateToObjectives,
 
-            sortByTitleAsc: sortByTitleAsc,
-            sortByTitleDesc: sortByTitleDesc,
-            currentSortingOption: ko.observable(constants.sortingOptions.byTitleAsc),
-            sortingOptions: constants.sortingOptions,
+                buildingStatuses: constants.buildingStatuses,
+                buildExperience: buildExperience,
+                downloadExperience: downloadExperience,
+                enableOpenExperience: enableOpenExperience,
+                resetBuildStatus: resetBuildStatus,
 
-            navigateToCreation: navigateToCreation,
-            navigateToDetails: navigateToDetails,
-            navigateToObjectives: navigateToObjectives,
+                deleteSelectedExperiences: deleteSelectedExperiences,
+                lastVistedExperienceId: '',
+                currentLanguage: '',
 
-            buildingStatuses: constants.buildingStatuses,
-            buildExperience: buildExperience,
-            downloadExperience: downloadExperience,
-            enableOpenExperience: enableOpenExperience,
-            resetBuildStatus: resetBuildStatus,
-
-            deleteSelectedExperiences: deleteSelectedExperiences,
-            lastVistedExperienceId: '',
-            currentLanguage: '',
-
-            activate: activate,
-            deactivate: deactivate
-        };
-
-        viewModel.enableSorting = ko.computed(function () {
-            return this.experiences().length > 1;
-        }, viewModel);
+                activate: activate,
+                deactivate: deactivate
+            };
 
         function toggleSelection(experience) {
             if (!experience.isSelected())
-                sendEvent(events.experienceSelected);
+                eventTracker.publish(events.experienceSelected);
             else
-                sendEvent(events.experienceUnselected);
+                eventTracker.publish(events.experienceUnselected);
 
             experience.isSelected(!experience.isSelected());
         }
-
-        function sortByTitleAsc() {
-            if (viewModel.currentSortingOption() == constants.sortingOptions.byTitleAsc)
-                return;
-
-            sendEvent(events.sortByTitleAsc);
-            viewModel.currentSortingOption(constants.sortingOptions.byTitleAsc);
-            viewModel.experiences(_.sortBy(viewModel.experiences(), function (experience) { return experience.title.toLowerCase(); }));
-        }
-
-        function sortByTitleDesc() {
-            if (viewModel.currentSortingOption() == constants.sortingOptions.byTitleDesc)
-                return;
-
-            sendEvent(events.sortByTitleDesc);
-            viewModel.currentSortingOption(constants.sortingOptions.byTitleDesc);
-            viewModel.experiences(_.sortBy(viewModel.experiences(), function (experience) { return experience.title.toLowerCase(); }).reverse());
-        }
-
-
+        
         function navigateToCreation() {
-            sendEvent(events.navigateToCreateExperience);
+            eventTracker.publish(events.navigateToCreateExperience);
             router.navigate('experience/create');
         }
 
         function navigateToDetails(experience) {
-            sendEvent(events.navigateToDetails);
+            eventTracker.publish(events.navigateToDetails);
             router.navigate('experience/' + experience.id);
         }
 
         function navigateToObjectives() {
-            sendEvent(events.navigateToObjectives);
+            eventTracker.publish(events.navigateToObjectives);
             router.navigate('objectives');
         }
 
 
         function buildExperience(experience) {
-            sendEvent(events.buildExperience);
+            eventTracker.publish(events.buildExperience);
 
             if (experience.isSelected())
                 experience.isSelected(false);
 
             experienceService.build(experience.id).fail(function (reason) {
                 notify.error(reason);
-                sendEvent(events.experienceBuildFailed);
+                eventTracker.publish(events.experienceBuildFailed);
             });
         }
 
         function downloadExperience(experience) {
-            sendEvent(events.downloadExperience);
+            eventTracker.publish(events.downloadExperience);
             router.download('download/' + experience.packageUrl());
         }
-
 
         function resetBuildStatus(experience) {
             experience.buildingStatus(constants.buildingStatuses.notStarted);
@@ -136,7 +101,7 @@
         });
 
         function deleteSelectedExperiences() {
-            sendEvent(events.deleteExperiences);
+            eventTracker.publish(events.deleteExperiences);
 
             var selectedExperiences = getSelectedExperiences();
             if (selectedExperiences.length == 0) {
@@ -169,8 +134,6 @@
             viewModel.currentLanguage = localizationManager.currentLanguage;
 
             clientContext.set('lastVistedExperience', null);
-
-            sortedExperiences = viewModel.currentSortingOption() == constants.sortingOptions.byTitleAsc ? sortedExperiences : sortedExperiences.reverse();
 
             viewModel.experiences(_.map(sortedExperiences, function (item) {
                 var experience = {};

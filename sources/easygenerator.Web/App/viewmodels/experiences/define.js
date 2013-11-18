@@ -1,6 +1,6 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/experienceRepository', 'services/buildExperience', 'viewmodels/objectives/objectiveBrief',
-        'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'repositories/templateRepository', 'clientContext'],
-    function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, templateRepository, clientContext) {
+        'localization/localizationManager', 'notify', 'repositories/objectiveRepository'],
+    function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository) {
         "use strict";
 
         var

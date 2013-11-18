@@ -2,21 +2,18 @@
     function (dataContext, constants, eventTracker, localizationManager, router, repository, experienceRepository, questionRepository, notify, clientContext) {
         "use strict";
 
-        var events = {
-            updateObjectiveTitle: "Update objective title",
-            navigateToEditQuestion: "Navigate to edit question",
-            navigateToCreateQuestion: "Navigate to create question",
-            sortByTitleAsc: "Sort questions by title ascending",
-            sortByTitleDesc: "Sort questions by title descending",
-            selectQuestion: "Select question",
-            unselectQuestion: "Unselect question",
-            deleteSelectedQuestions: "Delete question"
-        },
-            sendEvent = function (eventName) {
-                eventTracker.publish(eventName);
+        var
+            events = {
+                updateObjectiveTitle: "Update objective title",
+                navigateToEditQuestion: "Navigate to edit question",
+                navigateToCreateQuestion: "Navigate to create question",
+                selectQuestion: "Select question",
+                unselectQuestion: "Unselect question",
+                deleteSelectedQuestions: "Delete question"
             };
 
-        var objectiveId = null,
+        var
+            objectiveId = null,
             title = ko.observable(''),
             currentLanguage = '';
 
@@ -42,7 +39,7 @@
                     if (title() == objectiveTitle)
                         return;
 
-                    sendEvent(events.updateObjectiveTitle);
+                    eventTracker.publish(events.updateObjectiveTitle);
 
                     if (title.isValid()) {
                         repository.updateObjective({ id: that.objectiveId, title: that.title() }).then(function () {
@@ -56,22 +53,8 @@
 
             questions = ko.observableArray([]),
 
-            currentSortingOption = ko.observable(constants.sortingOptions.byTitleAsc),
-
-            sortByTitleAsc = function () {
-                sendEvent(events.sortByTitleAsc);
-                currentSortingOption(constants.sortingOptions.byTitleAsc);
-                questions(_.sortBy(questions(), function (question) { return question.title.toLowerCase(); }));
-            },
-
-            sortByTitleDesc = function () {
-                sendEvent(events.sortByTitleDesc);
-                currentSortingOption(constants.sortingOptions.byTitleDesc);
-                questions(_.sortBy(questions(), function (question) { return question.title.toLowerCase(); }).reverse());
-            },
-
             navigateToEditQuestion = function (question) {
-                sendEvent(events.navigateToEditQuestion);
+                eventTracker.publish(events.navigateToEditQuestion);
                 if (_.isNullOrUndefined(question)) {
                     throw 'Question is null or undefined';
                 }
@@ -84,18 +67,18 @@
             },
 
             navigateToCreateQuestion = function () {
-                sendEvent(events.navigateToCreateQuestion);
+                eventTracker.publish(events.navigateToCreateQuestion);
                 router.navigateWithQueryString('objective/' + this.objectiveId + '/question/create');
             },
 
             deleteSelectedQuestions = function () {
-                sendEvent(events.deleteSelectedQuestions);
+                eventTracker.publish(events.deleteSelectedQuestions);
                 var selectedQuestions = getSelectedQuestions();
                 if (selectedQuestions.length == 0)
                     throw 'No selected questions to delete';
 
                 var that = this;
-                
+
                 var questionIds = _.map(selectedQuestions, function (item) {
                     return item.id;
                 });
@@ -118,7 +101,7 @@
                 }
 
                 question.isSelected(!question.isSelected());
-                sendEvent(question.isSelected() ? events.selectQuestion : events.unselectQuestion);
+                eventTracker.publish(question.isSelected() ? events.selectQuestion : events.unselectQuestion);
             },
 
             mapQuestion = function (item) {
@@ -141,15 +124,14 @@
                     that.objectiveId = objective.id;
                     that.title(objective.title);
 
-                    var array = _.chain(objective.questions)
-                        .map(function (item) {
-                            return mapQuestion(item);
-                        })
-                        .sortBy(function (question) { return question.title.toLowerCase(); })
-                        .value();
+                    var array = _.chain(objective.questions).map(function (item) {
+                        return mapQuestion(item);
+                    }).sortBy(function (question) {
+                        return question.title.toLowerCase();
+                    }).value();
 
-                    that.questions(currentSortingOption() == constants.sortingOptions.byTitleAsc ? array : array.reverse());
-                }).fail(function(reason) {
+                    that.questions(array);
+                }).fail(function (reason) {
                     router.replace('404');
                     return;
                 });
@@ -176,11 +158,6 @@
 
             startEditTitle: startEditTitle,
             endEditTitle: endEditTitle,
-
-            sortByTitleAsc: sortByTitleAsc,
-            sortByTitleDesc: sortByTitleDesc,
-            currentSortingOption: currentSortingOption,
-            sortingOptions: constants.sortingOptions,
 
             navigateToEditQuestion: navigateToEditQuestion,
             navigateToCreateQuestion: navigateToCreateQuestion,
