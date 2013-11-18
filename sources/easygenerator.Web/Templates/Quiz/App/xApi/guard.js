@@ -1,11 +1,11 @@
-﻿define(['xApi/constants'],
+﻿define(['./constants'],
     function (constants) {
 
         var
             mailRegex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/,
             isoDurationRegex = /^PT[0-9]{1,2}H[0-9]{1,2}M[0-9]{1,2}S$/,
 
-            throwIfNotISODuration = function(duration, message) {
+            throwIfNotISODuration = function (duration, message) {
                 if (!_.isString(duration)) {
                     throw message;
                 }

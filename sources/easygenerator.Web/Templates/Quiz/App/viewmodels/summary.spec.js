@@ -5,7 +5,9 @@
         viewModel = require('viewmodels/summary'),
         router = require('plugins/router'),
         context = require('context'),
-        app = require('durandal/app');
+        app = require('durandal/app'),
+        eventManager = require('eventManager'),
+        windowOperations = require('windowOperations');
 
     describe('viewModel [summary]', function () {
 
@@ -143,18 +145,75 @@
                 expect(viewModel.finish).toBeFunction();
             });
 
-
             beforeEach(function () {
-                spyOn(app, 'trigger');
-                spyOn(app, 'off');
-                spyOn(window, 'close');
+                spyOn(eventManager, 'turnAllEventsOff');
+                spyOn(windowOperations, 'close');
             });
 
-            it('should trigger \'events.courseFinished\' event', function () {
-                viewModel.finish();
-                expect(app.trigger).toHaveBeenCalled();
+            describe('when app.callbacks is undefined', function () {
+
+                beforeEach(function () {
+                    app.callbacks = undefined;
+                });
+
+                it('should turn off all events', function () {
+                    viewModel.finish();
+                    expect(eventManager.turnAllEventsOff).toHaveBeenCalled();
+                });
+
+                it('should change status to finished', function () {
+                    viewModel.status('');
+                    viewModel.finish();
+                    expect(viewModel.status()).toBe(viewModel.statuses.finished);
+                });
+
+                it('should close window', function () {
+                    viewModel.finish();
+                    expect(windowOperations.close).toHaveBeenCalled();
+                });
+
+                it('should not trigger events', function () {
+                    spyOn(app, 'trigger');
+                    viewModel.finish();
+                    expect(app.trigger).not.toHaveBeenCalled();
+                });
+
+            });
+
+            describe('when app.callbacks is undefined', function () {
+
+                beforeEach(function () {
+                    app.callbacks = [];
+                    app.on(eventManager.events.courseFinished, function (finishedEventData) {
+                        finishedEventData.callback();
+                    });
+                });
+
+                it('should trigger \'events.courseFinished\' event', function () {
+                    spyOn(app, 'trigger');
+                    viewModel.finish();
+                    expect(app.trigger).toHaveBeenCalled();
+                });
+
+                it('should turn off all events', function () {
+                    viewModel.finish();
+                    expect(eventManager.turnAllEventsOff).toHaveBeenCalled();
+                });
+
+                it('should change status to finished', function () {
+                    viewModel.status('');
+                    viewModel.finish();
+                    expect(viewModel.status()).toBe(viewModel.statuses.finished);
+                });
+
+                it('should close window', function () {
+                    viewModel.finish();
+                    expect(windowOperations.close).toHaveBeenCalled();
+                });
+
             });
 
         });
+        
     });
 });

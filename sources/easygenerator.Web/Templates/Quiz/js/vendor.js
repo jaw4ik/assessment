@@ -9691,6 +9691,44 @@ var f=b.data("precompiled");f||(f=b.text()||"",f=F.template(p,"{{ko_with $item.k
 {open:"__.push($1 || '');"},F.tmpl.tag.ko_with={open:"with($1) {",close:"} "})};b.qa.prototype=new b.v;w=new b.qa;0<w.Db&&b.wa(w);b.b("jqueryTmplTemplateEngine",b.qa)}"function"===typeof require&&"object"===typeof exports&&"object"===typeof module?L(module.exports||exports):"function"===typeof define&&define.amd?define(["exports"],L):L(x.ko={});m;
 })();
 
+///#source 1 1 /Templates/Quiz/js/knockoutBindings/focusHandlerBinding.js
+ko.bindingHandlers.focusHandler = {
+    init: function () {
+    },
+
+    update: function () {
+
+        var elem = '.xapi-form-input',
+            wrapper = elem + '-wrapper';
+
+        $(elem).focusin(function () {
+        }).blur(function () {
+        }).focusin();
+
+        $(wrapper).click(function () {
+            if ($(this).parent().find(elem).is(':focus')) {
+                $(this).bind('click mousedown mouseup', function () {
+                    return false;
+                });
+            } else {
+                $(this).bind('click mousedown mouseup', function () {
+                    return false;
+                }).parent().find(elem).focus();
+            }
+        });
+
+        $(elem).hover(function () {
+            $(this).parent().find(wrapper).toggleClass('hover');
+        });
+
+        $(elem).focusin(function () {
+            $(this).parent().find(wrapper).addClass('focus');
+        });
+        $(elem).blur(function () {
+            $(this).parent().find(wrapper).removeClass('focus');
+        });
+    }
+};
 ///#source 1 1 /Templates/Quiz/js/circleProgressBinding.js
 ko.bindingHandlers.circleProgress = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
@@ -12764,6 +12802,31 @@ return Q;
 
 }).call(this);
 
+///#source 1 1 /Templates/Quiz/js/underscore.extensions.js
+(function () {
+    "use strict";
+    if (typeof (_) !== "function") {
+        throw new Error("underscore not found.");
+    }
+
+    _.isEmptyOrWhitespace = function (obj) {
+        if (!_.isString(obj))
+            throw new TypeError;
+
+        return _.isEmpty(obj.trim());
+    };
+
+    _.isNullOrUndefined = function (obj) {
+        return _.isUndefined(obj) || _.isNull(obj);
+    };
+
+    _.isEmptyHtmlText = function(obj) {
+        var removeTagsRegex = /<\s*p\s*>(\s|&nbsp;|<\/?\s?br\s?\/?>)*<\s*\/p\s*>|<\s*p\s*\/>|(\s|&nbsp;|<\/?\s?br\s?\/?>)*/g;
+        var textWithoutTagsAndWhiteSpace = obj.replace(removeTagsRegex, '').trim();
+        return _.isEmpty(textWithoutTagsAndWhiteSpace);
+    };
+
+})();
 ///#source 1 1 /Templates/Quiz/js/scrollBinding.js
 ko.bindingHandlers.scroll = {
     updating: true,

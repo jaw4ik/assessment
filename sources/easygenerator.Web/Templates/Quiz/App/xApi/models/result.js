@@ -1,4 +1,4 @@
-﻿define(['xApi/guard', 'xApi/models/score'],
+﻿define(['../guard', './score'],
     function (guard, scoreModel) {
         
         var statement = function (spec) {

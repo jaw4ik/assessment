@@ -1,4 +1,4 @@
-﻿define(['xApi/guard', 'xApi/models/object'],
+﻿define(['../guard', './object'],
     function (guard, object) {
 
         var actor = function (spec) {

@@ -26,6 +26,22 @@
         
         toBePromise: function() {
             return toBePromise(this.actual);
+        },
+
+        toBeResolved: function () {
+            return toBeResolved.call(this, this.actual);
+        },
+
+        toBeResolvedWith: function (value) {
+            return toBeResolvedWith.apply(this, [this.actual, value]);
+        },
+
+        toBeRejected: function () {
+            return toBeRejected.call(this, this.actual);
+        },
+
+        toBeRejectedWith: function (reason) {
+            return toBeRejectedWith.apply(this, [this.actual, reason]);
         }
         
     };
@@ -120,4 +136,65 @@ function toBePromise(actual) {
     };
 
     return toBeObject(actual) && actual.then !== undefined && toBeFunction(actual.then);
+}
+
+function toBeResolved(actual) {
+    if (this.isNot) {
+        throw '[.not] is not supported';
+    }
+
+    if (!toBePromise(actual)) {
+        throw 'Expected to be promise';
+    }
+
+    this.message = function () {
+        return "Expected promise to be resolved";
+    };
+
+    return actual.inspect().state == "fulfilled";
+}
+
+function toBeResolvedWith(actual, value) {
+    var isResolved = toBeResolved.call(this, actual);
+    if (!isResolved) {
+        return false;
+    }
+
+    var valueJSON = JSON.stringify(value);
+    var actualJSON = JSON.stringify(actual.inspect().value);
+
+    this.message = function () {
+        return "Expected promise to be resolved with value '" + valueJSON + "', but it was resolved with value '" + actualJSON + "'";
+    };
+
+    return actualJSON == valueJSON;
+}
+
+function toBeRejected(actual) {
+    if (this.isNot) {
+        throw '[.not] is not supported';
+    }
+
+    if (!toBePromise(actual)) {
+        throw 'Expected to be promise';
+    }
+
+    this.message = function () {
+        return "Expected promise to be rejected";
+    };
+
+    return actual.inspect().state == "rejected";
+}
+
+function toBeRejectedWith(actual, reason) {
+    var isRejected = toBeRejected.call(this, actual);
+    if (!isRejected) {
+        return false;
+    }
+
+    this.message = function () {
+        return "Expected promise to be rejected with reason '" + reason + "', but it was rejected with reason '" + actual.inspect().reason + "'";
+    };
+
+    return actual.inspect().reason == reason;
 }

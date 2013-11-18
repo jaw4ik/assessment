@@ -275,6 +275,51 @@
 
             });
 
+            describe('throwIfNotISODuration:', function () {
+
+                it('should be function', function() {
+                    expect(viewModel.throwIfNotISODuration).toBeFunction();
+                });
+                
+                describe('when item not string', function () {
+
+                    it('should throw exception', function () {
+                        var action = function () {
+                            viewModel.throwIfNotISODuration(11, 'Some error message');
+                        };
+                        expect(action).toThrow('Some error message');
+                    });
+                    
+                });
+
+                describe('when item is string', function() {
+                    
+                    describe('and item not isoDuration', function () {
+
+                        it('should throw exception', function () {
+                            var action = function () {
+                                viewModel.throwIfNotISODuration('111', 'Some error message');
+                            };
+                            expect(action).toThrow('Some error message');
+                        });
+
+                    });
+
+                    describe('when item is isoDuration', function () {
+                        
+                        it('should not throw exception', function () {
+                            var action = function () {
+                                viewModel.throwIfNotISODuration('PT11H2M3S', 'Some error message');
+                            };
+                            expect(action).not.toThrow('Some error message');
+                        });
+                        
+                    });
+
+                });
+                
+            });
+
         });
 
     }

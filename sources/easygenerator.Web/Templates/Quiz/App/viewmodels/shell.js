@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/router', 'context', 'eventManager', 'configuration/routes', 'xApi/activityProvider'],
-    function (app, router, context, eventManager, routes, activityProvider) {
+﻿define(['durandal/app', 'plugins/router', 'context', 'eventManager', 'configuration/routes', 'modulesInitializer'],
+    function (app, router, context, eventManager, routes, modulesInitializer) {
         
         var
             homeModule = 'home',
@@ -16,20 +16,16 @@
 
             activate = function () {
                 return context.initialize().then(function () {
-                    router.map(routes).buildNavigationModel();
 
                     router.replace = function (url) {
                         router.navigate(url, { replace: true, trigger: true });
                     };
 
-                    var title = context.title;
-                    var url = window.location.toString();
-
-                    var actor = activityProvider.createActor("Anonymous user", "anonymous@easygenerator.com");
-                    return activityProvider.init(actor, title, url).then(function() {
-                        return router.activate('home').then(function () {
-                            app.trigger(eventManager.events.courseStarted);
-                        });
+                    return modulesInitializer.init().then(function () {
+                        return router.map(routes)
+                            .buildNavigationModel()
+                            .mapUnknownRoutes('viewmodels/404', '404')
+                            .activate('home');
                     });
                 });
             };

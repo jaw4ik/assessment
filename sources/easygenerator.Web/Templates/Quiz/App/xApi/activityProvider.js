@@ -1,4 +1,4 @@
-﻿define(['xApi/models/actor', 'xApi/models/statement', 'xApi/models/activity', 'xApi/settings', 'eventManager', 'xApi/requestManager', 'xApi/constants', 'xApi/errorsHandler'],
+﻿define(['./models/actor', './models/statement', './models/activity', './configuration/settings', 'eventManager', './requestManager', './constants', './errorsHandler'],
     function (actorModel, statementModel, activityModel, xApiSettings, eventManager, requestManager, constants, errorsHandler) {
         "use strict";
 
@@ -16,8 +16,6 @@
 
         function init(actorData, activityName, activityUrl) {
             return Q.fcall(function () {
-                return requestManager.init();
-            }).then(function () {
                 if (_.isUndefined(xApiSettings.scoresDistribution.minScoreForPositiveResult) || _.isUndefined(xApiSettings.scoresDistribution.positiveVerb)) {
                     throw errorsHandler.errors.notEnoughDataInSettings;
                 }

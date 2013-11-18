@@ -646,10 +646,15 @@
     <Content Include="Templates\Quiz\App\configuration\routes.js" />
     <Content Include="Templates\Quiz\App\context.js" />
     <Content Include="Templates\Quiz\App\eventManager.js" />
-    <Content Include="Templates\Quiz\App\eventManager.spec.js" />
-    <Content Include="Templates\Quiz\App\main-built.js" />
+    <Content Include="Templates\Quiz\App\eventManager.spec.js">
+      <DependentUpon>eventManager.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\App\main.js" />
     <Content Include="Templates\Quiz\App\models\question.js" />
+    <Content Include="Templates\Quiz\App\modulesInitializer.js" />
+    <Content Include="Templates\Quiz\App\modulesInitializer.spec.js">
+      <DependentUpon>modulesInitializer.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\App\specs.html" />
     <Content Include="Templates\Quiz\App\viewmodels\404.js" />
     <Content Include="Templates\Quiz\App\viewmodels\404.spec.js">
@@ -675,26 +680,43 @@
     <Content Include="Templates\Quiz\App\viewmodels\summary.spec.js">
       <DependentUpon>summary.js</DependentUpon>
     </Content>
-    <Content Include="Templates\Quiz\App\viewmodels\xAPIError.js" />
-    <Content Include="Templates\Quiz\App\viewmodels\xAPIError.spec.js">
-      <DependentUpon>xAPIError.js</DependentUpon>
-    </Content>
     <Content Include="Templates\Quiz\App\views\404.html" />
     <Content Include="Templates\Quiz\App\views\home.html" />
     <Content Include="Templates\Quiz\App\views\learningContents.html" />
     <Content Include="Templates\Quiz\App\views\notsupportedbrowser.html" />
     <Content Include="Templates\Quiz\App\views\shell.html" />
     <Content Include="Templates\Quiz\App\views\summary.html" />
-    <Content Include="Templates\Quiz\App\views\xAPIError.html" />
+    <Content Include="Templates\Quiz\App\windowOperations.js" />
+    <Content Include="Templates\Quiz\App\windowOperations.spec.js">
+      <DependentUpon>windowOperations.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\xApi\xApiInitializer.spec.js">
+      <DependentUpon>xApiInitializer.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\xApi\xApiInitializer.js" />
     <Content Include="Templates\Quiz\App\xApi\activityProvider.js" />
-    <Content Include="Templates\Quiz\App\xApi\activityProvider.spec.js" />
+    <Content Include="Templates\Quiz\App\xApi\activityProvider.spec.js">
+      <DependentUpon>activityProvider.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\App\xApi\base64.js" />
-    <Content Include="Templates\Quiz\App\xApi\base64.spec.js" />
+    <Content Include="Templates\Quiz\App\xApi\base64.spec.js">
+      <DependentUpon>base64.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\xApi\configuration\routes.js" />
+    <Content Include="Templates\Quiz\App\xApi\configuration\settings.js" />
+    <Content Include="Templates\Quiz\App\xApi\configuration\viewConstants.js" />
     <Content Include="Templates\Quiz\App\xApi\constants.js" />
+    <Content Include="Templates\Quiz\App\xApi\css\img\graphChart.png" />
+    <Content Include="Templates\Quiz\App\xApi\css\img\icons-xApi.png" />
+    <Content Include="Templates\Quiz\App\xApi\css\login.css" />
     <Content Include="Templates\Quiz\App\xApi\errorsHandler.js" />
-    <Content Include="Templates\Quiz\App\xApi\errorsHandler.spec.js" />
+    <Content Include="Templates\Quiz\App\xApi\errorsHandler.spec.js">
+      <DependentUpon>errorsHandler.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\App\xApi\guard.js" />
-    <Content Include="Templates\Quiz\App\xApi\guard.spec.js" />
+    <Content Include="Templates\Quiz\App\xApi\guard.spec.js">
+      <DependentUpon>guard.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\App\xApi\models\activity.js" />
     <Content Include="Templates\Quiz\App\xApi\models\activityDefinition.js" />
     <Content Include="Templates\Quiz\App\xApi\models\actor.js" />
@@ -704,8 +726,27 @@
     <Content Include="Templates\Quiz\App\xApi\models\statement.js" />
     <Content Include="Templates\Quiz\App\xApi\models\verb.js" />
     <Content Include="Templates\Quiz\App\xApi\requestManager.js" />
-    <Content Include="Templates\Quiz\App\xApi\requestManager.spec.js" />
-    <Content Include="Templates\Quiz\App\xApi\settings.js" />
+    <Content Include="Templates\Quiz\App\xApi\requestManager.spec.js">
+      <DependentUpon>requestManager.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\xApi\routingManager.js" />
+    <Content Include="Templates\Quiz\App\xApi\routingManager.spec.js">
+      <DependentUpon>routingManager.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\xApi\utils\dateTimeConverter.js" />
+    <Content Include="Templates\Quiz\App\xApi\utils\dateTimeConverter.spec.js">
+      <DependentUpon>dateTimeConverter.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\xApi\viewmodels\login.js" />
+    <Content Include="Templates\Quiz\App\xApi\viewmodels\login.spec.js">
+      <DependentUpon>login.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\xApi\viewmodels\xAPIError.js" />
+    <Content Include="Templates\Quiz\App\xApi\viewmodels\xAPIError.spec.js">
+      <DependentUpon>xAPIError.js</DependentUpon>
+    </Content>
+    <Content Include="Templates\Quiz\App\xApi\views\login.html" />
+    <Content Include="Templates\Quiz\App\xApi\views\xAPIError.html" />
     <Content Include="Templates\Quiz\content\0\0\0.html" />
     <Content Include="Templates\Quiz\content\0\0\1.html" />
     <Content Include="Templates\Quiz\content\0\1\0.html" />
@@ -757,7 +798,7 @@
     <Content Include="Templates\Quiz\css\jasmine.css" />
     <Content Include="Templates\Quiz\css\normalize.css" />
     <Content Include="Templates\Quiz\css\styles.css" />
-    <Content Include="Templates\Quiz\css\xAPIEror.css" />
+    <Content Include="Templates\Quiz\App\xApi\css\xAPIError.css" />
     <Content Include="Templates\Quiz\img\arrow_up.png" />
     <Content Include="Templates\Quiz\img\bg-bottom.png" />
     <Content Include="Templates\Quiz\img\bg-corners.png" />
@@ -780,7 +821,7 @@
     <Content Include="Templates\Quiz\img\safari.png" />
     <Content Include="Templates\Quiz\img\spiner.GIF" />
     <Content Include="Templates\Quiz\img\tooltip.png" />
-    <Content Include="Templates\Quiz\img\xapierror.png" />
+    <Content Include="Templates\Quiz\App\xApi\css\img\xapierror.png" />
     <Content Include="Templates\Quiz\index.html" />
     <Content Include="Templates\Quiz\js\bootstrap.min.js" />
     <Content Include="Templates\Quiz\js\circleProgressBinding.js" />
@@ -806,11 +847,13 @@
     <Content Include="Templates\Quiz\js\jasmine\jasmine-matchers.js" />
     <Content Include="Templates\Quiz\js\jquery-1.9.1.js" />
     <Content Include="Templates\Quiz\js\knockout-2.2.1.js" />
+    <Content Include="Templates\Quiz\js\knockoutBindings\focusHandlerBinding.js" />
     <Content Include="Templates\Quiz\js\q.js" />
     <Content Include="Templates\Quiz\js\require.js" />
     <Content Include="Templates\Quiz\js\scrollBinding.js" />
     <Content Include="Templates\Quiz\js\text.js" />
     <Content Include="Templates\Quiz\js\underscore-1.5.1.js" />
+    <Content Include="Templates\Quiz\js\underscore.extensions.js" />
     <Content Include="Templates\Quiz\js\vendor.js">
       <DependentUpon>vendor.js.bundle</DependentUpon>
     </Content>

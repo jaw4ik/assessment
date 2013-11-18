@@ -1,4 +1,4 @@
-﻿define(['xApi/settings', 'xApi/base64', 'xApi/errorsHandler'],
+﻿define(['./configuration/settings', './base64', './errorsHandler'],
     function (settings, base64, errorsHandler) {
 
         var eventManager = {

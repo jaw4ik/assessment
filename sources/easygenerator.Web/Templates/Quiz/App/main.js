@@ -16,8 +16,12 @@ define('knockout', function () {
     return ko;
 });
 
-define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'browserSupport'],
-    function (app, viewLocator, system, getRootView) {
+define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesInitializer', 'browserSupport'],
+    function (app, viewLocator, system, modulesInitializer, getRootView) {
+
+        modulesInitializer.register([
+            "xApi/xApiInitializer"
+        ]);
 
         app.title = 'easygenerator';
 

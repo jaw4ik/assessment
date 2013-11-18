@@ -1,20 +1,17 @@
-﻿define(['plugins/router', 'context', 'durandal/app', 'eventManager'],
-    function (router, context, app, eventManager) {
+﻿define(['plugins/router', 'eventManager'],
+    function (router, eventManager) {
         
         var
             navigateBackUrl = '',
 
             restartExperience = function () {
-                eventManager.turnAllEventsOff();
-                context.isTryAgain = true;
-                context.isRestartExperience = true;
-                var href = window.location.href,
-                    url = href.slice(0,href.lastIndexOf('#'));
-                router.replace(url);
+                var rootUrl = location.toString().replace(location.hash, '');
+                router.navigate(rootUrl, { replace: true, trigger: true });
             },
             
             continueLearning = function () {
                 eventManager.turnAllEventsOff();
+
                 router.navigate(navigateBackUrl);
             },
 
