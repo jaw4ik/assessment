@@ -74,33 +74,33 @@
                     <div class="experience-actions-panel">
                         <!-- ko if: isFirstBuild -->
                         <div class="experience-action create-package" data-bind="click: $parent.buildExperience">
-                            <span class="experience-action-title">Create package</span>
+                            <span class="experience-action-title" data-bind="localize: { text: 'createPackage' }">Create package</span>
                         </div>
                         <div class="experience-action download-package disabled">
-                            <span class="experience-action-title">Download</span>
+                            <span class="experience-action-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
                         </div>
                         <div class="experience-action publish-package disabled">
-                            <span class="experience-action-title">Publish online</span>
+                            <span class="experience-action-title" data-bind="localize: { text: 'publishOnline' }">Publish online</span>
                         </div>
                         <div class="experience-action disabled"></div>
                         <!-- /ko -->
                         <!-- ko ifnot: isFirstBuild -->
                         <div class="experience-action create-package" data-bind="click: $parent.buildExperience">
-                            <span class="experience-action-title">Update package</span>
+                            <span class="experience-action-title" data-bind="localize: { text: 'updatePackage' }">Update package</span>
                         </div>
                         <div class="experience-action download-package" data-bind="click: $parent.downloadExperience">
-                            <span class="experience-action-title">Download</span>
+                            <span class="experience-action-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
                         </div>
                         <!-- if PUBLISH -->
                         <div class="experience-action publish-package" style="display: none;">
-                            <span class="experience-action-title">Publish online</span>
+                            <span class="experience-action-title" data-bind="localize: { text: 'publishOnline' }">Publish online</span>
                         </div>
                         <div class="experience-action disabled" style="display: none;"></div>
                         <!-- END PUBLISH -->
 
                         <!-- if REPUBLISH -->
                         <div class="experience-action publish-package">
-                            <span class="experience-action-title">Republish online</span>
+                            <span class="experience-action-title" data-bind="localize: { text: 'republishOnline' }">Republish online</span>
                         </div>
                         <div class="experience-action package-link">
                             <input class="package-link-input" type="text" />
