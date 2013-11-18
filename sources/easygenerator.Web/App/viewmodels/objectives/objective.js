@@ -139,11 +139,6 @@
                 this.currentLanguage = localizationManager.currentLanguage;
 
                 return repository.getById(objId).then(function (objective) {
-                    if (!_.isObject(objective)) {
-                        router.replace('404');
-                        return;
-                    }
-
                     that.objectiveId = objective.id;
                     that.title(objective.title);
 
@@ -155,6 +150,9 @@
                         .value();
 
                     that.questions(currentSortingOption() == constants.sortingOptions.byTitleAsc ? array : array.reverse());
+                }).fail(function(reason) {
+                    router.replace('404');
+                    return;
                 });
             },
 
