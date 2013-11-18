@@ -12,15 +12,11 @@
         errorHandlingConfiguration = require('errorHandling/errorHandlingConfiguration'),
         globalErrorHandler = require('errorHandling/globalErrorHandler');
 
-    var
-        events = {
-            navigateToExperiences: "Navigate to experiences",
-            navigateToObjectives: 'Navigate to objectives',
-            feedback: 'Feedback'
-        },
-        sendEvent = function (eventName) {
-            eventTracker.publish(eventName);
-        };
+    var events = {
+        navigateToExperiences: "Navigate to experiences",
+        navigateToObjectives: 'Navigate to objectives',
+        feedback: 'Feedback'
+    };
 
     var requestsCounter = ko.observable(0);
 
@@ -109,8 +105,8 @@
         },
 
         sendFeedback = function () {
-            sendEvent(events.feedback);
-            document.location.href = 'mailto:support@easygenerator.com?subject=Feedback';
+            eventTracker.publish(events.feedback);
+            router.setLocation('mailto:support@easygenerator.com?subject=Feedback');
         },
 
     isTryMode = false,
@@ -223,7 +219,7 @@
                     that.navigation([
                         {
                             navigate: function () {
-                                sendEvent(events.navigateToExperiences);
+                                eventTracker.publish(events.navigateToExperiences);
                                 clientContext.set('lastVisitedObjective', null);
                                 router.navigate('experiences');
                             },
@@ -238,7 +234,7 @@
                         },
                         {
                             navigate: function () {
-                                sendEvent(events.navigateToObjectives);
+                                eventTracker.publish(events.navigateToObjectives);
                                 clientContext.set('lastVistedExperience', null);
                                 router.navigate('objectives');
                             },
