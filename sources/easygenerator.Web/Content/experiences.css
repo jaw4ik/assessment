@@ -42,33 +42,128 @@
         background: url(images/sprites.png);
     }
 
-.experience-action.create-package-btn {
+.experience-action-item.create-package-btn {
     display: block;
     color: #0085ca;
     opacity: 0.8;
     margin-bottom: 15px;
 }
 
-    .experience-action.create-package-btn:hover {
+    .experience-action-item.create-package-btn:hover {
         opacity: 1;
     }
 
-    .experience-action.create-package-btn .btn-title:after {
+    .experience-action-item.create-package-btn .btn-title:after {
         background-position: -212px -82px;
     }
 
-.experience-action.download-btn {
+.experience-action-item.download-btn {
     color: #555555;
     opacity: 0.8;
 }
 
-    .experience-action.download-btn:hover {
+    .experience-action-item.download-btn:hover {
         opacity: 1;
     }
 
-    .experience-action.download-btn .btn-title:after {
+    .experience-action-item.download-btn .btn-title:after {
         background-position: -234px -82px;
     }
+
+
+.experience-actions-panel {
+    width: 100%;
+    display: table;
+    border: 1px solid #e6e6e6;
+    position: relative;
+    bottom: -1px;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmMGYwZjAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    background: -moz-linear-gradient(top, #ffffff 0%, #f0f0f0 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f0f0f0)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%,#f0f0f0 100%); /* Chrome10+,Safari5.1+ */
+    background: -ms-linear-gradient(top, #ffffff 0%,#f0f0f0 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ffffff 0%,#f0f0f0 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f0f0f0',GradientType=0 ); /* IE6-8 */
+}
+
+.ie9 .experience-actions-panel {
+    filter: none;
+}
+
+.experience-action {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    height: 30px;
+    padding: 0px 10px;
+}
+
+    .experience-action + .experience-action {
+        border-left: 1px solid #e6e6e6;
+    }
+
+    .experience-action:hover {
+        background: white;
+    }
+
+    .experience-action.disabled:hover {
+        background: none;
+    }
+
+.experience-action-title {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    padding-left: 30px; 
+}
+
+    .experience-action-title:before {
+        content: '';
+        display: block;
+        width: 19px;
+        height: 18px;
+        position: absolute;
+        background: url(images/sprites.png);
+    }
+
+.experience-action.create-package,
+.experience-action.download-package,
+.experience-action.publish-package {
+    width: 18%;
+}
+
+.experience-action.create-package {
+    color: #3c78c3;
+}
+
+    .experience-action.create-package .experience-action-title:before {
+        top: 0;
+        left: 0;
+        background-position: -73px -173px;
+    }
+
+.experience-action.download-package {
+    color: #000000;
+}
+
+    .experience-action.download-package .experience-action-title:before {
+        top: 0;
+        left: 0;
+        background-position: -98px -174px;
+    }
+
+.experience-action.publish-package {
+    color: #75901d;
+}
+
+    .experience-action.publish-package .experience-action-title:before {
+        top: 0;
+        left: 0;
+        background-position: -125px -174px;
+    }
+
+.experience-action.package-link {
+}
 
 .main-content-list-item:hover .package-actions-block {
     display: block;

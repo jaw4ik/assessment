@@ -15,7 +15,8 @@
     var
         events = {
             navigateToExperiences: "Navigate to experiences",
-            navigateToObjectives: 'Navigate to objectives'
+            navigateToObjectives: 'Navigate to objectives',
+            feedback: 'Feedback'
         },
         sendEvent = function (eventName) {
             eventTracker.publish(eventName);
@@ -107,7 +108,12 @@
             return _.contains(['404', '400'], this.activeModuleName());
         },
 
-        isTryMode = false,
+        sendFeedback = function () {
+            sendEvent(events.feedback);
+            document.location.href = 'mailto:support@easygenerator.com?subject=Feedback';
+        },
+
+    isTryMode = false,
         userEmail = '',
 
         activate = function () {
@@ -116,7 +122,7 @@
                 .then(function () {
                     errorHandlingConfiguration.configure();
                     globalErrorHandler.subscribeOnAjaxErrorEvents();
-                    
+
                     localizationManager.initialize(window.top.userCultures);
 
                     router.updateDocumentTitle = function (instance, instruction) {
@@ -141,7 +147,7 @@
                     router.reloadLocation = function () {
                         document.location.reload();
                     };
-                    
+
                     router.setLocation = function (url) {
                         document.location = url;
                     };
@@ -271,6 +277,8 @@
         showNavigation: showNavigation,
         navigation: navigation,
         isTryMode: isTryMode,
+
+        sendFeedback: sendFeedback,
 
         userEmail: userEmail,
         helpHint: helpHint,

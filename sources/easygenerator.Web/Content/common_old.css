@@ -370,7 +370,7 @@ ol.unstyled  {
 .create-form {
     margin-top: 20px;
     overflow: hidden;
-    padding-bottom: 35px;
+    padding-bottom: 60px;
 }
 
 .create-form-image-wrapper {
@@ -401,15 +401,10 @@ ol.unstyled  {
     vertical-align: top;
 }
 
-    .create-form-image.wide {
-        width: 100%;
-    }
-
 .create-form-field {
     margin-left: 250px;
     position: relative;
 }
-
 
 .create-form .edit-field {
     min-height: 120px;
@@ -805,6 +800,7 @@ ol.unstyled  {
     }
 
     .create-tip .create-tip-text {
+        min-height: 130px;
         white-space: normal;
     }
     /*#endregion Create explanation tooltip*/
