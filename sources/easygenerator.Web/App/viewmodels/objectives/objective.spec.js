@@ -519,6 +519,13 @@
 
             describe('deleteSelectedQuestions', function () {
 
+                var removeQuestions;
+
+                beforeEach(function() {
+                    removeQuestions = Q.defer();
+                    spyOn(questionRepository, 'removeQuestions').andReturn(removeQuestions.promise);
+                });
+
                 it('should be a function', function () {
                     expect(viewModel.deleteSelectedQuestions).toBeFunction();
                 });
@@ -541,15 +548,11 @@
 
                 describe('when some questions are selected', function () {
 
-                    var removeQuestions;
 
                     beforeEach(function () {
                         viewModel.objectiveId = 'objectiveId';
                         viewModel.questions([{ id: "SomeQuestionId1", isSelected: ko.observable(true) }, { id: "SomeQuestionId2", isSelected: ko.observable(true) }]);
-                        
-                        removeQuestions = Q.defer();
 
-                        spyOn(questionRepository, 'removeQuestions').andReturn(removeQuestions.promise);
                         spyOn(notify, 'info');
                     });
 
