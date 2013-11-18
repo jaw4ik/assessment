@@ -106,7 +106,7 @@
 
         sendFeedback = function () {
             eventTracker.publish(events.feedback);
-            router.setLocation('mailto:support@easygenerator.com?subject=Feedback');
+            router.setLocation("mailto:support@easygenerator.com?subject=Feedback from user");
         },
 
     isTryMode = false,
