@@ -95,7 +95,7 @@
     text-align: center;
     vertical-align: middle;
     height: 30px;
-    padding: 0px 10px;
+    padding: 0 10px;
     white-space: nowrap;
 }
 
@@ -115,7 +115,7 @@
     display: inline-block;
     vertical-align: top;
     position: relative;
-    padding-left: 30px; 
+    padding-left: 30px;
 }
 
     .experience-action-title:before {
@@ -133,15 +133,23 @@
     width: 18%;
 }
 
+/*
+ * Create package action
+*/
+
 .experience-action.create-package {
     color: #3c78c3;
 }
 
     .experience-action.create-package .experience-action-title:before {
         top: 0;
-        left: 0;
+        left: 7px;
         background-position: -73px -173px;
     }
+
+/*
+ * Download package action
+*/
 
 .experience-action.download-package {
     color: #000000;
@@ -149,9 +157,17 @@
 
     .experience-action.download-package .experience-action-title:before {
         top: 0;
-        left: 0;
+        left: 4px;
         background-position: -98px -174px;
     }
+
+    .experience-action.download-package.disabled .experience-action-title:before {
+        background-position: -98px -198px;
+    }
+
+/*
+ * Publish package action
+*/
 
 .experience-action.publish-package {
     color: #75901d;
@@ -163,12 +179,32 @@
         background-position: -125px -174px;
     }
 
+    .experience-action.publish-package.disabled .experience-action-title:before {
+        top: 0;
+        left: 0;
+        background-position: -125px -198px;
+    }
+
+.experience-action.disabled {
+    color: #dbdbdd;
+}
+
+
+
+/*
+ * Copy link action
+*/
+
 .experience-action.package-link {
 }
 
 .main-content-list-item:hover .package-actions-block {
     display: block;
 }
+
+/*
+ * Statuses of experience
+*/
 
 .experience-status-container {
     position: absolute;
