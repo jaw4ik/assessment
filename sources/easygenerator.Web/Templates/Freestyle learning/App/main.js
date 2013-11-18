@@ -25,7 +25,7 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
     function (app, viewLocator, system, modulesInitializer, getRootView) {
 
         modulesInitializer.register([
-            "xApi/activityManager"
+            "xApi/xApiInitializer"
         ]);
 
         app.configurePlugins({

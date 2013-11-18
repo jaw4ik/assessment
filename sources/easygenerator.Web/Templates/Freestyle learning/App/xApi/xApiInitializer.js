@@ -6,7 +6,7 @@
         var
             isInitialized = false,
 
-            activityManager = {
+            xApiInitializer = {
                 init: init,
                 getInitStatus: getInitStatus,
                 turnOff: turnOff,
@@ -16,7 +16,7 @@
                 createActor: activityProvider.createActor
             };
 
-        return activityManager;
+        return xApiInitializer;
 
         function init(actorData, activityName, activityUrl) {
             return Q.fcall(function () {
@@ -41,7 +41,7 @@
         //Initialization function for moduleManager
         function initialize() {
             return Q.fcall(function () {
-                routingManager.mapRoutes(activityManager);
+                routingManager.mapRoutes(xApiInitializer);
             });
         }
 

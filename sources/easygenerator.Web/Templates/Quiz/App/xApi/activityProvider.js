@@ -1,5 +1,5 @@
-﻿define(['./models/actor', './models/statement', './models/activity', './configuration/settings', 'eventManager', './requestManager', './constants', './errorsHandler'],
-    function (actorModel, statementModel, activityModel, xApiSettings, eventManager, requestManager, constants, errorsHandler) {
+﻿define(['./models/actor', './models/statement', './models/activity', './configuration/settings', 'eventManager', './requestManager', './constants', './errorsHandler', './utils/dateTimeConverter'],
+    function (actorModel, statementModel, activityModel, xApiSettings, eventManager, requestManager, constants, errorsHandler, dateTimeConverter) {
         "use strict";
 
         var
@@ -84,7 +84,7 @@
         function learningContentExperienced(finishedEventData) {
             var result =
             {
-                duration: timeToISODurationString(finishedEventData.spentTime),
+                duration: dateTimeConverter.timeToISODurationString(finishedEventData.spentTime),
             };
 
             var learningContentUrl = activityProvider.rootCourseUrl + '#objective/' + finishedEventData.objective.id + '/question/' + finishedEventData.question.id + '/learningContents';
@@ -193,21 +193,6 @@
         function createActivityForObjective(objectiveId, objectiveTitle) {
             var activityId = activityProvider.rootActivityUrl + '?objectiveid=' + objectiveId;
             return createActivity(objectiveTitle, activityId);
-        }
-
-        function timeToISODurationString(timeInMilliseconds) {
-
-            timeInMilliseconds /= 1000;
-
-            var hours = parseInt(timeInMilliseconds / 3600, 10);
-            timeInMilliseconds -= hours * 3600;
-
-            var minutes = parseInt(timeInMilliseconds / 60, 10);
-            timeInMilliseconds -= minutes * 60;
-
-            var seconds = parseInt(timeInMilliseconds, 10);
-
-            return 'PT' + hours + 'H' + minutes + 'M' + seconds + 'S';
         }
     }
 );

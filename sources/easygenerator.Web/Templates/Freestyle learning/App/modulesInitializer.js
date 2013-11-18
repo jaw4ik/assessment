@@ -30,11 +30,11 @@
 
             if (modules.length == 0) {
                 defer.resolve();
+            } else {
+                require(modules, function () {
+                    _checkAndInitModules(arguments).then(defer.resolve);
+                });
             }
-
-            require(modules, function () {
-                _checkAndInitModules(arguments).then(defer.resolve);
-            });
 
             return defer.promise;
         }

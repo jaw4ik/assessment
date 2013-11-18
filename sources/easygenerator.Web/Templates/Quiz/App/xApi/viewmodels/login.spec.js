@@ -1,5 +1,5 @@
-﻿define(['./login', 'xApi/activityManager', 'durandal/app', 'plugins/router', 'context', 'xApi/errorsHandler'],
-    function (viewModel, activityManager, app, router, context, errorsHandler) {
+﻿define(['./login', 'xApi/xApiInitializer', 'durandal/app', 'plugins/router', 'context', 'xApi/errorsHandler'],
+    function (viewModel, xApiInitializer, app, router, context, errorsHandler) {
 
         "use strict";
 
@@ -12,13 +12,26 @@
             beforeEach(function () {
                 spyOn(router, 'navigate');
                 spyOn(app, 'trigger');
-                spyOn(activityManager, 'turnOff');
+                spyOn(xApiInitializer, 'turnOff');
             });
 
             describe('usermail:', function () {
 
                 it('should be observable', function () {
                     expect(viewModel.usermail).toBeObservable();
+                });
+
+                describe('getValue:', function () {
+
+                    it('should be function', function () {
+                        expect(viewModel.usermail.getValue).toBeFunction();
+                    });
+
+                    it('should return trimmed value', function () {
+                        viewModel.usermail('     some text     ');
+                        expect(viewModel.usermail.getValue()).toBe('some text');
+                    });
+
                 });
 
                 describe('isModified', function () {
@@ -99,6 +112,19 @@
                     expect(viewModel.username).toBeObservable();
                 });
 
+                describe('getValue:', function () {
+
+                    it('should be function', function () {
+                        expect(viewModel.username.getValue).toBeFunction();
+                    });
+
+                    it('should return trimmed value', function () {
+                        viewModel.username('     some text     ');
+                        expect(viewModel.username.getValue()).toBe('some text');
+                    });
+
+                });
+
                 describe('isModified', function () {
 
                     it('should be observable', function () {
@@ -177,9 +203,9 @@
                     expect(viewModel.skip).toBeFunction();
                 });
 
-                it('should turn off activityManager', function () {
+                it('should turn off xApiInitializer', function () {
                     viewModel.skip();
-                    expect(activityManager.turnOff).toHaveBeenCalled();
+                    expect(xApiInitializer.turnOff).toHaveBeenCalled();
                 });
 
                 it('should trigger event "courseStarted"', function () {
@@ -229,50 +255,49 @@
                     });
 
                     it('should create actor data', function () {
-                        spyOn(activityManager, 'createActor');
+                        spyOn(xApiInitializer, 'createActor');
                         viewModel.login();
-                        expect(activityManager.createActor).toHaveBeenCalledWith(viewModel.username(), viewModel.usermail());
+                        expect(xApiInitializer.createActor).toHaveBeenCalledWith(viewModel.username(), viewModel.usermail());
                     });
 
-                    var activityManagerInitDefer, activityManagerInitPromise;
+                    var xApiInitializerInitDefer, xApiInitializerInitPromise;
                     beforeEach(function () {
-                        activityManagerInitDefer = Q.defer();
-                        activityManagerInitPromise = activityManagerInitDefer.promise.finally(function () { });;
-                        spyOn(activityManager, 'init').andReturn(activityManagerInitDefer.promise);
+                        xApiInitializerInitDefer = Q.defer();
+                        xApiInitializerInitPromise = xApiInitializerInitDefer.promise.finally(function () { });;
+                        spyOn(xApiInitializer, 'init').andReturn(xApiInitializerInitDefer.promise);
                     });
 
-                    it('should init activityManager', function () {
-                        context.experience = {
-                            title: "Some title",
-                            id: "10"
-                        };
+                    it('should init xApiInitializer', function () {
+                        context.title = "Some title";
+                        context.experienceId = "10";
+                        
                         var
-                            url = window.top.location.toString() + '?experience_id=' + context.experience.id,
-                            actor = activityManager.createActor(viewModel.username(), viewModel.usermail());
+                            url = window.top.location.toString() + '?experience_id=' + context.experienceId,
+                            actor = xApiInitializer.createActor(viewModel.username(), viewModel.usermail());
 
                         viewModel.login();
-                        expect(activityManager.init).toHaveBeenCalledWith(actor, context.experience.title, url);
+                        expect(xApiInitializer.init).toHaveBeenCalledWith(actor, context.title, url);
                     });
 
-                    describe('and when activityManager.init was rejected', function () {
+                    describe('and when xApiInitializer.init was rejected', function () {
 
-                        it('should turn off activityManager', function () {
-                            activityManagerInitDefer.reject();
+                        it('should turn off xApiInitializer', function () {
+                            xApiInitializerInitDefer.reject();
                             viewModel.login();
                             waitsFor(function() {
-                                return !activityManagerInitPromise.isPending();
+                                return !xApiInitializerInitPromise.isPending();
                             });
                             runs(function() {
-                                expect(activityManager.turnOff).toHaveBeenCalled();
+                                expect(xApiInitializer.turnOff).toHaveBeenCalled();
                             });
                         });
 
                         it('should handle error', function () {
                             spyOn(errorsHandler, 'handleError');
-                            activityManagerInitDefer.reject("Some reason");
+                            xApiInitializerInitDefer.reject("Some reason");
                             viewModel.login();
                             waitsFor(function() {
-                                return !activityManagerInitPromise.isPending();
+                                return !xApiInitializerInitPromise.isPending();
                             });
                             runs(function() {
                                 expect(errorsHandler.handleError).toHaveBeenCalledWith("Some reason");
@@ -281,16 +306,16 @@
 
                     });
 
-                    describe('and when activityManager.init was resolved', function () {
+                    describe('and when xApiInitializer.init was resolved', function () {
 
                         beforeEach(function () {
-                            activityManagerInitDefer.resolve();
+                            xApiInitializerInitDefer.resolve();
                             viewModel.login();
                         });
 
                         it('should trigger event "courseStarted"', function () {
                             waitsFor(function () {
-                                return !activityManagerInitPromise.isPending();
+                                return !xApiInitializerInitPromise.isPending();
                             });
                             runs(function () {
                                 expect(app.trigger).toHaveBeenCalledWith("courseStarted");
@@ -299,7 +324,7 @@
 
                         it('should navigate to home', function () {
                             waitsFor(function () {
-                                return !activityManagerInitPromise.isPending();
+                                return !xApiInitializerInitPromise.isPending();
                             });
                             runs(function () {
                                 expect(router.navigate).toHaveBeenCalledWith('home');

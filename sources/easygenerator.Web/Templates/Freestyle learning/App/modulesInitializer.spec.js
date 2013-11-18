@@ -66,7 +66,7 @@
 
                     describe('and when loaded module have method "initialize"', function() {
 
-                        it('should be called', function() {
+                        it('it should be called', function() {
                             var someModule = {
                                 initialize: function() { }
                             };

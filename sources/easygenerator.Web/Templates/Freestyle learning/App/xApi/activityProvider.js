@@ -42,8 +42,6 @@
                 eventManager.subscribeForEvent(eventManager.events.questionSubmitted).then(function (finishedEventData) {
                     return sendAnsweredQuestionsStatements(finishedEventData);
                 });
-
-                activityProvider.isInitialized = true;
             });
         }
 

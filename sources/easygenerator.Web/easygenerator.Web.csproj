@@ -471,9 +471,9 @@
     <Content Include="Templates\Freestyle learning\App\windowOperations.spec.js">
       <DependentUpon>windowOperations.js</DependentUpon>
     </Content>
-    <Content Include="Templates\Freestyle learning\App\xApi\activityManager.js" />
-    <Content Include="Templates\Freestyle learning\App\xApi\activityManager.spec.js">
-      <DependentUpon>activityManager.js</DependentUpon>
+    <Content Include="Templates\Freestyle learning\App\xApi\xApiInitializer.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\xApiInitializer.spec.js">
+      <DependentUpon>xApiInitializer.js</DependentUpon>
     </Content>
     <Content Include="Templates\Freestyle learning\App\xApi\activityProvider.js" />
     <Content Include="Templates\Freestyle learning\App\xApi\activityProvider.spec.js">
@@ -483,7 +483,7 @@
     <Content Include="Templates\Freestyle learning\App\xApi\base64.spec.js">
       <DependentUpon>base64.js</DependentUpon>
     </Content>
-    <Content Include="Templates\Freestyle learning\App\xApi\configuration\constants.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\configuration\viewConstants.js" />
     <Content Include="Templates\Freestyle learning\App\xApi\configuration\routes.js" />
     <Content Include="Templates\Freestyle learning\App\xApi\configuration\settings.js" />
     <Content Include="Templates\Freestyle learning\App\xApi\constants.js" />
@@ -518,7 +518,6 @@
     <Content Include="Templates\Freestyle learning\App\xApi\routingManager.spec.js">
       <DependentUpon>routingManager.js</DependentUpon>
     </Content>
-    <Content Include="Templates\Freestyle learning\App\xApi\settings.js" />
     <Content Include="Templates\Freestyle learning\App\xApi\utils\dateTimeConverter.js" />
     <Content Include="Templates\Freestyle learning\App\xApi\utils\dateTimeConverter.spec.js">
       <DependentUpon>dateTimeConverter.js</DependentUpon>

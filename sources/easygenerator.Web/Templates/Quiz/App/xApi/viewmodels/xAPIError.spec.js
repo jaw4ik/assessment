@@ -1,7 +1,7 @@
 ﻿define(function(require) {
     "use strict";
 
-    var viewModel = require('viewmodels/xAPIError'),
+    var viewModel = require('./xAPIError'),
         router = require('plugins/router');
 
     describe('viewModel [xAPIError]', function () {

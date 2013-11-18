@@ -7,8 +7,8 @@
             existingGuard = null,
             navigationModel = null,
 
-            mapRoutes = function (activityManager) {
-                createGuard(activityManager);
+            mapRoutes = function (moduleInitializer) {
+                createGuard(moduleInitializer);
                 router.map(routes);
             },
 
@@ -17,15 +17,15 @@
                 showNavigation();
             },
 
-            createGuard = function (activityManager) {
+            createGuard = function (moduleInitializer) {
                 existingGuard = router.guardRoute;
                 router.guardRoute = function (model, route) {
                     changeNavigationVisibility(route);
 
                     if (route.config.route == 'login') {
-                        return activityManager.getInitStatus() ? 'home' : true;
+                        return moduleInitializer.getInitStatus() ? 'home' : true;
                     }
-                    if (!activityManager.getInitStatus()) {
+                    if (!moduleInitializer.getInitStatus()) {
                         return 'login';
                     }
                     if (_.isFunction(existingGuard)) {

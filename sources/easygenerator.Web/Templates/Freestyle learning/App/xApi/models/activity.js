@@ -1,4 +1,4 @@
-﻿define(['xApi/guard', 'xApi/models/object', 'xApi/models/activityDefinition'],
+﻿define(['../guard', './object', './activityDefinition'],
     function (guard, object, activityDefinition) {
 
         var activity = function (spec) {

@@ -1,4 +1,4 @@
-﻿define(['xApi/guard', 'durandal/system'],
+﻿define(['../guard', 'durandal/system'],
     function (guard, system) {
 
         var statement = function (spec) {

@@ -1,4 +1,4 @@
-﻿define(['xApi/guard'],
+﻿define(['../guard'],
     function (guard) {
         
         var object = function (spec) {

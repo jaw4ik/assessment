@@ -1,13 +1,16 @@
-﻿define(['durandal/app', 'plugins/router', 'eventManager', 'context', 'xApi/configuration/constants', 'xApi/activityManager', 'xApi/errorsHandler'],
-    function (app, router, eventManager, context, constants, activityManager, errorsHandler) {
+﻿define(['durandal/app', 'plugins/router', 'eventManager', 'context', '../configuration/viewConstants', '../errorsHandler', 'xApi/xApiInitializer'],
+    function (app, router, eventManager, context, viewConstants, errorsHandler, xApiInitializer) {
 
         "use strict";
 
         var
             usermail = (function () {
                 var value = ko.observable('');
+                value.getValue = function () {
+                    return ko.utils.unwrapObservable(value).trim();
+                };
                 value.isValid = ko.computed(function () {
-                    return !!value() && constants.patterns.email.test(value().trim());
+                    return !!value() && viewConstants.patterns.email.test(value().trim());
                 });
                 value.isModified = ko.observable(false);
                 value.markAsModified = function () {
@@ -17,6 +20,9 @@
             })(),
             username = (function () {
                 var value = ko.observable('');
+                value.getValue = function () {
+                    return ko.utils.unwrapObservable(value).trim();
+                };
                 value.isValid = ko.computed(function () {
                     return !!value() && !!value().trim();
                 });
@@ -28,7 +34,7 @@
             })(),
 
             skip = function () {
-                activityManager.turnOff();
+                xApiInitializer.turnOff();
                 startCourse();
             },
 
@@ -36,11 +42,11 @@
                 if (usermail.isValid() && username.isValid()) {
                     var title = context.experience.title;
                     var url = window.top.location.toString() + '?experience_id=' + context.experience.id;
-                    var actor = activityManager.createActor(username(), usermail());
-                    activityManager.init(actor, title, url).then(function () {
+                    var actor = xApiInitializer.createActor(username.getValue(), usermail.getValue());
+                    xApiInitializer.init(actor, title, url).then(function () {
                         startCourse();
                     }).fail(function (reason) {
-                        activityManager.turnOff();
+                        xApiInitializer.turnOff();
                         errorsHandler.handleError(reason);
                     });
                 }

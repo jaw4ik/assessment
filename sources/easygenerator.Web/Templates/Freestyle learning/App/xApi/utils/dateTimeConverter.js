@@ -1,4 +1,4 @@
-﻿define(['xApi/guard'], function(guard) {
+﻿define(['../guard'], function(guard) {
     var timeToISODurationString = function (timeInMilliseconds) {
         guard.throwIfNotNumber(timeInMilliseconds, 'You should provide only number');
         timeInMilliseconds /= 1000;

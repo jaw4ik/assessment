@@ -1,12 +1,12 @@
-﻿define(['./activityManager', 'eventManager', './routingManager', './requestManager', './activityProvider'],
-    function (activityManager, eventManager, routingManager, requestManager, activityProvider) {
+﻿define(['./xApiInitializer', 'eventManager', './routingManager', './requestManager', './activityProvider'],
+    function (xApiInitializer, eventManager, routingManager, requestManager, activityProvider) {
 
         "use strict";
 
-        describe('viewModel [activityManager]', function() {
+        describe('viewModel [xApiInitializer]', function() {
 
             it('should be defined', function() {
-                expect(activityManager).toBeDefined();
+                expect(xApiInitializer).toBeDefined();
             });
 
             var requestManagerDefer, activityProviderDefer;
@@ -21,15 +21,15 @@
             describe('init:', function () {
 
                 it('should be function', function() {
-                    expect(activityManager.init).toBeFunction();
+                    expect(xApiInitializer.init).toBeFunction();
                 });
 
                 it('should return promise', function() {
-                    expect(activityManager.init()).toBePromise();
+                    expect(xApiInitializer.init()).toBePromise();
                 });
 
                 it('should init requestManager', function () {
-                    var promise = activityManager.init();
+                    var promise = xApiInitializer.init();
                     
                     requestManagerDefer.resolve();
                     activityProviderDefer.resolve();
@@ -43,7 +43,7 @@
                 });
 
                 it('should init activityProvider', function() {
-                    var promise = activityManager.init();
+                    var promise = xApiInitializer.init();
                     
                     requestManagerDefer.resolve();
                     activityProviderDefer.resolve();
@@ -57,7 +57,7 @@
                 });
 
                 it('should set isInitialized to true', function () {
-                    var promise = activityManager.init();
+                    var promise = xApiInitializer.init();
 
                     requestManagerDefer.resolve();
                     activityProviderDefer.resolve();
@@ -66,7 +66,7 @@
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(activityManager.getInitStatus()).toBeTruthy();
+                        expect(xApiInitializer.getInitStatus()).toBeTruthy();
                     });
                 });
 
@@ -75,17 +75,17 @@
             describe('initialize:', function () {
 
                 it('should be function', function() {
-                    expect(activityManager.initialize).toBeFunction();
+                    expect(xApiInitializer.initialize).toBeFunction();
                 });
 
                 it('should return promise', function() {
-                    expect(activityManager.initialize()).toBePromise();
+                    expect(xApiInitializer.initialize()).toBePromise();
                 });
 
                 it('should call routingNanager.mapRoute method', function() {
                     spyOn(routingManager, 'mapRoutes');
                     
-                    var promise = activityManager.initialize();
+                    var promise = xApiInitializer.initialize();
                     waitsFor(function() {
                         return !promise.isPending();
                     });
@@ -99,24 +99,24 @@
             describe('turnOff:', function () {
 
                 it('should be function', function () {
-                    expect(activityManager.turnOff).toBeFunction();
+                    expect(xApiInitializer.turnOff).toBeFunction();
                 });
 
                 it('should turn all events off', function () {
                     spyOn(eventManager, 'turnAllEventsOff');
-                    activityManager.turnOff();
+                    xApiInitializer.turnOff();
                     expect(eventManager.turnAllEventsOff).toHaveBeenCalled();
                 });
 
                 it('should remove routes', function () {
                     spyOn(routingManager, 'removeRoutes');
-                    activityManager.turnOff();
+                    xApiInitializer.turnOff();
                     expect(routingManager.removeRoutes).toHaveBeenCalled();
                 });
 
                 it('should set init status to false', function() {
-                    activityManager.turnOff();
-                    expect(activityManager.getInitStatus()).toBeFalsy();
+                    xApiInitializer.turnOff();
+                    expect(xApiInitializer.getInitStatus()).toBeFalsy();
                 });
 
             });
@@ -124,22 +124,22 @@
             describe('getInitStatus:', function() {
 
                 it('should be function', function() {
-                    expect(activityManager.getInitStatus).toBeFunction();
+                    expect(xApiInitializer.getInitStatus).toBeFunction();
                 });
 
-                describe('when activityManager not initialized', function() {
+                describe('when xApiInitializer not initialized', function() {
 
                     it('should return false', function () {
-                        activityManager.turnOff();
-                        expect(activityManager.getInitStatus()).toBeFalsy();
+                        xApiInitializer.turnOff();
+                        expect(xApiInitializer.getInitStatus()).toBeFalsy();
                     });
 
                 });
 
-                describe('when activityManager is initialized', function () {
+                describe('when xApiInitializer is initialized', function () {
 
                     it('should return true', function() {
-                        var promise = activityManager.init();
+                        var promise = xApiInitializer.init();
 
                         requestManagerDefer.resolve();
                         activityProviderDefer.resolve();
@@ -148,7 +148,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(activityManager.getInitStatus()).toBeTruthy();
+                            expect(xApiInitializer.getInitStatus()).toBeTruthy();
                         });
                     });
 

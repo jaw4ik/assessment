@@ -6,6 +6,9 @@
         var
             usermail = (function () {
                 var value = ko.observable('');
+                value.getValue = function () {
+                    return ko.utils.unwrapObservable(value).trim();
+                };
                 value.isValid = ko.computed(function () {
                     return !!value() && viewConstants.patterns.email.test(value().trim());
                 });
@@ -17,6 +20,9 @@
             })(),
             username = (function () {
                 var value = ko.observable('');
+                value.getValue = function () {
+                    return ko.utils.unwrapObservable(value).trim();
+                };
                 value.isValid = ko.computed(function () {
                     return !!value() && !!value().trim();
                 });
@@ -36,7 +42,7 @@
                 if (usermail.isValid() && username.isValid()) {
                     var title = context.title;
                     var url = window.top.location.toString() + '?experience_id=' + context.experienceId;
-                    var actor = xApiInitializer.createActor(username(), usermail());
+                    var actor = xApiInitializer.createActor(username.getValue(), usermail.getValue());
                     xApiInitializer.init(actor, title, url).then(function () {
                         startCourse();
                     }).fail(function (reason) {
