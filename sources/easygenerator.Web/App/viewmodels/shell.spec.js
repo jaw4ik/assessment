@@ -3,7 +3,6 @@
     var viewModel = require('viewmodels/shell'),
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
-        dataContext = require('dataContext'),
         localizationManager = require('localization/localizationManager'),
         helpHintRepository = require('repositories/helpHintRepository');
 
@@ -277,7 +276,7 @@
 
             it('should set router location', function () {
                 viewModel.sendFeedback();
-                expect(router.setLocation).toHaveBeenCalledWith('mailto:support@easygenerator.com?subject=Feedback');
+                expect(router.setLocation).toHaveBeenCalledWith("mailto:support@easygenerator.com?subject=Feedback from user");
             });
         });
 
