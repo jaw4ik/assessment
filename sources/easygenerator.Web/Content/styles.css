@@ -735,9 +735,8 @@ a.top-navigation-item:hover {
 .empty-list-wrapper {
     width: 100%;
     text-align: center;
-    padding: 55px 0 0 0;
+    padding: 58px 0;
     border-bottom: 1px solid #e6e6e6;
-    height: 140px;
 }
 
     .empty-list-wrapper .empty-list:before {
@@ -747,7 +746,7 @@ a.top-navigation-item:hover {
         opacity: 0.7;
         width: 40px;
         height: 42px;
-        top: -4px;
+        top: -7px;
         left: 0;
         background: url(images/emptyList.png) no-repeat;
     }
@@ -770,7 +769,7 @@ a.top-navigation-item:hover {
     display: block;
     position: fixed;
     top: 50%;
-    left: -66px;
+    left: -67px;
     z-index: 5000;
     min-width: 159px;
     -moz-box-sizing: border-box;
@@ -782,7 +781,7 @@ a.top-navigation-item:hover {
     padding: 9px 12px 12px;
     border-top: 1px solid #48494d;
     border-radius: 0 0 4px 4px;
-    background: #303133;
+    background: #3F4145;
     -moz-transform: rotate(-90deg);
     -ms-transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
@@ -790,21 +789,30 @@ a.top-navigation-item:hover {
     color: white;
     font-family: 'OpenSans-Semibold';
     font-size: 13px;
+    letter-spacing: 0.02em;
     text-align: center;
     text-transform: uppercase;
     -webkit-text-shadow: 0 0 1px rgba(0,0,0,0.6);
     text-shadow: 0 0 1px rgba(0,0,0,0.6);
 }
 
+.feedback-btn:hover {
+    background-color: #303133;
+}
+
+.feedback-btn:active {
+    background:  #111111;
+}
+
 .en-lang.feedback-btn {
 }
 
 .de-lang.feedback-btn {
-    left: -75px;
+    left: -76px;
 }
 
 .nl-lang.feedback-btn {
-    left: -85px;
+    left: -88px;
 }
 
 .feedback-btn-text {
