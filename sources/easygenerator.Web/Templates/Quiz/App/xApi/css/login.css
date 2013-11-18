@@ -26,11 +26,46 @@
     }
 
 .xapi-form-holder {
-    padding-top: 90px;
-    padding-bottom: 85px;
+    position: relative;
+    padding-top: 150px;
+    padding-bottom: 35px;
     width: 650px;
     margin: 0 auto;
 }
+
+.xapi-form-info-message {
+    width: 100%;
+    position: absolute;
+    top: 20px;
+    padding: 28px 20px;
+    background: #fefefe;
+    border: 1px solid #c7c7c7;
+    border-radius: 5px;
+    cursor: default;
+}
+
+.xapi-form-info-text {
+    display: block;
+    line-height: 1.5;
+    position: relative;
+    color: #555555;
+    padding-left: 51px;
+    word-wrap: break-word;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+    .xapi-form-info-text:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -16px;
+        height: 32px;
+        width: 32px;
+        background: url(img/info-message.png);
+    }
 
 .xapi-form-row {
     height: 100px;
@@ -54,16 +89,16 @@
     font-size: 22px;
 }
 
-.xapi-form-row-title:after {
-	content: '';
-	display: block;
-	position: absolute;
-	top: 1px;
-	left: 0;
-	width: 22px;
-	height: 22px;
-	background: url(img/icons-xApi.png) no-repeat;
-}
+    .xapi-form-row-title:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 1px;
+        left: 0;
+        width: 22px;
+        height: 22px;
+        background: url(img/icons-xApi.png) no-repeat;
+    }
 
 .xapi-form-input-holder {
     position: relative;
@@ -146,9 +181,9 @@
 
 .xapi-form-row.error .xapi-form-input-wrapper {
     border: solid 1px #953b39;
-            -webkit-box-shadow: 0 0 2px #953b39;
-        -moz-box-shadow: 0 0 2px #953b39;
-        box-shadow: 0 0 2px #953b39;
+    -webkit-box-shadow: 0 0 2px #953b39;
+    -moz-box-shadow: 0 0 2px #953b39;
+    box-shadow: 0 0 2px #953b39;
 }
 
 .xapi-form-message {
@@ -158,7 +193,7 @@
     top: 100%;
     padding-left: 21px;
     margin-top: -7px;
-	font-size: 13px;
+    font-size: 13px;
 }
 
 .xapi-form-row.error .xapi-form-message {
@@ -168,17 +203,25 @@
 }
 
 .xapi-form-message:after {
-	content: '';
-	position: absolute;
-	top: 4px;
-	left: 3px;
-	display: block;
-	width: 11px;
-	height: 11px;
-	font-size: 12px;
-	background: url(img/icons-xApi.png) -6px -67px;
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 3px;
+    display: block;
+    width: 11px;
+    height: 11px;
+    font-size: 12px;
+    background: url(img/icons-xApi.png) -6px -67px;
 }
 
 .summary-btn-holder .btn {
     font-size: 20px;
+}
+
+.link.default {
+    margin: 18px;
+    font-size: 18px;
+    border-bottom: 1px solid #3a87ad;
+    color: #3a87ad;
+    cursor: pointer;
 }

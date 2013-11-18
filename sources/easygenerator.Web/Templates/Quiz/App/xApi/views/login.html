@@ -1,5 +1,5 @@
 ﻿<section id="login" class="login content unselectable">
-    
+
     <link rel="stylesheet" href="App/xApi/css/login.css" />
 
     <div class="container" data-bind="focusHandler: {}">
@@ -12,6 +12,10 @@
                 </div>
             </header>
             <div class="xapi-form-holder">
+                <div class="xapi-form-info-message">
+                    <span class="xapi-form-info-text">Please enter your credentials and click "Start and report my progress" to enable progress tracking. Otherwise, click "Do not report, just start".
+                    </span>
+                </div>
                 <div class="xapi-form-row name" data-bind="css: { error: !username.isValid() && username.isModified() }">
                     <div class="xapi-form-row-left">
                         <span class="xapi-form-row-title">Your name</span>
@@ -36,11 +40,11 @@
                         </div>
                     </div>
                 </div>
+                <div class="summary-btn-holder clearfix">
+                    <a class="link default pull-left" data-bind="click: skip">Do not report, just start</a>
+                    <a class="btn default pull-right" data-bind="click: login">Start and report my progress</a>
+                </div>
             </div>
-        </div>
-        <div class="summary-btn-holder clearfix">
-            <a class="btn default pull-left" data-bind="click: skip">Start, but don't report my progress</a>
-            <a class="btn default pull-right" data-bind="click: login">Start, and report my progress</a>
         </div>
     </div>
 
