@@ -797,18 +797,14 @@ a.top-navigation-item:hover {
 }
 
 .en-lang.feedback-btn {
-    margin-top: -85px;
 }
 
 .de-lang.feedback-btn {
-    left: -74px;
-    margin-top: -94px;
-
+    left: -75px;
 }
 
 .nl-lang.feedback-btn {
-    margin-top: -104px;
-    left: -84px;
+    left: -85px;
 }
 
 .feedback-btn-text {
