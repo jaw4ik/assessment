@@ -766,7 +766,7 @@ a.top-navigation-item:hover {
 /*#region SEND FEEDBACK*/
 
 .feedback-btn {
-    display: block;
+    display: none;
     position: fixed;
     top: 50%;
     left: -67px;
