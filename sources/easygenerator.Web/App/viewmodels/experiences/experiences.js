@@ -190,8 +190,8 @@
                 experience.showStatus(showStatus);
                 
                 experience.showCompleteStatus = ko.computed(function () {
-                    return (this.buildingStatus() == constants.statuses.succeed && this.publishingState() != constants.statuses.inProgress) ||
-                        (this.publishingState() == constants.statuses.succeed && this.buildingStatus() != constants.statuses.inProgress);
+                    return (this.buildingStatus() == constants.statuses.succeed && this.publishingState() != constants.statuses.inProgress && this.publishingState() != constants.statuses.failed) ||
+                        (this.publishingState() == constants.statuses.succeed && this.buildingStatus() != constants.statuses.inProgress && this.buildingStatus() != constants.statuses.failed);
                 }, experience);
                 
                 experience.showFailedStatus = ko.computed(function () {
