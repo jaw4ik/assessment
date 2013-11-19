@@ -70,6 +70,12 @@ namespace easygenerator.AcceptanceTests.Steps
             packageObjectivesPage.ObjectiveQuestionItems(objectiveTitle).First(question => question.Title == questionTitle).PackageQuestionListItemClick();
         }
 
+        [When(@"click on DoNotReport link on package objective list page")]
+        public void WhenClickOnDoNotReportLinkOnPackageObjectiveListPage()
+        {
+            packageObjectivesPage.DoNotReportLinkClick();
+        }
+
 
 
     }

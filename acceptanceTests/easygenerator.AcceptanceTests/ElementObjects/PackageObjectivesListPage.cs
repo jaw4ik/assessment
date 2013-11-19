@@ -56,6 +56,12 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             btn.Click();
         }
 
+        internal void DoNotReportLinkClick()
+        {
+            var btn = GetByXPath(model.DoNotReportLink);
+            btn.Click();
+        }
+
         internal void PackageQuestionListItemClick(string questionTitle, string objectiveTitle)
         {
 

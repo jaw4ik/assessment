@@ -371,6 +371,10 @@ testRunner.And("mouse hover element of publications list with title \'Experience
 testRunner.And("click download publication list item with title \'Experience1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 124
 testRunner.And("unzip \'00000000000000000000000000000001\' package to \'tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 125
+testRunner.And("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 126
+testRunner.And("click on DoNotReport link on package objective list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
         
@@ -379,37 +383,35 @@ testRunner.And("unzip \'00000000000000000000000000000001\' package to \'tmp\'", 
         public virtual void ProgressIndicatorsShowCurrentProgressForExperience()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Progress indicators show current progress for experience", ((string[])(null)));
-#line 126
+#line 128
 this.ScenarioSetup(scenarioInfo);
 #line 7
 this.FeatureBackground();
-#line 127
-testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 128
-testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 129
-testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 130
-testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 131
-testRunner.And("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 132
-testRunner.And("toggle expand package objective item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 133
-testRunner.And("click package question list item \'Question21\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 134
-testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 135
 testRunner.And("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 136
-testRunner.And("click package question list item \'Question22\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 137
+#line 133
+testRunner.And("toggle expand package objective item with title \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 134
+testRunner.And("click package question list item \'Question21\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 135
 testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 136
+testRunner.And("click on back to objectives link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 137
+testRunner.And("click package question list item \'Question22\' of \'Objective12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 138
-testRunner.And("click on progress summary link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click on submit button on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 139
-testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#summary\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.And("click on progress summary link on package feedback page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 140
+testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#summary\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 141
 testRunner.And("overall progress score \'38%\' is shown on package summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             TechTalk.SpecFlow.Table table25 = new TechTalk.SpecFlow.Table(new string[] {
@@ -424,7 +426,7 @@ testRunner.And("overall progress score \'38%\' is shown on package summary page"
                         "Objective12",
                         "50%",
                         "width: 50%;"});
-#line 141
+#line 142
 testRunner.And("objective progress list contains items with data", ((string)(null)), table25, "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -435,18 +437,16 @@ testRunner.And("objective progress list contains items with data", ((string)(nul
         public virtual void BackActionOnPackageSummaryPageNavigatesToPreviousPage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Back action on package summary page navigates to previous page", ((string[])(null)));
-#line 147
+#line 148
 this.ScenarioSetup(scenarioInfo);
 #line 7
 this.FeatureBackground();
-#line 149
-testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 150
-testRunner.And("click on progress summary button on package list of objective page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("click on progress summary button on package list of objective page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 151
 testRunner.And("click on back link on progress summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 152
-testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#home\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 154
 testRunner.When("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 155
@@ -491,12 +491,10 @@ this.ScenarioSetup(scenarioInfo);
 #line 7
 this.FeatureBackground();
 #line 172
-testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("click on progress summary button on package list of objective page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 173
-testRunner.And("click on progress summary button on package list of objective page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 174
 testRunner.And("click on finish link on progress summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 175
+#line 174
 testRunner.Then("thank you popup appears on package summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -507,21 +505,19 @@ testRunner.Then("thank you popup appears on package summary page", ((string)(nul
         public virtual void HomeLinkOnPackageSummaryPageNavigatesToPackageHomePage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Home link on package summary page navigates to package home page", ((string[])(null)));
-#line 177
+#line 176
 this.ScenarioSetup(scenarioInfo);
 #line 7
 this.FeatureBackground();
+#line 177
+testRunner.When("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 178
-testRunner.When("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 179
-testRunner.And("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 180
 testRunner.And("click package question list item \'Question11\' of \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 181
+#line 179
 testRunner.And("click on progress summary link on package question page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 182
+#line 180
 testRunner.And("click on home link on progress summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 183
+#line 181
 testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

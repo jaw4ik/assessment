@@ -122,10 +122,11 @@ And refresh page
 And mouse hover element of publications list with title 'Experience1'
 And click download publication list item with title 'Experience1'
 And unzip '00000000000000000000000000000001' package to 'tmp'
+And open page by url 'http://localhost:5656/Templates/tmp'
+And click on DoNotReport link on package objective list page
 
 Scenario: Progress indicators show current progress for experience
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on submit button on package question page
 And click on back to objectives link on package feedback page
@@ -146,10 +147,9 @@ And objective progress list contains items with data
 
 Scenario: Back action on package summary page navigates to previous page
 
-When open page by url 'http://localhost:5656/Templates/tmp'
-And click on progress summary button on package list of objective page
+When click on progress summary button on package list of objective page
 And click on back link on progress summary page
-Then browser navigates to url 'http://localhost:5656/Templates/tmp/'
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/#home'
 
 When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
@@ -169,14 +169,12 @@ Then browser navigates to url 'http://localhost:5656/Templates/tmp/#objective/00
 
 
 Scenario: Thank you message popup appears on finish link click on package summary page
-When open page by url 'http://localhost:5656/Templates/tmp'
-And click on progress summary button on package list of objective page
+When click on progress summary button on package list of objective page
 And click on finish link on progress summary page
 Then thank you popup appears on package summary page
 
 Scenario: Home link on package summary page navigates to package home page
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on progress summary link on package question page
 And click on home link on progress summary page
