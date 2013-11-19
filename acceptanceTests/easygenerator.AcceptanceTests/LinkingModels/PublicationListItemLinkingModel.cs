@@ -14,9 +14,9 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string OpenElement = ".//div[contains(@class,'open-item-btn')]//a";
         public string IsSelectedClass = "selected";
 
-        public string BuildElement = ".//div[contains(@class,'create-package-btn')]";
-        public string DownloadElement = ".//div[contains(@class,'download-btn')]";
-        public string RebuildElement = ".//div[contains(@class,'create-package-btn')]";
+        public string BuildElement = ".//div[contains(@class,'experience-action create-package')]";
+        public string DownloadElement = ".//div[contains(@class,'experience-action download-package')]";
+        public string RebuildElement = ".//div[contains(@class,'experience-action create-package')]";
 
         public string ObjectiveCountElement = ".//div[contains(@class,'experience-brief-toolbar-objective-count')]";
 
