@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Infrastructure;
 
 namespace easygenerator.DataAccess.Repositories
 {
@@ -13,9 +14,9 @@ namespace easygenerator.DataAccess.Repositories
         {
         }
 
-        public ICollection<PasswordRecoveryTicket> GetExpiredTickets(DateTime expirationDate)
+        public ICollection<PasswordRecoveryTicket> GetExpiredTickets(TimeSpan expirationPeriod)
         {
-            return _dataContext.GetSet<PasswordRecoveryTicket>().Where(ticket => ticket.CreatedOn < expirationDate).ToList();
+            return _dataContext.GetSet<PasswordRecoveryTicket>().Where(ticket => ticket.CreatedOn.Add(expirationPeriod) < DateTimeWrapper.Now()).ToList();
         }
     }
 }

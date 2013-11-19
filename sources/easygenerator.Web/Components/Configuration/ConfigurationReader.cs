@@ -20,11 +20,11 @@ namespace easygenerator.Web.Components.Configuration
             }
         }
 
-        public virtual double PasswordRecoveryExpirationInterval
+        public virtual int PasswordRecoveryExpirationInterval
         {
             get
             {
-                return double.Parse(ConfigurationManager.AppSettings["PasswordRecoveryTicketExpirationInterval"]);
+                return int.Parse(ConfigurationManager.AppSettings["PasswordRecoveryTicketExpirationInterval"]);
             }
         }
     }

@@ -19,7 +19,7 @@ namespace easygenerator.Web.Tests.Tasks
         private IUnitOfWork _unitOfWork;
         private ConfigurationReader _configurationReader;
         private IPasswordRecoveryTicketRepository _passwordRecoveryTicketRepository;
-        private double _passwordRecoveryExpirationInterval;
+        private int _passwordRecoveryExpirationInterval;
 
         [TestInitialize]
         public void InitializePublisher()
@@ -42,7 +42,7 @@ namespace easygenerator.Web.Tests.Tasks
         public void Execute_ShouldNotSaveUnitOfWork_WhenNoExpiredTicketsFound()
         {
             //Arrange
-            _passwordRecoveryTicketRepository.GetExpiredTickets(Arg.Any<DateTime>()).Returns(new List<PasswordRecoveryTicket>());
+            _passwordRecoveryTicketRepository.GetExpiredTickets(Arg.Any<TimeSpan>()).Returns(new List<PasswordRecoveryTicket>());
 
             //Act
             _passwordRecoveryTicketExpirationTask.Execute();
@@ -56,7 +56,7 @@ namespace easygenerator.Web.Tests.Tasks
         {
             //Arrange
             var ticket = PasswordRecoveryTicketObjectMother.Create();
-            _passwordRecoveryTicketRepository.GetExpiredTickets(Arg.Any<DateTime>()).Returns(new List<PasswordRecoveryTicket>() { ticket });
+            _passwordRecoveryTicketRepository.GetExpiredTickets(Arg.Any<TimeSpan>()).Returns(new List<PasswordRecoveryTicket>() { ticket });
 
             //Act
             _passwordRecoveryTicketExpirationTask.Execute();
@@ -70,7 +70,7 @@ namespace easygenerator.Web.Tests.Tasks
         {
             //Arrange
             var ticket = PasswordRecoveryTicketObjectMother.Create();
-            _passwordRecoveryTicketRepository.GetExpiredTickets(Arg.Any<DateTime>()).Returns(new List<PasswordRecoveryTicket>() { ticket });
+            _passwordRecoveryTicketRepository.GetExpiredTickets(Arg.Any<TimeSpan>()).Returns(new List<PasswordRecoveryTicket>() { ticket });
 
             //Act
             _passwordRecoveryTicketExpirationTask.Execute();

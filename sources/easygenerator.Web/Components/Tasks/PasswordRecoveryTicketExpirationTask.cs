@@ -1,4 +1,6 @@
-﻿using easygenerator.DataAccess;
+﻿using System;
+using System.Diagnostics;
+using easygenerator.DataAccess;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components.Configuration;
@@ -20,8 +22,10 @@ namespace easygenerator.Web.Components.Tasks
 
         public void Execute()
         {
-            var expirationDate = DateTimeWrapper.Now().AddMinutes(_configurationReader.PasswordRecoveryExpirationInterval);
-            var tickets = _passwordRecoveryTicketRepository.GetExpiredTickets(expirationDate);
+            var tickets = _passwordRecoveryTicketRepository.GetExpiredTickets(new TimeSpan(0, 0, _configurationReader.PasswordRecoveryExpirationInterval, 0));
+
+            Debug.WriteLine(tickets.Count);
+
             if (tickets.Count == 0)
             {
                 return;
