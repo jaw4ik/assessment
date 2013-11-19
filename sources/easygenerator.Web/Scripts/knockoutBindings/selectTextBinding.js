@@ -3,7 +3,6 @@ ko.bindingHandlers.selectTextBinding = {
     update: function (element, valueAccessor) {
         var value = valueAccessor();
         var valueUnwrapped = ko.unwrap(value);
-
         if (valueUnwrapped) {
             element.select();
         }

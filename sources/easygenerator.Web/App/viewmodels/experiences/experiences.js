@@ -12,33 +12,36 @@
                 buildExperience: 'Build experience',
                 downloadExperience: 'Download experience',
                 experienceBuildFailed: 'Experience build is failed',
+                experiencePublishFailed: 'Experience publish is failed',
+                publishExperience: 'Publish experience',
                 deleteExperiences: "Delete selected experiences"
             },
 
             storage = [];
 
-        var
-            viewModel = {
-                experiences: ko.observableArray([]),
-                toggleSelection: toggleSelection,
 
-                navigateToCreation: navigateToCreation,
-                navigateToDetails: navigateToDetails,
-                navigateToObjectives: navigateToObjectives,
+        var viewModel = {
+            experiences: ko.observableArray([]),
+            toggleSelection: toggleSelection,
 
-                buildingStatuses: constants.buildingStatuses,
-                buildExperience: buildExperience,
-                downloadExperience: downloadExperience,
-                enableOpenExperience: enableOpenExperience,
-                resetBuildStatus: resetBuildStatus,
+            navigateToCreation: navigateToCreation,
+            navigateToDetails: navigateToDetails,
+            navigateToObjectives: navigateToObjectives,
 
-                deleteSelectedExperiences: deleteSelectedExperiences,
-                lastVistedExperienceId: '',
-                currentLanguage: '',
+            statuses: constants.statuses,
+            buildExperience: buildExperience,
+            downloadExperience: downloadExperience,
+            enableOpenExperience: enableOpenExperience,
+            
+            publishExperience: publishExperience,
 
-                activate: activate,
-                deactivate: deactivate
-            };
+            deleteSelectedExperiences: deleteSelectedExperiences,
+            lastVistedExperienceId: '',
+            currentLanguage: '',
+
+            activate: activate,
+            deactivate: deactivate
+        };
 
         function toggleSelection(experience) {
             if (!experience.isSelected())
@@ -48,7 +51,7 @@
 
             experience.isSelected(!experience.isSelected());
         }
-        
+
         function navigateToCreation() {
             eventTracker.publish(events.navigateToCreateExperience);
             router.navigate('experience/create');
@@ -68,8 +71,9 @@
         function buildExperience(experience) {
             eventTracker.publish(events.buildExperience);
 
-            if (experience.isSelected())
+            if (experience.isSelected()) {
                 experience.isSelected(false);
+            }
 
             experienceService.build(experience.id).fail(function (reason) {
                 notify.error(reason);
@@ -77,17 +81,33 @@
             });
         }
 
+        function publishExperience(experience) {
+            eventTracker.publish(events.publishExperience);
+
+            if (experience.isSelected()) {
+                experience.isSelected(false);
+            }
+
+            experienceService.publish(experience.id).fail(function (reason) {
+                notify.error(reason);
+                eventTracker.publish(events.experiencePublishFailed);
+            });
+        }
+        
         function downloadExperience(experience) {
             eventTracker.publish(events.downloadExperience);
             router.download('download/' + experience.packageUrl());
         }
 
-        function resetBuildStatus(experience) {
-            experience.buildingStatus(constants.buildingStatuses.notStarted);
-        }
-
         function enableOpenExperience(experience) {
-            experience.showBuildingStatus(false);
+            experience.showStatus(false);
+            if (experience.buildingStatus() === constants.statuses.failed) {
+                experience.buildingStatus(constants.statuses.notStarted);
+                experience.publishingState(constants.statuses.notStarted);
+            }
+            if (experience.publishingState() === constants.statuses.failed) {
+                experience.publishingState(constants.statuses.notStarted);
+            }
         }
 
         function getSelectedExperiences() {
@@ -134,7 +154,7 @@
             viewModel.currentLanguage = localizationManager.currentLanguage;
 
             clientContext.set('lastVistedExperience', null);
-
+            
             viewModel.experiences(_.map(sortedExperiences, function (item) {
                 var experience = {};
 
@@ -143,22 +163,42 @@
                 experience.image = item.template.image;
                 experience.objectives = item.objectives;
                 experience.buildingStatus = ko.observable(item.buildingStatus);
+                experience.publishingState = ko.observable(item.publishingState);
                 experience.packageUrl = ko.observable(item.packageUrl);
+                experience.publishedPackageUrl = ko.observable(item.publishedPackageUrl);
                 experience.modifiedOn = item.modifiedOn;
 
                 experience.isFirstBuild = ko.computed(function () {
                     return _.isNullOrUndefined(this.packageUrl()) || _.isEmptyOrWhitespace(this.packageUrl());
                 }, experience);
+                
+                experience.isFirstPublish = ko.computed(function () {
+                    return _.isNullOrUndefined(this.publishedPackageUrl()) || _.isEmptyOrWhitespace(this.publishedPackageUrl());
+                }, experience);
 
                 experience.isSelected = ko.observable(false);
-                experience.showBuildingStatus = ko.observable();
+                experience.showStatus = ko.observable();
 
-                var storageItem = storage[item.id] || { showBuildingStatus: false, buildingStatus: constants.buildingStatuses.notStarted };
-                var showBuildingStatus = storageItem.showBuildingStatus
-                    || item.buildingStatus == constants.buildingStatuses.inProgress
-                    || item.buildingStatus != storageItem.buildingStatus;
-
-                experience.showBuildingStatus(showBuildingStatus);
+                var storageItem = storage[item.id] || { showStatus: false, buildingStatus: constants.statuses.notStarted, publishingState: constants.statuses.notStarted };
+                var showStatus = storageItem.showStatus || (item.buildingStatus == constants.statuses.inProgress
+                    || item.buildingStatus != storageItem.buildingStatus) || (item.publishingState == constants.statuses.inProgress || item.publishingState != storageItem.publishingState);
+                
+                experience.showCreatingStatus = ko.computed(function () {
+                    return (this.isFirstBuild() && this.buildingStatus() == constants.statuses.inProgress) || (this.isFirstPublish() && this.publishingState() == constants.statuses.inProgress);
+                }, experience);
+                
+                experience.showStatus(showStatus);
+                
+                experience.showCompleteStatus = ko.computed(function () {
+                    return (this.buildingStatus() == constants.statuses.succeed && this.publishingState() != constants.statuses.inProgress) ||
+                        (this.publishingState() == constants.statuses.succeed && this.buildingStatus() != constants.statuses.inProgress);
+                }, experience);
+                
+                experience.showFailedStatus = ko.computed(function () {
+                    return (this.buildingStatus() == constants.statuses.failed && this.publishingState() != constants.statuses.inProgress) ||
+                        (this.publishingState() == constants.statuses.failed && this.buildingStatus() != constants.statuses.inProgress);
+                }, experience);
+                
                 return experience;
             }));
         }
@@ -167,8 +207,9 @@
             storage = [];
             _.each(viewModel.experiences(), function (item) {
                 storage[item.id] = {
-                    showBuildingStatus: item.showBuildingStatus(),
-                    buildingStatus: item.buildingStatus()
+                    showStatus: item.showStatus(),
+                    buildingStatus: item.buildingStatus(),
+                    publishingState: item.publishingState()
                 };
             });
         };
@@ -178,24 +219,47 @@
         app.on(constants.messages.experience.build.started).then(function (experience) {
             updateExperienceViewModelIfExists(experience.id, function (expVm) {
                 expVm.buildingStatus(constants.statuses.inProgress);
-                expVm.showBuildingStatus(true);
+                expVm.showStatus(true);
             });
         });
 
         app.on(constants.messages.experience.build.completed, function (experience) {
             updateExperienceViewModelIfExists(experience.id, function (expVm) {
-                expVm.buildingStatus(constants.buildingStatuses.succeed);
+                expVm.buildingStatus(constants.statuses.succeed);
                 expVm.packageUrl(experience.packageUrl);
             });
         });
 
         app.on(constants.messages.experience.build.failed, function (experienceId) {
             updateExperienceViewModelIfExists(experienceId, function (expVm) {
-                expVm.buildingStatus(constants.buildingStatuses.failed);
+                expVm.buildingStatus(constants.statuses.failed);
                 expVm.packageUrl("");
             });
         });
+        
+        // #region publish events
+        app.on(constants.messages.experience.publish.started).then(function (experience) {
+            updateExperienceViewModelIfExists(experience.id, function (expVm) {
+                expVm.publishingState(constants.statuses.inProgress);
+                expVm.showStatus(true);
+            });
+        });
 
+        app.on(constants.messages.experience.publish.completed, function (experience) {
+            updateExperienceViewModelIfExists(experience.id, function (expVm) {
+                expVm.publishingState(constants.statuses.succeed);
+                expVm.publishedPackageUrl(experience.publishedPackageUrl);
+            });
+        });
+
+        app.on(constants.messages.experience.publish.failed, function (experienceId) {
+            updateExperienceViewModelIfExists(experienceId, function (expVm) {
+                expVm.publishingState(constants.statuses.failed);
+                expVm.publishedPackageUrl("");
+            });
+        });
+        // #endregion publish events
+        
         function updateExperienceViewModelIfExists(experienceId, handler) {
             var expVm = _.find(viewModel.experiences(), function (item) {
                 return item.id == experienceId;

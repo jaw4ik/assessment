@@ -58,7 +58,7 @@
                             it('should reject promise', function () {
                                 var promise = service.build();
 
-                                getById.resolve({ buildingStatus: constants.buildingStatuses.inProgress });
+                                getById.resolve({ buildingStatus: constants.statuses.inProgress });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -92,7 +92,7 @@
                                     return getById.promise.isFulfilled() && http.post.calls.length == 1;
                                 });
                                 runs(function () {
-                                    expect(experience.buildingStatus).toEqual(constants.buildingStatuses.inProgress);
+                                    expect(experience.buildingStatus).toEqual(constants.statuses.inProgress);
                                 });
                             });
 
@@ -171,7 +171,7 @@
                                                 return promise.isFulfilled();
                                             });
                                             runs(function () {
-                                                expect(experience.buildingStatus).toEqual(constants.buildingStatuses.succeed);
+                                                expect(experience.buildingStatus).toEqual(constants.statuses.succeed);
                                             });
                                         });
 
@@ -210,7 +210,7 @@
                                                 return !promise.isPending();
                                             });
                                             runs(function () {
-                                                expect(experience.buildingStatus).toEqual(constants.buildingStatuses.failed);
+                                                expect(experience.buildingStatus).toEqual(constants.statuses.failed);
                                             });
                                         });
 
@@ -315,7 +315,7 @@
                                             return !promise.isPending();
                                         });
                                         runs(function () {
-                                            expect(experience.buildingStatus).toEqual(constants.buildingStatuses.failed);
+                                            expect(experience.buildingStatus).toEqual(constants.statuses.failed);
                                         });
                                     });
 
@@ -419,7 +419,7 @@
                             it('should reject promise', function () {
                                 var promise = service.publish();
 
-                                getById.resolve({ buildingStatus: constants.buildingStatuses.inProgress });
+                                getById.resolve({ buildingStatus: constants.statuses.inProgress });
 
                                 waitsFor(function () {
                                     return !promise.isPending();

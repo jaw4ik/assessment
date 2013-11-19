@@ -478,7 +478,7 @@
                                                         template: template,
                                                         createdOn: utils.getDateFromString(experienceCreatedOn),
                                                         modifiedOn: utils.getDateFromString(experienceCreatedOn),
-                                                        buildingStatus: constants.buildingStatuses.notStarted,
+                                                        buildingStatus: constants.statuses.notStarted,
                                                         publishingState: constants.statuses.notStarted,
                                                         objectives: []
                                                     });

@@ -13,14 +13,7 @@
                 succeed: 'succeed',
                 failed: 'failed'
             },
-
-            buildingStatuses: {
-                notStarted: 'notStarted',
-                inProgress: 'inProgress',
-                succeed: 'succeed',
-                failed: 'failed'
-            },
-
+            
             autosaveTimersInterval: {
                 answerOption: 60000,
                 learningContent: 60000,

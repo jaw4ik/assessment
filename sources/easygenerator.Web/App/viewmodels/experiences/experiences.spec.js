@@ -19,21 +19,21 @@
                     id: 'testId3',
                     title: 'Test Experience 3',
                     objectives: [],
-                    buildingStatus: constants.buildingStatuses.notStarted,
+                    buildingStatus: constants.statuses.notStarted,
                     template: template
                 }),
                 new experienceModel({
                     id: 'testId2',
                     title: 'Test Experience 2',
                     objectives: [],
-                    buildingStatus: constants.buildingStatuses.notStarted,
+                    buildingStatus: constants.statuses.notStarted,
                     template: template
                 }),
                 new experienceModel({
                     id: 'testId1',
                     title: 'Test Experience 1',
                     objectives: [],
-                    buildingStatus: constants.buildingStatuses.notStarted,
+                    buildingStatus: constants.statuses.notStarted,
                     template: template
                 })
             ];
@@ -58,10 +58,10 @@
 
             });
 
-            describe('buildingStatuses:', function () {
+            describe('statuses:', function () {
 
                 it('should be defined', function () {
-                    expect(viewModel.buildingStatuses).toBeDefined();
+                    expect(viewModel.statuses).toBeDefined();
                 });
 
             });
@@ -86,19 +86,13 @@
                     expect(viewModel.experiences().length).toEqual(3);
                 });
 
-                it('should sort experiences asc', function () {
-                    dataContext.experiences = experiences;
-                    viewModel.activate();
-                    expect(viewModel.experiences()).toBeSortedAsc('title');
-                });
-
                 it('should set current language', function () {
                     viewModel.currentLanguage = null;
                     viewModel.activate();
                     expect(viewModel.currentLanguage).toBe(localizationManage.currentLanguage);
                 });
 
-                describe('when previous showBuildingStatus is not set', function () {
+                describe('when previous showStatus is not set', function () {
 
                     var dataExperience;
 
@@ -114,13 +108,14 @@
                     describe('and buildingStatus is \"Not started\"', function () {
 
                         beforeEach(function () {
-                            dataExperience.buildingStatus = constants.buildingStatuses.notStarted;
+                            dataExperience.buildingStatus = constants.statuses.notStarted;
+                            dataExperience.publishingState = constants.statuses.notStarted;
                         });
 
-                        it('should set current showBuildingStatus to \"false\"', function () {
+                        it('should set current showStatus to \"false\"', function () {
                             viewModel.activate();
                             var viewExperience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
-                            expect(viewExperience.showBuildingStatus()).toBe(false);
+                            expect(viewExperience.showStatus()).toBe(false);
                         });
 
                     });
@@ -128,13 +123,13 @@
                     describe('and buildingStatus is \"In progress\"', function () {
 
                         beforeEach(function () {
-                            dataExperience.buildingStatus = constants.buildingStatuses.inProgress;
+                            dataExperience.buildingStatus = constants.statuses.inProgress;
                         });
 
-                        it('should set current showBuildingStatus to \"true\"', function () {
+                        it('should set current showStatus to \"true\"', function () {
                             viewModel.activate();
                             var viewExperience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
-                            expect(viewExperience.showBuildingStatus()).toBe(true);
+                            expect(viewExperience.showStatus()).toBe(true);
                         });
 
                     });
@@ -142,13 +137,13 @@
                     describe('and buildingStatus is \"Failed\"', function () {
 
                         beforeEach(function () {
-                            dataExperience.buildingStatus = constants.buildingStatuses.failed;
+                            dataExperience.buildingStatus = constants.statuses.failed;
                         });
 
-                        it('should set current showBuildingStatus to \"true\"', function () {
+                        it('should set current showStatus to \"true\"', function () {
                             viewModel.activate();
                             var viewExperience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
-                            expect(viewExperience.showBuildingStatus()).toBe(true);
+                            expect(viewExperience.showStatus()).toBe(true);
                         });
 
                     });
@@ -156,20 +151,20 @@
                     describe('and buildingStatus is \"Succeed\"', function () {
 
                         beforeEach(function () {
-                            dataExperience.buildingStatus = constants.buildingStatuses.succeed;
+                            dataExperience.buildingStatus = constants.statuses.succeed;
                         });
 
-                        it('should set current showBuildingStatus to \"true\"', function () {
+                        it('should set current showStatus to \"true\"', function () {
                             viewModel.activate();
                             var viewExperience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
-                            expect(viewExperience.showBuildingStatus()).toBe(true);
+                            expect(viewExperience.showStatus()).toBe(true);
                         });
 
                     });
 
                 });
 
-                describe('when previous showBuildingStatus is \"false\"', function () {
+                describe('when previous showStatus is \"false\"', function () {
                     var dataExperience,
                         viewExperience;
 
@@ -179,26 +174,26 @@
                         viewModel.activate();
 
                         viewExperience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
-                        viewExperience.showBuildingStatus(false);
+                        viewExperience.showStatus(false);
                     });
 
                     describe('and previous buildingStatus is \"Not started\"', function () {
 
                         beforeEach(function () {
-                            viewExperience.buildingStatus(constants.buildingStatuses.notStarted);
+                            viewExperience.buildingStatus(constants.statuses.notStarted);
                             viewModel.deactivate();
                         });
 
                         describe('and buildingStatus is not changed', function () {
 
                             beforeEach(function () {
-                                dataExperience.buildingStatus = constants.buildingStatuses.notStarted;
+                                dataExperience.buildingStatus = constants.statuses.notStarted;
                             });
 
-                            it('should set current showBuildingStatus to \"false\"', function () {
+                            it('should set current showStatus to \"false\"', function () {
                                 viewModel.activate();
                                 var experience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
-                                expect(experience.showBuildingStatus()).toBe(false);
+                                expect(experience.showStatus()).toBe(false);
                             });
 
                         });
@@ -206,13 +201,13 @@
                         describe('and buildingStatus is changed', function () {
 
                             beforeEach(function () {
-                                dataExperience.buildingStatus = constants.buildingStatuses.succeed;
+                                dataExperience.buildingStatus = constants.statuses.succeed;
                             });
 
-                            it('should set current showBuildingStatus to \"true\"', function () {
+                            it('should set current showStatus to \"true\"', function () {
                                 viewModel.activate();
                                 var experience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
-                                expect(experience.showBuildingStatus()).toBe(true);
+                                expect(experience.showStatus()).toBe(true);
                             });
 
                         });
@@ -222,20 +217,20 @@
                     describe('and buildingStatus is \"In progress\"', function () {
 
                         beforeEach(function () {
-                            viewExperience.buildingStatus(constants.buildingStatuses.inProgress);
+                            viewExperience.buildingStatus(constants.statuses.inProgress);
                             viewModel.deactivate();
                         });
 
                         describe('and buildingStatus is not changed', function () {
 
                             beforeEach(function () {
-                                dataExperience.buildingStatus = constants.buildingStatuses.inProgress;
+                                dataExperience.buildingStatus = constants.statuses.inProgress;
                             });
 
-                            it('should set current showBuildingStatus to \"true\"', function () {
+                            it('should set current showStatus to \"true\"', function () {
                                 viewModel.activate();
                                 var experience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
-                                expect(experience.showBuildingStatus()).toBe(true);
+                                expect(experience.showStatus()).toBe(true);
                             });
 
                         });
@@ -243,13 +238,13 @@
                         describe('and buildingStatus is changed', function () {
 
                             beforeEach(function () {
-                                dataExperience.buildingStatus = constants.buildingStatuses.succeed;
+                                dataExperience.buildingStatus = constants.statuses.succeed;
                             });
 
-                            it('should set current showBuildingStatus to \"true\"', function () {
+                            it('should set current showStatus to \"true\"', function () {
                                 viewModel.activate();
                                 var experience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
-                                expect(experience.showBuildingStatus()).toBe(true);
+                                expect(experience.showStatus()).toBe(true);
                             });
 
                         });
@@ -259,20 +254,20 @@
                     describe('and buildingStatus is \"Failed\"', function () {
 
                         beforeEach(function () {
-                            viewExperience.buildingStatus(constants.buildingStatuses.failed);
+                            viewExperience.buildingStatus(constants.statuses.failed);
                             viewModel.deactivate();
                         });
 
                         describe('and buildingStatus is not changed', function () {
 
                             beforeEach(function () {
-                                dataExperience.buildingStatus = constants.buildingStatuses.failed;
+                                dataExperience.buildingStatus = constants.statuses.failed;
                             });
 
-                            it('should set current showBuildingStatus to \"false\"', function () {
+                            it('should set current showStatus to \"false\"', function () {
                                 viewModel.activate();
                                 var experience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
-                                expect(experience.showBuildingStatus()).toBe(false);
+                                expect(experience.showStatus()).toBe(false);
                             });
 
                         });
@@ -280,13 +275,13 @@
                         describe('and buildingStatus is changed', function () {
 
                             beforeEach(function () {
-                                dataExperience.buildingStatus = constants.buildingStatuses.succeed;
+                                dataExperience.buildingStatus = constants.statuses.succeed;
                             });
 
-                            it('should set current showBuildingStatus to \"true\"', function () {
+                            it('should set current showStatus to \"true\"', function () {
                                 viewModel.activate();
                                 var experience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
-                                expect(experience.showBuildingStatus()).toBe(true);
+                                expect(experience.showStatus()).toBe(true);
                             });
 
                         });
@@ -296,20 +291,20 @@
                     describe('and buildingStatus is \"Succeed\"', function () {
 
                         beforeEach(function () {
-                            viewExperience.buildingStatus(constants.buildingStatuses.succeed);
+                            viewExperience.buildingStatus(constants.statuses.succeed);
                             viewModel.deactivate();
                         });
 
                         describe('and buildingStatus is not changed', function () {
 
                             beforeEach(function () {
-                                dataExperience.buildingStatus = constants.buildingStatuses.succeed;
+                                dataExperience.buildingStatus = constants.statuses.succeed;
                             });
 
-                            it('should set current showBuildingStatus to \"false\"', function () {
+                            it('should set current showStatus to \"false\"', function () {
                                 viewModel.activate();
                                 var experience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
-                                expect(experience.showBuildingStatus()).toBe(false);
+                                expect(experience.showStatus()).toBe(false);
                             });
 
                         });
@@ -317,13 +312,13 @@
                         describe('and buildingStatus is changed', function () {
 
                             beforeEach(function () {
-                                dataExperience.buildingStatus = constants.buildingStatuses.failed;
+                                dataExperience.buildingStatus = constants.statuses.failed;
                             });
 
-                            it('should set current showBuildingStatus to \"true\"', function () {
+                            it('should set current showStatus to \"true\"', function () {
                                 viewModel.activate();
                                 var experience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
-                                expect(experience.showBuildingStatus()).toBe(true);
+                                expect(experience.showStatus()).toBe(true);
                             });
 
                         });
@@ -332,7 +327,7 @@
 
                 });
 
-                describe('when previous showBuildingStatus is \"true\"', function () {
+                describe('when previous showStatus is \"true\"', function () {
                     var dataExperience;
 
                     beforeEach(function () {
@@ -341,15 +336,15 @@
                         viewModel.activate();
                         var viewExperience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
 
-                        viewExperience.showBuildingStatus(true);
+                        viewExperience.showStatus(true);
                         viewModel.deactivate();
                     });
 
-                    it('should set current showBuildingStatus to \"true\"', function () {
+                    it('should set current showStatus to \"true\"', function () {
                         viewModel.activate();
 
                         var viewExperience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
-                        expect(viewExperience.showBuildingStatus()).toBe(true);
+                        expect(viewExperience.showStatus()).toBe(true);
                     });
 
                 });
@@ -606,7 +601,7 @@
                     experience = {
                         id: 'testId3',
                         buildingStatus: ko.observable(),
-                        showBuildingStatus: ko.observable(),
+                        showStatus: ko.observable(),
                         isSelected: ko.observable(),
                         isFirstBuild: ko.observable()
                     };
@@ -680,6 +675,92 @@
                 });
 
             });
+            
+            describe('publishExperience:', function () {
+                var experienceService = require('services/buildExperience');
+
+                var publishDeferred,
+                    experience,
+                    publishPromise;
+
+                beforeEach(function () {
+                    experience = {
+                        id: 'testId3',
+                        publishingState: ko.observable(),
+                        showStatus: ko.observable(),
+                        isSelected: ko.observable(),
+                        isFirstPublish: ko.observable()
+                    };
+                    publishDeferred = Q.defer();
+
+                    publishPromise = publishDeferred.promise.finally(function () { });
+                    spyOn(experienceService, 'publish').andReturn(publishDeferred.promise);
+                });
+
+                it('should be a function', function () {
+                    expect(viewModel.publishExperience).toBeFunction();
+                });
+
+                it('should send event \"Publish experience\"', function () {
+                    viewModel.publishExperience(experience);
+
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Publish experience');
+                });
+
+                it('should reset item selection', function () {
+                    experience.isSelected(true);
+
+                    viewModel.publishExperience(experience);
+
+                    expect(experience.isSelected()).toBe(false);
+                });
+
+                it('should call publishExperience service', function () {
+                    viewModel.publishExperience(experience);
+
+                    expect(experienceService.publish).toHaveBeenCalledWith(experience.id);
+                });
+
+                describe('when publish is finished', function () {
+
+                    describe('and publish failed', function () {
+
+                        it('should show error notification', function () {
+                            spyOn(notify, 'error');
+
+                            viewModel.publishExperience(experience);
+
+                            eventTracker.publish.reset();
+                            publishDeferred.reject("Experience publish is failed");
+
+                            waitsFor(function () {
+                                return !publishPromise.isPending();
+                            });
+                            runs(function () {
+                                expect(notify.error).toHaveBeenCalledWith('Experience publish is failed');
+                            });
+                        });
+
+
+                        it('should send event \'Experience publish is failed\'', function () {
+                            viewModel.publishExperience(experience);
+
+                            eventTracker.publish.reset();
+                            publishDeferred.reject();
+
+                            waitsFor(function () {
+                                return !publishPromise.isPending();
+                            });
+                            runs(function () {
+                                expect(eventTracker.publish).toHaveBeenCalledWith('Experience publish is failed');
+                            });
+                        });
+
+                    });
+
+                });
+
+            });
 
             describe('downloadExperience:', function () {
 
@@ -707,20 +788,48 @@
             });
 
             describe('enableOpenExperience:', function () {
+                var experience;
 
+                beforeEach(function () {
+                    experience = { showStatus: ko.observable(), buildingStatus: ko.observable(constants.statuses.notStarted), publishingState: ko.observable(constants.statuses.notStarted) };
+                });
+                
                 it('should be a function', function () {
                     expect(viewModel.enableOpenExperience).toBeFunction();
                 });
 
-                it('should hide showBuildingStatus and so enable open experience', function () {
-                    var experience = { showBuildingStatus: ko.observable() };
-                    experience.showBuildingStatus(true);
+                it('should hide showStatus and so enable open experience', function () {
+                    experience.showStatus(true);
 
                     viewModel.enableOpenExperience(experience);
 
-                    expect(experience.showBuildingStatus()).toBe(false);
+                    expect(experience.showStatus()).toBe(false);
                 });
 
+                it('should set buildStatus to notStarted if buildStatus is failed.', function () {
+                    experience.buildingStatus(constants.statuses.failed);
+
+                    viewModel.enableOpenExperience(experience);
+
+                    expect(experience.buildingStatus()).toBe(constants.statuses.notStarted);
+                });
+                
+                it('should set publishingState to notStarted if buildStatus is failed.', function () {
+                    experience.buildingStatus(constants.statuses.failed);
+                    experience.publishingState(constants.statuses.inProgress);
+
+                    viewModel.enableOpenExperience(experience);
+
+                    expect(experience.publishingState()).toBe(constants.statuses.notStarted);
+                });
+                
+                it('should set publishingState to notStarted if publishingState is failed.', function () {
+                   experience.publishingState(constants.statuses.failed);
+
+                   viewModel.enableOpenExperience(experience);
+
+                   expect(experience.publishingState()).toBe(constants.statuses.notStarted);
+                });
             });
 
             describe('when experience build was started', function () {
@@ -731,7 +840,7 @@
                     experienceVm = {
                         id: 'experienceId',
                         buildingStatus: ko.observable(constants.statuses.notStarted),
-                        showBuildingStatus: ko.observable(false)
+                        showStatus: ko.observable(false)
                     };
                     viewModel.experiences([experienceVm]);
                 });
@@ -743,7 +852,7 @@
 
                 it('should show building status for corresponding experience', function () {
                     app.trigger(constants.messages.experience.build.started, { id: experienceVm.id });
-                    expect(experienceVm.showBuildingStatus()).toBeTruthy();
+                    expect(experienceVm.showStatus()).toBeTruthy();
                 });
 
                 it('should not change status of other experiences', function () {
@@ -753,7 +862,7 @@
 
                 it('should not show building status for other experiences', function () {
                     app.trigger(constants.messages.experience.build.started, { id: '100500' });
-                    expect(experienceVm.showBuildingStatus()).toBeFalsy();
+                    expect(experienceVm.showStatus()).toBeFalsy();
                 });
 
             });
@@ -831,8 +940,115 @@
                 });
 
             });
+            
+            describe('when experience publish was started', function () {
 
+                var experienceVm;
+
+                beforeEach(function () {
+                    experienceVm = {
+                        id: 'experienceId',
+                        publishingState: ko.observable(constants.statuses.notStarted),
+                        showStatus: ko.observable(false)
+                    };
+                    viewModel.experiences([experienceVm]);
+                });
+
+                it('should change publishingState of corresponding experience to \'inProgress\'', function () {
+                    app.trigger(constants.messages.experience.publish.started, { id: experienceVm.id });
+                    expect(experienceVm.publishingState()).toEqual(constants.statuses.inProgress);
+                });
+
+                it('should show publishingState for corresponding experience', function () {
+                    app.trigger(constants.messages.experience.publish.started, { id: experienceVm.id });
+                    expect(experienceVm.showStatus()).toBeTruthy();
+                });
+
+                it('should not change publishingState of other experiences', function () {
+                    app.trigger(constants.messages.experience.publish.started, { id: '100500' });
+                    expect(experienceVm.publishingState()).toEqual(constants.statuses.notStarted);
+                });
+
+                it('should not show publishingState for other experiences', function () {
+                    app.trigger(constants.messages.experience.publish.started, { id: '100500' });
+                    expect(experienceVm.showStatus()).toBeFalsy();
+                });
+
+            });
+
+            describe('when experience publish completed', function () {
+
+                var experienceVm;
+
+                beforeEach(function () {
+                    experienceVm = {
+                        id: 'experienceId',
+                        publishedPackageUrl: ko.observable('packageUrl'),
+                        publishingState: ko.observable(constants.statuses.inProgress)
+                    };
+                    viewModel.experiences([experienceVm]);
+                });
+
+                it('should change publishingState of the corresponding experience to \'success\'', function () {
+                    app.trigger(constants.messages.experience.publish.completed, { id: experienceVm.id });
+                    expect(experienceVm.publishingState()).toEqual(constants.statuses.succeed);
+                });
+
+                it('should change publishedPackageUrl of the corresponding experience', function () {
+                    var publishedPackageUrl = "http://xxx.com";
+                    app.trigger(constants.messages.experience.publish.completed, { id: experienceVm.id, publishedPackageUrl: publishedPackageUrl });
+
+                    expect(experienceVm.publishedPackageUrl()).toEqual(publishedPackageUrl);
+                });
+
+                it('should not change publishingState of other experiences', function () {
+                    app.trigger(constants.messages.experience.publish.completed, { id: '100500' });
+                    expect(experienceVm.publishingState()).toEqual(constants.statuses.inProgress);
+                });
+
+                it('should not change publishedPackageUrl of other experiences', function () {
+                    var publishedPackageUrl = "http://xxx.com";
+                    app.trigger(constants.messages.experience.publish.completed, { id: '100500', publishedPackageUrl: publishedPackageUrl });
+
+                    expect(experienceVm.publishedPackageUrl()).toEqual('packageUrl');
+                });
+
+            });
+
+            describe('when experience publish failed', function () {
+
+                var experienceVm;
+
+                beforeEach(function () {
+                    experienceVm = {
+                        id: 'experienceId',
+                        publishedPackageUrl: ko.observable('packageUrl'),
+                        publishingState: ko.observable(constants.statuses.inProgress),
+                    };
+                    viewModel.experiences([experienceVm]);
+                });
+
+                it('should change publishingState of the corresponding experience to \'failed\'', function () {
+                    app.trigger(constants.messages.experience.publish.failed, experienceVm.id);
+                    expect(experienceVm.publishingState()).toEqual(constants.statuses.failed);
+                });
+
+                it('should remove publishedPackageUrl of the corresponding experience', function () {
+                    app.trigger(constants.messages.experience.publish.failed, experienceVm.id);
+                    expect(experienceVm.publishedPackageUrl()).toEqual("");
+                });
+
+                it('should not change publishingState of other experiences', function () {
+                    app.trigger(constants.messages.experience.publish.failed, '100500');
+                    expect(experienceVm.publishingState()).toEqual(constants.statuses.inProgress);
+                });
+
+                it('should not remove publishedPackageUrl of other experiences', function () {
+                    app.trigger(constants.messages.experience.publish.failed, '100500');
+                    expect(experienceVm.publishedPackageUrl()).toEqual("packageUrl");
+                });
+
+            });
         });
-
     }
 );
