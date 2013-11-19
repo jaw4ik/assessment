@@ -310,7 +310,7 @@
     republishing: {
         en: 'republishing...',
         nl: 'bezig met opnieuw publiceren...',
-        de: 'Erneute Veröffentlichung läuft...'
+        de: 'erneute Veröffentlichung läuft...'
     },
     copyLinkTitle: {
         en: 'Copy link',
