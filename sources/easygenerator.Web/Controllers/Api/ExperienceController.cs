@@ -167,14 +167,18 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Constants.Errors.ObjectivesNotFoundError, Constants.Errors.ObjectivesNotFoundResourceKey);
             }
 
-            foreach (Objective objective in objectives)
+            foreach (Objective objective in objectives) 
             {
                 experience.RelateObjective(objective, GetCurrentUsername());
             }
 
             return JsonSuccess(new
             {
-                ModifiedOn = experience.ModifiedOn
+                ModifiedOn = experience.ModifiedOn,
+                RelatedObjectives = objectives.Select(obj => new
+                {
+                    Id = obj.Id.ToString("N")
+                })
             });
         }
 

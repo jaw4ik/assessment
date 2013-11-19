@@ -152,6 +152,10 @@
 
                 eventTracker.publish(events.showConnectedObjectives);
 
+                _.each(connectedObjectives(), function(item) {
+                    item.isSelected(false);
+                });
+
                 objectivesMode(objectivesListModes.display);
             },
             connectObjectives = function () {
@@ -170,8 +174,8 @@
                 }
 
                 repository.relateObjectives(that.id, objectivesToRelate)
-                    .then(function () {
-                        that.connectedObjectives(_.chain(objectivesToRelate)
+                    .then(function (response) {
+                        that.connectedObjectives(_.chain(response.relatedObjectives)
                             .map(function (item) {
                                 return objectiveBrief(item);
                             })
@@ -185,7 +189,11 @@
                                return !_.contains(objectivesToRelate, item._original);
                            }));
 
-                        notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
+                        notify.info(localizationManager.localize('savedAt') + ' ' + response.modifiedOn.toLocaleTimeString());
+
+                        if (objectivesToRelate.length != response.relatedObjectives.length) {
+                            notify.error(localizationManager.localize('objectiveNotFoundError'));
+                        }
                     });
             },
             disconnectSelectedObjectives = function () {
@@ -197,9 +205,9 @@
                     });
 
                 repository.unrelateObjectives(this.id, _.map(selectedObjectives, function (item) { return item; }))
-                    .then(function () {
+                    .then(function (modifiedOn) {
                         that.connectedObjectives(_.difference(that.connectedObjectives(), selectedObjectives));
-                        notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
+                        notify.info(localizationManager.localize('savedAt') + ' ' + modifiedOn.toLocaleTimeString());
                     });
             },
 

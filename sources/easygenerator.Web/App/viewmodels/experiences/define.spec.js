@@ -35,6 +35,7 @@
                 spyOn(router, 'navigate');
                 spyOn(router, 'replace');
                 spyOn(notify, 'info');
+                spyOn(notify, 'error');
             });
 
             it('should be object', function () {
@@ -419,7 +420,7 @@
                 });
 
                 describe('when objectivesMode is appending', function () {
-                    
+
                     beforeEach(function () {
                         viewModel.objectivesMode('appending');
                     });
@@ -443,13 +444,13 @@
                     var
                         getObjectivesDefer,
                         getObjectivesPromise;
-                    
+
                     beforeEach(function () {
                         getObjectivesDefer = Q.defer();
                         getObjectivesPromise = getObjectivesDefer.promise.fin(function () { });
-                        
+
                         spyOn(objectiveRepository, 'getCollection').andReturn(getObjectivesDefer.promise);
-                        
+
                         viewModel.objectivesMode('display');
                     });
 
@@ -527,7 +528,7 @@
                         });
 
                     });
-                    
+
                 });
             });
 
@@ -537,8 +538,8 @@
                     expect(viewModel.showConnectedObjectives).toBeFunction();
                 });
 
-                describe('when objectivesMode is display', function() {
-                    
+                describe('when objectivesMode is display', function () {
+
                     beforeEach(function () {
                         viewModel.objectivesMode('display');
                     });
@@ -549,16 +550,23 @@
                     });
 
                 });
-                
+
                 describe('when objectivesMode is not display', function () {
 
-                    beforeEach(function() {
+                    beforeEach(function () {
                         viewModel.objectivesMode('appending');
                     });
 
                     it('should send event \'Show connected objectives\'', function () {
                         viewModel.showConnectedObjectives();
                         expect(eventTracker.publish).toHaveBeenCalledWith('Show connected objectives');
+                    });
+
+                    it('should set isSelected property to false for every item in connectedObjectives collection', function () {
+                        viewModel.connectedObjectives([{ isSelected: ko.observable(false) }, { isSelected: ko.observable(true) }]);
+                        viewModel.showConnectedObjectives();
+                        expect(viewModel.connectedObjectives()[0].isSelected()).toBeFalsy();
+                        expect(viewModel.connectedObjectives()[1].isSelected()).toBeFalsy();
                     });
 
                     it('should change objectivesMode to \'display\' ', function () {
@@ -628,11 +636,9 @@
 
                     describe('and objectives were connected successfully', function () {
 
-                        beforeEach(function () {
-                            relateObjectivesDefer.resolve('modified date');
-                        });
-
                         it('should call \'notify.info\' function', function () {
+                            relateObjectivesDefer.resolve({ modifiedOn: new Date(), relatedObjectives: [] });
+
                             viewModel.connectObjectives();
 
                             waitsFor(function () {
@@ -644,6 +650,15 @@
                         });
 
                         it('should update related objectives', function () {
+                            availableObjectives = [
+                               { isSelected: ko.observable(true), _original: selectedObjective },
+                               { isSelected: ko.observable(false), _original: notSelectedObjective },
+                               { isSelected: ko.observable(true), _original: { id: '3', title: 'E' } }
+                            ];
+                            viewModel.availableObjectives(availableObjectives);
+
+                            relateObjectivesDefer.resolve({ modifiedOn: new Date(), relatedObjectives: [selectedObjective] });
+
                             viewModel.connectObjectives();
 
                             waitsFor(function () {
@@ -656,6 +671,9 @@
                         });
 
                         it('should remove connected objectives from available objectives collection', function () {
+
+                            relateObjectivesDefer.resolve({ modifiedOn: new Date(), relatedObjectives: [] });
+
                             viewModel.connectObjectives();
 
                             waitsFor(function () {
@@ -664,6 +682,21 @@
                             runs(function () {
                                 expect(viewModel.availableObjectives().length).toBe(1);
                                 expect(viewModel.availableObjectives()[0]._original).toBe(notSelectedObjective);
+                            });
+                        });
+
+                        describe('and when selected objectives count differs from successfully connected objectives count', function () {
+                            it('shoul show error notification', function () {
+                                relateObjectivesDefer.resolve({ modifiedOn: new Date(), relatedObjectives: [] });
+
+                                viewModel.connectObjectives();
+
+                                waitsFor(function () {
+                                    return !relateObjectivesPromise.isPending();
+                                });
+                                runs(function () {
+                                    expect(notify.error).toHaveBeenCalled();
+                                });
                             });
                         });
 
@@ -826,7 +859,7 @@
                     describe('and unrelate objectives succeed', function () {
 
                         beforeEach(function () {
-                            unrelateObjectives.resolve('modified date');
+                            unrelateObjectives.resolve(new Date());
                         });
 
                         it('should call \'notify.info\' function', function () {

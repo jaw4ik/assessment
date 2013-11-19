@@ -700,7 +700,7 @@
 
                         describe('and response is not an object', function () {
 
-                            it('should reject promise', function () {
+                            it('should reject promise with \'Response is not an object\'', function () {
                                 var promise = repository.relateObjectives(experience.id, objectives);
                                 httpWrapperPost.resolve();
 
@@ -716,7 +716,7 @@
 
                         describe('and response has no midifiedOn date', function () {
 
-                            it('should reject promise', function () {
+                            it('should reject promise with \'Response does not have modification date\'', function () {
                                 var promise = repository.relateObjectives(experience.id, objectives);
                                 httpWrapperPost.resolve({});
 
@@ -730,12 +730,28 @@
 
                         });
 
+                        describe('and response has no relatedObjectives collection', function () {
+
+                            it('should reject promise with \'Response does not have related objectives collection\'', function () {
+                                var promise = repository.relateObjectives(experience.id, objectives);
+                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeRejectedWith('Response does not have related objectives collection');
+                                });
+                            });
+
+                        });
+
                         describe('and experience doesn`t exist in dataContext', function () {
 
                             it('should reject promise', function () {
                                 dataContext.experiences = [];
                                 var promise = repository.relateObjectives(experience.id, objectives);
-                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
+                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/', RelatedObjectives: [] });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -752,7 +768,7 @@
                             it('should update expereince modifiedOn date', function () {
                                 dataContext.experiences = [{ id: experience.id, modifiedOn: new Date(), objectives: [] }];
                                 var promise = repository.relateObjectives(experience.id, objectives);
-                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
+                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/', RelatedObjectives: [] });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -765,26 +781,29 @@
                             it('should relate objectives to experience', function () {
                                 dataContext.experiences = [{ id: experience.id, modifiedOn: new Date(), objectives: [] }];
                                 var promise = repository.relateObjectives(experience.id, objectives);
-                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
+                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/', RelatedObjectives: [{ Id: objectives[0].id }] });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(dataContext.experiences[0].objectives).toEqual(objectives);
+                                    expect(dataContext.experiences[0].objectives).toEqual([objectives[0]]);
                                 });
                             });
 
-                            it('should resolve promise with modification date', function () {
+                            it('should resolve promise with modification date and related objectives collection', function () {
                                 dataContext.experiences = [{ id: experience.id, modifiedOn: new Date(), objectives: [] }];
                                 var promise = repository.relateObjectives(experience.id, objectives);
-                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
+                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/', RelatedObjectives: [{ Id: objectives[0].id }] });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(promise).toBeResolvedWith(utils.getDateFromString('/Date(1378106938845)/'));
+                                    expect(promise).toBeResolvedWith({
+                                        modifiedOn: utils.getDateFromString('/Date(1378106938845)/'),
+                                        relatedObjectives: [{ id: objectives[0].id }]
+                                    });
                                 });
                             });
 
@@ -973,7 +992,7 @@
                             it('should reject promise', function () {
                                 dataContext.experiences = [];
                                 var promise = repository.unrelateObjectives(experience.id, objectives);
-                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
+                                httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/', RelatedObjectives: {} });
 
                                 waitsFor(function () {
                                     return !promise.isPending();

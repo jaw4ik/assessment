@@ -108,6 +108,7 @@
                 return httpWrapper.post('api/experience/relateObjectives', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
+                    guard.throwIfNotArray(response.RelatedObjectives, 'Response does not have related objectives collection');
 
                     var experience = _.find(dataContext.experiences, function (exp) {
                         return exp.id == experienceId;
@@ -115,12 +116,21 @@
 
                     guard.throwIfNotAnObject(experience, "Experience doesn`t exist");
 
-                    _.each(objectives, function (objective) {
+                    experience.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                    var relatedObjectives = _.filter(objectives, function (item) {
+                        return !_.isUndefined(_.find(response.RelatedObjectives, function (relatedObjective) {
+                            return item.id == relatedObjective.Id;
+                        }));
+                    });
+
+                    _.each(relatedObjectives, function (objective) {
                         experience.objectives.push(objective);
                     });
 
-                    experience.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
-                    return experience.modifiedOn;
+                    return {
+                        modifiedOn: experience.modifiedOn,
+                        relatedObjectives: relatedObjectives
+                    };
                 });
             });
         },
