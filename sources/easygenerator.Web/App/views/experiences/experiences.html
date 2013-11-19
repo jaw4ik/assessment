@@ -96,10 +96,10 @@
                     <!-- ko if: showStatus() && (buildingStatus() == $parent.statuses.inProgress || publishingState() == $parent.statuses.inProgress) -->
                     <div class="experience-status-container">
                         <!-- ko if: showCreatingStatus-->
-                        <div class="experience-text building" data-bind="localize: { text: 'creatingStatus' }"></div>
+                        <div class="experience-text building" data-bind="localize: { text: buildingStatus() == $parent.statuses.inProgress ? 'creatingStatus' : 'publishing' }"></div>
                         <!-- /ko -->
                         <!-- ko ifnot: showCreatingStatus -->
-                        <div class="experience-text building" data-bind="localize: { text: 'updatingStatus' }"></div>
+                        <div class="experience-text building" data-bind="localize: { text: buildingStatus() == $parent.statuses.inProgress ? 'updatingStatus' : 'republishing' }"></div>
                         <!-- /ko -->
                     </div>
                     <!-- /ko -->
