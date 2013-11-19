@@ -5,63 +5,62 @@
             updateExperienceTemplate: 'Change experience template to'
         };
 
-        var
-            experienceId = '',
-            templates = [],
-            isSwitchTemplateProgressShow = ko.observable(false),
+        var viewModel = {
+            experienceId: '',
+            currentTemplate: ko.observable(),
+            templates: [],
 
-            activate = function (experienceId) {
-                var that = this;
+            showProgress: ko.observable(false),
 
-                return experienceRepository.getById(experienceId).then(function (experience) {
-                    that.experienceId = experience.id;
+            selectTemplate: selectTemplate,
 
-                    return templateRepository.getCollection().then(function (templates) {
-                        that.templates = _.map(templates, function (template) {
+            activate: activate
+        };
+
+        return viewModel;
+
+
+        function activate(experienceId) {
+            return experienceRepository.getById(experienceId).then(function (experience) {
+                viewModel.experienceId = experience.id;
+
+                return templateRepository.getCollection().then(function (templates) {
+                    viewModel.templates = _.chain(templates)
+                        .map(function (template) {
                             return {
                                 id: template.id,
                                 name: template.name,
                                 image: template.image,
                                 description: template.description,
-                                isSelected: ko.observable(template.id === experience.template.id)
+                                settingsUrl: template.settingsUrl
                             };
-                        });
-                        that.templates = _.sortBy(that.templates, function (template) {
-                            return template.name;
-                        });
-                    });
-                }).fail(function () {
-                    router.replace('404');
+                        })
+                        .sortBy(function (template) { return template.name; })
+                        .value();
+                    
+                    viewModel.currentTemplate(_.find(viewModel.templates, function (item) { return item.id == experience.template.id; }));
                 });
-            },
+            }).fail(function () {
+                router.replace('404');
+            });
+        }
 
-            switchTemplate = function (template) {
-                var that = this;
-                if (!template.isSelected()) {
-                    var selectedTemplate = _.find(that.templates, function (item) {
-                        return item.id === template.id;
-                    });
+        function selectTemplate(template) {
+            if (template == viewModel.currentTemplate()) {
+                return;
+            }
 
-                    that.isSwitchTemplateProgressShow(true);
-                    eventTracker.publish(events.updateExperienceTemplate + ' \'' + selectedTemplate.name + '\'');
-                    experienceRepository.updateExperienceTemplate(that.experienceId, selectedTemplate.id).then(function (response) {
-                        notify.info(localizationManager.localize('savedAt') + ' ' + response.modifiedOn.toLocaleTimeString());
-                        _.each(that.templates, function (template) {
-                            template.isSelected(selectedTemplate.id === template.id);
-                        });
+            eventTracker.publish(events.updateExperienceTemplate + ' \'' + template.name + '\'');
+            viewModel.showProgress(true);
 
-                    }).finally(function () {
-                        that.isSwitchTemplateProgressShow(false);
-                    });
-                }
-            };
+            experienceRepository.updateExperienceTemplate(viewModel.experienceId, template.id).then(function (response) {
+                viewModel.currentTemplate(template);
+                notify.info(localizationManager.localize('savedAt') + ' ' + response.modifiedOn.toLocaleTimeString());
+            }).finally(function () {
+                viewModel.showProgress(false);
+            });
 
-        return {
-            experienceId: experienceId,
-            activate: activate,
-            templates: templates,
-            switchTemplate: switchTemplate,
-            isSwitchTemplateProgressShow: isSwitchTemplateProgressShow
-        };
+        }
+
     }
 );

@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using FluentAssertions;
@@ -47,7 +51,7 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void Experience_ShouldCreateObjectiveInstance()
+        public void Experience_ShouldCreateExperienceInstance()
         {
             const string title = "title";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
@@ -59,6 +63,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             experience.CreatedOn.Should().Be(DateTime.MaxValue);
             experience.ModifiedOn.Should().Be(DateTime.MaxValue);
             experience.RelatedObjectives.Should().BeEmpty();
+            experience.TemplateSettings.Should().BeEmpty();
             experience.CreatedBy.Should().Be(CreatedBy);
             experience.ModifiedBy.Should().Be(CreatedBy);
         }
@@ -515,6 +520,106 @@ namespace easygenerator.DomainModel.Tests.Entities
 
             //Assert
             experience.PublishedOn.Should().Be(DateTime.MaxValue);
+        }
+
+        #endregion
+
+        #region GetTemplateSettings
+
+        [TestMethod]
+        public void GetTemplateSettings_ShouldThrowArgumentNullException_WhenTemplateIsNull()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+
+            //Act
+            Action action = () => experience.GetTemplateSettings(null);
+
+            //Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("template");
+        }
+
+        [TestMethod]
+        public void GetTemplateSettings_ShouldReturnNull_WhenThereAreNoSettingsForCurrentTemplate()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+            experience.TemplateSettings = new List<Experience.ExperienceTemplateSettings>();
+
+            //Act
+            var settings = experience.GetTemplateSettings(TemplateObjectMother.Create());
+
+            //Assert
+            settings.Should().BeNull();
+        }
+
+        [TestMethod]
+        public void GetTemplateSettings_ShouldReturnTemplateSettings()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+            const string json = "{ url: \"http://google.com\"";
+            experience.TemplateSettings = new List<Experience.ExperienceTemplateSettings>() { ExperienceTemplateSettingsObjectMother.Create(experience, template, json) };
+
+            //Act
+            var settings = experience.GetTemplateSettings(template);
+
+            //Assert
+            settings.Should().Be(json);
+        }
+
+        #endregion
+
+        #region SaveTemplateSettings
+
+        [TestMethod]
+        public void SaveTemplateSettings_ShouldThrowArgumentNullException_WhenTemplateIsNull()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+
+            //Act
+            Action action = () => experience.SaveTemplateSettings(null, null);
+
+            //Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("template");
+        }
+
+        [TestMethod]
+        public void SaveTemplateSettings_ShouldUpdateSettings_WhenTheyAlreadyExist()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+            const string settings = "settings";
+            experience.TemplateSettings = new Collection<Experience.ExperienceTemplateSettings>() { ExperienceTemplateSettingsObjectMother.Create(experience, template, "previous settings") };
+
+            //Act
+            experience.SaveTemplateSettings(template, settings);
+
+            //Assert
+            experience.TemplateSettings.Count.Should().Be(1);
+            experience.TemplateSettings.First().Settings.Should().Be(settings);
+        }
+
+        [TestMethod]
+        public void SaveTemplateSettings_ShouldAddSettings_WhenTheyDoNotExistYet()
+        {
+            //Arrange
+            var experience = ExperienceObjectMother.Create();
+            var template = TemplateObjectMother.Create();
+            const string settings = "settings";
+            experience.TemplateSettings = new Collection<Experience.ExperienceTemplateSettings>();
+
+            //Act
+            experience.SaveTemplateSettings(template, settings);
+
+            //Assert
+            experience.TemplateSettings.Count.Should().Be(1);
+            experience.TemplateSettings.First().Experience.Should().Be(experience);
+            experience.TemplateSettings.First().Template.Should().Be(template);
+            experience.TemplateSettings.First().Settings.Should().Be(settings);
         }
 
         #endregion

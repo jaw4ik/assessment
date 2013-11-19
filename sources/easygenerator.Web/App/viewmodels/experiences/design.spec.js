@@ -10,23 +10,6 @@
 
     describe('viewModel [design]', function () {
 
-        var selectedTemplate = {
-            id: 'selectedId',
-            name: 'selectedTemplateName',
-            image: 'SomeTemplateImage',
-            isSelected: ko.observable(false)
-        },
-            templates = [selectedTemplate, {
-                id: 'someId',
-                name: 'someName',
-                image: 'SomeTemplateImage2',
-                isSelected: ko.observable(true)
-            }],
-            experience = {
-                id: 'SomeExperienceId',
-                template: selectedTemplate
-            };
-
         var
             getExperienceDefer,
             updateExperienceTemplateDefer,
@@ -61,20 +44,15 @@
             });
 
             it('should get experience from repository', function () {
-                var promise = viewModel.activate(experience.id).finally(function () { });
-                getExperienceDefer.reject();
-                waitsFor(function () {
-                    return !promise.isPending();
-                });
-                runs(function () {
-                    expect(experienceRepository.getById).toHaveBeenCalledWith(experience.id);
-                });
+                var experienceId = 'experienceId';
+                viewModel.activate(experienceId);
+                expect(experienceRepository.getById).toHaveBeenCalledWith(experienceId);
             });
 
-            describe('when experience not found', function () {
+            describe('when experience was not found', function () {
 
                 it('should navigate to 404', function () {
-                    var promise = viewModel.activate(experience.id).finally(function () { });
+                    var promise = viewModel.activate();
                     getExperienceDefer.reject();
                     waitsFor(function () {
                         return !promise.isPending();
@@ -86,14 +64,17 @@
 
             });
 
-            describe('when experience received', function () {
+            describe('when experience exists', function () {
+
+                var template = { id: 'templateId', settingsUrl: 'settingsUrl' };
+                var experience = { id: 'experienceId', template: template };
 
                 beforeEach(function () {
                     getExperienceDefer.resolve(experience);
                 });
 
                 it('should get collection of templates from repository', function () {
-                    var promise = viewModel.activate(experience.id).finally(function () { });
+                    var promise = viewModel.activate(experience.id);
                     getTemplateCollectionDefer.reject();
 
                     waitsFor(function () {
@@ -104,10 +85,10 @@
                     });
                 });
 
-                describe('and failed load templates', function () {
+                describe('and an error occured when getting templates', function () {
 
                     it('should navigate to 404', function () {
-                        var promise = viewModel.activate(experience.id).finally(function () { });
+                        var promise = viewModel.activate(experience.id);
                         getTemplateCollectionDefer.reject();
 
                         waitsFor(function () {
@@ -120,19 +101,50 @@
 
                 });
 
-                describe('and templates received', function () {
+                describe('and got templates', function () {
+
+                    var templates = [{ id: '1' }, template];
+
 
                     beforeEach(function () {
                         getTemplateCollectionDefer.resolve(templates);
+
+                        function toBeTemplate(actual, value) {
+                            var valueJson = JSON.stringify(value);
+                            var actualJson = JSON.stringify(actual);
+                            this.message = function () {
+                                return "Expected template to be " + valueJson + ", but it is " + actualJson;
+                            };
+
+                            return actualJson == valueJson;
+                        }
+
+                        this.addMatchers({
+                            toBeTemplate: function (value) {
+                                return toBeTemplate.apply(this, [this.actual, value]);
+                            }
+                        });
                     });
 
-                    it('should set viewModel templates', function () {
-                        var promise = viewModel.activate(experience.id).finally(function () { });
+                    it('should set a list of available templates', function () {
+                        var promise = viewModel.activate(experience.id);
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(viewModel.templates[0].id).toBe(templates[0].id);
+                            expect(viewModel.templates[0]).toBeTemplate(templates[0]);
+                            expect(viewModel.templates[1]).toBeTemplate(templates[1]);
+                        });
+                    });
+
+                    it('should set currentTemplate', function () {
+                        var promise = viewModel.activate(experience.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.currentTemplate()).toBeTemplate(template);
                         });
                     });
 
@@ -142,44 +154,63 @@
 
         });
 
-        describe('templates:', function () {
 
-            it('should be defined', function () {
-                expect(viewModel.templates).toBeDefined();
-            });
-
-        });
-
-        describe('switchTemplate:', function () {
+        describe('selectTemplate:', function () {
 
             it('should be function', function () {
-                expect(viewModel.switchTemplate).toBeFunction();
+                expect(viewModel.selectTemplate).toBeFunction();
             });
 
-            describe('when current template is not selected', function () {
+
+            describe('when template is already selected', function () {
 
                 beforeEach(function () {
-                    viewModel.experienceId = experience.id;
+                    viewModel.experienceId = 'experienceId';
                 });
+
+                it('should not send event \'Change experience template to \'selectedTemplateName\'\'', function () {
+                    var template = { id: 'templateId' };
+                    viewModel.currentTemplate(template);
+
+                    viewModel.selectTemplate(template);
+
+                    expect(eventTracker.publish).not.toHaveBeenCalled();
+                });
+
+                it('should not change template from repository', function () {
+                    var template = { id: 'templateId' };
+                    viewModel.currentTemplate(template);
+
+                    viewModel.selectTemplate(template);
+
+                    expect(experienceRepository.updateExperienceTemplate).not.toHaveBeenCalled();
+                });
+
+            });
+
+            describe('when template is not yet selected', function () {
 
                 it('should send event \'Change experience template to \'selectedTemplateName\'\'', function () {
-                    viewModel.switchTemplate(selectedTemplate);
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Change experience template to \'selectedTemplateName\'');
+                    var templateName = 'templateName';
+                    viewModel.currentTemplate({ id: '' });
+
+                    viewModel.selectTemplate({ id: 'templateId', name: 'templateName' });
+
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Change experience template to \'' + templateName + '\'');
                 });
 
-                it('should update experience template from repository', function () {
-                    viewModel.switchTemplate(selectedTemplate);
-                    var promise = updateExperienceTemplateDefer.promise.finally(function () { });
-                    updateExperienceTemplateDefer.reject();
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(experienceRepository.updateExperienceTemplate).toHaveBeenCalledWith(viewModel.experienceId, selectedTemplate.id);
-                    });
+                it('should change experience template', function () {
+                    var experienceId = 'experienceId';
+                    var templateId = 'templateId';
+                    viewModel.experienceId = experienceId;
+                    viewModel.currentTemplate({ id: '' });
+
+                    viewModel.selectTemplate({ id: templateId });
+
+                    expect(experienceRepository.updateExperienceTemplate).toHaveBeenCalledWith(experienceId, templateId);
                 });
 
-                describe('and template updated', function () {
+                describe('and template was changed', function () {
 
                     var promise,
                         modifiedOn;
@@ -192,7 +223,10 @@
                     });
 
                     it('should show update notification', function () {
-                        viewModel.switchTemplate(selectedTemplate);
+                        viewModel.currentTemplate({ id: '' });
+
+                        viewModel.selectTemplate({ id: 'templateId' });
+
                         waitsFor(function () {
                             return !promise.isPending();
                         });
@@ -201,51 +235,38 @@
                         });
                     });
 
-                    it('should update template property isSelected to true', function () {
-                        viewModel.switchTemplate(selectedTemplate);
+                    it('should change current template', function () {
+                        var template = { id: 'templateId' };
+                        viewModel.currentTemplate({ id: '' });
+
+                        viewModel.selectTemplate(template);
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(_.find(viewModel.templates, function (item) {
-                                return item.id == selectedTemplate.id;
-                            }).isSelected()).toBeTruthy();
+                            expect(viewModel.currentTemplate()).toBe(template);
                         });
-                    });
-
-                    it('should set property isSelected in other templates to false', function() {
-                        
-                        viewModel.switchTemplate(selectedTemplate);
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            _.each(_.filter(viewModel.templates, function(item) {
-                                return item.id !== selectedTemplate.id;
-                            }), function (item) {
-                                expect(item.isSelected()).toBeFalsy();
-                            });
-                        });
-
                     });
 
                     it('should hide progress bar', function () {
-                        viewModel.isSwitchTemplateProgressShow(true);
-                        viewModel.switchTemplate(selectedTemplate);
+                        var template = { id: 'templateId' };
+                        viewModel.currentTemplate({ id: '' });
+                        viewModel.showProgress(true);
+
+                        viewModel.selectTemplate(template);
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(viewModel.isSwitchTemplateProgressShow()).toBeFalsy();
+                            expect(viewModel.showProgress()).toBeFalsy();
                         });
                     });
 
                 });
 
-                describe('and template not updated', function() {
+                describe('and template was not changed', function () {
 
                     var promise;
 
@@ -255,52 +276,30 @@
                     });
 
                     it('should hide progress bar', function () {
-                        viewModel.isSwitchTemplateProgressShow(true);
-                        viewModel.switchTemplate(selectedTemplate);
+                        var template = { id: 'templateId' };
+                        viewModel.currentTemplate({ id: '' });
+                        viewModel.showProgress(true);
+
+                        viewModel.selectTemplate(template);
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(viewModel.isSwitchTemplateProgressShow()).toBeFalsy();
+                            expect(viewModel.showProgress()).toBeFalsy();
                         });
                     });
 
-                });
-
-            });
-            
-            describe('when current template is selected', function () {
-
-                beforeEach(function () {
-                    viewModel.experienceId = experience.id;
-                });
-
-                it('should not send event \'Change experience template to \'selectedTemplateName\'\'', function () {
-                    viewModel.switchTemplate(templates[1]);
-                    expect(eventTracker.publish).not.toHaveBeenCalledWith('Change experience template to \'selectedTemplateName\'');
-                });
-
-                it('should not switch experience template from repository', function () {
-                    viewModel.switchTemplate(templates[1]);
-                    var promise = updateExperienceTemplateDefer.promise.finally(function () { });
-                    updateExperienceTemplateDefer.reject();
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(experienceRepository.updateExperienceTemplate).not.toHaveBeenCalledWith(viewModel.experienceId, selectedTemplate.id);
-                    });
                 });
 
             });
 
         });
 
-        describe('isSwitchTemplateProgressShow', function () {
+        describe('showProgress', function () {
 
             it('should be observable', function () {
-                expect(viewModel.isSwitchTemplateProgressShow).toBeObservable();
+                expect(viewModel.showProgress).toBeObservable();
             });
 
         });
@@ -313,6 +312,22 @@
 
         });
 
+        describe('currentTemplate:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.currentTemplate).toBeObservable();
+            });
+
+        });
+
+        describe('templates:', function () {
+
+            it('should be defined', function () {
+                expect(viewModel.templates).toBeDefined();
+            });
+
+        });
+
     });
-    
+
 });

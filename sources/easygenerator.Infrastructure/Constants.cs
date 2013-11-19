@@ -26,6 +26,7 @@ namespace easygenerator.Infrastructure
             public const string AnswerNotFoundError = "Answer is not found";
             public const string LearningContentNotFoundError = "Learning Content is not found";
             public const string HelpHintNotFoundError = "Help Hint is not found";
+            public const string TemplateNotFoundError = "Template not found";
             public const string ObjectiveCannotBeDeleted = "Objective can not be deleted";
             public const string ExperiencePublishFailedError = "Failed. Try again.";
 

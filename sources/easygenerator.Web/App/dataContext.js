@@ -28,6 +28,7 @@
                                 id: template.Id,
                                 name: template.Name,
                                 image: template.Image,
+                                settingsUrl: template.SettingsUrl,
                                 description: template.Description
                             }));
                     });

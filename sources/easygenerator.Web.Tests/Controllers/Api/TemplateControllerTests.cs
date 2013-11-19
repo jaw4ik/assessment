@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using easygenerator.Web.Components;
+using FluentAssertions;
 using NSubstitute;
 using easygenerator.DomainModel.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

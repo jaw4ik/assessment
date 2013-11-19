@@ -44,7 +44,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
             _context = Substitute.For<HttpContextBase>();
-            
+
             _context.User.Returns(_user);
 
             _controller = new ExperienceController(_builder, _repository, _entityFactory, _experiencePublisher);
@@ -230,7 +230,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.UpdateTitle(null, String.Empty);
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Experience is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("experienceNotFoundError");  
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("experienceNotFoundError");
         }
 
         [TestMethod]
@@ -272,7 +272,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Experience is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("experienceNotFoundError"); 
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("experienceNotFoundError");
         }
 
 
@@ -352,7 +352,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Experience is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("experienceNotFoundError");  
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("experienceNotFoundError");
         }
 
         [TestMethod]
@@ -367,7 +367,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Objectives are not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectivesNotFoundError");  
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectivesNotFoundError");
         }
 
         #endregion
@@ -416,7 +416,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Experience is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("experienceNotFoundError");  
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("experienceNotFoundError");
         }
 
         [TestMethod]
@@ -430,7 +430,128 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Objectives are not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectivesNotFoundError");  
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectivesNotFoundError");
+        }
+
+        #endregion
+
+        #region GetTemplateSettings
+
+        [TestMethod]
+        public void GetTemplateSettings_ShouldReturnHttpNotFound_WhenExperienceIsNull()
+        {
+            //Arrange
+
+
+            //Act
+            var result = _controller.GetTemplateSettings(null, Substitute.For<Template>());
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Constants.Errors.ExperienceNotFoundError);
+        }
+
+        [TestMethod]
+        public void GetTemlateSettings_ShouldReturnHttpNotFound_WhenTemplateIsNull()
+        {
+            //Arrange
+
+
+            //Act
+            var result = _controller.GetTemplateSettings(Substitute.For<Experience>(), null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Constants.Errors.TemplateNotFoundError);
+        }
+
+        [TestMethod]
+        public void GetTemplateSettings_ShouldReturnJsonResultWithTemplateSettings()
+        {
+            //Arrange
+            const string settings = "settings";
+            var experience = Substitute.For<Experience>();
+            var template = Substitute.For<Template>();
+            experience.GetTemplateSettings(template).Returns(settings);
+
+            //Act
+            var result = _controller.GetTemplateSettings(experience, template);
+
+            //Assert
+            result.Should().BeJsonResult().And.Data.Should().Be(settings);
+        }
+
+        [TestMethod]
+        public void GetTemplateSettings_ShouldReturnJsonResultUsingGetRequest()
+        {
+            //Arrange
+            var experience = Substitute.For<Experience>();
+            var template = Substitute.For<Template>();
+
+            //Act
+            var result = _controller.GetTemplateSettings(experience, template);
+
+            //Assert
+            result.Should().BeJsonResult().And.JsonRequestBehavior.Should().Be(JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
+        #region  SaveTemplateSettings
+
+        [TestMethod]
+        public void SaveTemplateSettings_ShouldReturnHttpNotFound_WhenExperienceIsNull()
+        {
+            //Arrange
+
+
+            //Act
+            var result = _controller.SaveTemplateSettings(null, Substitute.For<Template>(), null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Constants.Errors.ExperienceNotFoundError);
+        }
+
+        [TestMethod]
+        public void SaveTemplateSettings_ShouldReturnHttpNotFound_WhenTemplateIsNull()
+        {
+            //Arrange
+
+
+            //Act
+            var result = _controller.SaveTemplateSettings(Substitute.For<Experience>(), null, null);
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Constants.Errors.TemplateNotFoundError);
+        }
+
+        [TestMethod]
+        public void SaveTemplateSettings_ShouldSaveTemplateSettings()
+        {
+            //Arrange
+            var experience = Substitute.For<Experience>();
+            var template = Substitute.For<Template>();
+            const string settings = "settings";
+
+            //Act
+            _controller.SaveTemplateSettings(experience, template, settings);
+
+            //Assert
+            experience.Received().SaveTemplateSettings(template, settings);
+
+        }
+
+        [TestMethod]
+        public void SaveTemplateSettings_ShouldReturnJsonResult()
+        {
+            //Arrange
+            var experience = Substitute.For<Experience>();
+            var template = Substitute.For<Template>();
+            const string settings = "settings";
+
+            //Act
+            var result = _controller.SaveTemplateSettings(experience, template, settings);
+
+            //Assert
+            result.Should().BeJsonResult().And.Data.Should().Be(true);
         }
 
         #endregion

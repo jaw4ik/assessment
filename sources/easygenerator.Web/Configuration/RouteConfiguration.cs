@@ -191,6 +191,14 @@ namespace easygenerator.Web.Configuration
                 defaults: new { controller = "Experience", action = "Build" }
             );
 
+            routes.MapRoute(
+                name: "TemplateSettings",
+                url: "api/experience/{experienceId}/template/{templateId}",
+                defaults: new { controller = "Experience", action = "TemplateSettings" }
+            );
+
+
+
             #region Publish routes
 
             routes.MapRoute(

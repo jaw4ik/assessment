@@ -642,6 +642,7 @@
     <Content Include="Content\font\buxtonsketch.ttf" />
     <Content Include="Content\font\buxtonsketch.woff" />
     <Content Include="Scripts\underscore.min.map" />
+    <Content Include="Templates\Freestyle learning\settings.html" />
     <Content Include="Templates\Quiz\App\browserSupport.js" />
     <Content Include="Templates\Quiz\App\configuration\routes.js" />
     <Content Include="Templates\Quiz\App\context.js" />
@@ -864,6 +865,7 @@
     <Content Include="Templates\Quiz\js\vendor.min.js.map">
       <DependentUpon>vendor.js.bundle</DependentUpon>
     </Content>
+    <Content Include="Templates\Quiz\settings.html" />
     <Content Include="Views\Account\PrivacyPolicy.cshtml" />
     <Content Include="Views\Account\TermsOfUse.cshtml" />
     <Content Include="Content\font\opensans-regular.eot" />

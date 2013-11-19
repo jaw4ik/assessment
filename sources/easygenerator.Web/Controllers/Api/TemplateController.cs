@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Web.BuildExperience;
 using easygenerator.Web.Components;
 using System.Web.Mvc;
 
@@ -24,6 +26,7 @@ namespace easygenerator.Web.Controllers.Api
                 Id = tmpl.Id.ToString("N"),
                 Name = tmpl.Name,
                 Image = tmpl.Image,
+                SettingsUrl = "/Templates/" + tmpl.Name + "/settings.html",
                 Description = tmpl.Name == "Freestyle learning" ? "Use this when you want a course style like setup." : "Use this when you want to create an assessment."
             });
 

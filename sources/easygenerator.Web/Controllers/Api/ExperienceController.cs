@@ -205,5 +205,41 @@ namespace easygenerator.Web.Controllers.Api
                 ModifiedOn = experience.ModifiedOn
             });
         }
+
+        [ActionName("TemplateSettings"), HttpGet]
+        public ActionResult GetTemplateSettings(Experience experience, Template template)
+        {
+            if (experience == null)
+            {
+                return HttpNotFound(Constants.Errors.ExperienceNotFoundError);
+            }
+
+            if (template == null)
+            {
+                return HttpNotFound(Constants.Errors.TemplateNotFoundError);
+            }
+
+            return Json(experience.GetTemplateSettings(template), JsonRequestBehavior.AllowGet);
+        }
+
+        [ActionName("TemplateSettings"), HttpPost]
+        public ActionResult SaveTemplateSettings(Experience experience, Template template, string settings)
+        {
+            if (experience == null)
+            {
+                return HttpNotFound(Constants.Errors.ExperienceNotFoundError);
+            }
+
+            if (template == null)
+            {
+                return HttpNotFound(Constants.Errors.TemplateNotFoundError);
+            }
+
+            experience.SaveTemplateSettings(template, settings);
+
+            return Json(true);
+        }
+
+
     }
 }

@@ -51,8 +51,8 @@ namespace easygenerator.DataAccess
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Properties<Guid>().Where(p => p.Name == "Id").Configure(p => p.IsKey());
-            modelBuilder.Properties<string>().Where(p => p.Name == "CreatedOn").Configure(p => p.IsRequired());
-            modelBuilder.Properties<string>().Where(p => p.Name == "ModifiedOn").Configure(p => p.IsRequired());
+            modelBuilder.Properties<DateTime>().Where(p => p.Name == "CreatedOn").Configure(p => p.IsRequired());
+            modelBuilder.Properties<DateTime>().Where(p => p.Name == "ModifiedOn").Configure(p => p.IsRequired());
             modelBuilder.Properties<string>().Where(p => p.Name == "CreatedBy").Configure(p => p.IsRequired());
             modelBuilder.Properties<string>().Where(p => p.Name == "ModifiedBy").Configure(p => p.IsRequired());
 
@@ -68,6 +68,11 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Experience>().HasMany(e => e.RelatedObjectivesCollection)
                 .WithMany(e => e.RelatedExperiencesCollection)
                 .Map(m => m.ToTable("ExperienceObjectives"));
+            modelBuilder.Entity<Experience>().HasMany(e => e.TemplateSettings).WithRequired(e => e.Experience).WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Experience.ExperienceTemplateSettings>().Property(e => e.Settings);
+            modelBuilder.Entity<Experience.ExperienceTemplateSettings>().HasRequired(e => e.Experience);
+            modelBuilder.Entity<Experience.ExperienceTemplateSettings>().HasRequired(e => e.Template);
 
             modelBuilder.Entity<Question>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Question>().HasRequired(e => e.Objective);

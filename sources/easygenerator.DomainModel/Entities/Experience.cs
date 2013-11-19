@@ -19,6 +19,7 @@ namespace easygenerator.DomainModel.Entities
             Title = title;
             Template = template;
             RelatedObjectivesCollection = new Collection<Objective>();
+            TemplateSettings = new Collection<ExperienceTemplateSettings>();
             BuildOn = null;
         }
 
@@ -90,6 +91,57 @@ namespace easygenerator.DomainModel.Entities
         {
             PublishedOn = DateTimeWrapper.Now();
         }
+
+        #region Experience template settings
+
+        protected internal class ExperienceTemplateSettings : Entity
+        {
+            public ExperienceTemplateSettings()
+            {
+
+            }
+
+            public ExperienceTemplateSettings(string createdBy)
+                : base(createdBy)
+            {
+
+            }
+
+            public virtual Experience Experience { get; set; }
+            public virtual Template Template { get; set; }
+            public string Settings { get; set; }
+        }
+
+        protected internal virtual ICollection<ExperienceTemplateSettings> TemplateSettings { get; set; }
+
+        public virtual string GetTemplateSettings(Template template)
+        {
+            ThrowIfTemplateIsInvaid(template);
+
+            var templateSettings = TemplateSettings.SingleOrDefault(e => e.Template == template);
+            return templateSettings != null ? templateSettings.Settings : null;
+        }
+
+        public virtual void SaveTemplateSettings(Template template, string settings)
+        {
+            ThrowIfTemplateIsInvaid(template);
+
+            var existingSettings = TemplateSettings.SingleOrDefault(e => e.Template == template);
+            if (existingSettings != null)
+            {
+                existingSettings.Settings = settings;
+                return;
+            }
+
+            TemplateSettings.Add(new ExperienceTemplateSettings(CreatedBy)
+            {
+                Experience = this,
+                Template = template,
+                Settings = settings
+            });
+        }
+
+        #endregion
 
         private void ThrowIfTemplateIsInvaid(Template template)
         {

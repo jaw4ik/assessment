@@ -5,7 +5,7 @@
                 <div class="choose-template-title" data-bind="localize: { text: 'chooseTemplate' } ">Choose template</div>
                 <div class="choose-template-list">
                     <!-- ko foreach: templates -->
-                    <div class="choose-template-item" data-bind="css: { selected: isSelected() }, click: $parent.switchTemplate.bind($parent)">
+                    <div class="choose-template-item" data-bind="css: { selected: $data == $parent.currentTemplate() }, click: $parent.selectTemplate">
                         <span class="choose-template-image-wrapper">
                             <img class="choose-template-image" data-bind="attr: { src: image }" src="" />
                         </span>
@@ -15,10 +15,10 @@
                                 &nbsp;
                             </div>
                         </div>
-                        <div class="selected-template-image" data-bind="visible: isSelected() "></div>
+                        <div class="selected-template-image" data-bind="visible: $data == $parent.currentTemplate()"></div>
                     </div>
                     <!-- /ko -->
-                    <div class="wait-block" data-bind="visible: isSwitchTemplateProgressShow">
+                    <div class="wait-block" data-bind="visible: showProgress">
                         <div class="icon-spinner-wrapper">
                             <img src="/Content/images/loader.gif" alt="" />
                         </div>
@@ -27,4 +27,5 @@
             </div>
         </div>
     </div>
+    <iframe data-bind = "attr: { src: currentTemplate().settingsUrl + '?experienceId=' + experienceId + '&templateId=' + currentTemplate().id }" frameborder="0" width="100%" height="600"></iframe>
 </section>
