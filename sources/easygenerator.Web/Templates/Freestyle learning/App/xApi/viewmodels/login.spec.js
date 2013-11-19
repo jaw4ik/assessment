@@ -21,15 +21,16 @@
                     expect(viewModel.usermail).toBeObservable();
                 });
 
-                describe('getValue:', function() {
+                describe('trim:', function() {
 
                     it('should be function', function() {
-                        expect(viewModel.usermail.getValue).toBeFunction();
+                        expect(viewModel.usermail.trim).toBeFunction();
                     });
 
-                    it('should return trimmed value', function() {
+                    it('should trim value', function() {
                         viewModel.usermail('     some text     ');
-                        expect(viewModel.usermail.getValue()).toBe('some text');
+                        viewModel.usermail.trim();
+                        expect(viewModel.usermail()).toBe('some text');
                     });
 
                 });
@@ -112,15 +113,16 @@
                     expect(viewModel.username).toBeObservable();
                 });
 
-                describe('getValue:', function () {
+                describe('trim:', function () {
 
                     it('should be function', function () {
-                        expect(viewModel.username.getValue).toBeFunction();
+                        expect(viewModel.username.trim).toBeFunction();
                     });
 
                     it('should return trimmed value', function () {
                         viewModel.username('     some text     ');
-                        expect(viewModel.username.getValue()).toBe('some text');
+                        viewModel.username.trim();
+                        expect(viewModel.username()).toBe('some text');
                     });
 
                 });

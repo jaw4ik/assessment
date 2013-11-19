@@ -3,7 +3,7 @@
 
         return {
             router: router,
-            cssName: ko.computed(function () {
+            cssName: ko.computed(function() {
                 var activeItem = router.activeItem();
                 if (_.isObject(activeItem)) {
                     var moduleId = activeItem.__moduleId__;
@@ -12,6 +12,20 @@
                 }
                 return '';
             }),
+
+            viewSettings: function () {
+                var settings = {
+                    rootLinkEnabled: true,
+                    navigationEnabled: true
+                };
+                
+                var activeInstruction = router.activeInstruction();
+                if (_.isObject(activeInstruction)) {
+                    settings.rootLinkEnabled = !activeInstruction.config.rootLinkDisabled;
+                    settings.navigationEnabled = !activeInstruction.config.hideNav;
+                }
+                return settings;
+            },
 
             activate: function () {
                 return context.initialize().then(function () {

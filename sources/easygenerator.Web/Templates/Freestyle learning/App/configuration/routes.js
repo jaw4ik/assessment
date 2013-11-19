@@ -4,7 +4,8 @@
         {
             route: ['', 'home'],
             moduleId: 'viewmodels/home',
-            title: 'Objectives and questions'
+            title: 'Objectives and questions',
+            rootLinkDisabled: true
         },
         {
             route: '404(/:url)',

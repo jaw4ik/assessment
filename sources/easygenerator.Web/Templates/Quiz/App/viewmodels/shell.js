@@ -2,8 +2,6 @@
     function (app, router, context, eventManager, routes, modulesInitializer) {
         
         var
-            homeModule = 'home',
-
             cssName = ko.computed(function () {
                 var activeItem = router.activeItem();
                 if (_.isObject(activeItem)) {
@@ -13,6 +11,14 @@
                 }
                 return '';
             }),
+
+            isRootLinkActive = function () {
+                var activeInstruction = router.activeInstruction();
+                if (_.isObject(activeInstruction)) {
+                    return !activeInstruction.config.rootLinkDisabled;
+                }
+                return true;
+            },
 
             activate = function () {
                 return context.initialize().then(function () {
@@ -33,7 +39,7 @@
         return {
             router: router,
             cssName: cssName,
-            homeModule: homeModule,
+            isRootLinkActive: isRootLinkActive,
             activate: activate
         };
     }

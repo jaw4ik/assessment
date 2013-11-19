@@ -6,8 +6,8 @@
         var
             usermail = (function () {
                 var value = ko.observable('');
-                value.getValue = function () {
-                    return ko.utils.unwrapObservable(value).trim();
+                value.trim = function () {
+                    value(ko.utils.unwrapObservable(value).trim());
                 };
                 value.isValid = ko.computed(function () {
                     return !!value() && viewConstants.patterns.email.test(value().trim());
@@ -15,13 +15,14 @@
                 value.isModified = ko.observable(false);
                 value.markAsModified = function () {
                     value.isModified(true);
+                    return value;
                 };
                 return value;
             })(),
             username = (function () {
                 var value = ko.observable('');
-                value.getValue = function () {
-                    return ko.utils.unwrapObservable(value).trim();
+                value.trim = function () {
+                    value(ko.utils.unwrapObservable(value).trim());
                 };
                 value.isValid = ko.computed(function () {
                     return !!value() && !!value().trim();
@@ -29,6 +30,7 @@
                 value.isModified = ko.observable(false);
                 value.markAsModified = function () {
                     value.isModified(true);
+                    return value;
                 };
                 return value;
             })(),
@@ -42,7 +44,7 @@
                 if (usermail.isValid() && username.isValid()) {
                     var title = context.experience.title;
                     var url = window.top.location.toString() + '?experience_id=' + context.experience.id;
-                    var actor = xApiInitializer.createActor(username.getValue(), usermail.getValue());
+                    var actor = xApiInitializer.createActor(username(), usermail());
                     xApiInitializer.init(actor, title, url).then(function () {
                         startCourse();
                     }).fail(function (reason) {

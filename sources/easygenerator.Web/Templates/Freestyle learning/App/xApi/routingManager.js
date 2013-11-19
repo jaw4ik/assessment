@@ -14,14 +14,11 @@
 
             removeRoutes = function() {
                 removeGuard();
-                showNavigation();
             },
 
             createGuard = function (moduleInitializer) {
                 existingGuard = router.guardRoute;
                 router.guardRoute = function (model, route) {
-                    changeNavigationVisibility(route);
-
                     if (route.config.route == 'login') {
                         return moduleInitializer.getInitStatus() ? 'home' : true;
                     }
@@ -37,27 +34,6 @@
             
             removeGuard = function () {
                 router.guardRoute = existingGuard;
-            },
-
-            changeNavigationVisibility = function (route) {
-                if (route.config.hideNav) {
-                    hideNavigation();
-                } else {
-                    showNavigation();
-                }
-            },
-
-            hideNavigation = function () {
-                if (router.navigationModel && router.navigationModel().length > 0) {
-                    navigationModel = router.navigationModel();
-                }
-                router.navigationModel([]);
-            },
-
-            showNavigation = function () {
-                if (navigationModel && navigationModel.length > 0) {
-                    router.navigationModel(navigationModel);
-                }
             };
 
         return {

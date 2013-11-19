@@ -5,13 +5,15 @@
             route: 'login',
             moduleId: 'xApi/viewmodels/login',
             title: 'Login',
-            hideNav: true
+            hideNav: true,
+            rootLinkDisabled: true
         },
         {
             route: 'xapierror(/:backUrl)',
             moduleId: 'xApi/viewmodels/xAPIError',
             title: 'xAPI Error',
-            hideNav: true
+            hideNav: true,
+            rootLinkDisabled: true
         }
     ];
 

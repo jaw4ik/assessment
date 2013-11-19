@@ -23,7 +23,7 @@
                     <div class="xapi-form-row-right">
                         <div class="xapi-form-input-holder">
                             <span class="xapi-form-input-wrapper"></span>
-                            <input tabindex="5" class="xapi-form-input" type="text" ondrop="return false;" data-bind="value: username, valueUpdate: 'afterkeydown', event: { blur: username.markAsModified }">
+                            <input tabindex="5" class="xapi-form-input" type="text" ondrop="return false;" data-bind="value: username, valueUpdate: 'afterkeydown', event: { blur: function () { username.markAsModified().trim(); } }">
                             <span class="xapi-form-message" data-bind="visible: !username.isValid() && username.isModified()">Enter a valid name</span>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                     <div class="xapi-form-row-right">
                         <div class="xapi-form-input-holder">
                             <span class="xapi-form-input-wrapper"></span>
-                            <input tabindex="5" class="xapi-form-input" type="text" ondrop="return false;" data-bind="value: usermail, valueUpdate: 'afterkeydown', event: { blur: usermail.markAsModified }">
+                            <input tabindex="5" class="xapi-form-input" type="text" ondrop="return false;" data-bind="value: usermail, valueUpdate: 'afterkeydown', event: { blur: function () { usermail.markAsModified().trim(); } }">
                             <span class="xapi-form-message" data-bind="visible: !usermail.isValid() && usermail.isModified()">Enter a valid e-mail</span>
                         </div>
                     </div>

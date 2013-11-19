@@ -4,7 +4,8 @@
         {
             route: ['', 'home'],
             moduleId: 'viewmodels/home',
-            title: 'Question'
+            title: 'Question',
+            rootLinkDisabled: true
         },
         {
             route: 'summary',
@@ -20,11 +21,6 @@
             route: '404',
             moduleId: 'viewmodels/404',
             title: '404 Not found'
-        },
-        {
-            route: 'xapierror/:backUrl',
-            moduleId: 'viewmodels/xAPIError',
-            title: 'xAPIError'
         }
     ];
 
