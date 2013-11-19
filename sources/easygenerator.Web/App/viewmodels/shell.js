@@ -120,6 +120,10 @@
                     globalErrorHandler.subscribeOnAjaxErrorEvents();
 
                     localizationManager.initialize(window.top.userCultures);
+                    
+                    router.openUrl = function (url) {
+                        window.open(url, '_blank');
+                    };
 
                     router.updateDocumentTitle = function (instance, instruction) {
                         var title = null;
@@ -159,7 +163,7 @@
                         var downloadUrl = hash == '' ? href + '/' + url : href.replace(hash, url);
                         window.open(downloadUrl);
                     };
-
+                    
                     router.guardRoute = function (routeInfo, params) {
                         if (requestsCounter() > 0) {
                             that.navigation()[1].isPartOfModules(_.contains(objectivesModules, that.activeModuleName()));

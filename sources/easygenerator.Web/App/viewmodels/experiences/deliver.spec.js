@@ -33,9 +33,12 @@
             };
 
             beforeEach(function () {
+                router.openUrl = function(url) {};
+
                 spyOn(eventTracker, 'publish');
                 spyOn(router, 'navigate');
                 spyOn(router, 'replace');
+                spyOn(router, 'openUrl');
                 spyOn(notify, 'hide');
                 spyOn(notify, 'error');
             });
@@ -622,6 +625,41 @@
                 });
 
             });
+
+            describe('openPublishedExperience:', function () {
+
+                it('should be function', function() {
+                    expect(viewModel.openPublishedExperience).toBeFunction();
+                });
+
+                describe('when experience successfully published', function() {
+
+                    it('should open publish url', function () {
+                        viewModel.publishedPackageUrl('Some url');
+                        viewModel.status(viewModel.statuses.succeed);
+                        viewModel.publishingState(viewModel.statuses.succeed);
+                        
+                        viewModel.openPublishedExperience();
+                        expect(router.openUrl).toHaveBeenCalledWith(viewModel.publishedPackageUrl());
+                    });
+
+                });
+
+                describe('when experience not published', function() {
+
+                    it('should not open link', function () {
+                        viewModel.publishedPackageUrl('Some url');
+                        viewModel.status(viewModel.statuses.failed);
+                        viewModel.publishingState(viewModel.statuses.failed);
+                        
+                        viewModel.openPublishedExperience();
+                        expect(router.openUrl).not.toHaveBeenCalledWith(viewModel.publishedPackageUrl());
+                    });
+
+                });
+
+            });
         });
 
-    });
+    }
+);

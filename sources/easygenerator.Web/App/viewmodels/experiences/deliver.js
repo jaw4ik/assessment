@@ -5,12 +5,8 @@
             buildExperience: 'Build experience',
             downloadExperience: 'Download experience',
             publishExperience: 'Publish experience'
-        },
-        sendEvent = function (eventName) {
-            eventTracker.publish(eventName);
         };
-
-
+    
     var viewModel = {
         id: '',
         packageUrl: ko.observable(),
@@ -21,6 +17,7 @@
         downloadExperience: downloadExperience,
         publishExperience: publishExperience,
         publishedPackageUrl: ko.observable(),
+        openPublishedExperience: openPublishedExperience,
         activate: activate
     };
 
@@ -38,20 +35,28 @@
     }, viewModel);
 
     function buildExperience() {
-        sendEvent(events.buildExperience);
+        eventTracker.publish(events.buildExperience);
         notify.hide();
         service.build(viewModel.id);
     }
 
     function downloadExperience() {
-        sendEvent(events.downloadExperience);
+        eventTracker.publish(events.downloadExperience);
         router.download('download/' + viewModel.packageUrl());
     }
 
     function publishExperience() {
-        sendEvent(events.publishExperience);
+        eventTracker.publish(events.publishExperience);
         notify.hide();
         service.publish(viewModel.id);
+    }
+    
+    function openPublishedExperience() {
+        if (!viewModel.successfullyPublished()) {
+            return;
+        }
+
+        router.openUrl(viewModel.publishedPackageUrl());
     }
 
     function activate(experienceId) {
@@ -100,7 +105,7 @@
             viewModel.publishedPackageUrl(experience.publishedPackageUrl);
         }
     });
-    
+
     app.on(constants.messages.experience.publish.failed, function (experienceId, message) {
         if (experienceId == viewModel.id) {
             viewModel.publishingState(constants.statuses.failed);

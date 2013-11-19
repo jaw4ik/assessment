@@ -3,14 +3,12 @@
         <div class="package-actions-content clearfix">
             <aside class="actions-left-column">
                 <div class="package-action-btn-holder">
-                    <!-- CREATE PACKAGE BUTTON -->
                     <!-- ko if: (status() == statuses.notStarted || status() == statuses.failed) && !packageExists() -->
                     <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience">
                         <span class="btn-title" data-bind="localize: { text: 'createPackage' }">Create package</span>
                     </div>
                     <!-- /ko -->
 
-                    <!-- BUILDING/CREATING STATUS -->
                     <!-- ko if: status() == statuses.inProgress -->
                     <div class="package-action-btn btn orange creating-btn">
                         <!-- ko ifnot: packageExists() -->
@@ -23,7 +21,6 @@
                     <!-- /ko -->
 
                     <!-- ko if: packageExists() -->
-                    <!-- REBUILD PACKAGE BUTTON -->
                     <!-- ko if: status() == statuses.succeed && publishingState() != statuses.inProgress  -->
                     <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience">
                         <span class="btn-title" data-bind="localize: { text: 'updatePackage' }">Update package</span>
@@ -42,7 +39,6 @@
 
                 <div class="package-action-btn-holder">
                     <!-- ko if: !publishPackageExists() || status() == statuses.failed -->
-                    <!-- PUBLISH BUTTON -->
                     <!-- ko if: status() == statuses.succeed && (publishingState() == statuses.notStarted || publishingState() == statuses.failed) -->
                     <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience">
                         <span class="btn-title" data-bind="localize: { text: 'publishOnline' }">Publish online</span>
@@ -55,7 +51,6 @@
                     <!-- /ko -->
                     <!-- /ko -->
 
-                    <!-- PUBLISHING/REPUBLISHING STATUS -->
                     <!-- ko if: status() == statuses.succeed && publishingState() == statuses.inProgress -->
                     <div class="package-action-btn btn green publishing-btn">
                         <!-- ko ifnot: publishPackageExists() -->
@@ -68,7 +63,6 @@
                     <!-- /ko -->
 
                     <!-- ko if: publishPackageExists() -->
-                    <!-- REPUBLISH PACKAGE BUTTON -->
                     <!-- ko if: status() == statuses.succeed && publishingState() == statuses.succeed -->
                     <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience">
                         <span class="btn-title" data-bind="localize: { text: 'republishOnline' }">Republish online</span>
@@ -86,7 +80,6 @@
                 <div class="action-arrow right" data-bind="css: { disabled: status() != statuses.succeed || publishingState() == statuses.inProgress }">
                     <i class="icon-item"></i>
                 </div>
-                <!-- BUILD SUCCESS/ DOWNLOAD BUTTON -->
                 <!-- ko if: status() == statuses.succeed && publishingState() != statuses.inProgress -->
                 <div class="package-action-btn btn grey download-btn" data-bind="click: downloadExperience">
                     <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
@@ -102,6 +95,7 @@
             <div class="copy-link-control clear clearfix">
                 <div class="copy-link-input-wrapper" data-bind="css: { disabled: !successfullyPublished() }">
                     <input class="copy-link-input" type="text" readonly="readonly" data-bind="value: successfullyPublished() ? publishedPackageUrl() : '', css: { selectable: successfullyPublished() }, selectTextBinding: successfullyPublished" />
+                    <a href="#" data-bind="click: openPublishedExperience">Open</a>
                 </div>
             </div>
             <!-- /ko -->
