@@ -6,7 +6,7 @@ namespace easygenerator.DomainModel.Repositories
 {
     public interface IPasswordRecoveryTicketRepository : IQuerableRepository<PasswordRecoveryTicket>
     {
-        ICollection<PasswordRecoveryTicket> GetExpiredTickets(TimeSpan expirationPeriod);
+        ICollection<PasswordRecoveryTicket> GetExpiredTickets(DateTime expirationDate);
 
         void Remove(PasswordRecoveryTicket ticket);
     }

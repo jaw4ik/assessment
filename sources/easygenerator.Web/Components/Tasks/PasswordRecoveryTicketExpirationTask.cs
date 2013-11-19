@@ -22,8 +22,10 @@ namespace easygenerator.Web.Components.Tasks
 
         public void Execute()
         {
-            var tickets = _passwordRecoveryTicketRepository.GetExpiredTickets(new TimeSpan(0, 0, _configurationReader.PasswordRecoveryExpirationInterval, 0));
+            var expirationDate = DateTimeWrapper.Now().Subtract(new TimeSpan(0, 0, _configurationReader.PasswordRecoveryExpirationInterval, 0));
+            var tickets = _passwordRecoveryTicketRepository.GetExpiredTickets(expirationDate);
 
+            Debug.WriteLine(expirationDate);
             Debug.WriteLine(tickets.Count);
 
             if (tickets.Count == 0)
