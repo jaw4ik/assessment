@@ -208,6 +208,10 @@
     overflow: hidden;
 }
 
+    .xapi-btn-left:hover {
+        border: none;
+    }
+
 .xapi-btn-right {
     width: 46%;
     height: 52px;

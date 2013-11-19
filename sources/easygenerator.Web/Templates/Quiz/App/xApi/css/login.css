@@ -225,3 +225,7 @@
     color: #3a87ad;
     cursor: pointer;
 }
+
+    .link.default:hover {
+        border: none;
+    }
