@@ -1,31 +1,33 @@
-﻿<section class="design-view-module">
-    <div class="container">
-        <div class="clearfix">
-            <div class="choose-template-container">
-                <div class="choose-template-title" data-bind="localize: { text: 'chooseTemplate' } ">Choose template</div>
-                <div class="choose-template-list">
-                    <!-- ko foreach: templates -->
-                    <div class="choose-template-item" data-bind="css: { selected: $data == $parent.currentTemplate() }, click: $parent.selectTemplate">
-                        <span class="choose-template-image-wrapper">
-                            <img class="choose-template-image" data-bind="attr: { src: image }" src="" />
-                        </span>
-                        <div class="choose-template-information clearfix">
-                            <div class="template-title" data-bind="text: name"></div>
-                            <div class="template-information" data-bind="text: description">
-                                &nbsp;
-                            </div>
-                        </div>
-                        <div class="selected-template-image" data-bind="visible: $data == $parent.currentTemplate()"></div>
-                    </div>
-                    <!-- /ko -->
-                    <div class="wait-block" data-bind="visible: showProgress">
-                        <div class="icon-spinner-wrapper">
-                            <img src="/Content/images/loader.gif" alt="" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+﻿<section class="design-view-module clearfix">
+    <div class="xapi-settings-block">
+        <h2 class="xapi-settings-title">Template settings</h2>
+        <div class="xapi-settings-wrapper">
+            <iframe data-bind="attr: { src: currentTemplate().settingsUrl + '?experienceId=' + experienceId + '&templateId=' + currentTemplate().id }" frameborder="0" width="100%" height="600" src="/Templates/Freestyle learning/settings.html?experienceId=1f07bd5375e04846ac7e0ac1b374de8c&amp;templateId=5d3a10e7be1041468a5c8c68b88d97d4"></iframe>
         </div>
     </div>
-    <iframe data-bind = "attr: { src: currentTemplate().settingsUrl + '?experienceId=' + experienceId + '&templateId=' + currentTemplate().id }" frameborder="0" width="100%" height="600"></iframe>
+    <div class="choose-template-holder">
+        <h2 class="choose-template-title" data-bind="localize: { text: 'chooseTemplate' }">Choose template</h2>
+        <ul class="choose-template-list">
+            <!-- ko foreach: templates -->
+            <li class="choose-template-list-item" data-bind="css: { selected: $data == $parent.currentTemplate() }, click: $parent.selectTemplate">
+                <div class="template-image-holder">
+                    <img class="template-image" data-bind="attr: { src: image }" src="" />
+                </div>
+                <div class="template-info-wrapper">
+                    <div class="template-title" data-bind="text: name">
+                        &nbsp;
+                    </div>
+                    <div class="template-desc" data-bind="text: description">
+                        &nbsp;
+                    </div>
+                </div>
+            </li>
+            <!-- /ko -->
+            <div class="choose-template-spinner" data-bind="visible: showProgress">
+                <div class="icon-spinner-wrapper">
+                    <img src="/Content/images/loader.gif" alt="" />
+                </div>
+            </div>
+        </ul>
+    </div>
 </section>
