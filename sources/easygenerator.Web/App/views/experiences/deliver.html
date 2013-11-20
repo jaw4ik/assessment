@@ -95,7 +95,7 @@
             <div class="copy-link-control clear clearfix">
                 <div class="copy-link-input-wrapper" data-bind="css: { disabled: !successfullyPublished() }">
                     <input class="copy-link-input" type="text" readonly="readonly" data-bind="value: successfullyPublished() ? publishedPackageUrl() : '', css: { selectable: successfullyPublished() }, selectTextBinding: successfullyPublished" />
-                    <a href="#" data-bind="click: openPublishedExperience, localize: { text: 'openLink' }">Open link</a>
+                    <a data-bind="click: openPublishedExperience, localize: { text: 'openLink' }, attr: { href: publishedPackageUrl }">Open link</a>
                 </div>
             </div>
             <!-- /ko -->
