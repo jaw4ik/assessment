@@ -234,6 +234,26 @@ namespace easygenerator.Web.Tests.BuildExperience
         }
 
         [TestMethod]
+        public void Build_ShouldWriteEmptyExperienceTemplateSettingsToFile_WhenTemplateSettingsDoNotExist()
+        {
+            //Arrange
+            const string settingsFileName = "settingsFileName";
+
+            var experience = Substitute.For<Experience>();
+            experience.Template.Returns(Substitute.For<Template>());
+            experience.GetTemplateSettings(experience.Template).Returns((string)null);
+
+            _packageModelMapper.MapExperience(experience).Returns(_experiencePackageModel);
+            _buildPathProvider.GetSettingsFileName(Arg.Any<string>()).Returns(settingsFileName);
+
+            //Act
+            _builder.Build(experience);
+
+            //Assert
+            _fileManager.Received().WriteToFile(settingsFileName, String.Empty);
+        }
+
+        [TestMethod]
         public void Build_ShouldCreatePackage()
         {
             //Arrange

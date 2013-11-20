@@ -54,7 +54,7 @@ namespace easygenerator.Web.BuildExperience
 
                 _fileManager.WriteToFile(_buildPathProvider.GetDataFileName(buildId), _packageModelSerializer.Serialize(experiencePackageModel));
 
-                _fileManager.WriteToFile(_buildPathProvider.GetSettingsFileName(buildId), experience.GetTemplateSettings(experience.Template));
+                _fileManager.WriteToFile(_buildPathProvider.GetSettingsFileName(buildId), experience.GetTemplateSettings(experience.Template) ?? String.Empty);
 
                 _buildPackageCreator.CreatePackageFromFolder(_buildPathProvider.GetBuildDirectoryName(buildId), _buildPathProvider.GetBuildPackageFileName(buildId));
 
