@@ -51,6 +51,11 @@ namespace easygenerator.Web.BuildExperience
             return Path.Combine(GetContentDirectoryName(buildId), "data.js");
         }
 
+        public virtual string GetSettingsFileName(string buildId)
+        {
+            return Path.Combine(GetBuildDirectoryName(buildId), "settings.js");
+        }
+
         public virtual string GetBuildPackageFileName(string buildId)
         {
             return Path.Combine(DownloadPath, buildId + ".zip");

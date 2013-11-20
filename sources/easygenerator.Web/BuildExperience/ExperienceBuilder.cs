@@ -36,15 +36,15 @@ namespace easygenerator.Web.BuildExperience
                 _fileManager.DeleteDirectory(_buildPathProvider.GetContentDirectoryName(buildId));
                 _fileManager.CreateDirectory(_buildPathProvider.GetContentDirectoryName(buildId));
 
-                foreach (ObjectivePackageModel objective in experiencePackageModel.Objectives)
+                foreach (var objective in experiencePackageModel.Objectives)
                 {
                     _fileManager.CreateDirectory(_buildPathProvider.GetObjectiveDirectoryName(buildId, objective.Id));
 
-                    foreach (QuestionPackageModel question in objective.Questions)
+                    foreach (var question in objective.Questions)
                     {
                         _fileManager.CreateDirectory(_buildPathProvider.GetQuestionDirectoryName(buildId, objective.Id, question.Id));
 
-                        foreach (LearningContentPackageModel learningContent in question.LearningContents)
+                        foreach (var learningContent in question.LearningContents)
                         {
                             _fileManager.WriteToFile(_buildPathProvider.GetLearningContentFileName(buildId, objective.Id, question.Id, learningContent.Id),
                                 learningContent.Text);
@@ -52,11 +52,11 @@ namespace easygenerator.Web.BuildExperience
                     }
                 }
 
-                _fileManager.WriteToFile(_buildPathProvider.GetDataFileName(buildId),
-                    _packageModelSerializer.Serialize(experiencePackageModel));
+                _fileManager.WriteToFile(_buildPathProvider.GetDataFileName(buildId), _packageModelSerializer.Serialize(experiencePackageModel));
 
-                _buildPackageCreator.CreatePackageFromFolder(_buildPathProvider.GetBuildDirectoryName(buildId),
-                    _buildPathProvider.GetBuildPackageFileName(buildId));
+                _fileManager.WriteToFile(_buildPathProvider.GetSettingsFileName(buildId), experience.GetTemplateSettings(experience.Template));
+
+                _buildPackageCreator.CreatePackageFromFolder(_buildPathProvider.GetBuildDirectoryName(buildId), _buildPathProvider.GetBuildPackageFileName(buildId));
 
                 experience.UpdatePackageUrl(buildId + ".zip");
             }

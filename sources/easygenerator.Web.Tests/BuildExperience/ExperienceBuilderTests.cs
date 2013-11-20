@@ -137,7 +137,6 @@ namespace easygenerator.Web.Tests.BuildExperience
             _fileManager.Received().CreateDirectory(contentDirectory);
         }
 
-
         [TestMethod]
         public void Build_ShouldCreateObjectiveDirectory()
         {
@@ -213,6 +212,26 @@ namespace easygenerator.Web.Tests.BuildExperience
             _fileManager.Received().WriteToFile(packageModelFilePath, serializedPackageModel);
         }
 
+        [TestMethod]
+        public void Build_ShouldWriteExperienceTemplateSettingsToFile()
+        {
+            //Arrange
+            const string settingsFileName = "settingsFileName";
+            const string settings = "settings";
+
+            var experience = Substitute.For<Experience>();
+            experience.Template.Returns(Substitute.For<Template>());
+            experience.GetTemplateSettings(experience.Template).Returns(settings);
+
+            _packageModelMapper.MapExperience(experience).Returns(_experiencePackageModel);
+            _buildPathProvider.GetSettingsFileName(Arg.Any<string>()).Returns(settingsFileName);
+
+            //Act
+            _builder.Build(experience);
+
+            //Assert
+            _fileManager.Received().WriteToFile(settingsFileName, settings);
+        }
 
         [TestMethod]
         public void Build_ShouldCreatePackage()
@@ -231,7 +250,6 @@ namespace easygenerator.Web.Tests.BuildExperience
             //Assert
             _buildPackageCreator.Received().CreatePackageFromFolder(buildDirectory, buildPackageFileName);
         }
-
 
         [TestMethod]
         public void Build_ShouldUpdateExperienceBuildPath()
