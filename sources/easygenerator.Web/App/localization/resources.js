@@ -770,6 +770,11 @@
         nl: 'Geselecteerd(e) leerdoel(en) loskoppelen',
         de: 'Ausgewählte(s) Lernziel(e) trennen'
     },
+    openLink: {
+        en: 'Open link',
+        nl: 'Open link[nl]',
+        de: 'Open link[de]'
+    },
     /* End resource section for model Display experience */
     
     /* Resource section for model Error pages */
