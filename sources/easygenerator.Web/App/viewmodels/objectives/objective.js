@@ -42,9 +42,7 @@
                     eventTracker.publish(events.updateObjectiveTitle);
 
                     if (title.isValid()) {
-                        repository.updateObjective({ id: that.objectiveId, title: that.title() }).then(function () {
-                            notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
-                        });
+                        repository.updateObjective({ id: that.objectiveId, title: that.title() }).then(showNotification);
                     } else {
                         title(objectiveTitle);
                     }
@@ -83,9 +81,9 @@
                     return item.id;
                 });
 
-                questionRepository.removeQuestions(this.objectiveId, questionIds).then(function () {
+                questionRepository.removeQuestions(this.objectiveId, questionIds).then(function (modifiedOn) {
                     that.questions(_.difference(that.questions(), selectedQuestions));
-                    notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
+                    showNotification(modifiedOn);
                 });
 
             },
@@ -145,7 +143,11 @@
 
             enableDeleteQuestions = ko.computed(function () {
                 return getSelectedQuestions().length > 0;
-            });
+            }),
+
+            showNotification = function (date) {
+                notify.info(localizationManager.localize('savedAt') + ' ' + date.toLocaleTimeString());
+            };
 
         return {
             objectiveId: objectiveId,

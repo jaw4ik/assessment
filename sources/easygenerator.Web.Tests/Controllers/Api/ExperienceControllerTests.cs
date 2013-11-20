@@ -98,7 +98,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Delete_ShouldRemoveExperience()
+        public void Delete_ShouldRemoveExperience_WhenItNotNull()
         {
             var experience = ExperienceObjectMother.Create();
 
@@ -108,12 +108,11 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Delete_ReturnJsonErrorResult_WhenExperienceIsNull()
+        public void Delete_ReturnJsonSuccessResult_WhenExperienceIsNull()
         {
             var result = _controller.Delete(null);
 
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Experience is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("experienceNotFoundError");
+            result.Should().BeJsonSuccessResult();
         }
 
         #endregion

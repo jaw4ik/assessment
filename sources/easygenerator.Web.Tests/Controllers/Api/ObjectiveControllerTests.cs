@@ -132,7 +132,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-
         #region Delete objective
 
         [TestMethod]
@@ -146,7 +145,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Delete_ShouldRemoveObjective()
+        public void Delete_ShouldRemoveObjective_WhenItNotNull()
         {
             var objective = Substitute.For<Objective>("Some title", CreatedBy);
 
@@ -156,12 +155,11 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Delete_ReturnJsonErrorResult_WhenObjectiveIsNull()
+        public void Delete_ReturnJsonSuccessResult_WhenObjectiveIsNull()
         {
             var result = _controller.Delete(null);
 
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Objective is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("objectiveNotFoundError");
+            result.Should().BeJsonSuccessResult();
         }
 
         [TestMethod]

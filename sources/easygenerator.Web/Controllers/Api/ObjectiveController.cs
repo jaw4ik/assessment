@@ -79,18 +79,15 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         public ActionResult Delete(Objective objective)
         {
-            if (objective == null)
+            if (objective != null)
             {
-                return JsonLocalizableError(Constants.Errors.ObjectiveNotFoundError,
-                                            Constants.Errors.ObjectiveNotFoundResourceKey);
+                if (objective.Experiences.Any() || objective.Questions.Any())
+                {
+                    return JsonLocalizableError(Constants.Errors.ObjectiveCannotBeDeleted,
+                                                Constants.Errors.ObjectiveCannotBeDeletedResourceKey);
+                }
+                _repository.Remove(objective);
             }
-
-            if (objective.Experiences.Any() || objective.Questions.Any())
-            {
-                return JsonLocalizableError(Constants.Errors.ObjectiveCannotBeDeleted,
-                                            Constants.Errors.ObjectiveCannotBeDeletedResourceKey);
-            }
-            _repository.Remove(objective);
 
             return JsonSuccess();
         }

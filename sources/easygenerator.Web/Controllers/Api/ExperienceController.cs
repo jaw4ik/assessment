@@ -47,13 +47,10 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         public ActionResult Delete(Experience experience)
         {
-            if (experience == null)
+            if (experience != null)
             {
-                return JsonLocalizableError(Constants.Errors.ExperienceNotFoundError,
-                                            Constants.Errors.ExperienceNotFoundResourceKey);
+                _repository.Remove(experience);
             }
-
-            _repository.Remove(experience);
 
             return JsonSuccess();
         }
