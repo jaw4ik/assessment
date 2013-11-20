@@ -187,11 +187,19 @@
     left: 0;
     height: 100%;
     width: 100%;
-    padding-top: 60px;
     background: rgba(255,255,255,0.8);
     text-align: center;
     display: table-cell;
     vertical-align: middle;
+}
+
+.experience-text-holder {
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+    text-align: center;
 }
 
 .experience-text {
@@ -216,20 +224,20 @@
         background: url(images/sprites.png);
     }
 
-    .experience-text.building:after {
+    .building .experience-text:after {
         background: url(images/loader.gif);
     }
 
-    .experience-text.complete,
-    .experience-text.failed {
+    .complete .experience-text,
+    .failed .experience-text {
         text-transform: capitalize;
     }
 
-        .experience-text.complete:after {
+        .complete .experience-text:after {
             background-position: -254px -78px;
         }
 
-        .experience-text.failed:after {
+        .failed .experience-text:after {
             background-position: -8px -110px;
         }
 
