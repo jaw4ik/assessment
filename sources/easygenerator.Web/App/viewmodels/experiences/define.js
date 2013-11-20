@@ -192,7 +192,7 @@
                         notify.info(localizationManager.localize('savedAt') + ' ' + response.modifiedOn.toLocaleTimeString());
 
                         if (objectivesToRelate.length != response.relatedObjectives.length) {
-                            notify.error(localizationManager.localize('objectiveNotFoundError'));
+                            notify.error(localizationManager.localize('objectivesNotFoundError'));
                         }
                     });
             },

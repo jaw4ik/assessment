@@ -1074,9 +1074,9 @@
         de: 'Das Lernziel wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
     },
     objectivesNotFoundError: {
-        en: 'Learning objectives were not found. Please refresh your data.',
-        nl: 'De leerdoelen zijn niet gevonden. Vernieuw uw gegevens.',
-        de: 'Die Lernziele wurden nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
+        en: 'One or more of learning objectives were not found. Please refresh your data.',
+        nl: 'One or more of learning objectives were not found. Please refresh your data. [NL]',
+        de: 'One or more of learning objectives were not found. Please refresh your data. [DE]'
     },
     answerNotFoundError: {
         en: 'Answer option was not found. Please refresh your data.',

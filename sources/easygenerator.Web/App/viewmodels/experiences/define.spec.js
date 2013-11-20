@@ -578,6 +578,7 @@
             });
 
             describe('connectObjectives:', function () {
+
                 it('should be function', function () {
                     expect(viewModel.connectObjectives).toBeFunction();
                 });
@@ -612,10 +613,11 @@
                 describe('and there are objectives selected', function () {
                     var availableObjectives,
                         relateObjectivesDefer,
-                        relateObjectivesPromise;
+                        relateObjectivesPromise,
 
-                    var selectedObjective = { id: '2', title: 'D' },
+                        selectedObjective = { id: '2', title: 'D' },
                         notSelectedObjective = { id: '3', title: 'B' };
+
                     beforeEach(function () {
                         availableObjectives = [
                             { isSelected: ko.observable(true), _original: selectedObjective },
@@ -686,7 +688,9 @@
                         });
 
                         describe('and when selected objectives count differs from successfully connected objectives count', function () {
-                            it('shoul show error notification', function () {
+
+                            it('shoul show \'objectivesNotFoundError\' notification', function () {
+                                var localizationManager = require('localization/localizationManager');
                                 relateObjectivesDefer.resolve({ modifiedOn: new Date(), relatedObjectives: [] });
 
                                 viewModel.connectObjectives();
@@ -695,9 +699,10 @@
                                     return !relateObjectivesPromise.isPending();
                                 });
                                 runs(function () {
-                                    expect(notify.error).toHaveBeenCalled();
+                                    expect(notify.error).toHaveBeenCalledWith(localizationManager.localize('objectivesNotFoundError'));
                                 });
                             });
+
                         });
 
                     });
