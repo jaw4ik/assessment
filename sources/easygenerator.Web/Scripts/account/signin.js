@@ -1,4 +1,5 @@
 ﻿var app = app || {};
+var constants = constants || {};
 
 app.signinViewModel = function () {
 
