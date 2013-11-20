@@ -806,6 +806,20 @@
                     expect(experience.showStatus()).toBe(false);
                 });
 
+                describe('when buildingStatus or publishingState equals inProgress', function () {
+                    
+                    beforeEach(function () {
+                        experience = { showStatus: ko.observable(), buildingStatus: ko.observable(constants.statuses.inProgress), publishingState: ko.observable(constants.statuses.inProgress) };
+                    });
+
+                    it('should not hide showStatus', function() {
+                        experience.showStatus(true);
+                        viewModel.enableOpenExperience(experience);
+                        expect(experience.showStatus()).toBe(true);
+                    });
+
+                });
+
                 it('should set buildStatus to notStarted if buildStatus is failed.', function () {
                     experience.buildingStatus(constants.statuses.failed);
 

@@ -100,7 +100,9 @@
         }
 
         function enableOpenExperience(experience) {
-            experience.showStatus(false);
+            if (experience.buildingStatus() !== constants.statuses.inProgress && experience.publishingState() !== constants.statuses.inProgress) {
+                experience.showStatus(false);
+            }
             if (experience.buildingStatus() === constants.statuses.failed) {
                 experience.buildingStatus(constants.statuses.notStarted);
                 experience.publishingState(constants.statuses.notStarted);
