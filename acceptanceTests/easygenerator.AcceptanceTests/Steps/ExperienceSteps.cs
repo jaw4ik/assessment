@@ -287,7 +287,21 @@ namespace easygenerator.AcceptanceTests.Steps
                 experiencePage.ExcludeButtonIsEnabled == isEnabled,
                 "incorrect exclude button visibility");
         }
-          
-        
+
+        [When(@"click on show not connected objectives")]
+        public void WhenClickOnShowNotConnectedObjectives()
+        {
+            experiencePage.ShowNotConnectedObjectivesClick();
+            System.Threading.Thread.Sleep(500);
+        }
+
+        [When(@"click on show connected objectives")]
+        public void WhenClickOnShowConnectedObjectives()
+        {
+            experiencePage.ShowConnectedObjectivesClick();
+            System.Threading.Thread.Sleep(500);
+        }
+
+
     }
 }

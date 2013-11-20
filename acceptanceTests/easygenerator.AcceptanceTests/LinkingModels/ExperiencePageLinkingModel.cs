@@ -30,8 +30,11 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 
         public string ExperienceHeaderTitleText = ".//span[contains(@class,'experience-header-title-text')]";
 
-        public string IncludeButton = ".//a[contains(@class,'experiences-header-create-link')]";
+        public string IncludeButton = ".//div[contains(@class,'list-controls-holder')]//span[contains(@class, 'add')]";
         public string FinishButton = ".//a[contains(@class,'experiences-header-finish-link')]";
         public string ExcludeButton = ".//div[contains(@class,'list-controls-holder')]//span[contains(@class,'disconnect')]";
+
+        public string ShowNotConnectedObjectives = ".//div[contains(@data-bind,'showAllAvailableObjectives')]";
+        public string ShowConnectedObjectives = ".//div[contains(@data-bind,'showConnectedObjectives')]";
     }
 }

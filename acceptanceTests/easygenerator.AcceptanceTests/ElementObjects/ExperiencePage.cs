@@ -202,5 +202,15 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             GetByXPath(model.FailedStatus).HoverElement();
         }
 
+
+        internal void ShowNotConnectedObjectivesClick()
+        {
+            GetByXPath(model.ShowNotConnectedObjectives).Click();
+        }
+
+        internal void ShowConnectedObjectivesClick()
+        {
+            GetByXPath(model.ShowConnectedObjectives).Click();
+        }
     }
 }

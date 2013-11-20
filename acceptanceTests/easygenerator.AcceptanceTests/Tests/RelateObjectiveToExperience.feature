@@ -20,10 +20,11 @@ Given objectives are present in database
 | Title      | Id |
 | Objective1 | 00000000000000000000000000000001  |
 When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
-And click on include button on experience page
+And click on show not connected objectives
 And mouse hover element of related objectives list with title 'Objective1'
 And select related objective list item with title 'Objective1'
-And click on finish button on experience page
+And click on include button on experience page
+And click on show connected objectives
 Then related objectives list contains only items with data
 | Title      |
 | Objective1 |
@@ -85,12 +86,13 @@ Given objectives are present in database
 | Objective2 | 00000000000000000000000000000002  |
 | Objective3 | 00000000000000000000000000000003  |
 When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
-And click on include button on experience page
+And click on show not connected objectives
 And mouse hover element of related objectives list with title 'Objective1'
 And select related objective list item with title 'Objective1'
 And mouse hover element of related objectives list with title 'Objective3'
 And select related objective list item with title 'Objective3'
-And click on finish button on experience page
+And click on include button on experience page
+And click on show connected objectives
 Then related objectives list contains only items with data
 | Title      |
 | Objective1 |
@@ -129,7 +131,7 @@ Given objectives are linked to experiance 'Experience1'
 | Objective1 | 00000000000000000000000000000001  |
 | Objective3 | 00000000000000000000000000000003  |
 When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
-And click on include button on experience page
+And click on show not connected objectives
 Then related objectives list contains only items with data
 | Title      |
 | Objective2 |
@@ -169,17 +171,18 @@ Given objectives are present in database
 | Objective3 | 00000000000000000000000000000003  |
 | Objective4 | 00000000000000000000000000000004  |
 When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000001'
-And click on include button on experience page
+And click on show not connected objectives
 And mouse hover element of related objectives list with title 'Objective1'
 And select related objective list item with title 'Objective1'
 And mouse hover element of related objectives list with title 'Objective3'
 And select related objective list item with title 'Objective3'
-And click on finish button on experience page
+And click on include button on experience page
+And click on show connected objectives
 Then related objectives list contains only items with data
 | Title      |
 | Objective1 |
 | Objective3 |
-When click on include button on experience page
+When click on show not connected objectives
 Then related objectives list contains only items with data
 | Title      |
 | Objective2 |
@@ -196,7 +199,7 @@ Given objectives are linked to experiance 'Experience1'
 | Objective1 | 00000000000000000000000000000001  |
 | Objective2 | 00000000000000000000000000000002  |
 When open page by url 'http://localhost:5656/#/experience/00000000000000000000000000000002'
-And click on include button on experience page
+And click on show not connected objectives
 Then related objectives list contains only items with data
 | Title      |
 | Objective1 |
@@ -206,7 +209,8 @@ When mouse hover element of related objectives list with title 'Objective2'
 And select related objective list item with title 'Objective2'
 And mouse hover element of related objectives list with title 'Objective3'
 And select related objective list item with title 'Objective3'
-And click on finish button on experience page
+And click on include button on experience page
+And click on show connected objectives
 Then related objectives list contains only items with data
 | Title      |
 | Objective2 |
