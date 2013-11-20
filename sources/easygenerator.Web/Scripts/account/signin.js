@@ -6,7 +6,7 @@ app.signinViewModel = function () {
         username = (function () {
             var value = ko.observable();
             value.isValid = ko.computed(function () {
-                return !!(value() && app.constants.patterns.email.test(value().trim()));
+                return !!(value() && constants.patterns.email.test(value().trim()));
             });
             value.isModified = ko.observable(false);
             value.markAsModified = function () {
@@ -55,7 +55,7 @@ app.signinViewModel = function () {
             .done(function (response) {
                 if (response) {
                     if (response.success) {
-                        app.trackEvent(app.constants.events.signin, { username: data.username }).done(function () {
+                        app.trackEvent(constants.events.signin, { username: data.username }).done(function () {
                             app.openHomePage();
                         });
                     } else {

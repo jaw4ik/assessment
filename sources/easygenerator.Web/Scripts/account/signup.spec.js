@@ -209,6 +209,11 @@
                     expect(viewModel.country.isValid()).toBeTruthy();
                 });
 
+                it('should set phone code', function() {
+                    viewModel.country('Ukraine');
+                    expect(viewModel.phoneCode()).toBe('+ 380');
+                });
+
             });
 
         });
@@ -913,7 +918,6 @@
 
         });
 
-
         describe('validateOrganization:', function () {
             
             it('should be function', function () {
@@ -941,6 +945,18 @@
                 });
 
             });
+        });
+
+        describe('phoneCode:', function() {
+
+            it('should be observable', function() {
+                expect(viewModel.phoneCode).toBeObservable();
+            });
+
+            it('should be equal \'+ ( ... )\'', function () {
+                expect(viewModel.phoneCode()).toEqual('+ ( ... )');
+            });
+
         });
     });
 

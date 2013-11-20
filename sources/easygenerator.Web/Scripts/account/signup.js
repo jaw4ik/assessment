@@ -20,6 +20,7 @@
         lastValidateFullName = null,
         lastValidatePhone = null,
         lastValidateOrganization = null,
+        phoneCode = ko.observable('+ ( ... )');
         userPreciselyExists = ko.computed(function () {
             return userExists() && userName().trim().toLowerCase() === lastValidatedUserName;
         }),
@@ -120,11 +121,12 @@
     });
 
     country.isValid = ko.computed(function () {
-        var currentCountry = _.find(app.constants.countries, function(item) {
+        var currentCountry = _.find(constants.countries, function(item) {
             return item.name == country();
         });
         if (!_.isNullOrUndefined(currentCountry)) {
             isCountrySuccessVisible(true);
+            phoneCode(currentCountry.code);
         }
         return !_.isNull(country());
     });
@@ -146,7 +148,7 @@
         password: password,
         fullName: fullName,
         country: country,
-        countries: app.constants.countries,
+        countries: constants.countries,
         phone: phone,
         organization: organization,
         isLicenseAgreed: isLicenseAgreed,
@@ -173,5 +175,6 @@
         showHidePassword: showHidePassword,
         checkUserExists: checkUserExists,
         signUp: signUp,
+        phoneCode: phoneCode
     };
 }

@@ -1167,6 +1167,29 @@ body.try {
 
 /*#endregion recovery password */
 
+/*#region Phone code*/
+
+.phone-code-wrapper {
+    position: absolute;
+    height: 48px;
+    background: #fafafa;
+    left: 1px;
+    top: 7px;
+    border-right: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    width: 70px;
+    padding-top: 13px;
+    font-size:16px;
+    text-align: center;
+}
+
+.user-form-input.phone {
+    width: 80%;
+    left: 63px;
+}
+
+/*#endregion Phone code*/
+
 @media (max-width: 1020px) {
 
     /*#region Layout*/

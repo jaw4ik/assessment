@@ -380,6 +380,7 @@
     <Content Include="Content\styles.css" />
     <Content Include="Scripts\account\analytics.js" />
     <Content Include="Scripts\account\common.js" />
+    <Content Include="Scripts\account\constants.js" />
     <Content Include="Scripts\account\focusHandlerBinding.js" />
     <Content Include="Scripts\account\passwordrecovery.js" />
     <Content Include="Scripts\account\passwordrecovery.spec.js">
