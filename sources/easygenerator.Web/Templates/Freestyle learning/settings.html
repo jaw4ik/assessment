@@ -1,67 +1,117 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Bootstrap 101 Template</title>
+    <meta charset="utf-8" />
+    <title>XAPI settings</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css">
+    <style>
+        body, html, h1 {
+            padding: 0;
+            margin: 0;
+            font-family: 'Open Sans';
+        }
+
+        .page-container {
+            height: 100%;
+            width: 100%;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            border: 1px solid #e0dede;
+            border-radius: 3px;
+            color: #303133;
+        }
+
+        .page-header {
+            padding: 9px;
+            background-color: #f2f2f2;
+            border-bottom: 1px solid #e0dede;
+        }
+
+        .page-title {
+            position: relative;
+            padding-left: 25px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .page-title:before {
+            content: '';
+            display: block;
+            height: 16px;
+            width: 16px;
+            position: absolute;
+            top: 2px;
+            left: 0;
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6M0IyNDEyQUM1MUUxMTFFMzgxNEU5NTEyMjAzOUIzN0UiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6M0IyNDEyQUQ1MUUxMTFFMzgxNEU5NTEyMjAzOUIzN0UiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozQjI0MTJBQTUxRTExMUUzODE0RTk1MTIyMDM5QjM3RSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozQjI0MTJBQjUxRTExMUUzODE0RTk1MTIyMDM5QjM3RSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pi8TDU4AAAFgSURBVHjalNM9SEJhFMbxq7Q4BEK0RG3RkFRCQzUEEhdyKGhrqK1oyBolgqKl6JKDUx/0gWNDixASFQiBQW0iuTX3vbUG9j/1BJfSxBd+eDn3nHPf995jwHVdp8Zqw7auE3iolhSsEgtgFmVMSFmxQL0GncjjAGFfPKxYXjl/GjQhiRJiTu0VU05SNV8NorjFFkJO/RVSrtVErUEcEafxZTVxa+BpF4UGiguq8ewcq2jBGKaxieYahe9YxjE28BzUJ5rU75O2lqtSnNO9N98nLlmDLLpxgRPsYAFTeBW7XsS+nn6mZllrkFFwHa6a2RPa0YM+dCjWpRxPD8tYgzRacYdB9GNPZ7zEuZrv6t6wZsGGK20NihjAGlZwrWMNoSJ2fYobLOnFW03xZxI/kEIvXnCFeYxqThIa40flpFTzPY6+dY8RzChp3DfqczjSjv79N1rCod5yQSKKVX4nfwowAHrZUiFD+84AAAAAAElFTkSuQmCC) no-repeat;
+        }
+
+        .user-form-wrapper {
+            padding: 15px 10px;
+        }
+
+    </style>
 </head>
 <body>
-    <div class="page-header">
-        <h1>Freestyle template <small>settings</small></h1>
-    </div>
-    <div class="container">
-        <form id="settingsForm" class="form-horizontal" role="form" data-bind="submit: submit">
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" data-bind="checked: enableForLearner">
-                            Enable for learner
-                        </label>
+    <div class="page-container">
+        <div class="page-header">
+            <h1 class="page-title">Freestyle template settings</h1>
+        </div>
+        <div class="user-form-wrapper">
+            <form id="settingsForm" class="form-horizontal" role="form" data-bind="submit: submit">
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" data-bind="checked: enableForLearner">
+                                Enable for learner
+                            </label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">LRS title</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputEmail3" placeholder="LRS title" data-bind="value: lrsTitle">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">URL</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputPassword3" placeholder="URL" data-bind="value: url">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" data-bind="checked: authentication">
-                            Authentication
-                        </label>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">LRS title</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputEmail3" placeholder="LRS title" data-bind="value: lrsTitle">
                     </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">LAP login</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="Password1" placeholder="LAP login" data-bind="value: lapLogin">
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">URL</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputPassword3" placeholder="URL" data-bind="value: url">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">LAP password</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="Password2" placeholder="LAP password" data-bind="value: lapPassword">
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" data-bind="checked: authentication">
+                                Authentication
+                            </label>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">LAP login</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="Password1" placeholder="LAP login" data-bind="value: lapLogin">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">LAP password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="Password2" placeholder="LAP password" data-bind="value: lapPassword">
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">Save</button>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">Save</button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
