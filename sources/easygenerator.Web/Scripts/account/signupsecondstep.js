@@ -16,7 +16,7 @@
                 data: { PeopleBusyWithCourseDevelopmentAmount: peopleBusyWithCourseDevelopmentAmount(), NeedAuthoringTool: needAuthoringTool(), UsedAuthoringTool: usedAuthoringTool() },
                 type: 'POST'
             }).done(function (response) {
-                app.trackEvent(constants.events.signup, { username: response.data }).done(function () {
+                app.trackEvent(appConstants.events.signup, { username: response.data }).done(function () {
                     app.openHomePage();
                 });
             }).fail(function() {

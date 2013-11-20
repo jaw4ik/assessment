@@ -121,7 +121,7 @@
     });
 
     country.isValid = ko.computed(function () {
-        var currentCountry = _.find(constants.countries, function(item) {
+        var currentCountry = _.find(appConstants.countries, function (item) {
             return item.name == country();
         });
         if (!_.isNullOrUndefined(currentCountry)) {
@@ -148,7 +148,7 @@
         password: password,
         fullName: fullName,
         country: country,
-        countries: constants.countries,
+        countries: appConstants.countries,
         phone: phone,
         organization: organization,
         isLicenseAgreed: isLicenseAgreed,

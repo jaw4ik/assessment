@@ -1,6 +1,7 @@
 ﻿var app = app || {};
+var appConstants = appConstants || {};
 
-(function (application) {
+(function (application, constants) {
 
     function mixpanelAnalyticsProvider() {
         return {
@@ -14,7 +15,7 @@
 
                     if (username) {
                         mixpanel.identify(username);
-                        if (eventName == application.constants.events.signup) {
+                        if (eventName == constants.events.signup) {
                             mixpanel.alias(username);
                             mixpanel.people.set({
                                 "$email": username,
@@ -23,7 +24,7 @@
                             });
                         }
 
-                        if (eventName == application.constants.events.signin) {
+                        if (eventName == constants.events.signin) {
                             mixpanel.people.set({
                                 "$last_login": new Date()
                             });
@@ -50,4 +51,4 @@
         return mixpanelAnalyticesProvider.trackEvent(eventName, eventProperties);
     };
 
-}(app))
+}(app, appConstants))

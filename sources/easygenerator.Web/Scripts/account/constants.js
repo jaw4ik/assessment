@@ -1,15 +1,15 @@
-﻿var constants = constants || {};
+﻿var appConstants = appConstants || {};
 
-constants.events = {
+appConstants.events = {
     signin: 'Sign in',
     signup: 'Sign up'
 };
 
-constants.patterns = {
+appConstants.patterns = {
     email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/
 };
 
-constants.countries = [
+appConstants.countries = [
     { name: 'Afghanistan', code: '+ 93' },
     { name: 'Albania', code: '+ 355' },
     { name: 'Algeria', code: '+ 213' },
