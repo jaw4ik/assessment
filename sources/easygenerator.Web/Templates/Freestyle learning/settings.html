@@ -24,16 +24,103 @@
         }
 
         .page-header {
-            padding: 9px;
+            position: relative;
             background-color: #f2f2f2;
             border-bottom: 1px solid #e0dede;
         }
 
+        .clearfix:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
         .page-title {
+            float: left;
             position: relative;
+            margin: 9px;
             padding-left: 25px;
+            margin-right: 60px;
             font-size: 14px;
             font-weight: 600;
+        }
+
+        .info-tooltip-btn {
+            float: right;
+            height: 38px;
+            width: 50px;
+            background-color: #fafafa;
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTMwMTlFRkM1MUU2MTFFMzg5RkFBNjk0MEMwRTRGNUEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTMwMTlFRkQ1MUU2MTFFMzg5RkFBNjk0MEMwRTRGNUEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxMzAxOUVGQTUxRTYxMUUzODlGQUE2OTQwQzBFNEY1QSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoxMzAxOUVGQjUxRTYxMUUzODlGQUE2OTQwQzBFNEY1QSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Povrl+AAAAFFSURBVHjaYkyvnMOAB3ADsRiU/QqIv6IrmNGWDKZZsGhmBuIAIPYHYi00uWtAvBGINwDxX2QJdIOUgLgTiBVxuFALiiOAuByI78EkmNAMmYXHEGSgCFWrhG4QM9QlAlg0XQJiZyBuQhMHqe3MqJrLjGxQAB6XPAXij0B8A4fLApDDyB+PNzyhGmRwyIP0rmWBRrEWFgXfgXgfEN8EYmMg1sAVAUDvcTMhpRN08AmIhYF4DRCXAvEXPK4WY8EjKQ7EgtD0AlLHgS8amaApFhc4BzVIH0fihYFXTNBkfw2HgmNQ2hKPIdeA2eQrLPo34lB0F0rL4DFoI3I6AuWd+1gU+UADfB4Qb8cifx+qF+7vv9C8MwstdXtCMTbwAaQH6K2/6HkNlAHTcLgMm0vSkDMtekzcg+ZsiosRmDfXQjHBgg0GAAIMAJu/RirA8mk0AAAAAElFTkSuQmCC);
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+            .info-tooltip-btn:hover {
+                background-color: white;
+            }
+
+        .info-tooltip-wrapper {
+            display: none;
+            width: 295px;
+            position: absolute;
+            top: 100%;
+            right: 5px;
+        }
+
+        .info-tooltip {
+            width: 100%;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 11px 9px;
+            margin-top: 6px;
+            background: white;
+            border: 1px solid #c7c7c7;
+            border-bottom-color: #a0a0a0;
+            border-radius: 2px;
+            cursor: default;
+        }
+
+        .info-tooltip-text {
+            display: inline-block;
+            vertical-align: top;
+            line-height: 1.7;
+            color: #67799c;
+            font-size: 12px;
+        }
+
+        .info-tooltip-btn:hover .info-tooltip-wrapper {
+            display: block;
+        }
+
+        .info-tooltip-triangle-holder {
+            height: 5px;
+            width: 10px;
+            position: absolute;
+            top: 2px;
+            right: 15px;
+            overflow: hidden;
+        }
+
+        .info-tooltip-triangle-border,
+        .info-tooltip-triangle {
+            height: 10px;
+            width: 10px;
+            position: absolute;
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+        .info-tooltip-triangle-border {
+            top: 2px;
+            background: #c2c2c2;
+        }
+
+        .info-tooltip-triangle {
+            top: 3px;
+            background: white;
         }
 
         .page-title:before {
@@ -50,13 +137,24 @@
         .user-form-wrapper {
             padding: 15px 10px;
         }
-
     </style>
 </head>
 <body>
     <div class="page-container">
-        <div class="page-header">
+        <div class="page-header clearfix">
             <h1 class="page-title">Freestyle template settings</h1>
+            <div class="info-tooltip-btn">
+                <div class="info-tooltip-wrapper">
+                    <div class="info-tooltip">
+                        <span class="info-tooltip-text">Specify your target LRS (Learning Record Store)                             statements endpoint URL here. Specify your LAP                             (Learning Activity Provider) login and password, if                             basic HTTP authentification is required.  
+                        </span>
+                    </div>
+                    <div class="info-tooltip-triangle-holder">
+                        <div class="info-tooltip-triangle-border"></div>
+                        <div class="info-tooltip-triangle">&nbsp;</div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="user-form-wrapper">
             <form id="settingsForm" class="form-horizontal" role="form" data-bind="submit: submit">
