@@ -689,75 +689,112 @@
                         publishingState: ko.observable(),
                         showStatus: ko.observable(),
                         isSelected: ko.observable(),
-                        isFirstPublish: ko.observable()
+                        isFirstPublish: ko.observable(),
+                        isFirstBuild: ko.observable()
                     };
                     publishDeferred = Q.defer();
 
                     publishPromise = publishDeferred.promise.finally(function () { });
                     spyOn(experienceService, 'publish').andReturn(publishDeferred.promise);
                 });
-
+                
                 it('should be a function', function () {
                     expect(viewModel.publishExperience).toBeFunction();
                 });
 
-                it('should send event \"Publish experience\"', function () {
-                    viewModel.publishExperience(experience);
+                describe('when experience never build', function () {
 
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Publish experience');
+                    beforeEach(function() {
+                        experience.isFirstBuild(true);
+                    });
+                    
+                    it('should not send event \"Publish experience\"', function () {
+                        viewModel.publishExperience(experience);
+
+                        expect(eventTracker.publish).not.toHaveBeenCalledWith('Publish experience');
+                    });
+
+                    it('should not reset item selection', function () {
+                        experience.isSelected(true);
+
+                        viewModel.publishExperience(experience);
+
+                        expect(experience.isSelected()).toBeTruthy();
+                    });
+
+                    it('should not call publishExperience service', function () {
+                        viewModel.publishExperience(experience);
+
+                        expect(experienceService.publish).not.toHaveBeenCalledWith(experience.id);
+                    });
+
                 });
 
-                it('should reset item selection', function () {
-                    experience.isSelected(true);
+                describe('when experience build at least once', function () {
 
-                    viewModel.publishExperience(experience);
+                    beforeEach(function () {
+                        experience.isFirstBuild(false);
+                    });
 
-                    expect(experience.isSelected()).toBe(false);
-                });
+                    it('should send event \"Publish experience\"', function () {
+                        viewModel.publishExperience(experience);
 
-                it('should call publishExperience service', function () {
-                    viewModel.publishExperience(experience);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Publish experience');
+                    });
 
-                    expect(experienceService.publish).toHaveBeenCalledWith(experience.id);
-                });
+                    it('should reset item selection', function () {
+                        experience.isSelected(true);
 
-                describe('when publish is finished', function () {
+                        viewModel.publishExperience(experience);
 
-                    describe('and publish failed', function () {
+                        expect(experience.isSelected()).toBe(false);
+                    });
 
-                        it('should show error notification', function () {
-                            spyOn(notify, 'error');
+                    it('should call publishExperience service', function () {
+                        viewModel.publishExperience(experience);
 
-                            viewModel.publishExperience(experience);
+                        expect(experienceService.publish).toHaveBeenCalledWith(experience.id);
+                    });
 
-                            eventTracker.publish.reset();
-                            publishDeferred.reject("Experience publish is failed");
+                    describe('when publish is finished', function () {
 
-                            waitsFor(function () {
-                                return !publishPromise.isPending();
+                        describe('and publish failed', function () {
+
+                            it('should show error notification', function () {
+                                spyOn(notify, 'error');
+
+                                viewModel.publishExperience(experience);
+
+                                eventTracker.publish.reset();
+                                publishDeferred.reject("Experience publish is failed");
+
+                                waitsFor(function () {
+                                    return !publishPromise.isPending();
+                                });
+                                runs(function () {
+                                    expect(notify.error).toHaveBeenCalledWith('Experience publish is failed');
+                                });
                             });
-                            runs(function () {
-                                expect(notify.error).toHaveBeenCalledWith('Experience publish is failed');
+
+
+                            it('should send event \'Experience publish is failed\'', function () {
+                                viewModel.publishExperience(experience);
+
+                                eventTracker.publish.reset();
+                                publishDeferred.reject();
+
+                                waitsFor(function () {
+                                    return !publishPromise.isPending();
+                                });
+                                runs(function () {
+                                    expect(eventTracker.publish).toHaveBeenCalledWith('Experience publish is failed');
+                                });
                             });
-                        });
 
-
-                        it('should send event \'Experience publish is failed\'', function () {
-                            viewModel.publishExperience(experience);
-
-                            eventTracker.publish.reset();
-                            publishDeferred.reject();
-
-                            waitsFor(function () {
-                                return !publishPromise.isPending();
-                            });
-                            runs(function () {
-                                expect(eventTracker.publish).toHaveBeenCalledWith('Experience publish is failed');
-                            });
                         });
 
                     });
-
+                    
                 });
 
             });
@@ -767,7 +804,10 @@
                 var experience;
 
                 beforeEach(function () {
-                    experience = { packageUrl: ko.observable('some url') };
+                    experience = {
+                        packageUrl: ko.observable('some url'),
+                        isFirstBuild: ko.observable(false)
+                    };
 
                     spyOn(router, 'download');
                 });
@@ -776,14 +816,40 @@
                     expect(viewModel.downloadExperience).toBeFunction();
                 });
 
-                it('should send event \"Download experience\"', function () {
-                    viewModel.downloadExperience(experience);
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Download experience');
+                describe('when experience never build', function () {
+                    
+                    beforeEach(function () {
+                        experience.isFirstBuild(true);
+                    });
+
+                    it('should not send event \"Download experience\"', function () {
+                        viewModel.downloadExperience(experience);
+                        expect(eventTracker.publish).not.toHaveBeenCalledWith('Download experience');
+                    });
+
+                    it('should not download experience package', function () {
+                        viewModel.downloadExperience(experience);
+                        expect(router.download).not.toHaveBeenCalledWith('download/' + experience.packageUrl());
+                    });
+                    
                 });
 
-                it('should download experience package', function () {
-                    viewModel.downloadExperience(experience);
-                    expect(router.download).toHaveBeenCalledWith('download/' + experience.packageUrl());
+                describe('when experience build at least once', function () {
+                    
+                    beforeEach(function () {
+                        experience.isFirstBuild(false);
+                    });
+
+                    it('should send event \"Download experience\"', function () {
+                        viewModel.downloadExperience(experience);
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Download experience');
+                    });
+
+                    it('should download experience package', function () {
+                        viewModel.downloadExperience(experience);
+                        expect(router.download).toHaveBeenCalledWith('download/' + experience.packageUrl());
+                    });
+                    
                 });
             });
 

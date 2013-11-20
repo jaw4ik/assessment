@@ -82,21 +82,25 @@
         }
 
         function publishExperience(experience) {
-            eventTracker.publish(events.publishExperience);
+            if (!experience.isFirstBuild()) {
+                eventTracker.publish(events.publishExperience);
 
-            if (experience.isSelected()) {
-                experience.isSelected(false);
+                if (experience.isSelected()) {
+                    experience.isSelected(false);
+                }
+
+                experienceService.publish(experience.id).fail(function(reason) {
+                    notify.error(reason);
+                    eventTracker.publish(events.experiencePublishFailed);
+                });
             }
-
-            experienceService.publish(experience.id).fail(function (reason) {
-                notify.error(reason);
-                eventTracker.publish(events.experiencePublishFailed);
-            });
         }
         
         function downloadExperience(experience) {
-            eventTracker.publish(events.downloadExperience);
-            router.download('download/' + experience.packageUrl());
+            if (!experience.isFirstBuild()) {
+                eventTracker.publish(events.downloadExperience);
+                router.download('download/' + experience.packageUrl());
+            }
         }
 
         function enableOpenExperience(experience) {
