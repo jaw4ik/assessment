@@ -122,22 +122,21 @@ And refresh page
 And mouse hover element of publications list with title 'Experience1'
 And click download publication list item with title 'Experience1'
 And unzip '00000000000000000000000000000001' package to 'tmp'
+And open page by url 'http://localhost:5656/Templates/tmp'
+And click on DoNotReport link on package objective list page
 
 Scenario: All package objectives are present on page
-When open page by url 'http://localhost:5656/Templates/tmp'
 Then package objectives tiles list contains only items with data 
 | Title       |
 | Objective11 |
 | Objective12 |
 
 Scenario: package objectives are not expanded by default
-When open page by url 'http://localhost:5656/Templates/tmp'
 Then package questions are not displayed
 
 
 Scenario: All package questions are present on page
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And toggle expand package objective item with title 'Objective12'
 Then package questions list of objective item with title 'Objective11' containes only items with data
 | Title      | Id |
@@ -149,6 +148,5 @@ And package questions list of objective item with title 'Objective12' containes 
 | Question22 | 00000000000000000000000000000002  |
 
 Scenario: Progress summary button navigates to progress summary page
-When open page by url 'http://localhost:5656/Templates/tmp'
-And click on progress summary button on package list of objective page
+When click on progress summary button on package list of objective page
 Then browser navigates to url 'http://localhost:5656/Templates/tmp/#summary'

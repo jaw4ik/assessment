@@ -122,51 +122,46 @@ And refresh page
 And mouse hover element of publications list with title 'Experience1'
 And click download publication list item with title 'Experience1'
 And unzip '00000000000000000000000000000001' package to 'tmp'
-
+And open page by url 'http://localhost:5656/Templates/tmp'
+And click on DoNotReport link on package objective list page
 
 Scenario: Question progress score is shown on package feedback page
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on submit button on package question page
 Then browser navigates to url 'http://localhost:5656/Templates/tmp/#objective/00000000000000000000000000000001/question/00000000000000000000000000000001/feedback'
 And question progress score '50%' is shown on package feedback page
 
 Scenario: Show explanations button on package feedback page navigates to question related explanations page
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on submit button on package question page
 And click on show explanations button on package feedback page
 Then browser navigates to url 'http://localhost:5656/Templates/tmp/#objective/00000000000000000000000000000001/question/00000000000000000000000000000001/learningContents'
 
 Scenario: Try again button on package feedback page navigates back to question
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on submit button on package question page
 And click on try again button on package feedback page
 Then browser navigates to url 'http://localhost:5656/Templates/tmp/#objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 
 Scenario: Back to objectives link on package feedback page navigates back to package objectives list page
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on submit button on package question page
 And click on back to objectives link on package feedback page
 Then browser navigates to url 'http://localhost:5656/Templates/tmp/#'
 
 Scenario: Progress summary link on package question page navigates to summary page
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on submit button on package question page
 And click on progress summary link on package feedback page
 Then browser navigates to url 'http://localhost:5656/Templates/tmp/#summary'
 
 Scenario: Home link on package question page navigates to package home page
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on submit button on package question page
 And click on home link on package feedback page

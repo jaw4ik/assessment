@@ -121,19 +121,19 @@ And refresh page
 And mouse hover element of publications list with title 'Experience1'
 And click download publication list item with title 'Experience1'
 And unzip '00000000000000000000000000000001' package to 'tmp'
+And open page by url 'http://localhost:5656/Templates/tmp'
+And click on DoNotReport link on package objective list page
 
 
 
 Scenario: Correct package question title is shown on package question page
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 Then package question title 'Question11' is shown on package question page
 
 
 Scenario: All package answer options are present on page
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 Then package answer options list contains only items with data 
 | Text           |
@@ -141,43 +141,37 @@ Then package answer options list contains only items with data
 | AnswerOption12 |
 
 Scenario: Submit button on package question page navigates to feedback page
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on submit button on package question page
 Then browser navigates to url 'http://localhost:5656/Templates/tmp/#objective/00000000000000000000000000000001/question/00000000000000000000000000000001/feedback'
 
 Scenario: Show explanations link on package question page navigates to related explanations page
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on show explanations link on package question page
 Then browser navigates to url 'http://localhost:5656/Templates/tmp/#objective/00000000000000000000000000000001/question/00000000000000000000000000000001/learningContents'
 
 Scenario: Back action on package question page navigates back to package objectives list page
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on back to objectives link on package question page
 Then browser navigates to url 'http://localhost:5656/Templates/tmp/#'
 
 Scenario: Progress summary link on package question page navigates to summary page
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on progress summary link on package question page
 Then browser navigates to url 'http://localhost:5656/Templates/tmp/#summary'
 
 Scenario: Home link on package question page navigates to package home page
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click home link on package question page
 Then browser navigates to url 'http://localhost:5656/Templates/tmp/#'
 
 Scenario: Package answer option checkbox status can be toggled
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And toggle package answer option 'AnswerOption11' checkbox
 And toggle package answer option 'AnswerOption12' checkbox

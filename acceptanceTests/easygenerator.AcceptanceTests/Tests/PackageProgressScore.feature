@@ -77,11 +77,12 @@ And refresh page
 And mouse hover element of publications list with title 'Experience1'
 And click download publication list item with title 'Experience1'
 And unzip '00000000000000000000000000000001' package to 'tmp'
+And open page by url 'http://localhost:5656/Templates/tmp'
+And click on DoNotReport link on package objective list page
 
 
 Scenario: Package score should not be calculated if only visit pages and not submit answers
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And click on show explanations link on package question page
 And click on back to objectives link on package explanations page
@@ -97,8 +98,7 @@ And objective progress list contains items with data
 
 
 Scenario: All scores are 100% if all correct answers were checked and submited
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And toggle package answer option 'AnswerOption11' checkbox
 And click on submit button on package question page
@@ -133,8 +133,7 @@ And objective progress list contains items with data
 
 
 Scenario: All scores are 0% if all incorrect answers were checked and submited
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And toggle package answer option 'AnswerOption12' checkbox
 And toggle package answer option 'AnswerOption13' checkbox
@@ -168,8 +167,7 @@ And objective progress list contains items with data
 | Objective12 | 0%    | width: 0%; |
 
 Scenario: Not checked incorrect options are equal to checked correct options in score calculation and vice versa
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And toggle package answer option 'AnswerOption11' checkbox
 And toggle package answer option 'AnswerOption13' checkbox
@@ -185,8 +183,7 @@ And click on submit button on package question page
 Then question progress score '33%' is shown on package feedback page
 
 Scenario: Overall experience progress value is arithmetical mean of all progress values of objectives
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'
 And toggle package answer option 'AnswerOption11' checkbox
 And toggle package answer option 'AnswerOption13' checkbox
@@ -223,8 +220,7 @@ And objective progress list contains items with data
 
 
 Scenario: Effective score for each question is score of the last attempt for this question
-When open page by url 'http://localhost:5656/Templates/tmp'
-And toggle expand package objective item with title 'Objective11'
+When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question12' of 'Objective11'
 And toggle package answer option 'AnswerOption21' checkbox
 And click on submit button on package question page
