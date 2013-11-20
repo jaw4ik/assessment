@@ -39,7 +39,7 @@
             <div class="content-holder">
                 <!-- ko foreach: navigation -->
                 <!-- ko ifnot: isActive -->
-                <a href="#" class="top-navigation-item" data-bind="click: navigate">
+                <a href="#" class="top-navigation-item" data-bind="click: navigate, attr: { href: navigationLink }">
                     <span data-bind="localize: { text: title }, css: { 'cursor-default': $parent.router.isNavigating() }"></span>
                 </a>
                 <!-- /ko -->

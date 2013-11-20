@@ -227,6 +227,7 @@
                                 clientContext.set('lastVisitedObjective', null);
                                 router.navigate('experiences');
                             },
+                            navigationLink: '#experiences',
                             title: 'experiences',
                             isActive: ko.computed(function () {
                                 return _.contains(experiencesModules, that.activeModuleName()) || router.isNavigating();
@@ -242,6 +243,7 @@
                                 clientContext.set('lastVistedExperience', null);
                                 router.navigate('objectives');
                             },
+                            navigationLink: '#objectives',
                             title: 'materialDevelopment',
                             isActive: ko.computed(function () {
                                 return _.contains(objectivesModules, that.activeModuleName()) || router.isNavigating();
