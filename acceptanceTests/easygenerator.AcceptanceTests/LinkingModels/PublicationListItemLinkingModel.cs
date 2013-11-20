@@ -20,8 +20,8 @@ namespace easygenerator.AcceptanceTests.LinkingModels
 
         public string ObjectiveCountElement = ".//div[contains(@class,'experience-brief-toolbar-objective-count')]";
 
-        public string BuildingStatus = ".//div[contains(@class,'experience-status-container')]//div[contains(@class,'experience-text building')]";
-        public string CompleteStatus = ".//div[contains(@class,'experience-status-container')]//div[contains(@class,'experience-text complete')]";
+        public string BuildingStatus = ".//div[contains(@class,'experience-status-container')]//div[contains(@class,'experience-text-holder building')]";
+        public string CompleteStatus = ".//div[contains(@class,'experience-status-container')]//div[contains(@class,'experience-text-holder complete')]";
         public string FailedStatus = ".//div[contains(@class,'experience-brief-options-failed')]";
         
     }

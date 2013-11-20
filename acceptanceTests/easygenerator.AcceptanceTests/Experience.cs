@@ -17,6 +17,7 @@ namespace easygenerator.AcceptanceTests
         public Experience()
         {
             this.Objectives = new HashSet<Objective>();
+            this.ExperienceTemplateSettings = new HashSet<ExperienceTemplateSetting>();
         }
     
         public System.Guid Id { get; set; }
@@ -32,5 +33,6 @@ namespace easygenerator.AcceptanceTests
     
         public virtual Template Template { get; set; }
         public virtual ICollection<Objective> Objectives { get; set; }
+        public virtual ICollection<ExperienceTemplateSetting> ExperienceTemplateSettings { get; set; }
     }
 }

@@ -9,6 +9,7 @@
           <EntitySet Name="Answers" EntityType="Model.Store.Answers" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ExperienceObjectives" EntityType="Model.Store.ExperienceObjectives" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Experiences" EntityType="Model.Store.Experiences" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ExperienceTemplateSettings" EntityType="Model.Store.ExperienceTemplateSettings" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="HelpHints" EntityType="Model.Store.HelpHints" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="LearningContents" EntityType="Model.Store.LearningContents" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MailNotifications" EntityType="Model.Store.MailNotifications" store:Type="Tables" Schema="dbo" />
@@ -32,6 +33,14 @@
           <AssociationSet Name="FK_dbo_Experiences_dbo_Templates_Template_Id" Association="Model.Store.FK_dbo_Experiences_dbo_Templates_Template_Id">
             <End Role="Templates" EntitySet="Templates" />
             <End Role="Experiences" EntitySet="Experiences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ExperienceTemplateSettings_dbo_Experiences_Experience_Id" Association="Model.Store.FK_dbo_ExperienceTemplateSettings_dbo_Experiences_Experience_Id">
+            <End Role="Experiences" EntitySet="Experiences" />
+            <End Role="ExperienceTemplateSettings" EntitySet="ExperienceTemplateSettings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ExperienceTemplateSettings_dbo_Templates_Template_Id" Association="Model.Store.FK_dbo_ExperienceTemplateSettings_dbo_Templates_Template_Id">
+            <End Role="Templates" EntitySet="Templates" />
+            <End Role="ExperienceTemplateSettings" EntitySet="ExperienceTemplateSettings" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_LearningContents_dbo_Questions_Question_Id" Association="Model.Store.FK_dbo_LearningContents_dbo_Questions_Question_Id">
             <End Role="Questions" EntitySet="Questions" />
@@ -81,6 +90,19 @@
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
           <Property Name="Template_Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PublishedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ExperienceTemplateSettings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Settings" Type="nvarchar(max)" />
+          <Property Name="CreatedBy" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
+          <Property Name="Template_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Experience_Id" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="HelpHints">
           <Key>
@@ -233,6 +255,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_ExperienceTemplateSettings_dbo_Experiences_Experience_Id">
+          <End Role="Experiences" Type="Model.Store.Experiences" Multiplicity="1" />
+          <End Role="ExperienceTemplateSettings" Type="Model.Store.ExperienceTemplateSettings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Experiences">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExperienceTemplateSettings">
+              <PropertyRef Name="Experience_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ExperienceTemplateSettings_dbo_Templates_Template_Id">
+          <End Role="Templates" Type="Model.Store.Templates" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ExperienceTemplateSettings" Type="Model.Store.ExperienceTemplateSettings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Templates">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExperienceTemplateSettings">
+              <PropertyRef Name="Template_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_LearningContents_dbo_Questions_Question_Id">
           <End Role="Questions" Type="Model.Store.Questions" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -314,6 +362,15 @@
             <End Role="Question" EntitySet="Questions" />
             <End Role="LearningContent" EntitySet="LearningContents" />
           </AssociationSet>
+          <EntitySet Name="ExperienceTemplateSettings" EntityType="Model.ExperienceTemplateSetting" />
+          <AssociationSet Name="FK_dbo_ExperienceTemplateSettings_dbo_Experiences_Experience_Id" Association="Model.FK_dbo_ExperienceTemplateSettings_dbo_Experiences_Experience_Id">
+            <End Role="Experience" EntitySet="Experiences" />
+            <End Role="ExperienceTemplateSetting" EntitySet="ExperienceTemplateSettings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ExperienceTemplateSettings_dbo_Templates_Template_Id" Association="Model.FK_dbo_ExperienceTemplateSettings_dbo_Templates_Template_Id">
+            <End Role="Template" EntitySet="Templates" />
+            <End Role="ExperienceTemplateSetting" EntitySet="ExperienceTemplateSettings" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Answer">
           <Key>
@@ -345,6 +402,7 @@
           <NavigationProperty Name="Template" Relationship="Model.FK_dbo_Experiences_dbo_Templates_Template_Id" FromRole="Experiences" ToRole="Templates" />
           <NavigationProperty Name="Objectives" Relationship="Model.ExperienceObjectives" FromRole="Experiences" ToRole="Objectives" />
           <Property Type="DateTime" Name="PublishedOn" Precision="3" />
+          <NavigationProperty Name="ExperienceTemplateSettings" Relationship="Model.FK_dbo_ExperienceTemplateSettings_dbo_Experiences_Experience_Id" FromRole="Experience" ToRole="ExperienceTemplateSetting" />
         </EntityType>
         <EntityType Name="Objective">
           <Key>
@@ -386,6 +444,7 @@
           <Property Name="ModifiedBy" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Experiences" Relationship="Model.FK_dbo_Experiences_dbo_Templates_Template_Id" FromRole="Templates" ToRole="Experiences" />
+          <NavigationProperty Name="ExperienceTemplateSettings" Relationship="Model.FK_dbo_ExperienceTemplateSettings_dbo_Templates_Template_Id" FromRole="Template" ToRole="ExperienceTemplateSetting" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -521,6 +580,47 @@
             </Principal>
             <Dependent Role="LearningContent">
               <PropertyRef Name="Question_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ExperienceTemplateSetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Settings" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CreatedBy" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="3" />
+          <Property Type="String" Name="ModifiedBy" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="ModifiedOn" Nullable="false" Precision="3" />
+          <Property Type="Guid" Name="Template_Id" Nullable="false" />
+          <Property Type="Guid" Name="Experience_Id" Nullable="false" />
+          <NavigationProperty Name="Experience" Relationship="Model.FK_dbo_ExperienceTemplateSettings_dbo_Experiences_Experience_Id" FromRole="ExperienceTemplateSetting" ToRole="Experience" />
+          <NavigationProperty Name="Template" Relationship="Model.FK_dbo_ExperienceTemplateSettings_dbo_Templates_Template_Id" FromRole="ExperienceTemplateSetting" ToRole="Template" />
+        </EntityType>
+        <Association Name="FK_dbo_ExperienceTemplateSettings_dbo_Experiences_Experience_Id">
+          <End Type="Model.Experience" Role="Experience" Multiplicity="1" />
+          <End Type="Model.ExperienceTemplateSetting" Role="ExperienceTemplateSetting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Experience">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExperienceTemplateSetting">
+              <PropertyRef Name="Experience_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ExperienceTemplateSettings_dbo_Templates_Template_Id">
+          <End Type="Model.Template" Role="Template" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.ExperienceTemplateSetting" Role="ExperienceTemplateSetting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExperienceTemplateSetting">
+              <PropertyRef Name="Template_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -667,6 +767,20 @@
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExperienceTemplateSettings">
+            <EntityTypeMapping TypeName="Model.ExperienceTemplateSetting">
+              <MappingFragment StoreEntitySet="ExperienceTemplateSettings">
+                <ScalarProperty Name="Experience_Id" ColumnName="Experience_Id" />
+                <ScalarProperty Name="Template_Id" ColumnName="Template_Id" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Settings" ColumnName="Settings" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

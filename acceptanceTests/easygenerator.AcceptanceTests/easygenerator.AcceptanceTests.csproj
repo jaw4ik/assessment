@@ -137,6 +137,9 @@
     <Compile Include="Experience.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExperienceTemplateSetting.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\DataModels.cs" />
     <Compile Include="Helpers\DataSetter.cs" />
     <Compile Include="Helpers\DriverExtensions.cs" />

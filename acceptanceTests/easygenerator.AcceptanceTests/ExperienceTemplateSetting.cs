@@ -12,23 +12,18 @@ namespace easygenerator.AcceptanceTests
     using System;
     using System.Collections.Generic;
     
-    public partial class Template
+    public partial class ExperienceTemplateSetting
     {
-        public Template()
-        {
-            this.Experiences = new HashSet<Experience>();
-            this.ExperienceTemplateSettings = new HashSet<ExperienceTemplateSetting>();
-        }
-    
         public System.Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Image { get; set; }
+        public string Settings { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public string ModifiedBy { get; set; }
         public System.DateTime ModifiedOn { get; set; }
+        public System.Guid Template_Id { get; set; }
+        public System.Guid Experience_Id { get; set; }
     
-        public virtual ICollection<Experience> Experiences { get; set; }
-        public virtual ICollection<ExperienceTemplateSetting> ExperienceTemplateSettings { get; set; }
+        public virtual Experience Experience { get; set; }
+        public virtual Template Template { get; set; }
     }
 }
