@@ -520,8 +520,8 @@
 
                         it('should update notificaion', function () {
                             var promise = removeQuestions.promise.finally(function () { });
-                            removeQuestions.resolve();
-
+                            removeQuestions.resolve(new Date());
+                            
                             viewModel.deleteSelectedQuestions();
 
                             waitsFor(function () {
