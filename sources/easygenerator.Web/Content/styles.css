@@ -297,6 +297,7 @@ a.top-navigation-item:hover {
 }
 
 .create-new-title {
+    display: block;
     padding: 63px 0;
     cursor: pointer;
     color: rgb(245, 153, 86);

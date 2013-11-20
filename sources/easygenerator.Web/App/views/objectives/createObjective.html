@@ -8,11 +8,11 @@
     </div>
     <div class="container">
         <!--ko if: _.isString(contextExperienceId) -->
-        <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: '\'' + contextExperienceTitle + '\'', isGoBackTextLocalizable: false, goBackAction: navigateBack.bind($data) }, cacheViews: false }">
+        <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: '\'' + contextExperienceTitle + '\'', isGoBackTextLocalizable: false, goBackAction: navigateBack.bind($data), goBackLink: '#experience/' + contextExperienceId }, cacheViews: false }">
         </div>
         <!--/ko-->
         <!--ko ifnot: _.isString(contextExperienceId) -->
-        <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'learningObjectives', isGoBackTextLocalizable: true, goBackAction: navigateBack.bind($data) }, cacheViews: false }">
+        <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'learningObjectives', isGoBackTextLocalizable: true, goBackAction: navigateBack.bind($data), goBackLink: '#objectives' }, cacheViews: false }">
         </div>
         <!--/ko-->
 

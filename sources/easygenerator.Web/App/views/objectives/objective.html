@@ -30,11 +30,11 @@
 
         <div class="content-holder resizable">
             <div class="main-content-list-holder">
-                <div class="create-new-holder" data-bind="click: navigateToCreateQuestion">
-                    <div class="create-new-title">
+                <div class="create-new-holder">
+                    <a href="#" class="create-new-title" data-bind="click: navigateToCreateQuestion, attr: { href: '#objective/' + objectiveId + '/question/create' }">
                         <span class="create-new-icon">&nbsp;</span>
                         <span data-bind="localize: { text: 'createNewQuestion' }"></span>
-                    </div>
+                    </a>
                     <div class="dotted-line"></div>
                 </div>
                 <ul class="unstyled main-content-list">
@@ -59,7 +59,7 @@
                             </div>
                         </div>
                         <div class="open-item-btn">
-                            <a href="#" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToEditQuestion.bind($parent)">
+                            <a href="#" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToEditQuestion.bind($parent), attr: { href: '#objective/' + $parent.objectiveId + '/question/' + id }">
                                 <span class="open-btn-text" data-bind="localize: { text: 'open' }">Open</span>
                             </a>
                         </div>

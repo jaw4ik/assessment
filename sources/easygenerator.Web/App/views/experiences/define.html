@@ -42,10 +42,10 @@
                 </div>
                 <!-- ko if: objectivesMode() == objectivesListModes.display -->
                 <div class="create-new-holder">
-                    <div class="create-new-title" data-bind="click: navigateToCreateObjective">
+                    <a href="#" class="create-new-title" data-bind="click: navigateToCreateObjective, attr: { href: '#objective/create?experienceId=' + id }">
                         <span class="create-new-icon">&nbsp;</span>
                         <span data-bind="localize: { text: 'createAndConnectLearningObjective' }"></span>
-                    </div>
+                    </a>
                     <div class="dotted-line"></div>
                 </div>
                 <!-- /ko -->
@@ -77,7 +77,7 @@
                             </div>
                         </div>
                         <div class="open-item-btn">
-                            <a href="#" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent)">
+                            <a href="#" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToObjectiveDetails.bind($parent), attr: { href: 'objective/' + $parent.id + '?experienceId=' + id }">
                                 <span class="open-btn-text" data-bind="localize: { text: 'open' }"></span>
                             </a>
                         </div>

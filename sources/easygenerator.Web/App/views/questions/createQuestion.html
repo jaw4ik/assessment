@@ -8,7 +8,7 @@
     </div>
 
     <div class="container">
-        <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: ' \'' + objectiveTitle + '\'', isGoBackTextLocalizable: false, goBackAction: navigateToObjective.bind($data) } }">
+        <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: ' \'' + objectiveTitle + '\'', isGoBackTextLocalizable: false, goBackAction: navigateToObjective.bind($data), goBackLink: '#objective/' + objectiveId } }">
         </div>
         <form class="create-form">
             <div class="white-framing pull-left">
