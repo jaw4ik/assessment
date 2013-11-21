@@ -134,8 +134,8 @@
             background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6M0IyNDEyQUM1MUUxMTFFMzgxNEU5NTEyMjAzOUIzN0UiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6M0IyNDEyQUQ1MUUxMTFFMzgxNEU5NTEyMjAzOUIzN0UiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozQjI0MTJBQTUxRTExMUUzODE0RTk1MTIyMDM5QjM3RSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozQjI0MTJBQjUxRTExMUUzODE0RTk1MTIyMDM5QjM3RSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pi8TDU4AAAFgSURBVHjalNM9SEJhFMbxq7Q4BEK0RG3RkFRCQzUEEhdyKGhrqK1oyBolgqKl6JKDUx/0gWNDixASFQiBQW0iuTX3vbUG9j/1BJfSxBd+eDn3nHPf995jwHVdp8Zqw7auE3iolhSsEgtgFmVMSFmxQL0GncjjAGFfPKxYXjl/GjQhiRJiTu0VU05SNV8NorjFFkJO/RVSrtVErUEcEafxZTVxa+BpF4UGiguq8ewcq2jBGKaxieYahe9YxjE28BzUJ5rU75O2lqtSnNO9N98nLlmDLLpxgRPsYAFTeBW7XsS+nn6mZllrkFFwHa6a2RPa0YM+dCjWpRxPD8tYgzRacYdB9GNPZ7zEuZrv6t6wZsGGK20NihjAGlZwrWMNoSJ2fYobLOnFW03xZxI/kEIvXnCFeYxqThIa40flpFTzPY6+dY8RzChp3DfqczjSjv79N1rCod5yQSKKVX4nfwowAHrZUiFD+84AAAAAAElFTkSuQmCC) no-repeat;
         }
 
-        .user-form-wrapper {
-            padding: 15px 10px;
+        .form-wrapper {
+            padding: 15px 10px 5px;
         }
 
         .user-form {
@@ -143,7 +143,7 @@
             font-weight: 600;
         }
 
-        .user-form-checkbox {
+        .form-checkbox {
             display: inline-block;
             vertical-align: top;
             height: 16px;
@@ -153,7 +153,7 @@
             border-radius: 1px;
         }
 
-        .user-form-checkbox-input {
+        .form-checkbox-input {
             position: absolute;
             top: 0;
             left: 0;
@@ -163,21 +163,103 @@
             filter: alpha(opacity=0);
         }
 
-            .user-form-checkbox-input:checked + .user-form-checkbox-checked {
+            .form-checkbox-input:checked + .form-checkbox-checked {
                 display: block;
                 height: 100%;
                 width: 100%;
                 background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ODFEMkMyM0E1MUYyMTFFMzg5RjlFNDNFRjFFMURFODIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6ODFEMkMyM0I1MUYyMTFFMzg5RjlFNDNFRjFFMURFODIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4MUQyQzIzODUxRjIxMUUzODlGOUU0M0VGMUUxREU4MiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4MUQyQzIzOTUxRjIxMUUzODlGOUU0M0VGMUUxREU4MiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Poh8ff0AAADHSURBVHjaYvz//z8DPpC8VF0OSAnOjb55kRGfYqBCViB1Goh1gTieiQE/qAZifSj7Pk6TgaaaAKkTQMwMxD1AZ5Qy4VDIAaQWQBVeB+JakDgLUIINSM8G4iNA3bOh6puBWBuI/wJxHFD8B1gxECeBBEAYqBHEvwjERVBNbUCFZ2A2gpyxCIj3Q/nTgHgjVPwi1AY4AHsQaCIXkL0FiB2h4r+A2BRo6iVkxWAPAgW/ASkfJBsa0RXCFSNp8ARiVyBuxxZKAAEGAItvQaZKUVfXAAAAAElFTkSuQmCC) no-repeat center center;
             }
 
-        .checkbox .user-form-input-title {
+        .checkbox .input-label {
             line-height: 18px;
             padding-left: 7px;
         }
 
-        .form-group {
-            padding-top: 20px;
+        .form-row {
+            display: block;
+            padding: 10px 0;
         }
+
+            .form-row:after {
+                content: '';
+                display: block;
+                clear: both;
+            }
+
+            .form-row.checkbox {
+                padding-top: 0;
+            }
+
+        .form-col.right {
+            float: right;
+            width: 67%;
+        }
+
+        .form-text-input {
+            width: 100%;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            border: 1px solid #ededed;
+            border-radius: 3px;
+            padding: 5px;
+            font-size: 13px;
+            font-weight: normal;
+        }
+
+            .form-text-input:focus,
+            .form-text-input:active {
+                outline: none;
+                border-color: #a0dfff;
+
+            }
+
+        .save-btn-wrapper {
+            text-align: right;
+        }
+
+        .save-btn {
+            display: inline-block;
+            line-height: 30px;
+            max-width: 150px;
+            vertical-align: top;
+            background: white;
+            border-radius: 3px;
+            padding: 7px 30px;
+            margin-left: 20px;
+            border: 1px solid #d4d4d4;
+        }
+
+            .save-btn:hover {
+                background: #f7f7f7;
+            }
+
+        .save-btn-title {
+            display: block;
+            vertical-align: top;
+            line-height: 16px;
+            position: relative;
+            padding-left: 22px;
+            color: #2cb7ff;
+            font-family: 'Open Sans';
+            font-weight: 600;
+            font-size: 13px;
+            overflow: hidden;
+            -ms-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+            .save-btn-title:before {
+                content: '';
+                display: block;
+                height: 16px;
+                width: 16px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RDQxRDhFMzM1MjdGMTFFM0I4RURERTU0QkMxM0RENzAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RDQxRDhFMzQ1MjdGMTFFM0I4RURERTU0QkMxM0RENzAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpENDFEOEUzMTUyN0YxMUUzQjhFRERFNTRCQzEzREQ3MCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpENDFEOEUzMjUyN0YxMUUzQjhFRERFNTRCQzEzREQ3MCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PspE5cgAAADJSURBVHjaYvz//z8DPqC7g0EOSAle9mC4yIhPMVAhK5A6DWICcTwTA35QDcT6UPZ9nCYDTTUBUieAmBmIe4DOKGXCoZADSC2AKrwOxLUgcRagBBuQng3ER4C6Z0PVNwOxNhD/BeI4oPgPsGIgTgIJgDBQI4h/EYiLoJragArPwGwEOWMREO+H8qcB8Uao+EWoDXAA9iDQRC4gewsQO0LFfwGxKdDUS8iKwR4ECn4DUj5INjSiK4SbjBQK7EDKFoj3AhVjhClAgAEA1M89EKX1Q58AAAAASUVORK5CYII=) no-repeat center center;
+            }
     </style>
 </head>
 <body>
@@ -197,59 +279,59 @@
                 </div>
             </div>
         </div>
-        <div class="user-form-wrapper">
+        <div class="form-wrapper">
             <form id="settingsForm" class="user-form" role="form" data-bind="submit: submit">
-                <label class="user-form-label checkbox">
-                    <span class="user-form-checkbox">
-                        <input class="user-form-checkbox-input" type="checkbox" data-bind="checked: enableForLearner">
-                        <span class="user-form-checkbox-checked"></span>
+                <label class="form-row checkbox">
+                    <span class="form-checkbox">
+                        <input class="form-checkbox-input" type="checkbox" data-bind="checked: enableForLearner">
+                        <span class="form-checkbox-checked"></span>
                     </span>
-                    <span class="user-form-input-title">Enable for learner    
+                    <span class="input-label">Enable for learner    
                     </span>
                 </label>
-                <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">LRS title</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputEmail3" placeholder="LRS title" data-bind="value: lrsTitle">
+                <div class="form-row">
+                    <label for="inputEmail3" class="input-label">LRS title</label>
+                    <div class="form-col right">
+                        <input type="text" class="form-text-input" id="inputEmail3" placeholder="LRS title" data-bind="value: lrsTitle">
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-row">
                     <label for="inputPassword3" class="col-sm-2 control-label">URL</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputPassword3" placeholder="URL" data-bind="value: url">
+                    <div class="form-col right">
+                        <input type="text" class="form-text-input" id="inputPassword3" placeholder="URL" data-bind="value: url">
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                            <label>
-                                <span class="user-form-checkbox">
-                                    <input class="user-form-checkbox-input" type="checkbox" data-bind="checked: authentication">
-                                    <span class="user-form-checkbox-checked"></span>
-                                </span>
-                                <span class="user-form-input-title">Authentication    
-                                </span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-2 control-label">LAP login</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="Password1" placeholder="LAP login" data-bind="value: lapLogin">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-2 control-label">LAP password</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="Password2" placeholder="LAP password" data-bind="value: lapPassword">
+                <div class="form-row checkbox">
+                    <div class="form-col right">
+                        <label>
+                            <span class="form-checkbox">
+                                <input class="form-checkbox-input" type="checkbox" data-bind="checked: authentication">
+                                <span class="form-checkbox-checked"></span>
+                            </span>
+                            <span class="input-label">Authentication
+                            </span>
+                        </label>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-default">Save</button>
+                <div class="form-row">
+                    <label for="Password1" class="col-sm-2 control-label">LAP login</label>
+                    <div class="form-col right">
+                        <input type="text" class="form-text-input" id="Password1" placeholder="LAP login" data-bind="value: lapLogin">
                     </div>
+                </div>
+
+                <div class="form-row">
+                    <label for="Password2" class="col-sm-2 control-label">LAP password</label>
+                    <div class="form-col right">
+                        <input type="password" class="form-text-input" id="Password2" placeholder="LAP password" data-bind="value: lapPassword">
+                    </div>
+                </div>
+
+                <div class="form-row save-btn-wrapper">
+                    <button type="submit" class="save-btn">
+                        <span class="save-btn-title">Save</span>
+                    </button>
                 </div>
             </form>
         </div>
