@@ -18,9 +18,9 @@
     cursor: default;
 }
 
-.main-nav-item.right .nav-control {
-    float: right;
-}
+    .main-nav-item.right .nav-control {
+        float: right;
+    }
 
 .main-nav-separator {
     height: 57px;
@@ -569,8 +569,9 @@
 }
 
 .copy-link-control {
+    display: table;
+    width: 100%;
     padding-top: 10px;
-    white-space: nowrap;
 }
 
     .copy-link-control.disabled {
@@ -582,23 +583,26 @@
     }
 
 .copy-link-input-wrapper {
-    height: 100%;
-    /*margin-left: 100px;*/
+    display: table-cell;
+    vertical-align: top;
 }
-
-    .copy-link-input-wrapper.disabled {
-        opacity: 0.2;
-    }
 
 .copy-link-input {
     width: 100%;
-    height: 100%;
     padding: 5px;
+    margin: 0;
     background: white;
     border: 1px solid #c1c1c1;
     border-radius: 3px;
     font-family: 'OpenSans';
     font-size: 16px;
+}
+
+.open-link-btn-wrapper {
+    display: table-cell;
+    vertical-align: top;
+    width: 50px;
+    text-align: right;
 }
 
 .open-link-btn {
@@ -1044,5 +1048,4 @@
         box-sizing: border-box;
         padding-left: 20px;
     }
-
 }

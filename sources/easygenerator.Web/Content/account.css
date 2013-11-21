@@ -1170,17 +1170,18 @@ body.try {
 /*#region Phone code*/
 
 .phone-code-wrapper {
-    position: absolute;
     height: 48px;
-    background: #fafafa;
-    left: 1px;
-    top: 7px;
-    border-right: 1px solid #ccc;
-    border-radius: 5px 0 0 5px;
     width: 70px;
     padding-top: 13px;
-    font-size:16px;
+    position: absolute;
+    left: 1px;
+    top: 7px;
+    background: #fafafa;
+    border-right: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    font-size: 16px;
     text-align: center;
+    cursor: default;
 }
 
 .user-form-input.phone {

@@ -92,9 +92,11 @@
                 <!-- /ko -->
             </aside>
             <!-- ko if: successfullyPublished() -->
-            <div class="copy-link-control clear clearfix">
-                <div class="copy-link-input-wrapper" data-bind="css: { disabled: !successfullyPublished() }">
+            <div class="copy-link-control clear clearfix" style="display: table; width: 100%;" data-bind="css: { disabled: !successfullyPublished() }">
+                <div class="copy-link-input-wrapper" style="display: table-cell; vertical-align: top;">
                     <input class="copy-link-input" type="text" readonly="readonly" data-bind="value: successfullyPublished() ? publishedPackageUrl() : '', css: { selectable: successfullyPublished() }, selectTextBinding: successfullyPublished" />
+                </div>
+                <div class="open-link-btn-wrapper" style="display: table-cell; vertical-align: top;">
                     <a class="open-link-btn" data-bind="click: openPublishedExperience, attr: { href: publishedPackageUrl }">
                         <span class="open-link-text" data-bind="localize: { text: 'openLink' }">Open link</span>
                     </a>
