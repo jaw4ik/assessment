@@ -1,4 +1,5 @@
 ﻿<section id="createExperience" class="view-module create-experience">
+
     <div class="fixed-container">
         <div class="content-holder">
             <div class="page-view-caption clearfix">
@@ -6,11 +7,11 @@
             </div>
         </div>
     </div>
-
+    
+    <!-- ko compose: { view: 'views/common/back', model: { goBackAction: navigateToExperiences, goBackLink: '#experiences', goBackTooltip: goBackTooltip } } -->
+    <!-- /ko -->
+    
     <div class="container">
-
-        <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: 'experiences', isGoBackTextLocalizable: true, goBackAction: navigateToExperiences, goBackLink: '#experiences' } }">
-        </div>
 
         <form class="create-form">
             <div class="pull-left">
@@ -24,7 +25,7 @@
             <div class="create-form-field">
                 <div data-autofocus="true" class="edit-field bordered selectable" data-bind="editableText: { text: title }, hasFocus: title.isEditing, css: { error: !title.isValid() && title().length > experienceTitleMaxLength, active: title.isEditing }"></div>
                 <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > experienceTitleMaxLength }">
-                    <span data-bind="text: title().trim().length"></span>/<span data-bind="text: experienceTitleMaxLength"></span>
+                    <span data-bind="text: title().trim().length"></span>/<span data-bind="    text: experienceTitleMaxLength"></span>
                 </div>
                 <!-- ko compose: { view: 'views/common/createtip', model: { text: 'typeExperienceTitleHere' } } -->
                 <!-- /ko -->

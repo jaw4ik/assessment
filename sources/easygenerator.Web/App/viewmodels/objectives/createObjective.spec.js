@@ -5,7 +5,8 @@
         var router = require('plugins/router'),
             notify = require('notify'),
             experienceRepository = require('repositories/experienceRepository'),
-            eventTracker = require('eventTracker');
+            eventTracker = require('eventTracker'),
+            localizationManager = require('localization/localizationManager');
 
         describe('viewModel [createObjective]', function () {
 
@@ -458,6 +459,33 @@
                         expect(viewModel.title().length).toEqual(0);
                     });
                 });
+                
+                describe('when query params are null', function() {
+
+                    it('should set goBackTooltip to \'Back to objectives\'', function () {
+                        spyOn(localizationManager, 'localize').andReturn('text');
+
+                        var promise = viewModel.activate();
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeResolved();
+                            expect(viewModel.goBackTooltip).toEqual('text text');
+                        });
+                    });
+
+                    it('should set goBackLink to objectives', function () {
+                        var promise = viewModel.activate();
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeResolved();
+                            expect(viewModel.goBackLink).toEqual('#objectives');
+                        });
+                    });
+                });
 
                 describe('when query params not null', function () {
 
@@ -538,6 +566,30 @@
                                     expect(viewModel.contextExperienceTitle).toBe(experience.title);
                                 });
                             });
+                            
+                            it('should set goBackTooltip to \'Back to experience\'', function () {
+                                spyOn(localizationManager, 'localize').andReturn('text');
+                                
+                                var promise = viewModel.activate(queryParams);
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolved();
+                                    expect(viewModel.goBackTooltip).toEqual('text' + ' ' + experience.title);
+                                });
+                            });
+                            
+                            it('should set goBackLink to experience', function () {
+                                var promise = viewModel.activate(queryParams);
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolved();
+                                    expect(viewModel.goBackLink).toEqual('#experience/' + experience.id);
+                                });
+                            });
                         });
                     });
 
@@ -588,6 +640,11 @@
                 });
             });
 
+            describe('goBackTooltip:', function () {
+                it('should be defined', function () {
+                    expect(viewModel.goBackTooltip).toBeDefined();
+                });
+            });
         });
     }
 );

@@ -163,6 +163,12 @@
                 });
             });
 
+            describe('goBackTooltip:', function () {
+                it('should be defined', function () {
+                    expect(viewModel.goBackTooltip).toBeDefined();
+                });
+            });
+
             describe('createAndNew:', function () {
                 var addExperience,
                     template = { id: 'id', name: 'lala', image: 'img' };
@@ -536,6 +542,19 @@
                             runs(function () {
                                 expect(promise).toBeResolved();
                                 expect(viewModel.chooseTemplateText).toEqual('text');
+                            });
+                        });
+                        
+                        it('should set goBackTooltip', function () {
+                            spyOn(localizationManager, 'localize').andReturn('text');
+                            
+                            var promise = viewModel.activate();
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeResolved();
+                                expect(viewModel.goBackTooltip).toEqual('text text');
                             });
                         });
 

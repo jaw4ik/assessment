@@ -285,6 +285,7 @@
     <Content Include="App\viewmodels\questions\learningContents.spec.js">
       <DependentUpon>learningContents.js</DependentUpon>
     </Content>
+    <Content Include="App\views\common\back.html" />
     <Content Include="App\views\experiences\deliver.html" />
     <Content Include="App\views\experiences\design.html" />
     <Content Include="App\views\experiences\experience.html" />

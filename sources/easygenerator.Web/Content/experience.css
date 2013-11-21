@@ -18,15 +18,6 @@
     cursor: default;
 }
 
-.nav-control.left {
-    text-align: left;
-}
-
-.nav-control.right {
-    width: 203px;
-    text-align: right;
-}
-
 .main-nav-item.right .nav-control {
     float: right;
 }
@@ -45,45 +36,6 @@
     filter: none;
 }
 
-.nav-control.rebuild {
-    width: 203px;
-}
-
-.de-lang .nav-control.rebuild,
-.nl-lang .nav-control.rebuild {
-    width: auto;
-}
-
-.nl-lang .nav-control.right,
-.de-lang .nav-control.right {
-    width: 230px;
-}
-
-.nav-control.build-experience {
-    width: auto;
-}
-
-.nav-control > * {
-    display: inline-block;
-}
-
-.nav-control-inner {
-    width: 100%;
-}
-
-    .nav-control-inner.disabled {
-        opacity: 0.25;
-    }
-
-    .nav-control-inner.rebuild:before {
-        content: '';
-        display: block;
-        height: 57px;
-        float: left;
-        width: 57px;
-        background-image: url(images/nav-icons.png);
-        background-position: 0 -114px;
-    }
 /*#region MAINTENANCE*/
 .maintenance-message-page {
     padding-top: 8.7%;
@@ -823,14 +775,6 @@
 
     .main-nav-separator {
         display: none;
-    }
-
-    .nav-control.left {
-        text-align: right;
-    }
-
-    .nav-control.rebuild {
-        margin-top: 10px;
     }
 
     .experience .main-nav-item.right .nav-control,

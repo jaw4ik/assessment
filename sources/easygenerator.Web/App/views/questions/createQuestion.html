@@ -5,11 +5,13 @@
                 <div class="page-view-caption-text" data-bind="localize: { text: 'createQuestionViewCaption' }">Create question</div>
             </div>
         </div>
+
+        <!-- ko compose: { view: 'views/common/back', model: { goBackAction: navigateToObjective.bind($data), goBackLink: '#objective/' + objectiveId, goBackTooltip: goBackTooltip } } -->
+        <!-- /ko -->
     </div>
 
     <div class="container">
-        <div class="navbar" data-bind="compose: { view: 'views/common/navbar.html', model: { goBackText: ' \'' + objectiveTitle + '\'', isGoBackTextLocalizable: false, goBackAction: navigateToObjective.bind($data), goBackLink: '#objective/' + objectiveId } }">
-        </div>
+        
         <form class="create-form">
             <div class="white-framing pull-left">
                 <span class="create-form-image-wrapper">

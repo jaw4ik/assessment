@@ -13,7 +13,8 @@
             template = { id: ko.observable() },
             templates = ko.observableArray(),
             title = ko.observable(''),
-            chooseTemplateText = '';
+            chooseTemplateText = '',
+            goBackTooltip = '';
 
         title.isValid = ko.computed(function () {
             var length = title().trim().length;
@@ -72,6 +73,7 @@
                     that.title('');
                     that.template.id(null);
                     that.chooseTemplateText = localizationManager.localize('chooseTemplate');
+                    that.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('experiences');
                 });
             },
 
@@ -113,6 +115,7 @@
             chooseTemplateText: chooseTemplateText,
             experienceTitleMaxLength: constants.validation.experienceTitleMaxLength,
 
+            goBackTooltip: goBackTooltip,
             navigateToExperiences: navigateToExperiences,
             createAndNew: createAndNew,
             createAndEdit: createAndEdit

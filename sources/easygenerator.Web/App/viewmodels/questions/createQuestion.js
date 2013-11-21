@@ -12,7 +12,8 @@
         var
             objectiveId = null,
             objectiveTitle = null,
-            title = ko.observable('');
+            title = ko.observable(''),
+            goBackTooltip = '';
 
         title.isValid = ko.computed(function () {
             var length = title().trim().length;
@@ -83,6 +84,7 @@
 
                         that.objectiveId = objective.id;
                         that.objectiveTitle = objective.title;
+                        that.goBackTooltip = localizationManager.localize('backTo') + ' ' + objective.title;
                         that.title('');
                         that.title.isModified(false);
                         that.title.isEditing(false);
@@ -93,11 +95,13 @@
             };
 
         return {
+            objectiveId: objectiveId,
             activate: activate,
             titleMaxLength: constants.validation.questionTitleMaxLength,
             title: title,
             objectiveTitle: objectiveTitle,
-
+            goBackTooltip: goBackTooltip,
+            
             navigateToObjective: navigateToObjective,
             endEditTitle: endEditTitle,
             saveAndOpen: saveAndOpen,

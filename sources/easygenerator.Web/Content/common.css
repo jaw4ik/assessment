@@ -175,13 +175,6 @@ h1 {
     user-select: text;
 }
 
-.fixed-container {
-    position: fixed;
-    z-index: 99;
-    left: 0;
-    right: 0;
-}
-
 /*#endregion COMMON CLASSES CSS-STYLES*/
 
 /*#region CHECKBOX */

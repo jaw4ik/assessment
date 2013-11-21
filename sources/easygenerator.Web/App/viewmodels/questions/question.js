@@ -15,7 +15,8 @@
                 addLearningContent: 'Add learning content',
                 deleteLearningContent: 'Delete learning content',
                 startEditingLearningContent: 'Start editing learning content',
-                EndEditingLearningContent: 'End editing learning content'
+                EndEditingLearningContent: 'End editing learning content',
+                navigateToObjective: 'Navigate to objective',
             },
 
             sendEvent = function (eventName) {
@@ -26,7 +27,8 @@
             objectiveId = '',
             questionId = '',
             title = ko.observable(''),
-            language = ko.observable();
+            language = ko.observable(),
+            goBackTooltip = '';
 
         title.isEditing = ko.observable();
         title.isValid = ko.computed(function () {
@@ -35,9 +37,15 @@
         });
 
         var
+            navigateToObjective = function () {
+                eventTracker.publish(events.navigateToObjective);
+                router.navigateWithQueryString('objective/' + this.objectiveId);
+            },
+            
             startEditQuestionTitle = function () {
                 title.isEditing(true);
             },
+            
             endEditQuestionTitle = function () {
                 title(title().trim());
                 title.isEditing(false);
@@ -70,7 +78,11 @@
                 this.language(localizationManager.currentLanguage);
 
                 var that = this;
-                return objectiveRepository.getById(objId).then(function () {
+                return objectiveRepository.getById(objId).then(function (objective) {
+
+                    that.objectiveId = objective.id;
+                    that.goBackTooltip = localizationManager.localize('backTo') + ' ' + objective.title;
+                    
                     questionRepository.getById(objectiveId, questionId).then(function (question) {
                         that.title(question.title);
                     }).fail(function () {
@@ -93,11 +105,15 @@
 
         return {
             title: title,
+            objectiveId: objectiveId,
             questionTitleMaxLength: constants.validation.questionTitleMaxLength,
             language: language,
             eventTracker: eventTracker,
 
             activate: activate,
+
+            goBackTooltip: goBackTooltip,
+            navigateToObjective: navigateToObjective,
 
             startEditQuestionTitle: startEditQuestionTitle,
             endEditQuestionTitle: endEditQuestionTitle,

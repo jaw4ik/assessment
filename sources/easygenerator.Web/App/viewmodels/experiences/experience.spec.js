@@ -8,8 +8,10 @@
             clientContext = require('clientContext'),
             app = require('durandal/app'),
             notify = require('notify'),
-            constants = require('constants')
-        ;
+            constants = require('constants'),
+            router = require('plugins/router'),
+            eventTracker = require('eventTracker'),
+            localizationManager = require('localization/localizationManager');
 
         describe('viewModel [experience]', function () {
 
@@ -49,6 +51,20 @@
                     });
                     runs(function () {
                         expect(viewModel.id).toEqual('SomeId');
+                    });
+                });
+
+                it('should set goBackTooltip', function () {
+                    spyOn(localizationManager, 'localize').andReturn('text');
+
+                    var promise = viewModel.activate('SomeId');
+                    activateItemDeferred.resolve();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.goBackTooltip).toEqual('text text');
                     });
                 });
 
@@ -121,6 +137,34 @@
                     runs(function () {
                         expect(viewModel.id).toEqual('');
                     });
+                });
+
+            });
+
+            describe('goBackTooltip:', function () {
+                it('should be defined', function () {
+                    expect(viewModel.goBackTooltip).toBeDefined();
+                });
+            });
+
+            describe('navigateToExperiences:', function () {
+
+                it('should be function', function () {
+                    expect(viewModel.navigateToExperiences).toBeFunction();
+                });
+
+                it('should send event \'Navigate to experiences\'', function () {
+                    spyOn(eventTracker, 'publish');
+
+                    viewModel.navigateToExperiences();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to experiences');
+                });
+
+                it('should navigate to #experiences', function () {
+                    spyOn(router, 'navigate');
+                    
+                    viewModel.navigateToExperiences();
+                    expect(router.navigate).toHaveBeenCalledWith('experiences');
                 });
 
             });

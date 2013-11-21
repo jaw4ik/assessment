@@ -1,12 +1,12 @@
 ﻿define(function (require) {
     "use strict";
 
-    var
-        viewModel = require('viewmodels/questions/createQuestion'),
+    var viewModel = require('viewmodels/questions/createQuestion'),
         eventTracker = require('eventTracker'),
         router = require('plugins/router'),
         objectiveRepository = require('repositories/objectiveRepository'),
         questionRepository = require('repositories/questionRepository'),
+        localizationManager = require('localization/localizationManager'),
         notify = require('notify');
 
     describe('viewModel [createQuestion]', function () {
@@ -81,6 +81,18 @@
                     });
 
                 });
+            });
+        });
+        
+        describe('goBackTooltip:', function () {
+            it('should be defined', function () {
+                expect(viewModel.goBackTooltip).toBeDefined();
+            });
+        });
+        
+        describe('objectiveId:', function () {
+            it('should be defined', function () {
+                expect(viewModel.objectiveId).toBeDefined();
             });
         });
 
@@ -448,6 +460,21 @@
                     });
                 });
 
+                it('should set objectiveId', function () {
+                    viewModel.objectiveTitle = null;
+
+                    var promise = viewModel.activate(objective.id);
+                    deferred.resolve(objective);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(promise).toBeResolved();
+                        expect(viewModel.objectiveId).toBe(objective.id);
+                    });
+                });
+
                 it('should set objectiveTitle', function () {
                     viewModel.objectiveTitle = null;
 
@@ -463,6 +490,20 @@
                     });
                 });
 
+                it('should set goBackTooltip to objective', function () {
+                    spyOn(localizationManager, 'localize').andReturn('text');
+                    
+                    var promise = viewModel.activate(objective.id);
+                    deferred.resolve(objective);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(promise).toBeResolved();
+                        expect(viewModel.goBackTooltip).toBe('text' + ' ' + objective.title);
+                    });
+                });
             });
 
         });

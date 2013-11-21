@@ -14,6 +14,8 @@
             };
 
         var title = ko.observable(''),
+            goBackTooltip = '',
+            goBackLink = '',
             contextExperienceId = null,
             contextExperienceTitle = null;
         
@@ -41,7 +43,7 @@
                 that.contextExperienceTitle = null;
 
                 if (!_.isNullOrUndefined(queryParams) && _.isString(queryParams.experienceId)) {
-                    return experienceRepository.getById(queryParams.experienceId).then(function (experience) {
+                    return experienceRepository.getById(queryParams.experienceId).then(function(experience) {
                         if (_.isNull(experience)) {
                             router.replace('404');
                             return;
@@ -49,8 +51,15 @@
 
                         that.contextExperienceId = experience.id;
                         that.contextExperienceTitle = experience.title;
+
+                        that.goBackTooltip = localizationManager.localize('backTo') + ' ' + experience.title;
+                        that.goBackLink = '#experience/' + experience.id;
                     });
                 }
+                
+                that.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('learningObjectives');
+                that.goBackLink = '#objectives';
+                
                 return Q.fcall(function () {
                     that.title('');
                 });
@@ -109,6 +118,9 @@
             contextExperienceTitle: contextExperienceTitle,
             objectiveTitleMaxLength: constants.validation.objectiveTitleMaxLength,
             isTitleEditing: isTitleEditing,
+
+            goBackTooltip: goBackTooltip,
+            goBackLink: goBackLink,
 
             activate: activate,
             navigateBack: navigateBack,
