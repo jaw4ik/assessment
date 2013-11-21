@@ -441,6 +441,7 @@
     <Content Include="Scripts\knockoutBindings\selectOnMouseOverBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToTopBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextBinding.js" />
+    <Content Include="Scripts\knockoutBindings\hoverBinding.js" />
     <Content Include="Scripts\moment-with-langs.js" />
     <Content Include="Scripts\moment-with-langs.min.js" />
     <Content Include="Scripts\moment.js" />

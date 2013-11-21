@@ -159,8 +159,44 @@
 
             });
 
-            it('should expose allowed build statuses', function () {
-                expect(viewModel.statuses).toEqual(constants.statuses);
+            describe('statuses:', function () {
+
+                it('should be equal to allowed build statuses', function () {
+                    expect(viewModel.statuses).toEqual(constants.statuses);
+                });
+
+            });
+
+            describe('showBuildDescription:', function() {
+
+                it('should be observable', function() {
+                    expect(viewModel.showBuildDescription).toBeObservable();
+                });
+
+            });
+
+            describe('showDownloadDescription:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.showDownloadDescription).toBeObservable();
+                });
+
+            });
+
+            describe('showPublishDescription:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.showPublishDescription).toBeObservable();
+                });
+
+            });
+
+            describe('showRepublishDescription:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.showRepublishDescription).toBeObservable();
+                });
+
             });
 
             describe('buildExperience:', function () {

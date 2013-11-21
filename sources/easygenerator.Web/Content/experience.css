@@ -485,7 +485,7 @@
 
 .package-actions-holder {
     width: 100%;
-    padding-top: 50px;
+    padding-top: 60px;
     text-align: center;
 }
 
@@ -698,6 +698,63 @@
         margin-left: -11px;
         background-position: -27px -77px;
     }
+
+.actions-build-description-holder,
+.actions-download-description-holder,
+.actions-publish-description-holder,
+.actions-republish-description-holder {
+    position: absolute;
+    padding: 4px;
+    max-width: 280px;
+    border: 1px solid #dFdFdF;
+    border-radius: 2px;
+    background: none repeat scroll 0 0 #FFFFFF;
+    font-size: 13px;
+    font-family: OpenSansItalic;
+}
+
+    .actions-build-description-holder:after,
+    .actions-download-description-holder:after,
+    .actions-publish-description-holder:after,
+    .actions-republish-description-holder:after {
+        position: absolute;
+        top: 100%;
+        bottom: 100%;
+        left: 50%;
+        display: block;
+        margin-left: -8px;
+        width: 16px;
+        height: 5px;
+        background: url("images/sprites.png") no-repeat scroll -65px -55px rgba(0, 0, 0, 0);
+        content: "";
+    }
+
+.actions-build-description-holder,
+.actions-download-description-holder {
+    margin-top: -53px;
+    margin-left: -15px;
+}
+
+.actions-publish-description-holder {
+    margin-top: -35px;
+    margin-left: 10px;
+}
+
+.actions-republish-description-holder {
+    margin-top: -35px;
+    margin-left: 30px;
+}
+
+.copy-link-description-holder {
+    text-align: left;
+    font-size: 13px;
+    font-family: OpenSansItalic;
+}
+
+.actions-description {
+    color: #67799c;
+    opacity: 0.7;
+}
 
 /*#endregion DELIVER STEP*/
 
