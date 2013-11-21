@@ -1,67 +1,352 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8" />
     <title>Bootstrap 101 Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css">
+    <style>
+        body, html, input, h1 {
+            padding: 0;
+            margin: 0;
+            font-family: 'Open Sans';
+        }
+
+        .page-container {
+            height: 100%;
+            width: 100%;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            border: 1px solid #e0dede;
+            border-radius: 3px;
+            color: #303133;
+        }
+
+        .page-header {
+            display: table;
+            width: 100%;
+            position: relative;
+            background-color: #f2f2f2;
+            border-bottom: 1px solid #e0dede;
+        }
+
+        .clearfix:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        .page-title-wrapper {
+            display: table-cell;
+        }
+
+        .page-title {
+            position: relative;
+            margin: 9px;
+            padding-left: 25px;
+            word-break: break-all;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .info-tooltip-btn {
+            display: table-cell;
+            height: 38px;
+            width: 50px;
+            background-color: #fafafa;
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTMwMTlFRkM1MUU2MTFFMzg5RkFBNjk0MEMwRTRGNUEiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTMwMTlFRkQ1MUU2MTFFMzg5RkFBNjk0MEMwRTRGNUEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxMzAxOUVGQTUxRTYxMUUzODlGQUE2OTQwQzBFNEY1QSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoxMzAxOUVGQjUxRTYxMUUzODlGQUE2OTQwQzBFNEY1QSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Povrl+AAAAFFSURBVHjaYkyvnMOAB3ADsRiU/QqIv6IrmNGWDKZZsGhmBuIAIPYHYi00uWtAvBGINwDxX2QJdIOUgLgTiBVxuFALiiOAuByI78EkmNAMmYXHEGSgCFWrhG4QM9QlAlg0XQJiZyBuQhMHqe3MqJrLjGxQAB6XPAXij0B8A4fLApDDyB+PNzyhGmRwyIP0rmWBRrEWFgXfgXgfEN8EYmMg1sAVAUDvcTMhpRN08AmIhYF4DRCXAvEXPK4WY8EjKQ7EgtD0AlLHgS8amaApFhc4BzVIH0fihYFXTNBkfw2HgmNQ2hKPIdeA2eQrLPo34lB0F0rL4DFoI3I6AuWd+1gU+UADfB4Qb8cifx+qF+7vv9C8MwstdXtCMTbwAaQH6K2/6HkNlAHTcLgMm0vSkDMtekzcg+ZsiosRmDfXQjHBgg0GAAIMAJu/RirA8mk0AAAAAElFTkSuQmCC);
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+            .info-tooltip-btn:hover {
+                background-color: white;
+            }
+
+        .info-tooltip-wrapper {
+            display: none;
+            width: 295px;
+            position: absolute;
+            top: 100%;
+            right: 5px;
+        }
+
+        .info-tooltip {
+            width: 100%;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 11px 9px;
+            margin-top: 6px;
+            background: white;
+            border: 1px solid #c7c7c7;
+            border-bottom-color: #a0a0a0;
+            border-radius: 2px;
+            cursor: default;
+        }
+
+        .info-tooltip-text {
+            display: inline-block;
+            vertical-align: top;
+            line-height: 1.7;
+            color: #67799c;
+            font-size: 12px;
+        }
+
+        .info-tooltip-btn:hover .info-tooltip-wrapper {
+            display: block;
+        }
+
+        .info-tooltip-triangle-holder {
+            height: 5px;
+            width: 10px;
+            position: absolute;
+            top: 2px;
+            right: 15px;
+            overflow: hidden;
+        }
+
+        .info-tooltip-triangle-border,
+        .info-tooltip-triangle {
+            height: 10px;
+            width: 10px;
+            position: absolute;
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+        .info-tooltip-triangle-border {
+            top: 2px;
+            background: #c2c2c2;
+        }
+
+        .info-tooltip-triangle {
+            top: 3px;
+            background: white;
+        }
+
+        .page-title:before {
+            content: '';
+            display: block;
+            height: 16px;
+            width: 16px;
+            position: absolute;
+            top: 2px;
+            left: 0;
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6M0IyNDEyQUM1MUUxMTFFMzgxNEU5NTEyMjAzOUIzN0UiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6M0IyNDEyQUQ1MUUxMTFFMzgxNEU5NTEyMjAzOUIzN0UiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozQjI0MTJBQTUxRTExMUUzODE0RTk1MTIyMDM5QjM3RSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozQjI0MTJBQjUxRTExMUUzODE0RTk1MTIyMDM5QjM3RSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pi8TDU4AAAFgSURBVHjalNM9SEJhFMbxq7Q4BEK0RG3RkFRCQzUEEhdyKGhrqK1oyBolgqKl6JKDUx/0gWNDixASFQiBQW0iuTX3vbUG9j/1BJfSxBd+eDn3nHPf995jwHVdp8Zqw7auE3iolhSsEgtgFmVMSFmxQL0GncjjAGFfPKxYXjl/GjQhiRJiTu0VU05SNV8NorjFFkJO/RVSrtVErUEcEafxZTVxa+BpF4UGiguq8ewcq2jBGKaxieYahe9YxjE28BzUJ5rU75O2lqtSnNO9N98nLlmDLLpxgRPsYAFTeBW7XsS+nn6mZllrkFFwHa6a2RPa0YM+dCjWpRxPD8tYgzRacYdB9GNPZ7zEuZrv6t6wZsGGK20NihjAGlZwrWMNoSJ2fYobLOnFW03xZxI/kEIvXnCFeYxqThIa40flpFTzPY6+dY8RzChp3DfqczjSjv79N1rCod5yQSKKVX4nfwowAHrZUiFD+84AAAAAAElFTkSuQmCC) no-repeat;
+        }
+
+        .form-wrapper {
+            padding: 15px 10px 5px;
+        }
+
+        .user-form {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .form-checkbox {
+            display: inline-block;
+            vertical-align: top;
+            height: 16px;
+            width: 16px;
+            position: relative;
+            border: 1px solid #d9d9d9;
+            border-radius: 1px;
+        }
+
+        .form-checkbox-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+
+            .form-checkbox-input:checked + .form-checkbox-checked {
+                display: block;
+                height: 100%;
+                width: 100%;
+                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ODFEMkMyM0E1MUYyMTFFMzg5RjlFNDNFRjFFMURFODIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6ODFEMkMyM0I1MUYyMTFFMzg5RjlFNDNFRjFFMURFODIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4MUQyQzIzODUxRjIxMUUzODlGOUU0M0VGMUUxREU4MiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4MUQyQzIzOTUxRjIxMUUzODlGOUU0M0VGMUUxREU4MiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Poh8ff0AAADHSURBVHjaYvz//z8DPpC8VF0OSAnOjb55kRGfYqBCViB1Goh1gTieiQE/qAZifSj7Pk6TgaaaAKkTQMwMxD1AZ5Qy4VDIAaQWQBVeB+JakDgLUIINSM8G4iNA3bOh6puBWBuI/wJxHFD8B1gxECeBBEAYqBHEvwjERVBNbUCFZ2A2gpyxCIj3Q/nTgHgjVPwi1AY4AHsQaCIXkL0FiB2h4r+A2BRo6iVkxWAPAgW/ASkfJBsa0RXCFSNp8ARiVyBuxxZKAAEGAItvQaZKUVfXAAAAAElFTkSuQmCC) no-repeat center center;
+            }
+
+        .checkbox .input-label {
+            line-height: 18px;
+            padding-left: 7px;
+        }
+
+        .form-row {
+            display: block;
+            padding: 10px 0;
+        }
+
+            .form-row:after {
+                content: '';
+                display: block;
+                clear: both;
+            }
+
+            .form-row.checkbox {
+                padding-top: 0;
+            }
+
+        .form-col-right {
+            float: right;
+            width: 67%;
+        }
+
+        .form-text-input {
+            width: 100%;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            border: 1px solid #ededed;
+            border-radius: 3px;
+            padding: 5px;
+            font-size: 13px;
+            font-weight: normal;
+        }
+
+            .form-text-input:focus,
+            .form-text-input:active {
+                outline: none;
+                border-color: #a0dfff;
+            }
+
+        .form-label {
+            display: block;
+            width: 30.5%;
+            float: left;
+            padding: 6px 0;
+            word-break: break-all;
+        }
+
+        .save-btn-wrapper {
+            text-align: right;
+        }
+
+        .save-btn {
+            display: inline-block;
+            line-height: 30px;
+            max-width: 150px;
+            vertical-align: top;
+            background: white;
+            border-radius: 3px;
+            padding: 7px 27px;
+            margin-left: 20px;
+            border: 1px solid #d4d4d4;
+        }
+
+            .save-btn:hover {
+                background: #f7f7f7;
+            }
+
+        .save-btn-title {
+            display: block;
+            vertical-align: top;
+            line-height: 16px;
+            position: relative;
+            padding-left: 22px;
+            color: #2cb7ff;
+            font-family: 'Open Sans';
+            font-weight: 600;
+            font-size: 13px;
+            overflow: hidden;
+            -ms-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+            .save-btn-title:before {
+                content: '';
+                display: block;
+                height: 16px;
+                width: 16px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RDQxRDhFMzM1MjdGMTFFM0I4RURERTU0QkMxM0RENzAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RDQxRDhFMzQ1MjdGMTFFM0I4RURERTU0QkMxM0RENzAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpENDFEOEUzMTUyN0YxMUUzQjhFRERFNTRCQzEzREQ3MCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpENDFEOEUzMjUyN0YxMUUzQjhFRERFNTRCQzEzREQ3MCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PspE5cgAAADJSURBVHjaYvz//z8DPqC7g0EOSAle9mC4yIhPMVAhK5A6DWICcTwTA35QDcT6UPZ9nCYDTTUBUieAmBmIe4DOKGXCoZADSC2AKrwOxLUgcRagBBuQng3ER4C6Z0PVNwOxNhD/BeI4oPgPsGIgTgIJgDBQI4h/EYiLoJragArPwGwEOWMREO+H8qcB8Uao+EWoDXAA9iDQRC4gewsQO0LFfwGxKdDUS8iKwR4ECn4DUj5INjSiK4SbjBQK7EDKFoj3AhVjhClAgAEA1M89EKX1Q58AAAAASUVORK5CYII=) no-repeat center center;
+            }
+    </style>
 </head>
 <body>
-    <div class="page-header">
-        <h1>Quiz template <small>settings</small></h1>
-    </div>
-    <div class="container">
-        <form id="settingsForm" class="form-horizontal" role="form" data-bind="submit: submit">
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" data-bind="checked: enableForLearner">
-                            Enable for learner
-                        </label>
+    <div class="page-container">
+        <div class="page-header">
+            <div class="page-title-wrapper">
+                <h1 class="page-title">Quiz template settings</h1>
+            </div>
+            <div class="info-tooltip-btn">
+                <div class="info-tooltip-wrapper">
+                    <div class="info-tooltip">
+                        <span class="info-tooltip-text">Specify your target LRS (Learning Record Store)                             statements endpoint URL here. Specify your LAP                             (Learning Activity Provider) login and password, if                             basic HTTP authentification is required.  
+                        </span>
+                    </div>
+                    <div class="info-tooltip-triangle-holder">
+                        <div class="info-tooltip-triangle-border"></div>
+                        <div class="info-tooltip-triangle">&nbsp;</div>
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">LRS title</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputEmail3" placeholder="LRS title" data-bind="value: lrsTitle">
+        </div>
+        <div class="form-wrapper">
+            <form id="settingsForm" class="user-form" role="form" data-bind="submit: submit">
+                <label class="form-row checkbox">
+                    <span class="form-checkbox">
+                        <input class="form-checkbox-input" type="checkbox" data-bind="checked: enableForLearner">
+                        <span class="form-checkbox-checked"></span>
+                    </span>
+                    <span class="input-label">Enable for learner    
+                    </span>
+                </label>
+                <div class="form-row">
+                    <label for="inputEmail3" class="form-label">LRS title</label>
+                    <div class="form-col-right">
+                        <input type="text" class="form-text-input" id="inputEmail3" placeholder="LRS title" data-bind="value: lrsTitle">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">URL</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputPassword3" placeholder="URL" data-bind="value: url">
+                <div class="form-row">
+                    <label for="inputPassword3" class="form-label">URL</label>
+                    <div class="form-col-right">
+                        <input type="text" class="form-text-input" id="inputPassword3" placeholder="URL" data-bind="value: url">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <div class="checkbox">
+                <div class="form-row checkbox">
+                    <div class="form-col-right">
                         <label>
-                            <input type="checkbox" data-bind="checked: authentication">
-                            Authentication
+                            <span class="form-checkbox">
+                                <input type="checkbox" class="form-checkbox-input" data-bind="checked: authentication">
+                                <span class="form-checkbox-checked"></span>
+                            </span>
+                            <span class="input-label">Authentication
+                            </span>
                         </label>
                     </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">LAP login</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="Password1" placeholder="LAP login" data-bind="value: lapLogin">
+                <div class="form-row">
+                    <label for="inputPassword3" class="form-label">LAP login</label>
+                    <div class="form-col-right">
+                        <input type="text" class="form-text-input" id="Password1" placeholder="LAP login" data-bind="value: lapLogin">
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">LAP password</label>
-                <div class="col-sm-10">
-                    <input type="password" class="form-control" id="Password2" placeholder="LAP password" data-bind="value: lapPassword">
+                <div class="form-row">
+                    <label for="inputPassword3" class="form-label">LAP password</label>
+                    <div class="form-col-right">
+                        <input type="password" class="form-text-input" id="Password2" placeholder="LAP password" data-bind="value: lapPassword">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-default">Save</button>
+                <div class="form-row save-btn-wrapper">
+                    <button type="submit" class="save-btn">
+                        <span class="save-btn-title">Save</span>
+                    </button>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
