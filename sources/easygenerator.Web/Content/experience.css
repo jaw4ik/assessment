@@ -1091,5 +1091,14 @@
 /*#endregion Process steps*/
 
 
+@media (min-width: 1080px) {
 
+    .xapi-settings-block {
+        width: 50%;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        padding-left: 20px;
+    }
 
+}
