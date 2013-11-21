@@ -7,60 +7,14 @@
     padding: 0 20px 10px;
 }
 
-.container .container {
-    padding: 0 0 10px;
-}
+    .container .container {
+        padding: 0 0 10px;
+    }
 
 .navbar {
     height: 57px;
     margin: 20px 0 0;
 }
-
-.nav-control {
-    height: 57px;
-    line-height: 57px;
-    opacity: 0.6;
-    filter: alpha(opacity=60);
-    white-space: nowrap;
-}
-
-    .nav-control:hover {
-        text-decoration: none;
-        opacity: 0.75;
-        filter: alpha(opacity=75);
-    }
-
-.nav-icon {
-    height: 57px;
-    width: 57px;
-    background-position: center center;
-    background-repeat: no-repeat;
-}
-
-    .nav-icon.back-icon {
-        background-image: url(images/nav-icons.png);
-        background-position: 0 0;
-        background-repeat: no-repeat;
-    }
-
-.nav-title {
-    line-height: 57px;
-    height: 57px;
-    padding: 0 13px;
-    font-size: 14px;
-    text-transform: uppercase;
-    color: #666;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: left;
-    letter-spacing: 0;
-    vertical-align: top;
-}
-
-    .nav-title.inline {
-        vertical-align: top;
-    }
 
 .objective-image {
     height: 111px;

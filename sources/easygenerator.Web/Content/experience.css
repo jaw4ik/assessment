@@ -18,10 +18,6 @@
     cursor: default;
 }
 
-    .main-nav-item.right .nav-control {
-        float: right;
-    }
-
 .main-nav-separator {
     height: 57px;
     float: right;
@@ -780,15 +776,6 @@
     .main-nav-separator {
         display: none;
     }
-
-    .experience .main-nav-item.right .nav-control,
-    .experience .main-nav-item.right .nav-control.rebuild {
-        width: 100%;
-    }
-
-    .experience .nav-control-inner.rebuild:before {
-        float: right;
-    }
 }
 
 @media (max-width: 850px) {
@@ -799,23 +786,6 @@
 
     .de-lang .main-nav-separator {
         display: none;
-    }
-
-    .de-lang .nav-control.left {
-        text-align: right;
-    }
-
-    .de-lang .nav-control.rebuild {
-        margin-top: 10px;
-    }
-
-    .de-lang .experience .main-nav-item.right .nav-control,
-    .de-lang .experience .main-nav-item.right .nav-control.rebuild {
-        width: 100%;
-    }
-
-    .de-lang .experience .nav-control-inner.rebuild:before {
-        float: right;
     }
 }
 

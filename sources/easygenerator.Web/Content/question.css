@@ -21,26 +21,6 @@
     padding-bottom: 5px;
 }
 
-.navbar,
-.nav-control {
-    max-width: 100%;
-}
-
-.nav-title {
-    width: 100%;
-    padding-right: 0;
-    margin-left: -57px;
-    padding-left: 70px;
-}
-
-.nav-title .second-part span {
-    display: block;
-    overflow: hidden;
-    text-align: left;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
 /*#region Info button*/
 
 .question .info-btn-holder {
@@ -623,62 +603,12 @@
 
 /*#region Create new question navigation button*/
 
-.create-question .navbar {
-    overflow: hidden;
-}
-
-.navbar .nav-control {
-    display: inline-block;
-}
-
-.question.navbar {
-    width: 100%;
-}
-
-.nav-control.flexible {
-    display: block;
-    margin-right: 327px;
-}
-
-.nav-control.flexible.single {
-    margin-right: 70px;
-}
-
-.nav-control.single .nav-title {
-	padding-left: 70px;
-}
-
-.nav-icon.create-question-image {
-    background-image: url('images/nav-icons.png');
-    background-position: 0 -228px;
-    background-repeat: no-repeat;
-}
-
-.question .fixed .nav-title {
-    margin-left: -57px;
-    padding-left: 70px;
-    margin-right: 10px;
-}
-
-.question .flexible .nav-title {
-    margin-left: 0;
-    padding-left: 0;
-    padding-right: 20px;
-}
-
 .question .flexible .nav-element {
     padding: 10px;
 }
 
 /*#endregion Create new question navigation button*/
 
-.nav-control.create-question-from-question-view {
-    cursor: pointer;
-}
-
-    .nav-control.create-question-from-question-view .nav-title {
-        padding-left: 0;
-    }
 .create-question .create-form {
     padding-bottom: 60px;
 }
