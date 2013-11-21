@@ -322,6 +322,31 @@
         nl: 'Mislukt. Probeer het opnieuw.',
         de: 'Fehlgeschlagen. Versuchen Sie es erneut.'
     },
+    publishingLinkDescription: {
+        en: 'Share this link with your learners',
+        nl: 'Share this link with your learners[nl]',
+        de: 'Share this link with your learners[de]'
+    },
+    publishOnlineDesciption: {
+        en: 'Publish on our hosting and get the link',
+        nl: 'Publish on our hosting and get the link[nl]',
+        de: 'Publish on our hosting and get the link[de]'
+    },
+    republishOnlineDescription: {
+        en: 'Republish and get the same link',
+        nl: 'Republish and get the same link[nl]',
+        de: 'Republish and get the same link[de]'
+    },
+    createPackageDescription: {
+        en: 'Assemble learning material and template into deliverable package',
+        nl: 'Assemble learning material and template into deliverable package[nl]',
+        de: 'Assemble learning material and template into deliverable package[de]'
+    },
+    downloadDescription: {
+        en: 'Download zip-package and put it on your hosting',
+        nl: 'Download zip-package and put it on your hosting[nl]',
+        de: 'Download zip-package and put it on your hosting[de]'
+    },
     /* End resource section for model Experiences */
     
     /* Resource section for model CreateObjective */
@@ -772,8 +797,13 @@
     },
     openLink: {
         en: 'Open link',
-        nl: 'Open link[nl]',
-        de: 'Open link[de]'
+        nl: 'Koppeling openen',
+        de: 'Link öffnen'
+    },
+    templateSettings: {
+        en: 'Template settings',
+        nl: 'Sjablooninstellingen',
+        de: 'Vorlageneinstellungen'
     },
     /* End resource section for model Display experience */
     
@@ -908,7 +938,7 @@
         de: 'Geben Sie eine gültige Telefonnummer ein'
     },
     EnterValidPhoneNumber: {
-        en: 'Enter a valid phon number',
+        en: 'Enter a valid phone number',
         nl: 'Voer een geldig naam van organisatie in',
         de: 'Geben Sie eine gültige Name der Organisation ein'
     },
@@ -1074,9 +1104,9 @@
         de: 'Das Lernziel wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
     },
     objectivesNotFoundError: {
-        en: 'One or more of learning objectives were not found. Please refresh your data.',
-        nl: 'One or more of learning objectives were not found. Please refresh your data. [NL]',
-        de: 'One or more of learning objectives were not found. Please refresh your data. [DE]'
+        en: 'One or more learning objectives were not found. Please refresh your data.',
+        nl: 'Een of meer leerdoelen zijn niet gevonden. Vernieuw uw gegevens.',
+        de: 'Mindestens ein Lernziel wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
     },
     answerNotFoundError: {
         en: 'Answer option was not found. Please refresh your data.',
