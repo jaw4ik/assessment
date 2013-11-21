@@ -948,7 +948,6 @@
     </Content>
     <Content Include="App\viewmodels\userproperties.js" />
     <Content Include="App\viewmodels\shell.js" />
-    <Content Include="App\views\common\navbar.html" />
     <Content Include="App\views\errors\404.html" />
     <Content Include="App\views\errors\400.html" />
     <Content Include="App\views\experiences\createExperience.html" />
