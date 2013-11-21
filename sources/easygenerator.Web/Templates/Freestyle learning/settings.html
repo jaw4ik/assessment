@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css">
     <style>
-        body, html, h1 {
+        body, html, input, h1 {
             padding: 0;
             margin: 0;
             font-family: 'Open Sans';
@@ -137,6 +137,47 @@
         .user-form-wrapper {
             padding: 15px 10px;
         }
+
+        .user-form {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .user-form-checkbox {
+            display: inline-block;
+            vertical-align: top;
+            height: 16px;
+            width: 16px;
+            position: relative;
+            border: 1px solid #d9d9d9;
+            border-radius: 1px;
+        }
+
+        .user-form-checkbox-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            filter: alpha(opacity=0);
+        }
+
+            .user-form-checkbox-input:checked + .user-form-checkbox-checked {
+                display: block;
+                height: 100%;
+                width: 100%;
+                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6ODFEMkMyM0E1MUYyMTFFMzg5RjlFNDNFRjFFMURFODIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6ODFEMkMyM0I1MUYyMTFFMzg5RjlFNDNFRjFFMURFODIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4MUQyQzIzODUxRjIxMUUzODlGOUU0M0VGMUUxREU4MiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4MUQyQzIzOTUxRjIxMUUzODlGOUU0M0VGMUUxREU4MiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Poh8ff0AAADHSURBVHjaYvz//z8DPpC8VF0OSAnOjb55kRGfYqBCViB1Goh1gTieiQE/qAZifSj7Pk6TgaaaAKkTQMwMxD1AZ5Qy4VDIAaQWQBVeB+JakDgLUIINSM8G4iNA3bOh6puBWBuI/wJxHFD8B1gxECeBBEAYqBHEvwjERVBNbUCFZ2A2gpyxCIj3Q/nTgHgjVPwi1AY4AHsQaCIXkL0FiB2h4r+A2BRo6iVkxWAPAgW/ASkfJBsa0RXCFSNp8ARiVyBuxxZKAAEGAItvQaZKUVfXAAAAAElFTkSuQmCC) no-repeat center center;
+            }
+
+        .checkbox .user-form-input-title {
+            line-height: 18px;
+            padding-left: 7px;
+        }
+
+        .form-group {
+            padding-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -157,17 +198,15 @@
             </div>
         </div>
         <div class="user-form-wrapper">
-            <form id="settingsForm" class="form-horizontal" role="form" data-bind="submit: submit">
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" data-bind="checked: enableForLearner">
-                                Enable for learner
-                            </label>
-                        </div>
-                    </div>
-                </div>
+            <form id="settingsForm" class="user-form" role="form" data-bind="submit: submit">
+                <label class="user-form-label checkbox">
+                    <span class="user-form-checkbox">
+                        <input class="user-form-checkbox-input" type="checkbox" data-bind="checked: enableForLearner">
+                        <span class="user-form-checkbox-checked"></span>
+                    </span>
+                    <span class="user-form-input-title">Enable for learner    
+                    </span>
+                </label>
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">LRS title</label>
                     <div class="col-sm-10">
@@ -184,8 +223,12 @@
                     <div class="col-sm-offset-2 col-sm-10">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" data-bind="checked: authentication">
-                                Authentication
+                                <span class="user-form-checkbox">
+                                    <input class="user-form-checkbox-input" type="checkbox" data-bind="checked: authentication">
+                                    <span class="user-form-checkbox-checked"></span>
+                                </span>
+                                <span class="user-form-input-title">Authentication    
+                                </span>
                             </label>
                         </div>
                     </div>
