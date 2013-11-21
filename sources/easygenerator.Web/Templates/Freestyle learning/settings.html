@@ -207,12 +207,16 @@
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
-            border: 1px solid #ededed;
+            border: 1px solid #dcdcdc;
             border-radius: 3px;
             padding: 5px;
             font-size: 13px;
             font-weight: normal;
         }
+
+            .form-text-input:hover {
+                box-shadow: 0 0 2px rgba(0,0,0,0.2);
+            }
 
             .form-text-input:focus,
             .form-text-input:active {
@@ -243,6 +247,11 @@
             margin-left: 20px;
             border: 1px solid #d4d4d4;
         }
+
+            .save-btn:focus,
+            .save-btn:active {
+                outline: none;
+            }
 
             .save-btn:hover {
                 background: #f7f7f7;
