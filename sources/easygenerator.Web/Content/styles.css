@@ -173,7 +173,7 @@
         left: 0;
         height: 18px;
         width: 19px;
-        background: url(../Content/images/app-sprite.png) 0 1px;
+        background: url(../Content/images/sprites.png) -179px -170px;
     }
 
 .header-submenu-holder {
@@ -218,21 +218,21 @@
     height: 17px;
     position: absolute;
     left: 20px;
-    top: 6px;
-    background: url(../Content/images/app-sprite.png) -38px -1px;
+    top: 8px;
+    background: url(../Content/images/sprites.png) -217px -172px;
 }
 
 .header-submenu-expand-icon {
     display: inline-block;
     vertical-align: middle;
-    background: url(../Content/images/app-sprite.png) -23px -12px;
+    background: url(../Content/images/sprites.png) -202px -183px;
     height: 5px;
     width: 11px;
     margin-top: -3px;
 }
 
 .header-menu-list-item.active .header-submenu-expand-icon {
-    background-position: -23px -1px;
+    background-position: -202px -172px;
 }
 
 /*#endregion HEADER */
