@@ -156,6 +156,26 @@
         nl: 'Feedback versturen',
         de: 'Feedback senden'
     },
+    send: {
+        en: 'Send',
+        nl: 'Verzenden',
+        de: 'Senden'
+    },
+    feedBackHelp: {
+        en: 'Help us to improve our application',
+        nl: 'Help mee onze toepassing te verbeteren',
+        de: 'Helfen Sie uns dabei, unsere Anwendung zu verbessern'
+    },
+    yourEmail: {
+        en: 'Your e-mail...',
+        nl: 'Uw e-mail..',
+        de: 'Ihre E-Mail...'
+    },
+    yourMessage: {
+        en: 'Your message...',
+        nl: 'Uw bericht...',
+        de: 'Ihre Nachricht...'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -324,28 +344,43 @@
     },
     publishingLinkDescription: {
         en: 'Share this link with your learners',
-        nl: 'Share this link with your learners[nl]',
-        de: 'Share this link with your learners[de]'
+        nl: 'Deel deze koppeling met uw cursisten',
+        de: 'Diesen Link für Ihre Kursteilnehmer freigeben'
     },
     publishOnlineDesciption: {
-        en: 'Publish on our hosting and get the link',
-        nl: 'Publish on our hosting and get the link[nl]',
-        de: 'Publish on our hosting and get the link[de]'
+        en: 'Publish learning experience on easygenerator webserver',
+        nl: 'Publiceer de leerervaring op de easygenerator webserver',
+        de: 'Die Lernerfahrung auf dem Easygenerator-Webserver veröffentlichen'
     },
     republishOnlineDescription: {
-        en: 'Republish and get the same link',
-        nl: 'Republish and get the same link[nl]',
-        de: 'Republish and get the same link[de]'
-    },
-    createPackageDescription: {
-        en: 'Assemble learning material and template into deliverable package',
-        nl: 'Assemble learning material and template into deliverable package[nl]',
-        de: 'Assemble learning material and template into deliverable package[de]'
+        en: 'Republish learning experience on easygenerator webserver',
+        nl: 'Publiceer de leerervaring opnieuw op de easygenerator webserver',
+        de: 'Die Lernerfahrung erneut auf dem Easygenerator-Webserver veröffentlichen'
     },
     downloadDescription: {
-        en: 'Download zip-package and put it on your hosting',
-        nl: 'Download zip-package and put it on your hosting[nl]',
-        de: 'Download zip-package and put it on your hosting[de]'
+        en: 'Download learning experience in order to publish  it on your own webserver',
+        nl: 'Download de leerervaring voor publicatie op uw eigen webserver',
+        de: 'Die Lernerfahrung zur Veröffentlichung auf Ihrem eigenen Webserver herunterladen'
+    },
+    assemble: {
+        en: 'Assemble',
+        nl: 'Samenstellen',
+        de: 'Zusammenstellen'
+    },
+    assembling: {
+        en: 'assembling...',
+        nl: 'bezig met samenstellen...',
+        de: 'Wird zusammengestellt...'
+    },
+    reassemble: {
+        en: 'Reassemble',
+        nl: 'Opnieuw samenstellen',
+        de: 'Erneut zusammenstellen'
+    },
+    reassembling: {
+        en: 'reassembling...',
+        nl: 'bezig met opnieuw samenstellen...',
+        de: 'Wird erneut zusammengestellt...'
     },
     /* End resource section for model Experiences */
     
@@ -928,19 +963,19 @@
         de: 'Geben Sie eine gültige E-Mail-Adresse ein'
     },
     EnterValidFullName: {
-        en: 'Enter a valid full name',
-        nl: 'Voer een geldig volledige naam in',
-        de: 'Geben Sie eine gültige Vollständiger Name ein'
+        en: 'Fill in your full name',
+        nl: 'Vul uw volledige naam in',
+        de: 'Geben Sie Ihren vollständigen Namen ein'
     },
     EnterValidOrganization: {
-        en: 'Enter a valid organization name',
-        nl: 'Voer een geldig telefoonnummer in',
-        de: 'Geben Sie eine gültige Telefonnummer ein'
+        en: 'Fill in your organization name',
+        nl: 'Vul de naam van uw organisatie in',
+        de: 'Geben Sie den Namen Ihrer Organisation ein'
     },
     EnterValidPhoneNumber: {
-        en: 'Enter a valid phone number',
-        nl: 'Voer een geldig naam van organisatie in',
-        de: 'Geben Sie eine gültige Name der Organisation ein'
+        en: 'Fill in your phone number',
+        nl: 'Vul uw telefoonnummer in',
+        de: 'Geben Sie Ihre Telefonnummer ein'
     },
     AccountAlreadyExists: {
         en: 'This account already exists',
