@@ -44,9 +44,9 @@ namespace easygenerator.AcceptanceTests.Steps
                 (DriverProvider.Current().Driver.FindElementsByXPath(".//section[contains(@id,'content')]//section").Count != 0), 20000))
                 throw new TimeoutException("Content data is not reachable");
 
-            System.Threading.Thread.Sleep(1000);
+            //System.Threading.Thread.Sleep(1000);
             DriverProvider.Current().Driver.Navigate().Refresh();
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(500);
         }
 
         [When(@"browser window width and height is set to (.*) and (.*)")]
@@ -98,6 +98,13 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             System.Threading.Thread.Sleep(timeout);
         }
+
+        [When(@"browser window maximize")]
+        public void WhenBrowserWindowMaximize()
+        {
+            DriverProvider.Current().Driver.Manage().Window.Maximize();
+        }
+
 
     }
 }

@@ -1,4 +1,4 @@
-﻿@SignInPage
+﻿@Errors
 Feature: SignInPage
 	In order to avoid silly mistakes
 	As a math idiot

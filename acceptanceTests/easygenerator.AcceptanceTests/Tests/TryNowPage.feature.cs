@@ -20,7 +20,7 @@ namespace easygenerator.AcceptanceTests.Tests
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("TryNowPage")]
-    [NUnit.Framework.CategoryAttribute("TryNowPage")]
+    [NUnit.Framework.CategoryAttribute("Errors")]
     public partial class TryNowPageFeature
     {
         
@@ -35,7 +35,7 @@ namespace easygenerator.AcceptanceTests.Tests
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "TryNowPage", "In order to avoid silly mistakes\r\nAs a math idiot\r\nI want to be told the sum of t" +
                     "wo numbers", ProgrammingLanguage.CSharp, new string[] {
-                        "TryNowPage"});
+                        "Errors"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
