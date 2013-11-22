@@ -46,15 +46,19 @@
                     * PUBLISH/REPUBLISH BUTTON CONDITIONS 
                     * -->
 
-                <div class="package-action-btn-holder" data-bind="css: { disabled: ((status() != statuses.succeed && publishingState() != statuses.succeed) || status() == statuses.failed) }">
+                <div class="package-action-btn-holder">
 
-                    <!-- TOOLTIP -->
+                    <!--*
+                        * TOOLTIP
+                        * -->
+
                     <div class="actions-publish-description-holder" data-bind="visible: showPublishDescription">
                         <span class="actions-description" data-bind="localize: { text: 'publishOnlineDesciption' }">Publish on our hosting and get the link</span>
                     </div>
                     <div class="actions-republish-description-holder" data-bind="visible: showRepublishDescription">
                         <span class="actions-description" data-bind="localize: { text: 'republishOnlineDescription' }">Republish and get the same link</span>
                     </div>
+
                     <!--*
                         * PUBLISH BUTTON
                         * -->
@@ -81,6 +85,10 @@
                         <span class="btn-title" data-bind="localize: { text: publishPackageExists() ? 'republishing' : 'publishing' }">Publishing...</span>
                     </div>
                     <!-- /ko -->
+
+                    <!--*
+                        * REPUBLISH BUTTON
+                        * -->
 
                     <!-- ko if: publishPackageExists() -->
                     <!-- ko if: status() == statuses.succeed && publishingState() == statuses.succeed -->
