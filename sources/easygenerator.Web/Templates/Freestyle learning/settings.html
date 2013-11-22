@@ -150,6 +150,10 @@
             font-weight: 600;
         }
 
+        .disabled .form-checkbox {
+            opacity: 0.4;
+        }
+
         .form-checkbox {
             display: inline-block;
             vertical-align: top;
@@ -180,6 +184,10 @@
         .checkbox .input-label {
             line-height: 18px;
             padding-left: 7px;
+        }
+
+        .disabled .input-label {
+            opacity: 0.4;
         }
 
         .form-row {
@@ -222,6 +230,11 @@
             .form-text-input:active {
                 outline: none;
                 border-color: #a0dfff;
+            }
+
+            .form-text-input[disabled] {
+                background: #ebebe4;
+                opacity: 0.4;
             }
 
         .form-label {
@@ -321,7 +334,7 @@
                 </div>
                 <div class="form-row checkbox">
                     <div class="form-col-right">
-                        <label data-bind="css: { disabled: authenticationRequired }">
+                        <label data-bind="css: { disabled: !enableXAPI() }">
                             <span class="form-checkbox">
                                 <input class="form-checkbox-input" type="checkbox" data-bind="checked: authenticationRequired, enable: enableXAPI">
                                 <span class="form-checkbox-checked"></span>
