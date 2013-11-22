@@ -10,6 +10,10 @@
             padding: 0;
             margin: 0;
             font-family: 'Open Sans';
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         .page-container {
@@ -237,6 +241,10 @@
                 background: #ebebe4;
                 opacity: 0.4;
             }
+
+                .form-text-input[disabled]:hover {
+                    box-shadow: none;
+                }
 
         .form-label {
             display: block;
