@@ -7,9 +7,9 @@
     right: 0;
 }
 
-.fixed-container.toolbar {
-    z-index: 200;
-}
+    .fixed-container.toolbar {
+        z-index: 200;
+    }
 
 
 .app-wrapper {
@@ -254,9 +254,9 @@
     opacity: 0.6;
 }
 
-.nav-back-holder:hover {
-    opacity: 1;
-}
+    .nav-back-holder:hover {
+        opacity: 1;
+    }
 
 .nav-back-icon {
     width: 7px;
@@ -844,13 +844,13 @@ a.top-navigation-item:hover {
     text-shadow: 0 0 1px rgba(0,0,0,0.6);
 }
 
-.feedback-btn:hover {
-    background-color: #303133;
-}
+    .feedback-btn:hover {
+        background-color: #303133;
+    }
 
-.feedback-btn:active {
-    background:  #111111;
-}
+    .feedback-btn:active {
+        background: #111111;
+    }
 
 .en-lang.feedback-btn {
 }

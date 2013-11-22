@@ -652,13 +652,9 @@
     background: url('images/package-preloader.gif') no-repeat;
 }
 
-.package-action-btn.download-btn {
-    float: right;
+.package-action-btn.download-btn .btn-title:after {
+    background-position: -153px -75px;
 }
-
-    .package-action-btn.download-btn .btn-title:after {
-        background-position: -153px -75px;
-    }
 
 .package-action-btn.publish-btn .btn-title:after {
     background-position: -126px -75px;
@@ -1079,5 +1075,4 @@
     .choose-template-holder {
         margin-right: auto;
     }
-
 }

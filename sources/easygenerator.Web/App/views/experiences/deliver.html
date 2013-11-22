@@ -5,6 +5,8 @@
                 <div class="actions-build-description-holder" data-bind="visible: showBuildDescription">
                     <span class="actions-description" data-bind="localize: { text: 'createPackageDescription' }">Assemble learning material and template into deliverable package</span>
                 </div>
+
+                <!-- CREATE/UPDATE BUTTON CONDITIONS  -->
                 <div class="package-action-btn-holder">
                     <!-- ko if: (status() == statuses.notStarted || status() == statuses.failed) && !packageExists() -->
                     <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience, hover: showBuildDescription">
@@ -39,10 +41,24 @@
                 <div class="action-arrow down" data-bind="css: { disabled: status() != statuses.succeed || publishingState() == statuses.inProgress }">
                     <span class="icon-item"></span>
                 </div>
-                <div class="package-action-btn-holder">
+
+                <!--*
+                    * PUBLISH/REPUBLISH BUTTON CONDITIONS 
+                    * -->
+
+                <div class="package-action-btn-holder" data-bind="css: { disabled: ((status() != statuses.succeed && publishingState() != statuses.succeed) || status() == statuses.failed) }">
+
+                    <!-- TOOLTIP -->
                     <div class="actions-publish-description-holder" data-bind="visible: showPublishDescription">
                         <span class="actions-description" data-bind="localize: { text: 'publishOnlineDesciption' }">Publish on our hosting and get the link</span>
                     </div>
+                    <div class="actions-republish-description-holder" data-bind="visible: showRepublishDescription">
+                        <span class="actions-description" data-bind="localize: { text: 'republishOnlineDescription' }">Republish and get the same link</span>
+                    </div>
+                    <!--*
+                        * PUBLISH BUTTON
+                        * -->
+
                     <!-- ko if: !publishPackageExists() || status() == statuses.failed -->
                     <!-- ko if: status() == statuses.succeed && (publishingState() == statuses.notStarted || publishingState() == statuses.failed) -->
                     <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience, hover: showPublishDescription">
@@ -55,17 +71,14 @@
                     </div>
                     <!-- /ko -->
                     <!-- /ko -->
-                    <div class="actions-republish-description-holder" data-bind="visible: showRepublishDescription">
-                        <span class="actions-description" data-bind="localize: { text: 'republishOnlineDescription' }">Republish and get the same link</span>
-                    </div>
+
+                    <!--*
+                        * PUBLISH\REPUBLISH IN PROGRESS STATUS 
+                        * -->
+
                     <!-- ko if: status() == statuses.succeed && publishingState() == statuses.inProgress -->
                     <div class="package-action-btn btn green publishing-btn">
-                        <!-- ko ifnot: publishPackageExists() -->
-                        <span class="btn-title" data-bind="localize: { text: 'publishing' }">Publishing...</span>
-                        <!-- /ko -->
-                        <!-- ko if: publishPackageExists() -->
-                        <span class="btn-title" data-bind="localize: { text: 'republishing' }">Republishing...</span>
-                        <!-- /ko -->
+                        <span class="btn-title" data-bind="localize: { text: publishPackageExists() ? 'republishing' : 'publishing' }">Publishing...</span>
                     </div>
                     <!-- /ko -->
 
@@ -90,16 +103,18 @@
                 <div class="actions-download-description-holder" data-bind="visible: showDownloadDescription">
                     <span class="actions-description" data-bind="localize: { text: 'downloadDescription' }">Download zip-package and put it on your hosting</span>
                 </div>
-                <!-- ko if: status() == statuses.succeed && publishingState() != statuses.inProgress -->
-                <div class="package-action-btn btn grey download-btn" data-bind="click: downloadExperience, hover: showDownloadDescription">
-                    <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
+                <div class="package-action-btn-holder pull-right">
+                    <!-- ko if: status() == statuses.succeed && publishingState() != statuses.inProgress -->
+                    <div class="package-action-btn btn grey download-btn" data-bind="click: downloadExperience, hover: showDownloadDescription">
+                        <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: status() == statuses.succeed && publishingState() != statuses.inProgress -->
+                    <div class="package-action-btn btn grey download-btn disabled">
+                        <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
+                    </div>
+                    <!-- /ko -->
                 </div>
-                <!-- /ko -->
-                <!-- ko ifnot: status() == statuses.succeed && publishingState() != statuses.inProgress -->
-                <div class="package-action-btn btn grey download-btn disabled">
-                    <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
-                </div>
-                <!-- /ko -->
             </aside>
             <!-- ko if: successfullyPublished() -->
             <div class="copy-link-control clear clearfix" data-bind="css: { disabled: !successfullyPublished() }">
