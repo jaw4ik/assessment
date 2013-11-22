@@ -3,9 +3,8 @@
         <div class="package-actions-content clearfix">
             <aside class="actions-left-column">
                 <div class="actions-build-description-holder" data-bind="visible: showBuildDescription">
-                    <span class="actions-description" data-bind="localize: { text: 'createPackageDescription' }">Assemble learning material and template into deliverable package</span>
+                    <span class="actions-description">Assemble learning material and template into deliverable package</span>
                 </div>
-
                 <!-- CREATE/UPDATE BUTTON CONDITIONS  -->
                 <div class="package-action-btn-holder">
                     <!-- ko if: (status() == statuses.notStarted || status() == statuses.failed) && !packageExists() -->

@@ -700,13 +700,21 @@
 .actions-publish-description-holder,
 .actions-republish-description-holder {
     position: absolute;
+    margin-top: -53px;
     padding: 4px;
-    max-width: 280px;
+    max-width: 275px;
     border: 1px solid #dFdFdF;
     border-radius: 2px;
     background: none repeat scroll 0 0 #FFFFFF;
     font-size: 13px;
     font-family: OpenSansItalic;
+}
+
+.en-lang .actions-build-description-holder,
+.en-lang .actions-download-description-holder,
+.en-lang .actions-publish-description-holder,
+.en-lang .actions-republish-description-holder {
+    max-width: 250px;
 }
 
     .actions-build-description-holder:after,
@@ -724,22 +732,6 @@
         background: url("images/sprites.png") no-repeat scroll -65px -55px rgba(0, 0, 0, 0);
         content: "";
     }
-
-.actions-build-description-holder,
-.actions-download-description-holder {
-    margin-top: -53px;
-    margin-left: -15px;
-}
-
-.actions-publish-description-holder {
-    margin-top: -35px;
-    margin-left: 10px;
-}
-
-.actions-republish-description-holder {
-    margin-top: -35px;
-    margin-left: 30px;
-}
 
 .copy-link-description-holder {
     text-align: left;
