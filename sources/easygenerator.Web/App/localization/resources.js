@@ -168,7 +168,7 @@
     },
     yourEmail: {
         en: 'Your e-mail...',
-        nl: 'Uw e-mail..',
+        nl: 'Uw e-mail...',
         de: 'Ihre E-Mail...'
     },
     yourMessage: {
@@ -180,6 +180,16 @@
         en: 'Your feedback has been sent successfully',
         nl: 'Uw feedback is verzonden',
         de: 'Ihr Feedback wurde gesendet'
+    },
+    yourEmailWithoutPoints: {
+        en: 'Your e-mail:',
+        nl: 'Uw e-mail:',
+        de: 'Ihre E-Mail:'
+    },
+    yourMessageWithoutPoints: {
+        en: 'Your message:',
+        nl: 'Uw bericht:',
+        de: 'Ihre Nachricht:'
     },
     /* End resource section for model General */
     
