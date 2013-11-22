@@ -1,17 +1,4 @@
-﻿.container {
-    position: relative;
-    margin: 0 auto;
-    height: 100%;
-    max-width: 1040px;
-    min-width: 600px;
-    padding: 0 20px 10px;
-}
-
-    .container .container {
-        padding: 0 0 10px;
-    }
-
-.navbar {
+﻿.navbar {
     height: 57px;
     margin: 20px 0 0;
 }

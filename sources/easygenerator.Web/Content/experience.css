@@ -1004,7 +1004,7 @@
 
 .process-steps-container {
     width: 100%;
-    margin: 0 auto;
+    margin: 10px auto 0;
     text-align: center;
 }
 
@@ -1075,4 +1075,9 @@
         box-sizing: border-box;
         padding-left: 20px;
     }
+
+    .choose-template-holder {
+        margin-right: auto;
+    }
+
 }

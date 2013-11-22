@@ -45,6 +45,7 @@
 }
 
 .content-holder {
+    position: relative;
     max-width: 1040px;
     min-width: 600px;
     margin: 0 auto;
@@ -473,8 +474,7 @@ a.top-navigation-item:hover {
 
 .main-content-list-holder {
     min-width: 560px;
-    width: 73%;
-    max-width: 850px;
+    max-width: 756px;
     margin: 0 auto;
     padding-bottom: 30px;
 }

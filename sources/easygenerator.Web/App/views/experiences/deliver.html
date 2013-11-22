@@ -102,18 +102,18 @@
                 <!-- /ko -->
             </aside>
             <!-- ko if: successfullyPublished() -->
-            <div class="copy-link-control clear clearfix" style="display: table; width: 100%;" data-bind="css: { disabled: !successfullyPublished() }">
-                <div class="copy-link-input-wrapper" style="display: table-cell; vertical-align: top;">
+            <div class="copy-link-control clear clearfix" data-bind="css: { disabled: !successfullyPublished() }">
+                <div class="copy-link-input-wrapper">
                     <input class="copy-link-input" type="text" readonly="readonly" data-bind="value: successfullyPublished() ? publishedPackageUrl() : '', css: { selectable: successfullyPublished() }, selectTextBinding: successfullyPublished" />
                 </div>
-                <div class="open-link-btn-wrapper" style="display: table-cell; vertical-align: top;">
+                <div class="open-link-btn-wrapper">
                     <a class="open-link-btn" data-bind="click: openPublishedExperience, attr: { href: publishedPackageUrl }">
                         <span class="open-link-text" data-bind="localize: { text: 'openLink' }">Open link</span>
                     </a>
                 </div>
-                <div class="copy-link-description-holder">
-                    <span class="actions-description" data-bind="localize: { text: 'publishingLinkDescription' }">Share this link with your learners</span>
-                </div>
+            </div>
+            <div class="copy-link-description-holder">
+                <span class="actions-description" data-bind="localize: { text: 'publishingLinkDescription' }">Share this link with your learners</span>
             </div>
             <!-- /ko -->
         </div>
