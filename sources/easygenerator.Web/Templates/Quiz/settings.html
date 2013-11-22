@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Bootstrap 101 Template</title>
+    <title>XAPI settings</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css">
     <style>
@@ -225,8 +225,6 @@
                 box-shadow: none;
             }
 
-
-
         .form-label {
             display: block;
             width: 30.5%;
@@ -297,7 +295,10 @@
             <div class="info-tooltip-btn">
                 <div class="info-tooltip-wrapper">
                     <div class="info-tooltip">
-                        <span class="info-tooltip-text">Specify your target LRS (Learning Record Store)                             statements endpoint URL here. Specify your LAP                             (Learning Activity Provider) login and password, if                             basic HTTP authentification is required.  
+                        <span class="info-tooltip-text">Specify your target LRS (Learning Record Store) 
+                            statements endpoint URL here. Specify your LAP 
+                            (Learning Activity Provider) login and password, if 
+                            basic HTTP authentification is required.  
                         </span>
                     </div>
                     <div class="info-tooltip-triangle-holder">
@@ -311,49 +312,42 @@
             <form id="settingsForm" class="user-form" role="form" data-bind="submit: submit">
                 <label class="form-row checkbox">
                     <span class="form-checkbox">
-                        <input class="form-checkbox-input" type="checkbox" data-bind="checked: enableForLearner">
+                        <input type="checkbox" class="form-checkbox-input" data-bind="checked: enableXAPI">
                         <span class="form-checkbox-checked"></span>
                     </span>
-                    <span class="input-label">Enable for learner    
-                    </span>
+                    <span class="input-label">Enable XAPI</span>
                 </label>
                 <div class="form-row">
-                    <label for="inputEmail3" class="form-label">LRS title</label>
+                    <label for="lrsUrl" class="form-label">LRS URL</label>
                     <div class="form-col-right">
-                        <input type="text" class="form-text-input" id="inputEmail3" data-bind="value: lrsTitle">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <label for="inputPassword3" class="form-label">URL</label>
-                    <div class="form-col-right">
-                        <input type="text" class="form-text-input" id="inputPassword3" data-bind="value: url">
+                        <input type="text" class="form-text-input" id="lrsUrl" data-bind="value: lrsUrl, enable: enableXAPI">
                     </div>
                 </div>
                 <div class="form-row checkbox">
                     <div class="form-col-right">
-                        <label>
+                        <label data-bind="css: { disabled: authenticationRequired }">
                             <span class="form-checkbox">
-                                <input type="checkbox" class="form-checkbox-input" data-bind="checked: authentication">
+                                <input class="form-checkbox-input" type="checkbox" data-bind="checked: authenticationRequired, enable: enableXAPI">
                                 <span class="form-checkbox-checked"></span>
                             </span>
-                            <span class="input-label">Authentication
-                            </span>
+                            <span class="input-label">Authentication required</span>
                         </label>
                     </div>
                 </div>
+
                 <div class="form-row">
-                    <label for="inputPassword3" class="form-label">LAP login</label>
+                    <label for="lapLogin" class="form-label">LAP login</label>
                     <div class="form-col-right">
-                        <input type="text" class="form-text-input" id="Password1" data-bind="value: lapLogin">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <label for="inputPassword3" class="form-label">LAP password</label>
-                    <div class="form-col-right">
-                        <input type="password" class="form-text-input" id="Password2" data-bind="value: lapPassword">
+                        <input type="text" class="form-text-input" id="lapLogin" data-bind="value: lapLogin, enable: credentialsEnabled">
                     </div>
                 </div>
 
+                <div class="form-row">
+                    <label for="lapPassword" class="form-label">LAP password</label>
+                    <div class="form-col-right">
+                        <input type="password" class="form-text-input" id="lapPassword" data-bind="value: lapPassword, enable: credentialsEnabled">
+                    </div>
+                </div>
                 <div class="form-row save-btn-wrapper">
                     <button type="submit" class="save-btn">
                         <span class="save-btn-title">Save</span>
@@ -383,16 +377,35 @@
             var settingsURL = baseURL + "/api/experience/" + experienceId + "/template/" + templateId;
 
             var viewModel = {
-                enableForLearner: ko.observable(true),
-                lrsTitle: ko.observable(),
-                url: ko.observable(),
-                authentication: ko.observable(true),
+                enableXAPI: ko.observable(true),
+                lrsUrl: ko.observable(),
+                authenticationRequired: ko.observable(false),
                 lapLogin: ko.observable(),
                 lapPassword: ko.observable()
             };
 
+            viewModel.credentialsEnabled = ko.computed(function () {
+                return viewModel.enableXAPI() && viewModel.authenticationRequired();
+            });
+
             viewModel.submit = function () {
-                $.post(settingsURL, { settings: ko.toJSON(viewModel) }).done(function () {
+                var settings = {
+                    xApi: {
+                        enabled: viewModel.enableXAPI(),
+                        lrs: {
+                            uri: viewModel.lrsUrl(),
+
+                            credentials: {
+                                username: viewModel.lapLogin(),
+                                password: viewModel.lapPassword()
+                            },
+
+                            authenticationRequired: viewModel.authenticationRequired()
+                        }
+                    }
+                };
+
+                $.post(settingsURL, { settings: JSON.stringify(settings) }).done(function () {
                     alert('saved');
                 });
             };
@@ -404,17 +417,14 @@
                 } catch (e) {
                     settings = {};
                 }
-
-                viewModel.enableForLearner(settings.enableForLearner);
-                viewModel.lrsTitle(settings.lrsTitle);
-                viewModel.url(settings.url);
-                viewModel.authentication(settings.authentication);
-                viewModel.lapLogin(settings.lapLogin);
-                viewModel.lapPassword(settings.lapPassword);
+                viewModel.enableXAPI(settings.xApi.enable || true);
+                viewModel.lrsUrl(settings.xApi.lrs.uri || '');
+                viewModel.authenticationRequired(settings.xApi.lrs.authenticationRequired || false);
+                viewModel.lapLogin(settings.xApi.lrs.credentials.username || '');
+                viewModel.lapPassword(settings.xApi.lrs.credentials.password || '');
             });
 
             ko.applyBindings(viewModel, $("#settingsForm")[0]);
-
         });
 
 
