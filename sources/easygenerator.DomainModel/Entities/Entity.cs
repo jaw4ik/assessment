@@ -23,9 +23,9 @@ namespace easygenerator.DomainModel.Entities
 
         public Guid Id { get; protected set; }
         public string CreatedBy { get; protected set; }
-        public DateTime CreatedOn { get; protected set; }
+        public DateTime CreatedOn { get; protected internal set; }
         public string ModifiedBy { get; protected set; }
-        public DateTime ModifiedOn { get; protected set; }
+        public DateTime ModifiedOn { get; protected internal set; }
 
         protected internal virtual void DefineCreatedBy(string createdBy)
         {

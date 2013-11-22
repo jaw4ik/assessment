@@ -13,7 +13,7 @@ namespace easygenerator.DataAccess
                 .As<IDataContext>()
                 .As<IUnitOfWork>()
                 .InstancePerLifetimeScope();
-
+            
             builder.RegisterType<ObjectiveRepository>()
                 .As<IObjectiveRepository>()
                 .As<IQuerableRepository<Objective>>();

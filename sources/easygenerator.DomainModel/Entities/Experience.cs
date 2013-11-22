@@ -74,7 +74,7 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        public DateTime? BuildOn { get; private set; }
+        public DateTime? BuildOn { get; protected internal set; }
 
         public string PackageUrl { get; private set; }
 
@@ -86,7 +86,7 @@ namespace easygenerator.DomainModel.Entities
             BuildOn = DateTimeWrapper.Now();
         }
 
-        public DateTime? PublishedOn { get; private set; }
+        public DateTime? PublishedOn { get; protected internal set; }
         public virtual void UpdatePublishedOnDate()
         {
             PublishedOn = DateTimeWrapper.Now();

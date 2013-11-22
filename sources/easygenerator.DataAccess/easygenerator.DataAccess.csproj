@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="DataAccessModule.cs" />
     <Compile Include="DatabaseContext.cs" />
+    <Compile Include="DateTimeObjectMaterializer.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IDataContext.cs" />
     <Compile Include="Migrations\201310181318465_InitialCreate.cs" />
@@ -95,6 +96,10 @@
     <ProjectReference Include="..\easygenerator.DomainModel\easygenerator.DomainModel.csproj">
       <Project>{B1A55D50-7948-471A-9FA8-403512C179A6}</Project>
       <Name>easygenerator.DomainModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\easygenerator.Infrastructure\easygenerator.Infrastructure.csproj">
+      <Project>{E186A113-426B-4AB1-A4B1-5ECC54FA4E80}</Project>
+      <Name>easygenerator.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

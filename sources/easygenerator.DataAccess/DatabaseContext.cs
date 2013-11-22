@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
@@ -26,12 +25,12 @@ namespace easygenerator.DataAccess
         public DatabaseContext()
             : this("DefaultConnection")
         {
-
         }
 
         public DatabaseContext(string connectionString)
             : base(connectionString)
         {
+            ((IObjectContextAdapter)this).ObjectContext.ObjectMaterialized += (sender, args) => DateTimeObjectMaterializer.Materialize(args.Entity);
         }
 
         public DbSet<Objective> Objectives { get; set; }
