@@ -176,6 +176,11 @@
         nl: 'Uw bericht...',
         de: 'Ihre Nachricht...'
     },
+    successFeedback: {
+        en: 'Your feedback has been sent successfully',
+        nl: 'Uw feedback is verzonden',
+        de: 'Ihr Feedback wurde gesendet'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -361,6 +366,11 @@
         en: 'Download learning experience in order to publish  it on your own webserver',
         nl: 'Download de leerervaring voor publicatie op uw eigen webserver',
         de: 'Die Lernerfahrung zur Veröffentlichung auf Ihrem eigenen Webserver herunterladen'
+    },
+    openLinkDescription: {
+        en: 'Open link to view learning experience',
+        nl: 'Open link to view learning experience[nl]',
+        de: 'Open link to view learning experience[de]'
     },
     assemble: {
         en: 'Assemble',
