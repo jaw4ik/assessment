@@ -41,11 +41,12 @@
                 var that = this;
                 notify.lockContent();
                 questionRepository.addQuestion(that.objectiveId, { title: that.title() }).then(function (newQuestion) {
-                    notify.unlockContent();
                     router.navigateWithQueryString('objective/' + that.objectiveId + '/question/' + newQuestion.id);
+                }).fin(function () {
+                    notify.unlockContent();
                 });
             },
-            
+
             saveAndNew = function () {
                 this.title(this.title().trim());
                 if (!this.title.isValid()) {
@@ -59,20 +60,20 @@
                 var that = this;
                 notify.lockContent();
                 questionRepository.addQuestion(that.objectiveId, { title: that.title() }).then(function (newQuestion) {
-                    notify.unlockContent();
-                    
                     that.title('');
                     that.title.isModified(false);
                     that.title.isEditing(true);
-                    
+
                     notify.info(localizationManager.localize('savedAt') + ' ' + newQuestion.createdOn.toLocaleTimeString());
+                }).fin(function () {
+                    notify.unlockContent();
                 });
             },
-            
+
             endEditTitle = function () {
                 this.title.isEditing(false);
             },
-            
+
             activate = function (objId) {
                 var that = this;
                 return objectiveRepository.getById(objId).then(
@@ -89,7 +90,7 @@
                         that.title.isModified(false);
                         that.title.isEditing(false);
                     }
-                ).fail(function() {
+                ).fail(function () {
                     router.replace('404');
                 });
             };
@@ -101,7 +102,7 @@
             title: title,
             objectiveTitle: objectiveTitle,
             goBackTooltip: goBackTooltip,
-            
+
             navigateToObjective: navigateToObjective,
             endEditTitle: endEditTitle,
             saveAndOpen: saveAndOpen,
