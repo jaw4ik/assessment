@@ -423,7 +423,7 @@ ol.unstyled  {
 
 .create-entity-actions {
     position: absolute;
-    right: 20px;
+    right: 98px;
     margin-top: 20px;
     z-index: 2;
 }
@@ -777,6 +777,13 @@ ol.unstyled  {
     }
 
     /*#endregion Header*/
+}
+
+@media (max-width: 1060px) {
+
+    .create-tip {
+        left: -17px;
+    }
 }
 
 @media (min-width: 1220px) {

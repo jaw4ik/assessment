@@ -46,10 +46,10 @@
 
 .content-holder {
     position: relative;
-    max-width: 1040px;
+    max-width: 1200px;
     min-width: 600px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 98px; 
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -900,12 +900,6 @@ a.top-navigation-item:hover {
 }
 
 @media (max-width: 1220px ) {
-
-    /*#region HEADER*/
-    .header .content-holder {
-        width: 90%;
-    }
-    /*#endregion HEADER*/
 
     /*#region DELETE-SELECTED-HOLDER*/
     .list-controls-holder {
