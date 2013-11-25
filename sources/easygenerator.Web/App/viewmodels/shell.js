@@ -10,14 +10,11 @@
         helpHintRepository = require('repositories/helpHintRepository'),
         localizationManager = require('localization/localizationManager'),
         errorHandlingConfiguration = require('errorHandling/errorHandlingConfiguration'),
-        globalErrorHandler = require('errorHandling/globalErrorHandler'),
-        feedback = require('viewmodels/feedback'),
-        activator = require('durandal/activator');
+        globalErrorHandler = require('errorHandling/globalErrorHandler');
 
     var events = {
         navigateToExperiences: "Navigate to experiences",
-        navigateToObjectives: 'Navigate to objectives',
-        feedback: 'Feedback'
+        navigateToObjectives: 'Navigate to objectives'
     };
 
     var requestsCounter = ko.observable(0);
@@ -254,7 +251,6 @@
                     that.isTryMode = dataContext.isTryMode;
                     that.userEmail = dataContext.userEmail;
 
-                    that.activatorFeedback.activateItem(feedback);
 
                     clientContext.set('lastVisitedObjective', null);
                     clientContext.set('lastVistedExperience', null);
@@ -284,8 +280,7 @@
         helpHintText: helpHintText,
         hideHelpHint: hideHelpHint,
         showHelpHint: showHelpHint,
-        helpHintTitle: helpHintTitle,
-        activatorFeedback: activator.create()
+        helpHintTitle: helpHintTitle
     };
 }
 );
