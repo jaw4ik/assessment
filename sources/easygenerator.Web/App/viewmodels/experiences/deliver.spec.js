@@ -174,6 +174,14 @@
                 });
 
             });
+            
+            describe('showRebuildDescription:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.showRebuildDescription).toBeObservable();
+                });
+
+            });
 
             describe('showDownloadDescription:', function () {
 

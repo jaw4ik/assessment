@@ -14,6 +14,7 @@
         statuses: constants.statuses,
         publishingState: ko.observable(),
         showBuildDescription: ko.observable(),
+        showRebuildDescription: ko.observable(),
         showDownloadDescription: ko.observable(),
         showPublishDescription: ko.observable(),
         showRepublishDescription: ko.observable(),

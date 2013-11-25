@@ -10,15 +10,15 @@
                     * DOWNLOAD BUTTON CONDITIONS 
                     * -->
 
-                <div class="package-action-btn-holder pull-right" data-bind="css: { 'disabled-tooltip': !showDownloadDescription() } ">
+                <div class="package-action-btn-holder pull-right">
 
                     <!--*
                         * TOOLTIP
                         * -->
-                    <div class="action-explanation-tooltip-container">
+                    <div class="action-explanation-tooltip-container" data-bind="visible: showDownloadDescription">
                         <div class="action-explanation-tooltip-wrapper">
                             <div class="action-explanation-tooltip">
-                                <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'downloadDescription' }">Download zip-package and put it on your hosting</span>
+                                <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'downloadDescription' }">Download learning experience in order to publish it on your own webserver</span>
                                 <div class="action-explanation-tooltip-triangle"></div>
                             </div>
                         </div>
@@ -37,30 +37,23 @@
                 </div>
             </aside>
             <aside class="actions-left-column">
-                <div class="actions-build-description-holder" data-bind="visible: showBuildDescription">
-                    <span class="actions-description">Assemble learning material and template into deliverable package</span>
-                </div>
 
                 <!--*
                     * CREATE/UPDATE BUTTON CONDITIONS 
                     * -->
 
                 <!-- not show tooltip if disabled button and/or status in progress -->
-                <div class="package-action-btn-holder" data-bind="css: { 'disabled-tooltip': (publishingState() == statuses.inProgress) || status() == statuses.inProgress }">
+                <div class="package-action-btn-holder">
 
                     <!--*
                         * TOOLTIP
                         * -->
-                    <div class="action-explanation-tooltip-container">
+                    <div class="action-explanation-tooltip-container" data-bind="visible: showBuildDescription() || showRebuildDescription()">
                         <div class="action-explanation-tooltip-wrapper">
                             <div class="action-explanation-tooltip">
 
-                                <!-- ko if: (status() == statuses.notStarted || status() == statuses.failed) && !packageExists() -->
-                                <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'createPackageDescription' }"></span>
-                                <!-- /ko -->
-                                <!-- ko if: status() == statuses.succeed && publishingState() != statuses.inProgress -->
-                                <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'updatePackageDescription' }"></span>
-                                <!-- /ko -->
+                                <span class="action-explanation-tooltip-text" data-bind="visible: showBuildDescription, localize: { text: 'createPackageDescription' }">Assemble learning experience</span>
+                                <span class="action-explanation-tooltip-text" data-bind="visible: showRebuildDescription, localize: { text: 'updatePackageDescription' }">Reassemble learning experience</span>
 
                                 <div class="action-explanation-tooltip-triangle"></div>
                             </div>
@@ -71,7 +64,7 @@
                         * CREATE PACKAGE BUTTON 
                         *-->
                     <!-- ko if: (status() == statuses.notStarted || status() == statuses.failed) && !packageExists() -->
-                    <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience">
+                    <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience, hover: showBuildDescription">
                         <span class="btn-title" data-bind="localize: { text: 'createPackage' }">Create package</span>
                     </div>
                     <!-- /ko -->
@@ -95,7 +88,7 @@
                         *-->
                     <!-- ko if: packageExists() -->
                     <!-- ko if: status() == statuses.succeed && publishingState() != statuses.inProgress  -->
-                    <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience">
+                    <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience, hover: showRebuildDescription">
                         <span class="btn-title" data-bind="localize: { text: 'updatePackage' }">Update package</span>
                     </div>
                     <!-- /ko -->
@@ -116,17 +109,16 @@
 
                 <!-- not show tooltip if disabled button and/or status in progress -->
                 <div class="package-action-btn-holder">
-                    
+
                     <!--*
                         * TOOLTIP
                         * -->
-                    <div class="action-explanation-tooltip-container" data-bind="visible: (showPublishDescription() || showRepublishDescription())" >
+                    <div class="action-explanation-tooltip-container" data-bind="visible: (showPublishDescription() || showRepublishDescription())">
                         <div class="action-explanation-tooltip-wrapper">
                             <div class="action-explanation-tooltip">
 
-
-                                <span class="action-explanation-tooltip-text" data-bind="visible: showPublishDescription(), localize: { text: 'publishOnlineDesciption' }"></span>
-                                <span class="action-explanation-tooltip-text" data-bind="visible: showRepublishDescription(), localize: { text: 'republishOnlineDescription' }"></span>
+                                <span class="action-explanation-tooltip-text" data-bind="visible: showPublishDescription(), localize: { text: 'publishOnlineDesciption' }">Publish learning experience on easygenerator webserver</span>
+                                <span class="action-explanation-tooltip-text" data-bind="visible: showRepublishDescription(), localize: { text: 'republishOnlineDescription' }">Republish learning experience on easygenerator webserver</span>
 
                                 <div class="action-explanation-tooltip-triangle"></div>
                             </div>
