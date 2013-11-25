@@ -406,10 +406,10 @@
                     </div>
                 </div>
                 <div class="form-row save-btn-wrapper">
-                    <div class="save-message-wrapper success" style="display: none;">
+                    <div class="save-message-wrapper success" data-bind="visible: isSaved">
                         <span class="save-message">Settings have been saved succesfully</span>
                     </div>
-                    <div class="save-message-wrapper error">
+                    <div class="save-message-wrapper error" data-bind="visible: isFailed">
                         <span class="save-message">Something went wrong. Try again</span>
                     </div>
                     <button type="submit" class="save-btn">
@@ -444,7 +444,9 @@
                 lrsUrl: ko.observable(),
                 authenticationRequired: ko.observable(false),
                 lapLogin: ko.observable(),
-                lapPassword: ko.observable()
+                lapPassword: ko.observable(),
+                isSaved: ko.observable(false),
+                isFailed: ko.observable(false)
             };
 
             viewModel.credentialsEnabled = ko.computed(function () {
@@ -468,9 +470,16 @@
                     }
                 };
 
-                $.post(settingsURL, { settings: JSON.stringify(settings) }).done(function () {
-                    alert('saved');
-                });
+                viewModel.isFailed(false);
+                viewModel.isSaved(false);
+
+                $.post(settingsURL, { settings: JSON.stringify(settings) })
+                    .done(function () {
+                        viewModel.isSaved(true);
+                    })
+                    .fail(function () {
+                        viewModel.isFailed(true);
+                    });
             };
 
             $.getJSON(settingsURL, function (json) {
@@ -480,7 +489,7 @@
                 } catch (e) {
                     settings = {};
                 }
-                viewModel.enableXAPI(settings.xApi.enable || false);
+                viewModel.enableXAPI(settings.xApi.enabled || false);
                 viewModel.lrsUrl(settings.xApi.lrs.uri || '');
                 viewModel.authenticationRequired(settings.xApi.lrs.authenticationRequired || false);
                 viewModel.lapLogin(settings.xApi.lrs.credentials.username || '');
