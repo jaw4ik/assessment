@@ -364,13 +364,13 @@
     },
     createPackageDescription: {
         en: 'Assemble learning experience',
-        nl: 'Assemble learning experience[nl]',
-        de: 'Assemble learning experience[de]'
+        nl: 'Leerervaring samenstellen',
+        de: 'Lernerfahrung zusammenstellen'
     },
     updatePackageDescription: {
         en: 'Reassemble learning experience',
-        nl: 'Reassemble learning experience[nl]',
-        de: 'Reassemble learning experience[de]'
+        nl: 'Leerervaring opnieuw samenstellen',
+        de: 'Lernerfahrung neu zusammenstellen'
     },
     publishOnlineDesciption: {
         en: 'Publish learning experience on easygenerator webserver',
@@ -389,8 +389,8 @@
     },
     openLinkDescription: {
         en: 'Open link to view learning experience',
-        nl: 'Open link to view learning experience[nl]',
-        de: 'Open link to view learning experience[de]'
+        nl: 'Koppeling openen om leerervaring te bekijken',
+        de: 'Link zur Lernerfahrung öffnen'
     },
     assemble: {
         en: 'Assemble',
