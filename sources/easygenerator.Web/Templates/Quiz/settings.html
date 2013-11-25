@@ -398,7 +398,7 @@
             var settingsURL = baseURL + "/api/experience/" + experienceId + "/template/" + templateId;
 
             var viewModel = {
-                enableXAPI: ko.observable(true),
+                enableXAPI: ko.observable(false),
                 lrsUrl: ko.observable(),
                 authenticationRequired: ko.observable(false),
                 lapLogin: ko.observable(),
@@ -438,7 +438,7 @@
                 } catch (e) {
                     settings = {};
                 }
-                viewModel.enableXAPI(settings.xApi.enable || true);
+                viewModel.enableXAPI(settings.xApi.enable || false);
                 viewModel.lrsUrl(settings.xApi.lrs.uri || '');
                 viewModel.authenticationRequired(settings.xApi.lrs.authenticationRequired || false);
                 viewModel.lapLogin(settings.xApi.lrs.credentials.username || '');
