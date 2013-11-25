@@ -837,6 +837,10 @@ a.top-navigation-item:hover {
     height: 100%;
     overflow: hidden;
     border-radius: 20px 0 0 20px;
+    box-shadow: none;
+}
+
+.feedback-wrapper.shadow .feedback-form {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.75);
 }
 

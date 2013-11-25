@@ -16,6 +16,12 @@
             isShowFeedbackPopup = valueAccessor().isShowFeedbackPopup(),
             animateValue = isShowFeedbackPopup ? '0px' : '-300px';
 
+        if (isShowFeedbackPopup) {
+            $element.addClass('shadow');
+        } else {
+            $element.removeClass('shadow');
+        }
+
         $element.animate({
             right: animateValue
         }, 400);
