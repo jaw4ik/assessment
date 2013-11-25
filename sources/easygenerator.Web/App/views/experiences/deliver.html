@@ -168,16 +168,26 @@
                 </div>
             </aside>
             <!-- ko if: successfullyPublished() -->
-            <div class="copy-link-control" data-bind="css: { disabled: !successfullyPublished() }">
+            <aside class="copy-link-control" data-bind="css: { disabled: !successfullyPublished() }">
                 <div class="copy-link-input-wrapper">
                     <input class="copy-link-input" type="text" readonly="readonly" data-bind="value: successfullyPublished() ? publishedPackageUrl() : '', css: { selectable: successfullyPublished() }, selectTextBinding: successfullyPublished" />
                 </div>
-                <div class="open-link-btn-wrapper">
-                    <a class="open-link-btn" data-bind="click: openPublishedExperience, attr: { href: publishedPackageUrl }">
-                        <span class="open-link-text" data-bind="localize: { text: 'openLink' }">Open link</span>
-                    </a>
+                <div class="open-link-btn-wrapper package-action-btn-holder">
+                    <div class="open-link-description-wrapper">
+                        <div class="action-explanation-tooltip-container" data-bind="visible: showOpenLinkDescription">
+                            <div class="action-explanation-tooltip-wrapper">
+                                <div class="action-explanation-tooltip">
+                                    <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'openLinkDescription' }">Open link to view learning experience</span>
+                                    <div class="action-explanation-tooltip-triangle"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="open-link-btn" data-bind="click: openPublishedExperience, hover: showOpenLinkDescription, attr: { href: publishedPackageUrl }">
+                            <span class="open-link-text" data-bind="localize: { text: 'openLink' }">Open link</span>
+                        </a>    
+                    </div>
                 </div>
-            </div>
+            </aside>
             <div class="copy-link-description-holder">
                 <span class="actions-description" data-bind="localize: { text: 'publishingLinkDescription' }">Share this link with your learners</span>
             </div>

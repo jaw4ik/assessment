@@ -18,6 +18,7 @@
         showDownloadDescription: ko.observable(),
         showPublishDescription: ko.observable(),
         showRepublishDescription: ko.observable(),
+        showOpenLinkDescription: ko.observable(),
         buildExperience: buildExperience,
         downloadExperience: downloadExperience,
         publishExperience: publishExperience,

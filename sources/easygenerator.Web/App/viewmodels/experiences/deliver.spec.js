@@ -207,6 +207,14 @@
 
             });
 
+            describe('showOpenLinkDescription:', function() {
+
+                it('should be observable', function() {
+                    expect(viewModel.showOpenLinkDescription).toBeObservable();
+                });
+
+            });
+
             describe('buildExperience:', function () {
 
                 var experiencerepositorygetByIdDefer;

@@ -597,6 +597,7 @@
     display: table-cell;
     vertical-align: top;
     width: 50px;
+    padding: 0 0 0 20px;
     text-align: right;
 }
 
@@ -608,7 +609,6 @@
     background: white;
     border-radius: 3px;
     padding: 8px 11px;
-    margin-left: 20px;
     border: 1px solid #d4d4d4;
 }
 
@@ -641,6 +641,10 @@
         left: 0;
         background: url(images/sprites.png) -192px -149px;
     }
+
+.open-link-description-wrapper {
+    position: relative;
+}
 
 /*buttons*/
 .package-action-btn.create-package-btn .btn-title:after {
@@ -693,13 +697,6 @@
         margin-left: -11px;
         background-position: -27px -77px;
     }
-
-.copy-link-description-holder {
-    text-align: left;
-    color: rgba(103, 121, 156, 0.75);
-    font-size: 13px;
-    font-family: OpenSansItalic;
-}
 
 /* explanation tooltip */
 
@@ -779,6 +776,13 @@
         top: -7px;
         background: white;
     }
+
+.copy-link-description-holder {
+    text-align: left;
+    color: rgba(103, 121, 156, 0.75);
+    font-size: 13px;
+    font-family: OpenSansItalic;
+}
 
 /*#endregion DELIVER STEP*/
 
