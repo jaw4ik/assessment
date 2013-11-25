@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>XAPI settings</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
     <style>
         body, html, input, h1 {
             padding: 0;
@@ -305,6 +305,45 @@
                 left: 0;
                 background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RDQxRDhFMzM1MjdGMTFFM0I4RURERTU0QkMxM0RENzAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RDQxRDhFMzQ1MjdGMTFFM0I4RURERTU0QkMxM0RENzAiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpENDFEOEUzMTUyN0YxMUUzQjhFRERFNTRCQzEzREQ3MCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpENDFEOEUzMjUyN0YxMUUzQjhFRERFNTRCQzEzREQ3MCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PspE5cgAAADJSURBVHjaYvz//z8DPqC7g0EOSAle9mC4yIhPMVAhK5A6DWICcTwTA35QDcT6UPZ9nCYDTTUBUieAmBmIe4DOKGXCoZADSC2AKrwOxLUgcRagBBuQng3ER4C6Z0PVNwOxNhD/BeI4oPgPsGIgTgIJgDBQI4h/EYiLoJragArPwGwEOWMREO+H8qcB8Uao+EWoDXAA9iDQRC4gewsQO0LFfwGxKdDUS8iKwR4ECn4DUj5INjSiK4SbjBQK7EDKFoj3AhVjhClAgAEA1M89EKX1Q58AAAAASUVORK5CYII=) no-repeat center center;
             }
+
+        .save-message-wrapper {
+            padding: 6px 0;
+            float: left;
+        }
+
+        .save-message {
+            display: block;
+            position: relative;
+            padding-left: 23px;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+            .save-message:before {
+                content: '';
+                display: block;
+                height: 16px;
+                width: 16px;
+                position: absolute;
+                top: 1px;
+                left: 0;
+            }
+
+        .save-message-wrapper.success {
+            color: #62a426;
+        }
+
+            .save-message-wrapper.success .save-message:before {
+                background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NTFFRUUxQjA1NUNCMTFFM0E0MTBBMTUyNTc0RTJGODQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NTFFRUUxQjE1NUNCMTFFM0E0MTBBMTUyNTc0RTJGODQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo1MUVFRTFBRTU1Q0IxMUUzQTQxMEExNTI1NzRFMkY4NCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo1MUVFRTFBRjU1Q0IxMUUzQTQxMEExNTI1NzRFMkY4NCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PmHFXdwAAAGQSURBVHjajJO5SgNRFIYnk6Bi8gJ2Kpq4gcszWMQlrYJ2LuDWWIqoCNY2EkRNOi0kNhIViyC+gKIQjDva+QCJyxSO34EzMg6Z4IWPc5fzn7uccwO2bRvuNr4Xa8NMQB806PQznEIqPXp34/YPOAEQVmHWYRpMKMGL+tVDGL5hB+YJ9PEbQMXH0Au3sAxZnD41eA0mAavQCmdyQtYtJ0CSiRk4gWEWikaZpoEOYACS+M0Fxnaj7Qyu4Qm6mXw3KjSC1GIuoQk6Q/pgQVj0EyMawaxADz4lxnLFfdHKY8X1wbI+4jrMBhRErNOHqolLgEa4Z/HLLYKgDlMgqZpy1tX3QbShMjtKRgqSFfrn2H4YQvTmcZWglqlFEsW5WqNbmAWQe2/LXZnLeDYR3yi8mlphYc2zc8RNLSgJPlvmaRKqyUkaO+hcwaO+8n/SeAHN0GUiyNPZghhkcIhUEMuucp0W0YjWr5SX4MhVynLnQVhT8d9S9vlMRc9nivh+Js8xpbQntcCkRiwNlNPvnHf7/wgwAJYRsyMwrJwAAAAAAElFTkSuQmCC') no-repeat;
+            }
+
+        .save-message-wrapper.error {
+            color: #953b39;
+        }
+
+            .save-message-wrapper.error .save-message:before {
+                background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAYAAADtc08vAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Q0REQ0M1NkE1NUNCMTFFMzlDNTdGRkYzRjk5NjNDMTIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Q0REQ0M1NkI1NUNCMTFFMzlDNTdGRkYzRjk5NjNDMTIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDRERDQzU2ODU1Q0IxMUUzOUM1N0ZGRjNGOTk2M0MxMiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDRERDQzU2OTU1Q0IxMUUzOUM1N0ZGRjNGOTk2M0MxMiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PraMTgMAAAEJSURBVHjaYpxqbcmAB/RA6RJcCljwaHYF4iIoeycQ78amiAmHZg4gngXEjFA8GypGtAGlQKyAxJeHihFlgDQQVwDxRyDOAeJCKBskJkNMGHQBMRcQBwHxeqjYQyBeB8SdQByNzwWgKImEsncgiW+H0iA5K3wGdEADDQQckMQdoTRIrh2XAe5AbIfEL8LBtoOqRTEAZHIzmmtcgNgGiK2hbGTQAnMpLBD9gdgUR4BiAyZAHAAKZCaoSU04FJ4E4nM45BpBekEu8AViXRyKGoCYDYizsciB9PiyQBMKLnAWiJnxyOeCDNgLxG+BWBaIRYCYD6pJEIiVkRS/B+J/0FT5BogfA/EFgAADAJgFJuV5fB9xAAAAAElFTkSuQmCC') no-repeat;
+            }
     </style>
 </head>
 <body>
@@ -367,6 +406,12 @@
                     </div>
                 </div>
                 <div class="form-row save-btn-wrapper">
+                    <div class="save-message-wrapper success" style="display: none;">
+                        <span class="save-message">Settings have been saved succesfully</span>
+                    </div>
+                    <div class="save-message-wrapper error">
+                        <span class="save-message">Something went wrong. Try again</span>
+                    </div>
                     <button type="submit" class="save-btn">
                         <span class="save-btn-title">Save</span>
                     </button>
