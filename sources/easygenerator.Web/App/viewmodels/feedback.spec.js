@@ -87,9 +87,9 @@
                     viewModel.feedbackMessageFromUser('some message');
                 });
 
-                it('should send event \'Feedback\'', function () {
+                it('should send event \'Send feedback\'', function () {
                     viewModel.sendFeedback();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Feedback');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Send feedback');
                 });
 
                 describe('and try mode', function () {
@@ -247,6 +247,16 @@
                 viewModel.isShowFeedbackPopup(false);
                 viewModel.toggleFeedbackPopup();
                 expect(viewModel.isShowFeedbackPopup()).toBeTruthy();
+            });
+
+            describe('when feedback popup hidden', function() {
+                
+                it('should send event \'Open feedback form\'', function () {
+                    viewModel.isShowFeedbackPopup(false);
+                    viewModel.toggleFeedbackPopup();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Open feedback form');
+                });
+
             });
 
         });

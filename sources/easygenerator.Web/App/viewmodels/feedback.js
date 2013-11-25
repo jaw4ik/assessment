@@ -1,7 +1,8 @@
 ﻿define(['dataContext', 'notify', 'eventTracker', 'httpWrapper', 'localization/localizationManager'], function (dataContext, notify, eventTracker, httpWrapper, localizationManager) {
     var events = {
-        feedback: 'Feedback'
-    };
+        feedback: 'Send feedback',
+        openFeedbackForm: 'Open feedback form'
+};
 
 
     var viewModel = {
@@ -15,7 +16,6 @@
         isTryMode: false,
         userEmail: '',
         browserCulture: ko.observable(''),
-        
         activate: activate
     };
 
@@ -39,6 +39,9 @@
             this.isFeedbackMessageErrorVisible(false);
         };
         function toggleFeedbackPopup() {
+            if (!this.isShowFeedbackPopup()) {
+                eventTracker.publish(events.openFeedbackForm);
+            }
             this.isShowFeedbackPopup(!this.isShowFeedbackPopup());
         };
     
