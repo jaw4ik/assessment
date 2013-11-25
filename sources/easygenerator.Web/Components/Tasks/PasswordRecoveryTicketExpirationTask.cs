@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using easygenerator.DataAccess;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
@@ -24,9 +23,6 @@ namespace easygenerator.Web.Components.Tasks
         {
             var expirationDate = DateTimeWrapper.Now().Subtract(new TimeSpan(0, 0, _configurationReader.PasswordRecoveryExpirationInterval, 0));
             var tickets = _passwordRecoveryTicketRepository.GetExpiredTickets(expirationDate);
-
-            Debug.WriteLine(expirationDate);
-            Debug.WriteLine(tickets.Count);
 
             if (tickets.Count == 0)
             {
