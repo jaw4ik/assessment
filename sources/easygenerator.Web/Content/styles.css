@@ -869,6 +869,7 @@ a.top-navigation-item:hover {
     .feedback-text-block.message {
         height: 130px;
         padding: 10px;
+        resize: none;
     }
     .feedback-text-block.message.error {
         border: 1px solid rgba(149, 59, 57, 0.8);
