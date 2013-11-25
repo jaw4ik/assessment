@@ -1,18 +1,84 @@
 ﻿<section>
     <div class="package-actions-holder">
         <div class="package-actions-content clearfix">
+            <aside class="actions-right-column clearfix pull-right">
+                <div class="action-arrow right" data-bind="css: { disabled: status() != statuses.succeed || publishingState() == statuses.inProgress }">
+                    <i class="icon-item"></i>
+                </div>
+                
+                <!--*
+                    * DOWNLOAD BUTTON CONDITIONS 
+                    * -->
+
+                <div class="package-action-btn-holder pull-right" data-bind="css: { 'disabled-tooltip': !showDownloadDescription() } ">
+                    
+                    <!--*
+                        * TOOLTIP
+                        * -->
+                    <div class="action-explanation-tooltip-container">
+                        <div class="action-explanation-tooltip-wrapper">
+                            <div class="action-explanation-tooltip">
+                                <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'downloadDescription' }">Download zip-package and put it on your hosting</span>
+                                <div class="action-explanation-tooltip-triangle"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ko if: status() == statuses.succeed && publishingState() != statuses.inProgress -->
+                    <div class="package-action-btn btn grey download-btn" data-bind="click: downloadExperience, hover: showDownloadDescription">
+                        <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: status() == statuses.succeed && publishingState() != statuses.inProgress -->
+                    <div class="package-action-btn btn grey download-btn disabled">
+                        <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </aside>
             <aside class="actions-left-column">
                 <div class="actions-build-description-holder" data-bind="visible: showBuildDescription">
                     <span class="actions-description">Assemble learning material and template into deliverable package</span>
                 </div>
-                <!-- CREATE/UPDATE BUTTON CONDITIONS  -->
-                <div class="package-action-btn-holder">
+
+                <!--*
+                    * CREATE/UPDATE BUTTON CONDITIONS 
+                    * -->
+                
+                <!-- not show tooltip if disabled button and/or status in progress -->
+                <div class="package-action-btn-holder" data-bind="css: { 'disabled-tooltip': (publishingState() == statuses.inProgress) || status() == statuses.inProgress }">
+                    
+                    <!--*
+                        * TOOLTIP
+                        * -->
+                    <div class="action-explanation-tooltip-container">
+                        <div class="action-explanation-tooltip-wrapper">
+                            <div class="action-explanation-tooltip">
+
+                                <!-- ko if: (status() == statuses.notStarted || status() == statuses.failed) && !packageExists() -->
+                                <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'createPackageDescription' }"></span>
+                                <!-- /ko -->
+                                <!-- ko if: status() == statuses.succeed && publishingState() != statuses.inProgress -->
+                                <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'updatePackageDescription' }"></span>
+                                <!-- /ko -->
+
+                                <div class="action-explanation-tooltip-triangle"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--*
+                        * CREATE PACKAGE BUTTON 
+                        *-->
                     <!-- ko if: (status() == statuses.notStarted || status() == statuses.failed) && !packageExists() -->
-                    <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience, hover: showBuildDescription">
+                    <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience">
                         <span class="btn-title" data-bind="localize: { text: 'createPackage' }">Create package</span>
                     </div>
                     <!-- /ko -->
 
+                    <!--*
+                        * IN PROGRESS BUTTON 
+                        *-->
                     <!-- ko if: status() == statuses.inProgress -->
                     <div class="package-action-btn btn orange creating-btn">
                         <!-- ko ifnot: packageExists() -->
@@ -24,9 +90,12 @@
                     </div>
                     <!-- /ko -->
 
+                    <!--*
+                        * UPDATE PACKAGE BUTTON 
+                        *-->
                     <!-- ko if: packageExists() -->
                     <!-- ko if: status() == statuses.succeed && publishingState() != statuses.inProgress  -->
-                    <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience, hover: showBuildDescription">
+                    <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience">
                         <span class="btn-title" data-bind="localize: { text: 'updatePackage' }">Update package</span>
                     </div>
                     <!-- /ko -->
@@ -45,26 +114,34 @@
                     * PUBLISH/REPUBLISH BUTTON CONDITIONS 
                     * -->
 
-                <div class="package-action-btn-holder">
-
+                <!-- not show tooltip if disabled button and/or status in progress -->
+                <div class="package-action-btn-holder" data-bind="css: { 'disabled-tooltip': (!publishPackageExists() || status() == statuses.failed) && ((status() != statuses.succeed && publishingState() != statuses.succeed) || status() == statuses.failed) || (status() == statuses.succeed && publishingState() == statuses.inProgress) || (publishPackageExists() && ((publishingState() != statuses.inProgress && publishingState() != statuses.succeed) || status() == statuses.inProgress)) }">
+                
                     <!--*
                         * TOOLTIP
                         * -->
+                    <div class="action-explanation-tooltip-container">
+                        <div class="action-explanation-tooltip-wrapper">
+                            <div class="action-explanation-tooltip">
 
-                    <div class="actions-publish-description-holder" data-bind="visible: showPublishDescription">
-                        <span class="actions-description" data-bind="localize: { text: 'publishOnlineDesciption' }">Publish on our hosting and get the link</span>
-                    </div>
-                    <div class="actions-republish-description-holder" data-bind="visible: showRepublishDescription">
-                        <span class="actions-description" data-bind="localize: { text: 'republishOnlineDescription' }">Republish and get the same link</span>
+                                <!-- ko if: !publishPackageExists() || status() == statuses.failed -->
+                                <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'publishOnlineDesciption' }"></span>
+                                <!-- /ko -->
+                                <!-- ko if: publishPackageExists() -->
+                                <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'republishOnlineDescription' }"></span>
+                                <!-- /ko -->
+
+                                <div class="action-explanation-tooltip-triangle"></div>
+                            </div>
+                        </div>
                     </div>
 
                     <!--*
                         * PUBLISH BUTTON
                         * -->
-
                     <!-- ko if: !publishPackageExists() || status() == statuses.failed -->
                     <!-- ko if: status() == statuses.succeed && (publishingState() == statuses.notStarted || publishingState() == statuses.failed) -->
-                    <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience, hover: showPublishDescription">
+                    <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience">
                         <span class="btn-title" data-bind="localize: { text: 'publishOnline' }">Publish online</span>
                     </div>
                     <!-- /ko -->
@@ -78,7 +155,6 @@
                     <!--*
                         * PUBLISH\REPUBLISH IN PROGRESS STATUS 
                         * -->
-
                     <!-- ko if: status() == statuses.succeed && publishingState() == statuses.inProgress -->
                     <div class="package-action-btn btn green publishing-btn">
                         <span class="btn-title" data-bind="localize: { text: publishPackageExists() ? 'republishing' : 'publishing' }">Publishing...</span>
@@ -88,10 +164,9 @@
                     <!--*
                         * REPUBLISH BUTTON
                         * -->
-
                     <!-- ko if: publishPackageExists() -->
                     <!-- ko if: status() == statuses.succeed && publishingState() == statuses.succeed -->
-                    <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience, hover: showRepublishDescription">
+                    <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience">
                         <span class="btn-title" data-bind="localize: { text: 'republishOnline' }">Republish online</span>
                     </div>
                     <!-- /ko -->
@@ -103,28 +178,8 @@
                     <!-- /ko -->
                 </div>
             </aside>
-            <aside class="actions-right-column clearfix">
-                <div class="action-arrow right" data-bind="css: { disabled: status() != statuses.succeed || publishingState() == statuses.inProgress }">
-                    <i class="icon-item"></i>
-                </div>
-                <div class="actions-download-description-holder" data-bind="visible: showDownloadDescription">
-                    <span class="actions-description" data-bind="localize: { text: 'downloadDescription' }">Download zip-package and put it on your hosting</span>
-                </div>
-                <div class="package-action-btn-holder pull-right">
-                    <!-- ko if: status() == statuses.succeed && publishingState() != statuses.inProgress -->
-                    <div class="package-action-btn btn grey download-btn" data-bind="click: downloadExperience, hover: showDownloadDescription">
-                        <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
-                    </div>
-                    <!-- /ko -->
-                    <!-- ko ifnot: status() == statuses.succeed && publishingState() != statuses.inProgress -->
-                    <div class="package-action-btn btn grey download-btn disabled">
-                        <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
-                    </div>
-                    <!-- /ko -->
-                </div>
-            </aside>
             <!-- ko if: successfullyPublished() -->
-            <div class="copy-link-control clear clearfix" data-bind="css: { disabled: !successfullyPublished() }">
+            <div class="copy-link-control" data-bind="css: { disabled: !successfullyPublished() }">
                 <div class="copy-link-input-wrapper">
                     <input class="copy-link-input" type="text" readonly="readonly" data-bind="value: successfullyPublished() ? publishedPackageUrl() : '', css: { selectable: successfullyPublished() }, selectTextBinding: successfullyPublished" />
                 </div>

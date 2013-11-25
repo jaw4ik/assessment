@@ -505,7 +505,6 @@
 
 .actions-right-column {
     display: table;
-    margin-left: 253px;
 }
 
     .actions-right-column .action-arrow.right {
@@ -554,7 +553,7 @@
 
 .nl-lang .package-actions-content,
 .de-lang .package-actions-content {
-    width: 660px;
+    width: 658px;
 }
 
 .nl-lang .package-action-btn,
@@ -695,54 +694,90 @@
         background-position: -27px -77px;
     }
 
-.actions-build-description-holder,
-.actions-download-description-holder,
-.actions-publish-description-holder,
-.actions-republish-description-holder {
-    position: absolute;
-    margin-top: -53px;
-    padding: 4px;
-    max-width: 275px;
-    border: 1px solid #dFdFdF;
-    border-radius: 2px;
-    background: none repeat scroll 0 0 #FFFFFF;
-    font-size: 13px;
-    font-family: OpenSansItalic;
-}
-
-.en-lang .actions-build-description-holder,
-.en-lang .actions-download-description-holder,
-.en-lang .actions-publish-description-holder,
-.en-lang .actions-republish-description-holder {
-    max-width: 250px;
-}
-
-    .actions-build-description-holder:after,
-    .actions-download-description-holder:after,
-    .actions-publish-description-holder:after,
-    .actions-republish-description-holder:after {
-        position: absolute;
-        top: 100%;
-        bottom: 100%;
-        left: 50%;
-        display: block;
-        margin-left: -8px;
-        width: 16px;
-        height: 5px;
-        background: url("images/sprites.png") no-repeat scroll -65px -55px rgba(0, 0, 0, 0);
-        content: "";
-    }
-
 .copy-link-description-holder {
     text-align: left;
     font-size: 13px;
     font-family: OpenSansItalic;
 }
 
-.actions-description {
-    color: #67799c;
-    opacity: 0.7;
+/* explanation tooltip */
+
+.action-explanation-tooltip-container {
+    display: none;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 100%;
+    margin-bottom: 8px;
 }
+
+.package-action-btn-holder:hover .action-explanation-tooltip-container {
+    display: table;
+}
+
+.package-action-btn-holder.disabled-tooltip:hover .action-explanation-tooltip-container {
+    display: none;
+}
+
+.action-explanation-tooltip-wrapper {
+    position: relative;
+    display: table-cell;
+    vertical-align: bottom;
+    text-align: center;
+}
+
+.action-explanation-tooltip {
+    min-height: 35px;
+    display: inline-block;
+    padding: 8px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #dfdfdf;
+    border-radius: 3px;
+    background: white;
+}
+
+.action-explanation-tooltip-text {
+    display: inline-block;
+    color: #67799c;
+    font-family: OpenSansItalic;
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+.action-explanation-tooltip-triangle {
+    height: 6px;
+    width: 12px;
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    margin-left: -6px;
+    overflow: hidden;
+}
+
+    .action-explanation-tooltip-triangle:before,
+    .action-explanation-tooltip-triangle:after {
+        content: '';
+        display: block;
+        position: absolute;
+        height: 10px;
+        width: 10px;
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    .action-explanation-tooltip-triangle:before {
+        top: -6px;
+        background: #dfdfdf;
+    }
+
+    .action-explanation-tooltip-triangle:after {
+        top: -7px;
+        background: white;
+    }
 
 /*#endregion DELIVER STEP*/
 

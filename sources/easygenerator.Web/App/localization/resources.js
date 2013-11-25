@@ -362,6 +362,16 @@
         nl: 'Deel deze koppeling met uw cursisten',
         de: 'Diesen Link für Ihre Kursteilnehmer freigeben'
     },
+    createPackageDescription: {
+        en: 'Assemble learning experience',
+        nl: 'Assemble learning experience[nl]',
+        de: 'Assemble learning experience[de]'
+    },
+    updatePackageDescription: {
+        en: 'Reassemble learning experience',
+        nl: 'Reassemble learning experience[nl]',
+        de: 'Reassemble learning experience[de]'
+    },
     publishOnlineDesciption: {
         en: 'Publish learning experience on easygenerator webserver',
         nl: 'Publiceer de leerervaring op de easygenerator webserver',
