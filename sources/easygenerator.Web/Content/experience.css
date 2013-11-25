@@ -696,6 +696,7 @@
 
 .copy-link-description-holder {
     text-align: left;
+    color: rgba(103, 121, 156, 0.75);
     font-size: 13px;
     font-family: OpenSansItalic;
 }
@@ -729,7 +730,7 @@
 .action-explanation-tooltip {
     min-height: 35px;
     display: inline-block;
-    padding: 8px;
+    padding: 5px 8px 8px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -740,10 +741,9 @@
 
 .action-explanation-tooltip-text {
     display: inline-block;
-    color: #67799c;
+    color: rgba(103, 121, 156, 0.8);
     font-family: OpenSansItalic;
     font-size: 13px;
-    opacity: 0.8;
 }
 
 .action-explanation-tooltip-triangle {

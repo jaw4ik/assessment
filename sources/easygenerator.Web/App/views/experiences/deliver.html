@@ -5,13 +5,13 @@
                 <div class="action-arrow right" data-bind="css: { disabled: status() != statuses.succeed || publishingState() == statuses.inProgress }">
                     <i class="icon-item"></i>
                 </div>
-                
+
                 <!--*
                     * DOWNLOAD BUTTON CONDITIONS 
                     * -->
 
                 <div class="package-action-btn-holder pull-right" data-bind="css: { 'disabled-tooltip': !showDownloadDescription() } ">
-                    
+
                     <!--*
                         * TOOLTIP
                         * -->
@@ -44,10 +44,10 @@
                 <!--*
                     * CREATE/UPDATE BUTTON CONDITIONS 
                     * -->
-                
+
                 <!-- not show tooltip if disabled button and/or status in progress -->
                 <div class="package-action-btn-holder" data-bind="css: { 'disabled-tooltip': (publishingState() == statuses.inProgress) || status() == statuses.inProgress }">
-                    
+
                     <!--*
                         * TOOLTIP
                         * -->
@@ -116,7 +116,7 @@
 
                 <!-- not show tooltip if disabled button and/or status in progress -->
                 <div class="package-action-btn-holder" data-bind="css: { 'disabled-tooltip': (!publishPackageExists() || status() == statuses.failed) && ((status() != statuses.succeed && publishingState() != statuses.succeed) || status() == statuses.failed) || (status() == statuses.succeed && publishingState() == statuses.inProgress) || (publishPackageExists() && ((publishingState() != statuses.inProgress && publishingState() != statuses.succeed) || status() == statuses.inProgress)) }">
-                
+
                     <!--*
                         * TOOLTIP
                         * -->
