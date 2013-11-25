@@ -588,7 +588,7 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Connect selected objectives to experience');
                 });
 
-                describe('and no objectives selected', function () {
+                describe('when no objectives selected', function () {
 
                     beforeEach(function () {
                         var objectivesList = [
@@ -610,7 +610,7 @@
                     });
                 });
 
-                describe('and there are objectives selected', function () {
+                describe('when there are objectives selected', function () {
                     var availableObjectives,
                         relateObjectivesDefer,
                         relateObjectivesPromise,
@@ -674,7 +674,7 @@
 
                         it('should remove connected objectives from available objectives collection', function () {
 
-                            relateObjectivesDefer.resolve({ modifiedOn: new Date(), relatedObjectives: [] });
+                            relateObjectivesDefer.resolve({ modifiedOn: new Date(), relatedObjectives: [selectedObjective] });
 
                             viewModel.connectObjectives();
 

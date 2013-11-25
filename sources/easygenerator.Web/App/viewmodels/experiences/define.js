@@ -152,50 +152,44 @@
 
                 eventTracker.publish(events.showConnectedObjectives);
 
-                _.each(connectedObjectives(), function(item) {
+                _.each(connectedObjectives(), function (item) {
                     item.isSelected(false);
                 });
 
                 objectivesMode(objectivesListModes.display);
             },
+
             connectObjectives = function () {
                 eventTracker.publish(events.connectSelectedObjectivesToExperience);
                 var that = this;
 
-                var objectivesToRelate = _.chain(that.availableObjectives())
-                    .filter(function (item) {
-                        return item.isSelected();
-                    })
-                    .pluck('_original')
-                    .value();
+                var objectivesToRelate = _.chain(that.availableObjectives()).filter(function (item) {
+                    return item.isSelected();
+                }).pluck('_original').value();
 
                 if (objectivesToRelate.length == 0) {
                     return;
                 }
 
-                repository.relateObjectives(that.id, objectivesToRelate)
-                    .then(function (response) {
-                        that.connectedObjectives(_.chain(response.relatedObjectives)
-                            .map(function (item) {
-                                return objectiveBrief(item);
-                            })
-                            .union(that.connectedObjectives())
-                            .sortBy(function (item) {
-                                return item.title.toLowerCase();
-                            }).value());
+                repository.relateObjectives(that.id, objectivesToRelate).then(function (response) {
+                    that.connectedObjectives(_.chain(response.relatedObjectives).map(function (item) {
+                        return objectiveBrief(item);
+                    }).union(that.connectedObjectives()).sortBy(function (item) {
+                        return item.title.toLowerCase();
+                    }).value());
 
-                        that.availableObjectives(that.availableObjectives()
-                           .filter(function (item) {
-                               return !_.contains(objectivesToRelate, item._original);
-                           }));
+                    that.availableObjectives(that.availableObjectives().filter(function (item) {
+                        return !_.contains(response.relatedObjectives, item._original);
+                    }));
 
-                        notify.info(localizationManager.localize('savedAt') + ' ' + response.modifiedOn.toLocaleTimeString());
+                    notify.info(localizationManager.localize('savedAt') + ' ' + response.modifiedOn.toLocaleTimeString());
 
-                        if (objectivesToRelate.length != response.relatedObjectives.length) {
-                            notify.error(localizationManager.localize('objectivesNotFoundError'));
-                        }
-                    });
+                    if (objectivesToRelate.length != response.relatedObjectives.length) {
+                        notify.error(localizationManager.localize('objectivesNotFoundError'));
+                    }
+                });
             },
+
             disconnectSelectedObjectives = function () {
                 eventTracker.publish(events.unrelateObjectivesFromExperience);
 
