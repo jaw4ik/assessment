@@ -401,7 +401,7 @@ define(function (require) {
                     return !promise.isPending();
                 });
                 runs(function () {
-                    expect(viewModel.goBackTooltip).toBe('text' + ' ' + objectiveFull.title);
+                    expect(viewModel.goBackTooltip).toBe('text' + ' \'' + objectiveFull.title + '\'');
                 });
             });
         });

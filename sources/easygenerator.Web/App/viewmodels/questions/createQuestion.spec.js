@@ -501,7 +501,7 @@
                     });
                     runs(function () {
                         expect(promise).toBeResolved();
-                        expect(viewModel.goBackTooltip).toBe('text' + ' ' + objective.title);
+                        expect(viewModel.goBackTooltip).toBe('text' + ' \'' + objective.title + '\'');
                     });
                 });
             });

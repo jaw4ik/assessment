@@ -81,7 +81,7 @@
                 return objectiveRepository.getById(objId).then(function (objective) {
 
                     that.objectiveId = objective.id;
-                    that.goBackTooltip = localizationManager.localize('backTo') + ' ' + objective.title;
+                    that.goBackTooltip = localizationManager.localize('backTo') + ' \'' + objective.title + '\'';
                     
                     questionRepository.getById(objectiveId, questionId).then(function (question) {
                         that.title(question.title);

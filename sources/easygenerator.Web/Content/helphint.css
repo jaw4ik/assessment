@@ -2,7 +2,7 @@
 
 .help-hint {
     position: fixed;
-    z-index: 100;
+    z-index: 200;
     width: 100%;
     min-height: 73px;
     border-top: solid 1px #e5e2d3;

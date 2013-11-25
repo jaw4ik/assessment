@@ -85,7 +85,7 @@
 
                         that.objectiveId = objective.id;
                         that.objectiveTitle = objective.title;
-                        that.goBackTooltip = localizationManager.localize('backTo') + ' ' + objective.title;
+                        that.goBackTooltip = localizationManager.localize('backTo') + ' \'' + objective.title + '\'';
                         that.title('');
                         that.title.isModified(false);
                         that.title.isEditing(false);

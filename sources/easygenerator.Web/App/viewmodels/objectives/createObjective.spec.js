@@ -462,6 +462,26 @@
                 
                 describe('when query params are null', function() {
 
+                    it('should set contextExpperienceId to null', function () {
+                        var promise = viewModel.activate();
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.contextExperienceId).toBeNull();
+                        });
+                    });
+
+                    it('should set contextExpperienceTitle to null', function () {
+                        var promise = viewModel.activate();
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.contextExperienceTitle).toBeNull();
+                        });
+                    });
+
                     it('should set goBackTooltip to \'Back to objectives\'', function () {
                         spyOn(localizationManager, 'localize').andReturn('text');
 
@@ -576,7 +596,7 @@
                                 });
                                 runs(function () {
                                     expect(promise).toBeResolved();
-                                    expect(viewModel.goBackTooltip).toEqual('text' + ' ' + experience.title);
+                                    expect(viewModel.goBackTooltip).toEqual('text' + ' \'' + experience.title + '\'');
                                 });
                             });
                             
@@ -613,6 +633,30 @@
                             });
                             runs(function () {
                                 expect(viewModel.contextExperienceTitle).toBeNull();
+                            });
+                        });
+
+                        it('should set goBackTooltip to \'Back to objectives\'', function () {
+                            spyOn(localizationManager, 'localize').andReturn('text');
+
+                            var promise = viewModel.activate(queryParams);
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeResolved();
+                                expect(viewModel.goBackTooltip).toEqual('text text');
+                            });
+                        });
+
+                        it('should set goBackLink to objectives', function () {
+                            var promise = viewModel.activate(queryParams);
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeResolved();
+                                expect(viewModel.goBackLink).toEqual('#objectives');
                             });
                         });
                     });

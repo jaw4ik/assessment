@@ -52,7 +52,7 @@
                         that.contextExperienceId = experience.id;
                         that.contextExperienceTitle = experience.title;
 
-                        that.goBackTooltip = localizationManager.localize('backTo') + ' ' + experience.title;
+                        that.goBackTooltip = localizationManager.localize('backTo') + ' \'' + experience.title + '\'';
                         that.goBackLink = '#experience/' + experience.id;
                     });
                 }

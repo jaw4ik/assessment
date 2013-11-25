@@ -9,11 +9,17 @@
                 navigateToCreateQuestion: "Navigate to create question",
                 selectQuestion: "Select question",
                 unselectQuestion: "Unselect question",
-                deleteSelectedQuestions: "Delete question"
+                deleteSelectedQuestions: "Delete question",
+                navigateToExperience: "Navigate to experience",
+                navigateToObjectives: "Navigate to objectives",
             };
 
         var
             objectiveId = null,
+            contextExperienceTitle = null,
+            contextExperienceId = null,
+            goBackLink = '',
+            goBackTooltip = '',
             title = ko.observable(''),
             currentLanguage = '';
 
@@ -113,26 +119,61 @@
                 return mappedQuestion;
             },
 
-            activate = function (objId) {
+            navigateBack = function () {
+                if (_.isNull(this.contextExperienceId)) {
+                    eventTracker.publish(events.navigateToObjectives);
+                    router.navigate('objectives');
+                } else {
+                    eventTracker.publish(events.navigateToExperience);
+                    router.navigate('experience/' + this.contextExperienceId);
+                }
+            },
+
+            activate = function (objId, queryParams) {
                 var that = this;
+                
                 this.currentLanguage = localizationManager.currentLanguage;
 
-                return repository.getById(objId).then(function (objective) {
-                    clientContext.set('lastVisitedObjective', objId);
-                    that.objectiveId = objective.id;
-                    that.title(objective.title);
+                if (_.isNullOrUndefined(queryParams) || !_.isString(queryParams.experienceId)) {
+                    that.contextExperienceId = null;
+                    that.contextExperienceTitle = null;
+                    that.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('learningObjectives');
+                    that.goBackLink = '#objectives';
 
-                    var array = _.chain(objective.questions).map(function (item) {
-                        return mapQuestion(item);
-                    }).sortBy(function (question) {
-                        return question.title.toLowerCase();
-                    }).value();
+                    return initObjectiveInfo(objId);
+                }
 
-                    that.questions(array);
-                }).fail(function (reason) {
+                return experienceRepository.getById(queryParams.experienceId).then(function (experience) {
+                    that.contextExperienceId = experience.id;
+                    that.contextExperienceTitle = experience.title;
+
+                    that.goBackTooltip = localizationManager.localize('backTo') + ' \'' + experience.title + '\'';
+                    that.goBackLink = '#experience/' + experience.id;
+
+                    initObjectiveInfo(objId);
+                }).fail(function(reason) {
                     router.replace('404');
                     return;
                 });
+                
+                function initObjectiveInfo(id) {
+                    return repository.getById(id).then(function (objective) {
+                        clientContext.set('lastVisitedObjective', id);
+                        that.objectiveId = objective.id;
+                        that.title(objective.title);
+
+                        var array = _.chain(objective.questions).map(function (item) {
+                            return mapQuestion(item);
+                        }).sortBy(function (question) {
+                            return question.title.toLowerCase();
+                        }).value();
+
+                        that.questions(array);
+                    }).fail(function (reason) {
+                        router.replace('404');
+                        return;
+                    });
+                }
             },
 
             getSelectedQuestions = function () {
@@ -154,6 +195,10 @@
             title: title,
             titleMaxLength: constants.validation.objectiveTitleMaxLength,
             currentLanguage: currentLanguage,
+            contextExperienceId: contextExperienceId,
+            contextExperienceTitle: contextExperienceTitle,
+            goBackTooltip: goBackTooltip,
+            goBackLink: goBackLink,
 
             questions: questions,
             enableDeleteQuestions: enableDeleteQuestions,
@@ -161,6 +206,7 @@
             startEditTitle: startEditTitle,
             endEditTitle: endEditTitle,
 
+            navigateBack: navigateBack,
             navigateToEditQuestion: navigateToEditQuestion,
             navigateToCreateQuestion: navigateToCreateQuestion,
 
