@@ -115,21 +115,18 @@
                     * -->
 
                 <!-- not show tooltip if disabled button and/or status in progress -->
-                <div class="package-action-btn-holder" data-bind="css: { 'disabled-tooltip': (!publishPackageExists() || status() == statuses.failed) && ((status() != statuses.succeed && publishingState() != statuses.succeed) || status() == statuses.failed) || (status() == statuses.succeed && publishingState() == statuses.inProgress) || (publishPackageExists() && ((publishingState() != statuses.inProgress && publishingState() != statuses.succeed) || status() == statuses.inProgress)) }">
-
+                <div class="package-action-btn-holder">
+                    
                     <!--*
                         * TOOLTIP
                         * -->
-                    <div class="action-explanation-tooltip-container">
+                    <div class="action-explanation-tooltip-container" data-bind="visible: (showPublishDescription() || showRepublishDescription())" >
                         <div class="action-explanation-tooltip-wrapper">
                             <div class="action-explanation-tooltip">
 
-                                <!-- ko if: !publishPackageExists() || status() == statuses.failed -->
-                                <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'publishOnlineDesciption' }"></span>
-                                <!-- /ko -->
-                                <!-- ko if: publishPackageExists() -->
-                                <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'republishOnlineDescription' }"></span>
-                                <!-- /ko -->
+
+                                <span class="action-explanation-tooltip-text" data-bind="visible: showPublishDescription(), localize: { text: 'publishOnlineDesciption' }"></span>
+                                <span class="action-explanation-tooltip-text" data-bind="visible: showRepublishDescription(), localize: { text: 'republishOnlineDescription' }"></span>
 
                                 <div class="action-explanation-tooltip-triangle"></div>
                             </div>
@@ -141,7 +138,7 @@
                         * -->
                     <!-- ko if: !publishPackageExists() || status() == statuses.failed -->
                     <!-- ko if: status() == statuses.succeed && (publishingState() == statuses.notStarted || publishingState() == statuses.failed) -->
-                    <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience">
+                    <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience, hover: showPublishDescription">
                         <span class="btn-title" data-bind="localize: { text: 'publishOnline' }">Publish online</span>
                     </div>
                     <!-- /ko -->
@@ -166,7 +163,7 @@
                         * -->
                     <!-- ko if: publishPackageExists() -->
                     <!-- ko if: status() == statuses.succeed && publishingState() == statuses.succeed -->
-                    <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience">
+                    <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience, hover: showRepublishDescription">
                         <span class="btn-title" data-bind="localize: { text: 'republishOnline' }">Republish online</span>
                     </div>
                     <!-- /ko -->
