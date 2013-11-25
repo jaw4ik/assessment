@@ -10,7 +10,9 @@
         helpHintRepository = require('repositories/helpHintRepository'),
         localizationManager = require('localization/localizationManager'),
         errorHandlingConfiguration = require('errorHandling/errorHandlingConfiguration'),
-        globalErrorHandler = require('errorHandling/globalErrorHandler');
+        globalErrorHandler = require('errorHandling/globalErrorHandler'),
+        feedback = require('viewmodels/feedback'),
+        activator = require('durandal/activator');
 
     var events = {
         navigateToExperiences: "Navigate to experiences",
@@ -104,12 +106,7 @@
             return _.contains(['404', '400'], this.activeModuleName());
         },
 
-        sendFeedback = function () {
-            eventTracker.publish(events.feedback);
-            router.setLocation("mailto:support@easygenerator.com?subject=Feedback from user");
-        },
-
-    isTryMode = false,
+        isTryMode = false,
         userEmail = '',
 
         activate = function () {
@@ -257,6 +254,8 @@
                     that.isTryMode = dataContext.isTryMode;
                     that.userEmail = dataContext.userEmail;
 
+                    that.activatorFeedback.activateItem(feedback);
+
                     clientContext.set('lastVisitedObjective', null);
                     clientContext.set('lastVistedExperience', null);
 
@@ -280,14 +279,13 @@
         navigation: navigation,
         isTryMode: isTryMode,
 
-        sendFeedback: sendFeedback,
-
         userEmail: userEmail,
         helpHint: helpHint,
         helpHintText: helpHintText,
         hideHelpHint: hideHelpHint,
         showHelpHint: showHelpHint,
-        helpHintTitle: helpHintTitle
+        helpHintTitle: helpHintTitle,
+        activatorFeedback: activator.create()
     };
 }
 );

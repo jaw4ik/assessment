@@ -263,23 +263,6 @@
 
         });
 
-        describe('sendFeedback:', function () {
-
-            it('should be function', function() {
-                expect(viewModel.sendFeedback).toBeFunction();
-            });
-
-            it('should send event \'Feedback\'', function () {
-                viewModel.sendFeedback();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Feedback');
-            });
-
-            it('should set router location', function () {
-                viewModel.sendFeedback();
-                expect(router.setLocation).toHaveBeenCalledWith("mailto:support@easygenerator.com?subject=Feedback from user");
-            });
-        });
-
     });
 
 });

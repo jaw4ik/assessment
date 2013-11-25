@@ -49,6 +49,7 @@ namespace easygenerator.Infrastructure
         public class MailTemplates
         {
             public const string SignedUpUserTemplate = "SignedUpUserTemplate";
+            public const string FeedbackTemplate = "FeedbackTemplate";
         }
     }
 }

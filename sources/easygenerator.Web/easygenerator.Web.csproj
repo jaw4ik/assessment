@@ -83,9 +83,15 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.18\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.18\lib\net45\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -251,6 +257,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\AnswerController.cs" />
     <Compile Include="Controllers\Api\ExperienceController.cs" />
+    <Compile Include="Controllers\Api\FeedbackController.cs" />
     <Compile Include="Controllers\Api\HelpHintController.cs" />
     <Compile Include="Controllers\Api\LearningContentController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -263,6 +270,7 @@
     <Compile Include="Components\DefaultController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Controllers\PublishedPackageController.cs" />
+    <Compile Include="DomainEvents\Handlers\SendMailAboutFeedbackFromUser.cs" />
     <Compile Include="DomainEvents\Handlers\SendMailAboutNewUserHandler.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -282,6 +290,10 @@
     <Content Include="App\viewmodels\experiences\experience.spec.js">
       <DependentUpon>experience.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\feedback.js" />
+    <Content Include="App\viewmodels\feedback.spec.js">
+      <DependentUpon>feedback.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\questions\learningContents.spec.js">
       <DependentUpon>learningContents.js</DependentUpon>
     </Content>
@@ -289,9 +301,11 @@
     <Content Include="App\views\experiences\deliver.html" />
     <Content Include="App\views\experiences\design.html" />
     <Content Include="App\views\experiences\experience.html" />
+    <Content Include="App\views\feedback.html" />
     <Content Include="Content\durandal.css" />
     <Content Include="Content\images\account\log-in.jpg" />
     <Content Include="Content\images\emptyList.png" />
+    <Content Include="Content\images\feedback-background.png" />
     <Content Include="Content\images\oops.png" />
     <Content Include="Content\images\package-preloader.gif" />
     <Content Include="Content\images\processSteps.png" />
@@ -435,8 +449,10 @@
     <Content Include="Scripts\durandal\system.js" />
     <Content Include="Scripts\durandal\viewEngine.js" />
     <Content Include="Scripts\durandal\viewLocator.js" />
+    <Content Include="Scripts\jquery.placeholder.js" />
     <Content Include="Scripts\knockoutBindings\cssBinding.js" />
     <Content Include="Scripts\knockoutBindings\dropDownBinding.js" />
+    <Content Include="Scripts\knockoutBindings\feedBackBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectOnMouseOverBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToTopBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextBinding.js" />
@@ -885,6 +901,7 @@
     <Content Include="Content\font\opensans-semibolditalic.ttf" />
     <Content Include="Content\font\opensans-semibolditalic.woff" />
     <Content Include="Mail\MailTemplates\ForgotPasswordTemplate.cshtml" />
+    <Content Include="Mail\MailTemplates\FeedbackTemplate.cshtml" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Templates\Freestyle learning\js\vendor.js.bundle">
       <SubType>Designer</SubType>
@@ -1367,6 +1384,11 @@ IF NOT EXIST "$(ProjectDir)App\main-built.js" EXIT /B 1</PostBuildEvent>
   <PropertyGroup>
     <PreBuildEvent>del  "$(ProjectDir)App\main-built.js"</PreBuildEvent>
   </PropertyGroup>
+  <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

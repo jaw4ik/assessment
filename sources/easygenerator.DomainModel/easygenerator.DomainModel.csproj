@@ -59,6 +59,7 @@
     <Compile Include="Events\IDomainEventHandler.cs" />
     <Compile Include="Events\IDomainEventHandlersProvider.cs" />
     <Compile Include="Events\IDomainEventPublisher.cs" />
+    <Compile Include="Events\UserFeedbackEvent.cs" />
     <Compile Include="Events\UserSignedUpEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IHelpHintRepository.cs" />

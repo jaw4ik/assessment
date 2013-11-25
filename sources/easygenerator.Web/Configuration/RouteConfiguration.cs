@@ -361,6 +361,16 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
+            #region Feedback
+
+            routes.MapRoute(
+                name: "FeedbackFromUser",
+                url: "api/feedback/sendfeedback",
+                defaults: new { controller = "Feedback", action = "SendFeedback" }
+            );
+
+            #endregion
+
             routes.MapRoute(
                 name: "Default",
                 url: "",

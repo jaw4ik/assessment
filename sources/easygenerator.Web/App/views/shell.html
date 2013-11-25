@@ -69,14 +69,14 @@
         <!-- /ko -->
         <div data-bind="router: { cacheViews: false }"></div>
     </section>
-    <a href="#" class="feedback-btn cursor-default" data-bind="click: sendFeedback, css: browserCulture() + '-lang'">
-        <span class="feedback-btn-text" data-bind="localize:{ text: 'sendFeedback'}">
-            Send feedback
-        </span>
-    </a>
 </div>
+<section>
+    <!-- ko compose: activatorFeedback -->
+    <!-- /ko -->
+</section>
 
 <footer class="footer try">
+    
     <div class="content-wrapper try clearfix">
         <div class="footer-item pull-left">
             <span class="cursor-default" data-bind="localize: { text: 'CopyrightText' }"></span>
