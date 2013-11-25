@@ -5,14 +5,13 @@
 
         var
             isInitialized = false,
-
+            moduleSettings = null,
+            
             xApiInitializer = {
                 init: init,
                 getInitStatus: getInitStatus,
                 turnOff: turnOff,
-
                 initialize: initialize,
-
                 createActor: activityProvider.createActor
             };
 
@@ -20,7 +19,7 @@
 
         function init(actorData, activityName, activityUrl) {
             return Q.fcall(function () {
-                return requestManager.init();
+                return requestManager.init(moduleSettings);
             }).then(function () {
                 return activityProvider.init(actorData, activityName, activityUrl);
             }).then(function () {
@@ -39,11 +38,11 @@
         }
 
         //Initialization function for moduleManager
-        function initialize() {
+        function initialize(settings) {
             return Q.fcall(function () {
+                moduleSettings = settings;
                 routingManager.mapRoutes(xApiInitializer);
             });
         }
-
     }
 );

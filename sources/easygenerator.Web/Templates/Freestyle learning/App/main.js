@@ -21,12 +21,8 @@ ko.bindingHandlers.context = {
     }
 };
 
-define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesInitializer', 'browserSupport'],
-    function (app, viewLocator, system, modulesInitializer, getRootView) {
-
-        modulesInitializer.register([
-            "xApi/xApiInitializer"
-        ]);
+define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesInitializer', 'browserSupport', 'settingsReader'],
+    function (app, viewLocator, system, modulesInitializer, getRootView, settingsReader) {
 
         app.configurePlugins({
             router: true,
@@ -37,6 +33,13 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
         app.start().then(function () {
             viewLocator.useConvention();
             app.setRoot(getRootView);
+
+            settingsReader.read().then(function (settings) {
+                modulesInitializer.register({
+                    "xApi/xApiInitializer": settings.xApi
+                });
+            });
+
         });
     }
 );

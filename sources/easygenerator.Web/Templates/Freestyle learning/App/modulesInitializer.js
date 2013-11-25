@@ -1,62 +1,74 @@
-﻿define([],
-    function () {
+﻿define(['moduleLoader'],
+    function (moduleLoader) {
 
         "use strict";
 
-        var
-            modules = [],
-
+        var modulesConfigs = [],
             modulesManager = {
                 register: register,
                 init: init,
-                
-                _checkAndInitModules: _checkAndInitModules
             };
 
         return modulesManager;
 
-        function register(modulesList) {
-            if (_.isNullOrUndefined(modulesList)) {
+        function register(config) {
+            if (_.isNullOrUndefined(config)) {
                 return;
             }
 
-            modules = _.isArray(modulesList)
-                ? modulesList
-                : [modulesList];
+            if (!_.isObject(config)) {
+                throw "Configuration parameter should be an object.";
+            }
+
+            modulesConfigs = config;
         }
 
         function init() {
-            var defer = Q.defer();
+            var moduleIds = _.keys(modulesConfigs);
+            var modulesCount = moduleIds.length;
+            var moduleId;
+            var promises = [];
 
-            if (modules.length == 0) {
-                defer.resolve();
-            } else {
-                require(modules, function () {
-                    _checkAndInitModules(arguments).then(defer.resolve);
-                });
+            for (var i = 0; i < modulesCount; i++) {
+                moduleId = moduleIds[i];
+                if (_moduleHasToBeLoaded(moduleId, modulesConfigs[moduleId])) {
+                    promises.push(moduleLoader.loadModule(moduleId).then(onModuleLoaded).fail(onModuleLoadingFailed));
+                }
             }
 
-            return defer.promise;
+            return Q.allSettled(promises);
         }
 
-        function _checkAndInitModules(loadedModules) {
-            if (loadedModules.length == 0) {
-                throw "Neither module has not been initialized";
+        function onModuleLoaded(module) {
+            return Q.fcall(function () {
+                if (_.isFunction(module.initialize)) {
+                    module.initialize(modulesConfigs[module.__moduleId__]);
+                }
+            });
+        }
+
+        function onModuleLoadingFailed(error) {
+            throw 'Cannot load module"' + error.modulePath + '". because of next error "' + error.message + '".';
+        }
+
+        function _moduleHasToBeLoaded(moduleId, moduleConfig) {
+            // if config is not defined, module will be skiped
+            if (_.isNullOrUndefined(moduleConfig))
+                return false;
+
+            if (_.isBoolean(moduleConfig)) {
+                return moduleConfig;
             }
 
-            var promises = [];
-            for (var index in loadedModules) {
-                var module = loadedModules[index];
-
-                if (_.isNullOrUndefined(module)) {
-                    throw "Module '" + modules[index] + "' is not defined";
-                }
-                if (!_.isFunction(module.initialize)) {
-                    throw "Module '" + modules[index] + "' must have function 'initialize'";
-                }
-                promises.push(module.initialize());
+            if (!_.isObject(moduleConfig)) {
+                throw 'Configuration parameter for module  ' + moduleId + ' has to be an object or boolean.';
             }
-            return Q.allSettled(promises);
+
+            if (_.isBoolean(moduleConfig['enabled'])) {
+                return moduleConfig['enabled'];
+            }
+
+            return true;
         }
     }
 );

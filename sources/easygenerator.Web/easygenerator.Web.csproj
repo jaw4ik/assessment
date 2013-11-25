@@ -475,10 +475,15 @@
       <DependentUpon>eventManager.js</DependentUpon>
     </Content>
     <Content Include="Templates\Freestyle learning\App\models\questionResult.js" />
+    <Content Include="Templates\Freestyle learning\App\moduleLoader.js" />
+    <Content Include="Templates\Freestyle learning\App\moduleLoader.spec.js">
+      <DependentUpon>moduleLoader.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Freestyle learning\App\modulesInitializer.js" />
     <Content Include="Templates\Freestyle learning\App\modulesInitializer.spec.js">
       <DependentUpon>modulesInitializer.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Freestyle learning\App\settingsReader.js" />
     <Content Include="Templates\Freestyle learning\App\specs.html" />
     <Content Include="Templates\Freestyle learning\App\viewmodels\learningContents.spec.js">
       <DependentUpon>learningContents.js</DependentUpon>
@@ -504,7 +509,7 @@
     </Content>
     <Content Include="Templates\Freestyle learning\App\xApi\configuration\viewConstants.js" />
     <Content Include="Templates\Freestyle learning\App\xApi\configuration\routes.js" />
-    <Content Include="Templates\Freestyle learning\App\xApi\configuration\settings.js" />
+    <Content Include="Templates\Freestyle learning\App\xApi\configuration\xApiSettings.js" />
     <Content Include="Templates\Freestyle learning\App\xApi\constants.js" />
     <Content Include="Templates\Freestyle learning\App\xApi\css\img\icons-xApi.png" />
     <Content Include="Templates\Freestyle learning\App\xApi\css\img\info-message.png" />
@@ -661,6 +666,7 @@
     <Content Include="Content\font\buxtonsketch.woff" />
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Templates\Freestyle learning\settings.html" />
+    <Content Include="Templates\Freestyle learning\settings.js" />
     <Content Include="Templates\Quiz\App\browserSupport.js" />
     <Content Include="Templates\Quiz\App\configuration\routes.js" />
     <Content Include="Templates\Quiz\App\context.js" />
@@ -670,10 +676,15 @@
     </Content>
     <Content Include="Templates\Quiz\App\main.js" />
     <Content Include="Templates\Quiz\App\models\question.js" />
+    <Content Include="Templates\Quiz\App\moduleLoader.js" />
+    <Content Include="Templates\Quiz\App\moduleLoader.spec.js">
+      <DependentUpon>moduleLoader.js</DependentUpon>
+    </Content>
     <Content Include="Templates\Quiz\App\modulesInitializer.js" />
     <Content Include="Templates\Quiz\App\modulesInitializer.spec.js">
       <DependentUpon>modulesInitializer.js</DependentUpon>
     </Content>
+    <Content Include="Templates\Quiz\App\settingsReader.js" />
     <Content Include="Templates\Quiz\App\specs.html" />
     <Content Include="Templates\Quiz\App\viewmodels\404.js" />
     <Content Include="Templates\Quiz\App\viewmodels\404.spec.js">
@@ -723,7 +734,7 @@
       <DependentUpon>base64.js</DependentUpon>
     </Content>
     <Content Include="Templates\Quiz\App\xApi\configuration\routes.js" />
-    <Content Include="Templates\Quiz\App\xApi\configuration\settings.js" />
+    <Content Include="Templates\Quiz\App\xApi\configuration\xApiSettings.js" />
     <Content Include="Templates\Quiz\App\xApi\configuration\viewConstants.js" />
     <Content Include="Templates\Quiz\App\xApi\constants.js" />
     <Content Include="Templates\Quiz\App\xApi\css\img\graphChart.png" />
@@ -884,6 +895,7 @@
       <DependentUpon>vendor.js.bundle</DependentUpon>
     </Content>
     <Content Include="Templates\Quiz\settings.html" />
+    <Content Include="Templates\Quiz\settings.js" />
     <Content Include="Views\Account\PrivacyPolicy.cshtml" />
     <Content Include="Views\Account\TermsOfUse.cshtml" />
     <Content Include="Content\font\opensans-regular.eot" />

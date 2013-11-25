@@ -1,11 +1,10 @@
-﻿define(['plugins/router', './configuration/routes'],
+﻿    define(['plugins/router', './configuration/routes'],
     function (router, routes) {
 
         "use strict";
 
         var
             existingGuard = null,
-            navigationModel = null,
 
             mapRoutes = function (moduleInitializer) {
                 createGuard(moduleInitializer);

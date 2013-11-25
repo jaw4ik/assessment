@@ -1,4 +1,4 @@
-﻿define(['./models/actor', './models/statement', './models/activity', './configuration/settings', 'eventManager', './requestManager', './constants', './errorsHandler', './utils/dateTimeConverter'],
+﻿define(['./models/actor', './models/statement', './models/activity', './configuration/xApiSettings', 'eventManager', './requestManager', './constants', './errorsHandler', './utils/dateTimeConverter'],
     function (actorModel, statementModel, activityModel, xApiSettings, eventManager, requestManager, constants, errorsHandler, dateTimeConverter) {
         "use strict";
 

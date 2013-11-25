@@ -16,13 +16,9 @@ define('knockout', function () {
     return ko;
 });
 
-define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesInitializer', 'browserSupport'],
-    function (app, viewLocator, system, modulesInitializer, getRootView) {
-
-        modulesInitializer.register([
-            "xApi/xApiInitializer"
-        ]);
-
+define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesInitializer', 'browserSupport', 'settingsReader'],
+    function (app, viewLocator, system, modulesInitializer, getRootView, settingsReader) {
+        
         app.title = 'easygenerator';
 
         app.configurePlugins({
@@ -34,6 +30,13 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
         app.start().then(function () {
             viewLocator.useConvention();
             app.setRoot(getRootView);
+
+            settingsReader.read().then(function (settings) {
+                modulesInitializer.register({
+                    "xApi/xApiInitializer": settings.xApi
+                });
+            });
+
         });
     }
 );

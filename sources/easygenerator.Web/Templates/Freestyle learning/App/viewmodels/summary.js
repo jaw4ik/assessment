@@ -31,7 +31,6 @@
             },
 
             finish = function () {
-                
                 status(statuses.sendingRequests);
 
                 if (_.isNullOrUndefined(app.callbacks) || _.isNullOrUndefined(app.callbacks[eventManager.events.courseFinished])) {

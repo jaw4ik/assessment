@@ -2,18 +2,14 @@
     function (constants) {
 
         var settings = {
-            LRS: {
-                uri: 'http://cloud.scorm.com/ScormEngineInterface/TCAPI/public/',
-
-                credentials: {
-                    username: "",
-                    password: ""
-                }
-            },
-
             scoresDistribution: {
                 minScoreForPositiveResult: 1,
                 positiveVerb: constants.verbs.passed
+            },
+            
+            anonymousCredentials : {
+                username: "",
+                password: ""
             },
 
             timeout: 120000,//2 minutes

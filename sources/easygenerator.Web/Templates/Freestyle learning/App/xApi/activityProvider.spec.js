@@ -3,8 +3,7 @@
         "use strict";
 
         var eventmanager = require('eventManager'),
-            requestManager = require('xApi/requestManager'),
-            xApiSettings = require('xApi/configuration/settings'),
+            xApiSettings = require('xApi/configuration/xApiSettings'),
             errorsHandler = require('xApi/errorsHandler'),
             constants = require('xApi/constants');
 

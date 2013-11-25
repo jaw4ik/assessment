@@ -1,4 +1,4 @@
-﻿define(['./models/actor', './models/statement', './models/activity', 'eventManager', './requestManager', './errorsHandler', './configuration/settings', './constants', './models/result', './models/score', './models/context', './models/contextActivities', './utils/dateTimeConverter'],
+﻿define(['./models/actor', './models/statement', './models/activity', 'eventManager', './requestManager', './errorsHandler', './configuration/xApiSettings', './constants', './models/result', './models/score', './models/context', './models/contextActivities', './utils/dateTimeConverter'],
     function (actorModel, statementModel, activityModel, eventManager, requestManager, errorsHandler, xApiSettings, constants, resultModel, scoreModel, contextModel, contextActivitiesModel, dateTimeConverter) {
         
         "use strict";
@@ -27,21 +27,10 @@
                 activityProvider.activityUrl = activityUrl;
                 activityProvider.rootCourseUrl = activityUrl != undefined ? activityUrl.split("?")[0].split("#")[0] : '';
 
-                eventManager.subscribeForEvent(eventManager.events.courseStarted).then(function () {
-                    return sendCourseStarted();
-                });
-
-                eventManager.subscribeForEvent(eventManager.events.courseFinished).then(function (finishedEventData) {
-                    return sendCourseFinished(finishedEventData);
-                });
-
-                eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(function (finishedEventData) {
-                    return learningContentExperienced(finishedEventData);
-                });
-
-                eventManager.subscribeForEvent(eventManager.events.questionSubmitted).then(function (finishedEventData) {
-                    return sendAnsweredQuestionsStatements(finishedEventData);
-                });
+                eventManager.subscribeForEvent(eventManager.events.courseStarted).then(sendCourseStarted);
+                eventManager.subscribeForEvent(eventManager.events.courseFinished).then(sendCourseFinished);
+                eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(learningContentExperienced);
+                eventManager.subscribeForEvent(eventManager.events.questionSubmitted).then(sendAnsweredQuestionsStatements);
             });
         }
 
