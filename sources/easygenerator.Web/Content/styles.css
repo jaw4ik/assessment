@@ -1021,21 +1021,6 @@ a.top-navigation-item:hover {
 
 }
 
-@media (max-width: 1220px ) {
-
-    /*#region DELETE-SELECTED-HOLDER*/
-    .list-controls-holder {
-        max-width: 600px;
-    }
-    /*#endregion DELETE-SELECTED-HOLDER*/
-
-    /*#region OBJECTIVES-EXPERIENCES-QUESTIONS*/
-    .content-holder.resizable {
-        max-width: 600px;
-    }
-    /*#endregion OBJECTIVES-EXPERIENCES-QUESTIONS*/
-}
-
 @media (max-width: 820px ) {
 
     /*#region HEADER*/
