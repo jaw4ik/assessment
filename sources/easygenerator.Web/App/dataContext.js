@@ -103,24 +103,15 @@
                     });
                 }).then(function () {
                     return $.ajax({
-                        url: 'api/user/istrymode',
-                        type: 'GET',
-                        contentType: 'application/json',
-                        dataType: 'json',
-                        cache: false
-                    }).then(function (response) {
-                        that.isTryMode = response.data;
-                    });
-                }).then(function () {
-                    return $.ajax({
-                        url: '/api/user',
+                        url: 'api/user',
                         type: 'GET',
                         contentType: 'application/json',
                         dataType: 'json',
                         cache: false
                     }).then(function (response) {
                         if (response.data) {
-                            that.userEmail = response.data.Email || '';
+                            that.isTryMode = response.data.IsTryMode;
+                            that.userEmail = response.data.Email;
                         }
                     });
                 }).fail(function () {

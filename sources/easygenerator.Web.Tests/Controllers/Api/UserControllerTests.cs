@@ -598,58 +598,26 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region isTryMode
-
-        [TestMethod]
-        public void IsTryMode_ShouldReturnJsonTrueResult_WhenUserIsAnonymous()
-        {
-            //Arrange
-
-            //Act
-            var result = _controller.IsTryMode();
-
-            //Assert
-            result.Should().BeJsonSuccessResult().And.Data.Should().Be(true);
-        }
-
-        [TestMethod]
-        public void IsTryMode_ShouldReturnJsonFalseResult_WhenUserIsNotAnonymous()
-        {
-            //Arrange
-            var email = "easygenerator@eg.com";
-            _user.Identity.Name.Returns(email);
-            _userRepository.GetUserByEmail(email).Returns(UserObjectMother.Create());
-
-            //Act
-            var result = _controller.IsTryMode();
-
-            //Assert
-            result.Should().BeJsonSuccessResult().And.Data.Should().Be(false);
-
-        }
-
-        #endregion
-
         #region GetCurrentUserInfo
 
         [TestMethod]
-        public void GetCurrentUserEmail_ShouldReturnJsonSuccess_WhenUserIsNotAuthenticated()
+        public void GetCurrentUserInfo_ShouldReturnJsonSuccess_WhenUserIsNotAuthenticated()
         {
             //Arrange
             _user.Identity.IsAuthenticated.Returns(false);
 
             //Act
-            var result = _controller.GetCurrentUserEmail();
+            var result = _controller.GetCurrentUserInfo();
 
             //Assert
             result.Should().BeJsonSuccessResult();
         }
 
         [TestMethod]
-        public void GetCurrentUserEmail_ShouldReturnJsonSuccess_WhenUserDoesNotExist()
+        public void GetCurrentUserInfo_ShouldReturnJsonSuccess_WhenUserDoesNotExist()
         {
             //Arrange
-            var userName = "5B63B14B-AB18-4B20-B6C8-D67AD769B337";
+            const string userName = "5B63B14B-AB18-4B20-B6C8-D67AD769B337";
 
             _user.Identity.IsAuthenticated.Returns(true);
             _user.Identity.Name.Returns(userName);
@@ -657,28 +625,58 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _userRepository.GetUserByEmail(userName).Returns((User)null);
 
             //Act
-            var result = _controller.GetCurrentUserEmail();
+            var result = _controller.GetCurrentUserInfo();
 
             //Assert
             result.Should().BeJsonSuccessResult();
         }
 
         [TestMethod]
-        public void GetCurrentUserEmail_ShouldReturnJsonSuccessWithEmail_WhenUserIsSignedIn()
+        public void GetCurrentUserInfo_ShouldReturnJsonSuccessWithEmail_WhenUserIsSignedIn()
         {
             //Arrange
-            var userEmail = "easygenerator@easygenerator.com";
+            const string userEmail = "easygenerator@easygenerator.com";
 
             _user.Identity.IsAuthenticated.Returns(true);
             _user.Identity.Name.Returns(userEmail);
 
-            _userRepository.GetUserByEmail(userEmail).Returns(Substitute.For<User>());
+            var user = Substitute.For<User>(userEmail, "Password1", "FullName", "Phone", "OrganizationName", "Country", userEmail);
+
+            _userRepository.GetUserByEmail(userEmail).Returns(user);
 
             //Act
-            var result = _controller.GetCurrentUserEmail();
+            var result = _controller.GetCurrentUserInfo();
 
             //Assert
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { Email = "easygenerator@easygenerator.com" });
+        }
+
+        [TestMethod]
+        public void GetCurrentUserInfo_ShouldReturnJsonSuccessResultWithIsTryModeTrue_WhenUserIsAnonymous()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.GetCurrentUserInfo();
+
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { IsTryMode = true });
+        }
+
+        [TestMethod]
+        public void GetCurrentUserInfo_ShouldReturnJsonSuccessResultWithIsTryModeFalse_WhenUserIsNotAnonymous()
+        {
+            //Arrange
+            const string email = "easygenerator@eg.com";
+            _user.Identity.Name.Returns(email);
+            _userRepository.GetUserByEmail(email).Returns(UserObjectMother.Create());
+
+            //Act
+            var result = _controller.GetCurrentUserInfo();
+
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { IsTryMode = false });
+
         }
 
         #endregion

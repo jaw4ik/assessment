@@ -1,4 +1,7 @@
-﻿using AccountRes;
+﻿using System;
+using System.Runtime.CompilerServices;
+using System.Web.DynamicData;
+using AccountRes;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
@@ -144,20 +147,15 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpGet]
-        public ActionResult IsTryMode()
+        public ActionResult GetCurrentUserInfo()
         {
-            var isTryMode = _repository.GetUserByEmail(GetCurrentUsername()) == null;
-            return JsonSuccess(isTryMode);
-        }
+            var user = _repository.GetUserByEmail(GetCurrentUsername());
 
-        [HttpGet]
-        public ActionResult GetCurrentUserEmail()
-        {
-            if (User.Identity.IsAuthenticated && _repository.GetUserByEmail(User.Identity.Name) != null)
+            return JsonSuccess(new
             {
-                return JsonSuccess(new { Email = User.Identity.Name });
-            }
-            return JsonSuccess();
-        }
+                Email = user != null ? user.Email : string.Empty,
+                IsTryMode = user == null
+            });
+        }   
     }
 }
