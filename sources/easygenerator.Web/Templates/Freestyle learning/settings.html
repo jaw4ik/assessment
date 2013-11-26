@@ -462,14 +462,12 @@
                     xApi: {
                         enabled: viewModel.enableXAPI(),
                         lrs: {
-                            uri: viewModel.lrsUrl(),
-
+                            uri: viewModel.enableXAPI() ? viewModel.lrsUrl() : '',
+                            authenticationRequired: viewModel.enableXAPI() ? viewModel.authenticationRequired() : false,
                             credentials: {
-                                username: viewModel.lapLogin(),
-                                password: viewModel.lapPassword()
-                            },
-
-                            authenticationRequired: viewModel.authenticationRequired()
+                                username: viewModel.credentialsEnabled() ? viewModel.lapLogin() : '',
+                                password: viewModel.credentialsEnabled() ? viewModel.lapPassword() : ''
+                            }
                         }
                     }
                 };
