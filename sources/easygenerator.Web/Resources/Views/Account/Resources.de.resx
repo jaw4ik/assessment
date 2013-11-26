@@ -166,13 +166,13 @@
     <value>Geben Sie eine gültige E-Mail-Adresse ein</value>
   </data>
   <data name="EnterValidFullName" xml:space="preserve">
-    <value>Geben Sie eine gültige Vollständiger Name ein</value>
+    <value>Geben Sie Ihren vollständigen Namen ein</value>
   </data>
   <data name="EnterValidOrganization" xml:space="preserve">
-    <value>Geben Sie eine gültige Name der Organisiation ein</value>
+    <value>Geben Sie den Namen Ihrer Organisation ein</value>
   </data>
   <data name="EnterValidPhoneNumber" xml:space="preserve">
-    <value>Geben Sie eine gültige Telefonnummer ein</value>
+    <value>Geben Sie Ihre Telefonnummer ein</value>
   </data>
   <data name="Finish" xml:space="preserve">
     <value>Fertig stellen</value>

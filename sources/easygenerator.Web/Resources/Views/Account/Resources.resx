@@ -166,13 +166,13 @@
     <value>Enter a valid e-mail</value>
   </data>
   <data name="EnterValidFullName" xml:space="preserve">
-    <value>Enter a valid full name</value>
+    <value>Fill in your full name</value>
   </data>
   <data name="EnterValidOrganization" xml:space="preserve">
-    <value>Enter a valid organization name</value>
+    <value>Fill in your organization name</value>
   </data>
   <data name="EnterValidPhoneNumber" xml:space="preserve">
-    <value>Enter a valid phone number</value>
+    <value>Fill in your phone number</value>
   </data>
   <data name="Finish" xml:space="preserve">
     <value>Finish</value>
