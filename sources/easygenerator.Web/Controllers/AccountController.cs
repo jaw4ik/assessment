@@ -4,6 +4,7 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.ViewModels.Account;
 
 namespace easygenerator.Web.Controllers
@@ -22,6 +23,7 @@ namespace easygenerator.Web.Controllers
             _helpHintRepository = helpHintRepository;
         }
 
+        [NoCache]
         public ActionResult TryWithoutSignup()
         {
             if (_authenticationProvider.IsUserAuthenticated())
@@ -58,6 +60,7 @@ namespace easygenerator.Web.Controllers
             return View();
         }
 
+        [NoCache]
         public ActionResult SignUp()
         {
             if (IsExistingUserAuthenticated())
@@ -66,6 +69,7 @@ namespace easygenerator.Web.Controllers
             return View();
         }
 
+        [NoCache]
         public ActionResult SignUpSecondStep()
         {
             if (IsExistingUserAuthenticated())
@@ -81,6 +85,7 @@ namespace easygenerator.Web.Controllers
             return View();
         }
 
+        [NoCache]
         public ActionResult SignIn()
         {
             if (IsExistingUserAuthenticated())
@@ -89,6 +94,7 @@ namespace easygenerator.Web.Controllers
             return View();
         }
 
+        [NoCache]
         public ActionResult SignOut()
         {
             if (_authenticationProvider.IsUserAuthenticated())
