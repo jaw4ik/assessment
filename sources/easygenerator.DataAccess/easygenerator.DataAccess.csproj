@@ -80,6 +80,10 @@
     <Compile Include="Migrations\201311181221044_AddExperienceTemplateSettingsTable.Designer.cs">
       <DependentUpon>201311181221044_AddExperienceTemplateSettingsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201311271347216_CascadeDeleteExperience.cs" />
+    <Compile Include="Migrations\201311271347216_CascadeDeleteExperience.Designer.cs">
+      <DependentUpon>201311271347216_CascadeDeleteExperience.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ExperienceRepository.cs" />
@@ -121,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201311181221044_AddExperienceTemplateSettingsTable.resx">
       <DependentUpon>201311181221044_AddExperienceTemplateSettingsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311271347216_CascadeDeleteExperience.resx">
+      <DependentUpon>201311271347216_CascadeDeleteExperience.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

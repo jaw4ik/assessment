@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using easygenerator.DomainModel.Entities;
@@ -55,6 +56,7 @@ namespace easygenerator.DataAccess
             modelBuilder.Properties<string>().Where(p => p.Name == "CreatedBy").Configure(p => p.IsRequired());
             modelBuilder.Properties<string>().Where(p => p.Name == "ModifiedBy").Configure(p => p.IsRequired());
 
+
             modelBuilder.Entity<Objective>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Objective>().HasMany(e => e.QuestionsCollection).WithRequired(e => e.Objective);
             modelBuilder.Entity<Objective>().HasMany(e => e.RelatedExperiencesCollection)
@@ -63,11 +65,9 @@ namespace easygenerator.DataAccess
 
 
             modelBuilder.Entity<Experience>().Property(e => e.Title).HasMaxLength(255).IsRequired();
-            modelBuilder.Entity<Experience>().HasRequired(e => e.Template);
-            modelBuilder.Entity<Experience>().HasMany(e => e.RelatedObjectivesCollection)
-                .WithMany(e => e.RelatedExperiencesCollection)
-                .Map(m => m.ToTable("ExperienceObjectives"));
-            modelBuilder.Entity<Experience>().HasMany(e => e.TemplateSettings).WithRequired(e => e.Experience).WillCascadeOnDelete(false);
+            modelBuilder.Entity<Experience>().HasRequired(e => e.Template).WithMany(e => e.Experiences).WillCascadeOnDelete(false);
+            modelBuilder.Entity<Experience>().HasMany(e => e.RelatedObjectivesCollection).WithMany(e => e.RelatedExperiencesCollection).Map(m => m.ToTable("ExperienceObjectives"));
+            modelBuilder.Entity<Experience>().HasMany(e => e.TemplateSettings).WithRequired(e => e.Experience).WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Experience.ExperienceTemplateSettings>().Property(e => e.Settings);
             modelBuilder.Entity<Experience.ExperienceTemplateSettings>().HasRequired(e => e.Experience);
@@ -104,6 +104,7 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<Template>().Property(e => e.Name).IsRequired();
             modelBuilder.Entity<Template>().Property(e => e.Image).IsRequired();
+            modelBuilder.Entity<Template>().HasMany(e => e.Experiences);
 
             modelBuilder.Entity<MailNotification>().HasKey(e => e.Id);
             modelBuilder.Entity<MailNotification>().Property(e => e.CreatedOn).IsRequired();
