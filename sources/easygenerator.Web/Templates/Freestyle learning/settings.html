@@ -485,18 +485,23 @@
                     });
             };
 
-            $.getJSON(settingsURL, function (json) {
-                var settings;
-                try {
-                    settings = JSON.parse(json);
-                } catch (e) {
-                    settings = {};
+            $.ajax({
+                cache: false,
+                url: settingsURL,
+                dataType: "json",
+                success: function (json) {
+                    var settings;
+                    try {
+                        settings = JSON.parse(json);
+                    } catch(e) {
+                        settings = {};
+                    }
+                    viewModel.enableXAPI(settings.xApi.enabled || false);
+                    viewModel.lrsUrl(settings.xApi.lrs.uri || '');
+                    viewModel.authenticationRequired(settings.xApi.lrs.authenticationRequired || false);
+                    viewModel.lapLogin(settings.xApi.lrs.credentials.username || '');
+                    viewModel.lapPassword(settings.xApi.lrs.credentials.password || '');
                 }
-                viewModel.enableXAPI(settings.xApi.enabled || false);
-                viewModel.lrsUrl(settings.xApi.lrs.uri || '');
-                viewModel.authenticationRequired(settings.xApi.lrs.authenticationRequired || false);
-                viewModel.lapLogin(settings.xApi.lrs.credentials.username || '');
-                viewModel.lapPassword(settings.xApi.lrs.credentials.password || '');
             });
 
             ko.applyBindings(viewModel, $("#settingsForm")[0]);
