@@ -394,18 +394,18 @@
     },
     assemble: {
         en: 'Assemble',
-        nl: 'Samenstellen',
-        de: 'Zusammenstellen'
+        nl: 'samenstellen...',
+        de: 'Zusammenstellung...'
     },
     assembling: {
         en: 'assembling...',
-        nl: 'bezig met samenstellen...',
-        de: 'Wird zusammengestellt...'
+        nl: 'Opnw samenstellen',
+        de: 'Neu zusammenstellen'
     },
     reassemble: {
         en: 'Reassemble',
-        nl: 'Opnieuw samenstellen',
-        de: 'Erneut zusammenstellen'
+        nl: 'opnieuw samenstellen...',
+        de: 'Neu zusammenstellen...'
     },
     reassembling: {
         en: 'reassembling...',
@@ -539,7 +539,7 @@
     clickToAddLearningContent: {
         en: 'Click here to add learning content',
         nl: 'Klik hier om leerinhoud toe te voegen',
-        de: 'Klicken Sie hier, um einen Lerngegenstand hinzuzufügen.'
+        de: 'Klicken Sie hier, um einen Lerngegenstand hinzuzufügen'
     },
     /* End resource section for model Question */
     
@@ -866,9 +866,9 @@
         de: 'Link öffnen'
     },
     templateSettings: {
-        en: 'Template settings',
-        nl: 'Sjablooninstellingen',
-        de: 'Vorlageneinstellungen'
+        en: 'Experience template settings:',
+        nl: 'Instellingen ervaringssjabloon:',
+        de: 'Einstellungen der Lernerfahrungsvorlage:'
     },
     /* End resource section for model Display experience */
     
