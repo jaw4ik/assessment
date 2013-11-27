@@ -587,6 +587,7 @@ body.try {
 
 .user-form-tooltip {
     display: none;
+    max-width: 280px;
     position: absolute;
     top: 9px;
     left: 100%;
@@ -1215,7 +1216,7 @@ body.try {
     /*#endregion Terms of use and Privacy Policy*/
 }
 
-@media (max-width: 950px) {
+@media (max-width: 1040px) {
 
     .view-module.sign-up .user-column {
         display: block;
@@ -1266,7 +1267,7 @@ body.try {
             left: 12px;
             width: 16px;
             height: 8px;
-            background: url(images/sprites.png) -66px -64px no-repeat;
+            background: url(images/sprites.png) -66px -52px no-repeat;
         }
 
     .user-form-tooltip-title {

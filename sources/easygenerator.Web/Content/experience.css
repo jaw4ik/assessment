@@ -376,7 +376,7 @@
     color: #303133;
 }
 
-.xapi-settings-title,
+.template-settings-title,
 .choose-template-title {
     padding-bottom: 15px;
     color: #303133;
@@ -476,7 +476,7 @@
     background: rgba(255,255,255,0.75);
 }
 
-.xapi-settings-block {
+.template-settings-block {
     float: right;
     width: 490px;
 }
@@ -1098,7 +1098,7 @@
 
 @media (min-width: 1080px) {
 
-    .xapi-settings-block {
+    .template-settings-block {
         width: 50%;
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
