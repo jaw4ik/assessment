@@ -569,6 +569,10 @@ a.top-navigation-item:hover {
     word-break: break-all;
 }
 
+.list-item-title .selectable {
+    cursor: text;
+}
+
 .main-content-list .list-item-saved {
     position: absolute;
     bottom: 11px;
@@ -883,6 +887,7 @@ a.top-navigation-item:hover {
     font-size: 15px;
     padding: 30px 0 20px 0;
     text-align: center;
+    cursor: default;
 }
 
 .feedback-action-wrapper {

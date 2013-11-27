@@ -307,6 +307,7 @@
     font-family: 'OpenSans-Semibold';
     font-size: 14px;
     font-weight: normal;
+    cursor: default;
 }
 
 .objectives-filters-controls {
@@ -382,6 +383,7 @@
     font-family: 'OpenSans-Semibold';
     font-size: 20px;
     font-weight: normal;
+    cursor: default;
 }
 
 .choose-template-list {
