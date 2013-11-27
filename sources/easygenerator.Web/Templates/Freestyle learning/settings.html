@@ -463,11 +463,11 @@
                     xApi: {
                         enabled: viewModel.enableXAPI(),
                         lrs: {
-                            uri: viewModel.enableXAPI() ? viewModel.lrsUrl() : '',
-                            authenticationRequired: viewModel.enableXAPI() ? viewModel.authenticationRequired() : false,
+                            uri: viewModel.lrsUrl(),
+                            authenticationRequired: viewModel.authenticationRequired(),
                             credentials: {
-                                username: viewModel.credentialsEnabled() ? viewModel.lapLogin() : '',
-                                password: viewModel.credentialsEnabled() ? viewModel.lapPassword() : ''
+                                username: viewModel.lapLogin(),
+                                password: viewModel.lapPassword()
                             }
                         }
                     }

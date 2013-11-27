@@ -473,7 +473,7 @@ ol.unstyled  {
 /*#region Edit field*/
 
 .edit-field {
-    min-height: 59px;
+    min-height: 60px;
     width: 100%;
     resize: none;
     padding: 15px 15px 20px 15px;
