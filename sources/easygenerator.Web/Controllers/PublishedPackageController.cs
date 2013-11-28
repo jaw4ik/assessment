@@ -9,10 +9,12 @@ using System.Web.Mvc;
 using easygenerator.Web.Publish;
 using easygenerator.Infrastructure;
 using System.Net;
+using easygenerator.Web.Components.ActionFilters;
 
 namespace easygenerator.Web.Controllers
 {
     [AllowAnonymous]
+    [NoCache]
     public class PublishedPackageController : DefaultController
     {
         private readonly IExperiencePublisher _experiencePublisher;
