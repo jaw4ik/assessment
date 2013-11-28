@@ -59,8 +59,8 @@
                                     <!-- /ko -->
                                 </div>
                                 <div class="question-answer-text-wrapper">
-                                    <div class="question-answer-text selectable">
-                                        <div class="editarea-editable-text" data-bind="editableText: { text: text, multiline: true, autosave: { interval: $parent.autosaveInterval, handler: $parent.updateText } }, event: { focus: $parent.beginEditText, blur: function (data, event) { $parent.updateText(data, event); $parent.endEditText(data, event) } }, hasFocus: hasFocus">
+                                    <div class="question-answer-text">
+                                        <div class="editarea-editable-text selectable" data-bind="editableText: { text: text, multiline: true, autosave: { interval: $parent.autosaveInterval, handler: $parent.updateText } }, event: { focus: $parent.beginEditText, blur: function (data, event) { $parent.updateText(data, event); $parent.endEditText(data, event) } }, hasFocus: hasFocus">
                                         </div>
                                     </div>
                                 </div>
