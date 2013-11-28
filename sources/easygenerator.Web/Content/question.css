@@ -276,14 +276,6 @@
     margin-top: 15px;
 }
 
-.question-learning-content td,
-.cke_dialog_body td {
-    -moz-user-select: text;
-    -ms-user-select: text;
-    -webkit-user-select: text;
-    user-select: text;
-}
-
 .question-answer-value-wrapper {
     display: table-cell;
     width: 54px;
