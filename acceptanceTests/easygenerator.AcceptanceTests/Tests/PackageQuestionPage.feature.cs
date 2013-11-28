@@ -373,8 +373,6 @@ testRunner.And("click download publication list item with title \'Experience1\'"
 testRunner.And("unzip \'00000000000000000000000000000001\' package to \'tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 124
 testRunner.And("open page by url \'http://localhost:5656/Templates/tmp\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 125
-testRunner.And("click on DoNotReport link on package objective list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
         

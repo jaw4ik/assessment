@@ -123,7 +123,7 @@ And mouse hover element of publications list with title 'Experience1'
 And click download publication list item with title 'Experience1'
 And unzip '00000000000000000000000000000001' package to 'tmp'
 And open page by url 'http://localhost:5656/Templates/tmp'
-And click on DoNotReport link on package objective list page
+#And click on DoNotReport link on package objective list page
 
 Scenario: All package objectives are present on page
 Then package objectives tiles list contains only items with data 
