@@ -4,9 +4,11 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using System.Web.Mvc;
+using easygenerator.Web.Components.ActionFilters;
 
 namespace easygenerator.Web.Controllers.Api
 {
+    [NoCache]
     public class LearningContentController : DefaultController
     {
         private readonly IEntityFactory _entityFactory;

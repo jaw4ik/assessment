@@ -12,9 +12,11 @@ using easygenerator.Web.Components;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Publish;
 using Microsoft.Ajax.Utilities;
+using easygenerator.Web.Components.ActionFilters;
 
 namespace easygenerator.Web.Controllers.Api
 {
+    [NoCache]
     public class ExperienceController : DefaultController
     {
         private readonly IExperienceBuilder _builder;
