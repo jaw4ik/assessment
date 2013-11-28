@@ -49,7 +49,7 @@
                     score: new scoreModel(finishedEventData.result)
                 });
 
-                if (result.score >= xApiSettings.scoresDistribution.minScoreForPositiveResult) {
+                if (result.score.scaled >= xApiSettings.scoresDistribution.minScoreForPositiveResult) {
                     return requestManager.sendStatement(createStatement(xApiSettings.scoresDistribution.positiveVerb, result));
                 } else {
                     return requestManager.sendStatement(createStatement(constants.verbs.failed, result));
