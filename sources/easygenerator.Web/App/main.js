@@ -8,11 +8,6 @@
     urlArgs: !has('release') ? 'v=' + Math.random() : ''
 });
 
-$.ajaxSetup({
-    type: 'POST',
-    headers: { "cache-control": "no-cache" }
-});
-
 define('jquery', function () {
     return jQuery;
 });

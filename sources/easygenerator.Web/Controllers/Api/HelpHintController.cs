@@ -4,9 +4,11 @@ using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.ActionFilters;
 
 namespace easygenerator.Web.Controllers.Api
 {
+    [NoCache]
     public class HelpHintController : DefaultController
     {
         private readonly IHelpHintRepository _repository;
