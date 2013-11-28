@@ -28,7 +28,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         
         public string CharsCounter = ".//div[contains(@class, 'view-header-title')]//div[contains(@class, 'chars-counter')]";
 
-        public string ExperienceHeaderTitleText = ".//span[contains(@class,'experience-header-title-text')]";
+        public string ExperienceHeaderTitleText = ".//div[contains(@class,'page-view-caption-text')]";
 
         public string IncludeButton = ".//div[contains(@class,'list-controls-holder')]//span[contains(@class, 'add')]";
         public string FinishButton = ".//a[contains(@class,'experiences-header-finish-link')]";

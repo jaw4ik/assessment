@@ -46,7 +46,7 @@ namespace easygenerator.AcceptanceTests.Steps
 
             //System.Threading.Thread.Sleep(1000);
             DriverProvider.Current().Driver.Navigate().Refresh();
-            System.Threading.Thread.Sleep(500);
+            System.Threading.Thread.Sleep(1000);
         }
 
         [When(@"browser window width and height is set to (.*) and (.*)")]

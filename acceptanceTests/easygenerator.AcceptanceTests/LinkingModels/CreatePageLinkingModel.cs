@@ -16,7 +16,7 @@ namespace easygenerator.AcceptanceTests.LinkingModels
         public string ButtonCreateAndEdit = ".//*[contains(@class,'saveAndOpen')]";
         public string ButtonCreateAndNew = ".//*[contains(@class,'saveAndNew')]";
 
-        public string BackButton = ".//div[contains(@class,'nav-control')]";
+        public string BackButton = ".//a[contains(@class,'nav-back-holder')]";
 
         public string CharsCounter = ".//form[contains(@class,'create-form')]//div[contains(@class,'chars-counter')]";
         public string CharsCount = ".//form[contains(@class,'create-form')]//div[contains(@class,'chars-counter')]//span[1]";
