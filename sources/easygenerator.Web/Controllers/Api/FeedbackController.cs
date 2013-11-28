@@ -10,11 +10,9 @@ using easygenerator.Web.Components.ActionResults;
 using easygenerator.Web.Mail;
 using easygenerator.Web.ViewModels.Account;
 using System.Web.Mvc;
-using easygenerator.Web.Components.ActionFilters;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    [NoCache]
     public class FeedbackController : DefaultController
     {
         private readonly IDomainEventPublisher<UserFeedbackEvent> _publisher;

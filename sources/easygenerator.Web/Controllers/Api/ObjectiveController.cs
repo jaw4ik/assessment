@@ -5,11 +5,9 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
-using easygenerator.Web.Components.ActionFilters;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    [NoCache]
     public class ObjectiveController : DefaultController
     {
         private readonly IEntityFactory _entityFactory;

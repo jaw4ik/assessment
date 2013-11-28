@@ -12,11 +12,9 @@ using easygenerator.Web.Components;
 using easygenerator.Web.Mail;
 using easygenerator.Web.ViewModels.Account;
 using System.Web.Mvc;
-using easygenerator.Web.Components.ActionFilters;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    [NoCache]
     [AllowAnonymous]
     public class UserController : DefaultController
     {

@@ -4,11 +4,9 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.BuildExperience;
 using easygenerator.Web.Components;
 using System.Web.Mvc;
-using easygenerator.Web.Components.ActionFilters;
 
 namespace easygenerator.Web.Controllers.Api
 {
-    [NoCache]
     public class TemplateController : DefaultController
     {
         private readonly ITemplateRepository _repository;
