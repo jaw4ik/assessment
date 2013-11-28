@@ -100,12 +100,6 @@
         background: url(img/icons-xApi.png) no-repeat;
     }
 
-.xapi-form-input-holder {
-    position: relative;
-    padding: 6px 40px 6px 20px;
-    height: 65px;
-}
-
 .email .xapi-form-row-title:after {
     background-position: 0 -6px;
 }
