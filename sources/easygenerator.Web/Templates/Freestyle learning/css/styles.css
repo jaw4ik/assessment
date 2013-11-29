@@ -11,6 +11,7 @@
 
 html, body, .application-wrapper {
     width: 100%;
+    min-width: 710px;
 }
 
 /* temporary css-hack for firefox until will be find out better decision*/
@@ -221,6 +222,7 @@ input[type="checkbox"] {
 
 .content-wrapper {
     max-width: 1182px;
+    padding: 0 20px;
     margin: 0 auto;
 }
 
