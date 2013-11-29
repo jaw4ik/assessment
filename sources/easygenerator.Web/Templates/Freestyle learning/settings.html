@@ -72,11 +72,15 @@
 
         .info-tooltip-wrapper {
             display: none;
-            width: 295px;
+            width: 405px;
             position: absolute;
             top: 100%;
             right: 5px;
             z-index: 100000;
+        }
+
+        .info-tooltip-link {
+            color: #67799c;
         }
 
         .info-tooltip {
@@ -360,7 +364,12 @@
             <div class="info-tooltip-btn">
                 <div class="info-tooltip-wrapper">
                     <div class="info-tooltip">
-                        <span class="info-tooltip-text">Specify your target LRS (Learning Record Store)                             statements endpoint URL here. Specify your LAP                             (Learning Activity Provider) login and password, if                             basic HTTP authentification is required.  
+                        <span class="info-tooltip-text">You can track and trace the results of your
+                            learners through the Xapi. You need to set up your own Xapi
+                            Learning record store (LRS). See <a href="http://www.scorm.com/" class="info-tooltip-link">www.scorm.com</a>
+                            or <a href="http://www.saltbox.com/" class="info-tooltip-link">www.saltbox.com</a>.
+                            When you have created your LRS you can enable the Xapi. In this window
+                            you can provide the url and admin login and password from your LRS.
                         </span>
                     </div>
                     <div class="info-tooltip-triangle-holder">
@@ -494,7 +503,7 @@
                     try {
                         settings = JSON.parse(json);
                     } catch(e) {
-                        settings = {};
+                        settings = { xApi: {lrs: {credentials: {} } } };
                     }
                     viewModel.enableXAPI(settings.xApi.enabled || false);
                     viewModel.lrsUrl(settings.xApi.lrs.uri || '');
