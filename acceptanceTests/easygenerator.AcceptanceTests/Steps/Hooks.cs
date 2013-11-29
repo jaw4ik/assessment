@@ -41,20 +41,22 @@ namespace easygenerator.AcceptanceTests.Steps
 
         private void PrepareLocalization()
         {
-            if (!ScenarioContext.Current.ScenarioInfo.Tags.Contains("Localization_Test") &&
-                !FeatureContext.Current.FeatureInfo.Tags.Contains("Localization_Test") &&
-                DriverProvider.Current().Localization.Length != 1)
-                DriverProvider.Current().Localization = Constants.En;
             //if (!ScenarioContext.Current.ScenarioInfo.Tags.Contains("Localization_Test") &&
             //    !FeatureContext.Current.FeatureInfo.Tags.Contains("Localization_Test") &&
-            //    DriverProvider.Current().Localization.Length != 1 &&
-            //    DriverProvider.Current().Localization != Constants.En)
+            //    DriverProvider.Current().Localization.Length != 1)
             //    DriverProvider.Current().Localization = Constants.En;
+
+            if (!ScenarioContext.Current.ScenarioInfo.Tags.Contains("Localization_Test") &&
+                !FeatureContext.Current.FeatureInfo.Tags.Contains("Localization_Test") &&
+                DriverProvider.Current().Localization.Length != 1 &&
+                DriverProvider.Current().Localization != Constants.En)
+                DriverProvider.Current().Localization = Constants.En;
         }
         [AfterScenario]
         public void AfterScenario()
         {
-            //DriverProvider.Current().Driver.Navigate().GoToUrl("about:blank");            
+            //DriverProvider.Current().Driver.Navigate().GoToUrl("about:blank");
+
         }
 
 
