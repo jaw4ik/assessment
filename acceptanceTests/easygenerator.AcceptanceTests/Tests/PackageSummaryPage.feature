@@ -149,7 +149,7 @@ Scenario: Back action on package summary page navigates to previous page
 
 When click on progress summary button on package list of objective page
 And click on back link on progress summary page
-Then browser navigates to url 'http://localhost:5656/Templates/tmp/#home'
+Then browser navigates to url 'http://localhost:5656/Templates/tmp/'
 
 When toggle expand package objective item with title 'Objective11'
 And click package question list item 'Question11' of 'Objective11'

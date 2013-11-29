@@ -444,7 +444,7 @@ testRunner.When("click on progress summary button on package list of objective p
 #line 151
 testRunner.And("click on back link on progress summary page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 152
-testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/#home\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("browser navigates to url \'http://localhost:5656/Templates/tmp/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 154
 testRunner.When("toggle expand package objective item with title \'Objective11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 155
