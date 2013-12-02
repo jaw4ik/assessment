@@ -51,7 +51,8 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             try
             {
-                DriverProvider.Current().Driver.SwitchTo().Alert();
+                //DriverProvider.Current().Driver.SwitchTo().Alert();
+                DriverProvider.Current().Driver.SwitchTo().Alert().Accept();
                 return true;
             }
             catch
