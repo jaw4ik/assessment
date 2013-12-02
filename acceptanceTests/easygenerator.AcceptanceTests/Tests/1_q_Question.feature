@@ -1,4 +1,4 @@
-﻿@mytag
+﻿@Errors
 Feature: 1_q_Question
 	In order to avoid silly mistakes
 	As a math idiot
