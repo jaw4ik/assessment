@@ -447,19 +447,6 @@
                     expect(result).toBePromise();
                 });
 
-                it('should clear title', function () {
-                    viewModel.title('Some text');
-
-                    var promise = viewModel.activate();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(viewModel.title().length).toEqual(0);
-                    });
-                });
-                
                 describe('when query params are null', function() {
 
                     it('should set contextExpperienceId to null', function () {
@@ -503,6 +490,19 @@
                         runs(function () {
                             expect(promise).toBeResolved();
                             expect(viewModel.goBackLink).toEqual('#objectives');
+                        });
+                    });
+
+                    it('should clear title', function () {
+                        viewModel.title('Some text');
+
+                        var promise = viewModel.activate();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.title().length).toEqual(0);
                         });
                     });
                 });
@@ -559,6 +559,18 @@
                                 });
                             });
 
+                            it('should clear title', function () {
+                                viewModel.title('Some text');
+
+                                var promise = viewModel.activate(queryParams);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(viewModel.title().length).toEqual(0);
+                                });
+                            });
                         });
 
                         describe('when experience found', function () {
@@ -610,6 +622,19 @@
                                     expect(viewModel.goBackLink).toEqual('#experience/' + experience.id);
                                 });
                             });
+
+                            it('should clear title', function () {
+                                viewModel.title('Some text');
+
+                                var promise = viewModel.activate(queryParams);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(viewModel.title().length).toEqual(0);
+                                });
+                            });
                         });
                     });
 
@@ -657,6 +682,19 @@
                             runs(function () {
                                 expect(promise).toBeResolved();
                                 expect(viewModel.goBackLink).toEqual('#objectives');
+                            });
+                        });
+
+                        it('should clear title', function () {
+                            viewModel.title('Some text');
+
+                            var promise = viewModel.activate(queryParams);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.title().length).toEqual(0);
                             });
                         });
                     });

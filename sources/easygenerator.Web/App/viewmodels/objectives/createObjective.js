@@ -41,6 +41,7 @@
 
                 that.contextExperienceId = null;
                 that.contextExperienceTitle = null;
+                that.title('');
 
                 if (!_.isNullOrUndefined(queryParams) && _.isString(queryParams.experienceId)) {
                     return experienceRepository.getById(queryParams.experienceId).then(function(experience) {
@@ -57,11 +58,9 @@
                     });
                 }
                 
-                that.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('learningObjectives');
-                that.goBackLink = '#objectives';
-                
                 return Q.fcall(function () {
-                    that.title('');
+                    that.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('learningObjectives');
+                    that.goBackLink = '#objectives';
                 });
             },
 
