@@ -70,7 +70,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (objective == null)
             {
-                return JsonLocalizableError(Constants.Errors.ObjectiveNotFoundError, Constants.Errors.ObjectiveNotFoundResourceKey);
+                return JsonLocalizableError(Errors.ObjectiveNotFoundError, Errors.ObjectiveNotFoundResourceKey);
             }
 
             objective.UpdateTitle(title, GetCurrentUsername());
@@ -85,8 +85,8 @@ namespace easygenerator.Web.Controllers.Api
             {
                 if (objective.Experiences.Any() || objective.Questions.Any())
                 {
-                    return JsonLocalizableError(Constants.Errors.ObjectiveCannotBeDeleted,
-                                                Constants.Errors.ObjectiveCannotBeDeletedResourceKey);
+                    return JsonLocalizableError(Errors.ObjectiveCannotBeDeleted,
+                                                Errors.ObjectiveCannotBeDeletedResourceKey);
                 }
                 _repository.Remove(objective);
             }

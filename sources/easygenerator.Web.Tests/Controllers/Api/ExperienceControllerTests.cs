@@ -173,7 +173,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Publish(null);
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Constants.Errors.ExperienceNotFoundError);
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.ExperienceNotFoundError);
         }
 
         [TestMethod]
@@ -186,7 +186,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.Publish(ExperienceObjectMother.Create());
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Constants.Errors.ExperiencePublishFailedError);
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.ExperiencePublishFailedError);
         }
 
         [TestMethod]
@@ -446,7 +446,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.GetTemplateSettings(null, Substitute.For<Template>());
 
             //Assert
-            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Constants.Errors.ExperienceNotFoundError);
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.ExperienceNotFoundError);
         }
 
         [TestMethod]
@@ -459,7 +459,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.GetTemplateSettings(Substitute.For<Experience>(), null);
 
             //Assert
-            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Constants.Errors.TemplateNotFoundError);
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.TemplateNotFoundError);
         }
 
         [TestMethod]
@@ -506,7 +506,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.SaveTemplateSettings(null, Substitute.For<Template>(), null);
 
             //Assert
-            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Constants.Errors.ExperienceNotFoundError);
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.ExperienceNotFoundError);
         }
 
         [TestMethod]
@@ -519,7 +519,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.SaveTemplateSettings(Substitute.For<Experience>(), null, null);
 
             //Assert
-            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Constants.Errors.TemplateNotFoundError);
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.TemplateNotFoundError);
         }
 
         [TestMethod]

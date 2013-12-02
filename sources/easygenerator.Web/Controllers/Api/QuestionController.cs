@@ -24,7 +24,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (objective == null)
             {
-                return JsonLocalizableError(Constants.Errors.ObjectiveNotFoundError, Constants.Errors.ObjectiveNotFoundResourceKey);
+                return JsonLocalizableError(Errors.ObjectiveNotFoundError, Errors.ObjectiveNotFoundResourceKey);
             }
 
             var question = _entityFactory.Question(title, GetCurrentUsername());
@@ -38,7 +38,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (objective == null)
             {
-                return JsonLocalizableError(Constants.Errors.ObjectiveNotFoundError, Constants.Errors.ObjectiveNotFoundResourceKey);
+                return JsonLocalizableError(Errors.ObjectiveNotFoundError, Errors.ObjectiveNotFoundResourceKey);
             }
 
             if (questions == null)
@@ -59,7 +59,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (question == null)
             {
-                return JsonLocalizableError(Constants.Errors.QuestionNotFoundError, Constants.Errors.QuestionNotFoundResourceKey);
+                return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
             }
 
             question.UpdateTitle(title, GetCurrentUsername());

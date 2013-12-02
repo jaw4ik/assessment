@@ -182,7 +182,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             var result = _controller.GetCollection(null);
 
             //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be(Constants.Errors.QuestionNotFoundError);
+            result.Should().BeJsonErrorResult().And.Message.Should().Be(Errors.QuestionNotFoundError);
         }
 
         [TestMethod]

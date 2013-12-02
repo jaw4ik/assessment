@@ -49,6 +49,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="DateTimeWrapper.cs" />
     <Compile Include="Cryptography.cs" />
+    <Compile Include="Errors.cs" />
     <Compile Include="IScheduler.cs" />
     <Compile Include="ITask.cs" />
     <Compile Include="ITaskInvoker.cs" />

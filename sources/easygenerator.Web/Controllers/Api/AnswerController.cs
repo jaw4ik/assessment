@@ -23,7 +23,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (question == null)
             {
-                return JsonLocalizableError(Constants.Errors.QuestionNotFoundError, Constants.Errors.QuestionNotFoundResourceKey);
+                return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
             }
 
             var answer = _entityFactory.Answer(text, isCorrect, GetCurrentUsername());
@@ -38,7 +38,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (question == null)
             {
-                return JsonLocalizableError(Constants.Errors.QuestionNotFoundError, Constants.Errors.QuestionNotFoundResourceKey);
+                return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
             }
 
             if (answer != null)
@@ -54,7 +54,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (answer == null)
             {
-                return JsonLocalizableError(Constants.Errors.AnswerNotFoundError, Constants.Errors.AnswerNotFoundResourceKey);
+                return JsonLocalizableError(Errors.AnswerNotFoundError, Errors.AnswerNotFoundResourceKey);
             }
 
             answer.UpdateText(text, GetCurrentUsername());
@@ -67,7 +67,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (answer == null)
             {
-                return JsonLocalizableError(Constants.Errors.AnswerNotFoundError, Constants.Errors.AnswerNotFoundResourceKey);
+                return JsonLocalizableError(Errors.AnswerNotFoundError, Errors.AnswerNotFoundResourceKey);
             }
 
             answer.UpdateCorrectness(isCorrect, GetCurrentUsername());
@@ -80,7 +80,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (question == null)
             {
-                return JsonLocalizableError(Constants.Errors.QuestionNotFoundError, Constants.Errors.QuestionNotFoundResourceKey);
+                return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
             }
 
             var answers = question.Answers.Select(a => new

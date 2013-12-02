@@ -23,7 +23,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (question == null)
             {
-                return JsonLocalizableError(Constants.Errors.QuestionNotFoundError, Constants.Errors.QuestionNotFoundResourceKey);
+                return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
             }
 
             var learningContent = _entityFactory.LearningContent(text, GetCurrentUsername());
@@ -38,7 +38,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (question == null)
             {
-                return JsonLocalizableError(Constants.Errors.QuestionNotFoundError, Constants.Errors.QuestionNotFoundResourceKey);
+                return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
             }
 
             if (learningContent != null)
@@ -54,7 +54,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (learningContent == null)
             {
-                return JsonLocalizableError(Constants.Errors.LearningContentNotFoundError, Constants.Errors.LearningContentNotFoundResourceKey);
+                return JsonLocalizableError(Errors.LearningContentNotFoundError, Errors.LearningContentNotFoundResourceKey);
             }
 
             learningContent.UpdateText(text, GetCurrentUsername());
@@ -67,7 +67,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (question == null)
             {
-                return JsonLocalizableError(Constants.Errors.QuestionNotFoundError, Constants.Errors.QuestionNotFoundResourceKey);
+                return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
             }
 
             var learningContents = question.LearningContents.Select(lo => new

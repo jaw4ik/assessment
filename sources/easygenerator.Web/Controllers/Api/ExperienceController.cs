@@ -62,7 +62,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (experience == null)
             {
-                return JsonLocalizableError(Constants.Errors.ExperienceNotFoundError, Constants.Errors.ExperienceNotFoundResourceKey);
+                return JsonLocalizableError(Errors.ExperienceNotFoundError, Errors.ExperienceNotFoundResourceKey);
             }
 
             var result = _builder.Build(experience);
@@ -86,14 +86,14 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (experience == null)
             {
-                return JsonLocalizableError(Constants.Errors.ExperienceNotFoundError, Constants.Errors.ExperienceNotFoundResourceKey);
+                return JsonLocalizableError(Errors.ExperienceNotFoundError, Errors.ExperienceNotFoundResourceKey);
             }
 
             var result = _experiencePublisher.Publish(experience);
 
             if (!result)
             {
-                return JsonLocalizableError(Constants.Errors.ExperiencePublishFailedError, Constants.Errors.ExperiencePublishFailedResourceKey);
+                return JsonLocalizableError(Errors.ExperiencePublishFailedError, Errors.ExperiencePublishFailedResourceKey);
             }
             else
             {
@@ -132,7 +132,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (experience == null)
             {
-                return JsonLocalizableError(Constants.Errors.ExperienceNotFoundError, Constants.Errors.ExperienceNotFoundResourceKey);
+                return JsonLocalizableError(Errors.ExperienceNotFoundError, Errors.ExperienceNotFoundResourceKey);
             }
 
             experience.UpdateTitle(experienceTitle, GetCurrentUsername());
@@ -145,7 +145,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (experience == null)
             {
-                return JsonLocalizableError(Constants.Errors.ExperienceNotFoundError, Constants.Errors.ExperienceNotFoundResourceKey);
+                return JsonLocalizableError(Errors.ExperienceNotFoundError, Errors.ExperienceNotFoundResourceKey);
             }
 
             experience.UpdateTemplate(template, GetCurrentUsername());
@@ -158,12 +158,12 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (experience == null)
             {
-                return JsonLocalizableError(Constants.Errors.ExperienceNotFoundError, Constants.Errors.ExperienceNotFoundResourceKey);
+                return JsonLocalizableError(Errors.ExperienceNotFoundError, Errors.ExperienceNotFoundResourceKey);
             }
 
             if (objectives.Count == 0)
             {
-                return JsonLocalizableError(Constants.Errors.ObjectivesNotFoundError, Constants.Errors.ObjectivesNotFoundResourceKey);
+                return JsonLocalizableError(Errors.ObjectivesNotFoundError, Errors.ObjectivesNotFoundResourceKey);
             }
 
             foreach (Objective objective in objectives) 
@@ -186,12 +186,12 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (experience == null)
             {
-                return JsonLocalizableError(Constants.Errors.ExperienceNotFoundError, Constants.Errors.ExperienceNotFoundResourceKey);
+                return JsonLocalizableError(Errors.ExperienceNotFoundError, Errors.ExperienceNotFoundResourceKey);
             }
 
             if (objectives.Count == 0)
             {
-                return JsonLocalizableError(Constants.Errors.ObjectivesNotFoundError, Constants.Errors.ObjectivesNotFoundResourceKey);
+                return JsonLocalizableError(Errors.ObjectivesNotFoundError, Errors.ObjectivesNotFoundResourceKey);
             }
 
             foreach (Objective objective in objectives)
@@ -210,12 +210,12 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (experience == null)
             {
-                return HttpNotFound(Constants.Errors.ExperienceNotFoundError);
+                return HttpNotFound(Errors.ExperienceNotFoundError);
             }
 
             if (template == null)
             {
-                return HttpNotFound(Constants.Errors.TemplateNotFoundError);
+                return HttpNotFound(Errors.TemplateNotFoundError);
             }
 
             return Json(experience.GetTemplateSettings(template), JsonRequestBehavior.AllowGet);
@@ -226,12 +226,12 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (experience == null)
             {
-                return HttpNotFound(Constants.Errors.ExperienceNotFoundError);
+                return HttpNotFound(Errors.ExperienceNotFoundError);
             }
 
             if (template == null)
             {
-                return HttpNotFound(Constants.Errors.TemplateNotFoundError);
+                return HttpNotFound(Errors.TemplateNotFoundError);
             }
 
             experience.SaveTemplateSettings(template, settings);
