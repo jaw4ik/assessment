@@ -75,6 +75,7 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             System.Threading.Thread.Sleep(1000);
             TestUtils.Assert_IsTrue_WithWait(() => PackageSummary.isAlertPresent() == true, "thank you alert doesn't appear");
+            DriverProvider.Current().Driver.SwitchTo().Alert().Accept();
         }
 
         [When(@"click on home link on progress summary page")]
