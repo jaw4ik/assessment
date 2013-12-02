@@ -64,10 +64,10 @@ Given explanations related to 'Question22' of 'Objective12' are present in datab
 | Explanation    |
 | Explanation221 |
 | Explanation222 |
-When open page by url 'http://localhost:5656/signout'
-And open page by url 'http://localhost:5656/signin'
-And sign in as 'test' user on sign in page
-Then browser navigates to url 'http://localhost:5656/'
+#When open page by url 'http://localhost:5656/signout'
+#And open page by url 'http://localhost:5656/signin'
+#And sign in as 'test' user on sign in page
+#Then browser navigates to url 'http://localhost:5656/'
 
 When open page by url 'http://localhost:5656/#/experiences'
 And mouse hover element of publications list with title 'Experience1'

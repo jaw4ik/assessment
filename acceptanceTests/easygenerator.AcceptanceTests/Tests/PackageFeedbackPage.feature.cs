@@ -347,14 +347,6 @@ testRunner.Given("explanations related to \'Question21e2\' of \'Objective22\' ar
                         "Explanation222e2"});
 #line 107
 testRunner.Given("explanations related to \'Question22e2\' of \'Objective22\' are present in database", ((string)(null)), table24, "Given ");
-#line 111
-testRunner.When("open page by url \'http://localhost:5656/signout\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 112
-testRunner.And("open page by url \'http://localhost:5656/signin\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 113
-testRunner.And("sign in as \'test\' user on sign in page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 114
-testRunner.Then("browser navigates to url \'http://localhost:5656/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 117
 testRunner.When("open page by url \'http://localhost:5656/#/experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 118

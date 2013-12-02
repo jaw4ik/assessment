@@ -37,6 +37,22 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             PrepareLocalization();
             DriverProvider.Current().Driver.Manage().Window.Maximize();
+
+            DriverProvider.Current().Driver.Navigate().GoToUrl("http://localhost:5656/");
+            System.Threading.Thread.Sleep(1000);
+            if (!DriverProvider.Current().Driver.Exists("//span[contains(@data-bind,'text: userEmail')]"))
+            {                
+                DriverProvider.Current().Driver.Navigate().GoToUrl("http://localhost:5656/signout");
+                DriverProvider.Current().Driver.Navigate().GoToUrl("http://localhost:5656/signin");
+                System.Threading.Thread.Sleep(1000);
+                DriverProvider.Current().Driver.FindElementByXPath("//input[contains(@class,'user-form-input') and contains(@name,'email')]").Click();
+                DriverProvider.Current().Driver.FindElementByXPath("//input[contains(@class,'user-form-input') and contains(@name,'email')]").SendKeys(@"vr.danylchuk@ism-ukraine.com");
+                DriverProvider.Current().Driver.FindElementByXPath("//input[contains(@class,'user-form-input') and contains(@name,'password')]").Click();
+                DriverProvider.Current().Driver.FindElementByXPath("//input[contains(@class,'user-form-input') and contains(@name,'password')]").SendKeys(@"Easy123!");
+                DriverProvider.Current().Driver.FindElementByXPath("//input[contains(@type,'submit')]").Click();
+                System.Threading.Thread.Sleep(1000);
+            }
+
         }
 
         private void PrepareLocalization()
@@ -55,7 +71,7 @@ namespace easygenerator.AcceptanceTests.Steps
         [AfterScenario]
         public void AfterScenario()
         {
-            //DriverProvider.Current().Driver.Navigate().GoToUrl("about:blank");
+            DriverProvider.Current().Driver.Navigate().GoToUrl("about:blank");
 
         }
 
@@ -80,6 +96,21 @@ namespace easygenerator.AcceptanceTests.Steps
         //{
         //    blablabla();
         //}
+        [BeforeFeature]
+        public static void BeforeFeature()
+        {
+            //DriverProvider.Current().Driver.Manage().Window.Maximize();
+
+            //DriverProvider.Current().Driver.Navigate().GoToUrl("http://localhost:5656/signout");
+            //DriverProvider.Current().Driver.Navigate().GoToUrl("http://localhost:5656/signin");
+            //System.Threading.Thread.Sleep(1000);
+            //DriverProvider.Current().Driver.FindElementByXPath("//input[contains(@class,'user-form-input') and contains(@name,'email')]").Click();
+            //DriverProvider.Current().Driver.FindElementByXPath("//input[contains(@class,'user-form-input') and contains(@name,'email')]").SendKeys(@"vr.danylchuk@ism-ukraine.com");
+            //DriverProvider.Current().Driver.FindElementByXPath("//input[contains(@class,'user-form-input') and contains(@name,'password')]").Click();
+            //DriverProvider.Current().Driver.FindElementByXPath("//input[contains(@class,'user-form-input') and contains(@name,'password')]").SendKeys(@"Easy123!");
+            //DriverProvider.Current().Driver.FindElementByXPath("//input[contains(@type,'submit')]").Click();
+            //System.Threading.Thread.Sleep(1000);
+        }
 
     }
 }

@@ -8,10 +8,10 @@ Given objectives are present in database
 | Title      | Id                               |
 | Objective1 | 00000000000000000000000000000001 |
 | Objective2 | 00000000000000000000000000000002 |
-When open page by url 'http://localhost:5656/signout'
-When open page by url 'http://localhost:5656/signin'
-And sign in as 'test' user on sign in page
-Then browser navigates to url 'http://localhost:5656/'
+#When open page by url 'http://localhost:5656/signout'
+#When open page by url 'http://localhost:5656/signin'
+#And sign in as 'test' user on sign in page
+#Then browser navigates to url 'http://localhost:5656/'
 
 Scenario: All questions should be present in list
 Given questions related to 'Objective1' are present in database

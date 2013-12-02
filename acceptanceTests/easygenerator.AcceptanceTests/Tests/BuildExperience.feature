@@ -6,10 +6,10 @@ Feature: BuildExperience
 
 Background:
 Given clear data context
-When open page by url 'http://localhost:5656/signout'
-When open page by url 'http://localhost:5656/signin'
-And sign in as 'test' user on sign in page
-Then browser navigates to url 'http://localhost:5656/'
+#When open page by url 'http://localhost:5656/signout'
+#When open page by url 'http://localhost:5656/signin'
+#And sign in as 'test' user on sign in page
+#Then browser navigates to url 'http://localhost:5656/'
 
 Scenario: Building status is shown after click on build button
 Given publications are present in database

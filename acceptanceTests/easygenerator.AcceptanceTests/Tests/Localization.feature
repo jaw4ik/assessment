@@ -24,10 +24,10 @@ Scenario Template: Localization is changed if change user settings
 	#When open page by url 'http://localhost:5656'
 	#And open user settings
 	Given clear data context
-	When open page by url 'http://localhost:5656/signout'
-	And open page by url 'http://localhost:5656/signin'
-	And sign in as 'test' user on sign in page
-	Then browser navigates to url 'http://localhost:5656/'
+	#When open page by url 'http://localhost:5656/signout'
+	#And open page by url 'http://localhost:5656/signin'
+	#And sign in as 'test' user on sign in page
+	#Then browser navigates to url 'http://localhost:5656/'
 	When open page by url 'http://localhost:5656/#/user'
 	And select language '<language>' in user settings
 	And click save user settings

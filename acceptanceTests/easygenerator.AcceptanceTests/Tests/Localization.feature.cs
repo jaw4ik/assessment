@@ -115,14 +115,6 @@ this.ScenarioSetup(scenarioInfo);
 this.ScenarioSetup(scenarioInfo);
 #line 26
  testRunner.Given("clear data context", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 27
- testRunner.When("open page by url \'http://localhost:5656/signout\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 28
- testRunner.And("open page by url \'http://localhost:5656/signin\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 29
- testRunner.And("sign in as \'test\' user on sign in page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 30
- testRunner.Then("browser navigates to url \'http://localhost:5656/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 31
  testRunner.When("open page by url \'http://localhost:5656/#/user\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 32

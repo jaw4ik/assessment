@@ -88,14 +88,6 @@ testRunner.Given("clear data context", ((string)(null)), ((TechTalk.SpecFlow.Tab
                         "00000000000000000000000000000003"});
 #line 8
 testRunner.Given("publications are present in database", ((string)(null)), table1, "Given ");
-#line 13
-testRunner.When("open page by url \'http://localhost:5656/signout\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 14
-testRunner.When("open page by url \'http://localhost:5656/signin\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 15
-testRunner.And("sign in as \'test\' user on sign in page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 16
-testRunner.Then("browser navigates to url \'http://localhost:5656/\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
         }
         
