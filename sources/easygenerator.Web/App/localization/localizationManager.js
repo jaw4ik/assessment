@@ -51,14 +51,14 @@
         (function () {
             ko.bindingHandlers.localize = {
                 init: function (element, valueAccessor) {
-                    lacalizeValue(element, valueAccessor);
+                    localizeValue(element, valueAccessor);
                 },
                 update: function (element, valueAccessor) {
-                    lacalizeValue(element, valueAccessor);
+                    localizeValue(element, valueAccessor);
                 }
             };
             
-            function lacalizeValue(element, valueAccessor) {
+            function localizeValue(element, valueAccessor) {
                 var value = valueAccessor();
 
                 if (_.isEmpty(value)) {

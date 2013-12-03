@@ -158,6 +158,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\bootstrapper.js" />
+    <Content Include="App\bootstrapper.spec.js">
+      <DependentUpon>bootstrapper.js</DependentUpon>
+    </Content>
+    <Content Include="App\bootstrapper.tasks.js">
+      <DependentUpon>bootstrapper.js</DependentUpon>
+    </Content>
+    <Content Include="App\bootstrapping\errorHandlingTask.js" />
+    <Content Include="App\bootstrapping\localizationTask.js" />
+    <Content Include="App\routing\routerExtender.js" />
     <Content Include="App\clientContext.js" />
     <Content Include="App\clientContext.spec.js">
       <DependentUpon>clientContext.js</DependentUpon>
@@ -275,6 +285,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Content Include="App\bootstrapping\routingTask.js" />
     <Content Include="App\viewmodels\experiences\design.spec.js">
       <DependentUpon>design.js</DependentUpon>
     </Content>
@@ -1022,7 +1033,7 @@
     <Content Include="Scripts\has.js" />
     <Content Include="Scripts\jasmine\utils.js" />
     <Content Include="Scripts\knockoutBindings\ckeditorBinding.js" />
-    <Content Include="App\configuration\routes.js" />
+    <Content Include="App\routing\routes.js" />
     <Content Include="App\constants.js" />
     <Content Include="App\dataContext.js" />
     <Content Include="App\eventTracker.js" />
@@ -1030,7 +1041,6 @@
       <DependentUpon>localizationManager.js</DependentUpon>
     </Content>
     <Content Include="App\localization\resources.js" />
-    <Content Include="App\logger.js" />
     <Content Include="App\main.js" />
     <Content Include="App\models\answerOption.js" />
     <Content Include="App\models\entity.js" />

@@ -51,12 +51,8 @@
             define('jquery', function () { return jQuery; });
             define('knockout', function () { return ko; });
 
-            require(['plugins/router'], function (router) {
-                router.replace = function () { };
-                router.setLocation = function () { };
-                router.reloadLocation = function () { };
-                router.navigateWithQueryString = function () { };
-                router.download = function () { };
+            require(['bootstrapper'], function (bootstrapper) {
+                bootstrapper.run();
             });
 
             var specs = [
@@ -100,7 +96,8 @@
                 '../Scripts/account/passwordrecovery.spec',
                 '../Scripts/account/serviceUnavailableAjaxErrorHandler.spec',
                 '../Scripts/account/clientSessionContext.spec',
-                'viewmodels/feedback.spec'
+                'viewmodels/feedback.spec',
+                'bootstrapper.spec'
             ];
 
             require(specs, function () {

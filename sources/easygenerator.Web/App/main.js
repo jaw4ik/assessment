@@ -19,8 +19,8 @@ define('knockout', function () {
     return ko;
 });
 
-define(['durandal/system', 'durandal/app', 'durandal/viewLocator'],
-    function (system, app, viewLocator) {
+define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'bootstrapper'],
+    function (system, app, viewLocator, bootstrapper) {
 
         if (!has('release')) {
             system.debug(true);
@@ -35,13 +35,8 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator'],
         });
 
         app.start().then(function () {
-            // When finding a module, replace the viewmodel string 
-            // with view to find it partner view.
-            // [viewmodel]s/sessions --> [view]s/sessions.html
-            // Otherwise you can pass paths for modules, views, partials
-            // Defaults to viewmodels/views/views. 
             viewLocator.useConvention();
-
+            bootstrapper.run();
             app.setRoot('viewmodels/shell');
         });
 

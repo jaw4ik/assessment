@@ -3,14 +3,13 @@
     var app = require('durandal/app'),
         notify = require('notify'),
         router = require('plugins/router'),
+        routes = require('routing/routes'),
         dataContext = require('dataContext'),
         eventTracker = require('eventTracker'),
         clientContext = require('clientContext'),
-        routes = require('configuration/routes'),
         helpHintRepository = require('repositories/helpHintRepository'),
-        localizationManager = require('localization/localizationManager'),
-        errorHandlingConfiguration = require('errorHandling/errorHandlingConfiguration'),
-        globalErrorHandler = require('errorHandling/globalErrorHandler');
+        localizationManager = require('localization/localizationManager')
+    ;
 
     var events = {
         navigateToExperiences: "Navigate to experiences",
@@ -110,54 +109,9 @@
             var that = this;
             return dataContext.initialize()
                 .then(function () {
-                    errorHandlingConfiguration.configure();
-                    globalErrorHandler.subscribeOnAjaxErrorEvents();
 
-                    localizationManager.initialize(window.top.userCultures);
-                    
-                    router.openUrl = function (url) {
-                        window.open(url, '_blank');
-                    };
+                    browserCulture(localizationManager.currentLanguage);
 
-                    router.updateDocumentTitle = function (instance, instruction) {
-                        var title = null;
-
-                        if (instruction.config.settings && instruction.config.settings.localizationKey) {
-                            title = localizationManager.localize(instruction.config.settings.localizationKey);
-
-                        } else if (instruction.config.title) {
-                            title = instruction.config.title;
-                        }
-
-                        document.title = title ? app.title + ' | ' + title : app.title;
-
-                        browserCulture(localizationManager.currentLanguage);
-                    };
-
-                    router.replace = function (url) {
-                        router.navigate(url, { replace: true, trigger: true });
-                    };
-
-                    router.reloadLocation = function () {
-                        document.location.reload();
-                    };
-
-                    router.setLocation = function (url) {
-                        document.location = url;
-                    };
-
-                    router.navigateWithQueryString = function (url) {
-                        var queryString = router.activeInstruction().queryString;
-                        router.navigate(_.isNullOrUndefined(queryString) ? url : url + '?' + queryString);
-                    };
-
-                    router.download = function (url) {
-                        var hash = window.location.hash,
-                            href = window.location.href;
-                        var downloadUrl = hash == '' ? href + '/' + url : href.replace(hash, url);
-                        window.open(downloadUrl);
-                    };
-                    
                     router.guardRoute = function (routeInfo, params) {
                         if (requestsCounter() > 0) {
                             that.navigation()[1].isPartOfModules(_.contains(objectivesModules, that.activeModuleName()));
