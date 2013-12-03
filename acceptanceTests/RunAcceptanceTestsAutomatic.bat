@@ -9,6 +9,8 @@ if "%Browser%"=="IE" (set excluded="NotIE")
 
 
 if "%Feature%"=="All" (set excludedfeatures="Errors")
+if "%Feature%"=="AllEditor" (set excludedfeatures="Errors,PackageListOfObjectives")
+
 if "%Feature%"=="AnswerOptions" (set excludedfeatures="Errors,BuildExperience,Experience,Explanations,ListOfObjectives,ListOfExperiences,ListOfQuestions,Localization,PackageListOfObjectives,Question,CUDExperience,CUDObjective,CUDQuestion,RelateObjectiveToExperience")
 if "%Feature%"=="BuildExperience" (set excludedfeatures="Errors,AnswerOptions,Experience,Explanations,ListOfObjectives,ListOfExperiences,ListOfQuestions,Localization,PackageListOfObjectives,Question,CUDExperience,CUDObjective,CUDQuestion,RelateObjectiveToExperience")
 if "%Feature%"=="CUDExperience" (set excludedfeatures="Errors,AnswerOptions,BuildExperience,Experience,Explanations,ListOfObjectives,ListOfExperiences,ListOfQuestions,Localization,PackageListOfObjectives,Question,CUDObjective,CUDQuestion,RelateObjectiveToExperience")
