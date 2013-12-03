@@ -363,7 +363,7 @@
 
                                 });
                                 
-                                it('should sort objectives collection asc by title', function () {
+                                it('should sort objectives collection desc by created on', function () {
                                     getObjectivesDeferred.resolve(objectivesCollection);
                                     getExperiencesDeferred.resolve([]);
 
@@ -373,7 +373,7 @@
                                     });
                                     runs(function () {
                                         expect(promise).toBeResolved();
-                                        expect(viewModel.objectives()).toBeSortedAsc('title');
+                                        expect(viewModel.objectives()).toBeSortedDesc('createdOn');
                                     });
                                 });
 

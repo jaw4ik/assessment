@@ -14,6 +14,7 @@
                             return new learningContentModel({
                                 id: learningContent.Id,
                                 text: learningContent.Text,
+                                createdOn: learningContent.CreatedOn
                             });
                         });
                     });

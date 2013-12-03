@@ -74,6 +74,7 @@ namespace easygenerator.Web.Controllers.Api
             {
                 Id = lo.Id.ToString("N"),
                 Text = lo.Text,
+                CreatedOn = lo.CreatedOn
             });
 
             return JsonSuccess(new { LearningContents = learningContents });

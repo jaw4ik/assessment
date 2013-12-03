@@ -74,9 +74,17 @@ function toBeSorted(sortingField, actual, asc) {
         var value1 = ko.unwrap(arr[i][sortingField]);
         var value2 = ko.unwrap(arr[i + 1][sortingField]);
 
+        if (_.isString(value1)) {
+            value1 = value1.toLowerCase();
+        }
+        
+        if (_.isString(value2)) {
+            value2 = value2.toLowerCase();
+        }
+        
         if (asc) {
-            if (value1.toLowerCase() > value2.toLowerCase()) return false;
-        } else if (value1.toLowerCase() < value2.toLowerCase()) return false;
+            if (value1 > value2) return false;
+        } else if (value1 < value2) return false;
     }
 
     return true;

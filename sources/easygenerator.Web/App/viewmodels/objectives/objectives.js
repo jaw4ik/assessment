@@ -110,6 +110,7 @@
                          }).flatten().uniq().value();
 
                          var array = _.chain(receivedObjectives)
+                             .sortBy(function (item) { return -item.createdOn; })
                              .map(function (item) {
                                  return {
                                      id: item.id,
@@ -129,8 +130,6 @@
                                          return true;
                                      })(item)
                                  };
-                             }).sortBy(function (objective) {
-                                 return objective.title.toLowerCase();
                              }).value();
 
                          objectives(array);

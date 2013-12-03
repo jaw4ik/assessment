@@ -132,15 +132,16 @@
                         .filter(function (item) {
                             return !_.include(relatedIds, item.id);
                         })
+                        .sortBy(function (item) {
+                            return -item.createdOn;
+                        })
                         .map(function (item) {
                             var mappedObjective = objectiveBrief(item);
                             mappedObjective._original = item;
 
                             return mappedObjective;
                         })
-                        .sortBy(function (item) {
-                            return item.title.toLowerCase();
-                        }).value());
+                        .value());
 
                     that.objectivesMode(objectivesListModes.appending);
                 });
@@ -166,17 +167,17 @@
                 var objectivesToRelate = _.chain(that.availableObjectives()).filter(function (item) {
                     return item.isSelected();
                 }).pluck('_original').value();
-
+                
                 if (objectivesToRelate.length == 0) {
                     return;
                 }
 
                 repository.relateObjectives(that.id, objectivesToRelate).then(function (response) {
-                    that.connectedObjectives(_.chain(response.relatedObjectives).map(function (item) {
+                    that.connectedObjectives(_.chain(response.relatedObjectives).sortBy(function (item) {
+                        return -item.createdOn;
+                    }).map(function (item) {
                         return objectiveBrief(item);
-                    }).union(that.connectedObjectives()).sortBy(function (item) {
-                        return item.title.toLowerCase();
-                    }).value());
+                    }).union(that.connectedObjectives()).value());
 
                     that.availableObjectives(that.availableObjectives().filter(function (item) {
                         return !_.contains(response.relatedObjectives, item._original);
@@ -213,10 +214,10 @@
                     that.originalTitle = experience.title;
                     that.objectivesMode(that.objectivesListModes.display);
                     that.connectedObjectives(_.chain(experience.objectives)
+                        .sortBy(function (objective) { return -objective.createdOn; })
                         .map(function (objective) {
                             return objectiveBrief(objective);
                         })
-                        .sortBy(function (objective) { return objective.title.toLowerCase(); })
                         .value());
 
                     isEditing(false);

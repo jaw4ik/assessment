@@ -91,11 +91,13 @@
                     });
                 }).then(function () {
                     return answerRepository.getCollection(questionId).then(function (answerOptions) {
-                        that.answers = vmAnswers(questionId, answerOptions);
+                        var sortedAnswers = _.sortBy(answerOptions, function(item) { return item.createdOn; });
+                        that.answers = vmAnswers(questionId, sortedAnswers);
                     });
                 }).then(function () {
                     return learningContentRepository.getCollection(questionId).then(function (learningContents) {
-                        that.learningContents = vmLearningContents(questionId, learningContents);
+                        var sortedLearningContents = _.sortBy(learningContents, function (item) { return item.createdOn; });
+                        that.learningContents = vmLearningContents(questionId, sortedLearningContents);
                     });
                 }).fail(function () {
                     router.replace('404');

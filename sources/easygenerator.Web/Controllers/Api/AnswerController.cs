@@ -87,7 +87,8 @@ namespace easygenerator.Web.Controllers.Api
             {
                 Id = a.Id.ToString("N"),
                 Text = a.Text,
-                IsCorrect = a.IsCorrect
+                IsCorrect = a.IsCorrect,
+                CreatedOn = a.CreatedOn
             });
 
             return JsonSuccess(new { Answers = answers });

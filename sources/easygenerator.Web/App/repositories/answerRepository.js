@@ -14,7 +14,8 @@
                             return new answerModel({
                                 id: answer.Id,
                                 text: answer.Text,
-                                isCorrect: answer.IsCorrect
+                                isCorrect: answer.IsCorrect,
+                                createdOn: answer.CreatedOn
                             });
                         });
                     });

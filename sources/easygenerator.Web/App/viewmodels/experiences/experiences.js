@@ -153,7 +153,7 @@
 
         function activate() {
             var sortedExperiences = _.sortBy(dataContext.experiences, function (experience) {
-                return experience.title.toLowerCase();
+                return -experience.createdOn;
             });
 
             viewModel.lastVistedExperienceId = clientContext.get('lastVistedExperience');

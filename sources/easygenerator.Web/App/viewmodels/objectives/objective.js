@@ -162,10 +162,10 @@
                         that.objectiveId = objective.id;
                         that.title(objective.title);
 
-                        var array = _.chain(objective.questions).map(function (item) {
+                        var array = _.chain(objective.questions).sortBy(function (question) {
+                            return -question.createdOn;
+                        }).map(function (item) {
                             return mapQuestion(item);
-                        }).sortBy(function (question) {
-                            return question.title.toLowerCase();
                         }).value();
 
                         that.questions(array);

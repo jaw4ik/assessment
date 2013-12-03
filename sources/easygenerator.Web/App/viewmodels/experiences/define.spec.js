@@ -987,7 +987,7 @@
                         });
                     });
 
-                    it('should set current experience objectives sorted by title ascending', function () {
+                    it('should set current experience objectives sorted by createdOn descending', function () {
                         viewModel.connectedObjectives(null);
 
                         var promise = viewModel.activate(experience.id);
@@ -997,7 +997,7 @@
                         });
                         runs(function () {
                             expect(viewModel.connectedObjectives().length).toEqual(4);
-                            expect(viewModel.connectedObjectives()).toBeSortedAsc('title');
+                            expect(viewModel.connectedObjectives()).toBeSortedDesc('createdOn');
                         });
                     });
 

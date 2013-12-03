@@ -121,7 +121,7 @@
 
                             it('should resolve promise whit mapped learning content', function () {
                                 var questionId = 'someId';
-                                var responseLearningContent = { Id: 'loId', Text: 'loText' };
+                                var responseLearningContent = { Id: 'loId', Text: 'loText', CreatedOn: new Date() };
                                 var promise = repository.getCollection(questionId);
 
                                 post.resolve({ LearningContents: [responseLearningContent] });
@@ -134,6 +134,7 @@
                                     expect(result.length).toBe(1);
                                     expect(result[0].id).toBe(responseLearningContent.Id);
                                     expect(result[0].text).toBe(responseLearningContent.Text);
+                                    expect(result[0].createdOn).toBe(responseLearningContent.CreatedOn);
                                 });
                             });
 
