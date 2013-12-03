@@ -69,7 +69,7 @@ When open page by url 'http://localhost:5656/#objective/create'
 And input 'text' into title edit area on create view
 And click back button on create view
 Then browser navigates to url 'http://localhost:5656/#objectives'
-And objectives tiles list consists of ordered items
+And objectives tiles list contains only items with data
 | Title      |
 | Objective1 |
 
@@ -93,7 +93,7 @@ And click on create and new button on create view
 Then browser navigates to url 'http://localhost:5656/#objective/create'
 When click back button on create view
 Then browser navigates to url 'http://localhost:5656/#objectives'
-And objectives tiles list consists of ordered items
+And objectives tiles list contains only items with data
 | Title      |
 | Objective1 |
 
@@ -107,7 +107,7 @@ And input 'Objective2' into title edit area on create view
 And click on create and new button on create view
 And click back button on create view
 Then browser navigates to url 'http://localhost:5656/#objectives'
-And objectives tiles list consists of ordered items
+And objectives tiles list contains only items with data
 | Title      |
 | Objective1 |
 | Objective2 |
@@ -129,7 +129,7 @@ When open page by url 'http://localhost:5656/#objective/000000000000000000000000
 And edit objective title with new text 'Objective2' on objective page
 And click on home link
 And open page by url 'http://localhost:5656/#objectives'
-Then objectives tiles list consists of ordered items
+Then objectives tiles list contains only items with data
 | Title      |
 | Objective2 |
 
@@ -144,7 +144,7 @@ Then title text block marked with error on objective page
 And chars counter marked with error on objective page
 When click on home link
 And open page by url 'http://localhost:5656/#objectives'
-Then objectives tiles list consists of ordered items
+Then objectives tiles list contains only items with data
 | Title      |
 | Objective1 |
 
@@ -180,12 +180,12 @@ When open page by url 'http://localhost:5656/#objectives'
 And mouse hover element of objectives list with title 'Objective2'
 And select objective list item with title 'Objective2'
 And click on delete button on objectives list page
-Then objectives tiles list consists of ordered items
+Then objectives tiles list contains only items with data
 | Title      |
 | Objective1 |
 | Objective3 |
 When refresh page
-Then objectives tiles list consists of ordered items
+Then objectives tiles list contains only items with data
 | Title      |
 | Objective1 |
 | Objective3 |
@@ -202,7 +202,7 @@ And mouse hover element of objectives list with title 'Objective1'
 And select objective list item with title 'Objective1'
 And click on delete button on objectives list page
 Then error notification is displayed true on objectives list page
-And objectives tiles list consists of ordered items
+And objectives tiles list contains only items with data
 | Title      |
 | Objective1 |
 

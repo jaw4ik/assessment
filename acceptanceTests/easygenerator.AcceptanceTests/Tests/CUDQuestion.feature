@@ -135,7 +135,7 @@ When open page by url 'http://localhost:5656/#objective/000000000000000000000000
 And input 'text' into title edit area on create view
 And click back button on create view
 Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001'
-And questions list consists of ordered items
+And questions list contains only items with data
 | Title     |
 | Question1 |
 
@@ -176,7 +176,7 @@ And click on create and new button on create view
 Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000002/question/create'
 When click back button on create view
 Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000002'
-And questions list consists of ordered items
+And questions list contains only items with data
 | Title     |
 | Question1 |
 | Question2 |
@@ -199,7 +199,7 @@ And input 'Question2' into title edit area on create view
 And click on create and new button on create view
 And click back button on create view
 Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000002'
-And questions list consists of ordered items
+And questions list contains only items with data
 | Title     |
 | Question1 |
 | Question2 |
@@ -228,7 +228,7 @@ When open page by url 'http://localhost:5656/#objective/000000000000000000000000
 And edit question title with new text 'Question2' on question page
 And click on collapse answer options
 And  open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001'
-Then questions list consists of ordered items
+Then questions list contains only items with data
 | Title     |
 | Question2 |
 
@@ -246,7 +246,7 @@ Then title text block marked with error on question page
 And chars counter marked with error on question page
 When click on collapse answer options
 And  open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001'
-Then questions list consists of ordered items
+Then questions list contains only items with data
 | Title     |
 | Question1 |
 
@@ -294,14 +294,14 @@ When open page by url 'http://localhost:5656/#objective/000000000000000000000000
 And mouse hover element of questions list with title 'Question2'
 And click on select questions list item with title 'Question2'
 And click on delete button on question list page
-Then questions list consists of ordered items
+Then questions list contains only items with data
 | Title     |
 | Question1 |
 | Question3 |
 When click on back from questions list
 And mouse hover element of objectives list with title 'Objective1'
 And click open objective list item with title 'Objective1'
-Then questions list consists of ordered items
+Then questions list contains only items with data
 | Title     |
 | Question1 |
 | Question3 |

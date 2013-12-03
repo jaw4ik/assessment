@@ -294,7 +294,7 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#objectives\'"
             table2.AddRow(new string[] {
                         "Objective1"});
 #line 72
-testRunner.And("objectives tiles list consists of ordered items", ((string)(null)), table2, "And ");
+testRunner.And("objectives tiles list contains only items with data", ((string)(null)), table2, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -366,7 +366,7 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#objectives\'"
             table4.AddRow(new string[] {
                         "Objective1"});
 #line 96
-testRunner.And("objectives tiles list consists of ordered items", ((string)(null)), table4, "And ");
+testRunner.And("objectives tiles list contains only items with data", ((string)(null)), table4, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -408,7 +408,7 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#objectives\'"
             table5.AddRow(new string[] {
                         "Objective3"});
 #line 110
-testRunner.And("objectives tiles list consists of ordered items", ((string)(null)), table5, "And ");
+testRunner.And("objectives tiles list contains only items with data", ((string)(null)), table5, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -471,7 +471,7 @@ testRunner.And("open page by url \'http://localhost:5656/#objectives\'", ((strin
             table7.AddRow(new string[] {
                         "Objective2"});
 #line 132
-testRunner.Then("objectives tiles list consists of ordered items", ((string)(null)), table7, "Then ");
+testRunner.Then("objectives tiles list contains only items with data", ((string)(null)), table7, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -515,7 +515,7 @@ testRunner.And("open page by url \'http://localhost:5656/#objectives\'", ((strin
             table9.AddRow(new string[] {
                         "Objective1"});
 #line 147
-testRunner.Then("objectives tiles list consists of ordered items", ((string)(null)), table9, "Then ");
+testRunner.Then("objectives tiles list contains only items with data", ((string)(null)), table9, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -630,7 +630,7 @@ testRunner.And("click on delete button on objectives list page", ((string)(null)
             table13.AddRow(new string[] {
                         "Objective3"});
 #line 183
-testRunner.Then("objectives tiles list consists of ordered items", ((string)(null)), table13, "Then ");
+testRunner.Then("objectives tiles list contains only items with data", ((string)(null)), table13, "Then ");
 #line 187
 testRunner.When("refresh page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
@@ -641,7 +641,7 @@ testRunner.When("refresh page", ((string)(null)), ((TechTalk.SpecFlow.Table)(nul
             table14.AddRow(new string[] {
                         "Objective3"});
 #line 188
-testRunner.Then("objectives tiles list consists of ordered items", ((string)(null)), table14, "Then ");
+testRunner.Then("objectives tiles list contains only items with data", ((string)(null)), table14, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -689,7 +689,7 @@ testRunner.Then("error notification is displayed true on objectives list page", 
             table17.AddRow(new string[] {
                         "Objective1"});
 #line 205
-testRunner.And("objectives tiles list consists of ordered items", ((string)(null)), table17, "And ");
+testRunner.And("objectives tiles list contains only items with data", ((string)(null)), table17, "And ");
 #line hidden
             this.ScenarioCleanup();
         }

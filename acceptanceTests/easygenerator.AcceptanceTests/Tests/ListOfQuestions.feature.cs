@@ -199,53 +199,7 @@ testRunner.When("open page by url \'http://localhost:5656/#/objective/0000000000
             table8.AddRow(new string[] {
                         "Question23"});
 #line 50
-testRunner.Then("questions list consists of ordered items", ((string)(null)), table8, "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Questions are sorted by title ascending by default")]
-        public virtual void QuestionsAreSortedByTitleAscendingByDefault()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Questions are sorted by title ascending by default", ((string[])(null)));
-#line 56
-this.ScenarioSetup(scenarioInfo);
-#line 5
-this.FeatureBackground();
-#line hidden
-            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table9.AddRow(new string[] {
-                        "Question_a"});
-            table9.AddRow(new string[] {
-                        "a_Question"});
-            table9.AddRow(new string[] {
-                        "Question_z"});
-            table9.AddRow(new string[] {
-                        "1_Question"});
-            table9.AddRow(new string[] {
-                        "_Question"});
-#line 57
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table9, "Given ");
-#line 64
-testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
-                    "001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table10.AddRow(new string[] {
-                        "1_Question"});
-            table10.AddRow(new string[] {
-                        "_Question"});
-            table10.AddRow(new string[] {
-                        "a_Question"});
-            table10.AddRow(new string[] {
-                        "Question_a"});
-            table10.AddRow(new string[] {
-                        "Question_z"});
-#line 65
-testRunner.Then("questions list consists of ordered items", ((string)(null)), table10, "Then ");
+testRunner.Then("questions list contains items with data", ((string)(null)), table8, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -260,16 +214,16 @@ this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table11.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "Question1"});
-            table11.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "Question2"});
-            table11.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "Question3"});
 #line 116
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table11, "Given ");
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table9, "Given ");
 #line 121
 testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
                     "001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -293,38 +247,38 @@ this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Question1"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Question2"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Question3"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Question4"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Question5"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Question6"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Question7"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Question8"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Question9"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Question10"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Question11"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Question12"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Question13"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Question14"});
 #line 127
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table12, "Given ");
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table10, "Given ");
 #line 143
 testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
                     "001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -350,16 +304,16 @@ this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table13.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "Question1"});
-            table13.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "Question2"});
-            table13.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "Question3"});
 #line 150
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table13, "Given ");
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table11, "Given ");
 #line 155
 testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
                     "001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -383,16 +337,16 @@ this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table14.AddRow(new string[] {
+            table12.AddRow(new string[] {
                         "Question1"});
-            table14.AddRow(new string[] {
+            table12.AddRow(new string[] {
                         "Question2"});
-            table14.AddRow(new string[] {
+            table12.AddRow(new string[] {
                         "Question3"});
 #line 161
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table14, "Given ");
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table12, "Given ");
 #line 166
 testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
                     "001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -424,16 +378,16 @@ this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table15.AddRow(new string[] {
+            table13.AddRow(new string[] {
                         "Question1"});
-            table15.AddRow(new string[] {
+            table13.AddRow(new string[] {
                         "Question2"});
-            table15.AddRow(new string[] {
+            table13.AddRow(new string[] {
                         "Question3"});
 #line 176
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table15, "Given ");
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table13, "Given ");
 #line 181
 testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
                     "001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -477,14 +431,14 @@ this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table16.AddRow(new string[] {
+            table14.AddRow(new string[] {
                         "Question1",
                         "00000000000000000000000000000001"});
 #line 197
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table16, "Given ");
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table14, "Given ");
 #line 200
 testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
                     "001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");

@@ -121,12 +121,13 @@ Then explanations list contains only items with data
 Scenario: Changes to explanation list are not lost when user go out from current question page
 When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 And input text 'Explanation14' into new explanation text field
-And mouse hover element of explanation with text 'Explanation12'
-And click on delete explanation 'Explanation12'
+And click on collapse answer options
+And mouse hover element of explanation with text 'Explanation11'
+And click on delete explanation 'Explanation11'
 And refresh page
 Then explanations list contains only items with data
 | Explanation   |
-| Explanation11 |
+| Explanation12 |
 | Explanation13 |
 | Explanation14 |
 

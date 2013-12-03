@@ -74,6 +74,17 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Not all expected objectives on page", objectivesPage.Items.Select(obj => obj.Title).ToArray());
         }
 
+        [Then(@"objectives tiles list contains only items with data")]
+        public void ThenObjectivesTilesListContainsOnlyItemsWithData(Table table)
+        {
+            var expectedObjectives = table.CreateSet<ObjectiveData>().Select(obj => obj.Title).ToArray();
+
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                TestUtils.AreCollectionsTheSame(expectedObjectives, objectivesPage.Items.Select(obj => obj.Title).ToArray()),
+                "Order of objectives should be the same", objectivesPage.Items.Select(obj => obj.Title).ToArray());
+        }
+
+
         [Then(@"objectives tiles list consists of ordered items")]
         public void ThenObjectivesTilesListConsistsOfOrderedItems(Table table)
         {

@@ -63,6 +63,16 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Not all expected publications on page", publicationsPage.Items.Select(pub => pub.Title).ToArray());
         }
 
+        [Then(@"publications tiles list contains only items with data")]
+        public void ThenPublicationsTilesListContainsOnlyItemsWithData(Table table)
+        {
+            var expectedPublications = table.CreateSet<ExperienceData>().Select(obj => obj.Title).ToArray();
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                TestUtils.AreCollectionsTheSame(expectedPublications, publicationsPage.Items.Select(pub => pub.Title).ToArray()),
+                "Order of publications should be the same", publicationsPage.Items.Select(pub => pub.Title).ToArray());
+        }
+
+
         [Then(@"publications tiles list consists of ordered items")]
         public void ThenPublicationsTilesListConsistsOfOrderedItems(Table table)
         {

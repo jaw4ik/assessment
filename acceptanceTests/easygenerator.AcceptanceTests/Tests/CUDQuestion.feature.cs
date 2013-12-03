@@ -423,7 +423,7 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/000
             table12.AddRow(new string[] {
                         "Question1"});
 #line 138
-testRunner.And("questions list consists of ordered items", ((string)(null)), table12, "And ");
+testRunner.And("questions list contains only items with data", ((string)(null)), table12, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -557,7 +557,7 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/000
             table17.AddRow(new string[] {
                         "Question4"});
 #line 179
-testRunner.And("questions list consists of ordered items", ((string)(null)), table17, "And ");
+testRunner.And("questions list contains only items with data", ((string)(null)), table17, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -620,7 +620,7 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/000
             table19.AddRow(new string[] {
                         "Question3"});
 #line 202
-testRunner.And("questions list consists of ordered items", ((string)(null)), table19, "And ");
+testRunner.And("questions list contains only items with data", ((string)(null)), table19, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -706,7 +706,7 @@ testRunner.And("open page by url \'http://localhost:5656/#objective/000000000000
             table23.AddRow(new string[] {
                         "Question2"});
 #line 231
-testRunner.Then("questions list consists of ordered items", ((string)(null)), table23, "Then ");
+testRunner.Then("questions list contains only items with data", ((string)(null)), table23, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -760,7 +760,7 @@ testRunner.And("open page by url \'http://localhost:5656/#objective/000000000000
             table26.AddRow(new string[] {
                         "Question1"});
 #line 249
-testRunner.Then("questions list consists of ordered items", ((string)(null)), table26, "Then ");
+testRunner.Then("questions list contains only items with data", ((string)(null)), table26, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -911,7 +911,7 @@ testRunner.And("click on delete button on question list page", ((string)(null)),
             table33.AddRow(new string[] {
                         "Question3"});
 #line 297
-testRunner.Then("questions list consists of ordered items", ((string)(null)), table33, "Then ");
+testRunner.Then("questions list contains only items with data", ((string)(null)), table33, "Then ");
 #line 301
 testRunner.When("click on back from questions list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 302
@@ -926,7 +926,7 @@ testRunner.And("click open objective list item with title \'Objective1\'", ((str
             table34.AddRow(new string[] {
                         "Question3"});
 #line 304
-testRunner.Then("questions list consists of ordered items", ((string)(null)), table34, "Then ");
+testRunner.Then("questions list contains only items with data", ((string)(null)), table34, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

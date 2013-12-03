@@ -47,28 +47,28 @@ Given questions related to 'Objective2' are present in database
 | Question22 |
 | Question23 |
 When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000002'
-Then questions list consists of ordered items
+Then questions list contains items with data  
 | Title      |
 | Question21 |
 | Question22 |
 | Question23 |
 
-Scenario: Questions are sorted by title ascending by default
-Given questions related to 'Objective1' are present in database
-| Title      |
-| Question_a |
-| a_Question |
-| Question_z |
-| 1_Question |
-| _Question  |
-When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001'
-Then questions list consists of ordered items
-| Title      |
-| 1_Question |
-| _Question  |
-| a_Question |
-| Question_a |
-| Question_z |
+#Scenario: Questions are sorted by title ascending by default
+#Given questions related to 'Objective1' are present in database
+#| Title      |
+#| Question_a |
+#| a_Question |
+#| Question_z |
+#| 1_Question |
+#| _Question  |
+#When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001'
+#Then questions list consists of ordered items
+#| Title      |
+#| 1_Question |
+#| _Question  |
+#| a_Question |
+#| Question_a |
+#| Question_z |
 #And questions list order switch is set to 'ascending'
 
 

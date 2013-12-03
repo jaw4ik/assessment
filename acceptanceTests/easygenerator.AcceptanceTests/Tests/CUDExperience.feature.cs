@@ -328,7 +328,7 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#experiences\'
             table2.AddRow(new string[] {
                         "Experience1"});
 #line 84
-testRunner.And("publications tiles list consists of ordered items", ((string)(null)), table2, "And ");
+testRunner.And("publications tiles list contains only items with data", ((string)(null)), table2, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -404,7 +404,7 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#experiences\'
             table4.AddRow(new string[] {
                         "Experience1"});
 #line 110
-testRunner.And("publications tiles list consists of ordered items", ((string)(null)), table4, "And ");
+testRunner.And("publications tiles list contains only items with data", ((string)(null)), table4, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -452,7 +452,7 @@ testRunner.Then("browser navigates to url \'http://localhost:5656/#experiences\'
             table5.AddRow(new string[] {
                         "Experience3"});
 #line 127
-testRunner.And("publications tiles list consists of ordered items", ((string)(null)), table5, "And ");
+testRunner.And("publications tiles list contains only items with data", ((string)(null)), table5, "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -519,7 +519,7 @@ testRunner.And("click on home link", ((string)(null)), ((TechTalk.SpecFlow.Table
             table7.AddRow(new string[] {
                         "Experience2"});
 #line 151
-testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table7, "Then ");
+testRunner.Then("publications tiles list contains only items with data", ((string)(null)), table7, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -561,7 +561,7 @@ testRunner.When("click on home link", ((string)(null)), ((TechTalk.SpecFlow.Tabl
             table9.AddRow(new string[] {
                         "Experience1"});
 #line 165
-testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table9, "Then ");
+testRunner.Then("publications tiles list contains only items with data", ((string)(null)), table9, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -676,7 +676,7 @@ testRunner.And("click on delete button on experiences list page", ((string)(null
             table13.AddRow(new string[] {
                         "Experience3"});
 #line 201
-testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table13, "Then ");
+testRunner.Then("publications tiles list contains only items with data", ((string)(null)), table13, "Then ");
 #line 205
 testRunner.When("refresh page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
@@ -687,7 +687,7 @@ testRunner.When("refresh page", ((string)(null)), ((TechTalk.SpecFlow.Table)(nul
             table14.AddRow(new string[] {
                         "Experience3"});
 #line 206
-testRunner.Then("publications tiles list consists of ordered items", ((string)(null)), table14, "Then ");
+testRunner.Then("publications tiles list contains only items with data", ((string)(null)), table14, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

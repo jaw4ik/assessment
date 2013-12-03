@@ -81,7 +81,7 @@ And choose default template on create experience view
 And input 'text' into title edit area on create view
 And click back button on create view
 Then browser navigates to url 'http://localhost:5656/#experiences'
-And publications tiles list consists of ordered items
+And publications tiles list contains only items with data
 | Title       |
 | Experience1 |
 
@@ -107,7 +107,7 @@ And click on create and new button on create view
 Then browser navigates to url 'http://localhost:5656/#experience/create'
 When click back button on create view
 Then browser navigates to url 'http://localhost:5656/#experiences'
-And publications tiles list consists of ordered items
+And publications tiles list contains only items with data
 | Title       |
 | Experience1 |
 
@@ -124,7 +124,7 @@ And input 'Experience2' into title edit area on create view
 And click on create and new button on create view
 And click back button on create view
 Then browser navigates to url 'http://localhost:5656/#experiences'
-And publications tiles list consists of ordered items
+And publications tiles list contains only items with data
 | Title       |
 | Experience1 |
 | Experience2 |
@@ -148,7 +148,7 @@ And edit experience title with new text 'Experience2' on experience page
 And click on experience header title text on experience page
 And sleep 1000 milliseconds
 And click on home link
-Then publications tiles list consists of ordered items
+Then publications tiles list contains only items with data
 | Title       |
 | Experience2 |
 
@@ -162,7 +162,7 @@ And clear header title text field on experience page
 Then title text block marked with error on experience page
 And chars counter marked with error on experience page
 When click on home link
-Then publications tiles list consists of ordered items
+Then publications tiles list contains only items with data
 | Title       |
 | Experience1 |
 
@@ -198,12 +198,12 @@ When open page by url 'http://localhost:5656/#experiences'
 And mouse hover element of publications list with title 'Experience2'
 And select publication list item with title 'Experience2'
 And click on delete button on experiences list page
-Then publications tiles list consists of ordered items
+Then publications tiles list contains only items with data
 | Title       |
 | Experience1 |
 | Experience3 |
 When refresh page
-Then publications tiles list consists of ordered items
+Then publications tiles list contains only items with data
 | Title       |
 | Experience1 |
 | Experience3 |

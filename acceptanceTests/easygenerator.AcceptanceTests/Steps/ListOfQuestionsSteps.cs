@@ -58,6 +58,17 @@ namespace easygenerator.AcceptanceTests.Steps
                 "All questions should be present on page", questionListPage.Items.Select(quest => quest.Title).ToArray());
         }
 
+        [Then(@"questions list contains only items with data")]
+        public void ThenQuestionsListContainsOnlyItemsWithData(Table table)
+        {
+            var expectedQuestions = table.CreateSet<QuestionData>().Select(obj => obj.Title).ToArray();
+
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                TestUtils.AreCollectionsTheSame(expectedQuestions, questionListPage.Items.Select(quest => quest.Title).ToArray()),
+                "Order of questions should be as expected", questionListPage.Items.Select(quest => quest.Title).ToArray());
+        }
+
+
         [Then(@"questions list consists of ordered items")]
         public void ThenQuestionsListConsistsOfOrderedItems(Table table)
         {
