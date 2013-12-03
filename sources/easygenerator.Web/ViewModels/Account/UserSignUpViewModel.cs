@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
 namespace easygenerator.Web.ViewModels.Account
 {
@@ -15,10 +14,7 @@ namespace easygenerator.Web.ViewModels.Account
         public string Phone { get; set; }
         public string Organization { get; set; }
         public string Country { get; set; }
-    }
 
-    public class UserSecondStepViewModel : UserSignUpViewModel
-    {
         public string PeopleBusyWithCourseDevelopmentAmount { get; set; }
         public string NeedAuthoringTool { get; set; }
         public string UsedAuthoringTool { get; set; }

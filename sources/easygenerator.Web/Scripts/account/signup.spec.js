@@ -84,15 +84,15 @@
                 expect(viewModel.fullName).toBeObservable();
             });
 
-            describe('isValid:', function() {
-               
+            describe('isValid:', function () {
+
                 it('should be computed', function () {
                     expect(viewModel.fullName.isValid).toBeComputed();
                 });
 
             });
 
-            describe('when empty', function() {
+            describe('when empty', function () {
 
                 it('should be not valid', function () {
                     viewModel.fullName('');
@@ -101,9 +101,9 @@
 
             });
 
-            describe('when not empty', function() {
+            describe('when not empty', function () {
 
-                it('should be valid', function() {
+                it('should be valid', function () {
                     viewModel.fullName('Some name');
                     expect(viewModel.fullName.isValid()).toBeTruthy();
                 });
@@ -117,26 +117,26 @@
                 expect(viewModel.phone).toBeObservable();
             });
 
-            describe('isValid:', function() {
+            describe('isValid:', function () {
 
-                it('should be computed', function() {
+                it('should be computed', function () {
                     expect(viewModel.phone.isValid).toBeComputed();
                 });
 
             });
 
-            describe('when empty', function() {
+            describe('when empty', function () {
 
-                it('should be not valid', function() {
+                it('should be not valid', function () {
                     viewModel.phone('');
                     expect(viewModel.phone.isValid()).toBeFalsy();
                 });
 
             });
 
-            describe('when not empty', function() {
+            describe('when not empty', function () {
 
-                it('should be valid', function() {
+                it('should be valid', function () {
                     viewModel.phone('some phone');
                     expect(viewModel.phone.isValid()).toBeTruthy();
                 });
@@ -176,9 +176,9 @@
                 });
 
             });
-            
+
         });
-        
+
         describe('country:', function () {
 
             it('should be observable', function () {
@@ -209,7 +209,7 @@
                     expect(viewModel.country.isValid()).toBeTruthy();
                 });
 
-                it('should set phone code', function() {
+                it('should set phone code', function () {
                     viewModel.country('Ukraine');
                     expect(viewModel.phoneCode()).toBe('+ 380');
                 });
@@ -218,15 +218,15 @@
 
         });
 
-        describe('isFormValid:', function() {
+        describe('isFormValid:', function () {
 
-            it('should be computed', function() {
+            it('should be computed', function () {
                 expect(viewModel.isFormValid).toBeComputed();
             });
 
-            describe('when all data valid', function() {
+            describe('when all data valid', function () {
 
-                it('should be valid', function() {
+                it('should be valid', function () {
                     viewModel.userName('anonymous@easygenerator.com');
                     viewModel.password('abcABC123');
                     viewModel.fullName('some fullName');
@@ -240,8 +240,8 @@
 
             });
 
-            describe('when all data not valid', function() {
-                
+            describe('when all data not valid', function () {
+
                 it('should be not valid', function () {
                     viewModel.userName('');
                     viewModel.password('');
@@ -256,8 +256,8 @@
 
             });
 
-            describe('when userName not valid', function() {
-                
+            describe('when userName not valid', function () {
+
                 it('should be not valid', function () {
                     viewModel.userName('');
                     viewModel.password('abcABC123');
@@ -271,7 +271,7 @@
                 });
 
             });
-            
+
             describe('when password not valid', function () {
 
                 it('should be not valid', function () {
@@ -287,7 +287,7 @@
                 });
 
             });
-            
+
             describe('when fullName not valid', function () {
 
                 it('should be not valid', function () {
@@ -303,7 +303,7 @@
                 });
 
             });
-            
+
             describe('when phone not valid', function () {
 
                 it('should be not valid', function () {
@@ -319,7 +319,7 @@
                 });
 
             });
-            
+
             describe('when organization not valid', function () {
 
                 it('should be not valid', function () {
@@ -335,7 +335,7 @@
                 });
 
             });
-            
+
             describe('when country not valid', function () {
 
                 it('should be not valid', function () {
@@ -367,7 +367,7 @@
                 });
 
             });
-            
+
         });
 
         describe('isUserNameEditing:', function () {
@@ -759,34 +759,44 @@
                 expect(viewModel.signUp).toBeFunction();
             });
 
-            var ajax;
+            var data;
+            var currentHref = 'http://easygenerator.com/signup';
             beforeEach(function () {
-                ajax = $.Deferred();
-                spyOn($, 'ajax').andReturn(ajax.promise());
-            });
-
-            it('should call \"/api/user/signupfirststep"', function () {
                 viewModel.userName('anonymous@easygenerator.com');
                 viewModel.password('abcABC123');
                 viewModel.fullName('some fullName');
                 viewModel.phone('some phone');
                 viewModel.organization('some organization');
                 viewModel.country('some country');
-                
-                viewModel.signUp();
 
-                expect($.ajax).toHaveBeenCalledWith({
-                    url: '/api/user/signupfirststep',
-                    data: { email: viewModel.userName(), password: viewModel.password(), fullName: viewModel.fullName(), phone: viewModel.phone(), organization: viewModel.organization(), country: viewModel.country() },
-                    type: 'POST'
-                });
+                data = {
+                    email: viewModel.userName(),
+                    password: viewModel.password(),
+                    fullName: viewModel.fullName(),
+                    phone: viewModel.phone(),
+                    organization: viewModel.organization(),
+                    country: viewModel.country()
+                };
+
+                spyOn(app, 'assingLocation');
+                spyOn(app, 'getLocationHref').andReturn(currentHref);
+                spyOn(app.clientSessionContext, 'set');
             });
 
+            it('should set first sign up step data to client sessions context', function () {
+                viewModel.signUp();
+                expect(app.clientSessionContext.set).toHaveBeenCalledWith(appConstants.userSignUpFirstStepData, data);
+            });
+
+            it('should assing window location', function () {
+                viewModel.signUp();
+                expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
+            });
         });
 
         describe('isFullNameErrorVisible:', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.isFullNameErrorVisible).toBeObservable();
             });
 
@@ -794,20 +804,20 @@
 
         describe('isPhoneErrorVisible:', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.isPhoneErrorVisible).toBeObservable();
             });
 
         });
 
-        describe('isOrganizationErrorVisible', function() {
+        describe('isOrganizationErrorVisible', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.isOrganizationErrorVisible).toBeObservable();
             });
 
         });
-        
+
         describe('isCountrySuccessVisible', function () {
 
             it('should be observable', function () {
@@ -818,7 +828,7 @@
 
         describe('onFocusFullName:', function () {
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.onFocusFullName).toBeFunction();
             });
 
@@ -829,7 +839,7 @@
             });
 
         });
-        
+
         describe('onFocusPhone:', function () {
 
             it('should be function', function () {
@@ -843,7 +853,7 @@
             });
 
         });
-        
+
         describe('onFocusOrganization:', function () {
 
             it('should be function', function () {
@@ -860,11 +870,11 @@
 
         describe('validateFullName:', function () {
 
-            it('should be function', function() {
+            it('should be function', function () {
                 expect(viewModel.validateFullName).toBeFunction();
             });
 
-            describe('when fullname has only whitespaces', function() {
+            describe('when fullname has only whitespaces', function () {
 
                 it('should be set isFullNameErrorVisible to true', function () {
                     viewModel.fullName('        ');
@@ -874,7 +884,7 @@
                 });
 
             });
-            
+
             describe('when fullname not has only whitespaces', function () {
 
                 it('should be set isFullNameErrorVisible to false', function () {
@@ -889,11 +899,11 @@
         });
 
         describe('validatePhone:', function () {
-            
+
             it('should be function', function () {
                 expect(viewModel.validatePhone).toBeFunction();
             });
-            
+
             describe('when phone has only whitespaces', function () {
 
                 it('should be set isPhoneErrorVisible to true', function () {
@@ -919,7 +929,7 @@
         });
 
         describe('validateOrganization:', function () {
-            
+
             it('should be function', function () {
                 expect(viewModel.validateOrganization).toBeFunction();
             });
@@ -947,9 +957,9 @@
             });
         });
 
-        describe('phoneCode:', function() {
+        describe('phoneCode:', function () {
 
-            it('should be observable', function() {
+            it('should be observable', function () {
                 expect(viewModel.phoneCode).toBeObservable();
             });
 

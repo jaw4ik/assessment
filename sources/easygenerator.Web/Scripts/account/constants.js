@@ -5,6 +5,8 @@ appConstants.events = {
     signup: 'Sign up'
 };
 
+appConstants.userSignUpFirstStepData = "userSignUpFirstStepData";
+
 appConstants.patterns = {
     email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/
 };

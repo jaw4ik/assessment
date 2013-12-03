@@ -59,19 +59,8 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        public ActionResult Signup(UserSecondStepViewModel profile)
+        public ActionResult Signup(UserSignUpViewModel profile)
         {
-            var profileFromFirstStep = Session[Constants.SessionConstants.UserSignUpModel] as UserSignUpViewModel;
-            if (profileFromFirstStep != null)
-            {
-                profile.Email = profileFromFirstStep.Email;
-                profile.Password = profileFromFirstStep.Password;
-                profile.FullName = profileFromFirstStep.FullName;
-                profile.Organization = profileFromFirstStep.Organization;
-                profile.Phone = profileFromFirstStep.Phone;
-                profile.Country = profileFromFirstStep.Country;
-            }
-
             if (_repository.GetUserByEmail(profile.Email) != null)
             {
                 return JsonError("Account with this email already exists");
@@ -94,22 +83,7 @@ namespace easygenerator.Web.Controllers.Api
 
             _authenticationProvider.SignIn(profile.Email, true);
 
-            Session[Constants.SessionConstants.UserSignUpModel] = null;
-
             return JsonSuccess(profile.Email);
-        }
-
-        [HttpPost]
-        public ActionResult SignUpFirstStep(UserSignUpViewModel profile)
-        {
-            if (_repository.GetUserByEmail(profile.Email) != null)
-            {
-                return JsonError("Account with this email already exists");
-            }
-
-            Session[Constants.SessionConstants.UserSignUpModel] = profile;
-
-            return JsonSuccess();
         }
 
         [HttpPost]
@@ -158,6 +132,6 @@ namespace easygenerator.Web.Controllers.Api
                 Email = user != null ? user.Email : string.Empty,
                 IsTryMode = user == null
             });
-        }   
+        }
     }
 }

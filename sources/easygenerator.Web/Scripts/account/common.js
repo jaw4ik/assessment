@@ -8,6 +8,14 @@ app.reload = function () {
     window.location.reload();
 };
 
+app.assingLocation = function (url) {
+    window.location.assign(url);
+};
+
+app.getLocationHref = function() {
+    return window.location.href;
+};
+
 $(function () {
 
     serviceUnavailableAjaxErrorHandler().subscribeOnGlobalErrorEvents();
@@ -21,7 +29,12 @@ $(function () {
     }
 
     if ($('.sign-up-second-step').length) {
-        ko.applyBindings(signUpSecondStepModel(), $('.sign-up-second-step')[0]);
+        var viewModel = signUpSecondStepModel();
+        if (!viewModel.isInitializationContextCorrect()) {
+            app.assingLocation('/signup');
+        }
+        
+        ko.applyBindings(viewModel, $('.sign-up-second-step')[0]);
     }
     
     if ($('.password-recovery').length) {

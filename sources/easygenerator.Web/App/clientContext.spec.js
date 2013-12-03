@@ -93,21 +93,21 @@
             describe('when valid argument', function () {
 
                 it('should return value', function () {
-                    localStorage.setItem('my_key', JSON.stringify('my_value'));
+                    spyOn(localStorage, 'getItem').andReturn(JSON.stringify('my_value'));
                     expect(clientContext.get('my_key')).toBe('my_value');
                 });
 
                 it('should convert string value to object', function () {
                     spyOn(JSON, 'parse');
-                    localStorage.setItem('key', JSON.stringify({ field: 'value' }));
-                    
+                    spyOn(localStorage, 'getItem').andReturn(JSON.stringify({ field: 'value' }));
+
                     clientContext.get('key');
                     expect(JSON.parse).toHaveBeenCalledWith("{\"field\":\"value\"}");
                 });
 
                 it('should return the same object that has been set', function () {
                     var object = { field1: 'value1', field2: { field3: 'value3' } };
-                    localStorage.setItem('key', JSON.stringify(object));
+                    spyOn(localStorage, 'getItem').andReturn(JSON.stringify(object));
 
                     expect(clientContext.get('key')).toEqual(object);
                 });

@@ -116,12 +116,9 @@ namespace easygenerator.Web.Tests.Controllers
         [TestMethod]
         public void SignUpSecondStep_ShouldReturnViewResult()
         {
-            //Arrange
-
-            _context.Session[Constants.SessionConstants.UserSignUpModel] = new UserSignUpViewModel();
             //Act
-
             var result = _controller.SignUpSecondStep();
+
             //Assert
             ActionResultAssert.IsViewResult(result);
         }
@@ -134,23 +131,10 @@ namespace easygenerator.Web.Tests.Controllers
             _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(Substitute.For<User>());
 
             //Act
-
             var result = _controller.SignUpSecondStep();
+
             //Assert
             ActionResultAssert.IsRedirectToRouteResult(result, "Default");
-        }
-
-        [TestMethod]
-        public void SignUpSecondStep_ShouldRedirectRoSignupRoute_WhenSessionNotHasData()
-        {
-            //Arrange
-            _context.Session[Constants.SessionConstants.UserSignUpModel] = null;
-
-            //Act
-            var result = _controller.SignUpSecondStep();
-
-            //Assert
-            ActionResultAssert.IsRedirectToRouteResult(result, "SignUp");
         }
 
         #endregion

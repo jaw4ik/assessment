@@ -393,6 +393,10 @@
     <Content Include="Content\selectbox.css" />
     <Content Include="Content\styles.css" />
     <Content Include="Scripts\account\analytics.js" />
+    <Content Include="Scripts\account\clientSessionContext.spec.js">
+      <DependentUpon>clientSessionContext.js</DependentUpon>
+    </Content>
+    <Content Include="Scripts\account\clientSessionContext.js" />
     <Content Include="Scripts\account\common.js" />
     <Content Include="Scripts\account\constants.js" />
     <Content Include="Scripts\account\focusHandlerBinding.js" />

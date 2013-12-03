@@ -21,75 +21,70 @@
         lastValidatePhone = null,
         lastValidateOrganization = null,
         phoneCode = ko.observable('+ ( ... )');
-        userPreciselyExists = ko.computed(function () {
-            return userExists() && userName().trim().toLowerCase() === lastValidatedUserName;
-        }),
+    userPreciselyExists = ko.computed(function () {
+        return userExists() && userName().trim().toLowerCase() === lastValidatedUserName;
+    }),
 
-        showHidePassword = function () {
-            isPasswordVisible(!isPasswordVisible());
-        },
+    showHidePassword = function () {
+        isPasswordVisible(!isPasswordVisible());
+    },
 
-        signUp = function () {
-            var data = { email: userName().trim().toLowerCase(), password: password(), fullName: fullName(), phone: phone(), organization: organization(), country: country() };
-            $.ajax({
-                url: '/api/user/signupfirststep',
-                data: data,
-                type: 'POST'
-            })
-            .done(function () {
-                window.location.assign(window.location.href.slice(0, window.location.href.lastIndexOf('/')) + '/signupsecondstep');
-            });
-        },
+    signUp = function () {
+        var data = { email: userName().trim().toLowerCase(), password: password(), fullName: fullName(), phone: phone(), organization: organization(), country: country() };
+        app.clientSessionContext.set(appConstants.userSignUpFirstStepData, data);
+        var href = app.getLocationHref();
+        app.assingLocation(href.slice(0, href.lastIndexOf('/')) + '/signupsecondstep');
+    },
 
-        checkUserExists = function () {
-            userName(userName().trim());
-            if (this.userPreciselyExists()) {
-                return;
-            }
+    checkUserExists = function () {
+        userName(userName().trim());
+        if (this.userPreciselyExists()) {
+            return;
+        }
 
-            userExists(false);
-            if (!userName.isValid()) {
-                return;
-            }
+        userExists(false);
+        if (!userName.isValid()) {
+            return;
+        }
 
-            lastValidatedUserName = userName().trim().toLowerCase();
-            isUserNameValidating(true);
+        lastValidatedUserName = userName().trim().toLowerCase();
+        isUserNameValidating(true);
 
-            $.ajax({
-                url: '/api/user/exists',
-                data: { email: userName().trim().toLowerCase() },
-                type: 'POST'
-            })
-            .done(function (response) {
-                userExists(response.data);
-                isUserNameValidating(false);
-            });
-        },
-        
-        validateFullName = function () {
-            lastValidateFullName = fullName().trim();
-            fullName(fullName().trim());
-            isFullNameErrorVisible(_.isEmpty(lastValidateFullName));
-        },
-        onFocusFullName = function() {
-            isFullNameErrorVisible(false);
-        },
-        validatePhone = function () {
-            lastValidatePhone = phone().trim();
-            phone(phone().trim());
-            isPhoneErrorVisible(_.isEmpty(lastValidatePhone));
-        },
-        onFocusPhone = function () {
-            isPhoneErrorVisible(false);
-        },
-        validateOrganization = function () {
-            lastValidateOrganization = organization().trim();
-            organization(organization().trim());
-            isOrganizationErrorVisible(_.isEmpty(lastValidateOrganization));
-        },
-        onFocusOrganization = function () {
-            isOrganizationErrorVisible(false);
-        };
+        $.ajax({
+            url: '/api/user/exists',
+            data: { email: userName().trim().toLowerCase() },
+            type: 'POST'
+        })
+        .done(function (response) {
+            userExists(response.data);
+            isUserNameValidating(false);
+        });
+    },
+
+    validateFullName = function () {
+        lastValidateFullName = fullName().trim();
+        fullName(fullName().trim());
+        isFullNameErrorVisible(_.isEmpty(lastValidateFullName));
+    },
+    onFocusFullName = function () {
+        isFullNameErrorVisible(false);
+    },
+    validatePhone = function () {
+        lastValidatePhone = phone().trim();
+        phone(phone().trim());
+        isPhoneErrorVisible(_.isEmpty(lastValidatePhone));
+    },
+    onFocusPhone = function () {
+        isPhoneErrorVisible(false);
+    },
+    validateOrganization = function () {
+        lastValidateOrganization = organization().trim();
+        organization(organization().trim());
+        isOrganizationErrorVisible(_.isEmpty(lastValidateOrganization));
+    },
+    onFocusOrganization = function () {
+        isOrganizationErrorVisible(false);
+    };
 
     userName.isValid = ko.computed(function () {
         var mailRegex = /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/,
@@ -112,11 +107,11 @@
         return !_.isEmptyOrWhitespace(fullName());
     });
 
-    phone.isValid = ko.computed(function() {
+    phone.isValid = ko.computed(function () {
         return !_.isEmpty(phone());
     });
 
-    organization.isValid = ko.computed(function() {
+    organization.isValid = ko.computed(function () {
         return !_.isEmpty(organization());
     });
 
@@ -131,7 +126,7 @@
         return !_.isNull(country());
     });
 
-    isFormValid = ko.computed(function() {
+    isFormValid = ko.computed(function () {
         return userName.isValid() && password.isValid()
             && fullName.isValid() && phone.isValid()
             && organization.isValid() && country.isValid()
@@ -159,19 +154,19 @@
         isFormValid: isFormValid,
         userExists: userExists,
         userPreciselyExists: userPreciselyExists,
-        
+
         isFullNameErrorVisible: isFullNameErrorVisible,
-        isPhoneErrorVisible:isPhoneErrorVisible,
+        isPhoneErrorVisible: isPhoneErrorVisible,
         isOrganizationErrorVisible: isOrganizationErrorVisible,
         isCountrySuccessVisible: isCountrySuccessVisible,
         onFocusFullName: onFocusFullName,
         onFocusPhone: onFocusPhone,
         onFocusOrganization: onFocusOrganization,
-        
+
         validateFullName: validateFullName,
-        validatePhone:validatePhone,
+        validatePhone: validatePhone,
         validateOrganization: validateOrganization,
-        
+
         showHidePassword: showHidePassword,
         checkUserExists: checkUserExists,
         signUp: signUp,

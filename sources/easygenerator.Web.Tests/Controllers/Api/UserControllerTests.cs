@@ -118,10 +118,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Signup_ShouldReturnJsonErrorResult_WhenUserWithSuchEmailExists()
         {
             //Arrange
-            var email = "easygenerator@easygenerator.com";
-            _userRepository.GetUserByEmail(email).Returns(UserObjectMother.CreateWithEmail(email));
-
-            var profile = new UserSecondStepViewModel() { Email = email, Password = "Some password" };
+            var profile = GetTestUserSignUpViewModel();
+            _userRepository.GetUserByEmail(profile.Email).Returns(UserObjectMother.CreateWithEmail(profile.Email));
+            
             //Act
             var result = _controller.Signup(profile);
 
@@ -133,24 +132,10 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Signup_ShouldAddUserToRepository()
         {
             //Arrange
-            var email = "easygenerator@easygenerator.com";
-            var password = "Easy123!";
-            var fullname = "easygenerator user";
-            var phone = "some phone";
-            var organization = "Easygenerator";
-            var country = "some country";
-            var user = UserObjectMother.Create(email, password);
+            var profile = GetTestUserSignUpViewModel();
+            var user = UserObjectMother.Create(profile.Email, profile.Password);
+            _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone, profile.Organization, profile.Country, profile.Email).Returns(user);
 
-            _entityFactory.User(email, password, fullname, phone, organization, country, email).Returns(user);
-            var profile = new UserSecondStepViewModel()
-            {
-                Email = email,
-                Password = password,
-                FullName = fullname,
-                Phone = phone,
-                Organization = organization,
-                Country = country
-            };
             //Act
             _controller.Signup(profile);
 
@@ -162,30 +147,9 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Signup_ShouldRaiseEventAboutUserCreation()
         {
             //Arrange
-            var email = "easygenerator@easygenerator.com";
-            var password = "Easy123!";
-            var fullname = "easygenerator user";
-            var phone = "some phone";
-            var organization = "Easygenerator";
-            var country = "some country";
-            var user = UserObjectMother.Create(email, password);
-            var courseDevelopersCount = "5";
-            var whenNeedAuthoringTool = "Now";
-            var usedAuthoringTool = "powerpoint";
-
-            _entityFactory.User(email, password, fullname, phone, organization, country, email).Returns(user);
-            var profile = new UserSecondStepViewModel()
-            {
-                Email = email,
-                Password = password,
-                FullName = fullname,
-                Phone = phone,
-                Organization = organization,
-                Country = country,
-                PeopleBusyWithCourseDevelopmentAmount = courseDevelopersCount,
-                NeedAuthoringTool = whenNeedAuthoringTool,
-                UsedAuthoringTool = usedAuthoringTool
-            };
+            var profile = GetTestUserSignUpViewModel();
+            var user = UserObjectMother.Create(profile.Email, profile.Password);
+            _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone, profile.Organization, profile.Country, profile.Email).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -193,8 +157,8 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Assert
             _publisher.Received().Publish
                 (
-                    Arg.Is<UserSignedUpEvent>(_ => _.User == user && _.UsedAuthoringTool == usedAuthoringTool && _.CourseDevelopersCount == courseDevelopersCount
-                    && _.WhenNeedAuthoringTool == whenNeedAuthoringTool)
+                    Arg.Is<UserSignedUpEvent>(_ => _.User == user && _.UsedAuthoringTool == profile.UsedAuthoringTool && _.CourseDevelopersCount == profile.PeopleBusyWithCourseDevelopmentAmount
+                    && _.WhenNeedAuthoringTool == profile.NeedAuthoringTool)
                 );
         }
 
@@ -203,56 +167,28 @@ namespace easygenerator.Web.Tests.Controllers.Api
         {
             //Arrange
             const string tryItNowUsername = "username";
-            const string signUpUsername = "username@easygenerator.com";
-            const string password = "Abc123!";
-            var fullname = "easygenerator user";
-            var phone = "some phone";
-            var organization = "Easygenerator";
-            var country = "some country";
-            var user = UserObjectMother.Create(signUpUsername, password);
+            var profile = GetTestUserSignUpViewModel();
+            var user = UserObjectMother.Create(profile.Email, profile.Password);
+
             _user.Identity.IsAuthenticated.Returns(true);
             _user.Identity.Name.Returns(tryItNowUsername);
             _userRepository.GetUserByEmail(tryItNowUsername).Returns((User)null);
-            _entityFactory.User(signUpUsername, password, fullname, phone, organization, country, signUpUsername).Returns(user);
-
-            var profile = new UserSecondStepViewModel()
-            {
-                Email = signUpUsername,
-                Password = password,
-                FullName = fullname,
-                Phone = phone,
-                Organization = organization,
-                Country = country
-            };
+            _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone, profile.Organization, profile.Country, profile.Email).Returns(user);
 
             //Act
             _controller.Signup(profile);
 
             //Assert
-            _signupFromTryItNowHandler.Received().HandleOwnership(tryItNowUsername, signUpUsername);
+            _signupFromTryItNowHandler.Received().HandleOwnership(tryItNowUsername, profile.Email);
         }
 
         [TestMethod]
         public void Signup_ShouldSignInNewUser()
         {
             //Arrange
-            const string signUpUsername = "username@easygenerator.com";
-            const string password = "Abc123!";
-            var fullname = "easygenerator user";
-            var phone = "some phone";
-            var organization = "Easygenerator";
-            var country = "some country";
-            var user = UserObjectMother.Create(signUpUsername, password);
-            _entityFactory.User(signUpUsername, password, fullname, phone, organization, country, signUpUsername).Returns(user);
-            var profile = new UserSecondStepViewModel()
-            {
-                Email = signUpUsername,
-                Password = password,
-                FullName = fullname,
-                Phone = phone,
-                Organization = organization,
-                Country = country
-            };
+            var profile = GetTestUserSignUpViewModel();
+            var user = UserObjectMother.Create(profile.Email, profile.Password);
+            _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone, profile.Organization, profile.Country, profile.Email).Returns(user);
 
             //Act
             _controller.Signup(profile);
@@ -265,211 +201,79 @@ namespace easygenerator.Web.Tests.Controllers.Api
         public void Signup_ShouldReturnJsonSuccessResult()
         {
             //Arrange
-            const string signUpUsername = "username@easygenerator.com";
-            const string password = "Abc123!";
-            var fullname = "easygenerator user";
-            var phone = "some phone";
-            var organization = "Easygenerator";
-            var country = "some country";
-            var user = UserObjectMother.Create(signUpUsername, password);
-            _entityFactory.User(signUpUsername, password, fullname, phone, organization, country, signUpUsername).Returns(user);
-            var profile = new UserSecondStepViewModel()
-            {
-                Email = signUpUsername,
-                Password = password,
-                FullName = fullname,
-                Phone = phone,
-                Organization = organization,
-                Country = country
-            };
+            var profile = GetTestUserSignUpViewModel();
+            var user = UserObjectMother.Create(profile.Email, profile.Password);
+            _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone, profile.Organization, profile.Country, profile.Email).Returns(user);
 
             //Act
             var result = _controller.Signup(profile);
 
             //Assert
-            result.Should().BeJsonSuccessResult().And.Data.Should().Be(signUpUsername);
+            result.Should().BeJsonSuccessResult().And.Data.Should().Be(profile.Email);
         }
 
         [TestMethod]
         public void SignUp_ShouldNotCreateHelpHintsForUser_WhenUserSignupFromTry()
         {
             //Arrange
-            const string signUpUsername = "username@easygenerator.com";
-            const string password = "Abc123!";
-            var fullname = "easygenerator user";
-            var phone = "some phone";
-            var organization = "Easygenerator";
-            var country = "some country";
-            var profile = new UserSecondStepViewModel()
-            {
-                Email = signUpUsername,
-                Password = password,
-                FullName = fullname,
-                Phone = phone,
-                Organization = organization,
-                Country = country
-            };
-            var user = Substitute.For<User>();
-            _entityFactory.User(signUpUsername, password, fullname, phone, organization, country, signUpUsername).Returns(user);
+            var profile = GetTestUserSignUpViewModel();
+            var user = UserObjectMother.Create(profile.Email, profile.Password);
+            _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone, profile.Organization, profile.Country, profile.Email).Returns(user);
             _user.Identity.IsAuthenticated.Returns(true);
 
             //Act
             _controller.Signup(profile);
 
             //Assert
-            _helpHintRepository.DidNotReceive().CreateHelpHintsForUser(signUpUsername);
+            _helpHintRepository.DidNotReceive().CreateHelpHintsForUser(profile.Email);
         }
 
         [TestMethod]
         public void SignUp_ShouldNotCreateHelpHintsForUser_WhenUserSignup()
         {
             //Arrange
-            const string signUpUsername = "username@easygenerator.com";
-            const string password = "Abc123!";
-            var fullname = "easygenerator user";
-            var phone = "some phone";
-            var organization = "Easygenerator";
-            var country = "some country";
-            var profile = new UserSecondStepViewModel()
-            {
-                Email = signUpUsername,
-                Password = password,
-                FullName = fullname,
-                Phone = phone,
-                Organization = organization,
-                Country = country
-            };
-            var user = Substitute.For<User>();
-            _entityFactory.User(signUpUsername, password, fullname, phone, organization, country, signUpUsername).Returns(user);
+            var profile = GetTestUserSignUpViewModel();
+            var user = UserObjectMother.Create(profile.Email, profile.Password);
+            _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone, profile.Organization, profile.Country, profile.Email).Returns(user);
             _user.Identity.IsAuthenticated.Returns(false);
 
             //Act
             _controller.Signup(profile);
 
             //Assert
-            _helpHintRepository.Received().CreateHelpHintsForUser(signUpUsername);
-        }
-
-        [TestMethod]
-        public void SignUp_ShouldUpdateUserSugnUpModelFromSession()
-        {
-            //Arrange
-            var email = "easygenerator@easygenerator.com";
-            var password = "Easy123!";
-            var fullname = "easygenerator user";
-            var phone = "some phone";
-            var organization = "Easygenerator";
-            var country = "some country";
-            var user = UserObjectMother.Create(email, password);
-            var profile = new UserSecondStepViewModel()
-            {
-                NeedAuthoringTool = "Some tool",
-                PeopleBusyWithCourseDevelopmentAmount = "Some count of people",
-                UsedAuthoringTool = "Some used tool"
-            };
-            _context.Session[Constants.SessionConstants.UserSignUpModel].Returns(new UserSignUpViewModel()
-            {
-                Email = email,
-                Password = password,
-                FullName = fullname,
-                Phone = phone,
-                Organization = organization,
-                Country = country
-            });
-            var resultProfile = new UserSecondStepViewModel()
-            {
-                Email = email,
-                Password = password,
-                NeedAuthoringTool = "Some tool",
-                PeopleBusyWithCourseDevelopmentAmount = "Some count of people",
-                UsedAuthoringTool = "Some used tool"
-            };
-            _entityFactory.User(email, password, fullname, phone, organization, country, email).Returns(user);
-            //Act
-            _controller.Signup(profile);
-
-            //Assert
-            profile.Email.Should().Be(resultProfile.Email);
-            profile.Password.Should().Be(resultProfile.Password);
+            _helpHintRepository.Received().CreateHelpHintsForUser(profile.Email);
         }
 
         [TestMethod]
         public void Signup_ShouldBeClearSession()
         {
             //Arrange
-            string email = "easygenerator@easygenerator.com";
-            string password = "Abc123!";
-            var fullname = "easygenerator user";
-            var phone = "some phone";
-            var organization = "Easygenerator";
-            var country = "some country";
-            var user = UserObjectMother.Create(email, password);
-            _entityFactory.User(email, password, fullname, phone, organization, country, email).Returns(user);
-            var profile = new UserSecondStepViewModel()
-            {
-                Email = email,
-                Password = password,
-                FullName = fullname,
-                Phone = phone,
-                Organization = organization,
-                Country = country
-            };
-            _context.Session[Constants.SessionConstants.UserSignUpModel].Returns(profile);
+            var profile = GetTestUserSignUpViewModel();
+            var user = UserObjectMother.Create(profile.Email, profile.Password);
+            _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone, profile.Organization, profile.Country, profile.Email).Returns(user);
 
             //Act
-
             _controller.Signup(profile);
-            //Assert
 
+            //Assert
             _context.Session[Constants.SessionConstants.UserSignUpModel].Should().Be(null);
         }
 
-        #endregion
-
-        #region SignUpFirstStep
-
-        [TestMethod]
-        public void SignUpFirstStep_ShouldReturnJsonErrorResult_WhenUserWithSuchEmailExists()
+        private UserSignUpViewModel GetTestUserSignUpViewModel()
         {
-            //Arrange
-            var email = "easygenerator@easygenerator.com";
-            _userRepository.GetUserByEmail(email).Returns(UserObjectMother.CreateWithEmail(email));
-            var profile = new UserSignUpViewModel() { Email = email, Password = "Some password" };
-
-            //Act
-            var result = _controller.SignUpFirstStep(profile);
-
-            //Assert
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Account with this email already exists");
+            return new UserSignUpViewModel()
+            {
+                Country = "Ukraine",
+                Email = "easygenerator@easygenerator.com",
+                FullName = "easygenerator user",
+                Phone = "+380777777",
+                Organization = "ism",
+                Password = "UserPassword777",
+                PeopleBusyWithCourseDevelopmentAmount = "5",
+                NeedAuthoringTool = "Now",
+                UsedAuthoringTool = "powerpoint"
+            };
         }
-
-        [TestMethod]
-        public void SignUpFirstStep_ShouldSetCurrentSesionWithValueProfile()
-        {
-            //Arrange
-            var profile = new UserSignUpViewModel() { Email = "Some email", Password = "Some password" };
-
-            //Act
-            _controller.SignUpFirstStep(profile);
-
-            //Assert
-            (_context.Session[Constants.SessionConstants.UserSignUpModel] as UserSignUpViewModel).Should().Be(profile);
-        }
-
-        [TestMethod]
-        public void SignUpFirstStep_ShouldReturnJsonSuccessResult_WhenUerWithSuchEmailNotExists()
-        {
-            //Arrange
-
-            var profile = new UserSignUpViewModel() { Email = "Some email", Password = "Some password" };
-            //Act
-
-            var result = _controller.SignUpFirstStep(profile);
-            //Assert
-
-            result.Should().BeJsonSuccessResult();
-        }
-
         #endregion
 
         #region Forgot password

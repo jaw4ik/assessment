@@ -77,11 +77,6 @@ namespace easygenerator.Web.Controllers
                 return RedirectToRoute("Default");
             }
 
-            if (!IsSessionWithUserSignupModelExist())
-            {
-                return RedirectToRoute("SignUp");
-            }
-
             return View();
         }
 
@@ -132,11 +127,6 @@ namespace easygenerator.Web.Controllers
         private bool IsExistingUserAuthenticated()
         {
             return _authenticationProvider.IsUserAuthenticated() && _repository.GetUserByEmail(User.Identity.Name) != null;
-        }
-
-        private bool IsSessionWithUserSignupModelExist()
-        {
-            return Session[Constants.SessionConstants.UserSignUpModel] is UserSignUpViewModel;
         }
     }
 }

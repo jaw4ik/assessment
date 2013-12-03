@@ -66,6 +66,7 @@
             beforeEach(function () {
                 ajax = $.Deferred();
                 spyOn($, 'ajax').andReturn(ajax.promise());
+                spyOn(app, 'assingLocation');
             });
 
             describe('when signup request already pending', function () {
@@ -84,93 +85,186 @@
 
             describe('when signup request is not pending', function () {
 
-                it('should call \"/api/user/signup"', function () {
+                beforeEach(function () {
                     viewModel.peopleBusyWithCourseDevelopmentAmount('2');
                     viewModel.needAuthoringTool('now');
                     viewModel.usedAuthoringTool('PowerPoint');
-                    viewModel.signUp();
-
-                    expect($.ajax).toHaveBeenCalledWith({
-                        url: '/api/user/signup',
-                        data: { PeopleBusyWithCourseDevelopmentAmount: '2', NeedAuthoringTool: 'now', UsedAuthoringTool: 'PowerPoint' },
-                        type: 'POST'
-                    });
                 });
 
-                it('should set isSignupRequestPending', function () {
-                    viewModel.isSignupRequestPending(false);
-                    viewModel.peopleBusyWithCourseDevelopmentAmount('2');
-                    viewModel.needAuthoringTool('now');
-                    viewModel.usedAuthoringTool('PowerPoint');
+                it('should get user data from client session context', function () {
+                    spyOn(app.clientSessionContext, 'get').andReturn({});
                     viewModel.signUp();
 
-                    expect(viewModel.isSignupRequestPending()).toBeTruthy();
+                    expect(app.clientSessionContext.get).toHaveBeenCalledWith(appConstants.userSignUpFirstStepData);
                 });
 
-                describe('and request succeded', function () {
-                    var trackEvent;
-                    var username;
-
+                describe('and when user data is null', function () {
                     beforeEach(function () {
-                        trackEvent = $.Deferred();
-                        spyOn(app, 'trackEvent').andReturn(trackEvent.promise());
-                        username = 'username@easygenerator.com';
-                        ajax.resolve({ data: 'username@easygenerator.com' });
+                        spyOn(app.clientSessionContext, 'get').andReturn(null);
                     });
 
-                    it('should track event \'Sign up\'', function () {
+                    it('should throw exception \'User sign up data is not defined\'', function () {
+                        var f = function () {
+                            viewModel.signUp();
+                        };
+                        expect(f).toThrow('User sign up data is not defined');
+                    });
+                });
+
+                describe('and when user data is an object', function () {
+                    var data;
+                    beforeEach(function () {
+                        var userData = { email: 'user@email.com', password: 'abcABC123!@#', fullName: 'user', phone: '+380971234567', organization: 'ism', country: 'Ukraine' };
+                        spyOn(app.clientSessionContext, 'get').andReturn(userData);
+
+                        data = {
+                            email: userData.email, password: userData.password, fullName: userData.fullName, phone: userData.phone, organization: userData.organization, country: userData.country,
+                            PeopleBusyWithCourseDevelopmentAmount: viewModel.peopleBusyWithCourseDevelopmentAmount(), NeedAuthoringTool: viewModel.needAuthoringTool(), UsedAuthoringTool: viewModel.usedAuthoringTool()
+                        };
+                    });
+
+                    it('should set isSignupRequestPending', function () {
+                        viewModel.isSignupRequestPending(false);
+
                         viewModel.signUp();
 
-                        waitsFor(function () {
-                            return ajax.state() === "resolved";
-                        });
-                        runs(function () {
-                            expect(app.trackEvent).toHaveBeenCalledWith('Sign up', { username: username });
+                        expect(viewModel.isSignupRequestPending()).toBeTruthy();
+                    });
+
+                    it('should call \"/api/user/signup"', function () {
+                        viewModel.signUp();
+
+                        expect($.ajax).toHaveBeenCalledWith({
+                            url: '/api/user/signup',
+                            data: data,
+                            type: 'POST'
                         });
                     });
 
-                    describe('and event is tracked', function () {
+                    describe('and request succeded', function () {
+                        var trackEvent;
+                        var username;
 
                         beforeEach(function () {
-                            trackEvent.resolve();
+                            trackEvent = $.Deferred();
+                            spyOn(app, 'trackEvent').andReturn(trackEvent.promise());
+                            spyOn(app.clientSessionContext, 'remove');
+                            username = 'username@easygenerator.com';
+                            ajax.resolve({ data: 'username@easygenerator.com' });
                         });
 
-                        it('should redirect to home page', function () {
-                            spyOn(app, 'openHomePage');
+                        it('should remove cuser data from client session context', function () {
+                            viewModel.signUp();
 
+                            waitsFor(function () {
+                                return ajax.state() === "resolved";
+                            });
+                            runs(function () {
+                                expect(app.clientSessionContext.remove).toHaveBeenCalledWith(appConstants.userSignUpFirstStepData);
+                            });
+                        });
+
+                        it('should track event \'Sign up\'', function () {
+                            viewModel.signUp();
+
+                            waitsFor(function () {
+                                return ajax.state() === "resolved";
+                            });
+                            runs(function () {
+                                expect(app.trackEvent).toHaveBeenCalledWith('Sign up', { username: username });
+                            });
+                        });
+
+                        describe('and event is tracked', function () {
+
+                            beforeEach(function () {
+                                trackEvent.resolve();
+                            });
+
+                            it('should redirect to home page', function () {
+                                spyOn(app, 'openHomePage');
+
+                                viewModel.signUp();
+
+                                waitsFor(function () {
+                                    return ajax.state() !== "pending";
+                                });
+                                runs(function () {
+                                    expect(app.openHomePage).toHaveBeenCalled();
+                                });
+                            });
+
+                        });
+
+                    });
+
+                    describe('and request fails', function () {
+
+                        beforeEach(function () {
+                            ajax.reject();
+                        });
+
+                        it('should reset isSignupRequestPending to false', function () {
                             viewModel.signUp();
 
                             waitsFor(function () {
                                 return ajax.state() !== "pending";
                             });
                             runs(function () {
-                                expect(app.openHomePage).toHaveBeenCalled();
+                                expect(viewModel.isSignupRequestPending()).toBeFalsy();
                             });
                         });
 
                     });
-
                 });
 
-                describe('and request fails', function () {
+            });
 
-                    beforeEach(function () {
-                        ajax.reject();
-                    });
-                    
-                    it('should reset isSignupRequestPending to false', function () {
-                        viewModel.signUp();
+        });
 
-                        waitsFor(function () {
-                            return ajax.state() !== "pending";
-                        });
-                        runs(function () {
-                            expect(viewModel.isSignupRequestPending()).toBeFalsy();
-                        });
-                    });
+        describe('isInitializationContextCorrect', function () {
 
+            it('should be function', function () {
+                expect(viewModel.isInitializationContextCorrect).toBeFunction();
+            });
+
+            beforeEach(function () {
+                spyOn(app, 'assingLocation');
+            });
+
+            beforeEach(function () {
+                viewModel.peopleBusyWithCourseDevelopmentAmount('2');
+                viewModel.needAuthoringTool('now');
+                viewModel.usedAuthoringTool('PowerPoint');
+            });
+
+            it('should get user data from client session context', function () {
+                spyOn(app.clientSessionContext, 'get').andReturn(null);
+                viewModel.isInitializationContextCorrect();
+
+                expect(app.clientSessionContext.get).toHaveBeenCalledWith(appConstants.userSignUpFirstStepData);
+            });
+
+            describe('and when user data is null', function () {
+                beforeEach(function () {
+                    spyOn(app.clientSessionContext, 'get').andReturn(null);
                 });
 
+                it('should return false', function () {
+                    var result = viewModel.isInitializationContextCorrect();
+                    expect(result).toBeFalsy();
+                });
+            });
+
+            describe('and when user data is object', function () {
+                beforeEach(function () {
+                    spyOn(app.clientSessionContext, 'get').andReturn({});
+                });
+
+                it('should return true', function () {
+                    var result = viewModel.isInitializationContextCorrect();
+                    expect(result).toBeTruthy();
+                });
             });
 
         });
