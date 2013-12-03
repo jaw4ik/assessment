@@ -448,7 +448,6 @@ ol.unstyled  {
 .editable-text-binding {
     white-space: pre-wrap;
     word-wrap: break-word;
-    word-break: break-all;
 }
 
 /*#endregion Create form*/

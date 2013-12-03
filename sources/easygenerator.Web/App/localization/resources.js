@@ -394,23 +394,23 @@
     },
     assemble: {
         en: 'Assemble',
-        nl: 'samenstellen...',
-        de: 'Zusammenstellung...'
+        nl: 'Samenstellen',
+        de: 'Zusammenstellen'
     },
     assembling: {
         en: 'assembling...',
-        nl: 'Opnw samenstellen',
-        de: 'Neu zusammenstellen'
+        nl: 'samenstellen...',
+        de: 'Zusammenstellung...'
     },
     reassemble: {
         en: 'Reassemble',
-        nl: 'opnieuw samenstellen...',
-        de: 'Neu zusammenstellen...'
+        nl: 'Opnw samenstellen',
+        de: 'Neu zusammenstellen'
     },
     reassembling: {
         en: 'reassembling...',
-        nl: 'bezig met opnieuw samenstellen...',
-        de: 'Wird erneut zusammengestellt...'
+        nl: 'opnieuw samenstellen...',
+        de: 'Neu zusammenstellen...'
     },
     /* End resource section for model Experiences */
     
@@ -540,6 +540,26 @@
         en: 'Click here to add learning content',
         nl: 'Klik hier om leerinhoud toe te voegen',
         de: 'Klicken Sie hier, um einen Lerngegenstand hinzuzufügen'
+    },
+    addNewAnswerOption: {
+        en: 'Add new answer option',
+        nl: 'Nieuwe antwoordoptie toevoegen',
+        de: 'Neue Antwortoption hinzufügen'
+    },
+    addNewLearningContent: {
+        en: 'Add new learning content',
+        nl: 'Nieuwe leerinhoud toevoegen',
+        de: 'Neuen Lerngegenstand hinzufügen'
+    },
+    markAsCorrect: {
+        en: 'Mark as correct',
+        nl: 'Markeer als juist',
+        de: 'Als korrekt markieren'
+    },
+    markAsIncorrect: {
+        en: 'Mark as incorrect',
+        nl: 'Markeer als onjuist',
+        de: 'Als falsch markieren'
     },
     /* End resource section for model Question */
     
@@ -1475,7 +1495,20 @@
         en: 'Please, try again after few minutes.',
         nl: 'Wacht enkele minuten en probeer het opnieuw.',
         de: 'Bitte versuchen Sie es in einigen Minuten erneut.'
-    }
+    },
     /* End resource section for model sorryPage */
+    
+    /* Resource section for model CKEditor */
+    embedMedia: {
+        en: 'Embed Media',
+        nl: 'Embed Media[nl]',
+        de: 'Embed Media[de]'
+    },
+    pasteEmbedCodeHere: {
+        en: 'Paste Embed Code Here',
+        nl: 'Paste Embed Code Here[nl]',
+        de: 'Paste Embed Code Here[de]'
+    }
+    /* End resource section for model CKEditor */
            
 });
