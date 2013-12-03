@@ -1,0 +1,11 @@
+﻿.cke_panel_block .cke_panel_listItem, .cke_panel_block .cke_panel_grouptitle {
+    font-family: Arial, sans-serif;
+}
+
+.cke_panel_block .cke_panel_listItem {
+    font-size: 12px;
+}
+
+.cke_panel_block .cke_panel_grouptitle {
+    font-size: 11px;
+}
