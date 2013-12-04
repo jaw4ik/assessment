@@ -89,6 +89,7 @@ input::-moz-focus-inner {
 html, body {
     height: 100%;
     width: 100%;
+    font-family: 'OpenSans';
 }
 
 table {

@@ -54,13 +54,21 @@ body.try {
     padding-top: 0;
 }
 
-.preloader-block .opensans-italic {
-    font-family: 'OpenSansItalic';
+.preloader-block {
+    height: 1px;
+    width: 1px;
+    position: absolute;
+    overflow: hidden;
+    visibility: hidden;
 }
 
-.preloader-block .opensans-semibolditalic {
-    font-family: 'OpenSans-SemiboldItalic';
-}
+    .preloader-block .opensans-italic {
+        font-family: 'OpenSansItalic';
+    }
+
+    .preloader-block .opensans-semibolditalic {
+        font-family: 'OpenSans-SemiboldItalic';
+    }
 
 /*#endregion Layout*/
 
