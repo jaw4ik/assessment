@@ -510,14 +510,6 @@
         background: #fcfcfc;
     }
 
-    .add-button.disabled,
-    .add-button.disabled:hover,
-    .add-button.disabled:active {
-        opacity: 0.5;
-        filter: alpha(opacity=50);
-        background: white;
-    }
-
 .add-button-text-wrapper {
     padding: 11px 10px;
     text-align: center;
