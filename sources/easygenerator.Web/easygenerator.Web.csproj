@@ -449,6 +449,12 @@
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\plugin.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\mediaembed\icons\hidpi\mediaembed.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\mediaembed\icons\mediaembed.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\de.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\en.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\nl.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\mediaembed\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semanticTagsPlugin\styles.css" />
     <Content Include="Scripts\durandal\activator.js" />
     <Content Include="Scripts\durandal\app.js" />
@@ -685,6 +691,7 @@
     <Content Include="Templates\Freestyle learning\settings.js" />
     <Content Include="Templates\Quiz\App\browserSupport.js" />
     <Content Include="Templates\Quiz\App\configuration\routes.js" />
+    <Content Include="Templates\Quiz\App\configuration\settings.js" />
     <Content Include="Templates\Quiz\App\context.js" />
     <Content Include="Templates\Quiz\App\eventManager.js" />
     <Content Include="Templates\Quiz\App\eventManager.spec.js">

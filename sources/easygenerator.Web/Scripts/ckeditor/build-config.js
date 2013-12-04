@@ -68,12 +68,11 @@ var CKBUILDER_CONFIG = {
 		'indent' : 1,
 		'fakeobjects' : 1,
 		'menubutton' : 1,
-		'flash' : 1,
-		'mediaembed' : 1
+		'flash' : 1
 	},
 	languages : {
 		'nl' : 1,
 		'en' : 1,
-		'de' : 1,
+		'de' : 1
 	}
 };
