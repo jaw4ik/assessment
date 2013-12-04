@@ -691,7 +691,6 @@
     <Content Include="Templates\Freestyle learning\settings.js" />
     <Content Include="Templates\Quiz\App\browserSupport.js" />
     <Content Include="Templates\Quiz\App\configuration\routes.js" />
-    <Content Include="Templates\Quiz\App\configuration\settings.js" />
     <Content Include="Templates\Quiz\App\context.js" />
     <Content Include="Templates\Quiz\App\eventManager.js" />
     <Content Include="Templates\Quiz\App\eventManager.spec.js">
