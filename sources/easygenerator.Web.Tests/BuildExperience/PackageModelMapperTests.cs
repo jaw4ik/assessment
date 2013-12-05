@@ -31,6 +31,7 @@ namespace easygenerator.Web.Tests.BuildExperience
 
             var objective = ObjectiveObjectMother.Create("ObjectiveTitle");
             objective.AddQuestion(question, "SomeUser");
+            objective.Questions.First().UpdateContent("content", "someuser");
 
             var experience = ExperienceObjectMother.Create("ExperienceTitle");
             experience.UpdateTemplate(TemplateObjectMother.Create(name: "Default"), "SomeUser");
@@ -68,7 +69,7 @@ namespace easygenerator.Web.Tests.BuildExperience
 
             expectedModel.Id.ToString("N").Should().Be(actualModel.Id);
         }
-        
+
         [TestMethod]
         public void Mapexperience_ShouldReturnMappedAnswerOptionPackageModel()
         {
@@ -87,7 +88,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             expectedModel.IsCorrect.Should().Be(actualModel.IsCorrect);
         }
 
-        
+
         [TestMethod]
         public void Mapexperience_ShouldReturnMappedQuestionPackageModel()
         {
@@ -103,10 +104,43 @@ namespace easygenerator.Web.Tests.BuildExperience
 
             expectedModel.Id.ToString("N").Should().Be(actualModel.Id);
             expectedModel.Title.Should().Be(actualModel.Title);
+            expectedModel.Content.Should().Be(actualModel.Content);
             expectedModel.Answers.Count().Should().Be(actualModel.Answers.Count);
             expectedModel.LearningContents.Count().Should().Be(actualModel.LearningContents.Count);
         }
-        
+
+        [TestMethod]
+        public void Mapexperience_ShouldMapQuestionHasContentPropertyAsFalse_WhenQuestionDoesntHaveContent()
+        {
+            //Arrange
+            var experience = GetExperience();
+            var expectedModel = experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0];
+            expectedModel.UpdateContent(null,"someUser");
+
+            //Act
+            var result = _packageModelMapper.MapExperience(experience);
+
+            //Assert
+            var actualModel = result.Objectives[0].Questions[0];
+            actualModel.HasContent.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Mapexperience_ShouldMapQuestionHasContentPropertyAsTrue_WhenQuestionHasContent()
+        {
+            //Arrange
+            var experience = GetExperience();
+            var expectedModel = experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0];
+            expectedModel.UpdateContent("content", "someUser");
+
+            //Act
+            var result = _packageModelMapper.MapExperience(experience);
+
+            //Assert
+            var actualModel = result.Objectives[0].Questions[0];
+            actualModel.HasContent.Should().BeTrue();
+        }
+
         [TestMethod]
         public void Mapexperience_ShouldReturnMappedObjectivePackageModel()
         {
@@ -124,7 +158,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             expectedModel.Title.Should().Be(actualModel.Title);
             expectedModel.Questions.Count().Should().Be(actualModel.Questions.Count);
         }
-        
+
         [TestMethod]
         public void Mapexperience_ShouldReturnMappedExperiencePackageModel()
         {
@@ -142,7 +176,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             expectedModel.Title.Should().Be(actualModel.Title);
             expectedModel.RelatedObjectives.Count().Should().Be(actualModel.Objectives.Count);
         }
-        
+
         [TestMethod]
         public void Mapexperience_ShouldIgnoreQuestionsWithoutAnswers()
         {
@@ -157,7 +191,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             //Assert
             Assert.AreEqual(0, result.Objectives.Count);
         }
-        
+
         [TestMethod]
         public void Mapexperience_ShouldIgnoreObjectivesWithoutQuestions()
         {
@@ -172,7 +206,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             //Assert
             Assert.AreEqual(0, result.Objectives.Count);
         }
-        
+
         [TestMethod]
         public void Mapexperience_ShouldIgnoreObjectivesWithFilteredQuestions()
         {
@@ -187,7 +221,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             //Assert
             Assert.AreEqual(0, result.Objectives.Count);
         }
-        
+
         #endregion
     }
 }

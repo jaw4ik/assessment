@@ -147,6 +147,66 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
+        #region Update content
+
+        [TestMethod]
+        public void UpdateContent_ShouldUpdateContent()
+        {
+            const string content = "content";
+            var question = QuestionObjectMother.Create();
+
+            question.UpdateContent(content, ModifiedBy);
+
+            question.Content.Should().Be(content);
+        }
+
+        [TestMethod]
+        public void UpdateContent_ShouldUpdateModificationDate()
+        {
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var question = QuestionObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(2);
+            DateTimeWrapper.Now = () => dateTime;
+
+            question.UpdateContent("content", ModifiedBy);
+
+            question.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void UpdateContent_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            var question = QuestionObjectMother.Create();
+
+            Action action = () => question.UpdateContent("Some content", null);
+
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateContent_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            var question = QuestionObjectMother.Create();
+
+            Action action = () => question.UpdateContent("Some content", string.Empty);
+
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateContent_ShouldUpdateMoidifiedBy()
+        {
+            var question = QuestionObjectMother.Create();
+            var user = "Some user";
+
+            question.UpdateContent("Some content", user);
+
+            question.ModifiedBy.Should().Be(user);
+        }
+
+        #endregion
+
         #region Add answer
 
         [TestMethod]

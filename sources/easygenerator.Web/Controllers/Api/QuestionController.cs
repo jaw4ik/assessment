@@ -67,5 +67,18 @@ namespace easygenerator.Web.Controllers.Api
             return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
         }
 
+        [HttpPost]
+        public ActionResult UpdateContent(Question question, string content)
+        {
+            if (question == null)
+            {
+                return JsonLocalizableError(Errors.QuestionNotFoundError, Errors.QuestionNotFoundResourceKey);
+            }
+
+            question.UpdateContent(content, GetCurrentUsername());
+
+            return JsonSuccess(new { ModifiedOn = question.ModifiedOn });
+        }
+
     }
 }

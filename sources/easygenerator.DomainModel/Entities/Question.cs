@@ -22,7 +22,24 @@ namespace easygenerator.DomainModel.Entities
 
         public string Title { get; private set; }
 
+        public string Content { get; private set; }
+
         public virtual Objective Objective { get; internal set; }
+
+        protected internal virtual ICollection<Answer> AnswersCollection { get; set; }
+
+        public IEnumerable<Answer> Answers
+        {
+            get { return AnswersCollection.AsEnumerable(); }
+        }
+
+        protected internal virtual ICollection<LearningContent> LearningContentsCollection { get; set; }
+
+        public IEnumerable<LearningContent> LearningContents
+        {
+            get { return LearningContentsCollection.AsEnumerable(); }
+        }
+
 
         public virtual void UpdateTitle(string title, string modifiedBy)
         {
@@ -33,11 +50,12 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        protected internal virtual ICollection<Answer> AnswersCollection { get; set; }
-
-        public IEnumerable<Answer> Answers
+        public virtual void UpdateContent(string content, string modifiedBy)
         {
-            get { return AnswersCollection.AsEnumerable(); }
+            ThrowIfModifiedByIsInvalid(modifiedBy);
+
+            Content = content;
+            MarkAsModified(modifiedBy);
         }
 
         public virtual void AddAnswer(Answer answer, string modifiedBy)
@@ -58,13 +76,6 @@ namespace easygenerator.DomainModel.Entities
             AnswersCollection.Remove(answer);
             answer.Question = null;
             MarkAsModified(modifiedBy);
-        }
-
-        protected internal virtual ICollection<LearningContent> LearningContentsCollection { get; set; }
-
-        public IEnumerable<LearningContent> LearningContents
-        {
-            get { return LearningContentsCollection.AsEnumerable(); }
         }
 
         public virtual void AddLearningContent(LearningContent learningContent, string modifiedBy)

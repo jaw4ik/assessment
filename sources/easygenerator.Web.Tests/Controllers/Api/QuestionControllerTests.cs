@@ -178,5 +178,44 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
+        #region Update content
+
+        [TestMethod]
+        public void UpdateContent_ShouldReturnJsonErrorResult_WhenQuestionIsNull()
+        {
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            var result = _controller.UpdateTitle(null, String.Empty);
+
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Question is not found");
+            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("questionNotFoundError");
+        }
+
+
+        [TestMethod]
+        public void UpdateContent_ShouldUpdateQuestionContent()
+        {
+            const string content = "updated content";
+            var user = "Test user";
+            _user.Identity.Name.Returns(user);
+            var question = Substitute.For<Question>("Question title", CreatedBy);
+
+            _controller.UpdateContent(question, content);
+
+            question.Received().UpdateContent(content, user);
+        }
+
+        [TestMethod]
+        public void UpdateContent_ShouldReturnJsonSuccessResult()
+        {
+            var question = Substitute.For<Question>("Question title", CreatedBy);
+
+            var result = _controller.UpdateContent(question, String.Empty);
+
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = question.ModifiedOn });
+        }
+
+        #endregion
+
     }
 }

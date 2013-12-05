@@ -56,6 +56,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             var explanation = LearningContentObjectMother.Create("Text");
 
             var question = QuestionObjectMother.Create("QuestionTitle");
+            question.UpdateContent("Some question content", "SomeUser");
             question.AddAnswer(answer, "SomeUser");
             question.AddLearningContent(explanation, "SomeUser");
 
@@ -173,7 +174,46 @@ namespace easygenerator.Web.Tests.BuildExperience
         }
 
         [TestMethod]
-        public void Build_ShouldWriteExplanationsToFile()
+        public void Build_ShouldWriteQuestionContentToFile_WhenQuestionContentIsDefined()
+        {
+            //Arrange
+            var questionContentPath = "SomePath";
+            var buildId = _experiencePackageModel.Id + String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now());
+
+            _buildPathProvider.GetQuestionContentFileName(buildId,
+                _experience.RelatedObjectives.ToArray()[0].Id.ToString("N"),
+                _experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToString("N"))
+                .Returns(questionContentPath);
+
+            //Act
+            _builder.Build(_experience);
+
+            //Assert
+            _fileManager.Received().WriteToFile(questionContentPath, _experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Content);
+        }
+
+        [TestMethod]
+        public void Build_ShouldNotWriteQuestionContentToFile_WhenQuestionContentIsNull()
+        {
+            //Arrange
+            _experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].UpdateContent(null, "SomeUser");
+            var questionContentPath = "SomePath";
+            var buildId = _experiencePackageModel.Id + String.Format(" {0:yyyyMMdd-HH-mm-ss}-UTC", DateTimeWrapper.Now());
+
+            _buildPathProvider.GetQuestionContentFileName(buildId,
+                _experience.RelatedObjectives.ToArray()[0].Id.ToString("N"),
+                _experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Id.ToString("N"))
+                .Returns(questionContentPath);
+
+            //Act
+            _builder.Build(_experience);
+
+            //Assert
+            _fileManager.DidNotReceive().WriteToFile(questionContentPath, _experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Content);
+        }
+
+        [TestMethod]
+        public void Build_ShouldWriteLearningContentsToFile()
         {
             //Arrange
             var explanationFilePath = "SomeExplanationPath";
@@ -298,7 +338,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             _builder.Build(_experience);
 
             //Assert
-            _fileManager.Received().DeletePreviousFiles(downloadPath, buildId, _experience.Id.ToString("N"));
+            _fileManager.Received().DeleteFilesInDirectory(downloadPath, _experiencePackageModel.Id + "*.zip", buildId + ".zip");
         }
 
         [TestMethod]

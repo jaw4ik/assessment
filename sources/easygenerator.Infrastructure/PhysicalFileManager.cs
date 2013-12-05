@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.IO.Compression;
 
 namespace easygenerator.Infrastructure
@@ -102,15 +103,15 @@ namespace easygenerator.Infrastructure
                 File.Delete(path);
         }
 
-        public virtual void DeletePreviousFiles(string packagePath, string lastFileName, string pattern)
+        public virtual void DeleteFilesInDirectory(string directoryPath, string deleteFilePattern, string deleteFileException)
         {
-            var filesNames = Array.FindAll(Directory.GetFiles(packagePath, pattern + "*.zip"),
-                                            filename => filename != packagePath + "\\" + lastFileName + ".zip");
+            var fileNamesToDelete = Array.FindAll(Directory.GetFiles(directoryPath, deleteFilePattern),
+                                           filename => Path.Combine(directoryPath,deleteFileException) != filename);
 
-            if (filesNames.Length == 0)
+            if (fileNamesToDelete.Length == 0)
                 return;
 
-            foreach (var filesName in filesNames)
+            foreach (var filesName in fileNamesToDelete)
             {
                 try
                 {

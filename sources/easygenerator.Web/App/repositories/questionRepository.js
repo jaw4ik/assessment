@@ -26,6 +26,7 @@
                             createdQuestion = {
                                 id: response.Id,
                                 title: obj.title,
+                                content: obj.content,
                                 learningContents: [],
                                 answerOptions: [],
                                 createdOn: createdOn,
@@ -100,35 +101,60 @@
             });
         },
 
-        update = function (objectiveId, obj) {
-            if (_.isNullOrUndefined(objectiveId) || _.isNullOrUndefined(obj))
-                throw 'Invalid arguments';
+        updateContent = function (questionId, content) {
+            return Q.fcall(function () {
+                guard.throwIfNotString(questionId, 'Question id is not a string');
 
-            var deferred = Q.defer();
+                return httpWrapper.post('api/question/updateContent', { questionId: questionId, content: content })
+                    .then(function (response) {
+                        guard.throwIfNotAnObject(response, 'Response is not an object');
+                        guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
-            objectiveRepository.getById(objectiveId).then(function (objective) {
-                if (!_.isObject(objective)) {
-                    deferred.reject('Objective does not exist');
-                    return;
-                }
+                        var question = _.find(getQuestions(), function (item) {
+                            return item.id == questionId;
+                        });
 
-                var question = _.find(objective.questions, function (item) {
-                    return item.id === obj.id;
-                });
+                        guard.throwIfNotAnObject(question, 'Question does not exist in dataContext');
 
-                if (!_.isObject(question)) {
-                    deferred.reject('Question does not exist');
-                    return;
-                }
+                        var modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
 
-                question.title = obj.title;
-                question.modifiedOn = new Date();
+                        question.content = content;
+                        question.modifiedOn = modifiedOn;
 
-                deferred.resolve(question);
+                        return modifiedOn;
+                    });
             });
-
-            return deferred.promise;
         },
+
+        //update = function (objectiveId, obj) {
+        //    if (_.isNullOrUndefined(objectiveId) || _.isNullOrUndefined(obj))
+        //        throw 'Invalid arguments';
+
+        //    var deferred = Q.defer();
+
+        //    objectiveRepository.getById(objectiveId).then(function (objective) {
+        //        if (!_.isObject(objective)) {
+        //            deferred.reject('Objective does not exist');
+        //            return;
+        //        }
+
+        //        var question = _.find(objective.questions, function (item) {
+        //            return item.id === obj.id;
+        //        });
+
+        //        if (!_.isObject(question)) {
+        //            deferred.reject('Question does not exist');
+        //            return;
+        //        }
+
+        //        question.title = obj.title;
+        //        question.modifiedOn = new Date();
+
+        //        deferred.resolve(question);
+        //    });
+
+        //    return deferred.promise;
+        //},
         getById = function (objectiveId, questionId) {
             if (_.isNullOrUndefined(objectiveId) || _.isNullOrUndefined(questionId))
                 throw 'Invalid arguments';
@@ -162,8 +188,8 @@
         addQuestion: addQuestion,
         removeQuestions: removeQuestions,
         updateTitle: updateTitle,
-
-        update: update,
+        updateContent: updateContent,
+        //update: update,
         getById: getById
     };
 });

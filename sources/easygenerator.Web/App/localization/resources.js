@@ -561,6 +561,16 @@
         nl: 'Markeer als onjuist',
         de: 'Als falsch markieren'
     },
+    questionContent: {
+        en: 'Question content',
+        nl: 'Inhoud vraag',
+        de: 'Frageninhalt'
+    },
+    defineQuestionContent: {
+        en: 'Define question content',
+        nl: 'Inhoud vraag definiëren',
+        de: 'Frageninhalt definieren'
+    },
     /* End resource section for model Question */
     
     /* Resource section for model Questions */
@@ -1501,13 +1511,13 @@
     /* Resource section for model CKEditor */
     embedMedia: {
         en: 'Embed Media',
-        nl: 'Embed Media[nl]',
-        de: 'Embed Media[de]'
+        nl: 'Media invoegen',
+        de: 'Medien einbetten'
     },
     pasteEmbedCodeHere: {
         en: 'Paste Embed Code Here',
-        nl: 'Paste Embed Code Here[nl]',
-        de: 'Paste Embed Code Here[de]'
+        nl: 'Code hier invoegen',
+        de: 'Code hier einbetten'
     }
     /* End resource section for model CKEditor */
            

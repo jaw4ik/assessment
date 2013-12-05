@@ -17,6 +17,7 @@
             autosaveTimersInterval: {
                 answerOption: 60000,
                 learningContent: 60000,
+                questionContent: 60000,
                 questionTitle: 5000
             },
 

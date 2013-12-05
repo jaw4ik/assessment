@@ -1,5 +1,5 @@
-﻿define(['viewmodels/questions/answers', 'viewmodels/questions/learningContents', 'plugins/router', 'eventTracker', 'models/answerOption', 'models/learningContent', 'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify', 'repositories/answerRepository', 'repositories/learningContentRepository'],
-    function (vmAnswers, vmLearningContents, router, eventTracker, answerOptionModel, learningContentModel, localizationManager, constants, questionRepository, objectiveRepository, system, notify, answerRepository, learningContentRepository) {
+﻿define(['viewmodels/questions/answers', 'viewmodels/questions/learningContents', 'plugins/router', 'eventTracker', 'models/answerOption', 'models/learningContent', 'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify', 'repositories/answerRepository', 'repositories/learningContentRepository', 'viewModels/questions/questionContent'],
+    function (vmAnswers, vmLearningContents, router, eventTracker, answerOptionModel, learningContentModel, localizationManager, constants, questionRepository, objectiveRepository, system, notify, answerRepository, learningContentRepository, vmQuestionContent) {
         "use strict";
         var
             events = {
@@ -41,11 +41,11 @@
                 eventTracker.publish(events.navigateToObjective);
                 router.navigateWithQueryString('objective/' + this.objectiveId);
             },
-            
+
             startEditQuestionTitle = function () {
                 title.isEditing(true);
             },
-            
+
             endEditQuestionTitle = function () {
                 title(title().trim());
                 title.isEditing(false);
@@ -69,6 +69,7 @@
                 });
             },
 
+            questionContent = null,
             answers = null,
             learningContents = null,
 
@@ -82,16 +83,17 @@
 
                     that.objectiveId = objective.id;
                     that.goBackTooltip = localizationManager.localize('backTo') + ' \'' + objective.title + '\'';
-                    
+
                     questionRepository.getById(objectiveId, questionId).then(function (question) {
                         that.title(question.title);
+                        that.questionContent = vmQuestionContent(questionId, question.content);
                     }).fail(function () {
                         router.replace('404');
                         return;
                     });
                 }).then(function () {
                     return answerRepository.getCollection(questionId).then(function (answerOptions) {
-                        var sortedAnswers = _.sortBy(answerOptions, function(item) { return item.createdOn; });
+                        var sortedAnswers = _.sortBy(answerOptions, function (item) { return item.createdOn; });
                         that.answers = vmAnswers(questionId, sortedAnswers);
                     });
                 }).then(function () {
@@ -120,6 +122,7 @@
             startEditQuestionTitle: startEditQuestionTitle,
             endEditQuestionTitle: endEditQuestionTitle,
 
+            questionContent: questionContent,
             answers: answers,
             learningContents: learningContents,
             localizationManager: localizationManager

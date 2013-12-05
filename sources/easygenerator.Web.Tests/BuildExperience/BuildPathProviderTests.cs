@@ -130,6 +130,26 @@ namespace easygenerator.Web.Tests.BuildExperience
 
         #endregion
 
+        #region GetQuestionContentFileName
+
+        [TestMethod]
+        public void GetQuestionContentFileName_ShouldReturnLearningQuestionFileName()
+        {
+            //Arrange
+            var buildId = "BuildId";
+            var objectiveId = "ObjectiveId";
+            var questionId = "QuestionId";
+            var expectedPath = Path.Combine(_buildPathProvider.GetQuestionDirectoryName(buildId, objectiveId, questionId), "content" + ".html");
+
+            //Act
+            var result = _buildPathProvider.GetQuestionContentFileName(buildId, objectiveId, questionId);
+
+            //Assert
+            result.Should().Be(expectedPath);
+        }
+
+        #endregion
+
         #region GetDataFileName
 
         [TestMethod]

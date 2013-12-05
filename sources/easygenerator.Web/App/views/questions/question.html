@@ -21,6 +21,44 @@
         </header>
 
         <div class="question-content">
+            <div class="question-content-block" data-bind="with: questionContent">
+                <div class="question-content-block-header-wrapper" data-bind="click: toggleExpand">
+                    <div class="question-content-block-header clearfix">
+                        <div class="question-content-block-header-title" data-bind="localize: { text: 'questionContent' }"></div>
+                        <div class="question-content-block-size-element-wrapper pull-right">
+                            <span class="nav-element">
+                                <!-- ko if: isExpanded -->
+                                <span class="question-content-block-size-btn collapse-btn" data-bind="localize: { title: 'collapse' }"></span>
+                                <!-- /ko -->
+                                <!-- ko ifnot: isExpanded -->
+                                <span class="question-content-block-size-btn expand-btn" data-bind="localize: { title: 'expand' }"></span>
+                                <!-- /ko -->
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-content-items-list" data-bind="visible: isExpanded">
+                    <div>
+                         <!-- ko if: isQuestionContentDefined -->
+                        <div class="question-learning-content-list-item" data-bind="css: { active: hasFocus }">
+                            <div class="question-learning-content-wrapper">
+                                <div class="question-learning-content selectable" data-bind="ckeditor: { data: text, language: $root.language(), eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: autosaveInterval, localizationManager: $root.localizationManager }">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                        <!-- ko ifnot: isQuestionContentDefined -->
+                        <div class="add-button">
+                            <div class="add-button-text-wrapper" data-bind="click: defineQuestionContent">
+                                <span class="add-button-text selectable" data-bind="localize: { text: 'defineQuestionContent' }"></span>
+                            </div>
+                        </div>
+                         <!-- /ko -->
+                    </div>
+                </div>
+            </div>
+
             <div class="question-content-block question-answers" data-bind="with: answers">
                 <div class="question-content-block-header-wrapper" data-bind="click: toggleExpand">
                     <div class="question-content-block-header clearfix">

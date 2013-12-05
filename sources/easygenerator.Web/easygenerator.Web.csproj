@@ -305,8 +305,12 @@
     <Content Include="App\viewmodels\feedback.spec.js">
       <DependentUpon>feedback.js</DependentUpon>
     </Content>
+    <Content Include="App\viewmodels\questions\questionContent.js" />
     <Content Include="App\viewmodels\questions\learningContents.spec.js">
       <DependentUpon>learningContents.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\questions\questionContent.spec.js">
+      <DependentUpon>questionContent.js</DependentUpon>
     </Content>
     <Content Include="App\views\common\back.html" />
     <Content Include="App\views\experiences\deliver.html" />

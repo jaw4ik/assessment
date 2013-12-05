@@ -17,7 +17,8 @@ namespace easygenerator.Web.BuildExperience
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString("N")));
 
             Mapper.CreateMap<Question, QuestionPackageModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString("N")));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString("N")))
+                .ForMember(dest => dest.HasContent, opt => opt.MapFrom(src => !String.IsNullOrEmpty(src.Content)));
 
             Mapper.CreateMap<Objective, ObjectivePackageModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString("N")))

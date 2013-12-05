@@ -15,6 +15,8 @@ namespace easygenerator.Web.Tests.BuildExperience
             _physicalFileManager = new PhysicalFileManager();
         }
 
+        #region CreateDirectory
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void CreateDirectory_ShouldThrowArgumentException_WhenPathIsEmpty()
@@ -27,6 +29,10 @@ namespace easygenerator.Web.Tests.BuildExperience
             //Assert
         }
 
+        #endregion
+
+        #region DeleteDirectory
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void DeleteDirectory_ShouldThrowArgumentException_WhenPathIsEmpty()
@@ -38,6 +44,10 @@ namespace easygenerator.Web.Tests.BuildExperience
 
             //Assert
         }
+
+        #endregion
+
+        #region CopyDirectory
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
@@ -63,6 +73,10 @@ namespace easygenerator.Web.Tests.BuildExperience
             //Assert
         }
 
+        #endregion
+
+        #region WriteToFile
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void WriteToFile_ShouldThrowArgumentException_WhenPathIsEmpty()
@@ -87,6 +101,10 @@ namespace easygenerator.Web.Tests.BuildExperience
             //Assert
         }
 
+        #endregion
+
+        #region DeleteFile
+
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void DeleteFile_ShouldThrowArgumentException_WhenPathIsEmpty()
@@ -99,6 +117,11 @@ namespace easygenerator.Web.Tests.BuildExperience
             //Assert
         }
 
+
+        #endregion
+
+        #region GetFileContentType
+
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void GetFileContentType_ShouldThrowNotSupportedException_WhenExtentionNotAllowed()
@@ -110,5 +133,9 @@ namespace easygenerator.Web.Tests.BuildExperience
 
             //Assert
         }
+
+        #endregion
+
+      
     }
 }

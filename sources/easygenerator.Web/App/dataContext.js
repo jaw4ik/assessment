@@ -65,6 +65,7 @@
                                     return new QuestionModel({
                                         id: question.Id,
                                         title: question.Title,
+                                        content: question.Content,
                                         createdOn: parseDateString(question.CreatedOn),
                                         modifiedOn: parseDateString(question.ModifiedOn)
                                     });

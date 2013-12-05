@@ -6,6 +6,7 @@
             var obj = new EntityModel(spec);
 
             obj.title = spec.title;
+            obj.content = spec.content;
 
             return obj;
         };
