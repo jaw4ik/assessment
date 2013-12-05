@@ -200,6 +200,12 @@
                     expect(viewModel.country.isValid()).toBeFalsy();
                 });
 
+                it('should set country error message visible to true', function() {
+                    viewModel.isCountryErrorVisible(false);
+                    viewModel.country(undefined);
+                    expect(viewModel.isCountryErrorVisible()).toBeTruthy();
+                });
+
             });
 
             describe('when not empty', function () {
@@ -212,6 +218,12 @@
                 it('should set phone code', function () {
                     viewModel.country('Ukraine');
                     expect(viewModel.phoneCode()).toBe('+ 380');
+                });
+
+                it('should set country error message visible to false', function () {
+                    viewModel.isCountryErrorVisible(true);
+                    viewModel.country('Ukraine');
+                    expect(viewModel.isCountryErrorVisible()).toBeFalsy();
                 });
 
             });
@@ -814,6 +826,14 @@
 
             it('should be observable', function () {
                 expect(viewModel.isOrganizationErrorVisible).toBeObservable();
+            });
+
+        });
+
+        describe('isCountrySuccessVisible:', function () {
+
+            it('should be observable', function () {
+                expect(viewModel.isCountrySuccessVisible).toBeObservable();
             });
 
         });

@@ -59,18 +59,18 @@
                     <span class="user-form-message" data-bind="visible: isOrganizationErrorVisible()">@Resources.EnterValidOrganization</span>
                 </div>
 
-                <div class="user-form-row" data-bind="css: { success: isCountrySuccessVisible() }">
+                <div class="user-form-row" data-bind="css: { error: isCountryErrorVisible(), success: isCountrySuccessVisible() }">
                     <label class="user-form-label required country">@Resources.CountryCaption</label>
                     <div class="user-form-input-holder selectbox">
-                        <div class="user-form-selectbox" data-bind="selectBox: { options: countries, optionsText: 'name', optionsValue: 'name', value: country, defaultText: '@Resources.ChooseYourCountry' }"></div>
+                        <div class="user-form-selectbox" data-bind="selectBox: { options: countries, optionsText: 'name', optionsValue: 'name', value: country, defaultText: '@Resources.ChooseYourCountry', filter: true, tabindex: 5 }"></div>
                     </div>
+                    <span class="user-form-message" data-bind="visible: isCountryErrorVisible()">@Resources.EnterValidCountry</span>
                 </div>
                 <div class="user-form-row" data-bind="css: { error: isPhoneErrorVisible(), success: !isPhoneErrorVisible() && phone.isValid() }">
                     <label class="user-form-label required phone">@Resources.PhoneNumberCaption</label>
                     <div class="user-form-input-holder">
-                        
                         <span class="user-form-input-wrapper"></span>
-                        <input tabindex="5" class="user-form-input phone" type="text" name="phone" data-bind="value: phone, valueUpdate: 'afterkeydown', event: { blur: validatePhone, focus: onFocusPhone }" ondrop="return false;" />
+                        <input tabindex="6" class="user-form-input phone" type="text" name="phone" data-bind="value: phone, valueUpdate: 'afterkeydown', event: { blur: validatePhone, focus: onFocusPhone }" ondrop="return false;" />
                         <div class="phone-code-wrapper" data-bind="text: phoneCode">+ ( ... )</div>
                     </div>
                     <span class="user-form-message" data-bind="visible: isPhoneErrorVisible()">@Resources.EnterValidPhoneNumber</span>

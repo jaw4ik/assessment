@@ -417,7 +417,16 @@ body.try {
         box-shadow: 0 0 2px #62a426;
     }
 
-.user-form-row.error .user-form-input-wrapper {
+.user-form-row .user-form-selectbox .selectbox-current-item.focus {
+    outline: none;
+    border: solid 1px #00a8ff;
+    -webkit-box-shadow: 0 0 2px #00a8ff;
+    -moz-box-shadow: 0 0 2px #00a8ff;
+    box-shadow: 0 0 2px #00a8ff;
+}
+
+.user-form-row.error .user-form-input-wrapper,
+.user-form-row.error .selectbox-current-item {
     border: solid 1px #953b39;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;

@@ -162,6 +162,9 @@
   <data name="EmailCaption" xml:space="preserve">
     <value>E-Mail</value>
   </data>
+  <data name="EnterValidCountry" xml:space="preserve">
+    <value>Fill in your country (DE)</value>
+  </data>
   <data name="EnterValidEmailMessage" xml:space="preserve">
     <value>Geben Sie eine gültige E-Mail-Adresse ein</value>
   </data>

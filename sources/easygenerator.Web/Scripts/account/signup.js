@@ -14,13 +14,15 @@
         isPhoneErrorVisible = ko.observable(false),
         isOrganizationErrorVisible = ko.observable(false),
         isCountrySuccessVisible = ko.observable(false),
+        isCountryErrorVisible = ko.observable(false),
+        lastValidateCountry = null,
         userExists = ko.observable(false),
         isFormValid = null,
         lastValidatedUserName = null,
         lastValidateFullName = null,
         lastValidatePhone = null,
         lastValidateOrganization = null,
-        phoneCode = ko.observable('+ ( ... )');
+        phoneCode = ko.observable('+ ( ... )'),
     userPreciselyExists = ko.computed(function () {
         return userExists() && userName().trim().toLowerCase() === lastValidatedUserName;
     }),
@@ -116,14 +118,21 @@
     });
 
     country.isValid = ko.computed(function () {
+        lastValidateCountry = null;
         var currentCountry = _.find(appConstants.countries, function (item) {
             return item.name == country();
         });
         if (!_.isNullOrUndefined(currentCountry)) {
+            lastValidateCountry = country();
             isCountrySuccessVisible(true);
             phoneCode(currentCountry.code);
+            isCountryErrorVisible(false);
+        } else {
+            isCountrySuccessVisible(false);
+            phoneCode('+ ( ... )');
+            isCountryErrorVisible(_.isUndefined(country()));
         }
-        return !_.isNull(country());
+        return !_.isNullOrUndefined(country());
     });
 
     isFormValid = ko.computed(function () {
@@ -159,6 +168,7 @@
         isPhoneErrorVisible: isPhoneErrorVisible,
         isOrganizationErrorVisible: isOrganizationErrorVisible,
         isCountrySuccessVisible: isCountrySuccessVisible,
+        isCountryErrorVisible: isCountryErrorVisible,
         onFocusFullName: onFocusFullName,
         onFocusPhone: onFocusPhone,
         onFocusOrganization: onFocusOrganization,
