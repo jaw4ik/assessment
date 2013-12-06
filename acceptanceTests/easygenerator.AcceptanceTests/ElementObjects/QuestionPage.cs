@@ -299,6 +299,12 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             var HomeLink = GetByXPath(model.HomeLink);
             HomeLink.Click();
         }
+
+        internal void MouseHoverHomeLink()
+        {
+            var HomeLink = GetByXPath(model.HomeLink);
+            HomeLink.HoverElement();
+        }
     }
 
 

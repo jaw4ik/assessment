@@ -124,6 +124,7 @@ And input text 'Explanation14' into new explanation text field
 And click on collapse answer options
 And mouse hover element of explanation with text 'Explanation11'
 And click on delete explanation 'Explanation11'
+#And sleep 1000 milliseconds
 And refresh page
 Then explanations list contains only items with data
 | Explanation   |

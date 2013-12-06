@@ -27,6 +27,7 @@ namespace easygenerator.AcceptanceTests
         public string ModifiedBy { get; set; }
         public System.DateTime ModifiedOn { get; set; }
         public System.Guid Objective_Id { get; set; }
+        public string Content { get; set; }
     
         public virtual ICollection<Answer> Answers { get; set; }
         public virtual Objective Objective { get; set; }

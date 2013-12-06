@@ -43,6 +43,7 @@ Then correct answer option is set to 'true' for 'AnswerOption14'
 Scenario: Any answer option correctness could be toggled
 When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 And click on correct answer option for 'AnswerOption11'
+And mouse hover home link
 And click on correct answer option for 'AnswerOption12'
 And click on collapse explanations
 Then correct answer option is set to 'false' for 'AnswerOption11'

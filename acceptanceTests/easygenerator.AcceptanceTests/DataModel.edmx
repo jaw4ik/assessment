@@ -170,6 +170,7 @@
           <Property Name="ModifiedBy" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
           <Property Name="Objective_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Content" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Templates">
           <Key>
@@ -242,9 +243,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_Experiences_dbo_Templates_Template_Id">
-          <End Role="Templates" Type="Model.Store.Templates" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Templates" Type="Model.Store.Templates" Multiplicity="1" />
           <End Role="Experiences" Type="Model.Store.Experiences" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Templates">
@@ -256,7 +255,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_ExperienceTemplateSettings_dbo_Experiences_Experience_Id">
-          <End Role="Experiences" Type="Model.Store.Experiences" Multiplicity="1" />
+          <End Role="Experiences" Type="Model.Store.Experiences" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ExperienceTemplateSettings" Type="Model.Store.ExperienceTemplateSettings" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Experiences">
@@ -431,6 +432,7 @@
           <NavigationProperty Name="Answers" Relationship="Model.FK_dbo_Answers_dbo_Questions_Question_Id" FromRole="Questions" ToRole="Answers" />
           <NavigationProperty Name="Objective" Relationship="Model.FK_dbo_Questions_dbo_Objectives_Objective_Id" FromRole="Questions" ToRole="Objectives" />
           <NavigationProperty Name="LearningContents" Relationship="Model.FK_dbo_LearningContents_dbo_Questions_Question_Id" FromRole="Question" ToRole="LearningContent" />
+          <Property Type="String" Name="Content" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Template">
           <Key>
@@ -675,6 +677,7 @@
           <EntitySetMapping Name="Questions">
             <EntityTypeMapping TypeName="Model.Question">
               <MappingFragment StoreEntitySet="Questions">
+                <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />

@@ -15,6 +15,7 @@ namespace easygenerator.AcceptanceTests.Steps
     public class QuestionData : UniqueData
     {
         public string Title { get; set; }
+        public string Content { get; set; }
     }
     [Binding]
     public class ListOfQuestionsSteps
@@ -31,6 +32,7 @@ namespace easygenerator.AcceptanceTests.Steps
             {
                 Id = data.Id,
                 Title = data.Title,
+                Content = data.Content,
                 CreatedOn = DateTime.Now,
                 ModifiedOn = DateTime.Now,
                 Answers = new Collection<Answer>(),

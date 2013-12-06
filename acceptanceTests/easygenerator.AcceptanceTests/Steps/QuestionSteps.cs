@@ -83,6 +83,25 @@ namespace easygenerator.AcceptanceTests.Steps
         [Then(@"explanations list contains only items with data")]
         public void ThenExplanationsListContainsOnlyItemsWithData(Table table)
         {
+            //var expectedExplanations = table.CreateSet<ExplanationData>().Select(obj => obj.Explanation).ToArray();
+            //var realExplanations = Question.ExplanationItems.Select(obj => obj.Explanation).ToArray();;
+            //int loop = 0;
+            //int timeout = 250;
+            //int timeToWait = 250;
+            //bool areCollectionsEqual = false;
+            //while (loop * timeout < timeToWait)
+            //{                
+            //    if (TestUtils.AreCollectionsTheSame(expectedExplanations, realExplanations))
+            //        areCollectionsEqual = true;
+            //    System.Threading.Thread.Sleep(timeout);
+            //    DriverProvider.Current().Driver.Navigate().Refresh();
+            //    realExplanations = Question.ExplanationItems.Select(obj => obj.Explanation).ToArray();
+            //    loop++;
+            //}            
+            //TestUtils.Assert_IsTrue_WithWait(() =>
+            //    areCollectionsEqual == true,
+            //    "Not all expected answers on page", Question.ExplanationItems.Select(obj => obj.Explanation).ToArray());
+
             var expectedExplanations = table.CreateSet<ExplanationData>().Select(obj => obj.Explanation).ToArray();
             var realExplanations = Question.ExplanationItems.Select(obj => obj.Explanation).ToArray();
             TestUtils.Assert_IsTrue_WithWait(() =>
@@ -376,6 +395,11 @@ namespace easygenerator.AcceptanceTests.Steps
                 "chars counter is not marked with error");
         }
 
+        [When(@"mouse hover home link")]
+        public void WhenMouseHoverHomeLink()
+        {
+            Question.MouseHoverHomeLink();
+        }
 
              
 
