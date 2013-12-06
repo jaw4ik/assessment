@@ -36,7 +36,8 @@
                                     learningContents: _.map(question.learningContents, function (learningContent) {
                                         return { id: learningContent.id };
                                     }),
-                                    score: 0
+                                    score: 0,
+                                    hasContent: question.hasContent
                                 };
                             })
                         };

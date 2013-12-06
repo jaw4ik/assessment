@@ -11,6 +11,10 @@
 
             describe('close:', function () {
 
+                beforeEach(function() {
+                    spyOn(window, 'close').andCallFake(function () { });
+                });
+
                 it('should be function', function () {
                     expect(windowOperations.close).toBeFunction();
                 });
@@ -21,7 +25,6 @@
                 });
 
                 it('should close window', function () {
-                    spyOn(window, 'close').andCallFake(function () { });
                     windowOperations.close();
                     expect(window.close).toHaveBeenCalled();
                 });

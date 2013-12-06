@@ -1,10 +1,11 @@
-﻿define(['durandal/app', 'eventManager', 'context', 'plugins/router', 'models/questionResult'], function (app, eventManager, context, router, QuestionResultModel) {
+﻿define(['durandal/app', 'eventManager', 'context', 'plugins/router', 'models/questionResult', 'plugins/http'], function (app, eventManager, context, router, QuestionResultModel, http) {
     var
         objective = null,
         question = null,
 
         title = '',
         answers = [],
+        content = null,
 
         submit = function () {
             var result = 0;
@@ -45,35 +46,50 @@
         },
 
         activate = function (objectiveId, questionId) {
-            objective = _.find(context.objectives, function (item) {
-                return item.id == objectiveId;
-            });
+            var that = this;
 
-            if (!objective) {
-                router.navigate('404');
-                return;
-            }
+            return Q.fcall(function () {
+                objective = _.find(context.objectives, function (item) {
+                    return item.id == objectiveId;
+                });
 
-            question = _.find(objective.questions, function (item) {
-                return item.id == questionId;
-            });
+                if (!objective) {
+                    router.navigate('404');
+                    return;
+                }
 
-            if (!question) {
-                router.navigate('404');
-                return;
-            }
+                question = _.find(objective.questions, function (item) {
+                    return item.id == questionId;
+                });
 
-            this.title = question.title;
-            this.answers = _.map(question.answers, function (answer) {
-                return {
-                    id: answer.id,
-                    text: answer.text,
-                    isCorrect: answer.isCorrect,
-                    isChecked: ko.observable(false),
-                    toggleCheck: function () {
-                        this.isChecked(!this.isChecked());
-                    }
-                };
+                if (!question) {
+                    router.navigate('404');
+                    return;
+                }
+
+                that.title = question.title;
+                that.answers = _.map(question.answers, function (answer) {
+                    return {
+                        id: answer.id,
+                        text: answer.text,
+                        isCorrect: answer.isCorrect,
+                        isChecked: ko.observable(false),
+                        toggleCheck: function () {
+                            this.isChecked(!this.isChecked());
+                        }
+                    };
+                });
+
+                if (!question.hasContent) {
+                    that.content = '';
+                    return;
+                }
+
+                return http.get('content/' + objective.id + '/' + question.id + '/content.html').then(function (response) {
+                    that.content = response;
+                }).fail(function () {
+                    that.content = '';
+                });
             });
         };
 
@@ -82,6 +98,7 @@
 
         title: title,
         answers: answers,
+        content: content,
 
         submit: submit,
 

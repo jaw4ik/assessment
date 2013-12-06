@@ -40,20 +40,6 @@
                 expect(viewModel.submit).toBeFunction();
             });
 
-            it('should send \'answered statement\' to xApi', function () {
-                viewModel.submit();
-                expect(app.trigger).toHaveBeenCalledWith(eventManager.events.questionSubmitted, {
-                    question: new QuestionResultModel({
-                        id: objectives[0].questions[0].id,
-                        title: objectives[0].questions[0].title,
-                        answers: viewModel.answers,
-                        score: objectives[0].questions[0].score,
-                        objectiveId: objectives[0].id,
-                        objectiveTitle: objectives[0].title
-                    })
-                });
-            });
-
         });
 
     });
