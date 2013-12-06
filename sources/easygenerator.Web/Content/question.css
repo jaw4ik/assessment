@@ -458,6 +458,7 @@
 
 .question-content {
     padding: 20px 10px;
+    min-height: 56px;
 }
 
 /*#endregion Learning content*/
