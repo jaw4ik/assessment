@@ -341,7 +341,7 @@ define(function (require) {
             
             describe('when objective not found', function () {
 
-                it('should navigate to #404', function () {
+                it('should reject promise', function () {
                     var promise = viewModel.activate('objectiveId', 'questionId');
                     getObjectiveByIdDeferred.reject();
 
@@ -349,7 +349,7 @@ define(function (require) {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(router.replace).toHaveBeenCalledWith('404');
+                        expect(promise).toBeRejected();
                     });
                 });
 
@@ -357,7 +357,7 @@ define(function (require) {
 
             describe('when question not found', function () {
 
-                it('should navigate to #404', function () {
+                it('should reject promise', function () {
                     var promise = viewModel.activate('obj1', 'someId');
                     getObjectiveByIdDeferred.resolve(objective);
                     getQuestionByIdDeferred.reject();
@@ -366,7 +366,7 @@ define(function (require) {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(router.replace).toHaveBeenCalledWith('404');
+                        expect(promise).toBeRejected();
                     });
                 });
 

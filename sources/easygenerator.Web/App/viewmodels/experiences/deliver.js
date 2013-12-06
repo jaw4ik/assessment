@@ -74,8 +74,6 @@
 
             viewModel.packageUrl(experience.packageUrl);
             viewModel.publishedPackageUrl(experience.publishedPackageUrl);
-        }).fail(function () {
-            router.replace('404');
         });
     }
 

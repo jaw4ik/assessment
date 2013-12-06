@@ -46,10 +46,19 @@
                 viewModel.activeStep.activateItem({});
                 viewModel.id = experienceId;
                 viewModel.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('experiences');
-                    
-                return viewModel.goToDefine().then(function () {
-                    clientContext.set('lastVistedExperience', experienceId);
-                    clientContext.set('lastVisitedObjective', null);
+
+                return viewModel.goToDefine().then(function (result) {
+                    var deferred = Q.defer();
+
+                    if (result) {
+                        clientContext.set('lastVistedExperience', experienceId);
+                        clientContext.set('lastVisitedObjective', null);
+
+                        deferred.resolve();
+                    } else {
+                        deferred.reject("Define step was not activated");
+                    }
+                    return deferred.promise;
                 });
             });
         }

@@ -40,8 +40,6 @@
                     
                     viewModel.currentTemplate(_.find(viewModel.templates, function (item) { return item.id == experience.template.id; }));
                 });
-            }).fail(function () {
-                router.replace('404');
             });
         }
 

@@ -68,7 +68,7 @@
                     });
                 });
 
-                describe('and when set active step to define', function () {
+                describe('when set active step to define', function () {
 
                     it('should reset active step to define', function () {
                         var promise = viewModel.activate('SomeId');
@@ -82,10 +82,12 @@
                         });
                     });
 
-                    describe('and when active step set successfully', function () {
-
+                    describe('and when define step was set successfully', function () {
+                        var goToDefineDeferred = Q.defer();
+                        
                         beforeEach(function () {
-                            activateItemDeferred.resolve();
+                            spyOn(viewModel, 'goToDefine').andReturn(goToDefineDeferred.promise);
+                            goToDefineDeferred.resolve(true);
                         });
 
                         it('should set experience id as the last visited in client context', function () {
@@ -112,6 +114,60 @@
                             });
                         });
 
+                        it('should resolve promise', function() {
+                            var promise = viewModel.activate('SomeId');
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeResolved();
+                            });
+                        });
+                    });
+                    
+                    describe('and when define step was not set successfully', function () {
+                        var goToDefineDeferred = Q.defer();
+                        
+                        beforeEach(function () {
+                            spyOn(viewModel, 'goToDefine').andReturn(goToDefineDeferred.promise);
+                            goToDefineDeferred.resolve(false);
+                        });
+
+                        it('should not set experience id as the last visited in client context', function () {
+                            spyOn(clientContext, 'set');
+                            var promise = viewModel.activate('SomeId');
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(clientContext.set).not.toHaveBeenCalledWith('lastVistedExperience', 'SomeId');
+                            });
+                        });
+
+                        it('should not reset last visited objective in client context', function () {
+                            spyOn(clientContext, 'set');
+                            var promise = viewModel.activate('SomeId');
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(clientContext.set).not.toHaveBeenCalledWith('lastVisitedObjective', null);
+                            });
+                        });
+
+                        it('should reject promise with \'Define step was not activated\'', function () {
+                            var promise = viewModel.activate('SomeId');
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeRejectedWith('Define step was not activated');
+                            });
+                        });
                     });
                 });
 

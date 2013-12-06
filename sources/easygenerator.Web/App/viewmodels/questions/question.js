@@ -101,9 +101,6 @@
                         var sortedLearningContents = _.sortBy(learningContents, function (item) { return item.createdOn; });
                         that.learningContents = vmLearningContents(questionId, sortedLearningContents);
                     });
-                }).fail(function () {
-                    router.replace('404');
-                    return;
                 });
             };
 

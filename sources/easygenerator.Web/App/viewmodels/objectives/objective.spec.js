@@ -62,10 +62,10 @@
                 it('should set client context with current objective id', function () {
                     spyOn(clientContext, 'set');
                     var promise = viewModel.activate(objective.id, null);
-                    deferred.resolve(null);
+                    deferred.resolve();
 
                     waitsFor(function () {
-                        return promise.isFulfilled();
+                        return !promise.isPending();
                     });
                     runs(function () {
                         expect(clientContext.set).toHaveBeenCalledWith('lastVisitedObjective', objective.id);
@@ -103,7 +103,7 @@
                         spyOn(localizationManager, 'localize').andReturn('text');
 
                         var promise = viewModel.activate(objective.id, null);
-                        deferred.resolve(null);
+                        deferred.resolve(objective);
                         
                         waitsFor(function () {
                             return !promise.isPending();
@@ -116,7 +116,7 @@
 
                     it('should set goBackLink to objectives', function () {
                         var promise = viewModel.activate(objective.id, null);
-                        deferred.resolve(null);
+                        deferred.resolve(objective);
                         
                         waitsFor(function () {
                             return !promise.isPending();
@@ -130,16 +130,16 @@
                     describe('when objective not found', function () {
 
                         beforeEach(function () {
-                            deferred.resolve(null);
+                            deferred.reject();
                         });
 
-                        it('should navigate to #404', function () {
+                        it('should reject promise', function () {
                             var promise = viewModel.activate(objective.id, null);
                             waitsFor(function () {
-                                return promise.isFulfilled();
+                                return !promise.isPending();
                             });
                             runs(function () {
-                                expect(router.replace).toHaveBeenCalledWith('404');
+                                expect(promise).toBeRejected();
                             });
                         });
                     });
@@ -229,7 +229,7 @@
                             spyOn(localizationManager, 'localize').andReturn('text');
 
                             var promise = viewModel.activate(objective.id, queryParams);
-                            deferred.resolve(null);
+                            deferred.resolve(objective);
 
                             waitsFor(function () {
                                 return !promise.isPending();
@@ -242,7 +242,7 @@
 
                         it('should set goBackLink to objectives', function () {
                             var promise = viewModel.activate(objective.id, queryParams);
-                            deferred.resolve(null);
+                            deferred.resolve(objective);
 
                             waitsFor(function () {
                                 return !promise.isPending();
@@ -256,16 +256,16 @@
                         describe('when objective not found', function () {
 
                             beforeEach(function () {
-                                deferred.resolve(null);
+                                deferred.reject();
                             });
 
-                            it('should navigate to #404', function () {
+                            it('should reject promise', function () {
                                 var promise = viewModel.activate(objective.id, queryParams);
                                 waitsFor(function () {
-                                    return promise.isFulfilled();
+                                    return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(router.replace).toHaveBeenCalledWith('404');
+                                    expect(promise).toBeRejected();
                                 });
                             });
                         });
@@ -332,63 +332,19 @@
                                 getExperienceDeferred.resolve(experience);
                             });
                             
-                            it('should set contextExpperienceId', function () {
-                                var promise = viewModel.activate('id', queryParams);
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(viewModel.contextExperienceId).toBe(experience.id);
-                                });
-                            });
-
-                            it('should set contextExpperienceTitle', function () {
-                                var promise = viewModel.activate('id', queryParams);
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(viewModel.contextExperienceTitle).toBe(experience.title);
-                                });
-                            });
-
-                            it('should set goBackTooltip to \'Back to experience\'', function () {
-                                spyOn(localizationManager, 'localize').andReturn('text');
-
-                                var promise = viewModel.activate('id', queryParams);
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeResolved();
-                                    expect(viewModel.goBackTooltip).toEqual('text' + ' \'' + experience.title + '\'');
-                                });
-                            });
-
-                            it('should set goBackLink to experience', function () {
-                                var promise = viewModel.activate('id', queryParams);
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeResolved();
-                                    expect(viewModel.goBackLink).toEqual('#experience/' + experience.id);
-                                });
-                            });
-
                             describe('when objective not found', function () {
 
                                 beforeEach(function () {
-                                    deferred.resolve(null);
+                                    deferred.reject();
                                 });
 
-                                it('should navigate to #404', function () {
+                                it('should reject promise', function () {
                                     var promise = viewModel.activate(objective.id, queryParams);
                                     waitsFor(function () {
                                         return !promise.isPending();
                                     });
                                     runs(function () {
-                                        expect(router.replace).toHaveBeenCalledWith('404');
+                                        expect(promise).toBeRejected();
                                     });
                                 });
                             });
@@ -400,6 +356,50 @@
 
                                 it('should return promise', function () {
                                     expect(viewModel.activate('id', queryParams)).toBePromise();
+                                });
+
+                                it('should set contextExpperienceId', function () {
+                                    var promise = viewModel.activate('id', queryParams);
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(viewModel.contextExperienceId).toBe(experience.id);
+                                    });
+                                });
+
+                                it('should set contextExpperienceTitle', function () {
+                                    var promise = viewModel.activate('id', queryParams);
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(viewModel.contextExperienceTitle).toBe(experience.title);
+                                    });
+                                });
+
+                                it('should set goBackTooltip to \'Back to experience\'', function () {
+                                    spyOn(localizationManager, 'localize').andReturn('text');
+
+                                    var promise = viewModel.activate('id', queryParams);
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(promise).toBeResolved();
+                                        expect(viewModel.goBackTooltip).toEqual('text' + ' \'' + experience.title + '\'');
+                                    });
+                                });
+
+                                it('should set goBackLink to experience', function () {
+                                    var promise = viewModel.activate('id', queryParams);
+                                    waitsFor(function () {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function () {
+                                        expect(promise).toBeResolved();
+                                        expect(viewModel.goBackLink).toEqual('#experience/' + experience.id);
+                                    });
                                 });
 
                                 it('should set objective title', function () {
@@ -450,13 +450,13 @@
                                 getExperienceDeferred.reject();
                             });
 
-                            it('should replace url to 404', function () {
+                            it('should reject promise', function () {
                                 var promise = viewModel.activate('id', queryParams);
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(router.replace).toHaveBeenCalledWith('404');
+                                    expect(promise).toBeRejected();
                                 });
                             });
 
@@ -477,16 +477,6 @@
                                 });
                                 runs(function () {
                                     expect(viewModel.contextExperienceTitle).toBeNull();
-                                });
-                            });
-
-                            it('should resolve promise with undefined', function () {
-                                var promise = viewModel.activate('id', queryParams);
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(promise).toBeResolvedWith(undefined);
                                 });
                             });
                         });

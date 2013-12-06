@@ -51,14 +51,14 @@
 
             describe('when experience was not found', function () {
 
-                it('should navigate to 404', function () {
+                it('should reject promise', function () {
                     var promise = viewModel.activate();
                     getExperienceDefer.reject();
                     waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(router.replace).toHaveBeenCalledWith('404');
+                        expect(promise).toBeRejected();
                     });
                 });
 
@@ -87,7 +87,7 @@
 
                 describe('and an error occured when getting templates', function () {
 
-                    it('should navigate to 404', function () {
+                    it('should reject promise', function () {
                         var promise = viewModel.activate(experience.id);
                         getTemplateCollectionDefer.reject();
 
@@ -95,7 +95,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(router.replace).toHaveBeenCalledWith('404');
+                            expect(promise).toBeRejected();
                         });
                     });
 

@@ -346,28 +346,16 @@
                         getById.reject();
                     });
 
-                    it('should navigate to #404 ', function () {
+                    it('should reject promise', function () {
                         var promise = viewModel.activate('experienceId');
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(router.replace).toHaveBeenCalledWith('404');
+                            expect(promise).toBeRejected();
                         });
                     });
-
-                    it('should resolve promise', function () {
-                        var promise = viewModel.activate('experienceId');
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeResolved();
-                        });
-                    });
-
                 });
 
                 describe('when experience exists', function () {

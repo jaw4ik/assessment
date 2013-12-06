@@ -150,10 +150,7 @@
                     that.goBackTooltip = localizationManager.localize('backTo') + ' \'' + experience.title + '\'';
                     that.goBackLink = '#experience/' + experience.id;
 
-                    initObjectiveInfo(objId);
-                }).fail(function(reason) {
-                    router.replace('404');
-                    return;
+                    return initObjectiveInfo(objId);
                 });
                 
                 function initObjectiveInfo(id) {
@@ -169,9 +166,6 @@
                         }).value();
 
                         that.questions(array);
-                    }).fail(function (reason) {
-                        router.replace('404');
-                        return;
                     });
                 }
             },

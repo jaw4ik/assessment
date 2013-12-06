@@ -221,8 +221,6 @@
                         .value());
 
                     isEditing(false);
-                }).fail(function () {
-                    router.replace('404');
                 });
             };
 
