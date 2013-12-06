@@ -79,8 +79,7 @@
             $optionsListElement = $element.find('ul'),
             cssClasses = ko.bindingHandlers.selectBox.cssClasses,
             filter = valueAccessor().filter,
-            $currentItemTextElement = $element.find('div.' + cssClasses.currentItemText),
-            $filterInput = $element.find('input.' + cssClasses.filterInput);
+            $currentItemTextElement = $element.find('div.' + cssClasses.currentItemText);
 
         fillInOptionsList();
 
@@ -145,11 +144,18 @@
 
         $currentItemCaretHolder.on('click', function (e) {
             hideOptionsList();
+            blur();
             e.stopPropagation();
         });
 
         $filterInput.on('click', function (e) {
             e.stopPropagation();
+        });
+
+        $('html').on('click', function () {
+            if ($optionsListElement.css('display') == 'block') {
+                blur();
+            }
         });
 
         $filterInput.on('keyup', function (e) {
@@ -168,6 +174,7 @@
                     if (currentText != '') {
                         selectOption($currentOption.text());
                     }
+                    blur();
                     hideOptionsList();
                     $(this).blur();
                     break;
@@ -186,6 +193,7 @@
                     if (currentText != '') {
                         selectOption($currentOption.text());
                     }
+                    blur();
                     hideOptionsList();
                     break;
                 case 38: // up key
@@ -209,9 +217,14 @@
         }
 
         function getNextOption(currentOption) {
-            var $nextOption = currentOption.next();
-            if ($nextOption.length == 0) {
-                $nextOption = $('.selectbox-options-list li:eq(0)');
+            var $nextOption;
+            if ($filterInput.val() == currentOption.text()) {
+                $nextOption = currentOption.next();
+                if ($nextOption.length == 0) {
+                    $nextOption = $('.selectbox-options-list li:eq(0)');
+                }
+            } else {
+                $nextOption = currentOption;
             }
 
             return $nextOption;
@@ -238,13 +251,16 @@
         });
 
         $filterInput.on('blur', function () {
-            var currentText = $(this).val();
-            if (currentText == '') {
-                setDefaultValue();
-            }
             $(this).val('');
             $currentItemElement.removeClass(cssClasses.focus);
         });
+
+        function blur() {
+            var currentText = $filterInput.val();
+            if (currentText == '') {
+                setDefaultValue();
+            }
+        }
 
         function clearActiveClassFromOptions() {
             _.each($('.selectbox-options-list').children(), function (item) {
