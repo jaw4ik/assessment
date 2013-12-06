@@ -12,7 +12,7 @@
                 var that = this;
 
                 this.enteredOnPage = new Date();
-                
+
                 this.objective = _.find(context.objectives, function (item) {
                     return item.id == objectiveId;
                 });
@@ -33,7 +33,7 @@
 
                 this.learningContents = [];
                 var requests = [];
-                
+
                 _.each(this.question.learningContents, function (item, index) {
                     requests.push(http.get('content/' + objectiveId + '/' + questionId + '/' + item.id + '.html').done(function (response) {
                         that.learningContents.push({ index: index, learningContent: response });
@@ -54,7 +54,7 @@
                     objective: this.objective,
                     question: this.question,
                     spentTime: new Date() - this.enteredOnPage
-            });
+                });
             };
 
         return {

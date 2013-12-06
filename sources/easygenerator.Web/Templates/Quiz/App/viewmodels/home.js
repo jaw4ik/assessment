@@ -1,143 +1,182 @@
-﻿define(['context', 'plugins/router', 'xApi/requestManager', 'eventManager', 'durandal/app', 'models/question'],
-    function (context, router, xApiRequestManager, eventManager, app, Question) {
+﻿define(['durandal/app', 'plugins/http', 'plugins/router', 'context', 'eventManager', 'models/question', 'configuration/settings'],
+    function (app, http, router, context, eventManager, Question, settings) {
 
-        var objectives = [],
-            questions = [],
-            step = 5,
-            maxId = 0,
-            countQuestionsLoaded = step,
-            scrollId = '0',
-            isEndScroll = ko.observable(false),
-            isEndTest = ko.observable(false),
-            countOfQuestions = ko.observable(0),
+        var
+            displayedQuestions = ko.observableArray(),
+            totalQuestionsCount = 0,
+            isFullyLoaded = ko.observable(false),
 
-            getItems = function () {
-                if (!isEndScroll()) {
-                    for (var i = maxId; i < countQuestionsLoaded; i++) {
-                        maxId++;
-                        if (maxId == questions.length + 1) {
-                            isEndScroll(true);
-                            break;
-                        } else if (maxId == questions.length) {
-                            context.testResult.push(questions[i]);
-                            isEndScroll(true);
-                        } else
-                            context.testResult.push(questions[i]);
+            allQuestionsList = [],
+            loadedQuestionsCount = 0,
+            activeQuestionId = null,
+
+
+            loadQuestions = function () {
+                var promises = [],
+                    questionsToLoadCount = loadedQuestionsCount + settings.loadingQuestionsInStepCount;
+
+                for (var i = loadedQuestionsCount; i < questionsToLoadCount; i++) {
+                    if (i > allQuestionsList.length - 1) {
+                        isFullyLoaded(true);
+                        break;
                     }
-                    countQuestionsLoaded += step;
+
+                    promises.push(loadQuestionContent(allQuestionsList[i]));
+
+                    loadedQuestionsCount++;
                 }
+
+                return Q.allSettled(promises).then(function (results) {
+                    _.chain(results)
+                        .map(function (item) {
+                            return item.value;
+                        })
+                        .sortBy(function (item) {
+                            return item.number;
+                        })
+                        .each(function (item) {
+                            displayedQuestions.push(item);
+                        });
+                });
             },
 
             submit = function () {
                 app.trigger(eventManager.events.answersSubmitted, {
-                    questions: _.map(questions, function (_question) {
-                        return new Question(_question);
+                    questions: _.map(displayedQuestions(), function (question) {
+                        return new Question(question);
                     })
                 });
-                    
-                scrollId = '0';
-                isEndTest(true);
+
+                context.testResult(displayedQuestions());
                 router.navigate('summary');
             },
 
             showLearningContents = function (item) {
-                scrollId = '' + item.objectiveId + item.id;
+                activeQuestionId = item.id;
                 router.navigate('objective/' + item.objectiveId + '/question/' + item.id + '/learningContents');
             },
 
-            shuffleAndSetNumber = function () {
-                questions = _.shuffle(questions);
+            shuffleAndSetNumber = function (questionsList) {
+                questionsList = _.shuffle(questionsList);
 
-                _.each(questions, function (question, key) {
+                _.each(questionsList, function (question, key) {
                     question.number = key + 1;
                 });
+
+                return questionsList;
+            },
+
+            loadQuestionContent = function (question) {
+                var defer = Q.defer();
+
+                if (question.hasContent) {
+                    var contentUrl = 'content/' + question.objectiveId + '/' + question.id + '/content.html';
+                    http.get(contentUrl)
+                        .done(function (response) {
+                            question.content = response;
+                        })
+                        .fail(function () {
+                            question.content = settings.questionContentNonExistError;
+                        })
+                        .always(function () {
+                            defer.resolve(question);
+                        });
+                } else {
+                    defer.resolve(question);
+                }
+
+                return defer.promise;
+            },
+
+            mapQuestion = function (question, objective) {
+                var mappedQuestion = {
+                    id: question.id,
+                    title: question.title,
+                    hasContent: question.hasContent,
+                    content: "",
+                    objectiveId: objective.id,
+                    objectiveTitle: objective.title,
+                    answers: _.map(question.answers, function (answer) {
+                        return {
+                            id: answer.id,
+                            text: answer.text,
+                            isCorrect: answer.isCorrect,
+                            isChecked: ko.observable(false),
+                            toggleCheck: function () {
+                                this.isChecked(!this.isChecked());
+                            }
+                        };
+                    }),
+                    learningContents: question.learningContents,
+                    number: 0
+                };
+
+                return mappedQuestion;
             },
 
             getQuestions = function (objectives) {
+                var questionsList = [];
+
                 _.each(objectives, function (objective) {
-                    questions = questions.concat(_.map(objective.questions, function (question) {
-                        return {
-                            id: question.id,
-                            objectiveId: objective.id,
-                            objectiveTitle: objective.title,
-                            answers: _.map(question.answers, function (answer) {
-                                return {
-                                    id: answer.id,
-                                    text: answer.text,
-                                    isCorrect: answer.isCorrect,
-                                    isChecked: ko.observable(false),
-                                    toggleCheck: function () {
-                                        this.isChecked(!this.isChecked());
-                                    }
-                                };
-                            }),
-                            learningContents: question.learningContents,
-                            title: question.title,
-                            number: 0
-                        };
+                    questionsList = questionsList.concat(_.map(objective.questions, function (question) {
+                        return mapQuestion(question, objective);
                     }));
                 });
-                countOfQuestions(questions.length);
-            },
 
-            activate = function () {
-                if (this.objectives.length == 0) {
-
-                    this.objectives = _.map(context.objectives, function (item) {
-                        return {
-                            id: item.id,
-                            title: item.title,
-                            image: item.image,
-                            questions: item.questions,
-                        };
-                    });
-
-                    this.questions = [];
-                    getQuestions(this.objectives);
-
-                    shuffleAndSetNumber();
-
-                    return getItems();
-                } else if (context.isTryAgain) {
-                    app.trigger(eventManager.events.courseStarted);
-                    _.each(questions, function (question) {
-                        _.each(question.answers, function (answer) {
-                            answer.isChecked(false);
-                        });
-                    });
-                    isEndScroll(false);
-                    context.isTryAgain = false;
-                    context.testResult([]);
-                    countQuestionsLoaded = step;
-                    maxId = 0;
-                    window.scroll(0, 0);
-                    return getItems();
-                }
+                return questionsList;
             },
 
             compositionComplete = function () {
-                if (scrollId != '0') {
-                    var targetTop = jQuery('#' + scrollId).offset().top;
-                    $('html, body').animate({
-                        scrollTop: targetTop - 5
-                    });
-                    scrollId = '0';
+                if (_.isNull(activeQuestionId)) {
+                    return;
                 }
+
+                var targetTopPosition = jQuery('#' + activeQuestionId).offset().top;
+                jQuery('html, body').animate({
+                    scrollTop: targetTopPosition - 5
+                });
+
+                activeQuestionId = null;
+            },
+
+            resetCourse = function () {
+                displayedQuestions([]);
+                allQuestionsList = [];
+                loadedQuestionsCount = 0;
+                isFullyLoaded(false);
+                activeQuestionId = null;
+            },
+
+            activate = function () {
+
+                if (context.isTryAgain) {
+                    resetCourse();
+                    context.isTryAgain = false;
+                    app.trigger(eventManager.events.courseStarted);
+                }
+
+                if (context.objectives.length > 0) {
+                    allQuestionsList = shuffleAndSetNumber(getQuestions(context.objectives));
+                    this.totalQuestionsCount = allQuestionsList.length;
+                }
+            },
+
+            canActivate = function () {
+                return _.isNullOrUndefined(context.testResult) || _.isNullOrUndefined(context.testResult()) || context.testResult().length == 0;
             };
 
         return {
             activate: activate,
-            questions: questions,
-            objectives: objectives,
-            isEndScroll: isEndScroll,
-            itemsQuestion: context.testResult,
-            getItems: getItems,
+            canActivate: canActivate,
+            loadQuestions: loadQuestions,
             submit: submit,
             showLearningContents: showLearningContents,
             compositionComplete: compositionComplete,
-            isEndTest: isEndTest,
-            titleOfExperience: context.title,
-            countOfQuestions: countOfQuestions
+
+            questions: displayedQuestions,
+            totalQuestionsCount: totalQuestionsCount,
+            isFullyLoaded: isFullyLoaded,
+            experienceTitle: context.title,
         };
     }
 );

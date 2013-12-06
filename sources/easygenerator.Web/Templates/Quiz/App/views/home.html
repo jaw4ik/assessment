@@ -1,15 +1,15 @@
 ﻿<section id="homePage">
     <div class="page-title-holder">
-        <h1 class="page-title selectable" data-bind="text: titleOfExperience"></h1>
+        <h1 class="page-title selectable" data-bind="text: experienceTitle"></h1>
     </div>
-    <div data-bind="scroll: !(itemsQuestion().length == questions.length), scrollOptions: { loadFunc: getItems, offset: 200 }">
+    <div data-bind="scroll: { enabled: !isFullyLoaded(), loadFunc: loadQuestions, offset: 200 }">
         <ul class="content-list-wrapper unstyled">
-            <!-- ko foreach: itemsQuestion -->
-            <li class="content-holder" data-bind="attr: { id: '' + objectiveId + id }">
+            <!-- ko foreach: questions -->
+            <li class="content-holder" data-bind="attr: { id: id }">
                 <header class="content-header question-header">
                     <div class="content-header-inner">
                         <div class="question-counter">
-                            <span data-bind="text: number + ' of ' + $parent.countOfQuestions()"></span>
+                            <span data-bind="text: number + ' of ' + $parent.totalQuestionsCount"></span>
                         </div>
                         <div class="content-title question-text">
                             <span class="selectable" data-bind="text: title"></span>
@@ -18,6 +18,7 @@
                             <span class="question-learning-content-icon"></span>
                         </div>
                     </div>
+                    <div class="question-content" data-bind="visible: hasContent, html: content"></div>
                 </header>
 
                 <ul class="content-block unstyled">
@@ -38,7 +39,7 @@
             <!-- /ko -->
         </ul>
     </div>
-    <div class="question-submit" data-bind="visible: isEndScroll()">
+    <div class="question-submit" data-bind="visible: isFullyLoaded()">
         <a class="btn default justified" data-bind="click: submit">Submit</a>
     </div>
 

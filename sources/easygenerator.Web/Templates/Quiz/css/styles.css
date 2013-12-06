@@ -445,6 +445,11 @@ body {
     vertical-align: top;
 }
 
+.question-content {
+    padding: 20px;
+    border-top: 1px solid #c1c5ca;
+}
+
 .content-block {
     padding: 15px 10px;
 }

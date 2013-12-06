@@ -28,6 +28,7 @@
                                 return {
                                     id: question.id,
                                     title: question.title,
+                                    hasContent: question.hasContent,
                                     answers: _.map(question.answers, function (answer) {
                                         return {
                                             id: answer.id,

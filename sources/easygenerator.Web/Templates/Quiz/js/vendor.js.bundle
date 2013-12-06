@@ -4,9 +4,9 @@
   <file>/Templates/Quiz/js/bootstrap.min.js</file>
   <file>/Templates/Quiz/js/knockout-2.2.1.js</file>
   <file>/Templates/Quiz/js/knockoutBindings/focusHandlerBinding.js</file>
+  <file>/Templates/Quiz/js/knockoutBindings/scrollBinding.js</file>
   <file>/Templates/Quiz/js/circleProgressBinding.js</file>
   <file>/Templates/Quiz/js/q.js</file>
   <file>/Templates/Quiz/js/underscore-1.5.1.js</file>
-  <file>/Templates/Quiz/js/underscore.extensions.js</file>
-  <file>/Templates/Quiz/js/scrollBinding.js</file>
+  <file>/Templates/Quiz/js/underscore.extensions.js</file>  
 </bundle>

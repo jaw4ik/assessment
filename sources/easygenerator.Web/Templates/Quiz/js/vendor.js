@@ -9729,6 +9729,49 @@ ko.bindingHandlers.focusHandler = {
         });
     }
 };
+///#source 1 1 /Templates/Quiz/js/knockoutBindings/scrollBinding.js
+ko.bindingHandlers.scroll = {
+    init: function (element, valueAccessor) {
+        var options = valueAccessor();
+
+        if (!options.enabled) {
+            return;
+        }
+
+        if (!!options.loadFunc) {
+            options.loadFunc();
+        }
+
+        ko.utils.domNodeDisposal.addDisposeCallback(element, disableEvent);
+    },
+
+    update: function (element, valueAccessor) {
+        var options = valueAccessor();
+
+        if (!options.enabled || !_.isFunction(options.loadFunc)) {
+            disableEvent();
+            return;
+        }
+
+        if (!options.offset) {
+            options.offset = 0;
+        }
+
+        enableEvent(options.offset, options.loadFunc);
+    }
+};
+
+function enableEvent(offset, callback) {
+    $(window).on("scroll.ko.scrollHandler", function () {
+        if (($(document).height() - offset <= $(window).height() + $(window).scrollTop())) {
+            callback();
+        }
+    });
+}
+
+function disableEvent() {
+    $(window).off("scroll.ko.scrollHandler");
+}
 ///#source 1 1 /Templates/Quiz/js/circleProgressBinding.js
 ko.bindingHandlers.circleProgress = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
@@ -12827,41 +12870,3 @@ return Q;
     };
 
 })();
-///#source 1 1 /Templates/Quiz/js/scrollBinding.js
-ko.bindingHandlers.scroll = {
-    updating: true,
-
-    init: function (element, valueAccessor, allBindingsAccessor) {
-        var self = this;
-        self.updating = true;
-        ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
-            $(window).off("scroll.ko.scrollHandler");
-            self.updating = false;
-        });
-    },
-
-    update: function (element, valueAccessor, allBindingsAccessor) {
-        var props = allBindingsAccessor().scrollOptions;
-        var offset = props.offset ? props.offset : "0";
-        var loadFunc = props.loadFunc;
-        var load = ko.utils.unwrapObservable(valueAccessor());
-        var self = this;
-        if (load) {
-            element.style.display = "";
-            $(window).on("scroll.ko.scrollHandler", function() {
-                if (($(document).height() - offset <= $(window).height() + $(window).scrollTop())) {
-                    if (self.updating) {
-                        loadFunc();
-                        self.updating = false;
-                    }
-                } else {
-                    self.updating = true;
-                }
-            });
-        } else {
-            element.style.display = "none";
-            $(window).off("scroll.ko.scrollHandler");
-            self.updating = false;
-        }
-    }
-};
