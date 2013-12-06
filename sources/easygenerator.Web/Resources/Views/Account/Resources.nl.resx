@@ -163,7 +163,7 @@
     <value>E-mail</value>
   </data>
   <data name="EnterValidCountry" xml:space="preserve">
-    <value>Fill in your country (NL)</value>
+    <value>Vul uw land in</value>
   </data>
   <data name="EnterValidEmailMessage" xml:space="preserve">
     <value>Voer een geldig e-mailadres in</value>
