@@ -1,4 +1,5 @@
-﻿using System.Web.Script.Serialization;
+﻿using Newtonsoft.Json;
+using System.Web.Script.Serialization;
 
 namespace easygenerator.Web.BuildExperience.PackageModel
 {
@@ -6,7 +7,7 @@ namespace easygenerator.Web.BuildExperience.PackageModel
     {
         public string Id { get; set; }
 
-        [ScriptIgnore]
+        [JsonIgnore]
         public string Text { get; set; }
     }
 }
