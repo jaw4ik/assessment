@@ -135,8 +135,7 @@
             defaultText = valueAccessor().defaultText,
             options = valueAccessor().options,
             $optionsListElement = $element.find('ul.' + cssClasses.optionsList),
-            $currentItemCaretHolder = $element.find('.' + cssClasses.caretHolder),
-            isFirstBlur = true;
+            $currentItemCaretHolder = $element.find('.' + cssClasses.caretHolder);
 
         var $filterInput = $('<input type="text" />')
                 .addClass(cssClasses.filterInput)
@@ -240,9 +239,7 @@
 
         $filterInput.on('blur', function () {
             var currentText = $(this).val();
-            if (currentText == '' && isFirstBlur) {
-                isFirstBlur = false;
-            } else if (currentText == '') {
+            if (currentText == '') {
                 setDefaultValue();
             }
             $(this).val('');
