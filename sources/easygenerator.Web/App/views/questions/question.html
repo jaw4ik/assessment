@@ -20,7 +20,7 @@
             </div>
         </header>
 
-        <div class="question-content">
+        <div class="question-content-holder">
             <div class="question-content-block" data-bind="with: questionContent">
                 <div class="question-content-block-header-wrapper" data-bind="click: toggleExpand">
                     <div class="question-content-block-header clearfix">
@@ -41,9 +41,9 @@
                 <div class="question-content-items-list" data-bind="visible: isExpanded">
                     <div>
                          <!-- ko if: isQuestionContentDefined -->
-                        <div class="question-learning-content-list-item" data-bind="css: { active: hasFocus }">
-                            <div class="question-learning-content-wrapper">
-                                <div class="question-learning-content selectable" data-bind="ckeditor: { data: text, language: $root.language(), eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: autosaveInterval, localizationManager: $root.localizationManager }">
+                        <div class="question-content-item" data-bind="css: { active: hasFocus }">
+                            <div class="question-content-wrapper">
+                                <div class="question-content selectable" data-bind="ckeditor: { data: text, language: $root.language(), eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: autosaveInterval, localizationManager: $root.localizationManager }">
                                 </div>
                             </div>
                         </div>

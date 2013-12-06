@@ -147,7 +147,7 @@
 
 /*#region Question content block*/
 
-.question-content {
+.question-content-holder {
     background-color: #ffffff;
     width: 100%;
     padding-top: 5px;
@@ -414,7 +414,8 @@
 
 /*#region Learning content*/
 
-.question-learning-content-list-item {
+.question-learning-content-list-item,
+.question-content-item {
     display: table;
     table-layout: fixed;
     width: 100%;
@@ -423,17 +424,20 @@
     border-bottom-color: #e6e6e6;
 }
 
-    .question-learning-content-list-item:hover {
+    .question-learning-content-list-item:hover,
+    .question-content-item:hover {
         border: 1px solid #e6e6e6;
     }
 
-    .question-learning-content-list-item.active {
+    .question-learning-content-list-item.active,
+    .question-content-item.active {
         border-color: #90cfef;
         position: relative;
         z-index: 1;
     }
 
-.question-learning-content-wrapper {
+.question-learning-content-wrapper,
+.question-content-wrapper {
     display: table-cell;
     color: #666;
     font-size: 13px;
@@ -441,7 +445,8 @@
     overflow: hidden;
 }
 
-.question-learning-content {
+.question-learning-content,
+.question-content {
     min-height: 40px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -449,6 +454,10 @@
     padding: 12px 10px;
     vertical-align: top;
     word-wrap: break-word;
+}
+
+.question-content {
+    padding: 20px 10px;
 }
 
 /*#endregion Learning content*/
@@ -539,6 +548,11 @@
         background-image: url(images/sprites.png);
         background-repeat: no-repeat;
         background-position: -71px -195px;
+    }
+
+      .add-button-text.define-question-content {
+          padding-top: 10px;
+          padding-bottom: 10px;
     }
 
 .add-button .question-answer-value,
