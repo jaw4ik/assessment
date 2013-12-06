@@ -199,6 +199,9 @@
                 case 38: // up key
                     activateOption(getPrevOption($currentOption));
                     break;
+                case 39: // right key
+                    $(this).val($currentOption.text());
+                    break;
                 case 40: // down key
                     activateOption(getNextOption($currentOption));
                     break;
