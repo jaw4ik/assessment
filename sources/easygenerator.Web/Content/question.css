@@ -428,7 +428,7 @@
     }
 
     .question-learning-content-list-item.active {
-        border-color: #a0dfff;
+        border-color: #90cfef;
         position: relative;
         z-index: 1;
     }
@@ -533,6 +533,12 @@
         position: absolute;
         left: 0;
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTkxQTk2Mzc1OEVDMTFFMzg0OTFFNEZGMEYzQkYzQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTkxQTk2Mzg1OEVDMTFFMzg0OTFFNEZGMEYzQkYzQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxOTFBOTYzNTU4RUMxMUUzODQ5MUU0RkYwRjNCRjNBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoxOTFBOTYzNjU4RUMxMUUzODQ5MUU0RkYwRjNCRjNBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PjWKSlsAAAJzSURBVHjalFRNaBNBFJ6Z3fysDY1abXMo/qIHiycv3gQPKioqFBHpSYoKUgSpBS1CS0UvbaCUXooepAjiH7RaELzk0INeBEErYi2Kl9JmG0nTNG52Z8f3ltntbjop9MHkvcm++eb7Zt4bWh67RGos5QpxjRJ6HuLDlJJtQpC/XIgZy+Zvp38sPmofnS7COheTG64/DxbSMBh3RYfG6BCEGVLHYKNFs2T17u2ZHIepA0P431goqR+Anm4E5C2gtLm5Mfn4T/bCA5gmwxjMZwRJfWQT1pRK9HweON0JYQIV+mApYJRVLbC5S1ar3PMq27czdf/G8YOtEMY8MJB3BXyLKvmfzcmOrpeeVxmQ2Hr12P4OXy6DWztXT4rNRcSrLJM2ToAzEFuHn7ZaacgEAYqVKkEN6NFiGiXJmAY+OHNixLUDkpmuQx011bJpufnai1vlf229U8F3c/QigK3l64yl0aFMHQqyAIBBOeDuCyPtATMEmnl4lqSNeMAsbI7rFuVFUh0q+xvQC4GxiAw0BNreEFeeWdly5rBMsXgZtMhUvcNFJmGvsl/5ck52gsug155AeeRViSgJz6hW2ppEURx482USqwinDJu2sFK9q2bGyJa4tk62bx9+5ofef51HIhVsJIbdv/v2xPjSijW4mXb6Pr88diqbewVhSTJz/S2dXd0TfbMLpS6gbm4EAnW4BEdz70j/u2EsQQlmR54geJcQOHH56J7MnTOHOjONxkksSGiZNGywvGo5s7/Ncu7Ws08vPs6ZBQmCw5K3GX3PAJDKAjTkSMompvLdsqWkihyR96zenSNLTQKHr5JLAO6zCdt/AQYAZwYCH9cgQlYAAAAASUVORK5CYII=');
+    }
+
+    .add-button-text.define-question-content:before {
+        background-image: url(images/sprites.png);
+        background-repeat: no-repeat;
+        background-position: -71px -195px;
     }
 
 .add-button .question-answer-value,
