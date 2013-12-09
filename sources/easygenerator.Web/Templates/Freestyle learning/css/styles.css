@@ -226,10 +226,13 @@ input[type="checkbox"] {
     margin: 0 auto;
 }
 
+.content-holder {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
+}
+
 .content {
     padding: 10px;
-    border: 1px solid #E0E0E0;
-    background-color: #FFFFFF;
 }
 
     .content.home {
@@ -492,6 +495,7 @@ input[type="checkbox"] {
 
 .question-content {
     padding: 20px 20px 10px;
+    border-bottom: 1px solid #E0E0E0;
     word-wrap: break-word;
 }
 

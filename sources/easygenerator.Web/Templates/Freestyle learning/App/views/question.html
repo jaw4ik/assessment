@@ -15,31 +15,34 @@
         </div>
     </div>
 
-    <div class="content">
-        <div class="caption">
-            <div class="caption-inner shadow-bottom-curve">
-                <div class="caption-icon">
-                    <div class="caption-icon-image"></div>
-                </div>
-                <div class="caption-text">
-                    <span class="selectable" data-bind="text: title"></span>
+    <div class="content-holder">
+        <div class="content">
+            <div class="caption">
+                <div class="caption-inner shadow-bottom-curve">
+                    <div class="caption-icon">
+                        <div class="caption-icon-image"></div>
+                    </div>
+                    <div class="caption-text">
+                        <span class="selectable" data-bind="text: title"></span>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- ko if: content -->
         <div class="question-content" data-bind="html: content"></div>
-    </div>
-    <div class="content">
-        <ul class="question-answers unstyled" data-bind="foreach: answers">
-            <li class="question-answer" data-bind="click: toggleCheck">
-                <div>
-                    <a class="question-answer-checkbox" data-bind="css: { checked: isChecked() }"></a>
-                </div>
-                <div class="question-answer-text selectable" data-bind="text: text"></div>
-            </li>
-        </ul>
-        <div class="btn-submit-wrapper">
-            <button class="btn-submit" data-bind="click: submit">Submit</button>
+        <!-- /ko -->
+        <div class="content">
+            <ul class="question-answers unstyled" data-bind="foreach: answers">
+                <li class="question-answer" data-bind="click: toggleCheck">
+                    <div>
+                        <a class="question-answer-checkbox" data-bind="css: { checked: isChecked() }"></a>
+                    </div>
+                    <div class="question-answer-text selectable" data-bind="text: text"></div>
+                </li>
+            </ul>
+            <div class="btn-submit-wrapper">
+                <button class="btn-submit" data-bind="click: submit">Submit</button>
+            </div>
         </div>
     </div>
-
 </section>
