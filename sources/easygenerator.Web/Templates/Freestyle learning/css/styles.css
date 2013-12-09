@@ -33,7 +33,7 @@ body {
     color: #666;
 }
 
-img {
+.header img {
     vertical-align: middle;
 }
 
@@ -503,10 +503,6 @@ input[type="checkbox"] {
     padding: 10px 40px 20px;
     border-bottom: 1px solid #E0E0E0;
     word-wrap: break-word;
-}
-
-.question-content img {
-    vertical-align: auto;
 }
 
 .question-answers {
