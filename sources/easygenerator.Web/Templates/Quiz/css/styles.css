@@ -447,7 +447,7 @@ body {
 
 .question-content {
     padding: 20px;
-    border-top: 1px solid #c1c5ca;
+    border-bottom: 1px solid #c1c5ca;
 }
 
 .content-block {

@@ -18,9 +18,8 @@
                             <span class="question-learning-content-icon"></span>
                         </div>
                     </div>
-                    <div class="question-content" data-bind="visible: hasContent, html: content"></div>
                 </header>
-
+                <div class="question-content" data-bind="visible: hasContent, html: content"></div>
                 <ul class="content-block unstyled">
                     <!-- ko foreach: answers -->
                     <li class="question-answer" data-bind="click: toggleCheck">
