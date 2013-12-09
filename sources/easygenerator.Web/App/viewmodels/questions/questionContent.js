@@ -31,11 +31,11 @@
             },
 
             updateText = function () {
+                if (_.isEmptyHtmlText(text())) {
+                    text(null);
+                }
+
                 if (text() != originalText()) {
-                    if (_.isEmptyHtmlText(text())) {
-                        text(null);
-                    }
-                    
                     repository.updateContent(questionId, text()).then(function (response) {
                         originalText(text());
                         showNotification(response);

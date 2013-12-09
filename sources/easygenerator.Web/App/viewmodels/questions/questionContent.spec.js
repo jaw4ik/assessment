@@ -147,43 +147,41 @@
                 expect(viewModel.updateText).toBeFunction();
             });
 
-            describe('when text was not changed', function () {
-                var text = 'text';
+            describe('when text is empty html', function () {
+                var text = '<br/>';
                 beforeEach(function () {
                     viewModel.text(text);
-                    viewModel.originalText(text);
                 });
 
-                it('should not change text', function () {
-                    viewModel.updateText();
-                    expect(viewModel.text()).toBe(text);
-                });
-
-                it('should not call repository update content', function () {
-                    viewModel.updateText();
-                    expect(repository.updateContent).not.toHaveBeenCalled();
-                });
-
-                it('should not show notification', function () {
-                    viewModel.updateText();
-                    expect(notify.info).not.toHaveBeenCalled();
-                });
-            });
-
-            describe('when text was changed', function () {
-                beforeEach(function () {
-                    viewModel.originalText(null);
-                });
-
-                describe('when text is empty html', function () {
-                    var text = '<br/>';
+                describe('when text was not changed', function () {
                     beforeEach(function () {
-                        viewModel.text(text);
+                        viewModel.originalText(null);
                     });
 
                     it('should set text to null', function () {
                         viewModel.updateText();
-                        expect(viewModel.text()).toBeNull();
+                        expect(viewModel.text()).toBe(null);
+                    });
+
+                    it('should not call repository update content', function () {
+                        viewModel.updateText();
+                        expect(repository.updateContent).not.toHaveBeenCalled();
+                    });
+
+                    it('should not show notification', function () {
+                        viewModel.updateText();
+                        expect(notify.info).not.toHaveBeenCalled();
+                    });
+                });
+                
+                describe('when text was changed', function () {
+                    beforeEach(function () {
+                        viewModel.originalText('text');
+                    });
+                    
+                    it('should set text to null', function () {
+                        viewModel.updateText();
+                        expect(viewModel.text()).toBe(null);
                     });
 
                     it('should call repository update content with null content', function () {
@@ -220,11 +218,44 @@
                         });
                     });
                 });
+               
+            });
+            
+            describe('when text is not empty html', function () {
+                var text = 'text';
+                beforeEach(function () {
+                    viewModel.text(text);
+                });
 
-                describe('when text is not empty html', function () {
-                    var text = 'text';
+                describe('when text was not changed', function () {
                     beforeEach(function () {
-                        viewModel.text(text);
+                        viewModel.originalText(text);
+                    });
+
+                    it('should not change text', function () {
+                        viewModel.updateText();
+                        expect(viewModel.text()).toBe(text);
+                    });
+                    
+                    it('should not change original text', function () {
+                        viewModel.updateText();
+                        expect(viewModel.originalText()).toBe(text);
+                    });
+
+                    it('should not call repository update content', function () {
+                        viewModel.updateText();
+                        expect(repository.updateContent).not.toHaveBeenCalled();
+                    });
+
+                    it('should not show notification', function () {
+                        viewModel.updateText();
+                        expect(notify.info).not.toHaveBeenCalled();
+                    });
+                });
+
+                describe('when text was changed', function () {
+                    beforeEach(function () {
+                        viewModel.originalText(null);
                     });
 
                     it('should call repository update content with text', function () {
@@ -262,7 +293,7 @@
                         });
                     });
                 });
-
+              
             });
 
         });
