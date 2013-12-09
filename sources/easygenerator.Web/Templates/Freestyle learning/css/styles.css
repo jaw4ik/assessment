@@ -505,6 +505,10 @@ input[type="checkbox"] {
     word-wrap: break-word;
 }
 
+.question-content img {
+    vertical-align: auto;
+}
+
 .question-answers {
     padding: 10px 20px 20px;
 }
