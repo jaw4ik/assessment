@@ -448,6 +448,7 @@ body {
 .question-content {
     padding: 20px;
     border-bottom: 1px solid #c1c5ca;
+    word-wrap: break-word;
 }
 
 .content-block {
@@ -562,6 +563,7 @@ body {
 
 .learning-contents-list-item {
     overflow: hidden;
+    word-wrap: break-word;
 }
 
 .divided + .divided:before {
