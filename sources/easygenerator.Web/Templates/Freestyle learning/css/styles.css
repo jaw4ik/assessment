@@ -232,12 +232,18 @@ input[type="checkbox"] {
 }
 
 .content {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
     padding: 10px;
 }
 
-    .content.home {
-        margin-top: 11px;
-    }
+.question .content {
+    border: none;
+}
+
+.content.home {
+    margin-top: 11px;
+}
 
 /*#region caption partial*/
 
@@ -568,6 +574,8 @@ input[type="checkbox"] {
 
 .feedback .content {
     padding: 10px;
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
 }
 
 .feedback .caption-icon-image {
@@ -772,6 +780,8 @@ html.ie8, .ie8 body, .ie8 .application-wrapper {
 
 
 .summary .content {
+    background-color: #FFFFFF;
+    border: 1px solid #E0E0E0;
     padding: 10px;
     font-size: 14px;
     font-family: Arial;
