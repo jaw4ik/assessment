@@ -251,7 +251,6 @@
 /*#region Answer options*/
 
 .answer-option-item {
-    margin-top: -1px;
     position: relative;
     padding-left: 9px;
     -moz-box-sizing: border-box;
@@ -262,7 +261,6 @@
 
     .answer-option-item:hover {
         border-color: #e6e6e6;
-        z-index: 1;
     }
 
     .answer-option-item:nth-child(2n) {
@@ -276,7 +274,6 @@
     .answer-option-item.active {
         background: white;
         border-color: #90cfef;
-        z-index: 2;
     }
 
 .answer-options-list-item {
