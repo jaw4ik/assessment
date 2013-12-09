@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
+using HandleErrorAttribute = easygenerator.Web.Components.ActionFilters.HandleErrorAttribute;
 
 namespace easygenerator.Web.Configuration
 {

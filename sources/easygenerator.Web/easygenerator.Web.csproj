@@ -225,6 +225,7 @@
     <Compile Include="BuildExperience\BuildPackageCreator.cs" />
     <Compile Include="BuildExperience\BuildPathProvider.cs" />
     <Compile Include="BuildExperience\ExperienceBuilder.cs" />
+    <Compile Include="Components\ActionFilters\HandleErrorAttribute.cs" />
     <Compile Include="Components\HttpRuntimeWrapper.cs" />
     <Compile Include="BuildExperience\IExperienceBuilder.cs" />
     <Compile Include="BuildExperience\PackageModelMapper.cs" />
