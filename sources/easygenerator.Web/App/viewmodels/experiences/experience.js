@@ -7,9 +7,15 @@
                 navigateToExperiences: 'Navigate to experiences',
             };
 
+        var activatorSettings = {
+            areSameItem: function(currentItem, newItem, currentId, newId ) {
+                return currentItem == newItem && currentId == newId;
+            }
+        };
+
         var viewModel = {
             id: '',
-            activeStep: activator.create(),
+            activeStep: activator.create({}, activatorSettings),
 
             steps: [define, design, deliver],
             goToDefine: goToDefine,
@@ -43,7 +49,6 @@
 
         function activate(experienceId) {
             return Q.fcall(function () {
-                viewModel.activeStep.activateItem({});
                 viewModel.id = experienceId;
                 viewModel.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('experiences');
 
