@@ -491,7 +491,7 @@ input[type="checkbox"] {
 }
 
 .question-content {
-    padding: 30px;
+    padding: 20px 30px 10px;
     word-wrap: break-word;
 }
 
