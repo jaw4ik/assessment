@@ -79,6 +79,8 @@
             $optionsListElement = $element.find('ul'),
             cssClasses = ko.bindingHandlers.selectBox.cssClasses,
             filter = valueAccessor().filter,
+            $filterInput = $element.find('input.' + cssClasses.filterInput),
+            $currentItemElement = $element.find('div.' + cssClasses.currentItem),
             $currentItemTextElement = $element.find('div.' + cssClasses.currentItemText);
 
         fillInOptionsList();
@@ -118,6 +120,13 @@
                     .on('click', function (e) {
                         value($(e.target).data('value'));
                         $element.trigger('change');
+                        if (filter) {
+                            $optionsListElement.toggle();
+                            $currentItemTextElement.toggle();
+                            $filterInput.val('');
+                            $currentItemElement.toggleClass('expanded');
+                            e.stopPropagation();
+                        }
                     });
             });
         }
@@ -171,10 +180,10 @@
 
             switch (keyPressed) {
                 case 13: //enter key
+                    blur();
                     if (currentText != '') {
                         selectOption($currentOption.text());
                     }
-                    blur();
                     hideOptionsList();
                     $(this).blur();
                     break;
@@ -190,10 +199,10 @@
 
             switch (keyPressed) {
                 case 9: //tab key
+                    blur();
                     if (currentText != '') {
                         selectOption($currentOption.text());
                     }
-                    blur();
                     hideOptionsList();
                     break;
                 case 38: // up key
@@ -254,7 +263,6 @@
         });
 
         $filterInput.on('blur', function () {
-            $(this).val('');
             $currentItemElement.removeClass(cssClasses.focus);
         });
 
@@ -263,6 +271,7 @@
             if (currentText == '') {
                 setDefaultValue();
             }
+            $filterInput.val('');
         }
 
         function clearActiveClassFromOptions() {
