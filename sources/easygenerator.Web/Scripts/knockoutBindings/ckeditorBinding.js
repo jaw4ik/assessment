@@ -6,11 +6,11 @@
             eventTracker = valueAccessor().eventTracker || null,
             data = valueAccessor().data,
             isEditing = valueAccessor().isEditing,
-            
+
             saveHandler = valueAccessor().save,
             focusHandler = valueAccessor().focus,
             blurHandler = valueAccessor().blur,
-            
+
             autosaveInterval = valueAccessor().autosaveInterval || 60000,
 
             that = bindingContext.$root,
@@ -38,6 +38,10 @@
         editor.on('instanceReady', function () {
             $toolbarElement = $('#cke_' + editor.name);
 
+            //fix for firefox table resize tools
+            editor.document.$.execCommand("enableObjectResizing", false, "false");
+            editor.document.$.execCommand("enableInlineTableEditing", false, "false");
+
             addContentFilter();
             addCommandsTracking();
 
@@ -58,7 +62,7 @@
             }
 
             editor.on('blur', onBlur);
-            
+
             editor.on('key', function (event) {
                 if (event.data.keyCode == 27) {
                     $(editor.editable().$).blur();
@@ -68,14 +72,14 @@
             editor.on('change', function () {
                 data(editor.getData());
             });
-            
+
             // FIX for IE.
             editor.on('afterCommandExec', function (evt) {
                 if (evt.data.name === 'undo' || evt.data.name === 'redo') {
                     editor.focus();
                 }
             });
-            
+
             editor.on('paste', function () {
                 setTimeout(function () {
                     filterContent(editor.editable().$);
@@ -83,7 +87,7 @@
             });
 
             $(editor.editable().$).on('drop', function () {
-                setTimeout(function() {
+                setTimeout(function () {
                     filterContent(editor.editable().$);
                 }, 100);
             });
@@ -101,7 +105,7 @@
                 CKEDITOR.dialog._.currentTop.hide();
 
             clearInterval(saveIntervalId);
-            
+
             editor.destroy(true);
             $(element).removeAttr('contenteditable');
         });
