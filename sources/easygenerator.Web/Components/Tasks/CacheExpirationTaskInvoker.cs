@@ -9,20 +9,21 @@ namespace easygenerator.Web.Components.Tasks
     {
         private void CacheExpired(string k, object v, CacheItemRemovedReason r)
         {
+            var task = (ITask)v;
             try
             {
-                var task = (ITask) v;
-
                 task.Execute();
-
-                if (TaskInvoked != null)
-                {
-                    TaskInvoked(this, task);
-                }
             }
             catch (Exception e)
             {
                 ElmahLog.LogException(e);
+            }
+            finally
+            {
+                if (TaskInvoked != null)
+                {
+                    TaskInvoked(this, task);
+                }
             }
         }
 
