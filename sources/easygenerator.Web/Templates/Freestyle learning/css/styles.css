@@ -490,6 +490,11 @@ input[type="checkbox"] {
     background-position: 0 0;
 }
 
+.question-content {
+    padding: 30px;
+    word-wrap: break-word;
+}
+
 .question-answers {
     padding: 20px;
 }
