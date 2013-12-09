@@ -10,7 +10,6 @@
         scroll: 'selectbox-scroll',
         filter: 'filter',
         filterInput: 'selectbox-filter-input',
-        error: 'error',
         focus: 'focus'
     },
     init: function (element, valueAccessor) {
