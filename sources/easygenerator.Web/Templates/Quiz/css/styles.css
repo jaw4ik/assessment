@@ -381,8 +381,9 @@ body {
 
 .content-header-inner {
     width: 100%;
-    border-bottom: 1px solid white;
     display: table;
+    table-layout: fixed;
+    border-bottom: 1px solid white;
     font-size: 22px;
 }
 
@@ -411,7 +412,7 @@ body {
     padding: 10px;
     font-size: 22px;
     font-weight: normal;
-    word-break: break-all;
+    word-wrap: break-word;
 }
 
 .question-learning-content {
