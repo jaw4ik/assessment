@@ -566,7 +566,7 @@ a.top-navigation-item:hover {
     color: #303133;
     font-size: 13px;
     font-family: 'OpenSans-Semibold';
-    word-break: break-all;
+    word-wrap: break-word;
 }
 
 .list-item-title .selectable {
