@@ -68,25 +68,18 @@ menu, ol, ul {
     float: right;
 }
 
-.clearfix {
-    zoom: 1;
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
 }
-
-    .clearfix:before,
-    .clearfix:after {
-        content: "";
-        display: table;
-    }
-
-    .clearfix:after {
-        clear: both;
-    }
 
 .shadow-bottom-curve {
     position: relative;
 }
 
-    .shadow-bottom-curve:before, .shadow-bottom-curve:after {
+    .shadow-bottom-curve:before,
+    .shadow-bottom-curve:after {
         content: "";
         position: absolute;
         top: 50%;
@@ -262,8 +255,13 @@ input[type="checkbox"] {
     cursor: default;
 }
 
+.question .caption {
+    font-size: 14px;
+}
+
 .caption-inner {
     display: table;
+    table-layout: fixed;
     height: 68px;
     width: 100%;
     padding-left: 16px;
@@ -293,7 +291,7 @@ input[type="checkbox"] {
     vertical-align: middle;
     padding: 9px 18px;
     width: 100%;
-    word-break: break-all;
+    word-wrap: break-word;
     text-transform: uppercase;
 }
 
@@ -379,7 +377,8 @@ input[type="checkbox"] {
 }
 
 .objective-brief {
-    display: block;
+    display: table;
+    table-layout: fixed;
     padding: 0;
     width: 100%;
     border: 1px solid #E1E1E1;
@@ -434,7 +433,7 @@ input[type="checkbox"] {
 .objective-brief-title {
     padding: 10px;
     width: 100%;
-    word-break: break-all;
+    word-wrap: break-word;
 }
 
 .objective-brief-expand-collapse-wrapper {
