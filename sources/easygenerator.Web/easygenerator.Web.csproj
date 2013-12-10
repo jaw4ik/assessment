@@ -583,6 +583,7 @@
     </Content>
     <Content Include="Templates\Freestyle learning\App\xApi\views\login.html" />
     <Content Include="Templates\Freestyle learning\App\xApi\views\xAPIError.html" />
+    <Content Include="Templates\Freestyle learning\content\1\1\content.html" />
     <Content Include="Templates\Freestyle learning\css\jasmine.css" />
     <Content Include="Templates\Freestyle learning\img\buildprogress.gif" />
     <Content Include="Templates\Freestyle learning\js\almond-custom.js" />
