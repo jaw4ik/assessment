@@ -36,6 +36,10 @@
                 }
             },
 
+            setFocus = function() {
+                this.isTitleEditing(true);
+            },
+
             activate = function (queryParams) {
                 var that = this;
 
@@ -120,6 +124,7 @@
 
             goBackTooltip: goBackTooltip,
             goBackLink: goBackLink,
+            setFocus: setFocus,
 
             activate: activate,
             navigateBack: navigateBack,
