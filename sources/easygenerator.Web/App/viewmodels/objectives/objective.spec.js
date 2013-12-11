@@ -4,7 +4,6 @@
 
         var router = require('plugins/router'),
             eventTracker = require('eventTracker'),
-            constants = require('constants'),
             repository = require('repositories/objectiveRepository'),
             experienceRepository = require('repositories/experienceRepository'),
             questionRepository = require('repositories/questionRepository'),
@@ -78,7 +77,7 @@
                     it('should set contextExpperienceId to null', function () {
                         var promise = viewModel.activate(objective.id, null);
                         deferred.resolve(null);
-                        
+
                         waitsFor(function () {
                             return !promise.isPending();
                         });
@@ -90,7 +89,7 @@
                     it('should set contextExpperienceTitle to null', function () {
                         var promise = viewModel.activate(objective.id, null);
                         deferred.resolve(null);
-                        
+
                         waitsFor(function () {
                             return !promise.isPending();
                         });
@@ -104,7 +103,7 @@
 
                         var promise = viewModel.activate(objective.id, null);
                         deferred.resolve(objective);
-                        
+
                         waitsFor(function () {
                             return !promise.isPending();
                         });
@@ -117,7 +116,7 @@
                     it('should set goBackLink to objectives', function () {
                         var promise = viewModel.activate(objective.id, null);
                         deferred.resolve(objective);
-                        
+
                         waitsFor(function () {
                             return !promise.isPending();
                         });
@@ -200,7 +199,7 @@
 
                     describe('when experienceId is not string', function () {
                         var queryParams = { experienceId: null };
-                        
+
                         it('should set contextExpperienceId to null', function () {
                             var promise = viewModel.activate(objective.id, queryParams);
                             deferred.resolve(null);
@@ -252,7 +251,7 @@
                                 expect(viewModel.goBackLink).toEqual('#objectives');
                             });
                         });
-                        
+
                         describe('when objective not found', function () {
 
                             beforeEach(function () {
@@ -331,7 +330,7 @@
                             beforeEach(function () {
                                 getExperienceDeferred.resolve(experience);
                             });
-                            
+
                             describe('when objective not found', function () {
 
                                 beforeEach(function () {
@@ -445,7 +444,7 @@
                             });
                         });
 
-                        describe('when experience does not exist' , function() {
+                        describe('when experience does not exist', function () {
                             beforeEach(function () {
                                 getExperienceDeferred.reject();
                             });
@@ -771,24 +770,113 @@
 
             });
 
-            describe('navigateToCreateQuestion:', function () {
+            describe('createQuestion:', function () {
 
-                it('should be a function', function () {
-                    expect(viewModel.navigateToCreateQuestion).toBeFunction();
+                var addQuestionDefer;
+
+                beforeEach(function () {
+                    addQuestionDefer = Q.defer();
+
+                    spyOn(questionRepository, 'addQuestion').andReturn(addQuestionDefer.promise);
+                    spyOn(notify, 'lockContent');
+                    spyOn(notify, 'unlockContent');
                 });
 
-                it('should send event \'Navigate to create question\'', function () {
-                    viewModel.navigateToCreateQuestion();
-
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to create question');
+                it('should be function', function () {
+                    expect(viewModel.createQuestion).toBeFunction();
                 });
 
-                it('should navigate to #objective/{objectiveId}/question/create', function () {
-                    viewModel.objectiveId = '0';
+                it('should return promise', function () {
+                    expect(viewModel.createQuestion()).toBePromise();
+                });
 
-                    viewModel.navigateToCreateQuestion();
+                it('should send event \'Create new question\'', function() {
+                    viewModel.createQuestion();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Create new question');
+                });
 
-                    expect(router.navigateWithQueryString).toHaveBeenCalledWith('objective/' + viewModel.objectiveId + '/question/create');
+                it('should add question to repository', function () {
+                    var title = 'some title';
+
+                    spyOn(localizationManager, 'localize').andReturn(title);
+                    viewModel.objectiveId = 'SomeId';
+
+                    var promise = viewModel.createQuestion().fin(function () { });
+
+                    addQuestionDefer.resolve();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(questionRepository.addQuestion).toHaveBeenCalledWith(viewModel.objectiveId, { title: title });
+                    });
+                });
+
+                it('should lock content', function() {
+                    viewModel.objectiveId = 'SomeId';
+
+                    var promise = viewModel.createQuestion().fin(function () { });
+
+                    addQuestionDefer.resolve();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(notify.lockContent).toHaveBeenCalled();
+                    });
+                });
+
+                describe('when question added', function () {
+
+                    it('should navigate to \'objective/\' + that.objectiveId + \'/question/\' + createdQuestion.id', function () {
+                        var createdQuestionId = 'SomeId';
+
+                        var promise = viewModel.createQuestion().fin(function () { });
+
+                        addQuestionDefer.resolve({ id: createdQuestionId });
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(router.navigateWithQueryString).toHaveBeenCalledWith('objective/' + viewModel.objectiveId + '/question/' + createdQuestionId);
+                        });
+                    });
+
+
+                    it('should unlock content', function () {
+                        var createdQuestionId = 'SomeId';
+
+                        var promise = viewModel.createQuestion().fin(function () { });
+
+                        addQuestionDefer.resolve({ id: createdQuestionId });
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(notify.lockContent).toHaveBeenCalled();
+                        });
+                    });
+                });
+
+                describe('when adding question failed', function () {
+
+                    it('should unlock content', function () {
+                        var promise = viewModel.createQuestion().fin(function () { });
+
+                        addQuestionDefer.reject();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(notify.lockContent).toHaveBeenCalled();
+                        });
+                    });
+
                 });
 
             });

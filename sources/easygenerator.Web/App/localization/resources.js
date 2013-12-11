@@ -664,6 +664,11 @@
         nl: 'Opgeslagen om',
         de: 'Gespeichert am'
     },
+    newQuestionTitle: {
+        en: 'What question do you want to ask?',
+        nl: 'What question do you want to ask?[nl]',
+        de: 'What question do you want to ask?[de]'
+    },
     /* End resource section for model Questions */
     
     /* Resource section for model customLocalizationPlugin */

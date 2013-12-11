@@ -1,7 +1,7 @@
 ﻿define(['jquery'], function ($) {
 
-    var 
-		notificationTargetSelector = ".page-view-caption",
+    var
+        notificationTargetSelector = ".page-view-caption",
         spinnerTargetSelector = ".main",
         containerSelector = "notification-container",
         clearfixClass = "clearfix",
@@ -79,7 +79,7 @@
     return {
         info: info,
         error: error,
-        
+
         lockContent: lockContent,
         unlockContent: unlockContent,
 

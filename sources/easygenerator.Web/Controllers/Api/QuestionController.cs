@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
@@ -30,6 +29,7 @@ namespace easygenerator.Web.Controllers.Api
             var question = _entityFactory.Question(title, GetCurrentUsername());
 
             objective.AddQuestion(question, GetCurrentUsername());
+
             return JsonSuccess(new { Id = question.Id.ToString("N"), CreatedOn = question.CreatedOn });
         }
 

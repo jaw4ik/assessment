@@ -6,7 +6,7 @@
             events = {
                 updateObjectiveTitle: "Update objective title",
                 navigateToEditQuestion: "Navigate to edit question",
-                navigateToCreateQuestion: "Navigate to create question",
+                createNewQuestion: "Create new question",
                 selectQuestion: "Select question",
                 unselectQuestion: "Unselect question",
                 deleteSelectedQuestions: "Delete question",
@@ -69,10 +69,24 @@
 
                 router.navigateWithQueryString('objective/' + this.objectiveId + '/question/' + question.id);
             },
+            
+            createQuestion = function () {
+                var that = this;
+                eventTracker.publish(events.createNewQuestion);
+                notify.lockContent();
+                return Q.fcall(function () {
 
-            navigateToCreateQuestion = function () {
-                eventTracker.publish(events.navigateToCreateQuestion);
-                router.navigateWithQueryString('objective/' + this.objectiveId + '/question/create');
+                    var newQuestion = {
+                        title: localizationManager.localize('newQuestionTitle')
+                    };
+
+                    return questionRepository.addQuestion(that.objectiveId, newQuestion).then(function (createdQuestion) {
+                        notify.unlockContent();
+                        router.navigateWithQueryString('objective/' + that.objectiveId + '/question/' + createdQuestion.id);
+                    }).fail(function() {
+                        notify.unlockContent();
+                    });
+                });
             },
 
             deleteSelectedQuestions = function () {
@@ -131,6 +145,8 @@
 
             activate = function (objId, queryParams) {
                 var that = this;
+                
+
                 
                 this.currentLanguage = localizationManager.currentLanguage;
 
@@ -202,12 +218,12 @@
 
             navigateBack: navigateBack,
             navigateToEditQuestion: navigateToEditQuestion,
-            navigateToCreateQuestion: navigateToCreateQuestion,
 
+            createQuestion: createQuestion,
             deleteSelectedQuestions: deleteSelectedQuestions,
             toggleQuestionSelection: toggleQuestionSelection,
 
-            activate: activate,
+            activate: activate
         };
     }
 );
