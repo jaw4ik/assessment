@@ -131,6 +131,7 @@
     <Compile Include="ElementObjects\QuestionsListItem.cs" />
     <Compile Include="ElementObjects\PublicationsListItem.cs" />
     <Compile Include="ElementObjects\PublicationsListPage.cs" />
+    <Compile Include="ElementObjects\Shell.cs" />
     <Compile Include="ElementObjects\SignInPage.cs" />
     <Compile Include="ElementObjects\TryNowPage.cs" />
     <Compile Include="ElementObjects\UserSettingsPage.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="LinkingModels\QuestionsListLinkingModel.cs" />
     <Compile Include="LinkingModels\PublicationListItemLinkingModel.cs" />
     <Compile Include="LinkingModels\PublicationListLinkingModel.cs" />
+    <Compile Include="LinkingModels\ShellLinkingModel.cs" />
     <Compile Include="LinkingModels\SignInPageLinkingModel.cs" />
     <Compile Include="LinkingModels\TryNowPageLinkingModel.cs" />
     <Compile Include="LinkingModels\UserSettingsLinkingModel.cs" />
@@ -206,6 +208,7 @@
     <Compile Include="Steps\PackageQuestionSteps.cs" />
     <Compile Include="Steps\PackageSummaryPageSteps.cs" />
     <Compile Include="Steps\QuestionSteps.cs" />
+    <Compile Include="Steps\ShellSteps.cs" />
     <Compile Include="Steps\SignInPageSteps.cs" />
     <Compile Include="Steps\TryNowPageSteps.cs" />
     <Compile Include="Steps\UserSettingsSteps.cs" />
