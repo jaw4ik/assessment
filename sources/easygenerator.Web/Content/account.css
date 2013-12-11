@@ -373,16 +373,6 @@ body.try {
         background: url(images/sprites.png) -93px -50px;
     }
 
-.custom-checkbox {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    filter: alpha(opacity=0);
-}
-
 .user-form-checkbox-label {
     line-height: 24px;
     margin-left: 35px;

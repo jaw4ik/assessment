@@ -2,134 +2,10 @@
  * easygenerator | Copyright 2013
  */
 
-/*#region COMMON TAGS CSS-STYLES*/
-
-body {
-    font-family: Tahoma, sans-serif;
-}
-
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-
-input[type="radio"],
-input[type="checkbox"] {
-    margin: 0;
-}
-
-a {
-    outline: 0;
-    text-decoration: none;
-}
-
-    a:hover,
-    a:active {
-        outline: 0;
-    }
-
-    a:focus {
-        text-decoration: none;
-    }
-
-img:hover {
-    opacity: 1;
-    filter: alpha(opacity = 100);
-}
-
-ul.unstyled,
-ol.unstyled  {
-    margin-left: 0;
-    list-style: none;
-}
-
-/*#endregion COMMON*/
-
 /*#region COMMON CLASSES CSS-STYLES*/
 
-#content {
-    min-width: 600px;
-    min-height: 600px;
-}
 
-.main {
-    padding-top: 97px;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-.clear {
-    clear: both;
-}
-
-.clearfix:after {
-    content: "";
-    display: block;
-    clear: both;
-}
-
-.border-box {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-/* 
- * ----------------------temporary classes-------------------
- */
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-.box-sizing-reset, .box-sizing-reset * {
-    -webkit-box-sizing: content-box !important;
-    -moz-box-sizing: content-box !important;
-    box-sizing: content-box !important;
-}
-
-/*
-   --------------------end of  temporary classes---------
-   */
-
-.inline {
-    display: inline-block;
-}
-
-.pull-left {
-    float: left;
-}
-
-.pull-right {
-    float: right;
-}
-
-.hidden {
-    visibility: hidden;
-}
-
-.preloader-block {
-    height: 1px;
-    width: 1px;
-    position: absolute;
-    overflow: hidden;
-    visibility: hidden;
-}
-
-.custom-checkbox {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    filter: alpha(opacity=0);
-}
-
-/*------------white framing for logo-images---------------------*/
+/*TODO: DELETE AND/OR REPLACE THEM THIS STYLES*/
 
 .white-framing {
     display: inline-block;
@@ -147,76 +23,6 @@ ol.unstyled  {
         outline: 1px solid #f8f8f8;
         vertical-align: top;
     }
-
-/*#endregion COMMON CLASSES CSS-STYLES*/
-
-/*#region Page navigation elements */
-
-.nav-element-wrapper {
-    display: table-cell;
-    width: 22px;
-    vertical-align: middle;
-}
-
-    .nav-element-wrapper.previous {
-        padding-right: 40px;
-    }
-
-    .nav-element-wrapper.next {
-        padding-left: 40px;
-    }
-
-    .nav-element-wrapper .nav-element {
-        display: inline-block;
-        background-repeat: no-repeat;
-        opacity: 0.6;
-    }
-
-.nav-element {
-    cursor: pointer;
-}
-
-    .nav-element:hover {
-        opacity: 1;
-    }
-
-    .nav-element.disabled {
-        opacity: 0.2;
-        cursor: default;
-    }
-
-    .nav-element.prev-btn {
-        height: 32px;
-        width: 22px;
-        background-image: url(images/middle-sized-icons-pack.png);
-        background-position: 0 -104px;
-    }
-
-    .nav-element.next-btn {
-        height: 32px;
-        width: 22px;
-        background-image: url(images/middle-sized-icons-pack.png);
-        background-position: 0 -136px;
-    }
-
-/*#endregion Page navigation elements */
-
-/*#region Error pages */
-
-.error-page {
-    margin: auto;
-    padding: 115px;
-    min-width: 500px;
-    max-width: 1000px;
-}
-
-.error-page-home-link {
-    margin-top: 20px;
-}
-
-/*#endregion Error pages */
-
-/*#region Form action buttons*/
 
 .btn {
     font-size: 16px;
@@ -293,6 +99,25 @@ ol.unstyled  {
     -moz-box-shadow: inset 0 0 7px rgba(68, 192, 252, 0.7);
     box-shadow: inset 0 0 7px rgba(68, 192, 252, 0.7);
 }
+
+/*#endregion COMMON CLASSES CSS-STYLES*/
+
+/*#region Error pages */
+
+.error-page {
+    margin: auto;
+    padding: 115px;
+    min-width: 500px;
+    max-width: 1000px;
+}
+
+.error-page-home-link {
+    margin-top: 20px;
+}
+
+/*#endregion Error pages */
+
+/*#region Form action buttons*/
 
 .form-actions {
     float: right;
@@ -391,12 +216,6 @@ ol.unstyled  {
     min-height: 120px;
 }
 
-.create-form .editable-text-binding {
-    word-break: break-all;
-    word-wrap: break-word;
-    white-space: pre-wrap;
-}
-
 .create-form .form-actions {
     margin-left: 0;
     clear: both;
@@ -407,28 +226,6 @@ ol.unstyled  {
     right: 98px;
     margin-top: 20px;
     z-index: 2;
-}
-
-.create-form-tip {
-    margin: 50px 0;
-    -webkit-transform: rotate(352deg);
-    -moz-transform: rotate(352deg);
-    -ms-transform: rotate(352deg);
-    transform: rotate(352deg);
-    white-space: nowrap;
-    color: #666;
-}
-
-.create-form-tip-image {
-    background-image: url(images/typeQuestionTitleArrow.png);
-    width: 54px;
-    height: 54px;
-    display: inline-block;
-}
-
-.editable-text-binding {
-    white-space: pre-wrap;
-    word-wrap: break-word;
 }
 
 /*#endregion Create form*/
@@ -579,65 +376,6 @@ ol.unstyled  {
 
 /*#endregion Create entity tooltip*/
 
-/*#region controls panel buttons*/
-
-.header-toolbar-item-wrapper {
-    display: inline-block;
-    width: 42px;
-    height: 29px;
-    margin-left: 9px;
-    margin-right: 15px;
-    padding-top: 4px;
-    text-align: center;
-    -moz-border-radius: 18px / 18px;
-    -webkit-border-radius: 18px / 18px;
-    border-radius: 18px / 18px;
-    -webkit-box-shadow: inset 0 3px 3px -3px #212121;
-    -moz-box-shadow: inset 0 3px 3px -3px #212121;
-    box-shadow: inset 0 3px 3px -3px #212121;
-    background: #626262;
-    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIxJSIgc3RvcC1jb2xvcj0iIzYyNjI2MiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3YzdjN2MiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-    background: -moz-linear-gradient(top, #626262 1%, #7c7c7c 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#626262), color-stop(100%,#7c7c7c));
-    background: -webkit-linear-gradient(top, #626262 1%,#7c7c7c 100%);
-    background: -ms-linear-gradient(top, #626262 1%,#7c7c7c 100%);
-    background: linear-gradient(to bottom, #626262 1%,#7c7c7c 100%);
-}
-
-.ie9 .header-toolbar-item-wrapper {
-    filter: none;
-}
-
-.header-toolbar-item-wrapper:hover {
-    background: #4b4b4b;
-    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzRiNGI0YiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3MTcxNzEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-    background: -moz-linear-gradient(top, #4b4b4b 0%, #717171 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4b4b4b), color-stop(100%,#717171));
-    background: -webkit-linear-gradient(top, #4b4b4b 0%,#717171 100%);
-    background: -ms-linear-gradient(top, #4b4b4b 0%,#717171 100%);
-    background: linear-gradient(to bottom, #4b4b4b 0%,#717171 100%);
-}
-
-.ie9 .header-toolbar-item-wrapper:hover {
-    filter: none;
-}
-
-/************* Toolbar buttons***************/
-.toolbar-unrelate {
-    display: inline-block;
-    height: 22px;
-    width: 30px;
-    vertical-align: top;
-    background-image: url(images/middle-sized-icons-pack.png);
-    background-repeat: no-repeat;
-}
-
-.toolbar-unrelate {
-    background-position: 2px -395px;
-}
-
-/*#endregion controls panel buttons*/
-
 /*#region OBJECTIVES-EXPERIENCES*/
 
 .objectives-body,
@@ -656,61 +394,6 @@ ol.unstyled  {
 
 /*#endregion OBJECTIVES-EXPERIENCES*/
 
-/*#region ADD NEW ITEM TIP*/
-
-.add-new-item-tip {
-    position: absolute;
-    color: #666;
-    font-size: 22px;
-    font-family: 'BuxtonSketch', sans-serif;
-    white-space: nowrap;
-}
-
-    .add-new-item-tip .add-new-item-tip-text {
-        position: absolute;
-        left: 90px;
-        top: 30px;
-    }
-
-    .add-new-item-tip .add-new-item-tip-arrow {
-        width: 53px;
-        height: 54px;
-        position: absolute;
-        top: 10px;
-        left: 30px;
-        -moz-transform: scaleX(-1);
-        -webkit-transform: scaleX(-1);
-        -ms-transform: scaleX(-1);
-        transform: scaleX(-1);
-        background-image: url(images/typeQuestionTitleArrow.png);
-    }
-
-.objectives .add-new-item-tip .add-new-item-tip-text,
-.experiences .add-new-item-tip .add-new-item-tip-text {
-    left: 110px;
-    top: 23px;
-}
-
-.experience .add-new-item-tip .add-new-item-tip-text {
-    top: 4px;
-    left: 95px;
-    width: 300px;
-    white-space: normal;
-}
-
-.objectives .add-new-item-tip .add-new-item-tip-arrow,
-.experiences .add-new-item-tip .add-new-item-tip-arrow {
-    top: 0;
-    left: 50px;
-}
-
-.experience .add-new-item-tip .add-new-item-tip-arrow {
-    top: -30px;
-    left: 30px;
-}
-
-/*#endregion EMPTY LIST*/
-
 /*#region MEDIA CSS-STYLES*/
 
 @media (max-width: 640px) {
@@ -719,18 +402,6 @@ ol.unstyled  {
         right: 375px;
     }
     /*#endregion Create explanation tooltip*/
-}
-
-@media (max-width: 779px) {
-    /*#region Page navigation elements */
-    .nav-element-wrapper.previous {
-        padding-right: 20px;
-    }
-
-    .nav-element-wrapper.next {
-        padding-left: 20px;
-    }
-    /*#endregion Page navigation elements */
 }
 
 @media (max-width: 945px) {
@@ -801,10 +472,6 @@ ol.unstyled  {
         max-width: 850px;
     }
     /*#endregion OBJECTIVES-EXPERIENCES*/
-
-    .objectives-body .objectives-header {
-        padding: 20px 0 0;
-    }
 }
 
 /*#endregion MEDIA*/

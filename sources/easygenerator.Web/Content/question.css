@@ -669,14 +669,6 @@
 
 /*#endregion Info-popup*/
 
-/*#region Create new question navigation button*/
-
-.question .flexible .nav-element {
-    padding: 10px;
-}
-
-/*#endregion Create new question navigation button*/
-
 .create-question .create-form {
     padding-bottom: 60px;
 }

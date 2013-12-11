@@ -89,13 +89,19 @@ input::-moz-focus-inner {
     padding: 0;
 }
 
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 /*#endregion RESET CSS-STYLES IN FOREIGN BROWSERS */
 
 /*#region COMMON TAGS CSS-STYLES*/
 html, body {
     height: 100%;
     width: 100%;
-    font-family: 'OpenSans';
+    font-family: 'OpenSans', sans-serif;
 }
 
 table {
@@ -155,6 +161,7 @@ h1 {
 /*#endregion COMMON*/
 
 /*#region COMMON CLASSES CSS-STYLES*/
+
 .clear {
     clear: both;
 }
@@ -163,12 +170,6 @@ h1 {
     content: "";
     display: block;
     clear: both;
-}
-
-.border-box {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
 }
 
 .pull-left {
@@ -186,35 +187,15 @@ h1 {
     user-select: text;
 }
 
-/*#endregion COMMON CLASSES CSS-STYLES*/
-
-/*#region CHECKBOX */
-
-.eg-checkbox {
-    position: relative;
-    float: left;
-    width: 15px;
-    height: 15px;
-    border: 1px solid #e6e6e6;
-    vertical-align: middle;
-}
-
-    .eg-checkbox.checked {
-        background: url(images/sprites.png) 2px -22px;
-    }
-
-.input-checkbox {
+.preloader-block {
+    height: 1px;
+    width: 1px;
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    filter: alpha(opacity=0);
+    overflow: hidden;
+    visibility: hidden;
 }
 
-
-/*#endregion CHECKBOX*/
+/*#endregion COMMON CLASSES CSS-STYLES*/
 
 /*#region CURSOR*/
 .cursor-default {
