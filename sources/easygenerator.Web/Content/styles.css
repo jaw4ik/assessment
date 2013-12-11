@@ -1038,6 +1038,44 @@ a.top-navigation-item:hover {
 }
 /*#endregion SEND FEEDBACK*/
 
+/*#region MAINTENANCE*/
+.maintenance-message-page {
+    padding-top: 8.7%;
+    text-align: center;
+}
+
+.maintenance-message-holder {
+    display: inline-block;
+    position: relative;
+    padding-left: 115px;
+    text-align: left;
+    color: #303133;
+    font-size: 20px;
+    font-family: OpenSans-Semibold, sans-serif;
+}
+
+    .maintenance-message-holder:after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: 0;
+        margin-top: 20px;
+        display: block;
+        height: 98px;
+        width: 100px;
+        background: url(images/oops.png) no-repeat;
+    }
+
+.maintenance-message-title {
+    padding-bottom: 13px;
+}
+
+.maintenance-message-error-text {
+    color: #b94a48;
+}
+
+/*#endregion MAINTENANCE*/
+
 @media (max-width: 1040px) {
 
     /*#region HEADER*/

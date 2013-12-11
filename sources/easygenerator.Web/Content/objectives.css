@@ -5,13 +5,3 @@
 .create-objective .create-form {
     padding-bottom: 60px;
 }
-
-/*#region OBJECTIVES LIST STYLES*/
-
-.package-actions-block {
-    position: absolute;
-    top: 120px;
-    right: 10px;
-}
-
-/*#endregion OBJECTIVES LIST STYLES*/
