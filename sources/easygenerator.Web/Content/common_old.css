@@ -260,6 +260,7 @@
     outline: none;
     color: #666;
     font-size: 14px;
+    word-wrap: break-word;
 }
 
     .edit-field.bordered {
