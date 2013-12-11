@@ -1182,7 +1182,7 @@ a.top-navigation-item:hover {
         color: #303133;
         font-family: 'OpenSans';
         border-bottom: 1px solid #E8E8E8;
-        min-height: 56px;
+        min-height: 64px;
         padding: 20px 15px;
     }
 
