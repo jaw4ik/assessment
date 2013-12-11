@@ -178,6 +178,7 @@
 
 .template-info-wrapper {
     margin-left: 115px;
+    word-wrap: break-word;
 }
 
 .template-title {
