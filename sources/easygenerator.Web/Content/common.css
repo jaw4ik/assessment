@@ -35,11 +35,17 @@
     font-style: normal;
 }
 
-
 @font-face {
     font-family: 'BuxtonSketch';
     src: url('./font/buxtonsketch.eot');
     src: url('./font/buxtonsketch.eot?#iefix') format('embedded-opentype'), url('./font/buxtonsketch.woff') format('woff'), url('./font/buxtonsketch.ttf') format('truetype'), url('./font/buxtonsketch.svg#BuxtonSketch') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('font/fontawesome-webfont.svg#fontawesomeregular') format('svg'), url('font/fontawesome-webfont.eot?#iefix&v=3.2.1') format('embedded-opentype'), url('font/fontawesome-webfont.woff?v=3.2.1') format('woff'), url('font/fontawesome-webfont.ttf?v=3.2.1') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -64,7 +70,7 @@ menu, nav, section, summary, mark, audio, video {
     outline: 0;
 }
 
-html, body, div, article, aside, 
+html, body, div, article, aside,
 footer, header, menu, nav, section {
     -moz-user-select: none;
     -webkit-user-select: none;

@@ -2,25 +2,6 @@
  * easygenerator | Copyright 2013
  */
 
-/*#region FONTS CONNECTIONS*/
-
-@font-face {
-    font-family: 'FontAwesome';
-    src: url('font/fontawesome-webfont.svg#fontawesomeregular') format('svg'), url('font/fontawesome-webfont.eot?#iefix&v=3.2.1') format('embedded-opentype'), url('font/fontawesome-webfont.woff?v=3.2.1') format('woff'), url('font/fontawesome-webfont.ttf?v=3.2.1') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'BuxtonSketchRegular';
-    src: url('font/buxtonsketch.eot');
-    src: url('font/buxtonsketch.svg#BuxtonSketchRegular') format('svg'), url('font/buxtonsketch.eot?#iefix') format('embedded-opentype'), url('font/buxtonsketch.woff') format('woff'), url('font/buxtonsketch.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-/*#endregion FONTS CONNECTIONS*/
-
 /*#region COMMON TAGS CSS-STYLES*/
 
 body {
@@ -556,7 +537,7 @@ ol.unstyled  {
     position: absolute;
     left: 30px;
     font-size: 22px;
-    font-family: 'BuxtonSketchRegular', sans-serif;
+    font-family: 'BuxtonSketch', sans-serif;
 }
 
     .create-tip .create-tip-text-wrapper {
@@ -681,7 +662,7 @@ ol.unstyled  {
     position: absolute;
     color: #666;
     font-size: 22px;
-    font-family: 'BuxtonSketchRegular', sans-serif;
+    font-family: 'BuxtonSketch', sans-serif;
     white-space: nowrap;
 }
 
