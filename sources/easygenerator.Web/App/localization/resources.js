@@ -421,9 +421,9 @@
         de: 'Neues Lernziel erstellen'
     },
     createObjectiveTip: {
-        en: 'Type learning objective title here',
-        nl: 'Typ hier de titel van de leerdoelstelling',
-        de: 'Titel des Lernziels hier eingeben'
+        en: 'Type learning objective title here...',
+        nl: 'Typ hier de titel van de leerdoelstelling...',
+        de: 'Titel des Lernziels hier eingeben...'
     },
     filter: {
         en: 'Filter',
@@ -460,6 +460,11 @@
         nl: 'Er zijn geen leerdoelen om te koppelen',
         de: 'Es sind keine Lernziele zum Verbinden vorhanden'
     },
+    defineLerningObjectiveTitle: {
+        en: 'Define learning objective title',
+        nl: 'Define learning objective title[nl]',
+        de: 'Define learning objective title[de]'
+    },
     /* End resource section for model CreateObjective */
     
     /* Resource section for model CreateExperience */
@@ -492,6 +497,16 @@
         en: 'Learning experience template:',
         nl: 'Leerervaringssjabloon:',
         de: 'Lernerfahrungsvorlage:'
+    },
+    defineLerningExperienceTitle: {
+        en: 'Define learning experience title',
+        nl: 'Define learning experience title[nl]',
+        de: 'Define learning experience title[de]'
+    },
+    chooseLearningExperienceTemplate: {
+        en: 'Choose learning experience template',
+        nl: 'Choose learning experience template[nl]',
+        de: 'Choose learning experience template[de]'
     },
     /* End resource section for model CreateExperience */
     
@@ -1007,11 +1022,6 @@
         nl: 'minstens één cijfer hebben;',
         de: 'mindestens eine Ziffer enthalten;'
     },
-    ContainAtLeastOneSpecialCharacter: {
-        en: 'contain at least one special character;',
-        nl: 'minstens één speciaal teken hebben;',
-        de: 'mindestens ein Sonderzeichen enthalten;'
-    },
     NotContainWhitespaceCharacters: {
         en: 'NOT contain whitespace character(s).',
         nl: 'GEEN spatie(s) bevatten.',
@@ -1036,6 +1046,11 @@
         en: 'Fill in your phone number',
         nl: 'Vul uw telefoonnummer in',
         de: 'Geben Sie Ihre Telefonnummer ein'
+    },
+    EnterValidCountry: {
+        en: 'Fill in your country',
+        nl: 'Vul uw land in',
+        de: 'Geben Sie Ihr Land ein'
     },
     AccountAlreadyExists: {
         en: 'This account already exists',
