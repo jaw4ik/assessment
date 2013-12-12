@@ -40,7 +40,10 @@
                     
                     viewModel.currentTemplate(_.find(viewModel.templates, function (item) { return item.id == experience.template.id; }));
                 });
-            });
+            }).fail(function (reason) {
+                router.activeItem.settings.lifecycleData = { redirect: '404' };
+                throw reason;
+            });;
         }
 
         function selectTemplate(template) {

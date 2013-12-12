@@ -74,6 +74,9 @@
 
             viewModel.packageUrl(experience.packageUrl);
             viewModel.publishedPackageUrl(experience.publishedPackageUrl);
+        }).fail(function (reason) {
+            router.activeItem.settings.lifecycleData = { redirect: '404' };
+            throw reason;
         });
     }
 

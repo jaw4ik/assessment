@@ -51,17 +51,32 @@
 
             describe('when experience was not found', function () {
 
-                it('should reject promise', function () {
-                    var promise = viewModel.activate();
-                    getExperienceDefer.reject();
+                beforeEach(function () {
+                    getExperienceDefer.reject('reason');
+                });
+
+                it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
+                    router.activeItem.settings.lifecycleData = null;
+
+                    var promise = viewModel.activate('experienceId');
                     waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(promise).toBeRejected();
+                        expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
                     });
                 });
 
+                it('should reject promise', function () {
+                    var promise = viewModel.activate('experienceId');
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(promise).toBeRejectedWith('reason');
+                    });
+                });
             });
 
             describe('when experience exists', function () {
@@ -86,16 +101,30 @@
                 });
 
                 describe('and an error occured when getting templates', function () {
+                    beforeEach(function() {
+                        getTemplateCollectionDefer.reject('reason');
+                    });
+                    
+                    it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
+                        router.activeItem.settings.lifecycleData = null;
 
-                    it('should reject promise', function () {
                         var promise = viewModel.activate(experience.id);
-                        getTemplateCollectionDefer.reject();
-
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise).toBeRejected();
+                            expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
+                        });
+                    });
+
+                    it('should reject promise', function () {
+                        var promise = viewModel.activate(experience.id);
+                        
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith('reason');
                         });
                     });
 

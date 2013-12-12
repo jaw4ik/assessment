@@ -91,9 +91,6 @@
                         that.isCreatedQuestion(lastCreatedQuestionId === question.id);
                         that.title(question.title);
                         that.questionContent = vmQuestionContent(questionId, question.content);
-                    }).fail(function () {
-                        router.replace('404');
-                        return;
                     });
                 }).then(function () {
                     return answerRepository.getCollection(questionId).then(function (answerOptions) {
@@ -109,6 +106,9 @@
                         });
                         that.learningContents = vmLearningContents(questionId, sortedLearningContents);
                     });
+                }).fail(function (reason) {
+                    router.activeItem.settings.lifecycleData = { redirect: '404' };
+                    throw reason;
                 });
             };
 

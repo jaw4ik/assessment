@@ -143,11 +143,6 @@
                         that.navigation()[1].isPartOfModules(_.contains(objectivesModules, getModuleIdFromRouterActiveInstruction()));
                     });
 
-                    router.on('router:navigation:cancelled').then(function () {
-                        isViewReady(true);
-                        router.replace('404');
-                    });
-
                     router.on('router:navigation:composition-complete').then(function () {
                         isViewReady(true);
 

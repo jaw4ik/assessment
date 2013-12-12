@@ -340,16 +340,30 @@ define(function (require) {
             });
             
             describe('when objective not found', function () {
+                beforeEach(function() {
+                    getObjectiveByIdDeferred.reject('reason');
+                });
+                
+                it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
+                    router.activeItem.settings.lifecycleData = null;
 
-                it('should reject promise', function () {
                     var promise = viewModel.activate('objectiveId', 'questionId');
-                    getObjectiveByIdDeferred.reject();
-
                     waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(promise).toBeRejected();
+                        expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
+                    });
+                });
+
+                it('should reject promise', function () {
+                    var promise = viewModel.activate('objectiveId', 'questionId');
+                    
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(promise).toBeRejectedWith('reason');
                     });
                 });
 
@@ -357,16 +371,31 @@ define(function (require) {
 
             describe('when question not found', function () {
 
-                it('should reject promise', function () {
-                    var promise = viewModel.activate('obj1', 'someId');
+                beforeEach(function () {
                     getObjectiveByIdDeferred.resolve(objective);
-                    getQuestionByIdDeferred.reject();
+                    getQuestionByIdDeferred.reject('reason');
+                });
+                
+                it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
+                    router.activeItem.settings.lifecycleData = null;
 
+                    var promise = viewModel.activate('objectiveId', 'questionId');
                     waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(promise).toBeRejected();
+                        expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
+                    });
+                });
+
+                it('should reject promise', function () {
+                    var promise = viewModel.activate('objectiveId', 'questionId');
+                    
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(promise).toBeRejectedWith('reason');
                     });
                 });
 

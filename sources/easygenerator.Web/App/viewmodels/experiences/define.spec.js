@@ -916,7 +916,19 @@
                 describe('when experience does not exist', function () {
 
                     beforeEach(function () {
-                        getById.reject();
+                        getById.reject('reason');
+                    });
+
+                    it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
+                        router.activeItem.settings.lifecycleData = null;
+
+                        var promise = viewModel.activate('experienceId');
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
+                        });
                     });
 
                     it('should reject promise', function () {
@@ -926,7 +938,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise).toBeRejected();
+                            expect(promise).toBeRejectedWith('reason');
                         });
                     });
                 });

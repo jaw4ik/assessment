@@ -221,6 +221,9 @@
                         .value());
 
                     isEditing(false);
+                }).fail(function (reason) {
+                    router.activeItem.settings.lifecycleData = { redirect: '404' };
+                    throw reason;
                 });
             };
 

@@ -168,6 +168,9 @@
                     that.goBackLink = '#experience/' + experience.id;
 
                     return initObjectiveInfo(objId);
+                }).fail(function (reason) {
+                    router.activeItem.settings.lifecycleData = { redirect: '404' };
+                    throw reason;
                 });
                 
                 function initObjectiveInfo(id) {
@@ -183,6 +186,9 @@
                         }).value();
 
                         that.questions(array);
+                    }).fail(function (reason) {
+                        router.activeItem.settings.lifecycleData = { redirect: '404' };
+                        throw reason;
                     });
                 }
             },
