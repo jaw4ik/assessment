@@ -81,6 +81,7 @@
                     };
 
                     return questionRepository.addQuestion(that.objectiveId, newQuestion).then(function (createdQuestion) {
+                        clientContext.set('lastCreatedQuestionId', createdQuestion.id);
                         notify.unlockContent();
                         router.navigateWithQueryString('objective/' + that.objectiveId + '/question/' + createdQuestion.id);
                     }).fail(function() {

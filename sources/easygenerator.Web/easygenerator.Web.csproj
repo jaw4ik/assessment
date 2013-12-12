@@ -466,6 +466,7 @@
     <Content Include="Scripts\durandal\viewEngine.js" />
     <Content Include="Scripts\durandal\viewLocator.js" />
     <Content Include="Scripts\jquery.placeholder.js" />
+    <Content Include="Scripts\knockoutBindings\autofocusBinding.js" />
     <Content Include="Scripts\knockoutBindings\cssBinding.js" />
     <Content Include="Scripts\knockoutBindings\dropDownBinding.js" />
     <Content Include="Scripts\knockoutBindings\feedBackBinding.js" />
@@ -994,10 +995,6 @@
       <DependentUpon>objectiveBrief.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\objectives\objectives.js" />
-    <Content Include="App\viewmodels\questions\createQuestion.js" />
-    <Content Include="App\viewmodels\questions\createQuestion.spec.js">
-      <DependentUpon>createQuestion.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\questions\question.js" />
     <Content Include="App\viewmodels\questions\question.spec.js">
       <DependentUpon>question.js</DependentUpon>
@@ -1008,7 +1005,6 @@
     <Content Include="App\views\errors\400.html" />
     <Content Include="App\views\experiences\createExperience.html" />
     <Content Include="App\views\objectives\createObjective.html" />
-    <Content Include="App\views\questions\createQuestion.html" />
     <Content Include="Content\ckeditor.css" />
     <Content Include="Content\experience.css" />
     <Content Include="Content\experiences.css" />

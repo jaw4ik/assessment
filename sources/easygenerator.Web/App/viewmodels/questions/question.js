@@ -1,5 +1,5 @@
-﻿define(['viewmodels/questions/answers', 'viewmodels/questions/learningContents', 'plugins/router', 'eventTracker', 'models/answerOption', 'models/learningContent', 'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify', 'repositories/answerRepository', 'repositories/learningContentRepository', 'viewModels/questions/questionContent'],
-    function (vmAnswers, vmLearningContents, router, eventTracker, answerOptionModel, learningContentModel, localizationManager, constants, questionRepository, objectiveRepository, system, notify, answerRepository, learningContentRepository, vmQuestionContent) {
+﻿define(['viewmodels/questions/answers', 'viewmodels/questions/learningContents', 'plugins/router', 'eventTracker', 'models/answerOption', 'models/learningContent', 'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify', 'repositories/answerRepository', 'repositories/learningContentRepository', 'viewModels/questions/questionContent', 'clientContext'],
+    function (vmAnswers, vmLearningContents, router, eventTracker, answerOptionModel, learningContentModel, localizationManager, constants, questionRepository, objectiveRepository, system, notify, answerRepository, learningContentRepository, vmQuestionContent, clientContext) {
         "use strict";
         var
             events = {
@@ -28,7 +28,8 @@
             questionId = '',
             title = ko.observable(''),
             language = ko.observable(),
-            goBackTooltip = '';
+            goBackTooltip = '',
+            isCreatedQuestion = ko.observable(false);
 
         title.isEditing = ko.observable();
         title.isValid = ko.computed(function () {
@@ -78,12 +79,16 @@
                 questionId = quesId;
                 this.language(localizationManager.currentLanguage);
 
+                var lastCreatedQuestionId = clientContext.get('lastCreatedQuestionId') || '';
+                clientContext.remove('lastCreatedQuestionId');
+
                 var that = this;
                 return objectiveRepository.getById(objId).then(function (objective) {
                     that.objectiveId = objective.id;
                     that.goBackTooltip = localizationManager.localize('backTo') + ' \'' + objective.title + '\'';
 
                     return questionRepository.getById(objectiveId, questionId).then(function (question) {
+                        that.isCreatedQuestion(lastCreatedQuestionId === question.id);
                         that.title(question.title);
                         that.questionContent = vmQuestionContent(questionId, question.content);
                     }).fail(function () {
@@ -92,12 +97,16 @@
                     });
                 }).then(function () {
                     return answerRepository.getCollection(questionId).then(function (answerOptions) {
-                        var sortedAnswers = _.sortBy(answerOptions, function (item) { return item.createdOn; });
+                        var sortedAnswers = _.sortBy(answerOptions, function(item) {
+                             return item.createdOn;
+                        });
                         that.answers = vmAnswers(questionId, sortedAnswers);
                     });
                 }).then(function () {
                     return learningContentRepository.getCollection(questionId).then(function (learningContents) {
-                        var sortedLearningContents = _.sortBy(learningContents, function (item) { return item.createdOn; });
+                        var sortedLearningContents = _.sortBy(learningContents, function(item) {
+                             return item.createdOn;
+                        });
                         that.learningContents = vmLearningContents(questionId, sortedLearningContents);
                     });
                 });
@@ -121,7 +130,8 @@
             questionContent: questionContent,
             answers: answers,
             learningContents: learningContents,
-            localizationManager: localizationManager
+            localizationManager: localizationManager,
+            isCreatedQuestion: isCreatedQuestion
         };
     }
 );

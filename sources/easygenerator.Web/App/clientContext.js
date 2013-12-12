@@ -15,17 +15,26 @@
         },
 
         get = function (key) {
-            
+
             if (_.isNullOrUndefined(key) ||
                 _.isEmpty(key)) {
                 throw 'Invalid arguments';
             }
 
             return JSON.parse(localStorage.getItem(key));
+        },
+
+        remove = function (key) {
+            if (_.isNullOrUndefined(key) || _.isEmpty(key)) {
+                throw 'Invalid arguments';
+            }
+
+            localStorage.removeItem(key);
         };
 
     return {
         set: set,
-        get: get
+        get: get,
+        remove: remove
     };
 });

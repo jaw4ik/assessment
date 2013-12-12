@@ -19,8 +19,8 @@ define('knockout', function () {
     return ko;
 });
 
-define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'bootstrapper'],
-    function (system, app, viewLocator, bootstrapper) {
+define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'bootstrapper', 'durandal/composition'],
+    function (system, app, viewLocator, bootstrapper, composition) {
 
         if (!has('release')) {
             system.debug(true);
@@ -37,6 +37,9 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'bootstrapper
         app.start().then(function () {
             viewLocator.useConvention();
             bootstrapper.run();
+            
+            composition.addBindingHandler('autofocus');
+
             app.setRoot('viewmodels/shell');
         });
 

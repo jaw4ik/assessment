@@ -780,6 +780,7 @@
                     spyOn(questionRepository, 'addQuestion').andReturn(addQuestionDefer.promise);
                     spyOn(notify, 'lockContent');
                     spyOn(notify, 'unlockContent');
+                    spyOn(clientContext, 'set');
                 });
 
                 it('should be function', function () {
@@ -858,6 +859,21 @@
                         });
                         runs(function () {
                             expect(notify.lockContent).toHaveBeenCalled();
+                        });
+                    });
+
+                    it('should set lastCreatedQuestionId in client context', function() {
+                        var createdQuestionId = 'SomeId';
+
+                        var promise = viewModel.createQuestion().fin(function () { });
+
+                        addQuestionDefer.resolve({ id: createdQuestionId });
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(clientContext.set).toHaveBeenCalledWith('lastCreatedQuestionId', createdQuestionId);
                         });
                     });
                 });

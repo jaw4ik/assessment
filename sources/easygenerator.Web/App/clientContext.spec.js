@@ -116,6 +116,56 @@
 
         });
 
+        describe('remove:', function() {
+
+            it('should be function', function() {
+                expect(clientContext.remove).toBeFunction();
+            });
+
+            describe('when key is null', function() {
+
+                it('should throw expection', function () {
+                    var f = function () { clientContext.remove(null); };
+                    expect(f).toThrow();
+                });
+
+            });
+
+            describe('when key is undefined', function () {
+
+                it('should throw expection', function () {
+                    var f = function () { clientContext.remove(); };
+                    expect(f).toThrow();
+                });
+
+            });
+            
+
+            describe('when key is empty', function () {
+
+                it('should throw expection', function () {
+                    var f = function () { clientContext.remove(''); };
+                    expect(f).toThrow();
+                });
+
+            });
+
+
+            describe('when key is string', function () {
+
+                it('should remove item from local storage', function () {
+                    spyOn(localStorage, 'removeItem');
+
+                    var key = 'SomeKey';
+
+                    clientContext.remove(key);
+
+                    expect(localStorage.removeItem).toHaveBeenCalledWith(key);
+                });
+
+            });
+            
+        });
     });
 
 });

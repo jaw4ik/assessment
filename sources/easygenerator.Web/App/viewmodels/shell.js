@@ -107,6 +107,7 @@
 
         activate = function () {
             var that = this;
+            
             return dataContext.initialize()
                 .then(function () {
 
@@ -149,7 +150,6 @@
 
                     router.on('router:navigation:composition-complete').then(function () {
                         isViewReady(true);
-                        $("[data-autofocus='true']").focus();
 
                         var $scrollElement = $('.scrollToElement');
                         if ($scrollElement.length != 0) {

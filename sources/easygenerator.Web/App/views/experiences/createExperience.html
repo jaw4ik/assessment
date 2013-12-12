@@ -23,7 +23,7 @@
             </div>
 
             <div class="create-form-field">
-                <div data-autofocus="true" class="edit-field bordered selectable" data-bind="editableText: { text: title }, hasFocus: title.isEditing, css: { error: !title.isValid() && title().length > experienceTitleMaxLength, active: title.isEditing }"></div>
+                <div class="edit-field bordered selectable" data-bind="editableText: { text: title }, hasFocus: title.isEditing, css: { error: !title.isValid() && title().length > experienceTitleMaxLength, active: title.isEditing }, autofocus: { focus: true }"></div>
                 <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > experienceTitleMaxLength }">
                     <span data-bind="text: title().trim().length"></span>/<span data-bind="    text: experienceTitleMaxLength"></span>
                 </div>

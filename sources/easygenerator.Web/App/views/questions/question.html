@@ -13,7 +13,8 @@
 
         <header class="view-header">
             <div class="view-header-title">
-                <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() }"></div>
+                <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditQuestionTitle, blur: endEditQuestionTitle }, css: { 'active': title.isEditing(), 'error': !title.isValid() }, autofocus: { focus: isCreatedQuestion, autoselect: isCreatedQuestion }">
+                </div>
                 <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
                     <span data-bind="text: title().trim().length + '/' + questionTitleMaxLength"></span>
                 </div>
@@ -39,21 +40,21 @@
                 </div>
 
                 <div class="question-content-items-list" data-bind="visible: isExpanded">
-                         <!-- ko if: isQuestionContentDefined -->
-                        <div class="question-content-item" data-bind="css: { active: hasFocus }">
-                            <div class="question-content-wrapper">
-                                <div class="question-content selectable" data-bind="ckeditor: { data: text, language: $root.language(), eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: autosaveInterval, localizationManager: $root.localizationManager }">
-                                </div>
+                    <!-- ko if: isQuestionContentDefined -->
+                    <div class="question-content-item" data-bind="css: { active: hasFocus }">
+                        <div class="question-content-wrapper">
+                            <div class="question-content selectable" data-bind="ckeditor: { data: text, language: $root.language(), eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: autosaveInterval, localizationManager: $root.localizationManager }">
                             </div>
                         </div>
-                        <!-- /ko -->
-                        <!-- ko ifnot: isQuestionContentDefined -->
-                        <div class="add-button">
-                            <div class="add-button-text-wrapper" data-bind="click: defineQuestionContent">
-                                <span class="add-button-text define-question-content selectable" data-bind="localize: { text: 'defineQuestionContent' }"></span>
-                            </div>
+                    </div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: isQuestionContentDefined -->
+                    <div class="add-button">
+                        <div class="add-button-text-wrapper" data-bind="click: defineQuestionContent">
+                            <span class="add-button-text define-question-content selectable" data-bind="localize: { text: 'defineQuestionContent' }"></span>
                         </div>
-                         <!-- /ko -->
+                    </div>
+                    <!-- /ko -->
                 </div>
             </div>
 

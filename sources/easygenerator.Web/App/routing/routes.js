@@ -50,14 +50,6 @@
                 }
             },
             {
-                route: 'objective/:objectiveId/question/create',
-                moduleId: 'viewmodels/questions/createQuestion',
-                title: 'Create Question',
-                settings: {
-                    localizationKey: 'createNewQuestion'
-                }
-            },
-            {
                 route: 'objective/:objectiveId/question/:id',
                 moduleId: 'viewmodels/questions/question',
                 title: 'Question',

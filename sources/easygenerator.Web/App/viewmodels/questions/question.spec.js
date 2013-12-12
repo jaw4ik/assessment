@@ -430,6 +430,14 @@ define(function (require) {
 
         });
 
+        describe('isCreatedQuestion:', function () {
+
+            it('should be observable', function() {
+                expect(viewModel.isCreatedQuestion).toBeObservable();
+            });
+
+        });
+
     });
 
 });
