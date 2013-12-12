@@ -1169,7 +1169,7 @@ a.top-navigation-item:hover {
 /*#region Create form*/
 
 .form-create {
-    margin-top: 20px;
+    padding-top: 9px;
     overflow: hidden;
     padding-bottom: 60px;
 }
