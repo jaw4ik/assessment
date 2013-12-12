@@ -7,15 +7,9 @@
                 navigateToExperiences: 'Navigate to experiences',
             };
 
-        var activatorSettings = {
-            areSameItem: function(currentItem, newItem, currentId, newId ) {
-                return currentItem == newItem && currentId == newId;
-            }
-        };
-
         var viewModel = {
             id: '',
-            activeStep: activator.create({}, activatorSettings),
+            activeStep: activator.create(),
 
             steps: [define, design, deliver],
             goToDefine: goToDefine,
@@ -71,6 +65,10 @@
         function deactivate() {
             return Q.fcall(function () {
                 viewModel.id = '';
+                var currentStep = _.find(viewModel.steps, function (step) {
+                    return step == viewModel.activeStep._latestValue;
+                });
+                viewModel.activeStep.deactivate(currentStep, true);
             });
         }
 

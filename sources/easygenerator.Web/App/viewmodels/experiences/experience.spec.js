@@ -175,6 +175,10 @@
 
             describe('deactivate:', function () {
 
+                beforeEach(function () {
+                    spyOn(viewModel.activeStep, 'deactivate');
+                });
+
                 it('should be function', function () {
                     expect(viewModel.deactivate).toBeFunction();
                 });
@@ -192,6 +196,18 @@
                     });
                     runs(function () {
                         expect(viewModel.id).toEqual('');
+                    });
+                });
+
+                it('should deactivate current active step', function () {
+                    viewModel.activeStep._latestValue = design;
+                    var promise = viewModel.deactivate();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.activeStep.deactivate).toHaveBeenCalledWith(design, true);
                     });
                 });
 
