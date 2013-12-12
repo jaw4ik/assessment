@@ -207,7 +207,7 @@
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(viewModel.activeStep.deactivate).toHaveBeenCalledWith(design, true);
+                        expect(viewModel.activeStep.deactivate).toHaveBeenCalled();
                     });
                 });
 

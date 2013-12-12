@@ -66,7 +66,7 @@
             return Q.fcall(function () {
                 viewModel.id = '';
                 var currentStep = _.find(viewModel.steps, function (step) {
-                    return step == viewModel.activeStep._latestValue;
+                    return step == viewModel.activeStep();
                 });
                 viewModel.activeStep.deactivate(currentStep, true);
             });
