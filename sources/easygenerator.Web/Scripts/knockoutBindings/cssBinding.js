@@ -21,7 +21,7 @@
 
             var headerHeight = $('.header').height(),
                 topNavHeight = $('.top-navigation').height(),
-                fixedContainerHeight = $(fixedContainer).height()-1;
+                fixedContainerHeight = $(fixedContainer).height() - 9;
 
             if (!$(helpHintText).is(':empty')) {
 
