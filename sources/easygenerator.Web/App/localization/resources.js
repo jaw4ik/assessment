@@ -146,11 +146,6 @@
         nl: 'U kunt maar 1 leerdoel tegelijk verwijderen.',
         de: 'Sie können nicht mehr als 1 Lernziel gleichzeitig löschen.'
     },
-    deleteSeveralQuestionsError: {
-        en: 'You can not delete more than 1 question at once.',
-        nl: 'U kunt maar 1 vraag tegelijk verwijderen.',
-        de: 'Sie können nicht mehr als 1 Frage gleichzeitig löschen.'
-    },
     sendFeedback: {
         en: 'Send feedback',
         nl: 'Feedback versturen',
@@ -461,9 +456,9 @@
         de: 'Es sind keine Lernziele zum Verbinden vorhanden'
     },
     defineLerningObjectiveTitle: {
-        en: 'Define learning objective title',
-        nl: 'Define learning objective title[nl]',
-        de: 'Define learning objective title[de]'
+        en: 'Define the learning objective',
+        nl: 'Het leerdoel definiëren',
+        de: 'Das Lernziel definieren'
     },
     /* End resource section for model CreateObjective */
     
@@ -500,13 +495,13 @@
     },
     defineLerningExperienceTitle: {
         en: 'Define learning experience title',
-        nl: 'Define learning experience title[nl]',
-        de: 'Define learning experience title[de]'
+        nl: 'Titel van de leerervaring definiëren',
+        de: 'Den Titel der Lernerfahrung definieren'
     },
     chooseLearningExperienceTemplate: {
         en: 'Choose learning experience template',
-        nl: 'Choose learning experience template[nl]',
-        de: 'Choose learning experience template[de]'
+        nl: 'Leerervaringssjabloon kiezen',
+        de: 'Lernerfahrungsvorlage auswählen'
     },
     /* End resource section for model CreateExperience */
     
@@ -666,8 +661,8 @@
     },
     newQuestionTitle: {
         en: 'What question do you want to ask?',
-        nl: 'What question do you want to ask?[nl]',
-        de: 'What question do you want to ask?[de]'
+        nl: 'Welke vraag wilt u stellen?',
+        de: 'Welche Frage möchten Sie stellen?'
     },
     /* End resource section for model Questions */
     
