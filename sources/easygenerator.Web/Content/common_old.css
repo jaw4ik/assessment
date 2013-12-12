@@ -49,33 +49,6 @@
     letter-spacing: normal;
 }
 
-    .form-actions .btn {
-        float: left;
-    }
-
-        .form-actions .btn .btn-text {
-            display: inline-block;
-            vertical-align: middle;
-            margin-left: 10px;
-        }
-
-        .form-actions .btn .btn-img {
-            display: inline-block;
-            vertical-align: middle;
-            background-image: url(images/create-actions-sprite.png);
-            background-repeat: no-repeat;
-            width: 25px;
-            height: 25px;
-        }
-
-        .form-actions .btn.saveAndOpen .btn-img {
-            background-position: left -25px;
-        }
-
-        .form-actions .btn.saveAndNew .btn-img {
-            background-position: left 0;
-        }
-
 /*#endregion Form actions buttons*/
 
 /*#region Page-loader icon*/

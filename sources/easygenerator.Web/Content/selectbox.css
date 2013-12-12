@@ -56,8 +56,8 @@
     position: absolute;
     top: 13px;
     right: 10px;
-    background-image: url("images/arrow-for-select-box.png");
-    background-position: 0 4px;
+    background-image: url("images/sprites.png");
+    background-position: -256px -155px;
 }
 
 .experience-template-selector .selectbox-current-item-text {
