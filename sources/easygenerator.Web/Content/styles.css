@@ -1185,6 +1185,7 @@ a.top-navigation-item:hover {
         border-bottom: 1px solid #E8E8E8;
         min-height: 65px;
         padding: 20px 15px;
+        background-color: white;
     }
 
         .form-create-field .edit-field.empty {
@@ -1255,6 +1256,13 @@ a.top-navigation-item:hover {
         margin-top: -5px;
         margin-left: -3px;
         border-width: 5px 0 5px 7px;
+    }
+
+    .form-create-title-circle.number {
+        text-align: center;
+        padding-top: 9px;
+        color: #FFFFFF;
+        font-weight: bold;
     }
 
     .form-create-title-circle.icon-pen:before {

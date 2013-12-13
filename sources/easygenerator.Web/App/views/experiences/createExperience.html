@@ -7,36 +7,45 @@
             </div>
         </div>
     </div>
-    
+
     <!-- ko compose: { view: 'views/common/back', model: { goBackAction: navigateToExperiences, goBackLink: '#experiences', goBackTooltip: goBackTooltip } } -->
     <!-- /ko -->
-    
+
     <div class="content-holder">
 
         <form class="create-form">
-            <div class="pull-left">
-                <div class="white-framing">
-                    <span class="create-form-image-wrapper">
-                        <img class="create-form-image" src="#" data-bind="attr: { src: template.image }" />
-                    </span>
-                </div>
+            
+            <div class="form-create-title">
+                <div class="form-create-title-circle blue number">1</div>
+                <span class="form-create-title-text" data-bind="localize: { text: 'defineLerningExperienceTitle' }">Define learning experience title</span>
             </div>
-
-            <div class="create-form-field">
-                <div class="edit-field bordered selectable" data-bind="editableText: { text: title }, hasFocus: title.isEditing, css: { error: !title.isValid() && title().length > experienceTitleMaxLength, active: title.isEditing }, autofocus: { focus: true }"></div>
+            <div class="form-create-field">
+                <span class="form-create-field-placeholder" data-bind="visible: title().length == 0, localize: { text: 'typeExperienceTitleHere' }, click: title.startEditing">Type learning objective title here</span>
+                <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, hasFocus: title.isEditing, event: { focus: title.startEditing }, css: { error: !title.isValid() && title().length > experienceTitleMaxLength, active: title.isEditing, empty: title().trim().length == 0 }, autofocus: { focus: true }"></div>
                 <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > experienceTitleMaxLength }">
-                    <span data-bind="text: title().trim().length"></span>/<span data-bind="    text: experienceTitleMaxLength"></span>
+                    <span data-bind="text: title().trim().length"></span>/<span data-bind="text: experienceTitleMaxLength"></span>
                 </div>
-                <!-- ko compose: { view: 'views/common/createtip', model: { text: 'typeExperienceTitleHere' } } -->
-                <!-- /ko -->
+            </div>
+            
+            <div class="form-create-title choose-template">
+                <div class="form-create-title-circle green number">2</div>
+                <span class="form-create-title-text" data-bind="localize: { text: 'chooseLearningExperienceTemplate' }">Choose learning experience template</span>
+            </div>
+            <div class="form-create-choose-template-holder">
+                <ul class="choose-template-list gorizontal" data-bind="foreach: templates">
+                    <li class="choose-template-list-item" data-bind="css: { selected: isSelected }, click: $parent.selectTemplate">
+                        <div class="template-image-holder">
+                            <img class="template-image" data-bind="attr: { src: image }">
+                        </div>
+                        <div class="template-info-wrapper">
+                            <div class="template-title" data-bind="text: name"></div>
+                            <div class="template-desc" data-bind="text: description"></div>
+                        </div>
+                    </li>
+                </ul>
             </div>
 
-            <div class="create-entity-actions">
-                <div class="experience-template-selector-text" data-bind="localize: { text: 'chooseLearningExperinceTemplate' } ">Choose learning experience template:</div>
-                <div class="experience-template-selector" data-bind="selectBox: { options: templates(), optionsText: 'name', optionsValue: 'id', value: template.id, defaultText: '&nbsp;' }"></div>
-            </div>
-
-            <!-- ko compose: { view: 'views/common/formactions', model: { isValid: title.isValid() && _.isString(template.id()), saveAndNew: createAndNew, saveAndOpen: createAndEdit } } -->
+            <!-- ko compose: { view: 'views/common/formactions', model: { isValid: isFormFilled(), saveAndNew: null, saveAndOpen: createAndEdit } } -->
             <!-- /ko -->
         </form>
     </div>

@@ -728,20 +728,6 @@
                 });
             });
 
-            describe('setFocus:', function() {
-
-                it('should be function', function() {
-                    expect(viewModel.setFocus).toBeFunction();
-                });
-
-                it('should set focus', function() {
-                    viewModel.isTitleEditing(false);
-                    viewModel.setFocus();
-                    expect(viewModel.isTitleEditing()).toBeTruthy();
-                });
-
-            });
-
         });
     }
 );

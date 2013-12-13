@@ -2,123 +2,113 @@
     function (repository, templateRepository, router, constants, eventTracker, notify, localizationManager) {
 
         var
-            defaultTemplateImage = '/Content/images/undefinedTemplate.png',
             events = {
-                navigateToExperiences: 'Navigate to experiences',
-                createAndNew: "Create learning experience and create new",
                 createAndEdit: "Create learning experience and open its properties",
-            };
+                chooseTemplate: "Choose template",
+                defineTitle: "Define title"
+            },
+            
 
-        var
-            template = { id: ko.observable() },
+            goBackTooltip = '',
+
             templates = ko.observableArray(),
-            title = ko.observable(''),
-            chooseTemplateText = '',
-            goBackTooltip = '';
+            
+            title = (function () {
+                var value = ko.observable('');
+                value.isValid = ko.computed(function () {
+                    var length = value().trim().length;
+                    return length > 0 && length <= constants.validation.experienceTitleMaxLength;
+                });
+                value.isEditing = ko.observable();
+                value.startEditing = function() {
+                    eventTracker.publish(events.defineTitle);
+                    value.isEditing(true);
+                };
+                return value;
+            })(),
+            
 
-        title.isValid = ko.computed(function () {
-            var length = title().trim().length;
-            return length > 0 && length <= constants.validation.experienceTitleMaxLength;
-        });
-
-        title.isEditing = ko.observable();
-
-        template.image = ko.computed(function () {
-            if (_.isNullOrUndefined(template.id())) {
-                return defaultTemplateImage;
-            }
-
-            var selectedTemplate = _.find(templates(), function (item) {
-                return item.id === template.id();
-            });
-
-            return _.isNullOrUndefined(selectedTemplate) ? defaultTemplateImage : selectedTemplate.image;
-        });
-
-        var
-            navigateToExperiences = function () {
-                eventTracker.publish(events.navigateToExperiences);
-                router.navigate('experiences');
+            isFormFilled = function () {
+                return title.isValid() && !_.isNullOrUndefined(getSelectedTemplate());
             },
 
-            createAndNew = function () {
-                eventTracker.publish(events.createAndNew);
-                createExperience.call(this, function (experience) {
-                    title.isEditing(true);
-                    template.id(null);
-                    notify.info(localizationManager.localize('savedAt') + ' ' + experience.createdOn.toLocaleTimeString());
+            getSelectedTemplate = function () {
+                return _.filter(templates(), function (item) {
+                    return item.isSelected();
+                })[0];
+            },
+            
+            resetTemplatesSelection = function () {
+                _.each(templates(), function (item) {
+                    item.isSelected(false);
                 });
+            },
+
+            selectTemplate = function (item) {
+                eventTracker.publish(events.chooseTemplate);
+                if (item && !_.isUndefined(item.isSelected)) {
+                    resetTemplatesSelection();
+                    item.isSelected(true);
+                }
+            },
+
+            navigateToExperiences = function () {
+                router.navigate('experiences');
             },
 
             createAndEdit = function () {
                 eventTracker.publish(events.createAndEdit);
-                createExperience.call(this, function (experience) {
-                    router.navigate('experience/' + experience.id);
-                });
+                if (!isFormFilled()) {
+                    return;
+                }
+                notify.lockContent();
+                repository.addExperience(title().trim(), getSelectedTemplate().id)
+                    .then(function (experience) {
+                        notify.unlockContent();
+                        router.navigate('experience/' + experience.id);
+                    })
+                    .fail(function () {
+                        notify.unlockContent();
+                    });
+            },
+
+            mapTemplate = function (item) {
+                return {
+                    id: item.id,
+                    name: item.name,
+                    description: item.description,
+                    image: item.image,
+                    isSelected: ko.observable(false)
+                };
             },
 
             activate = function () {
+                this.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('experiences');
+                this.title('');
+
                 var that = this;
                 return templateRepository.getCollection().then(function (templatesResponse) {
-                    that.templates(_.chain(templatesResponse).map(function (item) {
-                        return {
-                            id: item.id,
-                            name: item.name,
-                            image: item.image
-                        };
-                    }).sortBy(function (item) {
-                        return item.name.toLowerCase();
-                    }).value());
-
-                    that.title('');
-                    that.template.id(null);
-                    that.chooseTemplateText = localizationManager.localize('chooseTemplate');
-                    that.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('experiences');
+                    that.templates(_.chain(templatesResponse)
+                        .map(mapTemplate)
+                        .sortBy(function (item) {
+                            return item.name.toLowerCase();
+                        }).value());
                 });
-            },
-
-            compositionComplete = function () {
-                setWidthSelector();
-
-                $(window).resize(function () {
-                    setWidthSelector();
-                });
-
-                function setWidthSelector() {
-                    var selector = $(".create-experience .experience-template-selector");
-                    var button = $(".saveAndNew");
-                    var totalWidth = button.width();
-                    totalWidth += parseInt(button.css("padding-left"), 10) + parseInt(button.css("padding-right"), 10);
-                    totalWidth += parseInt(button.css("borderRightWidth"), 10) + parseInt(button.css("borderLeftWidth"), 10);
-                    selector.width(totalWidth);
-                }
             };
-
-        function createExperience(callback) {
-            if (!title.isValid() || !_.isString(template.id())) {
-                return;
-            }
-            notify.lockContent();
-            repository.addExperience(title().trim(), template.id()).then(function (experience) {
-                title('');
-                notify.unlockContent();
-                callback(experience);
-            });
-        }
 
         return {
             activate: activate,
-            compositionComplete: compositionComplete,
+            navigateToExperiences: navigateToExperiences,
+            createAndEdit: createAndEdit,
+            getSelectedTemplate: getSelectedTemplate,
+            resetTemplatesSelection: resetTemplatesSelection,
+            selectTemplate: selectTemplate,
+
             title: title,
             templates: templates,
-            template: template,
-            chooseTemplateText: chooseTemplateText,
             experienceTitleMaxLength: constants.validation.experienceTitleMaxLength,
-
             goBackTooltip: goBackTooltip,
-            navigateToExperiences: navigateToExperiences,
-            createAndNew: createAndNew,
-            createAndEdit: createAndEdit
+            isFormFilled: isFormFilled
         };
     }
 );

@@ -32,77 +32,12 @@
 
             });
 
-            describe('template:', function () {
-
-                it('should be defined', function () {
-                    expect(viewModel.template).toBeDefined();
-                });
-
-                describe('id:', function () {
-                    it('should be observable', function () {
-                        expect(viewModel.template.id).toBeObservable();
-                    });
-                });
-
-                describe('image:', function () {
-                    var defaultTemplateImage = '/Content/images/undefinedTemplate.png';
-                    it('should be computed', function () {
-                        expect(viewModel.template.image).toBeComputed();
-                    });
-
-                    describe('when template.id is null', function () {
-                        it('should return null', function () {
-                            var template = { id: '0', image: 'img', name: 'name' };
-                            viewModel.templates([template]);
-                            viewModel.template.id(null);
-
-                            expect(viewModel.template.image()).toBe(defaultTemplateImage);
-                        });
-                    });
-
-                    describe('when template.id is undefined', function () {
-                        it('should return null', function () {
-                            var template = { id: '0', image: 'img', name: 'name' };
-                            viewModel.templates([template]);
-                            viewModel.template.id();
-
-                            expect(viewModel.template.image()).toBe(defaultTemplateImage);
-                        });
-                    });
-
-                    describe('when template.id is set', function () {
-
-                        describe('when template doesnt exist in templates collection', function () {
-                            it('should return null', function () {
-                                var template = { id: '0', image: 'img', name: 'name' };
-                                viewModel.templates([]);
-                                viewModel.template.id();
-
-                                expect(viewModel.template.image()).toBe(defaultTemplateImage);
-                            });
-                        });
-
-                        describe('when template exists in templates collection', function () {
-                            it('should return image', function () {
-                                var template = { id: '0', image: 'img', name: 'name' };
-
-                                viewModel.templates([template]);
-                                viewModel.template.id(template.id);
-
-                                expect(viewModel.template.image()).toBe(template.image);
-                            });
-                        });
-
-
-                    });
-                });
-
-            });
-
             describe('templates:', function () {
-                it('should be observable', function () {
-                    expect(viewModel.templates).toBeObservable();
+
+                it('should be observable array', function () {
+                    expect(viewModel.templates).toBeObservableArray();
                 });
+
             });
 
             describe('title:', function () {
@@ -117,6 +52,15 @@
 
                 it('should be editable', function () {
                     expect(viewModel.title.isEditing).toBeObservable();
+                });
+
+                describe('when start editing', function() {
+                    
+                    it('should send event \'Define title\'', function () {
+                        viewModel.title.startEditing();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Define title');
+                    });
+
                 });
 
                 describe('when title is empty', function () {
@@ -157,169 +101,106 @@
 
             });
 
-            describe('chooseTemplateText:', function () {
-                it('should be defined', function () {
-                    expect(viewModel.chooseTemplateText).toBeDefined();
-                });
-            });
-
             describe('goBackTooltip:', function () {
                 it('should be defined', function () {
                     expect(viewModel.goBackTooltip).toBeDefined();
                 });
             });
 
-            describe('createAndNew:', function () {
-                var addExperience,
-                    template = { id: 'id', name: 'lala', image: 'img' };
-
-                beforeEach(function () {
-                    viewModel.templates([template]);
-                    addExperience = Q.defer();
-                    spyOn(repository, 'addExperience').andReturn(addExperience.promise);
-                });
+            describe('isFormFilled:', function () {
 
                 it('should be function', function () {
-                    expect(viewModel.createAndNew).toBeFunction();
+                    expect(viewModel.isFormFilled).toBeFunction();
                 });
 
-                it('should send event \'Create learning experience and create new\'', function () {
-                    viewModel.title.isValid = function () { };
-                    viewModel.createAndNew();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Create learning experience and create new');
-                });
+                describe('when title not valid', function () {
 
-                describe('and title is not valid', function () {
-
-                    it('should not add experience to repository', function () {
-                        viewModel.title.isValid = function () {
-                            return false;
-                        };
-
-                        viewModel.createAndNew();
-                        expect(repository.addExperience).not.toHaveBeenCalled();
+                    it('should be false', function () {
+                        viewModel.title('');
+                        expect(viewModel.isFormFilled()).toBeFalsy();
                     });
 
                 });
 
-                describe('and template.id is not set', function () {
+                describe('when template is not selected', function () {
 
-                    it('should not add experience to repository', function () {
-                        viewModel.template.id(null);
-                        viewModel.createAndNew();
-                        expect(repository.addExperience).not.toHaveBeenCalled();
+                    it('should be false', function () {
+                        spyOn(viewModel, 'getSelectedTemplate').andReturn(undefined);
+                        expect(viewModel.isFormFilled()).toBeFalsy();
                     });
 
                 });
 
-                describe('and title is valid and template.id is set', function () {
-                        
-                    beforeEach(function () {
-                        viewModel.template.id(template.id);
-                        viewModel.title.isValid = function () {
-                            return true;
-                        };
+                describe('when title is valid and template selected', function () {
+
+                    it('should be true', function () {
+                        viewModel.title('Some title');
+                        viewModel.templates([{ isSelected: ko.observable(true) }]);
+                        expect(viewModel.isFormFilled()).toBeTruthy();
                     });
 
-                    it('should trim experience title', function () {
-                        viewModel.title('           title           ');
-                        viewModel.createAndNew();
-                        expect(repository.addExperience).toHaveBeenCalled();
-                    });
+                });
 
-                    it('should add experience to repository', function () {
-                        viewModel.title('title');
-                        viewModel.createAndNew();
-                        expect(repository.addExperience).toHaveBeenCalledWith('title', template.id);
-                    });
+            });
 
-                    it('should lock content', function() {
-                        spyOn(notify, 'lockContent');
-                        viewModel.createAndNew();
-                        expect(notify.lockContent).toHaveBeenCalled();
-                    });
+            describe('getSelectedTemplate:', function () {
 
-                    describe('and experience was added successfully', function () {
+                it('should be function', function () {
+                    expect(viewModel.getSelectedTemplate).toBeFunction();
+                });
 
-                        beforeEach(function () {
-                            spyOn(notify, "info");
-                        });
+                it('should return selected template', function () {
+                    viewModel.templates([
+                        { id: 0, isSelected: ko.observable(false) },
+                        { id: 1, isSelected: ko.observable(true) }
+                    ]);
+                    expect(viewModel.getSelectedTemplate().id).toBe(1);
+                });
 
-                        it('should clear title', function () {
-                            viewModel.createAndNew();
+            });
 
-                            var promise = addExperience.promise.fin(function () { });
-                            addExperience.resolve();
+            describe('resetTemplatesSelection:', function () {
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(viewModel.title()).toEqual("");
-                            });
-                        });
-                        
-                        it('should clear template.id', function () {
-                            viewModel.createAndNew();
+                it('should be function', function () {
+                    expect(viewModel.resetTemplatesSelection).toBeFunction();
+                });
 
-                            var promise = addExperience.promise.fin(function () { });
-                            addExperience.resolve();
+                it('should set isSelected to false for all templates', function () {
+                    viewModel.templates()[0].isSelected(true);
+                    viewModel.templates()[1].isSelected(true);
+                    viewModel.resetTemplatesSelection();
+                    expect(viewModel.templates()[0].isSelected()).toBeFalsy();
+                    expect(viewModel.templates()[1].isSelected()).toBeFalsy();
+                });
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(viewModel.template.id()).toEqual(null);
-                            });
-                        });
+            });
 
-                        it('should set focus to title', function () {
-                            viewModel.title.isEditing(false);
+            describe('selectTemplate:', function () {
 
-                            viewModel.createAndNew();
+                it('should be function', function () {
+                    expect(viewModel.selectTemplate).toBeFunction();
+                });
 
-                            var promise = addExperience.promise.fin(function () { });
-                            addExperience.resolve();
+                it('should send event \'Choose template\'', function () {
+                    viewModel.selectTemplate();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Choose template');
+                });
 
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(viewModel.title.isEditing()).toBeTruthy();
-                            });
-                        });
+                var templates;
+                beforeEach(function() {
+                    templates = [{ id: 0, isSelected: ko.observable(false) }, { id: 1, isSelected: ko.observable(false) }];
+                });
 
-                        it('should show info notification', function () {
-                            viewModel.createAndNew();
+                it('should set isSelected to true', function () {
+                    viewModel.selectTemplate(templates[0]);
+                    expect(templates[0].isSelected()).toBeTruthy();
+                });
 
-                            var promise = addExperience.promise.fin(function () { });
-                            addExperience.resolve({ createdOn: new Date() });
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(notify.info).toHaveBeenCalled();
-                            });
-                        });
-
-                        it('should unlock content', function() {
-                            spyOn(notify, "unlockContent");
-                            viewModel.createAndNew();
-
-                            var promise = addExperience.promise.fin(function () { });
-                            addExperience.resolve();
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(notify.unlockContent).toHaveBeenCalled();
-                            });
-                        });
-
-                    });
-
+                it('should unselect all enother templates', function () {
+                    templates[0].isSelected(true);
+                    viewModel.templates(templates);
+                    viewModel.selectTemplate(templates[1]);
+                    expect(viewModel.templates()[0].isSelected()).toBeFalsy();
                 });
 
             });
@@ -327,7 +208,7 @@
             describe('createAndEdit:', function () {
 
                 var addExperience;
-                var template = { id: 'id', name: 'lala', image: 'img' };
+                var template = { id: 'id', name: 'lala', image: 'img', isSelected: ko.observable(false) };
                 beforeEach(function () {
                     addExperience = Q.defer();
                     spyOn(repository, 'addExperience').andReturn(addExperience.promise);
@@ -338,7 +219,7 @@
                     expect(viewModel.createAndEdit).toBeFunction();
                 });
 
-                it('should send event \'Create learning experience and create new\'', function () {
+                it('should send event \'Create learning experience and open its properties\'', function () {
                     viewModel.title.isValid = function () { };
                     viewModel.createAndEdit();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create learning experience and open its properties');
@@ -350,7 +231,7 @@
                         viewModel.title.isValid = function () {
                             return false;
                         };
-
+                        
                         viewModel.createAndEdit();
                         expect(repository.addExperience).not.toHaveBeenCalled();
                     });
@@ -360,7 +241,7 @@
                 describe('and template is not set', function () {
 
                     it('should not add experience to repository', function () {
-                        viewModel.template.id(null);
+                        spyOn(viewModel, 'getSelectedTemplate').andReturn(undefined);
 
                         viewModel.createAndEdit();
                         expect(repository.addExperience).not.toHaveBeenCalled();
@@ -368,13 +249,11 @@
 
                 });
 
-                describe('and title is valid and template is set', function () {
-                    
+                describe('and title is valid and template is selected', function () {
+
                     beforeEach(function () {
-                        viewModel.template.id(template.id);
-                        viewModel.title.isValid = function () {
-                            return true;
-                        };
+                        viewModel.templates()[0].isSelected(true);
+                        viewModel.title.isValid = function () { return true; };
                     });
 
                     it('should trim experience title', function () {
@@ -397,7 +276,8 @@
 
                     describe('and experience was added successfully', function () {
 
-                        it('should clear title', function () {
+                        it('should unlock content', function () {
+                            spyOn(notify, "unlockContent");
                             viewModel.createAndEdit();
 
                             var promise = addExperience.promise.fin(function () { });
@@ -407,7 +287,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(viewModel.title()).toEqual("");
+                                expect(notify.unlockContent).toHaveBeenCalled();
                             });
                         });
 
@@ -427,12 +307,16 @@
                             });
                         });
 
+                    });
+
+                    describe('and experience does not add', function() {
+                        
                         it('should unlock content', function () {
                             spyOn(notify, "unlockContent");
                             viewModel.createAndEdit();
 
                             var promise = addExperience.promise.fin(function () { });
-                            addExperience.resolve();
+                            addExperience.reject();
 
                             waitsFor(function () {
                                 return !promise.isPending();
@@ -441,6 +325,7 @@
                                 expect(notify.unlockContent).toHaveBeenCalled();
                             });
                         });
+
                     });
 
                 });
@@ -449,9 +334,8 @@
 
             describe('navigateToExperiences:', function () {
 
-                it('should send event \'Navigate to experiences\'', function () {
-                    viewModel.navigateToExperiences();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to experiences');
+                it('should be function', function () {
+                    expect(viewModel.navigateToExperiences).toBeFunction();
                 });
 
                 it('should navigate to #experiences', function () {
@@ -472,32 +356,48 @@
                     expect(result).toBePromise();
                 });
 
+                it('should set goBackTooltip', function () {
+                    spyOn(localizationManager, 'localize').andReturn('text');
+                    viewModel.activate();
+                    expect(viewModel.goBackTooltip).toEqual('text text');
+                });
+
+                it('should clear title field', function() {
+                    viewModel.title('Some title');
+                    viewModel.activate();
+                    expect(viewModel.title()).toBe('');
+                });
+
+                var getTemplatesDeferred, getTemplatesPromise;
+
+                beforeEach(function () {
+                    getTemplatesDeferred = Q.defer();
+
+                    spyOn(templateRepository, 'getCollection').andReturn(getTemplatesDeferred.promise);
+                    getTemplatesPromise = getTemplatesDeferred.promise.fin(function () { });
+                });
+
+                it('should get templates from repository', function () {
+                    getTemplatesDeferred.resolve([]);
+                    var promise = viewModel.activate();
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(promise).toBeResolved();
+                        expect(templateRepository.getCollection).toHaveBeenCalled();
+                    });
+                });
+
                 describe('when get templates from repository', function () {
-                    var getTemplatesDeferred, getTemplatesPromise;
 
-                    beforeEach(function () {
-                        getTemplatesDeferred = Q.defer();
-
-                        spyOn(templateRepository, 'getCollection').andReturn(getTemplatesDeferred.promise);
-                        getTemplatesPromise = getTemplatesDeferred.promise.fin(function () { });
-                    });
-
-                    it('should get templates from repository', function () {
-                        getTemplatesDeferred.resolve([]);
-                        var promise = viewModel.activate();
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeResolved();
-                            expect(templateRepository.getCollection).toHaveBeenCalled();
-                        });
-                    });
-
-                    describe('when received templates successfully', function () {
+                    describe('and when received templates successfully', function () {
                         beforeEach(function () {
                             viewModel.templates([]);
-                            getTemplatesDeferred.resolve([{ id: "0", name: "Default" }, { id: "1", name: "Quizz" }]);
+                            getTemplatesDeferred.resolve([
+                                { id: "0", name: "Default", description: "Default template", image: "path/to/image1.png" },
+                                { id: "1", name: "Quiz", description: "Quiz template", image: "path/to/image2.png" }
+                            ]);
                         });
 
                         it('should initialize templates collection', function () {
@@ -506,9 +406,67 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(promise).toBeResolved();
                                 expect(viewModel.templates().length).toBe(2);
                             });
+                        });
+
+                        describe('should map templates:', function () {
+
+                            var template;
+                            beforeEach(function () {
+                                var promise = viewModel.activate();
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    template = viewModel.templates()[0];
+                                });
+                            });
+
+                            describe('id:', function () {
+
+                                it('should be defined', function () {
+                                    expect(template.id).toBeDefined();
+                                });
+
+                            });
+
+                            describe('name:', function () {
+
+                                it('should be defined', function () {
+                                    expect(template.name).toBeDefined();
+                                });
+
+                            });
+
+                            describe('description:', function () {
+
+                                it('should be defined', function () {
+                                    expect(template.description).toBeDefined();
+                                });
+
+                            });
+
+                            describe('image:', function () {
+
+                                it('should be defined', function () {
+                                    expect(template.image).toBeDefined();
+                                });
+
+                            });
+
+                            describe('isSelected:', function () {
+
+                                it('should be observable', function () {
+                                    expect(template.isSelected).toBeObservable();
+                                });
+
+                                it('should be false by default', function () {
+                                    expect(template.isSelected()).toBeFalsy();
+                                });
+
+                            });
+
                         });
 
                         it('should initialize templates collection sorted by name asc', function () {
@@ -517,44 +475,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(promise).toBeResolved();
                                 expect(viewModel.templates()).toBeSortedAsc('name');
-                            });
-                        });
-
-                        it('should clear title', function () {
-                            var promise = viewModel.activate();
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeResolved();
-                                expect(viewModel.title()).toEqual("");
-                            });
-                        });
-
-                        it('should set chooseTemplateText', function () {
-                            var promise = viewModel.activate();
-                            spyOn(localizationManager, 'localize').andReturn('text');
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeResolved();
-                                expect(viewModel.chooseTemplateText).toEqual('text');
-                            });
-                        });
-                        
-                        it('should set goBackTooltip', function () {
-                            spyOn(localizationManager, 'localize').andReturn('text');
-                            
-                            var promise = viewModel.activate();
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(promise).toBeResolved();
-                                expect(viewModel.goBackTooltip).toEqual('text text');
                             });
                         });
 
@@ -562,13 +483,6 @@
                 });
             });
 
-            describe('compositionComplete:', function () {
-
-                it('should be function', function () {
-                    expect(viewModel.compositionComplete).toBeFunction();
-                });
-
-            });
         });
     }
 );
