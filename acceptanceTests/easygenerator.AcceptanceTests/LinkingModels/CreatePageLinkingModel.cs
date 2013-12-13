@@ -12,9 +12,9 @@ namespace easygenerator.AcceptanceTests.LinkingModels
     {
         public string EditTitleTextBlock = ".//form[contains(@class,'create-form')]//div[contains(@class,'edit-field')]";
         public string TextBlockEditArea = ".//form[contains(@class,'create-form')]//div[contains(@class,'edit-field')]";
-        
-        public string ButtonCreateAndEdit = ".//*[contains(@class,'saveAndOpen')]";
-        public string ButtonCreateAndNew = ".//*[contains(@class,'saveAndNew')]";
+
+        public string ButtonCreateAndEdit = ".//*[contains(@class,'btn-create')]";
+        public string ButtonCreateAndNew = ".//*[contains(@class,'link-create')]";
 
         public string BackButton = ".//a[contains(@class,'nav-back-holder')]";
 

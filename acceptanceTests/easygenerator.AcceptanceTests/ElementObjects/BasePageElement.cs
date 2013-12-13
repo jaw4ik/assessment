@@ -18,6 +18,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         protected RemoteWebElement GetByXPath(string path)
         {
             WaitForReady();
+            TestUtils.WaitForCondition(() => (ExistsOnPage(path) && ExistsOnPage("//div[contains(@class,'icon-spinner-wrapper') and contains(@style,'display: none')]")), 1000);
             return (RemoteWebElement)DriverProvider.Current().Driver.FindElementByXPath(path);
         }
         protected RemoteWebElement[] GetAllByXPath(string path)

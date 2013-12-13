@@ -89,7 +89,9 @@ Then explanations list contains only items with data
 Scenario: Explanation should be deleted if all content will be deleted from it
 When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 And input text ' ' into explanation text field 'Explanation12'
-And click on collapse answer options
+When click on experiences navigation menu item
+Then browser navigates to url 'http://localhost:5656/#experiences'
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 Then explanations list contains only items with data
 | Explanation   |
 | Explanation11 |
@@ -99,7 +101,9 @@ Then explanations list contains only items with data
 Scenario: Explanation can't be saved with empty text
 When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 And input text ' ' into new explanation text field
-And click on collapse answer options
+When click on experiences navigation menu item
+Then browser navigates to url 'http://localhost:5656/#experiences'
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 Then explanations list contains only items with data
 | Explanation   |
 | Explanation11 |
@@ -109,8 +113,8 @@ Then explanations list contains only items with data
 Scenario: Changes to explanation data are not lost when user go out from current question page
 When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 And input text 'Explanation14' into explanation text field 'Explanation12'
-And click on home link
-Then browser navigates to url 'http://localhost:5656/#'
+And click on experiences navigation menu item
+Then browser navigates to url 'http://localhost:5656/#experiences'
 When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 Then explanations list contains only items with data
 | Explanation   |
@@ -124,8 +128,9 @@ And input text 'Explanation14' into new explanation text field
 And click on collapse answer options
 And mouse hover element of explanation with text 'Explanation11'
 And click on delete explanation 'Explanation11'
-#And sleep 1000 milliseconds
-And refresh page
+When click on experiences navigation menu item
+Then browser navigates to url 'http://localhost:5656/#experiences'
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 Then explanations list contains only items with data
 | Explanation   |
 | Explanation12 |
@@ -145,7 +150,9 @@ Scenario: New explanation with special symbols could be added by entering new ex
 When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 And input text '~`!@#$%^&*()_+-={[]}:;"'|\<,.>/?' into new explanation text field
 And click on collapse answer options
-And refresh page
+When click on experiences navigation menu item
+Then browser navigates to url 'http://localhost:5656/#experiences'
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
 Then explanations list contains only items with data
 | Explanation                        |
 | Explanation11                      |

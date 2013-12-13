@@ -351,7 +351,9 @@ Given explanations related to 'Question11' of 'Objective11' are present in datab
 When open page by url 'http://localhost:5656/#/experiences'
 And mouse hover element of publications list with title 'Experience1'
 And click build publication list item with title 'Experience1'
-And sleep 1000 milliseconds
+And sleep 500 milliseconds
+And mouse hover logo
+And sleep 500 milliseconds
 And mouse hover element of publications list with title 'Experience1'
 And click rebuild publication list item with title 'Experience1'
 Then status complete is shown true for publication list item with title 'Experience1' after build finished

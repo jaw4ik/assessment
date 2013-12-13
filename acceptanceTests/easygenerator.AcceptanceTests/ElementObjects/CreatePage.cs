@@ -22,6 +22,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         internal void AddNewTitleText(string Text)
         {
             DriverProvider.Current().Driver.FindElementByXPath(model.TextBlockEditArea).SendKeys(Text);
+            System.Threading.Thread.Sleep(200);
         }
 
         public bool EditTitleTextBlockIsActive
@@ -46,7 +47,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                return GetByXPath(model.ButtonCreateAndEdit).CssContains("enabled");
+                return !GetByXPath(model.ButtonCreateAndEdit).CssContains("disabled");
             }
         }
 
@@ -54,7 +55,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             get
             {
-                return GetByXPath(model.ButtonCreateAndNew).CssContains("enabled");
+                return !GetByXPath(model.ButtonCreateAndNew).CssContains("disabled");
             }
         }
 
@@ -117,6 +118,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
 
         internal void DefaultTemplateSelectorClick()
         {
+            System.Threading.Thread.Sleep(200);
             var link = GetByXPath(model.TemplateSelector);
             link.Click();
             var defaultLink = GetByXPath(model.DefaultTemplateSelector);

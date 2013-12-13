@@ -32,6 +32,13 @@ namespace easygenerator.AcceptanceTests.Steps
             Shell.NavObjectivesClick();
         }
 
+        [When(@"click on experiences navigation menu item")]
+        public void WhenClickOnExperiencesNavigationMenuItem()
+        {
+            Shell.NavExperiencesClick();
+        }
+
+
 
     }
 }

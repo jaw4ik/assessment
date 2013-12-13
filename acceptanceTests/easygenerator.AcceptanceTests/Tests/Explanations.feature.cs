@@ -331,7 +331,12 @@ testRunner.When("open page by url \'http://localhost:5656/#/objective/0000000000
 #line 91
 testRunner.And("input text \' \' into explanation text field \'Explanation12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 92
-testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("click on experiences navigation menu item", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 93
+testRunner.Then("browser navigates to url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 94
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "Explanation"});
@@ -339,7 +344,7 @@ testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.
                         "Explanation11"});
             table8.AddRow(new string[] {
                         "Explanation13"});
-#line 93
+#line 95
 testRunner.Then("explanations list contains only items with data", ((string)(null)), table8, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -350,17 +355,22 @@ testRunner.Then("explanations list contains only items with data", ((string)(nul
         public virtual void ExplanationCanTBeSavedWithEmptyText()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Explanation can\'t be saved with empty text", ((string[])(null)));
-#line 99
+#line 101
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 100
+#line 102
 testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
                     "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 101
+#line 103
 testRunner.And("input text \' \' into new explanation text field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 102
-testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 104
+testRunner.When("click on experiences navigation menu item", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 105
+testRunner.Then("browser navigates to url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 106
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "Explanation"});
@@ -370,7 +380,7 @@ testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.
                         "Explanation12"});
             table9.AddRow(new string[] {
                         "Explanation13"});
-#line 103
+#line 107
 testRunner.Then("explanations list contains only items with data", ((string)(null)), table9, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -383,20 +393,20 @@ testRunner.Then("explanations list contains only items with data", ((string)(nul
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Changes to explanation data are not lost when user go out from current question p" +
                     "age", ((string[])(null)));
-#line 109
+#line 113
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 110
+#line 114
 testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
                     "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 111
+#line 115
 testRunner.And("input text \'Explanation14\' into explanation text field \'Explanation12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 112
-testRunner.And("click on home link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 113
-testRunner.Then("browser navigates to url \'http://localhost:5656/#\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 114
+#line 116
+testRunner.And("click on experiences navigation menu item", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 117
+testRunner.Then("browser navigates to url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 118
 testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
                     "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
@@ -408,7 +418,7 @@ testRunner.When("open page by url \'http://localhost:5656/#/objective/0000000000
                         "Explanation14"});
             table10.AddRow(new string[] {
                         "Explanation13"});
-#line 115
+#line 119
 testRunner.Then("explanations list contains only items with data", ((string)(null)), table10, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -421,23 +431,28 @@ testRunner.Then("explanations list contains only items with data", ((string)(nul
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Changes to explanation list are not lost when user go out from current question p" +
                     "age", ((string[])(null)));
-#line 121
+#line 125
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 122
+#line 126
 testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
                     "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 123
+#line 127
 testRunner.And("input text \'Explanation14\' into new explanation text field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 124
-testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 125
-testRunner.And("mouse hover element of explanation with text \'Explanation11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 126
-testRunner.And("click on delete explanation \'Explanation11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 128
-testRunner.And("refresh page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 129
+testRunner.And("mouse hover element of explanation with text \'Explanation11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 130
+testRunner.And("click on delete explanation \'Explanation11\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 131
+testRunner.When("click on experiences navigation menu item", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 132
+testRunner.Then("browser navigates to url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 133
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
                         "Explanation"});
@@ -447,7 +462,7 @@ testRunner.And("refresh page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null
                         "Explanation13"});
             table11.AddRow(new string[] {
                         "Explanation14"});
-#line 129
+#line 134
 testRunner.Then("explanations list contains only items with data", ((string)(null)), table11, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -458,7 +473,7 @@ testRunner.Then("explanations list contains only items with data", ((string)(nul
         public virtual void ExplanationCouldContainSpecialSymbols()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Explanation could contain special symbols", ((string[])(null)));
-#line 135
+#line 140
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
@@ -467,9 +482,9 @@ this.FeatureBackground();
                         "Explanation"});
             table12.AddRow(new string[] {
                         "~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё"});
-#line 136
+#line 141
 testRunner.Given("explanations related to \'Question11\' of \'Objective1\' are present in database", ((string)(null)), table12, "Given ");
-#line 139
+#line 144
 testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
                     "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
@@ -477,7 +492,7 @@ testRunner.When("open page by url \'http://localhost:5656/#/objective/0000000000
                         "Explanation"});
             table13.AddRow(new string[] {
                         "~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?№ё"});
-#line 140
+#line 145
 testRunner.Then("explanations list contains only items with data", ((string)(null)), table13, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -490,19 +505,24 @@ testRunner.Then("explanations list contains only items with data", ((string)(nul
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("New explanation with special symbols could be added by entering new explanation t" +
                     "ext", ((string[])(null)));
-#line 144
+#line 149
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 145
+#line 150
 testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
                     "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 146
+#line 151
 testRunner.And("input text \'~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?\' into new explanation text field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 147
+#line 152
 testRunner.And("click on collapse answer options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 148
-testRunner.And("refresh page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 153
+testRunner.When("click on experiences navigation menu item", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 154
+testRunner.Then("browser navigates to url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 155
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
                         "Explanation"});
@@ -514,7 +534,7 @@ testRunner.And("refresh page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null
                         "Explanation13"});
             table14.AddRow(new string[] {
                         "~`!@#$%^&*()_+-={[]}:;\"\'|\\<,.>/?"});
-#line 149
+#line 156
 testRunner.Then("explanations list contains only items with data", ((string)(null)), table14, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -525,7 +545,7 @@ testRunner.Then("explanations list contains only items with data", ((string)(nul
         public virtual void AllExplanationsCanBeMadeVisibleUsingScroll()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("All explanations can be made visible using scroll", ((string[])(null)));
-#line 156
+#line 163
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
@@ -544,16 +564,16 @@ this.FeatureBackground();
                         "Explanation15"});
             table15.AddRow(new string[] {
                         "Explanation16"});
-#line 157
+#line 164
 testRunner.Given("explanations related to \'Question11\' of \'Objective1\' are present in database", ((string)(null)), table15, "Given ");
-#line 165
+#line 172
 testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
                     "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 166
+#line 173
 testRunner.And("browser window width and height is set to 1024 and 600", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 167
+#line 174
 testRunner.And("scroll new explanation button into the view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 168
+#line 175
 testRunner.Then("new explanation button is visible", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

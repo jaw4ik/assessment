@@ -25,6 +25,11 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             GetByXPath(model.NavObjectives).Click();
         }
+
+        internal void NavExperiencesClick()
+        {
+            GetByXPath(model.NavExperiences).Click();
+        }
     }
 }
 
