@@ -92,6 +92,17 @@
                     if ( !( editable = editor.editable() ) )
                         return;
 
+                    // We initialize it as pin mode.
+                    if (!mode) {
+                        mode = 'pin';
+                        changeMode('pin');
+                        // Call for a refresh to the actual layout.
+                        setTimeout(function () {
+                            layout(evt);
+                        }, 0);
+                        return;
+                    }
+
                     //call update settings function
                     if (!!updateSettingsFunction) {
                         updateSettingsFunction();
@@ -117,17 +128,6 @@
                     viewRect = win.getViewPaneSize();
                     spaceHeight = spaceRect.height;
                     pageScrollX = scrollOffset( 'left' );
-
-                    // We initialize it as pin mode.
-                    if ( !mode ) {
-                        mode = 'pin';
-                        changeMode( 'pin' );
-                        // Call for a refresh to the actual layout.
-                        setTimeout(function() {
-                            layout(evt);
-                        }, 0);
-                        return;
-                    }
 
                     // +------------------------ Viewport -+ \
                     // |                                   |  |-> floatSpaceDockedOffsetY

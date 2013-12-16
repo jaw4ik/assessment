@@ -39,8 +39,10 @@
             $toolbarElement = $('#cke_' + editor.name);
 
             //fix for firefox table resize tools
-            editor.document.$.execCommand("enableObjectResizing", false, "false");
-            editor.document.$.execCommand("enableInlineTableEditing", false, "false");
+            if (/Firefox/i.test(navigator.userAgent)) {
+                editor.document.$.execCommand("enableObjectResizing", false, "false");
+                editor.document.$.execCommand("enableInlineTableEditing", false, "false");
+            }
 
             addContentFilter();
             addCommandsTracking();
