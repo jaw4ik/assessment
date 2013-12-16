@@ -1233,29 +1233,8 @@ a.top-navigation-item:hover {
         background: #74b9ef;
     }
 
-        .form-create-title-circle.blue:after {
-            border-left-color: #74b9ef;
-        }
-
     .form-create-title-circle.green {
         background: #bdd743;
-    }
-
-        .form-create-title-circle.green:after {
-            border-left-color: #bdd743;
-        }
-
-    .form-create-title-circle:after {
-        content: '';
-        width: 0;
-        height: 0;
-        position: absolute;
-        border: 1px solid transparent;
-        left: 100%;
-        top: 50%;
-        margin-top: -5px;
-        margin-left: -3px;
-        border-width: 5px 0 5px 7px;
     }
 
     .form-create-title-circle.number {
@@ -1276,6 +1255,39 @@ a.top-navigation-item:hover {
         margin-left: -9px;
         background: url(../Content/images/sprites.png) -239px -170px;
     }
+
+.form-create-title-circle-triangle {
+    height: 7px;
+    width: 4px;
+    position: absolute;
+    left: 100%;
+    margin-left: -1px;
+    top: 50%;
+    margin-top: -4px;
+    overflow: hidden;
+}
+
+    .form-create-title-circle-triangle:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -4px;
+        display: block;
+        height: 7px;
+        width: 7px;
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+.form-create-title-circle.blue .form-create-title-circle-triangle:after {
+    background-color: #74b9ef;
+}
+
+.form-create-title-circle.green .form-create-title-circle-triangle:after {
+    background-color: #bdd743;
+}
 
 .form-create-field-placeholder {
     position: absolute;
