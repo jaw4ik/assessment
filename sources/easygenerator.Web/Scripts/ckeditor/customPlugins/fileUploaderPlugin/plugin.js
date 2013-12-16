@@ -41,8 +41,12 @@
                         inputContainer = CKEDITOR.document.getById(fileInputId),
                         fileFrame = CKEDITOR.document.getById(frameId);
 
-                    if (statusContainer && inputContainer && fileFrame) {
-                        var statusManager = {
+                    if (!statusContainer || !inputContainer || !fileFrame) {
+                        throw "[FileUploaderPlugin] error: dialog data have not been loaded.";
+                    }
+
+                    var
+                        statusManager = {
                             info: function () {
                                 this.container.className = "";
                                 this.container.title = titleInstructions;
@@ -56,9 +60,9 @@
                                 this.container.title = "";
                             },
                             container: statusContainer.$
-                        };
+                        },
 
-                        var inputManager = {
+                        inputManager = {
                             enable: function () {
                                 this.container.offsetParent.className = this.container.offsetParent.className.replace(" disabled", "");
                                 this.container.disabled = false;
@@ -72,44 +76,54 @@
                                 this.disable();
                                 statusManager.loading();
                             },
-                            container: inputContainer.$
-                        };
-
-                        inputManager.container.onchange = function () {
-                            if (this.files) {
-                                if (this.files.length > 0) {
+                            container: (function () {
+                                var c = inputContainer.$;
+                                c.onchange = function () {
+                                    if (!this.files) {
+                                        inputManager.submit();
+                                        return;
+                                    }
+                                    
+                                    if (this.files.length == 0) {
+                                        statusManager.failed();
+                                        return;
+                                    }
+                                    
                                     var file = this.files[0];
-
-                                    if (file.size < maxFileSize * 1024 * 1024) {
-
-                                        var fileExtension = file.name.split('.').pop();
-
-                                        for (var i = 0; i < allowedFileExtensions.length; i++) {
-                                            if (fileExtension.toLowerCase() == allowedFileExtensions[i].toLowerCase()) {
-                                                inputManager.submit();
-                                                return;
-                                            }
+                                    if (file.size > maxFileSize * 1024 * 1024) {
+                                        statusManager.failed();
+                                        return;
+                                    }
+                                    
+                                    var fileExtension = file.name.split('.').pop().toLowerCase();
+                                    for (var i = 0; i < allowedFileExtensions.length; i++) {
+                                        if (fileExtension == allowedFileExtensions[i].toLowerCase()) {
+                                            inputManager.submit();
+                                            return;
                                         }
                                     }
-                                }
-                                statusManager.failed();
-                            } else {
-                                inputManager.submit();
-                            }
-                        };
-
-                        var handleResult = function () {
-                            try {
-                                var result = JSON.parse(this.contentDocument.body.innerHTML);
-
-                                if (result && result.success && result.data) {
-                                    if (elementDefinition.urlContainer && elementDefinition.urlContainer.length == 2) {
-                                        dialog.setValueOf(elementDefinition.urlContainer[0], elementDefinition.urlContainer[1], result.data.url);
-
-                                        statusManager.info();
-                                    }
-                                } else {
                                     statusManager.failed();
+                                };
+                                return c;
+                            })()
+                        },
+
+                        handleResult = function () {
+                            try {
+                                var requestResult = this.contentDocument.body.innerHTML;
+                                if (!requestResult) {
+                                    statusManager.info();
+                                    return;
+                                }
+
+                                var result = JSON.parse(requestResult);
+                                if (!result || !result.success || !result.data) {
+                                    throw "Request is not success";
+                                }
+
+                                if (elementDefinition.urlContainer && elementDefinition.urlContainer.length == 2) {
+                                    dialog.setValueOf(elementDefinition.urlContainer[0], elementDefinition.urlContainer[1], result.data.url);
+                                    statusManager.info();
                                 }
                             } catch (e) {
                                 statusManager.failed();
@@ -118,20 +132,18 @@
                             }
                         };
 
-                        statusManager.info();
+                    statusManager.info();
 
-                        if (window.top.navigator.userAgent.indexOf("MSIE") > -1) {
-                            fileFrame.$.onreadystatechange = function () {
-                                if (this.readyState == "complete") {
-                                    handleResult.call(this);
-                                }
-                            };
-                        } else {
-                            fileFrame.$.onload = handleResult;
-                        }
+                    if (window.top.navigator.userAgent.indexOf("MSIE") > -1) {
+                        fileFrame.$.onreadystatechange = function () {
+                            if (this.readyState == "complete") {
+                                handleResult.call(this);
+                            }
+                        };
                     } else {
-                        throw "[FileUploaderPlugin] error: dialog data have not been loaded.";
+                        fileFrame.$.onload = handleResult;
                     }
+
                 });
             }
         });
