@@ -470,6 +470,7 @@
     <Content Include="Scripts\knockoutBindings\cssBinding.js" />
     <Content Include="Scripts\knockoutBindings\dropDownBinding.js" />
     <Content Include="Scripts\knockoutBindings\feedBackBinding.js" />
+    <Content Include="Scripts\knockoutBindings\scrollToElementBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectOnMouseOverBinding.js" />
     <Content Include="Scripts\knockoutBindings\scrollToTopBinding.js" />
     <Content Include="Scripts\knockoutBindings\selectTextBinding.js" />

@@ -146,20 +146,6 @@
                     router.on('router:navigation:composition-complete').then(function () {
                         isViewReady(true);
 
-                        var $scrollElement = $('.scrollToElement');
-                        if ($scrollElement.length != 0) {
-                            var targetTop = $scrollElement.offset().top;
-                            /*178px header size, 400px header and title and button "Add"*/
-                            if (targetTop >= 400) {
-                                $('html, body').animate({
-                                    scrollTop: targetTop - 178
-                                });
-                            }
-                            $scrollElement.removeClass('scrollToElement');
-                        } else {
-                            window.scroll(0, 0);
-                        }
-
                         helpHintRepository.getCollection().then(function (helpHints) {
                             var activeHint = _.find(helpHints, function (item) {
                                 return item.name === activeModule();

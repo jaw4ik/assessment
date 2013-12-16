@@ -39,6 +39,7 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'bootstrapper
             bootstrapper.run();
             
             composition.addBindingHandler('autofocus');
+            composition.addBindingHandler('scrollToElement');
 
             app.setRoot('viewmodels/shell');
         });
