@@ -97,7 +97,7 @@
             $(window).one("hashchange", function () {
                 if (isEditing()) {
                     editor.removeListener('blur', onBlur);
-                    saveData();
+                    onBlur();
                 }
             });
         });
