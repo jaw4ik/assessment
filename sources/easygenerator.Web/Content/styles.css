@@ -653,6 +653,7 @@ a.top-navigation-item:hover {
 
 .footer {
     width: 100%;
+    min-width: 600px;
     height: 35px;
     margin-top: -35px;
     position: relative;
@@ -810,10 +811,6 @@ a.top-navigation-item:hover {
     .link-create + .btn-create {
         margin-left: 20px;
     }
-
-.btn-create.saveAndOpen,
-.btn-create.saveAndNew {
-}
 
 /*green button*/
 .btn.green {
@@ -1086,9 +1083,6 @@ a.top-navigation-item:hover {
         background: #111111;
     }
 
-.en-lang.feedback-btn {
-}
-
 .de-lang.feedback-btn {
     left: -110px;
 }
@@ -1300,7 +1294,7 @@ a.top-navigation-item:hover {
 
 /*#endregion Create form*/
 
-@media (max-width: 1040px) {
+@media (max-width: 930px) {
 
     /*#region HEADER*/
     .header-logo {
@@ -1328,6 +1322,17 @@ a.top-navigation-item:hover {
             font-size: 12px;
             margin-left: 10px;
         }
+
+    .header-logo {
+        width: 153px;
+    }
     /*#endregion HEADER*/
 
+}
+
+@media (max-width: 640px) {
+
+    .header-logo {
+        width: 36px;
+    }
 }
