@@ -13,10 +13,10 @@
 
     <div class="content-holder">
 
-        <form class="create-form">
-            
+        <form class="form-create">
             <div class="form-create-title">
-                <div class="form-create-title-circle blue number">1
+                <div class="form-create-title-circle blue number">
+                    1
                     <div class="form-create-title-circle-triangle"></div>
                 </div>
                 <span class="form-create-title-text" data-bind="localize: { text: 'defineLerningExperienceTitle' }">Define learning experience title</span>
@@ -25,12 +25,13 @@
                 <span class="form-create-field-placeholder" data-bind="visible: title().length == 0, localize: { text: 'typeExperienceTitleHere' }, click: title.startEditing">Type learning objective title here</span>
                 <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, hasFocus: title.isEditing, event: { focus: title.startEditing }, css: { error: !title.isValid() && title().length > experienceTitleMaxLength, active: title.isEditing, empty: title().trim().length == 0 }, autofocus: { focus: true }"></div>
                 <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > experienceTitleMaxLength }">
-                    <span data-bind="text: title().trim().length"></span>/<span data-bind="text: experienceTitleMaxLength"></span>
+                    <span data-bind="text: title().trim().length"></span>/<span data-bind="    text: experienceTitleMaxLength"></span>
                 </div>
             </div>
-            
+
             <div class="form-create-title choose-template">
-                <div class="form-create-title-circle green number">2
+                <div class="form-create-title-circle green number">
+                    2
                     <div class="form-create-title-circle-triangle"></div>
                 </div>
                 <span class="form-create-title-text" data-bind="localize: { text: 'chooseLearningExperienceTemplate' }">Choose learning experience template</span>
