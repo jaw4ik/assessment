@@ -116,7 +116,7 @@
                     },
                     type: "http://adlnet.gov/expapi/activities/cmi.interaction",
                     interactionType: "choice",
-                    correctResponsesPattern: question.getCorrectAnswersIds(),
+                    correctResponsesPattern: [question.getCorrectAnswersIds().join("[,]")],
                     choices: _.map(question.answers, function (item) {
                         return {
                             id: item.id,

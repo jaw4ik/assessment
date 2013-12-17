@@ -22,7 +22,7 @@
                 notEnoughDataInSettings: "Request failed: Not enough data in the settings"
             },
 
-            handleError = function () {
+            handleError = function (message) {
                 if (window.location.hash.indexOf('xapierror') !== -1) {
                     return;
                 }
