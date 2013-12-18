@@ -30,6 +30,11 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         {
             GetByXPath(model.NavExperiences).Click();
         }
+
+        internal void BackButtonClick()
+        {
+            GetByXPath(model.BackButton).Click();
+        }
     }
 }
 

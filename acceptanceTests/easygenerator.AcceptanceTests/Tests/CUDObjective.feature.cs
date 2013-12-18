@@ -131,12 +131,10 @@ testRunner.Then("edit title text block is empty on create view", ((string)(null)
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Buttons CreateAndEdit and CreateAndNew are disabled if title text is empty on cre" +
-            "ate objective view")]
-        public virtual void ButtonsCreateAndEditAndCreateAndNewAreDisabledIfTitleTextIsEmptyOnCreateObjectiveView()
+        [NUnit.Framework.DescriptionAttribute("Button CreateAndEdit is disabled if title text is empty on create objective view")]
+        public virtual void ButtonCreateAndEditIsDisabledIfTitleTextIsEmptyOnCreateObjectiveView()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Buttons CreateAndEdit and CreateAndNew are disabled if title text is empty on cre" +
-                    "ate objective view", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Button CreateAndEdit is disabled if title text is empty on create objective view", ((string[])(null)));
 #line 29
 this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -144,24 +142,24 @@ this.FeatureBackground();
 #line 30
 testRunner.When("open page by url \'http://localhost:5656/#objective/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 31
-testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("button CreateAndEdit is enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 32
 testRunner.When("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 33
 testRunner.And("clear edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 34
-testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("button CreateAndEdit is enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Buttons CreateAndEdit and CreateAndNew are enabled if title text is not empty on " +
-            "create objective view")]
-        public virtual void ButtonsCreateAndEditAndCreateAndNewAreEnabledIfTitleTextIsNotEmptyOnCreateObjectiveView()
+        [NUnit.Framework.DescriptionAttribute("Button CreateAndEdit is enabled if title text is not empty on create objective vi" +
+            "ew")]
+        public virtual void ButtonCreateAndEditIsEnabledIfTitleTextIsNotEmptyOnCreateObjectiveView()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Buttons CreateAndEdit and CreateAndNew are enabled if title text is not empty on " +
-                    "create objective view", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Button CreateAndEdit is enabled if title text is not empty on create objective vi" +
+                    "ew", ((string[])(null)));
 #line 36
 this.ScenarioSetup(scenarioInfo);
 #line 8
@@ -171,7 +169,7 @@ testRunner.When("open page by url \'http://localhost:5656/#objective/create\'", 
 #line 38
 testRunner.And("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 39
-testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled true on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("button CreateAndEdit is enabled true on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -253,7 +251,7 @@ testRunner.And(@"input 'WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W W
 #line 59
 testRunner.Then("chars count \'256\' is shown in chars counter on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 60
-testRunner.And("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("button CreateAndEdit is enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 61
 testRunner.And("title text block marked with error on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 62
@@ -338,82 +336,6 @@ testRunner.And("\'Objective4\' title is shown in objective page header", ((strin
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Action CreateAndNew saves changes to newly created objective and navigates to new" +
-            " create objective view")]
-        public virtual void ActionCreateAndNewSavesChangesToNewlyCreatedObjectiveAndNavigatesToNewCreateObjectiveView()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Action CreateAndNew saves changes to newly created objective and navigates to new" +
-                    " create objective view", ((string[])(null)));
-#line 89
-this.ScenarioSetup(scenarioInfo);
-#line 8
-this.FeatureBackground();
-#line 90
-testRunner.When("open page by url \'http://localhost:5656/#objective/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 91
-testRunner.And("input \'Objective1\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 92
-testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 93
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 94
-testRunner.When("click back button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 95
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table4.AddRow(new string[] {
-                        "Objective1"});
-#line 96
-testRunner.And("objectives tiles list contains only items with data", ((string)(null)), table4, "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Several objectives can be created via CreateAndNew action")]
-        public virtual void SeveralObjectivesCanBeCreatedViaCreateAndNewAction()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Several objectives can be created via CreateAndNew action", ((string[])(null)));
-#line 100
-this.ScenarioSetup(scenarioInfo);
-#line 8
-this.FeatureBackground();
-#line 101
-testRunner.When("open page by url \'http://localhost:5656/#objective/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 102
-testRunner.And("input \'Objective3\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 103
-testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 104
-testRunner.And("input \'Objective1\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 105
-testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 106
-testRunner.And("input \'Objective2\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 107
-testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 108
-testRunner.And("click back button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 109
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table5.AddRow(new string[] {
-                        "Objective1"});
-            table5.AddRow(new string[] {
-                        "Objective2"});
-            table5.AddRow(new string[] {
-                        "Objective3"});
-#line 110
-testRunner.And("objectives tiles list contains only items with data", ((string)(null)), table5, "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Special symbols could be entered into title edit area on create view and saved")]
         public virtual void SpecialSymbolsCouldBeEnteredIntoTitleEditAreaOnCreateViewAndSaved()
         {
@@ -446,14 +368,14 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table6.AddRow(new string[] {
+            table4.AddRow(new string[] {
                         "Objective1",
                         "00000000000000000000000000000001"});
 #line 124
-testRunner.Given("objectives are present in database", ((string)(null)), table6, "Given ");
+testRunner.Given("objectives are present in database", ((string)(null)), table4, "Given ");
 #line 127
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 128
@@ -466,12 +388,12 @@ testRunner.And("click on home link", ((string)(null)), ((TechTalk.SpecFlow.Table
 #line 131
 testRunner.And("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table7.AddRow(new string[] {
+            table5.AddRow(new string[] {
                         "Objective2"});
 #line 132
-testRunner.Then("objectives tiles list contains only items with data", ((string)(null)), table7, "Then ");
+testRunner.Then("objectives tiles list contains only items with data", ((string)(null)), table5, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -486,14 +408,14 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table8.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "Objective1",
                         "00000000000000000000000000000001"});
 #line 137
-testRunner.Given("objectives are present in database", ((string)(null)), table8, "Given ");
+testRunner.Given("objectives are present in database", ((string)(null)), table6, "Given ");
 #line 140
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 141
@@ -510,12 +432,12 @@ testRunner.When("click on home link", ((string)(null)), ((TechTalk.SpecFlow.Tabl
 #line 146
 testRunner.And("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table9.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "Objective1"});
 #line 147
-testRunner.Then("objectives tiles list contains only items with data", ((string)(null)), table9, "Then ");
+testRunner.Then("objectives tiles list contains only items with data", ((string)(null)), table7, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -530,17 +452,17 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table10.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "Objective1",
                         "00000000000000000000000000000001"});
-            table10.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "Objective2",
                         "00000000000000000000000000000002"});
 #line 152
-testRunner.Given("objectives are present in database", ((string)(null)), table10, "Given ");
+testRunner.Given("objectives are present in database", ((string)(null)), table8, "Given ");
 #line 156
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 157
@@ -563,17 +485,17 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table11.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "Objective1",
                         "00000000000000000000000000000001"});
-            table11.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "Objective2",
                         "00000000000000000000000000000002"});
 #line 162
-testRunner.Given("objectives are present in database", ((string)(null)), table11, "Given ");
+testRunner.Given("objectives are present in database", ((string)(null)), table9, "Given ");
 #line 166
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 167
@@ -600,20 +522,20 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Objective1",
                         "00000000000000000000000000000001"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Objective2",
                         "00000000000000000000000000000002"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Objective3",
                         "00000000000000000000000000000003"});
 #line 174
-testRunner.Given("objectives are present in database", ((string)(null)), table12, "Given ");
+testRunner.Given("objectives are present in database", ((string)(null)), table10, "Given ");
 #line 179
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 180
@@ -622,26 +544,19 @@ testRunner.And("mouse hover element of objectives list with title \'Objective2\'
 testRunner.And("select objective list item with title \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 182
 testRunner.And("click on delete button on objectives list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table13.AddRow(new string[] {
-                        "Objective1"});
-            table13.AddRow(new string[] {
-                        "Objective3"});
 #line 183
-testRunner.Then("objectives tiles list contains only items with data", ((string)(null)), table13, "Then ");
-#line 187
+testRunner.Then("page does not contain element with text \'Objective2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 184
 testRunner.When("refresh page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table14.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "Objective1"});
-            table14.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "Objective3"});
-#line 188
-testRunner.Then("objectives tiles list contains only items with data", ((string)(null)), table14, "Then ");
+#line 185
+testRunner.Then("objectives tiles list contains only items with data", ((string)(null)), table11, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -651,45 +566,45 @@ testRunner.Then("objectives tiles list contains only items with data", ((string)
         public virtual void ObjectiveCanNotBeDeletedIfItContainsQuestions()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Objective can not be deleted if it contains questions", ((string[])(null)));
-#line 193
+#line 190
 this.ScenarioSetup(scenarioInfo);
 #line 8
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table15 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table15.AddRow(new string[] {
+            table12.AddRow(new string[] {
                         "Objective1",
                         "00000000000000000000000000000001"});
-#line 194
-testRunner.Given("objectives are present in database", ((string)(null)), table15, "Given ");
+#line 191
+testRunner.Given("objectives are present in database", ((string)(null)), table12, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table16 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table16.AddRow(new string[] {
+            table13.AddRow(new string[] {
                         "Question1",
                         "00000000000000000000000000000001"});
+#line 194
+testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table13, "Given ");
 #line 197
-testRunner.Given("questions related to \'Objective1\' are present in database", ((string)(null)), table16, "Given ");
-#line 200
 testRunner.When("open page by url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 201
+#line 198
 testRunner.And("mouse hover element of objectives list with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 202
+#line 199
 testRunner.And("select objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 203
+#line 200
 testRunner.And("click on delete button on objectives list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 204
+#line 201
 testRunner.Then("error notification is displayed true on objectives list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-            TechTalk.SpecFlow.Table table17 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table17.AddRow(new string[] {
+            table14.AddRow(new string[] {
                         "Objective1"});
-#line 205
-testRunner.And("objectives tiles list contains only items with data", ((string)(null)), table17, "And ");
+#line 202
+testRunner.And("objectives tiles list contains only items with data", ((string)(null)), table14, "And ");
 #line hidden
             this.ScenarioCleanup();
         }

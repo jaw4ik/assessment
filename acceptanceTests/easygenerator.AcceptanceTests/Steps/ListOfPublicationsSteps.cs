@@ -1,6 +1,7 @@
 ﻿using easygenerator.AcceptanceTests.ElementObjects;
 using easygenerator.AcceptanceTests.Helpers;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -67,9 +68,30 @@ namespace easygenerator.AcceptanceTests.Steps
         public void ThenPublicationsTilesListContainsOnlyItemsWithData(Table table)
         {
             var expectedPublications = table.CreateSet<ExperienceData>().Select(obj => obj.Title).ToArray();
+            //System.Threading.Thread.Sleep(200);
+            //string[] realPublications = null;
+            //int loop = 0;
+            //int timeout = 200;
+            //while (loop * timeout < 1000)
+            //{
+            //    try
+            //    {
+            //        realPublications = publicationsPage.Items.Select(pub => pub.Title).ToArray();
+            //        break;
+            //    }
+            //    catch (StaleElementReferenceException)
+            //    {
+            //        System.Threading.Thread.Sleep(timeout);
+            //        loop++;
+            //    }
+            //}
+
+            
+            var realPublications = publicationsPage.Items.Select(pub => pub.Title).ToArray();
+
             TestUtils.Assert_IsTrue_WithWait(() =>
-                TestUtils.AreCollectionsTheSame(expectedPublications, publicationsPage.Items.Select(pub => pub.Title).ToArray()),
-                "Order of publications should be the same", publicationsPage.Items.Select(pub => pub.Title).ToArray());
+                TestUtils.AreCollectionsTheSame(expectedPublications, realPublications),
+                "Not all expected publications on page, real are:", realPublications);
         }
 
 

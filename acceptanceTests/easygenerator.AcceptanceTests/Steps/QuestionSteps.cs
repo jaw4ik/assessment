@@ -123,6 +123,15 @@ namespace easygenerator.AcceptanceTests.Steps
             TestUtils.Assert_IsTrue_WithWait(() => Question.QuestionTitle == Title, "Incorrect question title, shown title is " + Question.QuestionTitle);
         }
 
+        [Then(@"edit title text block is active on question page")]
+        public void ThenEditTitleTextBlockIsActiveOnQuestionPage()
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                Question.QuestionTitleIsActive == true,
+                "edit title text block is not active");
+        }
+
+
         [Then(@"correct answer option is set to '(.*)' for '(.*)'")]
         public void ThenCorrectAnswerOptionIsSetToTrueFor( bool Correct, string Text)
         {
@@ -401,7 +410,22 @@ namespace easygenerator.AcceptanceTests.Steps
             Question.MouseHoverHomeLink();
         }
 
-             
+        [Then(@"max chars count '(.*)' is shown in chars counter in question title field")]
+        public void ThenMaxCharsCountIsShownInCharsCounterInQuestionTitleField(string maxCharsCount)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                Question.MaxCharsCount == maxCharsCount,
+                "incorrect max chars count");
+        }
+
+        [Then(@"chars count '(.*)' is shown in chars counter in question title field")]
+        public void ThenCharsCountIsShownInCharsCounterInQuestionTitleField(string charsCount)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                Question.CharsCount == charsCount,
+                "incorrect chars count");
+        }
+     
 
     }
 }

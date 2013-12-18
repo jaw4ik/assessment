@@ -355,6 +355,27 @@ testRunner.And("answer options block is collapsed", ((string)(null)), ((TechTalk
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Back action of question page navigates to relative objective page")]
+        public virtual void BackActionOfQuestionPageNavigatesToRelativeObjectivePage()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Back action of question page navigates to relative objective page", ((string[])(null)));
+#line 121
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 122
+testRunner.When("open page by url \'http://localhost:5656/#/objective/00000000000000000000000000000" +
+                    "001/question/00000000000000000000000000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 123
+testRunner.And("click on shell back button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 124
+testRunner.Then("browser navigates to url \'http://localhost:5656/#objective/0000000000000000000000" +
+                    "0000000001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

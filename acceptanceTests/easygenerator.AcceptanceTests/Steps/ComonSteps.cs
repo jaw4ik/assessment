@@ -77,6 +77,14 @@ namespace easygenerator.AcceptanceTests.Steps
                 "Element not found with text " + text);
         }
 
+        [Then(@"page does not contain element with text '(.*)'")]
+        public void ThenPageDoesNotContainElementWithText(string text)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() => DriverProvider.Current().Driver.FindElementsByXPath("//*[contains(text(),'" + text + "')]").Count == 0,
+                "Element not found with text " + text);
+        }
+
+
         [Given(@"open page by url '(.*)'")]
         public void GivenOpenPageByUrl(string url)
         {
@@ -104,7 +112,6 @@ namespace easygenerator.AcceptanceTests.Steps
         {
             DriverProvider.Current().Driver.Manage().Window.Maximize();
         }
-
 
     }
 }

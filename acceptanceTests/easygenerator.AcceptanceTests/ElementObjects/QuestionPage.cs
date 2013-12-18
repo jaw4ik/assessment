@@ -271,7 +271,7 @@ namespace easygenerator.AcceptanceTests.ElementObjects
         internal void EditQuestionTitleText(string newQuestionTitle)
         {
             var questionTitle = GetByXPath(model.QuestionTitle);
-            questionTitle.Click();
+            //questionTitle.Click();
             questionTitle.Clear();
             questionTitle.SendKeys(newQuestionTitle);
         }
@@ -305,6 +305,32 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             var HomeLink = GetByXPath(model.HomeLink);
             HomeLink.HoverElement();
         }
+
+        public bool QuestionTitleIsActive
+        {
+            get
+            {
+                return GetByXPath(model.QuestionTitle).CssContains("active");
+            }
+        }
+
+        public string MaxCharsCount
+        {
+            get
+            {
+                return GetByXPath(model.MaxCharsCount).GetTextContent();
+            }
+        }
+        
+        public string CharsCount
+        {
+            get
+            {
+                return GetByXPath(model.CharsCount).GetTextContent();
+            }
+        }
+
+
     }
 
 

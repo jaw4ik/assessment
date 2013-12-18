@@ -45,6 +45,15 @@ namespace easygenerator.AcceptanceTests.Steps
                 "incorrect CreateAndEdit and CreateAndNew status");
         }
 
+        [Then(@"button CreateAndEdit is enabled (.*) on create view")]
+        public void ThenButtonCreateAndEditIsEnabledFalseOnCreateView(bool isEnabled)
+        {
+            TestUtils.Assert_IsTrue_WithWait(() =>
+                (createPage.ButtonCreateAndEditIsEnabled == isEnabled),
+                "incorrect CreateAndEdit status");
+        }
+
+
         [When(@"input '(.*)' into title edit area on create view")]
         public void WhenInputIntoTitleEditAreaOnCreateView(string text)
         {

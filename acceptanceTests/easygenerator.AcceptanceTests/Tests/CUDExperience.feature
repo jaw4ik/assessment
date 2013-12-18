@@ -28,25 +28,25 @@ Scenario: Edit experience title text block is empty when open create experience 
 When open page by url 'http://localhost:5656/#experience/create'
 Then edit title text block is empty on create view
 
-Scenario: Buttons CreateAndEdit and CreateAndNew are disabled if template is choosen but title text is empty on create experience view
+Scenario: Button CreateAndEdit is disabled if template is choosen but title text is empty on create experience view
 When open page by url 'http://localhost:5656/#experience/create'
 And choose default template on create experience view
-Then buttons CreateAndEdit and CreateAndNew are enabled false on create view
+Then button CreateAndEdit is enabled false on create view
 When input 'text' into title edit area on create view
 And clear edit area on create view
-Then buttons CreateAndEdit and CreateAndNew are enabled false on create view
+Then button CreateAndEdit is enabled false on create view
 
-Scenario: Buttons CreateAndEdit and CreateAndNew are disabled if title text is not empty but template is not choosen on create experience view
+Scenario: Button CreateAndEdit is disabled if title text is not empty but template is not choosen on create experience view
 When open page by url 'http://localhost:5656/#experience/create'
-Then buttons CreateAndEdit and CreateAndNew are enabled false on create view
+Then button CreateAndEdit is enabled false on create view
 When input 'text' into title edit area on create view
-Then buttons CreateAndEdit and CreateAndNew are enabled false on create view
+Then button CreateAndEdit is enabled false on create view
 
-Scenario: Buttons CreateAndEdit and CreateAndNew are enabled if template is choosen and title text is not empty on create experience view
+Scenario: Button CreateAndEdit is enabled if template is choosen and title text is not empty on create experience view
 When open page by url 'http://localhost:5656/#experience/create'
 And choose default template on create experience view
 And input 'text' into title edit area on create view
-Then buttons CreateAndEdit and CreateAndNew are enabled true on create view
+Then button CreateAndEdit is enabled true on create view
 
 Scenario: Back action on create experience view navigates back to experiences list page
 When open page by url 'http://localhost:5656/#experience/create'
@@ -68,7 +68,7 @@ When open page by url 'http://localhost:5656/#experience/create'
 And choose default template on create experience view
 And input 'WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW WWW' into title edit area on create view
 Then chars count '256' is shown in chars counter on create view
-And buttons CreateAndEdit and CreateAndNew are enabled false on create view
+And button CreateAndEdit is enabled false on create view
 And title text block marked with error on create view
 And chars counter marked with error on create view
 
@@ -99,36 +99,36 @@ Then browser navigates to url that contains 'http://localhost:5656/#experience/'
 And 'Experience4' title is shown in experience page header
 #And 'Learning experiences' text is shown in back to experiences list link
 
-Scenario: Action CreateAndNew saves changes to newly created experience and navigates to new create experience view
-When open page by url 'http://localhost:5656/#experience/create'
-And choose default template on create experience view
-And input 'Experience1' into title edit area on create view
-And click on create and new button on create view
-Then browser navigates to url 'http://localhost:5656/#experience/create'
-When click back button on create view
-Then browser navigates to url 'http://localhost:5656/#experiences'
-And publications tiles list contains only items with data
-| Title       |
-| Experience1 |
+#Scenario: Action CreateAndNew saves changes to newly created experience and navigates to new create experience view
+#When open page by url 'http://localhost:5656/#experience/create'
+#And choose default template on create experience view
+#And input 'Experience1' into title edit area on create view
+#And click on create and new button on create view
+#Then browser navigates to url 'http://localhost:5656/#experience/create'
+#When click back button on create view
+#Then browser navigates to url 'http://localhost:5656/#experiences'
+#And publications tiles list contains only items with data
+#| Title       |
+#| Experience1 |
 
-Scenario: Several experiences can be created via CreateAndNew action
-When open page by url 'http://localhost:5656/#experience/create'
-And choose default template on create experience view
-And input 'Experience3' into title edit area on create view
-And click on create and new button on create view
-And choose default template on create experience view
-And input 'Experience1' into title edit area on create view
-And click on create and new button on create view
-And choose default template on create experience view
-And input 'Experience2' into title edit area on create view
-And click on create and new button on create view
-And click back button on create view
-Then browser navigates to url 'http://localhost:5656/#experiences'
-And publications tiles list contains only items with data
-| Title       |
-| Experience1 |
-| Experience2 |
-| Experience3 |
+#Scenario: Several experiences can be created via CreateAndNew action
+#When open page by url 'http://localhost:5656/#experience/create'
+#And choose default template on create experience view
+#And input 'Experience3' into title edit area on create view
+#And click on create and new button on create view
+#And choose default template on create experience view
+#And input 'Experience1' into title edit area on create view
+#And click on create and new button on create view
+#And choose default template on create experience view
+#And input 'Experience2' into title edit area on create view
+#And click on create and new button on create view
+#And click back button on create view
+#Then browser navigates to url 'http://localhost:5656/#experiences'
+#And publications tiles list contains only items with data
+#| Title       |
+#| Experience1 |
+#| Experience2 |
+#| Experience3 |
 
 Scenario: Special symbols could be entered into title edit area on create view and saved
 When open page by url 'http://localhost:5656/#experience/create'
@@ -198,10 +198,7 @@ When open page by url 'http://localhost:5656/#experiences'
 And mouse hover element of publications list with title 'Experience2'
 And select publication list item with title 'Experience2'
 And click on delete button on experiences list page
-Then publications tiles list contains only items with data
-| Title       |
-| Experience1 |
-| Experience3 |
+Then page does not contain element with text 'Experience2'
 When refresh page
 Then publications tiles list contains only items with data
 | Title       |

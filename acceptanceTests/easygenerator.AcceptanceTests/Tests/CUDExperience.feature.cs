@@ -134,12 +134,12 @@ testRunner.Then("edit title text block is empty on create view", ((string)(null)
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Buttons CreateAndEdit and CreateAndNew are disabled if template is choosen but ti" +
-            "tle text is empty on create experience view")]
-        public virtual void ButtonsCreateAndEditAndCreateAndNewAreDisabledIfTemplateIsChoosenButTitleTextIsEmptyOnCreateExperienceView()
+        [NUnit.Framework.DescriptionAttribute("Button CreateAndEdit is disabled if template is choosen but title text is empty o" +
+            "n create experience view")]
+        public virtual void ButtonCreateAndEditIsDisabledIfTemplateIsChoosenButTitleTextIsEmptyOnCreateExperienceView()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Buttons CreateAndEdit and CreateAndNew are disabled if template is choosen but ti" +
-                    "tle text is empty on create experience view", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Button CreateAndEdit is disabled if template is choosen but title text is empty o" +
+                    "n create experience view", ((string[])(null)));
 #line 31
 this.ScenarioSetup(scenarioInfo);
 #line 10
@@ -149,24 +149,24 @@ testRunner.When("open page by url \'http://localhost:5656/#experience/create\'",
 #line 33
 testRunner.And("choose default template on create experience view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 34
-testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("button CreateAndEdit is enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 35
 testRunner.When("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 36
 testRunner.And("clear edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 37
-testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("button CreateAndEdit is enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Buttons CreateAndEdit and CreateAndNew are disabled if title text is not empty bu" +
-            "t template is not choosen on create experience view")]
-        public virtual void ButtonsCreateAndEditAndCreateAndNewAreDisabledIfTitleTextIsNotEmptyButTemplateIsNotChoosenOnCreateExperienceView()
+        [NUnit.Framework.DescriptionAttribute("Button CreateAndEdit is disabled if title text is not empty but template is not c" +
+            "hoosen on create experience view")]
+        public virtual void ButtonCreateAndEditIsDisabledIfTitleTextIsNotEmptyButTemplateIsNotChoosenOnCreateExperienceView()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Buttons CreateAndEdit and CreateAndNew are disabled if title text is not empty bu" +
-                    "t template is not choosen on create experience view", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Button CreateAndEdit is disabled if title text is not empty but template is not c" +
+                    "hoosen on create experience view", ((string[])(null)));
 #line 39
 this.ScenarioSetup(scenarioInfo);
 #line 10
@@ -174,22 +174,22 @@ this.FeatureBackground();
 #line 40
 testRunner.When("open page by url \'http://localhost:5656/#experience/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 41
-testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("button CreateAndEdit is enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 42
 testRunner.When("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 43
-testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("button CreateAndEdit is enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Buttons CreateAndEdit and CreateAndNew are enabled if template is choosen and tit" +
-            "le text is not empty on create experience view")]
-        public virtual void ButtonsCreateAndEditAndCreateAndNewAreEnabledIfTemplateIsChoosenAndTitleTextIsNotEmptyOnCreateExperienceView()
+        [NUnit.Framework.DescriptionAttribute("Button CreateAndEdit is enabled if template is choosen and title text is not empt" +
+            "y on create experience view")]
+        public virtual void ButtonCreateAndEditIsEnabledIfTemplateIsChoosenAndTitleTextIsNotEmptyOnCreateExperienceView()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Buttons CreateAndEdit and CreateAndNew are enabled if template is choosen and tit" +
-                    "le text is not empty on create experience view", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Button CreateAndEdit is enabled if template is choosen and title text is not empt" +
+                    "y on create experience view", ((string[])(null)));
 #line 45
 this.ScenarioSetup(scenarioInfo);
 #line 10
@@ -201,7 +201,7 @@ testRunner.And("choose default template on create experience view", ((string)(nu
 #line 48
 testRunner.And("input \'text\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 49
-testRunner.Then("buttons CreateAndEdit and CreateAndNew are enabled true on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("button CreateAndEdit is enabled true on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -285,7 +285,7 @@ testRunner.And(@"input 'WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W W
 #line 70
 testRunner.Then("chars count \'256\' is shown in chars counter on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 71
-testRunner.And("buttons CreateAndEdit and CreateAndNew are enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("button CreateAndEdit is enabled false on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 72
 testRunner.And("title text block marked with error on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 73
@@ -374,90 +374,6 @@ testRunner.And("\'Experience4\' title is shown in experience page header", ((str
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Action CreateAndNew saves changes to newly created experience and navigates to ne" +
-            "w create experience view")]
-        public virtual void ActionCreateAndNewSavesChangesToNewlyCreatedExperienceAndNavigatesToNewCreateExperienceView()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Action CreateAndNew saves changes to newly created experience and navigates to ne" +
-                    "w create experience view", ((string[])(null)));
-#line 102
-this.ScenarioSetup(scenarioInfo);
-#line 10
-this.FeatureBackground();
-#line 103
-testRunner.When("open page by url \'http://localhost:5656/#experience/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 104
-testRunner.And("choose default template on create experience view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 105
-testRunner.And("input \'Experience1\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 106
-testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 107
-testRunner.Then("browser navigates to url \'http://localhost:5656/#experience/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 108
-testRunner.When("click back button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 109
-testRunner.Then("browser navigates to url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table4.AddRow(new string[] {
-                        "Experience1"});
-#line 110
-testRunner.And("publications tiles list contains only items with data", ((string)(null)), table4, "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Several experiences can be created via CreateAndNew action")]
-        public virtual void SeveralExperiencesCanBeCreatedViaCreateAndNewAction()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Several experiences can be created via CreateAndNew action", ((string[])(null)));
-#line 114
-this.ScenarioSetup(scenarioInfo);
-#line 10
-this.FeatureBackground();
-#line 115
-testRunner.When("open page by url \'http://localhost:5656/#experience/create\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 116
-testRunner.And("choose default template on create experience view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 117
-testRunner.And("input \'Experience3\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 118
-testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 119
-testRunner.And("choose default template on create experience view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 120
-testRunner.And("input \'Experience1\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 121
-testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 122
-testRunner.And("choose default template on create experience view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 123
-testRunner.And("input \'Experience2\' into title edit area on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 124
-testRunner.And("click on create and new button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 125
-testRunner.And("click back button on create view", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 126
-testRunner.Then("browser navigates to url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table5.AddRow(new string[] {
-                        "Experience1"});
-            table5.AddRow(new string[] {
-                        "Experience2"});
-            table5.AddRow(new string[] {
-                        "Experience3"});
-#line 127
-testRunner.And("publications tiles list contains only items with data", ((string)(null)), table5, "And ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Special symbols could be entered into title edit area on create view and saved")]
         public virtual void SpecialSymbolsCouldBeEnteredIntoTitleEditAreaOnCreateViewAndSaved()
         {
@@ -492,14 +408,14 @@ this.ScenarioSetup(scenarioInfo);
 #line 10
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table6.AddRow(new string[] {
+            table4.AddRow(new string[] {
                         "Experience1",
                         "00000000000000000000000000000001"});
 #line 142
-testRunner.Given("publications are present in database", ((string)(null)), table6, "Given ");
+testRunner.Given("publications are present in database", ((string)(null)), table4, "Given ");
 #line 145
 testRunner.When("open page by url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 146
@@ -514,12 +430,12 @@ testRunner.And("sleep 1000 milliseconds", ((string)(null)), ((TechTalk.SpecFlow.
 #line 150
 testRunner.And("click on home link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table7.AddRow(new string[] {
+            table5.AddRow(new string[] {
                         "Experience2"});
 #line 151
-testRunner.Then("publications tiles list contains only items with data", ((string)(null)), table7, "Then ");
+testRunner.Then("publications tiles list contains only items with data", ((string)(null)), table5, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -534,14 +450,14 @@ this.ScenarioSetup(scenarioInfo);
 #line 10
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table8.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "Experience1",
                         "00000000000000000000000000000001"});
 #line 156
-testRunner.Given("publications are present in database", ((string)(null)), table8, "Given ");
+testRunner.Given("publications are present in database", ((string)(null)), table6, "Given ");
 #line 159
 testRunner.When("open page by url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 160
@@ -556,12 +472,12 @@ testRunner.And("chars counter marked with error on experience page", ((string)(n
 #line 164
 testRunner.When("click on home link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table9.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "Experience1"});
 #line 165
-testRunner.Then("publications tiles list contains only items with data", ((string)(null)), table9, "Then ");
+testRunner.Then("publications tiles list contains only items with data", ((string)(null)), table7, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -576,17 +492,17 @@ this.ScenarioSetup(scenarioInfo);
 #line 10
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table10.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "Experience1",
                         "00000000000000000000000000000001"});
-            table10.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "Experience2",
                         "00000000000000000000000000000002"});
 #line 170
-testRunner.Given("publications are present in database", ((string)(null)), table10, "Given ");
+testRunner.Given("publications are present in database", ((string)(null)), table8, "Given ");
 #line 174
 testRunner.When("open page by url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 175
@@ -609,17 +525,17 @@ this.ScenarioSetup(scenarioInfo);
 #line 10
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table11.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "Experience1",
                         "00000000000000000000000000000001"});
-            table11.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "Experience2",
                         "00000000000000000000000000000002"});
 #line 180
-testRunner.Given("publications are present in database", ((string)(null)), table11, "Given ");
+testRunner.Given("publications are present in database", ((string)(null)), table9, "Given ");
 #line 184
 testRunner.When("open page by url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 185
@@ -646,20 +562,20 @@ this.ScenarioSetup(scenarioInfo);
 #line 10
 this.FeatureBackground();
 #line hidden
-            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title",
                         "Id"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Experience1",
                         "00000000000000000000000000000001"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Experience2",
                         "00000000000000000000000000000002"});
-            table12.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "Experience3",
                         "00000000000000000000000000000003"});
 #line 192
-testRunner.Given("publications are present in database", ((string)(null)), table12, "Given ");
+testRunner.Given("publications are present in database", ((string)(null)), table10, "Given ");
 #line 197
 testRunner.When("open page by url \'http://localhost:5656/#experiences\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 198
@@ -668,26 +584,19 @@ testRunner.And("mouse hover element of publications list with title \'Experience
 testRunner.And("select publication list item with title \'Experience2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 200
 testRunner.And("click on delete button on experiences list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table13.AddRow(new string[] {
-                        "Experience1"});
-            table13.AddRow(new string[] {
-                        "Experience3"});
 #line 201
-testRunner.Then("publications tiles list contains only items with data", ((string)(null)), table13, "Then ");
-#line 205
+testRunner.Then("page does not contain element with text \'Experience2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 202
 testRunner.When("refresh page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
-            table14.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "Experience1"});
-            table14.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "Experience3"});
-#line 206
-testRunner.Then("publications tiles list contains only items with data", ((string)(null)), table14, "Then ");
+#line 203
+testRunner.Then("publications tiles list contains only items with data", ((string)(null)), table11, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

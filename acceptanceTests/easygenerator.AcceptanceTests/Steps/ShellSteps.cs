@@ -38,6 +38,11 @@ namespace easygenerator.AcceptanceTests.Steps
             Shell.NavExperiencesClick();
         }
 
+        [When(@"click on shell back button")]
+        public void WhenClickOnShellBackButton()
+        {
+            Shell.BackButtonClick();
+        }
 
 
     }

@@ -13,14 +13,14 @@ Given clear data context
 #Then browser navigates to url 'http://localhost:5656/'
 
 
-Scenario: Add question action on objective page navigates to create question view
+Scenario: Add question action on objective page navigates to created question view
 Given objectives are present in database
 | Title      | Id |
 | Objective1 | 00000000000000000000000000000001  |
-When refresh page
+#When refresh page
 When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001'
 And press add new question button on objective page
-Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/create'
+Then browser navigates to url that contains 'http://localhost:5656/#objective/00000000000000000000000000000001/question/'
 
 #Scenario: Create new question button on question page navigates to create question view
 #Given objectives are present in database
@@ -46,164 +46,173 @@ Then browser navigates to url 'http://localhost:5656/#objective/0000000000000000
 #And click on create new question text on question page
 #Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/create'
 
-Scenario: Edit question title text block is active when open create question view
+Scenario: Edit question title text block is active when open created question
 Given objectives are present in database
 | Title      | Id |
 | Objective1 | 00000000000000000000000000000001  |
-When refresh page
-When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/create'
-Then edit title text block is active on create view
+#When refresh page
+When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001'
+And press add new question button on objective page
+Then browser navigates to url that contains 'http://localhost:5656/#objective/00000000000000000000000000000001/question/'
+And edit title text block is active on question page
 
-Scenario: Edit question title text block is empty when open create question view
+Scenario: Edit question title text block contains default text when open created question
 Given objectives are present in database
 | Title      | Id |
 | Objective1 | 00000000000000000000000000000001  |
-When refresh page
-When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/create'
-Then edit title text block is empty on create view
+#When refresh page
+When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001'
+And press add new question button on objective page
+Then browser navigates to url that contains 'http://localhost:5656/#objective/00000000000000000000000000000001/question/'
+And 'What question do you want to ask?' title is shown in question page header
 
-Scenario: Buttons CreateAndEdit and CreateAndNew are disabled if title text is empty on create question view
-Given objectives are present in database
-| Title      | Id |
-| Objective1 | 00000000000000000000000000000001  |
-When refresh page
-When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/create'
-Then buttons CreateAndEdit and CreateAndNew are enabled false on create view
-When input 'text' into title edit area on create view
-And clear edit area on create view
-Then buttons CreateAndEdit and CreateAndNew are enabled false on create view
+#Scenario: Buttons CreateAndEdit and CreateAndNew are disabled if title text is empty on create question view
+#Given objectives are present in database
+#| Title      | Id |
+#| Objective1 | 00000000000000000000000000000001  |
+#When refresh page
+#When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/create'
+#Then buttons CreateAndEdit and CreateAndNew are enabled false on create view
+#When input 'text' into title edit area on create view
+#And clear edit area on create view
+#Then buttons CreateAndEdit and CreateAndNew are enabled false on create view
 
-Scenario: Buttons CreateAndEdit and CreateAndNew are enabled if title text is not empty on create question view
-Given objectives are present in database
-| Title      | Id |
-| Objective1 | 00000000000000000000000000000001  |
-When refresh page
-When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/create'
-And input 'text' into title edit area on create view
-Then buttons CreateAndEdit and CreateAndNew are enabled true on create view
+#Scenario: Buttons CreateAndEdit and CreateAndNew are enabled if title text is not empty on create question view
+#Given objectives are present in database
+#| Title      | Id |
+#| Objective1 | 00000000000000000000000000000001  |
+#When refresh page
+#When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/create'
+#And input 'text' into title edit area on create view
+#Then buttons CreateAndEdit and CreateAndNew are enabled true on create view
 
-Scenario: Back action on create question view navigates back to related objective
-Given objectives are present in database
-| Title      | Id |
-| Objective1 | 00000000000000000000000000000001  |
-| Objective2 | 00000000000000000000000000000002  |
-| Objective3 | 00000000000000000000000000000003  |
-When refresh page
-When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000002/question/create'
-And click back button on create view
-Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000002'
+#Scenario: Back action on create question view navigates back to related objective
+#Given objectives are present in database
+#| Title      | Id |
+#| Objective1 | 00000000000000000000000000000001  |
+#| Objective2 | 00000000000000000000000000000002  |
+#| Objective3 | 00000000000000000000000000000003  |
+#When refresh page
+#When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000002/question/create'
+#And click back button on create view
+#Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000002'
 
-Scenario: Max allowed chars count is shown in edit title text block on create view from the beginning
+Scenario: Max allowed chars count is shown in edit title text block on created question from the beginning
 Given objectives are present in database
 | Title      | Id |
 | Objective1 | 00000000000000000000000000000001  |
-When refresh page
-When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/create'
-Then max chars count '255' is shown in chars counter on create view
+#When refresh page
+When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001'
+And press add new question button on objective page
+Then browser navigates to url that contains 'http://localhost:5656/#objective/00000000000000000000000000000001/question/'
+And max chars count '255' is shown in chars counter in question title field
 
-Scenario: correct input chars count and max chars count are shown in edit title text block on create view
+Scenario: correct input chars count and max chars count are shown in edit title text block on question page
 Given objectives are present in database
 | Title      | Id |
 | Objective1 | 00000000000000000000000000000001  |
-When refresh page
-When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/create'
-And input 'text' into title edit area on create view
-Then chars count '4' is shown in chars counter on create view
-And max chars count '255' is shown in chars counter on create view
+#When refresh page
+When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001'
+And press add new question button on objective page
+Then browser navigates to url that contains 'http://localhost:5656/#objective/00000000000000000000000000000001/question/'
+When edit question title with new text 'abcd' on question page
+Then chars count '4' is shown in chars counter in question title field
+And max chars count '255' is shown in chars counter in question title field
 
-Scenario: Not possible to save more than 255 charracters in title text on create view
+Scenario: Not possible to save more than 255 charracters in title text on question page
 Given objectives are present in database
 | Title      | Id |
 | Objective1 | 00000000000000000000000000000001  |
-When refresh page
-When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/create'
-And input 'WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW WWW' into title edit area on create view
-Then chars count '256' is shown in chars counter on create view
-And buttons CreateAndEdit and CreateAndNew are enabled false on create view
-And title text block marked with error on create view
-And chars counter marked with error on create view
+#When refresh page
+When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001'
+And press add new question button on objective page
+Then browser navigates to url that contains 'http://localhost:5656/#objective/00000000000000000000000000000001/question/'
+When edit question title with new text 'WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW W WW WWW' on question page
+Then chars count '256' is shown in chars counter in question title field
+And title text block marked with error on question page
+And chars counter marked with error on question page
 
-Scenario: Changes are not saved if go back from create view
-Given objectives are present in database
-| Title      | Id |
-| Objective1 | 00000000000000000000000000000001  |
-Given questions related to 'Objective1' are present in database
-| Title     | Id |
-| Question1 | 00000000000000000000000000000001  |
-When refresh page
-When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/create'
-And input 'text' into title edit area on create view
-And click back button on create view
-Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001'
-And questions list contains only items with data
-| Title     |
-| Question1 |
+#Scenario: Changes are not saved if go back from create view
+#Given objectives are present in database
+#| Title      | Id |
+#| Objective1 | 00000000000000000000000000000001  |
+#Given questions related to 'Objective1' are present in database
+#| Title     | Id |
+#| Question1 | 00000000000000000000000000000001  |
+#When refresh page
+#When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000001/question/create'
+#And input 'text' into title edit area on create view
+#And click back button on create view
+#Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001'
+#And questions list contains only items with data
+#| Title     |
+#| Question1 |
 
-Scenario: Action CreateAndEdit navigates to newly created question related to current objective
-Given objectives are present in database
-| Title      | Id |
-| Objective1 | 00000000000000000000000000000001  |
-| Objective2 | 00000000000000000000000000000002  |
-| Objective3 | 00000000000000000000000000000003  |
-Given questions related to 'Objective2' are present in database
-| Title     | Id |
-| Question1 | 00000000000000000000000000000001  |
-| Question2 | 00000000000000000000000000000002  |
-| Question3 | 00000000000000000000000000000003  |
-When refresh page
-When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000002/question/create'
-And input 'Question4' into title edit area on create view
-And click on create and edit button on create view
-Then browser navigates to url that contains 'http://localhost:5656/#objective/00000000000000000000000000000002/question/'
-And 'Question4' title is shown in question page header
+#Scenario: Action CreateAndEdit navigates to newly created question related to current objective
+#Given objectives are present in database
+#| Title      | Id |
+#| Objective1 | 00000000000000000000000000000001  |
+#| Objective2 | 00000000000000000000000000000002  |
+#| Objective3 | 00000000000000000000000000000003  |
+#Given questions related to 'Objective2' are present in database
+#| Title     | Id |
+#| Question1 | 00000000000000000000000000000001  |
+#| Question2 | 00000000000000000000000000000002  |
+#| Question3 | 00000000000000000000000000000003  |
+#When refresh page
+#When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000002/question/create'
+#And input 'Question4' into title edit area on create view
+#And click on create and edit button on create view
+#Then browser navigates to url that contains 'http://localhost:5656/#objective/00000000000000000000000000000002/question/'
+#And 'Question4' title is shown in question page header
 #And 'Objective2' title is shown in back to objective link
 
-Scenario: Action CreateAndNew saves changes to newly created question related to current objective and navigates to new create question view
-Given objectives are present in database
-| Title      | Id |
-| Objective1 | 00000000000000000000000000000001  |
-| Objective2 | 00000000000000000000000000000002  |
-| Objective3 | 00000000000000000000000000000003  |
-Given questions related to 'Objective2' are present in database
-| Title     | Id |
-| Question1 | 00000000000000000000000000000001  |
-| Question2 | 00000000000000000000000000000002  |
-| Question3 | 00000000000000000000000000000003  |
-When refresh page
-When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000002/question/create'
-And input 'Question4' into title edit area on create view
-And click on create and new button on create view
-Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000002/question/create'
-When click back button on create view
-Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000002'
-And questions list contains only items with data
-| Title     |
-| Question1 |
-| Question2 |
-| Question3 |
-| Question4 |
+#Scenario: Action CreateAndNew saves changes to newly created question related to current objective and navigates to new create question view
+#Given objectives are present in database
+#| Title      | Id |
+#| Objective1 | 00000000000000000000000000000001  |
+#| Objective2 | 00000000000000000000000000000002  |
+#| Objective3 | 00000000000000000000000000000003  |
+#Given questions related to 'Objective2' are present in database
+#| Title     | Id |
+#| Question1 | 00000000000000000000000000000001  |
+#| Question2 | 00000000000000000000000000000002  |
+#| Question3 | 00000000000000000000000000000003  |
+#When refresh page
+#When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000002/question/create'
+#And input 'Question4' into title edit area on create view
+#And click on create and new button on create view
+#Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000002/question/create'
+#When click back button on create view
+#Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000002'
+#And questions list contains only items with data
+#| Title     |
+#| Question1 |
+#| Question2 |
+#| Question3 |
+#| Question4 |
 
-Scenario: Several questions related to current objective can be created via CreateAndNew action
-Given objectives are present in database
-| Title      | Id |
-| Objective1 | 00000000000000000000000000000001  |
-| Objective2 | 00000000000000000000000000000002  |
-| Objective3 | 00000000000000000000000000000003  |
-When refresh page
-When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000002/question/create'
-And input 'Question3' into title edit area on create view
-And click on create and new button on create view
-And input 'Question1' into title edit area on create view
-And click on create and new button on create view
-And input 'Question2' into title edit area on create view
-And click on create and new button on create view
-And click back button on create view
-Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000002'
-And questions list contains only items with data
-| Title     |
-| Question1 |
-| Question2 |
-| Question3 |
+#Scenario: Several questions related to current objective can be created via CreateAndNew action
+#Given objectives are present in database
+#| Title      | Id |
+#| Objective1 | 00000000000000000000000000000001  |
+#| Objective2 | 00000000000000000000000000000002  |
+#| Objective3 | 00000000000000000000000000000003  |
+#When refresh page
+#When open page by url 'http://localhost:5656/#objective/00000000000000000000000000000002/question/create'
+#And input 'Question3' into title edit area on create view
+#And click on create and new button on create view
+#And input 'Question1' into title edit area on create view
+#And click on create and new button on create view
+#And input 'Question2' into title edit area on create view
+#And click on create and new button on create view
+#And click back button on create view
+#Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000002'
+#And questions list contains only items with data
+#| Title     |
+#| Question1 |
+#| Question2 |
+#| Question3 |
 
 Scenario: Special symbols could be entered into title edit area on create view and saved
 Given objectives are present in database
@@ -299,7 +308,8 @@ Then questions list contains only items with data
 | Question1 |
 | Question3 |
 When click on back from questions list
-And mouse hover element of objectives list with title 'Objective1'
+Then browser navigates to url 'http://localhost:5656/#objectives'
+When mouse hover element of objectives list with title 'Objective1'
 And click open objective list item with title 'Objective1'
 Then questions list contains only items with data
 | Title     |

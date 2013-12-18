@@ -118,10 +118,10 @@ And click on expand explanations options
 Then explanations block is expanded
 And answer options block is collapsed
 
-#Scenario: Back action of question page navigates to relative objective page
-#When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
-#And click on back to objective on question page
-#Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001'
+Scenario: Back action of question page navigates to relative objective page
+When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'
+And click on shell back button
+Then browser navigates to url 'http://localhost:5656/#objective/00000000000000000000000000000001'
 
 #Scenario: Objectiive title of question page navigates to relative objective page
 #When open page by url 'http://localhost:5656/#/objective/00000000000000000000000000000001/question/00000000000000000000000000000001'

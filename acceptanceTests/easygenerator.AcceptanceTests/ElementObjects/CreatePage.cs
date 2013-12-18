@@ -16,12 +16,12 @@ namespace easygenerator.AcceptanceTests.ElementObjects
 
         internal void ClearEditArea()
         {
-            DriverProvider.Current().Driver.FindElementByXPath(model.TextBlockEditArea).Clear();
+            GetByXPath(model.TextBlockEditArea).Clear();
         }
 
         internal void AddNewTitleText(string Text)
         {
-            DriverProvider.Current().Driver.FindElementByXPath(model.TextBlockEditArea).SendKeys(Text);
+            GetByXPath(model.TextBlockEditArea).SendKeys(Text);
             System.Threading.Thread.Sleep(200);
         }
 
@@ -109,26 +109,20 @@ namespace easygenerator.AcceptanceTests.ElementObjects
             var link = GetByXPath(model.ButtonCreateAndNew);
             link.Click();
         }
-
-        internal void TemplateSelectorClick()
-        {
-            var link = GetByXPath(model.TemplateSelector);
-            link.Click();
-        }
-
+                
         internal void DefaultTemplateSelectorClick()
         {
             System.Threading.Thread.Sleep(200);
-            var link = GetByXPath(model.TemplateSelector);
-            link.Click();
+            //var link = GetByXPath(model.TemplateSelector);
+            //link.Click();
             var defaultLink = GetByXPath(model.DefaultTemplateSelector);
             defaultLink.Click();
         }
 
         internal void QuizTemplateSelectorClick()
         {
-            var link = GetByXPath(model.TemplateSelector);
-            link.Click();
+            //var link = GetByXPath(model.TemplateSelector);
+            //link.Click();
             var quizLink = GetByXPath(model.QuizTemplateSelector);
             quizLink.Click();
         }
