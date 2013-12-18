@@ -456,7 +456,7 @@
         de: 'Es sind keine Lernziele zum Verbinden vorhanden'
     },
     defineLerningObjectiveTitle: {
-        en: 'Define the learning objective',
+        en: 'Define learning objective',
         nl: 'Het leerdoel definiëren',
         de: 'Das Lernziel definieren'
     },
