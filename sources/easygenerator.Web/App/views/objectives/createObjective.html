@@ -22,7 +22,7 @@
                 <div class="form-create-field-placeholder" data-bind="visible: title().length == 0, localize: { text: 'createObjectiveTip' }, click: isTitleEditing">Type learning objective title here</div>
                 <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, hasFocus: isTitleEditing, css: { error: !title.isValid() && title().length > objectiveTitleMaxLength, active: isTitleEditing, empty: title().trim().length == 0 }, autofocus: { focus: true }"></div>
                 <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > objectiveTitleMaxLength }">
-                    <span data-bind="text: title().trim().length"></span>/<span data-bind="    text: objectiveTitleMaxLength"></span>
+                    <span data-bind="text: title().trim().length"></span>/<span data-bind="text: objectiveTitleMaxLength"></span>
                 </div>
             </div>
 

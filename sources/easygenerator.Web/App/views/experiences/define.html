@@ -6,7 +6,7 @@
             <div class="view-header-title">
                 <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, event: { focus: startEditTitle, blur: endEditTitle }, css: { 'active': isEditing(), 'error': !title.isValid() }"></div>
                 <div class="chars-counter" data-bind="css: { error: !title.isValid() }">
-                    <span data-bind="text: title().trim().length + '/' + experienceTitleMaxLength"></span>
+                    <span data-bind="text: title().trim().length"></span>/<span data-bind="text: experienceTitleMaxLength"></span>
                 </div>
             </div>
         </header>
