@@ -503,6 +503,11 @@
         nl: 'Leerervaringssjabloon kiezen',
         de: 'Lernerfahrungsvorlage auswählen'
     },
+    createAndContinue: {
+        en: 'Create and Continue',
+        nl: 'Create and Continue[nl]',
+        de: 'Create and Continue[de]'
+    },
     /* End resource section for model CreateExperience */
     
     /* Resource section for model Question */
@@ -580,6 +585,21 @@
         en: 'Define question content',
         nl: 'Inhoud vraag definiëren',
         de: 'Frageninhalt definieren'
+    },
+    addExtraQuestionContent: {
+        en: 'Add extra question content',
+        nl: 'Add extra question content[nl]',
+        de: 'Add extra question content[de]'
+    },
+    hideQuestionContent: {
+        en: 'Hide question content',
+        nl: 'Hide question content[nl]',
+        de: 'Hide question content[de]'
+    },
+    showQuestionConent: {
+        en: 'Show question content',
+        nl: 'Show question content[nl]',
+        de: 'Show question content[de]'
     },
     /* End resource section for model Question */
     
