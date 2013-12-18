@@ -205,7 +205,7 @@
 
             });
 
-            describe('createAndEdit:', function () {
+            describe('createAndContinue:', function () {
 
                 var addExperience;
                 var template = { id: 'id', name: 'lala', image: 'img', isSelected: ko.observable(false) };
@@ -216,12 +216,12 @@
                 });
 
                 it('should be function', function () {
-                    expect(viewModel.createAndEdit).toBeFunction();
+                    expect(viewModel.createAndContinue).toBeFunction();
                 });
 
                 it('should send event \'Create learning experience and open its properties\'', function () {
                     viewModel.title.isValid = function () { };
-                    viewModel.createAndEdit();
+                    viewModel.createAndContinue();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create learning experience and open its properties');
                 });
 
@@ -232,7 +232,7 @@
                             return false;
                         };
                         
-                        viewModel.createAndEdit();
+                        viewModel.createAndContinue();
                         expect(repository.addExperience).not.toHaveBeenCalled();
                     });
 
@@ -243,7 +243,7 @@
                     it('should not add experience to repository', function () {
                         spyOn(viewModel, 'getSelectedTemplate').andReturn(undefined);
 
-                        viewModel.createAndEdit();
+                        viewModel.createAndContinue();
                         expect(repository.addExperience).not.toHaveBeenCalled();
                     });
 
@@ -258,19 +258,19 @@
 
                     it('should trim experience title', function () {
                         viewModel.title('           title           ');
-                        viewModel.createAndEdit();
+                        viewModel.createAndContinue();
                         expect(repository.addExperience).toHaveBeenCalledWith('title', template.id);
                     });
 
                     it('should add experience to repository', function () {
                         viewModel.title('title');
-                        viewModel.createAndEdit();
+                        viewModel.createAndContinue();
                         expect(repository.addExperience).toHaveBeenCalledWith('title', template.id);
                     });
 
                     it('should lock content', function () {
                         spyOn(notify, 'lockContent');
-                        viewModel.createAndEdit();
+                        viewModel.createAndContinue();
                         expect(notify.lockContent).toHaveBeenCalled();
                     });
 
@@ -278,7 +278,7 @@
 
                         it('should unlock content', function () {
                             spyOn(notify, "unlockContent");
-                            viewModel.createAndEdit();
+                            viewModel.createAndContinue();
 
                             var promise = addExperience.promise.fin(function () { });
                             addExperience.resolve();
@@ -294,7 +294,7 @@
                         it('should navigate to the added experience', function () {
                             var id = 'id';
 
-                            viewModel.createAndEdit();
+                            viewModel.createAndContinue();
 
                             var promise = addExperience.promise.fin(function () { });
                             addExperience.resolve({ id: id });
@@ -313,7 +313,7 @@
                         
                         it('should unlock content', function () {
                             spyOn(notify, "unlockContent");
-                            viewModel.createAndEdit();
+                            viewModel.createAndContinue();
 
                             var promise = addExperience.promise.fin(function () { });
                             addExperience.reject();

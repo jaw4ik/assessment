@@ -6,7 +6,7 @@
                 navigateToObjectives: 'Navigate to objectives',
                 navigateToExperience: 'Navigate to experience',
                 createAndNew: "Create learning objective and create new",
-                createAndEdit: "Create learning objective and open it properties",
+                createAndContinue: "Create learning objective and open it properties",
             },
 
             sendEvent = function (eventName) {
@@ -73,8 +73,8 @@
                 });
             },
 
-            createAndEdit = function () {
-                sendEvent(events.createAndEdit);
+            createAndContinue = function () {
+                sendEvent(events.createAndContinue);
                 var that = this;
                 createObjective.call(that, function (createdObjective) {
                     var navigateUrl = 'objective/' + createdObjective.id;
@@ -124,7 +124,7 @@
             activate: activate,
             navigateBack: navigateBack,
             createAndNew: createAndNew,
-            createAndEdit: createAndEdit
+            createAndContinue: createAndContinue
         };
     }
 );

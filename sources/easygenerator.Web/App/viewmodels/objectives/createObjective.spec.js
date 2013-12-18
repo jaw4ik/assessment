@@ -247,7 +247,7 @@
 
             });
 
-            describe('createAndEdit:', function () {
+            describe('createAndContinue:', function () {
 
                 var addObjective, relateObjectiveDefer, getObjectiveDefer;
 
@@ -261,17 +261,17 @@
                 });
 
                 it('should be function', function () {
-                    expect(viewModel.createAndEdit).toBeFunction();
+                    expect(viewModel.createAndContinue).toBeFunction();
                 });
 
                 it('should send event \'Create learning objective and open it properties\'', function () {
-                    viewModel.createAndEdit();
+                    viewModel.createAndContinue();
                     expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and open it properties');
                 });
 
                 it('should trim title', function () {
                     viewModel.title('   abc   ');
-                    viewModel.createAndEdit();
+                    viewModel.createAndContinue();
                     expect(viewModel.title()).toEqual('abc');
                     addObjective.resolve();
                 });
@@ -285,7 +285,7 @@
                     it('should create new objective in repository', function () {
                         var title = viewModel.title();
 
-                        viewModel.createAndEdit();
+                        viewModel.createAndContinue();
 
                         var promise = addObjective.promise.fin(function () {
                         });
@@ -303,7 +303,7 @@
 
                     it('should lock content', function () {
                         spyOn(notify, 'lockContent');
-                        viewModel.createAndEdit();
+                        viewModel.createAndContinue();
                         expect(notify.lockContent).toHaveBeenCalled();
                     });
 
@@ -317,7 +317,7 @@
 
                         it('should unlock content', function () {
                             spyOn(notify, "unlockContent");
-                            viewModel.createAndEdit();
+                            viewModel.createAndContinue();
 
                             var promise = addObjective.promise.fin(function () { });
                             addObjective.resolve();
@@ -337,7 +337,7 @@
                             });
 
                             it('should navigate to created objective', function () {
-                                viewModel.createAndEdit();
+                                viewModel.createAndContinue();
 
                                 var promise = addObjective.promise.fin(function () { });
 
@@ -359,7 +359,7 @@
                             });
 
                             it('should relate created objective to experience', function () {
-                                viewModel.createAndEdit();
+                                viewModel.createAndContinue();
 
                                 var promise = addObjective.promise.fin(function () { });
 
@@ -372,7 +372,7 @@
                             });
 
                             it('should navigate to created objective', function () {
-                                viewModel.createAndEdit();
+                                viewModel.createAndContinue();
 
                                 var promise = addObjective.promise.fin(function () {
                                 });

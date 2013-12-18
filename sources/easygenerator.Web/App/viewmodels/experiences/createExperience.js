@@ -3,7 +3,7 @@
 
         var
             events = {
-                createAndEdit: "Create learning experience and open its properties",
+                createAndContinue: "Create learning experience and open its properties",
                 chooseTemplate: "Choose template",
                 defineTitle: "Define title"
             },
@@ -56,8 +56,8 @@
                 router.navigate('experiences');
             },
 
-            createAndEdit = function () {
-                eventTracker.publish(events.createAndEdit);
+            createAndContinue = function () {
+                eventTracker.publish(events.createAndContinue);
                 if (!isFormFilled()) {
                     return;
                 }
@@ -99,7 +99,7 @@
         return {
             activate: activate,
             navigateToExperiences: navigateToExperiences,
-            createAndEdit: createAndEdit,
+            createAndContinue: createAndContinue,
             getSelectedTemplate: getSelectedTemplate,
             resetTemplatesSelection: resetTemplatesSelection,
             selectTemplate: selectTemplate,
