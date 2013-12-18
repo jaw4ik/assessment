@@ -464,9 +464,9 @@
     
     /* Resource section for model CreateExperience */
     typeExperienceTitleHere: {
-        en: 'Type learning experience title here',
-        nl: 'Typ hier de titel van de leerervaring',
-        de: 'Titel der Lernerfahrung hier eingeben'
+        en: 'Type learning experience title here...',
+        nl: 'Typ hier de titel van de leerervaring...',
+        de: 'Titel der Lernerfahrung hier eingeben...'
     },
     clickToAddExperience: {
         en: 'Click to add learning experience',
