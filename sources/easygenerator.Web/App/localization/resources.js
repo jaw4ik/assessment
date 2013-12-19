@@ -494,19 +494,19 @@
         de: 'Lernerfahrungsvorlage:'
     },
     defineLerningExperienceTitle: {
-        en: 'Define learning experience title',
-        nl: 'Titel van de leerervaring definiëren',
-        de: 'Den Titel der Lernerfahrung definieren'
+        en: 'Define title',
+        nl: 'Titel definiëren',
+        de: 'Titel definieren'
     },
     chooseLearningExperienceTemplate: {
-        en: 'Choose learning experience template',
-        nl: 'Leerervaringssjabloon kiezen',
-        de: 'Lernerfahrungsvorlage auswählen'
+        en: 'Choose template',
+        nl: 'Sjabloon kiezen',
+        de: 'Vorlage auswählen'
     },
     createAndContinue: {
-        en: 'Create and Continue',
-        nl: 'Create and Continue[nl]',
-        de: 'Create and Continue[de]'
+        en: 'Create and continue',
+        nl: 'Maken en doorgaan',
+        de: 'Erstellen und fortfahren'
     },
     /* End resource section for model CreateExperience */
     
@@ -588,18 +588,18 @@
     },
     addExtraQuestionContent: {
         en: 'Add extra question content',
-        nl: 'Add extra question content[nl]',
-        de: 'Add extra question content[de]'
+        nl: 'Extra vraaginhoud toevoegen',
+        de: 'Zusätzlichen Frageinhalt einfügen'
     },
     hideQuestionContent: {
-        en: 'Hide question content',
-        nl: 'Hide question content[nl]',
-        de: 'Hide question content[de]'
+        en: 'Hide extra question content',
+        nl: 'Extra vraaginhoud verbergen',
+        de: 'Zusätzlichen Frageinhalt ausblenden'
     },
     showQuestionConent: {
-        en: 'Show question content',
-        nl: 'Show question content[nl]',
-        de: 'Show question content[de]'
+        en: 'Show extra question content',
+        nl: 'Extra vraaginhoud tonen',
+        de: 'Zusätzlichen Frageinhalt anzeigen'
     },
     /* End resource section for model Question */
     
@@ -936,6 +936,125 @@
         de: 'Einstellungen der Lernerfahrungsvorlage:'
     },
     /* End resource section for model Display experience */
+    
+    /* Resource section for model Introduction page */
+    12: {
+        en: 'Welcome to easygenerator web-edition!',
+        nl: 'Welkom bij de webversie van easygenerator!',
+        de: 'Willkommen zur Webversion von easygenerator!'
+    },
+    13: {
+        en: 'Before you start please take a moment to read about our concept. When you understand the big picture you can work a lot more effective with easygenerator.',
+        nl: 'Neem voordat u begint even de tijd om ons concept door te lezen. Als u de achterliggende gedachte begrijpt, kunt u easygenerator een stuk effectiever gebruiken.',
+        de: 'Nehmen Sie sich vor dem Beginn etwas Zeit, um unser Konzept zu lesen. Wenn Sie das Gesamtbild verstanden haben, können Sie viel effektiver mit easygenerator arbeiten.'
+    },
+    14: {
+        en: 'Start esygenerator',
+        nl: 'Easygenerator starten',
+        de: 'Easygenerator starten'
+    },
+    15: {
+        en: 'Do not show again',
+        nl: 'Niet meer laten zien',
+        de: 'Nicht mehr anzeigen'
+    },
+    16: {
+        en: 'Didactical concept',
+        nl: 'Didactisch concept',
+        de: 'Didaktisches Konzept'
+    },
+    17: {
+        en: 'We provide better e-learning based on:',
+        nl: 'Wij leveren betere e-learning omdat:',
+        de: 'Wir bieten besseres e-Learning, weil:'
+    },
+    18: {
+        en: 'All learning processes starts with the definition of learning objectives.',
+        nl: 'Alle leerprocessen beginnen met de definitie van de leerdoelen.',
+        de: 'Alle Lernprozesse mit der Definition von Lernzielen beginnen.'
+    },
+    19: {
+        en: 'Progress is measured by answering 
+questions not by reading pages.',
+        nl: 'De vooruitgang wordt gemeten aan de hand van het beantwoorden van vragen in plaats van door het lezen van pagina\'s.',
+        de: 'Der Fortschritt durch die Beantwortung von Fragen (und nicht durch das Lesen von Seiten) gemessen wird.'
+    },
+    20: {
+        en: 'Define learning objective',
+        nl: 'Definiëren van leerdoelen',
+        de: 'Definieren von Lernzielen,'
+    },
+    21: {
+        en: 'That decribe specific skills or knowledge
+a learner will be able to demonstrate.',
+        nl: 'die specifieke vaardigheden of kennis beschrijven die de cursist kan aantonen.',
+        de: 'die bestimmte Fertigkeiten oder Kenntnisse beschreiben, die der Lernende beweisen kann.'
+    },
+    22: {
+        en: 'Create questions',
+        nl: 'Vragen maken',
+        de: 'Erstellen von Fragen,'
+    },
+    23: {
+        en: 'That will assess if the learner has mastered the learning objectives.',
+        nl: 'die beoordelen of de cursist de leerdoelen heeft bereikt.',
+        de: 'die  prüfen, ob der Lernende die Lernziele erreicht hat.'
+    },
+    24: {
+        en: 'Add learning content',
+        nl: 'Leerinhoud toevoegen',
+        de: 'Hinzufügen von Lerninhalten'
+    },
+    25: {
+        en: 'The underlying content/information to the questions.',
+        nl: 'met de inhoud/informatie die ten grondslag ligt aan de vragen.',
+        de: 'Die den Fragen zugrunde liegenden Inhalte/Informationen.'
+    },
+    26: {
+        en: 'Application concept',
+        nl: 'Toepassingsconcept',
+        de: 'Anwendungskonzept'
+    },
+    27: {
+        en: 'How to provide learner with a learning experience?',
+        nl: 'Hoe biedt u cursisten een leerervaring?',
+        de: 'Wie bieten Sie Lernenden eine hervorragende Lernerfahrung?'
+    },
+    28: {
+        en: 'Create learning experience',
+        nl: 'Maak een leerervaring',
+        de: 'Erstellen Sie eine Lernerfahrung'
+    },
+    29: {
+        en: 'Give the name to a learning experience and choose the way you want to present it to a learner: it can be a course or a quiz.',
+        nl: 'Geef de leerervaring een naam en bepaal hoe u de leerervaring wilt presenteren aan een cursist: als cursus of als quiz.',
+        de: 'Benennen Sie die Lernerfahrung, und wählen Sie, wie sie einem Lernenden präsentiert werden soll: als Kurs oder als Quiz.'
+    },
+    30: {
+        en: 'Connect learning objectives to 
+experience',
+        nl: 'Koppel leerdoelen aan de leerervaring',
+        de: 'Verbinden Sie Lernziele mit Lernerfahrungen'
+    },
+    31: {
+        en: 'Connect needed learning objectives to
+create awesome learning experience for
+your learners.',
+        nl: 'Koppel leerdoelen om uw cursisten een geweldige leerervaring te bieden.',
+        de: 'Verbinden Sie erforderliche Lernziele, um Ihren Lernenden eine hervorragende Lernerfahrung zu bieten'
+    },
+    32: {
+        en: 'Publish learning experience',
+        nl: 'Publiceer de leerervaring',
+        de: 'Veröffentlichen Sie die Lernerfahrung'
+    },
+    33: {
+        en: 'To easygenerator web-server or to
+your own hosting.',
+        nl: 'op de webserver van easygenerator of in uw eigen hostingomgeving.',
+        de: 'auf dem easygenerator-Webserver oder in Ihrer eigenen Hostingumgebung.'
+    },
+    /* End resource section for model Introduction page */
     
     /* Resource section for model Error pages */
     badRequest: {
