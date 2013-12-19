@@ -974,8 +974,7 @@
         de: 'Alle Lernprozesse mit der Definition von Lernzielen beginnen.'
     },
     19: {
-        en: 'Progress is measured by answering 
-questions not by reading pages.',
+        en: 'Progress is measured by answering questions not by reading pages.',
         nl: 'De vooruitgang wordt gemeten aan de hand van het beantwoorden van vragen in plaats van door het lezen van pagina\'s.',
         de: 'Der Fortschritt durch die Beantwortung von Fragen (und nicht durch das Lesen von Seiten) gemessen wird.'
     },
@@ -985,8 +984,7 @@ questions not by reading pages.',
         de: 'Definieren von Lernzielen,'
     },
     21: {
-        en: 'That decribe specific skills or knowledge
-a learner will be able to demonstrate.',
+        en: 'That decribe specific skills or knowledge a learner will be able to demonstrate.',
         nl: 'die specifieke vaardigheden of kennis beschrijven die de cursist kan aantonen.',
         de: 'die bestimmte Fertigkeiten oder Kenntnisse beschreiben, die der Lernende beweisen kann.'
     },
@@ -1037,9 +1035,7 @@ experience',
         de: 'Verbinden Sie Lernziele mit Lernerfahrungen'
     },
     31: {
-        en: 'Connect needed learning objectives to
-create awesome learning experience for
-your learners.',
+        en: 'Connect needed learning objectives to create awesome learning experience for your learners.',
         nl: 'Koppel leerdoelen om uw cursisten een geweldige leerervaring te bieden.',
         de: 'Verbinden Sie erforderliche Lernziele, um Ihren Lernenden eine hervorragende Lernerfahrung zu bieten'
     },
@@ -1049,8 +1045,7 @@ your learners.',
         de: 'Veröffentlichen Sie die Lernerfahrung'
     },
     33: {
-        en: 'To easygenerator web-server or to
-your own hosting.',
+        en: 'To easygenerator web-server or to your own hosting.',
         nl: 'op de webserver van easygenerator of in uw eigen hostingomgeving.',
         de: 'auf dem easygenerator-Webserver oder in Ihrer eigenen Hostingumgebung.'
     },
