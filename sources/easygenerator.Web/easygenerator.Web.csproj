@@ -174,9 +174,6 @@
     <Content Include="App\help\helpHint.html" />
     <Content Include="App\routing\routerExtender.js" />
     <Content Include="App\clientContext.js" />
-    <Content Include="App\clientContext.spec.js">
-      <DependentUpon>clientContext.js</DependentUpon>
-    </Content>
     <Content Include="App\errorHandling\errorHandlingConfiguration.js" />
     <Content Include="App\errorHandling\httpErrorHandlerRegistrator.js" />
     <Content Include="App\errorHandling\errorHandlingConfiguration.spec.js">
@@ -403,9 +400,6 @@
     <Content Include="Content\selectbox.css" />
     <Content Include="Content\styles.css" />
     <Content Include="Scripts\account\analytics.js" />
-    <Content Include="Scripts\account\clientSessionContext.spec.js">
-      <DependentUpon>clientSessionContext.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\account\clientSessionContext.js" />
     <Content Include="Scripts\account\common.js" />
     <Content Include="Scripts\account\constants.js" />
