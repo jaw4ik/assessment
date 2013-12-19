@@ -17,7 +17,7 @@
                             <a class="orange btn btn-small" href="/signup" data-bind="localize: { text: 'signUpButton' }">Sign up
                             </a>
                         </li>
-                        <li class="header-menu-list-item help" data-bind="localize: { text: 'help' }, click: showHelpHint, css: { disabled: helpHint() != undefined }">Help</li>
+                        <li class="header-menu-list-item help" data-bind="localize: { text: 'help' }, click: help.show, css: { disabled: help.visible }">Help</li>
                         <!-- ko if: userEmail != '' -->
                         <li class="header-menu-list-item mode profile" data-bind="dropDown: {}">
                             <div class="header-submenu-holder">
@@ -56,16 +56,7 @@
         <img src="/Content/images/loader.gif" alt="" />
     </div>
     <section id="content" class="main" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }, css: browserCulture() + '-lang'">
-        <!-- ko if: helpHint() != undefined -->
-        <div class="help-hint">
-            <div class="content-holder">
-                <div class="help-hint-content selectable">
-                    <div class="help-hint-title" data-bind="text: helpHintTitle"></div>
-                    <div class="help-hint-text" data-bind="html: helpHintText, fixedBlocksPosition: helpHintText()"></div>
-                    <a class="help-hint-close" data-bind="click: hideHelpHint, localize: { text: 'helpCloseButton' }">Don‘t show again</a>
-                </div>
-            </div>
-        </div>
+        <!-- ko compose: { model: 'help/helpHint', activationData: activeModuleName } -->
         <!-- /ko -->
         <div data-bind="router: { cacheViews: false }"></div>
     </section>

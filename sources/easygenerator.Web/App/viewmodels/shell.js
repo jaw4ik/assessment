@@ -1,14 +1,16 @@
 ﻿define(function (require) {
 
     var app = require('durandal/app'),
+        composition = require('durandal/composition'),
         notify = require('notify'),
         router = require('plugins/router'),
         routes = require('routing/routes'),
         dataContext = require('dataContext'),
         eventTracker = require('eventTracker'),
         clientContext = require('clientContext'),
-        helpHintRepository = require('repositories/helpHintRepository'),
-        localizationManager = require('localization/localizationManager')
+        localizationManager = require('localization/localizationManager'),
+
+        help = require('help/helpHint')
     ;
 
     var events = {
@@ -30,7 +32,6 @@
         objectivesModules = ['objectives', 'objective', 'createObjective', 'createQuestion', 'question'],
         experiencesModules = ['experiences', 'experience', 'createExperience'],
         isViewReady = ko.observable(false),
-        isHintRequestPending = false,
 
         activeModule = ko.computed(function () {
             var activeItem = router.activeItem();
@@ -51,48 +52,6 @@
             return '';
         },
 
-        helpHint = ko.observable(undefined),
-
-        helpHintText = ko.computed(function () {
-            if (helpHint() == undefined) {
-                return '';
-            }
-
-            return localizationManager.localize(helpHint().localizationKey);
-        }),
-
-        helpHintTitle = ko.computed(function () {
-            if (helpHint() == undefined) {
-                return '';
-            }
-
-            return localizationManager.localize(helpHint().localizationKey + 'Title');
-        }),
-
-        hideHelpHint = function () {
-            if (helpHint() == undefined || isHintRequestPending) {
-                return;
-            }
-
-            isHintRequestPending = true;
-
-            helpHintRepository.removeHint(helpHint().id).then(function () {
-                helpHint(undefined);
-                isHintRequestPending = false;
-            });
-        },
-
-        showHelpHint = function () {
-            if (helpHint() != undefined || isHintRequestPending) {
-                return;
-            }
-
-            isHintRequestPending = true;
-            helpHintRepository.addHint(activeModule()).then(function (hint) {
-                helpHint(hint);
-                isHintRequestPending = false;
-            });
-        },
 
         browserCulture = ko.observable(),
 
@@ -106,17 +65,17 @@
         userEmail = '',
 
         activate = function () {
+            composition.addBindingHandler('fixedBlocksPosition');
+
             var that = this;
-            
             return dataContext.initialize()
                 .then(function () {
-
                     browserCulture(localizationManager.currentLanguage);
 
                     router.guardRoute = function (routeInfo, params) {
                         if (requestsCounter() > 0) {
-                            that.navigation()[1].isPartOfModules(_.contains(objectivesModules, that.activeModuleName()));
-                            that.navigation()[0].isPartOfModules(_.contains(experiencesModules, that.activeModuleName()));
+                            //that.navigation()[1].isPartOfModules(_.contains(objectivesModules, that.activeModuleName()));
+                            //that.navigation()[0].isPartOfModules(_.contains(experiencesModules, that.activeModuleName()));
                             notify.lockContent();
                             notify.isShownMessage(false);
                             var subscription = requestsCounter.subscribe(function (newValue) {
@@ -145,13 +104,6 @@
 
                     router.on('router:navigation:composition-complete').then(function () {
                         isViewReady(true);
-
-                        helpHintRepository.getCollection().then(function (helpHints) {
-                            var activeHint = _.find(helpHints, function (item) {
-                                return item.name === activeModule();
-                            });
-                            helpHint(activeHint);
-                        });
                     });
 
                     that.navigation([
@@ -216,11 +168,8 @@
         isTryMode: isTryMode,
 
         userEmail: userEmail,
-        helpHint: helpHint,
-        helpHintText: helpHintText,
-        hideHelpHint: hideHelpHint,
-        showHelpHint: showHelpHint,
-        helpHintTitle: helpHintTitle
+
+        help: help
     };
 }
 );

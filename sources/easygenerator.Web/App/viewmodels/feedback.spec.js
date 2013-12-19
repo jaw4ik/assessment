@@ -4,7 +4,6 @@
         router = require('plugins/router'),
         eventTracker = require('eventTracker'),
         localizationManager = require('localization/localizationManager'),
-        helpHintRepository = require('repositories/helpHintRepository'),
         httpWrapper = require('httpWrapper'),
         notify = require('notify'),
         dataContext = require('dataContext');
