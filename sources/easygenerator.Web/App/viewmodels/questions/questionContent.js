@@ -2,7 +2,7 @@
     function (repository, localizationManager, notify, constants, eventTracker) {
 
         var events = {
-            defineQuestionContent: 'Define question content',
+            addExtraQuestionContent: 'Add extra question content',
             beginEditText: 'Start editing question content',
             endEditText: 'End editing question content'
         };
@@ -19,8 +19,8 @@
                     eventTracker.publish(events.beginEditText);
                 },
 
-                defineQuestionContent = function () {
-                    eventTracker.publish(events.defineQuestionContent);
+                addExtraQuestionContent = function () {
+                    eventTracker.publish(events.addExtraQuestionContent);
                     text('');
                     hasFocus(true);
                 },
@@ -65,7 +65,7 @@
                 toggleExpand: toggleExpand,
 
                 isQuestionContentDefined: isQuestionContentDefined,
-                defineQuestionContent: defineQuestionContent,
+                addExtraQuestionContent: addExtraQuestionContent,
                 beginEditText: beginEditText,
                 endEditText: endEditText,
 

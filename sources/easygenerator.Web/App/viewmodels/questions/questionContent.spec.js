@@ -106,28 +106,28 @@
 
         });
 
-        describe('defineQuestionContent:', function () {
+        describe('addExtraQuestionContent:', function () {
             beforeEach(function () {
                 viewModel = ctor(questionId, null);
             });
 
             it('should be function', function () {
-                expect(viewModel.defineQuestionContent).toBeFunction();
+                expect(viewModel.addExtraQuestionContent).toBeFunction();
             });
 
-            it('should send event \'Define question content\'', function () {
-                viewModel.defineQuestionContent();
-                expect(eventTracker.publish).toHaveBeenCalledWith('Define question content');
+            it('should send event \'Add extra question content\'', function () {
+                viewModel.addExtraQuestionContent();
+                expect(eventTracker.publish).toHaveBeenCalledWith('Add extra question content');
             });
 
             it('should set text to empty string', function () {
-                viewModel.defineQuestionContent();
+                viewModel.addExtraQuestionContent();
                 expect(viewModel.text()).toBe('');
             });
 
             it('should set hasFocus to true', function () {
                 viewModel.hasFocus(false);
-                viewModel.defineQuestionContent();
+                viewModel.addExtraQuestionContent();
                 expect(viewModel.hasFocus()).toBe(true);
             });
         });
