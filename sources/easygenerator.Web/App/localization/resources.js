@@ -1029,8 +1029,7 @@
         de: 'Benennen Sie die Lernerfahrung, und wählen Sie, wie sie einem Lernenden präsentiert werden soll: als Kurs oder als Quiz.'
     },
     30: {
-        en: 'Connect learning objectives to 
-experience',
+        en: 'Connect learning objectives to experience',
         nl: 'Koppel leerdoelen aan de leerervaring',
         de: 'Verbinden Sie Lernziele mit Lernerfahrungen'
     },
