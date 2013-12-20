@@ -1,15 +1,12 @@
 ﻿define([],
     function () {
-
-        var Entity = function (spec) {
-
+        
+        function Entity (spec) {
             if (typeof spec == typeof undefined) throw 'You should provide a specification to create an Entity';
 
-            return {
-                id: spec.id,
-                createdOn: spec.createdOn,
-                modifiedOn: spec.modifiedOn
-            };
+            this.id = spec.id;
+            this.createdOn = spec.createdOn;
+            this.modifiedOn = spec.modifiedOn;
         };
 
         return Entity;

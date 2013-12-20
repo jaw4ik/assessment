@@ -1,5 +1,5 @@
-﻿define(['viewmodels/experiences/deliver'],
-    function (viewModel) {
+﻿define(['viewmodels/experiences/deliver', 'models/experience'],
+    function (viewModel, ExperienceModel) {
         "use strict";
 
         var
@@ -12,25 +12,16 @@
         ;
 
         describe('viewModel [deliver]', function () {
+            var experienceCreatedOn = '/Date(1378106938845)/';
             var template = { id: 'template id', name: 'template name', image: 'template image' };
-            var experience = {
-                id: '1',
-                title: 'experience',
-                objectives: [
-                    { id: '0', title: 'A' },
-                    { id: '1', title: 'a' },
-                    { id: '2', title: 'z' },
-                    { id: '3', title: 'b' }
-                ],
-                buildingStatus: 'inProgress',
-                packageUrl: 'packageUrl',
-                createdOn: 'createdOn',
-                modifiedOn: 'modifiedOn',
-                builtOn: 'builtOn',
+            var experience = new ExperienceModel({
+                id: 'experienceId',
+                title: 'title',
                 template: template,
-                publishedPackageUrl: 'publishedPackageUrl',
-                publishingState: 'inProgress'
-            };
+                createdOn: utils.getDateFromString(experienceCreatedOn),
+                modifiedOn: utils.getDateFromString(experienceCreatedOn),
+                objectives: []
+            });
 
             beforeEach(function () {
                 router.openUrl = function(url) {};
@@ -45,50 +36,6 @@
 
             it('should be object', function () {
                 expect(viewModel).toBeObject();
-            });
-
-            describe('packageExists:', function () {
-
-                it('should be computed', function () {
-                    expect(viewModel.packageExists).toBeComputed();
-                });
-
-                describe('when packageUrl is not defined', function () {
-
-                    it('should be false', function () {
-                        viewModel.packageUrl(undefined);
-                        expect(viewModel.packageExists()).toBeFalsy();
-                    });
-
-                });
-
-                describe('when packageUrl is empty', function () {
-
-                    it('should be false', function () {
-                        viewModel.packageUrl("");
-                        expect(viewModel.packageExists()).toBeFalsy();
-                    });
-
-                });
-
-                describe('when packageUrl is whitespace', function () {
-
-                    it('should be false', function () {
-                        viewModel.packageUrl("    ");
-                        expect(viewModel.packageExists()).toBeFalsy();
-                    });
-
-                });
-
-                describe('when packageUrl is a non-whitespace string', function () {
-
-                    it('should be true', function () {
-                        viewModel.packageUrl("packageUrl");
-                        expect(viewModel.packageExists()).toBeTruthy();
-                    });
-
-                });
-
             });
 
             describe('publishPackageExists:', function () {
@@ -135,18 +82,10 @@
 
             });
 
-            describe('status:', function () {
+            describe('deliveringState:', function () {
 
                 it('should be observable', function () {
-                    expect(viewModel.status).toBeObservable();
-                });
-
-            });
-
-            describe('publishingState:', function () {
-
-                it('should be observable', function () {
-                    expect(viewModel.publishingState).toBeObservable();
+                    expect(viewModel.deliveringState).toBeObservable();
                 });
 
             });
@@ -159,26 +98,10 @@
 
             });
 
-            describe('statuses:', function () {
+            describe('states:', function () {
 
-                it('should be equal to allowed build statuses', function () {
-                    expect(viewModel.statuses).toEqual(constants.statuses);
-                });
-
-            });
-
-            describe('showBuildDescription:', function() {
-
-                it('should be observable', function() {
-                    expect(viewModel.showBuildDescription).toBeObservable();
-                });
-
-            });
-            
-            describe('showRebuildDescription:', function () {
-
-                it('should be observable', function () {
-                    expect(viewModel.showRebuildDescription).toBeObservable();
+                it('should be equal to allowed deliver states', function () {
+                    expect(viewModel.states).toEqual(constants.deliveringStates);
                 });
 
             });
@@ -215,58 +138,14 @@
 
             });
 
-            describe('buildExperience:', function () {
-
-                var experiencerepositorygetByIdDefer;
-                var experiencerepositorygetByIdPromise;
-
-                var service = require('services/buildExperience');
-
-                var build;
-
-                beforeEach(function () {
-                    build = Q.defer();
-                    spyOn(service, 'build').andReturn(build.promise);
-                    experiencerepositorygetByIdDefer = Q.defer();
-                    experiencerepositorygetByIdPromise = experiencerepositorygetByIdDefer.promise;
-                    spyOn(repository, 'getById').andReturn(experiencerepositorygetByIdPromise);
-                });
-
-                it('should be a function', function () {
-                    expect(viewModel.buildExperience).toBeFunction();
-                });
-
-                it('should send event \'Build experience\'', function () {
-                    viewModel.buildExperience();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Build experience');
-                });
-
-                it('should hide notification', function () {
-                    notify.hide.reset();
-                    viewModel.buildExperience();
-                    expect(notify.hide).toHaveBeenCalled();
-                });
-
-                it('should start build of current experience', function () {
-                    viewModel.id = 1;
-                    viewModel.buildExperience();
-                    expect(service.build).toHaveBeenCalledWith(1);
-                });
-
-            });
-
             describe('publishExperience:', function () {
 
                 var experiencerepositorygetByIdDefer;
                 var experiencerepositorygetByIdPromise;
-
-                var service = require('services/buildExperience');
-
-                var publish;
-
+                
                 beforeEach(function () {
-                    publish = Q.defer();
-                    spyOn(service, 'publish').andReturn(publish.promise);
+                    spyOn(experience, 'publish');
+
                     experiencerepositorygetByIdDefer = Q.defer();
                     experiencerepositorygetByIdPromise = experiencerepositorygetByIdDefer.promise;
                     spyOn(repository, 'getById').andReturn(experiencerepositorygetByIdPromise);
@@ -288,16 +167,30 @@
                 });
 
                 it('should start publish of current experience', function () {
-                    viewModel.id = 1;
-                    viewModel.publishExperience();
-                    expect(service.publish).toHaveBeenCalledWith(1);
+                    experiencerepositorygetByIdDefer.resolve(experience);
+                    var promise = viewModel.publishExperience();
+                    
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+
+                    runs(function () {
+                        expect(experience.publish).toHaveBeenCalled();
+                    });
                 });
             });
 
             describe('downloadExperience:', function () {
 
+                var experiencerepositorygetByIdDefer;
+                var experiencerepositorygetByIdPromise;
+
                 beforeEach(function () {
-                    spyOn(router, 'download');
+                    spyOn(experience, 'build');
+
+                    experiencerepositorygetByIdDefer = Q.defer();
+                    experiencerepositorygetByIdPromise = experiencerepositorygetByIdDefer.promise;
+                    spyOn(repository, 'getById').andReturn(experiencerepositorygetByIdPromise);
                 });
 
                 it('should be a function', function () {
@@ -309,10 +202,17 @@
                     expect(eventTracker.publish).toHaveBeenCalledWith('Download experience');
                 });
 
-                it('should download experience package', function () {
-                    viewModel.packageUrl('url');
-                    viewModel.downloadExperience();
-                    expect(router.download).toHaveBeenCalledWith('download/url');
+                it('should start build of current experience', function () {
+                    experiencerepositorygetByIdDefer.resolve(experience);
+                    var promise = viewModel.downloadExperience();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+
+                    runs(function () {
+                        expect(experience.build).toHaveBeenCalled();
+                    });
                 });
             });
 
@@ -402,37 +302,6 @@
                         });
                     });
 
-                    it('should set current experience publishingState', function () {
-                        viewModel.publishingState('');
-
-                        var promise = viewModel.activate(experience.id);
-
-                        var expectedStatus =
-                            _.isNullOrUndefined(experience.publishedPackageUrl) || _.isEmptyOrWhitespace(experience.publishedPackageUrl) ?
-                                constants.statuses.notStarted :
-                                constants.statuses.succeed;
-
-                        waitsFor(function () {
-                            return promise.isFulfilled();
-                        });
-                        runs(function () {
-                            expect(viewModel.publishingState()).toEqual(expectedStatus);
-                        });
-                    });
-
-                    it('should set current experience publishedPackageUrl', function () {
-                        viewModel.publishedPackageUrl('');
-
-                        var promise = viewModel.activate(experience.id);
-
-                        waitsFor(function () {
-                            return promise.isFulfilled();
-                        });
-                        runs(function () {
-                            expect(viewModel.publishedPackageUrl()).toEqual(experience.publishedPackageUrl);
-                        });
-                    });
-
                     it('should resolve promise', function () {
                         var promise = viewModel.activate(experience.id);
 
@@ -450,38 +319,38 @@
 
             describe('when current experience build was started in any part of application', function () {
 
-                it('should change experience status to \'inProgress\'', function () {
+                it('should change experience deliveringState to \'building\'', function () {
                     viewModel.id = experience.id;
-                    viewModel.status("");
+                    viewModel.deliveringState('');
                     app.trigger(constants.messages.experience.build.started, experience);
 
-                    expect(viewModel.status()).toEqual(constants.statuses.inProgress);
+                    expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.building);
                 });
 
             });
 
             describe('when any other experience build was started in any part of application', function () {
 
-                it('should not change experience status', function () {
+                it('should not change experience deliveringState', function () {
                     viewModel.id = experience.id;
-                    viewModel.status(constants.statuses.notStarted);
+                    viewModel.deliveringState(constants.deliveringStates.notStarted);
                     app.trigger(constants.messages.experience.build.started, { id: '100500' });
 
-                    expect(viewModel.status()).toEqual(constants.statuses.notStarted);
+                    expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.notStarted);
                 });
 
             });
 
             describe('when current experience build completed in any part of application', function () {
 
-                it('should update current status to \'success\'', function () {
+                it('should update current deliveringState to \'success\'', function () {
                     viewModel.id = experience.id;
-                    viewModel.status("");
+                    viewModel.deliveringState("");
 
-                    experience.buildingStatus = constants.statuses.succeed;
+                    experience.buildingStatus = constants.deliveringStates.succeed;
                     app.trigger(constants.messages.experience.build.completed, experience);
 
-                    expect(viewModel.status()).toEqual(constants.statuses.succeed);
+                    expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.succeed);
                 });
 
                 it('should update current packageUrl to the corresponding one', function () {
@@ -498,12 +367,12 @@
 
             describe('when any other experience build completed in any part of application', function () {
 
-                it('should not update current  status', function () {
+                it('should not update current  deliveringState', function () {
                     viewModel.id = experience.id;
-                    viewModel.status(constants.statuses.notStarted);
+                    viewModel.deliveringState(constants.deliveringStates.notStarted);
                     app.trigger(constants.messages.experience.build.completed, { id: '100500' });
 
-                    expect(viewModel.status()).toEqual(constants.statuses.notStarted);
+                    expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.notStarted);
                 });
 
                 it('should not update current packageUrl', function () {
@@ -520,13 +389,13 @@
 
                 var message = "message";
 
-                it('should update current status to \'failed\'', function () {
+                it('should update current deliveringState to \'failed\'', function () {
                     viewModel.id = experience.id;
-                    viewModel.status("");
+                    viewModel.deliveringState("");
 
                     app.trigger(constants.messages.experience.build.failed, experience.id, message);
 
-                    expect(viewModel.status()).toEqual(constants.statuses.failed);
+                    expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.failed);
                 });
 
                 it('should remove packageUrl', function () {
@@ -542,13 +411,13 @@
 
             describe('when any other experience build failed in any part of application', function () {
 
-                it('should not update current status to \'failed\'', function () {
+                it('should not update current deliveringState to \'failed\'', function () {
                     viewModel.id = experience.id;
-                    viewModel.status("");
+                    viewModel.deliveringState("");
 
                     app.trigger(constants.messages.experience.build.failed, '100500');
 
-                    expect(viewModel.status()).toEqual("");
+                    expect(viewModel.deliveringState()).toEqual("");
                 });
 
                 it('should not remove packageUrl', function () {
@@ -566,24 +435,24 @@
             // publish
             describe('when current experience publish was started in any part of application', function () {
 
-                it('should change experience publishState to \'inProgress\'', function () {
+                it('should change experience deliveringState to \'publishing\'', function () {
                     viewModel.id = experience.id;
-                    viewModel.publishingState("");
+                    viewModel.deliveringState('');
                     app.trigger(constants.messages.experience.publish.started, experience);
 
-                    expect(viewModel.publishingState()).toEqual(constants.statuses.inProgress);
+                    expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.publishing);
                 });
 
             });
 
             describe('when any other experience publish was started in any part of application', function () {
 
-                it('should not change experience status', function () {
+                it('should not change experience deliveringState', function () {
                     viewModel.id = experience.id;
-                    viewModel.publishingState(constants.statuses.notStarted);
+                    viewModel.deliveringState(constants.deliveringStates.notStarted);
                     app.trigger(constants.messages.experience.publish.started, { id: '100500' });
 
-                    expect(viewModel.publishingState()).toEqual(constants.statuses.notStarted);
+                    expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.notStarted);
                 });
 
             });
@@ -592,12 +461,12 @@
 
                 it('should update current publishState to \'success\'', function () {
                     viewModel.id = experience.id;
-                    viewModel.publishingState("");
+                    viewModel.deliveringState("");
 
-                    experience.buildingStatus = constants.statuses.succeed;
+                    experience.buildingStatus = constants.deliveringStates.succeed;
                     app.trigger(constants.messages.experience.publish.completed, experience);
 
-                    expect(viewModel.publishingState()).toEqual(constants.statuses.succeed);
+                    expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.succeed);
                 });
 
                 it('should update current publishedPackageUrl to the corresponding one', function () {
@@ -616,10 +485,10 @@
 
                 it('should not update current  publishState', function () {
                     viewModel.id = experience.id;
-                    viewModel.publishingState(constants.statuses.notStarted);
+                    viewModel.deliveringState(constants.deliveringStates.notStarted);
                     app.trigger(constants.messages.experience.publish.completed, { id: '100500' });
 
-                    expect(viewModel.publishingState()).toEqual(constants.statuses.notStarted);
+                    expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.notStarted);
                 });
 
                 it('should not update current publishedPackageUrl', function () {
@@ -636,13 +505,13 @@
 
                 var message = "message";
 
-                it('should update current publishingState to \'failed\'', function () {
+                it('should update current deliveringState to \'failed\'', function () {
                     viewModel.id = experience.id;
-                    viewModel.publishingState("");
+                    viewModel.deliveringState("");
 
                     app.trigger(constants.messages.experience.publish.failed, experience.id, message);
 
-                    expect(viewModel.publishingState()).toEqual(constants.statuses.failed);
+                    expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.failed);
                 });
 
                 it('should remove publishedPackageUrl', function () {
@@ -658,7 +527,7 @@
 
             describe('when any other experience publish failed in any part of application', function () {
 
-                it('should not update current status to \'failed\'', function () {
+                it('should not update current deliveringState to \'failed\'', function () {
                     viewModel.id = experience.id;
                     viewModel.publishedPackageUrl("");
 
@@ -688,8 +557,7 @@
 
                     it('should open publish url', function () {
                         viewModel.publishedPackageUrl('Some url');
-                        viewModel.status(viewModel.statuses.succeed);
-                        viewModel.publishingState(viewModel.statuses.succeed);
+                        viewModel.deliveringState(viewModel.states.succeed);
                         
                         viewModel.openPublishedExperience();
                         expect(router.openUrl).toHaveBeenCalledWith(viewModel.publishedPackageUrl());
@@ -701,8 +569,7 @@
 
                     it('should not open link', function () {
                         viewModel.publishedPackageUrl('Some url');
-                        viewModel.status(viewModel.statuses.failed);
-                        viewModel.publishingState(viewModel.statuses.failed);
+                        viewModel.deliveringState(viewModel.states.failed);
                         
                         viewModel.openPublishedExperience();
                         expect(router.openUrl).not.toHaveBeenCalledWith(viewModel.publishedPackageUrl());

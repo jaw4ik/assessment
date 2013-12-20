@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'dataContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/experienceRepository', 'services/buildExperience', 'notify', 'localization/localizationManager', 'clientContext'],
-    function (app, dataContext, constants, eventTracker, router, experienceRepository, experienceService, notify, localizationManager, clientContext) {
+﻿define(['durandal/app', 'dataContext', 'constants', 'eventTracker', 'plugins/router', 'repositories/experienceRepository', 'services/deliverService', 'notify', 'localization/localizationManager', 'clientContext', 'dom'],
+    function (app, dataContext, constants, eventTracker, router, experienceRepository, experienceService, notify, localizationManager, clientContext, dom) {
         "use strict";
 
         var
@@ -9,7 +9,6 @@
                 experienceSelected: 'Experience selected',
                 experienceUnselected: 'Experience unselected',
                 navigateToDetails: 'Navigate to details',
-                buildExperience: 'Build experience',
                 downloadExperience: 'Download experience',
                 experienceBuildFailed: 'Experience build is failed',
                 experiencePublishFailed: 'Experience publish is failed',
@@ -28,8 +27,7 @@
             navigateToDetails: navigateToDetails,
             navigateToObjectives: navigateToObjectives,
 
-            statuses: constants.statuses,
-            buildExperience: buildExperience,
+            states: constants.deliveringStates,
             downloadExperience: downloadExperience,
             enableOpenExperience: enableOpenExperience,
             
@@ -67,52 +65,41 @@
             router.navigate('objectives');
         }
 
-
-        function buildExperience(experience) {
-            eventTracker.publish(events.buildExperience);
-
-            if (experience.isSelected()) {
-                experience.isSelected(false);
+        function publishExperience(exp) {
+            notify.hide();
+            eventTracker.publish(events.publishExperience);
+            if (exp.isSelected()) {
+                exp.isSelected(false);
             }
-
-            experienceService.build(experience.id).fail(function (reason) {
-                notify.error(reason);
-                eventTracker.publish(events.experienceBuildFailed);
+            
+            return experienceRepository.getById(exp.id).then(function (experience) {
+                return experience.publish();
+            }).fail(function (reason) {
+                notifyError(reason);
+                eventTracker.publish(events.experiencePublishFailed);
             });
         }
-
-        function publishExperience(experience) {
-            if (!experience.isFirstBuild()) {
-                eventTracker.publish(events.publishExperience);
-
-                if (experience.isSelected()) {
-                    experience.isSelected(false);
-                }
-
-                experienceService.publish(experience.id).fail(function(reason) {
-                    notify.error(reason);
-                    eventTracker.publish(events.experiencePublishFailed);
-                });
-            }
-        }
         
-        function downloadExperience(experience) {
-            if (!experience.isFirstBuild()) {
-                eventTracker.publish(events.downloadExperience);
-                router.download('download/' + experience.packageUrl());
+        function downloadExperience(exp) {
+            notify.hide();
+            eventTracker.publish(events.downloadExperience);
+            if (exp.isSelected()) {
+                exp.isSelected(false);
             }
+
+            return experienceRepository.getById(exp.id).then(function (experience) {
+                return experience.build().then(function () {
+                    dom.clickElementById('packageLink_' + exp.id);
+                });
+            }).fail(function (reason) {
+                eventTracker.publish(events.experienceBuildFailed);
+                notifyError(reason);
+            });;
         }
 
         function enableOpenExperience(experience) {
-            if (experience.buildingStatus() !== constants.statuses.inProgress && experience.publishingState() !== constants.statuses.inProgress) {
+            if (experience.deliveringState() !== constants.deliveringStates.building && experience.deliveringState() !== constants.deliveringStates.publishing) {
                 experience.showStatus(false);
-            }
-            if (experience.buildingStatus() === constants.statuses.failed) {
-                experience.buildingStatus(constants.statuses.notStarted);
-                experience.publishingState(constants.statuses.notStarted);
-            }
-            if (experience.publishingState() === constants.statuses.failed) {
-                experience.publishingState(constants.statuses.notStarted);
             }
         }
 
@@ -134,13 +121,13 @@
                 throw 'There are no experiences selected';
             }
             if (selectedExperiences.length > 1) {
-                notify.error(localizationManager.localize('deleteSeveralExperiencesError'));
+                notifyError(localizationManager.localize('deleteSeveralExperiencesError'));
                 return;
             }
 
             var selectedExperience = selectedExperiences[0];
             if (selectedExperience.objectives.length > 0) {
-                notify.error(localizationManager.localize('experienceCannotBeDeleted'));
+                notifyError(localizationManager.localize('experienceCannotBeDeleted'));
                 return;
             }
 
@@ -168,42 +155,21 @@
                 experience.title = item.title;
                 experience.image = item.template.image;
                 experience.objectives = item.objectives;
-                experience.buildingStatus = ko.observable(item.buildingStatus);
-                experience.publishingState = ko.observable(item.publishingState);
+                experience.deliveringState = ko.observable(item.deliveringState);
                 experience.packageUrl = ko.observable(item.packageUrl);
                 experience.publishedPackageUrl = ko.observable(item.publishedPackageUrl);
                 experience.modifiedOn = item.modifiedOn;
-
-                experience.isFirstBuild = ko.computed(function () {
-                    return _.isNullOrUndefined(this.packageUrl()) || _.isEmptyOrWhitespace(this.packageUrl());
-                }, experience);
-                
-                experience.isFirstPublish = ko.computed(function () {
-                    return _.isNullOrUndefined(this.publishedPackageUrl()) || _.isEmptyOrWhitespace(this.publishedPackageUrl());
-                }, experience);
-
                 experience.isSelected = ko.observable(false);
                 experience.showStatus = ko.observable();
+                
+                experience.publishPackageExists = ko.computed(function () {
+                    return !_.isNullOrUndefined(this.publishedPackageUrl()) && !_.isEmptyOrWhitespace(this.publishedPackageUrl());
+                }, experience);
 
-                var storageItem = storage[item.id] || { showStatus: false, buildingStatus: constants.statuses.notStarted, publishingState: constants.statuses.notStarted };
-                var showStatus = storageItem.showStatus || (item.buildingStatus == constants.statuses.inProgress
-                    || item.buildingStatus != storageItem.buildingStatus) || (item.publishingState == constants.statuses.inProgress || item.publishingState != storageItem.publishingState);
-                
-                experience.showCreatingStatus = ko.computed(function () {
-                    return (this.isFirstBuild() && this.buildingStatus() == constants.statuses.inProgress) || (this.isFirstPublish() && this.publishingState() == constants.statuses.inProgress);
-                }, experience);
-                
+                var storageItem = storage[item.id] || { showStatus: false, deliveringState: constants.deliveringStates.notStarted };
+                var showStatus = storageItem.showStatus || (item.deliveringState === constants.deliveringStates.building || item.deliveringState === constants.deliveringStates.publishing ||
+                     item.deliveringState !== storageItem.deliveringState);
                 experience.showStatus(showStatus);
-                
-                experience.showCompleteStatus = ko.computed(function () {
-                    return (this.buildingStatus() == constants.statuses.succeed && this.publishingState() != constants.statuses.inProgress && this.publishingState() != constants.statuses.failed) ||
-                        (this.publishingState() == constants.statuses.succeed && this.buildingStatus() != constants.statuses.inProgress && this.buildingStatus() != constants.statuses.failed);
-                }, experience);
-                
-                experience.showFailedStatus = ko.computed(function () {
-                    return (this.buildingStatus() == constants.statuses.failed && this.publishingState() != constants.statuses.inProgress) ||
-                        (this.publishingState() == constants.statuses.failed && this.buildingStatus() != constants.statuses.inProgress);
-                }, experience);
                 
                 return experience;
             }));
@@ -214,54 +180,60 @@
             _.each(viewModel.experiences(), function (item) {
                 storage[item.id] = {
                     showStatus: item.showStatus(),
-                    buildingStatus: item.buildingStatus(),
-                    publishingState: item.publishingState()
+                    deliveringState: item.deliveringState()
                 };
             });
         };
+        
+        function notifyError(message) {
+            if (!_.isNullOrUndefined(message)) {
+                notify.error(message);
+            }
+        }
 
         //#region App-wide messaging
 
         app.on(constants.messages.experience.build.started).then(function (experience) {
             updateExperienceViewModelIfExists(experience.id, function (expVm) {
-                expVm.buildingStatus(constants.statuses.inProgress);
+                expVm.deliveringState(constants.deliveringStates.building);
                 expVm.showStatus(true);
             });
         });
 
         app.on(constants.messages.experience.build.completed, function (experience) {
             updateExperienceViewModelIfExists(experience.id, function (expVm) {
-                expVm.buildingStatus(constants.statuses.succeed);
+                
+                expVm.deliveringState(constants.deliveringStates.succeed);
                 expVm.packageUrl(experience.packageUrl);
             });
         });
 
         app.on(constants.messages.experience.build.failed, function (experienceId) {
             updateExperienceViewModelIfExists(experienceId, function (expVm) {
-                expVm.buildingStatus(constants.statuses.failed);
-                expVm.packageUrl("");
+                expVm.deliveringState(constants.deliveringStates.failed);
+                expVm.packageUrl('');
             });
         });
         
         // #region publish events
         app.on(constants.messages.experience.publish.started).then(function (experience) {
             updateExperienceViewModelIfExists(experience.id, function (expVm) {
-                expVm.publishingState(constants.statuses.inProgress);
+                expVm.deliveringState(constants.deliveringStates.publishing);
                 expVm.showStatus(true);
             });
         });
 
         app.on(constants.messages.experience.publish.completed, function (experience) {
             updateExperienceViewModelIfExists(experience.id, function (expVm) {
-                expVm.publishingState(constants.statuses.succeed);
+                expVm.deliveringState(constants.deliveringStates.succeed);
                 expVm.publishedPackageUrl(experience.publishedPackageUrl);
             });
         });
 
         app.on(constants.messages.experience.publish.failed, function (experienceId) {
             updateExperienceViewModelIfExists(experienceId, function (expVm) {
-                expVm.publishingState(constants.statuses.failed);
-                expVm.publishedPackageUrl("");
+                expVm.deliveringState(constants.deliveringStates.failed);
+                expVm.publishedPackageUrl('');
             });
         });
         // #endregion publish events

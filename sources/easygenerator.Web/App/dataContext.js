@@ -91,9 +91,7 @@
                                         return objective.id == relatedObjective.Id.split('-').join('');
                                     });
                                 }),
-                                buildingStatus: constants.statuses.notStarted,
                                 publishedPackageUrl: item.PublishedPackageUrl,
-                                publishingState: constants.statuses.notStarted,
                                 builtOn: _.isNullOrUndefined(item.builtOn) ? null : parseDateString(item.builtOn),
                                 packageUrl: item.PackageUrl,
                                 template: _.find(templates, function (tItem) {

@@ -7,9 +7,10 @@
                 byTitleDesc: 'byTitleDesc'
             },
 
-            statuses: {
+            deliveringStates: {
                 notStarted: 'notStarted',
-                inProgress: 'inProgress',
+                building: 'building',
+                publishing: 'publishing',
                 succeed: 'succeed',
                 failed: 'failed'
             },

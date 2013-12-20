@@ -1,5 +1,5 @@
-﻿define(['viewmodels/experiences/experiences'],
-    function (viewModel) {
+﻿define(['viewmodels/experiences/experiences', 'models/experience'],
+    function (viewModel, ExperienceModel) {
         "use strict";
 
         var
@@ -19,21 +19,18 @@
                     id: 'testId3',
                     title: 'Test Experience 3',
                     objectives: [],
-                    buildingStatus: constants.statuses.notStarted,
                     template: template
                 }),
                 new experienceModel({
                     id: 'testId2',
                     title: 'Test Experience 2',
                     objectives: [],
-                    buildingStatus: constants.statuses.notStarted,
                     template: template
                 }),
                 new experienceModel({
                     id: 'testId1',
                     title: 'Test Experience 1',
                     objectives: [],
-                    buildingStatus: constants.statuses.notStarted,
                     template: template
                 })
             ];
@@ -58,10 +55,10 @@
 
             });
 
-            describe('statuses:', function () {
+            describe('states:', function () {
 
                 it('should be defined', function () {
-                    expect(viewModel.statuses).toBeDefined();
+                    expect(viewModel.states).toBeDefined();
                 });
 
             });
@@ -105,11 +102,10 @@
                         dataExperience = dataContext.experiences[0];
                     });
 
-                    describe('and buildingStatus is \"Not started\"', function () {
+                    describe('and deliveringState is \"Not started\"', function () {
 
                         beforeEach(function () {
-                            dataExperience.buildingStatus = constants.statuses.notStarted;
-                            dataExperience.publishingState = constants.statuses.notStarted;
+                            dataExperience.deliveringState = constants.deliveringStates.notStarted;
                         });
 
                         it('should set current showStatus to \"false\"', function () {
@@ -120,10 +116,10 @@
 
                     });
 
-                    describe('and buildingStatus is \"In progress\"', function () {
+                    describe('and deliveringState is \"building\"', function () {
 
                         beforeEach(function () {
-                            dataExperience.buildingStatus = constants.statuses.inProgress;
+                            dataExperience.deliveringState = constants.deliveringStates.building;
                         });
 
                         it('should set current showStatus to \"true\"', function () {
@@ -134,10 +130,10 @@
 
                     });
 
-                    describe('and buildingStatus is \"Failed\"', function () {
+                    describe('and deliveringState is \"Failed\"', function () {
 
                         beforeEach(function () {
-                            dataExperience.buildingStatus = constants.statuses.failed;
+                            dataExperience.deliveringState = constants.deliveringStates.failed;
                         });
 
                         it('should set current showStatus to \"true\"', function () {
@@ -148,10 +144,10 @@
 
                     });
 
-                    describe('and buildingStatus is \"Succeed\"', function () {
+                    describe('and deliveringState is \"Succeed\"', function () {
 
                         beforeEach(function () {
-                            dataExperience.buildingStatus = constants.statuses.succeed;
+                            dataExperience.deliveringState = constants.deliveringStates.succeed;
                         });
 
                         it('should set current showStatus to \"true\"', function () {
@@ -177,17 +173,17 @@
                         viewExperience.showStatus(false);
                     });
 
-                    describe('and previous buildingStatus is \"Not started\"', function () {
+                    describe('and previous deliveringState is \"Not started\"', function () {
 
                         beforeEach(function () {
-                            viewExperience.buildingStatus(constants.statuses.notStarted);
+                            viewExperience.deliveringState(constants.deliveringStates.notStarted);
                             viewModel.deactivate();
                         });
 
-                        describe('and buildingStatus is not changed', function () {
+                        describe('and deliveringState is not changed', function () {
 
                             beforeEach(function () {
-                                dataExperience.buildingStatus = constants.statuses.notStarted;
+                                dataExperience.deliveringState = constants.deliveringStates.notStarted;
                             });
 
                             it('should set current showStatus to \"false\"', function () {
@@ -198,10 +194,10 @@
 
                         });
 
-                        describe('and buildingStatus is changed', function () {
+                        describe('and deliveringState is changed', function () {
 
                             beforeEach(function () {
-                                dataExperience.buildingStatus = constants.statuses.succeed;
+                                dataExperience.deliveringState = constants.deliveringStates.succeed;
                             });
 
                             it('should set current showStatus to \"true\"', function () {
@@ -214,17 +210,17 @@
 
                     });
 
-                    describe('and buildingStatus is \"In progress\"', function () {
+                    describe('and deliveringState is \"building\"', function () {
 
                         beforeEach(function () {
-                            viewExperience.buildingStatus(constants.statuses.inProgress);
+                            viewExperience.deliveringState(constants.deliveringStates.building);
                             viewModel.deactivate();
                         });
 
-                        describe('and buildingStatus is not changed', function () {
+                        describe('and deliveringState is not changed', function () {
 
                             beforeEach(function () {
-                                dataExperience.buildingStatus = constants.statuses.inProgress;
+                                dataExperience.deliveringState = constants.deliveringStates.building;
                             });
 
                             it('should set current showStatus to \"true\"', function () {
@@ -235,47 +231,10 @@
 
                         });
 
-                        describe('and buildingStatus is changed', function () {
+                        describe('and deliveringState is changed', function () {
 
                             beforeEach(function () {
-                                dataExperience.buildingStatus = constants.statuses.succeed;
-                            });
-
-                            it('should set current showStatus to \"true\"', function () {
-                                viewModel.activate();
-                                var experience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
-                                expect(experience.showStatus()).toBe(true);
-                            });
-
-                        });
-
-                    });
-
-                    describe('and buildingStatus is \"Failed\"', function () {
-
-                        beforeEach(function () {
-                            viewExperience.buildingStatus(constants.statuses.failed);
-                            viewModel.deactivate();
-                        });
-
-                        describe('and buildingStatus is not changed', function () {
-
-                            beforeEach(function () {
-                                dataExperience.buildingStatus = constants.statuses.failed;
-                            });
-
-                            it('should set current showStatus to \"false\"', function () {
-                                viewModel.activate();
-                                var experience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
-                                expect(experience.showStatus()).toBe(false);
-                            });
-
-                        });
-
-                        describe('and buildingStatus is changed', function () {
-
-                            beforeEach(function () {
-                                dataExperience.buildingStatus = constants.statuses.succeed;
+                                dataExperience.deliveringState = constants.deliveringStates.succeed;
                             });
 
                             it('should set current showStatus to \"true\"', function () {
@@ -288,17 +247,17 @@
 
                     });
 
-                    describe('and buildingStatus is \"Succeed\"', function () {
+                    describe('and deliveringState is \"Failed\"', function () {
 
                         beforeEach(function () {
-                            viewExperience.buildingStatus(constants.statuses.succeed);
+                            viewExperience.deliveringState(constants.deliveringStates.failed);
                             viewModel.deactivate();
                         });
 
-                        describe('and buildingStatus is not changed', function () {
+                        describe('and deliveringState is not changed', function () {
 
                             beforeEach(function () {
-                                dataExperience.buildingStatus = constants.statuses.succeed;
+                                dataExperience.deliveringState = constants.deliveringStates.failed;
                             });
 
                             it('should set current showStatus to \"false\"', function () {
@@ -309,10 +268,47 @@
 
                         });
 
-                        describe('and buildingStatus is changed', function () {
+                        describe('and deliveringState is changed', function () {
 
                             beforeEach(function () {
-                                dataExperience.buildingStatus = constants.statuses.failed;
+                                dataExperience.deliveringState = constants.deliveringStates.succeed;
+                            });
+
+                            it('should set current showStatus to \"true\"', function () {
+                                viewModel.activate();
+                                var experience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
+                                expect(experience.showStatus()).toBe(true);
+                            });
+
+                        });
+
+                    });
+
+                    describe('and deliveringState is \"Succeed\"', function () {
+
+                        beforeEach(function () {
+                            viewExperience.deliveringState(constants.deliveringStates.succeed);
+                            viewModel.deactivate();
+                        });
+
+                        describe('and deliveringState is not changed', function () {
+
+                            beforeEach(function () {
+                                dataExperience.deliveringState = constants.deliveringStates.succeed;
+                            });
+
+                            it('should set current showStatus to \"false\"', function () {
+                                viewModel.activate();
+                                var experience = _.find(viewModel.experiences(), function (item) { return item.id == dataExperience.id; });
+                                expect(experience.showStatus()).toBe(false);
+                            });
+
+                        });
+
+                        describe('and deliveringState is changed', function () {
+
+                            beforeEach(function () {
+                                dataExperience.deliveringState = constants.deliveringStates.failed;
                             });
 
                             it('should set current showStatus to \"true\"', function () {
@@ -508,11 +504,11 @@
                 });
 
                 describe('when more that 1 experience are selected', function () {
-                    
+
                     it('should show error notification', function () {
                         viewModel.experiences([{ isSelected: ko.observable(true) }, { isSelected: ko.observable(true) }]);
                         spyOn(notify, 'error');
-                        
+
                         viewModel.deleteSelectedExperiences();
                         expect(notify.error).toHaveBeenCalled();
                     });
@@ -590,213 +586,112 @@
 
             });
 
-            describe('buildExperience:', function () {
-                var experienceService = require('services/buildExperience');
-
-                var buildDeferred,
-                    experience,
-                    buildPromise;
+            describe('publishExperience:', function () {
+                var experience;
+                var experiencerepositorygetByIdDefer;
+                var experiencerepositorygetByIdPromise;
+                var repository = require('repositories/experienceRepository');
+                    
 
                 beforeEach(function () {
                     experience = {
                         id: 'testId3',
-                        buildingStatus: ko.observable(),
+                        deliveringState: ko.observable(),
                         showStatus: ko.observable(),
                         isSelected: ko.observable(),
-                        isFirstBuild: ko.observable()
+                        publishPackageExists: ko.observable(),
+                        publish: function () {
+                        }
                     };
-                    buildDeferred = Q.defer();
+                    
+                    spyOn(experience, 'publish');
 
-                    buildPromise = buildDeferred.promise.finally(function () { });
-                    spyOn(experienceService, 'build').andReturn(buildDeferred.promise);
+                    experiencerepositorygetByIdDefer = Q.defer();
+                    experiencerepositorygetByIdPromise = experiencerepositorygetByIdDefer.promise;
+                    spyOn(repository, 'getById').andReturn(experiencerepositorygetByIdPromise);
                 });
 
                 it('should be a function', function () {
-                    expect(viewModel.buildExperience).toBeFunction();
+                    expect(viewModel.publishExperience).toBeFunction();
                 });
 
-                it('should send event \"Build experience\"', function () {
-                    viewModel.buildExperience(experience);
+                it('should send event \"Publish experience\"', function () {
+                    viewModel.publishExperience(experience);
 
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Build experience');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Publish experience');
                 });
 
                 it('should reset item selection', function () {
                     experience.isSelected(true);
 
-                    viewModel.buildExperience(experience);
+                    viewModel.publishExperience(experience);
 
                     expect(experience.isSelected()).toBe(false);
                 });
 
-                it('should call buildExperience service', function () {
-                    viewModel.buildExperience(experience);
+                it('should start publish of current experience', function () {
+                    experiencerepositorygetByIdDefer.resolve(experience);
+                    var promise = viewModel.publishExperience(experience);
 
-                    expect(experienceService.build).toHaveBeenCalledWith(experience.id);
-                });
-
-                describe('when build is finished', function () {
-
-                    describe('and build failed', function () {
-
-                        it('should show error notification', function() {
-                            spyOn(notify, 'error');
-                            
-                            viewModel.buildExperience(experience);
-
-                            eventTracker.publish.reset();
-                            buildDeferred.reject("Experience build is failed");
-
-                            waitsFor(function () {
-                                return !buildPromise.isPending();
-                            });
-                            runs(function () {
-                                expect(notify.error).toHaveBeenCalledWith('Experience build is failed');
-                            });
-                        });
-                        
-
-                        it('should send event \'Experience build is failed\'', function () {
-                            viewModel.buildExperience(experience);
-
-                            eventTracker.publish.reset();
-                            buildDeferred.reject();
-
-                            waitsFor(function () {
-                                return !buildPromise.isPending();
-                            });
-                            runs(function () {
-                                expect(eventTracker.publish).toHaveBeenCalledWith('Experience build is failed');
-                            });
-                        });
-
+                    waitsFor(function () {
+                        return !promise.isPending();
                     });
 
-                });
-
-            });
-            
-            describe('publishExperience:', function () {
-                var experienceService = require('services/buildExperience');
-
-                var publishDeferred,
-                    experience,
-                    publishPromise;
-
-                beforeEach(function () {
-                    experience = {
-                        id: 'testId3',
-                        publishingState: ko.observable(),
-                        showStatus: ko.observable(),
-                        isSelected: ko.observable(),
-                        isFirstPublish: ko.observable(),
-                        isFirstBuild: ko.observable()
-                    };
-                    publishDeferred = Q.defer();
-
-                    publishPromise = publishDeferred.promise.finally(function () { });
-                    spyOn(experienceService, 'publish').andReturn(publishDeferred.promise);
+                    runs(function () {
+                        expect(experience.publish).toHaveBeenCalled();
+                    });
                 });
                 
-                it('should be a function', function () {
-                    expect(viewModel.publishExperience).toBeFunction();
-                });
-
-                describe('when experience never build', function () {
-
-                    beforeEach(function() {
-                        experience.isFirstBuild(true);
+                describe('when publish is finished', function () {
+                    beforeEach(function () {
+                        experience = {
+                            id: 'testId3',
+                            deliveringState: ko.observable(),
+                            showStatus: ko.observable(),
+                            isSelected: ko.observable(),
+                            publishPackageExists: ko.observable(),
+                            publish: function() {
+                            }
+                        };
                     });
                     
-                    it('should not send event \"Publish experience\"', function () {
-                        viewModel.publishExperience(experience);
+                    describe('and publish failed', function () {
 
-                        expect(eventTracker.publish).not.toHaveBeenCalledWith('Publish experience');
-                    });
+                        it('should show error notification', function () {
+                            spyOn(notify, 'error');
 
-                    it('should not reset item selection', function () {
-                        experience.isSelected(true);
+                            var publishPromise = viewModel.publishExperience(experience);
 
-                        viewModel.publishExperience(experience);
+                            eventTracker.publish.reset();
+                            experiencerepositorygetByIdDefer.reject('Experience publish is failed');
 
-                        expect(experience.isSelected()).toBeTruthy();
-                    });
-
-                    it('should not call publishExperience service', function () {
-                        viewModel.publishExperience(experience);
-
-                        expect(experienceService.publish).not.toHaveBeenCalledWith(experience.id);
-                    });
-
-                });
-
-                describe('when experience build at least once', function () {
-
-                    beforeEach(function () {
-                        experience.isFirstBuild(false);
-                    });
-
-                    it('should send event \"Publish experience\"', function () {
-                        viewModel.publishExperience(experience);
-
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Publish experience');
-                    });
-
-                    it('should reset item selection', function () {
-                        experience.isSelected(true);
-
-                        viewModel.publishExperience(experience);
-
-                        expect(experience.isSelected()).toBe(false);
-                    });
-
-                    it('should call publishExperience service', function () {
-                        viewModel.publishExperience(experience);
-
-                        expect(experienceService.publish).toHaveBeenCalledWith(experience.id);
-                    });
-
-                    describe('when publish is finished', function () {
-
-                        describe('and publish failed', function () {
-
-                            it('should show error notification', function () {
-                                spyOn(notify, 'error');
-
-                                viewModel.publishExperience(experience);
-
-                                eventTracker.publish.reset();
-                                publishDeferred.reject("Experience publish is failed");
-
-                                waitsFor(function () {
-                                    return !publishPromise.isPending();
-                                });
-                                runs(function () {
-                                    expect(notify.error).toHaveBeenCalledWith('Experience publish is failed');
-                                });
+                            waitsFor(function () {
+                                return !publishPromise.isPending();
                             });
-
-
-                            it('should send event \'Experience publish is failed\'', function () {
-                                viewModel.publishExperience(experience);
-
-                                eventTracker.publish.reset();
-                                publishDeferred.reject();
-
-                                waitsFor(function () {
-                                    return !publishPromise.isPending();
-                                });
-                                runs(function () {
-                                    expect(eventTracker.publish).toHaveBeenCalledWith('Experience publish is failed');
-                                });
+                            
+                            runs(function () {
+                                expect(notify.error).toHaveBeenCalledWith('Experience publish is failed');
                             });
+                        });
 
+
+                        it('should send event \'Experience publish is failed\'', function () {
+                            var publishPromise = viewModel.publishExperience(experience);
+
+                            eventTracker.publish.reset();
+                            experiencerepositorygetByIdDefer.reject();
+
+                            waitsFor(function () {
+                                return !publishPromise.isPending();
+                            });
+                            runs(function () {
+                                expect(eventTracker.publish).toHaveBeenCalledWith('Experience publish is failed');
+                            });
                         });
 
                     });
-                    
-                });
 
+                });
             });
 
             describe('downloadExperience:', function () {
@@ -806,7 +701,7 @@
                 beforeEach(function () {
                     experience = {
                         packageUrl: ko.observable('some url'),
-                        isFirstBuild: ko.observable(false)
+                        isSelected: ko.observable()
                     };
 
                     spyOn(router, 'download');
@@ -815,41 +710,10 @@
                 it('should be a function', function () {
                     expect(viewModel.downloadExperience).toBeFunction();
                 });
-
-                describe('when experience never build', function () {
-                    
-                    beforeEach(function () {
-                        experience.isFirstBuild(true);
-                    });
-
-                    it('should not send event \"Download experience\"', function () {
-                        viewModel.downloadExperience(experience);
-                        expect(eventTracker.publish).not.toHaveBeenCalledWith('Download experience');
-                    });
-
-                    it('should not download experience package', function () {
-                        viewModel.downloadExperience(experience);
-                        expect(router.download).not.toHaveBeenCalledWith('download/' + experience.packageUrl());
-                    });
-                    
-                });
-
-                describe('when experience build at least once', function () {
-                    
-                    beforeEach(function () {
-                        experience.isFirstBuild(false);
-                    });
-
-                    it('should send event \"Download experience\"', function () {
-                        viewModel.downloadExperience(experience);
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Download experience');
-                    });
-
-                    it('should download experience package', function () {
-                        viewModel.downloadExperience(experience);
-                        expect(router.download).toHaveBeenCalledWith('download/' + experience.packageUrl());
-                    });
-                    
+               
+                it('should send event \"Download experience\"', function () {
+                    viewModel.downloadExperience(experience);
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Download experience');
                 });
             });
 
@@ -857,9 +721,9 @@
                 var experience;
 
                 beforeEach(function () {
-                    experience = { showStatus: ko.observable(), buildingStatus: ko.observable(constants.statuses.notStarted), publishingState: ko.observable(constants.statuses.notStarted) };
+                    experience = { showStatus: ko.observable(), deliveringState: ko.observable(constants.deliveringStates.notStarted) };
                 });
-                
+
                 it('should be a function', function () {
                     expect(viewModel.enableOpenExperience).toBeFunction();
                 });
@@ -872,43 +736,32 @@
                     expect(experience.showStatus()).toBe(false);
                 });
 
-                describe('when buildingStatus or publishingState equals inProgress', function () {
-                    
+                describe('when deliveringState or deliveringState equals building', function () {
+
                     beforeEach(function () {
-                        experience = { showStatus: ko.observable(), buildingStatus: ko.observable(constants.statuses.inProgress), publishingState: ko.observable(constants.statuses.inProgress) };
+                        experience = { showStatus: ko.observable(), deliveringState: ko.observable(constants.deliveringStates.building) };
                     });
 
-                    it('should not hide showStatus', function() {
+                    it('should not hide showStatus', function () {
                         experience.showStatus(true);
                         viewModel.enableOpenExperience(experience);
                         expect(experience.showStatus()).toBe(true);
                     });
 
                 });
-
-                it('should set buildStatus to notStarted if buildStatus is failed.', function () {
-                    experience.buildingStatus(constants.statuses.failed);
-
-                    viewModel.enableOpenExperience(experience);
-
-                    expect(experience.buildingStatus()).toBe(constants.statuses.notStarted);
-                });
                 
-                it('should set publishingState to notStarted if buildStatus is failed.', function () {
-                    experience.buildingStatus(constants.statuses.failed);
-                    experience.publishingState(constants.statuses.inProgress);
+                describe('when deliveringState or deliveringState equals publishing', function () {
 
-                    viewModel.enableOpenExperience(experience);
+                    beforeEach(function () {
+                        experience = { showStatus: ko.observable(), deliveringState: ko.observable(constants.deliveringStates.publishing) };
+                    });
 
-                    expect(experience.publishingState()).toBe(constants.statuses.notStarted);
-                });
-                
-                it('should set publishingState to notStarted if publishingState is failed.', function () {
-                   experience.publishingState(constants.statuses.failed);
+                    it('should not hide showStatus', function () {
+                        experience.showStatus(true);
+                        viewModel.enableOpenExperience(experience);
+                        expect(experience.showStatus()).toBe(true);
+                    });
 
-                   viewModel.enableOpenExperience(experience);
-
-                   expect(experience.publishingState()).toBe(constants.statuses.notStarted);
                 });
             });
 
@@ -919,15 +772,15 @@
                 beforeEach(function () {
                     experienceVm = {
                         id: 'experienceId',
-                        buildingStatus: ko.observable(constants.statuses.notStarted),
+                        deliveringState: ko.observable(constants.deliveringStates.notStarted),
                         showStatus: ko.observable(false)
                     };
                     viewModel.experiences([experienceVm]);
                 });
 
-                it('should change status of corresponding experience to \'inProgress\'', function () {
+                it('should change status of corresponding experience to \'building\'', function () {
                     app.trigger(constants.messages.experience.build.started, { id: experienceVm.id });
-                    expect(experienceVm.buildingStatus()).toEqual(constants.statuses.inProgress);
+                    expect(experienceVm.deliveringState()).toEqual(constants.deliveringStates.building);
                 });
 
                 it('should show building status for corresponding experience', function () {
@@ -937,7 +790,7 @@
 
                 it('should not change status of other experiences', function () {
                     app.trigger(constants.messages.experience.build.started, { id: '100500' });
-                    expect(experienceVm.buildingStatus()).toEqual(constants.statuses.notStarted);
+                    expect(experienceVm.deliveringState()).toEqual(constants.deliveringStates.notStarted);
                 });
 
                 it('should not show building status for other experiences', function () {
@@ -955,14 +808,14 @@
                     experienceVm = {
                         id: 'experienceId',
                         packageUrl: ko.observable('packageUrl'),
-                        buildingStatus: ko.observable(constants.statuses.inProgress)
+                        deliveringState: ko.observable(constants.deliveringStates.inProgress)
                     };
                     viewModel.experiences([experienceVm]);
                 });
 
                 it('should change status of the corresponding experience to \'success\'', function () {
                     app.trigger(constants.messages.experience.build.completed, { id: experienceVm.id });
-                    expect(experienceVm.buildingStatus()).toEqual(constants.statuses.succeed);
+                    expect(experienceVm.deliveringState()).toEqual(constants.deliveringStates.succeed);
                 });
 
                 it('should change packageUrl of the corresponding experience', function () {
@@ -974,7 +827,7 @@
 
                 it('should not change status of other experiences', function () {
                     app.trigger(constants.messages.experience.build.completed, { id: '100500' });
-                    expect(experienceVm.buildingStatus()).toEqual(constants.statuses.inProgress);
+                    expect(experienceVm.deliveringState()).toEqual(constants.deliveringStates.inProgress);
                 });
 
                 it('should not change packageUrl of other experiences', function () {
@@ -994,14 +847,14 @@
                     experienceVm = {
                         id: 'experienceId',
                         packageUrl: ko.observable('packageUrl'),
-                        buildingStatus: ko.observable(constants.statuses.inProgress),
+                        deliveringState: ko.observable(constants.deliveringStates.inProgress),
                     };
                     viewModel.experiences([experienceVm]);
                 });
 
                 it('should change status of the corresponding experience to \'failed\'', function () {
                     app.trigger(constants.messages.experience.build.failed, experienceVm.id);
-                    expect(experienceVm.buildingStatus()).toEqual(constants.statuses.failed);
+                    expect(experienceVm.deliveringState()).toEqual(constants.deliveringStates.failed);
                 });
 
                 it('should remove packageUrl of the corresponding experience', function () {
@@ -1011,7 +864,7 @@
 
                 it('should not change status of other experiences', function () {
                     app.trigger(constants.messages.experience.build.failed, '100500');
-                    expect(experienceVm.buildingStatus()).toEqual(constants.statuses.inProgress);
+                    expect(experienceVm.deliveringState()).toEqual(constants.deliveringStates.inProgress);
                 });
 
                 it('should not remove packageUrl of other experiences', function () {
@@ -1020,7 +873,7 @@
                 });
 
             });
-            
+
             describe('when experience publish was started', function () {
 
                 var experienceVm;
@@ -1028,28 +881,28 @@
                 beforeEach(function () {
                     experienceVm = {
                         id: 'experienceId',
-                        publishingState: ko.observable(constants.statuses.notStarted),
+                        deliveringState: ko.observable(constants.deliveringStates.notStarted),
                         showStatus: ko.observable(false)
                     };
                     viewModel.experiences([experienceVm]);
                 });
 
-                it('should change publishingState of corresponding experience to \'inProgress\'', function () {
+                it('should change deliveringState of corresponding experience to \'publishing\'', function () {
                     app.trigger(constants.messages.experience.publish.started, { id: experienceVm.id });
-                    expect(experienceVm.publishingState()).toEqual(constants.statuses.inProgress);
+                    expect(experienceVm.deliveringState()).toEqual(constants.deliveringStates.publishing);
                 });
 
-                it('should show publishingState for corresponding experience', function () {
+                it('should show deliveringState for corresponding experience', function () {
                     app.trigger(constants.messages.experience.publish.started, { id: experienceVm.id });
                     expect(experienceVm.showStatus()).toBeTruthy();
                 });
 
-                it('should not change publishingState of other experiences', function () {
+                it('should not change deliveringState of other experiences', function () {
                     app.trigger(constants.messages.experience.publish.started, { id: '100500' });
-                    expect(experienceVm.publishingState()).toEqual(constants.statuses.notStarted);
+                    expect(experienceVm.deliveringState()).toEqual(constants.deliveringStates.notStarted);
                 });
 
-                it('should not show publishingState for other experiences', function () {
+                it('should not show deliveringState for other experiences', function () {
                     app.trigger(constants.messages.experience.publish.started, { id: '100500' });
                     expect(experienceVm.showStatus()).toBeFalsy();
                 });
@@ -1064,14 +917,14 @@
                     experienceVm = {
                         id: 'experienceId',
                         publishedPackageUrl: ko.observable('packageUrl'),
-                        publishingState: ko.observable(constants.statuses.inProgress)
+                        deliveringState: ko.observable(constants.deliveringStates.inProgress)
                     };
                     viewModel.experiences([experienceVm]);
                 });
 
-                it('should change publishingState of the corresponding experience to \'success\'', function () {
+                it('should change deliveringState of the corresponding experience to \'success\'', function () {
                     app.trigger(constants.messages.experience.publish.completed, { id: experienceVm.id });
-                    expect(experienceVm.publishingState()).toEqual(constants.statuses.succeed);
+                    expect(experienceVm.deliveringState()).toEqual(constants.deliveringStates.succeed);
                 });
 
                 it('should change publishedPackageUrl of the corresponding experience', function () {
@@ -1081,9 +934,9 @@
                     expect(experienceVm.publishedPackageUrl()).toEqual(publishedPackageUrl);
                 });
 
-                it('should not change publishingState of other experiences', function () {
+                it('should not change deliveringState of other experiences', function () {
                     app.trigger(constants.messages.experience.publish.completed, { id: '100500' });
-                    expect(experienceVm.publishingState()).toEqual(constants.statuses.inProgress);
+                    expect(experienceVm.deliveringState()).toEqual(constants.deliveringStates.inProgress);
                 });
 
                 it('should not change publishedPackageUrl of other experiences', function () {
@@ -1103,14 +956,14 @@
                     experienceVm = {
                         id: 'experienceId',
                         publishedPackageUrl: ko.observable('packageUrl'),
-                        publishingState: ko.observable(constants.statuses.inProgress),
+                        deliveringState: ko.observable(constants.deliveringStates.inProgress),
                     };
                     viewModel.experiences([experienceVm]);
                 });
 
-                it('should change publishingState of the corresponding experience to \'failed\'', function () {
+                it('should change deliveringState of the corresponding experience to \'failed\'', function () {
                     app.trigger(constants.messages.experience.publish.failed, experienceVm.id);
-                    expect(experienceVm.publishingState()).toEqual(constants.statuses.failed);
+                    expect(experienceVm.deliveringState()).toEqual(constants.deliveringStates.failed);
                 });
 
                 it('should remove publishedPackageUrl of the corresponding experience', function () {
@@ -1118,9 +971,9 @@
                     expect(experienceVm.publishedPackageUrl()).toEqual("");
                 });
 
-                it('should not change publishingState of other experiences', function () {
+                it('should not change deliveringState of other experiences', function () {
                     app.trigger(constants.messages.experience.publish.failed, '100500');
-                    expect(experienceVm.publishingState()).toEqual(constants.statuses.inProgress);
+                    expect(experienceVm.deliveringState()).toEqual(constants.deliveringStates.inProgress);
                 });
 
                 it('should not remove publishedPackageUrl of other experiences', function () {

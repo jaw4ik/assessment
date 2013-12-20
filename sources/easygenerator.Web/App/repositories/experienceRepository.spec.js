@@ -1,5 +1,5 @@
-﻿define(['repositories/experienceRepository'],
-    function (repository) {
+﻿define(['repositories/experienceRepository', 'models/experience'],
+    function (repository, ExperienceModel) {
         "use strict";
 
         var constants = require('constants'),
@@ -472,16 +472,14 @@
                                                 });
                                                 runs(function () {
                                                     expect(dataContext.experiences.length).toEqual(1);
-                                                    expect(dataContext.experiences[0]).toEqual({
+                                                    expect(dataContext.experiences[0]).toEqual(new ExperienceModel({
                                                         id: experienceId,
                                                         title: title,
                                                         template: template,
                                                         createdOn: utils.getDateFromString(experienceCreatedOn),
                                                         modifiedOn: utils.getDateFromString(experienceCreatedOn),
-                                                        buildingStatus: constants.statuses.notStarted,
-                                                        publishingState: constants.statuses.notStarted,
                                                         objectives: []
-                                                    });
+                                                    }));
                                                 });
 
                                             });

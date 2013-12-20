@@ -1,5 +1,5 @@
-﻿define(['repositories/objectiveRepository'],
-    function (objectiveRepository) {
+﻿define(['repositories/objectiveRepository', 'models/objective'],
+    function (objectiveRepository, ObjectiveModel) {
         "use strict";
 
         var
@@ -349,14 +349,14 @@
                                 });
                                 runs(function () {
                                     expect(dataContext.objectives.length).toEqual(1);
-                                    expect(dataContext.objectives[0]).toEqual({
+                                    expect(dataContext.objectives[0]).toEqual(new ObjectiveModel({
                                         id: response.Id,
                                         title: objectiveTitle,
                                         image: constants.defaultObjectiveImage,
                                         createdOn: utils.getDateFromString(response.CreatedOn),
                                         modifiedOn: utils.getDateFromString(response.CreatedOn),
                                         questions: []
-                                    });
+                                    }));
                                 });
                             });
 

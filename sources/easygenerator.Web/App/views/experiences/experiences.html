@@ -28,7 +28,7 @@
             </div>
             <ul class="unstyled main-content-list" data-bind="selectOnMouseOver: 'copyLink'">
                 <!-- ko foreach: experiences -->
-                <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedExperienceId == id, selected: isSelected }">
+                  <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedExperienceId == id, selected: isSelected }">
                     <div class="list-item-content-holder" data-bind="click: $parent.toggleSelection">
                         <div class="list-item-checkbox">
                             <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
@@ -56,46 +56,38 @@
                     </div>
                     <div class="experience-actions-panel">
                         <div class="experience-actions-wrapper">
-                            <div class="experience-action create-package" data-bind="click: $parent.buildExperience">
-                                <span class="experience-action-title" data-bind="localize: { text: isFirstBuild() ? 'createPackage' : 'updatePackage' }">Create package</span>
-                            </div>
-                            <div class="experience-action download-package" data-bind="css: { disabled: isFirstBuild() }, click: $parent.downloadExperience">
+                            <div class="experience-action download-package" data-bind="click: $parent.downloadExperience">
                                 <span class="experience-action-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
                             </div>
-                            <div class="experience-action publish-package" data-bind="css: { disabled: isFirstBuild() }, click: $parent.publishExperience">
-                                <span class="experience-action-title" data-bind="localize: { text: isFirstPublish() ? 'publishOnline' : 'republishOnline' }">Publish online</span>
+                            <div class="experience-action publish-package" data-bind="click: $parent.publishExperience">
+                                <span class="experience-action-title" data-bind="localize: { text: !publishPackageExists() ? 'publishOnline' : 'republishOnline' }">Publish online</span>
                             </div>
-                            <div class="experience-action" data-bind="css: { disabled: isFirstPublish(), 'package-link': !isFirstPublish() }">
-                                <input class="package-link-input" id="copyLink" type="text" readonly="readonly" data-bind="visible: !isFirstPublish(), value: publishedPackageUrl" />
+                            <div class="experience-action" data-bind="css: { disabled: !publishPackageExists(), 'package-link': publishPackageExists() }">
+                                <input class="package-link-input" id="copyLink" type="text" readonly="readonly" data-bind="visible: publishPackageExists, value: publishedPackageUrl" />
                             </div>
                         </div>
                     </div>
                     <!-- ko if: showStatus() -->
                     <div class="experience-status-container" data-bind="event: { mouseover: $parent.enableOpenExperience }">
-                        <!-- ko if: buildingStatus() == $parent.statuses.inProgress || publishingState() == $parent.statuses.inProgress -->
-                            <!-- ko if: showCreatingStatus-->
+                        <!-- ko if: deliveringState() === $parent.states.building || deliveringState() === $parent.states.publishing -->
                             <div class="experience-text-holder building">
-                                <span class="experience-text" data-bind="localize: { text: buildingStatus() == $parent.statuses.inProgress ? 'creatingStatus' : 'publishing' }"></span>
+                                <span class="experience-text" data-bind="localize: { text: deliveringState() === $parent.states.building ? 'assembling' : 'publishing' }"></span>
                             </div>
-                            <!-- /ko -->
-                            <!-- ko ifnot: showCreatingStatus -->
-                            <div class="experience-text-holder building">
-                                <span class="experience-text" data-bind="localize: { text: buildingStatus() == $parent.statuses.inProgress ? 'updatingStatus' : 'republishing' }"></span>
-                            </div>
-                            <!-- /ko -->
                         <!-- /ko -->
-                        <!-- ko if: showCompleteStatus() -->
+                        <!-- ko if: deliveringState() === $parent.states.succeed -->
                         <div class="experience-text-holder complete">
                             <span class="experience-text" data-bind="localize: { text: 'experienceCompleteStatus' }"></span>
                         </div>
                         <!-- /ko -->
-                        <!-- ko if: showFailedStatus() -->
+                        <!-- ko if: deliveringState() === $parent.states.failed -->
                         <div class="experience-text-holder failed">
                             <span class="experience-text" data-bind="localize: { text: 'experienceFailedStatus' }"></span>
                         </div>
                         <!-- /ko -->
                     </div>
                     <!-- /ko -->
+                    <!-- link to render package url to and click after assembling -->
+                    <a id="packageLink" style="display:none" data-bind="attr: { id: 'packageLink_' + id, href: 'download/' + packageUrl() }"></a>   
                 </li>
                 <!-- /ko -->
             </ul>

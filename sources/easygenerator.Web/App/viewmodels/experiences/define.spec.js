@@ -21,7 +21,6 @@
                         { id: '2', title: 'z' },
                         { id: '3', title: 'b' }
                     ],
-                    buildingStatus: '',
                     packageUrl: '',
                     createdOn: 'createdOn',
                     modifiedOn: 'modifiedOn',

@@ -167,6 +167,7 @@
     </Content>
     <Content Include="App\bootstrapping\errorHandlingTask.js" />
     <Content Include="App\bootstrapping\localizationTask.js" />
+    <Content Include="App\dom.js" />
     <Content Include="App\help\helpHint.spec.js">
       <DependentUpon>helpHint.js</DependentUpon>
     </Content>
@@ -289,6 +290,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Content Include="App\bootstrapping\routingTask.js" />
+    <Content Include="App\services\deliverService.js" />
+    <Content Include="App\services\deliverService.spec.js">
+      <DependentUpon>deliverService.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\experiences\design.spec.js">
       <DependentUpon>design.js</DependentUpon>
     </Content>
@@ -466,6 +471,7 @@
     <Content Include="Scripts\durandal\viewLocator.js" />
     <Content Include="Scripts\jquery.placeholder.js" />
     <Content Include="Scripts\knockoutBindings\autofocusBinding.js" />
+    <Content Include="Scripts\knockoutBindings\clickElementBinding.js" />
     <Content Include="Scripts\knockoutBindings\cssBinding.js" />
     <Content Include="Scripts\knockoutBindings\dropDownBinding.js" />
     <Content Include="Scripts\knockoutBindings\feedBackBinding.js" />
@@ -976,7 +982,6 @@
     <Content Include="App\repositories\questionRepository.spec.js">
       <DependentUpon>questionRepository.js</DependentUpon>
     </Content>
-    <Content Include="App\services\buildExperience.js" />
     <Content Include="App\viewmodels\errors\400.js" />
     <Content Include="App\viewmodels\errors\404.js" />
     <Content Include="App\viewmodels\experiences\createExperience.js" />
@@ -1048,9 +1053,6 @@
     <Content Include="App\models\objective.js" />
     <Content Include="App\models\experience.js" />
     <Content Include="App\models\question.js" />
-    <Content Include="App\services\buildExperience.spec.js">
-      <DependentUpon>buildExperience.js</DependentUpon>
-    </Content>
     <Content Include="App\repositories\objectiveRepository.spec.js">
       <DependentUpon>objectiveRepository.js</DependentUpon>
     </Content>
