@@ -303,14 +303,8 @@ When open page by url 'http://localhost:5656/#objective/000000000000000000000000
 And mouse hover element of questions list with title 'Question2'
 And click on select questions list item with title 'Question2'
 And click on delete button on question list page
-Then questions list contains only items with data
-| Title     |
-| Question1 |
-| Question3 |
-When click on back from questions list
-Then browser navigates to url 'http://localhost:5656/#objectives'
-When mouse hover element of objectives list with title 'Objective1'
-And click open objective list item with title 'Objective1'
+Then page does not contain element with text 'Question2'
+When refresh page
 Then questions list contains only items with data
 | Title     |
 | Question1 |

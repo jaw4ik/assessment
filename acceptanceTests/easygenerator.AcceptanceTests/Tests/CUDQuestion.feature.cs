@@ -559,6 +559,10 @@ testRunner.And("mouse hover element of questions list with title \'Question2\'",
 testRunner.And("click on select questions list item with title \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 305
 testRunner.And("click on delete button on question list page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 306
+testRunner.Then("page does not contain element with text \'Question2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 307
+testRunner.When("refresh page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table20 = new TechTalk.SpecFlow.Table(new string[] {
                         "Title"});
@@ -566,25 +570,8 @@ testRunner.And("click on delete button on question list page", ((string)(null)),
                         "Question1"});
             table20.AddRow(new string[] {
                         "Question3"});
-#line 306
+#line 308
 testRunner.Then("questions list contains only items with data", ((string)(null)), table20, "Then ");
-#line 310
-testRunner.When("click on back from questions list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 311
-testRunner.Then("browser navigates to url \'http://localhost:5656/#objectives\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 312
-testRunner.When("mouse hover element of objectives list with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 313
-testRunner.And("click open objective list item with title \'Objective1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            TechTalk.SpecFlow.Table table21 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Title"});
-            table21.AddRow(new string[] {
-                        "Question1"});
-            table21.AddRow(new string[] {
-                        "Question3"});
-#line 314
-testRunner.Then("questions list contains only items with data", ((string)(null)), table21, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
