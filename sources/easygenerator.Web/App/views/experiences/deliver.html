@@ -2,10 +2,6 @@
     <div class="package-actions-holder">
         <div class="package-actions-content clearfix">
             <aside class="actions-right-column clearfix pull-right">
-                <!--<div class="action-arrow right" data-bind="css: { disabled: status() != statuses.succeed || publishingState() == statuses.inProgress }">
-                    <i class="icon-item"></i>
-                </div>-->
-
                 <!--*
                     * DOWNLOAD BUTTON CONDITIONS 
                     * -->
@@ -40,45 +36,13 @@
                     <!-- /ko -->
                 </div>
                 <!-- link to render package url to and click after assembling -->
-                <a id="packageLink" style="display:none" data-bind="attr: { href: 'download/' + packageUrl() }"></a>
+                <a id="packageLink" style="display: none" data-bind="attr: { href: 'download/' + packageUrl() }"></a>
             </aside>
             <aside class="actions-left-column">
-                <!--* CREATE/UPDATE BUTTON CONDITIONS 
-                
-                    <div class="package-action-btn-holder">
-                        <div class="action-explanation-tooltip-container" data-bind="visible: showBuildDescription() || showRebuildDescription()">
-                            <div class="action-explanation-tooltip-wrapper">
-                                <div class="action-explanation-tooltip">
-
-                                    <span class="action-explanation-tooltip-text" data-bind="visible: showBuildDescription, localize: { text: 'createPackageDescription' }">Assemble learning experience</span>
-                                    <span class="action-explanation-tooltip-text" data-bind="visible: showRebuildDescription, localize: { text: 'updatePackageDescription' }">Reassemble learning experience</span>
-
-                                    <div class="action-explanation-tooltip-triangle"></div>
-                                </div>
-                            </div>
-                        </div>                  
-                        <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience, hover: showBuildDescription">
-                            <span class="btn-title" data-bind="localize: { text: 'createPackage' }">Create package</span>
-                        </div>
-                        <div class="package-action-btn btn orange creating-btn">
-                            <span class="btn-title" data-bind="localize: { text: 'creatingStatus' }">Creating...</span>
-                            <span class="btn-title" data-bind="localize: { text: 'updatingStatus' }">Updating...</span>
-                        </div>
-                        <div class="package-action-btn btn orange create-package-btn" data-bind="click: buildExperience, hover: showRebuildDescription">
-                            <span class="btn-title" data-bind="localize: { text: 'updatePackage' }">Update package</span>
-                        </div>
-                        <div class="package-action-btn btn orange create-package-btn disabled">
-                            <span class="btn-title" data-bind="localize: { text: 'updatePackage' }">Update package</span>
-                        </div>
-                    </div>
-                    <div class="action-arrow down" data-bind="css: { disabled: status() != statuses.succeed || publishingState() == statuses.inProgress }">
-                        <span class="icon-item"></span>
-                    </div>  -->
 
                 <!--*
                     * PUBLISH/REPUBLISH BUTTON CONDITIONS 
                     * -->
-
                 <!-- not show tooltip if disabled button and/or status in progress -->
                 <div class="package-action-btn-holder">
 
@@ -163,12 +127,12 @@
                         <!-- ko ifnot: isDelivering() -->
                         <a class="open-link-btn" data-bind="click: openPublishedExperience, hover: showOpenLinkDescription, attr: { href: publishedPackageUrl }">
                             <span class="open-link-text" data-bind="localize: { text: 'openLink' }">Open link</span>
-                        </a>    
+                        </a>
                         <!-- /ko -->
                         <!-- ko if: isDelivering() -->
                         <a class="open-link-btn" href="javascript: return false;">
                             <span class="open-link-text" data-bind="localize: { text: 'openLink' }">Open link</span>
-                        </a>    
+                        </a>
                         <!-- /ko -->
                     </div>
                 </div>

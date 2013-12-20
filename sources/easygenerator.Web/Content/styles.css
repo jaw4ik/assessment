@@ -1316,11 +1316,13 @@ a.top-navigation-item:hover {
 /*#endregion Create form*/
 
 @media (max-width: 1024px) {
-        /*#region HEADER*/
+
+    /*#region HEADER*/
     .header-logo {
         width: 36px;
     }
     /*#endregion HEADER*/
+
 }
 
 @media (max-width: 910px ) {
