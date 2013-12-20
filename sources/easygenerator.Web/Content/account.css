@@ -781,15 +781,14 @@ body.try {
 
 .user-form-btn {
     height: auto;
-    min-height: 46px;
-    line-height: 1;
     display: inline-block;
     vertical-align: top;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding: 0 20px;
+    padding: 11px 20px;
     border-radius: 5px 5px 5px 5px;
     color: #FFFFFF;
+    font-size: 16px;
     cursor: pointer;
 }
 
