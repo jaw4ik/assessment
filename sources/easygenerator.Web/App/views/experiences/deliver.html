@@ -1,73 +1,57 @@
 ﻿<section>
     <div class="package-actions-holder clearfix">
         <div class="package-action-item pull-left">
-            <h5 class="package-action-title">Publish learning experience</h5>
+            <h5 class="package-action-title" data-bind="localize: { text: 'publishLearningExperience' }">Publish learning experience</h5>
             <p class="package-action-desc" data-bind="localize: { text: 'publishOnlineDesciption' }">Publish learning experience on easygenerator webserver</p>
-            <div class="package-action-btn-holder">
-                <!--*
-                    * TOOLTIP
-                    * -->
-                <div class="action-explanation-tooltip-container" data-bind="visible: (showPublishDescription() || showRepublishDescription())">
-                    <div class="action-explanation-tooltip-wrapper">
-                        <div class="action-explanation-tooltip">
-
-                            <span class="action-explanation-tooltip-text" data-bind="visible: showPublishDescription(), localize: { text: 'publishOnlineDesciption' }">Publish learning experience on easygenerator webserver</span>
-                            <span class="action-explanation-tooltip-text" data-bind="visible: showRepublishDescription(), localize: { text: 'republishOnlineDescription' }">Republish learning experience on easygenerator webserver</span>
-
-                            <div class="action-explanation-tooltip-triangle"></div>
-                        </div>
-                    </div>
-                </div>
-                <!--*
+            <!--*
                     * PUBLISH BUTTON
                     * -->
-                <!-- ko if: !publishPackageExists() -->
-                <!-- ko if: deliveringState() !== states.building && deliveringState() !== states.publishing -->
-                <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience, hover: showPublishDescription">
-                    <span class="btn-title" data-bind="localize: { text: 'publishOnline' }">Publish online</span>
-                </div>
-                <!-- /ko -->
-                <!-- ko if: deliveringState() == states.building && !buildingForPublish() -->
-                <div class="package-action-btn btn green publish-btn disabled">
-                    <span class="btn-title" data-bind="localize: { text: 'publishOnline' }">Publish online</span>
-                </div>
-                <!-- /ko -->
-                <!-- /ko -->
-                <!--*
+            <!-- ko if: !publishPackageExists() -->
+            <!-- ko if: deliveringState() !== states.building && deliveringState() !== states.publishing -->
+            <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience, hover: showPublishDescription">
+                <span class="btn-title" data-bind="localize: { text: 'publishOnline' }">Publish online</span>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: deliveringState() == states.building && !buildingForPublish() -->
+            <div class="package-action-btn btn green publish-btn disabled">
+                <span class="btn-title" data-bind="localize: { text: 'publishOnline' }">Publish online</span>
+            </div>
+            <!-- /ko -->
+            <!-- /ko -->
+            <!--*
                     * ASSEMBLING/PUBLISHING
                     * -->
-                <!-- ko if: deliveringState() === states.building && buildingForPublish() -->
-                <div class="package-action-btn btn green publishing-btn">
-                    <span class="btn-title" data-bind="localize: { text: 'assembling' }">assembling...</span>
-                </div>
-                <!-- /ko -->
-                <!-- ko if: deliveringState() === states.publishing -->
-                <div class="package-action-btn btn green publishing-btn">
-                    <span class="btn-title" data-bind="localize: { text: 'publishing' }">publishing...</span>
-                </div>
-                <!-- /ko -->
-                <!--*
+            <!-- ko if: deliveringState() === states.building && buildingForPublish() -->
+            <div class="package-action-btn btn green publishing-btn">
+                <span class="btn-title" data-bind="localize: { text: 'assembling' }">assembling...</span>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: deliveringState() === states.publishing -->
+            <div class="package-action-btn btn green publishing-btn">
+                <span class="btn-title" data-bind="localize: { text: 'publishing' }">publishing...</span>
+            </div>
+            <!-- /ko -->
+            <!--*
                     * REPUBLISH BUTTON
                     * -->
-                <!-- ko if: publishPackageExists() -->
-                <!-- ko if: deliveringState() !== states.building && deliveringState() !== states.publishing -->
-                <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience, hover: showRepublishDescription">
-                    <span class="btn-title" data-bind="localize: { text: 'republishOnline' }">Republish online</span>
-                </div>
-                <!-- /ko -->
-                <!-- ko if: deliveringState() == states.building && !buildingForPublish() -->
-                <div class="package-action-btn btn green publish-btn disabled">
-                    <span class="btn-title" data-bind="localize: { text: 'republishOnline' }">Republish online</span>
-                </div>
-                <!-- /ko -->
-                <!-- /ko -->
-            </div>
             <!-- ko if: publishPackageExists() -->
-            <aside class="copy-link-control" data-bind="css: { disabled: isDelivering() }">
+            <!-- ko if: deliveringState() !== states.building && deliveringState() !== states.publishing -->
+            <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience, hover: showRepublishDescription">
+                <span class="btn-title" data-bind="localize: { text: 'republishOnline' }">Republish online</span>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: deliveringState() == states.building && !buildingForPublish() -->
+            <div class="package-action-btn btn green publish-btn disabled">
+                <span class="btn-title" data-bind="localize: { text: 'republishOnline' }">Republish online</span>
+            </div>
+            <!-- /ko -->
+            <!-- /ko -->
+            <!-- ko if: publishPackageExists() -->
+            <div class="copy-link-control" data-bind="css: { disabled: isDelivering() }">
                 <div class="copy-link-input-wrapper">
                     <input class="copy-link-input" type="text" readonly="readonly" data-bind="value: publishedPackageUrl(), css: { selectable: !isDelivering() }, selectTextBinding: publishPackageExists()" />
                 </div>
-                <div class="open-link-btn-wrapper package-action-btn-holder">
+                <div class="open-link-btn-wrapper">
                     <div class="open-link-description-wrapper">
                         <div class="action-explanation-tooltip-container" data-bind="visible: !isDelivering() && showOpenLinkDescription">
                             <div class="action-explanation-tooltip-wrapper">
@@ -89,49 +73,36 @@
                         <!-- /ko -->
                     </div>
                 </div>
-            </aside>
+            </div>
             <!-- ko ifnot: isDelivering() -->
             <div class="copy-link-description-holder">
-                <span class="actions-description" data-bind="localize: { text: 'publishingLinkDescription' }">Share this link with your learners</span>
+                <span data-bind="localize: { text: 'publishingLinkDescription' }">Share this link with your learners</span>
             </div>
             <!-- /ko -->
             <!-- /ko -->
         </div>
         <div class="package-action-item pull-right">
-            <h5 class="package-action-title">Download learning experience</h5>
+            <h5 class="package-action-title" data-bind="localize: { text: 'downloadLearningExperience' }">Download learning experience</h5>
             <p class="package-action-desc" data-bind="localize: { text: 'downloadDescription' }">Download learning experience in order to publish it on your own webserver</p>
             <!--*
                 * DOWNLOAD BUTTON CONDITIONS 
                 * -->
-            <div class="package-action-btn-holder">
-                <!--*
-                    * TOOLTIP
-                    * -->
-                <div class="action-explanation-tooltip-container" data-bind="visible: showDownloadDescription">
-                    <div class="action-explanation-tooltip-wrapper">
-                        <div class="action-explanation-tooltip">
-                            <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'downloadDescription' }">Download learning experience in order to publish it on your own webserver</span>
-                            <div class="action-explanation-tooltip-triangle"></div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- ko if: deliveringState() !== states.building && deliveringState() !== states.publishing -->
-                <div class="package-action-btn btn grey download-btn" data-bind="click: downloadExperience, hover: showDownloadDescription">
-                    <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
-                </div>
-                <!-- /ko -->
-                <!-- ko if: deliveringState() === states.publishing || (deliveringState() === states.building && buildingForPublish())-->
-                <div class="package-action-btn btn grey download-btn disabled">
-                    <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
-                </div>
-                <!-- /ko -->
-                <!-- ko if: deliveringState() === states.building && !buildingForPublish()-->
-                <div class="package-action-btn btn grey download-btn">
-                    <span class="btn-title" data-bind="localize: { text: 'assembling' }">assembling...</span>
-                </div>
-                <!-- /ko -->
+            <!-- ko if: deliveringState() !== states.building && deliveringState() !== states.publishing -->
+            <div class="package-action-btn btn grey download-btn" data-bind="click: downloadExperience, hover: showDownloadDescription">
+                <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
             </div>
+            <!-- /ko -->
+            <!-- ko if: deliveringState() === states.publishing || (deliveringState() === states.building && buildingForPublish())-->
+            <div class="package-action-btn btn grey download-btn disabled">
+                <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: deliveringState() === states.building && !buildingForPublish()-->
+            <div class="package-action-btn btn grey download-btn">
+                <span class="btn-title" data-bind="localize: { text: 'assembling' }">assembling...</span>
+            </div>
+            <!-- /ko -->
             <!-- link to render package url to and click after assembling -->
             <a id="packageLink" style="display: none" data-bind="attr: { href: 'download/' + packageUrl() }"></a>
         </div>

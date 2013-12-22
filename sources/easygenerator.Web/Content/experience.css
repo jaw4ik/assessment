@@ -252,18 +252,13 @@
     font-size: 13px;
 }
 
-.package-action-btn-holder {
-    display: inline-block;
-    position: relative;
-    margin-top: 13px;
-}
-
 .package-action-btn {
     width: 190px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     padding: 8px 10px;
+    margin-top: 13px;
     color: white;
     font-size: 16px;
     text-align: center;
@@ -409,11 +404,11 @@
     margin-bottom: 8px;
 }
 
-.package-action-btn-holder:hover .action-explanation-tooltip-container {
+.open-link-btn-wrapper:hover .action-explanation-tooltip-container {
     display: table;
 }
 
-.package-action-btn-holder.disabled-tooltip:hover .action-explanation-tooltip-container {
+.open-link-btn-wrapper.disabled-tooltip:hover .action-explanation-tooltip-container {
     display: none;
 }
 
