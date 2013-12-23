@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Web.DynamicData;
-using AccountRes;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Events;
@@ -13,6 +12,7 @@ using easygenerator.Web.Mail;
 using easygenerator.Web.ViewModels.Account;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
+using AccountRes;
 
 namespace easygenerator.Web.Controllers.Api
 {

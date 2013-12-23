@@ -300,6 +300,10 @@
         background: url('images/publish-loader.gif') no-repeat 0 2px;
     }
 
+     .package-action-btn.building-btn .btn-title:before {
+        background: url('images/build-loader.gif') no-repeat 0 2px;
+    }
+
     .package-action-btn.download-btn .btn-title:before {
         background-position: -152px -194px;
     }
