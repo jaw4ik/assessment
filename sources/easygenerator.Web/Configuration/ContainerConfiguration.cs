@@ -19,6 +19,9 @@ using easygenerator.Web.Components.Tasks;
 using easygenerator.Web.Mail;
 using easygenerator.DomainModel.Events;
 using easygenerator.Web.Publish;
+using easygenerator.Web.Newsletter;
+using easygenerator.Web.Newsletter.MailChimp;
+using easygenerator.Web.Components.Http;
 
 namespace easygenerator.Web.Configuration
 {
@@ -76,6 +79,13 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<ExperiencePublisher>().As<IExperiencePublisher>();
             builder.RegisterType<PublishDispatcher>().As <IPublishDispatcher>().SingleInstance();
             builder.RegisterType<PublishIsInProgressConstraint>();
+
+            #endregion
+
+            #region NewsLetter
+
+            builder.RegisterType<MailChimpSubscriptionManager>().As<INewsletterSubscriptionManager>().SingleInstance();
+            builder.RegisterType<HttpHelper>().As<HttpHelper>().SingleInstance();
 
             #endregion
 

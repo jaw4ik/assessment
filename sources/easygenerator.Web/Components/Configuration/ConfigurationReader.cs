@@ -27,5 +27,14 @@ namespace easygenerator.Web.Components.Configuration
                 return int.Parse(ConfigurationManager.AppSettings["PasswordRecoveryTicketExpirationInterval"]);
             }
         }
+
+        public virtual MailChimpConfigurationSection MailChimpConfiguration
+        {
+            get
+            {
+                return ConfigurationManager.GetSection("mailChimp") as MailChimpConfigurationSection;
+            }
+        }
+
     }
 }
