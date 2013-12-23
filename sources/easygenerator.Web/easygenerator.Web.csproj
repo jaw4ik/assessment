@@ -330,6 +330,7 @@
     <Content Include="App\views\feedback.html" />
     <Content Include="Content\durandal.css" />
     <Content Include="Content\images\account\log-in.jpg" />
+    <Content Include="Content\images\build-loader.gif" />
     <Content Include="Content\images\emptyList.png" />
     <Content Include="Content\images\objective.png" />
     <Content Include="Content\images\oops.png" />
