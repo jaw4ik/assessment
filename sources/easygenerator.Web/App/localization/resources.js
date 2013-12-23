@@ -1000,8 +1000,8 @@
     },
     introStartProcessWith: {
         en: 'Start your authoring process with:',
-        nl: 'Start your authoring process with:[nl]',
-        de: 'Start your authoring process with:[de]'
+        nl: 'Begin uw authoringproces met:',
+        de: 'Starten Sie den Authoringprozess mit:'
     },
     introDefineLO: {
         en: 'Define learning objective',
