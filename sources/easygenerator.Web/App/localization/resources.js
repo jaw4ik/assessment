@@ -958,10 +958,15 @@
         nl: 'Welkom bij de webversie van easygenerator!',
         de: 'Willkommen zur Webversion von easygenerator!'
     },
-    introBeforeStart: {
-        en: 'Before you start please take a moment to read about our concept. When you understand the big picture you can work a lot more effective with easygenerator.',
-        nl: 'Neem voordat u begint even de tijd om ons concept door te lezen. Als u de achterliggende gedachte begrijpt, kunt u easygenerator een stuk effectiever gebruiken.',
-        de: 'Nehmen Sie sich vor dem Beginn etwas Zeit, um unser Konzept zu lesen. Wenn Sie das Gesamtbild verstanden haben, können Sie viel effektiver mit easygenerator arbeiten.'
+    introBeforeStartOne: {
+        en: 'Before you start please take a moment to read about our concept.',
+        nl: 'Neem voordat u begint even de tijd om ons concept door te lezen.',
+        de: 'Nehmen Sie sich vor dem Beginn etwas Zeit, um unser Konzept zu lesen.'
+    },
+    introBeforeStartTwo: {
+        en: 'When you understand the big picture you can work a lot more effective with easygenerator.',
+        nl: 'Als u de achterliggende gedachte begrijpt, kunt u easygenerator een stuk effectiever gebruiken.',
+        de: 'Wenn Sie das Gesamtbild verstanden haben, können Sie viel effektiver mit easygenerator arbeiten.'
     },
     introStartButton: {
         en: 'Start esygenerator',
@@ -992,6 +997,11 @@
         en: 'Progress is measured by answering questions not by reading pages.',
         nl: 'De vooruitgang wordt gemeten aan de hand van het beantwoorden van vragen in plaats van door het lezen van pagina\'s.',
         de: 'Der Fortschritt durch die Beantwortung von Fragen (und nicht durch das Lesen von Seiten) gemessen wird.'
+    },
+    introStartProcessWith: {
+        en: 'Start your authoring process with:',
+        nl: 'Start your authoring process with:[nl]',
+        de: 'Start your authoring process with:[de]'
     },
     introDefineLO: {
         en: 'Define learning objective',
