@@ -30,6 +30,160 @@
 
         });
 
+        describe('selectedAnswer', function () {
+
+            beforeEach(function () {
+                viewModel = ctor(questionId, []);
+            });
+
+            it('should be observable', function () {
+                expect(viewModel.selectedAnswer).toBeObservable();
+            });
+        });
+
+        describe('selectAnswer', function () {
+            var answer = { id: ko.observable('answerId'), text: ko.observable('test'), isCorrect: ko.observable(false), original: { text: 'old', correctness: true } };
+            
+            beforeEach(function () {
+                viewModel = ctor(questionId, []);
+            });
+
+            it('should be function', function() {
+                expect(viewModel.selectAnswer).toBeFunction();
+            });
+            
+            it('should return promise', function () {
+                viewModel.selectedAnswer(null);
+                var result = viewModel.selectAnswer(answer);
+
+                expect(result).toBePromise();
+            });
+
+            it('should set selectedAnswer', function () {
+                viewModel.selectedAnswer(null);
+                var promise = viewModel.selectAnswer(answer);
+
+                waitsFor(function () {
+                    return !promise.isPending();
+                });
+                runs(function () {
+                    expect(viewModel.selectedAnswer()).toBe(answer);
+                });
+            });
+
+            describe('when previos selected answer is not changed', function() {
+                
+                var updateText, updateCorrectness;
+
+                beforeEach(function () {
+                    updateText = Q.defer();
+                    updateCorrectness = Q.defer();
+
+                    spyOn(repository, 'updateText').andReturn(updateText.promise);
+                    spyOn(repository, 'updateCorrectness').andReturn(updateCorrectness.promise);
+
+                    updateText.resolve(new Date());
+                    updateCorrectness.resolve(new Date());
+                });
+
+                it('should not update text', function () {
+                    viewModel.selectedAnswer(answer);
+                    var promise = viewModel.selectAnswer(answer);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(repository.updateText).not.toHaveBeenCalled();
+                    });
+                });
+
+                it('should not update correctness', function () {
+                    viewModel.selectedAnswer(answer);
+                    var promise = viewModel.selectAnswer(answer);
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(repository.updateCorrectness).not.toHaveBeenCalled();
+                    });
+                });
+            });
+
+            describe('when previos selected answer is changed', function () {
+
+                describe('when previous selected answer is not null', function () {
+                    var updateText, updateCorrectness;
+
+                    beforeEach(function () {
+                        updateText = Q.defer();
+                        updateCorrectness = Q.defer();
+
+                        spyOn(repository, 'updateText').andReturn(updateText.promise);
+                        spyOn(repository, 'updateCorrectness').andReturn(updateCorrectness.promise);
+
+                        updateText.resolve(new Date());
+                        updateCorrectness.resolve(new Date());
+                    });
+
+                    it('should update text', function () {
+                        viewModel.selectedAnswer(answer);
+                        var promise = viewModel.selectAnswer(null);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(repository.updateText).toHaveBeenCalled();
+                        });
+                    });
+
+                    it('should update correctness', function () {
+                        viewModel.selectedAnswer(answer);
+                        var promise = viewModel.selectAnswer(null);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(repository.updateCorrectness).toHaveBeenCalled();
+                        });
+                    });
+                });
+            });
+            
+        });
+
+        describe('clearSelection', function () {
+
+            beforeEach(function () {
+                viewModel = ctor(questionId, []);
+            });
+            
+            it('should be function', function () {
+                expect(viewModel.clearSelection).toBeFunction();
+            });
+            
+            it('should return promise', function () {
+                var result = viewModel.clearSelection();
+                expect(result).toBePromise();
+            });
+
+            it('should set selectedAnswer to null', function() {
+                var answer = { id: ko.observable('answerId'), text: ko.observable('test'), isCorrect: ko.observable(false), original: { text: 'test', correctness: false } };
+                viewModel.selectedAnswer(answer);
+                
+                var promise = viewModel.clearSelection();
+                waitsFor(function () {
+                    return !promise.isPending();
+                });
+                runs(function () {
+                    expect(viewModel.selectedAnswer()).toBe(null);
+                });
+            });
+        });
+
         describe('addAnswer:', function () {
 
             beforeEach(function () {
@@ -58,18 +212,26 @@
                 expect(viewModel.answers()[0].hasFocus()).toBeTruthy();
             });
 
+            it('should select added answer', function() {
+                viewModel.selectedAnswer(null);
+                var promise = viewModel.addAnswer();
+                
+                waitsFor(function () {
+                    return !promise.isPending();
+                });
+                runs(function () {
+                    expect(viewModel.selectedAnswer()).toBe(viewModel.answers()[0]);
+                });
+            });
         });
 
         describe('removeAnswer:', function () {
 
+            var removeAnswer;
+            var answer;
+
             beforeEach(function () {
                 viewModel = ctor(questionId, []);
-            });
-
-            var removeAnswer;
-            var answer = { id: ko.observable('answerId'), text: ko.observable('') };
-
-            beforeEach(function () {
                 removeAnswer = Q.defer();
                 spyOn(repository, 'removeAnswer').andReturn(removeAnswer.promise);
             });
@@ -78,32 +240,44 @@
                 expect(viewModel.removeAnswer).toBeFunction();
             });
 
+            it('should return promise', function() {
+                expect(repository.removeAnswer()).toBePromise();
+            });
+
             it('should send event \'Delete answer option\'', function () {
-                viewModel.removeAnswer(answer);
+                viewModel.removeAnswer();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Delete answer option');
             });
 
             describe('when answer id is set', function () {
 
+                beforeEach(function () {
+                    answer = { id: ko.observable('answerId'), text: ko.observable('test') }
+                });
+
                 it('should remove answer from the repository', function () {
-                    viewModel.answers([answer]);
-
-                    viewModel.removeAnswer(answer);
-
-                    expect(repository.removeAnswer).toHaveBeenCalledWith(questionId, answer.id());
+                    var promise = viewModel.removeAnswer(answer);
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(repository.removeAnswer).toHaveBeenCalledWith(questionId, answer.id());
+                    });
                 });
 
                 it('should remove answer from the viewModel', function () {
                     viewModel.answers([answer]);
-
-                    viewModel.removeAnswer(answer);
-
-                    expect(viewModel.answers().length).toEqual(0);
+                    var promise = viewModel.removeAnswer(answer);
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.answers().length).toEqual(0);
+                    });
                 });
 
                 it('should show notification', function () {
                     var promise = removeAnswer.promise.fin(function () { });
-                    viewModel.answers([answer]);
                     removeAnswer.resolve({ modifiedOn: new Date() });
 
                     viewModel.removeAnswer(answer);
@@ -121,22 +295,31 @@
             describe('when answer id is not set initially', function () {
                 var answerWithoutId;
                 beforeEach(function () {
-                    answerWithoutId = { id: ko.observable(''), text: ko.observable('') };
+                    answerWithoutId = { id: ko.observable(''), text: ko.observable('test') };
                 });
 
                 it('should not remove answer from the repository', function () {
                     viewModel.answers([answerWithoutId]);
 
-                    viewModel.removeAnswer(answerWithoutId);
-                    expect(repository.removeAnswer).not.toHaveBeenCalled();
+                    var promise = viewModel.removeAnswer(answerWithoutId);
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(repository.removeAnswer).not.toHaveBeenCalled();
+                    });
                 });
 
                 it('should not remove answer from the viewModel', function () {
                     viewModel.answers([answerWithoutId]);
 
-                    viewModel.removeAnswer(answerWithoutId);
-
-                    expect(viewModel.answers().length).toEqual(1);
+                    var promise = viewModel.removeAnswer(answerWithoutId);
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.answers().length).toEqual(1);
+                    });
                 });
 
                 it('should not show notification', function () {
@@ -159,18 +342,27 @@
                     it('should remove answer from the repository', function () {
                         viewModel.answers([answerWithoutId]);
 
-                        viewModel.removeAnswer(answerWithoutId);
-                        answerWithoutId.id('answerId');
-                        expect(repository.removeAnswer).toHaveBeenCalledWith(questionId, answer.id());
+                        var promise = viewModel.removeAnswer(answerWithoutId);
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            answerWithoutId.id('answerId');
+                            expect(repository.removeAnswer).toHaveBeenCalledWith(questionId, answer.id());
+                        });
                     });
 
                     it('should remove answer from the viewModel', function () {
                         viewModel.answers([answerWithoutId]);
 
-                        viewModel.removeAnswer(answerWithoutId);
-                        answerWithoutId.id('answerId');
-
-                        expect(viewModel.answers().length).toEqual(0);
+                        var promise = viewModel.removeAnswer(answerWithoutId);
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            answerWithoutId.id('answerId');
+                            expect(viewModel.answers().length).toEqual(0);
+                        });
                     });
 
                     it('should show notification', function () {
@@ -191,7 +383,6 @@
 
                 });
             });
-
         });
 
         describe('beginEditText:', function () {
@@ -240,27 +431,59 @@
                 viewModel.endEditText(answer);
                 expect(answer.hasFocus()).toBeFalsy();
             });
+        });
+
+        describe('updateAnswer:', function () {
+
+            var addAnswer;
+            var updateAnswerText;
+            var updateCorrectness;
+
+            beforeEach(function () {
+                viewModel = ctor(questionId, []);
+
+                addAnswer = Q.defer();
+                updateAnswerText = Q.defer();
+                updateCorrectness = Q.defer();
+
+                spyOn(repository, 'addAnswer').andReturn(addAnswer.promise);
+                spyOn(repository, 'updateText').andReturn(updateAnswerText.promise);
+                spyOn(repository, 'updateCorrectness').andReturn(updateCorrectness.promise);
+            });
+
+            it('should be function', function () {
+                expect(viewModel.updateAnswer).toBeFunction();
+            });
 
             describe('when text is empty', function () {
+                var answer = { id: ko.observable('answerId'), text: ko.observable(''), isCorrect: ko.observable(false), original: {} };
 
                 describe('and id is not empty', function () {
+                    var removeAnswer;
+
+                    beforeEach(function() {
+                        removeAnswer = Q.defer();
+                        spyOn(repository, 'removeAnswer').andReturn(removeAnswer.promise);
+                    });
 
                     it('should remove answer from the repository', function () {
-                        var answer = { id: ko.observable('answerId'), text: ko.observable(''), hasFocus: ko.observable(true) };
                         viewModel.answers([answer]);
-
-                        viewModel.endEditText(answer);
-
-                        expect(repository.removeAnswer).toHaveBeenCalledWith(questionId, answer.id());
+                        var promise = viewModel.updateAnswer(answer);
+                        
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(repository.removeAnswer).toHaveBeenCalledWith(questionId, answer.id());
+                        });
                     });
 
                     it('should show notification', function () {
                         var promise = removeAnswer.promise.fin(function () { });
-                        var answer = { id: ko.observable('answerId'), text: ko.observable(''), hasFocus: ko.observable(true) };
                         viewModel.answers([answer]);
                         removeAnswer.resolve({ modifiedOn: new Date() });
 
-                        viewModel.endEditText(answer);
+                        viewModel.updateAnswer(answer);
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -273,62 +496,56 @@
                 });
 
                 it('should remove answer from the viewModel', function () {
-                    var answer = { id: ko.observable('answerId'), text: ko.observable(''), hasFocus: ko.observable(true) };
                     viewModel.answers([answer]);
+                    var promise = viewModel.updateAnswer(answer);
 
-                    viewModel.endEditText(answer);
-
-                    expect(viewModel.answers().length).toEqual(0);
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.answers().length).toEqual(0);
+                    });
                 });
 
-            });
-        });
-
-        describe('updateText:', function () {
-
-            var addAnswer;
-            var updateAnswerText;
-
-            beforeEach(function () {
-                viewModel = ctor(questionId, []);
-
-                addAnswer = Q.defer();
-                updateAnswerText = Q.defer();
-
-                spyOn(repository, 'addAnswer').andReturn(addAnswer.promise);
-                spyOn(repository, 'updateText').andReturn(updateAnswerText.promise);
-            });
-
-            it('should be function', function () {
-                expect(viewModel.updateText).toBeFunction();
             });
 
             describe('when text is not empty', function () {
 
                 describe('and id is not empty', function () {
 
-                    var answer = { id: ko.observable('answerId'), text: ko.observable('text') };
+                    var answer = { id: ko.observable('answerId'), text: ko.observable('text'), isCorrect: ko.observable(false), original: {} };
 
                     describe('and text is not modified', function () {
 
                         it('should not update answer text in the repository', function () {
-                            answer.originalText = 'text';
-                            viewModel.updateText(answer);
-                            expect(repository.updateText).not.toHaveBeenCalledWith(questionId, answer.id(), answer.text());
-                        });
+                            answer.original.text = 'text';
+                            answer.original.correctness = false;
+                            updateAnswerText.resolve();
+                            updateCorrectness.resolve();
 
+                            var promise = viewModel.updateAnswer(answer);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(repository.updateText).not.toHaveBeenCalledWith();
+                            });
+                        });
                     });
 
                     describe('and text is modified', function () {
 
                         beforeEach(function () {
-                            answer.originalText = '';
+                            answer.original.text = 'old text';
+                            answer.original.correctness = false;
                         });
 
                         it('should update answer text in the repository', function () {
-                            var promise = updateAnswerText.promise.fin(function () { });
-                            updateAnswerText.resolve(new Date());
-                            viewModel.updateText(answer);
+                            updateAnswerText.resolve();
+                            updateCorrectness.resolve();
+
+                            var promise = viewModel.updateAnswer(answer);
 
                             waitsFor(function () {
                                 return !promise.isPending();
@@ -341,7 +558,7 @@
                         it('should show notification', function () {
                             var promise = updateAnswerText.promise.fin(function () { });
                             updateAnswerText.resolve({ modifiedOn: new Date() });
-                            viewModel.updateText(answer);
+                            viewModel.updateAnswer(answer);
 
                             waitsFor(function () {
                                 return !promise.isPending();
@@ -353,6 +570,60 @@
 
                     });
 
+                    describe('and correctness is not modified', function() {
+
+                        it('should not update answer correctness in the repository', function () {
+                            answer.original.text = 'text';
+                            answer.original.correctness = false;
+                            
+                            updateAnswerText.resolve();
+                            updateCorrectness.resolve();
+
+                            var promise = viewModel.updateAnswer(answer);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(repository.updateCorrectness).not.toHaveBeenCalledWith();
+                            });
+                        });
+                    });
+                    
+                    describe('and correctness is modified', function () {
+
+                        beforeEach(function () {
+                            answer.original.text = 'text';
+                            answer.original.correctness = true;
+                        });
+
+                        it('should update answer correctness in the repository', function () {
+                            updateAnswerText.resolve();
+                            updateCorrectness.resolve();
+
+                            var promise = viewModel.updateAnswer(answer);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(repository.updateCorrectness).toHaveBeenCalledWith(questionId, answer.id(), answer.isCorrect());
+                            });
+                        });
+
+                        it('should show notification', function () {
+                            var promise = updateCorrectness.promise.fin(function () { });
+                            updateCorrectness.resolve({ modifiedOn: new Date() });
+                            viewModel.updateAnswer(answer);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(notify.info).toHaveBeenCalled();
+                            });
+                        });
+                    });
                 });
 
                 describe('and id is empty', function () {
@@ -360,10 +631,15 @@
                     var id = 'id';
 
                     it('should add answer to the repository', function () {
-                        var answer = { id: ko.observable(''), text: ko.observable('text') };
+                        var answer = { id: ko.observable(''), text: ko.observable('text'), isCorrect: ko.observable(true) };
 
-                        viewModel.updateText(answer);
-                        expect(repository.addAnswer).toHaveBeenCalledWith(questionId, { text: answer.text(), isCorrect: false });
+                        var promise = viewModel.updateAnswer(answer);
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(repository.addAnswer).toHaveBeenCalledWith(questionId, { text: answer.text(), isCorrect: true });
+                        });
                     });
 
                     it('should update answer id in the viewModel', function () {
@@ -371,7 +647,7 @@
                         var promise = addAnswer.promise.fin(function () { });
                         addAnswer.resolve({ id: id, createdOn: new Date() });
 
-                        viewModel.updateText(answer);
+                        viewModel.updateAnswer(answer);
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -381,13 +657,12 @@
                         });
                     });
 
-
                     it('should show notification', function () {
                         var answer = { id: ko.observable(''), text: ko.observable('text') };
                         var promise = addAnswer.promise.fin(function () { });
                         addAnswer.resolve({ id: id, createdOn: new Date() });
 
-                        viewModel.updateText(answer);
+                        viewModel.updateAnswer(answer);
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -405,13 +680,10 @@
 
         describe('toggleCorrectness', function () {
 
-            var updateCorrectness;
             var answer;
             beforeEach(function () {
                 viewModel = ctor(questionId, []);
                 answer = { id: ko.observable('answerId'), isCorrect: ko.observable(false) };
-                updateCorrectness = Q.defer();
-                spyOn(repository, 'updateCorrectness').andReturn(updateCorrectness.promise);
             });
 
             it('should be function', function () {
@@ -423,106 +695,11 @@
                 expect(eventTracker.publish).toHaveBeenCalledWith('Change answer option correctness');
             });
 
-            describe('when answer id is set', function () {
+            it('should update answer correctness in the viewModel', function () {
+                viewModel.toggleCorrectness(answer);
 
-                it('should update answer correctness in the repository', function () {
-                    viewModel.toggleCorrectness(answer);
-
-                    expect(repository.updateCorrectness).toHaveBeenCalledWith(questionId, answer.id(), true);
-                });
-
-                it('should update answer correctness in the viewModel', function () {
-                    viewModel.toggleCorrectness(answer);
-
-                    expect(answer.isCorrect()).toBeTruthy();
-                });
-
-                it('should show notification', function () {
-                    var promise = updateCorrectness.promise.fin(function () { });
-                    notify.info.reset();
-                    updateCorrectness.resolve({ modifiedOn: new Date() });
-
-                    viewModel.toggleCorrectness(answer);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(notify.info).toHaveBeenCalled();
-                    });
-                });
-
+                expect(answer.isCorrect()).toBeTruthy();
             });
-
-            describe('when answer id is not set initially', function () {
-                var answerWithoutId;
-                beforeEach(function () {
-                    answerWithoutId = { id: ko.observable(''), text: ko.observable(''), isCorrect: ko.observable(false) };
-                });
-                
-                it('should not update answer correctness in the repository', function () {
-                    viewModel.toggleCorrectness(answerWithoutId);
-
-                    expect(repository.updateCorrectness).not.toHaveBeenCalled();
-                });
-
-                it('should update answer correctness in the viewModel', function () {
-                    viewModel.toggleCorrectness(answerWithoutId);
-
-                    expect(answerWithoutId.isCorrect()).toBeTruthy();
-                });
-
-                it('should not show notification', function () {
-                    var promise = updateCorrectness.promise.fin(function () { });
-                    notify.info.reset();
-                    updateCorrectness.resolve({ modifiedOn: new Date() });
-
-                    viewModel.toggleCorrectness(answerWithoutId);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(notify.info).not.toHaveBeenCalled();
-                    });
-                });
-
-                describe('and answer id is set later', function () {
-
-                    it('should not update answer correctness in the repository', function () {
-                        viewModel.toggleCorrectness(answerWithoutId);
-                        answerWithoutId.id('answerId');
-
-                        expect(repository.updateCorrectness).toHaveBeenCalled();
-                    });
-
-                    it('should update answer correctness in the viewModel', function () {
-                        viewModel.toggleCorrectness(answerWithoutId);
-                        answerWithoutId.id('answerId');
-
-                        expect(answerWithoutId.isCorrect()).toBeTruthy();
-                    });
-
-                    it('should not show notification', function () {
-                        var promise = updateCorrectness.promise.fin(function () { });
-                        notify.info.reset();
-                        updateCorrectness.resolve({ modifiedOn: new Date() });
-
-                        viewModel.toggleCorrectness(answerWithoutId);
-                        answerWithoutId.id('answerId');
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(notify.info).toHaveBeenCalled();
-                        });
-                    });
-                    
-                });
-
-            });
-
         });
 
         describe('isExpanded:', function () {

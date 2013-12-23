@@ -66,10 +66,10 @@
                     </div>
                 </div>
                 <!-- ko if: isExpanded -->
-                <div class="question-content-items-list">
+                <div class="question-content-items-list" data-bind="outsideClick: { action: clearSelection }">
                     <ul class="unstyled answer-option-list">
                         <!-- ko foreach: answers -->
-                        <li class="answer-option-item" data-bind="css: { active: hasFocus }">
+                        <li class="answer-option-item" data-bind="click: $parent.selectAnswer.bind($parent, $data), css: { active: $data == $parent.selectedAnswer() }">
                             <div class="answer-options-list-item">
                                 <div class="question-answer-value-wrapper">
                                     <!-- ko if: isCorrect -->
@@ -93,7 +93,7 @@
                                 </div>
                                 <div class="question-answer-text-wrapper">
                                     <div class="question-answer-text">
-                                        <div class="editarea-editable-text selectable" data-bind="editableText: { text: text, multiline: true, autosave: { interval: $parent.autosaveInterval, handler: $parent.updateText } }, event: { focus: $parent.beginEditText, blur: function (data, event) { $parent.updateText(data, event); $parent.endEditText(data, event) } }, hasFocus: hasFocus">
+                                        <div class="editarea-editable-text selectable" data-bind="editableText: { text: text, multiline: true, autosave: { interval: $parent.autosaveInterval, handler: $parent.updateAnswer } }, event: { focus: $parent.beginEditText, blur: function (data, event) { $parent.endEditText(data, event) } }, hasFocus: hasFocus">
                                         </div>
                                     </div>
                                 </div>

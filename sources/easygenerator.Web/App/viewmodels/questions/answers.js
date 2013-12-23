@@ -12,19 +12,41 @@
         var viewModel = function (questionId, answers) {
 
             var
+                selectedAnswer = ko.observable(null),
+
+                selectAnswer = function (newAnswer) {
+                    return Q.fcall(function () {
+                        var oldAnswer = selectedAnswer();
+                        if (oldAnswer == newAnswer)
+                            return;
+
+                        selectedAnswer(newAnswer);
+                        if (oldAnswer != null)
+                            updateAnswer(oldAnswer);
+                    });
+                },
+
+                clearSelection = function () {
+                    return selectAnswer(null);
+                },
+
                 answerOptions = ko.observableArray([]),
+
                 addAnswer = function () {
                     eventTracker.publish(events.addAnswerOption);
-                    doAddAnswer();
+                    var answer = doAddAnswer();
+                    return selectAnswer(answer);
                 },
 
                 removeAnswer = function (answer) {
                     eventTracker.publish(events.deleteAnswerOption);
 
-                    performActionWhenAnswerIdIsSet(answer, function () {
-                        answerOptions.remove(answer);
-                        repository.removeAnswer(questionId, ko.unwrap(answer.id)).then(function (response) {
-                            showNotification(response.modifiedOn);
+                    return clearSelection().then(function () {
+                        performActionWhenAnswerIdIsSet(answer, function() {
+                            answerOptions.remove(answer);
+                            repository.removeAnswer(questionId, ko.unwrap(answer.id)).then(function (response) {
+                                showNotification(response.modifiedOn);
+                            });
                         });
                     });
                 },
@@ -34,55 +56,55 @@
                     answer.hasFocus(true);
                 },
 
-                updateText = function (answer) {
+                updateAnswer = function (answer) {
+
+                    var id = ko.unwrap(answer.id);
                     var text = ko.unwrap(answer.text);
+                    var correctness = ko.unwrap(answer.isCorrect);
 
-                    if (_.isEmptyOrWhitespace(text)) {
-                        return;
-                    }
-
-                    if (_.isEmptyOrWhitespace(ko.unwrap(answer.id))) {
-                        return repository.addAnswer(questionId, { text: text, isCorrect: false }).then(function (item) {
-                            showNotification(item.createdOn);
-                            answer.id(item.id);
-                            answer.originalText = text;
-                        });
-                    } else {
-                        if (answer.originalText != text) {
-                            return repository.updateText(questionId, ko.unwrap(answer.id), text).then(function (response) {
-                                showNotification(response.modifiedOn);
-                                answer.originalText = text;
-                            });
+                    return Q.fcall(function () {
+                        if (_.isEmptyOrWhitespace(text)) {
+                            answerOptions.remove(answer);
+                            if (!_.isEmptyOrWhitespace(id)) {
+                                repository.removeAnswer(questionId, id).then(function (response) {
+                                    showNotification(response.modifiedOn);
+                                });
+                            }
+                            return;
                         }
-                    }
+
+                        if (_.isEmptyOrWhitespace(id)) {
+                            repository.addAnswer(questionId, { text: text, isCorrect: correctness }).then(function (item) {
+                                showNotification(item.createdOn);
+                                answer.id(item.id);
+                                answer.original.text = text;
+                                answer.original.correctness = correctness;
+                            });
+                        } else {
+                            if (answer.original.correctness != answer.isCorrect())
+                                repository.updateCorrectness(questionId, id, answer.isCorrect()).then(function (response) {
+                                    showNotification(response.modifiedOn);
+                                    answer.original.correctness = answer.isCorrect();
+                                });
+
+                            if (answer.original.text != text) {
+                                repository.updateText(questionId, id, text).then(function (response) {
+                                    showNotification(response.modifiedOn);
+                                    answer.original.text = text;
+                                });
+                            }
+                        }
+                    });
                 },
 
                 endEditText = function (answer) {
                     eventTracker.publish(events.endEditText);
                     answer.hasFocus(false);
-
-                    var id = ko.unwrap(answer.id);
-                    var text = ko.unwrap(answer.text);
-
-                    if (_.isEmptyOrWhitespace(text)) {
-                        answerOptions.remove(answer);
-                        if (!_.isEmptyOrWhitespace(id)) {
-                            repository.removeAnswer(questionId, id).then(function (response) {
-                                showNotification(response.modifiedOn);
-                            });
-                        }
-                    }
                 },
 
                 toggleCorrectness = function (answer) {
                     eventTracker.publish(events.toggleAnswerCorrectness);
                     var isCorrect = !answer.isCorrect();
-
-                    performActionWhenAnswerIdIsSet(answer, function () {
-                        repository.updateCorrectness(questionId, answer.id(), isCorrect).then(function (response) {
-                            showNotification(response.modifiedOn);
-                        });
-                    });
 
                     answer.isCorrect(isCorrect);
                 },
@@ -109,13 +131,17 @@
 
             function doAddAnswer(answer) {
                 answer = answer || { id: '', text: '', isCorrect: false };
-                answerOptions.push({
+
+                var item = {
                     id: ko.observable(answer.id),
                     text: ko.observable(answer.text),
-                    originalText: answer.text,
+                    original: { text: answer.text, correctness: answer.isCorrect },
                     isCorrect: ko.observable(answer.isCorrect),
                     hasFocus: ko.observable(true)
-                });
+                };
+
+                answerOptions.push(item);
+                return item;
             }
 
             function showNotification(date) {
@@ -133,11 +159,14 @@
 
                 addAnswer: addAnswer,
                 removeAnswer: removeAnswer,
+                updateAnswer: updateAnswer,
+                selectAnswer: selectAnswer,
+
+                selectedAnswer: selectedAnswer,
+                clearSelection: clearSelection,
 
                 beginEditText: beginEditText,
                 endEditText: endEditText,
-
-                updateText: updateText,
                 toggleCorrectness: toggleCorrectness,
 
                 autosaveInterval: constants.autosaveTimersInterval.answerOption
