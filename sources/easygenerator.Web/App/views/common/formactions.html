@@ -1,20 +1,10 @@
 ﻿<div class="form-actions">
     <!-- ko if: isValid -->
-        <!-- ko if: saveAndNew -->
-        <a href="" class="link-create" data-bind="click: saveAndNew">
-            <span class="link-create-text" data-bind="localize: { text: 'createAndNew' }"></span>
-        </a>
-        <!-- /ko -->
         <div type="submit" class="btn-create" data-bind="click: createAndContinue">
             <span class="btn-create-text" data-bind="localize: { text: 'createAndContinue' }"></span>
         </div>
     <!-- /ko -->
     <!-- ko ifnot: isValid -->
-        <!-- ko if: saveAndNew -->
-        <div class="link-create disabled" data-bind="visible: saveAndNew">
-            <span class="link-create-text" data-bind="localize: { text: 'createAndNew' }"></span>
-        </div>
-        <!-- /ko -->
         <div class="btn-create disabled">
             <span class="btn-create-text" data-bind="localize: { text: 'createAndContinue' }"></span>
         </div>

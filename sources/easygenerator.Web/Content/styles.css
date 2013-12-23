@@ -778,40 +778,6 @@ a.top-navigation-item:hover {
     background: #fff;
 }
 
-
-.link-create {
-    font-size: 16px;
-    display: inline-block;
-    font-family: 'OpenSans-Semibold';
-    margin: 0;
-    min-width: 100px;
-    color: #606060;
-    padding: 0 20px;
-    white-space: nowrap;
-    height: 50px;
-    line-height: 47px;
-    -webkit-text-shadow: none;
-    text-shadow: none;
-    text-decoration: underline;
-    cursor: default;
-}
-
-    .link-create.disabled {
-        opacity: 0.5;
-    }
-
-        .link-create.disabled .link-create-text:hover {
-            color: #555555;
-        }
-
-    .link-create .link-create-text:hover {
-        color: #303133;
-    }
-
-    .link-create + .btn-create {
-        margin-left: 20px;
-    }
-
 /*green button*/
 .btn.green {
     background: #B0C93E;
