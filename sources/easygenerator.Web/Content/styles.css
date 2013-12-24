@@ -738,18 +738,11 @@ a.top-navigation-item:hover {
     display: inline-block;
     margin: 0;
     padding: 13px 20px;
-    border: 1px solid #d4d4d4;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    background: #fdfdfd;
-    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZkZmRmZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
-    background: -moz-linear-gradient(top, #fdfdfd 0%, #ffffff 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdfdfd), color-stop(100%,#ffffff));
-    background: -webkit-linear-gradient(top, #fdfdfd 0%,#ffffff 100%);
-    background: -ms-linear-gradient(top, #fdfdfd 0%,#ffffff 100%);
-    background: linear-gradient(to bottom, #fdfdfd 0%,#ffffff 100%);
-    color: #58b6ff;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+    background: #92c5ee;
+    color: #ffffff;
     font-size: 16px;
     font-family: 'OpenSans-Semibold';
     white-space: nowrap;
@@ -761,7 +754,7 @@ a.top-navigation-item:hover {
     .btn-create.disabled,
     .btn-create.disabled:hover,
     .btn-create.disabled:active {
-        background: #fdfdfd;
+        background: #92c5ee;
         opacity: 0.5;
         cursor: default;
     }
@@ -771,11 +764,11 @@ a.top-navigation-item:hover {
 }
 
 .btn-create:hover {
-    background: #fdfdfd;
+    background: #71b6eb;
 }
 
 .btn-create:active {
-    background: #fff;
+    background: #53a8ea;
 }
 
 /*green button*/

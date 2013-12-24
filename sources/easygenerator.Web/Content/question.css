@@ -325,10 +325,19 @@
 }
 
 .question-content-action-block {
-    color: #f59957;
     font-family: 'OpenSans-Semibold';
     font-size: 13px;
     cursor: default;
+}
+
+.question-content-collapse-action,
+.question-content-expand-action {
+    color: #7f7f7f
+}
+
+.question-content-collapse-action:hover,
+.question-content-expand-action:hover {
+    color: #545454
 }
 
 .question-content-collapse-action:before {
@@ -346,6 +355,14 @@
     height: 16px;
     background-position: -98px -174px;
     background: url(images/sprites.png) -258px -175px no-repeat;
+}
+
+.question-content-define-action {
+    color: #f59957;
+}
+
+.question-content-define-action:hover {
+    color: #f27216
 }
 
 .question-content-define-action:before {
