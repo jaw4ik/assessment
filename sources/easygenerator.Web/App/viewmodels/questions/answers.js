@@ -81,18 +81,12 @@
                                 answer.original.correctness = correctness;
                             });
                         } else {
-                            if (answer.original.correctness != answer.isCorrect())
-                                repository.updateCorrectness(questionId, id, answer.isCorrect()).then(function (response) {
-                                    showNotification(response.modifiedOn);
-                                    answer.original.correctness = answer.isCorrect();
-                                });
-
-                            if (answer.original.text != text) {
-                                repository.updateText(questionId, id, text).then(function (response) {
+                            if (answer.original.text != text || answer.original.correctness != answer.isCorrect())
+                                repository.updateAnswer(questionId, id, text, answer.isCorrect()).then(function (response) {
                                     showNotification(response.modifiedOn);
                                     answer.original.text = text;
+                                    answer.original.correctness = answer.isCorrect();
                                 });
-                            }
                         }
                     });
                 },

@@ -73,20 +73,15 @@
 
             describe('when previos selected answer is not changed', function() {
                 
-                var updateText, updateCorrectness;
+                var updateAnswer;
 
                 beforeEach(function () {
-                    updateText = Q.defer();
-                    updateCorrectness = Q.defer();
-
-                    spyOn(repository, 'updateText').andReturn(updateText.promise);
-                    spyOn(repository, 'updateCorrectness').andReturn(updateCorrectness.promise);
-
-                    updateText.resolve(new Date());
-                    updateCorrectness.resolve(new Date());
+                    updateAnswer = Q.defer();
+                    spyOn(repository, 'updateAnswer').andReturn(updateAnswer.promise);
+                    updateAnswer.resolve(new Date());
                 });
 
-                it('should not update text', function () {
+                it('should not update answer', function () {
                     viewModel.selectedAnswer(answer);
                     var promise = viewModel.selectAnswer(answer);
 
@@ -94,19 +89,7 @@
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(repository.updateText).not.toHaveBeenCalled();
-                    });
-                });
-
-                it('should not update correctness', function () {
-                    viewModel.selectedAnswer(answer);
-                    var promise = viewModel.selectAnswer(answer);
-
-                    waitsFor(function () {
-                        return !promise.isPending();
-                    });
-                    runs(function () {
-                        expect(repository.updateCorrectness).not.toHaveBeenCalled();
+                        expect(repository.updateAnswer).not.toHaveBeenCalled();
                     });
                 });
             });
@@ -114,20 +97,15 @@
             describe('when previos selected answer is changed', function () {
 
                 describe('when previous selected answer is not null', function () {
-                    var updateText, updateCorrectness;
+                    var updateAnswer;
 
                     beforeEach(function () {
-                        updateText = Q.defer();
-                        updateCorrectness = Q.defer();
-
-                        spyOn(repository, 'updateText').andReturn(updateText.promise);
-                        spyOn(repository, 'updateCorrectness').andReturn(updateCorrectness.promise);
-
-                        updateText.resolve(new Date());
-                        updateCorrectness.resolve(new Date());
+                        updateAnswer = Q.defer();
+                        spyOn(repository, 'updateAnswer').andReturn(updateAnswer.promise);
+                        updateAnswer.resolve(new Date());
                     });
 
-                    it('should update text', function () {
+                    it('should update answer', function () {
                         viewModel.selectedAnswer(answer);
                         var promise = viewModel.selectAnswer(null);
 
@@ -135,19 +113,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(repository.updateText).toHaveBeenCalled();
-                        });
-                    });
-
-                    it('should update correctness', function () {
-                        viewModel.selectedAnswer(answer);
-                        var promise = viewModel.selectAnswer(null);
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(repository.updateCorrectness).toHaveBeenCalled();
+                            expect(repository.updateAnswer).toHaveBeenCalled();
                         });
                     });
                 });
@@ -436,19 +402,16 @@
         describe('updateAnswer:', function () {
 
             var addAnswer;
-            var updateAnswerText;
-            var updateCorrectness;
+            var updateAnswer;
 
             beforeEach(function () {
                 viewModel = ctor(questionId, []);
 
                 addAnswer = Q.defer();
-                updateAnswerText = Q.defer();
-                updateCorrectness = Q.defer();
+                updateAnswer = Q.defer();
 
                 spyOn(repository, 'addAnswer').andReturn(addAnswer.promise);
-                spyOn(repository, 'updateText').andReturn(updateAnswerText.promise);
-                spyOn(repository, 'updateCorrectness').andReturn(updateCorrectness.promise);
+                spyOn(repository, 'updateAnswer').andReturn(updateAnswer.promise);
             });
 
             it('should be function', function () {
@@ -512,117 +475,92 @@
             describe('when text is not empty', function () {
 
                 describe('and id is not empty', function () {
-
                     var answer = { id: ko.observable('answerId'), text: ko.observable('text'), isCorrect: ko.observable(false), original: {} };
 
-                    describe('and text is not modified', function () {
-
-                        it('should not update answer text in the repository', function () {
-                            answer.original.text = 'text';
-                            answer.original.correctness = false;
-                            updateAnswerText.resolve();
-                            updateCorrectness.resolve();
-
-                            var promise = viewModel.updateAnswer(answer);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(repository.updateText).not.toHaveBeenCalledWith();
-                            });
-                        });
-                    });
-
-                    describe('and text is modified', function () {
-
+                    describe('when text is not modified', function () {
                         beforeEach(function () {
-                            answer.original.text = 'old text';
-                            answer.original.correctness = false;
-                        });
-
-                        it('should update answer text in the repository', function () {
-                            updateAnswerText.resolve();
-                            updateCorrectness.resolve();
-
-                            var promise = viewModel.updateAnswer(answer);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(repository.updateText).toHaveBeenCalledWith(questionId, answer.id(), answer.text());
-                            });
-                        });
-
-                        it('should show notification', function () {
-                            var promise = updateAnswerText.promise.fin(function () { });
-                            updateAnswerText.resolve({ modifiedOn: new Date() });
-                            viewModel.updateAnswer(answer);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(notify.info).toHaveBeenCalled();
-                            });
-                        });
-
-                    });
-
-                    describe('and correctness is not modified', function() {
-
-                        it('should not update answer correctness in the repository', function () {
                             answer.original.text = 'text';
-                            answer.original.correctness = false;
+                        });
+                        
+                        describe('and correctness is not modified', function() {
+                            beforeEach(function() {
+                                answer.original.correctness = false;
+                            });
                             
-                            updateAnswerText.resolve();
-                            updateCorrectness.resolve();
+                            it('should not update answer in the repository', function () {
+                                updateAnswer.resolve();
+                                var promise = viewModel.updateAnswer(answer);
 
-                            var promise = viewModel.updateAnswer(answer);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(repository.updateCorrectness).not.toHaveBeenCalledWith();
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(repository.updateAnswer).not.toHaveBeenCalledWith();
+                                });
                             });
                         });
+
+                        describe('and correctness is modified', function () {
+                            beforeEach(function () {
+                                answer.original.correctness = true;
+                            });
+
+                            it('should update answer in the repository', function () {
+                                updateAnswer.resolve();
+                                var promise = viewModel.updateAnswer(answer);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(repository.updateAnswer).toHaveBeenCalledWith(questionId, answer.id(), answer.text(), false);
+                                });
+                            });
+                        });
+
                     });
-                    
-                    describe('and correctness is modified', function () {
 
+                    describe('when text is modified', function () {
                         beforeEach(function () {
-                            answer.original.text = 'text';
-                            answer.original.correctness = true;
+                            answer.original.text = 'text old';
                         });
 
-                        it('should update answer correctness in the repository', function () {
-                            updateAnswerText.resolve();
-                            updateCorrectness.resolve();
-
-                            var promise = viewModel.updateAnswer(answer);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
+                        describe('and correctness is not modified', function () {
+                            beforeEach(function () {
+                                answer.original.correctness = false;
                             });
-                            runs(function () {
-                                expect(repository.updateCorrectness).toHaveBeenCalledWith(questionId, answer.id(), answer.isCorrect());
+
+                            it('should update answer in the repository', function () {
+                                updateAnswer.resolve();
+                                var promise = viewModel.updateAnswer(answer);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(repository.updateAnswer).toHaveBeenCalledWith(questionId, answer.id(), answer.text(), false);
+                                });
+                            });
+                        });
+
+                        describe('and correctness is modified', function () {
+                            beforeEach(function () {
+                                answer.original.correctness = true;
+                            });
+
+                            it('should update answer in the repository', function () {
+                                updateAnswer.resolve();
+                                var promise = viewModel.updateAnswer(answer);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(repository.updateAnswer).toHaveBeenCalledWith(questionId, answer.id(), answer.text(), false);
+                                });
                             });
                         });
 
-                        it('should show notification', function () {
-                            var promise = updateCorrectness.promise.fin(function () { });
-                            updateCorrectness.resolve({ modifiedOn: new Date() });
-                            viewModel.updateAnswer(answer);
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(notify.info).toHaveBeenCalled();
-                            });
-                        });
                     });
                 });
 

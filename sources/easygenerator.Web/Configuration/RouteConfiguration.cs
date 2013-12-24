@@ -101,15 +101,9 @@ namespace easygenerator.Web.Configuration
             );
 
             routes.MapRoute(
-                name: "UpdateAnswerText",
-                url: "api/answer/updateText",
-                defaults: new { controller = "Answer", action = "UpdateText" }
-            );
-
-            routes.MapRoute(
-                name: "UpdateAnswerCorrectness",
-                url: "api/answer/updateCorrectness",
-                defaults: new { controller = "Answer", action = "UpdateCorrectness" }
+                name: "UpdateAnswer",
+                url: "api/answer/update",
+                defaults: new { controller = "Answer", action = "Update" }
             );
 
             routes.MapRoute(

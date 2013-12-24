@@ -50,7 +50,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        public ActionResult UpdateText(Answer answer, string text)
+        public ActionResult Update(Answer answer, string text, bool isCorrect)
         {
             if (answer == null)
             {
@@ -58,18 +58,6 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             answer.UpdateText(text, GetCurrentUsername());
-
-            return JsonSuccess(new { ModifiedOn = answer.ModifiedOn });
-        }
-
-        [HttpPost]
-        public ActionResult UpdateCorrectness(Answer answer, bool isCorrect)
-        {
-            if (answer == null)
-            {
-                return JsonLocalizableError(Errors.AnswerNotFoundError, Errors.AnswerNotFoundResourceKey);
-            }
-
             answer.UpdateCorrectness(isCorrect, GetCurrentUsername());
 
             return JsonSuccess(new { ModifiedOn = answer.ModifiedOn });

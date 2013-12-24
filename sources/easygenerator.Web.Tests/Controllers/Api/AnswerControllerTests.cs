@@ -135,14 +135,14 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         #endregion
 
-        #region Update text
+        #region Update
 
         [TestMethod]
-        public void UpdateText_ShouldReturnJsonErrorResult_WhenAnswerIsNull()
+        public void Update_ShouldReturnJsonErrorResult_WhenAnswerIsNull()
         {
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var result = _controller.UpdateText(null, null);
+            var result = _controller.Update(null, null, false);
 
             result.Should().BeJsonErrorResult().And.Message.Should().Be("Answer is not found");
             result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("answerNotFoundError");  
@@ -150,69 +150,43 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
 
         [TestMethod]
-        public void UpdateText_ShouldUpdateAnswerText()
+        public void Update_ShouldUpdateAnswerText()
         {
             const string text = "updated text";
             const string user = "username@easygenerator.com";
             _user.Identity.Name.Returns(user);
             var answer = Substitute.For<Answer>();
 
-            _controller.UpdateText(answer, text);
+            _controller.Update(answer, text, false);
 
             answer.Received().UpdateText(text, user);
         }
 
         [TestMethod]
-        public void UpdateText_ShouldReturnJsonSuccessResult()
-        {
-            var answer = Substitute.For<Answer>();
-
-            var result = _controller.UpdateText(answer, String.Empty);
-
-            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = answer.ModifiedOn });
-        }
-
-        #endregion
-
-        #region Update correctness
-
-        [TestMethod]
-        public void UpdateCorrectness_ShouldReturnJsonErrorResult_WhenAnswerIsNull()
-        {
-            DateTimeWrapper.Now = () => DateTime.MaxValue;
-
-            var result = _controller.UpdateCorrectness(null, true);
-
-            result.Should().BeJsonErrorResult().And.Message.Should().Be("Answer is not found");
-            result.Should().BeJsonErrorResult().And.ResourceKey.Should().Be("answerNotFoundError");  
-        }
-
-
-        [TestMethod]
-        public void UpdateCorrectness_ShouldUpdateAnswerCorrectness()
+        public void Update_ShouldUpdateAnswerCorrectness()
         {
             const bool isCorrect = true;
             const string user = "username@easygenerator.com";
             _user.Identity.Name.Returns(user);
             var answer = Substitute.For<Answer>();
 
-            _controller.UpdateCorrectness(answer, isCorrect);
+            _controller.Update(answer, "", isCorrect);
 
             answer.Received().UpdateCorrectness(isCorrect, user);
         }
 
         [TestMethod]
-        public void UpdateCorrectness_ShouldReturnJsonSuccessResult()
+        public void Update_ShouldReturnJsonSuccessResult()
         {
             var answer = Substitute.For<Answer>();
 
-            var result = _controller.UpdateCorrectness(answer, true);
+            var result = _controller.Update(answer, String.Empty, false);
 
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = answer.ModifiedOn });
         }
 
         #endregion
-
+        
         #region Get collection
 
         [TestMethod]
