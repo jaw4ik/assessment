@@ -82,7 +82,7 @@
                 beforeEach(function () {
                     feedbackDefer = Q.defer();
                     spyOn(httpWrapper, 'post').andReturn(feedbackDefer.promise);
-                    spyOn(notify, 'info');
+                    spyOn(notify, 'success');
                     viewModel.feedbackMessageFromUser('some message');
                 });
 
@@ -134,7 +134,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(notify.info).toHaveBeenCalledWith('Your feedback has been sent successfully');
+                            expect(notify.success).toHaveBeenCalledWith('Your feedback has been sent successfully');
                         });
                     });
 

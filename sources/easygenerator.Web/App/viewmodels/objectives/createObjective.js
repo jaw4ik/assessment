@@ -1,5 +1,5 @@
-﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'constants', 'notify', 'localization/localizationManager', 'repositories/experienceRepository'],
-    function (objectiveRepository, router, eventTracker, constants, notify, localizationManager, experienceRepository) {
+﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'constants', 'notify', 'uiLocker', 'localization/localizationManager', 'repositories/experienceRepository'],
+    function (objectiveRepository, router, eventTracker, constants, notify, uiLocker, localizationManager, experienceRepository) {
 
         var
             events = {
@@ -69,7 +69,7 @@
                 var that = this;
                 createObjective.call(that, function (createdObjective) {
                     isTitleEditing(true);
-                    notify.info(localizationManager.localize('savedAt') + ' ' + createdObjective.createdOn.toLocaleTimeString());
+                    notify.saved();
                 });
             },
 
@@ -94,10 +94,10 @@
             }
             
             var that = this;
-            notify.lockContent();
+            uiLocker.lock();
             objectiveRepository.addObjective({ title: title() }).then(function (createdObjective) {
                 title('');
-                notify.unlockContent();
+                uiLocker.unlock();
                 
                 if (_.isString(that.contextExperienceId)) {
                     objectiveRepository.getById(createdObjective.id).then(function (objective) {

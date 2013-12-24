@@ -61,9 +61,7 @@
                     sendEvent(events.updateQuestionTitle);
 
                     if (title.isValid()) {
-                        questionRepository.updateTitle(questionId, title()).then(function () {
-                            notify.info(localizationManager.localize('savedAt') + ' ' + new Date().toLocaleTimeString());
-                        });
+                        questionRepository.updateTitle(questionId, title()).then(notify.saved);
                     } else {
                         title(questionTitle);
                     }

@@ -107,9 +107,7 @@
                 title(title().trim());
                 if (title.isValid() && title() != this.originalTitle) {
                     eventTracker.publish(events.updateExperienceTitle);
-                    repository.updateExperienceTitle(this.id, title()).then(function (updatedOn) {
-                        notify.info(localizationManager.localize('savedAt') + ' ' + updatedOn.toLocaleTimeString());
-                    });
+                    repository.updateExperienceTitle(this.id, title()).then(notify.saved);
                 } else {
                     title(this.originalTitle);
                 }
@@ -183,7 +181,7 @@
                         return !_.contains(response.relatedObjectives, item._original);
                     }));
 
-                    notify.info(localizationManager.localize('savedAt') + ' ' + response.modifiedOn.toLocaleTimeString());
+                    notify.saved();
 
                     if (objectivesToRelate.length != response.relatedObjectives.length) {
                         notify.error(localizationManager.localize('objectivesNotFoundError'));
@@ -202,7 +200,7 @@
                 repository.unrelateObjectives(this.id, _.map(selectedObjectives, function (item) { return item; }))
                     .then(function (modifiedOn) {
                         that.connectedObjectives(_.difference(that.connectedObjectives(), selectedObjectives));
-                        notify.info(localizationManager.localize('savedAt') + ' ' + modifiedOn.toLocaleTimeString());
+                        notify.saved();
                     });
             },
 

@@ -221,14 +221,14 @@ define(function (require) {
                 });
 
                 it('should not show notification', function () {
-                    spyOn(notify, 'info');
+                    spyOn(notify, 'saved');
                     viewModel.endEditQuestionTitle();
                     waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
                         expect(promise).toBeResolved();
-                        expect(notify.info).not.toHaveBeenCalled();
+                        expect(notify.saved).not.toHaveBeenCalled();
                     });
                 });
 
@@ -282,7 +282,7 @@ define(function (require) {
                     describe('and when question updated successfully', function () {
 
                         it('should update notificaion', function () {
-                            spyOn(notify, 'info');
+                            spyOn(notify, 'saved');
 
                             viewModel.endEditQuestionTitle();
 
@@ -294,7 +294,7 @@ define(function (require) {
                             });
                             runs(function () {
                                 expect(promise).toBeResolved();
-                                expect(notify.info).toHaveBeenCalled();
+                                expect(notify.saved).toHaveBeenCalled();
                             });
                         });
 

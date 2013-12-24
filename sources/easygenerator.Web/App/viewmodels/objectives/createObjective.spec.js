@@ -4,6 +4,7 @@
 
         var router = require('plugins/router'),
             notify = require('notify'),
+            uiLocker = require('uiLocker'),
             experienceRepository = require('repositories/experienceRepository'),
             eventTracker = require('eventTracker'),
             localizationManager = require('localization/localizationManager');
@@ -111,7 +112,7 @@
 
                     beforeEach(function () {
                         viewModel.title('Some valid text');
-                        spyOn(notify, 'info');
+                        spyOn(notify, 'saved');
                     });
 
                     it('should create new objective in repository', function () {
@@ -134,9 +135,9 @@
                     });
 
                     it('should lock content', function () {
-                        spyOn(notify, 'lockContent');
+                        spyOn(uiLocker, 'lock');
                         viewModel.createAndNew();
-                        expect(notify.lockContent).toHaveBeenCalled();
+                        expect(uiLocker.lock).toHaveBeenCalled();
                     });
 
                     describe('when objective created', function () {
@@ -146,7 +147,7 @@
                         });
 
                         it('should unlock content', function () {
-                            spyOn(notify, "unlockContent");
+                            spyOn(uiLocker, "unlock");
                             viewModel.createAndNew();
 
                             var promise = addObjective.promise.fin(function () { });
@@ -156,7 +157,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(notify.unlockContent).toHaveBeenCalled();
+                                expect(uiLocker.unlock).toHaveBeenCalled();
                             });
                         });
 
@@ -190,7 +191,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(notify.info).toHaveBeenCalled();
+                                    expect(notify.saved).toHaveBeenCalled();
                                 });
                             });
                         });
@@ -238,7 +239,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(notify.info).toHaveBeenCalled();
+                                    expect(notify.saved).toHaveBeenCalled();
                                 });
                             });
                         });
@@ -302,9 +303,9 @@
                     });
 
                     it('should lock content', function () {
-                        spyOn(notify, 'lockContent');
+                        spyOn(uiLocker, 'lock');
                         viewModel.createAndContinue();
-                        expect(notify.lockContent).toHaveBeenCalled();
+                        expect(uiLocker.lock).toHaveBeenCalled();
                     });
 
                     describe('and objective created', function () {
@@ -316,7 +317,7 @@
                         });
 
                         it('should unlock content', function () {
-                            spyOn(notify, "unlockContent");
+                            spyOn(uiLocker, "unlock");
                             viewModel.createAndContinue();
 
                             var promise = addObjective.promise.fin(function () { });
@@ -326,7 +327,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(notify.unlockContent).toHaveBeenCalled();
+                                expect(uiLocker.unlock).toHaveBeenCalled();
                             });
                         });
 

@@ -139,7 +139,7 @@
             }
 
             function showNotification(date) {
-                notify.info(localizationManager.localize('savedAt') + ' ' + date.toLocaleTimeString());
+                notify.saved();
             }
 
             _.each(answers, function (item) {

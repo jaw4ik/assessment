@@ -26,7 +26,7 @@
 
             spyOn(router, 'replace');
             spyOn(eventTracker, 'publish');
-            spyOn(notify, 'info');
+            spyOn(notify, 'saved');
         });
 
         it('should be defined', function () {
@@ -260,7 +260,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(notify.info).toHaveBeenCalledWith(localizationManager.localize('savedAt') + ' ' + modifiedOn.toLocaleTimeString());
+                            expect(notify.saved).toHaveBeenCalled();
                         });
                     });
 

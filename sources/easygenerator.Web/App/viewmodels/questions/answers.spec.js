@@ -14,7 +14,7 @@
         var questionId = 'questionId';
 
         beforeEach(function () {
-            spyOn(notify, 'info');
+            spyOn(notify, 'saved');
             spyOn(eventTracker, 'publish');
         });
 
@@ -30,7 +30,7 @@
 
         });
 
-        describe('selectedAnswer', function () {
+        describe('selectedAnswer:', function () {
 
             beforeEach(function () {
                 viewModel = ctor(questionId, []);
@@ -41,7 +41,7 @@
             });
         });
 
-        describe('selectAnswer', function () {
+        describe('selectAnswer:', function () {
             var answer = { id: ko.observable('answerId'), text: ko.observable('test'), isCorrect: ko.observable(false), original: { text: 'old', correctness: true } };
             
             beforeEach(function () {
@@ -103,6 +103,8 @@
                         updateAnswer = Q.defer();
                         spyOn(repository, 'updateAnswer').andReturn(updateAnswer.promise);
                         updateAnswer.resolve(new Date());
+
+                        answer.original.correctness = true;
                     });
 
                     it('should update answer', function () {
@@ -121,7 +123,7 @@
             
         });
 
-        describe('clearSelection', function () {
+        describe('clearSelection:', function () {
 
             beforeEach(function () {
                 viewModel = ctor(questionId, []);
@@ -252,7 +254,7 @@
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(notify.info).toHaveBeenCalled();
+                        expect(notify.saved).toHaveBeenCalled();
                     });
                 });
 
@@ -299,7 +301,7 @@
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(notify.info).not.toHaveBeenCalled();
+                        expect(notify.saved).not.toHaveBeenCalled();
                     });
                 });
 
@@ -343,7 +345,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(notify.info).toHaveBeenCalled();
+                            expect(notify.saved).toHaveBeenCalled();
                         });
                     });
 
@@ -452,7 +454,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(notify.info).toHaveBeenCalled();
+                            expect(notify.saved).toHaveBeenCalled();
                         });
                     });
 
@@ -516,6 +518,19 @@
                                     expect(repository.updateAnswer).toHaveBeenCalledWith(questionId, answer.id(), answer.text(), false);
                                 });
                             });
+
+                            it('should show notification', function () {
+                                var promise = updateAnswer.promise.fin(function () { });
+                                updateAnswer.resolve({ modifiedOn: new Date() });
+                                viewModel.updateAnswer(answer);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(notify.saved).toHaveBeenCalled();
+                                });
+                            });
                         });
 
                     });
@@ -561,6 +576,19 @@
                             });
                         });
 
+
+                        it('should show notification', function () {
+                            var promise = updateAnswer.promise.fin(function () { });
+                            updateAnswer.resolve({ modifiedOn: new Date() });
+                            viewModel.updateAnswer(answer);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(notify.saved).toHaveBeenCalled();
+                            });
+                        });
                     });
                 });
 
@@ -606,7 +634,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(notify.info).toHaveBeenCalled();
+                            expect(notify.saved).toHaveBeenCalled();
                         });
                     });
 
@@ -616,7 +644,7 @@
 
         });
 
-        describe('toggleCorrectness', function () {
+        describe('toggleCorrectness:', function () {
 
             var answer;
             beforeEach(function () {

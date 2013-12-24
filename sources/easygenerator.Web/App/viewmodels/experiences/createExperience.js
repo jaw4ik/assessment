@@ -1,5 +1,5 @@
-﻿define(['repositories/experienceRepository', 'repositories/templateRepository', 'plugins/router', 'constants', 'eventTracker', 'notify', 'localization/localizationManager'],
-    function (repository, templateRepository, router, constants, eventTracker, notify, localizationManager) {
+﻿define(['repositories/experienceRepository', 'repositories/templateRepository', 'plugins/router', 'constants', 'eventTracker', 'uiLocker', 'localization/localizationManager'],
+    function (repository, templateRepository, router, constants, eventTracker, uiLocker, localizationManager) {
 
         var
             events = {
@@ -61,14 +61,14 @@
                 if (!isFormFilled()) {
                     return;
                 }
-                notify.lockContent();
+                uiLocker.lock();
                 repository.addExperience(title().trim(), getSelectedTemplate().id)
                     .then(function (experience) {
-                        notify.unlockContent();
+                        uiLocker.unlock();
                         router.navigate('experience/' + experience.id);
                     })
                     .fail(function () {
-                        notify.unlockContent();
+                        uiLocker.unlock();
                     });
             },
 

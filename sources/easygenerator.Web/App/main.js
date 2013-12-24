@@ -31,13 +31,14 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'bootstrapper
         app.configurePlugins({
             router: true,
             dialog: true,
-            http: true
+            http: true,
+            widget: true
         });
 
         app.start().then(function () {
             viewLocator.useConvention();
             bootstrapper.run();
-            
+
             composition.addBindingHandler('autofocus');
             composition.addBindingHandler('scrollToElement');
 

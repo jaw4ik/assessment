@@ -1,0 +1,15 @@
+﻿<div class="notify fixed-container">
+    <!-- ko if: enabled -->
+    <div class="content-holder">
+        <div data-bind="foreach: { data: notifications, afterAdd: addNotice, beforeRemove: removeNotice }">
+            <div class="notification-container">
+                <div class="notification clearfix" data-bind="css: type">
+                    <span class="image"></span>
+                    <span class="notification-text" data-bind="text: text"></span>
+                    <a data-bind="click: $parent.closeNotice" class="notification-close">x</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>

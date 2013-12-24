@@ -14,7 +14,7 @@
         var questionId = 'questionId';
 
         beforeEach(function () {
-            spyOn(notify, 'info');
+            spyOn(notify, 'saved');
             spyOn(eventTracker, 'publish');
         });
 
@@ -170,7 +170,7 @@
 
                     it('should not show notification', function () {
                         viewModel.updateText();
-                        expect(notify.info).not.toHaveBeenCalled();
+                        expect(notify.saved).not.toHaveBeenCalled();
                     });
                 });
                 
@@ -202,7 +202,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(notify.info).toHaveBeenCalled();
+                                expect(notify.saved).toHaveBeenCalled();
                             });
                         });
 
@@ -249,7 +249,7 @@
 
                     it('should not show notification', function () {
                         viewModel.updateText();
-                        expect(notify.info).not.toHaveBeenCalled();
+                        expect(notify.saved).not.toHaveBeenCalled();
                     });
                 });
 
@@ -277,7 +277,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(notify.info).toHaveBeenCalled();
+                                expect(notify.saved).toHaveBeenCalled();
                             });
                         });
 

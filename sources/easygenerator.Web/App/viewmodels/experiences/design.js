@@ -56,7 +56,7 @@
 
             experienceRepository.updateExperienceTemplate(viewModel.experienceId, template.id).then(function (response) {
                 viewModel.currentTemplate(template);
-                notify.info(localizationManager.localize('savedAt') + ' ' + response.modifiedOn.toLocaleTimeString());
+                notify.saved();
             }).finally(function () {
                 viewModel.showProgress(false);
             });

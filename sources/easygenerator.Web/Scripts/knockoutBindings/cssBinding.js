@@ -11,6 +11,7 @@
             helpHintText = '.help-hint-text',
             notFixedContainer = '.view-module',
             fixedContainer = '.view-module > .fixed-container:first-child',
+            notifyContainer = '.notify.fixed-container',
             backBtn = '.nav-back-holder';
 
         _.delay(setHeight, 10);
@@ -35,6 +36,7 @@
             }
 
             $(fixedContainer).css('top', headerHeight + topNavHeight + helpHintHeight + 'px');
+            $(notifyContainer).css('top', headerHeight + topNavHeight + helpHintHeight + 'px');
             $(notFixedContainer).css('padding-top', fixedContainerHeight + helpHintHeight + 'px');
             $(contentContainer).css('min-height', 600 + helpHintHeight + 'px');
             $(backBtn).css('padding-top', parseInt($(fixedContainer).css('top')) + 14 + 'px');

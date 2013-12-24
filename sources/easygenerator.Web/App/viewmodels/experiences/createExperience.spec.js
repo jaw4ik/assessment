@@ -4,7 +4,7 @@
 
         var router = require('plugins/router'),
             eventTracker = require('eventTracker'),
-            notify = require('notify'),
+            uiLocker = require('uiLocker'),
             repository = require('repositories/experienceRepository'),
             templateRepository = require('repositories/templateRepository'),
             localizationManager = require('localization/localizationManager');
@@ -269,15 +269,15 @@
                     });
 
                     it('should lock content', function () {
-                        spyOn(notify, 'lockContent');
+                        spyOn(uiLocker, 'lock');
                         viewModel.createAndContinue();
-                        expect(notify.lockContent).toHaveBeenCalled();
+                        expect(uiLocker.lock).toHaveBeenCalled();
                     });
 
                     describe('and experience was added successfully', function () {
 
                         it('should unlock content', function () {
-                            spyOn(notify, "unlockContent");
+                            spyOn(uiLocker, "unlock");
                             viewModel.createAndContinue();
 
                             var promise = addExperience.promise.fin(function () { });
@@ -287,7 +287,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(notify.unlockContent).toHaveBeenCalled();
+                                expect(uiLocker.unlock).toHaveBeenCalled();
                             });
                         });
 
@@ -312,7 +312,7 @@
                     describe('and experience does not add', function() {
                         
                         it('should unlock content', function () {
-                            spyOn(notify, "unlockContent");
+                            spyOn(uiLocker, "unlock");
                             viewModel.createAndContinue();
 
                             var promise = addExperience.promise.fin(function () { });
@@ -322,7 +322,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(notify.unlockContent).toHaveBeenCalled();
+                                expect(uiLocker.unlock).toHaveBeenCalled();
                             });
                         });
 

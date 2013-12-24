@@ -297,6 +297,10 @@
     <Content Include="App\services\deliverService.spec.js">
       <DependentUpon>deliverService.js</DependentUpon>
     </Content>
+    <Content Include="App\uiLocker.js" />
+    <Content Include="App\uiLocker.spec.js">
+      <DependentUpon>uiLocker.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\experiences\design.spec.js">
       <DependentUpon>design.js</DependentUpon>
     </Content>
@@ -328,6 +332,16 @@
     <Content Include="App\views\experiences\design.html" />
     <Content Include="App\views\experiences\experience.html" />
     <Content Include="App\views\feedback.html" />
+    <Content Include="App\widgets\notifyViewer\view.html" />
+    <Content Include="App\widgets\notifyViewer\viewmodel.js" />
+    <Content Include="App\widgets\notifyViewer\viewmodel.spec.js">
+      <DependentUpon>viewmodel.js</DependentUpon>
+    </Content>
+    <Content Include="App\widgets\uiLockViewer\view.html" />
+    <Content Include="App\widgets\uiLockViewer\viewmodel.js" />
+    <Content Include="App\widgets\uiLockViewer\viewmodel.spec.js">
+      <DependentUpon>viewmodel.js</DependentUpon>
+    </Content>
     <Content Include="Content\durandal.css" />
     <Content Include="Content\images\account\log-in.jpg" />
     <Content Include="Content\images\build-loader.gif" />
@@ -1025,7 +1039,6 @@
     <Content Include="Content\experience.css" />
     <Content Include="Content\experiences.css" />
     <Content Include="Content\images\buildprogress.gif" />
-    <Content Include="Content\images\icons.png" />
     <Content Include="Content\images\loader.gif" />
     <Content Include="Content\images\middle-sized-icons-pack.png" />
     <Content Include="Content\images\sample\1.png" />

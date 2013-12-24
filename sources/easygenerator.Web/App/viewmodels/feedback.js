@@ -26,7 +26,7 @@
                 eventTracker.publish(events.feedback);
                 that.isShowFeedbackPopup(false);
                 return httpWrapper.post('api/feedback/sendfeedback', data).then(function() {
-                    notify.info(localizationManager.localize('successFeedback'));
+                    notify.success(localizationManager.localize('successFeedback'));
                     that.feedbackMessageFromUser('');
                     that.feedbackEmail('');
                 });

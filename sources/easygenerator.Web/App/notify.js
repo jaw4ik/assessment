@@ -1,90 +1,60 @@
-﻿define(['jquery'], function ($) {
+﻿define(['widgets/notifyViewer/viewmodel', 'localization/localizationManager'], function (notifyViewer, localizationManager) {
 
     var
-        notificationTargetSelector = ".page-view-caption",
-        spinnerTargetSelector = ".main",
-        containerSelector = "notification-container",
-        clearfixClass = "clearfix",
-
-        notificationClass = "notification",
-        notificationTextClass = "notification-text",
-        notificationCloseClass = "notification-close",
-        modalFadeSelector = "modalFade",
-        modalFadeLoaderSelector = "modalFade-loader icon-spinner-wrapper",
-
-        infoClass = "info",
-        successClass = "success",
-        errorClass = "error",
-
-        isShownMessage = ko.observable(true)
-    ;
-
-    var
-        info = function (message) {
-            showMessage(message, infoClass);
+        noticeTypes = {
+            info: "info",
+            error: "error",
+            success: "success"
         },
+
+
+        success = function (message) {
+            showNotification(message, noticeTypes.success);
+        },
+
+        info = function (message) {
+            showNotification(message, noticeTypes.info);
+        },
+
         error = function (message) {
-            showMessage(message, errorClass);
-        }
-    ;
+            showNotification(message, noticeTypes.error);
+        },
 
-    function getContaner() {
-        var cnt = $("." + containerSelector);
-        if (cnt.length) {
-            return cnt;
-        } else {
-            return $("<div />").addClass(containerSelector).appendTo(notificationTargetSelector);
-        }
-    }
+        saved = function () {
+            var message = localizationManager.localize('allChangesAreSaved');
+            showNotification(message, noticeTypes.success);
+        },
 
-    function showMessage(message, messageClass) {
-        if (!isShownMessage())
-            return;
+        showNotification = function (message, type) {
+            notifyViewer.notifications.removeAll();
+            notifyViewer.notifications.push({
+                text: message,
+                type: type
+            });
+        },
 
-        hideMessage();
-        $("<div />")
-            .addClass(notificationClass)
-            .addClass(clearfixClass)
-            .addClass(messageClass)
-            .append($("<span />").addClass(notificationTextClass).text(message))
-            .append($("<a />").addClass(notificationCloseClass).html("&times;").click(function () { $(this).closest("." + notificationClass).remove(); }))
-            .appendTo(getContaner());
+        enable = function () {
+            notifyViewer.enabled(true);
+        },
 
-    }
+        disable = function () {
+            notifyViewer.enabled(false);
+        },
 
-    function hideMessage() {
-        $("." + containerSelector).empty();
-    }
-
-    function lockContent() {
-        unlockContent();
-        showModalFade();
-    }
-
-    function showModalFade() {
-        var cnt = $("." + modalFadeSelector);
-        if (!cnt.length) {
-            $("<div />")
-                .addClass(modalFadeSelector)
-                .append($("<span />").addClass(modalFadeLoaderSelector))
-                .appendTo(spinnerTargetSelector);
-        }
-    }
-
-    function unlockContent() {
-        $("." + modalFadeSelector).remove();
-    }
-
+        hide = function () {
+            notifyViewer.notifications.removeAll();
+        };
 
     return {
+        success: success,
         info: info,
         error: error,
+        saved: saved,
 
-        lockContent: lockContent,
-        unlockContent: unlockContent,
+        enable: enable,
+        disable: disable,
 
-        hide: hideMessage,
-        isShownMessage: isShownMessage
+        hide: hide
     };
 
 });

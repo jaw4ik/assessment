@@ -9,6 +9,7 @@
             questionRepository = require('repositories/questionRepository'),
             localizationManager = require('localization/localizationManager'),
             notify = require('notify'),
+            uiLocker = require('uiLocker'),
             clientContext = require('clientContext');
 
         describe('viewModel [objective]', function () {
@@ -626,7 +627,7 @@
                     spyOn(repository, 'updateObjective').andReturn(updateDeferred.promise);
                     spyOn(repository, 'getById').andReturn(getByIdDeferred.promise);
 
-                    spyOn(notify, 'info');
+                    spyOn(notify, 'saved');
                 });
 
                 it('should be function', function () {
@@ -671,7 +672,7 @@
                         });
                         runs(function () {
                             expect(promise).toBeResolved();
-                            expect(notify.info).not.toHaveBeenCalled();
+                            expect(notify.saved).not.toHaveBeenCalled();
                         });
                     });
 
@@ -735,7 +736,7 @@
                                 });
                                 runs(function () {
                                     expect(promise).toBeResolved();
-                                    expect(notify.info).toHaveBeenCalled();
+                                    expect(notify.saved).toHaveBeenCalled();
                                 });
                             });
 
@@ -826,8 +827,8 @@
                     addQuestionDefer = Q.defer();
 
                     spyOn(questionRepository, 'addQuestion').andReturn(addQuestionDefer.promise);
-                    spyOn(notify, 'lockContent');
-                    spyOn(notify, 'unlockContent');
+                    spyOn(uiLocker, 'lock');
+                    spyOn(uiLocker, 'unlock');
                     spyOn(clientContext, 'set');
                 });
 
@@ -873,7 +874,7 @@
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(notify.lockContent).toHaveBeenCalled();
+                        expect(uiLocker.lock).toHaveBeenCalled();
                     });
                 });
 
@@ -906,7 +907,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(notify.lockContent).toHaveBeenCalled();
+                            expect(uiLocker.lock).toHaveBeenCalled();
                         });
                     });
 
@@ -937,7 +938,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(notify.lockContent).toHaveBeenCalled();
+                            expect(uiLocker.lock).toHaveBeenCalled();
                         });
                     });
 
@@ -981,7 +982,7 @@
                         viewModel.objectiveId = 'objectiveId';
                         viewModel.questions([{ id: "SomeQuestionId1", isSelected: ko.observable(true) }, { id: "SomeQuestionId2", isSelected: ko.observable(true) }]);
 
-                        spyOn(notify, 'info');
+                        spyOn(notify, 'saved');
                     });
 
                     it('should delete selected questions', function () {
@@ -1016,7 +1017,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(notify.info).toHaveBeenCalled();
+                                expect(notify.saved).toHaveBeenCalled();
                             });
                         });
 

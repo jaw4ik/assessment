@@ -9,6 +9,7 @@
         eventTracker = require('eventTracker'),
         clientContext = require('clientContext'),
         localizationManager = require('localization/localizationManager'),
+        uiLocker = require('uiLocker'),
 
         help = require('help/helpHint')
     ;
@@ -73,14 +74,14 @@
                     browserCulture(localizationManager.currentLanguage);
 
                     router.guardRoute = function (routeInfo, params) {
+                        notify.disable();
                         if (requestsCounter() > 0) {
                             //that.navigation()[1].isPartOfModules(_.contains(objectivesModules, that.activeModuleName()));
                             //that.navigation()[0].isPartOfModules(_.contains(experiencesModules, that.activeModuleName()));
-                            notify.lockContent();
-                            notify.isShownMessage(false);
+                            uiLocker.lock();
                             var subscription = requestsCounter.subscribe(function (newValue) {
                                 if (newValue == 0) {
-                                    notify.unlockContent();
+                                    uiLocker.unlock();
                                     var queryString = params.queryString;
                                     if (!_.isNullOrUndefined(queryString)) {
                                         router.navigate(params.fragment + '?' + queryString);
@@ -97,7 +98,8 @@
 
                     router.on('router:route:activating').then(function () {
                         isViewReady(false);
-                        notify.isShownMessage(true);
+                        notify.hide();
+                        notify.enable();
                         that.navigation()[0].isPartOfModules(_.contains(experiencesModules, getModuleIdFromRouterActiveInstruction()));
                         that.navigation()[1].isPartOfModules(_.contains(objectivesModules, getModuleIdFromRouterActiveInstruction()));
                     });

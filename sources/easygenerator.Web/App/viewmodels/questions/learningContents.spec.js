@@ -14,7 +14,7 @@
         var questionId = 'questionId';
 
         beforeEach(function () {
-            spyOn(notify, 'info');
+            spyOn(notify, 'saved');
             spyOn(eventTracker, 'publish');
         });
 
@@ -115,7 +115,7 @@
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(notify.info).toHaveBeenCalled();
+                        expect(notify.saved).toHaveBeenCalled();
                     });
                 });
                 
@@ -153,7 +153,7 @@
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(notify.info).not.toHaveBeenCalled();
+                        expect(notify.saved).not.toHaveBeenCalled();
                     });
                 });
 
@@ -189,7 +189,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(notify.info).toHaveBeenCalled();
+                            expect(notify.saved).toHaveBeenCalled();
                         });
                     });
                     
@@ -255,7 +255,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(notify.info).toHaveBeenCalled();
+                            expect(notify.saved).toHaveBeenCalled();
                         });
                     });
 
@@ -356,7 +356,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(notify.info).toHaveBeenCalled();
+                                expect(notify.saved).toHaveBeenCalled();
                             });
                         });
 
@@ -417,7 +417,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(notify.info).toHaveBeenCalled();
+                            expect(notify.saved).toHaveBeenCalled();
                         });
                     });
 

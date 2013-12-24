@@ -35,6 +35,7 @@
                 spyOn(router, 'replace');
                 spyOn(notify, 'info');
                 spyOn(notify, 'error');
+                spyOn(notify, 'saved');
             });
 
             it('should be object', function () {
@@ -159,7 +160,7 @@
 
                     it('should not show notification', function () {
                         viewModel.endEditTitle();
-                        expect(notify.info).not.toHaveBeenCalled();
+                        expect(notify.saved).not.toHaveBeenCalled();
                     });
 
                     describe('when title contains only spaces', function () {
@@ -213,7 +214,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(notify.info).toHaveBeenCalled();
+                                    expect(notify.saved).toHaveBeenCalled();
                                 });
                             });
                         });
@@ -646,7 +647,7 @@
                                 return !relateObjectivesPromise.isPending();
                             });
                             runs(function () {
-                                expect(notify.info).toHaveBeenCalled();
+                                expect(notify.saved).toHaveBeenCalled();
                             });
                         });
 
@@ -874,7 +875,7 @@
                             });
 
                             runs(function () {
-                                expect(notify.info).toHaveBeenCalled();
+                                expect(notify.saved).toHaveBeenCalled();
                             });
                         });
 

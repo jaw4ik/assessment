@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/experienceRepository', 'repositories/questionRepository', 'notify', 'clientContext'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository, experienceRepository, questionRepository, notify, clientContext) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/experienceRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext'],
+    function (dataContext, constants, eventTracker, localizationManager, router, repository, experienceRepository, questionRepository, notify, uiLocker, clientContext) {
         "use strict";
 
         var
@@ -73,7 +73,7 @@
             createQuestion = function () {
                 var that = this;
                 eventTracker.publish(events.createNewQuestion);
-                notify.lockContent();
+                uiLocker.lock();
                 return Q.fcall(function () {
 
                     var newQuestion = {
@@ -82,10 +82,10 @@
 
                     return questionRepository.addQuestion(that.objectiveId, newQuestion).then(function (createdQuestion) {
                         clientContext.set('lastCreatedQuestionId', createdQuestion.id);
-                        notify.unlockContent();
+                        uiLocker.unlock();
                         router.navigateWithQueryString('objective/' + that.objectiveId + '/question/' + createdQuestion.id);
                     }).fail(function() {
-                        notify.unlockContent();
+                        uiLocker.unlock();
                     });
                 });
             },
@@ -204,7 +204,7 @@
             }),
 
             showNotification = function (date) {
-                notify.info(localizationManager.localize('savedAt') + ' ' + date.toLocaleTimeString());
+                notify.saved();
             };
 
         return {
