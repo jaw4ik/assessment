@@ -188,8 +188,8 @@
     },
     allChangesAreSaved: {
         en: 'All changes are saved',
-        nl: 'All changes are saved[nl]',
-        de: 'All changes are saved[de]'
+        nl: 'Alle wijzigingen zijn opgeslagen',
+        de: 'Alle Änderungen sind gespeichert'
     },
     /* End resource section for model General */
     
@@ -414,13 +414,13 @@
     },
     publishLearningExperience: {
         en: 'Publish learning experience',
-        nl: 'Publish learning experience[nl]',
-        de: 'Publish learning experience[de]'
+        nl: 'Leerervaring publiceren',
+        de: 'Lernerfahrung veröffentlichen'
     },
     downloadLearningExperience: {
         en: 'Download learning experience',
-        nl: 'Download learning experience[nl]',
-        de: 'Download learning experience[de]'
+        nl: 'Leerervaring downloaden',
+        de: 'Lernerfahrung herunterladen'
     },
     /* End resource section for model Experiences */
     
@@ -974,9 +974,9 @@
         de: 'Easygenerator starten'
     },
     introDoNotShowAgain: {
-        en: 'Do not show again',
-        nl: 'Niet meer laten zien',
-        de: 'Nicht mehr anzeigen'
+        en: 'Do not show this starting page again',
+        nl: 'Laat deze startpagina niet meer zien',
+        de: 'Diese Startseite nicht mehr anzeigen'
     },
     introDidacticalConcept: {
         en: 'Didactical concept',
@@ -1009,9 +1009,9 @@
         de: 'Definieren von Lernzielen,'
     },
     introDefineLODesc: {
-        en: 'That decribe specific skills or knowledge a learner will be able to demonstrate.',
-        nl: 'die specifieke vaardigheden of kennis beschrijven die de cursist kan aantonen.',
-        de: 'die bestimmte Fertigkeiten oder Kenntnisse beschreiben, die der Lernende beweisen kann.'
+        en: 'That describes specific skills or knowledge that learner need to acquire.',
+        nl: 'die specifieke vaardigheden of kennis beschrijven die de cursist zich eigen moet maken.',
+        de: 'die spezifischen Fähigkeiten oder Kenntnisse beschreiben, die der Kursteilnehmer sich aneignen muss.'
     },
     introCreateQuestions: {
         en: 'Create questions',
@@ -1029,9 +1029,9 @@
         de: 'Hinzufügen von Lerninhalten'
     },
     introAddLContentDesc: {
-        en: 'The underlying content/information to the questions.',
-        nl: 'met de inhoud/informatie die ten grondslag ligt aan de vragen.',
-        de: 'Die den Fragen zugrunde liegenden Inhalte/Informationen.'
+        en: 'The information that will help the learner to answer the questions.',
+        nl: 'De informatie die de cursist helpt om de vragen te beantwoorden.',
+        de: 'Die Informationen, die dem Kursteilnehmer helfen, die Fragen zu beantworten.'
     },
     introApplicationContent: {
         en: 'Application concept',
@@ -1049,9 +1049,9 @@
         de: 'Erstellen Sie eine Lernerfahrung'
     },
     introCreateLEDesc: {
-        en: 'Give the name to a learning experience and choose the way you want to present it to a learner: it can be a course or a quiz.',
-        nl: 'Geef de leerervaring een naam en bepaal hoe u de leerervaring wilt presenteren aan een cursist: als cursus of als quiz.',
-        de: 'Benennen Sie die Lernerfahrung, und wählen Sie, wie sie einem Lernenden präsentiert werden soll: als Kurs oder als Quiz.'
+        en: 'Name the learning experience and choose how you want to present it, as a course or as a quiz.',
+        nl: 'Geef de leerervaring een naam en bepaal hoe u de leerervaring wilt presenteren; als cursus of als quiz.',
+        de: 'Benennen Sie die Lernerfahrung und bestimmen Sie, wie Sie die Lernerfahrung präsentieren möchten, als Kurs oder als Quiz.'
     },
     introConnectLOtoLE: {
         en: 'Connect learning objectives to experience',
@@ -1059,9 +1059,9 @@
         de: 'Verbinden Sie Lernziele mit Lernerfahrungen'
     },
     introConnectLOtoLEDesc: {
-        en: 'Connect needed learning objectives to create awesome learning experience for your learners.',
-        nl: 'Koppel leerdoelen om uw cursisten een geweldige leerervaring te bieden.',
-        de: 'Verbinden Sie erforderliche Lernziele, um Ihren Lernenden eine hervorragende Lernerfahrung zu bieten'
+        en: 'Assemble your learning experience (course or quiz) by adding learning objectives to it.',
+        nl: 'Stel uw leerervaring (cursus of quiz) samen door er leerdoelen aan toe te voegen. ',
+        de: 'Stellen Sie Ihre Lernerfahrung (Kurs oder Quiz) zusammen, indem Sie ihr Lernziele hinzufügen.'
     },
     introPublishLE: {
         en: 'Publish learning experience',
@@ -1069,9 +1069,9 @@
         de: 'Veröffentlichen Sie die Lernerfahrung'
     },
     introPublishLEDesc: {
-        en: 'To easygenerator web-server or to your own hosting.',
-        nl: 'op de webserver van easygenerator of in uw eigen hostingomgeving.',
-        de: 'auf dem easygenerator-Webserver oder in Ihrer eigenen Hostingumgebung.'
+        en: 'To easygenerator web-server or to your own web server.',
+        nl: 'op de webserver van easygenerator of op uw eigen webserver.',
+        de: 'auf dem Webserver von easygenerator oder auf Ihrem eigenen Webserver.'
     },
     /* End resource section for model Introduction page */
     
@@ -1588,8 +1588,8 @@
     },
     experiencesHelpHint: {
         en: '<p>A <strong>learning experience</strong> is the name we gave to the eLearning you will be creating. It can be a course, a Learning nugget, a quiz. In fact it can be anything that will give the learner a learning experience.</p><p>A learning experience consist out of one or more learning objectives, with connected questions and learning content.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>',
-        nl: '<p>Een <strong>leerervaring</strong> is de naam die we hebben gegeven aan de eLearning die u gaat maken. Het kan een cursus zijn, een korte uitleg, of een toets. Het kan eigenlijk alles zijn dat de cursist een leerervaring geeft.</p><p>Een leerervaring bestaat uit een of meer leerdoelen met gerelateerde vragen en leerinhoud.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...[nl]<a></p>',
-        de: '<p>Eine <strong>Lernerfahrung</strong> ist der Name, den wir dem eLearning gegeben haben, das Sie erstellen werden. Es kann sich um einen Kurs, eine kurze Erklärung oder ein Quiz handeln. Eigentlich kann es sich um alles handeln, was dem Lerner eine Lernerfahrung vermittelt.</p><p>Eine Lernerfahrung besteht aus einem oder mehreren Lernzielen mit den dazugehörigen Fragen und Lerngegenständen.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...[de]<a></p>'
+        nl: '<p>Een <strong>leerervaring</strong> is de naam die we hebben gegeven aan de eLearning die u gaat maken. Het kan een cursus zijn, een korte uitleg, of een toets. Het kan eigenlijk alles zijn dat de cursist een leerervaring geeft.</p><p>Een leerervaring bestaat uit een of meer leerdoelen met gerelateerde vragen en leerinhoud.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Meer informatie...<a></p>',
+        de: '<p>Eine <strong>Lernerfahrung</strong> ist der Name, den wir dem eLearning gegeben haben, das Sie erstellen werden. Es kann sich um einen Kurs, eine kurze Erklärung oder ein Quiz handeln. Eigentlich kann es sich um alles handeln, was dem Lerner eine Lernerfahrung vermittelt.</p><p>Eine Lernerfahrung besteht aus einem oder mehreren Lernzielen mit den dazugehörigen Fragen und Lerngegenständen.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Weitere Informationen...<a></p>'
     },
     experienceHelpHintTitle: {
         en: 'Why do I need to connect learning objectives?',
@@ -1598,8 +1598,8 @@
     },
     experienceHelpHint: {
         en: '<p>When you want to create instructional sound eLearning you should start with defining the <strong>Learning Objectives</strong>. This goes for the design process, but learning objectives are also the starting point for the learner.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>',
-        nl: '<p>Als je eLearning wilt maken op basis van didactische principes moet je beginnen met het definiëren van <strong>leerdoelen</strong>. Dit geldt voor het ontwerp proces. Maar de leerdoelen zijn ook het startpunt voor de lerende.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...[nl]<a></p>',
-        de: '<p>Wenn Sie didaktisch sinnvolles eLearning erstellen möchten, sollten mit dem Festlegen der <strong>Lernziele</strong> beginnen. Dies gilt für den Entwicklungsprozess, die Lernziele sind jedoch auch der Ausgangspunkt für den Lerner.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...[de]<a></p>'
+        nl: '<p>Als je eLearning wilt maken op basis van didactische principes moet je beginnen met het definiëren van <strong>leerdoelen</strong>. Dit geldt voor het ontwerp proces. Maar de leerdoelen zijn ook het startpunt voor de lerende.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Meer informatie...<a></p>',
+        de: '<p>Wenn Sie didaktisch sinnvolles eLearning erstellen möchten, sollten mit dem Festlegen der <strong>Lernziele</strong> beginnen. Dies gilt für den Entwicklungsprozess, die Lernziele sind jedoch auch der Ausgangspunkt für den Lerner.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Weitere Informationen...<a></p>'
     },
     createExperienceHelpHintTitle: {
         en: 'What is a learning experience template?',
@@ -1608,8 +1608,8 @@
     },
     createExperienceHelpHint: {
         en: '<p><strong>Learning experience template</strong> is a set of predefined graphical and instructional design parameters.</p><p>Learning experience template defines how a learning material will be presented to a learner, how a learner will be able to interact with it and how a learner\'s responses will be affecting learning experience.</p><p>For an author choosing certain learning experience template will also change set of designing capabilities, depending on which of them are supported by chosen learning experience template.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>',
-        nl: '<p>Een <strong>leervaringstemplate</strong> bestaat uit een reeks voorgedefinieerde grafische en instructieve ontwerpparameters.</p><p>De template definieert hoe lesmateriaal aan een cursist wordt gepresenteerd, hoe een cursist hiermee kan omgaan en welke invloed de antwoorden van de cursist hebben op de leerervaring.</p><p>Een auteur die voor een bepaalde leerervaringstemplate kiest, wijzigt ook een reeks ontwerpmogelijkheden, afhankelijk van welke hiervan door de gekozen leerervaringstemplate worden ondersteund.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...[nl]<a></p>',
-        de: '<p>Eine <strong>Lernerfahrungsvorlage</strong> ist ein Satz von vordefinierten grafischen und Unterrichts-Entwicklungsparametern.</p><p>Die Lernerfahrungsvorlage legt fest, wie Lernmaterialien dem Lerner präsentiert werden, wie ein Lerner damit interagieren kann und wie sich die Antworten des Lerners auf die Lernerfahrung auswirken.</p><p>Für einen Autor ändert die Auswahl einer bestimmten Lernvorlage auch den Satz der Entwicklungsmöglichkeiten, je nachdem, welche von diesen von der ausgwählten Lernerfahrungsvorlage unterstützt werden.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...[de]<a></p>'
+        nl: '<p>Een <strong>leervaringstemplate</strong> bestaat uit een reeks voorgedefinieerde grafische en instructieve ontwerpparameters.</p><p>De template definieert hoe lesmateriaal aan een cursist wordt gepresenteerd, hoe een cursist hiermee kan omgaan en welke invloed de antwoorden van de cursist hebben op de leerervaring.</p><p>Een auteur die voor een bepaalde leerervaringstemplate kiest, wijzigt ook een reeks ontwerpmogelijkheden, afhankelijk van welke hiervan door de gekozen leerervaringstemplate worden ondersteund.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Meer informatie...<a></p>',
+        de: '<p>Eine <strong>Lernerfahrungsvorlage</strong> ist ein Satz von vordefinierten grafischen und Unterrichts-Entwicklungsparametern.</p><p>Die Lernerfahrungsvorlage legt fest, wie Lernmaterialien dem Lerner präsentiert werden, wie ein Lerner damit interagieren kann und wie sich die Antworten des Lerners auf die Lernerfahrung auswirken.</p><p>Für einen Autor ändert die Auswahl einer bestimmten Lernvorlage auch den Satz der Entwicklungsmöglichkeiten, je nachdem, welche von diesen von der ausgwählten Lernerfahrungsvorlage unterstützt werden.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Weitere Informationen...<a></p>'
     },
     objectiveHelpHintTitle: {
         en: 'What is a related question?',
@@ -1618,8 +1618,8 @@
     },
     objectiveHelpHint: {
         en: '<p>A <strong>related question</strong> is a question that measures the learners skills or knowledge for a specific learning objective. When answered correct progress is made on the learning objective.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>',
-        nl: '<p>Een <strong>gerelateerde vraag</strong> is een vraag die de kennis of vaardigheden van een cursist meet voor een specifiek leerdoel. Als de vraag correct beantwoord wordt, wordt voortgang op het leerdoel bereikt.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...[nl]<a></p>',
-        de: '<p>Eine <strong> zugehörige Frage</strong> ist eine Frage, mit der die Fähigkeiten und Kenntnisse des Lerners zu einem bestimmten Lernziel gemessen werden. Wenn sie richtig beantwortet wird, werden Fortschritte in Richtung auf das Lernziel gemacht.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...[de]<a></p>'
+        nl: '<p>Een <strong>gerelateerde vraag</strong> is een vraag die de kennis of vaardigheden van een cursist meet voor een specifiek leerdoel. Als de vraag correct beantwoord wordt, wordt voortgang op het leerdoel bereikt.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Meer informatie...<a></p>',
+        de: '<p>Eine <strong> zugehörige Frage</strong> ist eine Frage, mit der die Fähigkeiten und Kenntnisse des Lerners zu einem bestimmten Lernziel gemessen werden. Wenn sie richtig beantwortet wird, werden Fortschritte in Richtung auf das Lernziel gemacht.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Weitere Informationen...<a></p>'
     },
     objectivesHelpHintTitle: {
         en: 'What is a learning objective?',
@@ -1628,8 +1628,8 @@
     },
     objectivesHelpHint: {
         en: '<p>A <strong>learning objective</strong> is a statement that describes the specific skills or knowledge a learner will be able to demonstrate as a result of completing a learning experience.</p><p>See <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> for instructions and support for building proper objectives based on Blooms taxonomy.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>',
-        nl: '<p>Een Leerdoel is een stelling die specifieke vaardigheden of kennis beschrijft die de lerende kan demonstreren als een resultaat van het voltooien van een leerervaring.</p><p>Ga naar <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> voor instructies en uitleg over hoe goede leerdoelen te definiëren gebaseerd op Blooms taxonomy.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...[nl]<a></p>',
-        de: '<p>Ein Lernziel ist eine Aussage, die die spezifischen Fähigkeiten oder Kenntnisse beschreibt, die ein Lerner als Ergebnis einer Lernerfahrung vorweisen kann.</p><p>Anleitungen und Unterstützung für das Aufbauen geeigneter Ziele auf Basis von Blooms Taxonomie finden Sie unter <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a>.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...[de]<a></p>'
+        nl: '<p>Een Leerdoel is een stelling die specifieke vaardigheden of kennis beschrijft die de lerende kan demonstreren als een resultaat van het voltooien van een leerervaring.</p><p>Ga naar <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> voor instructies en uitleg over hoe goede leerdoelen te definiëren gebaseerd op Blooms taxonomy.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Meer informatie...<a></p>',
+        de: '<p>Ein Lernziel ist eine Aussage, die die spezifischen Fähigkeiten oder Kenntnisse beschreibt, die ein Lerner als Ergebnis einer Lernerfahrung vorweisen kann.</p><p>Anleitungen und Unterstützung für das Aufbauen geeigneter Ziele auf Basis von Blooms Taxonomie finden Sie unter <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a>.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Weitere Informationen...<a></p>'
     },
     createObjectiveHelpHintTitle: {
         en: 'How to formulate a correct learning objective?',
@@ -1638,8 +1638,8 @@
     },
     createObjectiveHelpHint: {
         en: '<p>A <strong>learning objective</strong> is a statement that describes the specific skills or knowledge a learner will be able to demonstrate as a result of completing a learning experience.</p><p>See <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> for instructions and support for building proper objectives based on Blooms taxonomy.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>',
-        nl: '<p>Een Leerdoel is een stelling die specifieke vaardigheden of kennis beschrijft die de lerende kan demonstreren als een resultaat van het voltooien van een leerervaring.</p><p>Ga naar <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> voor instructies en uitleg over hoe goede leerdoelen te definiëren gebaseerd op Blooms taxonomy.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...[nl]<a></p>',
-        de: '<p>Ein Lernziel ist eine Aussage, die die spezifischen Fähigkeiten oder Kenntnisse beschreibt, die ein Lerner als Ergebnis einer Lernerfahrung vorweisen kann.</p><p>Anleitungen und Unterstützung für das Aufbauen geeigneter Ziele auf Basis von Blooms Taxonomie finden Sie unter <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a>.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...[de]<a></p>'
+        nl: '<p>Een Leerdoel is een stelling die specifieke vaardigheden of kennis beschrijft die de lerende kan demonstreren als een resultaat van het voltooien van een leerervaring.</p><p>Ga naar <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> voor instructies en uitleg over hoe goede leerdoelen te definiëren gebaseerd op Blooms taxonomy.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Meer informatie...<a></p>',
+        de: '<p>Ein Lernziel ist eine Aussage, die die spezifischen Fähigkeiten oder Kenntnisse beschreibt, die ein Lerner als Ergebnis einer Lernerfahrung vorweisen kann.</p><p>Anleitungen und Unterstützung für das Aufbauen geeigneter Ziele auf Basis von Blooms Taxonomie finden Sie unter <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a>.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Weitere Informationen...<a></p>'
     },
     questionHelpHintTitle: {
         en: 'What are answer options? What is learning content?',
@@ -1648,8 +1648,8 @@
     },
     questionHelpHint: {
         en: '<p><strong>Answer options</strong> are the options presented to the learner for answering the question. They can be correct or incorrect.</p><p><strong>Learning content </strong> is the information presented to the learner to assist him in answering a specific question. It can consist out of text, video or images.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>',
-        nl: '<p>Een <strong>antwoordoptie</strong> zijn die opties die aan de cursist gepresenteerd worden om antwoord op een vraag te geven. Ze kunnen juist of onjuist zijn.</p><p><strong>Leerinhoud</strong> is de informatie die aan de cursist wordt gepresenteerd om hem te helpen een specifieke vraag correct te beantwoorden. Leerinhoud kan bestaan uit tekst, video of afbeeldingen.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...[nl]<a></p>',
-        de: '<p><strong>Antwortoptionen</strong> sind die Optionen, die dem Lerner zur Beantwortung der Frage präsentiert werden. Sie können richtig oder falsch sein.</p><p><strong>Lerngegenstände</strong> sind die Informationen, die Lernern präsentiert werden, um sie bei der Beantwortung bestimmter Fragen zu unnterstützen. Dies können Texte, Videos oder Bilder sein.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...[de]<a></p>'
+        nl: '<p>Een <strong>antwoordoptie</strong> zijn die opties die aan de cursist gepresenteerd worden om antwoord op een vraag te geven. Ze kunnen juist of onjuist zijn.</p><p><strong>Leerinhoud</strong> is de informatie die aan de cursist wordt gepresenteerd om hem te helpen een specifieke vraag correct te beantwoorden. Leerinhoud kan bestaan uit tekst, video of afbeeldingen.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Meer informatie...<a></p>',
+        de: '<p><strong>Antwortoptionen</strong> sind die Optionen, die dem Lerner zur Beantwortung der Frage präsentiert werden. Sie können richtig oder falsch sein.</p><p><strong>Lerngegenstände</strong> sind die Informationen, die Lernern präsentiert werden, um sie bei der Beantwortung bestimmter Fragen zu unnterstützen. Dies können Texte, Videos oder Bilder sein.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Weitere Informationen...<a></p>'
     },
     createQuestionHelpHintTitle: {
         en: 'What is the difference between \"Create and Edit\" and \"Create and New\"?',
