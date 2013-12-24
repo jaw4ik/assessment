@@ -1274,6 +1274,15 @@ a.top-navigation-item:hover {
 
 /*#endregion Create form*/
 
+/*#region EDITABLE-TEXT*/
+
+.editable-text-binding {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/*#endregion EDITABLE-TEXT*/
+
 @media (max-width: 1024px) {
 
     /*#region HEADER*/
