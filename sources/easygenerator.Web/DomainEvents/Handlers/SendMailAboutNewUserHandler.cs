@@ -1,6 +1,7 @@
 ﻿using easygenerator.DomainModel.Events;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Mail;
+using System.Threading.Tasks;
 
 namespace easygenerator.Web.DomainEvents.Handlers
 {
@@ -15,7 +16,7 @@ namespace easygenerator.Web.DomainEvents.Handlers
 
         public void Handle(UserSignedUpEvent args)
         {
-            _mailNotificationManager.AddMailNotificationToQueue(Constants.MailTemplates.SignedUpUserTemplate, args, args.User.Email);
+            Task.Run(() => _mailNotificationManager.AddMailNotificationToQueue(Constants.MailTemplates.SignedUpUserTemplate, args, args.User.Email));
         }
     }
 }

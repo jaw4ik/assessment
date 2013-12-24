@@ -1,4 +1,5 @@
-﻿using easygenerator.DomainModel.Events;
+﻿using System.Threading.Tasks;
+using easygenerator.DomainModel.Events;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Mail;
 using easygenerator.Web.Newsletter;
@@ -22,11 +23,17 @@ namespace easygenerator.Web.DomainEvents.Handlers
 
         public void Handle(UserSignedUpEvent args)
         {
-            if (!_subscriptionManager.SubscribeForNewsletters(args.User.Email, args.User.FullName))
-            {
-                _mailNotificationManager.AddMailNotificationToQueue(
-                    Constants.MailTemplates.NewsletterSubscriptionFailedTemplate, new { Email = args.User.Email, FullName = args.User.FullName });
-            }
+            Task.Run
+                (() =>
+                    {
+                        if (!_subscriptionManager.SubscribeForNewsletters(args.User.Email, args.User.FullName))
+                        {
+                            _mailNotificationManager.AddMailNotificationToQueue(
+                                Constants.MailTemplates.NewsletterSubscriptionFailedTemplate,
+                                new {Email = args.User.Email, FullName = args.User.FullName});
+                        }
+                    }
+                );
         }
     }
 }

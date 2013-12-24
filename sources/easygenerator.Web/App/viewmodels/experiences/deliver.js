@@ -48,7 +48,7 @@
             });
         }
     }
-     
+    
     function publishExperience() {
         if (viewModel.deliveringState() !== constants.deliveringStates.building && viewModel.deliveringState() !== constants.deliveringStates.publishing) {
             notify.hide();

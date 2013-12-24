@@ -2,6 +2,7 @@
 using easygenerator.DomainModel.Events;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Mail;
+using System.Threading.Tasks;
 
 namespace easygenerator.Web.DomainEvents.Handlers
 {
@@ -16,7 +17,7 @@ namespace easygenerator.Web.DomainEvents.Handlers
 
         public void Handle(UserFeedbackEvent args)
         {
-            _mailNotificationManager.AddMailNotificationToQueue(Constants.MailTemplates.FeedbackTemplate, args);
+            Task.Run(() => _mailNotificationManager.AddMailNotificationToQueue(Constants.MailTemplates.FeedbackTemplate, args));
         }
     }
 }
