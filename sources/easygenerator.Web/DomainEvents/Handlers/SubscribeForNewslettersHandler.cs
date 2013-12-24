@@ -22,10 +22,10 @@ namespace easygenerator.Web.DomainEvents.Handlers
 
         public void Handle(UserSignedUpEvent args)
         {
-            if (!_subscriptionManager.SubscribeForNewsletters(args.User.Email))
+            if (!_subscriptionManager.SubscribeForNewsletters(args.User.Email, args.User.FullName))
             {
                 _mailNotificationManager.AddMailNotificationToQueue(
-                    Constants.MailTemplates.NewsletterSubscriptionFailedTemplate, new { Email = args.User.Email });
+                    Constants.MailTemplates.NewsletterSubscriptionFailedTemplate, new { Email = args.User.Email, FullName = args.User.FullName });
             }
         }
     }

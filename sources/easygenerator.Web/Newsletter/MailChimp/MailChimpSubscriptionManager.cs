@@ -14,6 +14,7 @@ namespace easygenerator.Web.Newsletter.MailChimp
     {
         private const string GetListMethodPath = "lists/list";
         private const string SubscribeMethodPath = "lists/subscribe";
+        private const bool confirmationRequired = false;
 
         private readonly ConfigurationReader _configurationReader;
         private readonly HttpHelper _httpHelper;
@@ -45,7 +46,7 @@ namespace easygenerator.Web.Newsletter.MailChimp
             _httpHelper = httpHelper;
         }
 
-        public bool SubscribeForNewsletters(string userEmail)
+        public bool SubscribeForNewsletters(string userEmail, string userName)
         {
             if (_configurationReader.MailChimpConfiguration.Enabled)
             {
@@ -53,7 +54,7 @@ namespace easygenerator.Web.Newsletter.MailChimp
                 {
                     var methodUrl = GetServiceMethodUrl(SubscribeMethodPath);
                     var responseData = _httpHelper.Post<object, MailChimpSubscription>(methodUrl,
-                        new {apikey = ApiKey, id = ListIdForSubscription, email = new {email = userEmail}});
+                        new { apikey = ApiKey, id = ListIdForSubscription, email = new { email = userEmail }, merge_vars = new { lname = userName }, double_optin = confirmationRequired });
                     return string.Equals(responseData.Email, userEmail, StringComparison.CurrentCultureIgnoreCase);
                 }
                 catch (Exception exception)

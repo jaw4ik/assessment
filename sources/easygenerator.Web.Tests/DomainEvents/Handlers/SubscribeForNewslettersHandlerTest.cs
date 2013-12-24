@@ -22,16 +22,14 @@ namespace easygenerator.Web.Tests.DomainEvents.Handlers
         private SubscribeForNewslettersHandler _handler;
         private INewsletterSubscriptionManager _subscriptionManager;
         private IMailNotificationManager _mailNotificationManager;
-
         private User _user;
-        private const string email = "test@easygenerator.com";
 
         [TestInitialize]
         public void InitializeHandler()
         {
             _subscriptionManager = Substitute.For<INewsletterSubscriptionManager>();
             _mailNotificationManager = Substitute.For<IMailNotificationManager>();
-            _user = new EntityFactory().User(email, "abcABC123", "fullName", "phone", "organization", "country", "createdBy");
+            _user = new EntityFactory().User("test@easygenerator.com", "abcABC123", "fullName", "phone", "organization", "country", "createdBy");
 
             _handler = new SubscribeForNewslettersHandler(_subscriptionManager, _mailNotificationManager);
         }
@@ -46,15 +44,15 @@ namespace easygenerator.Web.Tests.DomainEvents.Handlers
             _handler.Handle(eventArgs);
 
             // Assert
-            _subscriptionManager.Received().SubscribeForNewsletters(_user.Email);
+            _subscriptionManager.Received().SubscribeForNewsletters(_user.Email, _user.FullName);
         }
 
         [TestMethod]
-        public void Handle_ShouldSendNewsletterSubscriptionFailedMessageWithCorrectEmail_IfSubscriptionMethodReturnedFalse()
+        public void Handle_ShouldSendNewsletterSubscriptionFailedMessage_IfSubscriptionMethodReturnedFalse()
         {
             // Arrange
             var eventArgs = new UserSignedUpEvent(_user, "", "", "");
-            _subscriptionManager.SubscribeForNewsletters(_user.Email).Returns(false);
+            _subscriptionManager.SubscribeForNewsletters(_user.Email, _user.FullName).Returns(false);
             // Act
             _handler.Handle(eventArgs);
 
@@ -63,11 +61,11 @@ namespace easygenerator.Web.Tests.DomainEvents.Handlers
         }
 
         [TestMethod]
-        public void Handle_ShouldNotSendNewsletterSubscriptionFailedMessageWithCorrectEmail_IfSubscriptionMethodReturnedFalse()
+        public void Handle_ShouldNotSendNewsletterSubscriptionFailedMessage_IfSubscriptionMethodReturnedFalse()
         {
             // Arrange
             var eventArgs = new UserSignedUpEvent(_user, "", "", "");
-            _subscriptionManager.SubscribeForNewsletters(_user.Email).Returns(true);
+            _subscriptionManager.SubscribeForNewsletters(_user.Email, _user.FullName).Returns(true);
             // Act
             _handler.Handle(eventArgs);
 
