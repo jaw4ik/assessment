@@ -737,11 +737,11 @@ a.top-navigation-item:hover {
     min-width: 100px;
     display: inline-block;
     margin: 0;
-    padding: 13px 20px;
+    padding: 15px 30px;
     -webkit-border-radius: 25px;
     -moz-border-radius: 25px;
     border-radius: 25px;
-    background: #92c5ee;
+    background: #50a6e9;
     color: #ffffff;
     font-size: 16px;
     font-family: 'OpenSans-Semibold';
@@ -764,11 +764,11 @@ a.top-navigation-item:hover {
 }
 
 .btn-create:hover {
-    background: #71b6eb;
+    background: #2f97e8;
 }
 
 .btn-create:active {
-    background: #53a8ea;
+    background: #1088e6;
 }
 
 /*green button*/
@@ -1204,7 +1204,7 @@ a.top-navigation-item:hover {
 }
 
     .form-create-title-circle.blue {
-        background: #74b9ef;
+        background: #92c5ee;
     }
 
     .form-create-title-circle.green {
@@ -1256,7 +1256,7 @@ a.top-navigation-item:hover {
     }
 
 .form-create-title-circle.blue .form-create-title-circle-triangle:after {
-    background-color: #74b9ef;
+    background-color: #92c5ee;
 }
 
 .form-create-title-circle.green .form-create-title-circle-triangle:after {
