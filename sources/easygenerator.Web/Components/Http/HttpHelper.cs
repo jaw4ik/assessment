@@ -16,7 +16,7 @@ namespace easygenerator.Web.Components.Http
     {
         public virtual TResponse Post<TRequest, TResponse>(string url, TRequest postData)
         {
-            using (var client = new HttpClient())
+            using (var client = new HttpClient(new HttpClientHandler() { UseProxy = false }))
             {
                 HttpResponseMessage response = client.PostAsync(url, postData, new JsonMediaTypeFormatter()).Result;
                 string responseBody = response.Content.ReadAsStringAsync().Result;
