@@ -61,7 +61,9 @@
                     sendEvent(events.updateQuestionTitle);
 
                     if (title.isValid()) {
-                        questionRepository.updateTitle(questionId, title()).then(notify.saved);
+                        questionRepository.updateTitle(questionId, title()).then(function () {
+                            notify.saved();
+                        });
                     } else {
                         title(questionTitle);
                     }
@@ -92,15 +94,15 @@
                     });
                 }).then(function () {
                     return answerRepository.getCollection(questionId).then(function (answerOptions) {
-                        var sortedAnswers = _.sortBy(answerOptions, function(item) {
-                             return item.createdOn;
+                        var sortedAnswers = _.sortBy(answerOptions, function (item) {
+                            return item.createdOn;
                         });
                         that.answers = vmAnswers(questionId, sortedAnswers);
                     });
                 }).then(function () {
                     return learningContentRepository.getCollection(questionId).then(function (learningContents) {
-                        var sortedLearningContents = _.sortBy(learningContents, function(item) {
-                             return item.createdOn;
+                        var sortedLearningContents = _.sortBy(learningContents, function (item) {
+                            return item.createdOn;
                         });
                         that.learningContents = vmLearningContents(questionId, sortedLearningContents);
                     });

@@ -647,6 +647,11 @@ a.top-navigation-item:hover {
     filter: alpha(opacity=0);
 }
 
+.notify-holder {
+    position: absolute;
+    padding-top: 95px;
+}
+
 /*#endregion PAGE CONTENT LIST*/
 
 /*#region FOOTER*/

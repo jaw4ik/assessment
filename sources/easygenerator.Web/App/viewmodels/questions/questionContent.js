@@ -38,7 +38,7 @@
                 if (text() != originalText()) {
                     repository.updateContent(questionId, text()).then(function (response) {
                         originalText(text());
-                        showNotification(response);
+                        showNotification();
                     });
                 }
             },
@@ -53,7 +53,7 @@
                 isExpanded(!isExpanded());
             };
 
-            function showNotification(date) {
+            function showNotification() {
                 notify.saved();
             }
 

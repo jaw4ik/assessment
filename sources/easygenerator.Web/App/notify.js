@@ -33,14 +33,6 @@
             });
         },
 
-        enable = function () {
-            notifyViewer.enabled(true);
-        },
-
-        disable = function () {
-            notifyViewer.enabled(false);
-        },
-
         hide = function () {
             notifyViewer.notifications.removeAll();
         };
@@ -50,9 +42,6 @@
         info: info,
         error: error,
         saved: saved,
-
-        enable: enable,
-        disable: disable,
 
         hide: hide
     };

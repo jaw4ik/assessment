@@ -55,10 +55,12 @@
     <div class="icon-spinner-wrapper" data-bind="visible: !isViewReady()">
         <img src="/Content/images/loader.gif" alt="" />
     </div>
+    <div class="notify-holder">
+        <div data-bind="widget: { kind: 'notifyViewer' }"></div>    
+    </div>
     <section id="content" class="main" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }, css: browserCulture() + '-lang'">
         <!-- ko compose: { model: 'help/helpHint', activationData: activeModuleName } -->
         <!-- /ko -->
-        <div data-bind="widget: { kind: 'notifyViewer' }"></div>
         <div data-bind="router: { cacheViews: false }"></div>
     </section>
 </div>

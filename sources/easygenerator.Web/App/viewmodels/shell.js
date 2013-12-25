@@ -74,7 +74,6 @@
                     browserCulture(localizationManager.currentLanguage);
 
                     router.guardRoute = function (routeInfo, params) {
-                        notify.disable();
                         if (requestsCounter() > 0) {
                             //that.navigation()[1].isPartOfModules(_.contains(objectivesModules, that.activeModuleName()));
                             //that.navigation()[0].isPartOfModules(_.contains(experiencesModules, that.activeModuleName()));
@@ -98,8 +97,6 @@
 
                     router.on('router:route:activating').then(function () {
                         isViewReady(false);
-                        notify.hide();
-                        notify.enable();
                         that.navigation()[0].isPartOfModules(_.contains(experiencesModules, getModuleIdFromRouterActiveInstruction()));
                         that.navigation()[1].isPartOfModules(_.contains(objectivesModules, getModuleIdFromRouterActiveInstruction()));
                     });

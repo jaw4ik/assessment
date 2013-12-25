@@ -103,34 +103,6 @@
 
         });
 
-        describe('enable:', function () {
-
-            it('should be function', function () {
-                expect(notify.enable).toBeFunction();
-            });
-
-            it('should set enabled to true', function () {
-                notifyViewer.enabled(false);
-                notify.enable();
-                expect(notifyViewer.enabled()).toBeTruthy();
-            });
-
-        });
-
-        describe('disable:', function () {
-
-            it('should be function', function () {
-                expect(notify.disable).toBeFunction();
-            });
-
-            it('should set enabled to true', function () {
-                notifyViewer.enabled(true);
-                notify.disable();
-                expect(notifyViewer.enabled()).toBeFalsy();
-            });
-
-        });
-
     });
 
 });

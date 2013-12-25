@@ -45,7 +45,7 @@
                         performActionWhenAnswerIdIsSet(answer, function() {
                             answerOptions.remove(answer);
                             repository.removeAnswer(questionId, ko.unwrap(answer.id)).then(function (response) {
-                                showNotification(response.modifiedOn);
+                                showNotification();
                             });
                         });
                     });
@@ -67,7 +67,7 @@
                             answerOptions.remove(answer);
                             if (!_.isEmptyOrWhitespace(id)) {
                                 repository.removeAnswer(questionId, id).then(function (response) {
-                                    showNotification(response.modifiedOn);
+                                    showNotification();
                                 });
                             }
                             return;
@@ -75,7 +75,7 @@
 
                         if (_.isEmptyOrWhitespace(id)) {
                             repository.addAnswer(questionId, { text: text, isCorrect: correctness }).then(function (item) {
-                                showNotification(item.createdOn);
+                                showNotification();
                                 answer.id(item.id);
                                 answer.original.text = text;
                                 answer.original.correctness = correctness;
@@ -83,7 +83,7 @@
                         } else {
                             if (answer.original.text != text || answer.original.correctness != answer.isCorrect())
                                 repository.updateAnswer(questionId, id, text, answer.isCorrect()).then(function (response) {
-                                    showNotification(response.modifiedOn);
+                                    showNotification();
                                     answer.original.text = text;
                                     answer.original.correctness = answer.isCorrect();
                                 });
@@ -138,7 +138,7 @@
                 return item;
             }
 
-            function showNotification(date) {
+            function showNotification() {
                 notify.saved();
             }
 
