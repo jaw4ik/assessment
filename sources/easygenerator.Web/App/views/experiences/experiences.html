@@ -56,15 +56,26 @@
                     </div>
                     <div class="experience-actions-panel">
                         <div class="experience-actions-wrapper">
+                            <!-- ko ifnot: showStatus() -->
                             <div class="experience-action download-package" data-bind="click: $parent.downloadExperience">
                                 <span class="experience-action-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
                             </div>
                             <div class="experience-action publish-package" data-bind="click: $parent.publishExperience">
                                 <span class="experience-action-title" data-bind="localize: { text: !publishPackageExists() ? 'publishOnline' : 'republishOnline' }">Publish online</span>
                             </div>
+                            <!-- /ko -->
+                            <!-- ko if: showStatus() -->
+                            <div class="experience-action download-package">
+                                <span class="experience-action-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
+                            </div>
+                            <div class="experience-action publish-package">
+                                <span class="experience-action-title" data-bind="localize: { text: !publishPackageExists() ? 'publishOnline' : 'republishOnline' }">Publish online</span>
+                            </div>
+                            <!-- /ko -->
                             <div class="experience-action" data-bind="css: { disabled: !publishPackageExists(), 'package-link': publishPackageExists() }">
                                 <input class="package-link-input" id="copyLink" type="text" readonly="readonly" data-bind="visible: publishPackageExists, value: publishedPackageUrl" />
                             </div>
+                            
                         </div>
                     </div>
                     <!-- ko if: showStatus() -->

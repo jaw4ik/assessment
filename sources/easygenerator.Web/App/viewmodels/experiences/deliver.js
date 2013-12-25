@@ -88,7 +88,9 @@
 
     app.on(constants.messages.experience.build.completed, function (experience) {
         if (experience.id === viewModel.id) {
-            viewModel.deliveringState(constants.deliveringStates.succeed);
+            if (viewModel.buildingForPublish() !== true) {
+                viewModel.deliveringState(constants.deliveringStates.succeed);
+            }
             viewModel.packageCreated(true);
             viewModel.packageUrl(experience.packageUrl);
             viewModel.buildingForPublish(false);
