@@ -68,12 +68,11 @@
                     return undefined;
                 }
 
-                notify.hide();
-
                 objectiveRepository.removeObjective(selectedObjective.id).then(function () {
                     objectives(_.reject(objectives(), function (objective) {
                         return objective.id === selectedObjective.id;
                     }));
+                    notify.saved();
                 });
             },
 

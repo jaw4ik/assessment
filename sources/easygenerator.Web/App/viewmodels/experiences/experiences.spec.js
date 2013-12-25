@@ -549,12 +549,6 @@
 
                         beforeEach(function () {
                             viewModel.experiences([{ id: 'id', isSelected: ko.observable(true), objectives: [] }]);
-                            spyOn(notify, 'hide');
-                        });
-
-                        it('should hide notification', function () {
-                            viewModel.deleteSelectedExperiences();
-                            expect(notify.hide).toHaveBeenCalled();
                         });
 
                         it('should remove experience from repository', function () {
@@ -576,6 +570,21 @@
                                 });
                                 runs(function () {
                                     expect(viewModel.experiences().length).toBe(0);
+                                });
+                            });
+
+                            it('should show saved notification', function () {
+                                spyOn(notify, 'saved');
+                                viewModel.deleteSelectedExperiences();
+
+                                var promise = removeExperience.promise.fin(function () { });
+                                removeExperience.resolve();
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(notify.saved).toHaveBeenCalled();
                                 });
                             });
 

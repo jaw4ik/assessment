@@ -517,11 +517,19 @@
                             });
                         });
                         
-                        it('should hide notification', function () {
-                            spyOn(notify, 'hide');
+                        it('should show saved notification', function () {
+                            spyOn(notify, 'saved');
                             viewModel.deleteSelectedObjectives();
-                            expect(notify.hide).toHaveBeenCalled();
+                            deleteDeferred.resolve();
+                            
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(notify.saved).toHaveBeenCalled();
+                            });
                         });
+                        
                     });
                 });
                 

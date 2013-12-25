@@ -135,12 +135,11 @@
             if (selectedExperience.objectives.length > 0) {
                 notifyError(localizationManager.localize('experienceCannotBeDeleted'));
                 return;
-            }
-
-            notify.hide();
+            }            
 
             experienceRepository.removeExperience(selectedExperience.id).then(function () {
                 viewModel.experiences(_.without(viewModel.experiences(), selectedExperience));
+                notify.saved();
             });
         }
 
