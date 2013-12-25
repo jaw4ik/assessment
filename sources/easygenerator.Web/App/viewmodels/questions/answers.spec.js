@@ -220,7 +220,7 @@
             describe('when answer id is set', function () {
 
                 beforeEach(function () {
-                    answer = { id: ko.observable('answerId'), text: ko.observable('test') }
+                    answer = { id: ko.observable('answerId'), text: ko.observable('test') };
                 });
 
                 it('should remove answer from the repository', function () {
@@ -405,15 +405,18 @@
 
             var addAnswer;
             var updateAnswer;
+            var removeAnswer;
 
             beforeEach(function () {
                 viewModel = ctor(questionId, []);
 
                 addAnswer = Q.defer();
                 updateAnswer = Q.defer();
-
+                removeAnswer = Q.defer();
+                
                 spyOn(repository, 'addAnswer').andReturn(addAnswer.promise);
                 spyOn(repository, 'updateAnswer').andReturn(updateAnswer.promise);
+                spyOn(repository, 'removeAnswer').andReturn(removeAnswer.promise);
             });
 
             it('should be function', function () {
@@ -424,12 +427,6 @@
                 var answer = { id: ko.observable('answerId'), text: ko.observable(''), isCorrect: ko.observable(false), original: {} };
 
                 describe('and id is not empty', function () {
-                    var removeAnswer;
-
-                    beforeEach(function() {
-                        removeAnswer = Q.defer();
-                        spyOn(repository, 'removeAnswer').andReturn(removeAnswer.promise);
-                    });
 
                     it('should remove answer from the repository', function () {
                         viewModel.answers([answer]);
