@@ -8,7 +8,7 @@
                     * -->
             <!-- ko if: !publishPackageExists() -->
             <!-- ko if: deliveringState() !== states.building && deliveringState() !== states.publishing -->
-            <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience, hover: showPublishDescription">
+            <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience">
                 <span class="btn-title" data-bind="localize: { text: 'publishOnline' }">Publish online</span>
             </div>
             <!-- /ko -->
@@ -19,15 +19,15 @@
             <!-- /ko -->
             <!-- /ko -->
             <!--*
-                    * ASSEMBLING/PUBLISHING
-                    * -->
+                * ASSEMBLING/PUBLISHING
+                * -->
             <!-- ko if: deliveringState() === states.building && buildingForPublish() -->
-            <div class="package-action-btn btn green publishing-btn">
+            <div class="package-action-btn btn green publishing-btn active">
                 <span class="btn-title" data-bind="localize: { text: 'assembling' }">assembling...</span>
             </div>
             <!-- /ko -->
             <!-- ko if: deliveringState() === states.publishing -->
-            <div class="package-action-btn btn green publishing-btn">
+            <div class="package-action-btn btn green publishing-btn active">
                 <span class="btn-title" data-bind="localize: { text: 'publishing' }">publishing...</span>
             </div>
             <!-- /ko -->
@@ -36,7 +36,7 @@
                     * -->
             <!-- ko if: publishPackageExists() -->
             <!-- ko if: deliveringState() !== states.building && deliveringState() !== states.publishing -->
-            <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience, hover: showRepublishDescription">
+            <div class="package-action-btn btn green publish-btn" data-bind="click: publishExperience">
                 <span class="btn-title" data-bind="localize: { text: 'republishOnline' }">Republish online</span>
             </div>
             <!-- /ko -->
@@ -89,7 +89,7 @@
                 * -->
 
             <!-- ko if: deliveringState() !== states.building && deliveringState() !== states.publishing -->
-            <div class="package-action-btn btn grey download-btn" data-bind="click: downloadExperience, hover: showDownloadDescription">
+            <div class="package-action-btn btn grey download-btn" data-bind="click: downloadExperience">
                 <span class="btn-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
             </div>
             <!-- /ko -->
@@ -99,7 +99,7 @@
             </div>
             <!-- /ko -->
             <!-- ko if: deliveringState() === states.building && !buildingForPublish()-->
-            <div class="package-action-btn btn grey building-btn">
+            <div class="package-action-btn btn grey building-btn active">
                 <span class="btn-title" data-bind="localize: { text: 'assembling' }">assembling...</span>
             </div>
             <!-- /ko -->

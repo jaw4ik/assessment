@@ -14,10 +14,7 @@
         deliveringState: ko.observable(),
         // variable to determine if experience is building for publish or for download
         buildingForPublish: ko.observable(),
-
-        showDownloadDescription: ko.observable(),
-        showPublishDescription: ko.observable(),
-        showRepublishDescription: ko.observable(),
+        
         showOpenLinkDescription: ko.observable(),
         packageCreated: ko.observable(),
         

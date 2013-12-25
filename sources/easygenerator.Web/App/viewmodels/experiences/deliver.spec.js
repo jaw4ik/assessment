@@ -106,30 +106,6 @@
 
             });
 
-            describe('showDownloadDescription:', function () {
-
-                it('should be observable', function () {
-                    expect(viewModel.showDownloadDescription).toBeObservable();
-                });
-
-            });
-
-            describe('showPublishDescription:', function () {
-
-                it('should be observable', function () {
-                    expect(viewModel.showPublishDescription).toBeObservable();
-                });
-
-            });
-
-            describe('showRepublishDescription:', function () {
-
-                it('should be observable', function () {
-                    expect(viewModel.showRepublishDescription).toBeObservable();
-                });
-
-            });
-
             describe('showOpenLinkDescription:', function () {
 
                 it('should be observable', function () {

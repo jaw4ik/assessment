@@ -777,16 +777,21 @@ a.top-navigation-item:hover {
 }
 
 /*green button*/
-.btn.green {
+.btn.green 
+{
     background: #B0C93E;
     border-color: #B0C93E;
     border-bottom-color: #899d30;
 }
 
-    .btn.green:hover {
+    .btn.green:hover,
+    .btn.green.active,
+    .btn.green.active:active
+     {
         background: #BDD93D;
         border-color: #BDD93D;
         border-bottom-color: #899d30;
+        box-shadow: none;
     }
 
     .btn.green:active,
@@ -837,16 +842,20 @@ a.top-navigation-item:hover {
         border-color: #b16e3f;
     }
 /*grey button*/
-.btn.grey {
+.btn.grey
+{
     background: #909399;
     border-color: #909399;
     border-bottom-color: #707377;
 }
-
-    .btn.grey:hover {
+    
+    .btn.grey:hover,
+    .btn.grey.active,
+    .btn.grey.active:active {
         background: #74767c;
         border-color: #74767c;
         border-bottom-color: #707377;
+        box-shadow: none;
     }
 
     .btn.grey:active,
