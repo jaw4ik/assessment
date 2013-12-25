@@ -343,16 +343,6 @@
 
             describe('when current experience build completed in any part of application', function () {
 
-                it('should update current deliveringState to \'success\'', function () {
-                    viewModel.id = experience.id;
-                    viewModel.deliveringState("");
-
-                    experience.buildingStatus = constants.deliveringStates.succeed;
-                    app.trigger(constants.messages.experience.build.completed, experience);
-
-                    expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.succeed);
-                });
-
                 it('should update current packageUrl to the corresponding one', function () {
                     viewModel.id = experience.id;
                     viewModel.packageUrl("");
