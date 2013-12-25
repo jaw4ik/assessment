@@ -49,11 +49,11 @@
     
     function publishExperience() {
         if (viewModel.deliveringState() !== constants.deliveringStates.building && viewModel.deliveringState() !== constants.deliveringStates.publishing) {
+            viewModel.buildingForPublish(true);
             viewModel.deliveringState(constants.deliveringStates.building);
             notify.hide();
             eventTracker.publish(events.publishExperience);
             return repository.getById(viewModel.id).then(function(experience) {
-                viewModel.buildingForPublish(true);
                 return experience.publish();
             });
         }
