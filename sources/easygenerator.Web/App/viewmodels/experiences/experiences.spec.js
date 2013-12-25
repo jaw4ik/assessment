@@ -701,7 +701,8 @@
                 beforeEach(function () {
                     experience = {
                         packageUrl: ko.observable('some url'),
-                        isSelected: ko.observable()
+                        isSelected: ko.observable(),
+                        deliveringState: ko.observable('')
                     };
 
                     spyOn(router, 'download');

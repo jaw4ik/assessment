@@ -66,35 +66,39 @@
         }
 
         function publishExperience(exp) {
-            notify.hide();
-            eventTracker.publish(events.publishExperience);
-            if (exp.isSelected()) {
-                exp.isSelected(false);
+            if (exp.deliveringState() !== constants.deliveringStates.building && exp.deliveringState() !== constants.deliveringStates.publishing) {
+                notify.hide();
+                eventTracker.publish(events.publishExperience);
+                if (exp.isSelected()) {
+                    exp.isSelected(false);
+                }
+
+                return experienceRepository.getById(exp.id).then(function(experience) {
+                    return experience.publish();
+                }).fail(function(reason) {
+                    notifyError(reason);
+                    eventTracker.publish(events.experiencePublishFailed);
+                });
             }
-            
-            return experienceRepository.getById(exp.id).then(function (experience) {
-                return experience.publish();
-            }).fail(function (reason) {
-                notifyError(reason);
-                eventTracker.publish(events.experiencePublishFailed);
-            });
         }
         
         function downloadExperience(exp) {
-            notify.hide();
-            eventTracker.publish(events.downloadExperience);
-            if (exp.isSelected()) {
-                exp.isSelected(false);
-            }
+            if (exp.deliveringState() !== constants.deliveringStates.building && exp.deliveringState() !== constants.deliveringStates.publishing) {
+                notify.hide();
+                eventTracker.publish(events.downloadExperience);
+                if (exp.isSelected()) {
+                    exp.isSelected(false);
+                }
 
-            return experienceRepository.getById(exp.id).then(function (experience) {
-                return experience.build().then(function () {
-                    dom.clickElementById('packageLink_' + exp.id);
+                return experienceRepository.getById(exp.id).then(function(experience) {
+                    return experience.build().then(function() {
+                        dom.clickElementById('packageLink_' + exp.id);
+                    });
+                }).fail(function(reason) {
+                    eventTracker.publish(events.experienceBuildFailed);
+                    notifyError(reason);
                 });
-            }).fail(function (reason) {
-                eventTracker.publish(events.experienceBuildFailed);
-                notifyError(reason);
-            });;
+            }
         }
 
         function enableOpenExperience(experience) {
