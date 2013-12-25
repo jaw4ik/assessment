@@ -60,7 +60,6 @@
 
             if (isEditing()) {
                 editor.focus();
-                setCaretToStart();
             }
 
             editor.on('blur', onBlur);
@@ -213,12 +212,6 @@
             return _.every($element.contents(), function (child) {
                 return isElementEmpty(child);
             });
-        }
-
-        function setCaretToStart() {
-            var range = editor.createRange();
-            range.moveToPosition(range.root, CKEDITOR.POSITION_BEFORE_END);
-            editor.getSelection().selectRanges([range]);
         }
 
         function updateToolbarPosition() {
