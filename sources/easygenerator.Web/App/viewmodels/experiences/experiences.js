@@ -67,6 +67,7 @@
 
         function publishExperience(exp) {
             if (exp.deliveringState() !== constants.deliveringStates.building && exp.deliveringState() !== constants.deliveringStates.publishing) {
+                exp.deliveringState(constants.deliveringStates.building);
                 notify.hide();
                 eventTracker.publish(events.publishExperience);
                 if (exp.isSelected()) {
@@ -84,6 +85,7 @@
         
         function downloadExperience(exp) {
             if (exp.deliveringState() !== constants.deliveringStates.building && exp.deliveringState() !== constants.deliveringStates.publishing) {
+                exp.deliveringState(constants.deliveringStates.building);
                 notify.hide();
                 eventTracker.publish(events.downloadExperience);
                 if (exp.isSelected()) {

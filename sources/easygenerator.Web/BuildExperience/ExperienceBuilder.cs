@@ -3,6 +3,7 @@ using System.IO;
 using easygenerator.DomainModel.Entities;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience.PackageModel;
+using easygenerator.Web.Components;
 
 namespace easygenerator.Web.BuildExperience
 {
@@ -27,7 +28,8 @@ namespace easygenerator.Web.BuildExperience
         {
             var experiencePackageModel = _packageModelMapper.MapExperience(experience);
             var buildId = GenerateBuildId(experiencePackageModel.Id);
-
+            var isBuildSuccessful = true;
+            
             try
             {
                 CreatePackageDirectory(buildId);
@@ -41,13 +43,24 @@ namespace easygenerator.Web.BuildExperience
 
                 experience.UpdatePackageUrl(buildId + ".zip");
             }
-            finally
+            catch (Exception exception)
+            {
+                ElmahLog.LogException(exception);
+                isBuildSuccessful = false;
+            }
+
+            try
             {
                 DeleteOutdatedPackages(buildId, experiencePackageModel.Id);
                 DeleteTempPackageDirectory(buildId);
             }
+            catch (Exception exception)
+            {
+                ElmahLog.LogException(exception);
+                isBuildSuccessful = false;
+            }
 
-            return true;
+            return isBuildSuccessful;
         }
 
         private void CreatePackageDirectory(string buildId)

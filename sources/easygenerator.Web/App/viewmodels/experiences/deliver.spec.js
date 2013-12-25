@@ -15,7 +15,7 @@
             var experienceCreatedOn = '/Date(1378106938845)/';
             var template = { id: 'template id', name: 'template name', image: 'template image' };
             var experience = new ExperienceModel({
-                id: 'experienceId',
+                id: 'testExperienceId',
                 title: 'title',
                 template: template,
                 createdOn: utils.getDateFromString(experienceCreatedOn),
@@ -24,7 +24,7 @@
             });
 
             beforeEach(function () {
-                router.openUrl = function(url) {};
+                router.openUrl = function (url) { };
 
                 spyOn(eventTracker, 'publish');
                 spyOn(router, 'navigate');
@@ -130,9 +130,9 @@
 
             });
 
-            describe('showOpenLinkDescription:', function() {
+            describe('showOpenLinkDescription:', function () {
 
-                it('should be observable', function() {
+                it('should be observable', function () {
                     expect(viewModel.showOpenLinkDescription).toBeObservable();
                 });
 
@@ -142,7 +142,7 @@
 
                 var experiencerepositorygetByIdDefer;
                 var experiencerepositorygetByIdPromise;
-                
+
                 beforeEach(function () {
                     spyOn(experience, 'publish');
 
@@ -155,27 +155,34 @@
                     expect(viewModel.publishExperience).toBeFunction();
                 });
 
-                it('should send event \'Publish experience\'', function () {
-                    viewModel.publishExperience();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Publish experience');
-                });
-                
-                it('should hide notification', function () {
-                    notify.hide.reset();
-                    viewModel.publishExperience();
-                    expect(notify.hide).toHaveBeenCalled();
-                });
+                describe('when deliver process is not running', function () {
 
-                it('should start publish of current experience', function () {
-                    experiencerepositorygetByIdDefer.resolve(experience);
-                    var promise = viewModel.publishExperience();
-                    
-                    waitsFor(function () {
-                        return !promise.isPending();
+                    beforeEach(function () {
+                        viewModel.deliveringState(constants.deliveringStates.notStarted);
                     });
 
-                    runs(function () {
-                        expect(experience.publish).toHaveBeenCalled();
+                    it('should send event \'Publish experience\'', function () {
+                        viewModel.publishExperience();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Publish experience');
+                    });
+
+                    it('should hide notification', function () {
+                        notify.hide.reset();
+                        viewModel.publishExperience();
+                        expect(notify.hide).toHaveBeenCalled();
+                    });
+
+                    it('should start publish of current experience', function () {
+                        experiencerepositorygetByIdDefer.resolve(experience);
+                        var promise = viewModel.publishExperience();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+
+                        runs(function () {
+                            expect(experience.publish).toHaveBeenCalled();
+                        });
                     });
                 });
             });
@@ -197,21 +204,28 @@
                     expect(viewModel.downloadExperience).toBeFunction();
                 });
 
-                it('should send event \"Download experience\"', function () {
-                    viewModel.downloadExperience();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Download experience');
-                });
+                describe('when deliver process is not running', function () {
 
-                it('should start build of current experience', function () {
-                    experiencerepositorygetByIdDefer.resolve(experience);
-                    var promise = viewModel.downloadExperience();
-
-                    waitsFor(function () {
-                        return !promise.isPending();
+                    beforeEach(function () {
+                        viewModel.deliveringState(constants.deliveringStates.notStarted);
                     });
 
-                    runs(function () {
-                        expect(experience.build).toHaveBeenCalled();
+                    it('should send event \"Download experience\"', function () {
+                        viewModel.downloadExperience();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Download experience');
+                    });
+
+                    it('should start build of current experience', function () {
+                        experiencerepositorygetByIdDefer.resolve(experience);
+                        var promise = viewModel.downloadExperience();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+
+                        runs(function () {
+                            expect(experience.build).toHaveBeenCalled();
+                        });
                     });
                 });
             });
@@ -317,14 +331,14 @@
 
             });
 
-            describe('when experience was changed in any part of application', function() {
-            
+            describe('when experience was changed in any part of application', function () {
+
                 beforeEach(function () {
                     viewModel.showStatus = ko.observable(false);
                     viewModel.packageUrl = ko.observable('');
                     viewModel.publishedPackageUrl = ko.observable('');
                 });
-                
+
                 describe('when current experience build was started in any part of application', function () {
 
                     it('should change experience deliveringState to \'building\'', function () {
@@ -428,7 +442,7 @@
                     });
 
                 });
-            
+
 
                 // publish
                 describe('when current experience publish was started in any part of application', function () {
@@ -544,33 +558,33 @@
                     });
 
                 });
-                
+
             });
 
             describe('openPublishedExperience:', function () {
 
-                it('should be function', function() {
+                it('should be function', function () {
                     expect(viewModel.openPublishedExperience).toBeFunction();
                 });
 
-                describe('when experience successfully published', function() {
+                describe('when experience successfully published', function () {
 
                     it('should open publish url', function () {
                         viewModel.publishedPackageUrl('Some url');
                         viewModel.deliveringState(viewModel.states.succeed);
-                        
+
                         viewModel.openPublishedExperience();
                         expect(router.openUrl).toHaveBeenCalledWith(viewModel.publishedPackageUrl());
                     });
 
                 });
 
-                describe('when experience not published', function() {
+                describe('when experience not published', function () {
 
                     it('should not open link', function () {
                         viewModel.publishedPackageUrl('Some url');
                         viewModel.deliveringState(viewModel.states.failed);
-                        
+
                         viewModel.openPublishedExperience();
                         expect(router.openUrl).not.toHaveBeenCalledWith(viewModel.publishedPackageUrl());
                     });

@@ -38,6 +38,7 @@
 
     function downloadExperience() {
         if (viewModel.deliveringState() !== constants.deliveringStates.building && viewModel.deliveringState() !== constants.deliveringStates.publishing) {
+            viewModel.deliveringState(constants.deliveringStates.building);
             notify.hide();
             eventTracker.publish(events.downloadExperience);
 
@@ -51,6 +52,7 @@
     
     function publishExperience() {
         if (viewModel.deliveringState() !== constants.deliveringStates.building && viewModel.deliveringState() !== constants.deliveringStates.publishing) {
+            viewModel.deliveringState(constants.deliveringStates.building);
             notify.hide();
             eventTracker.publish(events.publishExperience);
             return repository.getById(viewModel.id).then(function(experience) {
