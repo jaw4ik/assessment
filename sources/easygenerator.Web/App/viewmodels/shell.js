@@ -79,26 +79,27 @@
                             clientContext.set('isShowIntroductionPage', false);
                             return introductionPage;
                         }
-                        
-                        if (requestsCounter() > 0) {
-                            //that.navigation()[1].isPartOfModules(_.contains(objectivesModules, that.activeModuleName()));
-                            //that.navigation()[0].isPartOfModules(_.contains(experiencesModules, that.activeModuleName()));
-                            uiLocker.lock();
-                            var subscription = requestsCounter.subscribe(function (newValue) {
-                                if (newValue == 0) {
-                                    uiLocker.unlock();
-                                    var queryString = params.queryString;
-                                    if (!_.isNullOrUndefined(queryString)) {
-                                        router.navigate(params.fragment + '?' + queryString);
-                                    } else {
-                                        router.navigate(params.fragment);
-                                    }
-                                    subscription.dispose();
-                                }
-                            });
-                            return false;
+
+                        if (requestsCounter() == 0) {
+                            return true;
                         }
-                        return true;
+
+                        var defer = Q.defer();
+                        uiLocker.lock();
+                        checkRequestCounter(defer);
+
+                        return defer.promise;
+                        
+                        function checkRequestCounter(defer) {
+                            if (requestsCounter() > 0) {
+                                setTimeout(function() {
+                                    checkRequestCounter(defer);
+                                }, 100);
+                            } else {
+                                defer.resolve(true);
+                                uiLocker.unlock();
+                            }
+                        }
                     };
 
                     router.on('router:route:activating').then(function () {
