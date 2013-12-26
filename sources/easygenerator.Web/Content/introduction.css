@@ -4,13 +4,14 @@
 
 .intro-page.view-module {
     padding-top: 0;
-    min-height: 600px;
+    min-height: 980px;
     position: relative;
     color: #303133;
 }
 
 .intro-header {
     width: 100%;
+    min-width: 980px;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
     text-align: center;
 }
