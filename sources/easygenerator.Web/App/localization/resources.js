@@ -994,14 +994,14 @@
         de: 'Wir bieten besseres e-Learning, weil:'
     },
     introElearningPrincipleOne: {
-        en: 'All learning processes starts with the definition of learning objectives.',
-        nl: 'Alle leerprocessen beginnen met de definitie van de leerdoelen.',
-        de: 'Alle Lernprozesse mit der Definition von Lernzielen beginnen.'
+        en: 'All learning processes starts with the definition of <strong>learning objectives</strong>.',
+        nl: 'Alle leerprocessen beginnen met de definitie van de <strong>leerdoelen</strong>.',
+        de: 'Alle Lernprozesse mit der Definition von <strong>Lernzielen</strong> beginnen.'
     },
     introElearningPrincipleTwo: {
-        en: 'Progress is measured by answering questions not by reading pages.',
-        nl: 'De vooruitgang wordt gemeten aan de hand van het beantwoorden van vragen in plaats van door het lezen van pagina\'s.',
-        de: 'Der Fortschritt durch die Beantwortung von Fragen (und nicht durch das Lesen von Seiten) gemessen wird.'
+        en: 'Progress is measured by <strong>answering questions</strong> not by reading pages.',
+        nl: 'De vooruitgang wordt gemeten aan de hand van het <strong>beantwoorden van vragen</strong> in plaats van door het lezen van pagina\'s.',
+        de: 'Der Fortschritt durch <strong>die Beantwortung von Fragen</strong> (und nicht durch das Lesen von Seiten) gemessen wird.'
     },
     introStartProcessWith: {
         en: 'Start your authoring process with:',
