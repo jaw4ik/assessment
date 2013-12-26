@@ -83,6 +83,9 @@
                 if (_.isString(value['title'])) {
                     $(element).prop('title', localizationManager.localize(value['title']));
                 }
+                if (_.isString(value['html'])) {
+                    $(element).html(localizationManager.localize(value['html']));
+                }
             };
         })();
 
