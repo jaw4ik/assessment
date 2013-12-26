@@ -30,7 +30,7 @@
 /*#region Page-loader icon*/
 
 .icon-spinner-wrapper {
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 50%;
     margin-left: -16px;
