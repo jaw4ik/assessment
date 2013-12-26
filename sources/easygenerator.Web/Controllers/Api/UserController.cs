@@ -17,7 +17,6 @@ using AccountRes;
 namespace easygenerator.Web.Controllers.Api
 {
     [NoCache]
-    [AllowAnonymous]
     public class UserController : DefaultController
     {
         private readonly IUserRepository _repository;
@@ -46,6 +45,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Signin(string username, string password)
         {
             var user = _repository.GetUserByEmail(username);
@@ -59,6 +59,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Signup(UserSignUpViewModel profile)
         {
             if (_repository.GetUserByEmail(profile.Email) != null)
@@ -67,7 +68,7 @@ namespace easygenerator.Web.Controllers.Api
             }
 
             var user = _entityFactory.User(profile.Email, profile.Password, profile.FullName, profile.Phone,
-                profile.Organization, profile.Country, profile.Email);
+                profile.Organization, profile.Country, profile.Email, new UserSettings(profile.Email, true));
 
             _repository.Add(user);
             _publisher.Publish(new UserSignedUpEvent(user, profile.PeopleBusyWithCourseDevelopmentAmount, profile.NeedAuthoringTool, profile.UsedAuthoringTool));
@@ -87,6 +88,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult ForgotPassword(string email)
         {
             var user = _repository.GetUserByEmail(email);
@@ -103,6 +105,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult RecoverPassword(PasswordRecoveryTicket ticket, string password)
         {
             if (ticket == null)
@@ -116,6 +119,7 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Exists(string email)
         {
             var exists = _repository.GetUserByEmail(email) != null;
@@ -123,15 +127,45 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult GetCurrentUserInfo()
         {
             var user = _repository.GetUserByEmail(GetCurrentUsername());
+            object userInfo;
 
-            return JsonSuccess(new
+            var isTryMode = user == null;
+            if (isTryMode)
             {
-                Email = user != null ? user.Email : string.Empty,
-                IsTryMode = user == null
-            });
+                userInfo = new
+                {
+                    Email = string.Empty,
+                    IsTryMode = true,
+                    IsShowIntroductionPage = true
+                };
+            }
+            else
+            {
+                userInfo = new
+                {
+                    Email = user.Email,
+                    IsTryMode = false,
+                    IsShowIntroductionPage = user.UserSetting.IsShowIntroductionPage
+                };
+            }
+
+            return JsonSuccess(userInfo);
+
+        }
+
+        [HttpPost]
+        public ActionResult SetIsShowIntroductionPage(bool isShowIntroduction)
+        {
+            var user = _repository.GetUserByEmail(GetCurrentUsername());
+            if (user != null && user.UserSetting.IsShowIntroductionPage != isShowIntroduction)
+            {
+                user.UserSetting.UpdateIsShowIntroduction(isShowIntroduction);
+            }
+            return JsonSuccess();
         }
     }
 }

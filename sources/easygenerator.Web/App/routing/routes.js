@@ -72,6 +72,14 @@
                 settings: {
                     localizationKey: 'experience'
                 }
+            },
+            {
+                route: 'welcome',
+                moduleId: 'introduction/welcome',
+                title: 'Welcome page',
+                settings: {
+                    localizationKey: 'introWelcomePageTitle'
+                }
             }
         ];
     }

@@ -273,6 +273,12 @@ namespace easygenerator.Web.Configuration
                 defaults: new { controller = "User", action = "SignUpFirstStep" }
             );
 
+            routes.MapRoute(
+                name: "SetIsShowIntroductionPage",
+                url: "api/user/setisshowintroductionpage",
+                defaults: new { controller = "User", action = "SetIsShowIntroductionPage" }
+            );
+
             #endregion
 
             #region Account

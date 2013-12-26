@@ -147,7 +147,9 @@
         }
 
         .header-menu-list-item.help.disabled,
-        .header-menu-list-item.help.disabled:hover {
+        .header-menu-list-item.help.disabled:hover,
+        .header-menu-list-item.help.empty,
+        .header-menu-list-item.help.empty:hover {
             opacity: 0.2;
             text-decoration: none;
         }

@@ -1,7 +1,8 @@
 ﻿define(['localization/localizationManager'],
     function (localizationManager) {
         "use strict";
-
+        
+        var resources = require('localization/resources');
 
         describe('localizationManager', function () {
 
@@ -60,8 +61,6 @@
             });
 
             describe('localize', function () {
-
-                var resources = require('localization/resources');
 
                 var key = "resourceKey";
                 var defaultString = 'default string';
@@ -143,6 +142,45 @@
                 it('should be equal \'en\'', function() {
                     expect(localizationManager.defaultCulture).toEqual('en');
                 });
+
+            });
+
+            describe('hasKey:', function () {
+
+                var allowedKey = 'allowedKey',
+                    notAllowedKey = 'notAllowedKey',
+                    defaultString = 'default string';
+
+                beforeEach(function () {
+                    resources[allowedKey] = {};
+                    resources[allowedKey]["en"] = defaultString;
+                });
+
+                it('should be function', function() {
+                    expect(localizationManager.hasKey).toBeFunction();
+                });
+
+                describe('when localizationManager has key', function () {
+                    
+                    it('should return true', function () {
+                        var result = localizationManager.hasKey(allowedKey);
+                        expect(result).toBeTruthy();
+
+                    });
+
+                });
+                
+                describe('when localizationManager does not has key', function () {
+
+                    it('should return false', function () {
+                        
+                        var result = localizationManager.hasKey(notAllowedKey);
+                        expect(result).toBeFalsy();
+                    });
+
+                });
+
+                
 
             });
 

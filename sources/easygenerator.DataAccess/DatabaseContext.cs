@@ -93,6 +93,10 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<User>().Property(e => e.Organization).IsRequired();
             modelBuilder.Entity<User>().HasMany(e => e.PasswordRecoveryTicketCollection).WithRequired(e => e.User);
 
+            modelBuilder.Entity<UserSettings>().HasKey(e => e.Id);
+            modelBuilder.Entity<UserSettings>().Property(e => e.IsShowIntroductionPage).IsRequired();
+            modelBuilder.Entity<UserSettings>().HasRequired(e => e.User);
+
             modelBuilder.Entity<PasswordRecoveryTicket>().HasKey(e => e.Id);
             modelBuilder.Entity<PasswordRecoveryTicket>().HasRequired(e => e.User);
             modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.CreatedBy);

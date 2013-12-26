@@ -71,6 +71,7 @@
     <Compile Include="Entities\QuestionTests.cs" />
     <Compile Include="Entities\TemplateTests.cs" />
     <Compile Include="Entities\HelpHintTests.cs" />
+    <Compile Include="Entities\UserSettingsTests.cs" />
     <Compile Include="Entities\UserTests.cs" />
     <Compile Include="EntityFactoryTests.cs" />
     <Compile Include="Handlers\SignupFromTryItNowHandlerTests.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="ObjectMothers\QuestionObjectMother.cs" />
     <Compile Include="ObjectMothers\TemplateObjectMother.cs" />
     <Compile Include="ObjectMothers\UserObjectMother.cs" />
+    <Compile Include="ObjectMothers\UserSettingsObjectMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

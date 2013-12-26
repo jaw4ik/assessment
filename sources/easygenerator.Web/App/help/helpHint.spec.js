@@ -4,12 +4,7 @@
 
         var
             repository = require('repositories/helpHintRepository'),
-            localizationManager = require('localization/localizationManager')
-        ;
-
-        beforeEach(function () {
-            spyOn(localizationManager, 'localize').andCallFake(function (key) { return key; });
-        });
+            localizationManager = require('localization/localizationManager');
 
         describe('visible:', function () {
 
@@ -53,6 +48,7 @@
             beforeEach(function () {
                 addHint = Q.defer();
                 spyOn(repository, 'addHint').andReturn(addHint.promise);
+                spyOn(localizationManager, 'localize').andCallFake(function (key) { return key; });
             });
 
             it('should be function', function () {
@@ -327,6 +323,8 @@
 
                 beforeEach(function () {
                     getHint.resolve(hint);
+                    spyOn(localizationManager, 'localize').andCallFake(function (key) { return key; });
+                    spyOn(localizationManager, 'hasKey').andReturn(true);
                 });
 
                 it('should set help hint id', function () {
@@ -373,6 +371,7 @@
             describe('when help hint does not exist', function () {
 
                 beforeEach(function () {
+                    spyOn(localizationManager, 'localize').andCallFake(function (key) { return key; });
                     getHint.resolve(null);
                 });
 
@@ -415,6 +414,19 @@
                     });
                 });
 
+                it('should set isEmptyHint to false', function () {
+                    viewModel.isEmptyHint(true);
+
+                    var promise = viewModel.activate();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.text()).toBeFalsy();
+                    });
+                });
+
             });
 
             describe('when help hint could not be retrieved', function() {
@@ -435,6 +447,29 @@
                         expect(promise).toBeRejectedWith(reason);
                     });
                 });
+            });
+
+            describe('when help hint does not have localization key', function() {
+                
+                var hint = { id: 'id', key: 'key', localizationKey: 'localizationKey' };
+
+                beforeEach(function () {
+                    getHint.resolve(hint);
+                    spyOn(localizationManager, 'hasKey').andReturn(false);
+                });
+
+                it('should set isEmptyHint to true', function () {
+                    viewModel.isEmptyHint(false);
+                    var promise = viewModel.activate();
+                    
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(viewModel.isEmptyHint()).toBeTruthy();
+                    });
+                });
+
             });
 
         });

@@ -6,6 +6,7 @@
         title: ko.observable(),
         text: ko.observable(),
         visible: ko.observable(true),
+        isEmptyHint: ko.observable(false),
         show: show,
         close: close,
         isRequestPending: false,
@@ -20,7 +21,7 @@
 
     function show() {
 
-        if (viewModel.id || viewModel.isRequestPending) {
+        if (viewModel.id || viewModel.isRequestPending || viewModel.isEmptyHint()) {
             return;
         }
 
@@ -56,17 +57,20 @@
         viewModel.id = '';
         viewModel.title('');
         viewModel.text('');
+        viewModel.isEmptyHint(false);
 
         return helpHintRepository.getHint(key).then(function(hint) {
-
             if (_.isNullOrUndefined(hint)) {
                 return;
             }
 
-            viewModel.id = hint.id;
-            viewModel.title(localizationManager.localize(hint.localizationKey + 'Title'));
-            viewModel.text(localizationManager.localize(hint.localizationKey));
-
+            if (localizationManager.hasKey(hint.localizationKey)) {
+                viewModel.id = hint.id;
+                viewModel.title(localizationManager.localize(hint.localizationKey + 'Title'));
+                viewModel.text(localizationManager.localize(hint.localizationKey));
+            } else {
+                viewModel.isEmptyHint(true);
+            }
         });
 
     }

@@ -45,7 +45,7 @@ namespace easygenerator.DomainModel.Tests.ObjectMothers
         public static User Create(string email = Email, string password = Password, string fullname = FullName, string phone = Phone,
             string oraganization = Organization, string country = Country, string createdBy = CreatedBy)
         {
-            return new User(email, password, fullname, phone, oraganization, country, createdBy);
+            return new User(email, password, fullname, phone, oraganization, country, createdBy, new UserSettings(createdBy, true));
         }
     }
 }

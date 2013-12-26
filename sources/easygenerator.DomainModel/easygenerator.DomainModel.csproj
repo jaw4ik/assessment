@@ -53,6 +53,7 @@
     <Compile Include="Entities\Question.cs" />
     <Compile Include="Entities\Template.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserSettings.cs" />
     <Compile Include="EntityFactory.cs" />
     <Compile Include="Events\DomainEventHandlersProvider.cs" />
     <Compile Include="Events\DomainEventPublisher.cs" />

@@ -82,7 +82,7 @@ namespace easygenerator.DomainModel.Tests
             var organization = "Easygenerator";
             var country = "some country";
 
-            var user = _entityFactory.User(email, password, fullname, phone, organization, country, ModifiedBy);
+            var user = _entityFactory.User(email, password, fullname, phone, organization, country, ModifiedBy, UserSettingsObjectMother.Create());
             user.Should().NotBeNull();
             user.Email.Should().Be(email);
             user.VerifyPassword(password).Should().BeTrue();

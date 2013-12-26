@@ -30,6 +30,7 @@
     });
 
     var experiencesModule = 'experiences',
+        introductionPage = 'welcome',
         objectivesModules = ['objectives', 'objective', 'createObjective', 'createQuestion', 'question'],
         experiencesModules = ['experiences', 'experience', 'createExperience'],
         isViewReady = ko.observable(false),
@@ -74,6 +75,11 @@
                     browserCulture(localizationManager.currentLanguage);
 
                     router.guardRoute = function (routeInfo, params) {
+                        if (dataContext.userSettings.isShowIntroduction && clientContext.get('isShowIntroductionPage')) {
+                            clientContext.set('isShowIntroductionPage', false);
+                            return introductionPage;
+                        }
+                        
                         if (requestsCounter() > 0) {
                             //that.navigation()[1].isPartOfModules(_.contains(objectivesModules, that.activeModuleName()));
                             //that.navigation()[0].isPartOfModules(_.contains(experiencesModules, that.activeModuleName()));

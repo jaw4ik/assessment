@@ -173,6 +173,11 @@
     </Content>
     <Content Include="App\help\helpHint.js" />
     <Content Include="App\help\helpHint.html" />
+    <Content Include="App\introduction\welcome.spec.js">
+      <DependentUpon>welcome.js</DependentUpon>
+    </Content>
+    <Content Include="App\introduction\welcome.html" />
+    <Content Include="App\introduction\welcome.js" />
     <Content Include="App\routing\routerExtender.js" />
     <Content Include="App\clientContext.js" />
     <Content Include="App\errorHandling\errorHandlingConfiguration.js" />
@@ -351,6 +356,7 @@
     <Content Include="Content\images\package-preloader.gif" />
     <Content Include="Content\images\processSteps.png" />
     <Content Include="Content\images\publish-loader.GIF" />
+    <Content Include="Content\introduction.css" />
     <Content Include="Mail\MailTemplates\SignedUpUserTemplate.cshtml" />
     <Compile Include="Mail\MailNotificationManager.cs">
       <SubType>Code</SubType>

@@ -12,6 +12,9 @@
             isTryMode = false,
             userEmail = '',
             helpHints = [],
+            userSettings = {
+                isShowIntroduction: true
+            },
 
             initialize = function () {
                 var that = this;
@@ -111,6 +114,7 @@
                         if (response.data) {
                             that.isTryMode = response.data.IsTryMode;
                             that.userEmail = response.data.Email;
+                            userSettings.isShowIntroduction = response.data.IsShowIntroductionPage;
                         }
                     });
                 }).fail(function () {
@@ -126,6 +130,7 @@
             templates: templates,
             isTryMode: isTryMode,
             userEmail: userEmail,
-            helpHints: helpHints
+            helpHints: helpHints,
+            userSettings: userSettings
         };
     });

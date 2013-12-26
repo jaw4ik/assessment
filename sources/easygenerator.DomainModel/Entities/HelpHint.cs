@@ -6,7 +6,7 @@ namespace easygenerator.DomainModel.Entities
 {
     public class HelpHint : Entity
     {
-        public static readonly string[] AllowedHintKeys = new[] { "experiences", "experience", "createExperience", "objectives", "objective", "createObjective", "question", "createQuestion" };
+        public static readonly string[] AllowedHintKeys = new[] { "experiences", "experience", "createExperience", "objectives", "objective", "createObjective", "question", "createQuestion", "welcome" };
 
         protected internal HelpHint() { }
 

@@ -18,6 +18,8 @@ app.getLocationHref = function() {
 
 $(function () {
 
+    localStorage.setItem('isShowIntroductionPage', true);
+
     serviceUnavailableAjaxErrorHandler().subscribeOnGlobalErrorEvents();
 
     if ($(".sign-up").length) {

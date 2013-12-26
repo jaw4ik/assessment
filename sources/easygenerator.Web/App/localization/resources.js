@@ -953,6 +953,11 @@
     /* End resource section for model Display experience */
     
     /* Resource section for model Introduction page */
+    introWelcomePageTitle: {
+        en: 'Welcome page',
+        nl: 'Welkompagina',
+        de: 'Willkommensseite'
+    },
     introWelcome: {
         en: 'Welcome to easygenerator web-edition!',
         nl: 'Welkom bij de webversie van easygenerator!',

@@ -232,6 +232,12 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.ModifiedOn.Should().Be(DateTime.MaxValue);
             user.CreatedBy.Should().Be(CreatedBy);
             user.ModifiedBy.Should().Be(CreatedBy);
+            user.UserSetting.Id.Should().NotBeEmpty();
+            user.UserSetting.IsShowIntroductionPage.Should().BeTrue();
+            user.UserSetting.CreatedBy.Should().Be(CreatedBy);
+            user.UserSetting.CreatedOn.Should().Be(DateTime.MaxValue);
+            user.UserSetting.ModifiedBy.Should().Be(CreatedBy);
+            user.UserSetting.ModifiedOn.Should().Be(DateTime.MaxValue);
         }
 
         #endregion

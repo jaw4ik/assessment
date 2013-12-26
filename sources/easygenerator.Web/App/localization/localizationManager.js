@@ -20,6 +20,10 @@
                 var cultureInfo = _.contains(supportedCultures, culture) ? culture : this.currentLanguage || defaultCulture;
                 return item[cultureInfo] || item[defaultCulture];
             },
+            
+            hasKey = function (key) {
+                return resources.hasOwnProperty(key);
+            },
 
             initialize = function (userCultures) {
 
@@ -88,6 +92,7 @@
             currentLanguage: currentLanguage,
             localize: localize,
             defaultCulture: defaultCulture,
-            supportedCultures: supportedCultures
+            supportedCultures: supportedCultures,
+            hasKey: hasKey
         };
     });

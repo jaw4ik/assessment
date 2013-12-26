@@ -13,7 +13,7 @@ namespace easygenerator.DomainModel.Entities
         protected internal User() { }
 
         protected internal User(string email, string password, string fullname, string phone, string organization,
-            string country, string createdBy)
+            string country, string createdBy, UserSettings userSettings)
             : base(createdBy)
         {
             ThrowIfEmailIsNotValid(email);
@@ -30,6 +30,7 @@ namespace easygenerator.DomainModel.Entities
             Organization = organization;
             Country = country;
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
+            UserSetting = userSettings;
         }
 
         public string Email { get; protected set; }
@@ -44,6 +45,8 @@ namespace easygenerator.DomainModel.Entities
         {
             return Cryptography.VerifyHash(password, PasswordHash);
         }
+
+        public virtual UserSettings UserSetting { get; private set; }
 
         protected internal virtual ICollection<PasswordRecoveryTicket> PasswordRecoveryTicketCollection { get; set; }
 
