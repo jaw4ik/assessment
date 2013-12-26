@@ -88,6 +88,7 @@
 
 .intro-content {
     padding-top: 20px;
+    min-width: 990px;
 }
 
 .intro-content-title-wrapper {
@@ -284,7 +285,7 @@
     }
 
 .orange.start-process-item {
-    margin-top: -80px;
+    margin-top: -32px;
     float: right;
 }
 
