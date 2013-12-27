@@ -486,7 +486,9 @@
 
 /*ck-editor list styles fix*/
 .question-learning-content ul,
-.question-learning-content ol {
+.question-learning-content ol,
+.question-content ul,
+.question-content ol {
     padding-left: 30px;
 }
 
