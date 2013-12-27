@@ -34,6 +34,19 @@ namespace easygenerator.AcceptanceTests.Helpers
                     Organization = "not defined"
                 };
                 entities.Users.Add(user);
+
+                var userSetting = new UserSetting()
+                {
+                    Id = new Guid("AFCDCF89-0BF4-47CF-8CE5-C8B6CAFF8C43"),
+                    CreatedBy = "vr.danylchuk@ism-ukraine.com",
+                    CreatedOn = DateTime.Now,
+                    ModifiedBy = "vr.danylchuk@ism-ukraine.com",
+                    ModifiedOn = DateTime.Now,
+                    IsShowIntroductionPage = false,
+                    User = user
+                };
+                entities.UserSettings.Add(userSetting);
+
                 entities.SaveChanges();
             }
         }

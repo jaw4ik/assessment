@@ -18,6 +18,7 @@
           <EntitySet Name="Questions" EntityType="Model.Store.Questions" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Templates" EntityType="Model.Store.Templates" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="Model.Store.Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserSettings" EntityType="Model.Store.UserSettings" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_dbo_Answers_dbo_Questions_Question_Id" Association="Model.Store.FK_dbo_Answers_dbo_Questions_Question_Id">
             <End Role="Questions" EntitySet="Questions" />
             <End Role="Answers" EntitySet="Answers" />
@@ -53,6 +54,10 @@
           <AssociationSet Name="FK_dbo_Questions_dbo_Objectives_Objective_Id" Association="Model.Store.FK_dbo_Questions_dbo_Objectives_Objective_Id">
             <End Role="Objectives" EntitySet="Objectives" />
             <End Role="Questions" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserSettings_dbo_Users_Id" Association="Model.Store.FK_dbo_UserSettings_dbo_Users_Id">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserSettings" EntitySet="UserSettings" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Answers">
@@ -200,6 +205,17 @@
           <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
           <Property Name="Country" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="UserSettings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsShowIntroductionPage" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ModifiedOn" Type="datetime" Nullable="false" />
+        </EntityType>
         <Association Name="FK_dbo_Answers_dbo_Questions_Question_Id">
           <End Role="Questions" Type="Model.Store.Questions" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -324,6 +340,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_dbo_UserSettings_dbo_Users_Id">
+          <End Role="Users" Type="Model.Store.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserSettings" Type="Model.Store.UserSettings" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSettings">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -371,6 +401,11 @@
           <AssociationSet Name="FK_dbo_ExperienceTemplateSettings_dbo_Templates_Template_Id" Association="Model.FK_dbo_ExperienceTemplateSettings_dbo_Templates_Template_Id">
             <End Role="Template" EntitySet="Templates" />
             <End Role="ExperienceTemplateSetting" EntitySet="ExperienceTemplateSettings" />
+          </AssociationSet>
+          <EntitySet Name="UserSettings" EntityType="Model.UserSetting" />
+          <AssociationSet Name="FK_dbo_UserSettings_dbo_Users_Id" Association="Model.FK_dbo_UserSettings_dbo_Users_Id">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserSetting" EntitySet="UserSettings" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Answer">
@@ -464,6 +499,7 @@
           <Property Type="String" Name="Organization" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="PasswordRecoveryTickets" Relationship="Model.FK_dbo_PasswordRecoveryTickets_dbo_Users_User_Id" FromRole="User" ToRole="PasswordRecoveryTicket" />
           <Property Type="String" Name="Country" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserSetting" Relationship="Model.FK_dbo_UserSettings_dbo_Users_Id" FromRole="User" ToRole="UserSetting" />
         </EntityType>
         <Association Name="FK_dbo_Answers_dbo_Questions_Question_Id">
           <End Role="Questions" Type="Model.Question" Multiplicity="1">
@@ -626,6 +662,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="UserSetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="Boolean" Name="IsShowIntroductionPage" Nullable="false" />
+          <Property Type="String" Name="CreatedBy" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="3" />
+          <Property Type="String" Name="ModifiedBy" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="ModifiedOn" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Model.FK_dbo_UserSettings_dbo_Users_Id" FromRole="UserSetting" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_dbo_UserSettings_dbo_Users_Id">
+          <End Type="Model.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Model.UserSetting" Role="UserSetting" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSetting">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -784,6 +846,18 @@
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Settings" ColumnName="Settings" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSettings">
+            <EntityTypeMapping TypeName="Model.UserSetting">
+              <MappingFragment StoreEntitySet="UserSettings">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsShowIntroductionPage" ColumnName="IsShowIntroductionPage" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

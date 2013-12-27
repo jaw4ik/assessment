@@ -24,6 +24,8 @@
         <EntityTypeShape EntityType="Model.ExperienceTemplateSetting" Width="1.5" PointX="0.75" PointY="5" />
         <AssociationConnector Association="Model.FK_dbo_ExperienceTemplateSettings_dbo_Experiences_Experience_Id" />
         <AssociationConnector Association="Model.FK_dbo_ExperienceTemplateSettings_dbo_Templates_Template_Id" />
+        <EntityTypeShape EntityType="Model.UserSetting" Width="1.5" PointX="9.75" PointY="7" />
+        <AssociationConnector Association="Model.FK_dbo_UserSettings_dbo_Users_Id" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

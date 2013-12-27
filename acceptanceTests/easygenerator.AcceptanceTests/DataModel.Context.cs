@@ -36,5 +36,6 @@ namespace easygenerator.AcceptanceTests
         public DbSet<PasswordRecoveryTicket> PasswordRecoveryTickets { get; set; }
         public DbSet<LearningContent> LearningContents { get; set; }
         public DbSet<ExperienceTemplateSetting> ExperienceTemplateSettings { get; set; }
+        public DbSet<UserSetting> UserSettings { get; set; }
     }
 }
