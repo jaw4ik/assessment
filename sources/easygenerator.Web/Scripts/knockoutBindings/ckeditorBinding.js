@@ -1,23 +1,19 @@
 ﻿ko.bindingHandlers.ckeditor = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 
-        var
-            language = valueAccessor().language || 'en',
+        var language = valueAccessor().language || 'en',
             eventTracker = valueAccessor().eventTracker || null,
             data = valueAccessor().data,
             isEditing = valueAccessor().isEditing,
-
             saveHandler = valueAccessor().save,
             focusHandler = valueAccessor().focus,
             blurHandler = valueAccessor().blur,
-
             autosaveInterval = valueAccessor().autosaveInterval || 60000,
-
             that = bindingContext.$root,
             saveIntervalId = null,
             $toolbarElement = null,
             editor = null,
-            commandsToTrack = CKEDITOR.config.commandsToTrack || [],
+            
             localizationManager = valueAccessor().localizationManager;
 
         CKEDITOR.config.language = language;
@@ -132,6 +128,7 @@
             if (!editor || !eventTracker)
                 return;
 
+            var commandsToTrack = editor.config.commandsToTrack || [];
             _.each(editor.commands, function (command) {
                 if (commandsToTrack.indexOf(command.name) != -1) {
                     (function (cmd) {
