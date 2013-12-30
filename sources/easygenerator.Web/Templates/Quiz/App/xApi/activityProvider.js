@@ -19,12 +19,12 @@
                 if (_.isUndefined(xApiSettings.scoresDistribution.minScoreForPositiveResult) || _.isUndefined(xApiSettings.scoresDistribution.positiveVerb)) {
                     throw errorsHandler.errors.notEnoughDataInSettings;
                 }
-                
+
                 activityProvider.actor = actorData;
                 activityProvider.activityName = activityName;
                 activityProvider.rootCourseUrl = activityUrl.split("?")[0].split("#")[0];
                 activityProvider.rootActivityUrl = activityProvider.rootCourseUrl + '#home';
-                
+
                 eventManager.subscribeForEvent(eventManager.events.courseStarted).then(sendCourseStarted);
                 eventManager.subscribeForEvent(eventManager.events.courseFinished).then(sendCourseFinished);
                 eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(learningContentExperienced);
@@ -40,8 +40,7 @@
 
         function sendCourseFinished(finishedEventData) {
             var activity = createActivity(activityProvider.activityName);
-            return sendMasteredStatementsForObjectives(finishedEventData)
-                .then(function () {
+            return sendMasteredStatementsForObjectives(finishedEventData).then(function () {
                 if (_.isUndefined(finishedEventData) || _.isUndefined(finishedEventData.result)) {
                     throw errorsHandler.errors.notEnoughDataInSettings;
                 }
@@ -55,10 +54,9 @@
                 } else {
                     return requestManager.sendStatement(createStatement(constants.verbs.failed, result, activity));
                 }
-                })
-                .then(function () {
-                    requestManager.sendStatement(createStatement(constants.verbs.stopped, null, activity));
-                }).then(function () {
+            }).then(function () {
+                return requestManager.sendStatement(createStatement(constants.verbs.stopped, null, activity));
+            }).then(function () {
                 if (!!finishedEventData.callback) {
                     finishedEventData.callback.call(this);
                 }
@@ -78,7 +76,7 @@
                 });
                 return Q.allSettled(promises);
             }
-            return Q.fcall(function() {});
+            return Q.fcall(function () { });
         }
 
         function learningContentExperienced(finishedEventData) {
@@ -103,7 +101,7 @@
 
         function sendAnsweredQuestionsStatements(finishedEventData) {
             var promises = [];
-            
+
             _.each(finishedEventData.questions, function (question) {
                 var result = {
                     score: question.getScore() / 100,
@@ -189,7 +187,7 @@
             var activityId = getActiviryUrlForQuestion(questionId);
             return createActivity(questionTitle, activityId);
         }
-        
+
         function createActivityForObjective(objectiveId, objectiveTitle) {
             var activityId = activityProvider.rootActivityUrl + '?objectiveid=' + objectiveId;
             return createActivity(objectiveTitle, activityId);
