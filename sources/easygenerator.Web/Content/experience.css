@@ -129,6 +129,19 @@
     cursor: default;
 }
 
+.choose-template-list-item:after {
+    content: '';
+    display: block;
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    right: 10px;
+    top: 11px;
+    border: solid 1px #aeaeae;
+    border-radius: 5px;
+    background: #ffffff;
+}
+
 .choose-template-list.gorizontal .choose-template-list-item {
     width: 49%;
     margin-bottom: 15px;
@@ -143,18 +156,11 @@
 }
 
 .choose-template-list-item.selected:after {
-    content: '';
-    display: block;
-    width: 24px;
-    height: 21px;
-    position: absolute;
-    right: 0;
-    top: 10px;
-    background: url(images/sprites.png) no-repeat -237px -114px;
+    background: url(images/sprites.png) no-repeat #ffffff -178px -194px;
 }
 
 .choose-template-list-item:hover {
-    background-color: #f5f5f5;
+    background-color: #fafafa;
 }
 
     .choose-template-list-item:hover:before {
