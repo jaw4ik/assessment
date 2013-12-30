@@ -49,12 +49,19 @@
         }
         providers.push(mixpanelProvider());
 
-        function publish(eventName) {
+        function publish(eventName, eventCategory) {
             var activeInstruction = router.activeInstruction();
-            var eventCategory = _.isObject(activeInstruction) ? activeInstruction.config.title : 'Default category';
+
+            var category = '';
+
+            if (_.isString(eventCategory)) {
+                category = eventCategory;
+            } else {
+                category = _.isObject(activeInstruction) ? activeInstruction.config.title : 'Default category';
+            }
 
             _.each(providers, function (provider) {
-                provider.trackEvent(eventName, eventCategory);
+                provider.trackEvent(eventName, category);
             });
         }
 
