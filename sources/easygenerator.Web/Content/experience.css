@@ -1,4 +1,5 @@
-﻿.experience.view-module {
+﻿.experience.view-module,
+.create-experience.view-module {
     min-width: 860px;
 }
 
@@ -129,18 +130,18 @@
     cursor: default;
 }
 
-.choose-template-list-item:after {
-    content: '';
-    display: block;
-    width: 22px;
-    height: 22px;
-    position: absolute;
-    right: 10px;
-    top: 11px;
-    border: solid 1px #aeaeae;
-    border-radius: 5px;
-    background: #ffffff;
-}
+    .choose-template-list-item:after {
+        content: '';
+        display: block;
+        width: 22px;
+        height: 22px;
+        position: absolute;
+        right: 10px;
+        top: 11px;
+        border: solid 1px #aeaeae;
+        border-radius: 5px;
+        background: #ffffff;
+    }
 
 .choose-template-list.gorizontal .choose-template-list-item {
     width: 49%;
@@ -306,7 +307,7 @@
         background: url('images/publish-loader.gif') no-repeat 0 2px;
     }
 
-     .package-action-btn.building-btn .btn-title:before {
+    .package-action-btn.building-btn .btn-title:before {
         background: url('images/build-loader.gif') no-repeat 0 2px;
     }
 
@@ -625,6 +626,18 @@
 
 /*#endregion Process steps*/
 
+/*#region CREATE EXPERIENCE*/
+
+.create-experience .choose-template {
+    margin-top: 28px;
+}
+
+.form-create-choose-template-holder {
+    border-bottom: 1px dotted #E8E8E8;
+}
+
+/*#endregion CREATE EXPERIENCE*/
+
 
 @media (min-width: 1080px) {
 
@@ -641,14 +654,3 @@
     }
 }
 
-/*#region CREATE EXPERIENCE*/
-
-.create-experience .choose-template {
-    margin-top: 28px;
-}
-
-.form-create-choose-template-holder {
-    border-bottom: 1px dotted #E8E8E8;
-}
-
-/*#endregion CREATE EXPERIENCE*/
