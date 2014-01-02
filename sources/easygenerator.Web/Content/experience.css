@@ -94,9 +94,9 @@
     }
 
 .choose-template-holder {
-    min-width: 300px;
+    min-width: 250px;
     max-width: 50%;
-    margin-right: 510px;
+    margin-right: 415px;
     font-family: 'OpenSans';
     color: #303133;
 }
@@ -125,7 +125,7 @@
     width: 100%;
     position: relative;
     vertical-align: top;
-    padding: 11px 30px 11px 15px;
+    padding: 11px 40px 11px 15px;
     margin-bottom: 10px;
     cursor: default;
 }
@@ -223,7 +223,7 @@
 
 .template-settings-block {
     float: right;
-    width: 490px;
+    width: 400px;
 }
 
 /*#endregion DESIGN STEP*/
@@ -639,7 +639,7 @@
 /*#endregion CREATE EXPERIENCE*/
 
 
-@media (min-width: 1080px) {
+@media (min-width: 1000px) {
 
     .template-settings-block {
         width: 50%;
