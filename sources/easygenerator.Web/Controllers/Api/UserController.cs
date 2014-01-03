@@ -13,6 +13,7 @@ using easygenerator.Web.ViewModels.Account;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
 using AccountRes;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -98,7 +99,7 @@ namespace easygenerator.Web.Controllers.Api
                 var ticket = _entityFactory.PasswordRecoveryTicket(user);
                 user.AddPasswordRecoveryTicket(ticket);
 
-                _mailSenderWrapper.SendForgotPasswordMessage(email, ticket.Id.ToString("N"));
+                _mailSenderWrapper.SendForgotPasswordMessage(email, ticket.Id.ToNString());
             }
 
             return JsonSuccess();

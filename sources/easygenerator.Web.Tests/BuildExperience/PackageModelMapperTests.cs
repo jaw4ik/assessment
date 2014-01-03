@@ -6,6 +6,7 @@ using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Web.BuildExperience;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Tests.BuildExperience
 {
@@ -67,7 +68,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             var expectedModel = experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].LearningContents.ToArray()[0];
             var actualModel = result.Objectives[0].Questions[0].LearningContents[0];
 
-            expectedModel.Id.ToString("N").Should().Be(actualModel.Id);
+            expectedModel.Id.ToNString().Should().Be(actualModel.Id);
         }
 
         [TestMethod]
@@ -83,7 +84,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             var expectedModel = experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Answers.ToArray()[0];
             var actualModel = result.Objectives[0].Questions[0].Answers[0];
 
-            expectedModel.Id.ToString("N").Should().Be(actualModel.Id);
+            expectedModel.Id.ToNString().Should().Be(actualModel.Id);
             expectedModel.Text.Should().Be(actualModel.Text);
             expectedModel.IsCorrect.Should().Be(actualModel.IsCorrect);
         }
@@ -102,7 +103,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             var expectedModel = experience.RelatedObjectives.ToArray()[0].Questions.ToArray()[0];
             var actualModel = result.Objectives[0].Questions[0];
 
-            expectedModel.Id.ToString("N").Should().Be(actualModel.Id);
+            expectedModel.Id.ToNString().Should().Be(actualModel.Id);
             expectedModel.Title.Should().Be(actualModel.Title);
             expectedModel.Content.Should().Be(actualModel.Content);
             expectedModel.Answers.Count().Should().Be(actualModel.Answers.Count);
@@ -154,7 +155,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             var expectedModel = experience.RelatedObjectives.ToArray()[0];
             var actualModel = result.Objectives[0];
 
-            expectedModel.Id.ToString("N").Should().Be(actualModel.Id);
+            expectedModel.Id.ToNString().Should().Be(actualModel.Id);
             expectedModel.Title.Should().Be(actualModel.Title);
             expectedModel.Questions.Count().Should().Be(actualModel.Questions.Count);
         }
@@ -172,7 +173,7 @@ namespace easygenerator.Web.Tests.BuildExperience
             var expectedModel = experience;
             var actualModel = result;
 
-            expectedModel.Id.ToString("N").Should().Be(actualModel.Id);
+            expectedModel.Id.ToNString().Should().Be(actualModel.Id);
             expectedModel.Title.Should().Be(actualModel.Title);
             expectedModel.RelatedObjectives.Count().Should().Be(actualModel.Objectives.Count);
         }

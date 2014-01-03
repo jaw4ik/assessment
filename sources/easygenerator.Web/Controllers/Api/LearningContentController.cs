@@ -5,6 +5,7 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -30,7 +31,7 @@ namespace easygenerator.Web.Controllers.Api
 
             question.AddLearningContent(learningContent, GetCurrentUsername());
 
-            return JsonSuccess(new { Id = learningContent.Id.ToString("N"), CreatedOn = learningContent.CreatedOn });
+            return JsonSuccess(new { Id = learningContent.Id.ToNString(), CreatedOn = learningContent.CreatedOn });
         }
 
         [HttpPost]
@@ -72,7 +73,7 @@ namespace easygenerator.Web.Controllers.Api
 
             var learningContents = question.LearningContents.Select(lo => new
             {
-                Id = lo.Id.ToString("N"),
+                Id = lo.Id.ToNString(),
                 Text = lo.Text,
                 CreatedOn = lo.CreatedOn
             });

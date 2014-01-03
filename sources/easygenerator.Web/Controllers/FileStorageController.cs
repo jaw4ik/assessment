@@ -8,6 +8,7 @@ using easygenerator.Web.BuildExperience;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionResults;
 using easygenerator.Web.Components.Configuration;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers
 {
@@ -75,7 +76,7 @@ namespace easygenerator.Web.Controllers
                 return new TextJsonErrorResult("Forbidden file extension *" + fileInfo.Extension);
             }
 
-            var newFileName = Guid.NewGuid().ToString("N");
+            var newFileName = Guid.NewGuid().ToNString();
             var fileStoragePath = Path.Combine(FileStoragePath, newFileName[0].ToString());
             _physicalFileManager.CreateDirectoryIfNotExists(fileStoragePath);
             var savePath = Path.Combine(fileStoragePath, newFileName + fileInfo.Extension);

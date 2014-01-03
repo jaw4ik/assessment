@@ -22,6 +22,7 @@ using easygenerator.Web.Publish;
 using easygenerator.Web.Newsletter;
 using easygenerator.Web.Newsletter.MailChimp;
 using easygenerator.Web.Components.Http;
+using easygenerator.Web.BuildExperience.Scorm;
 
 namespace easygenerator.Web.Configuration
 {
@@ -34,13 +35,14 @@ namespace easygenerator.Web.Configuration
             var applicationAssembly = typeof(MvcApplication).Assembly;
             builder.RegisterControllers(applicationAssembly);
 
-            builder.RegisterType<ExperienceBuilder>()
-                   .As<IExperienceBuilder>();
+            builder.RegisterType<ExperienceBuilder>().As<IExperienceBuilder>();
+            builder.RegisterType<ScormExperienceBuilder>().As<IScormExperienceBuilder>();
 
             builder.RegisterGeneric(typeof(EntityModelBinder<>)).As(typeof(IEntityModelBinder<>));
             builder.RegisterGeneric(typeof(EntityCollectionModelBinder<>)).As(typeof(IEntityCollectionModelBinder<>));
 
             builder.RegisterType<BuildPathProvider>();
+            builder.RegisterType<BuildContentProvider>();
             builder.RegisterType<PhysicalFileManager>();
             builder.RegisterType<HttpRuntimeWrapper>();
             builder.RegisterType<BuildPackageCreator>();
@@ -49,6 +51,7 @@ namespace easygenerator.Web.Configuration
             builder.RegisterType<BuildPackageCreator>();
             builder.RegisterType<SignupFromTryItNowHandler>().As<ISignupFromTryItNowHandler>();
             builder.RegisterType<ConfigurationReader>();
+            builder.RegisterType<RazorTemplateProvider>().SingleInstance();
 
             builder.RegisterModule(new DataAccessModule());
 
@@ -66,6 +69,7 @@ namespace easygenerator.Web.Configuration
 
             #region Mail sender dependecies
 
+            builder.RegisterType<MailTemplatesProvider>().SingleInstance();
             builder.RegisterType<MailNotificationManager>().As<IMailNotificationManager>().SingleInstance();
             builder.RegisterType<MailSender>().As<IMailSender>().SingleInstance();
             builder.RegisterType<MailSenderWrapper>().As<IMailSenderWrapper>().SingleInstance();

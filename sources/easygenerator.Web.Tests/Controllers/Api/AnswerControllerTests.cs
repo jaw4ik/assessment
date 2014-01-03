@@ -12,6 +12,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -82,7 +83,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             result.Should()
                 .BeJsonSuccessResult()
-                .And.Data.ShouldBeSimilar(new { Id = answer.Id.ToString("N"), CreatedOn = answer.CreatedOn });
+                .And.Data.ShouldBeSimilar(new { Id = answer.Id.ToNString(), CreatedOn = answer.CreatedOn });
         }
 
         #endregion

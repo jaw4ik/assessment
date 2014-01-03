@@ -17,13 +17,15 @@ namespace easygenerator.Web.Mail
         private readonly MailSettings _senderSettings;
         private readonly IMailNotificationRepository _mailNotificationRepository;
         private readonly IUnitOfWork _dataContext;
+        private readonly MailTemplatesProvider _mailTemplatesProvider;
 
-        public MailNotificationManager(IEntityFactory factory, IMailNotificationRepository mailNotificationRepository, IUnitOfWork unitOfWork, MailSettings senderSettings)
+        public MailNotificationManager(IEntityFactory factory, IMailNotificationRepository mailNotificationRepository, IUnitOfWork unitOfWork, MailSettings senderSettings, MailTemplatesProvider mailTemplatesProvider)
         {
             _entityFactory = factory;
             _senderSettings = senderSettings;
             _mailNotificationRepository = mailNotificationRepository;
             _dataContext = unitOfWork;
+            _mailTemplatesProvider = mailTemplatesProvider;
         }
 
         public void AddMailNotificationToQueue(string templateName, dynamic templateModel, string fromAddress = null)
@@ -36,7 +38,7 @@ namespace easygenerator.Web.Mail
         private MailNotification GetMailNotification(string templateName, dynamic templateModel, string fromAddress = null)
         {
             var templateSettings = _senderSettings.MailTemplatesSettings[templateName];
-            string emailBody = MailTemplatesProvider.GetMailTemplateBody(templateName, templateSettings, templateModel);
+            string emailBody = _mailTemplatesProvider.GetMailTemplateBody(templateName, templateSettings, templateModel);
 
             // override from address from settings with address specified in method parameter
             string fromEmail = !String.IsNullOrWhiteSpace(fromAddress) ? fromAddress : templateSettings.From;

@@ -5,6 +5,7 @@ using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -25,7 +26,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             var helpHints = _repository.GetHelpHintsForUser(GetCurrentUsername()).Select(hh => new
             {
-                Id = hh.Id.ToString("N"),
+                Id = hh.Id.ToNString(),
                 Name = hh.Name,
             });
 
@@ -56,7 +57,7 @@ namespace easygenerator.Web.Controllers.Api
 
             return JsonSuccess(new
             {
-                Id = hint.Id.ToString("N"),
+                Id = hint.Id.ToNString(),
                 Name = hint.Name,
             });
         }

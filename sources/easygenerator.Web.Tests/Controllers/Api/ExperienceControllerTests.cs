@@ -11,6 +11,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildExperience;
+using easygenerator.Web.BuildExperience.Scorm;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;

@@ -12,6 +12,7 @@ using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -79,7 +80,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             result.Should()
                 .BeJsonSuccessResult()
-                .And.Data.ShouldBeSimilar(new { Id = learningContent.Id.ToString("N"), CreatedOn = learningContent.CreatedOn });
+                .And.Data.ShouldBeSimilar(new { Id = learningContent.Id.ToNString(), CreatedOn = learningContent.CreatedOn });
         }
 
         #endregion

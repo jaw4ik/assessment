@@ -6,6 +6,7 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.ViewModels.Account;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers
 {
@@ -106,7 +107,7 @@ namespace easygenerator.Web.Controllers
                 return View("InvalidPasswordRecovery");
             }
 
-            return View("PasswordRecovery", new { ticketId = ticket.Id.ToString("N") });
+            return View("PasswordRecovery", new { ticketId = ticket.Id.ToNString() });
         }
 
         [HttpPost]

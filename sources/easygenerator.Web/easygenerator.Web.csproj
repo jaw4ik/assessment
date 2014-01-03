@@ -230,9 +230,19 @@
       <DependentUpon>learningContentRepository.js</DependentUpon>
     </Content>
     <Content Include="App\repositories\objectiveRepository.js" />
+    <Compile Include="BuildExperience\BuildContentProvider.cs" />
     <Compile Include="BuildExperience\BuildPackageCreator.cs" />
     <Compile Include="BuildExperience\BuildPathProvider.cs" />
     <Compile Include="BuildExperience\ExperienceBuilder.cs" />
+    <Compile Include="BuildExperience\ExperienceBuilderBase.cs" />
+    <Compile Include="BuildExperience\Scorm\IScormExperienceBuilder.cs" />
+    <Compile Include="BuildExperience\Scorm\Models\ManifestModel.cs" />
+    <Compile Include="BuildExperience\Scorm\Models\MetadataModel.cs" />
+    <Compile Include="BuildExperience\Scorm\ScormExperienceBuilder.cs" />
+    <None Include="BuildExperience\Scorm\Schemas\adlcp_rootv1p2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="BuildExperience\Scorm\Templates\imsmanifest.cshtml" />
     <Compile Include="Components\ActionFilters\HandleErrorAttribute.cs" />
     <Compile Include="Components\Configuration\MailChimpConfigurationSection.cs" />
     <Compile Include="Components\HttpRuntimeWrapper.cs" />
@@ -264,6 +274,7 @@
     <Compile Include="Components\ModelBinding\EntityModelBinderProvider.cs" />
     <Compile Include="Components\ModelBinding\EntityCollectionModelBinder.cs" />
     <Compile Include="Components\NavigationLink.cs" />
+    <Compile Include="Components\RazorTemplateProvider.cs" />
     <Compile Include="Components\Tasks\PasswordRecoveryTicketExpirationTask.cs" />
     <Compile Include="Components\RouteConstraints\PublishIsInProgressConstraint.cs" />
     <Compile Include="Components\PhoneCodeCollection.cs" />
@@ -294,6 +305,7 @@
     <Compile Include="DomainEvents\Handlers\SendMailAboutFeedbackFromUser.cs" />
     <Compile Include="DomainEvents\Handlers\SendMailAboutNewUserHandler.cs" />
     <Compile Include="DomainEvents\Handlers\SubscribeForNewslettersHandler.cs" />
+    <Compile Include="Extensions\GuidExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1157,6 +1169,16 @@
     <Content Include="Mail\MailTemplates\ForgotPasswordTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\FeedbackTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\NewsletterSubscriptionFailedTemplate.cshtml" />
+    <None Include="BuildExperience\Scorm\Schemas\imscp_rootv1p1p2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BuildExperience\Scorm\Schemas\imsmd_rootv1p2p1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BuildExperience\Scorm\Schemas\ims_xml.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="BuildExperience\Scorm\Templates\metadata.cshtml" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Templates\Freestyle learning\js\vendor.js.bundle">
       <SubType>Designer</SubType>

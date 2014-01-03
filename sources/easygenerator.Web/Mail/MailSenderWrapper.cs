@@ -14,12 +14,14 @@ namespace easygenerator.Web.Mail
         private readonly IUrlHelperWrapper _urlHelperWrapper;
         private readonly IMailSender _mailSender;
         private readonly MailSettings _senderSettings;
+        private readonly MailTemplatesProvider _mailTemplatesProvider;
 
-        public MailSenderWrapper(IUrlHelperWrapper urlHelperWrapper, IMailSender mailSender, MailSettings senderSettings)
+        public MailSenderWrapper(IUrlHelperWrapper urlHelperWrapper, IMailSender mailSender, MailSettings senderSettings, MailTemplatesProvider mailTemplatesProvider)
         {
             _urlHelperWrapper = urlHelperWrapper;
             _mailSender = mailSender;
             _senderSettings = senderSettings;
+            _mailTemplatesProvider = mailTemplatesProvider;
         }
 
         public void SendForgotPasswordMessage(string email, string ticketId)
@@ -31,7 +33,7 @@ namespace easygenerator.Web.Mail
 
             const string templateName = "ForgotPasswordTemplate";
             var templateSettings = _senderSettings.MailTemplatesSettings[templateName];
-            var body = MailTemplatesProvider.GetMailTemplateBody(templateName, templateSettings, new { WebsiteUrl = websiteUrl, RestorePasswordUrl = restorePasswordUrl });
+            var body = _mailTemplatesProvider.GetMailTemplateBody(templateName, templateSettings, new { WebsiteUrl = websiteUrl, RestorePasswordUrl = restorePasswordUrl });
 
             _mailSender.Send(new MailMessage(templateSettings.From, email, title, body) { IsBodyHtml = true });
         }

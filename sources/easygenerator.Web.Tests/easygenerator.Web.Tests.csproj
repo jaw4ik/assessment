@@ -113,6 +113,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildExperience\BuildContentProviderTests.cs" />
+    <Compile Include="BuildExperience\ScormExperienceBuilderTests.cs" />
     <Compile Include="BuildExperience\ExperienceBuilderTests.cs" />
     <Compile Include="BuildExperience\BuildPathProviderTests.cs" />
     <Compile Include="BuildExperience\BuildPackageCreatorTests.cs" />

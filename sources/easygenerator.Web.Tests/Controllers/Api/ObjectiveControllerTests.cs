@@ -15,6 +15,7 @@ using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -73,7 +74,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             result.Should()
                 .BeJsonSuccessResult()
-                .And.Data.ShouldBeSimilar(new { Id = objective.Id.ToString("N"), CreatedOn = objective.CreatedOn });
+                .And.Data.ShouldBeSimilar(new { Id = objective.Id.ToNString(), CreatedOn = objective.CreatedOn });
         }
 
         [TestMethod]

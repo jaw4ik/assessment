@@ -5,6 +5,7 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using System.Collections.Generic;
 using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -30,7 +31,7 @@ namespace easygenerator.Web.Controllers.Api
 
             objective.AddQuestion(question, GetCurrentUsername());
 
-            return JsonSuccess(new { Id = question.Id.ToString("N"), CreatedOn = question.CreatedOn });
+            return JsonSuccess(new { Id = question.Id.ToNString(), CreatedOn = question.CreatedOn });
         }
 
         [HttpPost]

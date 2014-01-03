@@ -8,11 +8,13 @@ using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.BuildExperience;
+using easygenerator.Web.BuildExperience.Scorm;
 using easygenerator.Web.Components;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Publish;
 using Microsoft.Ajax.Utilities;
 using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -41,7 +43,7 @@ namespace easygenerator.Web.Controllers.Api
 
             return JsonSuccess(new
             {
-                Id = experience.Id.ToString("N"),
+                Id = experience.Id.ToNString(),
                 CreatedOn = experience.CreatedOn
             });
         }
@@ -71,14 +73,12 @@ namespace easygenerator.Web.Controllers.Api
             {
                 return JsonError("Build failed");
             }
-            else
-            {
-                return JsonSuccess(new
+
+            return JsonSuccess(new
                 {
                     PackageUrl = experience.PackageUrl,
                     BuildOn = experience.BuildOn
                 });
-            }
         }
 
         [HttpPost]
@@ -95,13 +95,11 @@ namespace easygenerator.Web.Controllers.Api
             {
                 return JsonLocalizableError(Errors.ExperiencePublishFailedError, Errors.ExperiencePublishFailedResourceKey);
             }
-            else
-            {
-                return JsonSuccess(new
+
+            return JsonSuccess(new
                 {
                     PublishedPackageUrl = _experiencePublisher.GetPublishedPackageUrl(experience.Id.ToString())
                 });
-            }
         }
 
         [HttpPost]
@@ -111,16 +109,16 @@ namespace easygenerator.Web.Controllers.Api
 
             var result = experiences.Select(exp => new
             {
-                Id = exp.Id.ToString("N"),
+                Id = exp.Id.ToNString(),
                 Title = exp.Title,
                 CreatedOn = exp.CreatedOn,
                 ModifiedOn = exp.ModifiedOn,
-                Template = new { Id = exp.Template.Id.ToString("N") },
+                Template = new { Id = exp.Template.Id.ToNString() },
                 PackageUrl = exp.PackageUrl,
                 PublishedPackageUrl = exp.PublishedOn != null ? _experiencePublisher.GetPublishedPackageUrl(exp.Id.ToString()) : null,
                 RelatedObjectives = exp.RelatedObjectives.Select(obj => new
                 {
-                    Id = obj.Id.ToString("N")
+                    Id = obj.Id.ToNString()
                 })
             });
 
@@ -166,7 +164,7 @@ namespace easygenerator.Web.Controllers.Api
                 return JsonLocalizableError(Errors.ObjectivesNotFoundError, Errors.ObjectivesNotFoundResourceKey);
             }
 
-            foreach (Objective objective in objectives) 
+            foreach (Objective objective in objectives)
             {
                 experience.RelateObjective(objective, GetCurrentUsername());
             }
@@ -176,7 +174,7 @@ namespace easygenerator.Web.Controllers.Api
                 ModifiedOn = experience.ModifiedOn,
                 RelatedObjectives = objectives.Select(obj => new
                 {
-                    Id = obj.Id.ToString("N")
+                    Id = obj.Id.ToNString()
                 })
             });
         }

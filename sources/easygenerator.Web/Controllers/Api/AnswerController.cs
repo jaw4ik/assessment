@@ -5,6 +5,7 @@ using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -30,7 +31,7 @@ namespace easygenerator.Web.Controllers.Api
 
             question.AddAnswer(answer, GetCurrentUsername());
 
-            return JsonSuccess(new { Id = answer.Id.ToString("N"), CreatedOn = answer.CreatedOn });
+            return JsonSuccess(new { Id = answer.Id.ToNString(), CreatedOn = answer.CreatedOn });
         }
 
         [HttpPost]
@@ -73,7 +74,7 @@ namespace easygenerator.Web.Controllers.Api
 
             var answers = question.Answers.Select(a => new
             {
-                Id = a.Id.ToString("N"),
+                Id = a.Id.ToNString(),
                 Text = a.Text,
                 IsCorrect = a.IsCorrect,
                 CreatedOn = a.CreatedOn

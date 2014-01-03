@@ -18,6 +18,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Tests.Controllers.Api
 {
@@ -312,7 +313,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _controller.ForgotPassword(email);
 
             //Assert
-            _mailSenderWrapper.Received().SendForgotPasswordMessage(email, ticket.Id.ToString("N"));
+            _mailSenderWrapper.Received().SendForgotPasswordMessage(email, ticket.Id.ToNString());
         }
 
         [TestMethod]

@@ -5,6 +5,7 @@ using easygenerator.Web.BuildExperience;
 using easygenerator.Web.Components;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -25,7 +26,7 @@ namespace easygenerator.Web.Controllers.Api
 
             var result = templates.Select(tmpl => new
             {
-                Id = tmpl.Id.ToString("N"),
+                Id = tmpl.Id.ToNString(),
                 Name = tmpl.Name,
                 Image = tmpl.Image,
                 SettingsUrl = "/Templates/" + tmpl.Name + "/settings.html",

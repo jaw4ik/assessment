@@ -37,6 +37,28 @@ namespace easygenerator.Infrastructure
             }
         }
 
+        public virtual void CopyFile(string source, string destination)
+        {
+            if (String.IsNullOrEmpty(source))
+                throw new ArgumentException();
+
+            if (String.IsNullOrEmpty(destination))
+                throw new ArgumentException();
+
+            File.Copy(source, destination);
+        }
+
+        public virtual void CopyFileToDirectory(string source, string destination)
+        {
+            if (String.IsNullOrEmpty(source))
+                throw new ArgumentException();
+
+            if (String.IsNullOrEmpty(destination))
+                throw new ArgumentException();
+
+            File.Copy(source, Path.Combine(destination, Path.GetFileName(source)));
+        }
+
         public virtual void CopyDirectory(string source, string destination)
         {
             if (String.IsNullOrEmpty(source))
@@ -106,7 +128,7 @@ namespace easygenerator.Infrastructure
         public virtual void DeleteFilesInDirectory(string directoryPath, string deleteFilePattern, string deleteFileException)
         {
             var fileNamesToDelete = Array.FindAll(Directory.GetFiles(directoryPath, deleteFilePattern),
-                                           filename => Path.Combine(directoryPath,deleteFileException) != filename);
+                                           filename => Path.Combine(directoryPath, deleteFileException) != filename);
 
             if (fileNamesToDelete.Length == 0)
                 return;
@@ -150,6 +172,23 @@ namespace easygenerator.Infrastructure
         public virtual void ExtractArchiveToDirectory(string archivePath, string destinationPath)
         {
             ZipFile.ExtractToDirectory(archivePath, destinationPath);
+        }
+
+        public virtual string[] GetAllFilesInDirectory(string directoryPath)
+        {
+            return Directory.GetFiles(directoryPath, "*", SearchOption.AllDirectories);
+        }
+
+        public virtual string GetRelativePath(string file, string directory)
+        {
+            var pathUri = new Uri(file);
+            if (!directory.EndsWith(Path.DirectorySeparatorChar.ToString()))
+            {
+                directory += Path.DirectorySeparatorChar;
+            }
+
+            var directoryUri = new Uri(directory);
+            return Uri.UnescapeDataString(directoryUri.MakeRelativeUri(pathUri).ToString().Replace('/', Path.DirectorySeparatorChar));
         }
     }
 }

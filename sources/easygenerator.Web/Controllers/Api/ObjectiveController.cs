@@ -6,6 +6,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ActionFilters;
+using easygenerator.Web.Extensions;
 
 namespace easygenerator.Web.Controllers.Api
 {
@@ -29,20 +30,20 @@ namespace easygenerator.Web.Controllers.Api
 
             var result = objectives.Select(obj => new
             {
-                Id = obj.Id.ToString("N"),
+                Id = obj.Id.ToNString(),
                 Title = obj.Title,
                 CreatedOn = obj.CreatedOn,
                 ModifiedOn = obj.ModifiedOn,
                 Questions = obj.Questions.Select(q => new
                 {
-                    Id = q.Id.ToString("N"),
+                    Id = q.Id.ToNString(),
                     Title = q.Title,
                     Content = q.Content,
                     CreatedOn = q.CreatedOn,
                     ModifiedOn = q.ModifiedOn,
                     LearningContents = q.LearningContents.Select(lo => new
                     {
-                        Id = lo.Id.ToString("N"),
+                        Id = lo.Id.ToNString(),
                         Text = lo.Text,
                     })
                 })
@@ -61,7 +62,7 @@ namespace easygenerator.Web.Controllers.Api
 
             return JsonSuccess(new
             {
-                Id = objective.Id.ToString("N"),
+                Id = objective.Id.ToNString(),
                 CreatedOn = objective.CreatedOn
             });
         }
