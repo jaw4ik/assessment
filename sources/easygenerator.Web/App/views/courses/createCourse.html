@@ -1,14 +1,14 @@
-﻿<section id="createExperience" class="view-module create-experience">
+﻿<section id="createCourse" class="view-module create-course">
 
     <div class="fixed-container">
         <div class="content-holder">
             <div class="page-view-caption clearfix">
-                <div class="page-view-caption-text" data-bind="localize: { text: 'createExperienceViewCaption' }">Create learning experience</div>
+                <div class="page-view-caption-text" data-bind="localize: { text: 'createCourseViewCaption' }">Create course</div>
             </div>
         </div>
     </div>
 
-    <!-- ko compose: { view: 'views/common/back', model: { goBackAction: navigateToExperiences, goBackLink: '#experiences', goBackTooltip: goBackTooltip } } -->
+    <!-- ko compose: { view: 'views/common/back', model: { goBackAction: navigateToCourses, goBackLink: '#courses', goBackTooltip: goBackTooltip } } -->
     <!-- /ko -->
 
     <div class="content-holder">
@@ -19,13 +19,13 @@
                     1
                     <div class="form-create-title-circle-triangle"></div>
                 </div>
-                <span class="form-create-title-text" data-bind="localize: { text: 'defineLerningExperienceTitle' }">Define learning experience title</span>
+                <span class="form-create-title-text" data-bind="localize: { text: 'defineCourseTitle' }">Define course title</span>
             </div>
             <div class="form-create-field">
-                <span class="form-create-field-placeholder" data-bind="visible: title().length == 0, localize: { text: 'typeExperienceTitleHere' }, click: title.startEditing">Type learning objective title here</span>
-                <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, hasFocus: title.isEditing, event: { focus: title.startEditing }, css: { error: !title.isValid() && title().length > experienceTitleMaxLength, active: title.isEditing, empty: title().trim().length == 0 }, autofocus: { focus: true }"></div>
-                <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > experienceTitleMaxLength }">
-                    <span data-bind="text: title().trim().length"></span>/<span data-bind="    text: experienceTitleMaxLength"></span>
+                <span class="form-create-field-placeholder" data-bind="visible: title().length == 0, localize: { text: 'typeCourseTitleHere' }, click: title.startEditing">Type learning objective title here</span>
+                <div class="edit-field selectable" data-bind="editableText: { text: title, multiline: false }, hasFocus: title.isEditing, event: { focus: title.startEditing }, css: { error: !title.isValid() && title().length > courseTitleMaxLength, active: title.isEditing, empty: title().trim().length == 0 }, autofocus: { focus: true }"></div>
+                <div class="chars-counter" data-bind="css: { error: !title.isValid() && title().length > courseTitleMaxLength }">
+                    <span data-bind="text: title().trim().length"></span>/<span data-bind="    text: courseTitleMaxLength"></span>
                 </div>
             </div>
 
@@ -34,7 +34,7 @@
                     2
                     <div class="form-create-title-circle-triangle"></div>
                 </div>
-                <span class="form-create-title-text" data-bind="localize: { text: 'chooseLearningExperienceTemplate' }">Choose learning experience template</span>
+                <span class="form-create-title-text" data-bind="localize: { text: 'chooseCourseTemplate' }">Choose course template</span>
             </div>
             <div class="form-create-choose-template-holder">
                 <ul class="choose-template-list gorizontal" data-bind="foreach: templates">

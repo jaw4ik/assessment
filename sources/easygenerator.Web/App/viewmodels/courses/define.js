@@ -1,4 +1,4 @@
-﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/experienceRepository', 'services/deliverService', 'viewmodels/objectives/objectiveBrief',
+﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/deliverService', 'viewmodels/objectives/objectiveBrief',
         'localization/localizationManager', 'notify', 'repositories/objectiveRepository'],
     function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository) {
         "use strict";
@@ -9,11 +9,11 @@
                 navigateToCreateObjective: 'Navigate to create objective',
                 selectObjective: 'Select Objective',
                 unselectObjective: 'Unselect Objective',
-                updateExperienceTitle: 'Update experience title',
+                updateCourseTitle: 'Update course title',
                 showAllAvailableObjectives: 'Show all available objectives',
-                connectSelectedObjectivesToExperience: 'Connect selected objectives to experience',
+                connectSelectedObjectivesToCourse: 'Connect selected objectives to course',
                 showConnectedObjectives: 'Show connected objectives',
-                unrelateObjectivesFromExperience: 'Unrelate objectives from experience'
+                unrelateObjectivesFromCourse: 'Unrelate objectives from course'
             };
 
 
@@ -24,7 +24,7 @@
 
                 value.isValid = ko.computed(function () {
                     var length = value() ? value().trim().length : 0;
-                    return length > 0 && length <= constants.validation.experienceTitleMaxLength;
+                    return length > 0 && length <= constants.validation.courseTitleMaxLength;
                 }, this);
                 return value;
             })(),
@@ -69,12 +69,12 @@
                     throw 'Objective id property is null';
                 }
 
-                router.navigate('objective/' + objective.id + '?experienceId=' + this.id);
+                router.navigate('objective/' + objective.id + '?courseId=' + this.id);
             },
 
             navigateToCreateObjective = function () {
                 eventTracker.publish(events.navigateToCreateObjective);
-                router.navigate('objective/create?experienceId=' + this.id);
+                router.navigate('objective/create?courseId=' + this.id);
             },
 
             toggleObjectiveSelection = function (objective) {
@@ -106,8 +106,8 @@
             endEditTitle = function () {
                 title(title().trim());
                 if (title.isValid() && title() != this.originalTitle) {
-                    eventTracker.publish(events.updateExperienceTitle);
-                    repository.updateExperienceTitle(this.id, title()).then(notify.saved);
+                    eventTracker.publish(events.updateCourseTitle);
+                    repository.updateCourseTitle(this.id, title()).then(notify.saved);
                 } else {
                     title(this.originalTitle);
                 }
@@ -159,7 +159,7 @@
             },
 
             connectObjectives = function () {
-                eventTracker.publish(events.connectSelectedObjectivesToExperience);
+                eventTracker.publish(events.connectSelectedObjectivesToCourse);
                 var that = this;
 
                 var objectivesToRelate = _.chain(that.availableObjectives()).filter(function (item) {
@@ -190,7 +190,7 @@
             },
 
             disconnectSelectedObjectives = function () {
-                eventTracker.publish(events.unrelateObjectivesFromExperience);
+                eventTracker.publish(events.unrelateObjectivesFromCourse);
 
                 var that = this,
                     selectedObjectives = _.filter(this.connectedObjectives(), function (item) {
@@ -204,14 +204,14 @@
                     });
             },
 
-            activate = function (experienceId) {
+            activate = function (courseId) {
                 var that = this;
-                return repository.getById(experienceId).then(function (experience) {
-                    that.id = experience.id;
-                    that.title(experience.title);
-                    that.originalTitle = experience.title;
+                return repository.getById(courseId).then(function (course) {
+                    that.id = course.id;
+                    that.title(course.title);
+                    that.originalTitle = course.title;
                     that.objectivesMode(that.objectivesListModes.display);
-                    that.connectedObjectives(_.chain(experience.objectives)
+                    that.connectedObjectives(_.chain(course.objectives)
                         .sortBy(function (objective) { return -objective.createdOn; })
                         .map(function (objective) {
                             return objectiveBrief(objective);
@@ -247,7 +247,7 @@
             startEditTitle: startEditTitle,
             endEditTitle: endEditTitle,
 
-            experienceTitleMaxLength: constants.validation.experienceTitleMaxLength,
+            courseTitleMaxLength: constants.validation.courseTitleMaxLength,
             isEditing: isEditing,
 
             showAllAvailableObjectives: showAllAvailableObjectives,

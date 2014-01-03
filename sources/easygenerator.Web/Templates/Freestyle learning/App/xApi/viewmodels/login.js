@@ -42,8 +42,8 @@
 
             login = function () {
                 if (usermail.isValid() && username.isValid()) {
-                    var title = context.experience.title;
-                    var url = window.top.location.toString() + '?experience_id=' + context.experience.id;
+                    var title = context.course.title;
+                    var url = window.top.location.toString() + '?course_id=' + context.course.id;
                     var actor = xApiInitializer.createActor(username(), usermail());
                     xApiInitializer.init(actor, title, url).then(function () {
                         startCourse();

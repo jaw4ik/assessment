@@ -1,5 +1,5 @@
-﻿define(['repositories/experienceRepository', 'models/experience'],
-    function (repository, ExperienceModel) {
+﻿define(['repositories/courseRepository', 'models/course'],
+    function (repository, CourseModel) {
         "use strict";
 
         var constants = require('constants'),
@@ -7,7 +7,7 @@
             httpWrapper = require('httpWrapper'),
             dataContext = require('dataContext');
 
-        describe('repository [experienceRepository]', function () {
+        describe('repository [courseRepository]', function () {
 
             var post,
                 httpWrapperPost;
@@ -66,18 +66,18 @@
 
                 describe('and request succeed', function () {
 
-                    it('should resolve promise with experiences collection', function () {
-                        var experiences = [{ id: 1 }, { id: 2 }];
-                        dataContext.experiences = experiences;
+                    it('should resolve promise with courses collection', function () {
+                        var courses = [{ id: 1 }, { id: 2 }];
+                        dataContext.courses = courses;
 
                         var promise = repository.getCollection();
-                        httpWrapperPost.resolve(experiences);
+                        httpWrapperPost.resolve(courses);
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise).toBeResolvedWith(experiences);
+                            expect(promise).toBeResolvedWith(courses);
                         });
                     });
 
@@ -96,14 +96,14 @@
 
                 describe('when id is not a string', function () {
 
-                    it('should reject promise with \'Experience id (string) was expected\'', function () {
+                    it('should reject promise with \'Course id (string) was expected\'', function () {
                         var promise = repository.getById();
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise).toBeRejectedWith('Experience id (string) was expected');
+                            expect(promise).toBeRejectedWith('Course id (string) was expected');
                         });
                     });
 
@@ -160,27 +160,27 @@
                             httpWrapperPost.resolve();
                         });
 
-                        describe('and when experience does not exist', function () {
+                        describe('and when course does not exist', function () {
 
-                            it('should reject promise with \'Experience with this id is not found\'', function () {
-                                dataContext.experiences = [];
+                            it('should reject promise with \'Course with this id is not found\'', function () {
+                                dataContext.courses = [];
                                 var promise = repository.getById('');
 
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(promise).toBeRejectedWith('Experience with this id is not found');
+                                    expect(promise).toBeRejectedWith('Course with this id is not found');
                                 });
                             });
 
                         });
 
-                        describe('and when experience exists', function () {
+                        describe('and when course exists', function () {
 
-                            it('should be resolved with experience from dataContext', function () {
-                                var experience = { id: '0' };
-                                dataContext.experiences = [experience];
+                            it('should be resolved with course from dataContext', function () {
+                                var course = { id: '0' };
+                                dataContext.courses = [course];
 
                                 var promise = repository.getById('0');
 
@@ -188,7 +188,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(promise).toBeResolvedWith(experience);
+                                    expect(promise).toBeResolvedWith(course);
                                 });
                             });
 
@@ -200,20 +200,20 @@
 
             });
 
-            describe('addExperience:', function () {
+            describe('addCourse:', function () {
 
                 it('should be function', function () {
-                    expect(repository.addExperience).toBeFunction();
+                    expect(repository.addCourse).toBeFunction();
                 });
 
                 it('should return promise', function () {
-                    expect(repository.addExperience()).toBePromise();
+                    expect(repository.addCourse()).toBePromise();
                 });
 
-                describe('when experience title is not a string', function () {
+                describe('when course title is not a string', function () {
 
                     it('should reject promise', function () {
-                        var promise = repository.addExperience(null);
+                        var promise = repository.addCourse(null);
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -224,7 +224,7 @@
                     });
 
                     it('should not send request to server', function () {
-                        var promise = repository.addExperience(null);
+                        var promise = repository.addCourse(null);
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -236,11 +236,11 @@
 
                 });
 
-                describe('when experience templateId is not a string', function () {
+                describe('when course templateId is not a string', function () {
                     var title = "title";
 
                     it('should reject promise', function () {
-                        var promise = repository.addExperience(title, null);
+                        var promise = repository.addCourse(title, null);
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -251,7 +251,7 @@
                     });
 
                     it('should not send request to server', function () {
-                        var promise = repository.addExperience(title, null);
+                        var promise = repository.addCourse(title, null);
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -263,12 +263,12 @@
 
                 });
 
-                describe('when experience title and templateId are strings', function () {
+                describe('when course title and templateId are strings', function () {
                     var title = 'title';
                     var templateId = 'templateId';
 
                     it('should send request to server to api/experience/create', function () {
-                        var promise = repository.addExperience(title, templateId);
+                        var promise = repository.addCourse(title, templateId);
 
                         httpWrapperPost.reject();
 
@@ -285,7 +285,7 @@
                         describe('and request failed', function () {
 
                             it('should reject promise', function () {
-                                var promise = repository.addExperience(title, templateId);
+                                var promise = repository.addCourse(title, templateId);
 
                                 httpWrapperPost.reject();
 
@@ -304,7 +304,7 @@
                             describe('and response is undefined', function () {
 
                                 it('should reject promise with \'Response is not an object\'', function () {
-                                    var promise = repository.addExperience(title, templateId);
+                                    var promise = repository.addCourse(title, templateId);
 
                                     httpWrapperPost.resolve();
 
@@ -321,7 +321,7 @@
                             describe('and response is null', function () {
 
                                 it('should reject promise with \'Response is not an object\'', function () {
-                                    var promise = repository.addExperience(title, templateId);
+                                    var promise = repository.addCourse(title, templateId);
 
                                     httpWrapperPost.resolve(null);
 
@@ -344,7 +344,7 @@
                                     });
 
                                     it('should reject promise with \'Response Id is not a string\'', function () {
-                                        var promise = repository.addExperience(title, templateId);
+                                        var promise = repository.addCourse(title, templateId);
 
                                         waitsFor(function () {
                                             return !promise.isPending();
@@ -363,7 +363,7 @@
                                     });
 
                                     it('should reject promise with \'Response Id is not a string\'', function () {
-                                        var promise = repository.addExperience(title, templateId);
+                                        var promise = repository.addCourse(title, templateId);
 
                                         waitsFor(function () {
                                             return !promise.isPending();
@@ -384,7 +384,7 @@
                                         });
 
                                         it('should reject promise \'Response CreatedOn is not a string\'', function () {
-                                            var promise = repository.addExperience(title, templateId);
+                                            var promise = repository.addCourse(title, templateId);
 
                                             waitsFor(function () {
                                                 return !promise.isPending();
@@ -403,7 +403,7 @@
                                         });
 
                                         it('should reject promise with \'Response CreatedOn is not a string\'', function () {
-                                            var promise = repository.addExperience(title, templateId);
+                                            var promise = repository.addCourse(title, templateId);
 
                                             waitsFor(function () {
                                                 return !promise.isPending();
@@ -415,11 +415,11 @@
                                     });
 
                                     describe('and response CreatedOn is object', function () {
-                                        var experienceId = 'experienceId';
-                                        var experienceCreatedOn = '/Date(1378106938845)/';
+                                        var courseId = 'courseId';
+                                        var courseCreatedOn = '/Date(1378106938845)/';
 
                                         beforeEach(function () {
-                                            httpWrapperPost.resolve({ Id: experienceId, CreatedOn: experienceCreatedOn });
+                                            httpWrapperPost.resolve({ Id: courseId, CreatedOn: courseCreatedOn });
                                         });
 
                                         describe('and template not found in dataContext', function () {
@@ -429,7 +429,7 @@
                                             });
 
                                             it('should reject promise with \'Template does not exist in dataContext\'', function () {
-                                                var promise = repository.addExperience(title, templateId);
+                                                var promise = repository.addCourse(title, templateId);
 
                                                 waitsFor(function () {
                                                     return !promise.isPending();
@@ -448,36 +448,36 @@
                                                 dataContext.templates = [template];
                                             });
 
-                                            it('should resolve promise with experience', function () {
-                                                var promise = repository.addExperience(title, templateId);
+                                            it('should resolve promise with course', function () {
+                                                var promise = repository.addCourse(title, templateId);
 
                                                 waitsFor(function () {
                                                     return !promise.isPending();
                                                 });
                                                 runs(function () {
-                                                    var experience = promise.inspect().value;
-                                                    expect(experience.id).toBe(experienceId);
-                                                    expect(experience.createdOn).toEqual(utils.getDateFromString(experienceCreatedOn));
+                                                    var course = promise.inspect().value;
+                                                    expect(course.id).toBe(courseId);
+                                                    expect(course.createdOn).toEqual(utils.getDateFromString(courseCreatedOn));
                                                 });
                                             });
 
-                                            it('should add experience to dataContext', function () {
+                                            it('should add course to dataContext', function () {
 
-                                                dataContext.experiences = [];
+                                                dataContext.courses = [];
 
-                                                var promise = repository.addExperience(title, templateId);
+                                                var promise = repository.addCourse(title, templateId);
 
                                                 waitsFor(function () {
                                                     return !promise.isPending();
                                                 });
                                                 runs(function () {
-                                                    expect(dataContext.experiences.length).toEqual(1);
-                                                    expect(dataContext.experiences[0]).toEqual(new ExperienceModel({
-                                                        id: experienceId,
+                                                    expect(dataContext.courses.length).toEqual(1);
+                                                    expect(dataContext.courses[0]).toEqual(new CourseModel({
+                                                        id: courseId,
                                                         title: title,
                                                         template: template,
-                                                        createdOn: utils.getDateFromString(experienceCreatedOn),
-                                                        modifiedOn: utils.getDateFromString(experienceCreatedOn),
+                                                        createdOn: utils.getDateFromString(courseCreatedOn),
+                                                        modifiedOn: utils.getDateFromString(courseCreatedOn),
                                                         objectives: []
                                                     }));
                                                 });
@@ -499,20 +499,20 @@
 
             });
 
-            describe('removeExperience:', function () {
+            describe('removeCourse:', function () {
 
                 it('should be function', function () {
-                    expect(repository.removeExperience).toBeFunction();
+                    expect(repository.removeCourse).toBeFunction();
                 });
 
                 it('should return promise', function () {
-                    expect(repository.removeExperience()).toBePromise();
+                    expect(repository.removeCourse()).toBePromise();
                 });
 
-                describe('when experience id is not a string', function () {
+                describe('when course id is not a string', function () {
 
                     it('should reject promise', function () {
-                        var promise = repository.removeExperience();
+                        var promise = repository.removeCourse();
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -523,7 +523,7 @@
                     });
 
                     it('should not send request to server to api/experience/delete', function () {
-                        var promise = repository.removeExperience();
+                        var promise = repository.removeCourse();
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -535,11 +535,11 @@
 
                 });
 
-                describe('when experience id is a string', function () {
+                describe('when course id is a string', function () {
 
                     it('should send request to server to api/experience/delete', function () {
-                        var experienceId = 'id';
-                        var promise = repository.removeExperience(experienceId);
+                        var courseId = 'id';
+                        var promise = repository.removeCourse(courseId);
 
                         httpWrapperPost.reject();
 
@@ -548,7 +548,7 @@
                         });
                         runs(function () {
                             expect(httpWrapper.post).toHaveBeenCalledWith('api/experience/delete', {
-                                experienceId: experienceId
+                                experienceId: courseId
                             });
                         });
                     });
@@ -559,7 +559,7 @@
 
                             it('should reject promise', function () {
                                 var reason = 'reason';
-                                var promise = repository.removeExperience('id');
+                                var promise = repository.removeCourse('id');
 
                                 httpWrapperPost.reject(reason);
 
@@ -578,7 +578,7 @@
                             describe('and response is an object', function () {
 
                                 it('should resolve promise', function () {
-                                    var promise = repository.removeExperience('id');
+                                    var promise = repository.removeCourse('id');
 
                                     httpWrapperPost.resolve();
 
@@ -590,18 +590,18 @@
                                     });
                                 });
 
-                                it('should remove experience from dataContext', function () {
-                                    var experienceId = 'id';
+                                it('should remove course from dataContext', function () {
+                                    var courseId = 'id';
                                     var dataContext = require('dataContext');
-                                    dataContext.experiences = [{ id: 'id' }];
+                                    dataContext.courses = [{ id: 'id' }];
                                     httpWrapperPost.resolve();
-                                    var promise = repository.removeExperience(experienceId);
+                                    var promise = repository.removeCourse(courseId);
 
                                     waitsFor(function () {
                                         return !promise.isPending();
                                     });
                                     runs(function () {
-                                        expect(dataContext.experiences.length).toEqual(0);
+                                        expect(dataContext.courses.length).toEqual(0);
                                     });
                                 });
 
@@ -626,7 +626,7 @@
                     expect(result).toBePromise();
                 });
 
-                describe('when argument \"experienceId\" is not a string', function () {
+                describe('when argument \"courseId\" is not a string', function () {
 
                     it('should reject promise', function () {
                         var promise = repository.relateObjectives({});
@@ -644,7 +644,7 @@
                 describe('when argument \"objectives\" is not an array', function () {
 
                     it('should reject promise', function () {
-                        var promise = repository.relateObjectives('some experience Id', {});
+                        var promise = repository.relateObjectives('some course Id', {});
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -658,16 +658,16 @@
 
                 describe('when arguments are valid', function () {
 
-                    var experience;
+                    var course;
                     var objectives;
 
                     beforeEach(function () {
-                        experience = { id: "SomeExperienceId" };
+                        course = { id: "SomeCourseId" };
                         objectives = [{ id: "SomeObjectiveId1" }, { id: "SomeObjectiveId2" }];
                     });
 
                     it('should send request to server', function () {
-                        var promise = repository.relateObjectives(experience.id, objectives);
+                        var promise = repository.relateObjectives(course.id, objectives);
                         httpWrapperPost.resolve();
 
                         waitsFor(function () {
@@ -681,7 +681,7 @@
                     describe('and request to server failed', function () {
 
                         it('should reject promise', function () {
-                            var promise = repository.relateObjectives(experience.id, objectives);
+                            var promise = repository.relateObjectives(course.id, objectives);
                             httpWrapperPost.reject('Some reason');
 
                             waitsFor(function () {
@@ -699,7 +699,7 @@
                         describe('and response is not an object', function () {
 
                             it('should reject promise with \'Response is not an object\'', function () {
-                                var promise = repository.relateObjectives(experience.id, objectives);
+                                var promise = repository.relateObjectives(course.id, objectives);
                                 httpWrapperPost.resolve();
 
                                 waitsFor(function () {
@@ -715,7 +715,7 @@
                         describe('and response has no midifiedOn date', function () {
 
                             it('should reject promise with \'Response does not have modification date\'', function () {
-                                var promise = repository.relateObjectives(experience.id, objectives);
+                                var promise = repository.relateObjectives(course.id, objectives);
                                 httpWrapperPost.resolve({});
 
                                 waitsFor(function () {
@@ -731,7 +731,7 @@
                         describe('and response has no relatedObjectives collection', function () {
 
                             it('should reject promise with \'Response does not have related objectives collection\'', function () {
-                                var promise = repository.relateObjectives(experience.id, objectives);
+                                var promise = repository.relateObjectives(course.id, objectives);
                                 httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
 
                                 waitsFor(function () {
@@ -744,54 +744,54 @@
 
                         });
 
-                        describe('and experience doesn`t exist in dataContext', function () {
+                        describe('and course doesn`t exist in dataContext', function () {
 
                             it('should reject promise', function () {
-                                dataContext.experiences = [];
-                                var promise = repository.relateObjectives(experience.id, objectives);
+                                dataContext.courses = [];
+                                var promise = repository.relateObjectives(course.id, objectives);
                                 httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/', RelatedObjectives: [] });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(promise).toBeRejectedWith('Experience doesn`t exist');
+                                    expect(promise).toBeRejectedWith('Course doesn`t exist');
                                 });
                             });
 
                         });
 
-                        describe('and experience exists in dataContext', function () {
+                        describe('and course exists in dataContext', function () {
 
                             it('should update expereince modifiedOn date', function () {
-                                dataContext.experiences = [{ id: experience.id, modifiedOn: new Date(), objectives: [] }];
-                                var promise = repository.relateObjectives(experience.id, objectives);
+                                dataContext.courses = [{ id: course.id, modifiedOn: new Date(), objectives: [] }];
+                                var promise = repository.relateObjectives(course.id, objectives);
                                 httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/', RelatedObjectives: [] });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(dataContext.experiences[0].modifiedOn).toEqual(utils.getDateFromString('/Date(1378106938845)/'));
+                                    expect(dataContext.courses[0].modifiedOn).toEqual(utils.getDateFromString('/Date(1378106938845)/'));
                                 });
                             });
 
-                            it('should relate objectives to experience', function () {
-                                dataContext.experiences = [{ id: experience.id, modifiedOn: new Date(), objectives: [] }];
-                                var promise = repository.relateObjectives(experience.id, objectives);
+                            it('should relate objectives to course', function () {
+                                dataContext.courses = [{ id: course.id, modifiedOn: new Date(), objectives: [] }];
+                                var promise = repository.relateObjectives(course.id, objectives);
                                 httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/', RelatedObjectives: [{ Id: objectives[0].id }] });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(dataContext.experiences[0].objectives).toEqual([objectives[0]]);
+                                    expect(dataContext.courses[0].objectives).toEqual([objectives[0]]);
                                 });
                             });
 
                             it('should resolve promise with modification date and related objectives collection', function () {
-                                dataContext.experiences = [{ id: experience.id, modifiedOn: new Date(), objectives: [] }];
-                                var promise = repository.relateObjectives(experience.id, objectives);
+                                dataContext.courses = [{ id: course.id, modifiedOn: new Date(), objectives: [] }];
+                                var promise = repository.relateObjectives(course.id, objectives);
                                 httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/', RelatedObjectives: [{ Id: objectives[0].id }] });
 
                                 waitsFor(function () {
@@ -824,7 +824,7 @@
                     expect(result).toBePromise();
                 });
 
-                describe('when argument \"experienceId\" is undefined', function () {
+                describe('when argument \"courseId\" is undefined', function () {
 
                     it('should reject pomise', function () {
                         var promise = repository.unrelateObjectives();
@@ -839,7 +839,7 @@
 
                 });
 
-                describe('when argument \"experienceId\" is null', function () {
+                describe('when argument \"courseId\" is null', function () {
 
                     it('should reject promise', function () {
                         var promise = repository.unrelateObjectives(null);
@@ -854,7 +854,7 @@
 
                 });
 
-                describe('when argument \"experienceId\" is not a string', function () {
+                describe('when argument \"courseId\" is not a string', function () {
 
                     it('should reject promise', function () {
                         var promise = repository.unrelateObjectives({});
@@ -872,7 +872,7 @@
                 describe('when argument \"objectives\" is undefined', function () {
 
                     it('should reject promise', function () {
-                        var promise = repository.unrelateObjectives('some experience Id');
+                        var promise = repository.unrelateObjectives('some course Id');
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -887,7 +887,7 @@
                 describe('when argument \"objectives\" is null', function () {
 
                     it('should reject promise', function () {
-                        var promise = repository.unrelateObjectives('some experience Id', null);
+                        var promise = repository.unrelateObjectives('some course Id', null);
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -902,7 +902,7 @@
                 describe('when argument \"objectives\" is not an array', function () {
 
                     it('should reject promise', function () {
-                        var promise = repository.unrelateObjectives('some experience Id', {});
+                        var promise = repository.unrelateObjectives('some course Id', {});
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -915,16 +915,16 @@
                 });
 
                 describe('when all arguments are valid', function () {
-                    var experience;
+                    var course;
                     var objectives;
 
                     beforeEach(function () {
-                        experience = { id: "SomeExperienceId" };
+                        course = { id: "SomeCourseId" };
                         objectives = [{ id: "SomeObjectiveId1" }, { id: "SomeObjectiveId2" }];
                     });
 
                     it('should send request to server', function () {
-                        var promise = repository.unrelateObjectives(experience.id, objectives);
+                        var promise = repository.unrelateObjectives(course.id, objectives);
                         httpWrapperPost.resolve();
 
                         waitsFor(function () {
@@ -938,7 +938,7 @@
                     describe('and request to server failed', function () {
 
                         it('should reject promise', function () {
-                            var promise = repository.unrelateObjectives(experience.id, objectives);
+                            var promise = repository.unrelateObjectives(course.id, objectives);
                             httpWrapperPost.reject('Some reason');
 
                             waitsFor(function () {
@@ -956,7 +956,7 @@
                         describe('and response is not an object', function () {
 
                             it('should reject promise', function () {
-                                var promise = repository.unrelateObjectives(experience.id, objectives);
+                                var promise = repository.unrelateObjectives(course.id, objectives);
                                 httpWrapperPost.resolve();
 
                                 waitsFor(function () {
@@ -972,7 +972,7 @@
                         describe('and response has no midifiedOn date', function () {
 
                             it('should reject promise', function () {
-                                var promise = repository.unrelateObjectives(experience.id, objectives);
+                                var promise = repository.unrelateObjectives(course.id, objectives);
                                 httpWrapperPost.resolve({});
 
                                 waitsFor(function () {
@@ -985,54 +985,54 @@
 
                         });
 
-                        describe('and experience doesn`t exist in dataContext', function () {
+                        describe('and course doesn`t exist in dataContext', function () {
 
                             it('should reject promise', function () {
-                                dataContext.experiences = [];
-                                var promise = repository.unrelateObjectives(experience.id, objectives);
+                                dataContext.courses = [];
+                                var promise = repository.unrelateObjectives(course.id, objectives);
                                 httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/', RelatedObjectives: {} });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(promise).toBeRejectedWith('Experience doesn`t exist');
+                                    expect(promise).toBeRejectedWith('Course doesn`t exist');
                                 });
                             });
 
                         });
 
-                        describe('and experience exists in dataContext', function () {
+                        describe('and course exists in dataContext', function () {
 
                             it('should update expereince modifiedOn date', function () {
-                                dataContext.experiences = [{ id: experience.id, modifiedOn: new Date(), objectives: [] }];
-                                var promise = repository.unrelateObjectives(experience.id, objectives);
+                                dataContext.courses = [{ id: course.id, modifiedOn: new Date(), objectives: [] }];
+                                var promise = repository.unrelateObjectives(course.id, objectives);
                                 httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(dataContext.experiences[0].modifiedOn).toEqual(utils.getDateFromString('/Date(1378106938845)/'));
+                                    expect(dataContext.courses[0].modifiedOn).toEqual(utils.getDateFromString('/Date(1378106938845)/'));
                                 });
                             });
 
-                            it('should unrelate objectives from experience', function () {
-                                dataContext.experiences = [{ id: experience.id, modifiedOn: new Date(), objectives: objectives }];
-                                var promise = repository.unrelateObjectives(experience.id, objectives);
+                            it('should unrelate objectives from course', function () {
+                                dataContext.courses = [{ id: course.id, modifiedOn: new Date(), objectives: objectives }];
+                                var promise = repository.unrelateObjectives(course.id, objectives);
                                 httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
 
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(dataContext.experiences[0].objectives).toEqual([]);
+                                    expect(dataContext.courses[0].objectives).toEqual([]);
                                 });
                             });
 
                             it('should resolve promise with modification date', function () {
-                                dataContext.experiences = [{ id: experience.id, modifiedOn: new Date(), objectives: [] }];
-                                var promise = repository.unrelateObjectives(experience.id, objectives);
+                                dataContext.courses = [{ id: course.id, modifiedOn: new Date(), objectives: [] }];
+                                var promise = repository.unrelateObjectives(course.id, objectives);
                                 httpWrapperPost.resolve({ ModifiedOn: '/Date(1378106938845)/' });
 
                                 waitsFor(function () {
@@ -1051,52 +1051,52 @@
 
             });
 
-            describe('updateExperienceTitle:', function () {
+            describe('updateCourseTitle:', function () {
 
                 it('should be function', function () {
-                    expect(repository.updateExperienceTitle).toBeFunction();
+                    expect(repository.updateCourseTitle).toBeFunction();
                 });
 
                 it('should return promise', function () {
-                    expect(repository.updateExperienceTitle()).toBePromise();
+                    expect(repository.updateCourseTitle()).toBePromise();
                 });
 
-                describe('when experienceId is not a string', function () {
+                describe('when courseId is not a string', function () {
 
-                    it('should reject promise with reason \'Experience id is not a string\'', function () {
-                        var promise = repository.updateExperienceTitle({}, 'Some title');
+                    it('should reject promise with reason \'Course id is not a string\'', function () {
+                        var promise = repository.updateCourseTitle({}, 'Some title');
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise).toBeRejectedWith('Experience id is not a string');
+                            expect(promise).toBeRejectedWith('Course id is not a string');
                         });
                     });
 
                 });
 
-                describe('when experienceTitle is not a string', function () {
+                describe('when courseTitle is not a string', function () {
 
-                    it('should reject promise with reason \'Experience title is not a string\'', function () {
-                        var promise = repository.updateExperienceTitle('Some id', {});
+                    it('should reject promise with reason \'Course title is not a string\'', function () {
+                        var promise = repository.updateCourseTitle('Some id', {});
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise).toBeRejectedWith('Experience title is not a string');
+                            expect(promise).toBeRejectedWith('Course title is not a string');
                         });
                     });
 
                 });
 
-                describe('when experienceId and experienceTitle are strings', function () {
+                describe('when courseId and courseTitle are strings', function () {
 
                     it('should send request to /api/experience/updateTitle', function () {
-                        var experienceId = 'Some id',
-                            experienceTitle = 'Some title';
-                        var promise = repository.updateExperienceTitle(experienceId, experienceTitle);
+                        var courseId = 'Some id',
+                            courseTitle = 'Some title';
+                        var promise = repository.updateCourseTitle(courseId, courseTitle);
                         httpWrapperPost.resolve();
 
                         waitsFor(function () {
@@ -1104,8 +1104,8 @@
                         });
                         runs(function () {
                             expect(httpWrapper.post).toHaveBeenCalledWith('api/experience/updateTitle', jasmine.any(Object));
-                            expect(httpWrapper.post.mostRecentCall.args[1].experienceId).toEqual(experienceId);
-                            expect(httpWrapper.post.mostRecentCall.args[1].experienceTitle).toEqual(experienceTitle);
+                            expect(httpWrapper.post.mostRecentCall.args[1].experienceId).toEqual(courseId);
+                            expect(httpWrapper.post.mostRecentCall.args[1].courseTitle).toEqual(courseTitle);
                         });
                     });
 
@@ -1113,7 +1113,7 @@
 
                         it('should reject promise', function () {
                             var reason = 'Some reason';
-                            var promise = repository.updateExperienceTitle('Some id', 'Some title');
+                            var promise = repository.updateCourseTitle('Some id', 'Some title');
                             httpWrapperPost.reject(reason);
 
                             waitsFor(function () {
@@ -1131,7 +1131,7 @@
                         describe('and response is not an object', function () {
 
                             it('should reject promise with \'Response is not an object\'', function () {
-                                var promise = repository.updateExperienceTitle('Some id', 'Some title');
+                                var promise = repository.updateCourseTitle('Some id', 'Some title');
                                 httpWrapperPost.resolve('Not an object');
 
                                 waitsFor(function () {
@@ -1149,7 +1149,7 @@
                             describe('and doesn`t have ModifiedOn date', function () {
 
                                 it('should reject promise with \'Response does not have modification date\'', function () {
-                                    var promise = repository.updateExperienceTitle('Some id', 'Some title');
+                                    var promise = repository.updateCourseTitle('Some id', 'Some title');
                                     httpWrapperPost.resolve({});
 
                                     waitsFor(function () {
@@ -1164,65 +1164,65 @@
 
                             describe('and have ModifiedOn date', function () {
 
-                                describe('and experience not found in dataContext', function () {
+                                describe('and course not found in dataContext', function () {
 
-                                    it('should reject promise with \'Experience does not exist in dataContext\'', function () {
-                                        dataContext.experiences = [];
-                                        var promise = repository.updateExperienceTitle('Some id', 'Some title');
+                                    it('should reject promise with \'Course does not exist in dataContext\'', function () {
+                                        dataContext.courses = [];
+                                        var promise = repository.updateCourseTitle('Some id', 'Some title');
                                         httpWrapperPost.resolve({ ModifiedOn: "/Date(1378106938845)/" });
 
                                         waitsFor(function () {
                                             return !promise.isPending();
                                         });
                                         runs(function () {
-                                            expect(promise).toBeRejectedWith('Experience does not exist in dataContext');
+                                            expect(promise).toBeRejectedWith('Course does not exist in dataContext');
                                         });
                                     });
 
                                 });
 
-                                describe('and experience found in dataContext', function () {
+                                describe('and course found in dataContext', function () {
 
-                                    it('should update experience title', function () {
+                                    it('should update course title', function () {
                                         var newTitle = 'Some new title',
                                             newModifiedOnDate = "/Date(1378106938845)/",
-                                            experience = {
+                                            course = {
                                                 id: 'Some id',
                                                 title: 'Original title',
                                                 modifiedOn: 'Some date'
                                             };
 
-                                        dataContext.experiences = [experience];
-                                        var promise = repository.updateExperienceTitle(experience.id, newTitle);
+                                        dataContext.courses = [course];
+                                        var promise = repository.updateCourseTitle(course.id, newTitle);
                                         httpWrapperPost.resolve({ ModifiedOn: newModifiedOnDate });
 
                                         waitsFor(function () {
                                             return !promise.isPending();
                                         });
                                         runs(function () {
-                                            expect(experience.title).toEqual(newTitle);
+                                            expect(course.title).toEqual(newTitle);
                                         });
                                     });
 
-                                    it('should update experience modifiedOn date', function () {
+                                    it('should update course modifiedOn date', function () {
                                         var newTitle = 'Some new title',
                                             newModifiedOnDate = "/Date(1378106938845)/",
                                             parsedNewModifiedOnDate = new Date(parseInt(newModifiedOnDate.substr(6), 10)),
-                                            experience = {
+                                            course = {
                                                 id: 'Some id',
                                                 title: 'Original title',
                                                 modifiedOn: 'Some date'
                                             };
 
-                                        dataContext.experiences = [experience];
-                                        var promise = repository.updateExperienceTitle(experience.id, newTitle);
+                                        dataContext.courses = [course];
+                                        var promise = repository.updateCourseTitle(course.id, newTitle);
                                         httpWrapperPost.resolve({ ModifiedOn: newModifiedOnDate });
 
                                         waitsFor(function () {
                                             return !promise.isPending();
                                         });
                                         runs(function () {
-                                            expect(experience.modifiedOn).toEqual(parsedNewModifiedOnDate);
+                                            expect(course.modifiedOn).toEqual(parsedNewModifiedOnDate);
                                         });
                                     });
 
@@ -1230,14 +1230,14 @@
                                         var newTitle = 'Some new title',
                                             newModifiedOnDate = "/Date(1378106938845)/",
                                             parsedNewModifiedOnDate = new Date(parseInt(newModifiedOnDate.substr(6), 10)),
-                                            experience = {
+                                            course = {
                                                 id: 'Some id',
                                                 title: 'Original title',
                                                 modifiedOn: 'Some date'
                                             };
 
-                                        dataContext.experiences = [experience];
-                                        var promise = repository.updateExperienceTitle(experience.id, newTitle);
+                                        dataContext.courses = [course];
+                                        var promise = repository.updateCourseTitle(course.id, newTitle);
                                         httpWrapperPost.resolve({ ModifiedOn: newModifiedOnDate });
 
                                         waitsFor(function () {
@@ -1260,26 +1260,26 @@
 
             });
 
-            describe('updateExperienceTemplate:', function () {
+            describe('updateCourseTemplate:', function () {
 
                 it('should be function', function () {
-                    expect(repository.updateExperienceTemplate).toBeFunction();
+                    expect(repository.updateCourseTemplate).toBeFunction();
                 });
 
                 it('should return promise', function () {
-                    expect(repository.updateExperienceTemplate()).toBePromise();
+                    expect(repository.updateCourseTemplate()).toBePromise();
                 });
 
-                describe('when experienceId is not a string', function () {
+                describe('when courseId is not a string', function () {
 
-                    it('should reject promise with reason \'Experience id is not a string\'', function () {
-                        var promise = repository.updateExperienceTemplate({}, 'Some title');
+                    it('should reject promise with reason \'Course id is not a string\'', function () {
+                        var promise = repository.updateCourseTemplate({}, 'Some title');
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise).toBeRejectedWith('Experience id is not a string');
+                            expect(promise).toBeRejectedWith('Course id is not a string');
                         });
                     });
 
@@ -1288,7 +1288,7 @@
                 describe('when templateId is not a string', function () {
 
                     it('should reject promise with reason \'Template id is not a string\'', function () {
-                        var promise = repository.updateExperienceTemplate('Some id', {});
+                        var promise = repository.updateCourseTemplate('Some id', {});
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -1300,12 +1300,12 @@
 
                 });
 
-                describe('when experienceId and templateId are strings', function () {
+                describe('when courseId and templateId are strings', function () {
 
                     it('should send request to /api/experience/updateTemplate', function () {
-                        var experienceId = 'Some id',
+                        var courseId = 'Some id',
                             templateId = 'Some template id';
-                        var promise = repository.updateExperienceTemplate(experienceId, templateId);
+                        var promise = repository.updateCourseTemplate(courseId, templateId);
                         httpWrapperPost.resolve();
 
                         waitsFor(function () {
@@ -1313,7 +1313,7 @@
                         });
                         runs(function () {
                             expect(httpWrapper.post).toHaveBeenCalledWith('api/experience/updateTemplate', jasmine.any(Object));
-                            expect(httpWrapper.post.mostRecentCall.args[1].experienceId).toEqual(experienceId);
+                            expect(httpWrapper.post.mostRecentCall.args[1].experienceId).toEqual(courseId);
                             expect(httpWrapper.post.mostRecentCall.args[1].templateId).toEqual(templateId);
                         });
                     });
@@ -1322,7 +1322,7 @@
 
                         it('should reject promise', function () {
                             var reason = 'Some reason';
-                            var promise = repository.updateExperienceTemplate('Some id', 'Some template id');
+                            var promise = repository.updateCourseTemplate('Some id', 'Some template id');
                             httpWrapperPost.reject(reason);
 
                             waitsFor(function () {
@@ -1340,7 +1340,7 @@
                         describe('and response is not an object', function () {
 
                             it('should reject promise with \'Response is not an object\'', function () {
-                                var promise = repository.updateExperienceTemplate('Some id', 'Some template id');
+                                var promise = repository.updateCourseTemplate('Some id', 'Some template id');
                                 httpWrapperPost.resolve('Not an object');
 
                                 waitsFor(function () {
@@ -1358,7 +1358,7 @@
                             describe('and doesn`t have ModifiedOn date', function () {
 
                                 it('should reject promise with \'Response does not have modification date\'', function () {
-                                    var promise = repository.updateExperienceTemplate('Some id', 'Some template id');
+                                    var promise = repository.updateCourseTemplate('Some id', 'Some template id');
                                     httpWrapperPost.resolve({});
 
                                     waitsFor(function () {
@@ -1379,35 +1379,35 @@
                                     httpWrapperPost.resolve({ ModifiedOn: newModifiedOnDate });
                                 });
 
-                                describe('and experience not found in dataContext', function () {
+                                describe('and course not found in dataContext', function () {
 
                                     beforeEach(function () {
-                                        dataContext.experiences = [];
+                                        dataContext.courses = [];
                                     });
 
-                                    it('should reject promise with \'Experience does not exist in dataContext\'', function () {
-                                        var promise = repository.updateExperienceTemplate('Some id', 'Some template id');
+                                    it('should reject promise with \'Course does not exist in dataContext\'', function () {
+                                        var promise = repository.updateCourseTemplate('Some id', 'Some template id');
 
                                         waitsFor(function () {
                                             return !promise.isPending();
                                         });
                                         runs(function () {
-                                            expect(promise).toBeRejectedWith('Experience does not exist in dataContext');
+                                            expect(promise).toBeRejectedWith('Course does not exist in dataContext');
                                         });
                                     });
 
                                 });
 
-                                describe('and experience found in dataContext', function () {
-                                    var experience;
+                                describe('and course found in dataContext', function () {
+                                    var course;
                                     beforeEach(function () {
-                                        experience = {
+                                        course = {
                                             id: 'Some id',
                                             title: 'Original title',
                                             modifiedOn: 'Some date'
                                         };
 
-                                        dataContext.experiences = [experience];
+                                        dataContext.courses = [course];
                                     });
 
                                     describe('and template not found in dataContext', function () {
@@ -1417,7 +1417,7 @@
                                         });
 
                                         it('should reject promise with \'Template does not exist in dataContext\'', function () {
-                                            var promise = repository.updateExperienceTemplate('Some id', 'Some template id');
+                                            var promise = repository.updateCourseTemplate('Some id', 'Some template id');
 
                                             waitsFor(function () {
                                                 return !promise.isPending();
@@ -1436,30 +1436,30 @@
                                             dataContext.templates = [template];
                                         });
 
-                                        it('should update experience template', function () {
-                                            var promise = repository.updateExperienceTemplate(experience.id, template.id);
+                                        it('should update course template', function () {
+                                            var promise = repository.updateCourseTemplate(course.id, template.id);
 
                                             waitsFor(function () {
                                                 return !promise.isPending();
                                             });
                                             runs(function () {
-                                                expect(experience.template).toEqual(template);
+                                                expect(course.template).toEqual(template);
                                             });
                                         });
 
-                                        it('should update experience modifiedOn date', function () {
-                                            var promise = repository.updateExperienceTemplate(experience.id, template.id);
+                                        it('should update course modifiedOn date', function () {
+                                            var promise = repository.updateCourseTemplate(course.id, template.id);
 
                                             waitsFor(function () {
                                                 return !promise.isPending();
                                             });
                                             runs(function () {
-                                                expect(experience.modifiedOn).toEqual(utils.getDateFromString(newModifiedOnDate));
+                                                expect(course.modifiedOn).toEqual(utils.getDateFromString(newModifiedOnDate));
                                             });
                                         });
 
                                         it('should resolve promise with modifiedOn date', function () {
-                                            var promise = repository.updateExperienceTemplate(experience.id, template.id);
+                                            var promise = repository.updateCourseTemplate(course.id, template.id);
                                             httpWrapperPost.resolve({ ModifiedOn: newModifiedOnDate });
 
                                             waitsFor(function () {

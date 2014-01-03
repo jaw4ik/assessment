@@ -5,7 +5,7 @@
         var router = require('plugins/router'),
             notify = require('notify'),
             uiLocker = require('uiLocker'),
-            experienceRepository = require('repositories/experienceRepository'),
+            courseRepository = require('repositories/courseRepository'),
             eventTracker = require('eventTracker'),
             localizationManager = require('localization/localizationManager');
 
@@ -85,7 +85,7 @@
                     getObjectiveDefer = Q.defer();
                     spyOn(repository, 'addObjective').andReturn(addObjective.promise);
                     spyOn(repository, 'getById').andReturn(getObjectiveDefer.promise);
-                    spyOn(experienceRepository, 'relateObjectives').andReturn(relateObjectiveDefer.promise);
+                    spyOn(courseRepository, 'relateObjectives').andReturn(relateObjectiveDefer.promise);
                 });
 
                 it('should be function', function () {
@@ -164,7 +164,7 @@
                         describe('and when contextExperiencId is not string', function () {
 
                             beforeEach(function () {
-                                viewModel.contextExperienceId = null;
+                                viewModel.contextCourseId = null;
                             });
 
                             it('should clear title', function () {
@@ -196,15 +196,15 @@
                             });
                         });
 
-                        describe('and when contextExperienceId is string', function () {
+                        describe('and when contextCourseId is string', function () {
 
                             beforeEach(function () {
-                                viewModel.contextExperienceId = 'id';
+                                viewModel.contextCourseId = 'id';
                                 getObjectiveDefer.resolve(objective);
                                 relateObjectiveDefer.resolve();
                             });
 
-                            it('should relate created objective to experience', function () {
+                            it('should relate created objective to course', function () {
                                 viewModel.createAndNew();
 
                                 var promise = addObjective.promise.fin(function () { });
@@ -213,7 +213,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(experienceRepository.relateObjectives).toHaveBeenCalledWith(viewModel.contextExperienceId, [objective]);
+                                    expect(courseRepository.relateObjectives).toHaveBeenCalledWith(viewModel.contextCourseId, [objective]);
                                 });
                             });
 
@@ -258,7 +258,7 @@
                     getObjectiveDefer = Q.defer();
                     spyOn(repository, 'addObjective').andReturn(addObjective.promise);
                     spyOn(repository, 'getById').andReturn(getObjectiveDefer.promise);
-                    spyOn(experienceRepository, 'relateObjectives').andReturn(relateObjectiveDefer.promise);
+                    spyOn(courseRepository, 'relateObjectives').andReturn(relateObjectiveDefer.promise);
                 });
 
                 it('should be function', function () {
@@ -334,7 +334,7 @@
                         describe('and when contextExperiencId is not string', function () {
 
                             beforeEach(function () {
-                                viewModel.contextExperienceId = null;
+                                viewModel.contextCourseId = null;
                             });
 
                             it('should navigate to created objective', function () {
@@ -354,12 +354,12 @@
                         describe('and when contextExperiencId is string', function () {
 
                             beforeEach(function () {
-                                viewModel.contextExperienceId = 'id';
+                                viewModel.contextCourseId = 'id';
                                 getObjectiveDefer.resolve(objective);
                                 relateObjectiveDefer.resolve();
                             });
 
-                            it('should relate created objective to experience', function () {
+                            it('should relate created objective to course', function () {
                                 viewModel.createAndContinue();
 
                                 var promise = addObjective.promise.fin(function () { });
@@ -368,7 +368,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(experienceRepository.relateObjectives).toHaveBeenCalledWith(viewModel.contextExperienceId, [objective]);
+                                    expect(courseRepository.relateObjectives).toHaveBeenCalledWith(viewModel.contextCourseId, [objective]);
                                 });
                             });
 
@@ -396,7 +396,7 @@
                 describe('when contextExperinceId is not string', function () {
 
                     beforeEach(function () {
-                        viewModel.contextExperienceId = null;
+                        viewModel.contextCourseId = null;
                     });
 
                     it('should send event \'Navigate to objectives\'', function () {
@@ -414,17 +414,17 @@
                 describe('when contextExperinceId is string', function () {
 
                     beforeEach(function () {
-                        viewModel.contextExperienceId = 'id';
+                        viewModel.contextCourseId = 'id';
                     });
 
-                    it('should send event \'Navigate to experience\'', function () {
+                    it('should send event \'Navigate to course\'', function () {
                         viewModel.navigateBack();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to experience');
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to course');
                     });
 
-                    it('should navigate to #experience/id', function () {
+                    it('should navigate to #course/id', function () {
                         viewModel.navigateBack();
-                        expect(router.navigate).toHaveBeenCalledWith('experience/' + viewModel.contextExperienceId);
+                        expect(router.navigate).toHaveBeenCalledWith('course/' + viewModel.contextCourseId);
                     });
 
                 });
@@ -433,10 +433,10 @@
 
             describe('activate:', function () {
 
-                var getExperienceDeferred;
+                var getCourseDeferred;
                 beforeEach(function () {
-                    getExperienceDeferred = Q.defer();
-                    spyOn(experienceRepository, 'getById').andReturn(getExperienceDeferred.promise);
+                    getCourseDeferred = Q.defer();
+                    spyOn(courseRepository, 'getById').andReturn(getCourseDeferred.promise);
                 });
 
                 it('should be function', function () {
@@ -456,7 +456,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(viewModel.contextExperienceId).toBeNull();
+                            expect(viewModel.contextCourseId).toBeNull();
                         });
                     });
 
@@ -466,7 +466,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(viewModel.contextExperienceTitle).toBeNull();
+                            expect(viewModel.contextCourseTitle).toBeNull();
                         });
                     });
 
@@ -510,14 +510,14 @@
 
                 describe('when query params not null', function () {
 
-                    describe('when experienceId is string', function () {
+                    describe('when courseId is string', function () {
 
-                        var queryParams = { experienceId: 'id' };
+                        var queryParams = { courseId: 'id' };
 
-                        describe('when experience not found', function () {
+                        describe('when course not found', function () {
 
                             beforeEach(function () {
-                                getExperienceDeferred.resolve(null);
+                                getCourseDeferred.resolve(null);
                             });
 
                             it('should replace url to 404', function () {
@@ -530,23 +530,23 @@
                                 });
                             });
 
-                            it('should set contextExperienceId to null', function () {
+                            it('should set contextCourseId to null', function () {
                                 var promise = viewModel.activate(queryParams);
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(viewModel.contextExperienceId).toBeNull();
+                                    expect(viewModel.contextCourseId).toBeNull();
                                 });
                             });
 
-                            it('should set contextExperienceTitle to null', function () {
+                            it('should set contextCourseTitle to null', function () {
                                 var promise = viewModel.activate(queryParams);
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(viewModel.contextExperienceTitle).toBeNull();
+                                    expect(viewModel.contextCourseTitle).toBeNull();
                                 });
                             });
 
@@ -574,10 +574,10 @@
                             });
                         });
 
-                        describe('when experience found', function () {
-                            var experience = { id: 'id', title: 'title' };
+                        describe('when course found', function () {
+                            var course = { id: 'id', title: 'title' };
                             beforeEach(function () {
-                                getExperienceDeferred.resolve(experience);
+                                getCourseDeferred.resolve(course);
                             });
 
                             it('should set contextExpperienceId', function () {
@@ -586,7 +586,7 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(viewModel.contextExperienceId).toBe(experience.id);
+                                    expect(viewModel.contextCourseId).toBe(course.id);
                                 });
                             });
 
@@ -596,11 +596,11 @@
                                     return !promise.isPending();
                                 });
                                 runs(function () {
-                                    expect(viewModel.contextExperienceTitle).toBe(experience.title);
+                                    expect(viewModel.contextCourseTitle).toBe(course.title);
                                 });
                             });
                             
-                            it('should set goBackTooltip to \'Back to experience\'', function () {
+                            it('should set goBackTooltip to \'Back to course\'', function () {
                                 spyOn(localizationManager, 'localize').andReturn('text');
                                 
                                 var promise = viewModel.activate(queryParams);
@@ -609,18 +609,18 @@
                                 });
                                 runs(function () {
                                     expect(promise).toBeResolved();
-                                    expect(viewModel.goBackTooltip).toEqual('text' + ' \'' + experience.title + '\'');
+                                    expect(viewModel.goBackTooltip).toEqual('text' + ' \'' + course.title + '\'');
                                 });
                             });
                             
-                            it('should set goBackLink to experience', function () {
+                            it('should set goBackLink to course', function () {
                                 var promise = viewModel.activate(queryParams);
                                 waitsFor(function () {
                                     return !promise.isPending();
                                 });
                                 runs(function () {
                                     expect(promise).toBeResolved();
-                                    expect(viewModel.goBackLink).toEqual('#experience/' + experience.id);
+                                    expect(viewModel.goBackLink).toEqual('#course/' + course.id);
                                 });
                             });
 
@@ -639,8 +639,8 @@
                         });
                     });
 
-                    describe('when experienceId is not string', function () {
-                        var queryParams = { experienceId: null };
+                    describe('when courseId is not string', function () {
+                        var queryParams = { courseId: null };
 
                         it('should set contextExpperienceId to null', function () {
                             var promise = viewModel.activate(queryParams);
@@ -648,7 +648,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(viewModel.contextExperienceId).toBeNull();
+                                expect(viewModel.contextCourseId).toBeNull();
                             });
                         });
 
@@ -658,7 +658,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(viewModel.contextExperienceTitle).toBeNull();
+                                expect(viewModel.contextCourseTitle).toBeNull();
                             });
                         });
 
@@ -711,15 +711,15 @@
 
             });
 
-            describe('contextExperienceTitle:', function () {
+            describe('contextCourseTitle:', function () {
                 it('should be defined', function () {
-                    expect(viewModel.contextExperienceTitle).toBeDefined();
+                    expect(viewModel.contextCourseTitle).toBeDefined();
                 });
             });
 
-            describe('contextExperienceId:', function () {
+            describe('contextCourseId:', function () {
                 it('should be defined', function () {
-                    expect(viewModel.contextExperienceId).toBeDefined();
+                    expect(viewModel.contextCourseId).toBeDefined();
                 });
             });
 

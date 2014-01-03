@@ -1,12 +1,12 @@
-﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/experienceRepository', 'repositories/templateRepository', 'localization/localizationManager'],
-    function (router, eventTracker, notify, experienceRepository, templateRepository, localizationManager) {
+﻿define(['plugins/router', 'eventTracker', 'notify', 'repositories/courseRepository', 'repositories/templateRepository', 'localization/localizationManager'],
+    function (router, eventTracker, notify, courseRepository, templateRepository, localizationManager) {
 
         var events = {
-            updateExperienceTemplate: 'Change experience template to'
+            updateCourseTemplate: 'Change course template to'
         };
 
         var viewModel = {
-            experienceId: '',
+            courseId: '',
             currentTemplate: ko.observable(),
             templates: [],
 
@@ -20,9 +20,9 @@
         return viewModel;
 
 
-        function activate(experienceId) {
-            return experienceRepository.getById(experienceId).then(function (experience) {
-                viewModel.experienceId = experience.id;
+        function activate(courseId) {
+            return courseRepository.getById(courseId).then(function (course) {
+                viewModel.courseId = course.id;
 
                 return templateRepository.getCollection().then(function (templates) {
                     viewModel.templates = _.chain(templates)
@@ -38,7 +38,7 @@
                         .sortBy(function (template) { return template.name; })
                         .value();
                     
-                    viewModel.currentTemplate(_.find(viewModel.templates, function (item) { return item.id == experience.template.id; }));
+                    viewModel.currentTemplate(_.find(viewModel.templates, function (item) { return item.id == course.template.id; }));
                 });
             }).fail(function (reason) {
                 router.activeItem.settings.lifecycleData = { redirect: '404' };
@@ -51,10 +51,10 @@
                 return;
             }
 
-            eventTracker.publish(events.updateExperienceTemplate + ' \'' + template.name + '\'');
+            eventTracker.publish(events.updateCourseTemplate + ' \'' + template.name + '\'');
             viewModel.showProgress(true);
 
-            experienceRepository.updateExperienceTemplate(viewModel.experienceId, template.id).then(function (response) {
+            courseRepository.updateCourseTemplate(viewModel.courseId, template.id).then(function (response) {
                 viewModel.currentTemplate(template);
                 notify.saved();
             }).finally(function () {

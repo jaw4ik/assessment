@@ -446,12 +446,12 @@
 
 
         $(function () {
-            var experienceId = getURLParameter('experienceId');
+            var courseId = getURLParameter('courseId');
             var templateId = getURLParameter('templateId');
 
             var baseURL = location.protocol + "//" + location.host;
 
-            var settingsURL = baseURL + "/api/experience/" + experienceId + "/template/" + templateId;
+            var settingsURL = baseURL + "/api/experience/" + courseId + "/template/" + templateId;
 
             var viewModel = {
                 enableXAPI: ko.observable(false),

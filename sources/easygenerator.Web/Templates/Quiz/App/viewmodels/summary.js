@@ -51,9 +51,9 @@
             activate = function () {
                 var that = this;
 
-                if (context.isRestartExperience) {
+                if (context.isRestartCourse) {
                     this.status(this.statuses.readyToFinish);
-                    context.isRestartExperience = false;
+                    context.isRestartCourse = false;
                 }
                 this.objectives = [];
                 scores = [];
@@ -113,7 +113,7 @@
 
             objectives: objectives,
             overallScore: overallScore,
-            titleOfExperience: context.title,
+            courseTitle: context.title,
             tryAgain: tryAgain,
             finish: finish,
             status: status,

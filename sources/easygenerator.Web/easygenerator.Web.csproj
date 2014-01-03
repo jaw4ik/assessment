@@ -178,6 +178,9 @@
     </Content>
     <Content Include="App\introduction\welcome.html" />
     <Content Include="App\introduction\welcome.js" />
+    <Content Include="App\repositories\courseRepository.spec.js">
+      <DependentUpon>courseRepository.js</DependentUpon>
+    </Content>
     <Content Include="App\routing\routerExtender.js" />
     <Content Include="App\clientContext.js" />
     <Content Include="App\errorHandling\errorHandlingConfiguration.js" />
@@ -217,9 +220,6 @@
     <Content Include="App\repositories\answerRepository.js" />
     <Content Include="App\repositories\answerRepository.spec.js">
       <DependentUpon>answerRepository.js</DependentUpon>
-    </Content>
-    <Content Include="App\repositories\experienceRepository.spec.js">
-      <DependentUpon>experienceRepository.js</DependentUpon>
     </Content>
     <Content Include="App\repositories\helpHintRepository.js" />
     <Content Include="App\repositories\helpHintRepository.spec.js">
@@ -306,20 +306,26 @@
     <Content Include="App\uiLocker.spec.js">
       <DependentUpon>uiLocker.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\experiences\design.spec.js">
+    <Content Include="App\viewmodels\courses\createCourse.spec.js">
+      <DependentUpon>createCourse.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\design.spec.js">
       <DependentUpon>design.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\experiences\define.spec.js">
+    <Content Include="App\viewmodels\courses\define.spec.js">
       <DependentUpon>define.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\experiences\deliver.spec.js">
+    <Content Include="App\viewmodels\courses\deliver.spec.js">
       <DependentUpon>deliver.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\experiences\deliver.js" />
-    <Content Include="App\viewmodels\experiences\design.js" />
-    <Content Include="App\viewmodels\experiences\experience.js" />
-    <Content Include="App\viewmodels\experiences\experience.spec.js">
-      <DependentUpon>experience.js</DependentUpon>
+    <Content Include="App\viewmodels\courses\deliver.js" />
+    <Content Include="App\viewmodels\courses\design.js" />
+    <Content Include="App\viewmodels\courses\course.js" />
+    <Content Include="App\viewmodels\courses\course.spec.js">
+      <DependentUpon>course.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\courses.spec.js">
+      <DependentUpon>courses.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\feedback.js" />
     <Content Include="App\viewmodels\feedback.spec.js">
@@ -333,9 +339,9 @@
       <DependentUpon>questionContent.js</DependentUpon>
     </Content>
     <Content Include="App\views\common\back.html" />
-    <Content Include="App\views\experiences\deliver.html" />
-    <Content Include="App\views\experiences\design.html" />
-    <Content Include="App\views\experiences\experience.html" />
+    <Content Include="App\views\courses\deliver.html" />
+    <Content Include="App\views\courses\design.html" />
+    <Content Include="App\views\courses\course.html" />
     <Content Include="App\views\feedback.html" />
     <Content Include="App\widgets\notifyViewer\view.html" />
     <Content Include="App\widgets\notifyViewer\viewmodel.js" />
@@ -1182,19 +1188,16 @@
     <Content Include="apple-touch-icon-precomposed.png" />
     <Content Include="apple-touch-icon.png" />
     <Content Include="App\models\learningContent.js" />
-    <Content Include="App\repositories\experienceRepository.js" />
+    <Content Include="App\repositories\courseRepository.js" />
     <Content Include="App\repositories\questionRepository.js" />
     <Content Include="App\repositories\questionRepository.spec.js">
       <DependentUpon>questionRepository.js</DependentUpon>
     </Content>
     <Content Include="App\viewmodels\errors\400.js" />
     <Content Include="App\viewmodels\errors\404.js" />
-    <Content Include="App\viewmodels\experiences\createExperience.js" />
-    <Content Include="App\viewmodels\experiences\createExperience.spec.js">
-      <DependentUpon>createExperience.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\experiences\define.js" />
-    <Content Include="App\viewmodels\experiences\experiences.js" />
+    <Content Include="App\viewmodels\courses\createCourse.js" />
+    <Content Include="App\viewmodels\courses\define.js" />
+    <Content Include="App\viewmodels\courses\courses.js" />
     <Content Include="App\viewmodels\objectives\createObjective.js" />
     <Content Include="App\viewmodels\objectives\createObjective.spec.js">
       <DependentUpon>createObjective.js</DependentUpon>
@@ -1213,11 +1216,11 @@
     <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\views\errors\404.html" />
     <Content Include="App\views\errors\400.html" />
-    <Content Include="App\views\experiences\createExperience.html" />
+    <Content Include="App\views\courses\createCourse.html" />
     <Content Include="App\views\objectives\createObjective.html" />
     <Content Include="Content\ckeditor.css" />
-    <Content Include="Content\experience.css" />
-    <Content Include="Content\experiences.css" />
+    <Content Include="Content\course.css" />
+    <Content Include="Content\courses.css" />
     <Content Include="Content\images\buildprogress.gif" />
     <Content Include="Content\images\loader.gif" />
     <Content Include="Content\images\middle-sized-icons-pack.png" />
@@ -1255,24 +1258,21 @@
     <Content Include="App\models\answerOption.js" />
     <Content Include="App\models\entity.js" />
     <Content Include="App\models\objective.js" />
-    <Content Include="App\models\experience.js" />
+    <Content Include="App\models\course.js" />
     <Content Include="App\models\question.js" />
     <Content Include="App\repositories\objectiveRepository.spec.js">
       <DependentUpon>objectiveRepository.js</DependentUpon>
     </Content>
     <None Include="App\specs.html" />
     <Content Include="App\localization\localizationManager.js" />
-    <Content Include="App\views\experiences\define.html" />
+    <Content Include="App\views\courses\define.html" />
     <Content Include="App\views\objectives\objective.html" />
     <Content Include="App\views\objectives\objectives.html" />
-    <Content Include="App\views\experiences\experiences.html" />
+    <Content Include="App\views\courses\courses.html" />
     <Content Include="App\views\questions\question.html" />
     <Content Include="App\views\userproperties.html" />
     <Content Include="App\views\shell.html" />
     <Content Include="Content\common.css" />
-    <Content Include="App\viewmodels\experiences\experiences.spec.js">
-      <DependentUpon>experiences.js</DependentUpon>
-    </Content>
     <Content Include="App\viewmodels\objectives\objective.spec.js">
       <DependentUpon>objective.js</DependentUpon>
     </Content>

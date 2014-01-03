@@ -1,9 +1,9 @@
-﻿define(['repositories/experienceRepository', 'repositories/templateRepository', 'plugins/router', 'constants', 'eventTracker', 'uiLocker', 'localization/localizationManager'],
+﻿define(['repositories/courseRepository', 'repositories/templateRepository', 'plugins/router', 'constants', 'eventTracker', 'uiLocker', 'localization/localizationManager'],
     function (repository, templateRepository, router, constants, eventTracker, uiLocker, localizationManager) {
 
         var
             events = {
-                createAndContinue: "Create learning experience and open its properties",
+                createAndContinue: "Create course and open its properties",
                 chooseTemplate: "Choose template",
                 defineTitle: "Define title"
             },
@@ -17,7 +17,7 @@
                 var value = ko.observable('');
                 value.isValid = ko.computed(function () {
                     var length = value().trim().length;
-                    return length > 0 && length <= constants.validation.experienceTitleMaxLength;
+                    return length > 0 && length <= constants.validation.courseTitleMaxLength;
                 });
                 value.isEditing = ko.observable();
                 value.startEditing = function() {
@@ -52,8 +52,8 @@
                 }
             },
 
-            navigateToExperiences = function () {
-                router.navigate('experiences');
+            navigateToCourses = function () {
+                router.navigate('courses');
             },
 
             createAndContinue = function () {
@@ -62,10 +62,10 @@
                     return;
                 }
                 uiLocker.lock();
-                repository.addExperience(title().trim(), getSelectedTemplate().id)
-                    .then(function (experience) {
+                repository.addCourse(title().trim(), getSelectedTemplate().id)
+                    .then(function (course) {
                         uiLocker.unlock();
-                        router.navigate('experience/' + experience.id);
+                        router.navigate('course/' + course.id);
                     })
                     .fail(function () {
                         uiLocker.unlock();
@@ -83,7 +83,7 @@
             },
 
             activate = function () {
-                this.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('experiences');
+                this.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('courses');
                 this.title('');
 
                 var that = this;
@@ -98,7 +98,7 @@
 
         return {
             activate: activate,
-            navigateToExperiences: navigateToExperiences,
+            navigateToCourses: navigateToCourses,
             createAndContinue: createAndContinue,
             getSelectedTemplate: getSelectedTemplate,
             resetTemplatesSelection: resetTemplatesSelection,
@@ -106,7 +106,7 @@
 
             title: title,
             templates: templates,
-            experienceTitleMaxLength: constants.validation.experienceTitleMaxLength,
+            courseTitleMaxLength: constants.validation.courseTitleMaxLength,
             goBackTooltip: goBackTooltip,
             isFormFilled: isFormFilled
         };

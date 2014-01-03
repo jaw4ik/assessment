@@ -1,9 +1,9 @@
-﻿define(['viewmodels/experiences/design'], function (viewModel) {
+﻿define(['viewmodels/courses/design'], function (viewModel) {
     "use strict";
 
     var router = require('plugins/router'),
         eventTracker = require('eventTracker'),
-        experienceRepository = require('repositories/experienceRepository'),
+        courseRepository = require('repositories/courseRepository'),
         templateRepository = require('repositories/templateRepository'),
         notify = require('notify'),
         localizationManager = require('localization/localizationManager');
@@ -11,17 +11,17 @@
     describe('viewModel [design]', function () {
 
         var
-            getExperienceDefer,
-            updateExperienceTemplateDefer,
+            getCourseDefer,
+            updateCourseTemplateDefer,
             getTemplateCollectionDefer;
 
         beforeEach(function () {
-            getExperienceDefer = Q.defer();
+            getCourseDefer = Q.defer();
             getTemplateCollectionDefer = Q.defer();
-            updateExperienceTemplateDefer = Q.defer();
+            updateCourseTemplateDefer = Q.defer();
 
-            spyOn(experienceRepository, 'getById').andReturn(getExperienceDefer.promise);
-            spyOn(experienceRepository, 'updateExperienceTemplate').andReturn(updateExperienceTemplateDefer.promise);
+            spyOn(courseRepository, 'getById').andReturn(getCourseDefer.promise);
+            spyOn(courseRepository, 'updateCourseTemplate').andReturn(updateCourseTemplateDefer.promise);
             spyOn(templateRepository, 'getCollection').andReturn(getTemplateCollectionDefer.promise);
 
             spyOn(router, 'replace');
@@ -43,22 +43,22 @@
                 expect(viewModel.activate()).toBePromise();
             });
 
-            it('should get experience from repository', function () {
-                var experienceId = 'experienceId';
-                viewModel.activate(experienceId);
-                expect(experienceRepository.getById).toHaveBeenCalledWith(experienceId);
+            it('should get course from repository', function () {
+                var courseId = 'courseId';
+                viewModel.activate(courseId);
+                expect(courseRepository.getById).toHaveBeenCalledWith(courseId);
             });
 
-            describe('when experience was not found', function () {
+            describe('when course was not found', function () {
 
                 beforeEach(function () {
-                    getExperienceDefer.reject('reason');
+                    getCourseDefer.reject('reason');
                 });
 
                 it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
                     router.activeItem.settings.lifecycleData = null;
 
-                    var promise = viewModel.activate('experienceId');
+                    var promise = viewModel.activate('courseId');
                     waitsFor(function () {
                         return !promise.isPending();
                     });
@@ -68,7 +68,7 @@
                 });
 
                 it('should reject promise', function () {
-                    var promise = viewModel.activate('experienceId');
+                    var promise = viewModel.activate('courseId');
 
                     waitsFor(function () {
                         return !promise.isPending();
@@ -79,17 +79,17 @@
                 });
             });
 
-            describe('when experience exists', function () {
+            describe('when course exists', function () {
 
                 var template = { id: 'templateId', settingsUrl: 'settingsUrl' };
-                var experience = { id: 'experienceId', template: template };
+                var course = { id: 'courseId', template: template };
 
                 beforeEach(function () {
-                    getExperienceDefer.resolve(experience);
+                    getCourseDefer.resolve(course);
                 });
 
                 it('should get collection of templates from repository', function () {
-                    var promise = viewModel.activate(experience.id);
+                    var promise = viewModel.activate(course.id);
                     getTemplateCollectionDefer.reject();
 
                     waitsFor(function () {
@@ -108,7 +108,7 @@
                     it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
                         router.activeItem.settings.lifecycleData = null;
 
-                        var promise = viewModel.activate(experience.id);
+                        var promise = viewModel.activate(course.id);
                         waitsFor(function () {
                             return !promise.isPending();
                         });
@@ -118,7 +118,7 @@
                     });
 
                     it('should reject promise', function () {
-                        var promise = viewModel.activate(experience.id);
+                        var promise = viewModel.activate(course.id);
                         
                         waitsFor(function () {
                             return !promise.isPending();
@@ -156,7 +156,7 @@
                     });
 
                     it('should set a list of available templates', function () {
-                        var promise = viewModel.activate(experience.id);
+                        var promise = viewModel.activate(course.id);
                         waitsFor(function () {
                             return !promise.isPending();
                         });
@@ -167,7 +167,7 @@
                     });
 
                     it('should set currentTemplate', function () {
-                        var promise = viewModel.activate(experience.id);
+                        var promise = viewModel.activate(course.id);
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -194,10 +194,10 @@
             describe('when template is already selected', function () {
 
                 beforeEach(function () {
-                    viewModel.experienceId = 'experienceId';
+                    viewModel.courseId = 'courseId';
                 });
 
-                it('should not send event \'Change experience template to \'selectedTemplateName\'\'', function () {
+                it('should not send event \'Change course template to \'selectedTemplateName\'\'', function () {
                     var template = { id: 'templateId' };
                     viewModel.currentTemplate(template);
 
@@ -212,31 +212,31 @@
 
                     viewModel.selectTemplate(template);
 
-                    expect(experienceRepository.updateExperienceTemplate).not.toHaveBeenCalled();
+                    expect(courseRepository.updateCourseTemplate).not.toHaveBeenCalled();
                 });
 
             });
 
             describe('when template is not yet selected', function () {
 
-                it('should send event \'Change experience template to \'selectedTemplateName\'\'', function () {
+                it('should send event \'Change course template to \'selectedTemplateName\'\'', function () {
                     var templateName = 'templateName';
                     viewModel.currentTemplate({ id: '' });
 
                     viewModel.selectTemplate({ id: 'templateId', name: 'templateName' });
 
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Change experience template to \'' + templateName + '\'');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Change course template to \'' + templateName + '\'');
                 });
 
-                it('should change experience template', function () {
-                    var experienceId = 'experienceId';
+                it('should change course template', function () {
+                    var courseId = 'courseId';
                     var templateId = 'templateId';
-                    viewModel.experienceId = experienceId;
+                    viewModel.courseId = courseId;
                     viewModel.currentTemplate({ id: '' });
 
                     viewModel.selectTemplate({ id: templateId });
 
-                    expect(experienceRepository.updateExperienceTemplate).toHaveBeenCalledWith(experienceId, templateId);
+                    expect(courseRepository.updateCourseTemplate).toHaveBeenCalledWith(courseId, templateId);
                 });
 
                 describe('and template was changed', function () {
@@ -245,10 +245,10 @@
                         modifiedOn;
 
                     beforeEach(function () {
-                        promise = updateExperienceTemplateDefer.promise.finally(function () { });
+                        promise = updateCourseTemplateDefer.promise.finally(function () { });
                         modifiedOn = new Date();
 
-                        updateExperienceTemplateDefer.resolve({ modifiedOn: modifiedOn });
+                        updateCourseTemplateDefer.resolve({ modifiedOn: modifiedOn });
                     });
 
                     it('should show update notification', function () {
@@ -300,8 +300,8 @@
                     var promise;
 
                     beforeEach(function () {
-                        promise = updateExperienceTemplateDefer.promise.finally(function () { });
-                        updateExperienceTemplateDefer.reject();
+                        promise = updateCourseTemplateDefer.promise.finally(function () { });
+                        updateCourseTemplateDefer.reject();
                     });
 
                     it('should hide progress bar', function () {
@@ -333,10 +333,10 @@
 
         });
 
-        describe('experienceId:', function () {
+        describe('courseId:', function () {
 
             it('should be defined', function () {
-                expect(viewModel.experienceId).toBeDefined();
+                expect(viewModel.courseId).toBeDefined();
             });
 
         });

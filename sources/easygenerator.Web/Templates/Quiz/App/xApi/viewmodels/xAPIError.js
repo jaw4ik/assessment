@@ -4,7 +4,7 @@
         var
             navigateBackUrl = '',
 
-            restartExperience = function () {
+            restartCourse = function () {
                 var rootUrl = location.toString().replace(location.hash, '');
                 router.navigate(rootUrl, { replace: true, trigger: true });
             },
@@ -20,7 +20,7 @@
             };
 
         return {
-            restartExperience: restartExperience,
+            restartCourse: restartCourse,
             continueLearning: continueLearning,
             
             activate: activate

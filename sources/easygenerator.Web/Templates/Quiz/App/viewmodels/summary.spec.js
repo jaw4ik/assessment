@@ -72,7 +72,7 @@
                         }]
                     }]
                 }];
-                context.title = "titleOfExperience";
+                context.title = "courseTitle";
                 context.testResult([{
                     id: 0,
                     objectiveId: 0,

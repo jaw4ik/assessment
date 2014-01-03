@@ -190,10 +190,10 @@
 
 /*#endregion Create entity tooltip*/
 
-/*#region OBJECTIVES-EXPERIENCES*/
+/*#region OBJECTIVES-COURSES*/
 
 .objectives,
-.experiences {
+.courses {
     position: relative;
     margin: auto;
     max-width: 1158px;
@@ -202,7 +202,7 @@
     font-size: 13px;
 }
 
-/*#endregion OBJECTIVES-EXPERIENCES*/
+/*#endregion OBJECTIVES-COURSES*/
 
 /*#region MEDIA CSS-STYLES*/
 
@@ -250,16 +250,12 @@
 }
 
 @media (min-width: 1220px) {
-    /*#region OBJECTIVES-EXPERIENCES*/
+    /*#region OBJECTIVES-COURSES*/
     .objectives,
-    .experiences {
+    .courses {
         max-width: 1202px;
     }
-
-    .experiences-list-wrapper {
-        max-width: 1202px;
-    }
-    /*#endregion OBJECTIVES-EXPERIENCES*/
+    /*#endregion OBJECTIVES-COURSES*/
 }
 
 @media (max-width: 1260px) {
@@ -277,12 +273,12 @@
 }
 
 @media (min-width: 880px) and (max-width: 1166px) {
-    /*#region OBJECTIVES-EXPERIENCES*/
+    /*#region OBJECTIVES-COURSES*/
     .objectives,
-    .experiences {
+    .courses {
         max-width: 850px;
     }
-    /*#endregion OBJECTIVES-EXPERIENCES*/
+    /*#endregion OBJECTIVES-COURSES*/
 }
 
 /*#endregion MEDIA*/

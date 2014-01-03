@@ -13,15 +13,15 @@
 
 /*#endregion COMMON SELECTBOX STYLES*/
 
-/*#region EXPERIENCE SELECTBOX STYLES*/
+/*#region COURSE SELECTBOX STYLES*/
 
-.experience-template-selector.selectbox {
+.course-template-selector.selectbox {
     color: #666666;
     font-size: 14px;
     font-family: Arial, sans-serif;
 }
 
-.experience-template-selector .selectbox-options-list {
+.course-template-selector .selectbox-options-list {
     width: 100%;
     list-style-type: none;
     border: 1px solid #C4C4C4;
@@ -31,7 +31,7 @@
     box-shadow: 0px 1px 3px rgba(0, 0, 0, .1) inset;
 }
 
-.experience-template-selector .selectbox-current-item {
+.course-template-selector .selectbox-current-item {
     height: 30px;
     line-height: 30px;
     padding: 0 10px;
@@ -49,7 +49,7 @@
     box-shadow: 0 0 4px rgba(0, 0, 0, .1);
 }
 
-.experience-template-selector .selectbox-caret {
+.course-template-selector .selectbox-caret {
     content: "↕";
     width: 8px;
     height: 4px;
@@ -60,14 +60,14 @@
     background-position: -256px -155px;
 }
 
-.experience-template-selector .selectbox-current-item-text {
+.course-template-selector .selectbox-current-item-text {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     padding-right: 5px;
 }
 
-.experience-template-selector .selectbox-option-item {
+.course-template-selector .selectbox-option-item {
     height: 30px;
     padding: 0 10px;
     line-height: 30px;
@@ -77,11 +77,11 @@
     text-overflow: ellipsis;
 }
 
-    .experience-template-selector .selectbox-option-item:hover {
+    .course-template-selector .selectbox-option-item:hover {
         background: #EFF4FA;
     }
 
-/*#endregion EXPERIENCE SELECTBOX STYLES*/
+/*#endregion COURSE SELECTBOX STYLES*/
 
 /*#region USER-FROM SELECTBOX STYLES*/
 .user-form-selectbox.selectbox {

@@ -1,19 +1,19 @@
-﻿.experience.view-module,
-.create-experience.view-module {
+﻿.course.view-module,
+.create-course.view-module {
     min-width: 860px;
 }
 
 /*#region DEFINE STEP*/
-.experience .create-new-title {
+.course .create-new-title {
     padding: 55px 0;
 }
 
-.experience .main-content-list-holder,
-.experience .list-controls-holder {
+.course .main-content-list-holder,
+.course .list-controls-holder {
     min-width: 73%;
 }
 
-.experience .main-content-list-holder {
+.course .main-content-list-holder {
     float: right;
     width: 73%;
 }
@@ -493,13 +493,13 @@
 
 /*#region Template selector*/
 
-.experience-template-selector {
+.course-template-selector {
     display: inline-block;
     min-width: 200px;
     max-width: 300px;
 }
 
-.experience-template-selector-text {
+.course-template-selector-text {
     line-height: normal;
     white-space: normal;
     letter-spacing: 0;
@@ -508,11 +508,11 @@
     font-family: 'OpenSans-Semibold';
 }
 
-.create-experience .experience-template-selector {
+.create-course .course-template-selector {
     display: inline-block;
 }
 
-.create-experience .experience-template-selector-text {
+.create-course .course-template-selector-text {
     font-size: 14px;
     color: #666;
     letter-spacing: 0;
@@ -524,11 +524,11 @@
 }
 
 @media (max-width: 890px) {
-    .create-experience .experience-template-selector {
+    .create-course .course-template-selector {
         float: right;
     }
 
-    .create-experience .experience-template-selector-text {
+    .create-course .course-template-selector-text {
         font-size: 14px;
         color: #666;
         display: block;
@@ -536,7 +536,7 @@
         margin-bottom: 5px;
     }
 
-    .create-experience .form-actions {
+    .create-course .form-actions {
         padding-top: 100px;
     }
 }
@@ -545,14 +545,14 @@
 
 /*#region tip for add new learning objective*/
 
-.experience .create-tip {
+.course .create-tip {
     right: 85px;
     top: 30px;
     text-transform: none;
 }
 /*#endregion tip for add new learning objective*/
 
-.experience .page-title {
+.course .page-title {
     margin: 0 0 -5px 58px;
     padding-bottom: 3px;
     color: #555555;
@@ -626,9 +626,9 @@
 
 /*#endregion Process steps*/
 
-/*#region CREATE EXPERIENCE*/
+/*#region CREATE COURSE*/
 
-.create-experience .choose-template {
+.create-course .choose-template {
     margin-top: 28px;
 }
 
@@ -636,7 +636,7 @@
     border-bottom: 1px dotted #E8E8E8;
 }
 
-/*#endregion CREATE EXPERIENCE*/
+/*#endregion CREATE COURSE*/
 
 
 @media (min-width: 1000px) {

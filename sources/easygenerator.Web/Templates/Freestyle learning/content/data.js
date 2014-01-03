@@ -1,6 +1,6 @@
 {
     "id": "0",
-    "title": "experience title",
+    "title": "course title",
     "objectives": [
         {
             "id": "1",

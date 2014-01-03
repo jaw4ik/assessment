@@ -1,20 +1,20 @@
-﻿define(['viewmodels/experiences/define'],
+﻿define(['viewmodels/courses/define'],
     function (viewModel) {
         "use strict";
 
         var router = require('plugins/router'),
             eventTracker = require('eventTracker'),
             constants = require('constants'),
-            repository = require('repositories/experienceRepository'),
+            repository = require('repositories/courseRepository'),
             objectiveRepository = require('repositories/objectiveRepository'),
             notify = require('notify'),
             clientContext = require('clientContext');
 
         describe('viewModel [define]', function () {
             var
-                experience = {
+                course = {
                     id: '1',
-                    title: 'experience',
+                    title: 'course',
                     objectives: [
                         { id: '0', title: 'A' },
                         { id: '1', title: 'a' },
@@ -50,14 +50,14 @@
 
             });
 
-            describe('experienceTitleMaxLength:', function () {
+            describe('courseTitleMaxLength:', function () {
 
                 it('should be defined', function () {
-                    expect(viewModel.experienceTitleMaxLength).toBeDefined();
+                    expect(viewModel.courseTitleMaxLength).toBeDefined();
                 });
 
-                it('should equal constants.validation.experienceTitleMaxLength', function () {
-                    expect(viewModel.experienceTitleMaxLength).toEqual(constants.validation.experienceTitleMaxLength);
+                it('should equal constants.validation.courseTitleMaxLength', function () {
+                    expect(viewModel.courseTitleMaxLength).toEqual(constants.validation.courseTitleMaxLength);
                 });
 
             });
@@ -86,7 +86,7 @@
                     describe('when title is longer than 255', function () {
 
                         it('should be false', function () {
-                            viewModel.title(utils.createString(viewModel.experienceTitleMaxLength + 1));
+                            viewModel.title(utils.createString(viewModel.courseTitleMaxLength + 1));
                             expect(viewModel.title.isValid()).toBeFalsy();
                         });
 
@@ -95,7 +95,7 @@
                     describe('when title is longer than 255 but after trimming is not longer than 255', function () {
 
                         it('should be true', function () {
-                            viewModel.title('   ' + utils.createString(viewModel.experienceTitleMaxLength - 1) + '   ');
+                            viewModel.title('   ' + utils.createString(viewModel.courseTitleMaxLength - 1) + '   ');
                             expect(viewModel.title.isValid()).toBeTruthy();
                         });
 
@@ -104,7 +104,7 @@
                     describe('when title is not empty and not longer than 255', function () {
 
                         it('should be true', function () {
-                            viewModel.title(utils.createString(viewModel.experienceTitleMaxLength - 1));
+                            viewModel.title(utils.createString(viewModel.courseTitleMaxLength - 1));
                             expect(viewModel.title.isValid()).toBeTruthy();
                         });
 
@@ -131,12 +131,12 @@
                 var updateTitle;
 
                 beforeEach(function () {
-                    viewModel.title(experience.title);
+                    viewModel.title(course.title);
                     viewModel.startEditTitle();
 
                     updateTitle = Q.defer();
 
-                    spyOn(repository, 'updateExperienceTitle').andReturn(updateTitle.promise);
+                    spyOn(repository, 'updateCourseTitle').andReturn(updateTitle.promise);
                 });
 
                 it('should be function', function () {
@@ -152,10 +152,10 @@
                 describe('when title is not valid', function () {
 
                     it('should clear title', function () {
-                        viewModel.title(utils.createString(viewModel.experienceTitleMaxLength + 1));
+                        viewModel.title(utils.createString(viewModel.courseTitleMaxLength + 1));
                         viewModel.endEditTitle();
 
-                        expect(viewModel.title()).toBe(experience.title);
+                        expect(viewModel.title()).toBe(course.title);
                     });
 
                     it('should not show notification', function () {
@@ -169,7 +169,7 @@
                             viewModel.title('              ');
                             viewModel.endEditTitle();
 
-                            expect(viewModel.title()).toBe(experience.title);
+                            expect(viewModel.title()).toBe(course.title);
                         });
                     });
 
@@ -188,21 +188,21 @@
                             viewModel.originalTitle = "original title";
                         });
 
-                        it('should send event \'Update experience title\'', function () {
+                        it('should send event \'Update course title\'', function () {
                             viewModel.endEditTitle();
-                            expect(eventTracker.publish).toHaveBeenCalledWith('Update experience title');
+                            expect(eventTracker.publish).toHaveBeenCalledWith('Update course title');
                         });
 
-                        it('should update experience in repository', function () {
+                        it('should update course in repository', function () {
                             viewModel.endEditTitle();
-                            expect(repository.updateExperienceTitle).toHaveBeenCalled();
+                            expect(repository.updateCourseTitle).toHaveBeenCalled();
                         });
 
-                        describe('and when experience updated successfully', function () {
+                        describe('and when course updated successfully', function () {
 
-                            var updatedExperience = { title: newTitle, templateId: "0", modifiedOn: new Date() };
+                            var updatedCourse = { title: newTitle, templateId: "0", modifiedOn: new Date() };
                             beforeEach(function () {
-                                updateTitle.resolve(updatedExperience.modifiedOn);
+                                updateTitle.resolve(updatedCourse.modifiedOn);
                             });
 
                             it('should update notificaion', function () {
@@ -232,14 +232,14 @@
                             viewModel.originalTitle = newTitle;
                         });
 
-                        it('should not update experience in repository', function () {
+                        it('should not update course in repository', function () {
                             viewModel.endEditTitle();
-                            expect(repository.updateExperienceTitle).not.toHaveBeenCalled();
+                            expect(repository.updateCourseTitle).not.toHaveBeenCalled();
                         });
 
-                        it('should not send event \'Update experience title\'', function () {
+                        it('should not send event \'Update course title\'', function () {
                             viewModel.endEditTitle();
-                            expect(eventTracker.publish).not.toHaveBeenCalledWith('Update experience title');
+                            expect(eventTracker.publish).not.toHaveBeenCalledWith('Update course title');
                         });
 
                         it('should set isEditing to false', function () {
@@ -470,7 +470,7 @@
                             getObjectivesDefer.resolve([{ id: '0', title: 'B' }, { id: '1', title: 'A' }]);
                         });
 
-                        describe('and experience does not have related objectives', function () {
+                        describe('and course does not have related objectives', function () {
 
                             it('should set all objectives as available', function () {
                                 viewModel.connectedObjectives([]);
@@ -487,7 +487,7 @@
 
                         });
 
-                        describe('and experience has related objectives', function () {
+                        describe('and course has related objectives', function () {
 
                             it('should set not related objectives as available', function () {
                                 viewModel.connectedObjectives([{ id: '0', title: 'B', isSelected: ko.observable(false) }]);
@@ -583,9 +583,9 @@
                     expect(viewModel.connectObjectives).toBeFunction();
                 });
 
-                it('should send event \'Connect selected objectives to experience\'', function () {
+                it('should send event \'Connect selected objectives to course\'', function () {
                     viewModel.connectObjectives();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Connect selected objectives to experience');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Connect selected objectives to course');
                 });
 
                 describe('when no objectives selected', function () {
@@ -822,7 +822,7 @@
             describe('disconnectSelectedObjectives:', function () {
 
                 beforeEach(function () {
-                    viewModel.id = 'experienceId';
+                    viewModel.id = 'courseId';
                 });
 
                 it('should be a function', function () {
@@ -848,9 +848,9 @@
                         spyOn(repository, 'unrelateObjectives').andReturn(unrelateObjectives.promise);
                     });
 
-                    it('should send event \'Unrelate objectives from experience\'', function () {
+                    it('should send event \'Unrelate objectives from course\'', function () {
                         viewModel.disconnectSelectedObjectives();
-                        expect(eventTracker.publish).toHaveBeenCalledWith('Unrelate objectives from experience');
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Unrelate objectives from course');
                     });
 
                     it('should call repository \"unrelateObjectives\" method', function () {
@@ -858,7 +858,7 @@
                             return item.isSelected();
                         });
                         viewModel.disconnectSelectedObjectives();
-                        expect(repository.unrelateObjectives).toHaveBeenCalledWith('experienceId', objectives);
+                        expect(repository.unrelateObjectives).toHaveBeenCalledWith('courseId', objectives);
                     });
 
                     describe('and unrelate objectives succeed', function () {
@@ -907,13 +907,13 @@
                     spyOn(repository, 'getById').andReturn(getById.promise);
                 });
 
-                it('should get experience from repository', function () {
-                    var id = 'experienceId';
+                it('should get course from repository', function () {
+                    var id = 'courseId';
                     viewModel.activate(id);
                     expect(repository.getById).toHaveBeenCalledWith(id);
                 });
 
-                describe('when experience does not exist', function () {
+                describe('when course does not exist', function () {
 
                     beforeEach(function () {
                         getById.reject('reason');
@@ -922,7 +922,7 @@
                     it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
                         router.activeItem.settings.lifecycleData = null;
 
-                        var promise = viewModel.activate('experienceId');
+                        var promise = viewModel.activate('courseId');
                         waitsFor(function () {
                             return !promise.isPending();
                         });
@@ -932,7 +932,7 @@
                     });
 
                     it('should reject promise', function () {
-                        var promise = viewModel.activate('experienceId');
+                        var promise = viewModel.activate('courseId');
 
                         waitsFor(function () {
                             return !promise.isPending();
@@ -943,41 +943,41 @@
                     });
                 });
 
-                describe('when experience exists', function () {
+                describe('when course exists', function () {
 
                     beforeEach(function () {
-                        getById.resolve(experience);
+                        getById.resolve(course);
                     });
 
-                    it('should set current experience id', function () {
+                    it('should set current course id', function () {
                         viewModel.id = undefined;
 
-                        var promise = viewModel.activate(experience.id);
+                        var promise = viewModel.activate(course.id);
 
                         waitsFor(function () {
                             return promise.isFulfilled();
                         });
                         runs(function () {
-                            expect(viewModel.id).toEqual(experience.id);
+                            expect(viewModel.id).toEqual(course.id);
                         });
                     });
 
-                    it('should set current experience title', function () {
+                    it('should set current course title', function () {
                         viewModel.title('');
 
-                        var promise = viewModel.activate(experience.id);
+                        var promise = viewModel.activate(course.id);
 
                         waitsFor(function () {
                             return promise.isFulfilled();
                         });
                         runs(function () {
-                            expect(viewModel.title()).toEqual(experience.title);
+                            expect(viewModel.title()).toEqual(course.title);
                         });
                     });
 
                     it('should display related objectives', function () {
                         viewModel.objectivesMode('appending');
-                        var promise = viewModel.activate(experience.id);
+                        var promise = viewModel.activate(course.id);
 
                         waitsFor(function () {
                             return promise.isFulfilled();
@@ -987,10 +987,10 @@
                         });
                     });
 
-                    it('should set current experience objectives sorted by createdOn descending', function () {
+                    it('should set current course objectives sorted by createdOn descending', function () {
                         viewModel.connectedObjectives(null);
 
-                        var promise = viewModel.activate(experience.id);
+                        var promise = viewModel.activate(course.id);
 
                         waitsFor(function () {
                             return promise.isFulfilled();
@@ -1002,7 +1002,7 @@
                     });
 
                     it('should resolve promise', function () {
-                        var promise = viewModel.activate(experience.id);
+                        var promise = viewModel.activate(course.id);
 
                         waitsFor(function () {
                             return !promise.isPending();

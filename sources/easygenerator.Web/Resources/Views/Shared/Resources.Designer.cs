@@ -88,7 +88,7 @@ namespace SharedResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This learning experience is being updated..
+        ///   Looks up a localized string similar to This course is being updated..
         /// </summary>
         public static string PublishIsInProgressTitle {
             get {

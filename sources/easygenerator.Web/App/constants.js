@@ -24,21 +24,21 @@
 
             validation: {
                 objectiveTitleMaxLength: 255,
-                experienceTitleMaxLength: 255,
+                courseTitleMaxLength: 255,
                 questionTitleMaxLength: 255
             },
 
             messages: {
-                experience: {
+                course: {
                     build: {
-                        started: 'experience:build-started',
-                        completed: 'experience:build-completed',
-                        failed: 'experience:build-failed',
+                        started: 'course:build-started',
+                        completed: 'course:build-completed',
+                        failed: 'course:build-failed',
                     },
                     publish: {
-                        started: 'experience:publish-started',
-                        completed: 'experience:publish-completed',
-                        failed: 'experience:publish-failed'
+                        started: 'course:publish-started',
+                        completed: 'course:publish-completed',
+                        failed: 'course:publish-failed'
                     }
                 }
             },

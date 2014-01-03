@@ -1,10 +1,10 @@
-﻿define(['plugins/router', 'durandal/activator', 'eventTracker', 'localization/localizationManager', 'viewmodels/experiences/define', 'viewmodels/experiences/design', 'viewmodels/experiences/deliver', 'clientContext', 'durandal/app', 'notify', 'constants'],
+﻿define(['plugins/router', 'durandal/activator', 'eventTracker', 'localization/localizationManager', 'viewmodels/courses/define', 'viewmodels/courses/design', 'viewmodels/courses/deliver', 'clientContext', 'durandal/app', 'notify', 'constants'],
     function (router, activator, eventTracker, localizationManager, define, design, deliver, clientContext, app, notify, constants) {
 
         var
             goBackTooltip = '',
             events = {
-                navigateToExperiences: 'Navigate to experiences',
+                navigateToCourses: 'Navigate to courses',
             };
 
         var viewModel = {
@@ -17,7 +17,7 @@
             goToDeliver: goToDeliver,
             
             goBackTooltip: goBackTooltip,
-            navigateToExperiences: navigateToExperiences,
+            navigateToCourses: navigateToCourses,
 
             activate: activate,
             deactivate: deactivate
@@ -36,21 +36,21 @@
             return viewModel.activeStep.activateItem(deliver, viewModel.id);
         }
 
-        function navigateToExperiences() {
-            eventTracker.publish(events.navigateToExperiences);
-            router.navigate('experiences');
+        function navigateToCourses() {
+            eventTracker.publish(events.navigateToCourses);
+            router.navigate('courses');
         }
 
-        function activate(experienceId) {
+        function activate(courseId) {
             return Q.fcall(function () {
-                viewModel.id = experienceId;
-                viewModel.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('experiences');
+                viewModel.id = courseId;
+                viewModel.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('courses');
 
                 return viewModel.goToDefine().then(function (result) {
                     var deferred = Q.defer();
 
                     if (result) {
-                        clientContext.set('lastVistedExperience', experienceId);
+                        clientContext.set('lastVistedCourse', courseId);
                         clientContext.set('lastVisitedObjective', null);
 
                         deferred.resolve();
@@ -72,14 +72,14 @@
             });
         }
 
-        function notifyError(experienceId, message) {
-            if (experienceId == viewModel.id && !_.isNullOrUndefined(message)) {
+        function notifyError(courseId, message) {
+            if (courseId == viewModel.id && !_.isNullOrUndefined(message)) {
                 notify.error(message);
             }
         }
 
-        app.on(constants.messages.experience.build.failed, notifyError);
-        app.on(constants.messages.experience.publish.failed, notifyError);
+        app.on(constants.messages.course.build.failed, notifyError);
+        app.on(constants.messages.course.publish.failed, notifyError);
 
         return viewModel;
     }

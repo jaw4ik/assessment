@@ -270,16 +270,16 @@
                     });
 
                     it('should init xApiInitializer', function () {
-                        context.experience = {
+                        context.course = {
                             title: "Some title",
                             id: "10"
                         };
                         var
-                            url = window.top.location.toString() + '?experience_id=' + context.experience.id,
+                            url = window.top.location.toString() + '?course_id=' + context.course.id,
                             actor = xApiInitializer.createActor(viewModel.username(), viewModel.usermail());
 
                         viewModel.login();
-                        expect(xApiInitializer.init).toHaveBeenCalledWith(actor, context.experience.title, url);
+                        expect(xApiInitializer.init).toHaveBeenCalledWith(actor, context.course.title, url);
                     });
 
                     describe('and when xApiInitializer.init was rejected', function () {

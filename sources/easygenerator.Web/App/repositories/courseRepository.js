@@ -1,11 +1,11 @@
-﻿define(['dataContext', 'constants', 'plugins/http', 'models/experience', 'guard', 'httpWrapper'],
-    function (dataContext, constants, http, experienceModel, guard, httpWrapper) {
+﻿define(['dataContext', 'constants', 'plugins/http', 'models/course', 'guard', 'httpWrapper'],
+    function (dataContext, constants, http, CourseModel, guard, httpWrapper) {
 
         var
             getCollection = function () {
                 return Q.fcall(function () {
                     return httpWrapper.post('api/experiences').then(function () {
-                        return dataContext.experiences;
+                        return dataContext.courses;
                     });
                 });
             },
@@ -13,15 +13,15 @@
             getById = function (id) {
                 return Q.fcall(function () {
                     var deferred = Q.defer();
-                    guard.throwIfNotString(id, 'Experience id (string) was expected');
+                    guard.throwIfNotString(id, 'Course id (string) was expected');
 
                     httpWrapper.post('api/experiences').then(function () {
-                        var result = _.find(dataContext.experiences, function (item) {
+                        var result = _.find(dataContext.courses, function (item) {
                             return item.id === id;
                         });
 
                         if (_.isUndefined(result)) {
-                            deferred.reject('Experience with this id is not found');
+                            deferred.reject('Course with this id is not found');
                             return;
                         };
 
@@ -32,7 +32,7 @@
                 });
             },
 
-        addExperience = function (title, templateId) {
+        addCourse = function (title, templateId) {
             return Q.fcall(function () {
                 guard.throwIfNotString(title, 'Title is not a string');
                 guard.throwIfNotString(templateId, 'TemplateId is not a string');
@@ -54,10 +54,10 @@
 
                         guard.throwIfNotAnObject(template, 'Template does not exist in dataContext');
 
-                        var experienceId = response.Id,
+                        var courseId = response.Id,
                             createdOn = new Date(parseInt(response.CreatedOn.substr(6), 10)),
-                            createdExperience = new experienceModel({
-                                id: experienceId,
+                            createdCourse = new CourseModel({
+                                id: courseId,
                                 title: title,
                                 template: {
                                     id: template.id,
@@ -69,35 +69,35 @@
                                 modifiedOn: createdOn
                             });
 
-                        dataContext.experiences.push(createdExperience);
+                        dataContext.courses.push(createdCourse);
 
                         return {
-                            id: createdExperience.id,
-                            createdOn: createdExperience.createdOn
+                            id: createdCourse.id,
+                            createdOn: createdCourse.createdOn
                         };
                     });
             });
         },
 
-        removeExperience = function (experienceId) {
+        removeCourse = function (courseId) {
             return Q.fcall(function () {
-                guard.throwIfNotString(experienceId, 'Experience id (string) was expected');
+                guard.throwIfNotString(courseId, 'Course id (string) was expected');
 
-                return httpWrapper.post('api/experience/delete', { experienceId: experienceId }).then(function () {
-                    dataContext.experiences = _.reject(dataContext.experiences, function (experience) {
-                        return experience.id === experienceId;
+                return httpWrapper.post('api/experience/delete', { experienceId: courseId }).then(function () {
+                    dataContext.courses = _.reject(dataContext.courses, function (course) {
+                        return course.id === courseId;
                     });
                 });
             });
         },
 
-        relateObjectives = function (experienceId, objectives) {
+        relateObjectives = function (courseId, objectives) {
             return Q.fcall(function () {
-                guard.throwIfNotString(experienceId, 'Experience id is not valid');
+                guard.throwIfNotString(courseId, 'Course id is not valid');
                 guard.throwIfNotArray(objectives, 'Objectives to relate are not array');
 
                 var requestArgs = {
-                    experienceId: experienceId,
+                    experienceId: courseId,
                     objectives: _.map(objectives, function (item) {
                         return item.id;
                     })
@@ -108,13 +108,13 @@
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
                     guard.throwIfNotArray(response.RelatedObjectives, 'Response does not have related objectives collection');
 
-                    var experience = _.find(dataContext.experiences, function (exp) {
-                        return exp.id == experienceId;
+                    var course = _.find(dataContext.courses, function (exp) {
+                        return exp.id == courseId;
                     });
 
-                    guard.throwIfNotAnObject(experience, "Experience doesn`t exist");
+                    guard.throwIfNotAnObject(course, "Course doesn`t exist");
 
-                    experience.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                    course.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
                     var relatedObjectives = _.filter(objectives, function (item) {
                         return !_.isUndefined(_.find(response.RelatedObjectives, function (relatedObjective) {
                             return item.id == relatedObjective.Id;
@@ -122,24 +122,24 @@
                     });
 
                     _.each(relatedObjectives, function (objective) {
-                        experience.objectives.push(objective);
+                        course.objectives.push(objective);
                     });
 
                     return {
-                        modifiedOn: experience.modifiedOn,
+                        modifiedOn: course.modifiedOn,
                         relatedObjectives: relatedObjectives
                     };
                 });
             });
         },
 
-        unrelateObjectives = function (experienceId, objectives) {
+        unrelateObjectives = function (courseId, objectives) {
             return Q.fcall(function () {
-                guard.throwIfNotString(experienceId, 'Experience id is not valid');
+                guard.throwIfNotString(courseId, 'Course id is not valid');
                 guard.throwIfNotArray(objectives, 'Objectives to relate are not array');
 
                 var requestArgs = {
-                    experienceId: experienceId,
+                    experienceId: courseId,
                     objectives: _.map(objectives, function (item) {
                         return item.id;
                     })
@@ -149,59 +149,59 @@
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
-                    var experience = _.find(dataContext.experiences, function (exp) {
-                        return exp.id == experienceId;
+                    var course = _.find(dataContext.courses, function (exp) {
+                        return exp.id == courseId;
                     });
-                    guard.throwIfNotAnObject(experience, "Experience doesn`t exist");
+                    guard.throwIfNotAnObject(course, "Course doesn`t exist");
 
-                    experience.objectives = _.reject(experience.objectives, function (objective) {
+                    course.objectives = _.reject(course.objectives, function (objective) {
                         return _.find(objectives, function (item) {
                             return item.id == objective.id;
                         });
                     });
 
-                    experience.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
-                    return experience.modifiedOn;
+                    course.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                    return course.modifiedOn;
                 });
             });
         },
 
-        updateExperienceTitle = function (experienceId, experienceTitle) {
+        updateCourseTitle = function (courseId, courseTitle) {
             return Q.fcall(function () {
-                guard.throwIfNotString(experienceId, 'Experience id is not a string');
-                guard.throwIfNotString(experienceTitle, 'Experience title is not a string');
+                guard.throwIfNotString(courseId, 'Course id is not a string');
+                guard.throwIfNotString(courseTitle, 'Course title is not a string');
 
                 var requestArgs = {
-                    experienceId: experienceId,
-                    experienceTitle: experienceTitle
+                    experienceId: courseId,
+                    courseTitle: courseTitle
                 };
 
                 return httpWrapper.post('api/experience/updateTitle', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
-                    var experience = _.find(dataContext.experiences, function (item) {
-                        return item.id === experienceId;
+                    var course = _.find(dataContext.courses, function (item) {
+                        return item.id === courseId;
                     });
 
-                    guard.throwIfNotAnObject(experience, 'Experience does not exist in dataContext');
+                    guard.throwIfNotAnObject(course, 'Course does not exist in dataContext');
 
-                    experience.title = experienceTitle;
-                    experience.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                    course.title = courseTitle;
+                    course.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
 
-                    return experience.modifiedOn;
+                    return course.modifiedOn;
                 });
 
             });
         },
 
-        updateExperienceTemplate = function (experienceId, templateId) {
+        updateCourseTemplate = function (courseId, templateId) {
             return Q.fcall(function () {
-                guard.throwIfNotString(experienceId, 'Experience id is not a string');
+                guard.throwIfNotString(courseId, 'Course id is not a string');
                 guard.throwIfNotString(templateId, 'Template id is not a string');
 
                 var requestArgs = {
-                    experienceId: experienceId,
+                    experienceId: courseId,
                     templateId: templateId
                 };
 
@@ -209,11 +209,11 @@
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
-                    var experience = _.find(dataContext.experiences, function (item) {
-                        return item.id === experienceId;
+                    var course = _.find(dataContext.courses, function (item) {
+                        return item.id === courseId;
                     });
 
-                    guard.throwIfNotAnObject(experience, 'Experience does not exist in dataContext');
+                    guard.throwIfNotAnObject(course, 'Course does not exist in dataContext');
 
                     var template = _.find(dataContext.templates, function (item) {
                         return item.id === templateId;
@@ -221,11 +221,11 @@
 
                     guard.throwIfNotAnObject(template, 'Template does not exist in dataContext');
 
-                    experience.template = { id: template.id, name: template.name, image: template.image };
-                    experience.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+                    course.template = { id: template.id, name: template.name, image: template.image };
+                    course.modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
 
                     return {
-                        modifiedOn: experience.modifiedOn
+                        modifiedOn: course.modifiedOn
                     };
                 });
 
@@ -236,11 +236,11 @@
             getById: getById,
             getCollection: getCollection,
 
-            addExperience: addExperience,
-            updateExperienceTitle: updateExperienceTitle,
-            updateExperienceTemplate: updateExperienceTemplate,
-
-            removeExperience: removeExperience,
+            addCourse: addCourse,
+            updateCourseTitle: updateCourseTitle,
+            updateCourseTemplate: updateCourseTemplate,
+            removeCourse: removeCourse,
+            
             relateObjectives: relateObjectives,
             unrelateObjectives: unrelateObjectives
         };

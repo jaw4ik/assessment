@@ -6,38 +6,38 @@
             localizationManager = require('localization/localizationManager'),
             http = require('plugins/http');
 
-        describe('service [buildExperience]', function () {
+        describe('service [buildCourse]', function () {
 
-            describe('buildExperience:', function () {
-                var experience;
+            describe('buildCourse:', function () {
+                var course;
                 var post;
 
                 beforeEach(function () {
-                    experience = { id: 'someId' };
+                    course = { id: 'someId' };
 
                     post = $.Deferred();
                     spyOn(http, 'post').andReturn(post.promise());
                 });
 
                 it('should be function', function () {
-                    expect(service.buildExperience).toEqual(jasmine.any(Function));
+                    expect(service.buildCourse).toEqual(jasmine.any(Function));
                 });
 
                 it('should return promise', function () {
-                    var promise = service.buildExperience();
+                    var promise = service.buildCourse();
 
                     expect(promise).toBePromise();
                 });
 
                 it('should send request', function () {
                     post.resolve();
-                    var promise = service.buildExperience(experience.id).fin(function () { });
+                    var promise = service.buildCourse(course.id).fin(function () { });
 
                     waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(http.post).toHaveBeenCalledWith('experience/build', { experienceId: experience.id });
+                        expect(http.post).toHaveBeenCalledWith('experience/build', { experienceId: course.id });
                     });
                 });
 
@@ -48,7 +48,7 @@
                         describe('and response is undefined', function () {
 
                             it('should reject promise', function () {
-                                var promise = service.buildExperience();
+                                var promise = service.buildCourse();
 
                                 post.resolve();
 
@@ -65,7 +65,7 @@
                         describe('and response.success is undefined', function () {
 
                             it('should reject promise', function () {
-                                var promise = service.buildExperience();
+                                var promise = service.buildCourse();
 
                                 post.resolve({});
 
@@ -86,7 +86,7 @@
                             });
 
                             it('should resolve promise with true', function () {
-                                var promise = service.buildExperience();
+                                var promise = service.buildCourse();
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -109,7 +109,7 @@
                                 });
 
                                 it('should reject promise with localized message', function () {
-                                    var promise = service.buildExperience();
+                                    var promise = service.buildCourse();
 
                                     var buildResult = { success: false, resourceKey: 'message' };
 
@@ -128,7 +128,7 @@
                             describe('and response.resourceKey does not exist', function () {
 
                                 it('should reject promise with response message', function () {
-                                    var promise = service.buildExperience();
+                                    var promise = service.buildCourse();
 
                                     var buildResult = { success: false, message: 'message' };
 
@@ -150,7 +150,7 @@
                     describe('and request failed', function () {
 
                         it('should reject promise', function () {
-                            var promise = service.buildExperience();
+                            var promise = service.buildCourse();
 
                             post.resolve();
                             
@@ -170,38 +170,38 @@
 
         });
 
-        describe('service [publishExperience]', function () {
+        describe('service [publishCourse]', function () {
 
-            describe('publishExperience:', function () {
-                var experience;
+            describe('publishCourse:', function () {
+                var course;
                 var post;
 
                 beforeEach(function () {
-                    experience = { id: 'someId' };
+                    course = { id: 'someId' };
 
                     post = $.Deferred();
                     spyOn(http, 'post').andReturn(post.promise());
                 });
 
                 it('should be function', function () {
-                    expect(service.publishExperience).toEqual(jasmine.any(Function));
+                    expect(service.publishCourse).toEqual(jasmine.any(Function));
                 });
 
                 it('should return promise', function () {
-                    var promise = service.publishExperience();
+                    var promise = service.publishCourse();
 
                     expect(promise).toBePromise();
                 });
 
                 it('should send request', function () {
                     post.resolve();
-                    var promise = service.publishExperience(experience.id).fin(function () { });
+                    var promise = service.publishCourse(course.id).fin(function () { });
 
                     waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(http.post).toHaveBeenCalledWith('experience/publish', { experienceId: experience.id });
+                        expect(http.post).toHaveBeenCalledWith('experience/publish', { experienceId: course.id });
                     });
                 });
 
@@ -212,7 +212,7 @@
                         describe('and response is undefined', function () {
 
                             it('should reject promise', function () {
-                                var promise = service.publishExperience();
+                                var promise = service.publishCourse();
 
                                 post.resolve();
 
@@ -229,7 +229,7 @@
                         describe('and response.success is undefined', function () {
 
                             it('should reject promise', function () {
-                                var promise = service.publishExperience();
+                                var promise = service.publishCourse();
 
                                 post.resolve({});
 
@@ -250,7 +250,7 @@
                             });
 
                             it('should resolve promise with true', function () {
-                                var promise = service.publishExperience();
+                                var promise = service.publishCourse();
 
                                 waitsFor(function () {
                                     return !promise.isPending();
@@ -273,7 +273,7 @@
                                 });
 
                                 it('should reject promise with localized message', function () {
-                                    var promise = service.publishExperience();
+                                    var promise = service.publishCourse();
 
                                     var buildResult = { success: false, resourceKey: 'message' };
 
@@ -292,7 +292,7 @@
                             describe('and response.resourceKey does not exist', function () {
 
                                 it('should reject promise with response message', function () {
-                                    var promise = service.publishExperience();
+                                    var promise = service.publishCourse();
 
                                     var buildResult = { success: false, message: 'message' };
 
@@ -314,7 +314,7 @@
                     describe('and request failed', function () {
 
                         it('should reject promise', function () {
-                            var promise = service.publishExperience();
+                            var promise = service.publishCourse();
 
                             post.resolve();
 

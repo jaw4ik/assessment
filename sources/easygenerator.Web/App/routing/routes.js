@@ -42,11 +42,11 @@
                 }
             },
             {
-                route: 'experience/create',
-                moduleId: 'viewmodels/experiences/createExperience',
-                title: 'Create Experience',
+                route: 'course/create',
+                moduleId: 'viewmodels/courses/createCourse',
+                title: 'Create Course',
                 settings: {
-                    localizationKey: 'createNewExperience'
+                    localizationKey: 'createNewCourse'
                 }
             },
             {
@@ -58,19 +58,19 @@
                 }
             },
             {
-                route: ['', 'experiences'],
-                moduleId: 'viewmodels/experiences/experiences',
-                title: 'Experiences',
+                route: ['', 'courses'],
+                moduleId: 'viewmodels/courses/courses',
+                title: 'Courses',
                 settings: {
-                    localizationKey: 'experiences'
+                    localizationKey: 'courses'
                 }
             },
             {
-                route: 'experience/:id',
-                moduleId: 'viewmodels/experiences/experience',
-                title: 'Experience',
+                route: 'course/:id',
+                moduleId: 'viewmodels/courses/course',
+                title: 'Course',
                 settings: {
-                    localizationKey: 'experience'
+                    localizationKey: 'course'
                 }
             },
             {

@@ -1,10 +1,10 @@
-﻿define(['viewmodels/experiences/experience'],
+﻿define(['viewmodels/courses/course'],
     function (viewModel) {
 
         var
-            define = require('viewmodels/experiences/define'),
-            design = require('viewmodels/experiences/design'),
-            deliver = require('viewmodels/experiences/deliver'),
+            define = require('viewmodels/courses/define'),
+            design = require('viewmodels/courses/design'),
+            deliver = require('viewmodels/courses/deliver'),
             clientContext = require('clientContext'),
             app = require('durandal/app'),
             notify = require('notify'),
@@ -13,7 +13,7 @@
             eventTracker = require('eventTracker'),
             localizationManager = require('localization/localizationManager');
 
-        describe('viewModel [experience]', function () {
+        describe('viewModel [course]', function () {
 
             var activateItemDeferred = Q.defer();
             beforeEach(function () {
@@ -42,7 +42,7 @@
                     expect(viewModel.activate('SomeId')).toBePromise();
                 });
 
-                it('should set experience id', function () {
+                it('should set course id', function () {
                     var promise = viewModel.activate('SomeId');
                     activateItemDeferred.resolve();
 
@@ -90,7 +90,7 @@
                             goToDefineDeferred.resolve(true);
                         });
 
-                        it('should set experience id as the last visited in client context', function () {
+                        it('should set course id as the last visited in client context', function () {
                             spyOn(clientContext, 'set');
                             var promise = viewModel.activate('SomeId');
 
@@ -98,7 +98,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(clientContext.set).toHaveBeenCalledWith('lastVistedExperience', 'SomeId');
+                                expect(clientContext.set).toHaveBeenCalledWith('lastVistedCourse', 'SomeId');
                             });
                         });
 
@@ -134,7 +134,7 @@
                             goToDefineDeferred.resolve(false);
                         });
 
-                        it('should not set experience id as the last visited in client context', function () {
+                        it('should not set course id as the last visited in client context', function () {
                             spyOn(clientContext, 'set');
                             var promise = viewModel.activate('SomeId');
 
@@ -142,7 +142,7 @@
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(clientContext.set).not.toHaveBeenCalledWith('lastVistedExperience', 'SomeId');
+                                expect(clientContext.set).not.toHaveBeenCalledWith('lastVistedCourse', 'SomeId');
                             });
                         });
 
@@ -187,7 +187,7 @@
                     expect(viewModel.deactivate()).toBePromise();
                 });
 
-                it('should set experience id to an empty string', function () {
+                it('should set course id to an empty string', function () {
                     viewModel.id = 'SomeId';
                     var promise = viewModel.deactivate();
 
@@ -219,24 +219,24 @@
                 });
             });
 
-            describe('navigateToExperiences:', function () {
+            describe('navigateToCourses:', function () {
 
                 it('should be function', function () {
-                    expect(viewModel.navigateToExperiences).toBeFunction();
+                    expect(viewModel.navigateToCourses).toBeFunction();
                 });
 
-                it('should send event \'Navigate to experiences\'', function () {
+                it('should send event \'Navigate to courses\'', function () {
                     spyOn(eventTracker, 'publish');
 
-                    viewModel.navigateToExperiences();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to experiences');
+                    viewModel.navigateToCourses();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to courses');
                 });
 
-                it('should navigate to #experiences', function () {
+                it('should navigate to #courses', function () {
                     spyOn(router, 'navigate');
                     
-                    viewModel.navigateToExperiences();
-                    expect(router.navigate).toHaveBeenCalledWith('experiences');
+                    viewModel.navigateToCourses();
+                    expect(router.navigate).toHaveBeenCalledWith('courses');
                 });
 
             });
@@ -291,7 +291,7 @@
                 });
             });
 
-            describe('when current experience build failed', function () {
+            describe('when current course build failed', function () {
 
                 var message = "message";
 
@@ -300,7 +300,7 @@
                         viewModel.id = 'id';
                         notify.error.reset();
 
-                        app.trigger(constants.messages.experience.build.failed, viewModel.id, message);
+                        app.trigger(constants.messages.course.build.failed, viewModel.id, message);
 
                         expect(notify.error).toHaveBeenCalledWith(message);
                     });
@@ -311,7 +311,7 @@
                         viewModel.id = 'id';
                         notify.error.reset();
 
-                        app.trigger(constants.messages.experience.build.failed, viewModel.id);
+                        app.trigger(constants.messages.course.build.failed, viewModel.id);
 
                         expect(notify.error).not.toHaveBeenCalled();
                     });
@@ -319,20 +319,20 @@
 
             });
 
-            describe('when any other experience build failed', function () {
+            describe('when any other course build failed', function () {
 
                 it('should not show notification', function () {
                     viewModel.id = 'id';
                     notify.error.reset();
 
-                    app.trigger(constants.messages.experience.build.failed, '100500');
+                    app.trigger(constants.messages.course.build.failed, '100500');
 
                     expect(notify.error).not.toHaveBeenCalled();
                 });
 
             });
 
-            describe('when current experience publish failed', function () {
+            describe('when current course publish failed', function () {
 
                 var message = "message";
 
@@ -341,7 +341,7 @@
                         viewModel.id = 'id';
                         notify.error.reset();
 
-                        app.trigger(constants.messages.experience.publish.failed, viewModel.id, message);
+                        app.trigger(constants.messages.course.publish.failed, viewModel.id, message);
 
                         expect(notify.error).toHaveBeenCalledWith(message);
                     });
@@ -352,20 +352,20 @@
                         viewModel.id = 'id';
                         notify.error.reset();
 
-                        app.trigger(constants.messages.experience.publish.failed, viewModel.id);
+                        app.trigger(constants.messages.course.publish.failed, viewModel.id);
 
                         expect(notify.error).not.toHaveBeenCalled();
                     });
                 });
             });
 
-            describe('when any other experience build failed', function () {
+            describe('when any other course build failed', function () {
 
                 it('should not show notification', function () {
                     viewModel.id = 'id';
                     notify.error.reset();
 
-                    app.trigger(constants.messages.experience.publish.failed, '100500');
+                    app.trigger(constants.messages.course.publish.failed, '100500');
 
                     expect(notify.error).not.toHaveBeenCalled();
                 });

@@ -58,7 +58,7 @@
                     }
                 ]
             }];
-            context.title = "titleOfExperience";
+            context.title = "Course title";
         });
 
         it('should be defined', function () {
@@ -89,10 +89,10 @@
 
         });
 
-        describe('experienceTitle:', function () {
+        describe('courseTitle:', function () {
 
             it('should be defined', function () {
-                expect(viewModel.experienceTitle).toBeDefined();
+                expect(viewModel.courseTitle).toBeDefined();
             });
 
         });

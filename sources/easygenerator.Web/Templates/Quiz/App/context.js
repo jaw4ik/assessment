@@ -2,12 +2,12 @@
     function () {
 
         var
-            experienceId = '',
+            courseId = '',
             objectives = [],
             title = '',
             testResult = ko.observableArray([]),
             isTryAgain = false,
-            isRestartExperience = false,
+            isRestartCourse = false,
 
             initialize = function () {
                 var that = this;
@@ -18,7 +18,7 @@
                     dataType: 'json'
                 }).then(function (response) {
                     that.title = response.title;
-                    that.experienceId = response.id;
+                    that.courseId = response.id;
                     that.objectives = _.map(response.objectives, function (objective) {
                         return {
                             id: objective.id,
@@ -53,8 +53,8 @@
             objectives: objectives,
             testResult: testResult,
             isTryAgain: isTryAgain,
-            isRestartExperience: isRestartExperience,
-            experienceId: experienceId
+            isRestartCourse: isRestartCourse,
+            courseId: courseId
         };
 
     });

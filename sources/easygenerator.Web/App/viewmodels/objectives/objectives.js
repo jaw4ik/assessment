@@ -1,12 +1,12 @@
-﻿define(['constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/experienceRepository', 'notify', 'localization/localizationManager', 'clientContext'],
-    function (constants, eventTracker, router, objectiveRepository, experienceRepository, notify, localizationManager, clientContext) {
+﻿define(['constants', 'eventTracker', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'notify', 'localization/localizationManager', 'clientContext'],
+    function (constants, eventTracker, router, objectiveRepository, courseRepository, notify, localizationManager, clientContext) {
         "use strict";
 
         var
             events = {
                 navigateToCreation: "Navigate to Objective creation",
                 navigateToDetails: "Navigate to Objective details",
-                navigateToExperiences: "Navigate to Experiences",
+                navigateToCourses: "Navigate to Courses",
                 selectObjective: "Select Objective",
                 unselectObjective: "Unselect Objective",
                 deleteObjectives: "Delete selected objectives"
@@ -29,9 +29,9 @@
                 router.navigate('objective/' + item.id);
             },
 
-            navigateToExperiences = function () {
-                eventTracker.publish(events.navigateToExperiences);
-                router.navigate('experiences');
+            navigateToCourses = function () {
+                eventTracker.publish(events.navigateToCourses);
+                router.navigate('courses');
             },
 
             //#endregion Navigation
@@ -103,9 +103,9 @@
                  this.currentLanguage = localizationManager.currentLanguage;
 
                  return objectiveRepository.getCollection().then(function (receivedObjectives) {
-                     experienceRepository.getCollection().then(function (experiences) {
-                         var includedObjectives = _.chain(experiences).map(function (experience) {
-                             return experience.objectives;
+                     courseRepository.getCollection().then(function (courses) {
+                         var includedObjectives = _.chain(courses).map(function (course) {
+                             return course.objectives;
                          }).flatten().uniq().value();
 
                          var array = _.chain(receivedObjectives)
@@ -145,7 +145,7 @@
 
             navigateToCreation: navigateToCreation,
             navigateToDetails: navigateToDetails,
-            navigateToExperiences: navigateToExperiences,
+            navigateToCourses: navigateToCourses,
 
             enableDeleteObjectives: enableDeleteObjectives,
             deleteSelectedObjectives: deleteSelectedObjectives,

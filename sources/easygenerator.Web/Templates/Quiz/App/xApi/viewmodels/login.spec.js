@@ -271,10 +271,10 @@
 
                     it('should init xApiInitializer', function () {
                         context.title = "Some title";
-                        context.experienceId = "10";
+                        context.courseId = "10";
                         
                         var
-                            url = window.top.location.toString() + '?experience_id=' + context.experienceId,
+                            url = window.top.location.toString() + '?course_id=' + context.courseId,
                             actor = xApiInitializer.createActor(viewModel.username(), viewModel.usermail());
 
                         viewModel.login();

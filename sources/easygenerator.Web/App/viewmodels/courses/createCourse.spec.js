@@ -1,15 +1,15 @@
-﻿define(['viewmodels/experiences/createExperience'],
+﻿define(['viewmodels/courses/createCourse'],
     function (viewModel) {
         "use strict";
 
         var router = require('plugins/router'),
             eventTracker = require('eventTracker'),
             uiLocker = require('uiLocker'),
-            repository = require('repositories/experienceRepository'),
+            repository = require('repositories/courseRepository'),
             templateRepository = require('repositories/templateRepository'),
             localizationManager = require('localization/localizationManager');
 
-        describe('viewModel [createExperience]', function () {
+        describe('viewModel [createCourse]', function () {
 
             beforeEach(function () {
                 spyOn(router, 'navigate');
@@ -20,14 +20,14 @@
                 expect(viewModel).toBeObject();
             });
 
-            describe('experienceTitleMaxLength:', function () {
+            describe('courseTitleMaxLength:', function () {
 
                 it('should be defined', function () {
-                    expect(viewModel.experienceTitleMaxLength).toBeDefined();
+                    expect(viewModel.courseTitleMaxLength).toBeDefined();
                 });
 
                 it('should be 255', function () {
-                    expect(viewModel.experienceTitleMaxLength).toBe(255);
+                    expect(viewModel.courseTitleMaxLength).toBe(255);
                 });
 
             });
@@ -207,11 +207,11 @@
 
             describe('createAndContinue:', function () {
 
-                var addExperience;
+                var addCourse;
                 var template = { id: 'id', name: 'lala', image: 'img', isSelected: ko.observable(false) };
                 beforeEach(function () {
-                    addExperience = Q.defer();
-                    spyOn(repository, 'addExperience').andReturn(addExperience.promise);
+                    addCourse = Q.defer();
+                    spyOn(repository, 'addCourse').andReturn(addCourse.promise);
                     viewModel.templates([template]);
                 });
 
@@ -219,32 +219,32 @@
                     expect(viewModel.createAndContinue).toBeFunction();
                 });
 
-                it('should send event \'Create learning experience and open its properties\'', function () {
+                it('should send event \'Create course and open its properties\'', function () {
                     viewModel.title.isValid = function () { };
                     viewModel.createAndContinue();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Create learning experience and open its properties');
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Create course and open its properties');
                 });
 
                 describe('and title is not valid', function () {
 
-                    it('should not add experience to repository', function () {
+                    it('should not add course to repository', function () {
                         viewModel.title.isValid = function () {
                             return false;
                         };
                         
                         viewModel.createAndContinue();
-                        expect(repository.addExperience).not.toHaveBeenCalled();
+                        expect(repository.addCourse).not.toHaveBeenCalled();
                     });
 
                 });
 
                 describe('and template is not set', function () {
 
-                    it('should not add experience to repository', function () {
+                    it('should not add course to repository', function () {
                         spyOn(viewModel, 'getSelectedTemplate').andReturn(undefined);
 
                         viewModel.createAndContinue();
-                        expect(repository.addExperience).not.toHaveBeenCalled();
+                        expect(repository.addCourse).not.toHaveBeenCalled();
                     });
 
                 });
@@ -256,16 +256,16 @@
                         viewModel.title.isValid = function () { return true; };
                     });
 
-                    it('should trim experience title', function () {
+                    it('should trim course title', function () {
                         viewModel.title('           title           ');
                         viewModel.createAndContinue();
-                        expect(repository.addExperience).toHaveBeenCalledWith('title', template.id);
+                        expect(repository.addCourse).toHaveBeenCalledWith('title', template.id);
                     });
 
-                    it('should add experience to repository', function () {
+                    it('should add course to repository', function () {
                         viewModel.title('title');
                         viewModel.createAndContinue();
-                        expect(repository.addExperience).toHaveBeenCalledWith('title', template.id);
+                        expect(repository.addCourse).toHaveBeenCalledWith('title', template.id);
                     });
 
                     it('should lock content', function () {
@@ -274,14 +274,14 @@
                         expect(uiLocker.lock).toHaveBeenCalled();
                     });
 
-                    describe('and experience was added successfully', function () {
+                    describe('and course was added successfully', function () {
 
                         it('should unlock content', function () {
                             spyOn(uiLocker, "unlock");
                             viewModel.createAndContinue();
 
-                            var promise = addExperience.promise.fin(function () { });
-                            addExperience.resolve();
+                            var promise = addCourse.promise.fin(function () { });
+                            addCourse.resolve();
 
                             waitsFor(function () {
                                 return !promise.isPending();
@@ -291,32 +291,32 @@
                             });
                         });
 
-                        it('should navigate to the added experience', function () {
+                        it('should navigate to the added course', function () {
                             var id = 'id';
 
                             viewModel.createAndContinue();
 
-                            var promise = addExperience.promise.fin(function () { });
-                            addExperience.resolve({ id: id });
+                            var promise = addCourse.promise.fin(function () { });
+                            addCourse.resolve({ id: id });
 
                             waitsFor(function () {
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(router.navigate).toHaveBeenCalledWith('experience/' + id);
+                                expect(router.navigate).toHaveBeenCalledWith('course/' + id);
                             });
                         });
 
                     });
 
-                    describe('and experience does not add', function() {
+                    describe('and course does not add', function() {
                         
                         it('should unlock content', function () {
                             spyOn(uiLocker, "unlock");
                             viewModel.createAndContinue();
 
-                            var promise = addExperience.promise.fin(function () { });
-                            addExperience.reject();
+                            var promise = addCourse.promise.fin(function () { });
+                            addCourse.reject();
 
                             waitsFor(function () {
                                 return !promise.isPending();
@@ -332,15 +332,15 @@
 
             });
 
-            describe('navigateToExperiences:', function () {
+            describe('navigateToCourses:', function () {
 
                 it('should be function', function () {
-                    expect(viewModel.navigateToExperiences).toBeFunction();
+                    expect(viewModel.navigateToCourses).toBeFunction();
                 });
 
-                it('should navigate to #experiences', function () {
-                    viewModel.navigateToExperiences();
-                    expect(router.navigate).toHaveBeenCalledWith('experiences');
+                it('should navigate to #courses', function () {
+                    viewModel.navigateToCourses();
+                    expect(router.navigate).toHaveBeenCalledWith('courses');
                 });
 
             });

@@ -176,7 +176,7 @@
             questions: displayedQuestions,
             totalQuestionsCount: totalQuestionsCount,
             isFullyLoaded: isFullyLoaded,
-            experienceTitle: context.title,
+            courseTitle: context.title,
         };
     }
 );

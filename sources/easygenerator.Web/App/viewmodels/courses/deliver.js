@@ -1,9 +1,9 @@
-﻿define(['durandal/app', 'repositories/experienceRepository', 'plugins/router', 'services/deliverService', 'notify', 'eventTracker', 'constants', 'dom'], function (app, repository, router, service, notify, eventTracker, constants, dom) {
+﻿define(['durandal/app', 'repositories/courseRepository', 'plugins/router', 'services/deliverService', 'notify', 'eventTracker', 'constants', 'dom'], function (app, repository, router, service, notify, eventTracker, constants, dom) {
 
     var
         events = {
-            downloadExperience: 'Download experience',
-            publishExperience: 'Publish experience'
+            downloadCourse: 'Download course',
+            publishCourse: 'Publish course'
         };
     
     var viewModel = {
@@ -12,16 +12,16 @@
         publishedPackageUrl: ko.observable(),
         states: constants.deliveringStates,
         deliveringState: ko.observable(),
-        // variable to determine if experience is building for publish or for download
+        // variable to determine if course is building for publish or for download
         buildingForPublish: ko.observable(),
         
         showOpenLinkDescription: ko.observable(),
         packageCreated: ko.observable(),
         
-        downloadExperience: downloadExperience,
-        publishExperience: publishExperience,
+        downloadCourse: downloadCourse,
+        publishCourse: publishCourse,
         
-        openPublishedExperience: openPublishedExperience,
+        openPublishedCourse: openPublishedCourse,
         activate: activate,
     };
 
@@ -33,92 +33,92 @@
         return !_.isNullOrUndefined(this.publishedPackageUrl()) && !_.isEmptyOrWhitespace(this.publishedPackageUrl());
     }, viewModel);
 
-    function downloadExperience() {
+    function downloadCourse() {
         if (viewModel.deliveringState() !== constants.deliveringStates.building && viewModel.deliveringState() !== constants.deliveringStates.publishing) {
             viewModel.deliveringState(constants.deliveringStates.building);
             notify.hide();
-            eventTracker.publish(events.downloadExperience);
+            eventTracker.publish(events.downloadCourse);
 
-            return repository.getById(viewModel.id).then(function(experience) {
-                return experience.build().then(function() {
+            return repository.getById(viewModel.id).then(function(course) {
+                return course.build().then(function() {
                     dom.clickElementById('packageLink');
                 });
             });
         }
     }
     
-    function publishExperience() {
+    function publishCourse() {
         if (viewModel.deliveringState() !== constants.deliveringStates.building && viewModel.deliveringState() !== constants.deliveringStates.publishing) {
             viewModel.buildingForPublish(true);
             viewModel.deliveringState(constants.deliveringStates.building);
             notify.hide();
-            eventTracker.publish(events.publishExperience);
-            return repository.getById(viewModel.id).then(function(experience) {
-                return experience.publish();
+            eventTracker.publish(events.publishCourse);
+            return repository.getById(viewModel.id).then(function(course) {
+                return course.publish();
             });
         }
     }
     
-    function openPublishedExperience() {
+    function openPublishedCourse() {
         if (viewModel.deliveringState() === constants.deliveringStates.succeed) {
             router.openUrl(viewModel.publishedPackageUrl());
         }
     }
 
-    function activate(experienceId) {
-        return repository.getById(experienceId).then(function (experience) {
-            viewModel.id = experience.id;
+    function activate(courseId) {
+        return repository.getById(courseId).then(function (course) {
+            viewModel.id = course.id;
 
-            viewModel.deliveringState(_.isNullOrUndefined(experience.publishedPackageUrl) || _.isEmptyOrWhitespace(experience.publishedPackageUrl) ? constants.deliveringStates.notStarted : constants.deliveringStates.succeed);
+            viewModel.deliveringState(_.isNullOrUndefined(course.publishedPackageUrl) || _.isEmptyOrWhitespace(course.publishedPackageUrl) ? constants.deliveringStates.notStarted : constants.deliveringStates.succeed);
 
-            viewModel.packageUrl(experience.packageUrl);
-            viewModel.publishedPackageUrl(experience.publishedPackageUrl);
+            viewModel.packageUrl(course.packageUrl);
+            viewModel.publishedPackageUrl(course.publishedPackageUrl);
         }).fail(function (reason) {
             router.activeItem.settings.lifecycleData = { redirect: '404' };
             throw reason;
         });
     }
 
-    app.on(constants.messages.experience.build.started).then(function (experience) {
-        if (experience.id === viewModel.id) {
+    app.on(constants.messages.course.build.started).then(function (course) {
+        if (course.id === viewModel.id) {
             viewModel.deliveringState(constants.deliveringStates.building);
         }
     });
 
-    app.on(constants.messages.experience.build.completed, function (experience) {
-        if (experience.id === viewModel.id) {
+    app.on(constants.messages.course.build.completed, function (course) {
+        if (course.id === viewModel.id) {
             if (viewModel.buildingForPublish() !== true) {
                 viewModel.deliveringState(constants.deliveringStates.succeed);
             }
             viewModel.packageCreated(true);
-            viewModel.packageUrl(experience.packageUrl);
+            viewModel.packageUrl(course.packageUrl);
             viewModel.buildingForPublish(false);
         }
     });
 
-    app.on(constants.messages.experience.build.failed, function (experienceId) {
-        if (experienceId === viewModel.id) {
+    app.on(constants.messages.course.build.failed, function (courseId) {
+        if (courseId === viewModel.id) {
             viewModel.deliveringState(constants.deliveringStates.failed);
             viewModel.packageUrl('');
             viewModel.buildingForPublish(false);
         }
     });
 
-    app.on(constants.messages.experience.publish.started).then(function (experience) {
-        if (experience.id === viewModel.id) {
+    app.on(constants.messages.course.publish.started).then(function (course) {
+        if (course.id === viewModel.id) {
             viewModel.deliveringState(constants.deliveringStates.publishing);
         }
     });
 
-    app.on(constants.messages.experience.publish.completed, function (experience) {
-        if (experience.id === viewModel.id) {
+    app.on(constants.messages.course.publish.completed, function (course) {
+        if (course.id === viewModel.id) {
             viewModel.deliveringState(constants.deliveringStates.succeed);
-            viewModel.publishedPackageUrl(experience.publishedPackageUrl);
+            viewModel.publishedPackageUrl(course.publishedPackageUrl);
         }
     });
 
-    app.on(constants.messages.experience.publish.failed, function (experienceId) {
-        if (experienceId === viewModel.id) {
+    app.on(constants.messages.course.publish.failed, function (courseId) {
+        if (courseId === viewModel.id) {
             viewModel.deliveringState(constants.deliveringStates.failed);
             viewModel.publishedPackageUrl('');
         }

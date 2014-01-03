@@ -134,7 +134,7 @@ define(function (require) {
                 expect(viewModel.navigateToObjective).toBeFunction();
             });
 
-            it('should send event \'Navigate to experiences\'', function () {
+            it('should send event \'Navigate to courses\'', function () {
                 viewModel.navigateToObjective();
                 expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to objective');
             });

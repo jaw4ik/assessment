@@ -1,10 +1,10 @@
-﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'constants', 'notify', 'uiLocker', 'localization/localizationManager', 'repositories/experienceRepository'],
-    function (objectiveRepository, router, eventTracker, constants, notify, uiLocker, localizationManager, experienceRepository) {
+﻿define(['repositories/objectiveRepository', 'plugins/router', 'eventTracker', 'constants', 'notify', 'uiLocker', 'localization/localizationManager', 'repositories/courseRepository'],
+    function (objectiveRepository, router, eventTracker, constants, notify, uiLocker, localizationManager, courseRepository) {
 
         var
             events = {
                 navigateToObjectives: 'Navigate to objectives',
-                navigateToExperience: 'Navigate to experience',
+                navigateToCourse: 'Navigate to course',
                 createAndNew: "Create learning objective and create new",
                 createAndContinue: "Create learning objective and open it properties",
             },
@@ -16,8 +16,8 @@
         var title = ko.observable(''),
             goBackTooltip = '',
             goBackLink = '',
-            contextExperienceId = null,
-            contextExperienceTitle = null;
+            contextCourseId = null,
+            contextCourseTitle = null;
         
         title.isValid = ko.computed(function () {
             var length = title().trim().length;
@@ -27,9 +27,9 @@
         var isTitleEditing = ko.observable(false),
 
             navigateBack = function () {
-                if (_.isString(this.contextExperienceId)) {
-                    sendEvent(events.navigateToExperience);
-                    router.navigate('experience/' + this.contextExperienceId);
+                if (_.isString(this.contextCourseId)) {
+                    sendEvent(events.navigateToCourse);
+                    router.navigate('course/' + this.contextCourseId);
                 } else {
                     sendEvent(events.navigateToObjectives);
                     router.navigate('objectives');
@@ -39,22 +39,22 @@
             activate = function (queryParams) {
                 var that = this;
 
-                that.contextExperienceId = null;
-                that.contextExperienceTitle = null;
+                that.contextCourseId = null;
+                that.contextCourseTitle = null;
                 that.title('');
 
-                if (!_.isNullOrUndefined(queryParams) && _.isString(queryParams.experienceId)) {
-                    return experienceRepository.getById(queryParams.experienceId).then(function(experience) {
-                        if (_.isNull(experience)) {
+                if (!_.isNullOrUndefined(queryParams) && _.isString(queryParams.courseId)) {
+                    return courseRepository.getById(queryParams.courseId).then(function(course) {
+                        if (_.isNull(course)) {
                             router.replace('404');
                             return;
                         }
 
-                        that.contextExperienceId = experience.id;
-                        that.contextExperienceTitle = experience.title;
+                        that.contextCourseId = course.id;
+                        that.contextCourseTitle = course.title;
 
-                        that.goBackTooltip = localizationManager.localize('backTo') + ' \'' + experience.title + '\'';
-                        that.goBackLink = '#experience/' + experience.id;
+                        that.goBackTooltip = localizationManager.localize('backTo') + ' \'' + course.title + '\'';
+                        that.goBackLink = '#course/' + course.id;
                     });
                 }
                 
@@ -78,7 +78,7 @@
                 var that = this;
                 createObjective.call(that, function (createdObjective) {
                     var navigateUrl = 'objective/' + createdObjective.id;
-                    if (_.isString(that.contextExperienceId)) {
+                    if (_.isString(that.contextCourseId)) {
                         router.navigateWithQueryString(navigateUrl);
                     } else {
                         router.navigate(navigateUrl);
@@ -99,9 +99,9 @@
                 title('');
                 uiLocker.unlock();
                 
-                if (_.isString(that.contextExperienceId)) {
+                if (_.isString(that.contextCourseId)) {
                     objectiveRepository.getById(createdObjective.id).then(function (objective) {
-                        experienceRepository.relateObjectives(that.contextExperienceId, [objective]).then(function () {
+                        courseRepository.relateObjectives(that.contextCourseId, [objective]).then(function () {
                             callback(createdObjective);
                         });
                     });
@@ -113,8 +113,8 @@
 
         return {
             title: title,
-            contextExperienceId: contextExperienceId,
-            contextExperienceTitle: contextExperienceTitle,
+            contextCourseId: contextCourseId,
+            contextCourseTitle: contextCourseTitle,
             objectiveTitleMaxLength: constants.validation.objectiveTitleMaxLength,
             isTitleEditing: isTitleEditing,
 

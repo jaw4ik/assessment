@@ -43,7 +43,7 @@
             login = function () {
                 if (usermail.isValid() && username.isValid()) {
                     var title = context.title;
-                    var url = window.top.location.toString() + '?experience_id=' + context.experienceId;
+                    var url = window.top.location.toString() + '?course_id=' + context.courseId;
                     var actor = xApiInitializer.createActor(username(), usermail());
                     xApiInitializer.init(actor, title, url).then(function () {
                         startCourse();

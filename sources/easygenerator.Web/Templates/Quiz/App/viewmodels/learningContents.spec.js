@@ -35,7 +35,7 @@
                     }]
                 }]
             }];
-            context.title = "titleOfExperience";
+            context.title = "Course title";
 
             spyOn(window, 'scroll');
         });

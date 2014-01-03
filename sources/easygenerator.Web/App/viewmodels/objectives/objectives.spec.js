@@ -7,7 +7,7 @@
             eventTracker = require('eventTracker'),
             constants = require('constants'),
             objectiveRepository = require('repositories/objectiveRepository'),
-            experienceRepository = require('repositories/experienceRepository'),
+            courseRepository = require('repositories/courseRepository'),
             notify = require('notify'),
             localizationManager = require('localization/localizationManager');
 
@@ -76,20 +76,20 @@
 
             });
 
-            describe('navigateToExperiences', function () {
+            describe('navigateToCourses', function () {
 
                 it('should be a function', function () {
-                    expect(viewModel.navigateToExperiences).toBeFunction();
+                    expect(viewModel.navigateToCourses).toBeFunction();
                 });
 
-                it('should send event \'Navigate to Experiences\'', function () {
-                    viewModel.navigateToExperiences();
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Experiences');
+                it('should send event \'Navigate to Courses\'', function () {
+                    viewModel.navigateToCourses();
+                    expect(eventTracker.publish).toHaveBeenCalledWith('Navigate to Courses');
                 });
 
-                it('should navigate to #/experiences', function () {
-                    viewModel.navigateToExperiences();
-                    expect(router.navigate).toHaveBeenCalledWith('experiences');
+                it('should navigate to #/courses', function () {
+                    viewModel.navigateToCourses();
+                    expect(router.navigate).toHaveBeenCalledWith('courses');
                 });
 
             });
@@ -155,14 +155,14 @@
 
                 var 
                     getObjectivesDeferred,
-                    getExperiencesDeferred;
+                    getCoursesDeferred;
 
                 beforeEach(function() {
                     getObjectivesDeferred = Q.defer();
-                    getExperiencesDeferred = Q.defer();
+                    getCoursesDeferred = Q.defer();
 
                     spyOn(objectiveRepository, 'getCollection').andReturn(getObjectivesDeferred.promise);
-                    spyOn(experienceRepository, 'getCollection').andReturn(getExperiencesDeferred.promise);
+                    spyOn(courseRepository, 'getCollection').andReturn(getCoursesDeferred.promise);
                 });
                 
                 it('should be function', function () {
@@ -204,7 +204,7 @@
 
                     describe('and when objective received', function () {
 
-                        describe('when get experiences collection', function () {
+                        describe('when get courses collection', function () {
 
                             it('should call repository getCollection', function () {
                                 getObjectivesDeferred.resolve(objectivesCollection);
@@ -215,7 +215,7 @@
                                 });
                                 runs(function () {
                                     expect(promise).toBeResolved();
-                                    expect(experienceRepository.getCollection).toHaveBeenCalled();
+                                    expect(courseRepository.getCollection).toHaveBeenCalled();
                                 });
                             });
 
@@ -225,7 +225,7 @@
 
                                     it('should define objectives', function () {
                                         getObjectivesDeferred.resolve(objectivesCollection);
-                                        getExperiencesDeferred.resolve([]);
+                                        getCoursesDeferred.resolve([]);
 
                                         var promise = viewModel.activate();
                                         waitsFor(function () {
@@ -238,7 +238,7 @@
                                     });
 
                                     it('should set id for each objective', function () {
-                                        getExperiencesDeferred.resolve([]);
+                                        getCoursesDeferred.resolve([]);
                                         getObjectivesDeferred.resolve([objectiveItem]);
 
                                         var promise = viewModel.activate();
@@ -252,7 +252,7 @@
                                     });
 
                                     it('should set title for each objective', function () {
-                                        getExperiencesDeferred.resolve([]);
+                                        getCoursesDeferred.resolve([]);
                                         getObjectivesDeferred.resolve([objectiveItem]);
 
                                         var promise = viewModel.activate();
@@ -266,7 +266,7 @@
                                     });
 
                                     it('should set image for each objective', function () {
-                                        getExperiencesDeferred.resolve([]);
+                                        getCoursesDeferred.resolve([]);
                                         getObjectivesDeferred.resolve([objectiveItem]);
 
                                         var promise = viewModel.activate();
@@ -280,7 +280,7 @@
                                     });
 
                                     it('should set modifiedOn for each objective', function() {
-                                        getExperiencesDeferred.resolve([]);
+                                        getCoursesDeferred.resolve([]);
                                         getObjectivesDeferred.resolve([objectiveItem]);
 
                                         var promise = viewModel.activate();
@@ -294,7 +294,7 @@
                                     });
 
                                     it('should set isSelected observable to false for each objective', function () {
-                                        getExperiencesDeferred.resolve([]);
+                                        getCoursesDeferred.resolve([]);
                                         getObjectivesDeferred.resolve([objectiveItem]);
 
                                         var promise = viewModel.activate();
@@ -310,7 +310,7 @@
                                     describe('when objective questions count > 0', function () {
 
                                         it('should set canBeDeleted to false for each objective', function () {
-                                            getExperiencesDeferred.resolve([]);
+                                            getCoursesDeferred.resolve([]);
                                             getObjectivesDeferred.resolve([{ id: '1', title: 'z', image: '', questions: [{ id: 0 }, { id: 1 }] }]);
 
                                             var promise = viewModel.activate();
@@ -329,7 +329,7 @@
 
                                         describe('when objectives count included to expiriences = 0', function () {
                                             it('should set canBeDeleted to true for each objective', function () {
-                                                getExperiencesDeferred.resolve([]);
+                                                getCoursesDeferred.resolve([]);
                                                 getObjectivesDeferred.resolve([{ id: '1', title: 'z', image: '', questions: [] }]);
 
                                                 var promise = viewModel.activate();
@@ -345,7 +345,7 @@
 
                                         describe('when objective is included to expirience', function () {
                                             it('should set canBeDeleted to false', function () {
-                                                getExperiencesDeferred.resolve([{ objectives: [{ id: '1' }] }]);
+                                                getCoursesDeferred.resolve([{ objectives: [{ id: '1' }] }]);
                                                 getObjectivesDeferred.resolve([{ id: '1', title: 'z', image: '', questions: [] }]);
 
                                                 var promise = viewModel.activate();
@@ -365,7 +365,7 @@
                                 
                                 it('should sort objectives collection desc by created on', function () {
                                     getObjectivesDeferred.resolve(objectivesCollection);
-                                    getExperiencesDeferred.resolve([]);
+                                    getCoursesDeferred.resolve([]);
 
                                     var promise = viewModel.activate();
                                     waitsFor(function () {

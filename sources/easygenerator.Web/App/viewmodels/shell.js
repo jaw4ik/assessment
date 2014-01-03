@@ -2,7 +2,6 @@
 
     var app = require('durandal/app'),
         composition = require('durandal/composition'),
-        notify = require('notify'),
         router = require('plugins/router'),
         routes = require('routing/routes'),
         dataContext = require('dataContext'),
@@ -15,7 +14,7 @@
     ;
 
     var events = {
-        navigateToExperiences: "Navigate to experiences",
+        navigateToCourses: "Navigate to courses",
         navigateToObjectives: 'Navigate to objectives'
     };
 
@@ -29,10 +28,11 @@
         requestsCounter(requestsCounter() - 1);
     });
 
-    var experiencesModule = 'experiences',
+    var
+        coursesModule = 'courses',
         introductionPage = 'welcome',
         objectivesModules = ['objectives', 'objective', 'createObjective', 'createQuestion', 'question'],
-        experiencesModules = ['experiences', 'experience', 'createExperience'],
+        coursesModules = ['courses', 'course', 'createCourse'],
         isViewReady = ko.observable(false),
 
         activeModule = ko.computed(function () {
@@ -104,7 +104,7 @@
 
                     router.on('router:route:activating').then(function () {
                         isViewReady(false);
-                        that.navigation()[0].isPartOfModules(_.contains(experiencesModules, getModuleIdFromRouterActiveInstruction()));
+                        that.navigation()[0].isPartOfModules(_.contains(coursesModules, getModuleIdFromRouterActiveInstruction()));
                         that.navigation()[1].isPartOfModules(_.contains(objectivesModules, getModuleIdFromRouterActiveInstruction()));
                     });
 
@@ -115,24 +115,24 @@
                     that.navigation([
                         {
                             navigate: function () {
-                                eventTracker.publish(events.navigateToExperiences);
+                                eventTracker.publish(events.navigateToCourses);
                                 clientContext.set('lastVisitedObjective', null);
-                                router.navigate('experiences');
+                                router.navigate('courses');
                             },
-                            navigationLink: '#experiences',
-                            title: 'experiences',
+                            navigationLink: '#courses',
+                            title: 'courses',
                             isActive: ko.computed(function () {
-                                return _.contains(experiencesModules, that.activeModuleName()) || router.isNavigating();
+                                return _.contains(coursesModules, that.activeModuleName()) || router.isNavigating();
                             }),
                             isEditor: ko.computed(function () {
-                                return _.contains(_.without(experiencesModules, 'experiences'), that.activeModuleName());
+                                return _.contains(_.without(coursesModules, 'courses'), that.activeModuleName());
                             }),
                             isPartOfModules: ko.observable(false)
                         },
                         {
                             navigate: function () {
                                 eventTracker.publish(events.navigateToObjectives);
-                                clientContext.set('lastVistedExperience', null);
+                                clientContext.set('lastVistedCourse', null);
                                 router.navigate('objectives');
                             },
                             navigationLink: '#objectives',
@@ -151,12 +151,12 @@
 
 
                     clientContext.set('lastVisitedObjective', null);
-                    clientContext.set('lastVistedExperience', null);
+                    clientContext.set('lastVistedCourse', null);
 
                     return router.map(routes)
                         .buildNavigationModel()
                         .mapUnknownRoutes('viewmodels/errors/404', '404')
-                        .activate(experiencesModule);
+                        .activate(coursesModule);
                 });
         };
 
@@ -165,7 +165,7 @@
         activeModuleName: activeModule,
         browserCulture: browserCulture,
         router: router,
-        homeModuleName: experiencesModule,
+        homeModuleName: coursesModule,
 
         isViewReady: isViewReady,
 

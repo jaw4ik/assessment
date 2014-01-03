@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/http', 'models/objective', 'models/objective', 'models/question', 'models/experience', 'models/answerOption', 'models/learningContent', 'models/template', 'constants'],
-    function (app, http, objectiveModel, ObjectiveModel, QuestionModel, ExperienceModel, AnswerOptionModel, LearningContentModel, TemplateModel, constants) {
+﻿define(['durandal/app', 'plugins/http', 'models/objective', 'models/objective', 'models/question', 'models/course', 'models/answerOption', 'models/learningContent', 'models/template', 'constants'],
+    function (app, http, objectiveModel, ObjectiveModel, QuestionModel, CourseModel, AnswerOptionModel, LearningContentModel, TemplateModel, constants) {
 
         function parseDateString(str) {
             return new Date(parseInt(str.substr(6), 10));
@@ -7,7 +7,7 @@
 
         var
             objectives = [],
-            experiences = [],
+            courses = [],
             templates = [],
             isTryMode = false,
             userEmail = '',
@@ -84,7 +84,7 @@
                         dataType: 'json'
                     }).then(function (response) {
                         _.each(response.data, function (item) {
-                            experiences.push(new ExperienceModel({
+                            courses.push(new CourseModel({
                                 id: item.Id.split('-').join(''),
                                 title: item.Title,
                                 createdOn: parseDateString(item.CreatedOn),
@@ -126,7 +126,7 @@
         return {
             initialize: initialize,
             objectives: objectives,
-            experiences: experiences,
+            courses: courses,
             templates: templates,
             isTryMode: isTryMode,
             userEmail: userEmail,

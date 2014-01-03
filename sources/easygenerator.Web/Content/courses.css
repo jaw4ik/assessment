@@ -1,15 +1,15 @@
-﻿.experiences.view-module {
+﻿.courses.view-module {
     padding-top: 74px;
 }
 
-/*#region EXPERIENCES LIST STYLES*/
+/*#region COURSES LIST STYLES*/
 
 
 .main-content-list-item {
     overflow: hidden;
 }
 
-    .main-content-list-item .experience-actions-panel {
+    .main-content-list-item .course-actions-panel {
         width: 100%;
         border: 1px solid #e6e6e6;
         position: absolute;
@@ -38,23 +38,23 @@
         backface-visibility: hidden;
     }
 
-.ie9 .experience-actions-panel {
+.ie9 .course-actions-panel {
     filter: none;
 }
 
-.main-content-list-item:hover .experience-actions-panel {
+.main-content-list-item:hover .course-actions-panel {
     -webkit-transform: translate(0px, -31px);
     -moz-transform: translate(0px, -31px);
     -ms-transform: translate(0px, -31px);
     transform: translate(0px, -31px);
 }
 
-.experience-actions-wrapper {
+.course-actions-wrapper {
     display: table;
     width: 100%;
 }
 
-.experience-action {
+.course-action {
     display: table-cell;
     text-align: center;
     vertical-align: middle;
@@ -63,26 +63,26 @@
     white-space: nowrap;
 }
 
-    .experience-action + .experience-action {
+    .course-action + .course-action {
         border-left: 1px solid #e6e6e6;
     }
 
-    .experience-action:hover {
+    .course-action:hover {
         background: white;
     }
 
-    .experience-action.disabled:hover {
+    .course-action.disabled:hover {
         background: none;
     }
 
-.experience-action-title {
+.course-action-title {
     display: inline-block;
     vertical-align: top;
     position: relative;
     padding-left: 30px;
 }
 
-    .experience-action-title:before {
+    .course-action-title:before {
         content: '';
         display: block;
         width: 19px;
@@ -91,8 +91,8 @@
         background: url(images/sprites.png);
     }
 
-.experience-action.download-package,
-.experience-action.publish-package {
+.course-action.download-package,
+.course-action.publish-package {
     width: 18%;
 }
 
@@ -100,17 +100,17 @@
  * Download package action
 */
 
-.experience-action.download-package {
+.course-action.download-package {
     color: #000000;
 }
 
-    .experience-action.download-package .experience-action-title:before {
+    .course-action.download-package .course-action-title:before {
         top: 0;
         left: 4px;
         background-position: -98px -174px;
     }
 
-    .experience-action.download-package.disabled .experience-action-title:before {
+    .course-action.download-package.disabled .course-action-title:before {
         background-position: -98px -198px;
     }
 
@@ -118,23 +118,23 @@
  * Publish package action
 */
 
-.experience-action.publish-package {
+.course-action.publish-package {
     color: #75901d;
 }
 
-    .experience-action.publish-package .experience-action-title:before {
+    .course-action.publish-package .course-action-title:before {
         top: 0;
         left: 0;
         background-position: -125px -174px;
     }
 
-    .experience-action.publish-package.disabled .experience-action-title:before {
+    .course-action.publish-package.disabled .course-action-title:before {
         top: 0;
         left: 0;
         background-position: -125px -198px;
     }
 
-.experience-action.disabled {
+.course-action.disabled {
     color: #dbdbdd;
 }
 
@@ -143,7 +143,7 @@
  * Copy link action
 */
 
-.experience-action.package-link {
+.course-action.package-link {
     text-align: left;
     padding-right: 15px;
 }
@@ -164,10 +164,10 @@
 }
 
 /*
- * Statuses of experience
+ * Statuses of course
 */
 
-.experience-status-container {
+.course-status-container {
     position: absolute;
     top: 0;
     left: 0;
@@ -179,7 +179,7 @@
     vertical-align: middle;
 }
 
-.experience-text-holder {
+.course-text-holder {
     display: block;
     width: 100%;
     position: absolute;
@@ -188,7 +188,7 @@
     text-align: center;
 }
 
-.experience-text {
+.course-text {
     display: inline-block;
     position: relative;
     vertical-align: top;
@@ -199,7 +199,7 @@
     padding-left: 40px;
 }
 
-    .experience-text:after {
+    .course-text:after {
         content: '';
         display: block;
         position: absolute;
@@ -210,21 +210,21 @@
         background: url(images/sprites.png);
     }
 
-.building .experience-text:after {
+.building .course-text:after {
     background: url(images/loader.gif);
 }
 
-.complete .experience-text,
-.failed .experience-text {
+.complete .course-text,
+.failed .course-text {
     text-transform: capitalize;
 }
 
-    .complete .experience-text:after {
+    .complete .course-text:after {
         background-position: -254px -78px;
     }
 
-    .failed .experience-text:after {
+    .failed .course-text:after {
         background-position: -8px -110px;
     }
 
-/*#endregion EXPERIENCES LIST STYLES*/
+/*#endregion COURSES LIST STYLES*/

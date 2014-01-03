@@ -45,14 +45,14 @@
 
         });
 
-        describe('restartExperience:', function () {
+        describe('restartCourse:', function () {
 
             it('should be defined', function() {
-                expect(viewModel.restartExperience).toBeDefined();
+                expect(viewModel.restartCourse).toBeDefined();
             });
 
             it('should be function', function() {
-                expect(viewModel.restartExperience).toBeFunction();
+                expect(viewModel.restartCourse).toBeFunction();
             });
 
         });

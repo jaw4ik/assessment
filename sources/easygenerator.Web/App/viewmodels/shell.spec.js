@@ -1,10 +1,9 @@
 ﻿define(function (require) {
 
-    var viewModel = require('viewmodels/shell'),
+    var
+        viewModel = require('viewmodels/shell'),
         router = require('plugins/router'),
-        eventTracker = require('eventTracker'),
-        localizationManager = require('localization/localizationManager'),
-        helpHintRepository = require('repositories/helpHintRepository');
+        eventTracker = require('eventTracker');
 
     describe('viewModel [shell]', function () {
 
@@ -24,8 +23,8 @@
                 expect(viewModel.homeModuleName).toBeDefined();
             });
 
-            it('should equal \'experiences\'', function () {
-                expect(viewModel.homeModuleName).toEqual('experiences');
+            it('should equal \'courses\'', function () {
+                expect(viewModel.homeModuleName).toEqual('courses');
             });
 
         });

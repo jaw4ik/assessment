@@ -1,16 +1,16 @@
-﻿<section class="experiences view-module" data-bind="scrollToElement: {}">
+﻿<section class="courses view-module" data-bind="scrollToElement: {}">
     <div class="fixed-container">
         <div class="content-holder">
             <div class="page-view-caption clearfix">
-                <div class="page-view-caption-text" data-bind="localize: { text: 'experiences' }">Learning experiences</div>
+                <div class="page-view-caption-text" data-bind="localize: { text: 'courses' }">Courses</div>
             </div>
         </div>
         <div class="list-controls-holder">
-            <!-- ko if: enableDeleteExperiences -->
-            <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedExperiences, localize: { text: 'deleteSelected' }">Delete selected</span>
+            <!-- ko if: enableDeleteCourses -->
+            <span class="selected-item-action delete enabled" data-bind="click: deleteSelectedCourses, localize: { text: 'deleteSelected' }">Delete selected</span>
             <!-- /ko -->
 
-            <!-- ko ifnot: enableDeleteExperiences -->
+            <!-- ko ifnot: enableDeleteCourses -->
             <span class="selected-item-action delete disabled" data-bind="localize: { text: 'deleteSelected' }">Delete selected</span>
             <!-- /ko -->
             <div class="dotted-line"></div>
@@ -20,15 +20,15 @@
     <div class="content-holder resizable">
         <div class="main-content-list-holder">
             <div class="create-new-holder">
-                <a href="#experience/create" class="create-new-title" data-bind="click: navigateToCreation">
+                <a href="#course/create" class="create-new-title" data-bind="click: navigateToCreation">
                     <span class="create-new-icon">&nbsp;</span>
-                    <span data-bind="localize: { text: 'createNewExperience' }"></span>
+                    <span data-bind="localize: { text: 'createNewCourse' }"></span>
                 </a>
                 <div class="dotted-line"></div>
             </div>
             <ul class="unstyled main-content-list" data-bind="selectOnMouseOver: 'copyLink'">
-                <!-- ko foreach: experiences -->
-                  <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedExperienceId == id, selected: isSelected }">
+                <!-- ko foreach: courses -->
+                  <li class="main-content-list-item" data-bind="css: { 'scrollToElement': $parent.lastVistedCourseId == id, selected: isSelected }">
                     <div class="list-item-content-holder" data-bind="click: $parent.toggleSelection">
                         <div class="list-item-checkbox">
                             <span class="custom-checkbox-wrapper" data-bind="css: { checked: isSelected }">
@@ -50,49 +50,49 @@
                         </div>
                     </div>
                     <div class="open-item-btn">
-                        <a href="" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToDetails, attr: { href: '#experience/' + id }">
+                        <a href="" class="cursor-pointer green btn btn-small open-btn" data-bind="click: $parent.navigateToDetails, attr: { href: '#course/' + id }">
                             <span class="open-btn-text" data-bind="localize: { text: 'open' }">Open</span>
                         </a>
                     </div>
-                    <div class="experience-actions-panel">
-                        <div class="experience-actions-wrapper">
+                    <div class="course-actions-panel">
+                        <div class="course-actions-wrapper">
                             <!-- ko ifnot: showStatus() -->
-                            <div class="experience-action download-package" data-bind="click: $parent.downloadExperience">
-                                <span class="experience-action-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
+                            <div class="course-action download-package" data-bind="click: $parent.downloadCourse">
+                                <span class="course-action-title" data-bind="localize: { text: 'courseDownloadAction' }">Download</span>
                             </div>
-                            <div class="experience-action publish-package" data-bind="click: $parent.publishExperience">
-                                <span class="experience-action-title" data-bind="localize: { text: !publishPackageExists() ? 'publishOnline' : 'republishOnline' }">Publish online</span>
+                            <div class="course-action publish-package" data-bind="click: $parent.publishCourse">
+                                <span class="course-action-title" data-bind="localize: { text: !publishPackageExists() ? 'publishOnline' : 'republishOnline' }">Publish online</span>
                             </div>
                             <!-- /ko -->
                             <!-- ko if: showStatus() -->
-                            <div class="experience-action download-package">
-                                <span class="experience-action-title" data-bind="localize: { text: 'experienceDownloadAction' }">Download</span>
+                            <div class="course-action download-package">
+                                <span class="course-action-title" data-bind="localize: { text: 'courseDownloadAction' }">Download</span>
                             </div>
-                            <div class="experience-action publish-package">
-                                <span class="experience-action-title" data-bind="localize: { text: !publishPackageExists() ? 'publishOnline' : 'republishOnline' }">Publish online</span>
+                            <div class="course-action publish-package">
+                                <span class="course-action-title" data-bind="localize: { text: !publishPackageExists() ? 'publishOnline' : 'republishOnline' }">Publish online</span>
                             </div>
                             <!-- /ko -->
-                            <div class="experience-action" data-bind="css: { disabled: !publishPackageExists(), 'package-link': publishPackageExists() }">
+                            <div class="course-action" data-bind="css: { disabled: !publishPackageExists(), 'package-link': publishPackageExists() }">
                                 <input class="package-link-input" id="copyLink" type="text" readonly="readonly" data-bind="visible: publishPackageExists, value: publishedPackageUrl" />
                             </div>
                             
                         </div>
                     </div>
                     <!-- ko if: showStatus() -->
-                    <div class="experience-status-container" data-bind="event: { mouseover: $parent.enableOpenExperience }">
+                    <div class="course-status-container" data-bind="event: { mouseover: $parent.enableOpenCourse }">
                         <!-- ko if: deliveringState() === $parent.states.building || deliveringState() === $parent.states.publishing -->
-                            <div class="experience-text-holder building">
-                                <span class="experience-text" data-bind="localize: { text: deliveringState() === $parent.states.building ? 'assembling' : 'publishing' }"></span>
+                            <div class="course-text-holder building">
+                                <span class="course-text" data-bind="localize: { text: deliveringState() === $parent.states.building ? 'assembling' : 'publishing' }"></span>
                             </div>
                         <!-- /ko -->
                         <!-- ko if: deliveringState() === $parent.states.succeed -->
-                        <div class="experience-text-holder complete">
-                            <span class="experience-text" data-bind="localize: { text: 'experienceCompleteStatus' }"></span>
+                        <div class="course-text-holder complete">
+                            <span class="course-text" data-bind="localize: { text: 'courseCompleteStatus' }"></span>
                         </div>
                         <!-- /ko -->
                         <!-- ko if: deliveringState() === $parent.states.failed -->
-                        <div class="experience-text-holder failed">
-                            <span class="experience-text" data-bind="localize: { text: 'experienceFailedStatus' }"></span>
+                        <div class="course-text-holder failed">
+                            <span class="course-text" data-bind="localize: { text: 'courseFailedStatus' }"></span>
                         </div>
                         <!-- /ko -->
                     </div>

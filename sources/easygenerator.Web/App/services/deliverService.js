@@ -1,14 +1,14 @@
 ﻿define(['plugins/http', 'localization/localizationManager'],
     function (http, localizationManager) {
         
-        var buildExperience = function (experienceId) {
-            return invokeServiceMethod('experience/build', { experienceId: experienceId }, function (responseData) {
+        var buildCourse = function (courseId) {
+            return invokeServiceMethod('experience/build', { experienceId: courseId }, function (responseData) {
                 return { packageUrl: responseData.PackageUrl, builtOn: new Date(parseInt(responseData.BuildOn.substr(6), 10)) };
             });
         };
 
-        var publishExperience = function (experienceId) {
-            return invokeServiceMethod('experience/publish', { experienceId: experienceId }, function (responseData) {
+        var publishCourse = function (courseId) {
+            return invokeServiceMethod('experience/publish', { experienceId: courseId }, function (responseData) {
                 return { publishedPackageUrl: responseData.PublishedPackageUrl };
             });
         };
@@ -37,7 +37,7 @@
         };
 
         return {
-            buildExperience: buildExperience,
-            publishExperience: publishExperience
+            buildCourse: buildCourse,
+            publishCourse: publishCourse
         };
 });

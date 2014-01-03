@@ -1,5 +1,5 @@
-﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/experienceRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext'],
-    function (dataContext, constants, eventTracker, localizationManager, router, repository, experienceRepository, questionRepository, notify, uiLocker, clientContext) {
+﻿define(['dataContext', 'constants', 'eventTracker', 'localization/localizationManager', 'plugins/router', 'repositories/objectiveRepository', 'repositories/courseRepository', 'repositories/questionRepository', 'notify', 'uiLocker', 'clientContext'],
+    function (dataContext, constants, eventTracker, localizationManager, router, repository, courseRepository, questionRepository, notify, uiLocker, clientContext) {
         "use strict";
 
         var
@@ -10,14 +10,14 @@
                 selectQuestion: "Select question",
                 unselectQuestion: "Unselect question",
                 deleteSelectedQuestions: "Delete question",
-                navigateToExperience: "Navigate to experience",
+                navigateToCourse: "Navigate to course",
                 navigateToObjectives: "Navigate to objectives",
             };
 
         var
             objectiveId = null,
-            contextExperienceTitle = null,
-            contextExperienceId = null,
+            contextCourseTitle = null,
+            contextCourseId = null,
             goBackLink = '',
             goBackTooltip = '',
             title = ko.observable(''),
@@ -135,12 +135,12 @@
             },
 
             navigateBack = function () {
-                if (_.isNull(this.contextExperienceId)) {
+                if (_.isNull(this.contextCourseId)) {
                     eventTracker.publish(events.navigateToObjectives);
                     router.navigate('objectives');
                 } else {
-                    eventTracker.publish(events.navigateToExperience);
-                    router.navigate('experience/' + this.contextExperienceId);
+                    eventTracker.publish(events.navigateToCourse);
+                    router.navigate('course/' + this.contextCourseId);
                 }
             },
 
@@ -151,21 +151,21 @@
                 
                 this.currentLanguage = localizationManager.currentLanguage;
 
-                if (_.isNullOrUndefined(queryParams) || !_.isString(queryParams.experienceId)) {
-                    that.contextExperienceId = null;
-                    that.contextExperienceTitle = null;
+                if (_.isNullOrUndefined(queryParams) || !_.isString(queryParams.courseId)) {
+                    that.contextCourseId = null;
+                    that.contextCourseTitle = null;
                     that.goBackTooltip = localizationManager.localize('backTo') + ' ' + localizationManager.localize('learningObjectives');
                     that.goBackLink = '#objectives';
 
                     return initObjectiveInfo(objId);
                 }
 
-                return experienceRepository.getById(queryParams.experienceId).then(function (experience) {
-                    that.contextExperienceId = experience.id;
-                    that.contextExperienceTitle = experience.title;
+                return courseRepository.getById(queryParams.courseId).then(function (course) {
+                    that.contextCourseId = course.id;
+                    that.contextCourseTitle = course.title;
 
-                    that.goBackTooltip = localizationManager.localize('backTo') + ' \'' + experience.title + '\'';
-                    that.goBackLink = '#experience/' + experience.id;
+                    that.goBackTooltip = localizationManager.localize('backTo') + ' \'' + course.title + '\'';
+                    that.goBackLink = '#course/' + course.id;
 
                     return initObjectiveInfo(objId);
                 }).fail(function (reason) {
@@ -212,8 +212,8 @@
             title: title,
             titleMaxLength: constants.validation.objectiveTitleMaxLength,
             currentLanguage: currentLanguage,
-            contextExperienceId: contextExperienceId,
-            contextExperienceTitle: contextExperienceTitle,
+            contextCourseId: contextCourseId,
+            contextCourseTitle: contextCourseTitle,
             goBackTooltip: goBackTooltip,
             goBackLink: goBackLink,
 

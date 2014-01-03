@@ -1,31 +1,31 @@
-﻿<section class="experience view-module">
+﻿<section class="course view-module">
     <div class="fixed-container">
         <div class="content-holder">
             <div class="page-view-caption clearfix">
-                <div class="page-view-caption-text" data-bind="localize: { text: 'learningExperienceViewCaption' }">Learning experience editor</div>
+                <div class="page-view-caption-text" data-bind="localize: { text: 'courseViewCaption' }">Course editor</div>
             </div>
         </div>
 
-        <!-- ko compose: { view: 'views/common/back', model: { goBackAction: navigateToExperiences, goBackLink: '#experiences', goBackTooltip: goBackTooltip } } -->
+        <!-- ko compose: { view: 'views/common/back', model: { goBackAction: navigateToCourses, goBackLink: '#courses', goBackTooltip: goBackTooltip } } -->
         <!-- /ko -->
     </div>
     <div class="content-holder">
         <div class="process-steps-container">
             <ul class="process-steps unstyled">
                 <li class="tb-cell process-step" data-bind="click: goToDefine, css: { 'active': activeStep() == steps[0] }">
-                    <span data-bind="localize: { text: 'experienceDefine' }">Define</span>
+                    <span data-bind="localize: { text: 'courseDefine' }">Define</span>
                 </li>
                 <li class="tb-cell">
                     <span class="separator">&nbsp;</span>
                 </li>
                 <li class="tb-cell process-step" data-bind="click: goToDesign, css: { 'active': activeStep() == steps[1] }">
-                    <span data-bind="localize: { text: 'experienceDesign' }">Design</span>
+                    <span data-bind="localize: { text: 'courseDesign' }">Design</span>
                 </li>
                 <li class="tb-cell">
                     <span class="separator">&nbsp;</span>
                 </li>
                 <li class="tb-cell process-step active" data-bind="click: goToDeliver, css: { 'active': activeStep() == steps[2] }">
-                    <span data-bind="localize: { text: 'experienceDeliver' }">Deliver</span>
+                    <span data-bind="localize: { text: 'courseDeliver' }">Deliver</span>
                 </li>
             </ul>
         </div>
