@@ -8,7 +8,6 @@ using easygenerator.DomainModel;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Web.BuildCourse;
-using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Components;
 using easygenerator.Infrastructure;
