@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Tests.ObjectMothers;
+using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
 using easygenerator.Web.Extensions;
 using FluentAssertions;
@@ -23,11 +25,12 @@ namespace easygenerator.Web.Tests.BuildCourse
         private Course GetCourse()
         {
             var answer = AnswerObjectMother.Create("AnswerText", true);
-            var explanation = LearningContentObjectMother.Create("Text");
 
             var question = QuestionObjectMother.Create("QuestionTitle");
             question.AddAnswer(answer, "SomeUser");
-            question.AddLearningContent(explanation, "SomeUser");
+
+            DateTimeWrapper.Now = () => new DateTime(2013, 1, 1);
+            question.AddLearningContent(LearningContentObjectMother.Create("LearningContent1"), "SomeUser");
 
             var objective = ObjectiveObjectMother.Create("ObjectiveTitle");
             objective.AddQuestion(question, "SomeUser");
@@ -68,6 +71,26 @@ namespace easygenerator.Web.Tests.BuildCourse
             var actualModel = result.Objectives[0].Questions[0].LearningContents[0];
 
             expectedModel.Id.ToNString().Should().Be(actualModel.Id);
+            expectedModel.Text.Should().Be(actualModel.Text);
+        }
+
+        [TestMethod]
+        public void Mapcourse_ShouldReturnMappedLearningContentPackageModel_OrderedByCreatedOnDate()
+        {
+            //Arrange
+            var course = GetCourse();
+
+            DateTimeWrapper.Now = () => new DateTime(2013, 1, 3);
+            course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].AddLearningContent(LearningContentObjectMother.Create("LearningContent3"), "SomeUser");
+            DateTimeWrapper.Now = () => new DateTime(2013, 1, 2);
+            course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].AddLearningContent(LearningContentObjectMother.Create("LearningContent2"), "SomeUser");
+
+            //Act
+            var result = _packageModelMapper.MapCourse(course);
+
+            //Assert
+            var actualList = result.Objectives[0].Questions[0].LearningContents.Select(i => i.Text);
+            actualList.Should().BeInAscendingOrder();
         }
 
         [TestMethod]

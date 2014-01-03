@@ -19,7 +19,8 @@ namespace easygenerator.Web.BuildCourse
 
             Mapper.CreateMap<Question, QuestionPackageModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToNString()))
-                .ForMember(dest => dest.HasContent, opt => opt.MapFrom(src => !String.IsNullOrEmpty(src.Content)));
+                .ForMember(dest => dest.HasContent, opt => opt.MapFrom(src => !String.IsNullOrEmpty(src.Content)))
+                .ForMember(dest => dest.LearningContents, opt => opt.MapFrom(src => src.LearningContents.OrderBy(i => i.CreatedOn)));
 
             Mapper.CreateMap<Objective, ObjectivePackageModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToNString()))
