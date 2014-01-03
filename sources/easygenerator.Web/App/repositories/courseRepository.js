@@ -4,7 +4,7 @@
         var
             getCollection = function () {
                 return Q.fcall(function () {
-                    return httpWrapper.post('api/experiences').then(function () {
+                    return httpWrapper.post('api/courses').then(function () {
                         return dataContext.courses;
                     });
                 });
@@ -15,7 +15,7 @@
                     var deferred = Q.defer();
                     guard.throwIfNotString(id, 'Course id (string) was expected');
 
-                    httpWrapper.post('api/experiences').then(function () {
+                    httpWrapper.post('api/courses').then(function () {
                         var result = _.find(dataContext.courses, function (item) {
                             return item.id === id;
                         });
@@ -42,7 +42,7 @@
                     templateId: templateId
                 };
 
-                return httpWrapper.post('api/experience/create', requestArgs)
+                return httpWrapper.post('api/course/create', requestArgs)
                     .then(function (response) {
                         guard.throwIfNotAnObject(response, 'Response is not an object');
                         guard.throwIfNotString(response.Id, 'Response Id is not a string');
@@ -83,7 +83,7 @@
             return Q.fcall(function () {
                 guard.throwIfNotString(courseId, 'Course id (string) was expected');
 
-                return httpWrapper.post('api/experience/delete', { experienceId: courseId }).then(function () {
+                return httpWrapper.post('api/course/delete', { courseId: courseId }).then(function () {
                     dataContext.courses = _.reject(dataContext.courses, function (course) {
                         return course.id === courseId;
                     });
@@ -97,13 +97,13 @@
                 guard.throwIfNotArray(objectives, 'Objectives to relate are not array');
 
                 var requestArgs = {
-                    experienceId: courseId,
+                    courseId: courseId,
                     objectives: _.map(objectives, function (item) {
                         return item.id;
                     })
                 };
 
-                return httpWrapper.post('api/experience/relateObjectives', requestArgs).then(function (response) {
+                return httpWrapper.post('api/course/relateObjectives', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
                     guard.throwIfNotArray(response.RelatedObjectives, 'Response does not have related objectives collection');
@@ -139,13 +139,13 @@
                 guard.throwIfNotArray(objectives, 'Objectives to relate are not array');
 
                 var requestArgs = {
-                    experienceId: courseId,
+                    courseId: courseId,
                     objectives: _.map(objectives, function (item) {
                         return item.id;
                     })
                 };
 
-                return httpWrapper.post('api/experience/unrelateObjectives', requestArgs).then(function (response) {
+                return httpWrapper.post('api/course/unrelateObjectives', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
@@ -172,11 +172,11 @@
                 guard.throwIfNotString(courseTitle, 'Course title is not a string');
 
                 var requestArgs = {
-                    experienceId: courseId,
+                    courseId: courseId,
                     courseTitle: courseTitle
                 };
 
-                return httpWrapper.post('api/experience/updateTitle', requestArgs).then(function (response) {
+                return httpWrapper.post('api/course/updateTitle', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 
@@ -201,11 +201,11 @@
                 guard.throwIfNotString(templateId, 'Template id is not a string');
 
                 var requestArgs = {
-                    experienceId: courseId,
+                    courseId: courseId,
                     templateId: templateId
                 };
 
-                return httpWrapper.post('api/experience/updateTemplate', requestArgs).then(function (response) {
+                return httpWrapper.post('api/course/updateTemplate', requestArgs).then(function (response) {
                     guard.throwIfNotAnObject(response, 'Response is not an object');
                     guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
 

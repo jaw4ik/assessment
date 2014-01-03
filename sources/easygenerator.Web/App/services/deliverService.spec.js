@@ -37,7 +37,7 @@
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(http.post).toHaveBeenCalledWith('experience/build', { experienceId: course.id });
+                        expect(http.post).toHaveBeenCalledWith('course/build', { courseId: course.id });
                     });
                 });
 
@@ -201,7 +201,7 @@
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(http.post).toHaveBeenCalledWith('experience/publish', { experienceId: course.id });
+                        expect(http.post).toHaveBeenCalledWith('course/publish', { courseId: course.id });
                     });
                 });
 

@@ -35,7 +35,7 @@ namespace easygenerator.DataAccess
         }
 
         public DbSet<Objective> Objectives { get; set; }
-        public DbSet<Experience> Experiences { get; set; }
+        public DbSet<Course> Courses { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<LearningContent> LearningContents { get; set; }
@@ -59,19 +59,19 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<Objective>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Objective>().HasMany(e => e.QuestionsCollection).WithRequired(e => e.Objective);
-            modelBuilder.Entity<Objective>().HasMany(e => e.RelatedExperiencesCollection)
+            modelBuilder.Entity<Objective>().HasMany(e => e.RelatedCoursesCollection)
                 .WithMany(e => e.RelatedObjectivesCollection)
-                .Map(m => m.ToTable("ExperienceObjectives"));
+                .Map(m => m.ToTable("CourseObjectives"));
 
 
-            modelBuilder.Entity<Experience>().Property(e => e.Title).HasMaxLength(255).IsRequired();
-            modelBuilder.Entity<Experience>().HasRequired(e => e.Template).WithMany(e => e.Experiences).WillCascadeOnDelete(false);
-            modelBuilder.Entity<Experience>().HasMany(e => e.RelatedObjectivesCollection).WithMany(e => e.RelatedExperiencesCollection).Map(m => m.ToTable("ExperienceObjectives"));
-            modelBuilder.Entity<Experience>().HasMany(e => e.TemplateSettings).WithRequired(e => e.Experience).WillCascadeOnDelete(true);
+            modelBuilder.Entity<Course>().Property(e => e.Title).HasMaxLength(255).IsRequired();
+            modelBuilder.Entity<Course>().HasRequired(e => e.Template).WithMany(e => e.Courses).WillCascadeOnDelete(false);
+            modelBuilder.Entity<Course>().HasMany(e => e.RelatedObjectivesCollection).WithMany(e => e.RelatedCoursesCollection).Map(m => m.ToTable("CourseObjectives"));
+            modelBuilder.Entity<Course>().HasMany(e => e.TemplateSettings).WithRequired(e => e.Course).WillCascadeOnDelete(true);
 
-            modelBuilder.Entity<Experience.ExperienceTemplateSettings>().Property(e => e.Settings);
-            modelBuilder.Entity<Experience.ExperienceTemplateSettings>().HasRequired(e => e.Experience);
-            modelBuilder.Entity<Experience.ExperienceTemplateSettings>().HasRequired(e => e.Template);
+            modelBuilder.Entity<Course.CourseTemplateSettings>().Property(e => e.Settings);
+            modelBuilder.Entity<Course.CourseTemplateSettings>().HasRequired(e => e.Course);
+            modelBuilder.Entity<Course.CourseTemplateSettings>().HasRequired(e => e.Template);
 
             modelBuilder.Entity<Question>().Property(e => e.Title).HasMaxLength(255).IsRequired();
             modelBuilder.Entity<Question>().HasRequired(e => e.Objective);
@@ -108,7 +108,7 @@ namespace easygenerator.DataAccess
 
             modelBuilder.Entity<Template>().Property(e => e.Name).IsRequired();
             modelBuilder.Entity<Template>().Property(e => e.Image).IsRequired();
-            modelBuilder.Entity<Template>().HasMany(e => e.Experiences);
+            modelBuilder.Entity<Template>().HasMany(e => e.Courses);
 
             modelBuilder.Entity<MailNotification>().HasKey(e => e.Id);
             modelBuilder.Entity<MailNotification>().Property(e => e.CreatedOn).IsRequired();

@@ -113,18 +113,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildExperience\BuildContentProviderTests.cs" />
-    <Compile Include="BuildExperience\ScormExperienceBuilderTests.cs" />
-    <Compile Include="BuildExperience\ExperienceBuilderTests.cs" />
-    <Compile Include="BuildExperience\BuildPathProviderTests.cs" />
-    <Compile Include="BuildExperience\BuildPackageCreatorTests.cs" />
-    <Compile Include="BuildExperience\PackageModelMapperTests.cs" />
-    <Compile Include="BuildExperience\PhysicalFileManagerTests.cs" />
+    <Compile Include="BuildCourse\BuildContentProviderTests.cs" />
+    <Compile Include="BuildCourse\ScormCourseBuilderTests.cs" />
+    <Compile Include="BuildCourse\CourseBuilderTests.cs" />
+    <Compile Include="BuildCourse\BuildPathProviderTests.cs" />
+    <Compile Include="BuildCourse\BuildPackageCreatorTests.cs" />
+    <Compile Include="BuildCourse\PackageModelMapperTests.cs" />
+    <Compile Include="BuildCourse\PhysicalFileManagerTests.cs" />
     <Compile Include="Components\CultureInitializationTest.cs" />
     <Compile Include="Components\RouteConstraints\PublishIsInProgressConstraintTest.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\Api\AnswerControllerTests.cs" />
-    <Compile Include="Controllers\Api\ExperienceControllerTests.cs" />
+    <Compile Include="Controllers\Api\CourseControllerTests.cs" />
     <Compile Include="Controllers\Api\FeedbackControllerTests.cs" />
     <Compile Include="Controllers\Api\LearningContentControllerTests.cs" />
     <Compile Include="Controllers\Api\HelpHintControllerTests.cs" />
@@ -140,7 +140,7 @@
     <Compile Include="DomainEvents\Events\UserSignedUpEventTest.cs" />
     <Compile Include="Newsletter\MailChimp\MailChimpSubscriptionManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Publish\ExperiencePublisherTest.cs" />
+    <Compile Include="Publish\CoursePublisherTest.cs" />
     <Compile Include="Publish\PublishDispatcherTest.cs" />
     <Compile Include="Tasks\PasswordRecoveryTicketExpirationTaskTest.cs" />
     <Compile Include="Tasks\MailSenderTaskTest.cs" />

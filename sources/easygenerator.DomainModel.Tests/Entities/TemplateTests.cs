@@ -30,21 +30,21 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         [TestMethod]
-        public void Experience_ShouldCreateTemplateInstance()
+        public void Course_ShouldCreateTemplateInstance()
         {
             const string name = "name";
             const string image = "image";
             DateTimeWrapper.Now = () => DateTime.MaxValue;
 
-            var experience = TemplateObjectMother.Create(name, image, CreatedBy);
+            var course = TemplateObjectMother.Create(name, image, CreatedBy);
 
-            experience.Id.Should().NotBeEmpty();
-            experience.Name.Should().Be(name);
-            experience.Image.Should().Be(image);
-            experience.CreatedOn.Should().Be(DateTime.MaxValue);
-            experience.ModifiedOn.Should().Be(DateTime.MaxValue);
-            experience.CreatedBy.Should().Be(CreatedBy);
-            experience.ModifiedBy.Should().Be(CreatedBy);
+            course.Id.Should().NotBeEmpty();
+            course.Name.Should().Be(name);
+            course.Image.Should().Be(image);
+            course.CreatedOn.Should().Be(DateTime.MaxValue);
+            course.ModifiedOn.Should().Be(DateTime.MaxValue);
+            course.CreatedBy.Should().Be(CreatedBy);
+            course.ModifiedBy.Should().Be(CreatedBy);
         }
 
         #endregion

@@ -142,60 +142,60 @@ namespace easygenerator.Web.Configuration
 
             #endregion
 
-            #region Experiences
+            #region Courses
 
             routes.MapRoute(
-                name: "GetExperiences",
-                url: "api/experiences",
-                defaults: new { controller = "Experience", action = "GetCollection" }
+                name: "GetCourses",
+                url: "api/courses",
+                defaults: new { controller = "Course", action = "GetCollection" }
             );
 
             routes.MapRoute(
-                name: "CreateExperience",
-                url: "api/experience/create",
-                defaults: new { controller = "Experience", action = "Create" }
+                name: "CreateCourse",
+                url: "api/course/create",
+                defaults: new { controller = "Course", action = "Create" }
             );
 
             routes.MapRoute(
-                name: "DeleteExperience",
-                url: "api/experience/delete",
-                defaults: new { controller = "Experience", action = "Delete" }
+                name: "DeleteCourse",
+                url: "api/course/delete",
+                defaults: new { controller = "Course", action = "Delete" }
             );
 
             routes.MapRoute(
-                name: "UpdateExperienceTitle",
-                url: "api/experience/updateTitle",
-                defaults: new { controller = "Experience", action = "UpdateTitle" }
+                name: "UpdateCourseTitle",
+                url: "api/course/updateTitle",
+                defaults: new { controller = "Course", action = "UpdateTitle" }
             );
 
             routes.MapRoute(
-                name: "UpdateExperienceTemplate",
-                url: "api/experience/updateTemplate",
-                defaults: new { controller = "Experience", action = "UpdateTemplate" }
+                name: "UpdateCourseTemplate",
+                url: "api/course/updateTemplate",
+                defaults: new { controller = "Course", action = "UpdateTemplate" }
             );
 
             routes.MapRoute(
-                name: "ExperienceRelateObjectives",
-                url: "api/experience/relateObjectives",
-                defaults: new { controller = "Experience", action = "RelateObjectives" }
+                name: "CourseRelateObjectives",
+                url: "api/course/relateObjectives",
+                defaults: new { controller = "Course", action = "RelateObjectives" }
             );
 
             routes.MapRoute(
-                name: "ExperienceUnrelateObjectives",
-                url: "api/experience/unrelateObjectives",
-                defaults: new { controller = "Experience", action = "UnrelateObjectives" }
+                name: "CourseUnrelateObjectives",
+                url: "api/course/unrelateObjectives",
+                defaults: new { controller = "Course", action = "UnrelateObjectives" }
             );
 
             routes.MapRoute(
-                name: "BuildExperience",
-                url: "experience/build",
-                defaults: new { controller = "Experience", action = "Build" }
+                name: "BuildCourse",
+                url: "course/build",
+                defaults: new { controller = "Course", action = "Build" }
             );
 
             routes.MapRoute(
                 name: "TemplateSettings",
-                url: "api/experience/{experienceId}/template/{templateId}",
-                defaults: new { controller = "Experience", action = "TemplateSettings" }
+                url: "api/course/{courseId}/template/{templateId}",
+                defaults: new { controller = "Course", action = "TemplateSettings" }
             );
 
 
@@ -203,16 +203,16 @@ namespace easygenerator.Web.Configuration
             #region Publish routes
 
             routes.MapRoute(
-                name: "PublishExperience",
-                url: "experience/publish",
-                defaults: new { controller = "Experience", action = "Publish" }
+                name: "PublishCourse",
+                url: "course/publish",
+                defaults: new { controller = "Course", action = "Publish" }
                 );
 
             routes.MapRoute(
                 "PublishIsInProgress",
-                "storage/{experienceId}",
+                "storage/{courseId}",
                 defaults: new { controller = "Maintenance", action = "PublishIsInProgress" },
-                constraints: new RouteValueDictionary { { "experienceId", DependencyResolver.Current.GetService<PublishIsInProgressConstraint>() } }
+                constraints: new RouteValueDictionary { { "courseId", DependencyResolver.Current.GetService<PublishIsInProgressConstraint>() } }
                 );
 
             routes.MapRoute(

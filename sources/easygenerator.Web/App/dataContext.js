@@ -78,7 +78,7 @@
                     });
                 }).then(function () {
                     return $.ajax({
-                        url: 'api/experiences',
+                        url: 'api/courses',
                         type: 'POST',
                         contentType: 'application/json',
                         dataType: 'json'

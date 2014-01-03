@@ -393,7 +393,7 @@
 
             describe('navigateBack:', function () {
 
-                describe('when contextExperinceId is not string', function () {
+                describe('when contextCourseId is not string', function () {
 
                     beforeEach(function () {
                         viewModel.contextCourseId = null;
@@ -411,7 +411,7 @@
 
                 });
 
-                describe('when contextExperinceId is string', function () {
+                describe('when contextCourseId is string', function () {
 
                     beforeEach(function () {
                         viewModel.contextCourseId = 'id';

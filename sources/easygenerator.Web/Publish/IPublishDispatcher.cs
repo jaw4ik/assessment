@@ -7,8 +7,8 @@ namespace easygenerator.Web.Publish
 {
     public interface IPublishDispatcher
     {
-        void StartPublish(string experienceId);
-        void EndPublish(string experienceId);
-        bool IsPublishing(string experienceId);
+        void StartPublish(string courseId);
+        void EndPublish(string courseId);
+        bool IsPublishing(string courseId);
     }
 }

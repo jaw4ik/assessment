@@ -11,21 +11,21 @@ namespace easygenerator.DomainModel.Handlers
 
     public class SignupFromTryItNowHandler : ISignupFromTryItNowHandler
     {
-        private readonly IQuerableRepository<Experience> _experienceRepository;
+        private readonly IQuerableRepository<Course> _courseRepository;
         private readonly IQuerableRepository<Objective> _objectiveRepository;
         private readonly IQuerableRepository<Question> _qustionRepository;
         private readonly IQuerableRepository<Answer> _answerRepository;
         private readonly IQuerableRepository<LearningContent> _learningContentRepository;
         private readonly IHelpHintRepository _helpHintRepository;
 
-        public SignupFromTryItNowHandler(IQuerableRepository<Experience> experienceRepository,
+        public SignupFromTryItNowHandler(IQuerableRepository<Course> courseRepository,
             IQuerableRepository<Objective> objectiveRepository,
             IQuerableRepository<Question> qustionRepository,
             IQuerableRepository<Answer> answerRepository,
             IQuerableRepository<LearningContent> learningContentRepository,
             IHelpHintRepository helpHintRepository)
         {
-            _experienceRepository = experienceRepository;
+            _courseRepository = courseRepository;
             _objectiveRepository = objectiveRepository;
             _qustionRepository = qustionRepository;
             _answerRepository = answerRepository;
@@ -35,9 +35,9 @@ namespace easygenerator.DomainModel.Handlers
 
         public void HandleOwnership(string tryItNowUsername, string signUpUsername)
         {
-            foreach (var experience in _experienceRepository.GetCollection().Where(e => e.CreatedBy == tryItNowUsername))
+            foreach (var course in _courseRepository.GetCollection().Where(e => e.CreatedBy == tryItNowUsername))
             {
-                experience.DefineCreatedBy(signUpUsername);
+                course.DefineCreatedBy(signUpUsername);
             }
 
             foreach (var objective in _objectiveRepository.GetCollection().Where(e => e.CreatedBy == tryItNowUsername))

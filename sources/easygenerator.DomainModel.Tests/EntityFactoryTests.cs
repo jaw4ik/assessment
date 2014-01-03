@@ -28,16 +28,16 @@ namespace easygenerator.DomainModel.Tests
         }
 
         [TestMethod]
-        public void Experience_ShouldCreateExperience()
+        public void Course_ShouldCreateCourse()
         {
             const string title = "title";
             var template = TemplateObjectMother.Create();
 
-            var experience = _entityFactory.Experience(title, template, ModifiedBy);
+            var course = _entityFactory.Course(title, template, ModifiedBy);
 
-            experience.Should().NotBeNull();
-            experience.Title.Should().Be(title);
-            experience.Template.Should().Be(template);
+            course.Should().NotBeNull();
+            course.Title.Should().Be(title);
+            course.Template.Should().Be(template);
         }
 
         [TestMethod]

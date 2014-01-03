@@ -10,7 +10,7 @@ namespace easygenerator.DomainModel.Entities
         public string Name { get; private set; }
         public string Image { get; private set; }
 
-        protected internal ICollection<Experience> Experiences { get; set; }
+        protected internal ICollection<Course> Courses { get; set; }
 
         protected internal Template(string name, string image, string createdBy)
             : base(createdBy)

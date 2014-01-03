@@ -18,9 +18,9 @@ namespace easygenerator.DataAccess
                 .As<IObjectiveRepository>()
                 .As<IQuerableRepository<Objective>>();
 
-            builder.RegisterType<ExperienceRepository>()
-                .As<IExperienceRepository>()
-                .As<IQuerableRepository<Experience>>();
+            builder.RegisterType<CourseRepository>()
+                .As<ICourseRepository>()
+                .As<IQuerableRepository<Course>>();
 
             builder.RegisterType<TemplateRepository>()
                 .As<ITemplateRepository>()

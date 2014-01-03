@@ -22,7 +22,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         private IQuerableRepository<Question> _questionRepository;
         private IQuerableRepository<Answer> _answerRepository;
         private IQuerableRepository<LearningContent> _learningContentRepository;
-        private IQuerableRepository<Experience> _experienceRepository;
+        private IQuerableRepository<Course> _courseRepository;
         private IHelpHintRepository _helpHintRepository;
 
         [TestInitialize]
@@ -32,34 +32,34 @@ namespace easygenerator.DomainModel.Tests.Handlers
             _questionRepository = Substitute.For<IQuerableRepository<Question>>();
             _answerRepository = Substitute.For<IQuerableRepository<Answer>>();
             _learningContentRepository = Substitute.For<IQuerableRepository<LearningContent>>();
-            _experienceRepository = Substitute.For<IQuerableRepository<Experience>>();
+            _courseRepository = Substitute.For<IQuerableRepository<Course>>();
             _helpHintRepository = Substitute.For<IHelpHintRepository>();
 
-            _handler = new SignupFromTryItNowHandler(_experienceRepository, _objectiveRepository, _questionRepository, _answerRepository, _learningContentRepository, _helpHintRepository);
+            _handler = new SignupFromTryItNowHandler(_courseRepository, _objectiveRepository, _questionRepository, _answerRepository, _learningContentRepository, _helpHintRepository);
         }
 
-        #region Experiences
+        #region Courses
 
         [TestMethod]
-        public void Handle_ShouldDefineCreatedByForExperiencesThatWereCreatedInTryMode()
+        public void Handle_ShouldDefineCreatedByForCoursesThatWereCreatedInTryMode()
         {
-            var experience = Substitute.For<Experience>("title", Substitute.For<Template>(), TryItNowUsername);
-            _experienceRepository.GetCollection().Returns(new List<Experience>() { experience });
+            var course = Substitute.For<Course>("title", Substitute.For<Template>(), TryItNowUsername);
+            _courseRepository.GetCollection().Returns(new List<Course>() { course });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
 
-            experience.Received().DefineCreatedBy(SignUpUsername);
+            course.Received().DefineCreatedBy(SignUpUsername);
         }
 
         [TestMethod]
-        public void Handle_ShouldNotDefineCreatedByForExperiencesThatWereCreatedByOtherExistingUser()
+        public void Handle_ShouldNotDefineCreatedByForCoursesThatWereCreatedByOtherExistingUser()
         {
-            var experience = Substitute.For<Experience>("title", Substitute.For<Template>(), OtherExistingUser);
-            _experienceRepository.GetCollection().Returns(new List<Experience>() { experience });
+            var course = Substitute.For<Course>("title", Substitute.For<Template>(), OtherExistingUser);
+            _courseRepository.GetCollection().Returns(new List<Course>() { course });
 
             _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
 
-            experience.DidNotReceive().DefineCreatedBy(Arg.Any<string>());
+            course.DidNotReceive().DefineCreatedBy(Arg.Any<string>());
         }
 
         #endregion

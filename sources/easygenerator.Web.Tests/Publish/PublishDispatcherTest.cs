@@ -13,7 +13,7 @@ namespace easygenerator.Web.Tests.Publish
     public class PublishDispatcherTest
     {
         private PublishDispatcher _publishDispatcher;
-        private const string _experienceId = "experienceId";
+        private const string _courseId = "courseId";
 
         [TestInitialize]
         public void InitializeDispatcher()
@@ -24,104 +24,104 @@ namespace easygenerator.Web.Tests.Publish
         #region Validation
 
         [TestMethod]
-        public void StartPublish_ShouldThrowArgumentNullException_WhenExperienceIdIsNull()
+        public void StartPublish_ShouldThrowArgumentNullException_WhenCourseIdIsNull()
         {
             //Arrange
             //Act
             Action action = () => _publishDispatcher.StartPublish(null);
 
             //Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("experienceId");
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("courseId");
         }
 
         [TestMethod]
-        public void StartPublish_ShouldThrowArgumentException_WhenExperienceIdIsEmpty()
+        public void StartPublish_ShouldThrowArgumentException_WhenCourseIdIsEmpty()
         {
             //Arrange
             //Act
             Action action = () => _publishDispatcher.StartPublish(String.Empty);
 
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("experienceId");
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("courseId");
         }
 
         [TestMethod]
-        public void EndPublish_ShouldThrowArgumentNullException_WhenExperienceIdIsNull()
+        public void EndPublish_ShouldThrowArgumentNullException_WhenCourseIdIsNull()
         {
             //Arrange
             //Act
             Action action = () => _publishDispatcher.EndPublish(null);
 
             //Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("experienceId");
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("courseId");
         }
 
         [TestMethod]
-        public void EndPublish_ShouldThrowArgumentException_WhenExperienceIdIsEmpty()
+        public void EndPublish_ShouldThrowArgumentException_WhenCourseIdIsEmpty()
         {
             //Arrange
             //Act
             Action action = () => _publishDispatcher.EndPublish(String.Empty);
 
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("experienceId");
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("courseId");
         }
 
         [TestMethod]
-        public void IsPublishing_ShouldThrowArgumentNullException_WhenExperienceIdIsNull()
+        public void IsPublishing_ShouldThrowArgumentNullException_WhenCourseIdIsNull()
         {
             //Arrange
             //Act
             Action action = () => _publishDispatcher.IsPublishing(null);
 
             //Assert
-            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("experienceId");
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("courseId");
         }
 
         [TestMethod]
-        public void IsPublishing_ShouldThrowArgumentException_WhenExperienceIdIsEmpty()
+        public void IsPublishing_ShouldThrowArgumentException_WhenCourseIdIsEmpty()
         {
             //Arrange
             //Act
             Action action = () => _publishDispatcher.IsPublishing(String.Empty);
 
-            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("experienceId");
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("courseId");
         }
 
         #endregion
 
         [TestMethod]
-        public void IsPublishing_ShouldReturnFalseIfExperienceIdWasNotAdded()
+        public void IsPublishing_ShouldReturnFalseIfCourseIdWasNotAdded()
         {
             // Arrange
 
             // Act
-            var result = _publishDispatcher.IsPublishing(_experienceId);
+            var result = _publishDispatcher.IsPublishing(_courseId);
 
             // Assert
             result.Should().Be(false);
         }
 
         [TestMethod]
-        public void IsPublishing_ShouldReturnTrueIfExperienceIdWasAdded()
+        public void IsPublishing_ShouldReturnTrueIfCourseIdWasAdded()
         {
             // Arrange
-            _publishDispatcher.StartPublish(_experienceId);
+            _publishDispatcher.StartPublish(_courseId);
 
             // Act
-            var result = _publishDispatcher.IsPublishing(_experienceId);
+            var result = _publishDispatcher.IsPublishing(_courseId);
 
             // Assert
             result.Should().Be(true);
         }
 
         [TestMethod]
-        public void IsPublishing_ShouldReturnFalseIfExperienceIdWasAddedAndRemoved()
+        public void IsPublishing_ShouldReturnFalseIfCourseIdWasAddedAndRemoved()
         {
             // Arrange
-            _publishDispatcher.StartPublish(_experienceId);
-            _publishDispatcher.EndPublish(_experienceId);
+            _publishDispatcher.StartPublish(_courseId);
+            _publishDispatcher.EndPublish(_courseId);
 
             // Act
-            var result = _publishDispatcher.IsPublishing(_experienceId);
+            var result = _publishDispatcher.IsPublishing(_courseId);
 
             // Assert
             result.Should().Be(false);

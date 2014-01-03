@@ -2,13 +2,13 @@
     function (http, localizationManager) {
         
         var buildCourse = function (courseId) {
-            return invokeServiceMethod('experience/build', { experienceId: courseId }, function (responseData) {
+            return invokeServiceMethod('course/build', { courseId: courseId }, function (responseData) {
                 return { packageUrl: responseData.PackageUrl, builtOn: new Date(parseInt(responseData.BuildOn.substr(6), 10)) };
             });
         };
 
         var publishCourse = function (courseId) {
-            return invokeServiceMethod('experience/publish', { experienceId: courseId }, function (responseData) {
+            return invokeServiceMethod('course/publish', { courseId: courseId }, function (responseData) {
                 return { publishedPackageUrl: responseData.PublishedPackageUrl };
             });
         };

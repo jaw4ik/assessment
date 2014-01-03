@@ -164,13 +164,13 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Delete_ReturnJsonErrorResult_WhenObjectiveIsInExperience()
+        public void Delete_ReturnJsonErrorResult_WhenObjectiveIsInCourse()
         {
-            var experience = Substitute.For<Experience>();
-            var experiences = new List<Experience>() { experience };
+            var course = Substitute.For<Course>();
+            var courses = new List<Course>() { course };
             
             var objective = Substitute.For<Objective>("Some title", CreatedBy);
-            objective.Experiences.Returns(experiences);
+            objective.Courses.Returns(courses);
 
             var result = _controller.Delete(objective);
 

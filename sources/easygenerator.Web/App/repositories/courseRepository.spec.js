@@ -33,7 +33,7 @@
                     expect(repository.getCollection()).toBePromise();
                 });
 
-                it('should send request to server to api/experiences', function () {
+                it('should send request to server to api/courses', function () {
                     var promise = repository.getCollection();
 
                     httpWrapperPost.resolve();
@@ -42,7 +42,7 @@
                         return !promise.isPending();
                     });
                     runs(function () {
-                        expect(httpWrapper.post).toHaveBeenCalledWith('api/experiences');
+                        expect(httpWrapper.post).toHaveBeenCalledWith('api/courses');
                     });
                 });
 
@@ -107,7 +107,7 @@
                         });
                     });
 
-                    it('should not send request to server to api/experiences', function () {
+                    it('should not send request to server to api/courses', function () {
                         var promise = repository.getById();
 
                         waitsFor(function () {
@@ -122,7 +122,7 @@
 
                 describe('when id is a string', function () {
 
-                    it('should send request to server to api/experiences', function () {
+                    it('should send request to server to api/courses', function () {
                         var promise = repository.getCollection();
 
                         httpWrapperPost.resolve();
@@ -131,7 +131,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/experiences');
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/courses');
                         });
                     });
 
@@ -267,7 +267,7 @@
                     var title = 'title';
                     var templateId = 'templateId';
 
-                    it('should send request to server to api/experience/create', function () {
+                    it('should send request to server to api/course/create', function () {
                         var promise = repository.addCourse(title, templateId);
 
                         httpWrapperPost.reject();
@@ -276,7 +276,7 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/experience/create', { title: title, templateId: templateId });
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/course/create', { title: title, templateId: templateId });
                         });
                     });
 
@@ -522,7 +522,7 @@
                         });
                     });
 
-                    it('should not send request to server to api/experience/delete', function () {
+                    it('should not send request to server to api/course/delete', function () {
                         var promise = repository.removeCourse();
 
                         waitsFor(function () {
@@ -537,7 +537,7 @@
 
                 describe('when course id is a string', function () {
 
-                    it('should send request to server to api/experience/delete', function () {
+                    it('should send request to server to api/course/delete', function () {
                         var courseId = 'id';
                         var promise = repository.removeCourse(courseId);
 
@@ -547,8 +547,8 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/experience/delete', {
-                                experienceId: courseId
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/course/delete', {
+                                courseId: courseId
                             });
                         });
                     });
@@ -1093,7 +1093,7 @@
 
                 describe('when courseId and courseTitle are strings', function () {
 
-                    it('should send request to /api/experience/updateTitle', function () {
+                    it('should send request to /api/course/updateTitle', function () {
                         var courseId = 'Some id',
                             courseTitle = 'Some title';
                         var promise = repository.updateCourseTitle(courseId, courseTitle);
@@ -1103,8 +1103,8 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/experience/updateTitle', jasmine.any(Object));
-                            expect(httpWrapper.post.mostRecentCall.args[1].experienceId).toEqual(courseId);
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/course/updateTitle', jasmine.any(Object));
+                            expect(httpWrapper.post.mostRecentCall.args[1].courseId).toEqual(courseId);
                             expect(httpWrapper.post.mostRecentCall.args[1].courseTitle).toEqual(courseTitle);
                         });
                     });
@@ -1302,7 +1302,7 @@
 
                 describe('when courseId and templateId are strings', function () {
 
-                    it('should send request to /api/experience/updateTemplate', function () {
+                    it('should send request to /api/course/updateTemplate', function () {
                         var courseId = 'Some id',
                             templateId = 'Some template id';
                         var promise = repository.updateCourseTemplate(courseId, templateId);
@@ -1312,8 +1312,8 @@
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(httpWrapper.post).toHaveBeenCalledWith('api/experience/updateTemplate', jasmine.any(Object));
-                            expect(httpWrapper.post.mostRecentCall.args[1].experienceId).toEqual(courseId);
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/course/updateTemplate', jasmine.any(Object));
+                            expect(httpWrapper.post.mostRecentCall.args[1].courseId).toEqual(courseId);
                             expect(httpWrapper.post.mostRecentCall.args[1].templateId).toEqual(templateId);
                         });
                     });

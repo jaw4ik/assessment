@@ -1,0 +1,35 @@
+﻿@model easygenerator.Web.BuildCourse.Scorm.Models.ManifestModel
+<?xml version="1.0" encoding="utf-8"?>
+<manifest identifier="@Model.Id" version="1.1" xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd http://www.imsglobal.org/xsd/imsmd_rootv1p2p1 imsmd_rootv1p2p1.xsd http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd">
+  <metadata />
+  <organizations default="easygenerator">
+    <organization identifier="easygenerator">
+      <title>@Model.CourseTitle</title>
+      <item identifier="eg1" identifierref="REFSCO1" isvisible="true">
+        <title>@Model.CourseTitle</title>
+        <adlcp:masteryscore>@Model.MasteryScore</adlcp:masteryscore>
+      </item>
+      <metadata>
+        <schema>ADL SCORM</schema>
+        <schemaversion>1.2</schemaversion>
+        <adlcp:location>metadata.xml</adlcp:location>
+      </metadata>
+    </organization>
+  </organizations>
+  <resources>
+    <resource identifier="REFSCO1" type="webcontent" href="@Model.StartPage" adlcp:scormtype="sco">
+      <metadata>
+        <schema>ADL SCORM</schema>
+        <schemaversion>1.2</schemaversion>
+        <adlcp:location>metadata.xml</adlcp:location>
+      </metadata>
+      <file href="metadata.xml" />
+      <dependency identifierref="resources" />
+    </resource>
+    <resource identifier="resources" type="webcontent" adlcp:scormtype="asset">
+       @foreach (var resourceHref in Model.Resources) {
+          <file href="@resourceHref" />
+       }
+    </resource>
+  </resources>
+</manifest>

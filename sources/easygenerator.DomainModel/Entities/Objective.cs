@@ -29,13 +29,13 @@ namespace easygenerator.DomainModel.Entities
             MarkAsModified(modifiedBy);
         }
 
-        protected internal virtual ICollection<Experience> RelatedExperiencesCollection { get; set; }
+        protected internal virtual ICollection<Course> RelatedCoursesCollection { get; set; }
 
-        public virtual IEnumerable<Experience> Experiences
+        public virtual IEnumerable<Course> Courses
         {
             get
             {
-                return RelatedExperiencesCollection.AsEnumerable();
+                return RelatedCoursesCollection.AsEnumerable();
             }
         }
 

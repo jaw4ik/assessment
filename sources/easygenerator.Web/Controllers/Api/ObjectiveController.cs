@@ -85,7 +85,7 @@ namespace easygenerator.Web.Controllers.Api
         {
             if (objective != null)
             {
-                if (objective.Experiences.Any() || objective.Questions.Any())
+                if (objective.Courses.Any() || objective.Questions.Any())
                 {
                     return JsonLocalizableError(Errors.ObjectiveCannotBeDeleted,
                                                 Errors.ObjectiveCannotBeDeletedResourceKey);

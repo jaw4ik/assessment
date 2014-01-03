@@ -230,30 +230,30 @@
       <DependentUpon>learningContentRepository.js</DependentUpon>
     </Content>
     <Content Include="App\repositories\objectiveRepository.js" />
-    <Compile Include="BuildExperience\BuildContentProvider.cs" />
-    <Compile Include="BuildExperience\BuildPackageCreator.cs" />
-    <Compile Include="BuildExperience\BuildPathProvider.cs" />
-    <Compile Include="BuildExperience\ExperienceBuilder.cs" />
-    <Compile Include="BuildExperience\ExperienceBuilderBase.cs" />
-    <Compile Include="BuildExperience\Scorm\IScormExperienceBuilder.cs" />
-    <Compile Include="BuildExperience\Scorm\Models\ManifestModel.cs" />
-    <Compile Include="BuildExperience\Scorm\Models\MetadataModel.cs" />
-    <Compile Include="BuildExperience\Scorm\ScormExperienceBuilder.cs" />
-    <None Include="BuildExperience\Scorm\Schemas\adlcp_rootv1p2.xsd">
+    <Compile Include="BuildCourse\BuildContentProvider.cs" />
+    <Compile Include="BuildCourse\BuildPackageCreator.cs" />
+    <Compile Include="BuildCourse\BuildPathProvider.cs" />
+    <Compile Include="BuildCourse\CourseBuilder.cs" />
+    <Compile Include="BuildCourse\CourseBuilderBase.cs" />
+    <Compile Include="BuildCourse\Scorm\IScormCourseBuilder.cs" />
+    <Compile Include="BuildCourse\Scorm\Models\ManifestModel.cs" />
+    <Compile Include="BuildCourse\Scorm\Models\MetadataModel.cs" />
+    <Compile Include="BuildCourse\Scorm\ScormCourseBuilder.cs" />
+    <None Include="BuildCourse\Scorm\Schemas\adlcp_rootv1p2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="BuildExperience\Scorm\Templates\imsmanifest.cshtml" />
+    <Content Include="BuildCourse\Scorm\Templates\imsmanifest.cshtml" />
     <Compile Include="Components\ActionFilters\HandleErrorAttribute.cs" />
     <Compile Include="Components\Configuration\MailChimpConfigurationSection.cs" />
     <Compile Include="Components\HttpRuntimeWrapper.cs" />
-    <Compile Include="BuildExperience\IExperienceBuilder.cs" />
-    <Compile Include="BuildExperience\PackageModelMapper.cs" />
-    <Compile Include="BuildExperience\PackageModelSerializer.cs" />
-    <Compile Include="BuildExperience\PackageModel\AnswerOptionPackageModel.cs" />
-    <Compile Include="BuildExperience\PackageModel\ExperiencePackageModel.cs" />
-    <Compile Include="BuildExperience\PackageModel\LearningContentPackageModel.cs" />
-    <Compile Include="BuildExperience\PackageModel\ObjectivePackageModel.cs" />
-    <Compile Include="BuildExperience\PackageModel\QuestionPackageModel.cs" />
+    <Compile Include="BuildCourse\ICourseBuilder.cs" />
+    <Compile Include="BuildCourse\PackageModelMapper.cs" />
+    <Compile Include="BuildCourse\PackageModelSerializer.cs" />
+    <Compile Include="BuildCourse\PackageModel\AnswerOptionPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\CoursePackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\LearningContentPackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\ObjectivePackageModel.cs" />
+    <Compile Include="BuildCourse\PackageModel\QuestionPackageModel.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
     <Compile Include="Components\ActionFilters\NoCache.cs" />
     <Compile Include="Components\ActionResults\TextJsonErrorResult.cs" />
@@ -288,7 +288,7 @@
     <Compile Include="Configuration\TaskConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\AnswerController.cs" />
-    <Compile Include="Controllers\Api\ExperienceController.cs" />
+    <Compile Include="Controllers\Api\CourseController.cs" />
     <Compile Include="Controllers\Api\FeedbackController.cs" />
     <Compile Include="Controllers\Api\HelpHintController.cs" />
     <Compile Include="Controllers\Api\LearningContentController.cs" />
@@ -391,8 +391,8 @@
     <Compile Include="Newsletter\MailChimp\Entities\MailChimpSubscription.cs" />
     <Compile Include="Newsletter\MailChimp\MailChimpSubscriptionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Publish\ExperiencePublisher.cs" />
-    <Compile Include="Publish\IExperiencePublisher.cs" />
+    <Compile Include="Publish\CoursePublisher.cs" />
+    <Compile Include="Publish\ICoursePublisher.cs" />
     <Compile Include="Publish\IPublishDispatcher.cs" />
     <Compile Include="Publish\PublishDispatcher.cs" />
     <Compile Include="Resources\Views\Account\Resources.Designer.cs">
@@ -1169,16 +1169,16 @@
     <Content Include="Mail\MailTemplates\ForgotPasswordTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\FeedbackTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\NewsletterSubscriptionFailedTemplate.cshtml" />
-    <None Include="BuildExperience\Scorm\Schemas\imscp_rootv1p1p2.xsd">
+    <None Include="BuildCourse\Scorm\Schemas\imscp_rootv1p1p2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="BuildExperience\Scorm\Schemas\imsmd_rootv1p2p1.xsd">
+    <None Include="BuildCourse\Scorm\Schemas\imsmd_rootv1p2p1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="BuildExperience\Scorm\Schemas\ims_xml.xsd">
+    <None Include="BuildCourse\Scorm\Schemas\ims_xml.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="BuildExperience\Scorm\Templates\metadata.cshtml" />
+    <Content Include="BuildCourse\Scorm\Templates\metadata.cshtml" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Templates\Freestyle learning\js\vendor.js.bundle">
       <SubType>Designer</SubType>

@@ -32,10 +32,10 @@ namespace easygenerator.DataAccess.Tests
         }
 
         [TestMethod]
-        public void Materialize_ShouldSetDateTimeKindToUtcForExperience()
+        public void Materialize_ShouldSetDateTimeKindToUtcForCourse()
         {
             //Arrange
-            var entity = ExperienceObjectMother.Create();
+            var entity = CourseObjectMother.Create();
             entity.UpdatePackageUrl("some url");
             entity.UpdatePublishedOnDate();
 

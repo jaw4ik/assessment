@@ -7,7 +7,8 @@ using easygenerator.DataAccess;
 using easygenerator.DomainModel;
 using easygenerator.DomainModel.Handlers;
 using easygenerator.Infrastructure;
-using easygenerator.Web.BuildExperience;
+using easygenerator.Web.BuildCourse;
+using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.Configuration;
 using easygenerator.Web.Components.ModelBinding;
@@ -22,7 +23,6 @@ using easygenerator.Web.Publish;
 using easygenerator.Web.Newsletter;
 using easygenerator.Web.Newsletter.MailChimp;
 using easygenerator.Web.Components.Http;
-using easygenerator.Web.BuildExperience.Scorm;
 
 namespace easygenerator.Web.Configuration
 {
@@ -35,8 +35,8 @@ namespace easygenerator.Web.Configuration
             var applicationAssembly = typeof(MvcApplication).Assembly;
             builder.RegisterControllers(applicationAssembly);
 
-            builder.RegisterType<ExperienceBuilder>().As<IExperienceBuilder>();
-            builder.RegisterType<ScormExperienceBuilder>().As<IScormExperienceBuilder>();
+            builder.RegisterType<CourseBuilder>().As<ICourseBuilder>();
+            builder.RegisterType<ScormCourseBuilder>().As<IScormCourseBuilder>();
 
             builder.RegisterGeneric(typeof(EntityModelBinder<>)).As(typeof(IEntityModelBinder<>));
             builder.RegisterGeneric(typeof(EntityCollectionModelBinder<>)).As(typeof(IEntityCollectionModelBinder<>));
@@ -80,7 +80,7 @@ namespace easygenerator.Web.Configuration
 
             #region Publisher dependencies
 
-            builder.RegisterType<ExperiencePublisher>().As<IExperiencePublisher>();
+            builder.RegisterType<CoursePublisher>().As<ICoursePublisher>();
             builder.RegisterType<PublishDispatcher>().As <IPublishDispatcher>().SingleInstance();
             builder.RegisterType<PublishIsInProgressConstraint>();
 

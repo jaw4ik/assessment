@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\Experience.cs" />
+    <Compile Include="Entities\Course.cs" />
     <Compile Include="Entities\HelpHint.cs" />
     <Compile Include="Entities\LearningContent.cs" />
     <Compile Include="Entities\MailNotification.cs" />
@@ -66,7 +66,7 @@
     <Compile Include="Repositories\IHelpHintRepository.cs" />
     <Compile Include="Repositories\IMailNotificationRepository.cs" />
     <Compile Include="Repositories\IQueryableRepository.cs" />
-    <Compile Include="Repositories\IExperienceRepository.cs" />
+    <Compile Include="Repositories\ICourseRepository.cs" />
     <Compile Include="Repositories\IObjectiveRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\ITemplateRepository.cs" />

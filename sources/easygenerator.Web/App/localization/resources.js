@@ -1003,7 +1003,7 @@
         nl: 'Afsluiten',
         de: 'Fertig stellen'
     },
-    createObjectiveFromExperience: {
+    createObjectiveFromCourse: {
         en: 'Create learning objective',
         nl: 'Leerdoel maken',
         de: 'Lernziel erstellen'
@@ -1161,7 +1161,7 @@
         nl: 'Maak een leerervaring',
         de: 'Erstellen Sie eine Lernerfahrung'
     },
-    introCreateLE: {
+    introCreateCourse: {
         en: 'Create course',
         nl: 'Een cursus maken',
         de: 'Kurs erstellen'
@@ -1171,7 +1171,7 @@
         nl: 'Geef de leerervaring een naam en bepaal hoe u de leerervaring wilt presenteren; als cursus of als quiz.',
         de: 'Benennen Sie die Lernerfahrung und bestimmen Sie, wie Sie die Lernerfahrung präsentieren möchten, als Kurs oder als Quiz.'
     },
-    introCreateLEDesc: {
+    introCreateCourseDesc: {
         en: 'Name the course and choose how you want to present it, as a freestyle course or as a quiz.',
         nl: 'Geef de cursus een naam en geef aan of u deze als \'vrije stijl\' of \'toets\' wilt aanbieden.',
         de: 'Benenennen Sie den Kurs, und wählen Sie, wie er präsentiert werden soll, als Freestyle-Kurs oder als Quiz.'
@@ -1181,7 +1181,7 @@
         nl: 'Koppel leerdoelen aan de leerervaring',
         de: 'Verbinden Sie Lernziele mit Lernerfahrungen'
     },
-    introConnectLOtoLE: {
+    introConnectLOtoCourse: {
         en: 'Connect learning objectives to the course',
         nl: 'Verbind leerdoelen aan de cursus',
         de: 'Verbinden Sie Lernziele mit dem Kurs'
@@ -1191,7 +1191,7 @@
         nl: 'Stel uw leerervaring (cursus of quiz) samen door er leerdoelen aan toe te voegen. ',
         de: 'Stellen Sie Ihre Lernerfahrung (Kurs oder Quiz) zusammen, indem Sie ihr Lernziele hinzufügen.'
     },
-    introConnectLOtoLEDesc: {
+    introConnectLOtoCourseDesc: {
         en: 'Assemble your course (freestyle course or quiz) by adding learning objectives to it.',
         nl: 'Stel uw cursus (vrije stijl of toets) samen door er leerdoelen aan toe te voegen.',
         de: 'Stellen Sie Ihren Kurs (Freestyle-Kurs oder Quiz) zusammen, indem Sie ihm Lernziele zuordnen.'
@@ -1201,12 +1201,12 @@
         nl: 'Publiceer de leerervaring',
         de: 'Veröffentlichen Sie die Lernerfahrung'
     },
-    introPublishLE: {
+    introPublishCourse: {
         en: 'Publish (the) course',
         nl: 'Publiceer de cursus',
         de: 'Veröffentlichen Sie den Kurs'
     },
-    introPublishLEDesc: {
+    introPublishCourseDesc: {
         en: 'To easygenerator web-server or to your own web server.',
         nl: 'op de webserver van easygenerator of op uw eigen webserver.',
         de: 'auf dem Webserver von easygenerator oder auf Ihrem eigenen Webserver.'

@@ -17,11 +17,11 @@ namespace easygenerator.Web.Controllers
     [NoCache]
     public class PublishedPackageController : DefaultController
     {
-        private readonly IExperiencePublisher _experiencePublisher;
+        private readonly ICoursePublisher _coursePublisher;
         private readonly PhysicalFileManager _physicalFileManager;
-        public PublishedPackageController(IExperiencePublisher experiencePublisher, PhysicalFileManager physicalFileManager)
+        public PublishedPackageController(ICoursePublisher coursePublisher, PhysicalFileManager physicalFileManager)
         {
-            _experiencePublisher = experiencePublisher;
+            _coursePublisher = coursePublisher;
             _physicalFileManager = physicalFileManager;
         }
 
@@ -34,7 +34,7 @@ namespace easygenerator.Web.Controllers
                 {
                     if (!HttpContext.Request.Url.AbsolutePath.EndsWith("/"))
                     {
-                        return Redirect(_experiencePublisher.GetPublishedPackageUrl(packageId));
+                        return Redirect(_coursePublisher.GetPublishedPackageUrl(packageId));
                     }
                 }
                 else
@@ -44,7 +44,7 @@ namespace easygenerator.Web.Controllers
             }
 
             string resourcePath = string.Format("{0}/{1}", packageId, string.IsNullOrWhiteSpace(resourceUrl) ? "index.html" : resourceUrl);
-            var filePath = _experiencePublisher.GetPublishedResourcePhysicalPath(resourcePath);
+            var filePath = _coursePublisher.GetPublishedResourcePhysicalPath(resourcePath);
             if (!_physicalFileManager.FileExists(filePath))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);

@@ -10,52 +10,52 @@ namespace easygenerator.Web.Publish
 {
     public class PublishDispatcher : IPublishDispatcher
     {
-        private HashSet<string> _experienceIdsThatArePublishing = new HashSet<string>();
+        private HashSet<string> _courseIdsThatArePublishing = new HashSet<string>();
         private object _locker = new object();
 
-        public void StartPublish(string experienceId)
+        public void StartPublish(string courseId)
         {
-            ValidateExperienceId(experienceId);
+            ValidateCourseId(courseId);
             
-            if (!_experienceIdsThatArePublishing.Contains(experienceId))
+            if (!_courseIdsThatArePublishing.Contains(courseId))
             {
                 lock (_locker)
                 {
-                    if (!_experienceIdsThatArePublishing.Contains(experienceId))
+                    if (!_courseIdsThatArePublishing.Contains(courseId))
                     {
-                        _experienceIdsThatArePublishing.Add(experienceId);
+                        _courseIdsThatArePublishing.Add(courseId);
                     }
                 }
             }
         }
 
-        public void EndPublish(string experienceId)
+        public void EndPublish(string courseId)
         {
-            ValidateExperienceId(experienceId);
+            ValidateCourseId(courseId);
 
             lock (_locker)
             {
-                _experienceIdsThatArePublishing.RemoveWhere(_ => string.Equals(_, experienceId, StringComparison.CurrentCultureIgnoreCase));
+                _courseIdsThatArePublishing.RemoveWhere(_ => string.Equals(_, courseId, StringComparison.CurrentCultureIgnoreCase));
             }
         }
 
-        public bool IsPublishing(string experienceId)
+        public bool IsPublishing(string courseId)
         {
-            ValidateExperienceId(experienceId);
+            ValidateCourseId(courseId);
 
             lock (_locker)
             {
-                return _experienceIdsThatArePublishing.Contains(experienceId);
+                return _courseIdsThatArePublishing.Contains(courseId);
             }
         }
 
-        private void ValidateExperienceId(string experienceId)
+        private void ValidateCourseId(string courseId)
         {
-            if (experienceId == null)
-                throw new ArgumentNullException("experienceId", "Experience Id cannot be null.");
+            if (courseId == null)
+                throw new ArgumentNullException("courseId", "Course Id cannot be null.");
 
-            if (string.IsNullOrWhiteSpace(experienceId))
-                throw new ArgumentException("Experience Id cannot be empty or white space.", "experienceId");
+            if (string.IsNullOrWhiteSpace(courseId))
+                throw new ArgumentException("Course Id cannot be empty or white space.", "courseId");
         }
     }
 }

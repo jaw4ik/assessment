@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using easygenerator.DomainModel.Repositories;
-using easygenerator.Web.BuildExperience;
+using easygenerator.Web.BuildCourse;
 using easygenerator.Web.Components;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionFilters;
