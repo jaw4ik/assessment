@@ -56,9 +56,7 @@
         <img src="/Content/images/loader.gif" alt="" />
     </div>
     <section id="content" class="main" data-bind="style: { visibility: isViewReady() ? 'visible' : 'hidden' }, css: browserCulture() + '-lang'">
-        <div class="notify-holder">
-            <div data-bind="widget: { kind: 'notifyViewer' }"></div>    
-        </div>
+        <div data-bind="widget: { kind: 'notifyViewer' }"></div>
         <!-- ko compose: { model: 'help/helpHint', activationData: activeModuleName } -->
         <!-- /ko -->
         <div data-bind="router: { cacheViews: false }"></div>
