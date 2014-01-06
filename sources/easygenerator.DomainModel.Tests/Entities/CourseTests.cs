@@ -456,6 +456,52 @@ namespace easygenerator.DomainModel.Tests.Entities
 
         #endregion
 
+        #region UpdateScormPackageUrl
+
+        [TestMethod]
+        public void UpdateScormPackageUrl_ShouldThrowArgumentNullException_WhenPackageUrlIsNull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            Action action = () => course.UpdateScormPackageUrl(null);
+
+            //Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("packageUrl");
+        }
+
+        [TestMethod]
+        public void UpdateScormPackageUrl_ShouldThrowArgumentException_WhenPackageUrlIsEmpty()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            Action action = () => course.UpdateScormPackageUrl(string.Empty);
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("packageUrl");
+        }
+
+        [TestMethod]
+        public void UpdateScormPackageUrl_ShouldUpdatePackageUrlAndBuildOnDate()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var packageUrl = "SomeUrl";
+
+            DateTimeWrapper.Now = () => DateTime.MaxValue;
+
+            //Act
+            course.UpdateScormPackageUrl(packageUrl);
+
+            //Assert
+            course.ScormPackageUrl.Should().Be(packageUrl);
+        }
+
+        #endregion
+
         #region Define createdBy
 
         [TestMethod]

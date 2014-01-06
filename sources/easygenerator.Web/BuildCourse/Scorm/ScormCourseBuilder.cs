@@ -21,6 +21,11 @@ namespace easygenerator.Web.BuildCourse.Scorm
             _razorTemplateProvider = razorTemplateProvider;
         }
 
+        protected override void OnAfterBuildPackageCreated(Course course, string buildId)
+        {
+            course.UpdateScormPackageUrl(buildId + ".zip");
+        }
+
         protected override void OnAfterBuildContentAdded(Course course, string buildId)
         {
             var buildDirectoryPath = BuildPathProvider.GetBuildDirectoryName(buildId);

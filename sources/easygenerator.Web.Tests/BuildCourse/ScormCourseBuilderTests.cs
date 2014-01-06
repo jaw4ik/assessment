@@ -210,21 +210,23 @@ namespace easygenerator.Web.Tests.BuildCourse
         #region Package creation
 
         [TestMethod]
-        public void Build_ShouldCreatePackage()
+        public void Build_ShouldUpdateCourseScormPackageUrl()
         {
             //Arrange
-            var buildDirectory = "SomeBuildPath";
-            var buildPackageFileName = "SomePackageFileName";
-
-            _buildPathProvider.GetBuildDirectoryName(Arg.Any<string>()).Returns(buildDirectory);
-            _buildPathProvider.GetBuildPackageFileName(Arg.Any<string>()).Returns(buildPackageFileName);
+            var buildId = GetBuildId();
 
             //Act
             _builder.Build(_course);
 
             //Assert
-            _buildPackageCreator.Received().CreatePackageFromFolder(buildDirectory, buildPackageFileName);
+            _course.ScormPackageUrl.Should().Be(buildId + ".zip");
         }
+
+        #endregion
+
+        #region Update ScormPackageUrl
+
+
 
         #endregion
 

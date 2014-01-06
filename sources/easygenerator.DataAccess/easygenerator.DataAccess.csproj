@@ -96,6 +96,10 @@
     <Compile Include="Migrations\201312301428515_RenameLearningExperienceToCourse.Designer.cs">
       <DependentUpon>201312301428515_RenameLearningExperienceToCourse.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201401061218575_AddScormPackageUrl.cs" />
+    <Compile Include="Migrations\201401061218575_AddScormPackageUrl.Designer.cs">
+      <DependentUpon>201401061218575_AddScormPackageUrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
@@ -149,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312301428515_RenameLearningExperienceToCourse.resx">
       <DependentUpon>201312301428515_RenameLearningExperienceToCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401061218575_AddScormPackageUrl.resx">
+      <DependentUpon>201401061218575_AddScormPackageUrl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

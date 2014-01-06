@@ -8,7 +8,6 @@
             },
 
             deliveringStates: {
-                notStarted: 'notStarted',
                 building: 'building',
                 publishing: 'publishing',
                 succeed: 'succeed',

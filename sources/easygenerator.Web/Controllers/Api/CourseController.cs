@@ -25,13 +25,15 @@ namespace easygenerator.Web.Controllers.Api
         private readonly IEntityFactory _entityFactory;
         private readonly ICourseRepository _repository;
         private readonly ICoursePublisher _coursePublisher;
+        private readonly IScormCourseBuilder _scormCourseBuilder;
 
-        public CourseController(ICourseBuilder courseBuilder, ICourseRepository repository, IEntityFactory entityFactory, ICoursePublisher coursePublisher)
+        public CourseController(ICourseBuilder courseBuilder, IScormCourseBuilder scormCourseBuilder, ICourseRepository repository, IEntityFactory entityFactory, ICoursePublisher coursePublisher)
         {
             _builder = courseBuilder;
             _repository = repository;
             _entityFactory = entityFactory;
             _coursePublisher = coursePublisher;
+            _scormCourseBuilder = scormCourseBuilder;
         }
 
         [HttpPost]
@@ -79,6 +81,27 @@ namespace easygenerator.Web.Controllers.Api
                     PackageUrl = course.PackageUrl,
                     BuildOn = course.BuildOn
                 });
+        }
+
+        [HttpPost]
+        public ActionResult ScormBuild(Course course)
+        {
+            if (course == null)
+            {
+                return JsonLocalizableError(Errors.CourseNotFoundError, Errors.CourseNotFoundResourceKey);
+            }
+
+            var result = _scormCourseBuilder.Build(course);
+
+            if (!result)
+            {
+                return JsonError("Build failed");
+            }
+
+            return JsonSuccess(new
+            {
+                ScormPackageUrl = course.ScormPackageUrl,
+            });
         }
 
         [HttpPost]

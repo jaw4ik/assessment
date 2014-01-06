@@ -239,9 +239,21 @@
     <Compile Include="BuildCourse\Scorm\Models\ManifestModel.cs" />
     <Compile Include="BuildCourse\Scorm\Models\MetadataModel.cs" />
     <Compile Include="BuildCourse\Scorm\ScormCourseBuilder.cs" />
+    <Content Include="App\viewmodels\courses\deliveringActions\publish.spec.js">
+      <DependentUpon>publish.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\deliveringActions\scormBuild.spec.js">
+      <DependentUpon>scormBuild.js</DependentUpon>
+    </Content>
     <None Include="BuildCourse\Scorm\Schemas\adlcp_rootv1p2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="App\viewmodels\courses\deliveringActions\build.js" />
+    <Content Include="App\viewmodels\courses\deliveringActions\build.spec.js">
+      <DependentUpon>build.js</DependentUpon>
+    </Content>
+    <Content Include="App\viewmodels\courses\deliveringActions\publish.js" />
+    <Content Include="App\viewmodels\courses\deliveringActions\scormBuild.js" />
     <Content Include="BuildCourse\Scorm\Templates\imsmanifest.cshtml" />
     <Compile Include="Components\ActionFilters\HandleErrorAttribute.cs" />
     <Compile Include="Components\Configuration\MailChimpConfigurationSection.cs" />

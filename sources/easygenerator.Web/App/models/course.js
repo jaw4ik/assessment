@@ -9,6 +9,7 @@
             this.objectives = spec.objectives;
             this.builtOn = spec.builtOn;
             this.packageUrl = spec.packageUrl;
+            this.scormPackageUrl = spec.scormPackageUrl;
             this.template = spec.template;
             this.publishedPackageUrl = spec.publishedPackageUrl;
             this.deliveringState = constants.deliveringStates.notStarted;
@@ -37,6 +38,31 @@
                 deferred.reject(message);
             });
             
+            return deferred.promise;
+        };
+        
+        Course.prototype.scormBuild = function () {
+            var that = this;
+            var deferred = Q.defer();
+            if (that.deliveringState == constants.deliveringStates.building || that.deliveringState == constants.deliveringStates.publishing) {
+                deferred.reject('Course is already building or publishing.');
+            }
+
+            that.deliveringState = constants.deliveringStates.building;
+            app.trigger(constants.messages.course.build.started, that);
+
+            deliverService.scormBuildCourse(that.id).then(function (buildInfo) {
+                that.scormPackageUrl = buildInfo.scormPackageUrl;
+                that.deliveringState = constants.deliveringStates.succeed;
+                app.trigger(constants.messages.course.build.completed, that);
+                deferred.resolve(that);
+            }).fail(function (message) {
+                that.deliveringState = constants.deliveringStates.failed;
+                that.scormPackageUrl = '';
+                app.trigger(constants.messages.course.build.failed, that.id, message);
+                deferred.reject(message);
+            });
+
             return deferred.promise;
         };
         

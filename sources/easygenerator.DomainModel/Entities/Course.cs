@@ -86,6 +86,15 @@ namespace easygenerator.DomainModel.Entities
             BuildOn = DateTimeWrapper.Now();
         }
 
+        public string ScormPackageUrl { get; private set; }
+
+        public virtual void UpdateScormPackageUrl(string scormPackageUrl)
+        {
+            ThrowIfPackageUrlIsInvalid(scormPackageUrl);
+
+            ScormPackageUrl = scormPackageUrl;
+        }
+
         public DateTime? PublishedOn { get; protected internal set; }
         public virtual void UpdatePublishedOnDate()
         {

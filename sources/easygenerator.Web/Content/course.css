@@ -320,6 +320,10 @@
     width: 282px;
 }
 
+.package-action-item.scorm-package-action {
+    margin-top: 10px;
+}
+
 .copy-link-control {
     display: table;
     width: 100%;

@@ -11,6 +11,7 @@ using easygenerator.DomainModel.Repositories;
 using easygenerator.DomainModel.Tests.ObjectMothers;
 using easygenerator.Infrastructure;
 using easygenerator.Web.BuildCourse;
+using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Controllers.Api;
 using easygenerator.Web.Tests.Utils;
 using FluentAssertions;
@@ -27,6 +28,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
         CourseController _controller;
         ICourseBuilder _builder;
+        private IScormCourseBuilder _scormCourseBuilder;
         IEntityFactory _entityFactory;
         ICourseRepository _repository;
         IPrincipal _user;
@@ -39,6 +41,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             _entityFactory = Substitute.For<IEntityFactory>();
             _repository = Substitute.For<ICourseRepository>();
             _builder = Substitute.For<ICourseBuilder>();
+            _scormCourseBuilder = Substitute.For<IScormCourseBuilder>();
             _coursePublisher = Substitute.For<ICoursePublisher>();
 
             _user = Substitute.For<IPrincipal>();
@@ -47,7 +50,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _context.User.Returns(_user);
 
-            _controller = new CourseController(_builder, _repository, _entityFactory, _coursePublisher);
+            _controller = new CourseController(_builder, _scormCourseBuilder, _repository, _entityFactory, _coursePublisher);
             _controller.ControllerContext = new ControllerContext(_context, new RouteData(), _controller);
         }
 
@@ -158,6 +161,51 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             //Assert
             result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { PackageUrl = course.PackageUrl, BuildOn = course.BuildOn });
+        }
+
+        #endregion
+
+        #region Scorm Build course
+
+        [TestMethod]
+        public void ScormBuild_ShouldReturnJsonErrorResult_WhenCourseNotFound()
+        {
+            //Arrange
+
+
+            //Act
+            var result = _controller.Build(null);
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Course is not found");
+        }
+
+        [TestMethod]
+        public void ScormBuild_ShouldReturnJsonErrorResult_WhenBuildFails()
+        {
+            //Arrange
+            _builder.Build(Arg.Any<Course>()).Returns(false);
+
+            //Act
+            var result = _controller.ScormBuild(CourseObjectMother.Create());
+
+            //Assert
+            result.Should().BeJsonErrorResult().And.Message.Should().Be("Build failed");
+        }
+
+        [TestMethod]
+        public void ScormBuild_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            _scormCourseBuilder.Build(course).Returns(true);
+            _scormCourseBuilder.When(x => x.Build(course)).Do(x => ((Course)x.Args()[0]).UpdateScormPackageUrl("Some url"));
+
+            //Act
+            var result = _controller.ScormBuild(course);
+
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ScormPackageUrl = course.ScormPackageUrl });
         }
 
         #endregion

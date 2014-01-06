@@ -6,6 +6,12 @@
                 return { packageUrl: responseData.PackageUrl, builtOn: new Date(parseInt(responseData.BuildOn.substr(6), 10)) };
             });
         };
+        
+        var scormBuildCourse = function (courseId) {
+            return invokeServiceMethod('course/scormbuild', { courseId: courseId }, function (responseData) {
+                return { scormPackageUrl: responseData.ScormPackageUrl };
+            });
+        };
 
         var publishCourse = function (courseId) {
             return invokeServiceMethod('course/publish', { courseId: courseId }, function (responseData) {
@@ -38,6 +44,7 @@
 
         return {
             buildCourse: buildCourse,
-            publishCourse: publishCourse
+            publishCourse: publishCourse,
+            scormBuildCourse: scormBuildCourse
         };
 });

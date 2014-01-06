@@ -193,6 +193,12 @@ namespace easygenerator.Web.Configuration
             );
 
             routes.MapRoute(
+              name: "ScormBuildCourse",
+              url: "course/scormbuild",
+              defaults: new { controller = "Course", action = "ScormBuild" }
+          );
+
+            routes.MapRoute(
                 name: "TemplateSettings",
                 url: "api/course/{courseId}/template/{templateId}",
                 defaults: new { controller = "Course", action = "TemplateSettings" }

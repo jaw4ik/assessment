@@ -38,6 +38,32 @@
                 expect(viewModel).toBeObject();
             });
 
+            describe('states:', function () {
+
+                it('should be equal to allowed deliver states', function () {
+                    expect(viewModel.states).toEqual(constants.deliveringStates);
+                });
+
+            });
+
+            describe('buildAction:', function () {
+                it('should be observable', function () {
+                    expect(viewModel.buildAction).toBeObservable();
+                });
+            });
+
+            describe('scormBuildAction:', function () {
+                it('should be observable', function () {
+                    expect(viewModel.scormBuildAction).toBeObservable();
+                });
+            });
+
+            describe('publishAction:', function () {
+                it('should be observable', function () {
+                    expect(viewModel.publishAction).toBeObservable();
+                });
+            });
+
             describe('publishPackageExists:', function () {
 
                 it('should be computed', function () {
@@ -82,12 +108,31 @@
 
             });
 
-            describe('deliveringState:', function () {
-
-                it('should be observable', function () {
-                    expect(viewModel.deliveringState).toBeObservable();
+            describe('isDelivering:', function () {
+                it('should be computed', function () {
+                    expect(viewModel.isDelivering).toBeComputed();
                 });
 
+                describe('when activeAction is null', function () {
+                    beforeEach(function () {
+                        viewModel.activeAction(null);
+                    });
+
+                    it('should return false', function () {
+                        expect(viewModel.isDelivering()).toBeFalsy();
+                    });
+                });
+
+                describe('when active action is defined', function () {
+                    var isDelivering = true;
+                    beforeEach(function () {
+                        viewModel.activeAction({ isDelivering: ko.observable(isDelivering) });
+                    });
+
+                    it('should return active action delivering state value', function () {
+                        expect(viewModel.isDelivering()).toBe(isDelivering);
+                    });
+                });
             });
 
             describe('publishedPackageUrl:', function () {
@@ -98,10 +143,18 @@
 
             });
 
-            describe('states:', function () {
+            describe('packageUrl:', function () {
 
-                it('should be equal to allowed deliver states', function () {
-                    expect(viewModel.states).toEqual(constants.deliveringStates);
+                it('should be observable', function () {
+                    expect(viewModel.packageUrl).toBeObservable();
+                });
+
+            });
+
+            describe('scormPackageUrl:', function () {
+
+                it('should be observable', function () {
+                    expect(viewModel.scormPackageUrl).toBeObservable();
                 });
 
             });
@@ -134,12 +187,23 @@
                 describe('when deliver process is not running', function () {
 
                     beforeEach(function () {
-                        viewModel.deliveringState(constants.deliveringStates.notStarted);
+                        viewModel.activeAction(null);
                     });
 
                     it('should send event \'Publish course\'', function () {
                         viewModel.publishCourse();
                         expect(eventTracker.publish).toHaveBeenCalledWith('Publish course');
+                    });
+
+                    it('should set active action to publish action', function () {
+                        var publishAction = {
+                            isDelivering: ko.computed(function () {
+                                return false;
+                            })
+                        };
+                        viewModel.publishAction(publishAction);
+                        viewModel.publishCourse();
+                        expect(viewModel.activeAction()).toBe(publishAction);
                     });
 
                     it('should hide notification', function () {
@@ -183,12 +247,23 @@
                 describe('when deliver process is not running', function () {
 
                     beforeEach(function () {
-                        viewModel.deliveringState(constants.deliveringStates.notStarted);
+                        viewModel.activeAction(null);
                     });
 
                     it('should send event \"Download course\"', function () {
                         viewModel.downloadCourse();
                         expect(eventTracker.publish).toHaveBeenCalledWith('Download course');
+                    });
+
+                    it('should set active action to build action', function () {
+                        var buildAction = {
+                            isDelivering: ko.computed(function () {
+                                return false;
+                            })
+                        };
+                        viewModel.buildAction(buildAction);
+                        viewModel.downloadCourse();
+                        expect(viewModel.activeAction()).toBe(buildAction);
                     });
 
                     it('should start build of current course', function () {
@@ -201,6 +276,60 @@
 
                         runs(function () {
                             expect(course.build).toHaveBeenCalled();
+                        });
+                    });
+                });
+            });
+
+            describe('downloadScormCourse:', function () {
+
+                var courseRepositoryGetByIdDefer;
+                var courseRepositoryGetByIdPromise;
+
+                beforeEach(function () {
+                    spyOn(course, 'scormBuild');
+
+                    courseRepositoryGetByIdDefer = Q.defer();
+                    courseRepositoryGetByIdPromise = courseRepositoryGetByIdDefer.promise;
+                    spyOn(repository, 'getById').andReturn(courseRepositoryGetByIdPromise);
+                });
+
+                it('should be a function', function () {
+                    expect(viewModel.downloadScormCourse).toBeFunction();
+                });
+
+                describe('when deliver process is not running', function () {
+
+                    beforeEach(function () {
+                        viewModel.activeAction(null);
+                    });
+
+                    it('should send event \"Download scorm course\"', function () {
+                        viewModel.downloadScormCourse();
+                        expect(eventTracker.publish).toHaveBeenCalledWith('Download scorm course');
+                    });
+
+                    it('should set active action to scorm build action', function () {
+                        var scormBuildAction = {
+                            isDelivering: ko.computed(function () {
+                                return false;
+                            })
+                        };
+                        viewModel.scormBuildAction(scormBuildAction);
+                        viewModel.downloadScormCourse();
+                        expect(viewModel.activeAction()).toBe(scormBuildAction);
+                    });
+
+                    it('should start scorm build of current course', function () {
+                        courseRepositoryGetByIdDefer.resolve(course);
+                        var promise = viewModel.downloadScormCourse();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+
+                        runs(function () {
+                            expect(course.scormBuild).toHaveBeenCalled();
                         });
                     });
                 });
@@ -266,13 +395,91 @@
                         getById.resolve(course);
                     });
 
+                    it('should define publish action', function () {
+                        viewModel.id = undefined;
+
+                        var promise = viewModel.activate(course.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.publishAction()).toBeDefined();
+                        });
+                    });
+
+                    it('should set publish action state to succeed', function () {
+                        viewModel.id = undefined;
+
+                        var promise = viewModel.activate(course.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.publishAction().state()).toEqual(constants.deliveringStates.succeed);
+                        });
+                    });
+
+                    it('should define build action', function () {
+                        viewModel.id = undefined;
+
+                        var promise = viewModel.activate(course.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.buildAction()).toBeDefined();
+                        });
+                    });
+
+                    it('should set build action state to succeed', function () {
+                        viewModel.id = undefined;
+
+                        var promise = viewModel.activate(course.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.buildAction().state()).toEqual(constants.deliveringStates.succeed);
+                        });
+                    });
+
+                    it('should define scorm build action', function () {
+                        viewModel.id = undefined;
+
+                        var promise = viewModel.activate(course.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.scormBuildAction()).toBeDefined();
+                        });
+                    });
+
+                    it('should set scorm build action state to succeed', function () {
+                        viewModel.id = undefined;
+
+                        var promise = viewModel.activate(course.id);
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.scormBuildAction().state()).toEqual(constants.deliveringStates.succeed);
+                        });
+                    });
+
                     it('should set current course id', function () {
                         viewModel.id = undefined;
 
                         var promise = viewModel.activate(course.id);
 
                         waitsFor(function () {
-                            return promise.isFulfilled();
+                            return !promise.isPending();
                         });
                         runs(function () {
                             expect(viewModel.id).toEqual(course.id);
@@ -310,231 +517,283 @@
             describe('when course was changed in any part of application', function () {
 
                 beforeEach(function () {
-                    viewModel.showStatus = ko.observable(false);
                     viewModel.packageUrl = ko.observable('');
                     viewModel.publishedPackageUrl = ko.observable('');
+                    viewModel.activeAction({
+                        state: ko.observable(),
+                        isDelivering: ko.computed(function () {
+                            return false;
+                        })
+                    });
                 });
 
-                describe('when current course build was started in any part of application', function () {
+                describe('when course build was started', function () {
 
-                    it('should change course deliveringState to \'building\'', function () {
-                        viewModel.id = course.id;
-                        viewModel.deliveringState('');
-                        app.trigger(constants.messages.course.build.started, course);
+                    describe('for current course', function() {
 
-                        expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.building);
+                        it('should change active action state to \'building\'', function () {
+                            viewModel.id = course.id;
+
+                            app.trigger(constants.messages.course.build.started, course);
+
+                            expect(viewModel.activeAction().state()).toEqual(constants.deliveringStates.building);
+                        });
                     });
 
-                });
+                    describe('for any other course', function() {
+                        it('should not change active action state', function () {
+                            viewModel.id = course.id;
+                            viewModel.activeAction().state(constants.deliveringStates.notStarted);
+                            app.trigger(constants.messages.course.build.started, { id: '100500' });
 
-                describe('when any other course build was started in any part of application', function () {
-
-                    it('should not change course deliveringState', function () {
-                        viewModel.id = course.id;
-                        viewModel.deliveringState(constants.deliveringStates.notStarted);
-                        app.trigger(constants.messages.course.build.started, { id: '100500' });
-
-                        expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.notStarted);
-                    });
-
-                });
-
-                describe('when current course build completed in any part of application', function () {
-
-                    it('should update current packageUrl to the corresponding one', function () {
-                        viewModel.id = course.id;
-                        viewModel.packageUrl("");
-
-                        course.packageUrl = "http://xxx.com";
-                        app.trigger(constants.messages.course.build.completed, course);
-
-                        expect(viewModel.packageUrl()).toEqual(course.packageUrl);
+                            expect(viewModel.activeAction().state()).toEqual(constants.deliveringStates.notStarted);
+                        });
                     });
 
                 });
 
-                describe('when any other course build completed in any part of application', function () {
+                describe('when course build completed', function () {
 
-                    it('should not update current deliveringState', function () {
-                        viewModel.id = course.id;
-                        viewModel.deliveringState(constants.deliveringStates.notStarted);
-                        app.trigger(constants.messages.course.build.completed, { id: '100500' });
+                    describe('for current course', function () {
+                        
+                        describe('when active action is build action', function () {
 
-                        expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.notStarted);
+                            beforeEach(function () {
+                                debugger;
+                                var action = {
+                                    state: ko.observable(),
+                                    isDelivering: ko.computed(function() {
+                                        return false;
+                                    })
+                                };
+                                
+                                viewModel.activeAction(action);
+                                viewModel.buildAction(action);
+                            });
+
+                            it('should set active action state to succeed', function () {
+                                viewModel.id = course.id;
+                                app.trigger(constants.messages.course.build.completed, course);
+
+                                expect(viewModel.activeAction().state()).toEqual(constants.deliveringStates.succeed);
+                            });
+                            
+                            it('should set packageUrl form course packageUrl', function () {
+                                viewModel.id = course.id;
+                                viewModel.packageUrl("");
+
+                                course.packageUrl = "http://xxx.com";
+                                app.trigger(constants.messages.course.build.completed, course);
+
+                                expect(viewModel.packageUrl()).toEqual(course.packageUrl);
+                            });
+                        });
+                        
+                        describe('when active action is scorm build action', function () {
+
+                            beforeEach(function () {
+                                viewModel.scormBuildAction({
+                                    state: ko.observable(),
+                                    isDelivering: ko.computed(function () {
+                                        return false;
+                                    })
+                                });
+                                viewModel.activeAction(viewModel.scormBuildAction());
+                            });
+
+                            it('should set active action state to succeed', function () {
+                                viewModel.id = course.id;
+                                app.trigger(constants.messages.course.build.completed, course);
+
+                                expect(viewModel.activeAction().state()).toEqual(constants.deliveringStates.succeed);
+                            });
+                        });
+                        
                     });
 
-                    it('should not update current packageUrl', function () {
-                        viewModel.id = course.id;
-                        viewModel.packageUrl("http://xxx.com");
-                        app.trigger(constants.messages.course.build.completed, { id: '100500' });
+                    describe('for any other course', function () {
+                        it('should not update active action state', function () {
+                            viewModel.id = course.id;
+                            viewModel.activeAction().state(constants.deliveringStates.notStarted);
+                            app.trigger(constants.messages.course.build.completed, { id: '100500' });
 
-                        expect(viewModel.packageUrl()).toEqual("http://xxx.com");
+                            expect(viewModel.activeAction().state()).toEqual(constants.deliveringStates.notStarted);
+                        });
+
+                        it('should not update current packageUrl', function () {
+                            viewModel.id = course.id;
+                            viewModel.packageUrl("http://xxx.com");
+                            app.trigger(constants.messages.course.build.completed, { id: '100500' });
+
+                            expect(viewModel.packageUrl()).toEqual("http://xxx.com");
+                        });
                     });
 
                 });
 
-                describe('when current course build failed in any part of application', function () {
+                describe('when course build failed', function () {
 
-                    var message = "message";
+                    describe('for current course', function() {
+                        var message = "message";
 
-                    it('should update current deliveringState to \'failed\'', function () {
-                        viewModel.id = course.id;
-                        viewModel.deliveringState("");
+                        it('should update active action state to \'failed\'', function () {
+                            viewModel.id = course.id;
+                            viewModel.activeAction().state('');
 
-                        app.trigger(constants.messages.course.build.failed, course.id, message);
+                            app.trigger(constants.messages.course.build.failed, course.id, message);
 
-                        expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.failed);
+                            expect(viewModel.activeAction().state()).toEqual(constants.deliveringStates.failed);
+                        });
+
+                        it('should remove packageUrl', function () {
+                            viewModel.id = course.id;
+                            viewModel.packageUrl("packageUrl");
+
+                            app.trigger(constants.messages.course.build.failed, course.id, message);
+
+                            expect(viewModel.packageUrl()).toEqual("");
+                        });
                     });
 
-                    it('should remove packageUrl', function () {
-                        viewModel.id = course.id;
-                        viewModel.packageUrl("packageUrl");
+                    describe('for any other course', function() {
+                        it('should not update current active action to \'failed\'', function () {
+                            viewModel.id = course.id;
+                            viewModel.activeAction().state('');
 
-                        app.trigger(constants.messages.course.build.failed, course.id, message);
+                            app.trigger(constants.messages.course.build.failed, '100500');
 
-                        expect(viewModel.packageUrl()).toEqual("");
+                            expect(viewModel.activeAction().state()).toEqual('');
+                        });
+
+                        it('should not remove packageUrl', function () {
+                            viewModel.id = course.id;
+                            viewModel.packageUrl("packageUrl");
+
+                            app.trigger(constants.messages.course.build.failed, '100500');
+
+                            expect(viewModel.packageUrl()).toEqual("packageUrl");
+                        });
                     });
 
                 });
-
-                describe('when any other course build failed in any part of application', function () {
-
-                    it('should not update current deliveringState to \'failed\'', function () {
-                        viewModel.id = course.id;
-                        viewModel.deliveringState("");
-
-                        app.trigger(constants.messages.course.build.failed, '100500');
-
-                        expect(viewModel.deliveringState()).toEqual("");
-                    });
-
-                    it('should not remove packageUrl', function () {
-                        viewModel.id = course.id;
-                        viewModel.packageUrl("packageUrl");
-
-                        app.trigger(constants.messages.course.build.failed, '100500');
-
-                        expect(viewModel.packageUrl()).toEqual("packageUrl");
-                    });
-
-                });
-
 
                 // publish
-                describe('when current course publish was started in any part of application', function () {
 
-                    it('should change course deliveringState to \'publishing\'', function () {
-                        viewModel.id = course.id;
-                        viewModel.deliveringState('');
-                        app.trigger(constants.messages.course.publish.started, course);
+                describe('when course publish was started', function () {
 
-                        expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.publishing);
+                    describe('for current course', function() {
+                        it('should change active action state to \'publishing\'', function () {
+                            viewModel.id = course.id;
+                            viewModel.activeAction().state('');
+                            app.trigger(constants.messages.course.publish.started, course);
+
+                            expect(viewModel.activeAction().state()).toEqual(constants.deliveringStates.publishing);
+                        });
+                    });
+
+                    describe('for any other course', function() {
+                        it('should not change active action state', function () {
+                            viewModel.id = course.id;
+                            viewModel.activeAction().state(constants.deliveringStates.notStarted);
+                            app.trigger(constants.messages.course.publish.started, { id: '100500' });
+
+                            expect(viewModel.activeAction().state()).toEqual(constants.deliveringStates.notStarted);
+                        });
+
                     });
 
                 });
 
-                describe('when any other course publish was started in any part of application', function () {
+                describe('when course publish completed', function () {
 
-                    it('should not change course deliveringState', function () {
-                        viewModel.id = course.id;
-                        viewModel.deliveringState(constants.deliveringStates.notStarted);
-                        app.trigger(constants.messages.course.publish.started, { id: '100500' });
+                    describe('for current course', function() {
+                        it('should update active action state to \'success\'', function () {
+                            viewModel.id = course.id;
+                            viewModel.activeAction().state("");
 
-                        expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.notStarted);
+                            course.buildingStatus = constants.deliveringStates.succeed;
+                            app.trigger(constants.messages.course.publish.completed, course);
+
+                            expect(viewModel.activeAction().state()).toEqual(constants.deliveringStates.succeed);
+                        });
+
+                        it('should update current publishedPackageUrl to the corresponding one', function () {
+                            viewModel.id = course.id;
+                            viewModel.publishedPackageUrl("");
+
+                            course.publishedPackageUrl = "http://xxx.com";
+                            app.trigger(constants.messages.course.publish.completed, course);
+
+                            expect(viewModel.publishedPackageUrl()).toEqual(course.publishedPackageUrl);
+                        });
+                    });
+
+                    describe('for any other course', function() {
+
+                        it('should not update active action state', function () {
+                            viewModel.id = course.id;
+                            viewModel.activeAction().state(constants.deliveringStates.notStarted);
+                            app.trigger(constants.messages.course.publish.completed, { id: '100500' });
+
+                            expect(viewModel.activeAction().state()).toEqual(constants.deliveringStates.notStarted);
+                        });
+
+                        it('should not update current publishedPackageUrl', function () {
+                            viewModel.id = course.id;
+                            viewModel.publishedPackageUrl("http://xxx.com");
+                            app.trigger(constants.messages.course.publish.completed, { id: '100500' });
+
+                            expect(viewModel.publishedPackageUrl()).toEqual("http://xxx.com");
+                        });
                     });
 
                 });
 
-                describe('when current course publish completed in any part of application', function () {
+                describe('when course publish failed', function () {
 
-                    it('should update current publishState to \'success\'', function () {
-                        viewModel.id = course.id;
-                        viewModel.deliveringState("");
+                    describe('for current course', function() {
+                        var message = "message";
 
-                        course.buildingStatus = constants.deliveringStates.succeed;
-                        app.trigger(constants.messages.course.publish.completed, course);
+                        it('should update active action state to \'failed\'', function () {
+                            viewModel.id = course.id;
+                            viewModel.activeAction().state('');
 
-                        expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.succeed);
+                            app.trigger(constants.messages.course.publish.failed, course.id, message);
+
+                            expect(viewModel.activeAction().state()).toEqual(constants.deliveringStates.failed);
+                        });
+
+                        it('should remove publishedPackageUrl', function () {
+                            viewModel.id = course.id;
+                            viewModel.publishedPackageUrl("publishedPackageUrl");
+
+                            app.trigger(constants.messages.course.publish.failed, course.id, message);
+
+                            expect(viewModel.publishedPackageUrl()).toEqual("");
+                        });
                     });
 
-                    it('should update current publishedPackageUrl to the corresponding one', function () {
-                        viewModel.id = course.id;
-                        viewModel.publishedPackageUrl("");
+                    describe('for any other course', function() {
+                        it('should not update active action state to \'failed\'', function () {
+                            viewModel.id = course.id;
+                            viewModel.activeAction().state('');
 
-                        course.publishedPackageUrl = "http://xxx.com";
-                        app.trigger(constants.messages.course.publish.completed, course);
+                            app.trigger(constants.messages.course.publish.failed, '100500');
 
-                        expect(viewModel.publishedPackageUrl()).toEqual(course.publishedPackageUrl);
-                    });
+                            expect(viewModel.activeAction().state()).toEqual('');
+                        });
 
-                });
+                        it('should not remove packageUrl', function () {
+                            viewModel.id = course.id;
+                            viewModel.publishedPackageUrl("packageUrl");
 
-                describe('when any other course publish completed in any part of application', function () {
+                            app.trigger(constants.messages.course.publish.failed, '100500');
 
-                    it('should not update current publishState', function () {
-                        viewModel.id = course.id;
-                        viewModel.deliveringState(constants.deliveringStates.notStarted);
-                        app.trigger(constants.messages.course.publish.completed, { id: '100500' });
-
-                        expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.notStarted);
-                    });
-
-                    it('should not update current publishedPackageUrl', function () {
-                        viewModel.id = course.id;
-                        viewModel.publishedPackageUrl("http://xxx.com");
-                        app.trigger(constants.messages.course.publish.completed, { id: '100500' });
-
-                        expect(viewModel.publishedPackageUrl()).toEqual("http://xxx.com");
-                    });
-
-                });
-
-                describe('when current course publish failed in any part of application', function () {
-
-                    var message = "message";
-
-                    it('should update current deliveringState to \'failed\'', function () {
-                        viewModel.id = course.id;
-                        viewModel.deliveringState("");
-
-                        app.trigger(constants.messages.course.publish.failed, course.id, message);
-
-                        expect(viewModel.deliveringState()).toEqual(constants.deliveringStates.failed);
-                    });
-
-                    it('should remove publishedPackageUrl', function () {
-                        viewModel.id = course.id;
-                        viewModel.publishedPackageUrl("publishedPackageUrl");
-
-                        app.trigger(constants.messages.course.publish.failed, course.id, message);
-
-                        expect(viewModel.publishedPackageUrl()).toEqual("");
+                            expect(viewModel.publishedPackageUrl()).toEqual("packageUrl");
+                        });
                     });
 
                 });
-
-                describe('when any other course publish failed in any part of application', function () {
-
-                    it('should not update current deliveringState to \'failed\'', function () {
-                        viewModel.id = course.id;
-                        viewModel.publishedPackageUrl("");
-
-                        app.trigger(constants.messages.course.publish.failed, '100500');
-
-                        expect(viewModel.publishedPackageUrl()).toEqual("");
-                    });
-
-                    it('should not remove packageUrl', function () {
-                        viewModel.id = course.id;
-                        viewModel.publishedPackageUrl("packageUrl");
-
-                        app.trigger(constants.messages.course.publish.failed, '100500');
-
-                        expect(viewModel.publishedPackageUrl()).toEqual("packageUrl");
-                    });
-
-                });
-
             });
 
             describe('openPublishedCourse:', function () {
@@ -545,9 +804,14 @@
 
                 describe('when course successfully published', function () {
 
+                    beforeEach(function () {
+                        viewModel.publishAction({
+                            state: ko.observable(constants.deliveringStates.succeed)
+                        });
+                    });
+
                     it('should open publish url', function () {
                         viewModel.publishedPackageUrl('Some url');
-                        viewModel.deliveringState(viewModel.states.succeed);
 
                         viewModel.openPublishedCourse();
                         expect(router.openUrl).toHaveBeenCalledWith(viewModel.publishedPackageUrl());
@@ -557,9 +821,14 @@
 
                 describe('when course not published', function () {
 
+                    beforeEach(function () {
+                        viewModel.publishAction({
+                            state: ko.observable(constants.deliveringStates.failed)
+                        });
+                    });
+
                     it('should not open link', function () {
                         viewModel.publishedPackageUrl('Some url');
-                        viewModel.deliveringState(viewModel.states.failed);
 
                         viewModel.openPublishedCourse();
                         expect(router.openUrl).not.toHaveBeenCalledWith(viewModel.publishedPackageUrl());
