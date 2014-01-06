@@ -142,9 +142,9 @@
         de: 'Sie können nicht mehr als 1 Lernerfahrung gleichzeitig löschen.'
     },
     deleteSeveralCoursesError: {
-        en: 'You can not delete more than 1 course at once (Multidelete is not implemented yet. Please delete your courses one by one.)',
-        nl: 'You can not delete more than 1 course at once (Multidelete is not implemented yet. Please delete your courses one by one.)[nl]',
-        de: 'You can not delete more than 1 course at once (Multidelete is not implemented yet. Please delete your courses one by one.)[de]'
+        en: 'Please delete your courses one by one. Multidelete is not implemented yet.',
+        nl: 'Cursussen moeten één voor één worden verwijderd. Het verwijderen van meerdere cursussen tegelijk is nog niet mogelijk.',
+        de: 'Löschen Sie Ihre Kurse bitte einzeln. Das gleichzeitige Löschen mehrerer Kurse ist noch nicht möglich.'
     },
     deleteSeveralObjectivesError: {
         en: 'You can not delete more than 1 learning objective at once.',
@@ -489,6 +489,16 @@
         en: 'Download (the) course',
         nl: 'De cursus downloaden',
         de: 'Den Kurs herunterladen'
+    },
+    downloadScorm12Package: {
+        en: 'Download SCORM 1.2 package',
+        nl: 'Download SCORM 1.2 package[nl]',
+        de: 'Download SCORM 1.2 package[de]'
+    },
+    downloadScorm12PackageDescription: {
+        en: 'Download the course as SCORM 1.2 package in order to publish it to LMS',
+        nl: 'Download the course as SCORM 1.2 package in order to publish it to LMS[nl]',
+        de: 'Download the course as SCORM 1.2 package in order to publish it to LMS[de]'
     },
     /* End resource section for model Experiences */
     
