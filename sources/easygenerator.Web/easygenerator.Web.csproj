@@ -245,9 +245,9 @@
     <Content Include="App\viewmodels\courses\deliveringActions\scormBuild.spec.js">
       <DependentUpon>scormBuild.js</DependentUpon>
     </Content>
-    <None Include="BuildCourse\Scorm\Schemas\adlcp_rootv1p2.xsd">
+    <Content Include="BuildCourse\Scorm\Schemas\adlcp_rootv1p2.xsd">
       <SubType>Designer</SubType>
-    </None>
+    </Content>
     <Content Include="App\viewmodels\courses\deliveringActions\build.js" />
     <Content Include="App\viewmodels\courses\deliveringActions\build.spec.js">
       <DependentUpon>build.js</DependentUpon>
@@ -1181,15 +1181,15 @@
     <Content Include="Mail\MailTemplates\ForgotPasswordTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\FeedbackTemplate.cshtml" />
     <Content Include="Mail\MailTemplates\NewsletterSubscriptionFailedTemplate.cshtml" />
-    <None Include="BuildCourse\Scorm\Schemas\imscp_rootv1p1p2.xsd">
+    <Content Include="BuildCourse\Scorm\Schemas\imscp_rootv1p1p2.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="BuildCourse\Scorm\Schemas\imsmd_rootv1p2p1.xsd">
+    </Content>
+    <Content Include="BuildCourse\Scorm\Schemas\imsmd_rootv1p2p1.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="BuildCourse\Scorm\Schemas\ims_xml.xsd">
+    </Content>
+    <Content Include="BuildCourse\Scorm\Schemas\ims_xml.xsd">
       <SubType>Designer</SubType>
-    </None>
+    </Content>
     <Content Include="BuildCourse\Scorm\Templates\metadata.cshtml" />
     <None Include="Properties\PublishProfiles\My publish profile.pubxml" />
     <Content Include="Templates\Freestyle learning\js\vendor.js.bundle">
