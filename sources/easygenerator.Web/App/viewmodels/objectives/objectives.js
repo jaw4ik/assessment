@@ -103,7 +103,7 @@
                  this.currentLanguage = localizationManager.currentLanguage;
 
                  return objectiveRepository.getCollection().then(function (receivedObjectives) {
-                     courseRepository.getCollection().then(function (courses) {
+                     return courseRepository.getCollection().then(function (courses) {
                          var includedObjectives = _.chain(courses).map(function (course) {
                              return course.objectives;
                          }).flatten().uniq().value();
@@ -122,18 +122,15 @@
                                          if (item.questions.length > 0)
                                              return false;
 
-                                         if (_.find(includedObjectives, function (objective) {
+                                         return (!_.find(includedObjectives, function (objective) {
                                              return objective.id === currentItem.id;
-                                         })) return false;
-
-                                         return true;
+                                         }));
                                      })(item)
                                  };
                              }).value();
 
                          objectives(array);
                      });
-
                  });
              };
 

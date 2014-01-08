@@ -25,15 +25,15 @@
 
             describe('objectives:', function () {
 
-                it('should be observable', function() {
+                it('should be observable', function () {
                     expect(viewModel.objectives).toBeObservable();
                 });
 
             });
 
-            describe('currentLanguage:', function() {
+            describe('currentLanguage:', function () {
 
-                it('should be defined', function() {
+                it('should be defined', function () {
                     expect(viewModel.currentLanguage).toBeDefined();
                 });
 
@@ -153,18 +153,18 @@
 
             describe('activate:', function () {
 
-                var 
+                var
                     getObjectivesDeferred,
                     getCoursesDeferred;
 
-                beforeEach(function() {
+                beforeEach(function () {
                     getObjectivesDeferred = Q.defer();
                     getCoursesDeferred = Q.defer();
 
                     spyOn(objectiveRepository, 'getCollection').andReturn(getObjectivesDeferred.promise);
                     spyOn(courseRepository, 'getCollection').andReturn(getCoursesDeferred.promise);
                 });
-                
+
                 it('should be function', function () {
                     expect(viewModel.activate).toBeFunction();
                 });
@@ -174,7 +174,12 @@
                     expect(promise).toBePromise();
                 });
 
-                describe('when get objectives collection', function () {
+                it('should call objective repository getCollection', function () {
+                    viewModel.activate();
+                    expect(objectiveRepository.getCollection).toHaveBeenCalled();
+                });
+
+                describe('when objectives have been recieved', function () {
 
                     var objectiveItem = { id: '1', title: 'z', image: '', questions: [{ id: 0 }, { id: 1 }], modifiedOn: 'some date' };
                     var objectivesCollection = [
@@ -189,25 +194,27 @@
                         viewModel.objectives([]);
                     });
 
-                    it('should call repository getCollection', function () {
-                        getObjectivesDeferred.resolve(objectivesCollection);
-
-                        var promise = viewModel.activate();
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(promise).toBeResolved();
-                            expect(objectiveRepository.getCollection).toHaveBeenCalled();
-                        });
-                    });
-
                     describe('and when objective received', function () {
 
-                        describe('when get courses collection', function () {
+                        it('should call course repository getCollection', function () {
+                            getObjectivesDeferred.resolve(objectivesCollection);
+                            var promise = getObjectivesDeferred.promise.fin(function () { });
 
-                            it('should call repository getCollection', function () {
+                            viewModel.activate();
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(courseRepository.getCollection).toHaveBeenCalled();
+                            });
+                        });
+
+                        describe('and when courses have been received', function () {
+
+                            it('should define objectives', function () {
                                 getObjectivesDeferred.resolve(objectivesCollection);
+                                getCoursesDeferred.resolve([]);
 
                                 var promise = viewModel.activate();
                                 waitsFor(function () {
@@ -215,157 +222,85 @@
                                 });
                                 runs(function () {
                                     expect(promise).toBeResolved();
-                                    expect(courseRepository.getCollection).toHaveBeenCalled();
+                                    expect(viewModel.objectives().length).toBe(objectivesCollection.length);
                                 });
                             });
 
-                            describe('and when expreriences received', function () {
+                            it('should set id for each objective', function () {
+                                getCoursesDeferred.resolve([]);
+                                getObjectivesDeferred.resolve([objectiveItem]);
 
-                                describe('when initialize objectives collection', function () {
-
-                                    it('should define objectives', function () {
-                                        getObjectivesDeferred.resolve(objectivesCollection);
-                                        getCoursesDeferred.resolve([]);
-
-                                        var promise = viewModel.activate();
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(promise).toBeResolved();
-                                            expect(viewModel.objectives().length).toBe(objectivesCollection.length);
-                                        });
-                                    });
-
-                                    it('should set id for each objective', function () {
-                                        getCoursesDeferred.resolve([]);
-                                        getObjectivesDeferred.resolve([objectiveItem]);
-
-                                        var promise = viewModel.activate();
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(promise).toBeResolved();
-                                            expect(viewModel.objectives()[0].id).toBe(objectiveItem.id);
-                                        });
-                                    });
-
-                                    it('should set title for each objective', function () {
-                                        getCoursesDeferred.resolve([]);
-                                        getObjectivesDeferred.resolve([objectiveItem]);
-
-                                        var promise = viewModel.activate();
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(promise).toBeResolved();
-                                            expect(viewModel.objectives()[0].title).toBe(objectiveItem.title);
-                                        });
-                                    });
-
-                                    it('should set image for each objective', function () {
-                                        getCoursesDeferred.resolve([]);
-                                        getObjectivesDeferred.resolve([objectiveItem]);
-
-                                        var promise = viewModel.activate();
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(promise).toBeResolved();
-                                            expect(viewModel.objectives()[0].image).toBe(objectiveItem.image);
-                                        });
-                                    });
-
-                                    it('should set modifiedOn for each objective', function() {
-                                        getCoursesDeferred.resolve([]);
-                                        getObjectivesDeferred.resolve([objectiveItem]);
-
-                                        var promise = viewModel.activate();
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(promise).toBeResolved();
-                                            expect(viewModel.objectives()[0].modifiedOn).toBe(objectiveItem.modifiedOn);
-                                        });
-                                    });
-
-                                    it('should set isSelected observable to false for each objective', function () {
-                                        getCoursesDeferred.resolve([]);
-                                        getObjectivesDeferred.resolve([objectiveItem]);
-
-                                        var promise = viewModel.activate();
-                                        waitsFor(function () {
-                                            return !promise.isPending();
-                                        });
-                                        runs(function () {
-                                            expect(promise).toBeResolved();
-                                            expect(viewModel.objectives()[0].isSelected()).toBeFalsy();
-                                        });
-                                    });
-
-                                    describe('when objective questions count > 0', function () {
-
-                                        it('should set canBeDeleted to false for each objective', function () {
-                                            getCoursesDeferred.resolve([]);
-                                            getObjectivesDeferred.resolve([{ id: '1', title: 'z', image: '', questions: [{ id: 0 }, { id: 1 }] }]);
-
-                                            var promise = viewModel.activate();
-                                            waitsFor(function () {
-                                                return !promise.isPending();
-                                            });
-                                            runs(function () {
-                                                expect(promise).toBeResolved();
-                                                expect(viewModel.objectives()[0].canBeDeleted).toBeFalsy();
-                                            });
-                                        });
-
-                                    });
-
-                                    describe('when objective questions count = 0', function () {
-
-                                        describe('when objectives count included to expiriences = 0', function () {
-                                            it('should set canBeDeleted to true for each objective', function () {
-                                                getCoursesDeferred.resolve([]);
-                                                getObjectivesDeferred.resolve([{ id: '1', title: 'z', image: '', questions: [] }]);
-
-                                                var promise = viewModel.activate();
-                                                waitsFor(function () {
-                                                    return !promise.isPending();
-                                                });
-                                                runs(function () {
-                                                    expect(promise).toBeResolved();
-                                                    expect(viewModel.objectives()[0].canBeDeleted).toBeTruthy();
-                                                });
-                                            });
-                                        });
-
-                                        describe('when objective is included to expirience', function () {
-                                            it('should set canBeDeleted to false', function () {
-                                                getCoursesDeferred.resolve([{ objectives: [{ id: '1' }] }]);
-                                                getObjectivesDeferred.resolve([{ id: '1', title: 'z', image: '', questions: [] }]);
-
-                                                var promise = viewModel.activate();
-                                                waitsFor(function () {
-                                                    return !promise.isPending();
-                                                });
-                                                runs(function () {
-                                                    expect(promise).toBeResolved();
-                                                    expect(viewModel.objectives()[0].canBeDeleted).toBeFalsy();
-                                                });
-                                            });
-                                        });
-
-                                    });
-
+                                var promise = viewModel.activate();
+                                waitsFor(function () {
+                                    return !promise.isPending();
                                 });
-                                
-                                it('should sort objectives collection desc by created on', function () {
-                                    getObjectivesDeferred.resolve(objectivesCollection);
+                                runs(function () {
+                                    expect(promise).toBeResolved();
+                                    expect(viewModel.objectives()[0].id).toBe(objectiveItem.id);
+                                });
+                            });
+
+                            it('should set title for each objective', function () {
+                                getCoursesDeferred.resolve([]);
+                                getObjectivesDeferred.resolve([objectiveItem]);
+
+                                var promise = viewModel.activate();
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolved();
+                                    expect(viewModel.objectives()[0].title).toBe(objectiveItem.title);
+                                });
+                            });
+
+                            it('should set image for each objective', function () {
+                                getCoursesDeferred.resolve([]);
+                                getObjectivesDeferred.resolve([objectiveItem]);
+
+                                var promise = viewModel.activate();
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolved();
+                                    expect(viewModel.objectives()[0].image).toBe(objectiveItem.image);
+                                });
+                            });
+
+                            it('should set modifiedOn for each objective', function () {
+                                getCoursesDeferred.resolve([]);
+                                getObjectivesDeferred.resolve([objectiveItem]);
+
+                                var promise = viewModel.activate();
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolved();
+                                    expect(viewModel.objectives()[0].modifiedOn).toBe(objectiveItem.modifiedOn);
+                                });
+                            });
+
+                            it('should set isSelected observable to false for each objective', function () {
+                                getCoursesDeferred.resolve([]);
+                                getObjectivesDeferred.resolve([objectiveItem]);
+
+                                var promise = viewModel.activate();
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolved();
+                                    expect(viewModel.objectives()[0].isSelected()).toBeFalsy();
+                                });
+                            });
+
+                            describe('when objective questions count > 0', function () {
+
+                                it('should set canBeDeleted to false for each objective', function () {
                                     getCoursesDeferred.resolve([]);
+                                    getObjectivesDeferred.resolve([{ id: '1', title: 'z', image: '', questions: [{ id: 0 }, { id: 1 }] }]);
 
                                     var promise = viewModel.activate();
                                     waitsFor(function () {
@@ -373,10 +308,60 @@
                                     });
                                     runs(function () {
                                         expect(promise).toBeResolved();
-                                        expect(viewModel.objectives()).toBeSortedDesc('createdOn');
+                                        expect(viewModel.objectives()[0].canBeDeleted).toBeFalsy();
                                     });
                                 });
 
+                            });
+
+                            describe('when objective questions count = 0', function () {
+
+                                describe('when objectives count included to expiriences = 0', function () {
+                                    it('should set canBeDeleted to true for each objective', function () {
+                                        getCoursesDeferred.resolve([]);
+                                        getObjectivesDeferred.resolve([{ id: '1', title: 'z', image: '', questions: [] }]);
+
+                                        var promise = viewModel.activate();
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(promise).toBeResolved();
+                                            expect(viewModel.objectives()[0].canBeDeleted).toBeTruthy();
+                                        });
+                                    });
+                                });
+
+                                describe('when objective is included to expirience', function () {
+                                    it('should set canBeDeleted to false', function () {
+                                        getCoursesDeferred.resolve([{ objectives: [{ id: '1' }] }]);
+                                        getObjectivesDeferred.resolve([{ id: '1', title: 'z', image: '', questions: [] }]);
+
+                                        var promise = viewModel.activate();
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(promise).toBeResolved();
+                                            expect(viewModel.objectives()[0].canBeDeleted).toBeFalsy();
+                                        });
+                                    });
+                                });
+
+                            });
+
+                            it('should sort objectives collection desc by created on', function () {
+                                getObjectivesDeferred.resolve(objectivesCollection);
+                                getCoursesDeferred.resolve([]);
+
+                                var promise = viewModel.activate();
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(promise).toBeResolved();
+                                    expect(viewModel.objectives()).toBeSortedDesc('createdOn');
+                                });
                             });
 
                         });
@@ -452,7 +437,7 @@
                     it('should show error notification', function () {
                         viewModel.objectives([{ isSelected: ko.observable(true) }, { isSelected: ko.observable(true) }]);
                         spyOn(notify, 'error');
-                        
+
                         viewModel.deleteSelectedObjectives();
                         expect(notify.error).toHaveBeenCalled();
                     });
@@ -476,7 +461,7 @@
                             expect(result).toBeUndefined();
                         });
 
-                        it('should show error notification', function() {
+                        it('should show error notification', function () {
                             viewModel.deleteSelectedObjectives();
                             expect(notify.error).toHaveBeenCalled();
                         });
@@ -516,12 +501,12 @@
                                 expect(viewModel.objectives().length).toBe(0);
                             });
                         });
-                        
+
                         it('should show saved notification', function () {
                             spyOn(notify, 'saved');
                             viewModel.deleteSelectedObjectives();
                             deleteDeferred.resolve();
-                            
+
                             waitsFor(function () {
                                 return !promise.isPending();
                             });
@@ -529,10 +514,10 @@
                                 expect(notify.saved).toHaveBeenCalled();
                             });
                         });
-                        
+
                     });
                 });
-                
+
             });
         });
     }
