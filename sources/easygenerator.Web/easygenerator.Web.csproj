@@ -816,7 +816,7 @@
     <Content Include="Templates\Freestyle learning\content\1\1\content.html" />
     <Content Include="Templates\Freestyle learning\css\jasmine.css" />
     <Content Include="Templates\Freestyle learning\img\buildprogress.gif" />
-    <Content Include="Templates\Freestyle learning\img\saltbox-baner.png" />
+    <Content Include="Templates\Freestyle learning\img\saltbox-banner.png" />
     <Content Include="Templates\Freestyle learning\js\almond-custom.js" />
     <Content Include="Templates\Freestyle learning\js\durandal\activator.js" />
     <Content Include="Templates\Freestyle learning\js\durandal\binder.js" />
@@ -1117,7 +1117,7 @@
     <Content Include="Templates\Quiz\img\previous.png" />
     <Content Include="Templates\Quiz\img\progress.png" />
     <Content Include="Templates\Quiz\img\safari.png" />
-    <Content Include="Templates\Quiz\img\saltbox-baner.png" />
+    <Content Include="Templates\Quiz\img\saltbox-banner.png" />
     <Content Include="Templates\Quiz\img\spiner.GIF" />
     <Content Include="Templates\Quiz\img\tooltip.png" />
     <Content Include="Templates\Quiz\App\xApi\css\img\xapierror.png" />
