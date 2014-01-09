@@ -136,11 +136,6 @@
         nl: 'Selectie verwijderen',
         de: 'Auswahl löschen'
     },
-    deleteSeveralExperiencesError: {
-        en: 'You can not delete more than 1 learning experience at once.',
-        nl: 'U kunt maar 1 leerervaring tegelijk verwijderen.',
-        de: 'Sie können nicht mehr als 1 Lernerfahrung gleichzeitig löschen.'
-    },
     deleteSeveralCoursesError: {
         en: 'Please delete your courses one by one. Multidelete is not implemented yet.',
         nl: 'Cursussen moeten één voor één worden verwijderd. Het verwijderen van meerdere cursussen tegelijk is nog niet mogelijk.',
@@ -229,130 +224,12 @@
         nl: 'Klik om de leerdoelstelling toe te voegen',
         de: 'Klicken, um Lernziel hinzuzufügen'
     },
-    delete_objectiveCannnotBeDeleted: {
-        en: 'Learning objective cannot be deleted, while it is connected into learning experience(s) or contains questions.',
-        nl: 'Leerdoel kan niet worden verwijderd als het is gekoppeld aan een of meer leerervaringen of als het vragen bevat.',
-        de: 'Ein Lernziel kann nicht gelöscht werden, wenn es mit einer oder mehreren Lernerfahrungen verbunden ist oder Fragen enthält.'
-    },
     objectiveCannnotBeDeleted: {
         en: 'Learning objective cannot be deleted, while it is connected to course(s) or contains questions',
         nl: 'Het leerdoel kan niet worden verwijderd zolang deze aan een of meer cursussen is verbonden of vragen bevat.',
         de: 'Das Lernziel kann nicht gelöscht werden, wenn es mit (einem) Kurs(en) verbunden ist oder Fragen enthält.'
     },
     /* End resource section for model Objectives */
-    
-    /* Resource section for model Experiences */
-    experiences: {
-        en: 'Learning experiences',
-        nl: 'Leerervaringen',
-        de: 'Lernerfahrungen'
-    },
-    experience: {
-        en: 'Learning experience',
-        nl: 'Leerervaring',
-        de: 'Lernerfahrung'
-    },
-    courseBuildAction: {
-        en: 'Build',
-        nl: 'Samenstellen',
-        de: 'Zusammenstellen'
-    },
-    courseBuildingStatus: {
-        en: 'building...',
-        nl: 'samenstellen…',
-        de: 'Wird zusammengestellt...'
-    },
-    courseRebuildAction: {
-        en: 'Rebuild',
-        nl: 'Opnieuw samenstellen',
-        de: 'Neu zusammenstellen'
-    },
-    addNewExperience: {
-        en: 'Add new learning experience',
-        nl: 'Nieuwe leerervaring toevoegen',
-        de: 'Neue Lernerfahrung hinzufügen'
-    },
-    addNewCourse: {
-        en: 'Add new course',
-        nl: 'Add new course[nl]',
-        de: 'Add new course[de]'
-    },
-    experiencesListIsEmpty: {
-        en: 'Learning experiences list is empty',
-        nl: 'Lijst met leerervaringen is leeg',
-        de: 'Liste der Lernerfahrungen ist leer'
-    },
-    coursesListIsEmpty: {
-        en: 'Courses list is empty',
-        nl: 'Courses list is empty[nl]',
-        de: 'Courses list is empty[de]'
-    },
-    experienceCannotBeDeleted: {
-        en: 'Learning experience cannot be deleted while it has connected learning objective(s)',
-        nl: 'Leerervaring kan niet worden verwijderd als er aan de ervaring een of meer leerdoelen zijn gekoppeld',
-        de: 'Eine Lernerfahrung kann nicht gelöscht werden, wenn sie mit einem oder mehreren Lernzielen verbunden ist.'
-    },
-    createPackageDescription: {
-        en: 'Assemble learning experience',
-        nl: 'Leerervaring samenstellen',
-        de: 'Lernerfahrung zusammenstellen'
-    },
-    updatePackageDescription: {
-        en: 'Reassemble learning experience',
-        nl: 'Leerervaring opnieuw samenstellen',
-        de: 'Lernerfahrung neu zusammenstellen'
-    },
-    delete_publishOnlineDesciption: {
-        en: 'Publish learning experience on easygenerator webserver',
-        nl: 'Publiceer de leerervaring op de easygenerator webserver',
-        de: 'Die Lernerfahrung auf dem Easygenerator-Webserver veröffentlichen'
-    },
-    delete_downloadDescription: {
-        en: 'Download learning experience in order to publish  it on your own webserver',
-        nl: 'Download de leerervaring voor publicatie op uw eigen webserver',
-        de: 'Die Lernerfahrung zur Veröffentlichung auf Ihrem eigenen Webserver herunterladen'
-    },
-    delete_republishOnlineDescription: {
-        en: 'Republish learning experience on easygenerator webserver',
-        nl: 'Publiceer de leerervaring opnieuw op de easygenerator webserver',
-        de: 'Die Lernerfahrung erneut auf dem Easygenerator-Webserver veröffentlichen'
-    },
-    delete_openLinkDescription: {
-        en: 'Open link to view learning experience',
-        nl: 'Koppeling openen om leerervaring te bekijken',
-        de: 'Link zur Lernerfahrung öffnen'
-    },
-    assemble: {
-        en: 'Assemble',
-        nl: 'Samenstellen',
-        de: 'Zusammenstellen'
-    },
-    assembling: {
-        en: 'assembling...',
-        nl: 'samenstellen...',
-        de: 'Zusammenstellung...'
-    },
-    reassemble: {
-        en: 'Reassemble',
-        nl: 'Opnw samenstellen',
-        de: 'Neu zusammenstellen'
-    },
-    reassembling: {
-        en: 'reassembling...',
-        nl: 'opnieuw samenstellen...',
-        de: 'Neu zusammenstellen...'
-    },
-    publishLearningExperience: {
-        en: 'Publish learning experience',
-        nl: 'Leerervaring publiceren',
-        de: 'Lernerfahrung veröffentlichen'
-    },
-    downloadLearningExperience: {
-        en: 'Download learning experience',
-        nl: 'Leerervaring downloaden',
-        de: 'Lernerfahrung herunterladen'
-    },
-    /* End resource section for model Experiences */
     
     /* Resource section for model Courses */
     courses: {
@@ -493,12 +370,12 @@
     downloadScorm12Package: {
         en: 'Download SCORM 1.2 package',
         nl: 'Het \"SCORM 1.2\"-pakket downloaden',
-        de: 'Download SCORM 1.2 package[de]'
+        de: 'Download des Pakets \"SCORM 1.2\"'
     },
     downloadScorm12PackageDescription: {
         en: 'Download the course as SCORM 1.2 package in order to publish it to LMS',
         nl: 'Hier kunt u de cursus als \"SCORM 1.2\"-pakket downloaden, zodat u het vervolgens in LMS kunt publiceren.',
-        de: 'Download the course as SCORM 1.2 package in order to publish it to LMS[de]'
+        de: 'Hier können Sie den Kurs als \"SCORM 1.2\"-Paket herunterladen, damit Sie ihn anschließend in \"LMS\" veröffentlichen können.'
     },
     /* End resource section for model Courses */
     
@@ -553,11 +430,6 @@
         nl: 'Het leerdoel definiëren',
         de: 'Das Lernziel definieren'
     },
-    typeExperienceTitleHere: {
-        en: 'Type learning experience title here...',
-        nl: 'Typ hier de titel van de leerervaring...',
-        de: 'Titel der Lernerfahrung hier eingeben...'
-    },
     /* End resource section for model CreateObjective */
     
     /* Resource section for model CreateCourse */
@@ -565,21 +437,6 @@
         en: 'Type course title here...',
         nl: 'Typ hier de naam van de cursus...',
         de: 'Den Titel des Kurses hier eingeben...'
-    },
-    clickToAddExperience: {
-        en: 'Click to add learning experience',
-        nl: 'Klik om leerervaring toe te voegen',
-        de: 'Klicken, um Lernerfahrung hinzuzufügen'
-    },
-    clickToAddCourse: {
-        en: 'Click to add a course',
-        nl: 'Click to add a course[nl]',
-        de: 'Click to add a course[de]'
-    },
-    createNewExperience: {
-        en: 'Create new learning experience',
-        nl: 'Nieuwe leerervaring maken',
-        de: 'Neue Lernerfahrung erstellen'
     },
     createNewCourse: {
         en: 'Create new course',
@@ -590,26 +447,6 @@
         en: 'Choose template',
         nl: 'Sjabloon kiezen',
         de: 'Vorlage wählen'
-    },
-    chooseLearningExperinceTemplate: {
-        en: 'Choose learning experience template:',
-        nl: 'Leerervaringssjabloon kiezen:',
-        de: 'Lernerfahrungsvorlage wählen:'
-    },
-    delete_chooseCourseTemplate: {
-        en: 'Choose course template:',
-        nl: 'Choose course template:[nl]',
-        de: 'Choose course template:[de]'
-    },
-    learningExperienceTemplate: {
-        en: 'Learning experience template:',
-        nl: 'Leerervaringssjabloon:',
-        de: 'Lernerfahrungsvorlage:'
-    },
-    courseTemplate: {
-        en: 'Course template:',
-        nl: 'Course template:[nl]',
-        de: 'Course template:[de]'
     },
     defineCourseTitle: {
         en: 'Define title',
@@ -985,26 +822,6 @@
         nl: 'Normaal',
         de: 'Normale'
     },
-    buildExperience: {
-        en: 'Build learning experience',
-        nl: 'Leerervaring samenstellen',
-        de: 'Lernerfahrung zusammenstellen'
-    },
-    clickToAddObjectivesIntoExperience: {
-        en: 'Click to add learning objective(s) into this learning experience',
-        nl: 'Klik om leerdoelen toe te voegen aan deze leerervaring',
-        de: 'Klicken, um dieser Lernerfahrung ein oder mehrere Lernziele hinzuzufügen'
-    },
-    clickToAddObjectivesIntoCourse: {
-        en: 'Click to add learning objective(s) into this course',
-        nl: 'Click to add learning objective(s) into this course[nl]',
-        de: 'Click to add learning objective(s) into this course[de]'
-    },
-    delete_templateSettings: {
-        en: 'Experience template settings:',
-        nl: 'Instellingen ervaringssjabloon:',
-        de: 'Einstellungen der Lernerfahrungsvorlage:'
-    },
     /* End resource section for model customLocalizationPlugin */
     
     /* Resource section for model Display course */
@@ -1060,38 +877,8 @@
     },
     templateSettings: {
         en: 'Course template settings:',
-        nl: 'Instellingen van het cursus-template:',
+        nl: 'Instellingen van de cursussjabloon:',
         de: 'Einstellungen der Kursvorlage:'
-    },
-    delete_introApplicationContentDesc: {
-        en: 'How to provide learner with a learning experience?',
-        nl: 'Hoe biedt u cursisten een leerervaring?',
-        de: 'Wie bieten Sie Lernenden eine hervorragende Lernerfahrung?'
-    },
-    delete_introCreateLE: {
-        en: 'Create learning experience',
-        nl: 'Maak een leerervaring',
-        de: 'Erstellen Sie eine Lernerfahrung'
-    },
-    delete_introCreateLEDesc: {
-        en: 'Name the learning experience and choose how you want to present it, as a course or as a quiz.',
-        nl: 'Geef de leerervaring een naam en bepaal hoe u de leerervaring wilt presenteren; als cursus of als quiz.',
-        de: 'Benennen Sie die Lernerfahrung und bestimmen Sie, wie Sie die Lernerfahrung präsentieren möchten, als Kurs oder als Quiz.'
-    },
-    delete_introConnectLOtoLE: {
-        en: 'Connect learning objectives to experience',
-        nl: 'Koppel leerdoelen aan de leerervaring',
-        de: 'Verbinden Sie Lernziele mit Lernerfahrungen'
-    },
-    delete_introConnectLOtoLEDesc: {
-        en: 'Assemble your learning experience (course or quiz) by adding learning objectives to it.',
-        nl: 'Stel uw leerervaring (cursus of quiz) samen door er leerdoelen aan toe te voegen. ',
-        de: 'Stellen Sie Ihre Lernerfahrung (Kurs oder Quiz) zusammen, indem Sie ihr Lernziele hinzufügen.'
-    },
-    delete_introPublishLE: {
-        en: 'Publish learning experience',
-        nl: 'Publiceer de leerervaring',
-        de: 'Veröffentlichen Sie die Lernerfahrung'
     },
     /* End resource section for model Display course */
     
@@ -1506,11 +1293,6 @@
         nl: 'Copyright © 2013 easygenerator. Alle rechten voorbehouden.',
         de: 'Copyright © 2013 easygenerator. Alle Rechte vorbehalten.'
     },
-    experienceNotFoundError: {
-        en: 'Learning experience was not found. Please refresh your data.',
-        nl: 'De leerervaring is niet gevonden. Vernieuw uw gegevens.',
-        de: 'Die Lernerfahrung wurde nicht gefunden. Bitte aktualisieren Sie Ihre Daten.'
-    },
     /* End resource section for model Copyright */
     
     /* Resource section for model Server error notification */
@@ -1553,16 +1335,6 @@
         en: 'Response is failed',
         nl: 'Respons mislukt',
         de: 'Antwort fehlgeschlagen'
-    },
-    learningExperienceViewCaption: {
-        en: 'Learning experience editor',
-        nl: 'Leerervaring-editor',
-        de: 'Lernerfahrungs-Editor'
-    },
-    createExperienceViewCaption: {
-        en: 'Create learning experience',
-        nl: 'Leerervaring maken',
-        de: 'Lernerfahrung erstellen'
     },
     /* End resource section for model Server error notification */
     
@@ -1741,36 +1513,6 @@
     /* End resource section for model Forgot password */
     
     /* Resource section for model ForgotPasswordBody */
-    experiencesHelpHintTitle: {
-        en: 'What is (a) course?',
-        nl: 'Wat is een leerervaring?',
-        de: 'Was ist eine Lernerfahrung?'
-    },
-    experiencesHelpHint: {
-        en: '<p>A <strong>learning experience</strong> is the name we gave to the eLearning you will be creating. It can be a course, a Learning nugget, a quiz. In fact it can be anything that will give the learner a learning experience.</p><p>A learning experience consist out of one or more learning objectives, with connected questions and learning content.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>',
-        nl: '<p>Een <strong>leerervaring</strong> is de naam die we hebben gegeven aan de eLearning die u gaat maken. Het kan een cursus zijn, een korte uitleg, of een toets. Het kan eigenlijk alles zijn dat de cursist een leerervaring geeft.</p><p>Een leerervaring bestaat uit een of meer leerdoelen met gerelateerde vragen en leerinhoud.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Meer informatie...<a></p>',
-        de: '<p>Eine <strong>Lernerfahrung</strong> ist der Name, den wir dem eLearning gegeben haben, das Sie erstellen werden. Es kann sich um einen Kurs, eine kurze Erklärung oder ein Quiz handeln. Eigentlich kann es sich um alles handeln, was dem Lerner eine Lernerfahrung vermittelt.</p><p>Eine Lernerfahrung besteht aus einem oder mehreren Lernzielen mit den dazugehörigen Fragen und Lerngegenständen.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Weitere Informationen...<a></p>'
-    },
-    delete_objectivesHelpHint: {
-        en: '<p>A <strong>learning objective</strong> is a statement that describes the specific skills or knowledge a learner will be able to demonstrate as a result of completing a learning experience.</p><p>See <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> for instructions and support for building proper objectives based on Blooms taxonomy.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>',
-        nl: '<p>Een Leerdoel is een stelling die specifieke vaardigheden of kennis beschrijft die de lerende kan demonstreren als een resultaat van het voltooien van een leerervaring.</p><p>Ga naar <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> voor instructies en uitleg over hoe goede leerdoelen te definiëren gebaseerd op Blooms taxonomy.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Meer informatie...<a></p>',
-        de: '<p>Ein Lernziel ist eine Aussage, die die spezifischen Fähigkeiten oder Kenntnisse beschreibt, die ein Lerner als Ergebnis einer Lernerfahrung vorweisen kann.</p><p>Anleitungen und Unterstützung für das Aufbauen geeigneter Ziele auf Basis von Blooms Taxonomie finden Sie unter <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a>.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Weitere Informationen...<a></p>'
-    },
-    createExperienceHelpHintTitle: {
-        en: 'What is a learning experience template?',
-        nl: 'Wat is een leerervaringssjabloon?',
-        de: 'Was ist eine Lernerfahrungsvorlage?'
-    },
-    createExperienceHelpHint: {
-        en: '<p><strong>Learning experience template</strong> is a set of predefined graphical and instructional design parameters.</p><p>Learning experience template defines how a learning material will be presented to a learner, how a learner will be able to interact with it and how a learner\'s responses will be affecting learning experience.</p><p>For an author choosing certain learning experience template will also change set of designing capabilities, depending on which of them are supported by chosen learning experience template.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>',
-        nl: '<p>Een <strong>leervaringstemplate</strong> bestaat uit een reeks voorgedefinieerde grafische en instructieve ontwerpparameters.</p><p>De template definieert hoe lesmateriaal aan een cursist wordt gepresenteerd, hoe een cursist hiermee kan omgaan en welke invloed de antwoorden van de cursist hebben op de leerervaring.</p><p>Een auteur die voor een bepaalde leerervaringstemplate kiest, wijzigt ook een reeks ontwerpmogelijkheden, afhankelijk van welke hiervan door de gekozen leerervaringstemplate worden ondersteund.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Meer informatie...<a></p>',
-        de: '<p>Eine <strong>Lernerfahrungsvorlage</strong> ist ein Satz von vordefinierten grafischen und Unterrichts-Entwicklungsparametern.</p><p>Die Lernerfahrungsvorlage legt fest, wie Lernmaterialien dem Lerner präsentiert werden, wie ein Lerner damit interagieren kann und wie sich die Antworten des Lerners auf die Lernerfahrung auswirken.</p><p>Für einen Autor ändert die Auswahl einer bestimmten Lernvorlage auch den Satz der Entwicklungsmöglichkeiten, je nachdem, welche von diesen von der ausgwählten Lernerfahrungsvorlage unterstützt werden.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Weitere Informationen...<a></p>'
-    },
-    delete_objectiveHelpHint: {
-        en: '<p>A <strong>related question</strong> is a question that measures the learners skills or knowledge for a specific learning objective. When answered correct progress is made on the learning objective.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>',
-        nl: '<p>Een <strong>gerelateerde vraag</strong> is een vraag die de kennis of vaardigheden van een cursist meet voor een specifiek leerdoel. Als de vraag correct beantwoord wordt, wordt voortgang op het leerdoel bereikt.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Meer informatie...<a></p>',
-        de: '<p>Eine <strong> zugehörige Frage</strong> ist eine Frage, mit der die Fähigkeiten und Kenntnisse des Lerners zu einem bestimmten Lernziel gemessen werden. Wenn sie richtig beantwortet wird, werden Fortschritte in Richtung auf das Lernziel gemacht.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Weitere Informationen...<a></p>'
-    },
     /* End resource section for model ForgotPasswordBody */
     
     /* Resource section for model Help hints */
@@ -1796,12 +1538,12 @@
     },
     createCourseHelpHintTitle: {
         en: 'What is a course template?',
-        nl: 'Wat is een cursus-template?',
+        nl: 'Wat is een cursussjabloon?',
         de: 'Was ist eine Kursvorlage?'
     },
     createCourseHelpHint: {
         en: '<p><strong>Course template</strong> is a set of predefined graphical and instructional design parameters.</p><p>Course template defines how a learning material will be presented to a learner, how a learner will be able to interact with it and how a learner\'s responses will be affecting course.</p><p>For an author choosing certain course template will also change set of designing capabilities, depending on which of them are supported by chosen course template.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>',
-        nl: '<p>Een <strong>cursus-template</strong> bestaat uit een reeks voorgedefinieerde grafische en instructieve ontwerpparameters.</p><p>De template definieert hoe lesmateriaal aan een cursist wordt gepresenteerd, hoe een cursist hiermee kan omgaan en welke invloed de antwoorden van de cursist hebben op de leerervaring.</p><p> Een auteur die voor een bepaalde leerervaringstemplate kiest, wijzigt ook een reeks ontwerpmogelijkheden, afhankelijk van welke hiervan door de gekozen leerervaringstemplate worden ondersteund.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Meer informatie...<a></p>',
+        nl: '<p>Een <strong>cursussjabloon</strong> bestaat uit een reeks voorgedefinieerde grafische en instructieve ontwerpparameters.</p><p>De sjabloon definieert hoe lesmateriaal aan een cursist wordt gepresenteerd, hoe een cursist hiermee kan omgaan en welke invloed de antwoorden van de cursist hebben op de cursus.</p><p>Een auteur die voor een bepaalde cursussjabloon kiest, wijzigt ook een reeks ontwerpmogelijkheden, afhankelijk van welke hiervan door de gekozen cursussjabloon worden ondersteund.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Meer informatie...<a></p>',
         de: '<p>Eine <strong>Kursvorlage</strong> ist ein Satz vordefinierter graphischer und pädagogischer Designparameter.</p><p> Die Kursvorlage legt fest, wie das Lernmaterial dem Lernenden präsentiert wird, wie die Lernenden damit interagieren können, und wie sich die Antworten der Lernenden auf den Kurs auswirken.</p><p> Ein Autor, der eine bestimmte Kursvorlage auswählt, wählt auch andere Designfunktionen, je nachdem, welche die jeweilige Kursvorlage unterstützt.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Weitere Informationen...<a></p>'
     },
     objectiveHelpHintTitle: {
@@ -1830,9 +1572,9 @@
         de: 'Wie formuliert man ein korrektes Lernziel?'
     },
     createObjectiveHelpHint: {
-        en: '<p>A <strong>learning objective</strong> is a statement that describes the specific skills or knowledge a learner will be able to demonstrate as a result of completing a learning experience.</p><p>See <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> for instructions and support for building proper objectives based on Blooms taxonomy.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>',
-        nl: '<p>Een Leerdoel is een stelling die specifieke vaardigheden of kennis beschrijft die de lerende kan demonstreren als een resultaat van het voltooien van een leerervaring.</p><p>Ga naar <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> voor instructies en uitleg over hoe goede leerdoelen te definiëren gebaseerd op Blooms taxonomy.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Meer informatie...<a></p>',
-        de: '<p>Ein Lernziel ist eine Aussage, die die spezifischen Fähigkeiten oder Kenntnisse beschreibt, die ein Lerner als Ergebnis einer Lernerfahrung vorweisen kann.</p><p>Anleitungen und Unterstützung für das Aufbauen geeigneter Ziele auf Basis von Blooms Taxonomie finden Sie unter <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a>.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Weitere Informationen...<a></p>'
+        en: '<p>A <strong>learning objective</strong> is a statement that describes the specific skills or knowledge a learner will be able to demonstrate as a result of completing a course.</p><p>See <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> for instructions and support for building proper objectives based on Blooms taxonomy.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Learn more...<a></p>',
+        nl: '<p>Een <strong>Leerdoel</strong> is een stelling die specifieke vaardigheden of kennis beschrijft die de cursist kan demonstreren als resultaat van het voltooien van een cursus.</p><p> Ga naar <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> voor instructies en uitleg over hoe goede leerdoelen te definiëren gebaseerd op Blooms taxonomy.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Meer informatie...<a></p>',
+        de: '<p>Ein <strong>Lernziel</strong> ist eine Aussage, die die speziellen Fertigkeiten oder Kenntnisse beschreibt, über die die Lernenden nach Abschluss des Kurses verfügen sollen.</p><p> Vgl. <a href=\"http://teachonline.asu.edu/objectives-builder/\" target=\"_blank\">http://teachonline.asu.edu/objectives-builder/</a> für Anleitungen und Unterstützung beim Erstellen von Zielen auf der Grundlage der Blooms-Taxonomie.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Weitere Informationen...<a></p>'
     },
     questionHelpHintTitle: {
         en: 'What are answer options? What is learning content?',
@@ -1844,25 +1586,10 @@
         nl: '<p>Een <strong>antwoordoptie</strong> zijn die opties die aan de cursist gepresenteerd worden om antwoord op een vraag te geven. Ze kunnen juist of onjuist zijn.</p><p><strong>Leerinhoud</strong> is de informatie die aan de cursist wordt gepresenteerd om hem te helpen een specifieke vraag correct te beantwoorden. Leerinhoud kan bestaan uit tekst, video of afbeeldingen.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Meer informatie...<a></p>',
         de: '<p><strong>Antwortoptionen</strong> sind die Optionen, die dem Lerner zur Beantwortung der Frage präsentiert werden. Sie können richtig oder falsch sein.</p><p><strong>Lerngegenstände</strong> sind die Informationen, die Lernern präsentiert werden, um sie bei der Beantwortung bestimmter Fragen zu unnterstützen. Dies können Texte, Videos oder Bilder sein.</p><p><a href=\"http://help.easygenerator.com/en-us/learning/web-edition/easygenerator/user-guide\" target=\"_blank\">Weitere Informationen...<a></p>'
     },
-    createQuestionHelpHintTitle: {
-        en: 'What is the difference between \"Create and Edit\" and \"Create and New\"?',
-        nl: 'Wat is het verschil tussen \"Maken en bewerken\" en \"Maken en nieuw\"?',
-        de: 'Was ist der Unterschied zwischen \"Erstellen und bearbeiten\" und \"Erstellen und Neu\"?'
-    },
-    createQuestionHelpHint: {
-        en: '<p>Click <strong>\"Create and edit\"</strong> if you want to edit the question right after creating it.</p><p>Click <strong>\"Create and new\"</strong> If you would like to create several questions in a row.</p>',
-        nl: '<p>Klik op <strong>\"Maken en bewerken\"</strong> als u de vraag na het maken direct wilt bewerken. Klik op <strong>\"Maken en nieuw\"</strong> als u meerdere vragen achter elkaar wilt maken.</p>',
-        de: '<p>Klicken Sie auf <strong>\"Erstellen und bearbeiten\"</strong>, wenn Sie die Frage unmittelbar nachdem Erstellen bearbeiten möchten. Klicken Sie auf <strong>\"Erstellen und Neu\"</strong>, wenn Sie mehrere Fragen hintereinander erstellen möchten.</p>'
-    },
     helpCloseButton: {
         en: 'Hide',
         nl: 'Verbergen',
         de: 'Ausblenden'
-    },
-    delete_publishIsInProgressTitle: {
-        en: 'This learning experience is being updated.',
-        nl: 'Deze leerervaring wordt bijgewerkt.',
-        de: 'Diese Lernerfahrung wird gerade aktualisiert.'
     },
     /* End resource section for model Help hints */
     
