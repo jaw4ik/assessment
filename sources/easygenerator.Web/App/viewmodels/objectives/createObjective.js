@@ -5,7 +5,6 @@
             events = {
                 navigateToObjectives: 'Navigate to objectives',
                 navigateToCourse: 'Navigate to course',
-                createAndNew: "Create learning objective and create new",
                 createAndContinue: "Create learning objective and open it properties",
             },
 
@@ -64,51 +63,38 @@
                 });
             },
 
-            createAndNew = function () {
-                sendEvent(events.createAndNew);
-                var that = this;
-                createObjective.call(that, function (createdObjective) {
-                    isTitleEditing(true);
-                    notify.saved();
-                });
-            },
-
             createAndContinue = function () {
                 sendEvent(events.createAndContinue);
                 var that = this;
-                createObjective.call(that, function (createdObjective) {
-                    var navigateUrl = 'objective/' + createdObjective.id;
+                title(title().trim());
+
+                if (!title.isValid()) {
+                    return;
+                }
+
+                uiLocker.lock();
+                objectiveRepository.addObjective({ title: title() }).then(function (createdObjective) {
+                    title('');
                     if (_.isString(that.contextCourseId)) {
-                        router.navigateWithQueryString(navigateUrl);
+                        objectiveRepository.getById(createdObjective.id).then(function (objective) {
+                            courseRepository.relateObjectives(that.contextCourseId, [objective]).then(function () {
+                                navigateToObjectiveEditor.call(that, createdObjective);
+                            });
+                        });
                     } else {
-                        router.navigate(navigateUrl);
+                        navigateToObjectiveEditor.call(that, createdObjective);
                     }
                 });
             };
-
-        function createObjective(callback) {
-            title(title().trim());
-
-            if (!title.isValid()) {
-                return;
+        
+        function navigateToObjectiveEditor(createdObjective) {
+            var navigateUrl = 'objective/' + createdObjective.id;
+            uiLocker.unlock();
+            if (_.isString(this.contextCourseId)) {
+                router.navigateWithQueryString(navigateUrl);
+            } else {
+                router.navigate(navigateUrl);
             }
-            
-            var that = this;
-            uiLocker.lock();
-            objectiveRepository.addObjective({ title: title() }).then(function (createdObjective) {
-                title('');
-                uiLocker.unlock();
-                
-                if (_.isString(that.contextCourseId)) {
-                    objectiveRepository.getById(createdObjective.id).then(function (objective) {
-                        courseRepository.relateObjectives(that.contextCourseId, [objective]).then(function () {
-                            callback(createdObjective);
-                        });
-                    });
-                } else {
-                    callback(createdObjective);
-                }
-            });
         }
 
         return {
@@ -123,7 +109,6 @@
 
             activate: activate,
             navigateBack: navigateBack,
-            createAndNew: createAndNew,
             createAndContinue: createAndContinue
         };
     }

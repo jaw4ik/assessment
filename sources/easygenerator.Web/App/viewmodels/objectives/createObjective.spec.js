@@ -75,179 +75,6 @@
 
             });
 
-            describe('createAndNew:', function () {
-
-                var addObjective, relateObjectiveDefer, getObjectiveDefer;;
-
-                beforeEach(function () {
-                    addObjective = Q.defer();
-                    relateObjectiveDefer = Q.defer();
-                    getObjectiveDefer = Q.defer();
-                    spyOn(repository, 'addObjective').andReturn(addObjective.promise);
-                    spyOn(repository, 'getById').andReturn(getObjectiveDefer.promise);
-                    spyOn(courseRepository, 'relateObjectives').andReturn(relateObjectiveDefer.promise);
-                });
-
-                it('should be function', function () {
-                    expect(viewModel.createAndNew).toBeFunction();
-                });
-
-                it('should trim title', function () {
-                    viewModel.title('   abc   ');
-                    viewModel.createAndNew();
-                    expect(viewModel.title()).toEqual('abc');
-                    addObjective.resolve();
-                });
-
-                it('should send event \'Create learning objective and create new\'', function () {
-                    viewModel.createAndNew();
-
-                    expect(eventTracker.publish).toHaveBeenCalledWith('Create learning objective and create new');
-                });
-
-                describe('when title is valid', function () {
-
-                    var id = '0';
-                    var objective = { id: id, createdOn: new Date() };
-
-                    beforeEach(function () {
-                        viewModel.title('Some valid text');
-                        spyOn(notify, 'saved');
-                    });
-
-                    it('should create new objective in repository', function () {
-                        var title = viewModel.title();
-
-                        viewModel.createAndNew();
-
-                        var promise = addObjective.promise.fin(function () {
-                        });
-                        addObjective.resolve();
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(repository.addObjective).toHaveBeenCalledWith({
-                                title: title
-                            });
-                        });
-                    });
-
-                    it('should lock content', function () {
-                        spyOn(uiLocker, 'lock');
-                        viewModel.createAndNew();
-                        expect(uiLocker.lock).toHaveBeenCalled();
-                    });
-
-                    describe('when objective created', function () {
-
-                        beforeEach(function () {
-                            addObjective.resolve(objective);
-                        });
-
-                        it('should unlock content', function () {
-                            spyOn(uiLocker, "unlock");
-                            viewModel.createAndNew();
-
-                            var promise = addObjective.promise.fin(function () { });
-                            addObjective.resolve();
-
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                expect(uiLocker.unlock).toHaveBeenCalled();
-                            });
-                        });
-
-                        describe('and when contextExperiencId is not string', function () {
-
-                            beforeEach(function () {
-                                viewModel.contextCourseId = null;
-                            });
-
-                            it('should clear title', function () {
-                                viewModel.createAndNew();
-
-                                var promise = addObjective.promise.fin(function () { });
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(viewModel.title().length).toEqual(0);
-                                });
-                            });
-
-                            it('should show notification', function () {
-                                viewModel.createAndNew();
-
-                                var promise = addObjective.promise.finally(function () { });
-                                getObjectiveDefer.resolve(objective);
-                                relateObjectiveDefer.resolve();
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(notify.saved).toHaveBeenCalled();
-                                });
-                            });
-                        });
-
-                        describe('and when contextCourseId is string', function () {
-
-                            beforeEach(function () {
-                                viewModel.contextCourseId = 'id';
-                                getObjectiveDefer.resolve(objective);
-                                relateObjectiveDefer.resolve();
-                            });
-
-                            it('should relate created objective to course', function () {
-                                viewModel.createAndNew();
-
-                                var promise = addObjective.promise.fin(function () { });
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(courseRepository.relateObjectives).toHaveBeenCalledWith(viewModel.contextCourseId, [objective]);
-                                });
-                            });
-
-                            it('should clear title', function () {
-                                viewModel.createAndNew();
-
-                                var promise = addObjective.promise.fin(function () { });
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(viewModel.title().length).toEqual(0);
-                                });
-                            });
-
-                            it('should show notification', function () {
-                                viewModel.createAndNew();
-
-                                var promise = addObjective.promise.finally(function () { });
-
-                                waitsFor(function () {
-                                    return !promise.isPending();
-                                });
-                                runs(function () {
-                                    expect(notify.saved).toHaveBeenCalled();
-                                });
-                            });
-                        });
-                    });
-                });
-
-            });
-
             describe('createAndContinue:', function () {
 
                 var addObjective, relateObjectiveDefer, getObjectiveDefer;
@@ -283,6 +110,12 @@
                         viewModel.title('Some valid text');
                     });
 
+                    it('should lock content', function () {
+                        spyOn(uiLocker, 'lock');
+                        viewModel.createAndContinue();
+                        expect(uiLocker.lock).toHaveBeenCalled();
+                    });
+
                     it('should create new objective in repository', function () {
                         var title = viewModel.title();
 
@@ -302,42 +135,49 @@
                         });
                     });
 
-                    it('should lock content', function () {
-                        spyOn(uiLocker, 'lock');
-                        viewModel.createAndContinue();
-                        expect(uiLocker.lock).toHaveBeenCalled();
-                    });
-
                     describe('and objective created', function () {
                         var id = '0';
                         var objective = { id: id };
 
                         beforeEach(function () {
                             addObjective.resolve(objective);
+                            spyOn(uiLocker, "unlock");
                         });
 
-                        it('should unlock content', function () {
-                            spyOn(uiLocker, "unlock");
+                        it('should clear title', function () {
                             viewModel.createAndContinue();
 
                             var promise = addObjective.promise.fin(function () { });
-                            addObjective.resolve();
 
                             waitsFor(function () {
                                 return !promise.isPending();
                             });
                             runs(function () {
-                                expect(uiLocker.unlock).toHaveBeenCalled();
+                                expect(viewModel.title()).toBe('');
                             });
                         });
 
-                        describe('and when contextExperiencId is not string', function () {
+                        describe('and when objective isn\'t created in course context', function () {
 
                             beforeEach(function () {
                                 viewModel.contextCourseId = null;
                             });
 
-                            it('should navigate to created objective', function () {
+                            it('should unlock content', function () {
+                                viewModel.createAndContinue();
+
+                                var promise = addObjective.promise.fin(function () { });
+                                addObjective.resolve();
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(uiLocker.unlock).toHaveBeenCalled();
+                                });
+                            });
+
+                            it('should navigate to created objective editor', function () {
                                 viewModel.createAndContinue();
 
                                 var promise = addObjective.promise.fin(function () { });
@@ -351,7 +191,7 @@
                             });
                         });
 
-                        describe('and when contextExperiencId is string', function () {
+                        describe('and when objective is created in course context', function () {
 
                             beforeEach(function () {
                                 viewModel.contextCourseId = 'id';
@@ -372,7 +212,21 @@
                                 });
                             });
 
-                            it('should navigate to created objective', function () {
+                            it('should unlock content', function () {
+                                viewModel.createAndContinue();
+
+                                var promise = addObjective.promise.fin(function () { });
+                                addObjective.resolve();
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(uiLocker.unlock).toHaveBeenCalled();
+                                });
+                            });
+
+                            it('should navigate to created objective editor', function () {
                                 viewModel.createAndContinue();
 
                                 var promise = addObjective.promise.fin(function () {
