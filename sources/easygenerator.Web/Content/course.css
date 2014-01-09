@@ -493,6 +493,10 @@
     font-family: OpenSansItalic;
 }
 
+.copy-link-description-holder.disabled {
+    opacity: 0.4;
+}
+
 /*#endregion DELIVER STEP*/
 
 /*#region Template selector*/

@@ -6,13 +6,13 @@
             <!--*
                     * PUBLISH BUTTON
                     * -->
-            <!-- ko if: !publishPackageExists() -->
-            <!-- ko if: !isDelivering() -->
-            <div class="package-action-btn btn green publish-btn" data-bind="click: publishCourse">
+            <!-- ko if: !publishAction().packageExists() -->
+            <!-- ko if: !isDeliveringInProgress() -->
+            <div class="package-action-btn btn green publish-btn" data-bind="click: publishAction().publishCourse">
                 <span class="btn-title" data-bind="localize: { text: 'publishOnline' }"></span>
             </div>
             <!-- /ko -->
-            <!-- ko if: isDelivering() && activeAction() != publishAction() -->
+            <!-- ko if: isDeliveringInProgress() && !publishAction().isDelivering() -->
             <div class="package-action-btn btn green publish-btn disabled">
                 <span class="btn-title" data-bind="localize: { text: 'publishOnline' }"></span>
             </div>
@@ -21,42 +21,42 @@
             <!--*
                 * ASSEMBLING/PUBLISHING
                 * -->
-            <!-- ko if: isDelivering() && activeAction() === publishAction() -->
-                <!-- ko if: publishAction().state() === states.building -->
-                <div class="package-action-btn btn green publishing-btn active">
-                    <span class="btn-title" data-bind="localize: { text: 'assembling' }"></span>
-                </div>
-                <!-- /ko -->
-                <!-- ko if: publishAction().state() === states.publishing -->
-                <div class="package-action-btn btn green publishing-btn active">
-                    <span class="btn-title" data-bind="localize: { text: 'publishing' }"></span>
-                </div>
-                <!-- /ko -->
+            <!-- ko if: isDeliveringInProgress() && publishAction().isDelivering() -->
+            <!-- ko if: publishAction().state() === states.building -->
+            <div class="package-action-btn btn green publishing-btn active">
+                <span class="btn-title" data-bind="localize: { text: 'assembling' }"></span>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: publishAction().state() === states.publishing -->
+            <div class="package-action-btn btn green publishing-btn active">
+                <span class="btn-title" data-bind="localize: { text: 'publishing' }"></span>
+            </div>
+            <!-- /ko -->
             <!-- /ko -->
 
             <!--*
                     * REPUBLISH BUTTON
                     * -->
-            <!-- ko if: publishPackageExists() -->
-            <!-- ko if: !isDelivering() -->
-            <div class="package-action-btn btn green publish-btn" data-bind="click: publishCourse">
-                <span class="btn-title" data-bind="localize: { text: 'republishOnline' }">Republish online</span>
+            <!-- ko if: publishAction().packageExists() -->
+            <!-- ko if: !isDeliveringInProgress() -->
+            <div class="package-action-btn btn green publish-btn" data-bind="click: publishAction().publishCourse">
+                <span class="btn-title" data-bind="localize: { text: 'republishOnline' }"></span>
             </div>
             <!-- /ko -->
-            <!-- ko if: isDelivering() && activeAction() != publishAction() -->
+            <!-- ko if: isDeliveringInProgress() && !publishAction().isDelivering() -->
             <div class="package-action-btn btn green publish-btn disabled">
-                <span class="btn-title" data-bind="localize: { text: 'republishOnline' }">Republish online</span>
+                <span class="btn-title" data-bind="localize: { text: 'republishOnline' }"></span>
             </div>
             <!-- /ko -->
             <!-- /ko -->
-            <!-- ko if: publishPackageExists() -->
-            <div class="copy-link-control" data-bind="css: { disabled: isDelivering() }">
+            <!-- ko if: publishAction().packageExists() -->
+            <div class="copy-link-control" data-bind="css: { disabled: isDeliveringInProgress() }">
                 <div class="copy-link-input-wrapper">
-                    <input class="copy-link-input" type="text" readonly="readonly" data-bind="value: publishedPackageUrl(), css: { selectable: !isDelivering() }, selectTextBinding: publishPackageExists()" />
+                    <input class="copy-link-input" type="text" readonly="readonly" data-bind="value: publishAction().packageUrl(), css: { selectable: !isDeliveringInProgress() }, selectTextBinding: publishAction().packageExists()" />
                 </div>
                 <div class="open-link-btn-wrapper">
                     <div class="open-link-description-wrapper">
-                        <div class="action-explanation-tooltip-container" data-bind="visible: !isDelivering() && showOpenLinkDescription">
+                        <div class="action-explanation-tooltip-container" data-bind="visible: !isDeliveringInProgress()">
                             <div class="action-explanation-tooltip-wrapper">
                                 <div class="action-explanation-tooltip">
                                     <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'openLinkDescription' }"></span>
@@ -64,12 +64,12 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- ko ifnot: isDelivering() -->
-                        <a class="open-link-btn" data-bind="click: openPublishedCourse, hover: showOpenLinkDescription, attr: { href: publishedPackageUrl }">
+                        <!-- ko ifnot: isDeliveringInProgress() -->
+                        <a class="open-link-btn" data-bind="click: publishAction().openPublishedCourse, attr: { href: publishAction().packageUrl() }">
                             <span class="open-link-text" data-bind="localize: { text: 'openLink' }"></span>
                         </a>
                         <!-- /ko -->
-                        <!-- ko if: isDelivering() -->
+                        <!-- ko if: isDeliveringInProgress() -->
                         <a class="open-link-btn" href="javascript: return false;">
                             <span class="open-link-text" data-bind="localize: { text: 'openLink' }"></span>
                         </a>
@@ -77,11 +77,9 @@
                     </div>
                 </div>
             </div>
-            <!-- ko ifnot: isDelivering() -->
-            <div class="copy-link-description-holder">
+            <div class="copy-link-description-holder" data-bind="css: { disabled: isDeliveringInProgress() }">
                 <span data-bind="localize: { text: 'publishingLinkDescription' }"></span>
             </div>
-            <!-- /ko -->
             <!-- /ko -->
         </div>
         <div class="package-action-item pull-right">
@@ -91,23 +89,23 @@
                 * DOWNLOAD BUTTON CONDITIONS 
                 * -->
 
-            <!-- ko if: !isDelivering() -->
-            <div class="package-action-btn btn grey download-btn" data-bind="click: downloadCourse">
+            <!-- ko if: !isDeliveringInProgress() -->
+            <div class="package-action-btn btn grey download-btn" data-bind="click: buildAction().downloadCourse">
                 <span class="btn-title" data-bind="localize: { text: 'courseDownloadAction' }"></span>
             </div>
             <!-- /ko -->
-            <!-- ko if: isDelivering() && activeAction() != buildAction() -->
+            <!-- ko if: isDeliveringInProgress() && !buildAction().isDelivering() -->
             <div class="package-action-btn btn grey download-btn disabled">
                 <span class="btn-title" data-bind="localize: { text: 'courseDownloadAction' }"></span>
             </div>
             <!-- /ko -->
-            <!-- ko if: isDelivering() && activeAction() == buildAction()-->
+            <!-- ko if: isDeliveringInProgress() && buildAction().isDelivering() -->
             <div class="package-action-btn btn grey building-btn active">
                 <span class="btn-title" data-bind="localize: { text: 'assembling' }"></span>
             </div>
             <!-- /ko -->
             <!-- link to render package url to and click after assembling -->
-            <a id="packageLink" style="display: none" data-bind="attr: { href: 'download/' + packageUrl() }"></a>
+            <a id="packageLink" style="display: none" data-bind="attr: { href: 'download/' + buildAction().packageUrl() }"></a>
         </div>
         <div class="package-action-item scorm-package-action pull-right">
             <h5 class="package-action-title" data-bind="localize: { text: 'downloadScorm12Package' }"></h5>
@@ -116,23 +114,23 @@
                 * DOWNLOAD BUTTON CONDITIONS 
                 * -->
 
-            <!-- ko if: !isDelivering() -->
-            <div class="package-action-btn btn orange download-btn" data-bind="click: downloadScormCourse">
+            <!-- ko if: !isDeliveringInProgress() -->
+            <div class="package-action-btn btn orange download-btn" data-bind="click: scormBuildAction().downloadCourse">
                 <span class="btn-title" data-bind="localize: { text: 'courseDownloadAction' }"></span>
             </div>
             <!-- /ko -->
-            <!-- ko if: isDelivering() && activeAction() != scormBuildAction() -->
+            <!-- ko if: isDeliveringInProgress() && !scormBuildAction().isDelivering() -->
             <div class="package-action-btn btn orange download-btn disabled">
                 <span class="btn-title" data-bind="localize: { text: 'courseDownloadAction' }"></span>
             </div>
             <!-- /ko -->
-            <!-- ko if: isDelivering() && activeAction() == scormBuildAction() -->
+            <!-- ko if: isDeliveringInProgress() && scormBuildAction().isDelivering() -->
             <div class="package-action-btn btn orange building-btn active">
                 <span class="btn-title" data-bind="localize: { text: 'assembling' }"></span>
             </div>
             <!-- /ko -->
             <!-- link to render package url to and click after assembling -->
-            <a id="scormPackageLink" style="display: none" data-bind="attr: { href: 'download/' + scormPackageUrl() }"></a>
+            <a id="scormPackageLink" style="display: none" data-bind="attr: { href: 'download/' + scormBuildAction().packageUrl() }"></a>
         </div>
     </div>
 </section>

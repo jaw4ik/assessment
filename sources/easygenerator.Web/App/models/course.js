@@ -49,17 +49,17 @@
             }
 
             that.deliveringState = constants.deliveringStates.building;
-            app.trigger(constants.messages.course.build.started, that);
+            app.trigger(constants.messages.course.scormBuild.started, that);
 
             deliverService.scormBuildCourse(that.id).then(function (buildInfo) {
                 that.scormPackageUrl = buildInfo.scormPackageUrl;
                 that.deliveringState = constants.deliveringStates.succeed;
-                app.trigger(constants.messages.course.build.completed, that);
+                app.trigger(constants.messages.course.scormBuild.completed, that);
                 deferred.resolve(that);
             }).fail(function (message) {
                 that.deliveringState = constants.deliveringStates.failed;
                 that.scormPackageUrl = '';
-                app.trigger(constants.messages.course.build.failed, that.id, message);
+                app.trigger(constants.messages.course.scormBuild.failed, that.id, message);
                 deferred.reject(message);
             });
 

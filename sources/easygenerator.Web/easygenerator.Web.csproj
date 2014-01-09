@@ -239,6 +239,10 @@
     <Compile Include="BuildCourse\Scorm\Models\ManifestModel.cs" />
     <Compile Include="BuildCourse\Scorm\Models\MetadataModel.cs" />
     <Compile Include="BuildCourse\Scorm\ScormCourseBuilder.cs" />
+    <Content Include="App\viewmodels\courses\deliveringActions\deliveringAction.js" />
+    <Content Include="App\viewmodels\courses\deliveringActions\deliveringAction.spec.js">
+      <DependentUpon>deliveringAction.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\courses\deliveringActions\publish.spec.js">
       <DependentUpon>publish.js</DependentUpon>
     </Content>
