@@ -211,6 +211,9 @@
   <data name="FullNameCaption" xml:space="preserve">
     <value>Volledige naam</value>
   </data>
+  <data name="HidePassword" xml:space="preserve">
+    <value>Wachtwoord verbergen</value>
+  </data>
   <data name="HowAuthorTodayQuestion" xml:space="preserve">
     <value>Hoe schrijft u nu cursusmateriaal?</value>
   </data>
@@ -273,6 +276,9 @@
   </data>
   <data name="RestorePasswordCaption" xml:space="preserve">
     <value>Voer uw nieuwe wachtwoord in</value>
+  </data>
+  <data name="ShowPassword" xml:space="preserve">
+    <value>Wachtwoord weergeven</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Aanmelden</value>

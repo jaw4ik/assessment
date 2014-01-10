@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AccountRes{
+namespace AccountRes {
     using System;
     
     
@@ -312,6 +312,15 @@ namespace AccountRes{
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hide password.
+        /// </summary>
+        public static string HidePassword {
+            get {
+                return ResourceManager.GetString("HidePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to How do you author courses today?.
         /// </summary>
         public static string HowAuthorTodayQuestion {
@@ -497,6 +506,15 @@ namespace AccountRes{
         public static string RestorePasswordCaption {
             get {
                 return ResourceManager.GetString("RestorePasswordCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show password.
+        /// </summary>
+        public static string ShowPassword {
+            get {
+                return ResourceManager.GetString("ShowPassword", resourceCulture);
             }
         }
         
