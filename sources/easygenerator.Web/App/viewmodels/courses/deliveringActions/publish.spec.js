@@ -27,6 +27,23 @@
                 it('should be observable', function () {
                     expect(viewModel.state).toBeObservable();
                 });
+
+                describe('when course is published previously', function () {
+
+                    it('should set state to \'success\'', function () {
+                        expect(viewModel.state()).toBe(constants.deliveringStates.succeed);
+                    });
+
+                });
+                
+                describe('when course isn\'t published previously', function () {
+
+                    it('should set state to \'failed\'', function () {
+                        var viewM = publishDeliveringAction(courseId, undefined);
+                        expect(viewM.state()).toBe(constants.deliveringStates.failed);
+                    });
+
+                });
             });
 
             describe('isDelivering', function () {

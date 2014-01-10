@@ -9,6 +9,8 @@
 
             var viewModel = deliveringAction(courseId, packageUrl);
 
+            viewModel.state(!_.isNullOrUndefined(packageUrl) ? constants.deliveringStates.succeed : constants.deliveringStates.failed);
+
             viewModel.isDelivering = ko.computed(function () {
                 return this.state() === constants.deliveringStates.building || this.state() === constants.deliveringStates.publishing;
             }, viewModel);
