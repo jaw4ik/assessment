@@ -3,7 +3,7 @@
 
         var
             events = {
-                downloadScormCourse: 'Download scorm course'
+                downloadScormCourse: 'Download SCORM 1.2 course'
             };
 
         var ctor = function (courseId, packageUrl) {
