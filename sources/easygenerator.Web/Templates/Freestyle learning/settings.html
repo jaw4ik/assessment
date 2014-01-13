@@ -344,6 +344,7 @@
             }
 
         .save-message-wrapper.success {
+            display: none;
             color: #62a426;
         }
 
@@ -352,6 +353,7 @@
             }
 
         .save-message-wrapper.error {
+            display: none;
             color: #953b39;
         }
 
@@ -443,10 +445,10 @@
                     </div>
                 </div>
                 <div class="form-row save-btn-wrapper">
-                    <div class="save-message-wrapper success" data-bind="visible: isSaved">
+                    <div class="save-message-wrapper success" data-bind="style: { display: isSaved() ? 'block' : 'none' }">
                         <span class="save-message">Settings have been saved succesfully</span>
                     </div>
-                    <div class="save-message-wrapper error" data-bind="visible: isFailed">
+                    <div class="save-message-wrapper error" data-bind="style: { display: isFailed() ? 'block' : 'none' }">
                         <span class="save-message">Something went wrong. Try again</span>
                     </div>
                     <button type="submit" class="save-btn">
