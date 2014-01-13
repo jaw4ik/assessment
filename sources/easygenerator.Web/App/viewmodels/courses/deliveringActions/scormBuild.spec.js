@@ -236,9 +236,9 @@
                         viewModel.isActive(true);
                     });
 
-                    it('should not send event \"Download scorm course\"', function () {
+                    it('should not send event \"Download SCORM 1.2 course\"', function () {
                         viewModel.downloadCourse();
-                        expect(eventTracker.publish).not.toHaveBeenCalledWith('Download scorm course');
+                        expect(eventTracker.publish).not.toHaveBeenCalledWith('Download SCORM 1.2 course');
                     });
                 });
             });
