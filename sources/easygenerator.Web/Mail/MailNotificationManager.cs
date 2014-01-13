@@ -38,7 +38,7 @@ namespace easygenerator.Web.Mail
         private MailNotification GetMailNotification(string templateName, dynamic templateModel, string fromAddress = null)
         {
             var templateSettings = _senderSettings.MailTemplatesSettings[templateName];
-            string emailBody = _mailTemplatesProvider.GetMailTemplateBody(templateName, templateSettings, templateModel);
+            string emailBody = _mailTemplatesProvider.GetMailTemplateBody(templateSettings, templateModel);
 
             // override from address from settings with address specified in method parameter
             string fromEmail = !String.IsNullOrWhiteSpace(fromAddress) ? fromAddress : templateSettings.From;

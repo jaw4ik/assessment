@@ -138,6 +138,7 @@
     <Compile Include="Controllers\MaintenanceControllerTest.cs" />
     <Compile Include="Controllers\PublishedPackageControllerTest.cs" />
     <Compile Include="DomainEvents\Events\UserSignedUpEventTest.cs" />
+    <Compile Include="Mail\MailTemplatesProviderTests.cs" />
     <Compile Include="Newsletter\MailChimp\MailChimpSubscriptionManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Publish\CoursePublisherTest.cs" />

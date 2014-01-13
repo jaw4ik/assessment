@@ -34,7 +34,7 @@ namespace easygenerator.Web.Components
             {
                 if (!_templatesCache.ContainsKey(templatePath))
                 {
-                    string content = File.ReadAllText(templatePath);
+                    var content = File.ReadAllText(templatePath);
                     _templatesCache[templatePath] = content;
                 }
                 return _templatesCache[templatePath];

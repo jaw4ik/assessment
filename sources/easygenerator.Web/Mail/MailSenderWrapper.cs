@@ -33,7 +33,7 @@ namespace easygenerator.Web.Mail
 
             const string templateName = "ForgotPasswordTemplate";
             var templateSettings = _senderSettings.MailTemplatesSettings[templateName];
-            var body = _mailTemplatesProvider.GetMailTemplateBody(templateName, templateSettings, new { WebsiteUrl = websiteUrl, RestorePasswordUrl = restorePasswordUrl });
+            var body = _mailTemplatesProvider.GetMailTemplateBody(templateSettings, new { WebsiteUrl = websiteUrl, RestorePasswordUrl = restorePasswordUrl });
 
             _mailSender.Send(new MailMessage(templateSettings.From, email, title, body) { IsBodyHtml = true });
         }
