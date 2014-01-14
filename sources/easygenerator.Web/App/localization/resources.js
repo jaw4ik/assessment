@@ -370,7 +370,7 @@
     downloadScorm12Package: {
         en: 'Download SCORM 1.2 package',
         nl: 'Het \"SCORM 1.2\"-pakket downloaden',
-        de: 'Download des Pakets \"SCORM 1.2\"'
+        de: '\"SCORM 1.2\"-Paket herunterladen'
     },
     downloadScorm12PackageDescription: {
         en: 'Download the course as SCORM 1.2 package in order to publish it to LMS',
@@ -386,6 +386,11 @@
         en: 'Reassemble',
         nl: 'Opnw samenstellen',
         de: 'Neu zusammenstellen'
+    },
+    upgradeToStarterPlanToUseScorm: {
+        en: 'Please upgrade your account to \"Starter plan\" to be able to download the course as a SCORM package.',
+        nl: 'Please upgrade your account to \"Starter plan\" to be able to download the course as a SCORM package.[nl]',
+        de: 'Please upgrade your account to \"Starter plan\" to be able to download the course as a SCORM package.[de]'
     },
     /* End resource section for model Courses */
     
@@ -1125,6 +1130,16 @@
         nl: 'minstens één cijfer hebben;',
         de: 'mindestens eine Ziffer enthalten;'
     },
+    ShowPassword: {
+        en: 'Show password',
+        nl: 'Wachtwoord weergeven',
+        de: 'Kennwort anzeigen'
+    },
+    HidePassword: {
+        en: 'Hide password',
+        nl: 'Wachtwoord verbergen',
+        de: 'Kennwort verbergen'
+    },
     NotContainWhitespaceCharacters: {
         en: 'NOT contain whitespace character(s).',
         nl: 'GEEN spatie(s) bevatten.',
@@ -1626,6 +1641,11 @@
         en: 'Paste Embed Code Here',
         nl: 'Code hier invoegen',
         de: 'Code hier einbetten'
+    },
+    starterPlanUsersOnly: {
+        en: 'Starter plan users only. Please, <a href=\"http://www.easygenerator.com/pricing/\">upgrade</a> to use this kind of package.',
+        nl: 'Starter plan users only. Please, <a href=\"http://www.easygenerator.com/pricing/\">upgrade</a> to use this kind of package.[nl]',
+        de: 'Starter plan users only. Please, <a href=\"http://www.easygenerator.com/pricing/\">upgrade</a> to use this kind of package.[de]'
     }
     /* End resource section for model CKEditor */
            
