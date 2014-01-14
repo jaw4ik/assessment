@@ -374,8 +374,8 @@
     },
     downloadScorm12PackageDescription: {
         en: 'Download the course as SCORM 1.2 package in order to publish it to LMS',
-        nl: 'Hier kunt u de cursus als \"SCORM 1.2\"-pakket downloaden, zodat u het vervolgens in LMS unt publiceren.',
-        de: 'Hier können Sie den Kurs als \"SCORM 1.2\"-Paket herunterladen, damit Sie ihn anschließend in \"LMS\" veröffentlichen können.'
+        nl: 'Hier kunt u de cursus als \"SCORM 1.2\"-pakket downloaden, zodat u het vervolgens in LMS unt publiceren',
+        de: 'Hier können Sie den Kurs als \"SCORM 1.2\"-Paket herunterladen, damit Sie ihn anschließend in \"LMS\" veröffentlichen können'
     },
     assembling: {
         en: 'assembling...',
