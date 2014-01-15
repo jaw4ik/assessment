@@ -12,9 +12,9 @@
         };
 
         viewModel.isDeliveringInProgress = ko.computed(function () {
-            return (_.isObject(this.buildAction()) && this.buildAction().isDelivering()) ||
-                (_.isObject(this.scormBuildAction()) && this.scormBuildAction().isDelivering()) ||
-                (_.isObject(this.publishAction()) && this.publishAction().isDelivering());
+            return _.some([this.buildAction(), this.scormBuildAction(), this.publishAction()], function(action) {
+                return _.isObject(action) && action.isDelivering();
+            });
         }, viewModel);
 
         function activate(courseId) {
