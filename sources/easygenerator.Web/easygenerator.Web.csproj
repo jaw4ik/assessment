@@ -165,8 +165,19 @@
     <Content Include="App\bootstrapper.tasks.js">
       <DependentUpon>bootstrapper.js</DependentUpon>
     </Content>
+    <Content Include="App\bootstrapping\binderTask.js" />
+    <Content Include="App\bootstrapping\compositionTask.js" />
     <Content Include="App\bootstrapping\errorHandlingTask.js" />
     <Content Include="App\bootstrapping\localizationTask.js" />
+    <Content Include="App\bootstrapping\viewLocatorTask.js" />
+    <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.js" />
+    <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.spec.js">
+      <DependentUpon>forbiddenHttpErrorHandler.js</DependentUpon>
+    </Content>
+    <Content Include="App\userContext.js" />
+    <Content Include="App\userContext.spec.js">
+      <DependentUpon>userContext.js</DependentUpon>
+    </Content>
     <Content Include="App\dom.js" />
     <Content Include="App\help\helpHint.spec.js">
       <DependentUpon>helpHint.js</DependentUpon>
@@ -259,6 +270,7 @@
     <Content Include="App\viewmodels\courses\deliveringActions\publish.js" />
     <Content Include="App\viewmodels\courses\deliveringActions\scormBuild.js" />
     <Content Include="BuildCourse\Scorm\Templates\imsmanifest.cshtml" />
+    <Compile Include="Components\ActionFilters\Authorization\RequireAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\HandleErrorAttribute.cs" />
     <Compile Include="Components\Configuration\MailChimpConfigurationSection.cs" />
     <Compile Include="Components\HttpRuntimeWrapper.cs" />

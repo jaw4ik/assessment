@@ -28,5 +28,7 @@ namespace easygenerator.Infrastructure
         public const string HelpHintNotFoundResourceKey = "helpHintNotFoundError";
         public const string ObjectiveCannotBeDeletedResourceKey = "objectiveCannnotBeDeleted";
         public const string CoursePublishFailedResourceKey = "publishFailed";
+
+        public const string UpgradeToStarterPlanToUseScormResourceKey = "upgradeToStarterPlanToUseScorm";
     }
 }

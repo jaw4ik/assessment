@@ -11,6 +11,7 @@ using easygenerator.Web.BuildCourse;
 using easygenerator.Web.BuildCourse.Scorm;
 using easygenerator.Web.Components;
 using easygenerator.Infrastructure;
+using easygenerator.Web.Components.ActionFilters.Authorization;
 using easygenerator.Web.Publish;
 using Microsoft.Ajax.Utilities;
 using easygenerator.Web.Components.ActionFilters;
@@ -83,7 +84,7 @@ namespace easygenerator.Web.Controllers.Api
                 });
         }
 
-        [HttpPost]
+        [HttpPost, RequireAccess(AccessType = AccessType.Starter, ErrorMessageResourceKey = Errors.UpgradeToStarterPlanToUseScormResourceKey)]
         public ActionResult ScormBuild(Course course)
         {
             if (course == null)

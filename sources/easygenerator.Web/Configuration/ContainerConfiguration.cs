@@ -34,6 +34,8 @@ namespace easygenerator.Web.Configuration
 
             var applicationAssembly = typeof(MvcApplication).Assembly;
             builder.RegisterControllers(applicationAssembly);
+            
+            builder.RegisterFilterProvider();
 
             builder.RegisterType<CourseBuilder>().As<ICourseBuilder>();
             builder.RegisterType<ScormCourseBuilder>().As<IScormCourseBuilder>();

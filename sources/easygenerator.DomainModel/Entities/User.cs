@@ -29,6 +29,7 @@ namespace easygenerator.DomainModel.Entities
             Phone = phone;
             Organization = organization;
             Country = country;
+            AccessType = AccessType.Free;
             PasswordRecoveryTicketCollection = new Collection<PasswordRecoveryTicket>();
             UserSetting = userSettings;
         }
@@ -40,6 +41,7 @@ namespace easygenerator.DomainModel.Entities
         public string Phone { get; private set; }
         public string Organization { get; private set; }
         public string Country { get; private set; }
+        public AccessType AccessType { get; protected internal set; }
 
         public virtual bool VerifyPassword(string password)
         {
@@ -71,6 +73,11 @@ namespace easygenerator.DomainModel.Entities
 
             PasswordHash = Cryptography.GetHash(password);
             PasswordRecoveryTicketCollection.Remove(ticket);
+        }
+
+        public virtual bool HasAccess(AccessType accessType)
+        {
+            return AccessType >= accessType;
         }
 
 

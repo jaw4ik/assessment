@@ -114,6 +114,8 @@
                 * DOWNLOAD BUTTON CONDITIONS 
                 * -->
 
+            <!-- ko if: user.hasStarterAccess() -->
+
             <!-- ko if: !isDeliveringInProgress() -->
             <div class="package-action-btn btn orange download-btn" data-bind="click: scormBuildAction().downloadCourse">
                 <span class="btn-title" data-bind="localize: { text: 'courseDownloadAction' }"></span>
@@ -131,6 +133,24 @@
             <!-- /ko -->
             <!-- link to render package url to and click after assembling -->
             <a id="scormPackageLink" style="display: none" data-bind="attr: { href: 'download/' + scormBuildAction().packageUrl() }"></a>
+
+            <!-- /ko -->
+
+            <!-- ko ifnot: user.hasStarterAccess() -->
+
+            <div class="package-action-btn-control">
+                <div class="package-action-btn-wrapper">
+                    <div class="package-action-btn btn orange download-btn disabled">
+                        <span class="btn-title" data-bind="localize: { text: 'courseDownloadAction' }"></span>
+                    </div>
+                </div>
+                <div class="package-action-btn-message-wrapper">
+                    <div class="package-action-access-message">
+                        Starter plan users only. Please <a href="http://www.easygenerator.com/pricing/">upgrade</a> to use this kind of package.
+                    </div>
+                </div>
+            </div>            
+            <!-- /ko -->
         </div>
     </div>
 </section>

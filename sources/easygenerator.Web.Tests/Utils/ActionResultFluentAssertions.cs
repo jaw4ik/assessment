@@ -74,6 +74,23 @@ namespace easygenerator.Web.Tests.Utils
         }
     }
 
+    public class HttpStatusCodeResultAssertions : ObjectAssertions
+    {
+        public HttpStatusCodeResultAssertions(HttpStatusCodeResult subject)
+            : base(subject)
+        {
+
+        }
+
+        public HttpStatusCodeResult And
+        {
+            get
+            {
+                return Subject as HttpStatusCodeResult;
+            }
+        }
+    }
+
     public static class ActionResultFluentAssertions
     {
         public static JsonResultAssertions BeJsonResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
@@ -114,6 +131,16 @@ namespace easygenerator.Web.Tests.Utils
                 .FailWith("Expected \"HttpNotFoundResult\", but got {0}", value.Subject.GetType().Name);
 
             return new HttpNotFoundResultAssertions(value.Subject as HttpNotFoundResult);
+        }
+
+        public static HttpStatusCodeResultAssertions BeHttpStatusCodeResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is HttpStatusCodeResult)
+                .FailWith("Expected \"HttpStatusCodeResult\", but got {0}", value.Subject.GetType().Name);
+
+            return new HttpStatusCodeResultAssertions(value.Subject as HttpStatusCodeResult);
         }
     }
 

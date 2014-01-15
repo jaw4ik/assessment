@@ -2,6 +2,13 @@
     function () {
 
         return {
+
+            accessType: {
+                free: '0',
+                starter: '1',
+                plus: '2'
+            },
+
             sortingOptions: {
                 byTitleAsc: 'byTitleAsc',
                 byTitleDesc: 'byTitleDesc'
@@ -13,7 +20,7 @@
                 succeed: 'succeed',
                 failed: 'failed'
             },
-            
+
             autosaveTimersInterval: {
                 answerOption: 60000,
                 learningContent: 60000,

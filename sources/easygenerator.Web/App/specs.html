@@ -23,9 +23,9 @@
 
     <!-- Source scripts -->
     <script type="text/javascript" src="../Scripts/require.js"></script>
-
+    
     <script type="text/javascript" src="../Scripts/account/common.js"></script>
-    <script typ="text/javscript" src="../Scripts/account/constants.js"></script>
+    <script type="text/javascript" src="../Scripts/account/constants.js"></script>
     <script type="text/javascript" src="../Scripts/account/analytics.js"></script>
     <script type="text/javascript" src="../Scripts/account/signup.js"></script>
     <script type="text/javascript" src="../Scripts/account/signin.js"></script>
@@ -64,6 +64,7 @@
                 'errorHandling/errorHandlingConfiguration.spec',
                 'errorHandling/httpErrorHandlers/defaultHttpErrorHandler.spec',
                 'errorHandling/httpErrorHandlers/unauthorizedHttpErrorHandler.spec',
+                'errorHandling/httpErrorHandlers/forbiddenHttpErrorHandler.spec',
                 'errorHandling/httpErrorHandlers/serviceUnavailableHttpErrorHandler.spec',
                 'localization/localizationManager.spec',
                 'services/deliverService.spec',
@@ -104,7 +105,8 @@
                 'introduction/welcome.spec',
                 'widgets/notifyViewer/viewmodel.spec',
                 'widgets/uiLockViewer/viewmodel.spec',
-                'uiLocker.spec'
+                'uiLocker.spec',
+                'userContext.spec'
             ];
 
             require(specs, function () {

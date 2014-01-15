@@ -320,6 +320,45 @@
     width: 282px;
 }
 
+.package-action-btn-control {
+    display: table;
+}
+
+.package-action-btn-wrapper, .package-action-btn-message-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.package-action-access-message {
+    color: #67799C;
+    font-family: 'OpenSans';
+    font-size: 12px;
+    margin-top: 10px;
+    padding-left: 38px;
+    position: relative;
+}
+
+    .package-action-access-message:before {
+        background: url("images/sprites.png") repeat scroll 50px 0 rgba(0, 0, 0, 0);
+        content: "";
+        display: block;
+        height: 22px;
+        left: 10px;
+        position: absolute;
+        top: 50%;
+        margin-top: -11px;
+        width: 20px;
+    }
+
+    .package-action-access-message a {
+        color: #2CB7FF;
+    }
+
+        .package-action-access-message a, .package-action-access-message a:active, .package-action-access-message a:focus, .package-action-access-message a:hover {
+            text-decoration: underline;
+        }
+
+
 .package-action-item.scorm-package-action {
     margin-top: 10px;
 }
@@ -493,9 +532,9 @@
     font-family: OpenSansItalic;
 }
 
-.copy-link-description-holder.disabled {
-    opacity: 0.4;
-}
+    .copy-link-description-holder.disabled {
+        opacity: 0.4;
+    }
 
 /*#endregion DELIVER STEP*/
 
@@ -661,4 +700,3 @@
         margin-right: auto;
     }
 }
-

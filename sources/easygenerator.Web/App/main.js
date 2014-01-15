@@ -19,8 +19,8 @@ define('knockout', function () {
     return ko;
 });
 
-define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'bootstrapper', 'durandal/composition'],
-    function (system, app, viewLocator, bootstrapper, composition) {
+define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext'],
+    function (system, app, bootstrapper, userContext) {
 
         if (!has('release')) {
             system.debug(true);
@@ -36,13 +36,11 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'bootstrapper
         });
 
         app.start().then(function () {
-            viewLocator.useConvention();
             bootstrapper.run();
 
-            composition.addBindingHandler('autofocus');
-            composition.addBindingHandler('scrollToElement');
-
-            app.setRoot('viewmodels/shell');
+            userContext.initialize().then(function () {
+                app.setRoot('viewmodels/shell');
+            });
         });
 
     }

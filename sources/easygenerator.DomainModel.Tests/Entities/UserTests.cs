@@ -451,5 +451,65 @@ namespace easygenerator.DomainModel.Tests.Entities
             user.PasswordRecoveryTicketCollection.Should().NotContain(ticket);
         }
         #endregion
+
+        #region HasStarterAccess
+
+        [TestMethod]
+        public void HasAccess_ShouldReturnTrue_WhenCheckForFreeAccessAndUserHasFreeAccessType()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Free;
+
+            //Act
+            var result = user.HasAccess(AccessType.Free);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void HasAccess_ShouldReturnFalse_WhenCheckForStarterAccessAndUserHasFreeAccessType()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Free;
+
+            //Act
+            var result = user.HasAccess(AccessType.Starter);
+
+            //Assert
+            result.Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void HasAccess_ShouldReturnTrue_WhenCheckForFreeAccessAndUserAccessTypeIsStarter()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Starter;
+
+            //Act
+            var result = user.HasAccess(AccessType.Free);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void HasAccess_ShouldReturnTrue_WhenCheckForStarterAccessAndUserAccessTypeIsStarter()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            user.AccessType = AccessType.Starter;
+
+            //Act
+            var result = user.HasAccess(AccessType.Starter);
+
+            //Assert
+            result.Should().BeTrue();
+        }
+
+        #endregion
     }
 }
