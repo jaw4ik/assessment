@@ -6,7 +6,7 @@
     describe('viewModel [signUp]', function () {
 
         beforeEach(function () {
-            viewModel = signupModel();
+            viewModel = app.signupModel();
         });
 
         it('should be object', function () {
@@ -767,12 +767,9 @@
 
         describe('signUp:', function () {
 
-            it('should be a function', function () {
-                expect(viewModel.signUp).toBeFunction();
-            });
-
             var data;
             var currentHref = 'http://easygenerator.com/signup';
+
             beforeEach(function () {
                 viewModel.userName('anonymous@easygenerator.com');
                 viewModel.password('abcABC123');
@@ -795,15 +792,80 @@
                 spyOn(app.clientSessionContext, 'set');
             });
 
-            it('should set first sign up step data to client sessions context', function () {
-                viewModel.signUp();
-                expect(app.clientSessionContext.set).toHaveBeenCalledWith(appConstants.userSignUpFirstStepData, data);
+            it('should be a function', function () {
+                expect(viewModel.signUp).toBeFunction();
             });
 
-            it('should assing window location', function () {
+            it('should set first sign up step data to client sessions context', function () {
                 viewModel.signUp();
-                expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
+                expect(app.clientSessionContext.set).toHaveBeenCalledWith(app.constants.userSignUpFirstStepData, data);
             });
+
+            it('should send event \'Sign up (1st step)\'', function () {
+                var trackEventDefer = Q.defer();
+                spyOn(app, 'trackEvent').andReturn(trackEventDefer.promise);
+
+                viewModel.signUp();
+
+                var promise = trackEventDefer.promise.fin(function () { });
+
+                trackEventDefer.reject();
+
+                waitsFor(function () {
+                    return !promise.isPending();
+                });
+                runs(function () {
+                    expect(app.trackEvent).toHaveBeenCalledWith('Sign up (1st step)', { username: data.email });
+                });
+            });
+
+            describe('when event \'Sign up (1st step)\' successfuly sent', function () {
+
+                it('should assing window location', function () {
+                    var trackEventDefer = Q.defer();
+                    spyOn(app, 'trackEvent').andReturn(trackEventDefer.promise);
+
+                    viewModel.signUp();
+
+                    var promise = trackEventDefer.promise.fin(function () { });
+
+                    trackEventDefer.resolve();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(app.assingLocation).toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
+                    });
+                });
+
+            });
+
+            describe('when event \'Sign up (1st step)\' not successfuly sent', function () {
+
+                it('should not assing window location', function () {
+                    var trackEventDefer = Q.defer();
+                    spyOn(app, 'trackEvent').andReturn(trackEventDefer.promise);
+
+                    viewModel.signUp();
+
+                    var promise = trackEventDefer.promise.fin(function () { });
+
+                    trackEventDefer.reject();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(app.assingLocation).not.toHaveBeenCalledWith('http://easygenerator.com/signupsecondstep');
+                    });
+                });
+
+            });
+
+
+
+
         });
 
         describe('isFullNameErrorVisible:', function () {

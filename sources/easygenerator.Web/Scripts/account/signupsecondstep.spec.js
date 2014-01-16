@@ -5,7 +5,7 @@
 
     describe('viewModel [signupsecondstep]', function () {
         beforeEach(function () {
-            viewModel = signUpSecondStepModel();
+            viewModel = app.signUpSecondStepModel();
         });
 
         it('should be object', function () {
@@ -95,7 +95,7 @@
                     spyOn(app.clientSessionContext, 'get').andReturn({});
                     viewModel.signUp();
 
-                    expect(app.clientSessionContext.get).toHaveBeenCalledWith(appConstants.userSignUpFirstStepData);
+                    expect(app.clientSessionContext.get).toHaveBeenCalledWith(app.constants.userSignUpFirstStepData);
                 });
 
                 describe('and when user data is null', function () {
@@ -160,18 +160,18 @@
                                 return ajax.state() === "resolved";
                             });
                             runs(function () {
-                                expect(app.clientSessionContext.remove).toHaveBeenCalledWith(appConstants.userSignUpFirstStepData);
+                                expect(app.clientSessionContext.remove).toHaveBeenCalledWith(app.constants.userSignUpFirstStepData);
                             });
                         });
 
-                        it('should track event \'Sign up\'', function () {
+                        it('should track event \'Sign up (2nd step)\'', function () {
                             viewModel.signUp();
 
                             waitsFor(function () {
                                 return ajax.state() === "resolved";
                             });
                             runs(function () {
-                                expect(app.trackEvent).toHaveBeenCalledWith('Sign up', { username: username });
+                                expect(app.trackEvent).toHaveBeenCalledWith('Sign up (2nd step)', { username: username });
                             });
                         });
 
@@ -242,7 +242,7 @@
                 spyOn(app.clientSessionContext, 'get').andReturn(null);
                 viewModel.isInitializationContextCorrect();
 
-                expect(app.clientSessionContext.get).toHaveBeenCalledWith(appConstants.userSignUpFirstStepData);
+                expect(app.clientSessionContext.get).toHaveBeenCalledWith(app.constants.userSignUpFirstStepData);
             });
 
             describe('and when user data is null', function () {

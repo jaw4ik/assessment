@@ -1,5 +1,4 @@
 ﻿var app = app || {};
-var appConstants = appConstants || {};
 
 app.signinViewModel = function () {
 
@@ -7,7 +6,7 @@ app.signinViewModel = function () {
         username = (function () {
             var value = ko.observable();
             value.isValid = ko.computed(function () {
-                return !!(value() && appConstants.patterns.email.test(value().trim()));
+                return !!(value() && app.constants.patterns.email.test(value().trim()));
             });
             value.isModified = ko.observable(false);
             value.markAsModified = function () {
@@ -52,11 +51,10 @@ app.signinViewModel = function () {
                 url: '/api/user/signin',
                 data: data,
                 type: 'POST'
-            })
-            .done(function (response) {
+            }).done(function (response) {
                 if (response) {
                     if (response.success) {
-                        app.trackEvent(appConstants.events.signin, { username: data.username }).done(function () {
+                        app.trackEvent(app.constants.events.signin, { username: data.username }).done(function () {
                             app.openHomePage();
                         });
                     } else {
@@ -69,8 +67,7 @@ app.signinViewModel = function () {
                 } else {
                     throw 'Response is not an object';
                 }
-            })
-            .fail(function (reason) {
+            }).fail(function (reason) {
                 that.errorMessage(reason);
             });
         },
@@ -93,8 +90,7 @@ app.signinViewModel = function () {
                 url: '/api/user/forgotpassword',
                 data: data,
                 type: 'POST'
-            })
-            .done(function (response) {
+            }).done(function (response) {
                 if (response) {
                     if (response.success) {
                         that.forgotPasswordSent(true);
@@ -109,11 +105,9 @@ app.signinViewModel = function () {
                 } else {
                     throw 'Response is not an object';
                 }
-            })
-            .fail(function (reason) {
+            }).fail(function (reason) {
                 that.errorMessage(reason);
-            })
-            .always(function () {
+            }).always(function () {
                 forgotPasswordEnabled(true);
             });
         };

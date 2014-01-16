@@ -1,17 +1,19 @@
-﻿var appConstants = appConstants || {};
+﻿var app = app || {};
+app.constants = {};
 
-appConstants.events = {
+app.constants.events = {
     signin: 'Sign in',
-    signup: 'Sign up'
+    signupFirstStep: 'Sign up (1st step)',
+    signupSecondStep: 'Sign up (2nd step)'
 };
 
-appConstants.userSignUpFirstStepData = "userSignUpFirstStepData";
+app.constants.userSignUpFirstStepData = "userSignUpFirstStepData";
 
-appConstants.patterns = {
+app.constants.patterns = {
     email: /^([\w\.\-]+)@([\w\-]+)((\.(\w){2,6})+)$/
 };
 
-appConstants.countries = [
+app.constants.countries = [
     { name: 'Afghanistan', code: '+ 93' },
     { name: 'Albania', code: '+ 355' },
     { name: 'Algeria', code: '+ 213' },
@@ -214,4 +216,5 @@ appConstants.countries = [
     { name: 'Wales', code: '+ 44' },
     { name: 'Yemen', code: '+ 967' },
     { name: 'Zambia', code: '+ 260' },
-    { name: 'Zimbabwe', code: '+ 263' }];
+    { name: 'Zimbabwe', code: '+ 263' }
+];

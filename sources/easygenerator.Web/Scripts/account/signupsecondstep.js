@@ -1,11 +1,15 @@
-﻿function signUpSecondStepModel() {
-    var peopleBusyWithCourseDevelopmentAmount = ko.observable(null),
+﻿var app = app || {};
+
+app.signUpSecondStepModel = function () {
+
+    var
+        peopleBusyWithCourseDevelopmentAmount = ko.observable(null),
         needAuthoringTool = ko.observable(null),
         usedAuthoringTool = ko.observable(null),
         isSignupRequestPending = ko.observable(false),
 
         isInitializationContextCorrect = function () {
-            var data = app.clientSessionContext.get(appConstants.userSignUpFirstStepData);
+            var data = app.clientSessionContext.get(app.constants.userSignUpFirstStepData);
             return !_.isNullOrUndefined(data);
         },
 
@@ -14,7 +18,7 @@
                 return;
             }
 
-            var data = app.clientSessionContext.get(appConstants.userSignUpFirstStepData);
+            var data = app.clientSessionContext.get(app.constants.userSignUpFirstStepData);
             if (_.isNullOrUndefined(data)) {
                 throw 'User sign up data is not defined';
             }
@@ -30,8 +34,8 @@
                 data: data,
                 type: 'POST'
             }).done(function (response) {
-                app.clientSessionContext.remove(appConstants.userSignUpFirstStepData);
-                app.trackEvent(appConstants.events.signup, { username: response.data }).done(function () {
+                app.clientSessionContext.remove(app.constants.userSignUpFirstStepData);
+                app.trackEvent(app.constants.events.signupSecondStep, { username: response.data }).done(function () {
                     app.openHomePage();
                 });
             }).fail(function () {

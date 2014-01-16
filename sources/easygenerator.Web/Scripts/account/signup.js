@@ -1,5 +1,9 @@
-﻿function signupModel() {
-    var userName = ko.observable(''),
+﻿var app = app || {};
+
+app.signupModel = function () {
+
+    var
+        userName = ko.observable(''),
         password = ko.observable(''),
         fullName = ko.observable(''),
         phone = ko.observable(''),
@@ -23,6 +27,7 @@
         lastValidatePhone = null,
         lastValidateOrganization = null,
         phoneCode = ko.observable('+ ( ... )'),
+
     userPreciselyExists = ko.computed(function () {
         return userExists() && userName().trim().toLowerCase() === lastValidatedUserName;
     }),
@@ -32,10 +37,22 @@
     },
 
     signUp = function () {
-        var data = { email: userName().trim().toLowerCase(), password: password(), fullName: fullName(), phone: phone(), organization: organization(), country: country() };
-        app.clientSessionContext.set(appConstants.userSignUpFirstStepData, data);
-        var href = app.getLocationHref();
-        app.assingLocation(href.slice(0, href.lastIndexOf('/')) + '/signupsecondstep');
+        var data = {
+            email: userName().trim().toLowerCase(),
+            password: password(),
+            fullName: fullName(),
+            phone: phone(),
+            organization: organization(),
+            country: country()
+        };
+
+        app.clientSessionContext.set(app.constants.userSignUpFirstStepData, data);
+        
+        app.trackEvent(app.constants.events.signupFirstStep, { username: data.email }).done(function () {
+            
+            var href = app.getLocationHref();
+            app.assingLocation(href.slice(0, href.lastIndexOf('/')) + '/signupsecondstep');
+        });
     },
 
     checkUserExists = function () {
@@ -56,8 +73,7 @@
             url: '/api/user/exists',
             data: { email: userName().trim().toLowerCase() },
             type: 'POST'
-        })
-        .done(function (response) {
+        }).done(function (response) {
             userExists(response.data);
             isUserNameValidating(false);
         });
@@ -68,22 +84,27 @@
         fullName(fullName().trim());
         isFullNameErrorVisible(_.isEmpty(lastValidateFullName));
     },
+
     onFocusFullName = function () {
         isFullNameErrorVisible(false);
     },
+
     validatePhone = function () {
         lastValidatePhone = phone().trim();
         phone(phone().trim());
         isPhoneErrorVisible(_.isEmpty(lastValidatePhone));
     },
+
     onFocusPhone = function () {
         isPhoneErrorVisible(false);
     },
+
     validateOrganization = function () {
         lastValidateOrganization = organization().trim();
         organization(organization().trim());
         isOrganizationErrorVisible(_.isEmpty(lastValidateOrganization));
     },
+
     onFocusOrganization = function () {
         isOrganizationErrorVisible(false);
     };
@@ -119,9 +140,10 @@
 
     country.isValid = ko.computed(function () {
         lastValidateCountry = null;
-        var currentCountry = _.find(appConstants.countries, function (item) {
+        var currentCountry = _.find(app.constants.countries, function (item) {
             return item.name == country();
         });
+
         if (!_.isNullOrUndefined(currentCountry)) {
             lastValidateCountry = country();
             isCountrySuccessVisible(true);
@@ -152,7 +174,7 @@
         password: password,
         fullName: fullName,
         country: country,
-        countries: appConstants.countries,
+        countries: app.constants.countries,
         phone: phone,
         organization: organization,
         isLicenseAgreed: isLicenseAgreed,

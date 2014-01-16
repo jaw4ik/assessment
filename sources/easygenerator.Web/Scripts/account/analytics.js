@@ -1,13 +1,12 @@
 ﻿var app = app || {};
-var appConstants = appConstants || {};
 
-(function (application, constants) {
+(function (application) {
 
     function mixpanelAnalyticsProvider() {
         return {
             trackEvent: function (eventName, eventProperties) {
                 var deferred = jQuery.Deferred();
-
+                
                 var mixpanel = window.mixpanel;
                 if (mixpanel) {
                     var username = eventProperties.username;
@@ -15,7 +14,7 @@ var appConstants = appConstants || {};
 
                     if (username) {
                         mixpanel.identify(username);
-                        if (eventName == constants.events.signup) {
+                        if (eventName == application.constants.events.signup) {
                             mixpanel.alias(username);
                             mixpanel.people.set({
                                 "$email": username,
@@ -24,7 +23,7 @@ var appConstants = appConstants || {};
                             });
                         }
 
-                        if (eventName == constants.events.signin) {
+                        if (eventName == application.constants.events.signin) {
                             mixpanel.people.set({
                                 "$last_login": new Date()
                             });
@@ -51,4 +50,4 @@ var appConstants = appConstants || {};
         return mixpanelAnalyticesProvider.trackEvent(eventName, eventProperties);
     };
 
-}(app, appConstants))
+}(app))

@@ -23,7 +23,7 @@ $(function () {
     serviceUnavailableAjaxErrorHandler().subscribeOnGlobalErrorEvents();
 
     if ($(".sign-up").length) {
-        ko.applyBindings(signupModel(), $(".sign-up")[0]);
+        ko.applyBindings(app.signupModel(), $(".sign-up")[0]);
     }
 
     if ($(".log-in").length) {
@@ -31,7 +31,7 @@ $(function () {
     }
 
     if ($('.sign-up-second-step').length) {
-        var viewModel = signUpSecondStepModel();
+        var viewModel = app.signUpSecondStepModel();
         if (!viewModel.isInitializationContextCorrect()) {
             app.assingLocation('/signup');
         }
