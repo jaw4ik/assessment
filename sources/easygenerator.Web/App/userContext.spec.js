@@ -18,7 +18,7 @@
 
         });
 
-        describe('initialize:', function () {
+        describe('identify:', function () {
 
             var ajax;
 
@@ -28,11 +28,11 @@
             });
 
             it('should be function', function () {
-                expect(userContext.initialize).toBeFunction();
+                expect(userContext.identify).toBeFunction();
             });
 
             it('should return promise', function () {
-                expect(userContext.initialize()).toBePromise();
+                expect(userContext.identify()).toBePromise();
             });
 
             describe('when an error occured while getting user', function () {
@@ -42,7 +42,7 @@
                 });
 
                 it('should reject promise', function () {
-                    var promise = userContext.initialize();
+                    var promise = userContext.identify();
 
                     waitsFor(function () {
                         return !promise.isPending();
@@ -54,26 +54,49 @@
 
             });
 
-            describe('when user has access level 0', function () {
+            describe('when user email is not a string', function () {
+
+                it('should set a null identity', function () {
+
+                    var user = {
+                        fullname: 'fullname',
+                        accessType: 0
+                    };
+
+                    ajax.resolve(user);
+
+                    var promise = userContext.identify();
+
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        expect(userContext.identity).toEqual(null);
+                    });
+                });
+
+            });
+
+            describe('when user has free access', function () {
 
                 it('should set a free user identity', function () {
 
                     var user = {
-                        username: 'username',
+                        fullname: 'fullname',
                         email: 'user@easygenerator.com',
                         accessType: 0
                     };
 
                     ajax.resolve(user);
 
-                    var promise = userContext.initialize();
+                    var promise = userContext.identify();
 
                     waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
                         expect(userContext.identity).toEqual({
-                            username: user.username,
+                            fullname: user.fullname,
                             email: user.email,
                             accessType: constants.accessType.free
                         });
@@ -82,26 +105,26 @@
 
             });
 
-            describe('when user has access level 1', function () {
+            describe('when user has starter access', function () {
 
                 it('should set a starter user identity', function () {
 
                     var user = {
-                        username: 'username',
+                        fullname: 'fullname',
                         email: 'user@easygenerator.com',
                         accessType: 1
                     };
 
                     ajax.resolve(user);
 
-                    var promise = userContext.initialize();
+                    var promise = userContext.identify();
 
                     waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
                         expect(userContext.identity).toEqual({
-                            username: user.username,
+                            fullname: user.fullname,
                             email: user.email,
                             accessType: constants.accessType.starter
                         });
@@ -111,7 +134,7 @@
             });
 
             it('should resolve promise', function () {
-                var promise = userContext.initialize();
+                var promise = userContext.identify();
                 ajax.resolve({});
 
                 waitsFor(function () {

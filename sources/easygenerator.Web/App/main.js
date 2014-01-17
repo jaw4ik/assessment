@@ -38,7 +38,7 @@ define(['durandal/system', 'durandal/app', 'bootstrapper', 'userContext'],
         app.start().then(function () {
             bootstrapper.run();
 
-            userContext.initialize().then(function () {
+            userContext.identify().then(function () {
                 app.setRoot('viewmodels/shell');
             });
         });

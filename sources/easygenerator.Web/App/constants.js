@@ -5,8 +5,7 @@
 
             accessType: {
                 free: '0',
-                starter: '1',
-                plus: '2'
+                starter: '1'
             },
 
             sortingOptions: {

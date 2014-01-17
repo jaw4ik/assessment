@@ -375,7 +375,7 @@
     downloadScorm12PackageDescription: {
         en: 'Download the course as SCORM 1.2 package in order to publish it to LMS',
         nl: 'Hier kunt u de cursus als \"SCORM 1.2\"-pakket downloaden, zodat u het vervolgens in LMS unt publiceren',
-        de: 'Hier können Sie den Kurs als \"SCORM 1.2\"-Paket herunterladen, damit Sie ihn anschließend in \"LMS\" veröffentlichen können'
+        de: 'Hier können Sie den Kurs als \"SCORM 1.2\"-Paket herunterladen, damit Sie ihn anschließend in LMS veröffentlichen können'
     },
     assembling: {
         en: 'assembling...',
@@ -387,10 +387,65 @@
         nl: 'Opnw samenstellen',
         de: 'Neu zusammenstellen'
     },
-    upgradeToStarterPlanToUseScorm: {
+    upgradeToStarterPlanToUseScormErrorMessage: {
         en: 'Please upgrade your account to \"Starter plan\" to be able to download the course as a SCORM package.',
-        nl: 'Please upgrade your account to \"Starter plan\" to be able to download the course as a SCORM package.[nl]',
-        de: 'Please upgrade your account to \"Starter plan\" to be able to download the course as a SCORM package.[de]'
+        nl: 'Upgrade uw account tot \"Starter plan\" zodat u de cursus als \"SCORM\"-pakket kunt downloaden..',
+        de: 'Bitte aktualisieren Sie Ihr Konto auf \"Starter plan\", um den Kurs als \"SCORM\"-Paket herunterladen zu können.'
+    },
+    upgradeToStarterPlanToUseScormMessage: {
+        en: 'You have to <a href=\"http://www.easygenerator.com/pricing/\" target=\"_blank\">upgrade your account</a> in order to publish to \"SCORM 1.2\"',
+        nl: 'U moet <a href=\"http://www.easygenerator.com/pricing/\" target=\"_blank\">uw account upgraden</a> om naar \"SCORM 1.2\" te kunnen publiceren.',
+        de: 'Sie müssen <a href=\"http://www.easygenerator.com/pricing/\" target=\"_blank\">Ihr Konto aktualisieren</a>, um auf \"SCORM 1.2\" veröffentlichen zu können.'
+    },
+    publishToAim4You: {
+        en: 'Publish to Aim4You',
+        nl: 'Publiceren naar Aim4You',
+        de: 'Veröffentlichen auf Aim4You'
+    },
+    publishToAim4YouRegisterDescription: {
+        en: 'Register for the Aim4You learning store and start publishing',
+        nl: 'Registreer u bij de leerwinkel van Aim4You en begin met publiceren.',
+        de: 'Registrieren Sie sich im Learning Store von Aim4YSou, und beginnen Sie zu veröffentlichen.'
+    },
+    publishToAim4YouPublishDescription: {
+        en: 'Publish the course to the Aim 4 You  instant learning store',
+        nl: 'Publiceer de cursus naar Aim4You',
+        de: 'Veröffentlichen Sie den Kurs im Aim 4 You Instant Learning Store.'
+    },
+    publishToAim4YouConfirmSendMessage: {
+        en: 'A confirmation email was sent. Click on the link in this mail to activate your account.',
+        nl: 'Er is een bevestigingsmail verzonden. Klik op de koppeling in dit mailbericht om uw account te activeren.',
+        de: 'Eine Bestätigungs-E-Mail-Nachricht wurde versendet. Klicken Sie auf den Link in dieser Nachricht, um Ihr Konto zu aktivieren.'
+    },
+    publishToAim4YouSuccessMessage: {
+        en: 'Your course is successfully  published. Check your email for more details.',
+        nl: 'Uw cursus is geactiveerd. Lees het mailbericht voor verdere informatie.',
+        de: 'Ihr Kurs wurde erfolgreich veröffentlicht. Weitere Informationen finden Sie in Ihrer E-Mail-Nachricht.'
+    },
+    publishToAim4YouInfoMessage: {
+        en: 'You have not confirmed your registration with Aim4You. In order to publish you have to click on the link in the confirmation email to activate your account.',
+        nl: 'U hebt uw registratie bij Aim4You niet bevestigd. Klik op de koppeling in de bevestigingsmail om uw account te activeren.',
+        de: 'Sie haben Ihre Registrierung bei Aim4You nicht bestätigt. Um veröffentlichen zu können, müssen Sie auf den Link in Ihrer E-Mail-Nachricht klicken und so Ihr Konto aktivieren.'
+    },
+    publishToAim4YouSendAgain: {
+        en: 'Send the confirmation email again',
+        nl: 'Verzend de bevestigingsmail opnieuw',
+        de: 'Die Bestätigungs-E-Mail-Nachricht erneut senden'
+    },
+    publishToAim4YouErrorMessage: {
+        en: 'Oops! Something went wrong. Please, try again.',
+        nl: 'Er is helaas iets misgegaan. Probeer het opnieuw.',
+        de: 'Leider ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.'
+    },
+    register: {
+        en: 'Register',
+        nl: 'Registreren',
+        de: 'Registrieren'
+    },
+    publishToStore: {
+        en: 'Publish to Aim4You',
+        nl: 'Publiceren naar Aim4You',
+        de: 'Auf Aim4You veröffentlichen'
     },
     /* End resource section for model Courses */
     
@@ -1641,11 +1696,6 @@
         en: 'Paste Embed Code Here',
         nl: 'Code hier invoegen',
         de: 'Code hier einbetten'
-    },
-    starterPlanUsersOnly: {
-        en: 'Starter plan users only. Please, <a href=\"http://www.easygenerator.com/pricing/\">upgrade</a> to use this kind of package.',
-        nl: 'Starter plan users only. Please, <a href=\"http://www.easygenerator.com/pricing/\">upgrade</a> to use this kind of package.[nl]',
-        de: 'Starter plan users only. Please, <a href=\"http://www.easygenerator.com/pricing/\">upgrade</a> to use this kind of package.[de]'
     }
     /* End resource section for model CKEditor */
            

@@ -122,7 +122,7 @@ namespace easygenerator.Web.Tests.Controllers.Api
             //Arrange
             var profile = GetTestUserSignUpViewModel();
             _userRepository.GetUserByEmail(profile.Email).Returns(UserObjectMother.CreateWithEmail(profile.Email));
-            
+
             //Act
             var result = _controller.Signup(profile);
 
@@ -587,5 +587,43 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         #endregion SetIsShowIntroductionPage
+
+        #region Identify
+
+        [TestMethod]
+        public void Identify_ShouldReturnEmptyJsonResult_WhenUserDoesNotExist()
+        {
+            //Arrange
+            //const string email = "username@easygenerator.com";
+            //_user.Identity.Name.Returns(email);
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns((User)null);
+
+            //Act
+            var result = _controller.Identify();
+
+            //Assert
+            result.Should().BeJsonResult().And.Data.ShouldBeSimilar(new { });
+        }
+
+        [TestMethod]
+        public void Identify_ShoudReturnJsonResultWithUserIdentity_WhenUserExists()
+        {
+            //Arrange
+            var user = UserObjectMother.Create();
+            _userRepository.GetUserByEmail(Arg.Any<string>()).Returns(user);
+
+            //Act
+            var result = _controller.Identify();
+
+            //Assert
+            result.Should().BeJsonResult().And.Data.ShouldBeSimilar(new
+            {
+                email = user.Email,
+                fullname = user.FullName,
+                accessType = user.AccessType
+            });
+        }
+
+        #endregion
     }
 }

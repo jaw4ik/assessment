@@ -165,7 +165,6 @@
     <Content Include="App\bootstrapper.tasks.js">
       <DependentUpon>bootstrapper.js</DependentUpon>
     </Content>
-    <Content Include="App\bootstrapping\binderTask.js" />
     <Content Include="App\bootstrapping\compositionTask.js" />
     <Content Include="App\bootstrapping\errorHandlingTask.js" />
     <Content Include="App\bootstrapping\localizationTask.js" />

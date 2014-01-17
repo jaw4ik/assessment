@@ -98,7 +98,7 @@ namespace easygenerator.Web.Tests.Utils
             Execute.Assertion
                 .BecauseOf(reason, reasonArgs)
                 .ForCondition(value.Subject is JsonResult)
-                .FailWith("Expected \"JsonResult\", but got {0}", value.Subject.GetType().Name);
+                .FailWith("Expected \"JsonResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
 
             return new JsonResultAssertions(value.Subject as JsonResult);
         }
@@ -108,7 +108,7 @@ namespace easygenerator.Web.Tests.Utils
             Execute.Assertion
                 .BecauseOf(reason, reasonArgs)
                 .ForCondition(value.Subject is JsonSuccessResult)
-                .FailWith("Expected \"JsonSuccessResult\", but got {0}", value.Subject.GetType().Name);
+                .FailWith("Expected \"JsonSuccessResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
 
             return new JsonSuccessResultAssertions(value.Subject as JsonSuccessResult);
         }
@@ -118,7 +118,7 @@ namespace easygenerator.Web.Tests.Utils
             Execute.Assertion
                 .BecauseOf(reason, reasonArgs)
                 .ForCondition(value.Subject is JsonErrorResult)
-                .FailWith("Expected \"JsonErrorResult\", but got {0}", value.Subject.GetType().Name);
+                .FailWith("Expected \"JsonErrorResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
 
             return new JsonErrorResultAssertions(value.Subject as JsonErrorResult);
         }
@@ -128,7 +128,7 @@ namespace easygenerator.Web.Tests.Utils
             Execute.Assertion
                 .BecauseOf(reason, reasonArgs)
                 .ForCondition(value.Subject is HttpNotFoundResult)
-                .FailWith("Expected \"HttpNotFoundResult\", but got {0}", value.Subject.GetType().Name);
+                .FailWith("Expected \"HttpNotFoundResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
 
             return new HttpNotFoundResultAssertions(value.Subject as HttpNotFoundResult);
         }
@@ -138,9 +138,14 @@ namespace easygenerator.Web.Tests.Utils
             Execute.Assertion
                 .BecauseOf(reason, reasonArgs)
                 .ForCondition(value.Subject is HttpStatusCodeResult)
-                .FailWith("Expected \"HttpStatusCodeResult\", but got {0}", value.Subject.GetType().Name);
+                .FailWith("Expected \"HttpStatusCodeResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
 
             return new HttpStatusCodeResultAssertions(value.Subject as HttpStatusCodeResult);
+        }
+
+        private static string GetSubjectTypeErrorMessage(object subject)
+        {
+            return subject == null ? null : subject.GetType().Name;
         }
     }
 

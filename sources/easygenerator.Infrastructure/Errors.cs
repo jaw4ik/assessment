@@ -29,6 +29,6 @@ namespace easygenerator.Infrastructure
         public const string ObjectiveCannotBeDeletedResourceKey = "objectiveCannnotBeDeleted";
         public const string CoursePublishFailedResourceKey = "publishFailed";
 
-        public const string UpgradeToStarterPlanToUseScormResourceKey = "upgradeToStarterPlanToUseScorm";
+        public const string UpgradeToStarterPlanToUseScormResourceKey = "upgradeToStarterPlanToUseScormErrorMessage";
     }
 }

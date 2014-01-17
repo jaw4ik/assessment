@@ -159,8 +159,8 @@ namespace easygenerator.Web.Controllers.Api
         }
 
         [HttpPost]
-        [AllowAnonymous]
-        public ActionResult GetCurrentUserInfo_Post()
+        [Route("api/identify")]
+        public ActionResult Identify()
         {
             var user = _repository.GetUserByEmail(GetCurrentUsername());
 
@@ -169,7 +169,7 @@ namespace easygenerator.Web.Controllers.Api
                 return Json(new { });
             }
 
-            return Json(new { username = user.FullName, email = user.Email, accessType = user.AccessType });
+            return Json(new { email = user.Email, fullname = user.FullName, accessType = user.AccessType });
 
         }
 

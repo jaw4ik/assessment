@@ -114,7 +114,7 @@
                 * DOWNLOAD BUTTON CONDITIONS 
                 * -->
 
-            <!-- ko if: user.hasStarterAccess() -->
+            <!-- ko if: scormBuildAction() -->
 
             <!-- ko if: !isDeliveringInProgress() -->
             <div class="package-action-btn btn orange download-btn" data-bind="click: scormBuildAction().downloadCourse">
@@ -136,7 +136,7 @@
 
             <!-- /ko -->
 
-            <!-- ko ifnot: user.hasStarterAccess() -->
+            <!-- ko ifnot: scormBuildAction() -->
 
             <div class="package-action-btn-control">
                 <div class="package-action-btn-wrapper">
@@ -145,11 +145,10 @@
                     </div>
                 </div>
                 <div class="package-action-btn-message-wrapper">
-                    <div class="package-action-access-message">
-                        Starter plan users only. Please <a href="http://www.easygenerator.com/pricing/" target="blank">upgrade</a> to use this kind of package.
+                    <div class="package-action-access-message" data-bind="localize: { html: 'upgradeToStarterPlanToUseScormMessage' }">
                     </div>
                 </div>
-            </div>            
+            </div>
             <!-- /ko -->
         </div>
     </div>

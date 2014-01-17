@@ -274,12 +274,6 @@ namespace easygenerator.Web.Configuration
             );
 
             routes.MapRoute(
-               name: "GetCurrentUserInfo_Post",
-               url: "api/user_post",
-               defaults: new { controller = "User", action = "GetCurrentUserInfo_Post" }
-            );
-
-            routes.MapRoute(
                 name: "SignUpFirstStep",
                 url: "api/user/signupfirststep",
                 defaults: new { controller = "User", action = "SignUpFirstStep" }
@@ -395,6 +389,8 @@ namespace easygenerator.Web.Configuration
                 url: "",
                 defaults: new { controller = "Application", action = "Index" }
             );
+
+            routes.MapMvcAttributeRoutes();
         }
     }
 }

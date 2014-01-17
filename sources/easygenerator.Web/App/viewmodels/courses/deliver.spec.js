@@ -2,9 +2,12 @@
     function (viewModel) {
         "use strict";
 
-        var router = require('plugins/router'),
+        var
+            router = require('plugins/router'),
             constants = require('constants'),
-            repository = require('repositories/courseRepository');
+            userContext = require('userContext'),
+            repository = require('repositories/courseRepository')
+        ;
 
         describe('viewModel [deliver]', function () {
             var course = {
@@ -88,10 +91,13 @@
             describe('activate:', function () {
 
                 var getById;
+                var identify;
 
                 beforeEach(function () {
                     getById = Q.defer();
+                    identify = Q.defer();
                     spyOn(repository, 'getById').andReturn(getById.promise);
+                    spyOn(userContext, 'identify').andReturn(identify.promise);
                 });
 
                 it('should be a function', function () {
@@ -102,96 +108,146 @@
                     expect(viewModel.activate()).toBePromise();
                 });
 
-                it('should get course from repository', function () {
-                    var id = 'courseId';
-                    viewModel.activate(id);
-                    expect(repository.getById).toHaveBeenCalledWith(id);
+                it('should re-identify user', function () {
+                    viewModel.activate();
+                    expect(userContext.identify).toHaveBeenCalled();
                 });
 
-                describe('when course does not exist', function () {
+                describe('when user is re-identified', function () {
 
                     beforeEach(function () {
-                        getById.reject('reason');
+                        identify.resolve();
                     });
 
-                    it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
-                        router.activeItem.settings.lifecycleData = null;
+                    it('should get course from repository', function () {
+                        var id = 'courseId';
+                        var promise = identify.promise.fin(function () { });
 
-                        var promise = viewModel.activate('courseId');
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
-                        });
-                    });
-
-                    it('should reject promise', function () {
-                        var promise = viewModel.activate('courseId');
+                        viewModel.activate(id);
 
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(promise).toBeRejectedWith('reason');
-                        });
-                    });
-                });
-
-                describe('when course exists', function () {
-
-                    beforeEach(function () {
-                        getById.resolve(course);
-                    });
-
-                    it('should define publish action', function () {
-                        viewModel.id = undefined;
-
-                        var promise = viewModel.activate(course.id);
-
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(viewModel.publishAction()).toBeDefined();
+                            expect(repository.getById).toHaveBeenCalledWith(id);
                         });
                     });
 
-                    it('should define build action', function () {
-                        viewModel.id = undefined;
+                    describe('when course does not exist', function () {
 
-                        var promise = viewModel.activate(course.id);
-
-                        waitsFor(function () {
-                            return !promise.isPending();
+                        beforeEach(function () {
+                            getById.reject('reason');
                         });
-                        runs(function () {
-                            expect(viewModel.buildAction()).toBeDefined();
+
+                        it('should set router.activeItem.settings.lifecycleData.redirect to \'404\'', function () {
+                            router.activeItem.settings.lifecycleData = null;
+
+                            var promise = viewModel.activate('courseId');
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(router.activeItem.settings.lifecycleData.redirect).toBe('404');
+                            });
+                        });
+
+                        it('should reject promise', function () {
+                            var promise = viewModel.activate('courseId');
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeRejectedWith('reason');
+                            });
                         });
                     });
 
-                    it('should define scorm build action', function () {
-                        viewModel.id = undefined;
+                    describe('when course exists', function () {
 
-                        var promise = viewModel.activate(course.id);
+                        beforeEach(function () {
+                            getById.resolve(course);
+                        });
 
-                        waitsFor(function () {
-                            return !promise.isPending();
-                        });
-                        runs(function () {
-                            expect(viewModel.scormBuildAction()).toBeDefined();
-                        });
-                    });
+                        it('should define publish action', function () {
+                            viewModel.id = undefined;
 
-                    it('should resolve promise', function () {
-                        var promise = viewModel.activate(course.id);
+                            var promise = viewModel.activate(course.id);
 
-                        waitsFor(function () {
-                            return !promise.isPending();
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.publishAction()).toBeDefined();
+                            });
                         });
-                        runs(function () {
-                            expect(promise).toBeResolved();
+
+                        it('should define build action', function () {
+                            viewModel.id = undefined;
+
+                            var promise = viewModel.activate(course.id);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(viewModel.buildAction()).toBeDefined();
+                            });
                         });
+
+                        describe('and user has starter access', function () {
+
+                            beforeEach(function () {
+                                spyOn(userContext, 'hasStarterAccess').andReturn(true);
+                            });
+
+                            it('should define scorm build action', function () {
+                                viewModel.scormBuildAction(undefined);
+
+                                var promise = viewModel.activate(course.id);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(viewModel.scormBuildAction()).toBeDefined();
+                                });
+                            });
+
+                        });
+
+                        describe('and user does not have starter access', function () {
+
+                            beforeEach(function () {
+                                spyOn(userContext, 'hasStarterAccess').andReturn(false);
+                            });
+
+                            it('should not define scorm build action', function () {
+                                viewModel.scormBuildAction({ isDelivering: ko.observable(false) });
+
+                                var promise = viewModel.activate(course.id);
+
+                                waitsFor(function () {
+                                    return !promise.isPending();
+                                });
+                                runs(function () {
+                                    expect(viewModel.scormBuildAction()).not.toBeDefined();
+                                });
+                            });
+
+                        });
+
+                        it('should resolve promise', function () {
+                            var promise = viewModel.activate(course.id);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeResolved();
+                            });
+                        });
+
                     });
 
                 });

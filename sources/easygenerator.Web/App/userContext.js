@@ -4,20 +4,24 @@
     var userContext = {
         identity: null,
         hasStarterAccess: hasStarterAccess,
-        initialize: initialize
+        identify: identify
     };
 
     return userContext;
 
-    function initialize() {
+    function identify() {
         var deferred = Q.defer();
 
-        $.ajax({ url: 'api/user_post', type: 'POST', contentType: 'application/json', dataType: 'json' }).done(function (user) {
-            userContext.identity = {
-                username: user.username,
-                email: user.email,
-                accessType: _.find(constants.accessType, function (item) { return item == user.accessType; })
-            };
+        $.ajax({ url: 'api/identify', type: 'POST', contentType: 'application/json', dataType: 'json' }).done(function (user) {
+            if (_.isString(user.email)) {
+                userContext.identity = {
+                    email: user.email,
+                    fullname: user.fullname,
+                    accessType: _.find(constants.accessType, function (item) { return item == user.accessType; })
+                };
+            } else {
+                userContext.identity = null;
+            }
 
             deferred.resolve();
 
