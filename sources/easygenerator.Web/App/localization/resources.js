@@ -447,10 +447,10 @@
         nl: 'Publiceren naar Aim4You',
         de: 'Auf Aim4You veröffentlichen'
     },
-    publish: {
-        en: 'Publish',
-        nl: 'Publish[nl]',
-        de: 'Publish[de]'
+    publishToCatalog: {
+        en: 'Publish to instant learning catalog',
+        nl: 'Publish to instant learning catalog[nl]',
+        de: 'Publish to instant learning catalog[de]'
     },
     /* End resource section for model Courses */
     
