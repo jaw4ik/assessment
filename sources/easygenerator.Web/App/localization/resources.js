@@ -447,6 +447,11 @@
         nl: 'Publiceren naar Aim4You',
         de: 'Auf Aim4You veröffentlichen'
     },
+    publish: {
+        en: 'Publish',
+        nl: 'Publish[nl]',
+        de: 'Publish[de]'
+    },
     /* End resource section for model Courses */
     
     /* Resource section for model CreateObjective */
