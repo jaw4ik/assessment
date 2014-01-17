@@ -719,6 +719,8 @@
     <Content Include="Scripts\durandal\viewEngine.js" />
     <Content Include="Scripts\durandal\viewLocator.js" />
     <Content Include="Scripts\jquery.placeholder.js" />
+    <Content Include="Scripts\knockout-3.0.0.debug.js" />
+    <Content Include="Scripts\knockout-3.0.0.js" />
     <Content Include="Scripts\knockoutBindings\autofocusBinding.js" />
     <Content Include="Scripts\knockoutBindings\clickElementBinding.js" />
     <Content Include="Scripts\knockoutBindings\cssBinding.js" />
@@ -1363,15 +1365,12 @@
     <None Include="Scripts\jquery.validate.min.js" />
     <None Include="Scripts\jquery.validate.unobtrusive.js" />
     <None Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <None Include="Scripts\knockout-2.3.0.debug.js" />
-    <Content Include="Scripts\knockout-2.3.0.js" />
     <Content Include="Scripts\knockoutBindings\dateBinding.js" />
     <Content Include="Scripts\knockoutBindings\editableTextBinding.js" />
     <Content Include="Scripts\knockoutBindings\keyPressBinding.js" />
     <Content Include="Scripts\knockout.validation.debug.js" />
     <None Include="Scripts\knockout.validation.js" />
     <Content Include="Scripts\knockoutBindings\selectBoxBinding.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment-lang-de.js" />
     <Content Include="Scripts\moment-lang-nl.js" />
     <Content Include="Scripts\text.js" />
