@@ -7,6 +7,11 @@ app.constants.events = {
     signupSecondStep: 'Sign up (2nd step)'
 };
 
+app.constants.pageviewUrls = {
+    signupFirstStep: '/signup/step1.html',
+    signupSecondStep: '/signup/step2.html'
+};
+
 app.constants.userSignUpFirstStepData = "userSignUpFirstStepData";
 
 app.constants.patterns = {

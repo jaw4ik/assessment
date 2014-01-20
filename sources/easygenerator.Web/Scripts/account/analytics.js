@@ -60,6 +60,21 @@
                 }
 
                 return deferred.promise();
+            },
+            trackPageview: function (url) {
+                var deferred = jQuery.Deferred();
+                var gaq = window._gaq;
+
+                if (gaq) {
+                    gaq.push(['_set', 'hitCallback', function () {
+                        deferred.resolve();
+                    }]);
+                    gaq.push(['_trackPageview', url]);
+                } else {
+                    deferred.resolve();
+                }
+
+                return deferred.promise();
             }
         };
     }
@@ -71,6 +86,12 @@
         return jQuery.when(
             mixpanelAnalyticesProvider.trackEvent(eventName, eventProperties),
             googleAnalyticesProvider.trackEvent(eventName, eventProperties)
+        );
+    };
+
+    application.trackPageview = function (url) {
+        return jQuery.when(
+            googleAnalyticesProvider.trackPageview(url)
         );
     };
 

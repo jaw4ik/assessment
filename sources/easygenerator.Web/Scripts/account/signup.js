@@ -47,12 +47,14 @@ app.signupModel = function () {
         };
 
         app.clientSessionContext.set(app.constants.userSignUpFirstStepData, data);
-        
-        app.trackEvent(app.constants.events.signupFirstStep, { username: data.email }).done(function () {
-            
-            var href = app.getLocationHref();
-            app.assingLocation(href.slice(0, href.lastIndexOf('/')) + '/signupsecondstep');
-        });
+
+        $.when(
+            app.trackEvent(app.constants.events.signupFirstStep, { username: data.email }),
+            app.trackPageview(app.constants.pageviewUrls.signupFirstStep)
+            ).done(function () {
+                var href = app.getLocationHref();
+                app.assingLocation(href.slice(0, href.lastIndexOf('/')) + '/signupsecondstep');
+            });
     },
 
     checkUserExists = function () {

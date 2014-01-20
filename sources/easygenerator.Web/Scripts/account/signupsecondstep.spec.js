@@ -142,18 +142,26 @@
                     });
 
                     describe('and request succeded', function () {
-                        var trackEvent;
+
+                        var trackEventDefer, trackPageviewDefer;;
                         var username;
 
                         beforeEach(function () {
-                            trackEvent = $.Deferred();
-                            spyOn(app, 'trackEvent').andReturn(trackEvent.promise());
+                            trackEventDefer = jQuery.Deferred();
+                            spyOn(app, 'trackEvent').andReturn(trackEventDefer.promise);
+
+                            trackPageviewDefer = jQuery.Deferred();
+                            spyOn(app, 'trackPageview').andReturn(trackPageviewDefer.promise);
+
                             spyOn(app.clientSessionContext, 'remove');
                             username = 'username@easygenerator.com';
+
                             ajax.resolve({ data: 'username@easygenerator.com' });
+
+                            spyOn(app, 'openHomePage');
                         });
 
-                        it('should remove cuser data from client session context', function () {
+                        it('should remove user data from client session context', function () {
                             viewModel.signUp();
 
                             waitsFor(function () {
@@ -175,19 +183,101 @@
                             });
                         });
 
-                        describe('and event is tracked', function () {
+                        it('should track pageview', function () {
+                            viewModel.signUp();
 
-                            beforeEach(function () {
-                                trackEvent.resolve();
+                            waitsFor(function () {
+                                return ajax.state() !== "pending";
+                            });
+                            runs(function () {
+                                expect(app.trackPageview).toHaveBeenCalledWith(app.constants.pageviewUrls.signupSecondStep);
+                            });
+                        });
+
+                        describe('when event sent and pageview tracked', function() {
+
+                            beforeEach(function() {
+                                trackEventDefer.resolve();
+                                trackPageviewDefer.resolve();
                             });
 
                             it('should redirect to home page', function () {
-                                spyOn(app, 'openHomePage');
-
                                 viewModel.signUp();
 
+                                var trackEventPromise = trackEventDefer.promise().always();
+                                var trackPageviewPromise = trackPageviewDefer.promise().always();
+
                                 waitsFor(function () {
-                                    return ajax.state() !== "pending";
+                                    return trackEventPromise.state() !== 'pending' && trackPageviewPromise.state() !== 'pending';
+                                });
+                                runs(function () {
+                                    expect(app.openHomePage).toHaveBeenCalled();
+                                });
+                            });
+
+                        });
+
+                        describe('when event sent and pageview not tracked', function () {
+
+                            beforeEach(function () {
+                                trackEventDefer.resolve();
+                                trackPageviewDefer.reject();
+                            });
+
+                            it('should redirect to home page', function () {
+                                viewModel.signUp();
+
+                                var trackEventPromise = trackEventDefer.promise().always();
+                                var trackPageviewPromise = trackPageviewDefer.promise().always();
+
+                                waitsFor(function () {
+                                    return trackEventPromise.state() !== 'pending' && trackPageviewPromise.state() !== 'pending';
+                                });
+                                runs(function () {
+                                    expect(app.openHomePage).toHaveBeenCalled();
+                                });
+                            });
+
+                        });
+
+                        describe('when event not sent and pageview tracked', function () {
+
+                            beforeEach(function () {
+                                trackEventDefer.reject();
+                                trackPageviewDefer.resolve();
+                            });
+
+                            it('should redirect to home page', function () {
+                                viewModel.signUp();
+
+                                var trackEventPromise = trackEventDefer.promise().always();
+                                var trackPageviewPromise = trackPageviewDefer.promise().always();
+
+                                waitsFor(function () {
+                                    return trackEventPromise.state() !== 'pending' && trackPageviewPromise.state() !== 'pending';
+                                });
+                                runs(function () {
+                                    expect(app.openHomePage).toHaveBeenCalled();
+                                });
+                            });
+
+                        });
+
+                        describe('when event not sent and pageview not tracked', function () {
+
+                            beforeEach(function () {
+                                trackEventDefer.reject();
+                                trackPageviewDefer.reject();
+                            });
+
+                            it('should redirect to home page', function () {
+                                viewModel.signUp();
+
+                                var trackEventPromise = trackEventDefer.promise().always();
+                                var trackPageviewPromise = trackPageviewDefer.promise().always();
+
+                                waitsFor(function () {
+                                    return trackEventPromise.state() !== 'pending' && trackPageviewPromise.state() !== 'pending';
                                 });
                                 runs(function () {
                                     expect(app.openHomePage).toHaveBeenCalled();

@@ -35,9 +35,13 @@ app.signUpSecondStepModel = function () {
                 type: 'POST'
             }).done(function (response) {
                 app.clientSessionContext.remove(app.constants.userSignUpFirstStepData);
-                app.trackEvent(app.constants.events.signupSecondStep, { username: response.data }).done(function () {
-                    app.openHomePage();
-                });
+
+                $.when(
+                    app.trackEvent(app.constants.events.signupSecondStep, { username: response.data }),
+                    app.trackPageview(app.constants.pageviewUrls.signupSecondStep)
+                    ).done(function () {
+                        app.openHomePage();
+                    });
             }).fail(function () {
                 isSignupRequestPending(false);
             });
