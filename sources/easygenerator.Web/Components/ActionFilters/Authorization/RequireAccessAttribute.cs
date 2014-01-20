@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Web.Components.ActionResults;
 
 namespace easygenerator.Web.Components.ActionFilters.Authorization
 {
@@ -39,7 +40,7 @@ namespace easygenerator.Web.Components.ActionFilters.Authorization
             var user = UserRepository.GetUserByEmail(httpContext.User.Identity.Name);
             if (!user.HasAccess(AccessType))
             {
-                authorizationContext.Result = String.IsNullOrWhiteSpace(ErrorMessageResourceKey) ? new HttpStatusCodeResult(403) : new HttpStatusCodeResult(403, ErrorMessageResourceKey);
+                authorizationContext.Result = new ForbiddenResult(ErrorMessageResourceKey);
             }
         }
     }

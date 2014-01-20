@@ -272,6 +272,7 @@
     <Content Include="BuildCourse\Scorm\Templates\imsmanifest.cshtml" />
     <Compile Include="Components\ActionFilters\Authorization\RequireAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\HandleErrorAttribute.cs" />
+    <Compile Include="Components\ActionResults\ForbiddenResult.cs" />
     <Compile Include="Components\Configuration\MailChimpConfigurationSection.cs" />
     <Compile Include="Components\HttpRuntimeWrapper.cs" />
     <Compile Include="BuildCourse\ICourseBuilder.cs" />

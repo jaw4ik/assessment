@@ -10,6 +10,10 @@
 
         describe('handleError:', function () {
 
+            var response = {
+                getResponseHeader: function () { }
+            };
+
             beforeEach(function () {
                 spyOn(notify, 'error');
                 spyOn(localizationManager, 'localize');
@@ -20,7 +24,7 @@
             });
 
             it('should show notification', function () {
-                errorHandler.handleError({});
+                errorHandler.handleError(response);
                 expect(notify.error).toHaveBeenCalled();
             });
 

@@ -4,8 +4,8 @@
         handleError: handleError
     };
 
-    function handleError(error) {
-        notify.error(localizationManager.localize(error.statusText));
+    function handleError(response) {
+        notify.error(localizationManager.localize(response.getResponseHeader('ErrorMessageResourceKey')));
     };
 
 });
