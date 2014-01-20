@@ -39,7 +39,13 @@ namespace easygenerator.Web.Components.ActionFilters.Authorization
             var user = UserRepository.GetUserByEmail(httpContext.User.Identity.Name);
             if (!user.HasAccess(AccessType))
             {
-                authorizationContext.Result = String.IsNullOrWhiteSpace(ErrorMessageResourceKey) ? new HttpStatusCodeResult(403) : new HttpStatusCodeResult(403, ErrorMessageResourceKey);
+                httpContext.Response.Clear();
+                httpContext.Response.StatusCode = 403;
+                if (!String.IsNullOrWhiteSpace(ErrorMessageResourceKey))
+                {
+                    httpContext.Response.StatusDescription = ErrorMessageResourceKey;
+                }
+                httpContext.Response.TrySkipIisCustomErrors = true;
             }
         }
     }
