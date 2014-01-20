@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using easygenerator.DomainModel.Entities;
 using easygenerator.DomainModel.Repositories;
+using easygenerator.Web.Components.ActionResults;
 
 namespace easygenerator.Web.Components.ActionFilters.Authorization
 {
@@ -39,13 +40,7 @@ namespace easygenerator.Web.Components.ActionFilters.Authorization
             var user = UserRepository.GetUserByEmail(httpContext.User.Identity.Name);
             if (!user.HasAccess(AccessType))
             {
-                httpContext.Response.Clear();
-                httpContext.Response.StatusCode = 403;
-                if (!String.IsNullOrWhiteSpace(ErrorMessageResourceKey))
-                {
-                    httpContext.Response.StatusDescription = ErrorMessageResourceKey;
-                }
-                httpContext.Response.TrySkipIisCustomErrors = true;
+                authorizationContext.Result = new ForbiddenResult(ErrorMessageResourceKey);
             }
         }
     }
