@@ -324,9 +324,20 @@
     display: table;
 }
 
+.nl-lang .package-action-btn-control,
+.de-lang .package-action-btn-control {
+    display: block;
+}
+
 .package-action-btn-wrapper, .package-action-btn-message-wrapper {
     display: table-cell;
     vertical-align: middle;
+}
+
+.nl-lang .package-action-btn-wrapper, .nl-lang .package-action-btn-message-wrapper,
+.de-lang .package-action-btn-wrapper, .de-lang .package-action-btn-message-wrapper {
+    display: block;
+    vertical-align: baseline;
 }
 
 .package-action-access-message {
