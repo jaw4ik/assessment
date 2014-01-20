@@ -84,8 +84,7 @@
 
     application.trackEvent = function (eventName, eventProperties) {
         return jQuery.when(
-            mixpanelAnalyticesProvider.trackEvent(eventName, eventProperties),
-            googleAnalyticesProvider.trackEvent(eventName, eventProperties)
+            mixpanelAnalyticesProvider.trackEvent(eventName, eventProperties)
         );
     };
 
