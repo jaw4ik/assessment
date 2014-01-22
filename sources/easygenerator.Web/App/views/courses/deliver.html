@@ -1,88 +1,7 @@
 ﻿<section>
     <div class="package-actions-holder clearfix">
-        <div class="package-action-item pull-left">
-            <h5 class="package-action-title" data-bind="localize: { text: 'publishCourse' }"></h5>
-            <p class="package-action-desc" data-bind="localize: { text: 'publishOnlineDesciption' }"></p>
-            <!--*
-                    * PUBLISH BUTTON
-                    * -->
-            <!-- ko if: !publishAction().packageExists() -->
-            <!-- ko if: !isDeliveringInProgress() -->
-            <div class="package-action-btn btn green publish-btn" data-bind="click: publishAction().publishCourse">
-                <span class="btn-title" data-bind="localize: { text: 'publishOnline' }"></span>
-            </div>
-            <!-- /ko -->
-            <!-- ko if: isDeliveringInProgress() && !publishAction().isDelivering() -->
-            <div class="package-action-btn btn green publish-btn disabled">
-                <span class="btn-title" data-bind="localize: { text: 'publishOnline' }"></span>
-            </div>
-            <!-- /ko -->
-            <!-- /ko -->
-            <!--*
-                * ASSEMBLING/PUBLISHING
-                * -->
-            <!-- ko if: isDeliveringInProgress() && publishAction().isDelivering() -->
-            <!-- ko if: publishAction().state() === states.building -->
-            <div class="package-action-btn btn green publishing-btn active">
-                <span class="btn-title" data-bind="localize: { text: 'assembling' }"></span>
-            </div>
-            <!-- /ko -->
-            <!-- ko if: publishAction().state() === states.publishing -->
-            <div class="package-action-btn btn green publishing-btn active">
-                <span class="btn-title" data-bind="localize: { text: 'publishing' }"></span>
-            </div>
-            <!-- /ko -->
-            <!-- /ko -->
-
-            <!--*
-                    * REPUBLISH BUTTON
-                    * -->
-            <!-- ko if: publishAction().packageExists() -->
-            <!-- ko if: !isDeliveringInProgress() -->
-            <div class="package-action-btn btn green publish-btn" data-bind="click: publishAction().publishCourse">
-                <span class="btn-title" data-bind="localize: { text: 'republishOnline' }"></span>
-            </div>
-            <!-- /ko -->
-            <!-- ko if: isDeliveringInProgress() && !publishAction().isDelivering() -->
-            <div class="package-action-btn btn green publish-btn disabled">
-                <span class="btn-title" data-bind="localize: { text: 'republishOnline' }"></span>
-            </div>
-            <!-- /ko -->
-            <!-- /ko -->
-            <!-- ko if: publishAction().packageExists() -->
-            <div class="copy-link-control" data-bind="css: { disabled: isDeliveringInProgress() }">
-                <div class="copy-link-input-wrapper">
-                    <input class="copy-link-input" type="text" readonly="readonly" data-bind="value: publishAction().packageUrl(), css: { selectable: !isDeliveringInProgress() }, selectTextBinding: publishAction().packageExists()" />
-                </div>
-                <div class="open-link-btn-wrapper">
-                    <div class="open-link-description-wrapper">
-                        <div class="action-explanation-tooltip-container" data-bind="visible: !isDeliveringInProgress()">
-                            <div class="action-explanation-tooltip-wrapper">
-                                <div class="action-explanation-tooltip">
-                                    <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'openLinkDescription' }"></span>
-                                    <div class="action-explanation-tooltip-triangle"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ko ifnot: isDeliveringInProgress() -->
-                        <a class="open-link-btn" data-bind="click: publishAction().openPublishedCourse, attr: { href: publishAction().packageUrl() }">
-                            <span class="open-link-text" data-bind="localize: { text: 'openLink' }"></span>
-                        </a>
-                        <!-- /ko -->
-                        <!-- ko if: isDeliveringInProgress() -->
-                        <a class="open-link-btn" href="javascript: return false;">
-                            <span class="open-link-text" data-bind="localize: { text: 'openLink' }"></span>
-                        </a>
-                        <!-- /ko -->
-                    </div>
-                </div>
-            </div>
-            <div class="copy-link-description-holder" data-bind="css: { disabled: isDeliveringInProgress() }">
-                <span data-bind="localize: { text: 'publishingLinkDescription' }"></span>
-            </div>
-            <!-- /ko -->
-        </div>
-        <div class="package-action-item pull-right">
+        <div class="package-action-cell pull-right">
+            <div class="package-action-item pull-right">
             <h5 class="package-action-title" data-bind="localize: { text: 'downloadCourse' }"></h5>
             <p class="package-action-desc" data-bind="localize: { text: 'downloadDescription' }"></p>
             <!--*
@@ -90,24 +9,24 @@
                 * -->
 
             <!-- ko if: !isDeliveringInProgress() -->
-            <div class="package-action-btn btn grey download-btn" data-bind="click: buildAction().downloadCourse">
+            <div class="package-action-btn btn grey download-btn round" data-bind="click: buildAction().downloadCourse">
                 <span class="btn-title" data-bind="localize: { text: 'courseDownloadAction' }"></span>
             </div>
             <!-- /ko -->
             <!-- ko if: isDeliveringInProgress() && !buildAction().isDelivering() -->
-            <div class="package-action-btn btn grey download-btn disabled">
+            <div class="package-action-btn btn grey download-btn disabled round">
                 <span class="btn-title" data-bind="localize: { text: 'courseDownloadAction' }"></span>
             </div>
             <!-- /ko -->
             <!-- ko if: isDeliveringInProgress() && buildAction().isDelivering() -->
-            <div class="package-action-btn btn grey building-btn active">
+            <div class="package-action-btn btn grey building-btn active round">
                 <span class="btn-title" data-bind="localize: { text: 'assembling' }"></span>
             </div>
             <!-- /ko -->
             <!-- link to render package url to and click after assembling -->
             <a id="packageLink" style="display: none" data-bind="attr: { href: 'download/' + buildAction().packageUrl() }"></a>
         </div>
-        <div class="package-action-item scorm-package-action pull-right">
+        <div class="package-action-item bottom-package-action pull-right">
             <h5 class="package-action-title" data-bind="localize: { text: 'downloadScorm12Package' }"></h5>
             <p class="package-action-desc" data-bind="localize: { text: 'downloadScorm12PackageDescription' }"></p>
             <!--*
@@ -117,17 +36,17 @@
             <!-- ko if: scormBuildAction() -->
 
             <!-- ko if: !isDeliveringInProgress() -->
-            <div class="package-action-btn btn orange download-btn" data-bind="click: scormBuildAction().downloadCourse">
+            <div class="package-action-btn btn steel-blue download-scorm-btn round" data-bind="click: scormBuildAction().downloadCourse">
                 <span class="btn-title" data-bind="localize: { text: 'courseDownloadAction' }"></span>
             </div>
             <!-- /ko -->
             <!-- ko if: isDeliveringInProgress() && !scormBuildAction().isDelivering() -->
-            <div class="package-action-btn btn orange download-btn disabled">
+            <div class="package-action-btn btn steel-blue download-scorm-btn disabled round">
                 <span class="btn-title" data-bind="localize: { text: 'courseDownloadAction' }"></span>
             </div>
             <!-- /ko -->
             <!-- ko if: isDeliveringInProgress() && scormBuildAction().isDelivering() -->
-            <div class="package-action-btn btn orange building-btn active">
+            <div class="package-action-btn btn steel-blue download-scorm-btn-loader active round">
                 <span class="btn-title" data-bind="localize: { text: 'assembling' }"></span>
             </div>
             <!-- /ko -->
@@ -140,7 +59,7 @@
 
             <div class="package-action-btn-control">
                 <div class="package-action-btn-wrapper">
-                    <div class="package-action-btn btn orange download-btn disabled">
+                    <div class="package-action-btn btn orange download-btn disabled round">
                         <span class="btn-title" data-bind="localize: { text: 'courseDownloadAction' }"></span>
                     </div>
                 </div>
@@ -149,6 +68,157 @@
                     </div>
                 </div>
             </div>
+            <!-- /ko -->
+        </div>
+        </div>
+        <div class="package-action-cell">
+            <div class="package-action-item">
+                <h5 class="package-action-title" data-bind="localize: { text: 'publishCourse' }"></h5>
+                <p class="package-action-desc" data-bind="localize: { text: 'publishOnlineDesciption' }"></p>
+                <!--*
+                    * PUBLISH BUTTON
+                    * -->
+                <!-- ko if: !publishAction().packageExists() -->
+                <!-- ko if: !isDeliveringInProgress() -->
+                <div class="package-action-btn btn green publish-btn round" data-bind="click: publishAction().publishCourse">
+                    <span class="btn-title" data-bind="localize: { text: 'publishOnline' }"></span>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: isDeliveringInProgress() && !publishAction().isDelivering() -->
+                <div class="package-action-btn btn green publish-btn disabled round">
+                    <span class="btn-title" data-bind="localize: { text: 'publishOnline' }"></span>
+                </div>
+                <!-- /ko -->
+                <!-- /ko -->
+                <!--*
+                    * ASSEMBLING/PUBLISHING
+                    * -->
+                <!-- ko if: isDeliveringInProgress() && publishAction().isDelivering() -->
+                <!-- ko if: publishAction().state() === states.building -->
+                <div class="package-action-btn btn green publishing-btn active round">
+                    <span class="btn-title" data-bind="localize: { text: 'assembling' }"></span>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: publishAction().state() === states.publishing -->
+                <div class="package-action-btn btn green publishing-btn active round">
+                    <span class="btn-title" data-bind="localize: { text: 'publishing' }"></span>
+                </div>
+                <!-- /ko -->
+                <!-- /ko -->
+
+                <!--*
+                    * REPUBLISH BUTTON
+                    * -->
+                <!-- ko if: publishAction().packageExists() -->
+                <!-- ko if: !isDeliveringInProgress() -->
+                <div class="package-action-btn btn green publish-btn round" data-bind="click: publishAction().publishCourse">
+                    <span class="btn-title" data-bind="localize: { text: 'republishOnline' }"></span>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: isDeliveringInProgress() && !publishAction().isDelivering() -->
+                <div class="package-action-btn btn green publish-btn round disabled">
+                    <span class="btn-title" data-bind="localize: { text: 'republishOnline' }"></span>
+                </div>
+                <!-- /ko -->
+                <!-- /ko -->
+                <!-- ko if: publishAction().packageExists() -->
+                <div class="copy-link-control" data-bind="css: { disabled: isDeliveringInProgress() }">
+                    <div class="copy-link-input-wrapper">
+                        <input class="copy-link-input" type="text" readonly="readonly" data-bind="value: publishAction().packageUrl(), css: { selectable: !isDeliveringInProgress() }, selectTextBinding: publishAction().packageExists()" />
+                    </div>
+                    <div class="open-link-btn-wrapper">
+                        <div class="open-link-description-wrapper">
+                            <div class="action-explanation-tooltip-container" data-bind="visible: !isDeliveringInProgress()">
+                                <div class="action-explanation-tooltip-wrapper">
+                                    <div class="action-explanation-tooltip">
+                                        <span class="action-explanation-tooltip-text" data-bind="localize: { text: 'openLinkDescription' }"></span>
+                                        <div class="action-explanation-tooltip-triangle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ko ifnot: isDeliveringInProgress() -->
+                            <a class="open-link-btn" data-bind="click: publishAction().openPublishedCourse, attr: { href: publishAction().packageUrl() }">
+                                <span class="open-link-text" data-bind="localize: { text: 'openLink' }"></span>
+                            </a>
+                            <!-- /ko -->
+                            <!-- ko if: isDeliveringInProgress() -->
+                            <a class="open-link-btn" href="javascript: return false;">
+                                <span class="open-link-text" data-bind="localize: { text: 'openLink' }"></span>
+                            </a>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                </div>
+                <div class="copy-link-description-holder" data-bind="css: { disabled: isDeliveringInProgress() }">
+                    <span data-bind="localize: { text: 'publishingLinkDescription' }"></span>
+                </div>
+                <!-- /ko -->
+            </div>
+            <!-- ko ifnot: publishToAim4YouAction().isTryMode -->
+            <div class="package-action-item bottom-package-action" style="display: none;">
+                <h5 class="package-action-title" data-bind="localize: { text: 'publishToCatalog' }">Publish to Aim4You</h5>
+                
+                <!-- ko if: publishToAim4YouAction().isRegisteredOnAim4You -->
+                <p class="package-action-desc" data-bind="localize: { text: 'publishToAim4YouPublishDescription' }">Publish the course to Aim4You course store</p>
+                <!-- ko ifnot: isDeliveringInProgress() -->
+                <div class="package-action-btn btn orange publish-btn round" data-bind="click: publishToAim4YouAction().publishToAim4You">
+                    <span class="btn-title" data-bind="localize: { text: 'publishToStore' }">Publish</span>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: isDeliveringInProgress() && !publishToAim4YouAction().isDelivering()  -->
+                <div class="package-action-btn btn orange publish-btn disabled round">
+                    <span class="btn-title" data-bind="localize: { text: 'publishToStore' }">Publish</span>
+                </div>
+                <!-- /ko -->
+                <!-- /ko -->
+                <!-- ko if: isDeliveringInProgress() -->
+                <!-- ko if: publishToAim4YouAction().state() === states.building -->
+                <div class="package-action-btn btn orange creating-btn active round">
+                    <span class="btn-title" data-bind="localize: { text: 'assembling' }"></span>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: publishToAim4YouAction().state() === states.publishing -->
+                <div class="package-action-btn btn orange creating-btn active round">
+                    <span class="btn-title" data-bind="localize: { text: 'publishing' }"></span>
+                </div>
+                <!-- /ko -->
+                <!-- /ko -->
+
+                <!-- ko ifnot: publishToAim4YouAction().isRegisteredOnAim4You -->
+                <p class="package-action-desc" data-bind="localize: { text: 'publishToAim4YouRegisterDescription' }">Register for the Aim4You learning store and start publishing</p>
+                <!-- ko ifnot: isDeliveringInProgress() -->
+                <div class="package-action-btn btn orange round register-btn" data-bind="click: publishToAim4YouAction().register">
+                    <span class="btn-title" data-bind="localize: { text: 'register' }">Register</span>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: isDeliveringInProgress() && !publishToAim4YouAction().isDelivering() -->
+                <div class="package-action-btn btn orange register-btn disabled round">
+                    <span class="btn-title" data-bind="localize: { text: 'register' }">Register</span>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: isDeliveringInProgress() && publishToAim4YouAction().isDelivering() -->
+                <div class="package-action-btn btn orange creating-btn round">
+                    <span class="btn-title" data-bind="localize: { text: 'register' }">Register</span>
+                </div>
+                <!-- /ko -->
+                <!-- /ko -->
+            </div>
+            <!-- ko ifnot: isDeliveringInProgress() -->
+            <!-- ko if: publishToAim4YouAction().messageState() == publishToAim4YouAction().infoMessageStates.registered -->
+            <div class="package-action-message-wrapper send">
+                <div class="message">
+                    <span data-bind="localize: { text: 'publishToAim4YouConfirmSendMessage' }">A confirmation email was sent. Click on the link in this mail to activate your account.</span>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: publishToAim4YouAction().messageState() == publishToAim4YouAction().infoMessageStates.published -->
+            <div class="package-action-message-wrapper success">
+                <div class="message">
+                    <span data-bind="localize: { text: 'publishToAim4YouSuccessMessage' }">Your course is successfully  published. Check your email for more details.</span>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- /ko -->
             <!-- /ko -->
         </div>
     </div>

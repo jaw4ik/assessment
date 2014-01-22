@@ -24,7 +24,8 @@
         
             that.deliveringState = constants.deliveringStates.building;
             app.trigger(constants.messages.course.build.started, that);
-            
+            app.trigger(constants.messages.course.action.started, that.id);
+
             deliverService.buildCourse(that.id).then(function (buildInfo) {
                 that.packageUrl = buildInfo.packageUrl;
                 that.builtOn = buildInfo.builtOn;
@@ -50,6 +51,7 @@
 
             that.deliveringState = constants.deliveringStates.building;
             app.trigger(constants.messages.course.scormBuild.started, that);
+            app.trigger(constants.messages.course.action.started, that.id);
 
             deliverService.scormBuildCourse(that.id).then(function (buildInfo) {
                 that.scormPackageUrl = buildInfo.scormPackageUrl;
@@ -92,6 +94,31 @@
                 deferred.reject(message);
             });
                         
+            return deferred.promise;
+        };
+
+        Course.prototype.publishToStore = function() {
+            var that = this;
+            var deferred = Q.defer();
+            
+            if (that.deliveringState == constants.deliveringStates.building || that.deliveringState == constants.deliveringStates.publishing) {
+                deferred.reject('Course is already building or publishing to Aim4You.');
+            }
+            
+            that.build().then(function() {
+                that.deliveringState = constants.deliveringStates.publishing;
+                app.trigger(constants.messages.course.publishToAim4You.started, that);
+                deliverService.publishCourseToStore(that.id).then(function() {
+                    that.deliveringState = constants.deliveringStates.succeed;
+                    app.trigger(constants.messages.course.publishToAim4You.completed, that);
+                    deferred.resolve(that);
+                });
+            }).fail(function(message) {
+                that.deliveringState = constants.deliveringStates.failed;
+                app.trigger(constants.messages.course.publishToAim4You.failed, that.id, message);
+                deferred.reject(message);
+            });
+
             return deferred.promise;
         };
             

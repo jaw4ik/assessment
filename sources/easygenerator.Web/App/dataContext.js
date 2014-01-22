@@ -12,6 +12,7 @@
             isTryMode = false,
             userEmail = '',
             helpHints = [],
+            isRegisteredOnAim4You = false,
             userSettings = {
                 isShowIntroduction: true
             },
@@ -114,6 +115,7 @@
                         if (response.data) {
                             that.isTryMode = response.data.IsTryMode;
                             that.userEmail = response.data.Email;
+                            that.isRegisteredOnAim4You = response.data.IsRegisteredOnAim4You;
                             userSettings.isShowIntroduction = response.data.IsShowIntroductionPage;
                         }
                     });
@@ -131,6 +133,7 @@
             isTryMode: isTryMode,
             userEmail: userEmail,
             helpHints: helpHints,
-            userSettings: userSettings
+            userSettings: userSettings,
+            isRegisteredOnAim4You: isRegisteredOnAim4You
         };
     });

@@ -45,6 +45,14 @@
                 });
             });
 
+            describe('publishToAim4YouAction:', function () {
+
+                it('should be observable', function() {
+                    expect(viewModel.publishToAim4YouAction).toBeObservable();
+                });
+
+            });
+
             describe('isDeliveringProcessInProgress:', function () {
 
                 it('should be computed', function () {
@@ -56,6 +64,7 @@
                         viewModel.buildAction({ isDelivering: ko.observable(false) });
                         viewModel.scormBuildAction({ isDelivering: ko.observable(false) });
                         viewModel.publishAction({ isDelivering: ko.observable(false) });
+                        viewModel.publishToAim4YouAction({ isDelivering: ko.observable(false) });
                         expect(viewModel.isDeliveringInProgress()).toBeFalsy();
                     });
                 });
@@ -65,6 +74,7 @@
                         viewModel.buildAction({ isDelivering: ko.observable(true) });
                         viewModel.scormBuildAction({ isDelivering: ko.observable(false) });
                         viewModel.publishAction({ isDelivering: ko.observable(false) });
+                        viewModel.publishToAim4YouAction({ isDelivering: ko.observable(false) });
                         expect(viewModel.isDeliveringInProgress()).toBe(true);
                     });
                 });
@@ -74,6 +84,7 @@
                         viewModel.buildAction({ isDelivering: ko.observable(false) });
                         viewModel.scormBuildAction({ isDelivering: ko.observable(true) });
                         viewModel.publishAction({ isDelivering: ko.observable(false) });
+                        viewModel.publishToAim4YouAction({ isDelivering: ko.observable(false) });
                         expect(viewModel.isDeliveringInProgress()).toBe(true);
                     });
                 });
@@ -83,6 +94,17 @@
                         viewModel.buildAction({ isDelivering: ko.observable(false) });
                         viewModel.scormBuildAction({ isDelivering: ko.observable(false) });
                         viewModel.publishAction({ isDelivering: ko.observable(true) });
+                        viewModel.publishToAim4YouAction({ isDelivering: ko.observable(false) });
+                        expect(viewModel.isDeliveringInProgress()).toBe(true);
+                    });
+                });
+                
+                describe('when publish to Aim4You action is defined and is delivering', function () {
+                    it('should return true', function () {
+                        viewModel.buildAction({ isDelivering: ko.observable(false) });
+                        viewModel.scormBuildAction({ isDelivering: ko.observable(false) });
+                        viewModel.publishAction({ isDelivering: ko.observable(false) });
+                        viewModel.publishToAim4YouAction({ isDelivering: ko.observable(true) });
                         expect(viewModel.isDeliveringInProgress()).toBe(true);
                     });
                 });

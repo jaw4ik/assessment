@@ -150,7 +150,8 @@ namespace easygenerator.Web.Controllers.Api
                 {
                     Email = user.Email,
                     IsTryMode = false,
-                    IsShowIntroductionPage = user.UserSetting.IsShowIntroductionPage
+                    IsShowIntroductionPage = user.UserSetting.IsShowIntroductionPage,
+                    IsRegisteredOnAim4You = false
                 };
             }
 

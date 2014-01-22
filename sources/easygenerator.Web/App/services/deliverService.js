@@ -19,6 +19,10 @@
             });
         };
 
+        var publishCourseToStore = function (courseId) {
+            return invokeServiceMethod('course/publishToStore', { courseId: courseId }, function() {});
+        };
+
         var invokeServiceMethod = function (methodPath, methodArgs, responseDataExtractor) {
             
             var deferred = Q.defer();
@@ -45,6 +49,7 @@
         return {
             buildCourse: buildCourse,
             publishCourse: publishCourse,
-            scormBuildCourse: scormBuildCourse
+            scormBuildCourse: scormBuildCourse,
+            publishCourseToStore: publishCourseToStore
         };
 });

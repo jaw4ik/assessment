@@ -19,6 +19,12 @@
                 succeed: 'succeed',
                 failed: 'failed'
             },
+            
+            registerOnAim4YouStates: {
+                inProgress: 'registerInProgress',
+                success: 'registerSuccess',
+                fail: 'registerFail'
+            },
 
             autosaveTimersInterval: {
                 answerOption: 60000,
@@ -49,6 +55,14 @@
                         started: 'course:publish-started',
                         completed: 'course:publish-completed',
                         failed: 'course:publish-failed'
+                    },
+                    publishToAim4You: {
+                        started: 'course:publishToAim4You-started',
+                        completed: 'course:publishToAim4You-comleted',
+                        failed: 'course:publishToAim4You-failed'
+                    },
+                    action: {
+                        started: 'course:action-started'
                     }
                 }
             },

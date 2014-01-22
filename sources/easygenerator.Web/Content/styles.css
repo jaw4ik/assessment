@@ -718,6 +718,10 @@ a.top-navigation-item:hover {
         cursor: default;
     }
 
+    .btn.round {
+        border-radius: 25px;
+    }
+
 .btn-small {
     min-width: 90px;
     line-height: normal;
@@ -884,6 +888,26 @@ a.top-navigation-item:hover {
         border-color: #ec82a7;
     }
 
+/*steel-blue button*/
+.btn.steel-blue {
+    background: #4f91b0;
+    border-color: #4f91b0;
+    border-bottom-color: #3e7189;
+}
+
+    .btn.steel-blue:hover {
+        background: #1c82b1;
+        border-color: #1c82b1;
+        border-bottom-color: #3e7189;
+    }
+
+    .btn.steel-blue:active,
+    .btn.steel-blue.disabled,
+    .btn.steel-blue.disabled:hover,
+    .btn.steel-blue.disabled:active {
+        background: #087cb2;
+        border-color: #087cb2;
+    }
 /*#endregion BUTTONS*/
 
 /*#region EMPTY LIST*/

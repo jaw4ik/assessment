@@ -235,14 +235,56 @@
     padding-top: 30px;
 }
 
-.package-action-item {
+.package-action-cell {
     width: 47.9%;
+}
+
+.package-action-item {
+    width: 100%;
     padding: 20px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     border: 5px solid #f6f5f1;
 }
+
+.package-action-message-wrapper {
+    display: table;
+    width: 100%;
+    min-height: 60px;
+    background-color: #fbf8e7;
+    padding-right: 25px;
+    padding-left: 45px;
+    font-family: 'OpenSans';
+    font-size: 12px;
+    color: #67799c;
+}
+
+.package-action-message-wrapper .message {
+    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+}
+
+.package-action-message-wrapper .message:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: -38px;
+    margin-top: -13px;
+    width: 26px;
+    height: 26px;
+    background: url('images/sprites.png');
+}
+
+    .package-action-message-wrapper.success .message:before {
+        background-position: -172px -192px;
+    }
+
+    .package-action-message-wrapper.send .message:before {
+        background-position: -117px -216px;
+    }
 
 .package-action-title {
     color: #444;
@@ -260,7 +302,7 @@
 }
 
 .package-action-btn {
-    width: 190px;
+    width: 210px;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -311,8 +353,20 @@
         background: url('images/build-loader.gif') no-repeat 0 2px;
     }
 
+    .package-action-btn.download-scorm-btn-loader .btn-title:before {
+        background: url('images/download-scorm-loader.GIF') no-repeat;
+    }
+
     .package-action-btn.download-btn .btn-title:before {
         background-position: -152px -194px;
+    }
+
+    .package-action-btn.download-scorm-btn .btn-title:before {
+        background-position: -258px -192px;
+    }
+
+    .package-action-btn.register-btn .btn-title:before {
+        background-position: -92px -217px;
     }
 
 .nl-lang .package-action-btn,
@@ -370,8 +424,8 @@
         }
 
 
-.package-action-item.scorm-package-action {
-    margin-top: 10px;
+.package-action-item.bottom-package-action {
+    margin-top: 15px;
 }
 
 .copy-link-control {
