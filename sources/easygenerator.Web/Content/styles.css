@@ -234,6 +234,17 @@
     background: url(../Content/images/sprites.png) -217px -172px;
 }
 
+.header-submenu-item.buy-btn .header-submenu-link:after {
+    content: '';
+    display: block;
+    width: 15px;
+    height: 22px;
+    position: absolute;
+    left: 20px;
+    top: 8px;
+    background: url(../Content/images/sprites.png) -157px -221px;
+}
+
 .header-submenu-expand-icon {
     display: inline-block;
     vertical-align: middle;

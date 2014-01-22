@@ -191,6 +191,11 @@
         nl: 'Alle wijzigingen zijn opgeslagen',
         de: 'Alle Änderungen sind gespeichert'
     },
+    upgradeAccount: {
+        en: 'Upgrade account',
+        nl: 'Upgrade account[nl]',
+        de: 'Upgrade account[de]'
+    },
     /* End resource section for model General */
     
     /* Resource section for model Objectives */
@@ -448,9 +453,9 @@
         de: 'Auf Aim4You veröffentlichen'
     },
     publishToCatalog: {
-        en: 'Publish to instant learning catalog',
-        nl: 'Publish to instant learning catalog[nl]',
-        de: 'Publish to instant learning catalog[de]'
+        en: 'Publish to instant learning store',
+        nl: 'Publish to instant learning store[nl]',
+        de: 'Publish to instant learning store[de]'
     },
     /* End resource section for model Courses */
     
