@@ -1,18 +1,16 @@
 ﻿ko.bindingHandlers.fixedBlocksPosition = {
-    init: function (elem, va) {
-        
-    },
+    init: function (element, valueAccessor) { },
 
-    update: function (elem, va) {
+    update: function (element, valueAccessor) {
 
         var helpHintHeight,
             contentContainer = '#content',
             helpHint = '.help-hint',
-            helpHintText = '.help-hint-text',
             notFixedContainer = '.view-module',
             fixedContainer = '.view-module > .fixed-container:first-child',
             notifyContainer = '.notify.fixed-container',
-            backBtn = '.nav-back-holder';
+            backBtn = '.nav-back-holder',
+            value = ko.unwrap(valueAccessor());
 
         _.delay(setHeight, 10);
         
@@ -24,7 +22,7 @@
                 topNavHeight = $('.top-navigation').height(),
                 fixedContainerHeight = $(fixedContainer).height() - 9;
 
-            if (!$(helpHintText).is(':empty')) {
+            if (!_.isEmptyOrWhitespace(value)) {
 
                 if ($(helpHint).height() > 73) {
                     helpHintHeight = $(helpHint).height();
