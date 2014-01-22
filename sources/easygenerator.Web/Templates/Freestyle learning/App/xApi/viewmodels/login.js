@@ -1,5 +1,5 @@
-﻿define(['durandal/app', 'plugins/router', 'eventManager', 'context', '../configuration/viewConstants', '../errorsHandler', 'xApi/xApiInitializer'],
-    function (app, router, eventManager, context, viewConstants, errorsHandler, xApiInitializer) {
+﻿define(['plugins/router', 'eventManager', 'context', '../configuration/viewConstants', '../errorsHandler', 'xApi/xApiInitializer'],
+    function (router, eventManager, context, viewConstants, errorsHandler, xApiInitializer) {
 
         "use strict";
 
@@ -59,7 +59,7 @@
             },
 
             startCourse = function () {
-                app.trigger(eventManager.events.courseStarted);
+                eventManager.courseStarted();
                 router.navigate('home');
             },
 

@@ -1,8 +1,16 @@
 ﻿define(function () {
+    
+    function readTemplateSettings() {
+        return read('settings.js');
+    }
 
-    function read() {
+    function readPublishSettings() {
+        return read('publishSettings.js');
+    }
+
+    function read(filename) {
         var defer = Q.defer();
-        $.getJSON('settings.js').then(function(json) {
+        $.getJSON(filename).then(function (json) {
             defer.resolve(json);
         }).fail(function() {
             defer.resolve({});
@@ -12,7 +20,8 @@
     }
     
     return {
-        read: read
+        readTemplateSettings: readTemplateSettings,
+        readPublishSettings: readPublishSettings
     };
     
 });

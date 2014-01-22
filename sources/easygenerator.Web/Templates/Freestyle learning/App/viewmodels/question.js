@@ -21,7 +21,7 @@
 
             question.score = result;
 
-            app.trigger(eventManager.events.questionSubmitted, {
+            eventManager.questionSubmitted({
                 question: new QuestionResultModel({
                     id: question.id,
                     title: question.title,

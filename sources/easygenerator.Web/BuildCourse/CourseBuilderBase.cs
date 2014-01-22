@@ -31,7 +31,7 @@ namespace easygenerator.Web.BuildCourse
             {
                 CreatePackageDirectory(buildId);
 
-                BuildContentProvider.AddBuildContentToPackageDirectory(buildId, course);
+                BuildContentProvider.AddBuildContentToPackageDirectory(buildId, course, GetPublishSettings());
                 OnAfterBuildContentAdded(course, buildId);
 
                 CreatePackageFromDirectory(buildId);
@@ -62,6 +62,11 @@ namespace easygenerator.Web.BuildCourse
 
         protected virtual void OnAfterBuildContentAdded(Course course, string buildId)
         {
+        }
+
+        protected virtual string GetPublishSettings()
+        {
+            return string.Empty;
         }
 
         private void CreatePackageDirectory(string buildId)

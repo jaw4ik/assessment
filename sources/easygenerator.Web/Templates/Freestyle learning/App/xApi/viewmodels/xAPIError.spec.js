@@ -2,7 +2,8 @@
     "use strict";
 
     var viewModel = require('./xAPIError'),
-        router = require('plugins/router');
+        router = require('plugins/router'),
+        xApiInitializer = require('../xApiInitializer');
 
     describe('viewModel [xAPIError]', function () {
         
@@ -27,7 +28,10 @@
         });
 
         describe('continueLearning:', function () {
-
+            beforeEach(function() {
+                spyOn(xApiInitializer, 'turnOff');
+            });
+            
             it('should be defined', function() {
                 expect(viewModel.continueLearning).toBeDefined();
             });
@@ -36,9 +40,15 @@
                 expect(viewModel.continueLearning).toBeFunction();
             });
 
+            it('should turnOff XAPI', function() {
+                viewModel.continueLearning();
+                expect(xApiInitializer.turnOff).toHaveBeenCalled();
+            });
+
             it('should navigate to backUrl', function () {
                 var backUrl = 'backUrl';
                 viewModel.activate(backUrl);
+
                 viewModel.continueLearning();
                 expect(router.navigate).toHaveBeenCalledWith(backUrl);
             });

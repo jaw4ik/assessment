@@ -2,8 +2,7 @@
     function (viewModel) {
         "use strict";
 
-        var app = require('durandal/app'),
-            context = require('context'),
+        var context = require('context'),
             eventManager = require('eventManager');
 
         describe('viewModel [learningContents]', function () {
@@ -32,7 +31,7 @@
             describe('deactivate:', function () {
 
                 beforeEach(function () {
-                    spyOn(app, 'trigger');
+                    spyOn(eventManager, 'learningContentExperienced');
                     context.objectives = objectives;
                     viewModel.activate('1', '1');
                 });
@@ -43,7 +42,7 @@
 
                 it('should send \'experienced statement\' to xApi', function () {
                     viewModel.deactivate();
-                    expect(app.trigger).toHaveBeenCalledWith(eventManager.events.learningContentExperienced, {
+                    expect(eventManager.learningContentExperienced).toHaveBeenCalledWith({
                         objective: objectives[0],
                         question: objectives[0].questions[0],
                         spentTime: new Date() - viewModel.enteredOnPage

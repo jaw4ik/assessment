@@ -3,7 +3,7 @@
         
         "use strict";
 
-        var
+        var subscriptions = [],
             activityProvider = {
                 actor: null,
                 activityName: null,
@@ -11,7 +11,8 @@
                 
                 init: init,
                 createActor: createActor,
-                rootCourseUrl: null
+                rootCourseUrl: null,
+                turnOffSubscriptions: turnOffSubscriptions
             };
 
         return activityProvider;
@@ -26,11 +27,19 @@
                 activityProvider.activityName = activityName;
                 activityProvider.activityUrl = activityUrl;
                 activityProvider.rootCourseUrl = activityUrl != undefined ? activityUrl.split("?")[0].split("#")[0] : '';
-
-                eventManager.subscribeForEvent(eventManager.events.courseStarted).then(sendCourseStarted);
-                eventManager.subscribeForEvent(eventManager.events.courseFinished).then(sendCourseFinished);
-                eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(learningContentExperienced);
-                eventManager.subscribeForEvent(eventManager.events.questionSubmitted).then(sendAnsweredQuestionsStatements);
+               
+                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseStarted).then(sendCourseStarted));
+                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseFinished).then(sendCourseFinished));
+                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(learningContentExperienced));
+                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.questionSubmitted).then(sendAnsweredQuestionsStatements));
+            });
+        }
+        
+        function turnOffSubscriptions() {
+            _.each(subscriptions, function (subscription) {
+                if (!_.isNullOrUndefined(subscription && subscription.off)) {
+                    subscription.off();
+                }
             });
         }
 
@@ -56,10 +65,6 @@
                 }
             }).then(function () {
                 return requestManager.sendStatement(createStatement(constants.verbs.stopped));
-            }).then(function () {
-                if (!!finishedEventData.callback) {
-                    finishedEventData.callback.call(this);
-                }
             }).fail(function (error) {
                 errorsHandler.handleError(error);
             });

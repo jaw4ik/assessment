@@ -1,10 +1,11 @@
-﻿define(['./activityProvider'],
-    function (viewModel) {
+﻿define(['./activityProvider', './requestManager'],
+    function (viewModel, requestManager) {
         "use strict";
 
         var eventmanager = require('eventManager'),
             xApiSettings = require('xApi/configuration/xApiSettings'),
             errorsHandler = require('xApi/errorsHandler'),
+            app = require('durandal/app'),
             constants = require('xApi/constants');
 
         describe('viewModel [activityProvider]', function () {
@@ -125,6 +126,66 @@
 
             });
 
+            describe('turnOffSubscriptions:', function () {
+                var promise;
+                
+                beforeEach(function() {
+                    spyOn(requestManager, 'sendStatement');
+                    promise = viewModel.init({name: 'actor'}, 'activity', 'url');
+                });
+
+                it('should be function', function () {
+                    expect(viewModel.turnOffSubscriptions).toBeFunction();
+                });
+
+                it('should not send request to LRS when trigger "courseStarted"', function () {
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        viewModel.turnOffSubscriptions();
+                        app.trigger("courseStarted");
+                        
+                        expect(requestManager.sendStatement).not.toHaveBeenCalled();
+                    });
+                });
+
+                it('should not send request to LRS when trigger "courseFinished"', function () {
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        viewModel.turnOffSubscriptions();
+                        app.trigger("courseFinished", { result: 1 });
+                        
+                        expect(requestManager.sendStatement).not.toHaveBeenCalled();
+                    });
+                });
+
+                it('should not send request to LRS when trigger "learningContentExperienced"', function () {
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        viewModel.turnOffSubscriptions();
+                        app.trigger("learningContentExperienced");
+                        
+                        expect(requestManager.sendStatement).not.toHaveBeenCalled();
+                    });
+                });
+
+                it('should not send request to LRS when trigger "questionSubmitted"', function () {
+                    waitsFor(function () {
+                        return !promise.isPending();
+                    });
+                    runs(function () {
+                        viewModel.turnOffSubscriptions();
+                        app.trigger("questionSubmitted");
+                        
+                        expect(requestManager.sendStatement).not.toHaveBeenCalled();
+                    });
+                });
+            });
         });
 
     }

@@ -1,4 +1,4 @@
-﻿define(['durandal/app', 'eventManager', 'plugins/http', 'context', 'plugins/router'], function (app, eventManager, http, context, router) {
+﻿define(['eventManager', 'plugins/http', 'context', 'plugins/router'], function (eventManager, http, context, router) {
 
     var
         learningContents = [],
@@ -55,7 +55,7 @@
         },
 
         deactivate = function () {
-            app.trigger(eventManager.events.learningContentExperienced, {
+            eventManager.learningContentExperienced({
                 objective: this.objective,
                 question: this.question,
                 spentTime: new Date() - this.enteredOnPage

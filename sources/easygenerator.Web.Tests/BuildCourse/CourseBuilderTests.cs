@@ -77,7 +77,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             _builder.Build(_course);
 
             //Assert
-            _buildContentProvider.Received().AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
+            _buildContentProvider.Received().AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, string.Empty);
         }
 
         [TestMethod]
@@ -136,7 +136,7 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             _buildPathProvider.GetDownloadPath().Returns(downloadPath);
             _buildContentProvider
-                .When(e => e.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course))
+                .When(e => e.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>()))
                 .Do(e => { throw null; });
 
             //Act
@@ -170,7 +170,7 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             _buildPathProvider.GetBuildDirectoryName(Arg.Any<string>()).Returns(buildDirectory);
             _buildContentProvider
-                .When(e => e.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course))
+                .When(e => e.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>()))
                 .Do(e => { throw null; });
 
             //Act
@@ -185,7 +185,7 @@ namespace easygenerator.Web.Tests.BuildCourse
         {
             //Arrange
             _buildContentProvider
-                .When(e => e.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course))
+                .When(e => e.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>()))
                 .Do(e => { throw null; });
 
             //Act

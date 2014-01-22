@@ -1,5 +1,5 @@
-﻿define(['plugins/router', 'eventManager'],
-    function (router, eventManager) {
+﻿define(['plugins/router', '../xApiInitializer'],
+    function (router, xApiInitializer) {
         
         var
             navigateBackUrl = '',
@@ -10,8 +10,7 @@
             },
             
             continueLearning = function () {
-                eventManager.turnAllEventsOff();
-
+                xApiInitializer.turnOff();
                 router.navigate(navigateBackUrl);
             },
 

@@ -60,6 +60,11 @@ namespace easygenerator.Web.BuildCourse
             return Path.Combine(GetBuildDirectoryName(buildId), "settings.js");
         }
 
+        public virtual string GetPublishSettingsFileName(string buildId)
+        {
+            return Path.Combine(GetBuildDirectoryName(buildId), "publishSettings.js");
+        }
+
         public virtual string GetBuildPackageFileName(string buildId)
         {
             return Path.Combine(DownloadPath, buildId + ".zip");

@@ -61,7 +61,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 _buildPathProvider.GetBuildDirectoryName(Arg.Any<string>()).Returns(buildDirectory);
 
                 //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
+                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
                 //Assert
                 _fileManager.Received().CopyDirectory(templateDirectory, buildDirectory);
@@ -79,7 +79,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 _buildPathProvider.GetContentDirectoryName(Arg.Any<string>()).Returns(contentDirectory);
 
                 //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
+                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
                 //Assert
                 _fileManager.Received().DeleteDirectory(contentDirectory);
@@ -93,7 +93,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 _buildPathProvider.GetContentDirectoryName(Arg.Any<string>()).Returns(contentDirectory);
 
                 //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
+                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
                 //Assert
                 _fileManager.Received().CreateDirectory(contentDirectory);
@@ -107,7 +107,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 _buildPathProvider.GetObjectiveDirectoryName(Arg.Any<string>(), _course.RelatedObjectives.ToArray()[0].Id.ToNString()).Returns(objectiveDirectory);
 
                 //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
+                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
                 //Assert
                 _fileManager.Received().CreateDirectory(objectiveDirectory);
@@ -124,7 +124,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                     .Returns(questionDirectory);
 
                 //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
+                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
                 //Assert
                 _fileManager.Received().CreateDirectory(questionDirectory);
@@ -141,7 +141,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                     .Returns(questionContentPath);
 
                 //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
+                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
                 //Assert
                 _fileManager.Received().WriteToFile(questionContentPath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Content);
@@ -160,7 +160,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                     .Returns(questionContentPath);
 
                 //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
+                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
                 //Assert
                 _fileManager.DidNotReceive().WriteToFile(questionContentPath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].Content);
@@ -178,7 +178,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                     .Returns(learningContentsFilePath);
 
                 //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
+                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
                 //Assert
                 _fileManager.Received().WriteToFile(learningContentsFilePath, _course.RelatedObjectives.ToArray()[0].Questions.ToArray()[0].LearningContents.ToArray()[0].Text);
@@ -199,7 +199,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 _packageModelSerializer.Serialize(_coursePackageModel).Returns(serializedPackageModel);
 
                 //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
+                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
                 //Assert
                 _packageModelSerializer.Received().Serialize(_coursePackageModel);
@@ -225,7 +225,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 _buildPathProvider.GetSettingsFileName(Arg.Any<string>()).Returns(settingsFileName);
 
                 //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), course);
+                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), course, Arg.Any<string>());
 
                 //Assert
                 _fileManager.Received().WriteToFile(settingsFileName, settings);
@@ -245,7 +245,7 @@ namespace easygenerator.Web.Tests.BuildCourse
                 _buildPathProvider.GetSettingsFileName(Arg.Any<string>()).Returns(settingsFileName);
 
                 //Act
-                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course);
+                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
 
                 //Assert
                 _fileManager.Received().WriteToFile(settingsFileName, String.Empty);

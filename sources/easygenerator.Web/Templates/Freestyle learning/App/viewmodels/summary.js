@@ -33,25 +33,23 @@
             finish = function () {
                 status(statuses.sendingRequests);
 
-                if (_.isNullOrUndefined(app.callbacks) || _.isNullOrUndefined(app.callbacks[eventManager.events.courseFinished])) {
-                    closeCourse();
-                    return;
-                }
-
                 var that = this;
-                app.trigger(eventManager.events.courseFinished, {
+                eventManager.courseFinished({
                     result: Math.round(that.score) / 100,
-                    objectives: _.map(that.objectives, function(objective) {
+                    objectives: _.map(that.objectives, function (objective) {
                         return {
                             id: objective.id,
                             title: objective.title,
                             score: objective.score
                         };
-                    }),
-                    callback: closeCourse
-                });
+                    })
+                }, courseStop);
             },
-            
+
+            courseStop = function () {
+                eventManager.courseStopped({}, closeCourse);
+            },
+
             closeCourse = function () {
                 eventManager.turnAllEventsOff();
                 status(statuses.finished);

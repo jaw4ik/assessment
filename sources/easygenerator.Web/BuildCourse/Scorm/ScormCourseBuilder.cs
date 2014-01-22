@@ -14,6 +14,7 @@ namespace easygenerator.Web.BuildCourse.Scorm
         private const string XsdSchemasPath = "~/BuildCourse/Scorm/Schemas";
         private const string ImsManifestRazorTemplatePath = "~/BuildCourse/Scorm/Templates/imsmanifest.cshtml";
         private const string MetadataRazorTemplatePath = "~/BuildCourse/Scorm/Templates/metadata.cshtml";
+        private const string JsFilesPath = "~/BuildCourse/Scorm/js";
 
         public ScormCourseBuilder(PhysicalFileManager fileManager, BuildPathProvider buildPathProvider, BuildPackageCreator buildPackageCreator, BuildContentProvider buildContentProvider, RazorTemplateProvider razorTemplateProvider)
             : base(fileManager, buildPathProvider, buildPackageCreator, buildContentProvider)
@@ -33,6 +34,20 @@ namespace easygenerator.Web.BuildCourse.Scorm
             AddXsdSchemas(buildDirectoryPath);
             AddManifestFile(course, buildDirectoryPath);
             AddMetadataFile(course, buildDirectoryPath);
+            AddJsFiles(buildDirectoryPath);
+        }
+
+        protected void AddJsFiles(string buildDirectoryPath)
+        {
+            foreach (var file in FileManager.GetAllFilesInDirectory(HostingEnvironment.MapPath(JsFilesPath)))
+            {
+                FileManager.CopyFileToDirectory(file, Path.Combine(buildDirectoryPath, "App"));
+            }
+        }
+
+        protected override string GetPublishSettings()
+        {
+            return "{ \"modules\": [{\"name\": \"scormInitializer\"}] }";
         }
 
         private void AddMetadataFile(Course course, string buildDirectoryPath)

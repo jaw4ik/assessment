@@ -20,7 +20,7 @@ namespace easygenerator.Web.BuildCourse
             _packageModelMapper = packageModelMapper;
         }
 
-        public virtual void AddBuildContentToPackageDirectory(string buildId, Course course)
+        public virtual void AddBuildContentToPackageDirectory(string buildId, Course course, string publishSettings)
         {
             var coursePackageModel = _packageModelMapper.MapCourse(course);
 
@@ -28,6 +28,7 @@ namespace easygenerator.Web.BuildCourse
             AddCourseContentToPackageDirectory(buildId, coursePackageModel);
             AddCourseDataFileToPackageDirectory(buildId, coursePackageModel);
             AddTemplateSettingsFileToPackageDirectory(buildId, course);
+            AddPublishSettingsFileToPackageDirectory(buildId, publishSettings);
         }
 
         private void AddTemplateToPackageDirectory(string buildId, Course course)
@@ -70,6 +71,11 @@ namespace easygenerator.Web.BuildCourse
         {
             _fileManager.WriteToFile(_buildPathProvider.GetSettingsFileName(buildId),
                                      course.GetTemplateSettings(course.Template) ?? String.Empty);
+        }
+
+        private void AddPublishSettingsFileToPackageDirectory(string buildId, string settings)
+        {
+            _fileManager.WriteToFile(_buildPathProvider.GetPublishSettingsFileName(buildId), settings);
         }
     }
 }
