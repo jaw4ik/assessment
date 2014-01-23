@@ -1,5 +1,5 @@
-﻿define(['./login', 'xApi/xApiInitializer', 'durandal/app', 'plugins/router', 'context', 'xApi/errorsHandler'],
-    function (viewModel, xApiInitializer, app, router, context, errorsHandler) {
+﻿define(['./login', 'xApi/xApiInitializer', 'eventManager', 'plugins/router', 'context', 'xApi/errorsHandler'],
+    function (viewModel, xApiInitializer, eventManager, router, context, errorsHandler) {
 
         "use strict";
 
@@ -11,7 +11,7 @@
 
             beforeEach(function () {
                 spyOn(router, 'navigate');
-                spyOn(app, 'trigger');
+                spyOn(eventManager, 'courseStarted');
                 spyOn(xApiInitializer, 'turnOff');
             });
 
@@ -212,7 +212,7 @@
 
                 it('should trigger event "courseStarted"', function () {
                     viewModel.skip();
-                    expect(app.trigger).toHaveBeenCalledWith("courseStarted");
+                    expect(eventManager.courseStarted).toHaveBeenCalled();
                 });
 
                 it('should navigate to home', function () {
@@ -320,7 +320,7 @@
                                 return !xApiInitializerInitPromise.isPending();
                             });
                             runs(function () {
-                                expect(app.trigger).toHaveBeenCalledWith("courseStarted");
+                                expect(eventManager.courseStarted).toHaveBeenCalled();
                             });
                         });
 

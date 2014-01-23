@@ -82,15 +82,15 @@
                 });
             });
 
-            describe('questionSubmitted', function () {
+            describe('answersSubmitted', function () {
 
                 it('should be function', function () {
-                    expect(eventManager.questionSubmitted).toBeFunction();
+                    expect(eventManager.answersSubmitted).toBeFunction();
                 });
 
-                it('should call app.trigger event with parameter "questionSubmitted"', function () {
-                    eventManager.questionSubmitted({});
-                    expect(app.trigger).toHaveBeenCalledWith("questionSubmitted", {});
+                it('should call app.trigger event with parameter "answersSubmitted"', function () {
+                    eventManager.answersSubmitted({});
+                    expect(app.trigger).toHaveBeenCalledWith("answersSubmitted", {});
                 });
             });
 

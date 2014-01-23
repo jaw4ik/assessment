@@ -158,80 +158,250 @@
             });
         });
 
-        describe('finish', function () {
-
-            it('should be function', function () {
-                expect(viewModel.finish).toBeFunction();
-            });
+        describe('finish: ', function () {
 
             beforeEach(function () {
+                app.off("courseFinished");
+                app.off("courseStopped");
+
                 spyOn(eventManager, 'turnAllEventsOff');
                 spyOn(windowOperations, 'close');
             });
-
-            describe('when app.callbacks is undefined', function () {
-
-                beforeEach(function () {
-                    app.callbacks = undefined;
-                });
-
-                it('should turn off all events', function () {
-                    viewModel.finish();
-                    expect(eventManager.turnAllEventsOff).toHaveBeenCalled();
-                });
-
-                it('should change status to finished', function () {
-                    viewModel.status('');
-                    viewModel.finish();
-                    expect(viewModel.status()).toBe(viewModel.statuses.finished);
-                });
-
-                it('should close window', function () {
-                    viewModel.finish();
-                    expect(windowOperations.close).toHaveBeenCalled();
-                });
-
-                it('should not trigger events', function () {
-                    spyOn(app, 'trigger');
-                    viewModel.finish();
-                    expect(app.trigger).not.toHaveBeenCalled();
-                });
-
+            
+            it('should be function', function () {
+                expect(viewModel.finish).toBeFunction();
+            });
+            
+            it('should return promise', function () {
+                var result = viewModel.finish();
+                expect(result).toBePromise();
             });
 
-            describe('when app.callbacks is undefined', function () {
+            describe('whene there are subscribers on "courseFinished" event', function() {
 
-                beforeEach(function () {
-                    app.callbacks = [];
-                    app.on(eventManager.events.courseFinished, function (finishedEventData) {
-                        finishedEventData.callback();
+                describe('and there are subscribers on "courseStopped" event', function () {
+                    var promise;
+                    var actions;
+
+                    beforeEach(function () {
+                        actions = [];
+
+                        var subscriptionFinished = app.on("courseFinished").then(function () {
+                            actions.push("courseFinished");
+                            subscriptionFinished.off();
+                        });
+                        
+                        var subscriptionStopped = app.on("courseStopped").then(function () {
+                            actions.push("courseStopped");
+                            subscriptionStopped.off();
+                        });
+                        
+                        viewModel.status('');
+                        promise = viewModel.finish();
+                    });
+
+                    it('should execute both "courseFinished" and "courseStopped" subscribers', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(actions.length).toBe(2);
+                        });
+                    });
+
+                    it('should execute "courseFinished" subscribers at first step', function() {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(actions[0]).toBe("courseFinished");
+                        });
+                    });
+                    
+                    it('should execute "courseStopped" subscribers at second step', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(actions[1]).toBe("courseStopped");
+                        });
+                    });
+
+                    it('should turn off all events', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(eventManager.turnAllEventsOff).toHaveBeenCalled();
+                        });
+                    });
+
+                    it('should change status to finished', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.status()).toBe(viewModel.statuses.finished);
+                        });
+                    });
+
+                    it('should close window', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(windowOperations.close).toHaveBeenCalled();
+                        });
+                    });
+                });
+                
+                describe('and there are no subscribers on "courseStopped" event', function () {
+                    var promise;
+                    var actions;
+
+                    beforeEach(function () {
+                        actions = [];
+
+                        var subscriptionFinished = app.on("courseFinished").then(function () {
+                            actions.push("courseFinished");
+                            subscriptionFinished.off();
+                        });
+
+                        viewModel.status('');
+                        promise = viewModel.finish();
+                    });
+
+                    it('should execute "courseFinished" subscribers', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(actions.length).toBe(1);
+                            expect(actions[0]).toBe("courseFinished");
+                        });
+                    });
+
+                    it('should turn off all events', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(eventManager.turnAllEventsOff).toHaveBeenCalled();
+                        });
+                    });
+
+                    it('should change status to finished', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.status()).toBe(viewModel.statuses.finished);
+                        });
+                    });
+
+                    it('should close window', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(windowOperations.close).toHaveBeenCalled();
+                        });
+                    });
+                });
+            });
+
+            describe('whene there are no subscribers on "courseFinished" event', function () {
+
+                describe('and there are subscribers on "courseStopped" event', function () {
+                    var promise;
+                    var actions;
+
+                    beforeEach(function () {
+                        actions = [];
+
+                        var subscriptionFinished = app.on("courseStopped").then(function () {
+                            actions.push("courseStopped");
+                            subscriptionFinished.off();
+                        });
+
+                        viewModel.status('');
+                        promise = viewModel.finish();
+                    });
+
+                    it('should execute "courseStopped" subscribers', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(actions.length).toBe(1);
+                            expect(actions[0]).toBe("courseStopped");
+                        });
+                    });
+
+                    it('should turn off all events', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(eventManager.turnAllEventsOff).toHaveBeenCalled();
+                        });
+                    });
+
+                    it('should change status to finished', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.status()).toBe(viewModel.statuses.finished);
+                        });
+                    });
+
+                    it('should close window', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(windowOperations.close).toHaveBeenCalled();
+                        });
                     });
                 });
 
-                it('should trigger \'events.courseFinished\' event', function () {
-                    spyOn(app, 'trigger');
-                    viewModel.finish();
-                    expect(app.trigger).toHaveBeenCalled();
-                });
+                describe('and there are no subscribers on "courseStopped" event', function () {
+                    var promise;
 
-                it('should turn off all events', function () {
-                    viewModel.finish();
-                    expect(eventManager.turnAllEventsOff).toHaveBeenCalled();
-                });
+                    beforeEach(function () {
+                        viewModel.status('');
+                        promise = viewModel.finish();
+                    });
 
-                it('should change status to finished', function () {
-                    viewModel.status('');
-                    viewModel.finish();
-                    expect(viewModel.status()).toBe(viewModel.statuses.finished);
-                });
+                    it('should turn off all events', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(eventManager.turnAllEventsOff).toHaveBeenCalled();
+                        });
+                    });
 
-                it('should close window', function () {
-                    viewModel.finish();
-                    expect(windowOperations.close).toHaveBeenCalled();
-                });
+                    it('should change status to finished', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(viewModel.status()).toBe(viewModel.statuses.finished);
+                        });
+                    });
 
+                    it('should close window', function () {
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(windowOperations.close).toHaveBeenCalled();
+                        });
+                    });
+                });
             });
-
         });
 
     });

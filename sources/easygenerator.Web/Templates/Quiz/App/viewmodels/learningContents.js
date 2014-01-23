@@ -50,7 +50,7 @@
             },
 
             deactivate = function () {
-                app.trigger(eventManager.events.learningContentExperienced, {
+               eventManager.learningContentExperienced({
                     objective: this.objective,
                     question: this.question,
                     spentTime: new Date() - this.enteredOnPage

@@ -88,12 +88,12 @@
                         });
                     });
 
-                    it('should subscribe event questionSubmitted', function () {
+                    it('should subscribe event answersSubmitted', function () {
                         waitsFor(function () {
                             return !promise.isPending();
                         });
                         runs(function () {
-                            expect(eventmanager.subscribeForEvent).toHaveBeenCalledWith(eventmanager.events.questionSubmitted);
+                            expect(eventmanager.subscribeForEvent).toHaveBeenCalledWith(eventmanager.events.answersSubmitted);
                         });
                     });
 
@@ -174,13 +174,13 @@
                     });
                 });
 
-                it('should not send request to LRS when trigger "questionSubmitted"', function () {
+                it('should not send request to LRS when trigger "answersSubmitted"', function () {
                     waitsFor(function () {
                         return !promise.isPending();
                     });
                     runs(function () {
                         viewModel.turnOffSubscriptions();
-                        app.trigger("questionSubmitted");
+                        app.trigger("answersSubmitted");
                         
                         expect(requestManager.sendStatement).not.toHaveBeenCalled();
                     });

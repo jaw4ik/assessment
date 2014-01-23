@@ -959,6 +959,7 @@
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Templates\Freestyle learning\settings.html" />
     <Content Include="Templates\Freestyle learning\settings.js" />
+    <Content Include="Templates\Freestyle learning\weyland-config.js" />
     <Content Include="Templates\Quiz\App\browserSupport.js" />
     <Content Include="Templates\Quiz\App\configuration\routes.js" />
     <Content Include="Templates\Quiz\App\configuration\settings.js" />

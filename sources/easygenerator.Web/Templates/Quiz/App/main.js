@@ -31,10 +31,21 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'modulesIniti
             viewLocator.useConvention();
             app.setRoot(getRootView);
 
-            settingsReader.read().then(function (settings) {
-                modulesInitializer.register({
-                    "xApi/xApiInitializer": settings.xApi
+            var modules = [];
+
+            Q.allSettled([
+
+            settingsReader.readTemplateSettings().then(function (settings) {
+                modules["xApi/xApiInitializer"] = settings.xApi;
+            }),
+
+            settingsReader.readPublishSettings().then(function (settings) {
+                _.each(settings.modules, function (module) {
+                    modules[module.name] = true;
                 });
+
+            })]).then(function () {
+                modulesInitializer.register(modules);
             });
 
         });

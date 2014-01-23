@@ -20,16 +20,10 @@
             status = ko.observable(statuses.readyToFinish),
 
             finish = function () {
-
                 status(statuses.sendingRequests);
 
-                if (_.isNullOrUndefined(app.callbacks) || _.isNullOrUndefined(app.callbacks[eventManager.events.courseFinished])) {
-                    closeCourse();
-                    return;
-                }
-
                 var that = this;
-                return app.trigger(eventManager.events.courseFinished, {
+                return eventManager.courseFinished({
                     result: Math.round(that.overallScore) / 100,
                     objectives: _.map(that.objectives, function (objective) {
                         return {
@@ -37,9 +31,12 @@
                             title: objective.title,
                             score: objective.score
                         };
-                    }),
-                    callback: closeCourse
-                });
+                    })
+                }, courseStop);
+            },
+
+            courseStop = function () {
+                eventManager.courseStopped({}, closeCourse);
             },
 
             closeCourse = function () {

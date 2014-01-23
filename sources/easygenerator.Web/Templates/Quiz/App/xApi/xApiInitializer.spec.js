@@ -102,10 +102,10 @@
                     expect(xApiInitializer.turnOff).toBeFunction();
                 });
 
-                it('should turn all events off', function () {
-                    spyOn(eventManager, 'turnAllEventsOff');
+                it('should turn all xApi subscriptions off', function () {
+                    spyOn(activityProvider, 'turnOffSubscriptions');
                     xApiInitializer.turnOff();
-                    expect(eventManager.turnAllEventsOff).toHaveBeenCalled();
+                    expect(activityProvider.turnOffSubscriptions).toHaveBeenCalled();
                 });
 
                 it('should remove routes', function () {

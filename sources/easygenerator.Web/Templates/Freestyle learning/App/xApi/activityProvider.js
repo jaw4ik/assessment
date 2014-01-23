@@ -31,7 +31,7 @@
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseStarted).then(sendCourseStarted));
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseFinished).then(sendCourseFinished));
                 subscriptions.push(eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(learningContentExperienced));
-                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.questionSubmitted).then(sendAnsweredQuestionsStatements));
+                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(sendAnsweredQuestionsStatements));
             });
         }
         

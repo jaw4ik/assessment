@@ -1,5 +1,5 @@
-﻿define(['eventManager', './routingManager', './requestManager', './activityProvider'],
-    function (eventManager, routingManager, requestManager, activityProvider) {
+﻿define(['./routingManager', './requestManager', './activityProvider'],
+    function (routingManager, requestManager, activityProvider) {
 
         "use strict";
 
@@ -32,7 +32,7 @@
         }
 
         function turnOff() {
-            eventManager.turnAllEventsOff();
+            activityProvider.turnOffSubscriptions();
             routingManager.removeRoutes();
             isInitialized = false;
         }

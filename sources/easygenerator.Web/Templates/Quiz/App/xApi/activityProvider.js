@@ -2,14 +2,15 @@
     function (actorModel, statementModel, activityModel, xApiSettings, eventManager, requestManager, constants, errorsHandler, dateTimeConverter) {
         "use strict";
 
-        var
+        var subscriptions = [],
             activityProvider = {
                 actor: null,
                 activityName: null,
                 init: init,
                 createActor: createActor,
                 rootCourseUrl: null,
-                rootActivityUrl: null
+                rootActivityUrl: null,
+                turnOffSubscriptions: turnOffSubscriptions
             };
 
         return activityProvider;
@@ -25,12 +26,20 @@
                 activityProvider.rootCourseUrl = activityUrl.split("?")[0].split("#")[0];
                 activityProvider.rootActivityUrl = activityProvider.rootCourseUrl + '#home';
 
-                eventManager.subscribeForEvent(eventManager.events.courseStarted).then(sendCourseStarted);
-                eventManager.subscribeForEvent(eventManager.events.courseFinished).then(sendCourseFinished);
-                eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(learningContentExperienced);
-                eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(sendAnsweredQuestionsStatements);
+                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseStarted).then(sendCourseStarted));
+                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.courseFinished).then(sendCourseFinished));
+                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.learningContentExperienced).then(learningContentExperienced));
+                subscriptions.push(eventManager.subscribeForEvent(eventManager.events.answersSubmitted).then(sendAnsweredQuestionsStatements));
             });
 
+        }
+
+        function turnOffSubscriptions() {
+            _.each(subscriptions, function (subscription) {
+                if (!_.isNullOrUndefined(subscription && subscription.off)) {
+                    subscription.off();
+                }
+            });
         }
 
         function sendCourseStarted() {
@@ -56,10 +65,6 @@
                 }
             }).then(function () {
                 return requestManager.sendStatement(createStatement(constants.verbs.stopped, null, activity));
-            }).then(function () {
-                if (!!finishedEventData.callback) {
-                    finishedEventData.callback.call(this);
-                }
             }).fail(function (error) {
                 errorsHandler.handleError(error);
             });
