@@ -32,11 +32,7 @@
                             score: objective.score
                         };
                     })
-                }, courseStop);
-            },
-
-            courseStop = function () {
-                eventManager.courseStopped({}, closeCourse);
+                }, closeCourse);
             },
 
             closeCourse = function () {

@@ -3,9 +3,11 @@
 
         "use strict";
 
-        var moduleSettings = null,
+        var initialized = null,
+            moduleSettings = null,
             scormInitializer = {
-                initialize: initialize
+                initialize: initialize,
+                dispose: dispose
             };
 
         return scormInitializer;
@@ -16,12 +18,17 @@
             return Q.fcall(function () {
                 moduleSettings = settings;
 
-                var result = apiWrapper.doLMSInitialize();
-                if (result == "true") {
+                initialized = apiWrapper.doLMSInitialize();
+                if (initialized == "true") {
                     eventManager.subscribeForEvent(eventManager.events.courseFinished).then(sendCourseFinished);
-                    eventManager.subscribeForEvent(eventManager.events.courseStopped).then(sendCourseStopped);
                 }
             });
+        }
+        
+        function dispose() {
+            if (initialized) {
+                apiWrapper.doLMSFinish();
+            }
         }
 
         function sendCourseFinished(finishedEventData) {
@@ -30,10 +37,6 @@
             apiWrapper.doLMSSetValue("cmi.core.score.raw", finishedEventData.result * 100);
 
             apiWrapper.doLMSCommit();
-        }
-        
-        function sendCourseStopped() {
-            apiWrapper.doLMSFinish();
         }
     }
 );

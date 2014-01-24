@@ -44,6 +44,11 @@
                 if (_.isFunction(module.initialize)) {
                     module.initialize(modulesConfigs[module.__moduleId__]);
                 }
+                if (_.isFunction(module.dispose)) {
+                    $(window).unload(function () {
+                        module.dispose();
+                    });
+                }
             });
         }
 

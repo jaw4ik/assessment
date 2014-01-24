@@ -67,24 +67,6 @@
                             });
                         });
                     });
-                    
-                    describe('when triggered "courseStopped"', function () {
-                        beforeEach(function () {
-                            spyOn(apiWrapper, "doLMSFinish");
-                            app.off("courseStopped");
-                        });
-
-                        it('should send doLMSFinish to LMS', function () {
-                            var promise = scormInitializer.initialize();
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                app.trigger("courseStopped");
-                                expect(apiWrapper.doLMSFinish).toHaveBeenCalled();
-                            });
-                        });
-                    });
                 });
 
                 describe('when apiWrapper initialization is failed', function () {
@@ -119,24 +101,6 @@
                             runs(function () {
                                 app.trigger("courseFinished", { result: 1 });
                                 expect(apiWrapper.doLMSCommit).not.toHaveBeenCalled();
-                            });
-                        });
-                    });
-
-                    describe('when triggered "courseStopped"', function () {
-                        beforeEach(function () {
-                            spyOn(apiWrapper, "doLMSFinish");
-                            app.off("courseStopped");
-                        });
-
-                        it('should not send doLMSFinish to LMS', function () {
-                            var promise = scormInitializer.initialize();
-                            waitsFor(function () {
-                                return !promise.isPending();
-                            });
-                            runs(function () {
-                                app.trigger("courseStopped");
-                                expect(apiWrapper.doLMSFinish).not.toHaveBeenCalled();
                             });
                         });
                     });
