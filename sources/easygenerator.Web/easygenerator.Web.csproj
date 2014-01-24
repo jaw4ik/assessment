@@ -1198,6 +1198,7 @@
     </Content>
     <Content Include="Templates\Quiz\settings.html" />
     <Content Include="Templates\Quiz\settings.js" />
+    <Content Include="Templates\Quiz\weyland-config.js" />
     <Content Include="Views\Account\PrivacyPolicy.cshtml" />
     <Content Include="Views\Account\TermsOfUse.cshtml" />
     <Content Include="Content\font\opensans-regular.eot" />
