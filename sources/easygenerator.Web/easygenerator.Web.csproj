@@ -1156,6 +1156,7 @@
     <Content Include="Templates\Quiz\img\tooltip.png" />
     <Content Include="Templates\Quiz\App\xApi\css\img\xapierror.png" />
     <Content Include="Templates\Quiz\index.html" />
+    <Content Include="Templates\Quiz\js\almond-custom.js" />
     <Content Include="Templates\Quiz\js\bootstrap.min.js" />
     <Content Include="Templates\Quiz\js\circleProgressBinding.js" />
     <Content Include="Templates\Quiz\js\durandal\activator.js" />
