@@ -457,6 +457,21 @@
         nl: 'Publish to instant learning store[nl]',
         de: 'Publish to instant learning store[de]'
     },
+    addCourseContent: {
+        en: 'Add course introduction content',
+        nl: 'Add course introduction content[nl]',
+        de: 'Add course introduction content[de]'
+    },
+    showCourseContent: {
+        en: 'Show course introduction content',
+        nl: 'Show course introduction content[nl]',
+        de: 'Show course introduction content[de]'
+    },
+    hideCourseContent: {
+        en: 'Hide course introduction content',
+        nl: 'Hide course introduction content[nl]',
+        de: 'Hide course introduction content[de]'
+    },
     /* End resource section for model Courses */
     
     /* Resource section for model CreateObjective */
