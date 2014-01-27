@@ -602,5 +602,48 @@ namespace easygenerator.Web.Tests.Controllers.Api
         }
 
         #endregion
+
+        #region UpdateContent
+
+        [TestMethod]
+        public void UpdateIntroductionContent_ShouldReturnHttpNotFound_WhenCourseIsNull()
+        {
+            //Arrange
+
+            //Act
+            var result = _controller.UpdateIntroductionContent(null, "some user");
+
+            //Assert
+            result.Should().BeHttpNotFoundResult().And.StatusDescription.Should().Be(Errors.CourseNotFoundError);
+        }
+
+        [TestMethod]
+        public void UpdateIntroductionContent_ShouldUpdateContent()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var content = "some content";
+
+            //Act
+            _controller.UpdateIntroductionContent(course, content);
+
+            //Assert
+            course.IntroductionContent.Should().Be(content);
+        }
+
+        [TestMethod]
+        public void UpdateIntroductionContent_ShouldReturnJsonSuccessResult()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            var result = _controller.UpdateIntroductionContent(course, "some content");
+
+            //Assert
+            result.Should().BeJsonSuccessResult().And.Data.ShouldBeSimilar(new { ModifiedOn = course.ModifiedOn });
+        }
+
+        #endregion UpdateContent
     }
 }

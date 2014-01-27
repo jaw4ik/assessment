@@ -230,6 +230,31 @@
                 });
 
             });
+        },
+
+        updateIntroductionContent = function (courseId, introductionContent) {
+            return Q.fcall(function() {
+                guard.throwIfNotString(courseId, 'Course id is not a string');
+
+                return httpWrapper.post('api/course/updateintroductioncontent', { courseId: courseId, introductionContent: introductionContent })
+                    .then(function(response) {
+                        guard.throwIfNotAnObject(response, 'Response is not an object');
+                        guard.throwIfNotString(response.ModifiedOn, 'Response does not have modification date');
+
+                        var course = _.find(dataContext.courses, function(item) {
+                            return item.id === courseId;
+                        });
+
+                        guard.throwIfNotAnObject(course, 'Course does not exist in dataContext');
+
+                        var modifiedOn = new Date(parseInt(response.ModifiedOn.substr(6), 10));
+
+                        course.introductionContent = introductionContent;
+                        course.modifiedOn = modifiedOn;
+
+                        return modifiedOn;
+                    });
+            });
         };
 
         return {
@@ -242,7 +267,8 @@
             removeCourse: removeCourse,
             
             relateObjectives: relateObjectives,
-            unrelateObjectives: unrelateObjectives
+            unrelateObjectives: unrelateObjectives,
+            updateIntroductionContent: updateIntroductionContent
         };
     }
 );

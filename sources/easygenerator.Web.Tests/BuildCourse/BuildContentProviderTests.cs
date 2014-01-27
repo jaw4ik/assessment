@@ -100,6 +100,36 @@ namespace easygenerator.Web.Tests.BuildCourse
             }
 
             [TestMethod]
+            public void AddBuildContentToPackageDirectory_ShouldWriteCourseIntroductionContentToFile_WhenCourseContentIsDefined()
+            {
+                //Arrange
+                var courseContentPath = "SomePath";
+                _buildPathProvider.GetCourseIntroductionContentFileName(Arg.Any<string>()).Returns(courseContentPath);
+
+                //Act
+                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
+
+                //Assert
+                _fileManager.Received().WriteToFile(courseContentPath, _course.IntroductionContent);
+
+            }
+
+            [TestMethod]
+            public void AddBuildContentToPackageDirectory_ShouldNotWriteCourseIntroductionContentToFile_WhenCourseContentIsNull()
+            {
+                //Arrange
+                var courseContentPath = "SomePath";
+                _buildPathProvider.GetCourseIntroductionContentFileName(Arg.Any<string>()).Returns(courseContentPath);
+                _course.UpdateIntroductionContent(null, "SomeUser");
+
+                //Act
+                _buildContentProvider.AddBuildContentToPackageDirectory(Arg.Any<string>(), _course, Arg.Any<string>());
+
+                //Assert
+                _fileManager.DidNotReceive().WriteToFile(courseContentPath, _course.IntroductionContent);
+            }   
+
+            [TestMethod]
             public void AddBuildContentToPackageDirectory_ShouldCreateObjectiveDirectory()
             {
                 //Arrange
@@ -271,6 +301,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             objective.AddQuestion(question, "SomeUser");
 
             var course = CourseObjectMother.Create("CourseTitle");
+            course.UpdateIntroductionContent("some course content", "SomeUser");
             course.UpdateTemplate(TemplateObjectMother.Create(name: "Default"), "SomeUser");
             course.RelateObjective(objective, "SomeUser");
 

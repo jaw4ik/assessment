@@ -1329,6 +1329,55 @@ a.top-navigation-item:hover {
 
 /*#endregion EDITABLE-TEXT*/
 
+/*#region ENTITY CONTENT*/
+
+.entity-content-action-wrapper {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0px 6px;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 20px;
+}
+
+.entity-content-action {
+    font-size: 13px;
+    font-family: 'OpenSans-Semibold';
+    color: #777;
+    position: relative;
+    padding: 2px 0px;
+    margin-left: 22px;
+}
+
+    .entity-content-action:before {
+        content: '';
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        left: -20px;
+        top: 50%;
+        margin-top: -7px;
+        background: url(images/sprites.png) no-repeat;
+    }
+    
+    .entity-content-action.add:before {
+        background: url(images/sprites.png) -23px -231px;
+    }
+
+    .entity-content-action.hide:before {
+        background: url(images/sprites.png) -42px -231px;
+    }
+
+    .entity-content-action.show:before {
+        background: url(images/sprites.png) -3px -231px;
+    }
+
+    .entity-content-action.add {
+        color: #f59b59;
+    }
+
+/*#endregion ENTITY CONTENT*/
+
 @media (max-width: 1024px) {
 
     /*#region HEADER*/

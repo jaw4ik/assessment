@@ -467,6 +467,14 @@ define(function (require) {
 
         });
 
+        describe('questionContent:', function () {
+
+            it('should be object', function() {
+                expect(viewModel.questionContent).toBeObject();
+            });
+
+        });
+
     });
 
 });

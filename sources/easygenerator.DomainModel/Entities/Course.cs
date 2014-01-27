@@ -21,6 +21,7 @@ namespace easygenerator.DomainModel.Entities
             RelatedObjectivesCollection = new Collection<Objective>();
             TemplateSettings = new Collection<CourseTemplateSettings>();
             BuildOn = null;
+            IntroductionContent = null;
         }
 
         public virtual Template Template { get; private set; }
@@ -84,6 +85,14 @@ namespace easygenerator.DomainModel.Entities
 
             PackageUrl = packageUrl;
             BuildOn = DateTimeWrapper.Now();
+        }
+
+        public string IntroductionContent { get; private set; }
+
+        public virtual void UpdateIntroductionContent(string introductionContent, string modifiedBy)
+        {
+            IntroductionContent = introductionContent;
+            MarkAsModified(modifiedBy);
         }
 
         public string ScormPackageUrl { get; private set; }

@@ -25,6 +25,11 @@ namespace easygenerator.Web.BuildCourse
             return Path.Combine(BuildPath, buildId);
         }
 
+        public virtual string GetCourseIntroductionContentFileName(string buildId)
+        {
+            return Path.Combine(GetContentDirectoryName(buildId), "content" + ".html");
+        }
+
         public virtual string GetTemplateDirectoryName(string templateName)
         {
             return Path.Combine(TemplatesPath, templateName);

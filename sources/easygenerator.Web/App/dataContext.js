@@ -100,7 +100,8 @@
                                 packageUrl: item.PackageUrl,
                                 template: _.find(templates, function (tItem) {
                                     return tItem.id === item.Template.Id;
-                                })
+                                }),
+                                introductionContent: item.IntroductionContent
                             }));
                         });
                     });

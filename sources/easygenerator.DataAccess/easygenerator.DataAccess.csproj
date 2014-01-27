@@ -104,6 +104,10 @@
     <Compile Include="Migrations\201401130707016_AddUserAccessType.Designer.cs">
       <DependentUpon>201401130707016_AddUserAccessType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201401271327589_AddColumnIntroductionContentToTableCourse.cs" />
+    <Compile Include="Migrations\201401271327589_AddColumnIntroductionContentToTableCourse.Designer.cs">
+      <DependentUpon>201401271327589_AddColumnIntroductionContentToTableCourse.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
@@ -163,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201401130707016_AddUserAccessType.resx">
       <DependentUpon>201401130707016_AddUserAccessType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401271327589_AddColumnIntroductionContentToTableCourse.resx">
+      <DependentUpon>201401271327589_AddColumnIntroductionContentToTableCourse.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

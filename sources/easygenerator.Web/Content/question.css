@@ -330,47 +330,6 @@
     cursor: default;
 }
 
-.question-content-collapse-action,
-.question-content-expand-action {
-    color: #7f7f7f
-}
-
-.question-content-collapse-action:hover,
-.question-content-expand-action:hover {
-    color: #545454
-}
-
-.question-content-collapse-action:before {
-    content: '';
-    display: inline-block;
-    width: 19px;
-    height: 16px;
-    background: url(images/sprites.png) -258px -162px no-repeat;
-}
-
-.question-content-expand-action:before {
-    content: '';
-    display: inline-block;
-    width: 19px;
-    height: 16px;
-    background-position: -98px -174px;
-    background: url(images/sprites.png) -258px -175px no-repeat;
-}
-
-.question-content-define-action {
-    color: #f59957;
-}
-
-.question-content-define-action:hover {
-    color: #f27216
-}
-
-.question-content-define-action:before {
-    content: '+';
-    padding-right: 3px;
-    display: inline-block;
-}
-
 /*#endregion Learning content*/
 
 /*#region delete button*/

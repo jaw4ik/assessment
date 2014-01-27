@@ -52,6 +52,24 @@ namespace easygenerator.Web.Tests.BuildCourse
 
         #endregion
 
+        #region GetCourseIntroductionContentFileName
+
+        [TestMethod]
+        public void GetCourseIntroductionContentFileName_ShouldReturnCourseContentFileName()
+        {
+            //Arrange
+            var buildId = "SomeId";
+            var expectedPath = Path.Combine(BuildPath, buildId, "content", "content" + ".html");
+
+            //Act
+            var result = _buildPathProvider.GetCourseIntroductionContentFileName(buildId);
+
+            //Assert
+            result.Should().Be(expectedPath);
+        }
+
+        #endregion GetCourseIntroductionContentFileName
+
         #region GetTemplateDirectoryName
 
         [TestMethod]

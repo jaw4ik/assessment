@@ -170,6 +170,7 @@
     <Content Include="App\bootstrapping\errorHandlingTask.js" />
     <Content Include="App\bootstrapping\localizationTask.js" />
     <Content Include="App\bootstrapping\viewLocatorTask.js" />
+    <Content Include="App\viewmodels\common\contentField.js" />
     <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.js" />
     <Content Include="App\errorHandling\httpErrorHandlers\forbiddenHttpErrorHandler.spec.js">
       <DependentUpon>forbiddenHttpErrorHandler.js</DependentUpon>
@@ -254,6 +255,9 @@
     <Compile Include="BuildCourse\Scorm\Models\MetadataModel.cs" />
     <Compile Include="BuildCourse\Scorm\ScormCourseBuilder.cs" />
     <Content Include="App\services\aim4YouService.js" />
+    <Content Include="App\viewmodels\common\contentField.spec.js">
+      <DependentUpon>contentField.js</DependentUpon>
+    </Content>
     <Content Include="App\viewmodels\courses\deliveringActions\deliveringAction.js" />
     <Content Include="App\viewmodels\courses\deliveringActions\deliveringAction.spec.js">
       <DependentUpon>deliveringAction.js</DependentUpon>
@@ -380,12 +384,8 @@
     <Content Include="App\viewmodels\feedback.spec.js">
       <DependentUpon>feedback.js</DependentUpon>
     </Content>
-    <Content Include="App\viewmodels\questions\questionContent.js" />
     <Content Include="App\viewmodels\questions\learningContents.spec.js">
       <DependentUpon>learningContents.js</DependentUpon>
-    </Content>
-    <Content Include="App\viewmodels\questions\questionContent.spec.js">
-      <DependentUpon>questionContent.js</DependentUpon>
     </Content>
     <Content Include="App\views\common\back.html" />
     <Content Include="App\views\courses\deliver.html" />

@@ -1,6 +1,6 @@
 ﻿define(['plugins/router', 'constants', 'eventTracker', 'repositories/courseRepository', 'services/deliverService', 'viewmodels/objectives/objectiveBrief',
-        'localization/localizationManager', 'notify', 'repositories/objectiveRepository'],
-    function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository) {
+        'localization/localizationManager', 'notify', 'repositories/objectiveRepository', 'viewmodels/common/contentField'],
+    function (router, constants, eventTracker, repository, service, objectiveBrief, localizationManager, notify, objectiveRepository, vmContentField) {
         "use strict";
 
         var
@@ -16,6 +16,11 @@
                 unrelateObjectivesFromCourse: 'Unrelate objectives from course'
             };
 
+        var eventsForCourseContent = {
+            addContent: 'Define introduction',
+            beginEditText: 'Start editing introduction',
+            endEditText: 'End editing introduction'
+        };
 
         var
             id = '',
@@ -33,6 +38,8 @@
             originalTitle = '',
             objectivesMode = ko.observable(''),
             isEditing = ko.observable(),
+            courseIntroductionContent = {},
+            language = ko.observable(''),
 
             objectivesListModes = {
                 appending: 'appending',
@@ -205,6 +212,7 @@
             },
 
             activate = function (courseId) {
+                this.language(localizationManager.currentLanguage);
                 var that = this;
                 return repository.getById(courseId).then(function (course) {
                     that.id = course.id;
@@ -219,6 +227,7 @@
                         .value());
 
                     isEditing(false);
+                    that.courseIntroductionContent = vmContentField(course.introductionContent, eventsForCourseContent, false, function (content) { return repository.updateIntroductionContent(course.id, content); });
                 }).fail(function (reason) {
                     router.activeItem.settings.lifecycleData = { redirect: '404' };
                     throw reason;
@@ -252,7 +261,9 @@
 
             showAllAvailableObjectives: showAllAvailableObjectives,
             connectObjectives: connectObjectives,
-            showConnectedObjectives: showConnectedObjectives
+            showConnectedObjectives: showConnectedObjectives,
+            courseIntroductionContent: courseIntroductionContent,
+            language: language
         };
     }
 );

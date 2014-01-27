@@ -42,6 +42,11 @@ namespace easygenerator.Web.BuildCourse
             _fileManager.DeleteDirectory(_buildPathProvider.GetContentDirectoryName(buildId));
             _fileManager.CreateDirectory(_buildPathProvider.GetContentDirectoryName(buildId));
 
+            if (coursePackageModel.HasIntroductionContent)
+            {
+                _fileManager.WriteToFile(_buildPathProvider.GetCourseIntroductionContentFileName(buildId), coursePackageModel.IntroductionContent);
+            }
+
             foreach (var objective in coursePackageModel.Objectives)
             {
                 _fileManager.CreateDirectory(_buildPathProvider.GetObjectiveDirectoryName(buildId, objective.Id));

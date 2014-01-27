@@ -28,7 +28,8 @@ namespace easygenerator.Web.BuildCourse
 
             Mapper.CreateMap<Course, CoursePackageModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToNString()))
-                .ForMember(dest => dest.Objectives, opt => opt.MapFrom(src => src.RelatedObjectives.Where(objective => objective.Questions.Any(question => question.Answers.Any()))));
+                .ForMember(dest => dest.Objectives, opt => opt.MapFrom(src => src.RelatedObjectives.Where(objective => objective.Questions.Any(question => question.Answers.Any()))))
+                .ForMember(dest => dest.HasIntroductionContent, opt => opt.MapFrom(src => !String.IsNullOrEmpty(src.IntroductionContent)));
         }
 
         public virtual CoursePackageModel MapCourse(Course course)

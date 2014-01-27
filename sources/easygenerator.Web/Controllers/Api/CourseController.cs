@@ -129,18 +129,19 @@ namespace easygenerator.Web.Controllers.Api
         [HttpPost]
         public ActionResult GetCollection()
         {
-            var courses = _repository.GetCollection(exp => exp.CreatedBy == User.Identity.Name);
+            var courses = _repository.GetCollection(course => course.CreatedBy == User.Identity.Name);
 
-            var result = courses.Select(exp => new
+            var result = courses.Select(course => new
             {
-                Id = exp.Id.ToNString(),
-                Title = exp.Title,
-                CreatedOn = exp.CreatedOn,
-                ModifiedOn = exp.ModifiedOn,
-                Template = new { Id = exp.Template.Id.ToNString() },
-                PackageUrl = exp.PackageUrl,
-                PublishedPackageUrl = exp.PublishedOn != null ? _coursePublisher.GetPublishedPackageUrl(exp.Id.ToString()) : null,
-                RelatedObjectives = exp.RelatedObjectives.Select(obj => new
+                Id = course.Id.ToNString(),
+                Title = course.Title,
+                IntroductionContent = course.IntroductionContent,
+                CreatedOn = course.CreatedOn,
+                ModifiedOn = course.ModifiedOn,
+                Template = new { Id = course.Template.Id.ToNString() },
+                PackageUrl = course.PackageUrl,
+                PublishedPackageUrl = course.PublishedOn != null ? _coursePublisher.GetPublishedPackageUrl(course.Id.ToString()) : null,
+                RelatedObjectives = course.RelatedObjectives.Select(obj => new
                 {
                     Id = obj.Id.ToNString()
                 })
@@ -261,6 +262,19 @@ namespace easygenerator.Web.Controllers.Api
             return Json(true);
         }
 
+        [HttpPost]
+        [Route("api/course/updateintroductioncontent")]
+        public ActionResult UpdateIntroductionContent(Course course, string introductionContent)
+        {
+            if (course == null)
+            {
+                return HttpNotFound(Errors.CourseNotFoundError);
+            }
+
+            course.UpdateIntroductionContent(introductionContent, GetCurrentUsername());
+
+            return JsonSuccess(new { ModifiedOn = course.ModifiedOn });
+        }
 
     }
 }

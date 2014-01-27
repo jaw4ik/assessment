@@ -1,29 +1,24 @@
-﻿define(['repositories/questionRepository', 'localization/localizationManager', 'notify', 'constants', 'eventTracker'],
-    function (repository, localizationManager, notify, constants, eventTracker) {
+﻿define(['notify', 'constants', 'eventTracker'],
+    function (notify, constants, eventTracker) {
 
-        var events = {
-            addExtraQuestionContent: 'Add extra question content',
-            beginEditText: 'Start editing question content',
-            endEditText: 'End editing question content'
-        };
-
-        var viewModel = function (questionId, content) {
+        var viewModel = function (content, events, onStartup, callback) {
 
             var
             text = ko.observable(_.isNull(content) || _.isEmpty(content) ? null : content),
             originalText = ko.observable(text()),
             hasFocus = ko.observable(false),
-            isExpanded = ko.observable(true),
+            isExpanded = ko.observable(onStartup),
 
-                beginEditText = function () {
-                    eventTracker.publish(events.beginEditText);
-                },
+            beginEditText = function () {
+                eventTracker.publish(events.beginEditText);
+            },
 
-                addExtraQuestionContent = function () {
-                    eventTracker.publish(events.addExtraQuestionContent);
-                    text('');
-                    hasFocus(true);
-                },
+            addContent = function () {
+                eventTracker.publish(events.addContent);
+                text('');
+                isExpanded(true);
+                hasFocus(true);
+            },
 
 
             endEditText = function () {
@@ -36,14 +31,14 @@
                 }
 
                 if (text() != originalText()) {
-                    repository.updateContent(questionId, text()).then(function (response) {
+                    return callback(text()).then(function () {
                         originalText(text());
                         showNotification();
                     });
                 }
             },
 
-            isQuestionContentDefined = ko.computed({
+            isContentDefined = ko.computed({
                 read: function () {
                     return !_.isNullOrUndefined(text());
                 }
@@ -64,14 +59,14 @@
                 hasFocus: hasFocus,
                 toggleExpand: toggleExpand,
 
-                isQuestionContentDefined: isQuestionContentDefined,
-                addExtraQuestionContent: addExtraQuestionContent,
+                isContentDefined: isContentDefined,
+                addContent: addContent,
                 beginEditText: beginEditText,
                 endEditText: endEditText,
 
                 updateText: updateText,
 
-                autosaveInterval: constants.autosaveTimersInterval.questionContent
+                autosaveInterval: constants.autosaveTimersInterval.entityContent
             };
 
         };

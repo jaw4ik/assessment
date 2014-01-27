@@ -10,6 +10,30 @@
                 </div>
             </div>
         </header>
+        <div class="course-introduction-wrapper" data-bind="with: courseIntroductionContent">
+            <div class="entity-content-action-wrapper">
+                <!-- ko if: isContentDefined -->
+                <!-- ko if: isExpanded -->
+                <div class="entity-content-action hide cursor-default" data-bind="click: toggleExpand, localize: { text: 'hideCourseContent' }">Hide course introduction content</div>
+                <!-- /ko -->
+                <!-- ko ifnot: isExpanded -->
+                <div class="entity-content-action show cursor-default" data-bind="click: toggleExpand, localize: { text: 'showCourseContent' }">Show course introduction content</div>
+                <!-- /ko -->
+                <!-- /ko -->
+                <!-- ko ifnot: isContentDefined -->
+                <div class="entity-content-action add cursor-default" data-bind="click: addContent, localize: { text: 'addCourseContent' }">Add course introduction content</div>
+                <!-- /ko -->
+            </div>
+            <!-- ko if: isContentDefined -->
+            <!-- ko if: isExpanded -->
+            <div class="course-introduction-content-wrapper">
+                <div class="course-introduction-content" data-bind="css: { active: hasFocus }">
+                    <div class="course-introduction selectable" data-bind="ckeditor: { data: text, language: $root.language(), eventTracker: $root.eventTracker, isEditing: hasFocus, save: updateText, focus: beginEditText, blur: function (data, event) { updateText(data, event), endEditText(data, event); }, autosaveInterval: autosaveInterval, localizationManager: $root.localizationManager }"></div>
+                </div>
+            </div>  
+            <!-- /ko -->
+            <!-- /ko -->
+        </div>
 
         <div class="objectives-filters-holder clearfix">
             <aside class="objectives-filters-block">

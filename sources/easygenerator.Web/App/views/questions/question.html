@@ -23,21 +23,20 @@
 
         <div class="question-content-holder">
             <div class="question-content-block" data-bind="with: questionContent">
-
                 <div class="question-content-action-block">
-                    <!-- ko if: isQuestionContentDefined -->
+                    <!-- ko if: isContentDefined -->
                         <!-- ko if: isExpanded -->
-                            <span class="question-content-collapse-action" data-bind="click: toggleExpand, localize: { text: 'hideQuestionContent' }"></span>
+                            <span class="entity-content-action hide cursor-default" data-bind="click: toggleExpand, localize: { text: 'hideQuestionContent' }"></span>
                         <!-- /ko -->
                         <!-- ko ifnot: isExpanded -->
-                            <span class="question-content-expand-action" data-bind="click: toggleExpand, localize: { text: 'showQuestionConent' }"></span>
+                            <span class="entity-content-action show cursor-default" data-bind="click: toggleExpand, localize: { text: 'showQuestionConent' }"></span>
                         <!-- /ko -->
                     <!-- /ko -->
-                    <!-- ko ifnot: isQuestionContentDefined -->
-                        <span class="question-content-define-action" data-bind="click: addExtraQuestionContent, localize: { text: 'addExtraQuestionContent' }"></span>
+                    <!-- ko ifnot: isContentDefined -->
+                        <span class="entity-content-action add cursor-default" data-bind="click: addContent, localize: { text: 'addExtraQuestionContent' }"></span>
                     <!-- /ko -->
                 </div>
-                <!-- ko if: isQuestionContentDefined -->
+                <!-- ko if: isContentDefined -->
                 <div class="question-content-items-list" data-bind="visible: isExpanded">
                     <div class="question-content-item" data-bind="css: { active: hasFocus }">
                         <div class="question-content-wrapper">

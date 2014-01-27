@@ -66,6 +66,7 @@ namespace easygenerator.DomainModel.Tests.Entities
             course.TemplateSettings.Should().BeEmpty();
             course.CreatedBy.Should().Be(CreatedBy);
             course.ModifiedBy.Should().Be(CreatedBy);
+            course.IntroductionContent.Should().BeNull();
         }
 
         #endregion
@@ -669,5 +670,84 @@ namespace easygenerator.DomainModel.Tests.Entities
         }
 
         #endregion
+
+        #region UpdateIntroductionContent
+
+        [TestMethod]
+        public void UpdateIntroductionContent_ShouldUpdateContent()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+            var content = "Some content";
+            var user = "some user";
+
+            //Act
+            course.UpdateIntroductionContent(content, user);
+
+            //Assert
+            course.IntroductionContent.Should().Be(content);
+        }
+
+        [TestMethod]
+        public void UpdateIntroductionContent_ShouldUpdateModificationDate()
+        {
+            //Arrange
+            var content = "Some content";
+            var user = "some user";
+            DateTimeWrapper.Now = () => DateTime.Now;
+            var course = CourseObjectMother.Create();
+
+            var dateTime = DateTime.Now.AddDays(1);
+            DateTimeWrapper.Now = () => dateTime;
+            
+            //Act
+            course.UpdateIntroductionContent(content, user);
+
+            //Assert
+            course.ModifiedOn.Should().Be(dateTime);
+        }
+
+        [TestMethod]
+        public void UpdateIntroductionContent_ShouldUpdateModifiedBy()
+        {
+            //Arrange
+            var content = "Some content";
+            var user = "some user";
+            var course = CourseObjectMother.Create();
+
+            //Act
+            course.UpdateIntroductionContent(content, user);
+
+            //Assert
+            course.ModifiedBy.Should().Be(user);
+        }
+
+        [TestMethod]
+        public void UpdateIntroductionContents_ShouldThrowArgumentNullException_WhenModifiedByIsNull()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            Action action = () => course.UpdateIntroductionContent("some content", null);
+
+            //Assert
+            action.ShouldThrow<ArgumentNullException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        [TestMethod]
+        public void UpdateIntroductionContent_ShouldThrowArgumentException_WhenModifiedByIsEmpty()
+        {
+            //Arrange
+            var course = CourseObjectMother.Create();
+
+            //Act
+            Action action = () => course.UpdateIntroductionContent("someContent", "");
+
+            //Assert
+            action.ShouldThrow<ArgumentException>().And.ParamName.Should().Be("modifiedBy");
+        }
+
+        #endregion UpdateIntroductionContent
     }
 }

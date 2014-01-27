@@ -13,6 +13,7 @@
             this.template = spec.template;
             this.publishedPackageUrl = spec.publishedPackageUrl;
             this.deliveringState = constants.deliveringStates.notStarted;
+            this.introductionContent = spec.introductionContent;
         };
         
         Course.prototype.build = function () {

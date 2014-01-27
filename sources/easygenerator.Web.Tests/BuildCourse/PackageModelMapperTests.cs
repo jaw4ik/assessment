@@ -37,6 +37,7 @@ namespace easygenerator.Web.Tests.BuildCourse
             objective.Questions.First().UpdateContent("content", "someuser");
 
             var course = CourseObjectMother.Create("CourseTitle");
+            course.UpdateIntroductionContent("some content for course", "someUser");
             course.UpdateTemplate(TemplateObjectMother.Create(name: "Default"), "SomeUser");
             course.RelateObjective(objective, "SomeUser");
 
@@ -243,6 +244,34 @@ namespace easygenerator.Web.Tests.BuildCourse
 
             //Assert
             Assert.AreEqual(0, result.Objectives.Count);
+        }
+
+        [TestMethod]
+        public void MapCourse_ShouldMapCourseHasIntroductionContentPropertyAsTrue_WhenCourseHasIntroductionContent()
+        {
+            //Arrange
+            var course = GetCourse();
+            course.UpdateIntroductionContent("content", "someUser");
+
+            //Act
+            var result = _packageModelMapper.MapCourse(course);
+
+            //Assert
+            result.HasIntroductionContent.Should().BeTrue();
+        }
+
+        [TestMethod]
+        public void MapCourse_ShouldMapCourseHasIntroductionContentPropertyAsFalse_WhenCourseHasNotIntroductionContent()
+        {
+            //Arrange
+            var course = GetCourse();
+            course.UpdateIntroductionContent(null, "someUser");
+
+            //Act
+            var result = _packageModelMapper.MapCourse(course);
+
+            //Assert
+            result.HasIntroductionContent.Should().BeFalse();
         }
 
         #endregion

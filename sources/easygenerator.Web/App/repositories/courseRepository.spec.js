@@ -1482,6 +1482,178 @@
                 });
 
             });
+
+            describe('updateIntroductionContent:', function () {
+
+                it('should be function', function() {
+                    expect(repository.updateIntroductionContent).toBeFunction();
+                }); 
+
+                it('should return promise', function () {
+                    expect(repository.updateIntroductionContent('courseId')).toBePromise();
+                });
+                
+                describe('when courseId is not a string', function () {
+
+                    it('should reject promise with reason \'Course id is not a string\'', function () {
+                        var promise = repository.updateIntroductionContent({}, 'Some content');
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(promise).toBeRejectedWith('Course id is not a string');
+                        });
+                    });
+
+                });
+
+                describe('when course id is string', function() {
+
+                    it('should send request to /api/course/updateintroductioncontent', function () {
+                        var courseId = 'Some id';
+                        var promise = repository.updateIntroductionContent(courseId, 'some content');
+                        httpWrapperPost.resolve();
+
+                        waitsFor(function () {
+                            return !promise.isPending();
+                        });
+                        runs(function () {
+                            expect(httpWrapper.post).toHaveBeenCalledWith('api/course/updateintroductioncontent', jasmine.any(Object));
+                            expect(httpWrapper.post.mostRecentCall.args[1].courseId).toEqual(courseId);
+                            expect(httpWrapper.post.mostRecentCall.args[1].introductionContent).toEqual('some content');
+                        });
+                    });
+
+                    describe('and request fail', function() {
+
+                        it('should reject promise', function () {
+                            var reason = 'Some reason';
+                            var promise = repository.updateIntroductionContent('Some id', 'Some content');
+                            httpWrapperPost.reject(reason);
+
+                            waitsFor(function () {
+                                return !promise.isPending();
+                            });
+                            runs(function () {
+                                expect(promise).toBeRejectedWith(reason);
+                            });
+                        });
+
+                    });
+
+                    describe('and request successful', function() {
+
+                        describe('and response is not an object', function () {
+
+                            it('should reject promise with \'Response is not an object\'', function () {
+                                var promise = repository.updateIntroductionContent('Some id', 'Some content');
+                                httpWrapperPost.resolve('');
+
+                                waitsFor(function() {
+                                    return !promise.isPending();
+                                });
+                                runs(function() {
+                                    expect(promise).toBeRejectedWith('Response is not an object');
+                                });
+                            });
+                            
+                        });
+
+                        describe('and response is object', function() {
+
+                            describe('and when ModifiedOn is not a string', function () {
+
+                                it('should reject promise with \'Response does not have modification date\'', function () {
+
+                                    var promise = repository.updateIntroductionContent('some id', 'some content');
+                                    httpWrapperPost.resolve({ ModifiedOn: 1 });
+
+                                    waitsFor(function() {
+                                        return !promise.isPending();
+                                    });
+                                    runs(function() {
+                                        expect(promise).toBeRejectedWith('Response does not have modification date');
+                                    });
+
+                                });
+
+                            });
+
+                            describe('and when ModifiedOn is a string', function () {
+
+                                var newModifiedDate;
+
+                                beforeEach(function() {
+                                    newModifiedDate = "/Date(1378106938845)/";
+                                    httpWrapperPost.resolve({ ModifiedOn: newModifiedDate });
+                                });
+
+                                describe('and when course is not found in dataContext', function () {
+                                    
+                                    beforeEach(function() {
+                                        dataContext.courses = [];
+                                    });
+
+                                    it('should reject promise with \'Course does not exist in dataContext\'', function () {
+                                        var promise = repository.updateIntroductionContent('someid', 'some content');
+                                        waitsFor(function() {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function() {
+                                            expect(promise).toBeRejectedWith('Course does not exist in dataContext');
+                                        });
+                                    });
+
+                                });
+
+                                describe('and when course is found in dataContext', function () {
+
+                                    var course;
+
+                                    beforeEach(function () {
+                                        course = {
+                                            id: 'Some id',
+                                            title: 'Original title',
+                                            modifiedOn: 'Some date'
+                                        };
+
+                                        dataContext.courses = [course];
+                                    });
+
+                                    it('should update content in course', function() {
+                                        var promise = repository.updateIntroductionContent(course.id, 'some content');
+
+                                        waitsFor(function() {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function() {
+                                            expect(course.introductionContent).toBe('some content');
+                                        });
+                                    });
+
+                                    it('should update modifiedDate', function() {
+                                        var promise = repository.updateIntroductionContent(course.id, 'some content');
+
+                                        waitsFor(function () {
+                                            return !promise.isPending();
+                                        });
+                                        runs(function () {
+                                            expect(course.modifiedOn).toEqual(utils.getDateFromString(newModifiedDate));
+                                        });
+                                    });
+
+                                });
+
+                            });
+
+                        });
+
+                    });
+
+                });
+
+            });
         });
 
     });

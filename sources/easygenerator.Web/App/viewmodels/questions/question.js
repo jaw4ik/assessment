@@ -1,5 +1,8 @@
-﻿define(['viewmodels/questions/answers', 'viewmodels/questions/learningContents', 'plugins/router', 'eventTracker', 'models/answerOption', 'models/learningContent', 'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify', 'repositories/answerRepository', 'repositories/learningContentRepository', 'viewModels/questions/questionContent', 'clientContext'],
-    function (vmAnswers, vmLearningContents, router, eventTracker, answerOptionModel, learningContentModel, localizationManager, constants, questionRepository, objectiveRepository, system, notify, answerRepository, learningContentRepository, vmQuestionContent, clientContext) {
+﻿define(['viewmodels/questions/answers', 'viewmodels/questions/learningContents', 'plugins/router', 'eventTracker', 'models/answerOption', 'models/learningContent',
+        'localization/localizationManager', 'constants', 'repositories/questionRepository', 'repositories/objectiveRepository', 'durandal/system', 'notify', 'repositories/answerRepository',
+        'repositories/learningContentRepository', 'clientContext', 'viewmodels/common/contentField'],
+    function (vmAnswers, vmLearningContents, router, eventTracker, answerOptionModel, learningContentModel, localizationManager, constants, questionRepository, objectiveRepository,
+        system, notify, answerRepository, learningContentRepository, clientContext, vmContentField) {
         "use strict";
         var
             events = {
@@ -22,6 +25,12 @@
             sendEvent = function (eventName) {
                 eventTracker.publish(eventName);
             };
+        
+        var eventsForQuestionContent = {
+            addContent: 'Add extra question content',
+            beginEditText: 'Start editing question content',
+            endEditText: 'End editing question content'
+        };
 
         var
             objectiveId = '',
@@ -90,7 +99,7 @@
                     return questionRepository.getById(objectiveId, questionId).then(function (question) {
                         that.isCreatedQuestion(lastCreatedQuestionId === question.id);
                         that.title(question.title);
-                        that.questionContent = vmQuestionContent(questionId, question.content);
+                        that.questionContent = vmContentField(question.content, eventsForQuestionContent, true, function (content) { return questionRepository.updateContent(questionId, content); });
                     });
                 }).then(function () {
                     return answerRepository.getCollection(questionId).then(function (answerOptions) {

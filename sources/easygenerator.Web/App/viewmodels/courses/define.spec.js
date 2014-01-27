@@ -1016,6 +1016,22 @@
 
             });
 
+            describe('courseIntroductionContent:', function () {
+
+                it('should be object', function() {
+                    expect(viewModel.courseIntroductionContent).toBeObject();
+                });
+
+            });
+
+            describe('language:', function () {
+
+                it('should be observable', function() {
+                    expect(viewModel.language).toBeObservable();
+                });
+
+            });
+
         });
 
     });
