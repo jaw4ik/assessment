@@ -91,7 +91,7 @@ namespace easygenerator.Web.Controllers
 
             file.SaveAs(_storage.MapFilePath(image.FileName));
 
-            return JsonSuccess(new { url = _urlHelperWrapper.RouteImageUrl(image.FileName) }, System.Net.Mime.MediaTypeNames.Text.Plain);
+            return JsonSuccess(new { url = _urlHelperWrapper.RouteImageUrl(image.FileName) }, System.Net.Mime.MediaTypeNames.Text.Html);
         }
 
     }
