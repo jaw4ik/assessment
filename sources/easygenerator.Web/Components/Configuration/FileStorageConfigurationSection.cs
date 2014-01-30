@@ -31,17 +31,5 @@ namespace easygenerator.Web.Components.Configuration
             }
         }
 
-        [ConfigurationProperty("Url", IsRequired = true)]
-        public string Url
-        {
-            get
-            {
-                return (string)this["Url"];
-            }
-            set
-            {
-                this["Url"] = value;
-            }
-        }
     }
 }

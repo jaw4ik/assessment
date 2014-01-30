@@ -46,7 +46,6 @@ namespace easygenerator.Web.Tests.Controllers.Api
 
             _user = Substitute.For<IPrincipal>();
             _context = Substitute.For<HttpContextBase>();
-            _context = Substitute.For<HttpContextBase>();
 
             _context.User.Returns(_user);
 

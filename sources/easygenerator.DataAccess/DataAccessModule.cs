@@ -13,7 +13,7 @@ namespace easygenerator.DataAccess
                 .As<IDataContext>()
                 .As<IUnitOfWork>()
                 .InstancePerLifetimeScope();
-            
+
             builder.RegisterType<ObjectiveRepository>()
                 .As<IObjectiveRepository>()
                 .As<IQuerableRepository<Objective>>();
@@ -50,6 +50,10 @@ namespace easygenerator.DataAccess
             builder.RegisterType<MailNotificationRepository>()
                 .As<IMailNotificationRepository>()
                 .As<IQuerableRepository<MailNotification>>();
+
+            builder.RegisterType<ImageFileRepository>()
+                .As<IImageFileRepository>()
+                .As<IQuerableRepository<ImageFile>>();
 
             base.Load(builder);
         }

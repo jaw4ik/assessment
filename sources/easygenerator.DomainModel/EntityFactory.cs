@@ -14,7 +14,7 @@ namespace easygenerator.DomainModel
         HelpHint HelpHint(string name, string createdBy);
         MailNotification MailNotification(string body, string subject, string from, string to, string cc = null,string bcc = null);
         PasswordRecoveryTicket PasswordRecoveryTicket(User user);
-
+        ImageFile ImageFile(string title, string createdBy);
     }
 
     public class EntityFactory : IEntityFactory
@@ -63,6 +63,11 @@ namespace easygenerator.DomainModel
         public PasswordRecoveryTicket PasswordRecoveryTicket(User user)
         {
             return new PasswordRecoveryTicket();
+        }
+
+        public ImageFile ImageFile(string title, string createdBy)
+        {
+            return new ImageFile(title, createdBy);
         }
     }
 }

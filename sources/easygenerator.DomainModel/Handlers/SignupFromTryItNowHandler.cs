@@ -17,13 +17,15 @@ namespace easygenerator.DomainModel.Handlers
         private readonly IQuerableRepository<Answer> _answerRepository;
         private readonly IQuerableRepository<LearningContent> _learningContentRepository;
         private readonly IHelpHintRepository _helpHintRepository;
+        private readonly IImageFileRepository _imageFileRepository;
 
         public SignupFromTryItNowHandler(IQuerableRepository<Course> courseRepository,
             IQuerableRepository<Objective> objectiveRepository,
             IQuerableRepository<Question> qustionRepository,
             IQuerableRepository<Answer> answerRepository,
             IQuerableRepository<LearningContent> learningContentRepository,
-            IHelpHintRepository helpHintRepository)
+            IHelpHintRepository helpHintRepository,
+            IImageFileRepository imageFileRepository)
         {
             _courseRepository = courseRepository;
             _objectiveRepository = objectiveRepository;
@@ -31,6 +33,7 @@ namespace easygenerator.DomainModel.Handlers
             _answerRepository = answerRepository;
             _learningContentRepository = learningContentRepository;
             _helpHintRepository = helpHintRepository;
+            _imageFileRepository = imageFileRepository;
         }
 
         public void HandleOwnership(string tryItNowUsername, string signUpUsername)
@@ -63,6 +66,11 @@ namespace easygenerator.DomainModel.Handlers
             foreach (var helpHint in _helpHintRepository.GetHelpHintsForUser(tryItNowUsername))
             {
                 helpHint.DefineCreatedBy(signUpUsername);
+            }
+
+            foreach (var imageFile in _imageFileRepository.GetCollection().Where(e => e.CreatedBy == tryItNowUsername))
+            {
+                imageFile.DefineCreatedBy(signUpUsername);
             }
         }
     }

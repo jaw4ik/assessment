@@ -108,10 +108,15 @@
     <Compile Include="Migrations\201401271327589_AddColumnIntroductionContentToTableCourse.Designer.cs">
       <DependentUpon>201401271327589_AddColumnIntroductionContentToTableCourse.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201401291459294_AddImageFileTable.cs" />
+    <Compile Include="Migrations\201401291459294_AddImageFileTable.Designer.cs">
+      <DependentUpon>201401291459294_AddImageFileTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CourseRepository.cs" />
     <Compile Include="Repositories\HelpHintRepository.cs" />
+    <Compile Include="Repositories\ImageFileRepository.cs" />
     <Compile Include="Repositories\MailNotificationRepository.cs" />
     <Compile Include="Repositories\ObjectiveRepository.cs" />
     <Compile Include="Repositories\PasswordRecoveryTicketRepository.cs" />
@@ -170,6 +175,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201401271327589_AddColumnIntroductionContentToTableCourse.resx">
       <DependentUpon>201401271327589_AddColumnIntroductionContentToTableCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201401291459294_AddImageFileTable.resx">
+      <DependentUpon>201401291459294_AddImageFileTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

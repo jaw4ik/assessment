@@ -123,6 +123,28 @@ runs(function () {&#xD;
 	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8C3A0FD38B0DE74D8F8CB798DCAAF90A/Text/@EntryValue">xdescribe('$WHEN_CONDITION$', function () {&#xD;
 	$END$&#xD;
 });</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FD35D598580F84B80C4E4D2AF1B1E0F/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FD35D598580F84B80C4E4D2AF1B1E0F/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FD35D598580F84B80C4E4D2AF1B1E0F/Field/=TestClass/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FD35D598580F84B80C4E4D2AF1B1E0F/Field/=TestClass/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FD35D598580F84B80C4E4D2AF1B1E0F/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FD35D598580F84B80C4E4D2AF1B1E0F/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FD35D598580F84B80C4E4D2AF1B1E0F/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FD35D598580F84B80C4E4D2AF1B1E0F/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FD35D598580F84B80C4E4D2AF1B1E0F/Shortcut/@EntryValue">utclass</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FD35D598580F84B80C4E4D2AF1B1E0F/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FD35D598580F84B80C4E4D2AF1B1E0F/Text/@EntryValue">[TestClass]&#xD;
+public class $TestClass$&#xD;
+{&#xD;
+&#xD;
+    [TestInitialize]&#xD;
+    public void InitializeContext()&#xD;
+    {&#xD;
+		$END$&#xD;
+    }&#xD;
+&#xD;
+&#xD;
+}</s:String>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=987F67E71A985743986833D15AC278D9/@KeyIndexDefined">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=987F67E71A985743986833D15AC278D9/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=987F67E71A985743986833D15AC278D9/Field/=OBJECT/@KeyIndexDefined">True</s:Boolean>

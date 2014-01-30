@@ -28,39 +28,35 @@
     height: 0px; 
     border: none;
 }
-.file_upload_button + span
-{
-    display: inline-block !important;
-    width: 16px !important;
-    height: 16px !important;
+
+.file_upload_preloader {
+    display: inline-block;
+
+    background: url('loader.gif') no-repeat !important;
+    width: 15px !important;
+    height: 15px !important;
 
     margin: 5px !important;
     vertical-align: top !important;
+}
 
-    background: url(info.png) no-repeat !important;
-}
-.file_upload_button + span.loading
-{
-    background: url(loader.gif) no-repeat !important;
-}
-.file_upload_button + span.failed
-{
-    background: url(failed.png) no-repeat !important;
+.file_upload_status {
+    background: url('failed.png') no-repeat;
+    padding-left: 20px;
+    margin-top: 10px;
+    margin-right: -5px;
+    color: #8D8D8D;
+    white-space: normal;
 }
 
 /*hack for IE 9*/
 .ie9 .file_upload_button {
-    margin-top: -2px !important;
+    height: 22px !important; 
 }
-.ie9 .file_upload_button + span {
-    margin-top: 3px !important;
-}
+
 /*hack for IE 10*/
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
     .file_upload_button {
-        margin-top: -2px !important;
-    }
-    .file_upload_button + span {
-        margin-top: 3px !important;
+        height: 22px !important; 
     }
 }

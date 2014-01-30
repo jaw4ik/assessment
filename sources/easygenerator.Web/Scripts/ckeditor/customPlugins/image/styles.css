@@ -1,0 +1,31 @@
+﻿.image-dialog-top-part {
+    margin-top: -10px !important;
+    margin-bottom: 10px !important;
+}
+
+.image-dialog-top-part .description-text {
+    white-space: normal;
+    color: #8D8D8D;
+}
+
+.image-dialog-top-part > tbody > tr > td {
+    border-left: 1px solid #BFBFBF;
+    padding-left: 10px;
+}
+
+.image-dialog-top-part > tbody > tr > td.cke_dialog_ui_hbox_first {
+    border-left: none;
+    padding-left: 0;
+}
+
+.image-dialog-top-part-column > table > tbody > tr > td {
+    white-space: normal;
+}
+
+.cke_dialog .ImagePreviewBox {
+    width: 404px !important;
+    height: 270px !important;
+    border-width: 1px !important;
+    border-radius: 3px;
+    padding: 6px !important;
+}

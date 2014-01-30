@@ -13,6 +13,8 @@ namespace easygenerator.Web.Configuration
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapMvcAttributeRoutes();
+
             #region Errors
 
             routes.MapRoute(
@@ -336,22 +338,6 @@ namespace easygenerator.Web.Configuration
 
             #endregion;
 
-            #region FileStorage
-
-            routes.MapRoute(
-                name: "Upload",
-                url: "api/filestorage/upload",
-                defaults: new { controller = "FileStorage", action = "Upload" }
-            );
-
-            routes.MapRoute(
-                name: "GetFile",
-                url: "filestorage/{fileId}",
-                defaults: new { controller = "FileStorage", action = "Get", fileId = "", }
-            );
-
-            #endregion
-
             #region Help hints
 
             routes.MapRoute(
@@ -389,8 +375,6 @@ namespace easygenerator.Web.Configuration
                 url: "",
                 defaults: new { controller = "Application", action = "Index" }
             );
-
-            routes.MapMvcAttributeRoutes();
         }
     }
 }

@@ -24,6 +24,7 @@ namespace easygenerator.DomainModel.Tests.Handlers
         private IQuerableRepository<LearningContent> _learningContentRepository;
         private IQuerableRepository<Course> _courseRepository;
         private IHelpHintRepository _helpHintRepository;
+        private IImageFileRepository _imageFileRepository;
 
         [TestInitialize]
         public void InitializeContext()
@@ -34,8 +35,9 @@ namespace easygenerator.DomainModel.Tests.Handlers
             _learningContentRepository = Substitute.For<IQuerableRepository<LearningContent>>();
             _courseRepository = Substitute.For<IQuerableRepository<Course>>();
             _helpHintRepository = Substitute.For<IHelpHintRepository>();
+            _imageFileRepository = Substitute.For<IImageFileRepository>();
 
-            _handler = new SignupFromTryItNowHandler(_courseRepository, _objectiveRepository, _questionRepository, _answerRepository, _learningContentRepository, _helpHintRepository);
+            _handler = new SignupFromTryItNowHandler(_courseRepository, _objectiveRepository, _questionRepository, _answerRepository, _learningContentRepository, _helpHintRepository, _imageFileRepository);
         }
 
         #region Courses
@@ -193,5 +195,38 @@ namespace easygenerator.DomainModel.Tests.Handlers
         }
 
         #endregion
+
+        #region Image files
+
+        [TestMethod]
+        public void Handle_ShouldDefineCreatedByForImageFilesThatWereCreatedInTryMode()
+        {
+            //Arrange
+            var imageFile = Substitute.For<ImageFile>("image.jpg", TryItNowUsername);
+            _imageFileRepository.GetCollection().Returns(new List<ImageFile>() { imageFile });
+
+            //Action
+            _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
+
+            //Assert
+            imageFile.Received().DefineCreatedBy(SignUpUsername);
+        }
+
+        [TestMethod]
+        public void Handle_ShouldNotDefineCreatedByForImageFilesThatWereCreatedByOtherUser()
+        {
+            //Arrange
+            var imageFile = Substitute.For<ImageFile>("image.jpg", OtherExistingUser);
+            _imageFileRepository.GetCollection().Returns(new List<ImageFile>() { imageFile });
+
+            //Action
+            _handler.HandleOwnership(TryItNowUsername, SignUpUsername);
+
+            //Assert
+            imageFile.DidNotReceive().DefineCreatedBy(Arg.Any<string>());
+        }
+
+        #endregion
+
     }
 }

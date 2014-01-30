@@ -25,7 +25,6 @@
             if (!!offsetTop)
                 CKEDITOR.config.floatSpaceWindowOffsetTop = offsetTop;
         };
-        CKEDITOR.config.baseFloatZIndex = 99;
 
         $(element).html(data());
         $(element).attr('contenteditable', true);

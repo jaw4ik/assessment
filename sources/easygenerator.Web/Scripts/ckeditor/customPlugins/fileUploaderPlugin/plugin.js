@@ -7,11 +7,11 @@
             fileUploadButton: function (dialog, elementDefinition, htmlList) {//dialog, elementDefinition, htmlList
 
                 var
-                    url = 'api/filestorage/upload',
-                    maxFileSize = 10, //Mb
-                    allowedFileExtensions = ['GIF', 'JPEG', 'JPG', 'PNG'],
+                    url = 'storage/image/upload',
+                    maxFileSize = 10, //MB
+                    allowedFileExtensions = ['jpeg', 'jpg', 'png', 'gif'],
 
-                    fileInputId, frameId, statusContainerId,
+                    fileInputId, frameId, preloaderContainerId, statusContainerId,
                     lang = editor.lang.fileUploaderPlugin,
                     titleInstructions = lang.fileSizeNotMoreThan + ' ' + maxFileSize + 'MB\n' + lang.extensions + ': ' + allowedFileExtensions.join(', ');
 
@@ -20,46 +20,50 @@
                 }, null, function () {
                     frameId = CKEDITOR.tools.getNextId() + "_frame";
                     fileInputId = CKEDITOR.tools.getNextId() + "_fileInput";
+                    preloaderContainerId = CKEDITOR.tools.getNextId() + "_preloader";
                     statusContainerId = CKEDITOR.tools.getNextId() + "_status";
 
                     var content = [
                         '<a class="cke_dialog_ui_button file_upload_button" href="javascript:void(0)">',
-                            lang.chooseFile,
+                            lang.uploadFile,
                             '<form action="', url, '" method="post" enctype="multipart/form-data" encoding="multipart/form-data" target="', frameId, '">',
-                                '<input type="file" id="', fileInputId, '" name="', fileInputId, '" />',
+                                '<input type="file" id="', fileInputId, '" name="file" />',
                             '</form>',
                             '<iframe id="', frameId, '" name="', frameId, '"></iframe>',
                         '</a>',
-                        '<span id="', statusContainerId, '"></span>'
+                        '<span class="file_upload_preloader" id="', preloaderContainerId, '"></span>',
+                        '<div class="file_upload_status" id="', statusContainerId, '">File not allowed</div>'
                     ];
                     return content.join('');
                 });
 
                 dialog.on('load', function () {
                     var
+                        preloaderContainer = CKEDITOR.document.getById(preloaderContainerId),
                         statusContainer = CKEDITOR.document.getById(statusContainerId),
                         inputContainer = CKEDITOR.document.getById(fileInputId),
                         fileFrame = CKEDITOR.document.getById(frameId);
 
-                    if (!statusContainer || !inputContainer || !fileFrame) {
+                    if (!preloaderContainer || !statusContainer || !inputContainer || !fileFrame) {
                         throw "[FileUploaderPlugin] error: dialog data have not been loaded.";
                     }
 
                     var
                         statusManager = {
                             info: function () {
-                                this.container.className = "";
-                                this.container.title = titleInstructions;
+                                this.$preloaderContainer.hide();
+                                this.$container.hide();
                             },
-                            failed: function () {
-                                this.container.className = "failed";
-                                this.container.title = lang.uploadFailed + ':\n' + titleInstructions;
+                            failed: function (reason) {
+                                this.$preloaderContainer.hide();
+                                this.$container.text(reason);
+                                this.$container.show();
                             },
                             loading: function () {
-                                this.container.className = "loading";
-                                this.container.title = "";
+                                this.$preloaderContainer.show();
                             },
-                            container: statusContainer.$
+                            $container: $(statusContainer.$),
+                            $preloaderContainer: $(preloaderContainer.$)
                         },
 
                         inputManager = {
@@ -83,26 +87,26 @@
                                         inputManager.submit();
                                         return;
                                     }
-                                    
+
                                     if (this.files.length == 0) {
-                                        statusManager.failed();
                                         return;
                                     }
-                                    
-                                    var file = this.files[0];
+
+                                    var
+                                        file = this.files[0],
+                                        fileExtension = file.name.split('.').pop().toLowerCase();
+
+                                    if ($.inArray(fileExtension, allowedFileExtensions) === -1) {
+                                        statusManager.failed(lang.extensionNotSupported + fileExtension);
+                                        return;
+                                    }
+
                                     if (file.size > maxFileSize * 1024 * 1024) {
-                                        statusManager.failed();
+                                        statusManager.failed(lang.fileCannotBeLargerThan + maxFileSize + ' MB');
                                         return;
                                     }
-                                    
-                                    var fileExtension = file.name.split('.').pop().toLowerCase();
-                                    for (var i = 0; i < allowedFileExtensions.length; i++) {
-                                        if (fileExtension == allowedFileExtensions[i].toLowerCase()) {
-                                            inputManager.submit();
-                                            return;
-                                        }
-                                    }
-                                    statusManager.failed();
+
+                                    inputManager.submit();
                                 };
                                 return c;
                             })()
@@ -126,7 +130,7 @@
                                     statusManager.info();
                                 }
                             } catch (e) {
-                                statusManager.failed();
+                                statusManager.failed(lang.somethingWentWrong);
                             } finally {
                                 inputManager.enable();
                             }

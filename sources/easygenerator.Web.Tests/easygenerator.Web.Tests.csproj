@@ -128,13 +128,13 @@
     <Compile Include="Controllers\Api\FeedbackControllerTests.cs" />
     <Compile Include="Controllers\Api\LearningContentControllerTests.cs" />
     <Compile Include="Controllers\Api\HelpHintControllerTests.cs" />
-    <Compile Include="Controllers\FileStorageControllerTests.cs" />
     <Compile Include="Controllers\Api\ObjectiveControllerTests.cs" />
     <Compile Include="Controllers\Api\QuestionControllerTests.cs" />
     <Compile Include="Controllers\Api\TemplateControllerTests.cs" />
     <Compile Include="Controllers\Api\UserControllerTests.cs" />
     <Compile Include="Controllers\ApplicationControllerTests.cs" />
     <Compile Include="Controllers\ErrorControllerTests.cs" />
+    <Compile Include="Controllers\ImageControllerTests.cs" />
     <Compile Include="Controllers\MaintenanceControllerTest.cs" />
     <Compile Include="Controllers\PublishedPackageControllerTest.cs" />
     <Compile Include="DomainEvents\Events\UserSignedUpEventTest.cs" />

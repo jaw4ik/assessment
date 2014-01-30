@@ -51,5 +51,10 @@ namespace easygenerator.Web.Tests.Utils
 
             return actual;
         }
+
+        public static object ShouldQuackLike(this object actual, object expected)
+        {
+            return ShouldBeSimilar(actual, expected);
+        }
     }
 }

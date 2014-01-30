@@ -95,15 +95,12 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<User>().Property(e => e.AccessType).IsRequired();
             modelBuilder.Entity<User>().HasMany(e => e.PasswordRecoveryTicketCollection).WithRequired(e => e.User);
 
-            modelBuilder.Entity<UserSettings>().HasKey(e => e.Id);
             modelBuilder.Entity<UserSettings>().Property(e => e.IsShowIntroductionPage).IsRequired();
             modelBuilder.Entity<UserSettings>().HasRequired(e => e.User);
 
-            modelBuilder.Entity<PasswordRecoveryTicket>().HasKey(e => e.Id);
             modelBuilder.Entity<PasswordRecoveryTicket>().HasRequired(e => e.User);
             modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.CreatedBy);
             modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.ModifiedBy);
-            modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.CreatedBy);
             modelBuilder.Entity<PasswordRecoveryTicket>().Ignore(e => e.ModifiedOn);
 
             modelBuilder.Entity<HelpHint>().Property(e => e.Name).IsRequired().HasMaxLength(254);
@@ -112,8 +109,6 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<Template>().Property(e => e.Image).IsRequired();
             modelBuilder.Entity<Template>().HasMany(e => e.Courses);
 
-            modelBuilder.Entity<MailNotification>().HasKey(e => e.Id);
-            modelBuilder.Entity<MailNotification>().Property(e => e.CreatedOn).IsRequired();
             modelBuilder.Entity<MailNotification>().Property(e => e.Body).IsRequired();
             // ignore useless properties for mailnotification entities
             modelBuilder.Entity<MailNotification>().Ignore(e => e.ModifiedOn);
@@ -125,6 +120,8 @@ namespace easygenerator.DataAccess
             modelBuilder.Entity<MailNotification>().Property(e => e.CCEmailAddresses).HasMaxLength(511);
             modelBuilder.Entity<MailNotification>().Property(e => e.BCCEmailAddresses).HasMaxLength(511);
             modelBuilder.Entity<MailNotification>().Property(e => e.FromEmailAddress).HasMaxLength(127).IsRequired();
+
+            modelBuilder.Entity<ImageFile>().Property(e => e.Title).HasMaxLength(255).IsRequired();
 
             base.OnModelCreating(modelBuilder);
         }

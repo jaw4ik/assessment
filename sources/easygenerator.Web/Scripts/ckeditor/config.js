@@ -18,8 +18,9 @@ CKEDITOR.editorConfig = function (config) {
     CKEDITOR.plugins.addExternal('image', CKEDITOR.basePath + 'customPlugins/image/', 'plugin.js');
     CKEDITOR.plugins.addExternal('floatingspace', CKEDITOR.basePath + 'customPlugins/floatingspace/', 'plugin.js');
     CKEDITOR.plugins.addExternal('mediaembed', CKEDITOR.basePath + 'customPlugins/mediaembed/', 'plugin.js');
+    CKEDITOR.plugins.addExternal('imageLibraryPlugin', CKEDITOR.basePath + 'customPlugins/imageLibraryPlugin/', 'plugin.js');
 
-    config.extraPlugins = 'semanticTagsPlugin,fileUploaderPlugin,image,floatingspace,mediaembed';
+    config.extraPlugins = 'semanticTagsPlugin,fileUploaderPlugin,image,floatingspace,mediaembed,imageLibraryPlugin';
     config.extraAllowedContent = 'iframe';
 
     config.removeFormatTags = 'b,big,code,del,dfn,em,font,i,ins,kbd,q,s,samp,small,span,strike,strong,sub,sup,tt,u,var,abbr,acronym,blockquote,cite,mark,figcaption,time';
@@ -32,4 +33,7 @@ CKEDITOR.editorConfig = function (config) {
             'underline', 'removeformat', 'numberedlist', 'bulletedlist', 'link', 'unlink', 'table', 'image', 'mediaembed'];
 
     config.magicline_color = '#aeb3b9';
+
+    config.baseFloatZIndex = 200;
+    config.dialog_noConfirmCancel = true;
 };

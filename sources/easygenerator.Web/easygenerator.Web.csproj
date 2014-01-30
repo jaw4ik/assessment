@@ -284,7 +284,9 @@
     <Content Include="BuildCourse\Scorm\Templates\imsmanifest.cshtml" />
     <Compile Include="Components\ActionFilters\Authorization\RequireAccessAttribute.cs" />
     <Compile Include="Components\ActionFilters\HandleErrorAttribute.cs" />
+    <Compile Include="Components\ActionResults\BadRequestResult.cs" />
     <Compile Include="Components\ActionResults\ForbiddenResult.cs" />
+    <Compile Include="Components\ActionResults\ImageResult.cs" />
     <Compile Include="Components\Configuration\MailChimpConfigurationSection.cs" />
     <Compile Include="Components\HttpRuntimeWrapper.cs" />
     <Compile Include="BuildCourse\ICourseBuilder.cs" />
@@ -333,13 +335,13 @@
     <Compile Include="Controllers\Api\HelpHintController.cs" />
     <Compile Include="Controllers\Api\LearningContentController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\FileStorageController.cs" />
     <Compile Include="Controllers\Api\ObjectiveController.cs" />
     <Compile Include="Controllers\Api\QuestionController.cs" />
     <Compile Include="Controllers\Api\TemplateController.cs" />
     <Compile Include="Controllers\Api\UserController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Components\DefaultController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="Controllers\PublishedPackageController.cs" />
     <Compile Include="DomainEvents\Handlers\SendMailAboutFeedbackFromUser.cs" />
@@ -447,6 +449,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Storage\Storage.cs" />
     <Compile Include="ViewModels\Account\UserSignUpViewModel.cs" />
     <Compile Include="ViewModels\Objective\CreateObjectiveViewModel.cs" />
     <Content Include="App\repositories\templateRepository.js" />
@@ -528,12 +531,19 @@
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\styles.css" />
     <Content Include="Scripts\ckeditor\customPlugins\floatingspace\plugin.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\imageLibraryPlugin\dialogs\imageLibrary.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\imageLibraryPlugin\icons\error.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\imageLibraryPlugin\icons\no-images.png" />
+    <Content Include="Scripts\ckeditor\customPlugins\imageLibraryPlugin\lang\en.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\imageLibraryPlugin\plugin.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\imageLibraryPlugin\styles.css" />
     <Content Include="Scripts\ckeditor\customPlugins\image\dialogs\image.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\icons\hidpi\image.png" />
     <Content Include="Scripts\ckeditor\customPlugins\image\icons\image.png" />
     <Content Include="Scripts\ckeditor\customPlugins\image\images\noimage.png" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\en.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\plugin.js" />
+    <Content Include="Scripts\ckeditor\customPlugins\image\styles.css" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\icons\hidpi\mediaembed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\icons\mediaembed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\en.js" />

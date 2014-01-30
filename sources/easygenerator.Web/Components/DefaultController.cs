@@ -35,7 +35,7 @@ namespace easygenerator.Web.Components
 
         protected ActionResult BadRequest()
         {
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            return new BadRequestResult();
         }
 
         protected string GetCurrentUsername()

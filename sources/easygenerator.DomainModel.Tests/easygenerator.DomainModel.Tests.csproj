@@ -64,6 +64,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Entities\AnswerTests.cs" />
+    <Compile Include="Entities\ImageFileTest.cs" />
     <Compile Include="Entities\LearningContentTests.cs" />
     <Compile Include="Entities\MailNotificationTests.cs" />
     <Compile Include="Entities\ObjectiveTests.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Handlers\SignupFromTryItNowHandlerTests.cs" />
     <Compile Include="ObjectMothers\AnswerObjectMother.cs" />
     <Compile Include="ObjectMothers\CourseTemplateSettingsObjectMother.cs" />
+    <Compile Include="ObjectMothers\ImageFileObjectMother.cs" />
     <Compile Include="ObjectMothers\MailNotificationObjectMother.cs" />
     <Compile Include="ObjectMothers\CourseObjectMother.cs" />
     <Compile Include="ObjectMothers\HelpHintObjectMother.cs" />

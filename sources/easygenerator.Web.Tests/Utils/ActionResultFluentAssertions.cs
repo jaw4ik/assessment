@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mime;
 using System.Web.Mvc;
 using easygenerator.Web.Components.ActionResults;
 using FluentAssertions.Execution;
@@ -74,6 +75,49 @@ namespace easygenerator.Web.Tests.Utils
         }
     }
 
+    public class BadRequestResultAssertions : ObjectAssertions
+    {
+        public BadRequestResultAssertions(BadRequestResult subject)
+            : base(subject)
+        {
+
+        }
+
+        public HttpStatusCodeResult And
+        {
+            get
+            {
+                return Subject as BadRequestResult;
+            }
+        }
+    }
+
+    public class FileResultAssertions : ObjectAssertions
+    {
+        public FileResultAssertions(FileResult subject)
+            : base(subject)
+        {
+        }
+
+        public FileResult And
+        {
+            get { return Subject as FileResult; }
+        }
+    }
+
+    public class FilePathResultAssertions : ObjectAssertions
+    {
+        public FilePathResultAssertions(FilePathResult subject)
+            : base(subject)
+        {
+        }
+
+        public FilePathResult And
+        {
+            get { return Subject as FilePathResult; }
+        }
+    }
+
     public class HttpStatusCodeResultAssertions : ObjectAssertions
     {
         public HttpStatusCodeResultAssertions(HttpStatusCodeResult subject)
@@ -87,6 +131,23 @@ namespace easygenerator.Web.Tests.Utils
             get
             {
                 return Subject as HttpStatusCodeResult;
+            }
+        }
+    }
+
+    public class ImageResultAssertions : ObjectAssertions
+    {
+        public ImageResultAssertions(ImageResult subject)
+            : base(subject)
+        {
+
+        }
+
+        public ImageResult And
+        {
+            get
+            {
+                return Subject as ImageResult;
             }
         }
     }
@@ -123,6 +184,7 @@ namespace easygenerator.Web.Tests.Utils
             return new JsonErrorResultAssertions(value.Subject as JsonErrorResult);
         }
 
+
         public static HttpNotFoundResultAssertions BeHttpNotFoundResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
         {
             Execute.Assertion
@@ -131,6 +193,36 @@ namespace easygenerator.Web.Tests.Utils
                 .FailWith("Expected \"HttpNotFoundResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
 
             return new HttpNotFoundResultAssertions(value.Subject as HttpNotFoundResult);
+        }
+
+        public static BadRequestResultAssertions BeBadRequestResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is BadRequestResult)
+                .FailWith("Expected \"BadRequestResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
+
+            return new BadRequestResultAssertions(value.Subject as BadRequestResult);
+        }
+
+        public static FileResultAssertions BeFileResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is FileResult)
+                .FailWith("Expected \"FilePathResult\", but got {0}", value.Subject.GetType().Name);
+
+            return new FileResultAssertions(value.Subject as FileResult);
+        }
+
+        public static FilePathResultAssertions BeFilePathResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is FilePathResult)
+                .FailWith("Expected \"FilePathResult\", but got {0}", value.Subject.GetType().Name);
+
+            return new FilePathResultAssertions(value.Subject as FilePathResult);
         }
 
         public static HttpStatusCodeResultAssertions BeHttpStatusCodeResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
@@ -142,6 +234,17 @@ namespace easygenerator.Web.Tests.Utils
 
             return new HttpStatusCodeResultAssertions(value.Subject as HttpStatusCodeResult);
         }
+
+        public static ImageResultAssertions BeImageResult(this ObjectAssertions value, string reason = "", params object[] reasonArgs)
+        {
+            Execute.Assertion
+                .BecauseOf(reason, reasonArgs)
+                .ForCondition(value.Subject is ImageResult)
+                .FailWith("Expected \"ImageResult\", but got {0}", GetSubjectTypeErrorMessage(value.Subject));
+
+            return new ImageResultAssertions(value.Subject as ImageResult);
+        }
+
 
         private static string GetSubjectTypeErrorMessage(object subject)
         {

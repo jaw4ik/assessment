@@ -99,6 +99,23 @@ namespace easygenerator.DomainModel.Tests
             helpHint.Name.Should().Be(name);
             helpHint.CreatedBy.Should().Be(createdBy);
         }
+
+        [TestMethod]
+        public void ImageFile_ShouldCreateImageFileObject()
+        {
+            //Arrange
+            var imageTitle = "image.jpg";
+            var createdBy = "author@easygenerator.com";
+
+            //Act
+            var imageFile = _entityFactory.ImageFile(imageTitle, createdBy);
+
+            //Assert
+            imageFile.Should().NotBeNull();
+            imageFile.Title.Should().Be(imageTitle);
+            imageFile.CreatedBy.Should().Be(createdBy);
+            imageFile.ModifiedBy.Should().Be(createdBy);
+        }
     }
 }
 

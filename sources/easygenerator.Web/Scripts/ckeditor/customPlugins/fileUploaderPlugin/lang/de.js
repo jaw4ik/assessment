@@ -1,7 +1,7 @@
-﻿CKEDITOR.plugins.setLang('fileUploaderPlugin', 'en', {
-    fileSizeNotMoreThan: 'File size not more than',
-	extensions: 'Extensions',
-	uploadFailed: 'Upload failed',
+﻿CKEDITOR.plugins.setLang('fileUploaderPlugin', 'de', {
+    fileSizeNotMoreThan: 'Dateigröße maximal',
+	extensions: 'Erweiterungen',
+	uploadFailed: 'Hochladen nicht erfolgreich',
 	uploadFile: 'Upload file',
 	somethingWentWrong: 'Something went wrong',
 	extensionNotSupported: 'Extension is not supported: ',

@@ -1,0 +1,164 @@
+﻿/*#region ADD IMAGE FROM LIBRARY BUTTON*/
+
+.add-from-library-button {
+    padding: 4px 0 !important;
+}
+
+.add-from-library-button, 
+.add-from-library-button span {
+    cursor: default !important;
+}
+
+.add-from-library-button-hint {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 5px;
+    vertical-align: top;
+    background: url('icons/info.png') no-repeat;
+}
+
+/*#endregion ADD IMAGE FROM LIBRARY BUTTON*/
+
+/*#region IMAGE LIBRARY LIST*/
+
+.images-list-wrapper {
+    bottom: 50px;
+    display: inline-block;
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    right: 1px;
+}
+
+.image-library {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding-top: 10px;
+    overflow-y: auto;
+    white-space: normal;
+    text-align: justify;
+}
+
+.image-library-item {
+    display: inline-block;
+    margin: 10px 0 10px 15px;
+}
+
+.image-library-item-img-wrapper {
+    width: 175px;
+    height: 130px;
+    padding: 2px;
+    border: 2px solid transparent;
+    border-radius: 2px;
+}
+
+.image-library-item.selected .image-library-item-img-wrapper {
+    border: 2px solid #2D91DF;
+}
+
+.image-library-item-img {
+    background-position: center center;
+    background-repeat: no-repeat;
+    -moz-background-size: contain;
+    background-size: contain;
+    width: 173px;
+    height: 128px;
+    border: 1px solid #E3E3E3;
+}
+
+.image-library-item:hover .image-library-item-img,
+.image-library-item.selected .image-library-item-img {
+    box-shadow: 0 0 3px 1px #BEBEBE;
+    border-color: #BEBEBE;
+}
+
+.image-library-item-text {
+    display: inline-block;
+    float: left;
+    color: #999999;
+    font-family: OpenSans;
+    font-size: 11px;
+    padding-left: 5px;
+    cursor: default;
+    width: 175px;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.image-library-item:hover .image-library-item-text,
+.image-library-item.selected .image-library-item-text {
+    color: #333333;
+}
+
+/*#endregion IMAGE LIBRARY DIALOG*/
+
+/*#region EMPTY IMAGES LIST*/
+
+.image-library-empty {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -53px;
+    margin-top: -29px;
+}
+
+    .image-library-empty .image-library-empty-image {
+        display: block;
+        margin: 0 auto 8px;
+    }
+
+    .image-library-empty .image-library-empty-text {
+        font-size: 16px;
+        color: #999999;
+        font-family: OpenSans;
+    }
+
+/*#endregion EMPTY IMAGES LIST*/
+
+/*#region IMAGE LIBRARY ERROR*/
+
+.image-library-error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -126px;
+    margin-top: -31px;
+}
+
+    .image-library-error .image-library-error-image {
+        display: block;
+        margin: 0 auto 8px;
+    }
+
+    .image-library-error .image-library-error-text {
+        color: #999999;
+    }
+
+    .image-library-error .try-again-button {
+        padding: 0;
+        border: none;
+        background: none !important;
+        box-shadow: none !important;
+        cursor: pointer;
+    }
+
+        .image-library-error .image-library-error-text,
+        .image-library-error .try-again-button span {
+            font-size: 16px;
+            font-family: OpenSans;
+        }
+
+        .image-library-error .try-again-button span {
+            text-decoration: underline;
+            color: #46b7ff;
+            padding: 0;
+        }
+
+        .image-library-error .try-again-button:hover span {
+            text-decoration: none;
+        }
+
+/*#endregion IMAGE LIBRARY ERROR*/

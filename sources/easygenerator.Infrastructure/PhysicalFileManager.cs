@@ -15,17 +15,6 @@ namespace easygenerator.Infrastructure
             Directory.CreateDirectory(path);
         }
 
-        public virtual void CreateDirectoryIfNotExists(string path)
-        {
-            if (String.IsNullOrEmpty(path))
-                throw new ArgumentException();
-
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-        }
-
         public virtual void DeleteDirectory(string path)
         {
             if (String.IsNullOrEmpty(path))

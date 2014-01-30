@@ -23,6 +23,7 @@ using easygenerator.Web.Publish;
 using easygenerator.Web.Newsletter;
 using easygenerator.Web.Newsletter.MailChimp;
 using easygenerator.Web.Components.Http;
+using easygenerator.Web.Storage;
 
 namespace easygenerator.Web.Configuration
 {
@@ -34,7 +35,7 @@ namespace easygenerator.Web.Configuration
 
             var applicationAssembly = typeof(MvcApplication).Assembly;
             builder.RegisterControllers(applicationAssembly);
-            
+
             builder.RegisterFilterProvider();
 
             builder.RegisterType<CourseBuilder>().As<ICourseBuilder>();
@@ -83,7 +84,7 @@ namespace easygenerator.Web.Configuration
             #region Publisher dependencies
 
             builder.RegisterType<CoursePublisher>().As<ICoursePublisher>();
-            builder.RegisterType<PublishDispatcher>().As <IPublishDispatcher>().SingleInstance();
+            builder.RegisterType<PublishDispatcher>().As<IPublishDispatcher>().SingleInstance();
             builder.RegisterType<PublishIsInProgressConstraint>();
 
             #endregion
@@ -106,6 +107,7 @@ namespace easygenerator.Web.Configuration
             #endregion
 
             builder.RegisterType<UrlHelperWrapper>().As<IUrlHelperWrapper>();
+            builder.RegisterType<Storage.Storage>().As<IStorage>();
 
             var container = builder.Build();
 
