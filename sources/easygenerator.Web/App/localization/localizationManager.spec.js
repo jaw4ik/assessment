@@ -43,21 +43,20 @@
                 });
 
                 it('should set first supported culture from userCultures as current', function () {
-                    localizationManager.initialize(['ru-RU', 'nl-NL', 'nl']);
-                    expect(localizationManager.currentCulture).toEqual("nl-NL");
+                    localizationManager.initialize(['ru-RU', 'nl-NL', 'en']);
+                    expect(localizationManager.currentCulture).toEqual("en");
                 });
 
                 it('should set first supported language from userCultures as current', function () {
-                    localizationManager.initialize(['ru-RU', 'nl-NL', 'nl']);
-                    expect(localizationManager.currentLanguage).toEqual("nl");
-                });
-                
-                it('should igonore case of userCultures', function () {
-                    localizationManager.initialize(['nL-nL']);
-                    expect(localizationManager.currentCulture).toEqual("nl-NL");
-                    expect(localizationManager.currentLanguage).toEqual("nl");
+                    localizationManager.initialize(['ru-RU', 'nl-NL', 'en-US']);
+                    expect(localizationManager.currentLanguage).toEqual("en");
                 });
 
+                it('should igonore case of userCultures', function () {
+                    localizationManager.initialize(['en-uS']);
+                    expect(localizationManager.currentCulture).toEqual("en-US");
+                    expect(localizationManager.currentLanguage).toEqual("en");
+                });
             });
 
             describe('localize', function () {
