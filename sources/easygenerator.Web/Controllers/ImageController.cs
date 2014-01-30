@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
@@ -11,6 +12,7 @@ using easygenerator.DomainModel;
 using easygenerator.DomainModel.Repositories;
 using easygenerator.Infrastructure;
 using easygenerator.Web.Components;
+using easygenerator.Web.Components.ActionFilters;
 using easygenerator.Web.Components.ActionResults;
 using easygenerator.Web.Storage;
 
@@ -54,6 +56,7 @@ namespace easygenerator.Web.Controllers
 
         [HttpGet]
         [Route("api/images")]
+        [NoCache]
         public ActionResult GetCurrentUserImageCollection()
         {
             var images = _repository.GetCollection(e => e.CreatedBy == GetCurrentUsername());
@@ -83,11 +86,12 @@ namespace easygenerator.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.RequestEntityTooLarge);
             }
 
-            var image = _entityFactory.ImageFile(file.FileName, GetCurrentUsername());
+            var image = _entityFactory.ImageFile(new FileInfo(file.FileName).Name, GetCurrentUsername());
             _repository.Add(image);
 
             file.SaveAs(_storage.MapFilePath(image.FileName));
-            return JsonSuccess(new { url = _urlHelperWrapper.RouteImageUrl(image.FileName) });
+
+            return JsonSuccess(new { url = _urlHelperWrapper.RouteImageUrl(image.FileName) }, System.Net.Mime.MediaTypeNames.Text.Plain);
         }
 
     }

@@ -299,7 +299,6 @@
     <Compile Include="BuildCourse\PackageModel\QuestionPackageModel.cs" />
     <Compile Include="Components\ActionFilters\ApplicationAuthorize.cs" />
     <Compile Include="Components\ActionFilters\NoCache.cs" />
-    <Compile Include="Components\ActionResults\TextJsonErrorResult.cs" />
     <Compile Include="Components\ActionResults\TextJsonSuccessResult.cs" />
     <Compile Include="Components\ActionResults\JsonErrorResult.cs" />
     <Compile Include="Components\ActionResults\JsonSuccessResult.cs" />

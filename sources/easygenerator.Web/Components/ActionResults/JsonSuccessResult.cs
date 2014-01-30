@@ -5,6 +5,7 @@ namespace easygenerator.Web.Components.ActionResults
 {
     public class JsonSuccessResult : ActionResult
     {
+
         public JsonSuccessResult()
         {
         }
@@ -14,8 +15,15 @@ namespace easygenerator.Web.Components.ActionResults
             Data = data;
         }
 
+        public JsonSuccessResult(object data, string contentType = "application/json")
+            : this(data)
+        {
+            ContentType = contentType;
+        }
+
         public string Message { get; set; }
         public object Data { get; set; }
+        public string ContentType { get; set; }
 
         public override void ExecuteResult(ControllerContext context)
         {
@@ -23,7 +31,8 @@ namespace easygenerator.Web.Components.ActionResults
             {
                 Data = new { success = true, message = Message, data = Data },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                MaxJsonLength = Int32.MaxValue
+                MaxJsonLength = Int32.MaxValue,
+                ContentType = ContentType ?? "application/json"
             };
 
             jsonResult.ExecuteResult(context);

@@ -23,6 +23,11 @@ namespace easygenerator.Web.Components
             return new JsonSuccessResult(data);
         }
 
+        protected ActionResult JsonSuccess(object data, string contentType)
+        {
+            return new JsonSuccessResult(data, contentType);
+        }
+
         protected ActionResult JsonError(string message)
         {
             return new JsonErrorResult(message);

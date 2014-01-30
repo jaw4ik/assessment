@@ -196,7 +196,6 @@ namespace easygenerator.Web.Tests.Controllers
             result.Should().BeHttpStatusCodeResult().And.StatusCode.Should().Be(413);
         }
 
-
         [TestMethod]
         public void Upload_ShouldAddFileToRepository()
         {
@@ -212,6 +211,25 @@ namespace easygenerator.Web.Tests.Controllers
 
             //Assert
             _repository.Received().Add(image);
+        }
+
+        [TestMethod]
+        public void Upload_ShouldTrimFileName_WhenFileNameContainsFullPath() // IE
+        {
+            //Arrange
+            const string fileName = "fileName.txt";
+            const string filePath = "C:\\" + fileName;
+
+            ArrangeCurrentUser();
+            ArrangeStorageMaxFileSize();
+
+            _entityFactory.ImageFile(Arg.Any<string>(), Arg.Any<string>()).Returns(Substitute.For<ImageFile>());
+
+            //Act
+            _controller.Upload(FileSubstitute(filePath));
+
+            //Assert
+            _entityFactory.Received().ImageFile(fileName, Arg.Any<string>());
         }
 
         [TestMethod]
