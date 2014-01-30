@@ -1,6 +1,6 @@
 ﻿CKEDITOR.plugins.fileUploaderPlugin = {
     requires: 'dialogui',
-    lang: 'en,nl,de',
+    lang: 'en',
 
     init: function (editor) {
         CKEDITOR.tools.extend(CKEDITOR.ui.dialog, {

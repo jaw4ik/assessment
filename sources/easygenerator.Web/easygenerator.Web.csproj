@@ -302,7 +302,6 @@
     <Compile Include="Components\ActionResults\JsonErrorResult.cs" />
     <Compile Include="Components\ActionResults\JsonSuccessResult.cs" />
     <Compile Include="Components\AuthenticationProvider.cs" />
-    <Compile Include="Components\CultureInitialization.cs" />
     <Compile Include="Components\Configuration\ConfigurationReader.cs" />
     <Compile Include="Components\Configuration\FileStorageConfigurationSection.cs" />
     <Compile Include="Components\Configuration\MailSenderConfigurationSection.cs" />
@@ -524,9 +523,7 @@
     <Content Include="Scripts\ckeditor\contents.css" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\failed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\info.png" />
-    <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\lang\de.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\lang\en.js" />
-    <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\loader.gif" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\fileUploaderPlugin\styles.css" />
@@ -535,24 +532,16 @@
     <Content Include="Scripts\ckeditor\customPlugins\image\icons\hidpi\image.png" />
     <Content Include="Scripts\ckeditor\customPlugins\image\icons\image.png" />
     <Content Include="Scripts\ckeditor\customPlugins\image\images\noimage.png" />
-    <Content Include="Scripts\ckeditor\customPlugins\image\lang\de.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\lang\en.js" />
-    <Content Include="Scripts\ckeditor\customPlugins\image\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\image\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\icons\hidpi\mediaembed.png" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\icons\mediaembed.png" />
-    <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\de.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\en.js" />
-    <Content Include="Scripts\ckeditor\customPlugins\mediaembed\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\mediaembed\plugin.js" />
-    <Content Include="Scripts\ckeditor\customPlugins\semanticTagsPlugin\lang\de.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semanticTagsPlugin\lang\en.js" />
-    <Content Include="Scripts\ckeditor\customPlugins\semanticTagsPlugin\lang\nl.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semanticTagsPlugin\plugin.js" />
     <Content Include="Scripts\ckeditor\customPlugins\semanticTagsPlugin\styles.css" />
-    <Content Include="Scripts\ckeditor\lang\de.js" />
     <Content Include="Scripts\ckeditor\lang\en.js" />
-    <Content Include="Scripts\ckeditor\lang\nl.js" />
     <Content Include="Scripts\ckeditor\LICENSE.md" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\a11yhelp.js" />
     <Content Include="Scripts\ckeditor\plugins\a11yhelp\dialogs\lang\ar.js" />
@@ -1414,30 +1403,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Views\Account\Resources.de.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Views\Account\Resources.nl.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Account\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
       <CustomToolNamespace>AccountRes</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Views\Error\Resources.de.resx" />
-    <EmbeddedResource Include="Resources\Views\Error\Resources.nl.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Error\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <CustomToolNamespace>AccountRes</CustomToolNamespace>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Views\Shared\Resources.de.resx" />
-    <EmbeddedResource Include="Resources\Views\Shared\Resources.nl.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\Resources.resx">

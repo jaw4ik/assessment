@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading;
 using System.Web.Mvc;
 using easygenerator.Web.Components;
 using easygenerator.Web.Components.ModelBinding;
@@ -24,7 +26,10 @@ namespace easygenerator.Web
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)
         {
-            CultureInitialization.Initialize(Request.UserLanguages);
+            var enCulture = new CultureInfo("en-US");
+
+            Thread.CurrentThread.CurrentCulture = enCulture;
+            Thread.CurrentThread.CurrentUICulture = enCulture;
         }
     }
 }

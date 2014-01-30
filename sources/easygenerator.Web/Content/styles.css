@@ -1109,14 +1109,6 @@ a.top-navigation-item:hover {
         background: #111111;
     }
 
-.de-lang.feedback-btn {
-    left: -110px;
-}
-
-.nl-lang.feedback-btn {
-    left: -121px;
-}
-
 .feedback-btn-text {
     position: relative;
     display: inline-block;

@@ -8,7 +8,7 @@
 */
 CKEDITOR.plugins.semanticTagsPlugin = {
     requires: 'richcombo',
-    lang: 'en,nl,de',
+    lang: 'en',
 
     init: function (editor) {
         if (tagsGroup.tagsSelectionFormat.length == 0 && tagsGroup.tagsParagraphFormat.length == 0)

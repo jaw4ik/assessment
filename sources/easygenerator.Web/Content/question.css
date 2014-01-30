@@ -200,16 +200,6 @@
     font-size: 13px;
 }
 
-.de-lang .question-answer-tooltip {
-    width: 136px;
-    margin-left: -68px;
-}
-
-.nl-lang .question-answer-tooltip {
-    width: 120px;
-    margin-left: -60px;
-}
-
 .question-answer-tooltip:after {
     content: '';
     display: block;

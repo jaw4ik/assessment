@@ -16,7 +16,7 @@ CKEDITOR.plugins.mediaembed = {
     icons: 'mediaembed', // %REMOVE_LINE_CORE%
     hidpi: true, // %REMOVE_LINE_CORE%
     
-    lang: 'en,nl,de',
+    lang: 'en',
 
     init: function (editor) {
         var
