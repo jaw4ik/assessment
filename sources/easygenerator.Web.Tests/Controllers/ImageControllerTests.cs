@@ -97,7 +97,7 @@ namespace easygenerator.Web.Tests.Controllers
             var result = _controller.Get(String.Empty, width, height);
 
             //Assert
-            result.Should().BeImageResult().And.ShouldHave().Properties(p => p.FilePath, p => p.Width, p => p.Height).EqualTo(new { FilePath = path, Width = width, Height = height });
+            result.Should().BeImageResult().And.ShouldBeEquivalentTo(new { FilePath = path, Width = width, Height = height });
         }
 
 
