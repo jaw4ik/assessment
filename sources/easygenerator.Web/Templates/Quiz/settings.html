@@ -497,7 +497,7 @@
                     <div class="content-row top-row">
                         <label for="imgUrl" class="content-label">Image URL</label>
                         <div class="content-col-right">
-                            <input type="text" class="content-text-input" id="imgUrl" data-bind="value: logoUrl, valueUpdate: 'afterkeydown'" />
+                            <input type="text" class="content-text-input" id="imgUrl" data-bind="value: logoUrl, valueUpdate: ['afterkeydown', 'afterpaste']" />
                         </div>
                     </div>
                     <div class="content-row">
